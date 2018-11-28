@@ -1,0 +1,132 @@
+page-quiz .scroll-content {
+    background-image: linear-gradient(#2F99D4, #005684);
+    padding: 16px 32px !important;
+}
+
+ion-header {
+    padding: 0 8px;
+}
+
+ion-header.header-ios {
+    top:30px; 
+}
+
+ion-toolbar {
+    color: #fff;
+}
+
+ion-toolbar ion-icon {
+    float: left;
+    font-size: 20pt;
+}
+
+.toolbar-content-ios p, ion-toolbar p {
+    float: left;
+    margin: 4px;
+    font-size: 17px;
+    margin-left: 15px;
+}
+
+.toolbar-content-ios p {
+    margin: 2px;
+    margin-left: 15px;
+}
+
+.inner-content {
+    margin-top: 100px;
+}
+
+.quiz-details-content {
+    float: left;
+    width: 100%;
+}
+
+.quiz-content .setpCount {
+    color: rgba(255,255,255, 0.5);
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.quiz-content .selectedQuizContentTitle {
+    font-size: 22px;
+    color: rgba(255,255,255, 1);
+}
+
+.quiz-description {
+    color: rgba(255,255,255, 0.7);
+    font-size: 20px;
+}
+
+.quiz-content-options {
+    float: left;
+    width: 100%;
+    margin-top: 5%;
+}
+
+.quizOption {
+    float: left;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+.quizOption label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.quizOption input[type=radio] {
+    margin: 8px;
+    color: #000;
+    float: left;
+}
+
+.quizOption p {
+    margin: 6px 10px;
+    color: #656565;
+    float: left;
+    font-size: 16px;
+}
+
+.quiz-btn-container {
+    float: left;
+    width: 100%;
+    margin-top: 60px;
+    background: rgba(0,0,0,0.2);
+    padding: 5px 0;
+}
+
+.quiz-btn {
+    width: 49.3%;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 0;
+    border: none;
+    background: none;
+    color: #fff;
+    height: 43px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.quiz-btn[disabled] {
+    color: rgba(255,255,255, 0.2);
+}
+
+.quiz-btn-left {
+    border-color: rgba(255,255,255, 0.2);
+    border-width: 0 1px 0 0;
+    border-style: solid;
+}
+
+.quizOption-icon {
+    font-size: 31px;
+    color:#329CD6;
+    float: left;
+}

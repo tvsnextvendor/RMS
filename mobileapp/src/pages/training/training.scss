@@ -1,0 +1,84 @@
+page-training {
+	.scroll-content{
+		background-color: #F9F9F9;
+	}
+	.headerFull-bg {
+		 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
+        background: rgb(33,131,185); /* Old browsers */
+        background: -moz-linear-gradient(left, rgba(33,131,185,1) 1%, rgba(50,156,214,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
+}
+	.training-list {
+
+		margin: 0 0 15px 0;
+		width: 100%;
+		-webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+		-moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+		box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+		position: relative;
+	}
+	ion-header.header {
+		padding: 0;
+	}
+}
+.training-title {
+	padding: 0 0 5px 0;
+}
+.assigned,.inprogress,.complete{
+	color: #000;
+	font-size: 30px;
+
+
+}
+.progress-tab{
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	a{
+		padding: 0 5px;
+		font-family: sf_ui_textregular;
+		color: rgba(0, 0, 0, 0.5);
+
+	}
+	a.assigned,a.inprogress,a.complete{
+		color: #000;
+		font-size: 25px;
+		 font-family: 'sf_ui_textregular';
+
+
+	}
+}
+.card-title p.post-date {
+	font-size: 10px;
+	color: #329CD6;
+	text-align: right;
+	line-height: 18px;
+	font-family: 'sf_pro_displayregular';
+}
+.card-title p.training-name {
+	font-size: 15px;
+	color: #000;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.card-content .training-desc {
+	color: #000;
+	font-size: 12px;
+	 
+}
+.card-title p.training-name, .card-content .training-desc
+{
+	font-family: 'sf_pro_displaysemibold';
+}
+.tab-item{
+	cursor:pointer;
+}
+.training-content {
+    position: absolute;
+    background: #fff;
+    z-index: 25;
+    bottom: 0;
+}

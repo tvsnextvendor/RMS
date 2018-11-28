@@ -1,0 +1,135 @@
+<ion-header class="main-header my-component" color="primary">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title class="text-left">
+      Dashboard
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="headerFull-bg">
+  <div class="current-day">
+    <h1>Good Morning</h1>
+    <p class="day-detail">Thursday, Aug 10</p>
+  </div>
+  <section class="training-section">
+    <p class="section-title">Training</p>
+    <ion-grid class="status-grid no-padding">
+      <ion-row nowrap class="forecast_container">
+        <ion-col col-6 class="tvs-statusBox ">
+          <div class="tomato-red-bg assign-box sts-style">
+            <h4 class="status-title">Assigned</h4>
+            <span class="num-sec">{{dataDashboard.assignedCourses}}</span>
+            <p class="course-sec">New Courses</p>
+            <a href="" class="read-more">More<ion-icon ios="ios-arrow-forward" md="ios-arrow-forward" class="fwd-arw"></ion-icon></a>
+          </div>
+        </ion-col>
+        <ion-col col-6 class="tvs-statusBox ">
+          <div class="light-green-bg progress-box sts-style">
+            <h4 class="status-title">In Progress</h4>
+            <span class="num-sec">{{dataDashboard.inProgressCourses}}</span>
+            <p class="course-sec">Courses</p>
+            <a href="" class="read-more">More<ion-icon ios="ios-arrow-forward" md="ios-arrow-forward" class="fwd-arw"></ion-icon></a>
+          </div>
+        </ion-col>
+        <ion-col col-6 class="tvs-statusBox ">
+          <div class="pink-bg average-box sts-style">
+            <h4 class="status-title">Average Completion Rate</h4>
+            <div class="mb-3">
+              <p class="course-sec m-0">You {{dataDashboard.yourAverageCompletion}} %</p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"
+                  style="width:65%">
+                  <span class="sr-only">{{dataDashboard.yourAverageCompletion}} %</span>
+                </div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p class="course-sec m-0">Peers {{dataDashboard.peersAverageCompletion}} %</p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                  style="width:70%">
+                  <span class="sr-only">{{dataDashboard.peersAverageCompletion}} %</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <section class="score-board">
+    <ion-card class="score-head">
+      <ion-card-header class="header-primary">
+        <p class="score-title">Your Average Score On Courses</p>
+        <p class="score-number">{{dataDashboard.yourAverageScore}}/<span>{{dataDashboard.yourTotalScore}}</span>
+          <img src="../assets/imgs/like@3x.png" /></p>
+      </ion-card-header>
+      <ion-card-content class="body-primary">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4 *ngFor="let ranks of dataDashboard.topThree;">
+              <div class="ranker-det">
+                <div class="winner-img">
+                  <img src="{{ranks.image}}" />
+                  <span class="rank-num">{{ranks.rank}}</span>
+                </div>
+                <div class="person-name">
+                  <h4>{{ranks.name}}</h4>
+                  <small>{{ranks.country}}</small>
+                </div>
+                <div class="tropy-sec">
+                  <img src="../assets/imgs/Path 382.png" />
+                  <span class="score-cnt">{{ranks.score}}</span>
+                </div>
+              </div>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+        <a class="score-viewAll">View All</a>
+      </ion-card-content>
+    </ion-card>
+  </section>
+  <section class="certification-section">
+    <p class="section-title">Certification</p>
+    <ion-grid class="status-grid no-padding">
+      <ion-row nowrap class="forecast_container">
+        <ion-col col-8 class="tvs-statusBox certificate-box" *ngFor="let cert of dataDashboard.certificate">
+          <div class="purple-bg sts-style clearfix" [ngStyle]="{'background-color': cert.colorCode}">
+            <img src="../assets/imgs/pdf.png" />
+            <p class="pdf-name">{{cert.name}}</p>
+            <div class="certificate-footer clearfix">
+              <a href="" class="download-txt">Download</a>
+              <a href="" class="">View</a>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <section class="badge-section">
+    <p class="section-title">Badges</p>
+    <ion-grid class="status-grid no-padding">
+      <ion-row nowrap class="forecast_container">
+        <ion-col col-8 class="tvs-statusBox badge-box" *ngFor="let set1 of dataDashboard.badgeset1">
+          <div class="tomato-red-bg sts-style clearfix" [ngStyle]="{'background-color': set1.colorCode}">
+            <h4 class="badge-title">{{set1.name}}</h4>
+            <p class="badge-content">{{set1.description}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="status-grid no-padding">
+      <ion-row nowrap class="forecast_container">
+        <ion-col col-8 class="tvs-statusBox badge-box" *ngFor="let set2 of dataDashboard.badgeset2">
+          <div class="purple-bg sts-style clearfix" [ngStyle]="{'background-color': set2.colorCode}">
+            <h4 class="badge-title">{{set2.name}}</h4>
+            <p class="badge-content">{{set2.description}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+</ion-content>
