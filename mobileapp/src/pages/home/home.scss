@@ -1,0 +1,259 @@
+page-home {
+	ion-header.header {
+		padding: 0;
+	}
+	.scroll-content{
+		background-color: #fff;
+	}
+	.headerFull-bg {
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
+		background: rgb(33,131,185); /* Old browsers */
+		background: -moz-linear-gradient(left, rgba(33,131,185,1) 1%, rgba(50,156,214,1) 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(left, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
+	}
+	.current-day{ 
+		font-family: 'sf_pro_displayregular';
+		padding: 25px 20px;
+
+		.day-detail {
+			opacity: 0.3;
+			font-size: 16px;
+			margin: 0;
+		}
+		h1{
+			margin: 0;
+		}
+	}
+	.status-grid {
+		padding: 0;
+		/* width */
+		::-webkit-scrollbar {
+			width: 0px;
+			height: 0px;
+		}
+
+		/* Track */
+		::-webkit-scrollbar-track {
+			background: #f1f1f1; 
+		}
+
+		/* Handle */
+		::-webkit-scrollbar-thumb {
+			background: #888; 
+		}
+
+		/* Handle on hover */
+		::-webkit-scrollbar-thumb:hover {
+			background: #555; 
+		}
+		.forecast_container{
+			overflow-x: auto !important;
+			overflow-y: hidden;
+			word-wrap: break-word;
+			font-size:0.8em;
+			font-weight:300;
+		}
+
+		.tvs-statusBox {
+			color: #fff;
+			font-family: 'sf_pro_displayregular';
+			span.num-sec {
+				font-size: 36px;
+			}
+			.course-sec {
+				font-size: 12px;
+				margin-top: 0px;
+				color: rgba(255, 255, 255, 0.7);
+			}
+			.read-more {
+				text-align: right;
+				display: block;
+				color: #fff;
+				text-decoration: none;
+				font-size: 12px;
+				.fwd-arw {
+					position: relative;
+					top: 2px;
+					padding-left: 5px;
+					font-size: 15px;
+				}
+			}
+
+
+			.sts-style {
+				padding: 15px 15px;
+				box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
+
+			}
+			.sts-style .status-title {
+				text-decoration: underline;
+				color: rgba(255, 255, 255, 0.9);
+				font-size: 16px;
+			}
+
+		}
+
+
+
+	}
+	.score-board{
+		margin: 1em 0 1em 0;
+
+		ion-card-header {
+			background: #435DEA;
+			color: #fff !important;
+		}
+		.header-primary {
+			p{color: #fff;
+				display: inline-block;
+			}
+			.score-title {
+				display: inline-block;
+				font-size: 14px;
+				line-height: 27px;
+				float: left;
+				color: #fff;
+				    padding-top: 5px;
+			}
+			.score-number {
+				float: right;
+			}
+
+			.score-number img {
+				width: 24px;
+				display: inline-block;
+				position: relative;
+    top: 3px;
+			}
+
+		}
+		.body-primary{
+			background: #5D76FF;
+			padding: 20px 10px !important;
+			.ranker-det {
+				color: #fff;
+				text-align: center;
+				h4 {
+					font-size: 18px;
+					color: #fff;
+				}
+				small {
+					font-size: 14px;
+				}
+				.score-cnt {
+					display: inline-block;
+					font-size: 18px;
+				}
+				.person-name {
+					padding: 16px 10px;
+				}
+			}
+			.tropy-sec img {
+				width: auto;
+				display: inline-block;
+			}
+		}
+		ion-card .winner-img img {
+			display: block;
+			width: auto;
+		}
+		.score-head {
+			margin: 0;
+			width: 100%;
+		}
+		.winner-img {
+			position: relative;
+			display: inline-block;
+
+		}
+		.rank-num {
+			position: absolute;
+			bottom: 20px;
+			right: -7px;
+			background: #fff;
+			color: #01BCD1;
+			width: 20px;
+			height: 20px;
+			line-height: 21px;
+			font-size: 15px;
+			border-radius: 70%;
+		}
+		.score-viewAll {
+			color: #fff;
+			display: block;
+			text-align: center;
+			border-top: 1px solid rgba(255, 255, 255, 0.2);
+			padding: 18px 0 0 0;
+			font-size: 16px;
+		}
+	}
+	.certification-section{
+		.download-txt {
+			margin-right: 7px;
+		}
+		.status-grid{
+			.certificate-box {
+				font-family: sf_ui_textregular;
+			}
+
+		}
+
+		.pdf-name {
+			font-size: 14px;
+			margin: 5px 0 18px 0;
+
+		}
+		.certificate-footer {
+			float: right;
+			a{
+				color: rgba(255, 255, 255,0.5);
+				text-decoration: none;
+				font-size: 12px;
+			}
+
+		}
+	}
+	.badge-content {
+		font-family: sf_pro_displayregular;
+		font-size: 12px;
+	}
+	.badge-box .sts-style {
+		min-height: 140px;
+	}
+	p.section-title {
+		font-size: 16px;
+		padding: 0 5px 0 5px;
+		font-family: sf_pro_displayregular;
+	}
+	.purple-bg {
+		background: #9F6CFF;
+	}
+	.blue-bg {
+		background: #37B9FF;
+	}
+	.light-green-bg {
+		background: #9FD000;
+	}
+	.pink-bg  {
+		background: #FE87AF;
+	}
+	.tomato-red-bg {
+		background: #FA7D61;
+	}
+	.clearfix::after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+	.progress-bar{
+		background-color :#ffffff;
+		border-radius: 0
+	}
+	.progress{
+		border-radius: 0
+	}
+
+}
+

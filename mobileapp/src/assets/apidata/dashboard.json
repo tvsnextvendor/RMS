@@ -1,0 +1,66 @@
+{
+    "assignedCourses": 2,
+    "inProgressCourses": 10,
+    "yourAverageCompletion": 65,
+    "peersAverageCompletion": 70,
+    "yourAverageScore": 7.5,
+    "yourTotalScore": 10,
+    "topThree": [
+        {
+            "name": "Williams",
+            "country": "Los Angels",
+            "image":"../assets/imgs/d1444a71783d4500b3b1b57753a1ca3e.png",
+            "rank": "2",
+            "score": "9.1"
+           
+        },
+        {
+            "name": "Mark",
+            "country": "Austin ,TX",
+            "image":"../assets/imgs/4fd94e8a19cd275ee4a137a6cf94504c@3x.png",
+            "rank": "1",
+            "score": "9.8"
+        },
+        {
+            "name": "Vin Diesel",
+            "country": "New York",
+            "image":"../assets/imgs/76a6849b48d76dd05a738ff438c638a3.png",
+            "rank": "3",
+            "score": "8.9"
+        }
+    ],
+    "certificate": [
+        {
+            "name": "Park Smart Safety",
+            "colorCode":"#9F6CFF",
+            "file": ""
+        },
+        {
+            "name": "Welcome to 2018/19",
+            "colorCode":"#37B9FF",
+            "file": ""
+        }
+    ],
+    "badgeset1": [
+        {
+            "name": "3 Day Streaks",
+            "colorCode":"#FA7D61",
+            "description": "Your streaks is the number of days in a row that you have completed an videos"
+        },
+        {
+            "name": "5 Day Streaks",
+            "colorCode":"#FE87AF",
+            "description": "Your streaks is the number of days in a row that you have completed an videos"
+        }],
+    "badgeset2":[    {
+            "name": "Midnight Owl",
+            "colorCode":"#9FD000",
+            "description": "person who tends to stay up late at night"
+        },
+        {
+            "name": "Stalkers",
+            "colorCode":"#37B9FF",
+            "description": "Your streaks is the number of days in a row that you have completed an videos"
+        }
+    ]
+}

@@ -1,0 +1,78 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+@font-face {
+    font-family: 'sf_pro_displayregular';
+    src: url('../assets/fonts/sf-pro-display-regular-webfont.woff2') format('woff2'),
+         url('../assets/fonts/sf-pro-display-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'sf_pro_displaysemibold';
+    src: url('../assets/fonts/sf-pro-display-semibold-webfont.woff2') format('woff2'),
+         url('../assets/fonts/sf-pro-display-semibold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sf_ui_textregular';
+    src: url('../assets/fonts/sfuitext-regular-webfont.woff2') format('woff2'),
+         url('../assets/fonts/sfuitext-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+    @font-face {
+        font-family: 'sf_pro_displayregular';
+        src: url('../assets/fonts/sf-pro-display-regular-webfont.woff2') format('woff2'),
+        url('../assets/fonts/sf-pro-display-regular-webfont.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+
+    }
+.toolbar-background {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
+        background: rgb(33,131,185); /* Old browsers */
+        background: -moz-linear-gradient(left, rgba(33,131,185,1) 1%, rgba(50,156,214,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
+    }
+.bar-button-default-ios,.bar-button-default-md{
+    color: #fff;
+}
+/*ion-header {
+    padding: 0 !important;
+}*/
+.list-ios {
+    margin: 30px 0 32px;
+}
+.toolbar-title {
+        color: #fff;
+    }
+    .sidebar-header {
+    padding: 0;
+}
+/* .ios ion-nav > .ion-page > ion-header > .toolbar.statusbar-padding:first-child{
+        min-height: calc(56px + env(safe-area-inset-top));
+ }
+.toolbar-title-ios {
+    margin-top: 12px;
+}*/

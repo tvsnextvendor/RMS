@@ -1,0 +1,42 @@
+<ion-content padding class="details-page-content">
+    <ion-header no-border>
+        <ion-toolbar transparent class="details-page-toolbar ">
+            <ion-icon name="ios-arrow-back" (click)="goBackToDetailPage()"></ion-icon>
+            <p>Uniform and Appearence Policy</p>
+        </ion-toolbar>
+    </ion-header>
+    <div class="inner-content">
+        <div class="row">
+            <div class="quiz-details-content" *ngIf="quizData && quizData.length && !isQuizCompleted">
+                <div class="quiz-container">
+                    <div class="quiz-content" *ngIf="selectedQuizContent && selectedQuizContent.title">
+                        <div class="quiz-content-text">
+                            <p class="setpCount">{{quizStep+1}}/{{quizData.length}}</p>
+                            <h5 class="selectedQuizContentTitle">{{selectedQuizContent.title}}</h5>
+                            <p class="quiz-description">{{selectedQuizContent.description}}</p>
+                        </div>
+                        <div class="quiz-content-options" *ngIf="selectedQuizContent.options && selectedQuizContent.options.length">
+                            <span *ngFor="let quizOption of selectedQuizContent.options" class="quizOption">
+                                <label for={{quizOption.value}}></label>
+                                <ion-icon name="radio-button-off" class="quizOption-icon" *ngIf="quizOption.value != quizData[quizStep]['selectedValue']"></ion-icon>
+                                <ion-icon name="checkmark-circle" class="quizOption-icon" *ngIf="quizOption.value == quizData[quizStep]['selectedValue']"></ion-icon>
+                                <input hidden id={{quizOption.value}} type="radio" class="with-font" name="radiogroup"
+                                    [value]="quizOption.value" (change)="changeSelectedValue(quizOption)" [checked]="quizOption.value == quizData[quizStep]['selectedValue']" />
+                                <p>{{quizOption.label}}</p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="quiz-btn-container">
+                    <button float-left class="btn quiz-btn quiz-btn-left" [disabled]="!quizStep" (click)="quizPreviousContent()">
+                        Previous
+                    </button>
+                    <button float-right class="btn quiz-btn" [disabled]="(selectedQuizContent && !selectedQuizContent.selectedValue)"
+                        (click)="quizNextContent()">
+                        {{(quizStep == (quizData.length-1)) ? 'finish' : 'next'}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

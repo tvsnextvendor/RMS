@@ -1,0 +1,175 @@
+page-training-detail .scroll-content {
+    // background-image: linear-gradient(#2F99D4, #005684);
+    background: #F9F9F9;
+    padding: 16px 32px !important;
+    font-family: 'sf_pro_displayregular';
+}
+
+ion-header {
+    padding: 0 8px;
+}
+
+ion-header.header-ios {
+    top:30px; 
+}
+
+ion-toolbar {
+    color: #fff;
+}
+
+ion-toolbar ion-icon {
+    float: left;
+    font-size: 20pt;
+}
+
+.toolbar-content-ios p, ion-toolbar p {
+    float: left;
+    margin: 4px;
+    font-size: 17px;
+    margin-left: 15px;
+}
+
+.toolbar-content-ios p {
+    margin: 2px;
+    margin-left: 15px;
+}
+
+.inner-content {
+    margin-top: 100px;
+}
+
+.more-icon {
+    float: right;
+}
+
+.swiper-button-prev {
+    margin-top: 25%;
+}
+
+.swiper-button-next {
+    margin-top: 25%;
+}
+
+.take-quizbtn {
+    width: 100%;
+    margin-top: 3%
+}
+
+.swiper-pagination {
+    display: none;
+}
+
+.videoPlayer {
+    width: 100%
+}
+
+
+.arrow-dropleft-icon {
+    font-size: 36px;
+    float: left;
+}
+
+.arrow-dropright-icon {
+    font-size: 36px;
+    float: right;
+}
+
+.slides-container {
+    float: left;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.video-content, .btn-container {
+    float: left;
+    width: 100%;
+    text-align: left;
+    padding: 16px;
+}
+
+.video-title {
+    color:#1D1D1D;
+    font-size: 20px;
+}
+
+.video-description {
+    float: left;
+    width: 100%;
+    min-height: 200px;
+}
+
+.video-description p {
+    color: #A0A0A0;
+    font-size: 17px;
+}
+
+.slider-btns {
+    float: left;
+    width: 100%;
+    padding: 16px 32px;
+    color: #329CD6;
+}
+
+.disabledSliderIcon {
+    color: #B5B5B5;
+}
+
+.take-quiz-btn {
+    float: left;
+    width: 100%;
+    border-radius: 39px;
+    background-image: linear-gradient(to right, #1582BE, #329CD6);
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+.loading-bar-div {
+    float: left;
+    width: 100%;
+}
+
+.loading-bar {
+    float: left;
+    width: 90%;
+    display: table;
+    padding: 12px 0px;
+}
+
+.loading-bar-percentage {
+    float: right;
+    width: 10%;
+}
+
+.loading-bar-percentage p {
+    color: #fff;
+    margin: 0;
+    background: #329CD6;
+    text-align: center;
+    font-size: 10px;
+    width: 30px;
+    padding: 9px 0;
+    float: right;
+    border-radius: 25px;
+}
+
+.video-progress-bar {
+    float: left;
+    display: table-cell;
+}
+
+.playedProgressBar p {
+    background: #329CD6 !important;
+}
+
+.video-progress-bar p {
+    margin: 0;
+    text-align: center;
+    margin-right: 5px;
+    height: 5px;
+    font-size: 0;
+    background: #D5D5D5;
+}
