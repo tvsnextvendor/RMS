@@ -21,7 +21,7 @@
                                     </span>
                                 </div>
                                 <span class = "loading-bar-percentage">
-                                    <p>{{(loadingBarWidth * (currentVideoIndex+1))}}<sub>%</sub></p>
+                                    <p>{{Math.round(loadingBarWidth * (currentVideoIndex+1))}}<sub>%</sub></p>
                                 </span>
                             </div>
                             <ion-card-title [innerHTML]="slide.title" class = "video-title"></ion-card-title>
@@ -40,51 +40,10 @@
                         <ion-icon name="arrow-dropright-circle" class="arrow-dropright-icon disabledSliderIcon" *ngIf="!rightButton"></ion-icon>
                     </span>
                     <span class = "take-quiz-btn" (click)="goToQuizPage()">
-                        Take Quiz
+                       {{constant.buttons.takeQuiz}}
                     </span>
                 </div>
             </div>
         </div>
     </div>
 </ion-content>
-
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-icon name="ios-arrow-back" (click)="goToTrainingPage()"></ion-icon>
-    <ion-title>
-      Uniform and Appearence Policy <span class="more-icon">
-        <ion-icon name="ios-arrow-back"></ion-icon>
-      </span>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="tutorial-page" padding s>
-  <div class="slides-container">
-    <ion-slides pager (ionSlideDidChange)="slideChanged()">
-      <ion-slide *ngFor="let slide of trainingDatas">
-
-        <ion-card-content>
-          <video class="video-width" controls="controls" preload="metadata" autoplay="autoplay" webkit-playsinline="webkit-playsinline"
-            class="videoPlayer">
-            <source src="{{slide.postedVideoLink}}" type="video/mp4" />
-          </video>
-          <ion-card-title [innerHTML]="slide.title">
-          </ion-card-title>
-          <p [innerHTML]="slide.description"></p>
-        </ion-card-content>
-      </ion-slide>
-
-
-    </ion-slides>
-  </div>
-
-
-
-  <ion-icon name="arrow-dropleft" class="arrow-dropleft-icon" (click)="prev()" *ngIf="leftButton"></ion-icon>
-  <ion-icon name="arrow-dropleft-circle" class="arrow-dropleft-icon" (click)="prev()" *ngIf="!leftButton"></ion-icon>
-
-  <ion-icon name="arrow-dropright" class="arrow-dropright-icon" (click)="next()" *ngIf="rightButton"></ion-icon>
-  <ion-icon name="arrow-dropright-circle" class="arrow-dropright-icon" (click)="next()" *ngIf="!rightButton"></ion-icon>
-
-  <button ion-button round class="take-quizbtn" (click)="goToQuizPage()">Take Quiz</button> 
-</ion-content> -->

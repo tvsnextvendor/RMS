@@ -1,67 +1,68 @@
-import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
-import {QuizPage} from '../quiz/quiz';
-//import {TrainingPage} from '../training/training';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { QuizPage } from '../quiz/quiz';
+import { Constant} from '../../constants/Constant.var';
 
 @IonicPage()
-@Component({selector: 'page-training-detail', templateUrl: 'training-detail.html'})
+@Component({ selector: 'page-training-detail', templateUrl: 'training-detail.html' ,providers:[Constant]})
 export class TrainingDetailPage {
 
-    @ViewChild(Slides)slides : Slides;
-    trainingDatas : any;
+    @ViewChild(Slides) slides: Slides;
+    trainingDatas: any;
     detailObject;
-    selectedIndexs : number;
-    inactiveLeftButton : boolean = true;
-    inactiveRightButton : boolean = true;
-    activeLeftButton : boolean = false;
-    activeRightButton : boolean = false;
+    selectedIndexs: number;
+    inactiveLeftButton: boolean = true;
+    inactiveRightButton: boolean = true;
+    activeLeftButton: boolean = false;
+    activeRightButton: boolean = false;
 
-    leftButton : boolean = true;
-    rightButton : boolean = true;
+    leftButton: boolean = true;
+    rightButton: boolean = true;
     videoMenuTitle = "";
-    currentVideoIndex   =   0;
-    loadingBarWidth     =   0;
-    constructor(public navCtrl : NavController, public navParams : NavParams) {
-
+    currentVideoIndex = 0;
+    loadingBarWidth = 0;
+    Math: any;
+    paramsData: any = {};
+    constructor(public navCtrl: NavController, public navParams: NavParams,public constant:Constant) {
+        this.Math = Math;
         this.detailObject = this.navParams.data;
         this.trainingDatas = this.detailObject['setData'];
         this.selectedIndexs = this.detailObject['selectedIndex'];
-        this.loadingBarWidth    =   (100/parseInt(this.trainingDatas.length, 10));
+        this.loadingBarWidth = (100 / parseInt(this.trainingDatas.length, 10));
     }
-
+    // go to particular index
     goToSlideIndex() {
         this.slides.slideTo(this.selectedIndexs, 500);
     }
-
+    // event slide changed
     slideChanged() {
         this.checkNavigationButton();
     }
-
+    // first page load
     ionViewDidLoad() {
         console.log('ionViewDidLoad TrainingDetailPage');
     }
-
+    //  after load enter formed
     ionViewWillEnter() {
         this.goToSlideIndex();
         this.checkNavigationButton();
     }
-
+   // go to quiz page for training details
     goToQuizPage() {
-        this.navCtrl.push(QuizPage);
+        let currentIndex = this.slides.getActiveIndex();
+        this.paramsData['menu'] = this.trainingDatas[currentIndex]['title'];
+        this.navCtrl.push(QuizPage, this.paramsData);
     }
-
+    // go back
     goBackToDetailPage() {
-       //this.navCtrl.push(TrainingPage);
-       this.navCtrl.pop();
+        this.navCtrl.pop();
     }
-
+    // navigation updations
     checkNavigationButton() {
         let currentIndex = this.slides.getActiveIndex();
-        this.currentVideoIndex  =   currentIndex;
+        this.currentVideoIndex = currentIndex;
         let totalIndex = currentIndex + parseInt('1');
         let totalItems = this.trainingDatas.length;
-        console.log('Current index is', currentIndex);
-
         this.videoMenuTitle = this.trainingDatas[currentIndex]['title'];
 
         if (currentIndex === 0) {

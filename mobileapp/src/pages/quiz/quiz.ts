@@ -1,125 +1,86 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { QuizResultPage } from '../quiz-result/quiz-result';
+import { HttpProvider } from '../../providers/http/http';
 
 @Component({
     selector: 'page-quiz',
     templateUrl: 'quiz.html'
 })
 export class QuizPage {
-    quizData: Array<Object>;
-    quizStep            =   0;
-    selectedQuizContent =   {};
-    isQuizCompleted     =   false;
-    constructor(public navCtrl: NavController) {
+    quizData: any;
+    quizStep = 0;
+    selectedQuizContent = {};
+    isQuizCompleted = false;
+    trainingObj;
+    videoMenuTitle;
+
+    constructor(public navCtrl: NavController, private http: HttpProvider,private navParams:NavParams) {
+        this.trainingObj = this.navParams.data;
+        this.videoMenuTitle = this.trainingObj.menu;
 
     }
-   //first load angular
-    ngOnInit() {
-        this.quizData   =   [
-            {
-                'title'         :   'Smart Style / Park Smart',
-                'description'   :   'Start Small, Make a plan, Always look, Take it easy and _____ are part of the park smart terrain park safety program messages',
-                'options'       :   [
-                                        {
-                                            'value' :   'respect',
-                                            'label' :   'Respect'
-                                        },
-                                        {
-                                            'value' :   'resolution',
-                                            'label' :   'Resolution'
-                                        },
-                                        {
-                                            'value' :   'determination',
-                                            'label' :   'Determination'
-                                        },
-                                        {
-                                            'value' :   'thermodynamic',
-                                            'label' :   'Thermodynamic'
-                                        }
-                                    ]
-            },
-            {
-                'title'         :   'Smart Style',
-                'description'   :   'Start Small, Make a plan, Always look, Take it easy and _____ are part of the park smart terrain park safety program messages',
-                'options'       :   [
-                                        {
-                                            'value' :   'respect',
-                                            'label' :   'Respect'
-                                        },
-                                        {
-                                            'value' :   'resolution',
-                                            'label' :   'Resolution'
-                                        },
-                                        {
-                                            'value' :   'determination',
-                                            'label' :   'Determination'
-                                        },
-                                        {
-                                            'value' :   'thermodynamic',
-                                            'label' :   'Thermodynamic'
-                                        }
-                                    ]
-            },
-            {
-                'title'         :   'Park Smart',
-                'description'   :   'Start Small, Make a plan, Always look, Take it easy and _____ are part of the park smart terrain park safety program messages',
-                'options'       :   [
-                                        {
-                                            'value' :   'respect',
-                                            'label' :   'Respect'
-                                        },
-                                        {
-                                            'value' :   'resolution',
-                                            'label' :   'Resolution'
-                                        },
-                                        {
-                                            'value' :   'determination',
-                                            'label' :   'Determination'
-                                        },
-                                        {
-                                            'value' :   'thermodynamic',
-                                            'label' :   'Thermodynamic'
-                                        }
-                                    ]
-            }
-        ];
 
-        this.getQuizContent ();
+    //first load
+    ionViewDidLoad() {
+        this.getQuizDatas();
     }
-    
-    getQuizContent () {
-        this.selectedQuizContent   =   this.quizData[this.quizStep];
+
+    // Get Quiz Content
+    getQuizContent() {
+        this.selectedQuizContent = this.quizData[this.quizStep];
     }
-    // change selected question
-    changeSelectedValue (option) {
-        this.selectedQuizContent['selectedValue']   =   option.value;
-        console.log(this.quizData);
+
+    // Change selected question
+    changeSelectedValue(option) {
+        this.selectedQuizContent['selectedAnswer'] = option.value;
     }
-    // select previous question
-    quizPreviousContent () {
-        this.quizStep           =   this.quizStep - 1;
+
+    // Select previous question
+    quizPreviousContent() {
+        this.quizStep = this.quizStep - 1;
         this.getQuizContent();
     }
-    // select next question
-    quizNextContent () {
-        console.log((this.quizData.length - 1) > this.quizStep);
+
+    // Select next question
+    quizNextContent() {
         if (this.quizData && this.quizData.length && (this.quizData.length - 1 === this.quizStep)) {
-            console.log('congratulation');
-            this.isQuizCompleted    =   true;
-            this.goBackToCongartulations();
+            this.isQuizCompleted = true;
+            this.calcualteAndGoToCongartulations();
         } else if (this.quizData.length > this.quizStep) {
-            this.quizStep           =   this.quizStep + 1;
+            this.quizStep = this.quizStep + 1;
             this.getQuizContent();
         }
     }
-    // back push stack
-    goBackToDetailPage(){
+
+    // Back push stack
+    goBackToDetailPage() {
         this.navCtrl.pop();
     }
-    // final congrats
-    goBackToCongartulations(){
-        this.navCtrl.push(QuizResultPage)
+
+    // Final Congrats
+    calcualteAndGoToCongartulations() {
+        let correctAnswersCount  =   0;
+        this.quizData.forEach(quizValues => {
+            if (quizValues['selectedAnswer'] === quizValues['correctAnswer']['value']) {
+                correctAnswersCount ++;
+            }
+        });
+        const resultData = {
+            "totalQuestions"    : this.quizData.length,
+            "correctAnswers"    :   correctAnswersCount
+        };
+        this.navCtrl.push(QuizResultPage, resultData);
+    }
+
+    //Get Quiz API datas
+    getQuizDatas() {
+        this.http.get('./assets/apidata/quiz.json').subscribe((data) => {
+            if (data) {
+                this.quizData = data;
+                this.getQuizContent();
+            }
+        });
     }
 
 }

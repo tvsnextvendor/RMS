@@ -5,15 +5,15 @@
         </ion-toolbar>
     </ion-header>
     <div class = "image-wrapper">
-        <img src = 'assets/imgs/congratulations.png' />
+        <img src ='assets/imgs/congratulations.png' />
     </div>
     <div text-center class = "congratulations-text">
         <span class= "congratulations-text-span">
-            <h4> <img src = 'assets/imgs/success.png' /> Congratulations</h4>
+            <h4> <img src = 'assets/imgs/success.png' /> {{constant.pages.quizResultLabels.congratulations}}</h4>
         </span>
-        <p>You scored 8 out of 10!</p>
+        <p>{{constant.pages.quizResultLabels.yourscored}} {{resultData.correctAnswers}} {{constant.pages.quizResultLabels.outOf}} {{resultData.totalQuestions}}!</p>
         <span class = "score-btn">
-            <p>Your Score: 80%</p>
+            <p>{{constant.pages.quizResultLabels.yourScorePercent}} {{resultData.percentage}}%</p>
         </span>
     </div>
 </ion-content>
