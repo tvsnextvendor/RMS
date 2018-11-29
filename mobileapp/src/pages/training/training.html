@@ -4,101 +4,101 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      Training
+      {{constant.title.training}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">
-
   <div class="tabs progress-tab">
     <a class="tab-item" (click)="showData('assigned')" [ngClass]="!showAssigned ? 'assigned' : ''">
-      Assigned
+      {{constant.pages.trainingLabels.assignedLabel}}
     </a>
-
     <a class="tab-item" (click)="showData('inprogress')" [ngClass]="!showProgress ? 'inprogress' : ''">
-      In Progress
+      {{constant.pages.trainingLabels.progressLabel}}
     </a>
-
     <a class="tab-item" (click)="showData('complete')" [ngClass]="!showCompleted ? 'complete' : ''">
-      Completed
+      {{constant.pages.trainingLabels.completedLabel}}
     </a>
   </div>
-<!-- <ion-tabs #myTabs tabsPlacement="top">
-<ion-tab [root]="assignedPage" tabTitle="Assigned"></ion-tab>
-<ion-tab [root]="progressPage" tabTitle="Progress"></ion-tab>
-<ion-tab [root]="completedPage" tabTitle="Completed"></ion-tab>
-</ion-tabs> -->
-<!-- {{showAssigned}}
-{{showProgress}}
-{{showCompleted}} -->
-
-<div class="tab-content" [hidden]="showAssigned">
-  <ion-card class="training-list" *ngFor="let task of assignedList;let i=index;" (click)="openTrainingDetail(assignedList,i)">
-    <img src="{{task.postedImage}}" />
-    <ion-card-content class="training-content">
-      <ion-card-title class="training-title">
-        <ion-grid no-padding  class="post-details">
-          <ion-row  class="">
-            <ion-col col-7 class=" ">
-              <p class="training-name">{{task.title}} </p>
-            </ion-col>
-            <ion-col col-5 class="">
-              <p class="post-date">Posted : {{task.postedDate | date:'dd/MM/yyyy'}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card-title>
-      <p class="training-desc">
-        {{task.description}}
-      </p>
-    </ion-card-content>
-  </ion-card>
-</div>
-
-<div class="tab-content" [hidden]="showProgress">
-  <ion-card class="training-list" *ngFor="let task of inprogressList;let i=index;"  (click)="openTrainingDetail(inprogressList,i)">
-    <img src="{{task.postedImage}}" />
-    <ion-card-content >
-      <ion-card-title class="training-title">
-        <ion-grid no-padding  class="post-details">
-          <ion-row  class="">
-            <ion-col col-7 class=" ">
-              <p class="training-name">{{task.title}} </p>
-            </ion-col>
-            <ion-col col-5 class="">
-              <p class="post-date">Posted : {{task.postedDate | date:'dd/MM/yyyy'}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card-title>
-      <p class="training-desc">
-        {{task.description}}
-      </p>
-    </ion-card-content>
-  </ion-card>
-</div>
-<div class="tab-content" [hidden]="showCompleted">
-  <ion-card class="training-list" *ngFor="let task of completedList;let i=index;" (click)="openTrainingDetail(completedList,i)">
-     <img src="{{task.postedImage}}" />
-    <ion-card-content >
-      <ion-card-title class="training-title">
-        <ion-grid no-padding  class="post-details">
-          <ion-row  class="">
-            <ion-col col-7 class=" ">
-              <p class="training-name">{{task.title}} </p>
-            </ion-col>
-            <ion-col col-5 class="">
-              <p class="post-date">Last Viewed : {{task.lastViewedDate | date:'dd/MM/yyyy'}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card-title>
-      <p class="training-desc">
-        {{task.description}}
-      </p>
-    </ion-card-content>
-  </ion-card>
-</div>
-
-
+  <div class="tab-content" [hidden]="showAssigned">
+    <ion-card class="training-list" *ngFor="let task of assignedList;let i=index;" (click)="openTrainingDetail(assignedList,i)">
+      <div class="training-image">
+        <img src="{{task.postedImage}}" />
+        <span class="play-icon">
+          <img src="../assets/imgs/play-button (2).png" />
+        </span>
+      </div>
+      <ion-card-content class="training-content">
+        <ion-card-title class="training-title">
+          <ion-grid no-padding class="post-details">
+            <ion-row class="">
+              <ion-col col-7 class=" ">
+                <p class="training-name">{{task.title}} </p>
+              </ion-col>
+              <ion-col col-5 class="">
+                <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate | date:'dd/MM/yyyy'}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+        <p class="training-desc">
+          {{task.description}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="tab-content" [hidden]="showProgress">
+    <ion-card class="training-list" *ngFor="let task of inprogressList;let i=index;" (click)="openTrainingDetail(inprogressList,i)">
+      <div class="training-image">
+        <img src="{{task.postedImage}}" />
+        <span class="play-icon">
+          <img src="../assets/imgs/play-button (2).png" />
+        </span>
+      </div>
+      <ion-card-content class="training-content">
+        <ion-card-title class="training-title">
+          <ion-grid no-padding class="post-details">
+            <ion-row class="">
+              <ion-col col-7 class=" ">
+                <p class="training-name">{{task.title}} </p>
+              </ion-col>
+              <ion-col col-5 class="">
+                <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate | date:'dd/MM/yyyy'}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+        <p class="training-desc">
+          {{task.description}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="tab-content" [hidden]="showCompleted">
+    <ion-card class="training-list" *ngFor="let task of completedList;let i=index;" (click)="openTrainingDetail(completedList,i)">
+      <div class="training-image">
+        <img src="{{task.postedImage}}" />
+        <span class="play-icon">
+          <img src="../assets/imgs/play-button (2).png" />
+        </span>
+      </div>
+      <ion-card-content class="training-content">
+        <ion-card-title class="training-title">
+          <ion-grid no-padding class="post-details">
+            <ion-row class="">
+              <ion-col col-7 class=" ">
+                <p class="training-name">{{task.title}} </p>
+              </ion-col>
+              <ion-col col-5 class="">
+                <p class="post-date"> {{constant.pages.trainingLabels.lastViewed}} {{task.lastViewedDate | date:'dd/MM/yyyy'}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+        <p class="training-desc">
+          {{task.description}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

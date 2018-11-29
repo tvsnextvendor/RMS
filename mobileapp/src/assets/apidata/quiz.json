@@ -1,68 +1,132 @@
 [
     {
-        "title"         :   "Smart Style / Park Smart",
-        "description"   :   "Start Small, Make a plan, Always look, Take it easy and _____ are part of the park smart terrain park safety program messages",
-        "options"       :   [
-                                {
-                                    "value" :   "respect",
-                                    "label" :   "Respect"
-                                },
-                                {
-                                    "value" :   "resolution",
-                                    "label" :   "Resolution"
-                                },
-                                {
-                                    "value" :   "determination",
-                                    "label" :   "Determination"
-                                },
-                                {
-                                    "value" :   "thermodynamic",
-                                    "label" :   "Thermodynamic"
-                                }
-                            ]
+        "title":"informatics",
+        "description":"In what year was Google launched on the web?",
+        "correctAnswer":{
+            "label":"1998",
+            "value":"1998"
+        },
+        "options":[
+            {
+                "label":"1996",
+                "value":"1996"
+            },
+            {
+                "label":"1997",
+                "value":"1997"
+            },
+            {
+                "label":"1998",
+                "value":"1998"
+            },
+            {
+                "label":"1999",
+                "value":"1999"
+            }
+        ]
     },
     {
-        "title"         :   "Smart Style",
-        "description"   :   "Start Small, Make a plan, Always look, Take it easy and _____ are part of the park smart terrain park safety program messages",
-        "options"       :   [
-                                {
-                                    "value" :   "respect",
-                                    "label" :   "Respect"
-                                },
-                                {
-                                    "value" :   "resolution",
-                                    "label" :   "Resolution"
-                                },
-                                {
-                                    "value" :   "determination",
-                                    "label" :   "Determination"
-                                },
-                                {
-                                    "value" :   "thermodynamic",
-                                    "label" :   "Thermodynamic"
-                                }
-                            ]
+        "title":"nature",
+        "description":"After which animals are the Canary Islands named?",
+        "correctAnswer":{
+            "label":"Dogs",
+            "value":"dogs"
+        },
+        "options":[
+            {
+                "label":"Dogs",
+                "value":"dogs"
+            },
+            {
+                "label":"Cats",
+                "value":"cats"
+            },
+            {
+                "label":"Camel",
+                "value":"camel"
+            },
+            {
+                "label":"Deer",
+                "value":"deer"
+            }
+        ]
     },
     {
-        "title"         :   "Park Smart",
-        "description"   :   "Start Small, Make a plan, Always look, Take it easy and _____ are part of the park smart terrain park safety program messages",
-        "options"       :   [
-                                {
-                                    "value" :   "respect",
-                                    "label" :   "Respect"
-                                },
-                                {
-                                    "value" :   "resolution",
-                                    "label" :   "Resolution"
-                                },
-                                {
-                                    "value" :   "determination",
-                                    "label" :   "Determination"
-                                },
-                                {
-                                    "value" :   "thermodynamic",
-                                    "label" :   "Thermodynamic"
-                                }
-                            ]
+        "title":"Science",
+        "description":"What color is cobalt?",
+        "correctAnswer":{
+            "label":"Blue",
+            "value":"blue"
+        },
+        "options":[
+            {
+                "label":"Blue",
+                "value":"blue"
+            },
+            {
+                "label":"Red",
+                "value":"red"
+            },
+            {
+                "label":"Green",
+                "value":"green"
+            },
+            {
+                "label":"Yellow",
+                "value":"yellow"
+            }
+        ]
+    },
+    {
+        "title":"Sports",
+        "description":"In which year did Maradona score a goal with his hand?",
+        "correctAnswer":{
+            "label":"1986",
+            "value":"1986"
+        },
+        "options":[
+            {
+                "label":"1985",
+                "value":"1985"
+            },
+            {
+                "label":"1986",
+                "value":"1986"
+            },
+            {
+                "label":"1987",
+                "value":"1987"
+            },
+            {
+                "label":"1988",
+                "value":"1988"
+            }
+        ]
+    },
+    {
+        "title":"Film / TV",
+        "description":"How many oscars did the Titanic movie got?",
+        "correctAnswer":{
+            "label":"Eleven",
+            "value":"eleven"
+        },
+        "options":[
+            {
+                "label":"Nine",
+                "value":"nine"
+            },
+            {
+                "label":"Ten",
+                "value":"ten"
+            },
+            {
+                "label":"Eleven",
+                "value":"eleven"
+            },
+            {
+                "label":"Twelve",
+                "value":"twelve"
+            }
+        ]
     }
 ]

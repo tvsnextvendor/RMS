@@ -1,6 +1,6 @@
 {
-    "assignedCourses": 2,
-    "inProgressCourses": 10,
+    "assignedCourses":  10,
+    "inProgressCourses": 3,
     "yourAverageCompletion": 65,
     "peersAverageCompletion": 70,
     "yourAverageScore": 7.5,
@@ -33,12 +33,15 @@
         {
             "name": "Park Smart Safety",
             "colorCode":"#9F6CFF",
-            "file": ""
+            "file": "test"
+
         },
         {
             "name": "Welcome to 2018/19",
             "colorCode":"#37B9FF",
-            "file": ""
+            "file": "test"
+
+
         }
     ],
     "badgeset1": [

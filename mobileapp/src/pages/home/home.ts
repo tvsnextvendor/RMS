@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
+import { Constant} from '../../constants/Constant.var';
+import { TrainingPage } from '../training/training';
 
-
+@IonicPage({
+    name: 'home-page'
+})
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+  providers:[Constant]
 })
 export class HomePage {
   dataDashboard: any = [];
-  constructor(public navCtrl: NavController, private http: HttpProvider) {
-
+  currentdate;
+  paramsData = {};
+  constructor(public navCtrl: NavController, private http: HttpProvider,public constant:Constant) {
+   this.currentdate = new Date(); 
   }
 
   //first load
@@ -19,12 +26,14 @@ export class HomePage {
   }
 
   //get data for dahboard
-
   getDashboard() {
     this.http.get('./assets/apidata/dashboard.json').subscribe((data) => {
       this.dataDashboard = data;
-      console.log(this.dataDashboard);
     });
   }
-
+  
+  goToChildPage(status){
+    this.paramsData['status'] = status;
+    this.navCtrl.push(TrainingPage,this.paramsData)
+  }
 }

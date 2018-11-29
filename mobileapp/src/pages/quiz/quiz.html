@@ -2,7 +2,7 @@
     <ion-header no-border>
         <ion-toolbar transparent class="details-page-toolbar ">
             <ion-icon name="ios-arrow-back" (click)="goBackToDetailPage()"></ion-icon>
-            <p>Uniform and Appearence Policy</p>
+            <p>{{videoMenuTitle}}</p>
         </ion-toolbar>
     </ion-header>
     <div class="inner-content">
@@ -18,10 +18,10 @@
                         <div class="quiz-content-options" *ngIf="selectedQuizContent.options && selectedQuizContent.options.length">
                             <span *ngFor="let quizOption of selectedQuizContent.options" class="quizOption">
                                 <label for={{quizOption.value}}></label>
-                                <ion-icon name="radio-button-off" class="quizOption-icon" *ngIf="quizOption.value != quizData[quizStep]['selectedValue']"></ion-icon>
-                                <ion-icon name="checkmark-circle" class="quizOption-icon" *ngIf="quizOption.value == quizData[quizStep]['selectedValue']"></ion-icon>
+                                <ion-icon name="radio-button-off" class="quizOption-icon" *ngIf="quizOption.value != quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                <ion-icon name="checkmark-circle" class="quizOption-icon" *ngIf="quizOption.value == quizData[quizStep]['selectedAnswer']"></ion-icon>
                                 <input hidden id={{quizOption.value}} type="radio" class="with-font" name="radiogroup"
-                                    [value]="quizOption.value" (change)="changeSelectedValue(quizOption)" [checked]="quizOption.value == quizData[quizStep]['selectedValue']" />
+                                    [value]="quizOption.value" (change)="changeSelectedValue(quizOption)" [checked]="quizOption.value == quizData[quizStep]['selectedAnswer']" />
                                 <p>{{quizOption.label}}</p>
                             </span>
                         </div>
@@ -31,7 +31,7 @@
                     <button float-left class="btn quiz-btn quiz-btn-left" [disabled]="!quizStep" (click)="quizPreviousContent()">
                         Previous
                     </button>
-                    <button float-right class="btn quiz-btn" [disabled]="(selectedQuizContent && !selectedQuizContent.selectedValue)"
+                    <button float-right class="btn quiz-btn" [disabled]="(selectedQuizContent && !selectedQuizContent.selectedAnswer)"
                         (click)="quizNextContent()">
                         {{(quizStep == (quizData.length-1)) ? 'finish' : 'next'}}
                     </button>

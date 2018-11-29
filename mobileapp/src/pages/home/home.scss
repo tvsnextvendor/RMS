@@ -56,9 +56,15 @@ page-home {
 			font-weight:300;
 		}
 
+        .tvs-statusBox:last-child {
+            margin-right: 0;
+        }
+
 		.tvs-statusBox {
 			color: #fff;
-			font-family: 'sf_pro_displayregular';
+            font-family: 'sf_pro_displayregular';
+            padding: 0;
+            margin: 0 10px 10px 0;
 			span.num-sec {
 				font-size: 36px;
 			}
@@ -97,8 +103,11 @@ page-home {
 
 
 
-	}
-	.score-board{
+    }
+    .certification-section {
+        margin: 1em 0 1em 0;
+    }
+	.score-board {
 		margin: 1em 0 1em 0;
 
 		ion-card-header {
@@ -125,7 +134,7 @@ page-home {
 				width: 24px;
 				display: inline-block;
 				position: relative;
-    top: 3px;
+                top: -4px;
 			}
 
 		}
@@ -224,7 +233,7 @@ page-home {
 	}
 	p.section-title {
 		font-size: 16px;
-		padding: 0 5px 0 5px;
+		// padding: 0 5px 0 5px;
 		font-family: sf_pro_displayregular;
 	}
 	.purple-bg {
@@ -255,5 +264,10 @@ page-home {
 		border-radius: 0
 	}
 
+}
+
+.score-number {
+    padding-top: 5px;
+    line-height: 27px;
 }
 

@@ -5,41 +5,43 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { HttpClientModule } from '@angular/common/http';
+import { HomePageModule } from '../pages/home/home.module';
 import { TrainingPageModule } from '../pages/training/training.module';
-import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 import { TrainingDetailPageModule } from '../pages/training-detail/training-detail.module';
 import { QuizPageModule } from '../pages/quiz/quiz.module';
 import { QuizResultModule } from '../pages/quiz-result/quiz-result.module';
 
+import { API } from '../constants/API.var';
+import { API_URL } from '../constants/API_URLS.var';
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { HttpProvider } from '../providers/http/http';
 import { AuthProvider } from '../providers/auth/auth';
+
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    HomePageModule,
     TrainingPageModule,
-    DashboardPageModule,
     TrainingDetailPageModule,
     QuizPageModule,
     QuizResultModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
+    MyApp
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    API,
+    API_URL,
     HttpProvider,
     AuthProvider
   ]
