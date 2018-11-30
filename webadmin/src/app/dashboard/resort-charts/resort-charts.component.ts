@@ -3,7 +3,7 @@ import {DashboardVar} from '../../Constants/dashboard.var';
 import {HttpService} from '../../services/http.service';
 declare var require: any;
 const Highcharts = require('highcharts');
-// import Chart from 'chart.js';
+import Chart from 'chart.js';
 
 @Component({
   selector: 'app-resort-charts',
