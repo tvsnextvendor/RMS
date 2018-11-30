@@ -11,7 +11,7 @@
                 <ion-slides pager (ionSlideDidChange)="slideChanged()">
                     <ion-slide *ngFor="let slide of trainingDatas">
                         <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
-                                <source src="{{slide.postedVideoLink}}" type="video/mp4" />
+                                <source src="{{slide.videoLink}}" type="video/mp4" />
                         </video>
                         <div class = "video-content">
                             <div class = "loading-bar-div">
@@ -24,7 +24,7 @@
                                     <p>{{Math.round(loadingBarWidth * (currentVideoIndex+1))}}<sub>%</sub></p>
                                 </span>
                             </div>
-                            <ion-card-title [innerHTML]="slide.title" class = "video-title"></ion-card-title>
+                            <ion-card-title [innerHTML]="slide.videoDescription" class = "video-title"></ion-card-title>
                             <span class = "video-description">
                                 <p [innerHTML]="slide.description"></p>
                             </span>

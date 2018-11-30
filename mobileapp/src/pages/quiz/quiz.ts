@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,IonicPage } from 'ionic-angular';
 import { QuizResultPage } from '../quiz-result/quiz-result';
 import { HttpProvider } from '../../providers/http/http';
+import { API_URL } from '../../constants/API_URLS.var';
 
+@IonicPage({
+    name: 'quiz-page'
+  })
 @Component({
     selector: 'page-quiz',
     templateUrl: 'quiz.html'
@@ -18,14 +22,11 @@ export class QuizPage {
     constructor(public navCtrl: NavController, private http: HttpProvider,private navParams:NavParams) {
         this.trainingObj = this.navParams.data;
         this.videoMenuTitle = this.trainingObj.menu;
-
     }
-
     //first load
     ionViewDidLoad() {
         this.getQuizDatas();
     }
-
     // Get Quiz Content
     getQuizContent() {
         this.selectedQuizContent = this.quizData[this.quizStep];
@@ -68,14 +69,14 @@ export class QuizPage {
         });
         const resultData = {
             "totalQuestions"    : this.quizData.length,
-            "correctAnswers"    :   correctAnswersCount
+            "correctAnswers"    : correctAnswersCount
         };
         this.navCtrl.push(QuizResultPage, resultData);
     }
 
     //Get Quiz API datas
     getQuizDatas() {
-        this.http.get('./assets/apidata/quiz.json').subscribe((data) => {
+        this.http.getData(API_URL.URLS.getQuiz).subscribe((data) => {
             if (data) {
                 this.quizData = data;
                 this.getQuizContent();

@@ -1,0 +1,96 @@
+page-login {
+
+.login-bg {
+  
+   .scroll-content {
+    padding: 0 !important;
+        background: #329CD6;
+}
+.signin-process,.login-action {
+    padding: 16px;
+}
+}
+.sign-title {
+    padding: 60px 0 150px 10px;
+    text-align: center;
+    color: #fff;
+}
+.signin-process {
+    background: url(../assets/imgs/loginbg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    .list-ios {
+    margin: 0px 0 16px;
+    
+}
+}
+.input-login {
+    background: rgba(255,255,255,0.2) !important;
+    border-radius: 90px;
+    border: none !important;
+    margin-bottom: 10px;
+    padding: 7px 18px;
+    font-family: 'sf_ui_textregular';
+
+}
+.list-ios .item-block .item-inner {
+    border-bottom: none;
+}
+ion-input.input {
+    color: #fff;
+}
+.login-btn {
+       width: 100%;
+    background: #fff;
+    color: #329CD6;
+    padding: 30px 10px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.login-action {
+    margin-top: -43px;
+     font-family: 'sf_pro_displayregular';
+
+}
+.item-block .item-inner {
+
+    border-bottom: none !important;
+}
+.keep-login ion-label,.frget-pwd a,.new-account {
+    font-size: 13px;
+    color: #B9E6FF;
+}
+.keep-login {
+    float: left;
+}
+.frget-pwd{
+	float: right;
+}
+.frget-pwd a {
+    line-height: 43px;
+}
+.new-account {
+    clear: both;
+    text-align: center;
+    margin-top: 100px;
+}
+.new-account a {
+    font-size: 15px;
+    color: #fff;
+    text-transform: uppercase;
+}
+button:focus {
+    outline: none;
+    outline: none;
+}
+.button-ios.activated,.button-md.activated {
+    background-color: #fff;
+    opacity: 1;
+}
+.login-btn .button-inner {
+    font-size: 15px;
+}
+.button-md:hover:not(.disable-hover) {
+    background-color: #ffffff;
+}
+}

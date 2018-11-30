@@ -13,14 +13,14 @@
     <h1> {{constant.pages.dashboardLabels.goodMrng}}</h1>
     <p class="day-detail">Thursday, Aug 10 </p>
   </div>
-  <section class="training-section">
+  <section class="training-section" *ngIf="trainingDatas && dashboardInfo">
     <p class="section-title">{{constant.pages.dashboardLabels.training}}</p>
     <ion-grid class="status-grid no-padding">
       <ion-row nowrap class="forecast_container">
         <ion-col col-6 class="tvs-statusBox ">
           <div class="tomato-red-bg assign-box sts-style">
             <h4 class="status-title">{{constant.pages.dashboardLabels.assignedLabel}}</h4>
-            <span class="num-sec">{{dataDashboard.assignedCourses}}</span>
+            <span class="num-sec">{{trainingDatas.assignedCourses}}</span>
             <p class="course-sec">{{constant.pages.dashboardLabels.newCourses}}</p>
             <a href="javascript:void(0);" class="read-more" (click)="goToChildPage('assigned')">{{constant.pages.dashboardLabels.more}}<ion-icon ios="ios-arrow-forward" md="ios-arrow-forward"
                 class="fwd-arw"></ion-icon></a>
@@ -29,7 +29,7 @@
         <ion-col col-6 class="tvs-statusBox ">
           <div class="light-green-bg progress-box sts-style"> 
             <h4 class="status-title">{{constant.pages.dashboardLabels.progressLabel}}</h4>
-            <span class="num-sec">{{dataDashboard.inProgressCourses}}</span>
+            <span class="num-sec">{{trainingDatas.inProgressCourses}}</span>
             <p class="course-sec">{{constant.pages.dashboardLabels.courses}}</p>
             <a href="javascript:void(0);" class="read-more" (click)="goToChildPage('inprogress')">{{constant.pages.dashboardLabels.more}}<ion-icon ios="ios-arrow-forward" md="ios-arrow-forward"
                 class="fwd-arw"></ion-icon></a>
@@ -39,18 +39,18 @@
           <div class="pink-bg average-box sts-style">
             <h4 class="status-title">{{constant.pages.dashboardLabels.avgCompletionRate}}</h4>
             <div class="mb-3">
-              <p class="course-sec m-0">{{constant.pages.dashboardLabels.you}} {{dataDashboard.yourAverageCompletion}} %</p>
+              <p class="course-sec m-0">{{constant.pages.dashboardLabels.you}} {{trainingDatas.yourAverageCompletion}} %</p>
               <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
-                  <span class="sr-only">{{dataDashboard.yourAverageCompletion}} %</span>
+                  <span class="sr-only">{{trainingDatas.yourAverageCompletion}} %</span>
                 </div>
               </div>
             </div>
             <div class="mb-4">
-              <p class="course-sec m-0">{{constant.pages.dashboardLabels.peers}} {{dataDashboard.peersAverageCompletion}} %</p>
+              <p class="course-sec m-0">{{constant.pages.dashboardLabels.peers}} {{trainingDatas.peersAverageCompletion}} %</p>
               <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                  <span class="sr-only">{{dataDashboard.peersAverageCompletion}} %</span>
+                  <span class="sr-only">{{trainingDatas.peersAverageCompletion}} %</span>
                 </div>
               </div>
             </div>
@@ -64,15 +64,15 @@
       <ion-card-header class="header-primary">
         <p class="score-title">{{constant.pages.dashboardLabels.yourAvgOnCourses}}</p>
         <span class="score-number">
-          <p style="font-size: 20px;">{{dataDashboard.yourAverageScore}}/</p>
-          <p>{{dataDashboard.yourTotalScore}}</p>
+          <p style="font-size: 20px;">{{trainingDatas.yourAverageScore}}/</p>
+          <p>{{trainingDatas.yourTotalScore}}</p>
           <img src="../assets/imgs/like@3x.png" />
         </span>
       </ion-card-header>
       <ion-card-content class="body-primary">
         <ion-grid>
           <ion-row>
-            <ion-col col-4 *ngFor="let ranks of dataDashboard.topThree;">
+            <ion-col col-4 *ngFor="let ranks of trainingDatas.topScorers;">
               <div class="ranker-det">
                 <div class="winner-img">
                   <img src="{{ranks.image}}" />
@@ -98,10 +98,10 @@
     <p class="section-title">{{constant.pages.dashboardLabels.certification}}</p>
     <ion-grid class="status-grid no-padding">
       <ion-row nowrap class="forecast_container">
-        <ion-col col-8 class="tvs-statusBox certificate-box" *ngFor="let cert of dataDashboard.certificate">
+        <ion-col col-8 class="tvs-statusBox certificate-box" *ngFor="let cert of dashboardInfo.certification">
           <div class="purple-bg sts-style clearfix" [ngStyle]="{'background-color': cert.colorCode}">
             <img src="../assets/imgs/pdf.png" />
-            <p class="pdf-name">{{cert.name}}</p>
+            <p class="pdf-name">{{cert.label}}</p>
             <div class="certificate-footer clearfix">
               <a href="" class="download-txt">{{constant.pages.dashboardLabels.download}}</a>
               <a href="" class="">{{constant.pages.dashboardLabels.view}}</a>
@@ -113,17 +113,17 @@
   </section>
   <section class="badge-section">
     <p class="section-title">{{constant.pages.dashboardLabels.badges}}</p>
-    <ion-grid class="status-grid no-padding">
+    <ion-grid class="status-grid no-padding" >
       <ion-row nowrap class="forecast_container">
-        <ion-col col-8 class="tvs-statusBox badge-box" *ngFor="let set1 of dataDashboard.badgeset1">
-          <div class="tomato-red-bg sts-style clearfix" [ngStyle]="{'background-color': set1.colorCode}">
-            <h4 class="badge-title">{{set1.name}}</h4>
-            <p class="badge-content">{{set1.description}}</p>
+        <ion-col col-8 class="tvs-statusBox badge-box" *ngFor="let badge of dashboardInfo.badges">
+          <div class="tomato-red-bg sts-style clearfix" [ngStyle]="{'background-color': badge.colorCode}">
+            <h4 class="badge-title">{{badge.label}}</h4>
+            <p class="badge-content">{{badge.description}}</p>
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-grid class="status-grid no-padding">
+    <!-- <ion-grid class="status-grid no-padding">
       <ion-row nowrap class="forecast_container">
         <ion-col col-8 class="tvs-statusBox badge-box" *ngFor="let set2 of dataDashboard.badgeset2">
           <div class="purple-bg sts-style clearfix" [ngStyle]="{'background-color': set2.colorCode}">
@@ -132,6 +132,6 @@
           </div>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
   </section>
 </ion-content>

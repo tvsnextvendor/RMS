@@ -1,0 +1,26 @@
+<ion-content padding class="login-bg">
+  <div class="signin-process">
+    <p class="sign-title">SIGN IN</p>
+    <ion-list class="signin-block">
+      <ion-item class="input-login">
+        <ion-input type="text" [(ngModel)]="user.name" placeholder="Username"></ion-input>
+      </ion-item>
+      <ion-item class="input-login">
+        <ion-input type="text" round [(ngModel)]="user.pw" placeholder="Password"></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="login-action">
+    <button ion-button round type="submit" class="login-btn" (click)="doLogin()">Sign In</button>
+    <div class="keep-login">
+      <ion-item class="bg-trans">
+        <ion-checkbox [(ngModel)]="pepperoni"></ion-checkbox>
+        <ion-label>Keep me logged in</ion-label>
+      </ion-item>
+    </div>
+    <div class="frget-pwd"><a href="">Forget Your password</a></div>
+    <div class="new-account">
+      Need an account? <a href=""> Sign Up</a>
+    </div>
+  </div>
+</ion-content>

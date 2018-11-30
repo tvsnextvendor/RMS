@@ -3,8 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { HttpClientModule } from '@angular/common/http';
+import { LoginPageModule } from '../pages/login/login.module';
 import { HomePageModule } from '../pages/home/home.module';
 import { TrainingPageModule } from '../pages/training/training.module';
 import { TrainingDetailPageModule } from '../pages/training-detail/training-detail.module';
@@ -26,6 +28,8 @@ import { AuthProvider } from '../providers/auth/auth';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
+    LoginPageModule,
     HomePageModule,
     TrainingPageModule,
     TrainingDetailPageModule,
