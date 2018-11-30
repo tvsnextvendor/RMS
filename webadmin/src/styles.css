@@ -49,28 +49,35 @@
 .sidebar-nav {
   position: absolute;
   top: 0;
-  width: 100%;
+  width: 92px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .sidebar-nav li {
-  text-indent: 18px;
+  text-indent: 8px;
   line-height: 70px;
+  width: 92px;
 }
 
 .sidebar-nav li a {
   display: block;
   text-decoration: none;
+  margin-left: 15px;
 }
 
 .sidebar-nav li a:hover {
-  text-decoration: none;
-  color: #ccc;
-  background: rgba(255, 255, 255, 0.2);
+    background-color: #E4EFF5;
+    width: 92px;
+    border-radius: 5px;
+    margin-left: 15px;
 }
-
+.fix{
+	background-color: #E4EFF5;
+    width: 92px;
+    border-radius: 5px;
+}
 .sidebar-nav li a:active, .sidebar-nav li a:focus {
   text-decoration: none;
 }
@@ -130,6 +137,7 @@ li.search-block {
 }
 .p-color{
   color: #7a8996;
+  max-width: 83%;
 }
 .click-color{color: #39647a;}
 .icons_header{
@@ -159,7 +167,7 @@ p{
   background-color: #fff;
   /*color: #8B8B92;*/
   width: 120px;
-  height: 40px;
+  height: 46px;
   border: 2px solid #fff;
   cursor: pointer;
 }
@@ -194,12 +202,13 @@ p{
   float: right;
 }
 .select-btn{
-  border: 1px solid #ccc;
-  border-radius: 7px;
+  border: 1px solid #999999;
+  border-radius: 4px;
   width: 22%;
   padding: 2px;
-  color: #ccc;
+  color: #999999;
   float: right;
+  font-size: 14px;
 }
 .chart-mr{padding: 10px;width: 100%;}
 .recent-command-tit {
@@ -211,8 +220,56 @@ p{
 .recent-command {
   padding-bottom: 1em;
 }
+.vdo-btn{
+	background-color: transparent;
+    width: 20%;
+    padding: 2px;
+    color: #999999;
+    float: right;
+    border-bottom: 1px solid #999999;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+.pdl60{padding-left: 60px;}
+.pdr7{padding-right: 7px;}
+.avg-alg{
+	color: #999999;
+    padding-left: 12px;
+}
+.pect-color{color: #51CC3A;}
+.avg-color{color: #999999;}
+.dwn-color{color: #ED2201;}
+.mr0{margin: 0;}
 li {
     list-style: none;
+}
+.resort-btn{
+	border: 1px solid #999999;
+    border-radius: 4px;
+    width: 40%;
+    padding: 2px;
+    color: #999999;
+    float: right;
+    font-size: 14px;
+}
+.wdt{width: 20%;}
+.bor-right{
+	border-right: 2px solid #ccc;
+}
+.hd-color{color: #468FB9;}
+.cancel-btn{
+	background-color: transparent;
+    border: 1px solid #999999;
+    border-radius: 35px;
+    width: 32px;
+    cursor: pointer;
+    line-height: 0;
+}
+.cancel-icon{
+	color: #9999;
+    padding: 5px 3px 5px 3px;
+    font-size: 15px;
 }
 @media(min-width:768px) {
   #wrapper {
@@ -364,4 +421,23 @@ li {
     text-align: center;
     line-height: 70px;
     border-radius: 50%;
+}
+.badge{
+	color: #999999;
+	min-width: 100px;
+}
+.crt-alg{
+	min-width: 260px;
+    text-align: left;
+}
+.resort-pd{
+	padding: 7px 7px 45px 7px;
+}
+.resort-num{
+	font-size: 30px;
+    color: #1D4960;
+    float: right;
+}
+.rest-pd{
+	padding: 20px 0 0 0;
 }

@@ -3,9 +3,8 @@ import {DashboardVar} from '../../Constants/dashboard.var';
 import {HttpService} from '../../services/http.service';
 declare var require: any;
 const Highcharts = require('highcharts');
-import Chart from 'chart.js';
+// import Chart from 'chart.js';
 
-declare var CanvasJS: any;
 @Component({
   selector: 'app-resort-charts',
   templateUrl: './resort-charts.component.html',
@@ -261,7 +260,6 @@ taskStackbar() {
         display: 'none'
     }
     },
-  
       // title: {
       //     text: 'Stacked column chart'
       // },
@@ -342,7 +340,6 @@ visitorsByResortPie() {
         display: 'none'
     }
     },
-   
         plotOptions: {
             pie: {
                 allowPointSelect: true,
@@ -376,35 +373,59 @@ visitorsByResortPie() {
 }
 
 reservationByResort() {
-    this.http.get('./assets/ResortData/ReservationByResort.json').subscribe((data) => {
-        const donutChartData = data.ReservationByResort;
+    this.http.get('./assets/ResortData/ReservationByResort.json').subscribe((resp) => {
+        const donutChartData = resp.ReservationByResort;
         this.donutEnable = true;
-        const chart = new CanvasJS.Chart('donutContainer', {
-            zoomEnabled: true,
-              title: {
-                text: ''
+        const labels = donutChartData.labels;
+      const data_values = donutChartData.data_values;
+
+      const data = data_values.map(function(value, index) {
+        return { name: labels[index], y: value };
+      }, []);
+
+        Highcharts.chart('chartContainer', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
             },
-            subtitles: [{
-              text: 'Total 100',
-              verticalAlign: 'center',
-              fontSize: 14,
-              dockInsidePlotArea: true
+            title: {
+              text: '',
+          },
+            tooltip: {
+                pointFormat: '<b>{point.percentage:.1f}%</b>'
+            },
+
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    innerSize: '60%',
+                     cursor: 'pointer',
+                     indexLabelFontSize: 12,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}',
+                      connectorColor: 'black',
+                      style: {
+                        fontWeight: 'normal',
+                        fontSize: '10px',
+                    }
+                  }
+                }
+            },
+            xAxis: {
+                categories: labels
+            },
+            series: [{
+                name: '',
+                data: data
             }],
-              animationEnabled: true,
-              data: [{
-                type: 'doughnut',
-                    showInLegend: true,
-                    startAngle: 60,
-                    indexLabelFontSize: 12,
-                    indexLabel: '{label}',
-                    // toolTipContent: '<b>{label}</b>',
-                    dataPoints: donutChartData
-              }]
-          });
-          chart.render();
-      function rangeChange(e) {
-        console.log(e);
-      }
+            credits: {
+              enabled: false
+            }
+        }
+        );
     });
 }
 
