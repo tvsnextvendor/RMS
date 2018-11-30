@@ -1,17 +1,8 @@
 {
-      "NoOfBadgesDonut": [
+      "NoOfBadgesDonut": 
         {
-          "label": "5 days Streak",
-          "y": 40
-        }, {
-          "label": "3 days Streak",
-          "y": 30
-        }, {
-          "label": "Midnight Owl",
-          "y": 15
-        }, {
-          "label": "Stalkers",
-          "y": 10
+          "labels": ["5 days Streak", "3 days Streak", "Midnight Owl","Stalkers"],
+          "data_values": [65, 59, 80, 81]
         }
-      ]   
+      
   }

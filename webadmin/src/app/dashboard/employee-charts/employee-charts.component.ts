@@ -102,9 +102,7 @@ totalCoursesLine() {
 
       }
     },
-   
   series: [{
-
     data: this.dashboardVar.courses.TotalCourses.data
   }]
 
@@ -443,66 +441,85 @@ topEmployees() {
   });
 }
 
+  // get total number of badges and display in chart
   totalNoOfBadges() {
-      this.http.get('./assets/EmployeeData/NoOfBadges.json').subscribe((data) => {
-        const donutChartData = data.NoOfBadgesDonut;
-        this.donutEnable = true;
-            const chart = new CanvasJS.Chart('chartContainer', {
-              zoomEnabled: true,
-                title: {
-                  text: ''
-              },
-              subtitles: [{
-                text: 'Total 100',
-                verticalAlign: 'center',
-                fontSize: 14,
-                dockInsidePlotArea: true
-              }],
-                animationEnabled: true,
-                data: [{
-                  type: 'doughnut',
-                      showInLegend: true,
-                      startAngle: 60,
-                      indexLabelFontSize: 12,
-                      indexLabel: '{label}',
-                      // toolTipContent: '<b>{label}</b>',
-                      dataPoints: donutChartData
-                }]
-            });
-            chart.render();
-        function rangeChange(e) {
-          console.log(e);
-        }
-    });
-  }
 
-  chart() {
-    const chart = new CanvasJS.Chart('chartContainer', {
-          zoomEnabled: true,
-         rangeChanged: rangeChange,
-            title: {
-              text: 'Total number of Badges'
+    this.http.get('./assets/EmployeeData/NoOfBadges.json').subscribe((resp) => {
+      const donutChartData = resp.NoOfBadgesDonut;
+      this.donutEnable = true;
+      // console.log(donutChartData);
+      const labels = donutChartData.labels;
+      const data_values = donutChartData.data_values;
+
+      const data = data_values.map(function(value, index) {
+        return { name: labels[index], y: value };
+      }, []);
+
+        Highcharts.chart('chartContainer', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
             },
-            animationEnabled: true,
-            data: [{
-              type: 'doughnut',
-                  startAngle: 60,
-                  indexLabelFontSize: 17,
-                  indexLabel: '{label} - #percent%',
-                  toolTipContent: '<b>{label}:</b> {y} (#percent%)',
-                  dataPoints: [
-                    { y: 67, label: 'Inbox' },
-                    { y: 28, label: 'Archives' },
-                    { y: 10, label: 'Labels' },
-                    { y: 7, label: 'Drafts'},
-                    { y: 15, label: 'Trash'},
-                    { y: 6, label: 'Spam'}
-              ]
-            }]
-        });
-        chart.render();
-    function rangeChange(e) {
-      console.log(e);
-    }
+            title: {
+              text: 'Total',
+              verticalAlign: 'middle',
+              align: 'top',
+              x: 110,
+              y: -10,
+              floating: true,
+              style: {
+                color: '#468FB9',
+                fontWeight: 'normal',
+                fontSize: '10px'
+            }
+          },
+          subtitle: {
+            text: '100',
+            verticalAlign: 'middle',
+            align: 'left',
+            x: 105,
+            floating: true,
+            style: {
+              color: '#468FB9',
+              fontWeight: 'normal',
+              fontSize: '20px'
+            }
+          },
+            tooltip: {
+                pointFormat: '<b>{point.percentage:.1f}%</b>'
+            },
+
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    innerSize: '60%',
+                     cursor: 'pointer',
+                     indexLabelFontSize: 12,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}',
+                      connectorColor: 'black',
+                      style: {
+                        fontWeight: 'normal',
+                        fontSize: '8px',
+                    }
+                  }
+                }
+            },
+            xAxis: {
+                categories: labels
+            },
+            series: [{
+                name: '',
+                data: data
+            }],
+            credits: {
+              enabled: false
+            }
+        }
+        );
+    });
   }
 }
