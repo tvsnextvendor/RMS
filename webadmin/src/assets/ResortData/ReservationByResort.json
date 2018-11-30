@@ -1,0 +1,15 @@
+{
+      "ReservationByResort": [
+        
+        {
+          "label": "Resort A",
+          "y": 70
+        }, {
+          "label": "Resort B",
+          "y": 20
+        }, {
+          "label": "Resort C",
+          "y": 10
+        }
+      ]
+  }

@@ -1,0 +1,16 @@
+{
+  "resortCharts" :{
+      "TopResorts" : [
+      {"id":1, "name":"Resort 1", "rating":4.4},
+      {"id":2, "name":"Resort 2", "rating":4.4},
+      {"id":3, "name":"Resort 3", "rating":4.4},
+      {"id":4, "name":"Resort 4", "rating":4.4},
+      {"id":5, "name":"Resort 5", "rating":4.4},
+      {"id":6, "name":"Resort 6", "rating":4.4},
+      {"id":7, "name":"Resort 7", "rating":4.4},
+      {"id":8, "name":"Resort 8", "rating":4.4},
+      {"id":9, "name":"Resort 9", "rating":4.4},
+      {"id":10, "name":"Resort 10", "rating":4.4}
+      ]
+  }
+}

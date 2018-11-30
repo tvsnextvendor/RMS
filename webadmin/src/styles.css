@@ -1,0 +1,367 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import '~css-star-rating/scss/star-rating'; */
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 0;
+  width: 0;
+  height: 100%;
+  margin-left: 0;
+  overflow-y: auto;
+  background: #fff;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 18px;
+  line-height: 70px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: #ccc;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav>.sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav>.sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+ul li{
+  display: inline-block;
+}
+.pdt50{
+  padding-top: 50px;
+}
+.pd30{
+  padding: 30px 0;
+}
+.form-searchbox {
+  font-size: 14px;
+  padding: 0px 0 0 20px;
+  border-radius: 25px;
+}
+.form-control {
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  /*color: #007bff;*/
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid #007bff;
+}
+.list_search {
+     position: absolute;
+    bottom: 7px;
+    right: 9px;
+    /* color: #007bff; */
+    font-size: 16px;
+}
+li.search-block {
+    position: relative;
+}
+.hd-alg, .icons_header, .form-control, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .chart-mr{
+  color: #468FB9;
+}
+.p-color{
+  color: #7a8996;
+}
+.click-color{color: #39647a;}
+.icons_header{
+  padding: 0 12px; 
+}
+.mat-tab-header, .mat-tab-nav-bar{
+  border-bottom: 0;
+}
+.mat-tab-group {
+  display: block;
+  flex-direction: unset;
+}
+.btn-alg{
+  padding: 25px 0 25px 0px;
+}
+.snow-img img{width: 50%}
+.cloudy{
+  font-size: 25px;
+  color: #468FB9;
+  margin: 0;
+}
+p{
+  color: #468FB9;
+}
+.circle-fnt{font-size: 12px;}
+.hd-button{
+  background-color: #fff;
+  /*color: #8B8B92;*/
+  width: 120px;
+  height: 40px;
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+.hd-button.accounts_li.active {
+  border-bottom-color: #007bff;
+  /*color: #007bff;*/
+}
+.hd-button:focus {
+  outline: none;
+  outline: none;
+}
+.btn_alg {
+  background-color: #468FB9;
+  color: #fff;
+  margin-right: 15px !important;
+  padding: 5px 15px 5px 15px;
+  border: 0px solid #468FB9;
+  border-radius: 5px;
+}
+.chart-bg{
+  background-color: #fff;
+  box-shadow: 0px 0px 8px 0px #ccc;
+}
+.row {
+  margin-left: 0 ;
+  margin-right: 0;
+}
+.num-alg{
+  font-size: 30px;
+  color: #336F90;
+  line-height: 20px;
+  float: right;
+}
+.select-btn{
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  width: 22%;
+  padding: 2px;
+  color: #ccc;
+  float: right;
+}
+.chart-mr{padding: 10px;width: 100%;}
+.recent-command-tit {
+      border-top: 1px solid #ccc;
+    padding: 25px 0 20px 0;
+    margin: 30px 0 0 0;
+    font-size: 12px;
+}
+.recent-command {
+  padding-bottom: 1em;
+}
+li {
+    list-style: none;
+}
+@media(min-width:768px) {
+  #wrapper {
+    padding-left: 0;
+  }
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+  #sidebar-wrapper {
+    width: 92px;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+  }
+  #page-content-wrapper {
+    padding: 20px 0 40px 90px;
+    position: relative;
+    background-color: #F5F6FA;
+  }
+  #wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0;
+  }
+  .row{
+    margin: 0;
+  }
+  .bg-color{
+    background-color: #F5F6FA;
+  }
+}
+.small-txt {
+  font-size: 12px;
+  color: rgba(0,0,0,.54);
+  margin: 0;
+}
+.growth-percen {
+  text-align: right;
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+}
+.week-growth {
+  color: #000;
+  font-weight: 600;
+  display: block;
+  text-align: right;
+  margin: 0;
+}
+.side-widget {
+  margin-bottom: 15px;
+}
+.snow-img {
+  text-align: center;
+}
+.table thead th, .table td {
+  vertical-align: bottom;
+  border: none;
+}
+.custom-table {
+  padding: 0 20px;
+}
+.table thead th {
+
+  color: #468FB9;
+}
+.custom-table {
+    padding: 0px 20px 1px;
+}
+.custom-table ::-webkit-scrollbar {
+  width: 6px;
+} 
+.custom-table ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+.custom-table ::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+.custom-table table {
+  width: 100%;
+}
+
+.custom-table thead, .custom-table tbody, .custom-table tr,.custom-table td, .custom-table th { display: block; }
+
+.custom-table tr:after {
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.custom-table thead th {
+  height: 30px;
+
+  /*text-align: left;*/
+}
+
+.custom-table tbody {
+  height: 180px;
+  overflow-y: auto;
+}
+
+.custom-table thead {
+  /* fallback */
+}
+
+
+.custom-table tbody td, thead th {
+  width: 33.3%;
+  float: left;
+}
+.donutchat-style {
+    padding: 10px 0 30px 0px;
+}
+.badge-li:nth-child(1) .badge-color {
+    background: #FA7D61;
+   
+}
+.badge-li:nth-child(2) .badge-color {
+    background: #FE87AF;
+   
+}
+.badge-li:nth-child(3) .badge-color {
+    background:#9FD000;
+   
+}
+.badge-li:nth-child(4) .badge-color {
+    background: #329CD6;
+   
+}
+.badge-li{
+  margin-bottom: 15px;
+}
+.badge-li .badge-color{
+   color: #fff;
+    text-align: center;
+    width: 35px;
+    display: inline-block;
+    height: 35px;
+    border-radius: 50%;
+    line-height: 33px;
+    font-size: 12px;
+}
+.Bbadge-color {
+    background: #468FB9;
+    width: 70px;
+    height: 70px;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    line-height: 70px;
+    border-radius: 50%;
+}
