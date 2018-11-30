@@ -1,39 +1,46 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, NavParams, ToastController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
-import { Constant} from '../../constants/Constant.var';
-import { TrainingPage } from '../training/training';
+import { Constant } from '../../constants/Constant.var';
+import { Storage } from '@ionic/storage';
+import { API_URL } from '../../constants/API_URLS.var';
+
 
 @IonicPage({
-    name: 'home-page'
+  name: 'home-page'
 })
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers:[Constant]
+  providers: [Constant]
 })
 export class HomePage {
   dataDashboard: any = [];
   currentdate;
   paramsData = {};
-  constructor(public navCtrl: NavController, private http: HttpProvider,public constant:Constant) {
-   this.currentdate = new Date(); 
-  }
+  dashboardInfo: any = {};
+  trainingDatas: any = {};
 
+  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage,public toastrCtrl:ToastController) {
+    this.currentdate = new Date();
+  }
   //first load
   ionViewDidLoad() {
-    this.getDashboard();
+    this.getDashboardInfo();
   }
-
-  //get data for dahboard
-  getDashboard() {
-    this.http.get('./assets/apidata/dashboard.json').subscribe((data) => {
-      this.dataDashboard = data;
-    });
-  }
-  
-  goToChildPage(status){
+  goToChildPage(status) {
     this.paramsData['status'] = status;
-    this.navCtrl.push(TrainingPage,this.paramsData)
+    this.navCtrl.setRoot('training-page', this.paramsData)
+  }
+  getDashboardInfo() {
+    this.http.getData(API_URL.URLS.getDashboard).subscribe((data) => {
+      this.storage.set('userDashboardInfo', data).then(() => {
+        console.log('Data has been set');
+      });
+      this.dashboardInfo = data;
+      this.trainingDatas = this.dashboardInfo.training;
+     // console.log(this.dashboardInfo);
+     // debugger;
+    });
   }
 }

@@ -3,7 +3,9 @@ import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
 import { Constant} from '../../constants/Constant.var';
 
-@IonicPage()
+@IonicPage({
+    name: 'trainingdetail-page'
+})
 @Component({ selector: 'page-training-detail', templateUrl: 'training-detail.html' ,providers:[Constant]})
 export class TrainingDetailPage {
 
@@ -26,7 +28,7 @@ export class TrainingDetailPage {
     constructor(public navCtrl: NavController, public navParams: NavParams,public constant:Constant) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
-        this.trainingDatas = this.detailObject['setData'];
+        this.trainingDatas = this.detailObject['setData'].videos;
         this.selectedIndexs = this.detailObject['selectedIndex'];
         this.loadingBarWidth = (100 / parseInt(this.trainingDatas.length, 10));
     }
@@ -50,7 +52,7 @@ export class TrainingDetailPage {
    // go to quiz page for training details
     goToQuizPage() {
         let currentIndex = this.slides.getActiveIndex();
-        this.paramsData['menu'] = this.trainingDatas[currentIndex]['title'];
+        this.paramsData['menu'] = this.trainingDatas[currentIndex]['videoTitle'];
         this.navCtrl.push(QuizPage, this.paramsData);
     }
     // go back
@@ -63,7 +65,7 @@ export class TrainingDetailPage {
         this.currentVideoIndex = currentIndex;
         let totalIndex = currentIndex + parseInt('1');
         let totalItems = this.trainingDatas.length;
-        this.videoMenuTitle = this.trainingDatas[currentIndex]['title'];
+        this.videoMenuTitle = this.trainingDatas[currentIndex]['videoTitle'];
 
         if (currentIndex === 0) {
             this.leftButton = false;

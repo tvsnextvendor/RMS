@@ -21,9 +21,9 @@
     </a>
   </div>
   <div class="tab-content" [hidden]="showAssigned">
-    <ion-card class="training-list" *ngFor="let task of assignedList;let i=index;" (click)="openTrainingDetail(assignedList,i)">
+    <ion-card class="training-list" *ngFor="let task of assignedCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
-        <img src="{{task.postedImage}}" />
+        <img src="{{task.featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
         </span>
@@ -33,24 +33,25 @@
           <ion-grid no-padding class="post-details">
             <ion-row class="">
               <ion-col col-7 class=" ">
-                <p class="training-name">{{task.title}} </p>
+                <p class="training-name">{{task.courseName}} </p>
               </ion-col>
               <ion-col col-5 class="">
-                <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate | date:'dd/MM/yyyy'}}</p>
+                <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate |
+                  date:'dd/MM/yyyy'}}</p>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card-title>
         <p class="training-desc">
-          {{task.description}}
+          {{task.videos[0].videoDescription}}
         </p>
       </ion-card-content>
     </ion-card>
   </div>
   <div class="tab-content" [hidden]="showProgress">
-    <ion-card class="training-list" *ngFor="let task of inprogressList;let i=index;" (click)="openTrainingDetail(inprogressList,i)">
+    <ion-card class="training-list" *ngFor="let task of progressCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
-        <img src="{{task.postedImage}}" />
+        <img src="{{task.featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
         </span>
@@ -60,24 +61,25 @@
           <ion-grid no-padding class="post-details">
             <ion-row class="">
               <ion-col col-7 class=" ">
-                <p class="training-name">{{task.title}} </p>
+                <p class="training-name">{{task.courseName}} </p>
               </ion-col>
               <ion-col col-5 class="">
-                <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate | date:'dd/MM/yyyy'}}</p>
+                <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate |
+                  date:'dd/MM/yyyy'}}</p>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card-title>
         <p class="training-desc">
-          {{task.description}}
+          {{task.videos[0].videoDescription}}
         </p>
       </ion-card-content>
     </ion-card>
   </div>
   <div class="tab-content" [hidden]="showCompleted">
-    <ion-card class="training-list" *ngFor="let task of completedList;let i=index;" (click)="openTrainingDetail(completedList,i)">
+    <ion-card class="training-list" *ngFor="let task of completeCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
-        <img src="{{task.postedImage}}" />
+        <img src="{{task.featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
         </span>
@@ -87,16 +89,17 @@
           <ion-grid no-padding class="post-details">
             <ion-row class="">
               <ion-col col-7 class=" ">
-                <p class="training-name">{{task.title}} </p>
+                <p class="training-name">{{task.courseName}} </p>
               </ion-col>
               <ion-col col-5 class="">
-                <p class="post-date"> {{constant.pages.trainingLabels.lastViewed}} {{task.lastViewedDate | date:'dd/MM/yyyy'}}</p>
+                <p class="post-date">{{constant.pages.trainingLabels.lastViewed}} {{task.lastViewedDate |
+                  date:'dd/MM/yyyy'}}</p>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card-title>
         <p class="training-desc">
-          {{task.description}}
+          {{task.videos[0].videoDescription}}
         </p>
       </ion-card-content>
     </ion-card>

@@ -1,0 +1,81 @@
+{
+    "courseId": 1,
+    "courseName" :"Uniform And Appearance Policy",
+    "videoTitle" :"Uniform And Appearance Policy",
+    "postedDate": "2018-01-01",
+    "lastViewedDate": "2018-01-01",
+    "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+    "videos":[
+        {
+           "videoTitle" :"Uniform And Appearance Policy",
+           "videoLink":"assets/videos/bunny720.mp4",
+           "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+
+        },
+         {
+           "videoTitle" :"Platform And Smart Safety",
+           "videoLink":"assets/videos/bunny720.mp4",
+           "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+        },
+         {
+           "videoTitle" :"Basic Rails",
+           "videoLink":"assets/videos/bunny720.mp4",
+           "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+
+        }
+    ]
+},
+{
+    "courseId": 2,
+    "courseName" :"Course Name 2",
+    "videoTitle" :"Course Name 2",
+    "postedDate": "2018-01-01",
+    "lastViewedDate": "2018-01-01",
+    "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+     "videos":[
+        {
+           "videoTitle" :"Welcome To 2018/19",
+           "videoLink":"assets/videos/bunny720.mp4",
+           "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+
+        },
+         {
+           "videoTitle" :"Basic Rails",
+           "videoLink":"assets/videos/bunny720.mp4",
+           "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+        },
+         {
+           "videoTitle" :"Uniform And Appearance Policy",
+           "videoLink":"assets/videos/bunny720.mp4",
+           "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+
+        }
+    ]
+},
+{
+    "courseId": 3,
+    "courseName" :"Uniform And Appearance Policy",
+    "videoTitle" :"Uniform And Appearance Policy",
+    "postedDate": "2018-01-01",
+    "lastViewedDate": "2018-01-01",
+    "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+      "videos":[
+        {
+           "videoTitle" :"Uniform And Appearance Policy",
+           "videoLink":"assets/videos/bunny720.mp4",
+           "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+
+        },
+         {
+           "videoTitle" :"Platform And Smart Safety",
+           "videoLink":"assets/videos/bunny720.mp4",
+           "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+        },
+         {
+           "videoTitle" :"Basic Rails",
+           "videoLink":"assets/videos/bunny720.mp4",
+           "description : "Every Employee Plays a Significant role in representing our company and contributing to our distinctive style",
+
+        }
+    ]
+}
