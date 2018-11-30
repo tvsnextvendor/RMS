@@ -1,0 +1,159 @@
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<div class="row">
+  <div class="col-md-9 p-0">
+    <div class="row mb-4">
+      <div class="col-md-1 p-0 snow-img"><img src="assets/images/snowflake.jpg">
+        <p class="cloudy">-4   <sup>o</sup>C</p>
+        <p>CLOUDY</p>
+      </div>
+      <div class="dashboard-header col-md-10">
+        <h4>{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.comma}} {{dashboardVar.employeeTabText.name}}{{dashboardVar.symbols.apostrophe}}</h4>
+        <p class="p-color">{{dashboardVar.employeeTabText.notification}} <b class="click-color">{{dashboardVar.btns.editTasks}}</b></p>
+        <button class="btn_alg">{{dashboardVar.btns.quickTasks}}</button>
+        <button class="btn_alg">{{dashboardVar.btns.openCalendar}}</button>
+      </div>
+    </div>
+    <div class="row course-section mb-3">
+      <div class="col-md-4 pl-0">
+         <div class=" chart-bg">
+         <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+        {{dashboardVar.resortGridsTitle.visitors}}</h6>
+        <div id="visitors" style=" height: 100px; margin: 0 auto"></div>
+      </div>
+      </div>
+      <div class="col-md-4 pl-0">
+         <div class=" chart-bg">
+         <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+      {{dashboardVar.resortGridsTitle.staff}}</h6>
+      <div id="staff" style=" height: 100px; margin: 0 auto"></div>
+    </div>
+      </div>
+      <div class="col-md-4 pl-0">
+         <div class=" chart-bg">
+        <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+      {{dashboardVar.resortGridsTitle.feedbackRating}}</h6>
+      <canvas id="rating"  height="110"></canvas>
+    </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 p-0">
+    <div class="side-widget">
+            <div class=" chart-bg">
+              <div class="keyheader">
+                <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i> Key Stats</h6>
+              </div>
+              <div class="key-content">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="small-txt">New Employees (This week)</p>
+                    <h3>10</h3>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="week-growth">Weekly Growth</p>
+                    <span class="growth-percen text-success">14%</span>
+                  </div>
+                </div>
+
+                <div class="recent-command col-md-12">
+                  <h6 class="recent-command-tit">Recent Comment</h6>
+                  <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                </div>
+              </div>
+            </div>
+          </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="row">
+
+<!--   <div class="col-sm-6">
+    <h4>{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.apostrophe}}</h4>
+    <p>{{dashboardVar.employeeTabText.notification}} <b>{{dashboardVar.btns.editTasks}}</b></p>
+    <button mat-stroked-button>{{dashboardVar.btns.quickTasks}}</button>
+    <button mat-stroked-button>{{dashboardVar.btns.openCalendar}}</button>
+ </div> -->
+
+</div>
+
+<div class="row mb-3">
+
+    <div class="col-sm-3 pl-0">
+       <div class=" chart-bg">
+          <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+            {{dashboardVar.resortGridsTitle.visitorsByResort}}</h6>
+            <div id="visitorsByResort" style="height: 200px;"></div>
+      </div>  
+    </div>
+
+      <div class="col-sm-3 pl-0" >
+         <div class=" chart-bg">
+          <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+            {{dashboardVar.resortGridsTitle.reservationByResort}}</h6>
+            <!-- <angular-d3-donut *ngIf = "this.donutEnable" [id]="reservationByResort" [data]="donutChartData" [middleText]="'Total 100%'" [innerRadius]=100 ></angular-d3-donut> -->
+            <div id="donutContainer" style="height: 200px;"></div>
+          </div>
+      </div>
+
+      <div class="col-sm-6 pl-0">
+        <div class="chart-bg">
+          <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+            {{dashboardVar.resortGridsTitle.topResorts}}</h6>
+            <div class="custom-table">
+            <table class="table">
+                <tbody>
+                  <tr *ngFor="let item of dashboardVar.topResorts">
+                    <td>
+                      {{item.id}}.{{item.name}}
+                    </td>
+                    <td>
+                        <ng-template #t let-fill="fill">
+                            <span class="star" [class.full]="fill === 100">
+                              <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
+                            </span>
+                          </ng-template>
+                      <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+
+</div>
+
+
+  <div class="chart-bg">
+    <div class="row">
+      <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>  {{dashboardVar.resortGridsTitle.resort}}</h6>
+    <div class="col-md-4 ">
+        <h6>Total Employee</h6>
+          
+            <div id="totalemployee" style="height: 200px;"></div>
+           
+      </div>
+
+<div class="col-md-4"> <h6 >Task</h6>
+  <div id="task" style="height: 200px;"></div>
+</div>
+<div class="col-md-4 badge-section">
+  <h6>{{dashboardVar.resortGridsTitle.badges}}</h6>
+  <div class="row">
+    <div class="col-sm-6 badge-li pl-0" *ngFor="let badge of Badges"><span class="badge">{{badge.label}}</span><span class="badge-color"> {{badge.value}}</span></div>
+  </div>
+  <h6 >{{dashboardVar.resortGridsTitle.certification}}</h6>
+  <li *ngFor="let badgeC of BadgesCertificate"> 
+    <span class="badge">{{badgeC.label}}</span> <span class="Bbadge-color">{{badgeC.value}}</span>
+  </li>
+</div>
+</div>
+</div>
+
+
+

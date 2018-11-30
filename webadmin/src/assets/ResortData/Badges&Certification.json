@@ -1,0 +1,32 @@
+{
+      "Badges": [
+        {
+          "id": 0,
+          "label": "3 days Streak",
+          "value": 11,
+          "color": "#FE8C79"
+        }, {
+          "id": 1,
+          "label": "5 days Streak",
+          "value": 6,
+          "color": "#FF87AD"
+        }, {
+          "id": 2,
+          "label": "Midnight Owl",
+          "value": 5,
+          "color": "#9CCF43"
+        }, {
+          "id": 3,
+          "label": "Stalkers",
+          "value": 8,
+          "color": "#249DD1"
+        }
+      ],
+      "Certification": [
+        {
+          "label":"Total no. of Certification",
+          "value": 11,
+          "color": "#4090B5"
+        }
+      ]
+  }
