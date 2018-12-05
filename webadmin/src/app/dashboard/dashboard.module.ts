@@ -8,6 +8,7 @@ import { DoughnutChartComponent } from 'angular-d3-charts'; // this is needed!
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule } from '../shared/shared.module';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   imports: [
@@ -15,8 +16,9 @@ import {SharedModule } from '../shared/shared.module';
     MaterialModule,
     FormsModule,
     NgbModule,
-    SharedModule
-    
+    SharedModule,
+    CarouselModule.forRoot()
+
     ],
   declarations: [
     DashboardComponent,

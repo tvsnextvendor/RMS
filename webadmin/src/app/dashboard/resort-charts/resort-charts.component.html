@@ -58,17 +58,27 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <p class="small-txt">New Employees (This week)</p>
-                    <h3>10</h3>
+                    <h3>{{dashboardVar.newEmployee}}</h3>
                   </div>
                   <div class="col-sm-6">
                     <p class="week-growth">Weekly Growth</p>
-                    <span class="growth-percen text-success">14%</span>
+                    <span class="growth-percen text-success">{{dashboardVar.weekGrowth}}{{dashboardVar.symbols.percentage}}</span>
                   </div>
                 </div>
 
                 <div class="recent-command col-md-12">
-                  <h6 class="recent-command-tit">Recent Comment</h6>
-                  <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                  <h6 class="recent-command-tit">{{dashboardVar.recentComment}}</h6>
+                    <carousel>
+                        <slide>
+                            <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                          </slide>
+                        <slide>
+                            <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                          </slide>
+                        <slide>
+                            <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                          </slide>
+                      </carousel>
                 </div>
               </div>
             </div>
@@ -136,7 +146,6 @@
             </div>
           </div>
       </div>
-
 </div>
 
 

@@ -1,2 +1,8 @@
-<router-outlet> </router-outlet>
+<div id="wrapper">
+    <app-sidebar *ngIf="authGuard.showSidebar"></app-sidebar>
+    <div id="" [ngClass] = "!authGuard.showSidebar ? 'login_page' : 'page-content-wrapper'">
+            <app-header *ngIf="authGuard.showHeader"></app-header>
+            <router-outlet> </router-outlet>
+    </div>
+</div>
 
