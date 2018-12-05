@@ -21,7 +21,7 @@ export class HomePage {
   dashboardInfo: any = {};
   trainingDatas: any = {};
 
-  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage,public toastrCtrl:ToastController) {
+  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public toastrCtrl: ToastController) {
     this.currentdate = new Date();
   }
   //first load
@@ -39,8 +39,8 @@ export class HomePage {
       });
       this.dashboardInfo = data;
       this.trainingDatas = this.dashboardInfo.training;
-     // console.log(this.dashboardInfo);
-     // debugger;
+      // console.log(this.dashboardInfo);
+      // debugger;
     });
   }
 }

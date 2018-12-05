@@ -139,3 +139,11 @@ a{
 a:hover {
     text-decoration: none;
 }
+
+button:focus {
+    outline: none;
+    outline: none;
+}
+.item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-has-focus .item-inner,.list-md .item-input.item-input-has-focus:last-child, .list-md .item-input.input-has-focus:last-child{
+    box-shadow: none;
+}
