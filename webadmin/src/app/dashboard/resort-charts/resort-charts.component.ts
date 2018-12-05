@@ -4,6 +4,7 @@ import {HttpService} from '../../services/http.service';
 declare var require: any;
 const Highcharts = require('highcharts');
 import Chart from 'chart.js';
+import { API_URL } from 'src/app/Constants/api_url';
 
 @Component({
   selector: 'app-resort-charts',
@@ -16,11 +17,14 @@ export class ResortChartsComponent implements OnInit {
     Badges = [];
     BadgesCertificate = [];
 
-  constructor(private dashboardVar: DashboardVar, private http: HttpService) { }
+  constructor(private dashboardVar: DashboardVar, private http: HttpService) {
+    this.dashboardVar.url=API_URL.URLS;
+   }
 
   ngOnInit() {
     this.topResorts();
     this.badgesCertification();
+    this.getKeyStat();
     setTimeout(() => {
     this.visitorsByResortPie();
     this.visitorsLineChart();
@@ -32,15 +36,26 @@ export class ResortChartsComponent implements OnInit {
     }, 1000);
   }
 
+  getKeyStat() {
+    this.http.get(this.dashboardVar.url.getKeyStat).subscribe((data) => {
+        const keyStat= data;
+        this.dashboardVar.newEmployee=keyStat.NewEmployees;
+        this.dashboardVar.weekGrowth=keyStat.WeeklyGrowth;
+        this.dashboardVar.recentComments=keyStat.RecentComments;
+
+      });
+  }
+
+
   topResorts() {
-    this.http.get('./assets/ResortData/resort-charts.json').subscribe((data) => {
+    this.http.get(this.dashboardVar.url.getTopResorts).subscribe((data) => {
       this.dashboardVar.topResorts = data.resortCharts.TopResorts;
       console.log(this.dashboardVar.topResorts);
     });
   }
 
   badgesCertification() {
-    this.http.get('./assets/ResortData/Badges&Certification.json').subscribe((data) => {
+    this.http.get(this.dashboardVar.url.getBadgesAndCertification).subscribe((data) => {
         this.dashboardVar.badgesCertification = data;
         this.Badges = this.dashboardVar.badgesCertification.Badges;
         this.BadgesCertificate = this.dashboardVar.badgesCertification.Certification;
@@ -373,7 +388,7 @@ visitorsByResortPie() {
 }
 
 reservationByResort() {
-    this.http.get('./assets/ResortData/ReservationByResort.json').subscribe((resp) => {
+    this.http.get(this.dashboardVar.url.getReservationByResort).subscribe((resp) => {
         const donutChartData = resp.ReservationByResort;
         this.donutEnable = true;
         const labels = donutChartData.labels;

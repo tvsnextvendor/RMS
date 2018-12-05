@@ -1,0 +1,29 @@
+.upload-file{
+  width: 100%;
+  height: 200px;
+  border: 2px dashed #D5D9E3;
+  background-color: #F5F6FA;
+}
+.upload-file .upload-content{
+     width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #B4BED6;
+    font-family: Arial;
+    margin-top: 70px;
+}
+.upload-file input{
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+}
+.upload-content h5{
+color: #B4BED6;
+text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0px;
+}

@@ -1,0 +1,57 @@
+
+  <div>  
+      <h4>{{title}}</h4>
+      <span class="float-right">
+        <label >Export to</label>
+        <button class ="btn btn-link" type="button" (click)="exportAsXLSX()">Excel</button>
+        <button class ="btn btn-link" type="button" (click)="captureScreen()">PDF</button>
+        
+      </span>     
+  </div>
+      <div class="table-responsive custom-table2">
+        <table class="table table-striped white-bg" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="5">
+            <thead>
+            <tr class="th-boxshadow">
+                <th>
+                    <mfDefaultSorter by="employeeName">Employee Name</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="employeeGroup">Employee Group</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="assignedCount">Assigned Count</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="inProgressCount">In Progress Count</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="completedCount">Completed Count</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="ratings">Ratings</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="total">Total</mfDefaultSorter>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let emp of mf.data">
+                <td>{{ emp.employeeName }}</td>
+                <td>{{ emp.employeeGroup }}</td>
+                <td>{{ emp.assignedCount }}</td>
+                <td>{{ emp.inProgressCount }}</td>
+                <td>{{ emp.completedCount }}</td>
+                <td>{{ emp.ratings }}</td>
+                <td>{{ emp.total }}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+      </div>

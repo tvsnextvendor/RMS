@@ -3,9 +3,8 @@ import {DashboardVar} from '../../Constants/dashboard.var';
 declare var require: any;
 const Highcharts = require('highcharts');
 import { HttpService } from '../../services/http.service';
+import { API_URL } from 'src/app/Constants/api_url';
 
-
-declare var CanvasJS: any;
 @Component({
   selector: 'app-employee-charts',
   templateUrl: './employee-charts.component.html',
@@ -16,19 +15,17 @@ export class EmployeeChartsComponent implements OnInit {
 
      donutChartData = [];
      donutEnable = false;
-
-  constructor(private dashboardVar: DashboardVar, private http: HttpService) {
-
+     
+     constructor(private dashboardVar: DashboardVar, private http: HttpService) {
+      this.dashboardVar.url=API_URL.URLS;
    }
 
   ngOnInit() {
-    this.http.get('./assets/EmployeeData/Courses.json').subscribe((data) => {
+    this.http.get(this.dashboardVar.url.getCourses).subscribe((data) => {
       this.dashboardVar.courses = data;
-      console.log(this.dashboardVar.courses);
     });
-
-  //  this.getCoursesJson();
-    setTimeout(() => {
+    this.getKeyStat();
+    setTimeout(() => {       
       this.totalCoursesLine();
       this.videosTrendStackBar();
       this.employeeProgressPie();
@@ -37,12 +34,18 @@ export class EmployeeChartsComponent implements OnInit {
       this.topEmployees();
       this.totalNoOfBadges();
       this.certificationTrend();
-      // this.chart();
     }, 1000);
   }
 
 
-  getCoursesJson() {
+  getKeyStat() {
+    this.http.get(this.dashboardVar.url.getKeyStat).subscribe((data) => {
+        const keyStat= data;
+        this.dashboardVar.newEmployee=keyStat.NewEmployees;
+        this.dashboardVar.weekGrowth=keyStat.WeeklyGrowth;
+        this.dashboardVar.recentComments=keyStat.RecentComments;
+
+      });
   }
 
 totalCoursesLine() {
@@ -436,7 +439,7 @@ legend: {
   }
 
 topEmployees() {
-  this.http.get('./assets/EmployeeData/TopEmployees.json').subscribe((data) => {
+  this.http.get(this.dashboardVar.url.getTopEmployees).subscribe((data) => {
     this.dashboardVar.topEmployees = data.TopEmployees;
   });
 }
@@ -444,7 +447,7 @@ topEmployees() {
   // get total number of badges and display in chart
   totalNoOfBadges() {
 
-    this.http.get('./assets/EmployeeData/NoOfBadges.json').subscribe((resp) => {
+    this.http.get(this.dashboardVar.url.getTotalNoOfBadges).subscribe((resp) => {
       const donutChartData = resp.NoOfBadgesDonut;
       this.donutEnable = true;
       // console.log(donutChartData);
