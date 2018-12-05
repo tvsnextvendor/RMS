@@ -35,4 +35,7 @@ export class LoginPage {
         });
 
     }
+    goToSignUp(){
+        this.navCtrl.setRoot('signup-page');
+    }
 }
