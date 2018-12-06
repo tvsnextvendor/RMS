@@ -3,15 +3,15 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { HttpProvider } from '../../providers/http/http';
 //import { API_URL } from '../../constants/API_URLS.var';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Constant } from '../../constants/Constant.var';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
-
-
 
 @IonicPage({ name: 'signup-page' })
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
+  providers: [Constant]
 })
 export class SignupPage implements OnInit {
   signupform: FormGroup;
@@ -21,7 +21,7 @@ export class SignupPage implements OnInit {
     "phoneNumber": ""
   }
   scopes;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpProvider, public toastrCtrl: ToastController, public googlePlus: GooglePlus, public linkedin: LinkedIn) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpProvider, public toastrCtrl: ToastController, public googlePlus: GooglePlus, public linkedin: LinkedIn, public constant: Constant) {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
@@ -37,8 +37,6 @@ export class SignupPage implements OnInit {
   }
   signupfn() {
     console.log(this.signup);
-
-
     let toast = this.toastrCtrl.create({
       message: 'Sign up successfully',
       duration: 2000,
@@ -46,8 +44,6 @@ export class SignupPage implements OnInit {
       cssClass: 'error'
     });
     toast.present();
-
-
     //API_URL.URLS.doSignup
     // this.http.post('/signup', this.signup).subscribe((data) => {
     //   console.log(data);

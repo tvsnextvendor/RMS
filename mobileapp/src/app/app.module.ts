@@ -8,6 +8,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupPageModule } from '../pages/signup/signup.module';
 import { LoginPageModule } from '../pages/login/login.module';
+import { ForgetPageModule } from '../pages/forget/forget.module';
 import { HomePageModule } from '../pages/home/home.module';
 import { TrainingPageModule } from '../pages/training/training.module';
 import { TrainingDetailPageModule } from '../pages/training-detail/training-detail.module';
@@ -39,6 +40,7 @@ import { LinkedIn } from '@ionic-native/linkedin';
     IonicStorageModule.forRoot(),
     SignupPageModule,
     LoginPageModule,
+    ForgetPageModule,
     HomePageModule,
     TrainingPageModule,
     TrainingDetailPageModule,

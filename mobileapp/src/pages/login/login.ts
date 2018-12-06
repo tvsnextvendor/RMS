@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { AuthProvider } from '../../providers/auth/auth';
+import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
 
 @IonicPage({
@@ -9,7 +10,8 @@ import { Storage } from '@ionic/storage';
 })
 @Component({
     selector: 'page-login',
-    templateUrl: 'login.html'
+    templateUrl: 'login.html',
+    providers: [Constant]
 })
 export class LoginPage {
 
@@ -18,7 +20,7 @@ export class LoginPage {
         pw: ''
     }
     paramsObj: any = {};
-    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, private alertCtrl: AlertController,public storage: Storage) {
+    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, private alertCtrl: AlertController,public storage: Storage,public constant:Constant) {
     }
     doLogin() {
         this.authService.login(this.user.name, this.user.pw).then(success => {
@@ -37,5 +39,8 @@ export class LoginPage {
     }
     goToSignUp(){
         this.navCtrl.setRoot('signup-page');
+    }
+    goToForget(){
+        this.navCtrl.setRoot('forget-page');
     }
 }

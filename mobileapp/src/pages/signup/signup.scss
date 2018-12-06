@@ -77,6 +77,9 @@ page-signup {
     background-color: #329CD6;
 
 }
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
+    border-bottom: none;
+}
 // Error Messages Validations
 .error {
     color: #df3e3e;
@@ -87,6 +90,5 @@ page-signup {
 
   .error1 {
     color: rgb(75, 75, 75);
-    border-bottom: 1px solid #ff0000;
   }
 }
