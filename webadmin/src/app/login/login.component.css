@@ -41,7 +41,7 @@
     color: #495057;
 }
 .login-btn{
-    width: 125px;
+    min-width: 125px;
     height: 38px;
     float: none;
     border-radius: 20px;
@@ -55,15 +55,19 @@ form{
     position: absolute;
     right: 5px;
     font-size: 20px;
+    line-height: 40px;
 }
 .forgot-pwd{
-    text-align: center;
+    float: right;
+    cursor: pointer;
 }
 
 .required_color{
-    margin-top:20px;
-	color: #f44336;
+	    color: #f44336;
     font-size: 12px;
+    display: block;
+    width: 100%;
+    margin-top: 15px;
 }
 .pwd-content {
     font-size: 12px;
@@ -72,4 +76,64 @@ form{
     width: 80%;
     margin: 0px auto;
     padding: 15px 0 0 0;
+}
+.login-input{
+   margin-bottom: 50px;    
+}
+.login-input, .forgot-pwd, .logged-in{
+   font-size: 12px;
+   color: #495057;
+}
+.hole-cont {
+    position: relative;
+    padding-left: 27px;
+    cursor: pointer;
+    font-size: 12px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    float: left;
+    color: #495057;
+}
+.hole-cont input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+.hole-cont input:checked ~ .checkmark {
+    background-color: #ccc;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.hole-cont input:checked ~ .checkmark:after {
+    display: block;
+}
+.hole-cont .checkmark:after {
+    left: 7px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.sent-btn{
+    float: none;
 }

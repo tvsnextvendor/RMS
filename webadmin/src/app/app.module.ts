@@ -16,16 +16,21 @@ import { FormsModule }   from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard.component';
 import {QuizModule} from './quiz/quiz.module';
+import {GroupModule} from './group/group.module';
 import { ExcelService } from './services/excel.service';
+import { PDFService } from './services/pdf.service';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { EmployeestatusComponent } from './employeestatus/employeestatus.component';
+import { EmployeedetailsComponent } from './employeedetails/employeedetails.component';
+import {SettingsModule} from './settings/settings.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ResetpasswordComponent,
-    EmployeestatusComponent
+    EmployeestatusComponent,
+    EmployeedetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,12 +43,15 @@ import { EmployeestatusComponent } from './employeestatus/employeestatus.compone
     DataTableModule,
     QuizModule,
     MaterialModule,
+    GroupModule,
     HttpClientModule,
     SharedModule,
+    SettingsModule,
     FormsModule, 
+    GroupModule,
     
   ],
-  providers: [AuthGuard,ExcelService],
+  providers: [AuthGuard,ExcelService,PDFService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,6 +9,13 @@ import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule } from '../shared/shared.module';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { RouterModule, Routes } from '@angular/router';
+import {AuthGuard} from '../guard/auth.guard.component'
+
+
+const routes: Routes = [
+  { path: 'dashboard', component: DashboardComponent,canActivate : [AuthGuard]},
+];
 
 @NgModule({
   imports: [
@@ -17,8 +24,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     FormsModule,
     NgbModule,
     SharedModule,
-    CarouselModule.forRoot()
-
+    CarouselModule.forRoot(),
+    RouterModule.forRoot(routes)
     ],
   declarations: [
     DashboardComponent,
