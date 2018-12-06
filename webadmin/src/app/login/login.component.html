@@ -1,54 +1,42 @@
-<div class="bg-img">
-    <div class="Login clearfix clear login-page">
-        <form #formDir="ngForm" (ngSubmit)="submitLogin(formDir.value,forgetPasswordStatus)" class="col-xs-3 col-xs-offset-4">
-            <!-- Title -->
-            <div *ngIf="!forgetPasswordStatus" class="login-text">Login</div>
-            <div *ngIf="forgetPasswordStatus" class="login-text text-center">Forgot password <p class="pwd-content">Please
-                    enter your email ID to reset your password</p>
-            </div>
-            <!-- Form -->
-            <div class="login-input">
-                <div class="input-group">
-                    <input class="form-control input-alg" [(ngModel)]="loginvar.email" name="email" placeholder="Email or Username"
-                        #user="ngModel" autocomplete="off" required>
-                    <span class="input-group-addon"><i class="fa fa-envelope-o icon" aria-hidden="true"></i></span>
 
+            <div class="bg-img">
+                <div class="Login clearfix clear login-page">
+                    <form #formDir="ngForm" (ngSubmit)="submitLogin(formDir.value,forgetPasswordStatus)" class="col-xs-3 col-xs-offset-4">
+                        <!-- Title -->
+                        <div *ngIf="!forgetPasswordStatus" class="login-text">Login</div>
+                        <div *ngIf="forgetPasswordStatus" class="login-text text-center">Forgot password <p class="pwd-content">Please enter your email ID to reset your password</p></div>
+                       <!-- Form -->
+                        <div class="input-group login-input">
+                            <input class="form-control input-alg" [(ngModel)]="loginvar.email" name="email" placeholder="Email or Username" #user="ngModel" autocomplete="off" required>
+                            <span class="input-group-addon"><i class="fa fa-envelope-o icon" aria-hidden="true"></i></span>
+                            <span class="required_color" *ngIf="formDir.form.controls.email && formDir.form.controls.email.invalid && (formDir.submitted || formDir.form.controls.email.touched)">
+                                    Email is Required
+                                </span>
+                        </div>
+                        <div *ngIf="!forgetPasswordStatus" class="input-group login-input">
+                            <input id="password" type="password" class="form-control input-alg" [(ngModel)]="loginvar.password" #Pwd="ngModel" name="password" placeholder="Password" required>
+                            <span class="input-group-addon"><i class="fa fa-key icon" aria-hidden="true"></i></span> 
+                            <span class="required_color" *ngIf="formDir.form.controls.password && formDir.form.controls.password.invalid && (formDir.submitted || formDir.form.controls.password.touched)">
+                                Password is Required
+                            </span>
+                        </div>
+                        <div  class="form-group clearfix">
+                        <label class="hole-cont">Keep me logged in
+                          <input type="checkbox" checked="checked">
+                          <span class="checkmark"></span>
+                           </label>    
+                            <span  *ngIf="!forgetPasswordStatus" class="forgot-pwd" (click) = "forgetPasswordStatus = !forgetPasswordStatus">Forgot Password?</span>
+                        </div>
+                        <div   *ngIf="!forgetPasswordStatus" class="form-group">
+                            <button  type="submit" class="btn btn-primary login-btn">Login</button>
+                            
+                        </div>
+                        <!-- forget password -->
+                        <div  *ngIf="forgetPasswordStatus"  class="form-group">                           
+                            <button  type="button" (click) = "forgetPasswordStatus = !forgetPasswordStatus" class="btn btn-default mr-3">Back</button>
+                             <button  type="submit"  class="btn btn-primary sent-btn">Send</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="required_color" *ngIf="formDir.form.controls.email && formDir.form.controls.email.invalid && (formDir.submitted || formDir.form.controls.email.touched)">
-                    Email is Required
-                </div>
             </div>
-
-            <div *ngIf="!forgetPasswordStatus" class="login-input">
-
-                <div class="input-group">
-                    <input id="password" type="password" class="form-control input-alg" [(ngModel)]="loginvar.password"
-                        #Pwd="ngModel" name="password" placeholder="Password" required>
-                    <span class="input-group-addon"><i class="fa fa-key icon" aria-hidden="true"></i></span>
-                </div>
-                <div class="required_color" *ngIf="formDir.form.controls.password && formDir.form.controls.password.invalid && (formDir.submitted || formDir.form.controls.password.touched)">
-                    Password is Required
-                </div>
-
-            </div>
-
-
-
-
-
-            <div class="form-group">
-                <a *ngIf="!forgetPasswordStatus" class="btn btn-link forgot-pwd" (click)="forgetPasswordStatus = !forgetPasswordStatus">Forgot
-                    Password?</a>
-            </div>
-            <div *ngIf="!forgetPasswordStatus" class="form-group">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
-
-            </div>
-            <!-- forget password -->
-            <div *ngIf="forgetPasswordStatus" class="form-group text-center">
-                <button type="submit" class="btn btn-primary">Send</button>
-                <button type="button" (click)="forgetPasswordStatus = !forgetPasswordStatus" class="btn btn-default">Back</button>
-            </div>
-        </form>
-    </div>
-</div>
+           

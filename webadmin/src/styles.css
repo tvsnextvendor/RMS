@@ -33,7 +33,11 @@ background-color: #468FB9;
     float: right;
   
 }
-button,.btn{ 
+.btn-default{
+    border: 2px solid #468FB9;
+    background-color: #fff;
+}
+.btn{ 
     font-size: 12px;  min-width: 80px;text-transform: uppercase;}
 /*************** sidebar ********************/
 #wrapper {
@@ -172,7 +176,7 @@ li.search-block {
 }
 /************************ Common colors ***********************/
 
-.hd-alg, .icons_header, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .chart-mr,.video-edit, h6{
+.hd-alg, .icons_header, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .chart-mr,.video-edit, h6, .drp-item, .ext-txt{
   color: #468FB9;
 }
 .chart-bg,.white-bg{
@@ -195,7 +199,7 @@ li.search-block {
 .btn-alg{
   padding: 25px 0 25px 0px;
 }
-.snow-img img{width: 50%}
+.snow-img img{width: 100%}
 .cloudy{
   font-size: 25px;
   color: #468FB9;
@@ -410,6 +414,7 @@ li {
     box-shadow: 4px -2px 9px 12px #ccc;   
 }
 .custom-table2 .table thead th {
+   font-weight: 600;
     color: #737373;
 }
 .donutchat-style {
@@ -500,4 +505,30 @@ li {
     width: 40%;
 
     margin: 0 auto;
+}
+.add-video-header ul.nav.nav-tabs {
+    margin-bottom: 20px;
+    background-color: #fff;
+    width: 260px;
+    height: 51px;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+.add-video-header ul li.nav-item.active {
+    border-bottom: 2px solid #007bff;
+}
+.add-video-header ul li.nav-item{
+    width: 128px;
+}
+.add-video-header ul li a.nav-link.active {
+    border: none;
+    text-align: center;
+    color: #007fbb;
+}
+.add-video-header .nav-tabs .nav-link:hover {
+    border-color: transparent;
+    color: #007fbb;
+}
+.add-video-header ul li a.nav-link{
+	text-align: center;
 }

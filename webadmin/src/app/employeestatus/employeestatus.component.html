@@ -1,42 +1,47 @@
 
-  <div>  
+   <div>  
       <h4>{{title}}</h4>
       <span class="float-right">
-        <label >Export to</label>
-        <button class ="btn btn-link" type="button" (click)="exportAsXLSX()">Excel</button>
-        <button class ="btn btn-link" type="button" (click)="captureScreen()">PDF</button>
-        
+        <div class="dropdown show mb-3">
+            <label class="ext-txt mb-0 mr-2">{{labels.exportTo}}</label>
+          <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">PDF</span></a>
+            <div class="dropdown-menu drp-dwn" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{labels.btns.excel}}</a>
+                <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{labels.btns.pdf}}</a>             
+            </div>
+        </div>             
       </span>     
   </div>
       <div class="table-responsive custom-table2">
-        <table class="table table-striped white-bg" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="5">
+        <table class="table table-striped white-bg" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="10" (click)="goToEmpDetails()" id="contentToConvert">
+
             <thead>
-            <tr class="th-boxshadow">
+            <tr class="th-boxshadow"  class="text-center">
                 <th>
-                    <mfDefaultSorter by="employeeName">Employee Name</mfDefaultSorter>
+                    <mfDefaultSorter by="employeeName">{{labels.tableTitle.employeeName}}</mfDefaultSorter>
                 </th>
                 <th>
-                    <mfDefaultSorter by="employeeGroup">Employee Group</mfDefaultSorter>
+                    <mfDefaultSorter by="employeeGroup">{{labels.tableTitle.employeeGroup}}</mfDefaultSorter>
                 </th>
                 <th>
-                    <mfDefaultSorter by="assignedCount">Assigned Count</mfDefaultSorter>
+                    <mfDefaultSorter by="assignedCount">{{labels.tableTitle.assignedCount}}</mfDefaultSorter>
                 </th>
                 <th>
-                    <mfDefaultSorter by="inProgressCount">In Progress Count</mfDefaultSorter>
+                    <mfDefaultSorter by="inProgressCount">{{labels.tableTitle.inProgressCount}}</mfDefaultSorter>
                 </th>
                 <th>
-                    <mfDefaultSorter by="completedCount">Completed Count</mfDefaultSorter>
+                    <mfDefaultSorter by="completedCount">{{labels.tableTitle.completedCount}}</mfDefaultSorter>
                 </th>
                 <th>
-                    <mfDefaultSorter by="ratings">Ratings</mfDefaultSorter>
+                    <mfDefaultSorter by="ratings">{{labels.tableTitle.ratings}}</mfDefaultSorter>
                 </th>
                 <th>
-                    <mfDefaultSorter by="total">Total</mfDefaultSorter>
+                    <mfDefaultSorter by="total">{{labels.tableTitle.total}}</mfDefaultSorter>
                 </th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let emp of mf.data">
+            <tr *ngFor="let emp of mf.data" class="text-center">
                 <td>{{ emp.employeeName }}</td>
                 <td>{{ emp.employeeGroup }}</td>
                 <td>{{ emp.assignedCount }}</td>
@@ -45,10 +50,13 @@
                 <td>{{ emp.ratings }}</td>
                 <td>{{ emp.total }}</td>
             </tr>
+            <tr *ngIf="mf.data?.length == 0">
+                <td colspan="5" class="text-center data-design">{{labels.noData}}</td>
+            </tr>
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="4">
+                <td colspan="7">
                     <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
                 </td>
             </tr>
