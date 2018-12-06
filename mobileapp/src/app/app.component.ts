@@ -10,16 +10,18 @@ import { ProfilePage } from '../pages/profile/profile';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { SettingsPage } from '../pages/settings/settings';
 import { AuthProvider } from '../providers/auth/auth';
+import { AppVersion } from '@ionic-native/app-version';
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers:[AppVersion]
 })
 export class MyApp {
 
   @ViewChild(Nav) nav; Nav;
   rootPage: any = LoginPage;
   pages: Array<{ title: string, component: any }>;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, private appVersion: AppVersion) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -32,6 +34,7 @@ export class MyApp {
       { title: 'Calendar', component: CalendarPage },
       { title: 'Settings', component: SettingsPage }
     ];
+    this.appDetails();
   }
 
   openPage(page) {
@@ -40,6 +43,21 @@ export class MyApp {
   logOut() {
     this.authService.logout();
     this.nav.setRoot('login-page');
+  }
+  appDetails() {
+
+    let appName = this.appVersion.getAppName();
+    let packageName = this.appVersion.getPackageName();
+    let versionCode = this.appVersion.getVersionCode();
+    let versionNumber = this.appVersion.getVersionNumber();
+
+
+    console.log(appName);
+    console.log(packageName);
+    console.log(versionCode);
+    console.log(versionNumber);
+
+
   }
 }
 
