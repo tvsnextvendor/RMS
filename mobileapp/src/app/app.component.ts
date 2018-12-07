@@ -11,17 +11,18 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import { SettingsPage } from '../pages/settings/settings';
 import { AuthProvider } from '../providers/auth/auth';
 import { AppVersion } from '@ionic-native/app-version';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'app.html',
-  providers:[AppVersion]
+  providers: [AppVersion]
 })
 export class MyApp {
-
   @ViewChild(Nav) nav; Nav;
   rootPage: any = LoginPage;
   pages: Array<{ title: string, component: any }>;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, private appVersion: AppVersion) {
+  currentUser;
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, private appVersion: AppVersion, public storage: Storage) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -35,8 +36,8 @@ export class MyApp {
       { title: 'Settings', component: SettingsPage }
     ];
     this.appDetails();
+    this.getDetails();
   }
-
   openPage(page) {
     this.nav.setRoot(page.component);
   }
@@ -44,20 +45,28 @@ export class MyApp {
     this.authService.logout();
     this.nav.setRoot('login-page');
   }
+  getDetails() {
+    let self = this;
+    this.storage.get('currentUser').then(
+      (val) => {
+        if (val) {
+          self.currentUser = val
+        }
+        console.log(self.currentUser);
+        console.log('self.currentUser');
+      }, (err) => {
+        console.log('currentUser not received in app.component.ts', err);
+      });
+  }
   appDetails() {
-
     let appName = this.appVersion.getAppName();
     let packageName = this.appVersion.getPackageName();
     let versionCode = this.appVersion.getVersionCode();
     let versionNumber = this.appVersion.getVersionNumber();
-
-
     console.log(appName);
     console.log(packageName);
     console.log(versionCode);
     console.log(versionNumber);
-
-
   }
 }
 

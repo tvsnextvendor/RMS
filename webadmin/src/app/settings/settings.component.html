@@ -1,44 +1,36 @@
 <div class="white-bg">
+    <div class="setting-alg">
         <form #formDir="ngForm"  (ngSubmit)="updatePwd()" class="p-4">
-        <div class="form-group row">
-                <div class="col-sm-1"></div>
+        <div class="form-group row">                
                     <label for="oldPassword" class="col-sm-3 custm-label col-form-label">Old Password</label>
-                    <div class="col-sm-8" >
+                    <div class="col-sm-9" >
                         <input type="text" class="form-control" id="oldPwd" name="oldPwd"
-                        [(ngModel)]="settings.oldPwd" #oldPwd="ngModel" required>  
-                        <span class="required_color" *ngIf="oldPwd && oldPwd.invalid && (formDir.submitted || oldPwd.touched)">
-                                Old Password is required
-                            </span>           
+                        [(ngModel)]="settings.oldPwd" #oldPwd="ngModel" required placeholder="************************">  
+                        <span class="required_color" *ngIf="oldPwd && oldPwd.invalid && (formDir.submitted || oldPwd.touched)">Old Password is required</span>           
                     </div>
             </div>
-            <div class="form-group row">
-                    <div class="col-sm-1"></div>
+            <div class="form-group row">                   
                     <label for="newPassword" class="col-sm-3 custm-label col-form-label">New Password</label>
-                    <div class="col-sm-8" >
+                    <div class="col-sm-9" >
                         <input type="text" class="form-control" id="newPwd" name="newPwd"
-                        [(ngModel)]="settings.newPwd" #newPwd="ngModel" required>  
-                        <span class="required_color" *ngIf="newPwd && newPwd.invalid && (formDir.submitted || newPwd.touched)">
-                                New Password is required
-                            </span>           
+                        [(ngModel)]="settings.newPwd" #newPwd="ngModel" required placeholder="************************">  
+                        <span class="required_color" *ngIf="newPwd && newPwd.invalid && (formDir.submitted || newPwd.touched)"> New Password is required</span>                                  
                     </div>
                 </div>
-                <div class="form-group row">
-                        <div class="col-sm-1"></div>
+                <div class="form-group row">                        
                         <label for="confirmPassword" class="col-sm-3 custm-label col-form-label">Confirm Password</label>
-
-                        <div class="col-sm-8" >
+                        <div class="col-sm-9" >
                             <input type="text" class="form-control" id="confirmPwd" name="confirmPwd"
-                            [(ngModel)]="settings.confirmPwd" #confirmPwd="ngModel" required>  
-                            <span class="required_color" *ngIf="confirmPwd && confirmPwd.invalid && (formDir.submitted || confirmPwd.touched)">
-                                    Confirm Password is required
-                            </span>           
+                            [(ngModel)]="settings.confirmPwd" #confirmPwd="ngModel" required placeholder="************************">  
+                            <span class="required_color" *ngIf="confirmPwd && confirmPwd.invalid && (formDir.submitted || confirmPwd.touched)"> Confirm Password is required</span>                                
                         </div>
                     </div>
                      <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" [disabled]=formDir.invalid class="btn btn-primary">Update</button>
-                                <button type="button" class="btn btn-primary">Cancel</button>
+                            <div class="col-md-12 pt-5 pb-3">
+                                <button type="submit" [disabled]=formDir.invalid class="btn btn-primary setting-btn mr-3">Update</button>
+                                <button type="button" class="btn btn-primary setting-btn">Cancel</button>
                             </div>
                         </div>
-                    </form>
+        </form>
+</div>
 </div>

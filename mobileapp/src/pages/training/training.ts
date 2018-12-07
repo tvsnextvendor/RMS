@@ -6,8 +6,6 @@ import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
 
-
-
 @IonicPage({
   name: 'training-page'
 })

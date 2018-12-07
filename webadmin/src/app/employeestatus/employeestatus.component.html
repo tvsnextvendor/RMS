@@ -2,9 +2,10 @@
    <div>  
       <h4>{{title}}</h4>
       <span class="float-right">
+        <div><ngx-select-dropdown (change)="onLimitChange($event)" [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Select limit'}"></ngx-select-dropdown></div>
         <div class="dropdown show mb-3">
             <label class="ext-txt mb-0 mr-2">{{labels.exportTo}}</label>
-          <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">PDF</span></a>
+          <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">{{labels.btns.pdf}}</span></a>
             <div class="dropdown-menu drp-dwn" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{labels.btns.excel}}</a>
                 <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{labels.btns.pdf}}</a>             
@@ -13,7 +14,7 @@
       </span>     
   </div>
       <div class="table-responsive custom-table2">
-        <table class="table table-striped white-bg" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="10" (click)="goToEmpDetails()" id="contentToConvert">
+        <table class="table table-striped white-bg" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="(pageLimit.length ? pageLimit : 5)" id="contentToConvert">
 
             <thead>
             <tr class="th-boxshadow"  class="text-center">
@@ -42,7 +43,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let emp of mf.data" class="text-center">
-                <td>{{ emp.employeeName }}</td>
+                <td><a (click)="goToEmpDetails()">{{ emp.employeeName }}</a></td>
                 <td>{{ emp.employeeGroup }}</td>
                 <td>{{ emp.assignedCount }}</td>
                 <td>{{ emp.inProgressCount }}</td>
@@ -57,7 +58,7 @@
             <tfoot>
             <tr>
                 <td colspan="7">
-                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                    <mfBootstrapPaginator></mfBootstrapPaginator>
                 </td>
             </tr>
             </tfoot>

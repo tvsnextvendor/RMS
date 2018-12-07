@@ -43,7 +43,7 @@
           </ion-grid>
         </ion-card-title>
         <p class="training-desc">
-          {{task.videos[0].videoDescription}}
+          {{task.videos[0].videoDescription | words : 15 }}
         </p>
       </ion-card-content>
     </ion-card>
@@ -71,7 +71,7 @@
           </ion-grid>
         </ion-card-title>
         <p class="training-desc">
-          {{task.videos[0].videoDescription}}
+          {{task.videos[0].videoDescription | words : 15 }}
         </p>
       </ion-card-content>
     </ion-card>
@@ -99,7 +99,7 @@
           </ion-grid>
         </ion-card-title>
         <p class="training-desc">
-          {{task.videos[0].videoDescription}}
+          {{task.videos[0].videoDescription | words : 15 }}
         </p>
       </ion-card-content>
     </ion-card>

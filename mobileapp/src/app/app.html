@@ -6,10 +6,12 @@
             <ion-title>Menu</ion-title>
             <ion-icon name="close" class="menu-close-button" menuClose></ion-icon>
             <!-- </ion-toolbar> -->
-
         </ion-header>
         <ion-content class="headerFull-bg sidebar-list">
             <ion-list>
+                <ion-item *ngIf="currentUser">
+                    <img src="{{currentUser.userImage}}">
+                </ion-item>
                 <button menuClose ion-item *ngFor="let p of pages" (tap)="openPage(p)">
                     {{p.title}}
                 </button>

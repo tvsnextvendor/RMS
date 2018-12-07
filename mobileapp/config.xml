@@ -85,6 +85,10 @@
     <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
     <plugin name="cordova-sqlite-storage" spec="2.5.2" />
     <plugin name="cordova-plugin-app-version" spec="0.1.9" />
+    <plugin name="cordova-plugin-googleplus" spec="5.3.2">
+        <variable name="REVERSED_CLIENT_ID" value="148431050807-virpraa9lam3asmnbe56mhloggabmflq.apps.googleusercontent.com" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="148431050807-0edt944ql6k9o1tmpf74ec7grq8111h9.apps.googleusercontent.com" />
+    </plugin>
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.4" />
 </widget>

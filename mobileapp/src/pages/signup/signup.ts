@@ -49,10 +49,25 @@ export class SignupPage implements OnInit {
     //   console.log(data);
     // });
   }
-  loginGooglePlus() {
+  loginGooglePlus() 
+  {
+    console.log("here");
+
+    console.log(this.googlePlus);
+
+
     this.googlePlus.login({})
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err =>{
+       console.log(err)
+      });
+
+
+    // this.googlePlus.login({})
+    //   .then(res => console.log(res))
+    //   .catch(err => console.log(err));
   }
 
   loginLinkedIn() {

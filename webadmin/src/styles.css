@@ -39,6 +39,25 @@ background-color: #468FB9;
 }
 .btn{ 
     font-size: 12px;  min-width: 80px;text-transform: uppercase;}
+    .custm-label {
+    padding-left: 0;
+    font-size: 15px;
+}
+.fs-12{
+font-size: 12px;
+}
+.inner-table tr {
+    background: transparent !important;
+}
+table td.td-pd {
+    padding-top: 0;
+    padding-bottom: 0px;
+}
+.s-width{
+  	width: 14px;
+  	opacity: 0.5;
+  }
+
 /*************** sidebar ********************/
 #wrapper {
   padding-left: 0;
@@ -170,10 +189,29 @@ ul li{
 li.search-block {
     position: relative;
 }
-/*************************End  Header ***********************/
-.custm-label {
-    padding-left: 0;
+.noti-pop{
+	width: 20px;
+    border-radius: 10px;
+    color: #fff !important;
+    background-color: #468FB9;
+    position: absolute;
+    top: 12px;
+    right: 127px;
+    font-size: 12px;
+    min-width: 0 !important
 }
+.drp-noti{
+	position: absolute;
+    transform: translate3d(-5px, 22px, 0px);
+    top: 20px;
+    left: -48px;
+    will-change: transform;
+}
+.dropdown-toggle .dep-cancel::after {
+	content: none;
+}
+/*************************End  Header ***********************/
+
 /************************ Common colors ***********************/
 
 .hd-alg, .icons_header, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .chart-mr,.video-edit, h6, .drp-item, .ext-txt{
@@ -531,4 +569,41 @@ li {
 }
 .add-video-header ul li a.nav-link{
 	text-align: center;
+}
+.multiselect-input delete-icon svg {
+    vertical-align: middle !important;
+    height: 29px !important;
+    position: relative !important;
+    top: -3px !important;
+}
+.multiselect-input delete-icon {
+        width: 30px !important;
+    background: #ccc;
+    height: 28px !important;
+    border-radius: 70px;
+    text-align: center !important;
+    line-height: 34px;
+}
+.multiselect-input delete-icon:hover {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+.multiselect-input .tag__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 60px;
+    line-height: 29px;
+}
+.required_color{
+      color: #f44336;
+    font-size: 12px;
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+}
+.multiselect-input tag {
+    /* min-width: 110px; */
+    padding-right: 0 !important;
+    height: 31px !important;
 }

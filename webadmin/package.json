@@ -41,6 +41,7 @@
     "jszip": "^3.1.5",
     "ngx-bootstrap": "^3.1.2",
     "ngx-chips": "^2.0.0-beta.0",
+    "ngx-select-dropdown": "^0.8.1",
     "ngx-toastr": "^9.1.1",
     "pdfmake": "^0.1.39",
     "rxjs": "^6.3.3",

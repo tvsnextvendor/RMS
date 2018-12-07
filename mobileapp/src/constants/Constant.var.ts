@@ -63,6 +63,11 @@ export class Constant {
             peers: 'Peers',
             yourAvgOnCourses: 'Your Average Score On Courses',
             viewAll: 'View All',
+            viewMore:'View More',
+            viewLess:'View Less',
+            course:'Course',
+            score:'Score',
+            average:'Average',
             download: 'Download',
             view: 'View',
             badges: 'Badges'

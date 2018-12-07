@@ -4,6 +4,7 @@ declare var require: any;
 const Highcharts = require('highcharts');
 import { HttpService } from '../../services/http.service';
 import { API_URL } from 'src/app/Constants/api_url';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-charts',
@@ -16,7 +17,7 @@ export class EmployeeChartsComponent implements OnInit {
      donutChartData = [];
      donutEnable = false;
      
-     constructor(private dashboardVar: DashboardVar, private http: HttpService) {
+     constructor(private dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
       this.dashboardVar.url=API_URL.URLS;
    }
 
@@ -46,6 +47,9 @@ export class EmployeeChartsComponent implements OnInit {
         this.dashboardVar.recentComments=keyStat.RecentComments;
 
       });
+  }
+  goToVideosTrend(){
+    this.route.navigateByUrl('/videostrend');
   }
 
 totalCoursesLine() {

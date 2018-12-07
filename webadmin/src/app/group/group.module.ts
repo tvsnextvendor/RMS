@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
-import {AuthGuard} from '../guard/auth.guard.component'
+import { FormsModule } from '@angular/forms';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { GroupComponent } from './group.component';
+import { RouterModule, Routes } from '@angular/router';
+import {DataTableModule} from "angular-6-datatable";
+import {AuthGuard} from '../guard/auth.guard.component'
 
 
 const routes: Routes = [
@@ -12,10 +15,13 @@ const routes: Routes = [
 @NgModule({
   imports: [
     BrowserModule,
+    DataTableModule,
+    FormsModule,
+    SelectDropDownModule,
     RouterModule.forRoot(routes),
     ],
   declarations: [
-      GroupComponent
+    GroupComponent
   ],
   bootstrap: [GroupComponent]
 })
