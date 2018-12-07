@@ -66,10 +66,13 @@
   "cordova-plugin-googleplus": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-googleplus"
+      "id": "cordova-plugin-googleplus@5.3.2"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "REVERSED_CLIENT_ID": "148431050807-virpraa9lam3asmnbe56mhloggabmflq.apps.googleusercontent.com",
+      "WEB_APPLICATION_CLIENT_ID": "148431050807-0edt944ql6k9o1tmpf74ec7grq8111h9.apps.googleusercontent.com"
+    }
   },
   "cordova-plugin-app-version": {
     "source": {

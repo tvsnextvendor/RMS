@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
-import { Constant} from '../../constants/Constant.var';
+import { Constant } from '../../constants/Constant.var';
 
 @IonicPage({
     name: 'trainingdetail-page'
 })
-@Component({ selector: 'page-training-detail', templateUrl: 'training-detail.html' ,providers:[Constant]})
+@Component({ selector: 'page-training-detail', templateUrl: 'training-detail.html', providers: [Constant] })
 export class TrainingDetailPage {
 
     @ViewChild(Slides) slides: Slides;
@@ -25,7 +25,7 @@ export class TrainingDetailPage {
     loadingBarWidth = 0;
     Math: any;
     paramsData: any = {};
-    constructor(public navCtrl: NavController, public navParams: NavParams,public constant:Constant) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.trainingDatas = this.detailObject['setData'].videos;
@@ -49,11 +49,29 @@ export class TrainingDetailPage {
         this.goToSlideIndex();
         this.checkNavigationButton();
     }
-   // go to quiz page for training details
+    // go to quiz page for training details
     goToQuizPage() {
-        let currentIndex = this.slides.getActiveIndex();
-        this.paramsData['menu'] = this.trainingDatas[currentIndex]['videoTitle'];
-        this.navCtrl.push(QuizPage, this.paramsData);
+        let self = this;
+        const alert = this.alertCtrl.create({
+            title: 'Are you ready to take the comprehension ?',
+            buttons: [{
+                text: 'Later',
+                role: 'later',
+                handler: () => {
+                    console.log('Later clicked');
+                }
+            },
+            {
+                text: 'Yes',
+                handler: () => {
+                    let currentIndex = self.slides.getActiveIndex();
+                    self.paramsData['menu'] = self.trainingDatas[currentIndex]['videoTitle'];
+                    self.navCtrl.push(QuizPage, self.paramsData);
+                }
+            }]
+
+        });
+        alert.present();
     }
     // go back
     goBackToDetailPage() {

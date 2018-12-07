@@ -37,7 +37,9 @@ import { LinkedIn } from '@ionic-native/linkedin';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot(
+      // {name: '__mydb',driverOrder: ['indexeddb', 'sqlite', 'websql']}
+    ),
     SignupPageModule,
     LoginPageModule,
     ForgetPageModule,
