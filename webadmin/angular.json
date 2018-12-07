@@ -25,7 +25,8 @@
             "styles": [
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+              "node_modules/ngx-select-dropdown/dist/assets/style.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",

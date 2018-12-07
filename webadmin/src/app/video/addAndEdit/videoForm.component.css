@@ -7,10 +7,7 @@
     border-bottom: 2px solid #efefef;
     min-height: 100px;
 }
-.btn.btn-primary {
-    text-align: center;
-    float: none;
-}
+
 .upload-file{
   width: 100%;
   height: 200px;
@@ -39,4 +36,7 @@ color: #B4BED6;
 text-transform: uppercase;
     font-weight: 600;
     margin-bottom: 0px;
+}
+.center-btn .btn {
+    float: none;
 }

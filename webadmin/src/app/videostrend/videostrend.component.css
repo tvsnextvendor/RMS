@@ -1,0 +1,14 @@
+.table-img{
+    max-width: 100%;
+    width: 100px;
+    height: 50px;
+}
+.table td {
+    border-bottom: 1px solid #C5C5C5;
+}
+.video-trend-desc{
+	color: #939399;
+}
+.vdo-desc-height{
+	line-height: 65px;
+}

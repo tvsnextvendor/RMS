@@ -31,24 +31,21 @@ export class ResetpasswordComponent implements OnInit {
   }
 // reset function
   submitResetPassword() {
-    if (this.resetFormData.password === this.confirmPwd) {
+    if (this.resetFormData.password === this.confirmPwd)
+    {
       this.toastr.success('Password Resetted Successfully');
       this.router.navigateByUrl('/login');
-     // return false;
-
-
-      let updatedArray = this.userArray.map((item,index)=>{
-       // debugger;
-        if(index === parseInt(this.userId)){
-          debugger;
-          item.password = this.resetFormData.password
-        }
-        return item;
-      })
-     // console.log(updatedArray);
-      this.http.post('5c01283c3500005d00ad085b',updatedArray).subscribe((resp) => {
-         console.log(resp);
-      });
+      // let updatedArray = this.userArray.map((item,index)=>{
+      //   if(index === parseInt(this.userId)){
+      //     debugger;
+      //     item.password = this.resetFormData.password
+      //   }
+      //   return item;
+      // })
+   
+      // this.http.post('5c01283c3500005d00ad085b',updatedArray).subscribe((resp) => {
+      //    console.log(resp);
+      // });
     } else {
       this.toastr.error('Password Mismatch');
     }

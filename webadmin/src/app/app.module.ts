@@ -13,6 +13,7 @@ import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule }   from '@angular/forms';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard.component';
 import {QuizModule} from './quiz/quiz.module';
@@ -23,6 +24,7 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
 import { EmployeestatusComponent } from './employeestatus/employeestatus.component';
 import { EmployeedetailsComponent } from './employeedetails/employeedetails.component';
 import {SettingsModule} from './settings/settings.module';
+import {VideosTrendModule} from './videostrend/videostrend.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import {SettingsModule} from './settings/settings.module';
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    SelectDropDownModule,
     DashboardModule,
     VideoModule,
     DataTableModule,
@@ -47,9 +50,9 @@ import {SettingsModule} from './settings/settings.module';
     HttpClientModule,
     SharedModule,
     SettingsModule,
+    VideosTrendModule,
     FormsModule, 
     GroupModule,
-    
   ],
   providers: [AuthGuard,ExcelService,PDFService],
   bootstrap: [AppComponent]

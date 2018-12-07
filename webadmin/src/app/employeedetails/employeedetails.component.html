@@ -50,16 +50,19 @@
                 <td class="vat">{{ emp.courseName }}</td>
                 <td class="vat">{{ emp.completedPercentage }}</td>
                 <td class="vat">{{ emp.badgeName }}</td>
-                <td class="vat" colspan="7">
-                  <tr *ngFor="let video of emp.videos">
-                    <td>{{ video.videoName }}</td>
-                    <td [ngClass] = "video.status !== 'In progress' ? (video.status === 'Assigned'?'text-danger':'text-success'):''">{{ video.status }}</td>
-                    <td>{{ video.assignedDate }}</td>
-                    <td></td>
-                    <td>{{ video.viewedDate }}</td>
-                    <td></td>
-                    <td>{{ video.completedDate }}</td>
-                  </tr>
+                <td class="vat td-pd" colspan="7">
+                    <table class="inner-table">
+                        <tr *ngFor="let video of emp.videos">
+                            <td>{{ video.videoName }}</td>
+                            <td [ngClass] = "video.status !== 'In progress' ? (video.status === 'Assigned'?'text-danger':'text-success'):''">{{ video.status }}</td>
+                            <td>{{ video.assignedDate }}</td>
+                            <td></td>
+                            <td>{{ video.viewedDate }}</td>
+                            <td></td>
+                            <td>{{ video.completedDate }}</td>
+                        </tr>
+                    </table>
+                 
                 </td>
             </tr>
             <tr *ngIf="mf.data?.length == 0">

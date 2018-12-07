@@ -62,13 +62,7 @@ form{
     cursor: pointer;
 }
 
-.required_color{
-	    color: #f44336;
-    font-size: 12px;
-    display: block;
-    width: 100%;
-    margin-top: 15px;
-}
+
 .pwd-content {
     font-size: 12px;
     font-weight: normal;

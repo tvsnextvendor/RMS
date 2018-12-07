@@ -7,7 +7,6 @@ import {PDFService} from '../services/pdf.service';
 import {HeaderService} from '../services/header.service';
 import {EmployeeVar} from '../Constants/employee.var';
 
-
 @Component({
   selector: 'app-employeestatus',
   templateUrl: './employeestatus.component.html',
@@ -17,7 +16,8 @@ export class EmployeestatusComponent implements OnInit {
   
   employeeArray = [];
   labels ;
-
+  pageLimitOptions = [];
+  pageLimit;
   constructor(private route: Router, private toastr: ToastrService,private http: HttpService,private employeeVar : EmployeeVar,private excelService:ExcelService,private pdfService:PDFService,private headerService: HeaderService) { }
 
   ngOnInit(){
@@ -27,6 +27,12 @@ export class EmployeestatusComponent implements OnInit {
     });
     this.labels = this.employeeVar.employeeStatus;
     this.headerService.setTitle(this.labels.title);
+    this.pageLimitOptions = [5, 10, 25];
+    this.pageLimit=[this.pageLimitOptions[0]];
+  }
+
+  onLimitChange(){
+    console.log(this.pageLimit);
   }
 // Create PDF
   exportAsPDF(){  

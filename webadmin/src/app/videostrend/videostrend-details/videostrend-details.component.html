@@ -1,0 +1,58 @@
+
+  <div>  
+        <p class="emp-details">{{trendsVar.videosTrendDetailsLabels.courseName}} : {{filterEmployeeList[0]?.courseName}}</p>
+        <p class="emp-details">{{trendsVar.videosTrendDetailsLabels.videoName}} : {{filterEmployeeList[0]?.videoName}}</p>
+        <p class="emp-details">{{trendsVar.videosTrendDetailsLabels.uploadedDate}} :{{filterEmployeeList[0]?.uploadedDate}} </p>
+        <p class="emp-details">{{trendsVar.videosTrendDetailsLabels.totalEmployees}} : {{filterEmployeeList[0]?.totalEmployees}}</p>
+
+        <span class="float-right">
+          <div class="dropdown show mb-3">
+              <label class="ext-txt mb-0 mr-2">{{trendsVar.exportTo}}</label>
+              <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">PDF</span></a>
+              <div class="dropdown-menu drp-dwn" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{trendsVar.excel}}</a>
+                  <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{trendsVar.pdf}}</a>             
+              </div>
+          </div>             
+        </span>     
+    </div>
+        <div class="table-responsive custom-table2">
+          <table class="table table-striped white-bg" [mfData]="filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable" [mfRowsOnPage]="5" id="contentToConvert">
+              <thead>
+              <tr class="th-boxshadow">
+                  <th colspan="1" class="text-center">
+                      <mfDefaultSorter by="empName" >{{trendsVar.empTableTitle.empName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                  </th>
+                  <th colspan="1">
+                      <mfDefaultSorter by="status">{{trendsVar.empTableTitle.status}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                  </th>
+                  
+                  <th colspan="1">
+                      <mfDefaultSorter by="viewDate">{{trendsVar.empTableTitle.viewDate}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                  </th>
+                  <th colspan="1">
+                      <mfDefaultSorter by="completedDate ">{{trendsVar.empTableTitle.completedDate}}</mfDefaultSorter>
+                  </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let emp of mf.data" class="text-center">
+                  <td class="vat">{{ emp.employeeName }}</td>
+                  <td class="vat">{{ emp.status }}</td>
+                  <td class="vat">{{ emp.viewDate }}</td>
+                  <td class="vat">{{emp.completedDate}}</td>
+              </tr>
+              <!-- <tr *ngIf="mf.data?.length == 0">
+                  <td colspan="10" class="text-center data-design">{{labels.noData}}</td>
+              </tr> -->
+              </tbody>
+              <!-- <tfoot>
+              <tr>
+                  <td colspan="10">
+                      <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                  </td>
+              </tr>
+              </tfoot> -->
+          </table>
+        </div>
+  
