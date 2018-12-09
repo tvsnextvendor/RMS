@@ -25,5 +25,11 @@ export class VideosTrendVar {
    exportTo = 'Export To';
    excel = 'Excel';
    pdf = 'PDF';
+   noData = 'No Data';
+   videosTrend;
+   moduleList:any=[];
+   moduleType=null;
+   pageLimitOptions=[];
+   pageLimit;
 
 }

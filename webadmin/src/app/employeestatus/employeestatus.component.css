@@ -28,5 +28,13 @@
   }
   .drp-dwn{
     min-width: 0;
-    width: 85px;    
+    width: 85px; 
+    top: 13px !important;   
   }
+  .pagenation-btn{
+    display: inline-block;
+    margin-left: 10px;
+  }
+  .custom-table2 td {
+    cursor: pointer;
+}

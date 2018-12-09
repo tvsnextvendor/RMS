@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
 
     forgetPasswordStatus = false;
     userArray = [];
-
+    rememberMe = false;
+    rememberMeCheck =[];
+    labels;
+    btns;
     constructor(private route: Router, public loginvar: loginVar, private toastr: ToastrService,
             private http: HttpService) { }
 
@@ -23,6 +26,29 @@ export class LoginComponent implements OnInit {
       this.http.get('5c01283c3500005d00ad085b').subscribe((resp) => {
         this.userArray = resp;
       });
+      
+      //labels
+      this.labels = this.loginvar.labels;
+      this.btns = this.loginvar.btns;
+
+      //remember check
+      let localData = (localStorage.getItem("rememberMe"));
+      if(localData){
+        this.rememberMeCheck = JSON.parse(atob(localData));
+        this.rememberCheck(this.loginvar.email);
+      }
+    }
+// Password remember check
+    rememberCheck(data){
+      let user = this.rememberMeCheck.find(x => x.email === data);
+      if(user && user.remember){
+        this.loginvar.password = user.password;
+        this.rememberMe = user.remember;
+      }
+      else if(user && !user.remember){
+        this.loginvar.password = '';
+        this.rememberMe = user.remember;
+      }
     }
 
     // Common function for login and forget password
@@ -45,7 +71,6 @@ export class LoginComponent implements OnInit {
               if(encIndex){
                 this.route.navigateByUrl('/resetpassword/'+encIndex)
               }
-              
             }
             else{
               this.toastr.error("Please enter valid email id")
@@ -69,13 +94,27 @@ export class LoginComponent implements OnInit {
                 let encUserData = btoa(userData);
                 localStorage.setItem('userData',encUserData);
                 this.toastr.success("Login successfully");
-                // let loginData = atob(localStorage.getItem("userData"));
-                // if(loginData){
-                  this.route.navigateByUrl('/');
-                // }
+                this.route.navigateByUrl('/');
+                let localObject = [];
+                // remember password settings
+                if(this.rememberMeCheck.length){
+                  localObject =  this.rememberMeCheck;
+                  let user = localObject.find(x => x.email === data.email);
+                  if(user){
+                    let filterObject = localObject.filter(x => x.email !== data.email);
+                    user.remember = this.rememberMe;
+                    filterObject.push(user)
+                    localStorage.setItem('rememberMe',btoa(JSON.stringify(filterObject)))
+                  }
+                  else{
+                      this.setATLocal(data,localObject);
+                  }
+                }
+                else{
+                  this.setATLocal(data,localObject);
+                }
               }
               else{
-                // console.log("Invalid login")
                 this.toastr.error("Invalid login")
               }         
         } else {
@@ -84,4 +123,13 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    setATLocal(data,localObject){
+      let localRememberData={
+        email : data.email,
+        password : data.password,
+        remember : this.rememberMe
+      }
+      localObject.push(localRememberData)
+      localStorage.setItem('rememberMe',btoa(JSON.stringify(localObject)))
+    }
 }

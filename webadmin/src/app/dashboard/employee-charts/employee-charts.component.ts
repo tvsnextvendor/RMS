@@ -48,8 +48,15 @@ export class EmployeeChartsComponent implements OnInit {
 
       });
   }
+
+  //Navigate to videos trend list page
   goToVideosTrend(){
     this.route.navigateByUrl('/videostrend');
+  }
+
+ //Navigate to employee status page
+  goToEmpStatus(){
+      this.route.navigateByUrl('/employeestatus');
   }
 
 totalCoursesLine() {

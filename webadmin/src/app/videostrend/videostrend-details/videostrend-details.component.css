@@ -1,0 +1,29 @@
+.export-btn{
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid #468FB9;
+    width: 80px;
+    min-width: unset;
+    padding: 4px 8px;
+  }
+  .export-btn::after{
+    margin-left: 2.255em;
+  }
+  .ext-txt{
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .drp-dwn{
+    min-width: 0;
+    width: 85px;    
+  }
+  .trend-title{
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 7px;
+  }
+.trend-cont{
+  color:#7C7373;
+  font-size:15px;
+}

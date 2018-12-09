@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { HeaderService } from '../../services/header.service';
-
 import { Router,ActivatedRoute } from '@angular/router';
-
 import {AuthGuard} from '../../guard/auth.guard.component'
+import {HttpService} from '../../services/http.service';
 
 @Component({
   selector: 'app-header',
@@ -12,17 +11,25 @@ import {AuthGuard} from '../../guard/auth.guard.component'
 export class HeaderComponent implements OnInit {
 
   title = '';
-
-  constructor(private headerService: HeaderService,public router:Router,public authGuard:AuthGuard) { }
+  moduleType: null;
+  moduleList;
  
-  ngOnInit() {
+
+  constructor(private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { }
+ 
+
+
+  ngOnInit(){
     this.headerService.title.subscribe(title => {
-      this.title = title;
+      setTimeout(() => this.title = title, 0)
     });
   }
 
+ onChangeModule(){
+ }
+
   logOut(){
-    localStorage.clear();
+    localStorage.removeItem("userData");
     this.authGuard.showSidebar  = false;
     this.authGuard.showHeader = false;
     this.router.navigateByUrl('/login');
