@@ -4,8 +4,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
-
 import { HttpClientModule } from '@angular/common/http';
+
 import { SignupPageModule } from '../pages/signup/signup.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { ForgetPageModule } from '../pages/forget/forget.module';
@@ -18,6 +18,9 @@ import { ForumPageModule } from '../pages/forum/forum.module';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { CalendarPageModule } from '../pages/calendar/calendar.module';
+import { LandingPageModule } from '../pages/landing/landing.module';
+import { AccomplishmentPageModule } from '../pages/accomplishment/accomplishment.module';
+import {EventPageModule} from '../pages/event/event.module';
 
 import { API } from '../constants/API.var';
 import { API_URL } from '../constants/API_URLS.var';
@@ -27,6 +30,7 @@ import { AuthProvider } from '../providers/auth/auth';
 
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
+
 
 
 @NgModule({
@@ -51,7 +55,10 @@ import { LinkedIn } from '@ionic-native/linkedin';
     ForumPageModule,
     SettingsPageModule,
     ProfilePageModule,
-    CalendarPageModule
+    CalendarPageModule,
+    LandingPageModule,
+    AccomplishmentPageModule,
+    EventPageModule
 
   ],
   bootstrap: [IonicApp],

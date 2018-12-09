@@ -5,12 +5,21 @@ export class Constant {
     title = {
         dashboard: 'Dashboard',
         training: 'Training',
-        quiz: 'Quiz'
+        quiz: 'Quiz',
+        accomplishment:'Accomplishments',
+        changePassword:'Change Password',
+        event:'Events',
+        profile:'Profile'
     };
     buttons = {
         previous: 'Previous',
         takeQuiz: 'Take Quiz',
-        sendPassword:'SEND PASSWORD'
+        sendPassword: 'SEND PASSWORD',
+        logOut:'Log Out',
+        menu:'Menu',
+        signIn:'SIGN IN',
+        signUp:'SIGN UP',
+        save:'SAVE'
     };
     pages = {
         loginLabels: {
@@ -51,6 +60,8 @@ export class Constant {
         dashboardLabels: {
             goodMrng: 'Good Morning',
             currentTime: 'Thursday, Aug 10',
+            selectModules:'All Modules',
+            modules:'Modules',
             training: 'Training',
             certification: 'Certification',
             newCourses: 'New Courses',
@@ -63,14 +74,18 @@ export class Constant {
             peers: 'Peers',
             yourAvgOnCourses: 'Your Average Score On Courses',
             viewAll: 'View All',
-            viewMore:'View More',
-            viewLess:'View Less',
-            course:'Course',
-            score:'Score',
-            average:'Average',
+            viewMore: 'View More',
+            viewLess: 'View Less',
+            course: 'Course',
+            score: 'Score',
+            average: 'Average',
             download: 'Download',
             view: 'View',
-            badges: 'Badges'
+            badges: 'Badges',
+            accomplishments: 'Accomplishments',
+            certificatesObtained:'Certificates Obtained',
+            badgesObtained:'Badges Obtained'
+
         },
         trainingLabels: {
             assignedLabel: 'Assigned',
@@ -85,6 +100,25 @@ export class Constant {
             outOf: 'out of',
             exc: '!',
             yourScorePercent: 'Your Score:'
+        },
+        settingLabels:{
+            oldPassword:'Old Password',
+            newPassword:'New Password',
+            confirmPassword:'Confirm Password',
+            validations:{
+                oldPasswordRequired: 'Old password is required',
+                newPasswordRequired: 'New password is required',
+                confirmPasswordRequired:'Confirm password is required',
+                minLength: 'Minimum 8 characters',
+                maxLength: 'Maximum 12 characters',
+                pattern: 'Just use alphabet character',
+            }
+        },
+        profileLabels:{
+            email:'Email',
+            mobile:'Mobile',
+            department:'Department',
+            designation:'Designation'
         }
     };
 }

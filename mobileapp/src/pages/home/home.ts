@@ -19,9 +19,10 @@ export class HomePage {
   paramsData = {};
   dashboardInfo: any = {};
   trainingDatas: any = {};
+  accomplishments: any = {};
   modules: any = [];
-  showMore:boolean = false;
-
+  showMore: boolean = false;
+  users: any;
   constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public toastrCtrl: ToastController) {
     this.currentdate = this.getCurrentTime();
   }
@@ -34,22 +35,27 @@ export class HomePage {
     this.paramsData['status'] = status;
     this.navCtrl.setRoot('training-page', this.paramsData)
   }
+  goToAcc(set) {
+    this.navCtrl.setRoot('accomplishment-page')
+  }
   getDashboardInfo() {
     this.http.getData(API_URL.URLS.getDashboard).subscribe((data) => {
-      this.storage.set('userDashboardInfo', data).then(() => {
+      this.storage.set('userDashboardInfo', data['dashboardList']).then(() => {
         console.log('Data has been set');
       });
-      this.dashboardInfo = data;
-      this.trainingDatas = this.dashboardInfo.training;
+      if (data['isSuccess']) {
+        this.dashboardInfo = data['dashboardList'];
+        this.trainingDatas = this.dashboardInfo.training;
+        this.accomplishments = this.dashboardInfo.accomplishments;
+        this.users = this.dashboardInfo.users[0];
+      }
     });
   }
   getModules() {
     this.http.getData(API_URL.URLS.getModules).subscribe((data) => {
-     // let resdata = JSON.stringify(data);
-      if(data['isSuccess']){
+      if (data['isSuccess']) {
         this.modules = data['ModuleList'];
       }
-      console.log(this.modules);
     });
   }
   getCurrentTime() {
@@ -58,4 +64,5 @@ export class HomePage {
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return days[d.getDay()] + ',' + months[d.getMonth()] + ' ' + d.getDate();
   }
+
 }
