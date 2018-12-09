@@ -1,8 +1,7 @@
 
    <div>  
       <h4>{{title}}</h4>
-      <span class="float-right">
-        <div><ngx-select-dropdown (change)="onLimitChange($event)" [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Select limit'}"></ngx-select-dropdown></div>
+      <div class="float-right">        
         <div class="dropdown show mb-3">
             <label class="ext-txt mb-0 mr-2">{{labels.exportTo}}</label>
           <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">{{labels.btns.pdf}}</span></a>
@@ -10,14 +9,16 @@
                 <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{labels.btns.excel}}</a>
                 <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{labels.btns.pdf}}</a>             
             </div>
-        </div>             
-      </span>     
+            <span class="pagenation-btn"><ngx-select-dropdown (change)="onLimitChange($event)" [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Select limit'}" class="pagenation-dropdown"></ngx-select-dropdown></span>  
+        </div>  
+                 
+      </div>     
   </div>
-      <div class="table-responsive custom-table2">
-        <table class="table table-striped white-bg" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="(pageLimit.length ? pageLimit : 5)" id="contentToConvert">
+      <div class="table-responsive custom-table2 px-1">
+        <table class="table table-striped white-bg mt-1" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="(pageLimit.length ? pageLimit : 5)" id="contentToConvert">
 
             <thead>
-            <tr class="th-boxshadow"  class="text-center">
+            <tr class="text-center th-boxshadow">
                 <th>
                     <mfDefaultSorter by="employeeName">{{labels.tableTitle.employeeName}}</mfDefaultSorter>
                 </th>

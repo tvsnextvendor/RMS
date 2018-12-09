@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="col-sm-4 pl-0">
-              <div class=" chart-bg">
+              <div class=" chart-bg" (click)="goToEmpStatus()">
                 <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.employeeProgress}}</h6>
                 <div id="employeeProgress" style=" height: 200px; margin: 0 auto"></div>
@@ -115,7 +115,7 @@
         <div class="col-sm-6 pl-0">
           <div class="chart-bg">
             <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-            {{dashboardVar.employeeGridsTitle.employeeProgress}}<select class="select-btn"><option value="Total">Total</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
+            {{dashboardVar.employeeGridsTitle.certificationTrend}}<select class="select-btn"><option value="Total">Total</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
             <div id="certificationTrend" style=" height: 200px; margin: 0 auto"></div>
           </div>
         </div>

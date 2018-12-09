@@ -5,7 +5,8 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { GroupComponent } from './group.component';
 import { RouterModule, Routes } from '@angular/router';
 import {DataTableModule} from "angular-6-datatable";
-import {AuthGuard} from '../guard/auth.guard.component'
+import {AuthGuard} from '../guard/auth.guard.component';
+import { TagInputModule } from 'ngx-chips';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
     DataTableModule,
     FormsModule,
     SelectDropDownModule,
+    TagInputModule,
     RouterModule.forRoot(routes),
     ],
   declarations: [

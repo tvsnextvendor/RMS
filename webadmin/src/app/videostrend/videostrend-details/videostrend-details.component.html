@@ -1,11 +1,17 @@
+<div class="white-bg">
+  <div class="row"> 
+  <div class="col-md-10 row">
+        <div class="col-md-5"> 
+        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.courseName}} :</span> <span class="trend-cont">{{filterEmployeeList[0]?.courseName}}</span></div>
+        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.uploadedDate}} :</span><span class="trend-cont">{{filterEmployeeList[0]?.uploadedDate}}</span> </div>        
+      </div>
+      <div class="col-md-5">
+        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.videoName}} : </span><span class="trend-cont">{{filterEmployeeList[0]?.videoName}}</span></div>
+        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.totalEmployees}} :</span> <span class="trend-cont">{{filterEmployeeList[0]?.totalEmployees}}</span></div>
+      </div>
+      </div>
 
-  <div>  
-        <p class="emp-details">{{trendsVar.videosTrendDetailsLabels.courseName}} : {{filterEmployeeList[0]?.courseName}}</p>
-        <p class="emp-details">{{trendsVar.videosTrendDetailsLabels.videoName}} : {{filterEmployeeList[0]?.videoName}}</p>
-        <p class="emp-details">{{trendsVar.videosTrendDetailsLabels.uploadedDate}} :{{filterEmployeeList[0]?.uploadedDate}} </p>
-        <p class="emp-details">{{trendsVar.videosTrendDetailsLabels.totalEmployees}} : {{filterEmployeeList[0]?.totalEmployees}}</p>
-
-        <span class="float-right">
+        <div class="col-md-2 mt-3">
           <div class="dropdown show mb-3">
               <label class="ext-txt mb-0 mr-2">{{trendsVar.exportTo}}</label>
               <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">PDF</span></a>
@@ -13,24 +19,24 @@
                   <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{trendsVar.excel}}</a>
                   <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{trendsVar.pdf}}</a>             
               </div>
-          </div>             
-        </span>     
+          </div>
+        </div>     
     </div>
-        <div class="table-responsive custom-table2">
-          <table class="table table-striped white-bg" [mfData]="filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable" [mfRowsOnPage]="5" id="contentToConvert">
+        <div class="table-responsive custom-table2 px-1">
+          <table class="table table-striped mt-3" [mfData]="filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable" [mfRowsOnPage]="5" id="contentToConvert">
               <thead>
               <tr class="th-boxshadow">
                   <th colspan="1" class="text-center">
                       <mfDefaultSorter by="empName" >{{trendsVar.empTableTitle.empName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                   </th>
-                  <th colspan="1">
+                  <th colspan="1"  class="text-center">
                       <mfDefaultSorter by="status">{{trendsVar.empTableTitle.status}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                   </th>
                   
-                  <th colspan="1">
+                  <th colspan="1"  class="text-center">
                       <mfDefaultSorter by="viewDate">{{trendsVar.empTableTitle.viewDate}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                   </th>
-                  <th colspan="1">
+                  <th colspan="1"  class="text-center">
                       <mfDefaultSorter by="completedDate ">{{trendsVar.empTableTitle.completedDate}}</mfDefaultSorter>
                   </th>
               </tr>
@@ -55,4 +61,5 @@
               </tfoot> -->
           </table>
         </div>
+      </div>
   

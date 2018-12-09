@@ -12,3 +12,15 @@
 .vdo-desc-height{
 	line-height: 65px;
 }
+.export-btn{
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid #468FB9;
+    width: 80px;
+    min-width: unset;
+    padding: 4px 8px;
+  }
+  .video-hd{
+  	display: block;
+  	width: 100%;
+  }

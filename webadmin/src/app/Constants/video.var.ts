@@ -26,6 +26,9 @@ export class VideoVar {
          videoTitle  : 'Video Title is required',
          courseName  : 'Course Name is required',
          description : 'Description is required',       
-     }
+     };
+    courses:any=[];
+    moduleList:any=[];
+    moduleType=null;
 
 }

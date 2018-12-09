@@ -11,20 +11,36 @@ import {VideosTrendVar} from '../Constants/videostrend.var';
 
 export class VideosTrendComponent implements OnInit {
 
-
-    videosTrend;
    constructor(private headerService:HeaderService,private trendsVar: VideosTrendVar ,private http: HttpService){}
 
    ngOnInit(){
     this.headerService.setTitle('Videos Trend');
-    this.getVideosTrend();
-
+    this.getVideosTrend('');
+    this.getModuleList();
+    this.trendsVar.pageLimitOptions = [5, 10, 25];
+    this.trendsVar.pageLimit=[this.trendsVar.pageLimitOptions[0]];
    }
 
-   getVideosTrend() {
+   onChangeModule(){
+    this.getVideosTrend(this.trendsVar.moduleType);
+   }
+
+   getVideosTrend(moduleType) {
+    //moduleId to get trend videos list based on selected module type.
+    let moduleId = moduleType;
     this.http.get('5c09210a2f0000c21f637c9c').subscribe((data) => {
-        this.videosTrend = data.VideoTrendList;
+        this.trendsVar.videosTrend = data.VideoTrendList;
     });
+    }
+
+    onLimitChange(){
+        console.log(this.trendsVar.pageLimit);
+      }
+
+    getModuleList(){
+        this.http.get('5c08da9b2f00004b00637a8c').subscribe((data) => {
+          this.trendsVar.moduleList= data.ModuleList;
+        });
     }
 
 }

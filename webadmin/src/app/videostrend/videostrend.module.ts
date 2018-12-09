@@ -5,6 +5,8 @@ import {AuthGuard} from '../guard/auth.guard.component';
 import {VideosTrendComponent} from './videostrend.component';
 import {VideosTrendDetailsComponent} from './videostrend-details/videostrend-details.component';
 import {DataTableModule} from "angular-6-datatable";
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { FormsModule} from '@angular/forms';
 
 
 const routes: Routes = [
@@ -16,7 +18,9 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    DataTableModule
+    DataTableModule,
+    FormsModule,
+    SelectDropDownModule
     ],
   declarations: [
     VideosTrendComponent,VideosTrendDetailsComponent

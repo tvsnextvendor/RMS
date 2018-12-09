@@ -1,8 +1,15 @@
 
 <div class="row">
 
-        <div class="table-responsive white-bg px-3">
-                <table class="table" [mfData]="videosTrend" #mf="mfDataTable">
+   <div class="video-hd">
+    <select id="moduleType" name="moduleType" required (change)="onChangeModule()" [(ngModel)]="trendsVar.moduleType" class="mb-3">     
+            <option [ngValue]="null">Module</option>
+            <option *ngFor="let module of trendsVar.moduleList"  value="{{module.moduleId}}">{{module.moduleName}}</option>
+    </select>
+    <span class="pagenation-btn float-right"><ngx-select-dropdown (change)="onLimitChange($event)" [options]="pageLimitOptions" [(value)]="trendsVar.pageLimit" [config]="{placeholder : 'Select limit'}" class="pagenation-dropdown"></ngx-select-dropdown></span> 
+    </div>
+            <div class="table-responsive white-bg px-3">
+                <table class="table" [mfData]="trendsVar.videosTrend" #mf="mfDataTable" [mfRowsOnPage]="(trendsVar.pageLimit.length ? trendsVar.pageLimit : 5)">
                     <thead>
                     <tr>
                         <th></th>
@@ -21,16 +28,26 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="video-trend-desc" *ngFor="let list of mf.data" routerLink="/videostrend/{{list.videoId}}" >
+                    <tr class="video-trend-desc" *ngFor="let list of mf.data" >
                         <td><img class="table-img" src="assets/videos/images/bunny.png"></td>
                         <td>{{list.courseName}}
                             <p>{{list.videoName}}</p>
                         </td>
                         <td class="vdo-desc-height">{{list.duration}}</td>
                         <td class="vdo-desc-height">{{list.uploadedDate | date: 'dd/MM/yyyy'}}</td>
-                        <td class="vdo-desc-height text-center">{{list.totalEmployees}}</td>              
+                        <td class="vdo-desc-height text-center" routerLink="/videostrend/{{list.videoId}}">{{list.totalEmployees}}</td>              
+                    </tr>
+                    <tr *ngIf="mf.data?.length == 0">
+                            <td colspan="5" class="text-center data-design">{{trendsVar.noData}}</td>
                     </tr>
                     </tbody>
+                    <tfoot>
+                           <tr>
+                            <td colspan="5">
+                                <mfBootstrapPaginator></mfBootstrapPaginator>
+                             </td>
+                           </tr>
+                    </tfoot>
                 </table>
               </div>
         </div>

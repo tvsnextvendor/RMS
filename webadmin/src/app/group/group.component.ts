@@ -50,7 +50,6 @@ export class GroupComponent implements OnInit {
     this.headerService.setTitle("Groups");
   }
   editGroup(data){
-    console.log(data)
     let empName = [];
     if(data){
       this.editKey = true;
@@ -66,7 +65,6 @@ export class GroupComponent implements OnInit {
       })
     }
     this.selectedValues = empName;
-    console.log(this.selectedValues)
   }
 
    // image reader for upload
@@ -81,6 +79,7 @@ export class GroupComponent implements OnInit {
   reader.readAsDataURL(file)
   }
 
+
   onEmployeeChange(){
     let ids=[];
     if(this.selectedValues.length){
@@ -92,7 +91,6 @@ export class GroupComponent implements OnInit {
         })
       })
     }
-    console.log(ids)
     this.employeeId = ids;
   }
 
@@ -102,7 +100,6 @@ export class GroupComponent implements OnInit {
   }
 
   onSubmitForm(data){
-    console.log(data);
     if(data.groupName && data.description && this.selectedValues.length){
       if(this.editKey){
         this.toastr.success("Data updated sucessfully");
