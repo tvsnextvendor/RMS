@@ -1,0 +1,189 @@
+
+<tabset #staticTabs   class="add-video-header">
+    <tab heading="Add Videos">
+        <div class="white-bg">
+            <form #formDir="ngForm"  (ngSubmit)="videoSubmit()" class="p-4">
+                <div class="row pb-2">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="courseName" class="col-sm-3 custm-label col-form-label"> {{videoVar.videoFormLabels.courseName}}</label>
+                            <div class="col-sm-8">
+                                <select id="courseName" name="courseName" class="form-control" required placeholder="Select" (change)="onChangeCourse(video.courseName,addCourse)" [(ngModel)]="video.courseName" #courseName="ngModel">     
+                                    <option value="null" hidden>Select</option>
+                                    <option value="newCourse">Add New Course Name</option>
+                                    <option *ngFor="let course of courses"  value="{{course.courseId}}">{{course.courseName}}</option>
+                                </select>
+                                <span class="required_color" *ngIf="courseName && courseName.invalid && (formDir.submitted || courseName.touched)">
+                                    {{videoVar.mandatoryLabels.courseName}}
+                                </span> 
+                            </div>
+                                <div class="col-sm-1"></div>
+                                 
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row" [class.has-error]="videoTitle.invalid && videoTitle.touched" [class.has-success]="videoTitle.valid">
+                                <div class="col-sm-1"></div>
+                                <label for="videoTitle" class="col-sm-3 custm-label col-form-label">{{videoVar.videoFormLabels.videoTitle}}</label>
+
+                                <div class="col-sm-8" >
+                                    <input type="text" class="form-control pl-0" id="videoTitle" placeholder="Enter Video Title" name="videoTitle"
+                                    [(ngModel)]="video.videoTitle" #videoTitle="ngModel" required>  
+                                    <span class="required_color" *ngIf="videoTitle && videoTitle.invalid && (formDir.submitted || videoTitle.touched)">
+                                        {{videoVar.mandatoryLabels.videoTitle}}
+                                    </span>           
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pb-2">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="description" class="col-sm-3 custm-label col-form-label">{{videoVar.videoFormLabels.videoDescription}}</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control pl-0" id="description" placeholder="Enter Description" name="description"
+                                    [(ngModel)]="video.description" #description="ngModel" required>
+                                      <span class="required_color" *ngIf="description && description.invalid && (formDir.submitted || description.touched)">
+                                        {{videoVar.mandatoryLabels.description}}
+                                    </span> 
+                                </div>
+                                   
+                                    <div class="col-sm-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-sm-1"></div>
+                                    <label for="courseName" class="col-sm-3 custm-label col-form-label">{{videoVar.videoFormLabels.active}}</label>
+                                    <div class="col-sm-8">
+                                        <select id="active" name="active" class="form-control pl-0" [(ngModel)]="video.active">
+                                            <option value="yes">{{videoVar.btns.yes}}</option>
+                                            <option value="no">{{videoVar.btns.no}}</option>
+                                        </select></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pb-2">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+
+                                        <label for="uploadVideos" class="control-label">{{videoVar.videoFormLabels.uploadVideos}}</label>
+                                        <div class="upload-file">
+                                            <input type="file" class="form-control" id="uploadVideos" placeholder="Enter Upload Videos" name="uploadVideos"
+                                            [(ngModel)]="video.uploadVideos">
+                                            <div class="upload-content">
+                                                <h5>Add Videos</h5>
+                                                <p>Simply drag and drop</p>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" [disabled]=formDir.invalid class="btn btn-primary">Next</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </tab>
+                <tab heading="Assign">
+                    <div class="white-bg ">
+                        <div class="row">
+                            <div class="col-md-8 p-4">
+                                <div class="form-group row ">
+                                    <label for="courseName" class="col-sm-3 custm-label col-form-label">Employee</label> 
+                                    <div class="col-md-9 multiselect-input"> 
+                                        <tag-input [ngModel]="employeeItems"
+                                        [onlyFromAutocomplete]="true"
+                                        [placeholder]="'+ Employee'" [secondaryPlaceholder]="'Select Employee'" class="multi-input"
+                                        >
+                                        <tag-input-dropdown [showDropdownIfEmpty]="true"
+                                        [dynamicUpdate]="false"
+                                        [focusFirstElement]="true"
+                                        [displayBy]="'value'"
+                                        [identifyBy]="'id'"
+                                        [autocompleteItems]="autocompleteItemsAsEmpObjects">
+                                        <ng-template let-item="item" let-index="index">
+                                            {{ item.value }}
+                                        </ng-template>
+                                    </tag-input-dropdown>
+                                </tag-input>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="courseName" class="col-sm-3 custm-label col-form-label">Group</label> 
+                            <div class="col-md-9 multiselect-input">
+                                <tag-input [ngModel]="groupItems" (onAdd)="onItemAdded($event)"
+                                [onlyFromAutocomplete]="true"
+                                [placeholder]="'+ Group'" [secondaryPlaceholder]="'Select Group'" class="multi-input"
+                                >
+                                <tag-input-dropdown [showDropdownIfEmpty]="true"
+                                [dynamicUpdate]="false"
+                                [focusFirstElement]="true"
+                                [displayBy]="'value'"
+                                [identifyBy]="'id'"
+                                [autocompleteItems]="autocompleteItemsAsGroupObjects">
+                                <ng-template let-item="item" let-index="index">
+                                    {{ item.value }}
+                                </ng-template>
+                            </tag-input-dropdown>
+                        </tag-input>
+                    </div>
+                </div>
+                <div class="text-center mt-5 center-btn">
+                    <button class="btn btn-primary" (click)="saveAssigned()">save</button>
+                </div>
+            </div>
+
+
+            <div class="col-md-4 p-0">
+                <div class="white-bg p-4">
+                    <div class="group-list">
+                        <h6>Group 1</h6>
+                        <ul class="group-name">
+                            <li>John</li>
+                            <li>Adam</li>
+                            <li>Lorem</li>
+                        </ul>
+
+                    </div>
+                    <div class="group-list">
+                        <h6>Group 1</h6>
+                        <ul class="group-name">
+                            <li>John</li>
+                            <li>Adam</li>
+                            <li>Lorem</li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</tab>
+</tabset>
+
+             <ng-template #addCourse>
+                    <div class="modal-header">
+                        <h6 class="modal-title pull-left">{{videoVar.modalLabels.title}} </h6>
+                        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                       <div class="mb-4 row">
+
+                            <label for="coursename" class="col-sm-3 custm-label col-form-label">{{videoVar.modalLabels.courseName}}</label> 
+                            <div class="col-sm-8">
+                            <input type="text" id="coursename" class="form-control" name="comments" [(ngModel)]="newCourseName"  placeholder="Enter Course Name">
+
+                        </div>
+                    </div>
+                        <div class="modalButtons pop-up-align">
+                            <button class="button btn btn-default mr-3" (click)="createNewCourse(newCourseName)">{{videoVar.btns.create}} </button>
+                            <button class="button btn btn-primary" (click)="modalRef.hide()">{{videoVar.btns.cancel}}</button>
+                        </div>
+                    </div>
+                </ng-template>

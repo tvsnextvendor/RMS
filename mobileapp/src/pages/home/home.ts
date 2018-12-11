@@ -5,7 +5,6 @@ import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
 import { API_URL } from '../../constants/API_URLS.var';
 
-
 @IonicPage({
   name: 'home-page'
 })
@@ -20,27 +19,50 @@ export class HomePage {
   paramsData = {};
   dashboardInfo: any = {};
   trainingDatas: any = {};
-
-  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage,public toastrCtrl:ToastController) {
-    this.currentdate = new Date();
+  accomplishments: any = {};
+  modules: any = [];
+  showMore: boolean = false;
+  users: any;
+  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public toastrCtrl: ToastController) {
+    this.currentdate = this.getCurrentTime();
   }
   //first load
   ionViewDidLoad() {
     this.getDashboardInfo();
+    this.getModules();
   }
   goToChildPage(status) {
     this.paramsData['status'] = status;
     this.navCtrl.setRoot('training-page', this.paramsData)
   }
+  goToAcc(set) {
+    this.navCtrl.setRoot('accomplishment-page')
+  }
   getDashboardInfo() {
     this.http.getData(API_URL.URLS.getDashboard).subscribe((data) => {
-      this.storage.set('userDashboardInfo', data).then(() => {
+      this.storage.set('userDashboardInfo', data['dashboardList']).then(() => {
         console.log('Data has been set');
       });
-      this.dashboardInfo = data;
-      this.trainingDatas = this.dashboardInfo.training;
-     // console.log(this.dashboardInfo);
-     // debugger;
+      if (data['isSuccess']) {
+        this.dashboardInfo = data['dashboardList'];
+        this.trainingDatas = this.dashboardInfo.training;
+        this.accomplishments = this.dashboardInfo.accomplishments;
+        this.users = this.dashboardInfo.users[0];
+      }
     });
   }
+  getModules() {
+    this.http.getData(API_URL.URLS.getModules).subscribe((data) => {
+      if (data['isSuccess']) {
+        this.modules = data['ModuleList'];
+      }
+    });
+  }
+  getCurrentTime() {
+    let d = new Date();
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return days[d.getDay()] + ',' + months[d.getMonth()] + ' ' + d.getDate();
+  }
+
 }

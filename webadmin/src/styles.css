@@ -1,6 +1,114 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* @import '~css-star-rating/scss/star-rating'; */
+
+
+
+
+
+
+button:focus {
+  outline: none;
+  outline: none;
+}
+.pdt50{
+  padding-top: 50px;
+}
+.pd30{
+  padding: 30px 0;
+}
+.row {
+  margin-left: 0 ;
+  margin-right: 0;
+}
+.form-control{
+  border: 1px solid #ccc;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    color: #495057;
+}
+.btn-primary{
+background-color: #468FB9;
+    float: right;
+  
+}
+.btn-default{
+    border: 2px solid #468FB9;
+    background-color: #fff;
+}
+.btn{ 
+    font-size: 12px;  min-width: 80px;text-transform: uppercase;}
+    .custm-label {
+    padding-left: 0;
+    font-size: 15px;
+}
+.fs-12{
+font-size: 12px;
+}
+.inner-table tr {
+    background: transparent !important;
+}
+table td.td-pd {
+    padding-top: 0;
+    padding-bottom: 0px;
+}
+.s-width{
+  	width: 14px;
+  	opacity: 0.5;
+  }
+/******** check box ***************/
+.hole-cont {
+    position: relative;
+    padding-left: 27px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    float: left;
+    color: #495057;
+}
+.hole-cont input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+.hole-cont input:checked ~ .checkmark {
+        background-color: #468FB9;
+    border: 1px solid #468FB9;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.hole-cont input:checked ~ .checkmark:after {
+    display: block;
+}
+.hole-cont .checkmark:after {
+    left: 7px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+/*************** sidebar ********************/
 #wrapper {
   padding-left: 0;
   -webkit-transition: all 0.5s ease;
@@ -32,13 +140,14 @@
   width: 250px;
 }
 
-#page-content-wrapper {
+.page-content-wrapper {
   width: 100%;
   position: absolute;
   padding: 15px;
+  min-height: calc(100vh - 0px);
 }
 
-#wrapper.toggled #page-content-wrapper {
+#wrapper.toggled .page-content-wrapper {
   position: absolute;
   margin-right: -250px;
 }
@@ -74,7 +183,7 @@
     margin-left: 15px;
 }
 .fix{
-	background-color: #E4EFF5;
+  background-color: #E4EFF5;
     width: 92px;
     border-radius: 5px;
 }
@@ -99,28 +208,26 @@
 ul li{
   display: inline-block;
 }
-.pdt50{
-  padding-top: 50px;
-}
-.pd30{
-  padding: 30px 0;
-}
+/***************** end sidebar **************************/
+
+
+/************************* Header ***********************/
 .form-searchbox {
   font-size: 14px;
   padding: 0px 0 0 20px;
   border-radius: 25px;
 }
-.form-control {
+.searchbox-alg{
   display: block;
   width: 100%;
   height: 30px;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
-  /*color: #007bff;*/
   background-color: transparent;
   background-image: none;
   border: 1px solid #007bff;
+  color: #468FB9;
 }
 .list_search {
      position: absolute;
@@ -132,35 +239,69 @@ ul li{
 li.search-block {
     position: relative;
 }
-.hd-alg, .icons_header, .form-control, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .chart-mr{
+.noti-pop{
+	width: 20px;
+    border-radius: 10px;
+    color: #fff !important;
+    background-color: #468FB9;
+    position: absolute;
+    top: -11px;
+    right: -2px;
+    font-size: 12px;
+    min-width: 0 !important
+}
+.drp-noti{
+	position: absolute;
+    transform: translate3d(-5px, 22px, 0px);
+    top: 20px;
+    left: -48px;
+    will-change: transform;
+}
+.bell-notification .dropdown-toggle::after {
+    content: none;
+}
+.user-logout .dropdown-toggle::after {
+    content: none;
+}
+.header-noti-dropdown{
+	position: absolute;
+    transform: translate3d(-226px, 24px, 0px);
+    top: 15px;
+    left: 108px;
+    will-change: transform;
+}
+/*************************End  Header ***********************/
+
+/************************ Common colors ***********************/
+
+.hd-alg, .icons_header, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .chart-mr,.video-edit, h6, .drp-item, .ext-txt{
   color: #468FB9;
 }
+.chart-bg,.white-bg{
+  background-color: #fff;
+  box-shadow: 0px 0px 8px 0px #ccc;
+}
+
+
 .p-color{
   color: #7a8996;
   max-width: 83%;
 }
 .click-color{color: #39647a;}
+
 .icons_header{
   padding: 0 12px; 
 }
-.mat-tab-header, .mat-tab-nav-bar{
-  border-bottom: 0;
-}
-.mat-tab-group {
-  display: block;
-  flex-direction: unset;
-}
+
+
 .btn-alg{
   padding: 25px 0 25px 0px;
 }
-.snow-img img{width: 50%}
+.snow-img img{width: 100%}
 .cloudy{
   font-size: 25px;
   color: #468FB9;
   margin: 0;
-}
-p{
-  color: #468FB9;
 }
 .circle-fnt{font-size: 12px;}
 .hd-button{
@@ -175,10 +316,7 @@ p{
   border-bottom-color: #007bff;
   /*color: #007bff;*/
 }
-.hd-button:focus {
-  outline: none;
-  outline: none;
-}
+
 .btn_alg {
   background-color: #468FB9;
   color: #fff;
@@ -187,14 +325,7 @@ p{
   border: 0px solid #468FB9;
   border-radius: 5px;
 }
-.chart-bg{
-  background-color: #fff;
-  box-shadow: 0px 0px 8px 0px #ccc;
-}
-.row {
-  margin-left: 0 ;
-  margin-right: 0;
-}
+
 .num-alg{
   font-size: 30px;
   color: #336F90;
@@ -284,18 +415,16 @@ li {
   #wrapper.toggled #sidebar-wrapper {
     width: 250px;
   }
-  #page-content-wrapper {
-    padding: 20px 0 40px 90px;
+  .page-content-wrapper {
+    padding: 20px 15px 40px 108px;
     position: relative;
     background-color: #F5F6FA;
   }
-  #wrapper.toggled #page-content-wrapper {
+  #wrapper.toggled .page-content-wrapper {
     position: relative;
     margin-right: 0;
   }
-  .row{
-    margin: 0;
-  }
+
   .bg-color{
     background-color: #F5F6FA;
   }
@@ -324,12 +453,10 @@ li {
 .snow-img {
   text-align: center;
 }
+/*********************** table css*********************/
 .table thead th, .table td {
   vertical-align: bottom;
   border: none;
-}
-.custom-table {
-  padding: 0 20px;
 }
 .table thead th {
 
@@ -350,7 +477,9 @@ li {
 .custom-table table {
   width: 100%;
 }
-
+.custom-table {
+  padding: 0 20px;
+}
 .custom-table thead, .custom-table tbody, .custom-table tr,.custom-table td, .custom-table th { display: block; }
 
 .custom-table tr:after {
@@ -359,11 +488,8 @@ li {
   visibility: hidden;
   clear: both;
 }
-
 .custom-table thead th {
   height: 30px;
-
-  /*text-align: left;*/
 }
 
 .custom-table tbody {
@@ -374,11 +500,21 @@ li {
 .custom-table thead {
   /* fallback */
 }
-
-
-.custom-table tbody td, thead th {
+.custom-table tbody td, .custom-table thead th {
   width: 33.3%;
   float: left;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #F4FBFF;
+}
+.th-boxshadow{
+    border-bottom: 3px solid #ccc;
+    box-shadow: 0px 2px 2px 2px #ccc;
+    border-radius: 3px;
+}
+.custom-table2 .table thead th {
+   font-weight: 600;
+    color: #737373;
 }
 .donutchat-style {
     padding: 10px 0 30px 0px;
@@ -440,4 +576,128 @@ li {
 }
 .rest-pd{
 	padding: 20px 0 0 0;
+}
+.form-control:focus {
+    box-shadow: none;
+}
+.modalButtons,.modalButtons .btn-primary {
+    text-align: center;
+    float: none;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+    .modal-dialog
+    {
+      transform: translate(0,0);
+    height: calc(100vh - 60px);
+    width: calc(100vw - 0px);
+    vertical-align: middle;
+    display: table-cell;
+        max-width: unset;
+    margin: 0 auto;
+  }
+
+    .modal-content {
+
+    width: 40%;
+
+    margin: 0 auto;
+}
+.add-video-header ul.nav.nav-tabs {
+    margin-bottom: 20px;
+    background-color: #fff;
+    width: 260px;
+    height: 51px;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+.add-video-header ul li.nav-item.active {
+    border-bottom: 2px solid #007bff;
+}
+.add-video-header ul li.nav-item{
+    width: 128px;
+}
+.add-video-header ul li a.nav-link.active {
+    border: none;
+    text-align: center;
+    color: #007fbb;
+}
+.add-video-header .nav-tabs .nav-link:hover {
+    border-color: transparent;
+    color: #007fbb;
+}
+.add-video-header ul li a.nav-link{
+	text-align: center;
+}
+.multiselect-input delete-icon svg {
+    vertical-align: middle !important;
+    height: 29px !important;
+    position: relative !important;
+    top: -3px !important;
+}
+.multiselect-input delete-icon {
+        width: 30px !important;
+    background: #ccc;
+    height: 28px !important;
+    border-radius: 70px;
+    text-align: center !important;
+    line-height: 34px;
+}
+.multiselect-input delete-icon:hover {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+.multiselect-input .tag__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 60px;
+    line-height: 29px;
+}
+.required_color{
+      color: #f44336;
+    font-size: 12px;
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+}
+.multiselect-input tag {
+    /* min-width: 110px; */
+    padding-right: 0 !important;
+    height: 31px !important;
+}
+.pagenation-dropdown button.ngx-dropdown-button {
+    border-radius: 20px !important;
+    background-color: transparent !important;
+    border: 1px solid #468FB9 !important;
+    width: 80px !important;
+    min-width: unset;
+    padding: 4px 8px !important;
+    min-height: unset !important;
+    height: 28px !important;
+    overflow: hidden !important;
+}
+
+.pagenation-dropdown  .ngx-dropdown-container .ngx-dropdown-list-container{
+    top: 45px !important;
+    right: 0px !important;
+}
+.pagenation-dropdown  .ngx-dropdown-container .ngx-dropdown-list-container ul li{
+    padding: 3px 15px !important;
+    text-align: center;
+}
+.pagenation-dropdown .ngx-dropdown-container button span {
+   color: #468FB9;
+   line-height: 4px;
+}
+ul.pagination {
+    margin: 0;
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #468FB9;
+    border-color: #468FB9;
 }

@@ -22,9 +22,9 @@ export class HttpProvider {
   getData(url) {
     return this.http.get(this.API_ENDPOINT + url);
   }
-  post(data) {
+  post(params,data) {
     let body = JSON.stringify(data);
-    return this.http.post(this.API_ENDPOINT, body, this.httpOptions);
+    return this.http.post(this.API_ENDPOINT+params, body, this.httpOptions);
   }
   put(data) {
     let body = JSON.stringify(data);

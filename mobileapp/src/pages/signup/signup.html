@@ -1,0 +1,61 @@
+<ion-content padding class="login-bg">
+	<div class="signin-process">
+		<p class="sign-title">{{constant.pages.signinLabels.signUp}}</p>
+		<div class="app-signup">
+			<form novalidate (ngSubmit)="signupfn()" [formGroup]="signupform">
+				<ion-list class="signin-block">
+					<ion-item class="input-login">
+						<ion-input type="text" round [(ngModel)]="signup.username" formControlName="username" [class.error1]="!signupform.controls.username.valid && signupform.controls.username.dirty"
+						 placeholder="{{constant.pages.signinLabels.fullName}}"></ion-input>
+					</ion-item>
+					<div *ngIf="( signupform.get('username').hasError('minlength') || signupform.get('username').hasError('maxlength') ||signupform.get('username').hasError('pattern') || signupform.get('username').hasError('required') ) && signupform.get('username').touched">
+						<div class="error" *ngIf="signupform.get('username').hasError('required') && signupform.get('username').touched">
+							{{constant.pages.signinLabels.validations.usernameRequired}}
+						</div>
+						<div class="error" *ngIf="signupform.get('username').hasError('minlength') && signupform.get('username').touched">
+							{{constant.pages.signinLabels.validations.usernameMinlength}}
+						</div>
+						<div class="error" *ngIf="signupform.get('username').hasError('maxlength') && signupform.get('username').touched">
+							{{constant.pages.signinLabels.validations.usernameMaxlength}}
+						</div>
+						<div class="error" *ngIf="signupform.get('username').hasError('pattern') && signupform.get('username').touched">
+							{{constant.pages.signinLabels.validations.usernamePattern}}
+						</div>
+					</div>
+					<ion-item class="input-login">
+						<ion-input type="text" round [(ngModel)]="signup.emailAddress" formControlName="email" [class.error1]="!signupform.controls.email.valid && signupform.controls.email.dirty"
+						 placeholder="{{constant.pages.signinLabels.emailId}}"></ion-input>
+					</ion-item>
+					<div *ngIf="( signupform.get('email').hasError('minlength') || signupform.get('email').hasError('pattern') ||signupform.get('email').hasError('required') ) && signupform.get('email').touched">
+						<div class="error" *ngIf="signupform.get('email').hasError('required') && signupform.get('email').touched">
+							{{constant.pages.signinLabels.validations.emailRequired}}
+						</div>
+						<div class="error" *ngIf="signupform.get('email').hasError('pattern') && signupform.get('email').touched">
+							{{constant.pages.signinLabels.validations.emailInvalid}}
+						</div>
+					</div>
+					<ion-item class="input-login">
+						<ion-input type="text" round [(ngModel)]="signup.phoneNumber" formControlName="phone" [class.error1]="!signupform.controls.phone.valid && signupform.controls.phone.dirty"
+						 placeholder="{{constant.pages.signinLabels.mobileNo}}"></ion-input>
+					</ion-item>
+					<div *ngIf="( signupform.get('phone').hasError('minlength') || signupform.get('phone').hasError('pattern') ||signupform.get('phone').hasError('required') ) && signupform.get('phone').touched">
+						<div class="error" *ngIf="signupform.get('phone').hasError('required') && signupform.get('phone').touched">
+							{{constant.pages.signinLabels.validations.mobileNoRequired}}
+						</div>
+					</div>
+				</ion-list>
+				<div class="login-action">
+					<button ion-button round type="submit" class="login-btn" [disabled]="signupform.invalid">{{constant.pages.signinLabels.signupSmall}}</button>
+					<div class="social-links">
+						<button class="mr-5" type="button" (click)="loginGooglePlus()">
+							<img src="../assets/imgs/google-plus.png">
+						</button>
+						<button type="button">
+							<img src="../assets/imgs/linkedin.png" (click)=loginLinkedIn()>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</ion-content>

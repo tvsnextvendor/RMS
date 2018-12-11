@@ -1,0 +1,34 @@
+
+.video-img-alg{
+	max-height: 150px;
+    overflow: hidden;
+    color: #fff;
+    font-size: 12px;
+    position: relative;
+}
+.img-player-alg{
+	max-width: 100%;
+    position: absolute;
+}
+.video-desc{position: relative;}
+.video-header{
+	line-height: 27px;
+    float: left;
+}
+.video-action{
+	padding: 15px 0;
+	position: relative;
+}
+.timer-alg{
+	background-color: rgba(0,0,0,0.3);
+    font-size: 12px;
+    padding: 3px 12px 3px 5px;
+    float: left;
+}
+.play-video{
+	margin-top: 20px;
+    font-weight: 700;
+}
+.player-icon{
+	font-size: 20px;
+}

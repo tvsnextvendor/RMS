@@ -1,0 +1,67 @@
+
+   <div>  
+      <h4>{{title}}</h4>
+      <div class="float-right">        
+        <div class="dropdown show mb-3">
+            <label class="ext-txt mb-0 mr-2">{{labels.exportTo}}</label>
+          <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">{{labels.btns.pdf}}</span></a>
+            <div class="dropdown-menu drp-dwn" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{labels.btns.excel}}</a>
+                <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{labels.btns.pdf}}</a>             
+            </div>
+            <span class="pagenation-btn"><ngx-select-dropdown (change)="onLimitChange($event)" [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Select limit'}" class="pagenation-dropdown"></ngx-select-dropdown></span>  
+        </div>  
+                 
+      </div>     
+  </div>
+      <div class="table-responsive custom-table2 px-1">
+        <table class="table table-striped white-bg mt-1" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="(pageLimit.length ? pageLimit : 5)" id="contentToConvert">
+
+            <thead>
+            <tr class="text-center th-boxshadow">
+                <th>
+                    <mfDefaultSorter by="employeeName">{{labels.tableTitle.employeeName}}</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="employeeGroup">{{labels.tableTitle.employeeGroup}}</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="assignedCount">{{labels.tableTitle.assignedCount}}</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="inProgressCount">{{labels.tableTitle.inProgressCount}}</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="completedCount">{{labels.tableTitle.completedCount}}</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="ratings">{{labels.tableTitle.ratings}}</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="total">{{labels.tableTitle.total}}</mfDefaultSorter>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let emp of mf.data" class="text-center">
+                <td><a (click)="goToEmpDetails()">{{ emp.employeeName }}</a></td>
+                <td>{{ emp.employeeGroup }}</td>
+                <td>{{ emp.assignedCount }}</td>
+                <td>{{ emp.inProgressCount }}</td>
+                <td>{{ emp.completedCount }}</td>
+                <td>{{ emp.ratings }}</td>
+                <td>{{ emp.total }}</td>
+            </tr>
+            <tr *ngIf="mf.data?.length == 0">
+                <td colspan="5" class="text-center data-design">{{labels.noData}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="7">
+                    <mfBootstrapPaginator></mfBootstrapPaginator>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+      </div>

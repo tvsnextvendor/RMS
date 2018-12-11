@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DashboardVar} from '../Constants/dashboard.var';
+import {HeaderService} from '../services/header.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,13 +10,13 @@ export class DashboardComponent implements OnInit {
  
   tabs = [];
 
-  constructor(private dashboardVar: DashboardVar) { }
+  constructor(private dashboardVar: DashboardVar,private headerService: HeaderService) { }
 
   tabTitle: string[] = ['Employee','Resort'];
   selectedtab = this.tabTitle[0];
 
   ngOnInit() {
-
+  this.headerService.setTitle('Dashboard');
     
   }
 

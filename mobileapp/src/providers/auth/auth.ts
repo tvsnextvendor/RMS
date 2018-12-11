@@ -8,29 +8,21 @@ export interface User {
   name: string;
   role: number;
 }
-/*
-  Generated class for the AuthProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthProvider {
   currentUserSet: User;
   users: any = [];
-  constructor(public http: HttpProvider, public toastCtrl: ToastController,public storage: Storage) {
+  constructor(public http: HttpProvider, public toastCtrl: ToastController, public storage: Storage) {
     console.log('Hello AuthProvider Provider');
   }
-  login(name: string, pw: string): Promise<boolean> {
+  login(name: string, pw: string, keepmelogin: boolean): Promise<boolean> {
     var self = this;
     return new Promise((resolve, reject) => {
-
       this.http.getData(API_URL.URLS.getUsers).subscribe((data) => {
-        if (data) {
-          this.users = data;
+        if (data['isSuccess']) {
+          this.users = data['UserList'];
           let usernameCorrect = this.users.find(x => x.username === name);
           let passwordCorrect = this.users.find(x => x.password === pw);
-
           if (!usernameCorrect) {
             let toast = self.toastCtrl.create({
               message: 'Username is invalid',
@@ -50,6 +42,9 @@ export class AuthProvider {
             toast.present();
             reject(false);
           } else {
+            this.storage.set('currentUser', usernameCorrect).then(() => {
+              console.log('currentUser has been set');
+            });
             this.currentUserSet = {
               name: name,
               role: 0
@@ -65,7 +60,7 @@ export class AuthProvider {
   }
   logout() {
     this.currentUserSet = null;
-    this.storage.remove('userDashboardInfo');
+    this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
+    this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
   }
-
 }

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { AuthProvider } from '../../providers/auth/auth';
+import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
 
 @IonicPage({
@@ -9,19 +10,36 @@ import { Storage } from '@ionic/storage';
 })
 @Component({
     selector: 'page-login',
-    templateUrl: 'login.html'
+    templateUrl: 'login.html',
+    providers: [Constant]
 })
-export class LoginPage {
-
+export class LoginPage implements OnInit {
     user = {
         name: '',
-        pw: ''
+        pw: '',
+        keepmelogin: false,
     }
     paramsObj: any = {};
-    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, private alertCtrl: AlertController,public storage: Storage) {
+    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, private alertCtrl: AlertController, public storage: Storage, public constant: Constant) {
+    }
+    ngOnInit() {
+        this.storage.get('userInput').then(
+            (val) => {
+                if (val) {
+                    this.user = val
+                }
+                console.log(val);
+            }, (err) => {
+                console.log('userInput not received', err);
+            });
     }
     doLogin() {
-        this.authService.login(this.user.name, this.user.pw).then(success => {
+        if (this.user.keepmelogin) {
+            this.storage.set('userInput', this.user).then(() => {
+                console.log('Data has been set');
+            });
+        }
+        this.authService.login(this.user.name, this.user.pw, this.user.keepmelogin).then(success => {
             if (success) {
                 this.navCtrl.setRoot('home-page');
             }
@@ -33,6 +51,11 @@ export class LoginPage {
             });
             alert.present();
         });
-
+    }
+    goToSignUp() {
+        this.navCtrl.setRoot('signup-page');
+    }
+    goToForget() {
+        this.navCtrl.setRoot('forget-page');
     }
 }
