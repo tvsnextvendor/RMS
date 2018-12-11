@@ -1,0 +1,96 @@
+<div class="row">
+        <div class="col-sm-9">
+            <div class="table-responsive">
+                <table class="table table-striped white-bg" [mfData]="forumVar.forumList" #mf="mfDataTable" [mfRowsOnPage]="10">
+                        <thead>
+                        <tr class="th-boxshadow"  class="text-center">
+                         
+                            <th>
+                                <mfDefaultSorter by="forumName">{{forumVar.ForumFormLabels.forumName}}</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="employeeId">{{forumVar.ForumFormLabels.empCount}}</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="activeStatus">{{forumVar.ForumFormLabels.activeInActive}}</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter>{{forumVar.ForumFormLabels.action}}</mfDefaultSorter>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let forum of mf.data" class="text-center">
+                                <td>{{ forum.forumName }}</td>
+                                <td>{{ forum.employeeDetails.length }}</td>
+                                <td><label class="switch">
+                                        <input type="checkbox" [(ngModel)]="forum.activeStatus" (change)= "statusUpdate(forum.forumName,forum.activeStatus)" > 
+                                        <span class="slider round"></span>
+                                    </label></td>
+                                    <td><a (click)="openEditModal(editForum,forum)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a></td> 
+                        </tr>
+                        <tr *ngIf="mf.data?.length == 0">
+                            <td colspan="5" class="text-center data-design">No data!</td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    
+        <div class="col-sm-3 white-bg py-4 fs-12">
+                <app-createForum></app-createForum>
+        </div>
+    
+    </div>
+    
+    
+
+  <ng-template #editForum>
+        <div class="modal-header">
+                <h4 class="modal-title pull-left">{{forumVar.createForum.editForum}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+                <form #formDir="ngForm" (ngSubmit)="onSave(formDir)">
+                <div class="form-group">
+                        <label>{{forumVar.createForum.forumName}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="forumName" #ForumName="ngModel" name = "forumName" id="forumName" placeholder="Enter Forum Name" required> 
+                        <span class="required_color" *ngIf="ForumName && ForumName.invalid && (formDir.submitted || ForumName.touched)">
+                                {{forumVar.mandatoryLabels.forumName}}
+                        </span>    
+                    </div>
+                    <div class="form-group">
+                        <label>{{forumVar.createForum.topics}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="topics" #Topics="ngModel" name = "topics" id="topics" placeholder="Add Topic" required>  
+                        <span class="required_color" *ngIf="Topics && Topics.invalid && (formDir.submitted || Topics.touched)">
+                                {{forumVar.mandatoryLabels.topic}}
+                        </span> 
+                    </div> 
+                    <div class="form-group">
+                        <label>{{forumVar.createForum.empName}}</label> 
+                        <tag-input [ngModel]="employeeItems" #empName="ngModel"
+                        name="empItems"
+                        [onlyFromAutocomplete]="true"
+                        [placeholder]="'+ Employee'"      [displayBy]="'name'"
+                        [identifyBy]="'id'" [secondaryPlaceholder]="'Select Employee'" class="multi-input"
+                        required>
+                        <tag-input-dropdown [showDropdownIfEmpty]="true"
+                        [dynamicUpdate]="false"
+                        [focusFirstElement]="true"             
+                        [autocompleteItems]="autocompleteItemsAsEmpObjects">
+                        <ng-template let-item="item" let-index="index">
+                            {{ item.display }}
+                        </ng-template>
+                       </tag-input-dropdown>
+                        </tag-input>
+                        <span class="required_color" *ngIf="empName && empName.invalid && (formDir.submitted || empName.touched)">
+                                {{forumVar.mandatoryLabels.empName}}
+                        </span>    
+                  </div> 
+            <button type="button" class="btn btn-default mr-3" (click)="modalRef.hide()">{{forumVar.btns.cancel}}</button>
+            <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.create}}</button>
+        </form>
+        </div>
+</ng-template> 

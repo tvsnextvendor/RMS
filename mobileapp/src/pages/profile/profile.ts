@@ -22,7 +22,7 @@ export class ProfilePage implements OnInit {
     this.getDetails();
   }
   ngOnInit() {
-
+    this.getDetails();
   }
   getDetails() {
     let self = this;
@@ -31,10 +31,17 @@ export class ProfilePage implements OnInit {
         if (val) {
           self.currentUser = val
         }
-        console.log(this.currentUser);
+
+        console.log("sadasdasdas self.currentUser");
+        console.log(self.currentUser);
       }, (err) => {
         console.log('currentUser not received in profile.component.ts', err);
       });
+      console.log(self.currentUser);
+    
+  }
+  goToProfile() {
+    this.navCtrl.setRoot('profile-page');
   }
 
 }

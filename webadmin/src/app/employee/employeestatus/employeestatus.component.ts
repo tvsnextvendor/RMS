@@ -1,11 +1,11 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {HttpService} from '../services/http.service';
-import {ExcelService} from '../services/excel.service';
-import {PDFService} from '../services/pdf.service';
-import {HeaderService} from '../services/header.service';
-import {EmployeeVar} from '../Constants/employee.var';
+import {HttpService} from '../../services/http.service';
+import {ExcelService} from '../../services/excel.service';
+import {PDFService} from '../../services/pdf.service';
+import {HeaderService} from '../../services/header.service';
+import {EmployeeVar} from '../../Constants/employee.var';
 
 @Component({
   selector: 'app-employeestatus',
@@ -18,6 +18,8 @@ export class EmployeestatusComponent implements OnInit {
   labels ;
   pageLimitOptions = [];
   pageLimit;
+  filterOptions = [];
+  selecetedFilter;
   constructor(private route: Router, private toastr: ToastrService,private http: HttpService,private employeeVar : EmployeeVar,private excelService:ExcelService,private pdfService:PDFService,private headerService: HeaderService) { }
 
   ngOnInit(){
@@ -29,6 +31,7 @@ export class EmployeestatusComponent implements OnInit {
     this.headerService.setTitle(this.labels.title);
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit=[this.pageLimitOptions[0]];
+    this.filterOptions = ["HR","Finance","Marketing","Safety"];
   }
 
   onLimitChange(){

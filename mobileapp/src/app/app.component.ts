@@ -2,22 +2,15 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { LandingPage } from '../pages/landing/landing';
-import { HomePage } from '../pages/home/home';
-import { TrainingPage } from '../pages/training/training';
-//import { LoginPage } from '../pages/login/login';
-import { ForumPage } from '../pages/forum/forum';
-import { EventPage } from '../pages/event/event';
-import { CalendarPage } from '../pages/calendar/calendar';
-import { SettingsPage } from '../pages/settings/settings';
-import { AuthProvider } from '../providers/auth/auth';
 import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
-import {Constant} from '../constants/Constant.var';
+import { Constant } from '../constants/Constant.var';
+import { AuthProvider } from '../providers/auth/auth';
+import { LandingPage, HomePage, TrainingPage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage } from '../pages/indexComponent';
 
 @Component({
   templateUrl: 'app.html',
-  providers: [AppVersion,Constant]
+  providers: [AppVersion, Constant]
 })
 export class MyApp {
   @ViewChild(Nav) nav; Nav;
@@ -25,7 +18,8 @@ export class MyApp {
   pages: Array<{ title: string, component: any }>;
   currentUser;
   windowWidth;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, private appVersion: AppVersion, public storage: Storage,public constant:Constant) {
+  profilePage = { title: 'Profile', component: ProfilePage };
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, private appVersion: AppVersion, public storage: Storage, public constant: Constant) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -40,7 +34,7 @@ export class MyApp {
     ];
     this.appDetails();
     this.getDetails();
-    this.windowWidth= window.screen.width;
+    this.windowWidth = window.screen.width;
   }
   openPage(page) {
     this.nav.setRoot(page.component);

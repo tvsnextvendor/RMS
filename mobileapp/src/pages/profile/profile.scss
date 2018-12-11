@@ -1,3 +1,32 @@
 page-profile {
+	.profile-bg{
+		background: url(../assets/imgs/loginbg.png);
+		background-size: cover;
+		background-repeat: no-repeat;
+		.list-ios {
+			margin: 0px 0 16px;
 
+		}
+		.scroll-content{
+			background-color: transparent;
+		}
+		.item.item-block,{
+			background: transparent ;
+			border: none;
+		}
+
+	}
+	.toolbar-background {
+		background: transparent !important;	
+		border: none !important;
+	}
+	.profile-img {
+		text-align: center;
+	}
+	ion-list.profile-details p, ion-list.profile-details small {
+		color: #fff;
+	}
+	.profile-img {
+    color: #fff;
+}
 }

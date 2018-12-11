@@ -1,50 +1,45 @@
-<ion-content padding class="change-password">
-  <ion-header no-border>
-    <ion-toolbar transparent class="change-password-toolbar">
-      <ion-icon name="ios-arrow-back" (click)="navCtrl.pop()"></ion-icon>
-      <p>{{constant.title.profile}}</p>
-    </ion-toolbar>
-  </ion-header>
-  <div class="inner-content" *ngIf="currentUser">
-    <div class="row">
-      <div class="profile-image">
-        <img src="{{currentUser.userImage}}">
-      </div>
-    </div>
-    <div class="row">
-      <h6>{{currentUser.username}}</h6>
-    </div>
-    <div class="row">
-      <ion-list>
-        <ion-item>
-          <ion-icon name="mail"></ion-icon>
-          <div>
-            <span class="main-tag">{{currentUser.phoneNumber}}</span>
-            <span class="sub-tag">{{constant.pages.profileLabels.mobile}}</span>
-          </div>
-        </ion-item>
-        <ion-item>
-          <ion-icon name="mail"></ion-icon>
-          <div>
-            <span class="main-tag">{{currentUser.emailAddress}}</span>
-            <span class="sub-tag">{{constant.pages.profileLabels.email}}</span>
-          </div>
-        </ion-item>
-        <ion-item>
-          <ion-icon name="chatboxes"></ion-icon>
-          <div>
-            <span class="main-tag">{{currentUser.department}}</span>
-            <span class="sub-tag">{{constant.pages.profileLabels.department}}</span>
-          </div>
-        </ion-item>
-        <ion-item>
-          <div>
-            <span class="main-tag"> {{currentUser.designation}}</span>
-            <span class="sub-tag">{{constant.pages.profileLabels.designation}}</span>
-          </div>
-          <ion-icon name="chatboxes"></ion-icon>
-        </ion-item>
-      </ion-list>
-    </div>
-  </div>
+<!-- <ion-header class="main-header my-component">
+<ion-navbar>
+<button ion-button menuToggle>
+<ion-icon name="menu"></ion-icon>
+</button>
+<ion-title>Profile</ion-title>
+</ion-navbar>
+</ion-header> -->
+<ion-header class="main-header my-component" color="primary">
+	<ion-navbar>
+		<ion-icon name="ios-arrow-back"></ion-icon>
+		<ion-title class="text-left">
+			{{constant.title.profile}}
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content padding class="profile-bg" *ngIf="currentUser">
+	<div class="profile-img">
+		<img src="{{currentUser.userImage}}" class="profile-image" (click)="goToProfile()">
+		<h4>{{currentUser.username}}</h4>
+	</div>
+	<ion-list class="profile-details">
+		<ion-item>
+			<ion-col col-6>
+
+			</ion-col>
+			<ion-col col-6>
+				<p>+123 456 789 234</p>
+				<small>Mobil</small>
+			</ion-col>
+		</ion-item>
+		<ion-item>
+			<p>john.doe@mail.com</p>
+			<small>Email</small>
+		</ion-item>
+		<ion-item>
+			<p>Marketing</p>
+			<small>Department</small>
+		</ion-item>
+		<ion-item>
+			<p>Analyst</p>
+			<small>Designation</small>
+		</ion-item>
+	</ion-list>
 </ion-content>

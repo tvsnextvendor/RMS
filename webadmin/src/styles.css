@@ -416,7 +416,7 @@ li {
     width: 250px;
   }
   .page-content-wrapper {
-    padding: 20px 15px 40px 108px;
+    padding: 20px 0px 40px 108px;
     position: relative;
     background-color: #F5F6FA;
   }
@@ -700,4 +700,7 @@ ul.pagination {
     color: #fff;
     background-color: #468FB9;
     border-color: #468FB9;
+}
+a {
+    cursor: pointer;
 }

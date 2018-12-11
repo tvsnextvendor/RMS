@@ -1,4 +1,4 @@
-
+<div class="pr-3">
   <div>  
       <label class="emp-details">{{labels.employeeName}} : {{employeeName}}</label>
       <span class="float-right">
@@ -47,7 +47,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let emp of mf.data" class="text-center">
-                <td class="vat">{{ emp.courseName }}</td>
+                <td class="vat"><a href="javascript:void" (click)="goToVideosTrend(emp.courseId)">{{ emp.courseName }} </a></td>
                 <td class="vat">{{ emp.completedPercentage }}</td>
                 <td class="vat">{{ emp.badgeName }}</td>
                 <td class="vat td-pd" colspan="7">
@@ -78,3 +78,4 @@
             </tfoot>
         </table>
       </div>
+  </div>

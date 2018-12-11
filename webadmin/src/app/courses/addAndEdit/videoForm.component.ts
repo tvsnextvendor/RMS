@@ -20,6 +20,9 @@ export class VideoFormComponent implements OnInit {
     
     employeeItems;
     groupItems;
+    resData;
+    filterEmployeeList;
+    groupName;
     // form: FormGroup;
     autocompleteItemsAsGroupObjects;
     autocompleteItemsAsEmpObjects;
@@ -52,7 +55,7 @@ export class VideoFormComponent implements OnInit {
     ngOnInit() {
        this.getCourses();
        this.headerService.setTitle('');
-       this.staticTabs.tabs[1].disabled = true;
+      // this.staticTabs.tabs[1].disabled = true;
        this.getGroups();
     }
   
@@ -86,8 +89,13 @@ export class VideoFormComponent implements OnInit {
     }
 
     onItemAdded(group){
-    
-      console.log(group, "GROUP");
+      console.log(group.value, "GROUP");
+      this.groupName =group.value;
+        this.filterEmployeeList =  this.resData.map(function(employee) {
+         if( employee.employeeGroup == group.value){
+             return employee.employeeName;
+         }
+       });
     }
     
     onChangeCourse(course,template){
@@ -100,7 +108,48 @@ export class VideoFormComponent implements OnInit {
     
   fileChange(event) 
   {
-    let fileList: FileList = event.target.files;
+    let file = event.target.files[0];
+    var fileReader = new FileReader();
+
+          fileReader.onload = function() {
+            var blob = new Blob([fileReader.result], {type: file.type});
+            var url = URL.createObjectURL(blob);
+            var video = document.createElement('video');
+            var timeupdate = function() {
+              if (snapImage()) {
+                video.removeEventListener('timeupdate', timeupdate);
+                video.pause();
+              }
+            };
+            video.addEventListener('loadeddata', function() {
+              if (snapImage()) {
+                video.removeEventListener('timeupdate', timeupdate);
+              }
+            });
+            var snapImage = function() {
+              var canvas = document.createElement('canvas');
+              canvas.width = video.videoWidth;
+              canvas.height = video.videoHeight;
+              canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+              var image = canvas.toDataURL();
+              var success = image.length > 100000;
+              if (success) {
+                var img = document.createElement('img');
+                img.src = image;
+                document.getElementsByTagName('div')[0].appendChild(img);
+                URL.revokeObjectURL(url);
+              }
+              return success;
+            };
+            video.addEventListener('timeupdate', timeupdate);
+            video.preload = 'metadata';
+            video.src = url;
+            // Load video in Safari / IE11
+            video.muted = true;
+            // video.playsInline = true;
+            video.play();
+          };
+          fileReader.readAsArrayBuffer(file);
   }
 
   createNewCourse(courseName){

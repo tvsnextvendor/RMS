@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as jspdf from 'jspdf';  
 import html2canvas from 'html2canvas';
-import {HttpService} from '../services/http.service';
-import {ExcelService} from '../services/excel.service';
-import {PDFService} from '../services/pdf.service';
-import {HeaderService} from '../services/header.service';
-import {EmployeeVar} from '../Constants/employee.var';
+import {HttpService} from '../../services/http.service';
+import {ExcelService} from '../../services/excel.service';
+import {PDFService} from '../../services/pdf.service';
+import {HeaderService} from '../../services/header.service';
+import {EmployeeVar} from '../../Constants/employee.var';
 
 @Component({
   selector: 'app-employeedetails',
@@ -24,7 +24,7 @@ export class EmployeedetailsComponent implements OnInit {
 
   ngOnInit(){
     // get employee status
-    this.http.get('5c07d5963000006117d25d6f').subscribe((resp) => {
+    this.http.get('5c0e0c952e00004d00043c4e').subscribe((resp) => {
       this.employeeArray = resp.EmployeeDetailList;
       this.employeeName = resp.EmployeeName
     });
@@ -40,6 +40,10 @@ export class EmployeedetailsComponent implements OnInit {
 // Create Excel sheet
 exportAsXLSX():void {
   this.excelService.exportAsExcelFile(this.employeeArray, this.labels.title);
+}
+
+goToVideosTrend(id){
+  this.route.navigateByUrl('/videostrend/'+id);
 }
 
 }

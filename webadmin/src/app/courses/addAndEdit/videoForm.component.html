@@ -16,7 +16,7 @@
                                 <span class="required_color" *ngIf="courseName && courseName.invalid && (formDir.submitted || courseName.touched)">
                                     {{videoVar.mandatoryLabels.courseName}}
                                 </span> 
-                            </div>
+                               </div>
                                 <div class="col-sm-1"></div>
                                  
                             </div>
@@ -92,7 +92,7 @@
                     <div class="white-bg ">
                         <div class="row">
                             <div class="col-md-8 p-4">
-                                <div class="form-group row ">
+                                <!-- <div class="form-group row ">
                                     <label for="courseName" class="col-sm-3 custm-label col-form-label">Employee</label> 
                                     <div class="col-md-9 multiselect-input"> 
                                         <tag-input [ngModel]="employeeItems"
@@ -130,8 +130,8 @@
                                 </ng-template>
                             </tag-input-dropdown>
                         </tag-input>
-                    </div>
-                </div>
+                    </div> 
+                </div> -->
                 <div class="text-center mt-5 center-btn">
                     <button class="btn btn-primary" (click)="saveAssigned()">save</button>
                 </div>

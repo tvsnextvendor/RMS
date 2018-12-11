@@ -32,3 +32,6 @@
 .player-icon{
 	font-size: 20px;
 }
+video.videoPlayer{
+    width: 100%;
+}

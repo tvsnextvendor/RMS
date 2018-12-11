@@ -7,11 +7,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 
 @Component({
-    selector: 'app-video',
-    templateUrl: './video.component.html',
-    styleUrls: ['./video.component.css'],
+    selector: 'app-courses',
+    templateUrl: './courses.component.html',
+    styleUrls: ['./courses.component.css'],
 })
-export class VideoComponent implements OnInit {
+export class CoursesComponent implements OnInit {
     constructor(public videoVar: VideoVar,private modalService:BsModalService,public http: HttpService, private headerService: HeaderService) { }
     modalRef: BsModalRef;
     videoLink;

@@ -1,5 +1,26 @@
 page-landing {
 
-    .landing-bg{background: url(../assets/imgs/loginbg.png)}
+	.landing-bg{
+		background-image: url(../assets/imgs/loginbg.png);
+		background-size: cover;
+
+		.scroll-content{
+			background-color: transparent;
+			.l-buttons .login-btn {
+				width: 100%;
+				padding: 30px 10px;
+			}
+			.l-buttons {
+				vertical-align: bottom;
+				width: calc(100vw - 0px);
+				height: calc(100vh - 40px);
+				display: table-cell;
+				padding: 0 20px;
+			}
+			.button-ios, .button-md {
+				background-color: #329CD6;
+			}
+		}
+	}
 
 }

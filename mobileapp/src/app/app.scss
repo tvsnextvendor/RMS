@@ -122,14 +122,53 @@
     padding: 0 15px 0px;
 }
     }
-.sidebar-list {
-    .item-ios,.item-md{
-        padding: 0px;
+    .menu-page{
+        background: url(../assets/imgs/loginbg.png);
+        background-size: cover;
+
+        .sidebar-list {
+            .item-ios,.item-md{
+                padding: 0px;
+                border: none;
+                color: #fff;
+                font-weight: 100;
+                font-family: sf_ui_textregular;
+                text-align: center;
+                letter-spacing: 0.5;
+            }
+            .list-md .item-block .item-inner{
+                border: none;
+            }
+            .item-inner {
+                padding: 0 16px;
+            }
+            
+            .sidebar-header{
+                ion-title{
+                    float: left;
+                    padding-left: 15px;
+                }
+                .menu-close-button {
+                    float: right;
+                    color: #fff;
+                    font-size: 35px;
+                    padding-right: 15px;
+                }
+            }
+        }
+
+        .scroll-content,.item-block,.sidebar-list,.menu-inner,.ios .menu-inner{
+            background-color: transparent;
+        }
+        .list-ios .item-block .item-inner{
+            border:none;
+        }
+        ion-list {
+            padding-top: 30px;
+        }
+        button.item-ios:not([detail-none]) .item-inner{    background-image: none;}
     }
-    .item-inner {
-    padding: 0 16px;
-}
-}
+
 a{
     cursor: pointer;
 }
@@ -146,4 +185,10 @@ button:focus {
 }
 .item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-has-focus .item-inner,.list-md .item-input.item-input-has-focus:last-child, .list-md .item-input.input-has-focus:last-child{
     box-shadow: none;
+}
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.5);
 }

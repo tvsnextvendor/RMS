@@ -4,16 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import * as $ from 'jquery';
-import { AppComponent } from './app.component';
+import { FormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {DataTableModule} from "angular-6-datatable";
-import { DashboardModule } from './dashboard/dashboard.module';
-import { VideoModule } from './video/video.module';
-import { MaterialModule } from './material.module';
-import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from './shared/shared.module';
-import { FormsModule }   from '@angular/forms';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { HttpClientModule } from '@angular/common/http';
+import { AppComponent } from './app.component';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { CoursesModule } from './courses/courses.module';
+import { MaterialModule } from './material.module';
+import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard.component';
 import {QuizModule} from './quiz/quiz.module';
@@ -21,18 +21,17 @@ import {GroupModule} from './group/group.module';
 import { ExcelService } from './services/excel.service';
 import { PDFService } from './services/pdf.service';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
-import { EmployeestatusComponent } from './employeestatus/employeestatus.component';
-import { EmployeedetailsComponent } from './employeedetails/employeedetails.component';
 import {SettingsModule} from './settings/settings.module';
 import {VideosTrendModule} from './videostrend/videostrend.module';
+import {EmployeeModule} from './employee/employee.module';
+import {ProfileModule} from './profile/profile.module';
+import {ForumModule} from './forum/forum.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ResetpasswordComponent,
-    EmployeestatusComponent,
-    EmployeedetailsComponent
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -42,17 +41,20 @@ import {VideosTrendModule} from './videostrend/videostrend.module';
     ToastrModule.forRoot(),
     SelectDropDownModule,
     DashboardModule,
-    VideoModule,
+    CoursesModule,
     DataTableModule,
     QuizModule,
     MaterialModule,
     GroupModule,
     HttpClientModule,
     SharedModule,
+    ForumModule,
     SettingsModule,
     VideosTrendModule,
+    ProfileModule,
     FormsModule, 
     GroupModule,
+    EmployeeModule
   ],
   providers: [AuthGuard,ExcelService,PDFService],
   bootstrap: [AppComponent]
