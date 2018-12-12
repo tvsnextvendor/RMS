@@ -50,7 +50,6 @@ export class ResortChartsComponent implements OnInit {
   topResorts() {
     this.http.get(this.dashboardVar.url.getTopResorts).subscribe((data) => {
       this.dashboardVar.topResorts = data.resortCharts.TopResorts;
-      console.log(this.dashboardVar.topResorts);
     });
   }
 
@@ -59,8 +58,6 @@ export class ResortChartsComponent implements OnInit {
         this.dashboardVar.badgesCertification = data;
         this.Badges = this.dashboardVar.badgesCertification.Badges;
         this.BadgesCertificate = this.dashboardVar.badgesCertification.Certification;
-        console.log(this.dashboardVar.badgesCertification);
-        console.log(this.dashboardVar.badgesCertification.Badges);
       });
   }
 

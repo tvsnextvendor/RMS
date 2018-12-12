@@ -49,8 +49,6 @@ export class AccomplishmentPage implements OnInit {
   ngOnInit() {
     this.formCarosuel();
   }
-
-
   formCarosuel() {
     $('#carouselExample').on('slide.bs.carousel', function (e) {
       var $e = $(e.relatedTarget);
@@ -58,7 +56,7 @@ export class AccomplishmentPage implements OnInit {
       var itemsPerSlide = 4;
       var totalItems = $('.carousel-item').length;
       console.log(totalItems);
-      if (idx >= totalItems - (itemsPerSlide - 1)){
+      if (idx >= totalItems - (itemsPerSlide - 1)) {
         var it = itemsPerSlide - (totalItems - idx);
         for (var i = 0; i < it; i++) {
           // append slides to end
@@ -71,34 +69,24 @@ export class AccomplishmentPage implements OnInit {
         }
       }
     });
-
     $('#badgecarouselExample').on('slide.bs.carousel', function (e) {
       var $e = $(e.relatedTarget);
       var idx = $e.index();
       var itemsPerSlide = 4;
-      var totalItems = $('.badgecarousel-item').length;
-
-      console.log('totalItems',totalItems);
+      var totalItems = $('.carousel-item').length;
+      console.log(totalItems);
       if (idx >= totalItems - (itemsPerSlide - 1)) {
         var it = itemsPerSlide - (totalItems - idx);
         for (var i = 0; i < it; i++) {
           // append slides to end
           if (e.direction == "left") {
-            $('.badgecarousel-item').eq(i).appendTo('.badgecarousel-inner');
+            $('.carousel-item').eq(i).appendTo('.carousel-inner');
           }
           else {
-            $('.badgecarousel-item').eq(0).appendTo('.badgecarousel-inner');
+            $('.carousel-item').eq(0).appendTo('.carousel-inner');
           }
         }
       }
     });
   }
-
-
-
-
-
-
-
-
 }

@@ -9,6 +9,8 @@ import {HeaderService} from '../services/header.service';
 export class DashboardComponent implements OnInit {
  
   tabs = [];
+  title:string = "Dashboard";
+  hidemodule=0;
 
   constructor(private dashboardVar: DashboardVar,private headerService: HeaderService) { }
 
@@ -16,8 +18,7 @@ export class DashboardComponent implements OnInit {
   selectedtab = this.tabTitle[0];
 
   ngOnInit() {
-  this.headerService.setTitle('Dashboard');
-    
+  this.headerService.setTitle({title:this.title, hidemodule:this.hidemodule});
   }
 
   ngAfterContentInit() {

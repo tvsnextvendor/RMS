@@ -33,7 +33,7 @@ export class ResetpasswordComponent implements OnInit {
   submitResetPassword() {
     if (this.resetFormData.password === this.confirmPwd)
     {
-      this.toastr.success('Password Resetted Successfully');
+      this.toastr.success('Password reset successfully');
       this.router.navigateByUrl('/login');
       // let updatedArray = this.userArray.map((item,index)=>{
       //   if(index === parseInt(this.userId)){

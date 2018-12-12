@@ -5,11 +5,17 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
     providedIn: 'root'
   })
 export class HeaderService {
-  public title = new BehaviorSubject('Title');
-  
+  public title = new BehaviorSubject({title:'',hidemodule:0});
+  public moduleSelection = new BehaviorSubject('Module');
+
   constructor() { }
 
   setTitle(title) {
     this.title.next(title);
   }
+  
+  selectModule(module) {
+    this.moduleSelection.next(module);
+  }
+
 }

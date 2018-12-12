@@ -1,11 +1,3 @@
-<!-- <ion-header class="main-header my-component">
-<ion-navbar>
-<button ion-button menuToggle>
-<ion-icon name="menu"></ion-icon>
-</button>
-<ion-title>Profile</ion-title>
-</ion-navbar>
-</ion-header> -->
 <ion-header class="main-header my-component" color="primary">
 	<ion-navbar>
 		<ion-icon name="ios-arrow-back"></ion-icon>
@@ -14,32 +6,63 @@
 		</ion-title>
 	</ion-navbar>
 </ion-header>
-<ion-content padding class="profile-bg" *ngIf="currentUser">
+<ion-content padding class="profile-bg">
 	<div class="profile-img">
-		<img src="{{currentUser.userImage}}" class="profile-image" (click)="goToProfile()">
+		<img src="../assets/images/images1.jpeg" class="profile-image">
 		<h4>{{currentUser.username}}</h4>
 	</div>
 	<ion-list class="profile-details">
 		<ion-item>
-			<ion-col col-6>
-
-			</ion-col>
-			<ion-col col-6>
-				<p>+123 456 789 234</p>
-				<small>Mobil</small>
-			</ion-col>
+			<ion-grid>
+				<ion-row>
+					<ion-col col-1>
+						<ion-icon name="ios-call"></ion-icon>
+					</ion-col>
+					<ion-col col-11 class="profile-info">
+						<p>{{currentUser.phoneNumber}}</p>
+						<small>{{constant.pages.profileLabels.mobile}}</small>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
 		</ion-item>
 		<ion-item>
-			<p>john.doe@mail.com</p>
-			<small>Email</small>
+			<ion-grid>
+				<ion-row>
+					<ion-col col-1>
+						<ion-icon name="md-mail-open"></ion-icon>
+					</ion-col>
+					<ion-col col-11 class="profile-info">
+						<p>{{currentUser.emailAddress}}</p>
+						<small>{{constant.pages.profileLabels.email}}</small>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
 		</ion-item>
 		<ion-item>
-			<p>Marketing</p>
-			<small>Department</small>
+			<ion-grid>
+				<ion-row>
+					<ion-col col-1>
+						<ion-icon name="ios-text"></ion-icon>
+					</ion-col>
+					<ion-col col-11 class="profile-info">
+						<p>{{currentUser.department}}</p>
+						<small>{{constant.pages.profileLabels.department}}</small>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
 		</ion-item>
 		<ion-item>
-			<p>Analyst</p>
-			<small>Designation</small>
+			<ion-grid>
+				<ion-row>
+					<ion-col col-1>
+						<ion-icon name="md-text"></ion-icon>
+					</ion-col>
+					<ion-col col-11 class="profile-info">
+						<p>{{currentUser.designation}}</p>
+						<small>{{constant.pages.profileLabels.designation}}</small>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
 		</ion-item>
 	</ion-list>
 </ion-content>

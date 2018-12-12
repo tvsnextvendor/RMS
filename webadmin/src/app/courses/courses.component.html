@@ -1,11 +1,6 @@
 
 <button routerLink="/addVideo" class="btn btn-primary mb-2">ADD NEW</button>
 
-<select id="moduleType" name="moduleType" required (change)="onChangeModule()" [(ngModel)]="videoVar.moduleType">     
-        <option [ngValue]="null">Module</option>
-        <option *ngFor="let module of videoVar.moduleList"  value="{{module.moduleId}}">{{module.moduleName}}</option>
-</select>
-
 <div class="clearfix mt-5" *ngFor="let course of videoVar.courses">
     <div class="row" >
         <h6 class="video-header">{{course.courseName}}</h6>

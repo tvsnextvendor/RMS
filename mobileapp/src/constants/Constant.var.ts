@@ -8,8 +8,9 @@ export class Constant {
         quiz: 'Quiz',
         accomplishment:'Accomplishments',
         changePassword:'Change Password',
-        event:'Events',
-        profile:'Profile'
+        event:'Training Batches',
+        profile:'Profile',
+        forum:'Forum'
     };
     buttons = {
         previous: 'Previous',
@@ -19,7 +20,10 @@ export class Constant {
         menu:'Menu',
         signIn:'SIGN IN',
         signUp:'SIGN UP',
-        save:'SAVE'
+        save:'SAVE',
+        add:'ADD',
+        cancel:'CANCEL',
+        addQuestion:'Add Question'
     };
     pages = {
         loginLabels: {
@@ -119,6 +123,15 @@ export class Constant {
             mobile:'Mobile',
             department:'Department',
             designation:'Designation'
+        },
+        forumLabels:{
+            mostRecent:'Most Recent',
+            featuredTopics:'Featured Topics',
+            featuredFav:'Featured Favorite',
+            typeQuestionHere:'Type your question here',
+            validations:{
+                questionRequired:'Question is required'
+            }
         }
     };
 }

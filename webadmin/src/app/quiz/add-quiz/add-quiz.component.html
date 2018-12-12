@@ -1,46 +1,71 @@
 <div class="pr-3">
+<button class="btn btn-default float-right" (click)="addQuestion()"><i class="fa fa-plus" aria-hidden="true"></i></button>
 <div class="white-bg pt-5">
-	<form class="">		
-		<div class="row">
+	<form class="" (ngSubmit) = "quizSubmit(quizForm)" #quizForm = "ngForm">
+	<div class="row" *ngIf= "!courseId">
+			<div class="col-md-6">
+				<div class="form-group  row">
+					<label for="" class="col-sm-3 custm-label col-form-label">Course Name</label>
+					<div class="col-sm-8" >
+							<select class="form-control"  placeholder="Select Course" name = "courseName" (change)="courseUpdate($event.target.value)" [(ngModel)]="selectedCourse">     
+								<option [value]=''>Select course</option>
+								<option *ngFor="let option of courseOptions"  [value]="option.value" >{{option.name}}</option>
+							</select>        
+					</div>
+						<div class="col-sm-1"></div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group  row">
+					<div class="col-sm-1"></div>
+					<label for="" class="col-sm-3 custm-label col-form-label">Video Name</label>
+					<div class="col-sm-8" >
+							<select class="form-control"  placeholder="Select Video" name = "videoName" (change)="videoUpdate($event.target.value)" [(ngModel)]="selectedVideo">     
+								<option [value]=''>Select video</option>
+								<option *ngFor="let option of videoOptions"  [value]="option.value" >{{option.name}}</option>
+							</select> 
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngFor = "let data of quizDetails; index as i">
+		<span><a class="btn btn-link float-right" (click)="removeQuestion(i)"><i class = "fa fa-times"></i></a></span>		
+		<div class="row" id="i">
 			<div class="col-sm-4">
 				<div class="form-group  row">
 					<label for="" class="col-sm-4 custm-label col-form-label">Question Type</label>
 					<div class="col-sm-8" >
-						<select class="form-control"  placeholder="Select">     
-							<option value="null" hidden>Select</option>
-							<option value="newCourse">Add New Course Name</option>
-						</select>         
+						<select class="form-control" placeholder="Select" (change)="questionTypeUpdate($event.target.value,i)" [value]="data.QuestionType" name="data.QuestionType">     
+							<option *ngFor="let option of questionOptions"  [value]="option.value" >{{option.name}}</option>
+						</select>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-8">
 				<div class="form-group  row">
-					<label for="" class="col-sm-2 custm-label col-form-label">Question 1</label>
+					<label for="" class="col-sm-2 custm-label col-form-label">Question {{i+1}}</label>
 					<div class="col-sm-10" >
-						<input type="text" class="form-control" placeholder="Enter Question">             
+						<input type="text" class="form-control" placeholder="Enter Question" name = "Question" [value]="data.Question" (change)="questionUpdate($event,i)">             
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="" class="col-sm-2 custm-label col-form-label">Options</label>
 					<div class="col-sm-10">
-						<div class="row">						    							
-							<span class="col-sm-3 pl-0">
-							<span class="option-btn">A</span>						    								
-								<input type="text" class="form-control" placeholder="">
+						<div class="row" *ngIf="data.QuestionType === '1' && data.Options && data.Options.length">
+							<span class="col-sm-3 pl-0" *ngFor=" let optionValue of data.Options; index as oi">
+								<input type="text" class="form-control" placeholder="Options" name="optionValue.Value" [value]="optionValue.Value" (change)="optionUpdate($event,oi,i)">
 							</span> 
+						</div>  
+						<div  class="row" *ngIf="data.QuestionType === '2'">
 							<span class="col-sm-3 pl-0">
-								<span class="option-btn">B</span>
-								<input type="text" class="form-control" placeholder="">
+								<label class="radio-inline">
+										<input type="radio" name="options" [value]="1"> True
+								</label>
+								<label class="radio-inline">
+										<input type="radio" name="options" [value]="0"> False
+								</label>
 							</span> 
-							<span class="col-sm-3 pl-0">
-								<span class="option-btn">C</span>
-								<input type="text" class="form-control" placeholder="">
-							</span> 
-							<span class="col-sm-3 pl-0">
-								<span class="option-btn">D</span>
-								<input type="text" class="form-control" placeholder="">
-							</span> 	
-						</div>            
+						</div>          
 					</div>
 				</div>
 				<div class="form-group row">
@@ -48,10 +73,7 @@
 					<div class="col-sm-9">
 						<div class="row">
 							<span class="col-sm-3">
-								<select class="form-control"  placeholder="Select">     
-									<option value="null" hidden>10%</option>
-									<option value="">20%</option>
-								</select> 
+									<input type="text" class="form-control" placeholder="Enter Weightage" value="{{weightage}}%">
 							</span> 
 
 						</div>            
@@ -59,117 +81,10 @@
 				</div>
 			</div>
 		</div>
-			<div class="row">
-			<div class="col-sm-4">
-				<div class="form-group  row">
-					<label for="" class="col-sm-4 custm-label col-form-label">Question Type</label>
-					<div class="col-sm-8" >
-						<select class="form-control"  placeholder="Select">     
-							<option value="null" hidden>Select</option>
-							<option value="newCourse">Add New Course Name</option>
-						</select>         
-					</div>
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="form-group  row">
-					<label for="" class="col-sm-2 custm-label col-form-label">Question 2</label>
-					<div class="col-sm-9" >
-						<input type="text" class="form-control" placeholder="Enter Question">             
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="" class="col-sm-2 custm-label col-form-label">Options</label>
-					<div class="col-sm-10">
-						<div class="row">
-							<span class="col-sm-3 pl-0">
-								   <label class="hole-cont">True
-                          <input type="checkbox" checked="checked">
-                          <span class="checkmark"></span>
-                           </label>  
-							</span> 
-							<span class="col-sm-3 pl-0">
-								 <label class="hole-cont">False
-                          <input type="checkbox" checked="checked">
-                          <span class="checkmark"></span>
-                           </label>  
-							</span> 	
-						</div>            
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="" class="col-sm-2 custm-label col-form-label">Weightage</label>
-					<div class="col-sm-9">
-						<div class="row">
-							<span class="col-sm-3 pl-0">
-								<select class="form-control"  placeholder="Select">     
-									<option value="null" hidden>10%</option>
-									<option value="">20%</option>
-								</select> 
-							</span> 
-
-						</div>            
-					</div>
-				</div>
-			</div>
-		</div>
-			<div class="row">
-			<div class="col-sm-4">
-				<div class="form-group  row">
-					<label for="" class="col-sm-4 custm-label col-form-label">Question Type</label>
-					<div class="col-sm-8" >
-						<select class="form-control"  placeholder="Select">     
-							<option value="null" hidden>Select</option>
-							<option value="newCourse">Add New Course Name</option>
-						</select>         
-					</div>
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="form-group  row">
-					<label for="" class="col-sm-2 custm-label col-form-label">Question 3</label>
-					<div class="col-sm-9" >
-						<input type="text" class="form-control" placeholder="Enter Question">             
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="" class="col-sm-2 custm-label col-form-label">Options</label>
-					<div class="col-sm-10">
-						<div class="row">
-							<span class="col-sm-3 pl-0">
-								<input type="text" class="form-control" placeholder="">
-							</span> 
-							<span class="col-sm-3 pl-0">
-								<input type="text" class="form-control" placeholder="">
-							</span> 
-							<span class="col-sm-3 pl-0">
-								<input type="text" class="form-control" placeholder="">
-							</span> 
-							<span class="col-sm-3 pl-0">
-								<input type="text" class="form-control" placeholder="">
-							</span> 	
-						</div>            
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="" class="col-sm-2 custm-label col-form-label">Weightage</label>
-					<div class="col-sm-9">
-						<div class="row">
-							<span class="col-sm-3 pl-0">
-							  <select class="form-control"  placeholder="Select">     
-									<option value="null" hidden>10%</option>
-									<option value="">20%</option>
-								</select>
-							</span> 
-
-						</div>            
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
-	<div class="col-sm-12 clearfix pb-4">
-		<button class="btn btn-primary">ADD</button>
 	</div>
-</div>
+	<div class="float-right">
+		<button type="submit" class="float-right btn btn-primary">ADD</button>
+	</div>
+	</form>
+	
 </div>

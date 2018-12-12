@@ -3,6 +3,7 @@ import { HeaderService } from '../../services/header.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import {AuthGuard} from '../../guard/auth.guard.component'
 import {HttpService} from '../../services/http.service';
+import {ModuleDropdownComponent} from './module-dropdown';
 
 @Component({
   selector: 'app-header',
@@ -10,23 +11,25 @@ import {HttpService} from '../../services/http.service';
 })
 export class HeaderComponent implements OnInit {
 
-  title = '';
+  title:string = '';
   moduleType: null;
   moduleList;
+  hideModule=0;
+  splitUrl;
  
 
-  constructor(private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { }
- 
-
-
+  constructor(private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { 
+    const currentUrl = this.router.url;
+    this.splitUrl = currentUrl.split('/');
+    
+  }
+   
   ngOnInit(){
-    this.headerService.title.subscribe(title => {
-      setTimeout(() => this.title = title, 0)
+    this.headerService.title.subscribe((resp) => { 
+      setTimeout(() =>{ this.title=resp.title,
+                        this.hideModule=resp.hidemodule }, 0)
     });
   }
-
- onChangeModule(){
- }
 
   logOut(){
     localStorage.removeItem("userData");

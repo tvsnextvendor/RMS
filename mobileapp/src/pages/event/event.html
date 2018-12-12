@@ -9,5 +9,28 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-
+  <ion-list>
+    <ion-card *ngFor="let batch of batches;let i=index;">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4>{{batch.BatchName}}</ion-col>
+          <ion-col col-8>{{batch.BatchStart | date:'d MMM y'}} To {{batch.BatchEnd | date:'d MMM y'}}
+            <ion-icon name="arrow-forward" *ngIf="!tag" (click)="openSubEvent()"></ion-icon>
+            <ion-icon *ngIf="tag" name="arrow-down" (click)="openSubEvent(i)"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="tag">
+          <ion-col col-6>
+            <p>{{batch.ModuleName}}</p>
+            <p>{{batch.Courses}} Courses</p>
+          </ion-col>
+          <ion-col col-6>
+            <div class="expires">Will expire in 2 days</div>
+            <div class="average">Average Score 30% Retake Course</div>
+            <div class="completed">completed</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </ion-list>
 </ion-content>

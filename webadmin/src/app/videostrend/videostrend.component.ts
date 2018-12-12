@@ -12,14 +12,25 @@ import {VideosTrendVar} from '../Constants/videostrend.var';
 export class VideosTrendComponent implements OnInit {
 
    constructor(private headerService:HeaderService,private trendsVar: VideosTrendVar ,private http: HttpService){}
+   
+   selectedModule;
+   title:string = "Videos Trend";
+   hidemodule=1;
 
    ngOnInit(){
-    this.headerService.setTitle('Videos Trend');
+    this.headerService.setTitle({title:this.title, hidemodule:this.hidemodule});
     this.getVideosTrend('');
     this.getModuleList();
     this.trendsVar.pageLimitOptions = [5, 10, 25];
     this.trendsVar.pageLimit=[this.trendsVar.pageLimitOptions[0]];
    }
+
+   ngDoCheck(){
+    this.headerService.moduleSelection.subscribe(module => {
+        this.selectedModule = module
+     });    
+    }
+
 
    onChangeModule(){
     this.getVideosTrend(this.trendsVar.moduleType);

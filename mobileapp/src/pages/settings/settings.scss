@@ -1,3 +1,82 @@
 page-settings {
+	.profile-bg{
+		background: url(../assets/imgs/loginbg.png);
+		background-size: cover;
+		background-repeat: no-repeat;
+		.list-ios {
+			margin: 0px 0 16px;
 
+		}
+		.scroll-content{
+			background-color: transparent;
+		}
+		.item.item-block,{
+			background: transparent ;
+			border: none;
+		}
+
+	}
+	.toolbar-background {
+		background: transparent !important;	
+		border: none !important;
+	}
+	.profile-img {
+		text-align: center;
+	}
+	ion-list.profile-details p, ion-list.profile-details small {
+		color: #fff;
+	}
+	.profile-img {
+		color: #fff;
+	}
+	ion-icon {
+
+		color: #fff;
+	}
+	.profile-details ion-icon {
+		line-height: 40px;
+	}
+	.profile-info {
+		padding-left: 20px;
+	}
+
+	.text-input::-moz-placeholder {
+		color: rgba(255, 255, 255, 0.4);
+	}
+
+	.text-input:-ms-input-placeholder {
+		color: rgba(255, 255, 255, 0.4);
+	}
+
+	.text-input::-webkit-input-placeholder {
+		text-indent: 0;
+		color: rgba(255, 255, 255, 0.4);
+	}
+	.pwd-grid {
+		border-bottom: 1px solid #dedede;
+	}
+	.pwd-setting ion-icon {
+		color: #fff;
+		transform: rotate(-80deg);
+		line-height: 61px;
+	}
+	.pwd-grid{
+		ion-label {
+			margin: 0;
+		}
+		input.text-input {
+			margin: 5px 8px 5px 0;
+		}
+	}
+	.blue-btn.button-ios, .blue-btn.button-md {
+    margin-top: 70px;
+}
+.pwd-setting {
+    color: #fff;
+    display: table-cell;
+    /* padding-top: 60%; */
+    width: calc(100vw - 10px);
+    vertical-align: bottom;
+    height: calc(100vh - 140px);
+}
 }

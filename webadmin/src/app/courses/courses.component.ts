@@ -13,13 +13,25 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 })
 export class CoursesComponent implements OnInit {
     constructor(public videoVar: VideoVar,private modalService:BsModalService,public http: HttpService, private headerService: HeaderService) { }
+    
     modalRef: BsModalRef;
     videoLink;
+    selectedModule;
+    title:string = "Videos";
+    hidemodule=1;
+
+
     ngOnInit() {
         this.getCourses('');
         this.getModuleList();
-        this.headerService.setTitle('Videos');
-    }
+        this.headerService.setTitle({title:this.title, hidemodule:this.hidemodule});
+        }
+
+      ngDoCheck(){
+            this.headerService.moduleSelection.subscribe(module => {
+                this.selectedModule = module
+             });    
+        }
 
     onChangeModule(){
         this.getCourses(this.videoVar.moduleType);
@@ -30,7 +42,6 @@ export class CoursesComponent implements OnInit {
         let moduleId= moduleType;
         this.http.get('5c0660b4330000bb4ce81634').subscribe((data) => {
             this.videoVar.courses = data;
-            console.log(this.videoVar.courses);
         });
     }
 

@@ -704,3 +704,25 @@ ul.pagination {
 a {
     cursor: pointer;
 }
+.ng2-dropdown-menu{    
+    z-index: 9999 !important;
+}
+@media (min-width: 1200px) { }
+@media (min-width: 980px) and (max-width: 1199px) { }
+@media (min-width: 768px) and (max-width: 979px) { 
+.did-line{
+	text-align: center;
+}
+}
+@media (max-width: 767px) { 
+.did-line {
+    display: contents;
+    text-align: center;
+}
+}
+@media (max-width: 480px) { 
+.did-line {
+    display: contents;
+    text-align: center;
+}
+}
