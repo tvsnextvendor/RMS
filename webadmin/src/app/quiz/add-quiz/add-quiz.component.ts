@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router,ActivatedRoute } from '@angular/router';
-import {HeaderService} from '../../services/header.service';
-import {HttpService} from '../../services/http.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HeaderService } from '../../services/header.service';
+import { HttpService } from '../../services/http.service';
+import { QuizVar } from '../../Constants/quiz.var';
+import { API_URL } from '../../Constants/api_url';
 
 @Component({
   selector: 'app-add-quiz',
@@ -10,7 +12,7 @@ import {HttpService} from '../../services/http.service';
 
 })
 export class AddQuizComponent implements OnInit {
- 
+
   videoDetails = [];
   courseId;
   videoId;
@@ -24,114 +26,115 @@ export class AddQuizComponent implements OnInit {
   videoName;
   selectedVideo;
   selectedCourse;
-  constructor(private headerService: HeaderService,private route: Router,private http : HttpService,private activatedRoute: ActivatedRoute) {
+  quizQuestionsForm = [];
+  title;
+  apiUrls;
+
+  hidemodule = false;
+  constructor(private headerService: HeaderService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, private constant: QuizVar,private apiUrl:API_URL) {
     this.courseId = activatedRoute.snapshot.params['id'];
     this.videoId = activatedRoute.snapshot.params['videoId'];
-   }
-
+    this.apiUrls=API_URL.URLS;
+  }
   ngOnInit() {
-    this.selectedVideo = this.videoId ? this.videoId  : "1";
-    this.selectedCourse= this.courseId ? this.courseId : "1";
+    this.selectedVideo = this.videoId ? this.videoId : null;
+    this.selectedCourse = this.courseId ? this.courseId : null;
     this.questionOptions = [
-      {name:"MCQ",value:"1"},
-      {name:"True/False",value : "2"}
+      { name: "MCQ", value: "1" },
+      { name: "True/False", value: "2" }
     ];
-    this.questionForm = {
-      "QuestionId" : '',
-      "Question" : "",
-      "QuestionType" : "1",
-      // "Value" : '1',
-      "Options" : [
-        {"Id" : 1,"Value":""},
-        {"Id" : 2,"Value":""},
-        {"id" : 3,"Value":""},
-        {"Id" : 4,"Value":""}
+    this.quizQuestionsForm = [{
+      "QuestionId": 1,
+      "Question": "",
+      "QuestionType": "1",
+      "Options": [
+        { "Id": 1, "Value": "" },
+        { "Id": 2, "Value": "" },
+        { "id": 3, "Value": "" },
+        { "Id": 4, "Value": "" }
       ],
-      "Weightage" : '100'
-      };
-    if(this.courseId){ 
-      this.http.get('5c0f73143100002c0924ec31').subscribe((resp) => {
+      "Weightage": '100'
+    }];
+
+    this.courseOptions = [
+      { name: "Uniform and Appearance Policy", value: "1" },
+      { name: "Park Smart Safety", value: "2" },
+      { name: "Basic Rails", value: "3" },
+      { name: "Welcome to 2018/19", value: "4" }
+    ];
+    this.videoOptions = [
+      { name: "Video name 1", value: "1" },
+      { name: "Video name 2", value: "2" },
+      { name: "Video name 3", value: "3" },
+      { name: "Video name 4", value: "4" }
+    ];
+
+
+    if (this.courseId) {
+      this.title = "Edit Quiz";
+      //'5c0f73143100002c0924ec31'
+      this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
         this.videoDetails = resp.QuizDetails;
-          let slectedQuizDetails = resp.QuizDetails.find(x => x.CourseId === this.courseId);
-          let selectedVideo = slectedQuizDetails && slectedQuizDetails.Videos && slectedQuizDetails.Videos.find(x=>x.VideoId === this.videoId);
-          this.quizDetails = selectedVideo.QuestionsDetails;
-          this.weightage = (100/selectedVideo.QuestionsDetails.length).toFixed(2);
-          console.log(this.quizDetails);
-          this.headerService.setTitle('Quiz/'+slectedQuizDetails.CourseName+'/'+selectedVideo.VideoName);
-        });   
+        let slectedQuizDetails = resp.QuizDetails.find(x => x.CourseId === this.courseId);
+        let selectedVideo = slectedQuizDetails && slectedQuizDetails.Videos && slectedQuizDetails.Videos.find(x => x.VideoId === this.videoId);
+        this.selectedVideo = this.videoId;
+        this.selectedCourse = this.courseId;
+        this.quizQuestionsForm = selectedVideo.QuestionsDetails;
+        this.weightage = (100 / selectedVideo.QuestionsDetails.length).toFixed(2);
+      });
     }
-    else{
+    else {
+      this.title = "Add Quiz";
       this.headerService.setTitle('Add quiz');
-      this.questionForm.QuestionId = "1";
-        this.quizDetails.push(this.questionForm);
-        this.weightage = 100;
-        this.courseOptions = [
-          {name:"Uniform and Appearance Policy",value:"1"},
-          {name:"Park Smart Safety",value : "2"},
-          {name:"Basic Rails",value : "3"},
-          {name:"Welcome to 2018/19",value : "4"}
-        ];
-        this.videoOptions = [
-          {name:"Video name 1",value:"1"},
-          {name:"Video name 2",value : "2"},
-          {name:"Video name 3",value : "3"},
-          {name:"Video name 4",value : "4"}
-        ];
+      let obj = this.quizQuestionsForm[0];
+      obj.QuestionId = "1";
+      this.quizQuestionsForm.push(obj);
+      this.weightage = 100;
+    }
+    this.headerService.setTitle({ title: this.title, hidemodule: this.hidemodule });
+  }
+   // Select options toggle
+  questionTypeUpdate(data, i) {
+    let quiz = this.quizDetails;
+    quiz[i].QuestionType = data;
+    if (data === "1") {
+      quiz[i].Options = [
+        { "Id": 1, "Value": "" },
+        { "Id": 2, "Value": "" },
+        { "id": 3, "Value": "" },
+        { "Id": 4, "Value": "" }
+      ];
+    }
+    else {
+      quiz[i].Options = [];
     }
   }
-
-  questionTypeUpdate(data,i){
-    console.log(data,i);
-    let quiz = this.quizDetails;
-      quiz[i].QuestionType = data;
-      if(data === "1"){
-        quiz[i].Options = [
-          {"Id" : 1,"Value":""},
-          {"Id" : 2,"Value":""},
-          {"id" : 3,"Value":""},
-          {"Id" : 4,"Value":""}
-        ];
-      }
-      else{
-        quiz[i].Options = [];
-      }
-      console.log(quiz)
+  // Add Question Box
+  addQuestionForm() {
+    let obj = {
+      "QuestionId": 1,
+      "Question": "",
+      "QuestionType": "1",
+      "Options": [
+        { "Id": 1, "Value": "" },
+        { "Id": 2, "Value": "" },
+        { "id": 3, "Value": "" },
+        { "Id": 4, "Value": "" }
+      ],
+      "Weightage": '100'
+    };
+    obj.QuestionId = obj.QuestionId + 1;
+    this.quizQuestionsForm.push(obj);
+    obj.Weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
   }
 
-  courseUpdate(data){
-    console.log(data)
+  // Remove Question Box
+  removeQuestionForm(index) {
+    this.quizQuestionsForm.splice(index, 1);
   }
-
-  videoUpdate(data){
-    console.log(data)
-  }
-
-  optionUpdate(e,oi,i){
+  // Quiz Submission
+  quizSubmit(data) {
+    console.log(this.quizQuestionsForm);
     debugger;
-    console.log(e.target.value,oi,i)
   }
-
-  addQuestion(){
-    let addArray = this.questionForm;
-    addArray.QuestionId = this.quizDetails.length+1;
-    debugger;
-    this.quizDetails.push(addArray);
-    this.weightage = (100/this.quizDetails.length).toFixed(2);
-    console.log(this.quizDetails)
-  }
-
-  quizSubmit(data){
-    console.log(this.quizDetails)
-  }
-
-  removeQuestion(index){
-      let queList = this.quizDetails;
-      queList.splice(index,1);
-      this.quizDetails = queList;
-  }
-
-  questionUpdate(data,i){
-    console.log(data,i)
-  }
-
 }

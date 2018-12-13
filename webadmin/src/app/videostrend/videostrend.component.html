@@ -2,7 +2,7 @@
 <div class="row pr-3">
 
    <div class="video-hd">
-    <span class="pagenation-btn float-right"><ngx-select-dropdown (change)="onLimitChange($event)" [options]="trendsVar.pageLimitOptions" [(value)]="trendsVar.pageLimit" [config]="{placeholder : 'Select limit'}" class="pagenation-dropdown"></ngx-select-dropdown></span> 
+    <span class="pagenation-btn float-right mb-2"><ngx-select-dropdown (change)="onLimitChange($event)" [options]="trendsVar.pageLimitOptions" [(value)]="trendsVar.pageLimit" [config]="{placeholder : 'Select limit'}" class="pagenation-dropdown"></ngx-select-dropdown></span> 
     </div>
             <div class="table-responsive white-bg px-3">
                 <table class="table" [mfData]="trendsVar.videosTrend" #mf="mfDataTable" [mfRowsOnPage]="(trendsVar.pageLimit.length ? trendsVar.pageLimit : 5)">

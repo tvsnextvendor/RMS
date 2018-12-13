@@ -1,0 +1,55 @@
+.label-title{
+	color: #697380;
+	line-height: 47px;
+	font-size: 15px;
+}
+.hole-cont {
+    position: relative;
+    padding-left: 27px;
+    cursor: pointer;
+    font-size: 12px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    float: left;
+    color: #495057;
+}
+.hole-cont input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+.hole-cont input:checked ~ .checkmark {
+    background-color: #73737B;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.hole-cont input:checked ~ .checkmark:after {
+    display: block;
+}
+.hole-cont .checkmark:after {
+    left: 7px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

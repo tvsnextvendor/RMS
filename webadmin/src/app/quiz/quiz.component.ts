@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {HeaderService} from '../services/header.service';
-import {HttpService} from '../services/http.service';
+import { HeaderService } from '../services/header.service';
+import { HttpService } from '../services/http.service';
+import { QuizVar } from '../Constants/quiz.var';
+import { API_URL } from '../Constants/api_url';
 
 @Component({
   selector: 'app-quiz',
@@ -10,43 +12,34 @@ import {HttpService} from '../services/http.service';
 
 })
 export class QuizComponent implements OnInit {
- 
+
   quizData = [];
   moduleList;
   moduleType = null;
+  title: string = "Quiz";
+  hidemodule = true;
+  apiUrls;
 
-  constructor(private headerService: HeaderService,private route: Router,private http : HttpService) { }
+  constructor(private headerService: HeaderService, private route: Router, private http: HttpService, private constant: QuizVar) {  this.apiUrls=API_URL.URLS;}
 
   ngOnInit() {
-    this.getModuleList();
     this.getQuizDetails();
-    this.headerService.setTitle('Quiz');
-  
+    this.headerService.setTitle({ title: this.title, hidemodule: this.hidemodule });
   }
-
-  getQuizDetails(){
-    this.http.get('5c0f73143100002c0924ec31').subscribe((resp) => {
+  // Quil List GET API Service
+  getQuizDetails() {
+    //'5c0f73143100002c0924ec31'
+    this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
       this.quizData = resp.QuizDetails;
-      //  console.log(resp);
     });
   }
-  onChangeModule(){
-    console.log(this.moduleList)
-  }
-  quizDetails(courseId,data){
-    if(courseId){
-      this.route.navigateByUrl('/quizdetails/'+courseId+'/'+data.VideoId);
+  // Edit Add Redirections
+  quizDetails(courseId, data) {
+    if (courseId) {
+      this.route.navigateByUrl('/quizdetails/' + courseId + '/' + data.VideoId);
     }
-    else{
+    else {
       this.route.navigateByUrl('/quiz/add');
     }
   }
-  
-  getModuleList(){
-    this.http.get('5c08da9b2f00004b00637a8c').subscribe((data) => {
-      this.moduleList= data.ModuleList;
-    });
-}
-
-
 }

@@ -23,6 +23,8 @@
   <div class="tab-content" [hidden]="showAssigned">
     <ion-card class="training-list" *ngFor="let task of assignedCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
+        <span class="course-name">Course 1</span>
+        <span class="com-percen">0% Complete</span>
         <img src="{{task.featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
@@ -51,6 +53,8 @@
   <div class="tab-content" [hidden]="showProgress">
     <ion-card class="training-list" *ngFor="let task of progressCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
+        <span class="course-name">Course 1</span>
+        <span class="com-percen">0% Complete</span>
         <img src="{{task.featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
@@ -79,6 +83,8 @@
   <div class="tab-content" [hidden]="showCompleted">
     <ion-card class="training-list" *ngFor="let task of completeCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
+        <span class="course-name">Course 1</span>
+        <span class="com-percen">0% Complete</span>
         <img src="{{task.featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />

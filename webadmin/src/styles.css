@@ -270,6 +270,13 @@ li.search-block {
     left: 108px;
     will-change: transform;
 }
+.module-btn{
+	color: #9B9B9B;
+    border: 1px solid #9B9B9B;
+    border-radius: 5px;
+    margin: 5px 0 0 20px;
+    font-size: 15px;
+}
 /*************************End  Header ***********************/
 
 /************************ Common colors ***********************/
@@ -297,26 +304,53 @@ li.search-block {
 .btn-alg{
   padding: 25px 0 25px 0px;
 }
-.snow-img img{width: 100%}
+.dashboard-btn{
+	display: inline-block;
+    box-shadow: 0px 0px 8px 0px #ccc;
+    padding: 0;
+    margin-top: 30px;
+    margin-bottom: 45px;
+}
+.snow-img img{width: 80px;}
 .cloudy{
   font-size: 25px;
   color: #468FB9;
   margin: 0;
 }
+.fnt-size{
+	font-size: 35px;
+}
 .circle-fnt{font-size: 12px;}
 .hd-button{
   background-color: #fff;
-  /*color: #8B8B92;*/
   width: 120px;
   height: 46px;
   border: 2px solid #fff;
   cursor: pointer;
 }
 .hd-button.accounts_li.active {
-  border-bottom-color: #007bff;
-  /*color: #007bff;*/
+  border-bottom: 3px solid #468FB9;
 }
-
+.carousel-indicators {
+    bottom: -35px;
+}
+.carousel-indicators li{
+	background-color: #EAEAEA;
+	border-radius: 12px;
+    width: 8px;
+    height: 8px;
+}
+.carousel-indicators .active{
+	background-color: #8B8A88;
+}
+.carousel-control-next-icon{
+    background-image:  url(/assets/images/back_arrow.png);
+}
+.carousel-control-next {
+    right: -10px;
+    width: 30px;
+    height: 27px;
+}
 .btn_alg {
   background-color: #468FB9;
   color: #fff;
@@ -347,6 +381,7 @@ li.search-block {
     padding: 25px 0 20px 0;
     margin: 30px 0 0 0;
     font-size: 12px;
+    color: #686868;
 }
 .recent-command {
   padding-bottom: 1em;
@@ -430,7 +465,7 @@ li {
   }
 }
 .small-txt {
-  font-size: 12px;
+  font-size: 13px;
   color: rgba(0,0,0,.54);
   margin: 0;
 }
@@ -706,6 +741,9 @@ a {
 }
 .ng2-dropdown-menu{    
     z-index: 9999 !important;
+}
+.creat-btn{
+	float: none;
 }
 @media (min-width: 1200px) { }
 @media (min-width: 980px) and (max-width: 1199px) { }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { VideoComponent } from './video.component';
+//import { VideoComponent } from './video.component';
 import {AuthGuard} from '../guard/auth.guard.component'
 import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,7 +13,7 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 
 const routes: Routes = [
-    { path: 'videos', component: VideoComponent,canActivate : [AuthGuard]},
+   // { path: 'videos', component: VideoComponent,canActivate : [AuthGuard]},
    // { path: 'addVideo', component: VideoFormComponent,canActivate : [AuthGuard]},
     //{ path: 'editVideo', component: VideoFormComponent,canActivate : [AuthGuard]}
 ];
@@ -32,8 +32,8 @@ const routes: Routes = [
         SharedModule
     ],
     declarations: [
-        VideoComponent
+        //VideoComponent
     ],
-    bootstrap: [VideoComponent]
+    bootstrap: []
 })
 export class VideoModule { }

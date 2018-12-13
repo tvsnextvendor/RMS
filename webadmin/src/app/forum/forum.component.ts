@@ -19,11 +19,15 @@ export class ForumComponent implements OnInit {
     employeeItems;
     autocompleteItemsAsEmpObjects
     modalRef:BsModalRef;
+    title:string = "Forum";
+    hidemodule=false;
 
    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService){}
 
    ngOnInit(){
-    this.headerService.setTitle('Forum');
+
+    this.headerService.setTitle({title:this.title, hidemodule:this.hidemodule});
+   // this.headerService.setTitle('Forum');
     this.getForumList();
     this.getEmployeeList();
    }

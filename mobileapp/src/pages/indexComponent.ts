@@ -11,5 +11,5 @@ export * from '../pages/quiz/quiz';
 export * from '../pages/quiz-result/quiz-result';
 export * from '../pages/settings/settings';
 export * from '../pages/signup/signup';
-export * from '../pages/training/training';
-export * from '../pages/training-detail/training-detail';
+export * from './training/training';
+export * from './training-detail/training-detail';

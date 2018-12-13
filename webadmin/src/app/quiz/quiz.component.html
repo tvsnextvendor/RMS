@@ -1,26 +1,23 @@
 <div>
-    <select id="moduleType" name="moduleType" required (change)="onChangeModule()" [(ngModel)]="moduleType">     
-            <option [ngValue]="null">Module</option>
-            <option *ngFor="let module of moduleList"  value="{{module.moduleId}}">{{module.moduleName}}</option>
-    </select>
-    <button class="btn btn-primary" (click)="quizDetails()">Add quiz</button>
+    <button class="btn btn-primary" (click)="quizDetails()">{{constant.btns.addQuiz}}</button>
 </div>
-<div class="container-fluid quizpage">     
-    <div class="mb-3" *ngFor = "let data of quizData">
+<div class="container-fluid quizpage">
+    <div class="mb-3" *ngFor="let data of quizData">
         <h6 class="course-main-tit">{{data.CourseName}}</h6>
         <div class="row">
-            <div class="col-sm-3 course-box"  *ngFor = "let details of data.Videos">
+            <div class="col-sm-3 course-box" *ngFor="let details of data.Videos">
                 <div class="white-bg p-3">
                     <div class="video-title row">
                         <div class="video-name col-sm-10">
                             {{details.VideoName}}
                         </div>
-                        <a href="javaScript:void" class="video-edit col-sm-2" (click) = "quizDetails(data.CourseId,details)">
+                        <a href="javaScript:void" class="video-edit col-sm-2" (click)="quizDetails(data.CourseId,details)">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
                     </div>
-                    <p class="video-count">Total No of Question(s) <span> {{details.QuestionsDetails.length}}</span></p>
+                    <p class="video-count">{{constant.quizLabels.totalNoOfQuestions}} <span>
+                            {{details.QuestionsDetails.length}}</span></p>
                 </div>
             </div>
+        </div>
     </div>
-</div>

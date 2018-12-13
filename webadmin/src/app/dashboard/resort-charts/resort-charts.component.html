@@ -1,14 +1,14 @@
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <div class="row pr-3">
   <div class="col-md-9 p-0">
-    <div class="row mb-4">
-      <div class="col-md-1 p-0 snow-img"><img src="assets/images/cool@2x.png">
-        <p class="cloudy">-4   <sup>o</sup>C</p>
+    <div class="row my-4">
+      <div class="col-md-1 p-0 pt-2 snow-img"><img src="assets/images/cool@2x.png">
+        <p class="cloudy pt-2">-4   <sup>o</sup>C</p>
         <p>CLOUDY</p>
       </div>
       <div class="dashboard-header col-md-11">
          <div class="clearfix">
-        <h4 class="float-left">{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.apostrophe}}</h4>
+        <h4 class="float-left fnt-size">{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.apostrophe}}</h4>
         <span class="float-right"><img src="assets/images/close.png"></span>
       </div>
       <div class="clearfix">
@@ -50,17 +50,18 @@
   </div>
   <div class="col-sm-3 p-0">
     <div class="side-widget">
-            <div class=" chart-bg">
+            <div class=" chart-bg pt-3 pb-4">
               <div class="keyheader">
                 <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i> Key Stats</h6>
               </div>
               <div class="key-content">
-                <div class="row">
-                  <div class="col-sm-6">
+                <div class="row py-3">
+                  <div class="col-sm-5">
                     <p class="small-txt">New Employees (This week)</p>
                     <h3>{{dashboardVar.newEmployee}}</h3>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-5">
                     <p class="week-growth">Weekly Growth</p>
                     <span class="growth-percen text-success">{{dashboardVar.weekGrowth}}{{dashboardVar.symbols.percentage}}</span>
                   </div>
@@ -79,6 +80,10 @@
                             <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
                           </slide>
                       </carousel>
+                      <div>
+                        <p class="float-left">-Anggoon</p>
+                        <i class="fa fa-share-square silder-alg float-right" aria-hidden="true"></i>
+                      </div>
                 </div>
               </div>
             </div>

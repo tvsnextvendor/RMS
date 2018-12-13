@@ -115,7 +115,7 @@ margin-top: 12px;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
 }
 .scroll-content{
-    background-color: #F9F9F9;
+    background-color: #F3F6F9;
 }
 .sidebar-header{
     .toolbar-ios ion-title , .toolbar-title-md{
@@ -167,6 +167,9 @@ margin-top: 12px;
         padding-top: 30px;
     }
     button.item-ios:not([detail-none]) .item-inner{    background-image: none;}
+    .menu-inner {
+    width: 100%;
+}
 }
 
 a{
@@ -202,4 +205,8 @@ button:focus {
 }
 .blue-btn.button-ios,.blue-btn.button-md{
     background-color: #329CD6;
+}
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: none;
 }

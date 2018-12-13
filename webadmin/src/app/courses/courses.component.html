@@ -1,5 +1,5 @@
 
-<button routerLink="/addVideo" class="btn btn-primary mb-2">ADD NEW</button>
+<button routerLink="/addModule" class="btn btn-primary mr-3">Add Module</button>
 
 <div class="clearfix mt-5" *ngFor="let course of videoVar.courses">
     <div class="row" >
@@ -18,7 +18,7 @@
                 </div>
                     <div class="video-desc">
                         <p class="play-video"><a><i class="fa fa-play-circle player-icon px-2" (click)="openModal(playVideo, video.videoLink)" aria-hidden="true"></i></a>{{video.videoTitle}}</p>
-                        <p class="m-0 px-3">{{video.videoDescription}}</p>
+                        <p class="m-0 px-3 video-para-alg">{{video.videoDescription}}</p>
                     </div>
                 </div> 
         </div>

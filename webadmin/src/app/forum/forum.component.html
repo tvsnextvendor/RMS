@@ -1,7 +1,7 @@
-<div class="row">
-        <div class="col-sm-9">
-            <div class="table-responsive">
-                <table class="table table-striped white-bg" [mfData]="forumVar.forumList" #mf="mfDataTable" [mfRowsOnPage]="10">
+<div class="row pr-3">
+        <div class="col-sm-9 pl-0">
+            <div class="table-responsive white-bg px-3">
+                <table class="table" [mfData]="forumVar.forumList" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
                         <tr class="th-boxshadow"  class="text-center">
                          
@@ -89,8 +89,10 @@
                                 {{forumVar.mandatoryLabels.empName}}
                         </span>    
                   </div> 
+                   <div class="text-center pt-5">
             <button type="button" class="btn btn-default mr-3" (click)="modalRef.hide()">{{forumVar.btns.cancel}}</button>
             <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.create}}</button>
+        </div>
         </form>
         </div>
 </ng-template> 

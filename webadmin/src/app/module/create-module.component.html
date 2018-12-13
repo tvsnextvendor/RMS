@@ -1,0 +1,81 @@
+<div class="pr-3 py-4">
+<div class="white-bg p-4">
+	<div class="row">
+     <div class="col-md-6">
+     	<div class=" form-group row">
+     	<label class="col-md-3 label-title">Module Name</label>
+				<div class="col-md-8" >
+					<input type="text" class="form-control" placeholder="Enter Module Name">             
+				</div>
+		</div>
+		<div class="form-group row">
+		<label class="col-md-3 label-title">Quiz</label>
+		<span class="col-md-4">
+			<label class="radio-inline">
+				<input type="radio" name="True" >  Yes
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="False">  No
+			</label>
+		</span> 
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary">ADD Quiz</button>
+		</div>
+	    </div>
+	    <div class="form-group row">
+     	<label for="" class="col-md-3 label-title">Assign to Batch</label>
+				<div class="col-md-8" >
+					<select class="form-control"  placeholder="" (change)="courseUpdate($event.target.value)">   
+					<option>Batch 1</option> 
+					<option>Batch 2</option>
+					<option>Batch 3</option>
+					</select>        
+				</div>
+		</div>
+     </div>
+     <div class="col-md-6">
+     	<div class="form-group row">
+     		<label for="" class="col-md-2 label-title">Course</label>
+				<div class="col-md-4" >
+					<select class="form-control"  placeholder="" (change)="courseUpdate($event.target.value)">   
+						<option [value]="option.value"></option>
+					</select>        
+				</div>
+				<label for="" class="col-md-1 label-title">Videos</label>
+				<div class="col-md-4" >
+					<select class="form-control"  placeholder="" (change)="courseUpdate($event.target.value)">   
+						<option [value]="option.value">Video 1</option>
+					</select>        
+				</div>
+				<div class="col-md-1">
+					<i class="fa fa-plus icons_header" aria-hidden="true"></i>
+				</div>
+     	</div>
+     	<div class="form-group row">
+     		<label for="" class="col-md-2 label-title">Course</label>
+				<div class="col-md-4" >
+					<select class="form-control"  placeholder="" (change)="courseUpdate($event.target.value)">  
+					<option>Add Course</option> 
+					<option>Course 2</option>
+					<option>Course 3</option>						
+					</select>        
+				</div>
+				<label for="" class="col-md-1 label-title">Videos</label>
+				<div class="col-md-4" >
+					<select class="form-control"  placeholder="" (change)="courseUpdate($event.target.value)">   
+						<option>Add Video</option> 
+					<option>Video 2</option>
+					<option>Video 3</option>
+					</select>        
+				</div>
+				<div class="col-md-1">
+					<i class="fa fa-plus icons_header" aria-hidden="true"></i>
+				</div>
+     	</div>
+     </div>
+	</div>
+	<div class="col-md-12 clearfix">
+		<button type="button" class="btn btn-primary">ADD Module</button>
+	</div>
+</div>
+</div>

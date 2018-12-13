@@ -1,5 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import {HeaderService} from '../services/header.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import {SettingVar} from '../Constants/setting.var';
 
 @Component({
     selector: 'app-settings',
@@ -9,22 +12,23 @@ import {HeaderService} from '../services/header.service';
 
 export class SettingsComponent implements OnInit {
 
-
     settings: any = {
         oldPwd: '',
         newPwd: '',
         confirmPwd: '',
     };
-
-   constructor(private headerService:HeaderService){}
+   constructor(private headerService:HeaderService,private toastr:ToastrService,private router:Router,private constant:SettingVar){}
 
    ngOnInit(){
-    this.headerService.setTitle('Settings');
+    this.headerService.setTitle({ title: 'Settings', hidemodule: false});
    }
-
-
    updatePwd(){
-    console.log(this.settings);
+    if(this.settings.newPwd !== this.settings.confirmPwd){
+        this.toastr.error('Password Mismatch');
+    }else{
+        this.toastr.success('Password updated successfully');
+        this.router.navigateByUrl('/dashboard');
+    }
    }
 
 }

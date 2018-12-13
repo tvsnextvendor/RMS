@@ -8,7 +8,7 @@ import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
 	selector: 'module-dropdown',
-	template: `<select id="moduleType" name="moduleType" required (change)="onChangeModule()" [(ngModel)]="moduleType">     
+	template: `<select id="moduleType" name="moduleType" required (change)="onChangeModule()" [(ngModel)]="moduleType" class="module-btn">     
     <option [ngValue]="null">Module</option>
     <option *ngFor="let module of moduleList"  value="{{module.moduleId}}">{{module.moduleName}}</option>
     </select>`

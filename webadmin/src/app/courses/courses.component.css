@@ -14,6 +14,20 @@
 .video-header{
 	line-height: 27px;
     float: left;
+    color: #3F6579;
+    font-size: 17px;
+}
+.video-para-alg{
+   /* width: 90%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical !important;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .video-action{
 	padding: 15px 0;

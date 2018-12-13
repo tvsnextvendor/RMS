@@ -26,6 +26,8 @@ import {VideosTrendModule} from './videostrend/videostrend.module';
 import {EmployeeModule} from './employee/employee.module';
 import {ProfileModule} from './profile/profile.module';
 import {ForumModule} from './forum/forum.module';
+import {moduleModule} from './module/module.module';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import {ForumModule} from './forum/forum.module';
     BrowserModule,
     AppRoutingModule,
     CommonModule,
+    moduleModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     SelectDropDownModule,
