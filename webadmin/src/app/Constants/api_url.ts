@@ -15,10 +15,15 @@ export class API_URL {
    getQuiz              : '5c0f73143100002c0924ec31',
    //newgetVideoTrendList    : '5c12603d3300005632998f04',
    getVideoTrendList    : '5c09210a2f0000c21f637c9c',
-   getVideoTrendEmpList : '5c08e0a12f00005400637aa6',
+  // getVideoTrendEmpList : '5c08e0a12f00005400637aa6',
+   getVideoTrendEmpList :'5c1355c43400005600ecdf71',
    getModuleList        : '5c08da9b2f00004b00637a8c',
-   getEmployeeStatus : '5c1247ee3300009829998e4a',
-   getEmployeeDetails : '5c124a4d330000bd2a998e64'
+   getEmployeeStatus    : '5c1247ee3300009829998e4a',
+  // getEmployeeDetails   : '5c124a4d330000bd2a998e64',
+   getEmployeeDetails:'5c135a573400008e00ecdf92',
+   getTaskResortChart   : '5c135a3c3400008e00ecdf91',
+   getCourseTrendChart  : '5c1362173400007c00ecdfc7',
+   getYearList          : '5c1355633400007500ecdf6f'
   }
 
 }

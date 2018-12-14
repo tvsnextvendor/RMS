@@ -25,6 +25,20 @@ export class EmployeeChartsComponent implements OnInit {
     this.http.get(this.dashboardVar.url.getCourses).subscribe((data) => {
       this.dashboardVar.courses = data;
     });
+    //get Module list
+    this.http.get(this.dashboardVar.url.getModuleList).subscribe((data) => {
+        this.dashboardVar.moduleList= data.ModuleList;
+    });  
+   //get Year List
+    this.http.get(this.dashboardVar.url.getYearList).subscribe((data) => {
+        this.dashboardVar.yearList = data.Years;
+    })
+    //get Course Trend list   
+    this.http.get(this.dashboardVar.url.getCourseTrendChart).subscribe((data) => {
+        this.dashboardVar.courseTrendData = data.CourseTrend;
+    })
+
+
     this.getKeyStat();
     setTimeout(() => {       
       this.totalCoursesLine();
@@ -48,6 +62,15 @@ export class EmployeeChartsComponent implements OnInit {
 
       });
   }
+
+  onChangeModule(){
+   //console.log(this.dashboardVar.moduleType);
+  }
+
+  onChangeYear(){
+    //console.log(this.dashboardVar.years);
+  }
+
 
   //Navigate to videos trend list page
   goToVideosTrend(){
@@ -250,7 +273,6 @@ legend: {
   },
 
   series: [{
-    // data: [0, 7.0, 5, 9, 8.3, 9.3, 6.8, 7.7, 6, 0]
     data: this.dashboardVar.courses.CompletedCourses.data
   }]
 });
@@ -285,11 +307,8 @@ videosTrendStackBar() {
     yAxis: {
         min: 0,
         max: 100,
-        // title: {
-        //     text: 'Total fruit consumption'
-        // },
         stackLabels: {
-            enabled: true,
+            enabled: false,
             style: {
                 fontWeight: 'bold',
                 color: 'gray'
@@ -310,14 +329,7 @@ videosTrendStackBar() {
             }
         }
     },
-    series: [{
-        name: 'Unviewed Videos',
-        data: [27, 15, 32, 13, 26, 41, 40, 41, 40, 8, 22, 23]
-    },
-    {
-      name: 'Viewed Videos',
-      data: [48, 25, 66, 40, 48, 54, 56, 53, 42, 48, 53, 55 ]
-    }]
+    series:    this.dashboardVar.courseTrendData
   });
 
 }

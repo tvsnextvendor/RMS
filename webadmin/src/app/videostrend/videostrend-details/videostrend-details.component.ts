@@ -27,14 +27,20 @@ export class VideosTrendDetailsComponent implements OnInit {
 
     this.headerService.setTitle({title:"Course Trend", hidemodule:false});
     this.http.get(this.trendsVar.url.getVideoTrendEmpList).subscribe((data) => {
-        const respData = data;
-        if(this.trendsVar.videoId){
-          respData.forEach((num, index) => {
-              if(num.videoId == this.trendsVar.videoId){              
-                this.trendsVar.filterEmployeeList.push(respData[index]);
-                }
-             });
-         }
+        if(data.isSuccess === true){
+
+            const respData = data.CourseTrendList;
+            if(this.trendsVar.videoId){
+              respData.forEach((num, index) => {
+                  if(num.videoId == this.trendsVar.videoId){              
+                    this.trendsVar.filterEmployeeList.push(respData[index]);
+                    }
+                 });
+             }
+
+        }
+
+       
         });
        }
 

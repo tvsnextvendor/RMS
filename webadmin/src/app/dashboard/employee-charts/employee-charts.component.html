@@ -53,10 +53,20 @@
           </div>
           <div class="row mb-3">
             <div class="col-sm-8 pl-0">
-              <div class=" chart-bg" (click)="goToVideosTrend()">
+              <div class=" chart-bg">
                 <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-                {{dashboardVar.employeeGridsTitle.videosTrend}}<select class="vdo-btn"><option value="year">2018</option><i class="fa fa-chevron-down pdl60" aria-hidden="true"></i></select></h6>
-                <div id="videosTrend" style=" height: 200px; margin: 0 auto"></div>
+                {{dashboardVar.employeeGridsTitle.videosTrend}}
+                  <select class="vdo-btn" id="moduleType" name="moduleType" (change)="onChangeModule()" [(ngModel)]="dashboardVar.moduleType">     
+                      <option [ngValue]="null">{{dashboardVar.select}}</option>
+                      <option *ngFor="let module of dashboardVar.moduleList"  value="{{module.moduleId}}">{{module.moduleName}}</option>
+                      <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
+                  </select>
+                  <select class="vdo-btn" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">     
+                      <option *ngFor="let year of dashboardVar.yearList"  value="{{year}}">{{year}}</option>
+                      <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
+                  </select>
+              </h6>
+                <div id="videosTrend" style=" height: 200px; margin: 0 auto" (click)="goToVideosTrend()"></div>
               </div>
             </div>
             <div class="col-sm-4 pl-0">

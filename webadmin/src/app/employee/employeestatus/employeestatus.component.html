@@ -36,9 +36,9 @@
                 <th>
                         <mfDefaultSorter by="failedCount">{{labels.tableTitle.failedCount}}</mfDefaultSorter>
                     </th>
-                <th>
+                <!-- <th>
                     <mfDefaultSorter by="ratings">{{labels.tableTitle.ratings}}</mfDefaultSorter>
-                </th>
+                </th> -->
                 <th>
                     <mfDefaultSorter by="total">{{labels.tableTitle.total}}</mfDefaultSorter>
                 </th>
@@ -52,7 +52,7 @@
                 <td>{{ emp.inProgressCount }}</td>
                 <td>{{ emp.completedCount }}</td>
                 <td>{{ emp.failedCount }}</td>
-                <td>{{ emp.ratings }}</td>
+                <!-- <td>{{ emp.ratings }}</td> -->
                 <td><a href="javaScript:void" (click)="goToEmpDetails()">{{ emp.total }}</a></td>
             </tr>
             <tr *ngIf="mf.data?.length == 0">

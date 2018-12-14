@@ -17,31 +17,30 @@
         <table class="table table-striped white-bg mt-1" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="5" id="contentToConvert">
             <thead>
             <tr class="th-boxshadow">
-                <th colspan="1" class="text-center">
+                <th  class="text-center">
                     <mfDefaultSorter by="courseName" >{{labels.tableTitle.courseName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                 </th>
-                <th colspan="1">
+                <th>
                     <mfDefaultSorter by="completedPercentage">{{labels.tableTitle.percentageCompleted}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                 </th>
                 
-                <th colspan="1">
+                <th>
                     <mfDefaultSorter by="badgeName">{{labels.tableTitle.badgeName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                 </th>
-                <th colspan="1"></th>
-                <th colspan="1">
-                    <mfDefaultSorter by="videoName ">{{labels.tableTitle.videoName}}</mfDefaultSorter>
+              
+                <th>
+                    <mfDefaultSorter by="videos">{{labels.tableTitle.videos}}</mfDefaultSorter>
                 </th>
-                <th colspan="1"></th>
-                <th colspan="1">
-                    <mfDefaultSorter by="status ">{{labels.tableTitle.status}}</mfDefaultSorter>
+                <th>
+                    <mfDefaultSorter by="status">{{labels.tableTitle.status}} <span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                 </th>
-                <th colspan="1"> 
+                <th> 
                     <mfDefaultSorter by="assignedDate">{{labels.tableTitle.assignedDate}}</mfDefaultSorter>
                 </th>
-                <th colspan="1">
+                <th>
                     <mfDefaultSorter by="viewedDate">{{labels.tableTitle.viewedDate}}</mfDefaultSorter>
                 </th>
-                <th colspan="1">
+                <th >
                     <mfDefaultSorter by="completedDate">{{labels.tableTitle.completedDate}}</mfDefaultSorter>
                 </th>
             </tr>
@@ -51,20 +50,33 @@
                 <td class="vat"><a href="javascript:void" (click)="goToVideosTrend(emp.courseId)">{{ emp.courseName }} </a></td>
                 <td class="vat">{{ emp.completedPercentage }}</td>
                 <td class="vat">{{ emp.badgeName }}</td>
-                <td class="vat td-pd" colspan="7">
+                <td class="vat">{{emp.videos}}</td>
+                <td class="vat" [ngClass] = "emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">
+                        {{ emp.status }}
+                </td >
+                <td class="vat">
+                        {{ emp.assignedDate | date :'dd MMM yyyy' }}
+                </td>
+                <td class="vat">
+                        {{ emp.viewedDate | date :'dd MMM yyyy' }}
+                </td>
+                <td class="vat">
+                        {{ emp.completedDate | date :'dd MMM yyyy' }}
+                </td>
+                <!-- <td class="vat td-pd" colspan="7">
                     <table class="inner-table">
                         <tr *ngFor="let video of emp.videos">
                             <td>{{ video.videoName }}</td>
                             <td [ngClass] = "video.status !== 'In progress' ? (video.status === 'Failed'?'text-danger':(video.status === 'Completed'?'text-success':'text-primary')):''">{{ video.status }}</td>
-                            <td>{{ video.assignedDate }}</td>
+                            <td>{{ video.assignedDate | date :'dd MMM yyyy' }}</td>
                             <td></td>
-                            <td>{{ video.viewedDate }}</td>
+                            <td>{{ video.viewedDate | date :'dd MMM yyyy' }}</td>
                             <td></td>
-                            <td>{{ video.completedDate }}</td>
+                            <td>{{ video.completedDate | date :'dd MMM yyyy' }}</td>
                         </tr>
                     </table>
                  
-                </td>
+                </td> -->
             </tr>
             <tr *ngIf="mf.data?.length == 0">
                 <td colspan="10" class="text-center data-design">{{labels.noData}}</td>

@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   selectedtab = this.tabTitle[0];
 
   ngOnInit() {
-  this.headerService.setTitle({title: "Dashboard", hidemodule:false});
+  this.headerService.setTitle({title:this.dashboardVar.title, hidemodule:false});
   }
 
   ngAfterContentInit() {

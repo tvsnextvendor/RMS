@@ -36,7 +36,7 @@ export class EmployeeVar {
             "courseName" : "Course Name",
             "percentageCompleted" : "% Completed",
             "badgeName" : "Badge Name",
-            "videoName" : "Video Name",
+            "videos" : "Videos",
             "status" : "Status",
             "assignedDate" : "Assigned Date",
             "viewedDate" : "Viewed Date",

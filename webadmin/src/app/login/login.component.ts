@@ -1,4 +1,4 @@
-import { Component, OnInit , AfterViewInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {loginVar} from '../Constants/login.var';
@@ -87,11 +87,13 @@ export class LoginComponent implements OnInit {
             this.userArray.map(item=>{
               if (item.emailAddress === data.email && item.password === data.password){
                 user =  item;
+                localStorage.setItem('user',JSON.stringify(user));
               }
             })
-            localStorage.setItem('user',JSON.stringify(user));
-              if(Object.keys(user).length){
-                let userData = JSON.stringify(user);
+            let userData = JSON.stringify(localStorage.getItem('user'));
+            //  if(Object.keys(user).length){
+              if(userData !== 'null'){
+                //let userData = JSON.stringify(user);
                 let encUserData = btoa(userData);
                 localStorage.setItem('userData',encUserData);
                 this.toastr.success("Login successfully");

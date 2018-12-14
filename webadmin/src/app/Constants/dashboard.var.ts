@@ -11,6 +11,14 @@ export class DashboardVar {
   badgesCertification;
   newEmployee;
   weekGrowth;
+  moduleList;
+  moduleType=null;
+  yearList;
+  years="2018";
+  taskChart;
+  courseTrendData;
+  title = 'Dashboard';
+  select= 'Module';
   recentComments;
   employeeTabLabel = 'Employee';
   resortTabLabel   = 'Resort';
@@ -33,9 +41,9 @@ export class DashboardVar {
   };
   employeeGridsTitle = {
      totalCourses     : 'Total Courses',
-     availableCourses : 'Available Courses',
+     availableCourses : 'Assigned Courses',
      completedCourses : 'Completed Courses',
-     videosTrend      : 'Videos Trend',
+     videosTrend      : 'Course Trend',
      employeeProgress : 'Employee Progress',
      totalNoOfBadges  : 'Total No. of Badges',
      certificationTrend : 'Employee Certification Trend',

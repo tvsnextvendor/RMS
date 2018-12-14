@@ -22,6 +22,11 @@ export class ResortChartsComponent implements OnInit {
    }
 
   ngOnInit() {
+   //get Task stackbar chart data
+    this.http.get(this.dashboardVar.url.getTaskResortChart).subscribe((data) => {
+        this.dashboardVar.taskChart = data.Tasks;
+   })
+
     this.topResorts();
     this.badgesCertification();
     this.getKeyStat();
@@ -312,14 +317,7 @@ taskStackbar() {
               }
           }
       },
-      series: [{
-          name: 'Unviewed Videos',
-          data: [27, 15, 32, 13, 26, 41, 40, 41, 40, 8, 22, 23]
-      },
-      {
-        name: 'Viewed Videos',
-        data: [48, 25, 66, 40, 48, 54, 56, 53, 42, 48, 53, 55 ]
-      }]
+      series: this.dashboardVar.taskChart
     });
 }
 visitorsByResortPie() {
@@ -334,12 +332,6 @@ visitorsByResortPie() {
             plotShadow: false,
             type: 'pie'
         },
-        // title: {
-        //     text: 'Browser market shares in January, 2018'
-        // },
-        // tooltip: {
-        //     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        // },
           title: {
        text: '',
     style: {

@@ -7,9 +7,9 @@
                 <table class="table" [mfData]="trendsVar.videosTrend" #mf="mfDataTable" [mfRowsOnPage]="(trendsVar.pageLimit.length ? trendsVar.pageLimit : 5)">
                     <thead>
                     <tr>
-                        <!-- <th></th> -->
+                       
                         <th>                    
-                            <mfDefaultSorter by="courseTitle">{{trendsVar.videosTrendLabels.courseTitle}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                            <mfDefaultSorter by="courseName">{{trendsVar.videosTrendLabels.courseTitle}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th>
                                 <mfDefaultSorter by="duration">{{trendsVar.videosTrendLabels.duration}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
