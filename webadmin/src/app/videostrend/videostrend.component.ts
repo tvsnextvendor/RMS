@@ -2,6 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import {HeaderService} from '../services/header.service';
 import {HttpService} from '../services/http.service';
 import {VideosTrendVar} from '../Constants/videostrend.var';
+import { API_URL } from 'src/app/Constants/api_url';
+
 
 @Component({
     selector: 'app-videostrend',
@@ -11,14 +13,14 @@ import {VideosTrendVar} from '../Constants/videostrend.var';
 
 export class VideosTrendComponent implements OnInit {
 
-   constructor(private headerService:HeaderService,private trendsVar: VideosTrendVar ,private http: HttpService){}
+   constructor(private headerService:HeaderService,private trendsVar: VideosTrendVar ,private http: HttpService){
+    this.trendsVar.url=API_URL.URLS;
+   }
    
    selectedModule;
-   title:string = "Videos Trend";
-   hidemodule=1;
-
+   
    ngOnInit(){
-    this.headerService.setTitle({title:this.title, hidemodule:this.hidemodule});
+    this.headerService.setTitle({title:"Course Trend", hidemodule:false});
     this.getVideosTrend('');
     this.getModuleList();
     this.trendsVar.pageLimitOptions = [5, 10, 25];
@@ -39,7 +41,7 @@ export class VideosTrendComponent implements OnInit {
    getVideosTrend(moduleType) {
     //moduleId to get trend videos list based on selected module type.
     let moduleId = moduleType;
-    this.http.get('5c09210a2f0000c21f637c9c').subscribe((data) => {
+    this.http.get(this.trendsVar.url.getVideoTrendList).subscribe((data) => {
         this.trendsVar.videosTrend = data.VideoTrendList;
     });
     }
@@ -49,7 +51,7 @@ export class VideosTrendComponent implements OnInit {
       }
 
     getModuleList(){
-        this.http.get('5c08da9b2f00004b00637a8c').subscribe((data) => {
+        this.http.get(this.trendsVar.url.getModuleList).subscribe((data) => {
           this.trendsVar.moduleList= data.ModuleList;
         });
     }

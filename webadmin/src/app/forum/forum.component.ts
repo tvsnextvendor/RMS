@@ -5,11 +5,12 @@ import {ForumVar} from '../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import {Header} from '../Constants/header';
 
 @Component({
     selector: 'app-forum',
     templateUrl: './forum.component.html',
-    styleUrls: ['./forum.component.css'],
+    styleUrls: ['./forum.component.css']
 })
 
 export class ForumComponent implements OnInit {
@@ -19,15 +20,12 @@ export class ForumComponent implements OnInit {
     employeeItems;
     autocompleteItemsAsEmpObjects
     modalRef:BsModalRef;
-    title:string = "Forum";
-    hidemodule=false;
-
-   constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService){}
+   
+  
+    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService){}
 
    ngOnInit(){
-
-    this.headerService.setTitle({title:this.title, hidemodule:this.hidemodule});
-   // this.headerService.setTitle('Forum');
+    this.headerService.setTitle({title:"Forum", hidemodule:false});
     this.getForumList();
     this.getEmployeeList();
    }

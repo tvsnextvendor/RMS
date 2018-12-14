@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import { DashboardComponent } from './dashboard.component';
 import { MaterialModule } from '../material.module';
 import { EmployeeChartsComponent } from './employee-charts/employee-charts.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
     NgbModule,
     SharedModule,
     CarouselModule.forRoot(),
+    NgHttpLoaderModule.forRoot(),
     RouterModule.forRoot(routes)
     ],
   declarations: [

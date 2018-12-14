@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
       // get user details
-      this.http.get('5c01283c3500005d00ad085b').subscribe((resp) => {
-        this.userArray = resp;
+      this.http.get('5c0fbeda3100003b1324ee75').subscribe((resp) => {
+        this.userArray = resp.UserList;
       });
       
       //labels
@@ -83,12 +83,13 @@ export class LoginComponent implements OnInit {
       }
       // login
       else if (data.email && data.password && !forgetStatus) {
-            let user = {};
+            let user;
             this.userArray.map(item=>{
               if (item.emailAddress === data.email && item.password === data.password){
                 user =  item;
               }
             })
+            localStorage.setItem('user',JSON.stringify(user));
               if(Object.keys(user).length){
                 let userData = JSON.stringify(user);
                 let encUserData = btoa(userData);

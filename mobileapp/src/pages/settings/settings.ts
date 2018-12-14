@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Constant } from '../../constants/Constant.var';
+import {ToastrService} from '../../service/toastrService';
 
 @IonicPage({
   name: 'settings-page'
@@ -18,7 +19,7 @@ export class SettingsPage implements OnInit {
     'newpassword': '',
     'confirmpassword': ''
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public toastrCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public toastr: ToastrService) {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
@@ -31,14 +32,10 @@ export class SettingsPage implements OnInit {
     });
   }
   submit() {
-    console.log(this.setting);
-    let toast = this.toastrCtrl.create({
-      message: 'Password changed successfully',
-      duration: 2000,
-      position: 'top',
-      cssClass: 'success'
-    });
-    toast.present();
+    this.toastr.success('Password changed successfully');
+    this.navCtrl.setRoot('home-page');
+  }
+  goToPrevious(){
     this.navCtrl.setRoot('home-page');
   }
 }

@@ -54,7 +54,7 @@ export class VideoFormComponent implements OnInit {
 
     ngOnInit() {
        this.getCourses();
-       this.headerService.setTitle('');
+       // this.headerService.setTitle('');
       // this.staticTabs.tabs[1].disabled = true;
        this.getGroups();
     }

@@ -1,55 +1,133 @@
+<!-- Profile -->
+<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
 <div class="pr-3 py-4">
 <div class="white-bg">
   <div class="row py-4"> 
-  	<div class="col-lg-6 col-md-6">
-  	<div class="row py-4 did-line">
+  	 <div class="col-lg-6 col-md-6">
+  	    <div class="row py-4 did-line">
   		<div class="col-lg-4"><img src="assets/images/profile_circle.png"></div>
   		<div class="col-lg-8">
   			<div class="py-4">
-  			<h4>David James</h4>
-  			<button type = "submit" class="btn btn-primary profile-save-btn">SAVE</button>
-  		    </div>
+  			<h4>{{profVar.userName}}</h4>
+              <button type = "button" routerLink="/editprofile" class="btn btn-primary profile-save-btn">{{profVar.btns.editProfile}}</button>
   		</div>
-  	</div>
-  	</div>
+  		</div>
+     	</div>
+    </div>
   	<div class="col-lg-6 col-md-6">
   		<div class="row">  		
-  			<label class="col-lg-3 label-title">Name</label>  		
-  		<div class="col-lg-5">
-  			<input class="form-control" placeholder="David James" type="text">
-  		</div>
+  			<label class="col-lg-3 label-title">{{profVar.profileLabels.name}}</label>  		
+            <div class="col-lg-5">
+              <label>{{profVar.userName}}</label>
+             </div>
   	    </div>
   	    <div class="row">  		
-  			<label class="col-lg-3 label-title">DOB</label>  		
-  		<div class="col-lg-5">
-  			<input class="form-control" placeholder="13 Jun 1988" type="text">
-  		</div>
+  			<label class="col-lg-3 label-title">{{profVar.profileLabels.dob}}</label>  		
+               <div class="col-lg-5">
+                <label>{{profVar.dob}}</label>
+               </div>
   	    </div>
   	    <div class="row">  		
-  			<label class="col-lg-3 label-title">Email</label>  		
-  		<div class="col-lg-5">
-  			<input class="form-control" placeholder="Davidjames@mail.com" type="text">
-  		</div>
+  			<label class="col-lg-3 label-title">{{profVar.profileLabels.email}}</label>  		
+            <div class="col-lg-5">
+                    <label>{{profVar.email}}</label>
+            </div>
   	    </div>
   	    <div class="row">  		
-  			<label class="col-lg-3 label-title">Mobile</label>  		
-  		<div class="col-lg-5">
-  			<input class="form-control" placeholder="9876543210" type="text">
-  		</div>
+  			<label class="col-lg-3 label-title">{{profVar.profileLabels.mobile}}</label>  		
+            <div class="col-lg-5">
+                <label>{{profVar.mobile}}</label>
+            </div>
   	    </div>
   	    <div class="row">  		
-  			<label class="col-lg-3 label-title">Department</label>  		
-  		<div class="col-lg-5">
-  			<input class="form-control" placeholder="Marketing" type="text">
-  		</div>
+  			<label class="col-lg-3 label-title">{{profVar.profileLabels.dept}}</label>  		
+            <div class="col-lg-5">
+                    <label>{{profVar.dept}}</label>
+            </div>
   	    </div>
   	    <div class="row">  		
-  			<label class="col-lg-3 label-title">Designation</label>  		
-  		<div class="col-lg-5">
-  			<input class="form-control" placeholder="Analyst" type="text">
-  		</div>
-  	    </div>
-  	</div>
-  </div>
+  			<label class="col-lg-3 label-title">{{profVar.profileLabels.designation}}</label>  		
+            <div class="col-lg-5">
+                    <label>{{profVar.designation}}</label>
+            </div>
+        </div>
+      </div>
+      </div>
 </div>
-</div>
+</div>      
+
+
+<!-- Edit Profile -->
+<form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)" *ngIf="profVar.hideProfile">
+        <div class="pr-3 py-4">
+        <div class="white-bg">
+          <div class="row py-4"> 
+               <div class="col-lg-6 col-md-6">
+                  <div class="row py-4 did-line">
+                  <div class="col-lg-4"><img src="assets/images/profile_circle.png"></div>
+                  <div class="col-lg-8">
+                      <div class="py-4">
+                      <h4>{{profVar.userName}}</h4>
+                      <button type = "submit" class="btn btn-primary profile-save-btn">{{profVar.btns.save}}</button>
+                  </div>
+                  </div>
+                 </div>
+            </div>
+              <div class="col-lg-6 col-md-6">
+                  <div class="row">  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.name}}</label>  		
+                      <div class="col-lg-5">
+                         <input class="form-control" name="UserName" [(ngModel)]="profVar.userName" #UserName="ngModel" type="text" required>
+                         <span class="required_color" *ngIf="UserName && UserName.invalid && (formDir.submitted || UserName.touched)">
+                             {{profVar.mandatoryLabels.name}}
+                        </span>   
+                    </div>
+                  </div>
+                  <div class="row">  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.dob}}</label>  		
+                       <div class="col-lg-5">
+                         <input type="text" class="form-control" #Dob="bsDatepicker" name="Dob" bsDatepicker [(ngModel)]="profVar.dob"  [bsConfig]="{dateInputFormat: 'D MMMM YYYY '}">
+                        </div>
+                  </div>
+                  <div class="row">  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.email}}</label>  		
+                    <div class="col-lg-5">
+                        <input class="form-control" name="Email" [(ngModel)]="profVar.email" #Email="ngModel" type="text" required>
+                         <span class="required_color" *ngIf="Email && Email.invalid && (formDir.submitted || Email.touched)">
+                             {{profVar.mandatoryLabels.email}}
+                           </span>  
+                    </div>
+                  </div>
+                  <div class="row">  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.mobile}}</label>  		
+                    <div class="col-lg-5">
+                        <input class="form-control" name="mobile" [(ngModel)]="profVar.mobile" #PhNumber="ngModel"  type="text" required> 
+                        <span class="required_color" *ngIf="PhNumber && PhNumber.invalid && (formDir.submitted || PhNumber.touched)">
+                            {{profVar.mandatoryLabels.mobile}}
+                        </span> 
+                    </div>
+                  </div>
+                  <div class="row">  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.dept}}</label>  		
+                    <div class="col-lg-5">
+                        <input class="form-control" name="Department" [(ngModel)]="profVar.dept"  #Dept="ngModel"  type="text" required>
+                        <span class="required_color" *ngIf="Dept && Dept.invalid && (formDir.submitted || Dept.touched)">
+                          {{profVar.mandatoryLabels.dept}}        
+                        </span> 
+                    </div>
+                  </div>
+                  <div class="row">  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.designation}}</label>  		
+                    <div class="col-lg-5">
+                        <input class="form-control" name="Designation" [(ngModel)]="profVar.designation" #Designation="ngModel"  type="text" required>
+                        <span class="required_color" *ngIf="Designation && Designation.invalid && (formDir.submitted || Designation.touched)">
+                              {{profVar.mandatoryLabels.designation}}
+                           </span> 
+                    </div>
+                </div>
+              </div>
+              </div>
+        </div>
+        </div>
+        </form>      
+        

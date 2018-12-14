@@ -1,30 +1,32 @@
-<div class="pr-3">
+<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
+<div class="pr-3 pt-5">
 <div class="white-bg">
   <div class="row"> 
-  <div class="col-md-10 row">
+  <div class="col-md-9 row">
         <div class="col-md-5"> 
-        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.courseName}} :</span> <span class="trend-cont">{{filterEmployeeList[0]?.courseName}}</span></div>
-        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.uploadedDate}} :</span><span class="trend-cont">{{filterEmployeeList[0]?.uploadedDate}}</span> </div>        
+        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.courseName}} :</span> <span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.courseName}}</span></div>
+        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.uploadedDate}} :</span><span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.uploadedDate}}</span> </div>        
       </div>
       <div class="col-md-5">
-        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.videoName}} : </span><span class="trend-cont">{{filterEmployeeList[0]?.videoName}}</span></div>
-        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.totalEmployees}} :</span> <span class="trend-cont">{{filterEmployeeList[0]?.totalEmployees}}</span></div>
+        <!-- <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.videoName}} : </span><span class="trend-cont">{{filterEmployeeList[0]?.videoName}}</span></div> -->
+        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.totalEmployees}} :</span> <span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.totalEmployees}}</span></div>
       </div>
       </div>
 
-        <div class="col-md-2 mt-3">
-          <div class="dropdown show mb-3">
+        <div class="col-md-3 mt-3">
+           <div class="dropdown show mb-3">
               <label class="ext-txt mb-0 mr-2">{{trendsVar.exportTo}}</label>
-              <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">PDF</span></a>
+              <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">{{trendsVar.select}}</span></a>
               <div class="dropdown-menu drp-dwn" aria-labelledby="dropdownMenuLink">
                   <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{trendsVar.excel}}</a>
                   <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{trendsVar.pdf}}</a>             
               </div>
-          </div>
+            </div> 
+         </div>
         </div>     
-    </div>
+
         <div class="table-responsive custom-table2 px-1">
-          <table class="table table-striped mt-3" [mfData]="filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable" [mfRowsOnPage]="5" id="contentToConvert">
+          <table class="table table-striped mt-3" [mfData]="trendsVar.filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable" [mfRowsOnPage]="5" id="contentToConvert">
               <thead>
               <tr class="th-boxshadow">
                   <th colspan="1" class="text-center">
@@ -45,7 +47,7 @@
               <tbody>
               <tr *ngFor="let emp of mf.data" class="text-center">
                   <td class="vat">{{ emp.employeeName }}</td>
-                  <td class="vat">{{ emp.status }}</td>
+                  <td class="vat" [ngClass] = "emp.status !== 'In Progress' ? (emp.status === 'Assigned'?'text-danger':'text-success'):''">{{ emp.status }}</td>
                   <td class="vat">{{ emp.viewDate }}</td>
                   <td class="vat">{{emp.completedDate}}</td>
               </tr>

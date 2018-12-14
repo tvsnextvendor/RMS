@@ -1,6 +1,5 @@
-
-<div class="row pr-3">
-
+<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
+<div class="row pr-3 pt-4">
    <div class="video-hd">
     <span class="pagenation-btn float-right mb-2"><ngx-select-dropdown (change)="onLimitChange($event)" [options]="trendsVar.pageLimitOptions" [(value)]="trendsVar.pageLimit" [config]="{placeholder : 'Select limit'}" class="pagenation-dropdown"></ngx-select-dropdown></span> 
     </div>
@@ -8,7 +7,7 @@
                 <table class="table" [mfData]="trendsVar.videosTrend" #mf="mfDataTable" [mfRowsOnPage]="(trendsVar.pageLimit.length ? trendsVar.pageLimit : 5)">
                     <thead>
                     <tr>
-                        <th></th>
+                        <!-- <th></th> -->
                         <th>                    
                             <mfDefaultSorter by="courseTitle">{{trendsVar.videosTrendLabels.courseTitle}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
@@ -25,9 +24,9 @@
                     </thead>
                     <tbody>
                     <tr class="video-trend-desc" *ngFor="let list of mf.data" >
-                        <td><img class="table-img" src="assets/videos/images/bunny.png"></td>
-                        <td>{{list.courseName}}
-                            <p>{{list.videoName}}</p>
+                        <!-- <td><img class="table-img" src="assets/videos/images/bunny.png"></td> -->
+                        <td class="vdo-desc-height">{{list.courseName}}
+                            <!-- <p>{{list.videoName}}</p> -->
                         </td>
                         <td class="vdo-desc-height">{{list.duration}}</td>
                         <td class="vdo-desc-height">{{list.uploadedDate | date: 'dd/MM/yyyy'}}</td>

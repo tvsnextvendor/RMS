@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { HttpProvider } from '../../providers/http/http';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Constant } from '../../constants/Constant.var';
+import {ToastrService} from '../../service/toastrService';
 import { Storage } from '@ionic/storage';
 
 @IonicPage({
@@ -20,7 +21,7 @@ export class LoginPage implements OnInit {
         keepmelogin: false,
     }
     paramsObj: any = {};
-    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, private alertCtrl: AlertController, public storage: Storage, public constant: Constant) {
+    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, private alertCtrl: AlertController, public storage: Storage, public constant: Constant,private toastr:ToastrService) {
     }
     ngOnInit() {
         this.storage.get('userInput').then(
@@ -42,6 +43,7 @@ export class LoginPage implements OnInit {
         this.authService.login(this.user.name, this.user.pw, this.user.keepmelogin).then(success => {
             if (success) {
                 this.navCtrl.setRoot('home-page');
+                this.toastr.success('Login Successful');
             }
         }).catch(err => {
             const alert = this.alertCtrl.create({

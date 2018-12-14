@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Header } from '../Constants/header';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
   })
+
 export class HeaderService {
-  public title = new BehaviorSubject({title:'',hidemodule:0});
+  public title = new BehaviorSubject<Header>({} as Header);
   public moduleSelection = new BehaviorSubject('Module');
+
+  public TitleDetail = this.title.asObservable().pipe(distinctUntilChanged());
 
   constructor() { }
 
-  setTitle(title) {
-    this.title.next(title);
+  setTitle(head: Header) {
+    this.title.next(head);
+  }
+
+  getTitleDetail(){
+    return this.title.value;
   }
   
   selectModule(module) {

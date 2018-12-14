@@ -10,7 +10,9 @@ export class Constant {
         changePassword:'Change Password',
         event:'Training Batches',
         profile:'Profile',
-        forum:'Forum'
+        forum:'Forum',
+        menu:'Menu',
+        logOut:'Logout'
     };
     buttons = {
         previous: 'Previous',
@@ -26,6 +28,7 @@ export class Constant {
         addQuestion:'Add Question'
     };
     pages = {
+    
         loginLabels: {
             signIn: 'SIGN IN',
             signInSmall: 'Sign In',
@@ -65,6 +68,7 @@ export class Constant {
             goodMrng: 'Good Morning',
             currentTime: 'Thursday, Aug 10',
             selectModules:'All Modules',
+            module:'Module',
             modules:'Modules',
             training: 'Training',
             certification: 'Certification',

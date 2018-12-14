@@ -20,7 +20,11 @@
     padding: 4px 8px;
   }
   .export-btn::after{
-    margin-left: 2.255em;
+    margin-left: 12px;
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    color: #468FB9;
   }
   .ext-txt{
     font-size: 18px;
@@ -29,7 +33,7 @@
   .drp-dwn{
     min-width: 0;
     width: 85px; 
-    top: 13px !important;   
+    top: 2px !important;   
   }
   .pagenation-btn{
     display: inline-block;

@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Tabs, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { TrainingDetailPage } from '../training-detail/training-detail';
 import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
+import {LoaderService} from '../../service/loaderService';
 
 @IonicPage({
   name: 'training-page'
@@ -14,12 +15,14 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'training.html',
   providers: [Constant]
 })
-export class TrainingPage {
+export class TrainingPage{
   training;
   assignedList;
   inprogressList;
   completedList;
   paramsData = {};
+  selectedModule;
+  modules;
 
   showAssigned: boolean = false;
   showProgress: boolean = true;
@@ -31,36 +34,39 @@ export class TrainingPage {
   userAssigned: any;
   userProgress: any;
   userCompleted: any;
-  allCourses:any = [];
+  allCourses: any = [];
   assignedCoursesList = [];
   progressCoursesList = [];
   completeCoursesList = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public loadingCtrl: LoadingController, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public loader:LoaderService) {
     this.detailObject = this.navParams.data;
     this.statusKey = this.detailObject['status'] ? this.detailObject['status'] : 'assigned';
+    this.selectedModule = constant.pages.dashboardLabels.selectModules;
   }
   @ViewChild('myTabs') tabRef: Tabs;
   //first load
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TrainingPage');
-   // this.getTrainingList();
+    console.log('ionViewDidLoad TrainingPage');   
+  }
+  ionViewDidEnter(){
     this.showData(this.statusKey);
     this.getCousesList();
+    this.getModules();
   }
   getLocalStorageInfo() {
     return new Promise(resolve => {
-        this.storage.get('userDashboardInfo').then(
-          (val) => {
-            this.userInformation = val.users[0];
-            this.userAssigned = this.userInformation.assignedCourses;
-            this.userProgress = this.userInformation.inProgressCourses;
-            this.userCompleted = this.userInformation.completedCourses;
-            resolve('resolved');
-          }, (err) => {
-            console.log('error occured', err);
-            resolve('rejected');
-          });
+      this.storage.get('userDashboardInfo').then(
+        (val) => {
+          this.userInformation = val.users[0];
+          this.userAssigned = this.userInformation.assignedCourses;
+          this.userProgress = this.userInformation.inProgressCourses;
+          this.userCompleted = this.userInformation.completedCourses;
+          resolve('resolved');
+        }, (err) => {
+          console.log('error occured', err);
+          resolve('rejected');
+        });
     });
   }
 
@@ -89,6 +95,14 @@ export class TrainingPage {
     }
   }
 
+  getModules() {
+    this.http.getData(API_URL.URLS.getModules).subscribe((data) => {
+      if (data['isSuccess']) {
+        this.modules = data['ModuleList'];
+      }
+    });
+  }
+
   // get training list
   getTrainingList() {
     this.http.getData(API_URL.URLS.getTraining).subscribe((data) => {
@@ -106,33 +120,30 @@ export class TrainingPage {
   }
   //getcourse 
   async getCousesList() {
-    // let loading = this.loadingCtrl.create({
-    //   content: 'Please wait...'
-    // });
-  
-    // loading.present();
-
-
+   
+    this.loader.showLoader();
     await this.getLocalStorageInfo();
-  
     this.http.getData(API_URL.URLS.getCourses).subscribe((data) => {
-    
-      this.allCourses = data; 
+      this.allCourses = data;
       var self = this;
-      this.userAssigned.map(function (value,key) {
-        let assignedobject =  self.allCourses.find(x => x.courseId === value);
+      this.userAssigned.map(function (value, key) {
+        let assignedobject = self.allCourses.find(x => x.courseId === value);
         self.assignedCoursesList.push(assignedobject);
       });
-      this.userProgress.map(function (value,key) {
-        let progressObject =  self.allCourses.find(x => x.courseId === value);
+      this.userProgress.map(function (value, key) {
+        let progressObject = self.allCourses.find(x => x.courseId === value);
         self.progressCoursesList.push(progressObject);
       });
-      this.userCompleted.map(function (value,key) {
-        let completedObject =  self.allCourses.find(x => x.courseId === value);
+      this.userCompleted.map(function (value, key) {
+        let completedObject = self.allCourses.find(x => x.courseId === value);
         self.completeCoursesList.push(completedObject);
       });
-     // loading.dismiss();
+      this.loader.hideLoader();
     });
+  }
+
+  changeModule(list) {
+    this.selectedModule = list.moduleName;
   }
 
 }

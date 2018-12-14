@@ -13,8 +13,8 @@ export class CreateModuleComponent implements OnInit {
    constructor(private headerService:HeaderService){}
 
    ngOnInit(){
-    this.headerService.setTitle('Settings');
-   }
+/*    this.headerService.setTitle('Settings');
+*/   }
 
 
  

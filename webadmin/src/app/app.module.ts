@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {DataTableModule} from "angular-6-datatable";
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { HttpClientModule } from '@angular/common/http';
+import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import { AppComponent } from './app.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { CoursesModule } from './courses/courses.module';
@@ -43,6 +44,7 @@ import {moduleModule} from './module/module.module';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     SelectDropDownModule,
+    NgHttpLoaderModule.forRoot(),
     DashboardModule,
     CoursesModule,
     DataTableModule,

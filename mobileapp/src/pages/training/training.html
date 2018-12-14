@@ -9,6 +9,22 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">
+  <div class="module-select">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span>
+        {{selectedModule}}
+        <ion-icon name="md-funnel"></ion-icon>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="modules">
+        <a class="dropdown-item" href="javascript:void(0)" *ngFor="let list of modules;let i =index;" (click)="changeModule(list)">
+          <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span>
+          {{list.moduleName}}
+        </a>
+      </div>
+    </div>
+  </div>
   <div class="tabs progress-tab">
     <a class="tab-item" (click)="showData('assigned')" [ngClass]="!showAssigned ? 'assigned' : ''">
       {{constant.pages.trainingLabels.assignedLabel}}
@@ -23,9 +39,9 @@
   <div class="tab-content" [hidden]="showAssigned">
     <ion-card class="training-list" *ngFor="let task of assignedCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
-        <span class="course-name">Course 1</span>
-        <span class="com-percen">0% Complete</span>
-        <img src="{{task.featuredImage}}" />
+        <span class="course-name">{{task.courseName}}</span>
+        <span class="com-percen">{{task.completePercent}}% Complete</span>
+        <img src="{{task.videos[0].featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
         </span>
@@ -35,7 +51,7 @@
           <ion-grid no-padding class="post-details">
             <ion-row class="">
               <ion-col col-7 class=" ">
-                <p class="training-name">{{task.courseName}} </p>
+                <p class="training-name">{{task.videos[0].videoTitle}} </p>
               </ion-col>
               <ion-col col-5 class="">
                 <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate |
@@ -53,9 +69,9 @@
   <div class="tab-content" [hidden]="showProgress">
     <ion-card class="training-list" *ngFor="let task of progressCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
-        <span class="course-name">Course 1</span>
-        <span class="com-percen">0% Complete</span>
-        <img src="{{task.featuredImage}}" />
+        <span class="course-name">{{task.courseName}}</span>
+        <span class="com-percen">{{task.completePercent}}% Complete</span>
+        <img src="{{task.videos[0].featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
         </span>
@@ -65,7 +81,7 @@
           <ion-grid no-padding class="post-details">
             <ion-row class="">
               <ion-col col-7 class=" ">
-                <p class="training-name">{{task.courseName}} </p>
+                <p class="training-name">{{task.videos[0].videoTitle}} </p>
               </ion-col>
               <ion-col col-5 class="">
                 <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate |
@@ -83,9 +99,9 @@
   <div class="tab-content" [hidden]="showCompleted">
     <ion-card class="training-list" *ngFor="let task of completeCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
-        <span class="course-name">Course 1</span>
-        <span class="com-percen">0% Complete</span>
-        <img src="{{task.featuredImage}}" />
+        <span class="course-name">{{task.courseName}}</span>
+        <span class="com-percen">{{task.completePercent}}% Complete</span>
+        <img src="{{task.videos[0].featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
         </span>
@@ -95,7 +111,7 @@
           <ion-grid no-padding class="post-details">
             <ion-row class="">
               <ion-col col-7 class=" ">
-                <p class="training-name">{{task.courseName}} </p>
+                <p class="training-name">{{task.videos[0].videoTitle}}</p>
               </ion-col>
               <ion-col col-5 class="">
                 <p class="post-date">{{constant.pages.trainingLabels.lastViewed}} {{task.lastViewedDate |

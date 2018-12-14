@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { HeaderService } from '../../services/header.service';
 import { HttpService } from '../../services/http.service';
 import { QuizVar } from '../../Constants/quiz.var';
@@ -29,9 +30,9 @@ export class AddQuizComponent implements OnInit {
   quizQuestionsForm = [];
   title;
   apiUrls;
-
   hidemodule = false;
-  constructor(private headerService: HeaderService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, private constant: QuizVar,private apiUrl:API_URL) {
+  
+  constructor(private headerService: HeaderService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, private constant: QuizVar,private apiUrl:API_URL,private toastr: ToastrService) {
     this.courseId = activatedRoute.snapshot.params['id'];
     this.videoId = activatedRoute.snapshot.params['videoId'];
     this.apiUrls=API_URL.URLS;
@@ -85,17 +86,13 @@ export class AddQuizComponent implements OnInit {
     }
     else {
       this.title = "Add Quiz";
-      this.headerService.setTitle('Add quiz');
-      let obj = this.quizQuestionsForm[0];
-      obj.QuestionId = "1";
-      this.quizQuestionsForm.push(obj);
       this.weightage = 100;
     }
-    this.headerService.setTitle({ title: this.title, hidemodule: this.hidemodule });
+    this.headerService.setTitle({title: this.title, hidemodule: this.hidemodule});
   }
    // Select options toggle
   questionTypeUpdate(data, i) {
-    let quiz = this.quizDetails;
+    let quiz = this.quizQuestionsForm;
     quiz[i].QuestionType = data;
     if (data === "1") {
       quiz[i].Options = [
@@ -123,7 +120,7 @@ export class AddQuizComponent implements OnInit {
       ],
       "Weightage": '100'
     };
-    obj.QuestionId = obj.QuestionId + 1;
+    obj.QuestionId = this.quizQuestionsForm.length + 1;
     this.quizQuestionsForm.push(obj);
     obj.Weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
   }
@@ -133,8 +130,27 @@ export class AddQuizComponent implements OnInit {
     this.quizQuestionsForm.splice(index, 1);
   }
   // Quiz Submission
-  quizSubmit(data) {
-    console.log(this.quizQuestionsForm);
-    debugger;
+  quizSubmit() {
+    //Weightage update
+    let data = this.quizQuestionsForm.map(item => {
+        item.Weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+        return item;
+    })
+    //final data for submission
+    let params = {
+      "CourseId" : this.selectedCourse,
+      "VideoId" : this.selectedVideo,
+      "QuizDetails" : data
+    }
+    console.log(params);
+    if(this.courseId){
+      this.toastr.success("Quiz updated successfully");
+      this.route.navigateByUrl('/quiz');
+    }
+    else{
+      this.toastr.success("Quiz added successfully");
+      // this.route.navigateByUrl('/module')
+    }
+    
   }
 }

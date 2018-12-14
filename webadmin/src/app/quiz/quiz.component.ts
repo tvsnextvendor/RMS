@@ -24,7 +24,7 @@ export class QuizComponent implements OnInit {
 
   ngOnInit() {
     this.getQuizDetails();
-    this.headerService.setTitle({ title: this.title, hidemodule: this.hidemodule });
+    this.headerService.setTitle({title:"Quiz", hidemodule:true});
   }
   // Quil List GET API Service
   getQuizDetails() {

@@ -39,7 +39,7 @@ page-forum {
 	.segment-block {
 		padding: 7px 0px 0 15px;
 	}
-	.ion-md-heart {
+	.ion-md-heart, .ion-md-heart-outline{
 		color: #DA4453;
 	}
 	.forum-img {
@@ -54,9 +54,9 @@ page-forum {
     text-align: right;
 }
 .vote-count, .card-ios p.vote-count {
-    line-height: 44px;
-    color: #000;
+       color: #000;
     font-weight: 800;
+    padding-top: 13px;
 }
 .button-round-ios,.button-round-md {
        float: right;
@@ -67,5 +67,13 @@ page-forum {
 }
 .review-block {
     border-top: 1px solid #ccc;
+}
+.forum-card {
+    margin-left: 0;
+    margin-right: 0;
+    width: calc(100% - 0px);
+}
+.date-det, .card-ios .date-det {
+    margin-top: 15px;
 }
 }

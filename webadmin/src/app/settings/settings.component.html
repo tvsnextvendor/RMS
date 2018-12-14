@@ -1,3 +1,4 @@
+<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
 <div class="white-bg">
     <div class="setting-alg">
         <form #formDir="ngForm" (ngSubmit)="updatePwd()" class="p-4">
@@ -5,12 +6,13 @@
                 <label for="oldPassword" class="col-sm-3 custm-label col-form-label">{{constant.settingFormLabels.oldPassword}}</label>
                 <div class="col-sm-9">
                     <input type="password" class="form-control" id="oldPwd" name="oldPwd" [(ngModel)]="settings.oldPwd"
-                        #oldPwd="ngModel" required placeholder="************************" minlength="8" maxlength="12">
+                        #oldPwd="ngModel" required placeholder="**********" minlength="8" maxlength="12">
                     <div class="required_color" *ngIf="oldPwd?.touched && oldPwd.invalid || (oldPwd.pristine && oldPwd.submitted)">
                         <span [hidden]="!oldPwd.hasError('required')"> {{constant.mandatoryLabels.oldPasswordReq}} </span>
                         <span [hidden]="!oldPwd.hasError('minlength')"> {{constant.mandatoryLabels.minlength}}  </span>
                         <span [hidden]="!oldPwd.hasError('maxlength')">  {{constant.mandatoryLabels.maxlength}}
                         </span>
+
                     </div>
                 </div>
             </div>
@@ -18,7 +20,7 @@
                 <label for="newPassword" class="col-sm-3 custm-label col-form-label">{{constant.settingFormLabels.newPassword}}</label>
                 <div class="col-sm-9">
                     <input type="password" class="form-control" id="newPwd" name="newPwd" [(ngModel)]="settings.newPwd"
-                        #newPwd="ngModel" required placeholder="************************" minlength="8" maxlength="12">
+                        #newPwd="ngModel" required placeholder="**********" minlength="8" maxlength="12">
                     <div class="required_color" *ngIf="newPwd?.touched && newPwd.invalid || (newPwd.pristine && newPwd.submitted)">
                         <span [hidden]="!newPwd.hasError('required')"> {{constant.mandatoryLabels.newPasswordReq}}</span>
                         <span [hidden]="!newPwd.hasError('minlength')"> {{constant.mandatoryLabels.minlength}}  </span>
@@ -31,7 +33,7 @@
                 <label for="confirmPassword" class="col-sm-3 custm-label col-form-label">{{constant.settingFormLabels.confirmPassword}}</label>
                 <div class="col-sm-9">
                     <input type="password" class="form-control" id="confirmPwd" name="confirmPwd" [(ngModel)]="settings.confirmPwd"
-                        #confirmPwd="ngModel" required placeholder="************************" minlength="8" maxlength="12">
+                        #confirmPwd="ngModel" required placeholder="**********" minlength="8" maxlength="12">
                     <div class="required_color" *ngIf="confirmPwd?.touched && confirmPwd.invalid || (confirmPwd.pristine && confirmPwd.submitted)">
                         <span [hidden]="!confirmPwd.hasError('required')"> {{constant.mandatoryLabels.confirmPasswordReq}}</span>
                         <span [hidden]="!confirmPwd.hasError('minlength')"> {{constant.mandatoryLabels.minlength}}  </span>
@@ -43,7 +45,7 @@
             <div class="row">
                 <div class="col-md-12 pt-5 pb-3">
                     <button type="submit" [disabled]=formDir.invalid class="btn btn-primary setting-btn mr-3">{{constant.btns.update}}</button>
-                    <a routerLink="/dashboard"><button type="button" class="btn btn-primary setting-btn">{{constant.btns.cancel}}</button></a>
+                    <a routerLink="/dashboard"><button type="button" (click)="location.back()" class="btn btn-primary setting-btn">{{constant.btns.cancel}}</button></a>
                 </div>
             </div>
         </form>

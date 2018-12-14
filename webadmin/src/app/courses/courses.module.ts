@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoursesComponent } from './courses.component';
 import {AuthGuard} from '../guard/auth.guard.component'
 import { FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
@@ -32,6 +33,7 @@ const routes: Routes = [
         NgbModule,
         TabsModule.forRoot(),
         ModalModule.forRoot(),
+        NgHttpLoaderModule.forRoot(),
         SharedModule
     ],
     declarations: [

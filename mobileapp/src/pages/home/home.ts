@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams, ToastController } from 'ionic-angular';
+import { NavController, IonicPage, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
 import { API_URL } from '../../constants/API_URLS.var';
+import {LoaderService} from '../../service/loaderService';
 
 @IonicPage({
   name: 'home-page'
@@ -23,11 +24,17 @@ export class HomePage {
   modules: any = [];
   showMore: boolean = false;
   users: any;
-  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public toastrCtrl: ToastController) {
+  selectedModule;
+  coursePercentage;
+  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage,public loader:LoaderService) {
     this.currentdate = this.getCurrentTime();
+    this.selectedModule = constant.pages.dashboardLabels.selectModules;
   }
   //first load
   ionViewDidLoad() {
+  
+  }
+  ionViewDidEnter(){
     this.getDashboardInfo();
     this.getModules();
   }
@@ -38,8 +45,10 @@ export class HomePage {
   goToAcc(set) {
     this.navCtrl.setRoot('accomplishment-page')
   }
-  getDashboardInfo() {
+  getDashboardInfo(){
+    this.loader.showLoader();
     this.http.getData(API_URL.URLS.getDashboard).subscribe((data) => {
+      this.loader.hideLoader();
       this.storage.set('userDashboardInfo', data['dashboardList']).then(() => {
         console.log('Data has been set');
       });
@@ -48,6 +57,7 @@ export class HomePage {
         this.trainingDatas = this.dashboardInfo.training;
         this.accomplishments = this.dashboardInfo.accomplishments;
         this.users = this.dashboardInfo.users[0];
+        this.coursePercentage = parseFloat(this.trainingDatas.course)*100;
       }
     });
   }
@@ -63,6 +73,9 @@ export class HomePage {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return days[d.getDay()] + ',' + months[d.getMonth()] + ' ' + d.getDate();
+  }
+  changeModule(list){
+    this.selectedModule = list.moduleName;
   }
 
 }

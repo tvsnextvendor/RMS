@@ -43,5 +43,9 @@ export class ProfilePage implements OnInit {
   goToProfile() {
     this.navCtrl.setRoot('profile-page');
   }
+  goToPrevious(){
+    this.navCtrl.setRoot('home-page');
+  }
+
 
 }

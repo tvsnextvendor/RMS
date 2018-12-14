@@ -3,7 +3,13 @@
 	line-height: 47px;
 	font-size: 15px;
 }
-.hole-cont {
+.btn-save{
+    float: none;
+}
+.txt-color{
+    color: #8D8D8D;
+}
+/*.hole-cont {
     position: relative;
     padding-left: 27px;
     cursor: pointer;
@@ -52,4 +58,4 @@
     border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-}
+}*/

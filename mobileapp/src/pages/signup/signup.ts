@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 //import { API_URL } from '../../constants/API_URLS.var';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Constant } from '../../constants/Constant.var';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
+
+import { Constant } from '../../constants/Constant.var';
+import {ToastrService} from '../../service/toastrService';
 
 @IonicPage({ name: 'signup-page' })
 @Component({
@@ -21,7 +23,7 @@ export class SignupPage implements OnInit {
     "phoneNumber": ""
   }
   scopes;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpProvider, public toastrCtrl: ToastController, public googlePlus: GooglePlus, public linkedin: LinkedIn, public constant: Constant) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpProvider, public toastr: ToastrService, public googlePlus: GooglePlus, public linkedin: LinkedIn, public constant: Constant) {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
@@ -37,13 +39,8 @@ export class SignupPage implements OnInit {
   }
   signupfn() {
     console.log(this.signup);
-    let toast = this.toastrCtrl.create({
-      message: 'Sign up successfully',
-      duration: 2000,
-      position: 'top',
-      cssClass: 'error'
-    });
-    toast.present();
+    this.toastr.success('Sign up successfully');
+   
     //API_URL.URLS.doSignup
     // this.http.post('/signup', this.signup).subscribe((data) => {
     //   console.log(data);
@@ -54,8 +51,6 @@ export class SignupPage implements OnInit {
     console.log("here");
 
     console.log(this.googlePlus);
-
-
     this.googlePlus.login({})
     .then(res => {
       console.log(res)

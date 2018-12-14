@@ -17,21 +17,18 @@ export class CoursesComponent implements OnInit {
     modalRef: BsModalRef;
     videoLink;
     selectedModule;
-    title:string = "Videos";
-    hidemodule=1;
-
-
+    
     ngOnInit() {
         this.getCourses('');
         this.getModuleList();
-        this.headerService.setTitle({title:this.title, hidemodule:this.hidemodule});
-        }
+        this.headerService.setTitle({title: "Videos", hidemodule: true});
+    }
 
-      ngDoCheck(){
+    ngAfterViewChecked(){
             this.headerService.moduleSelection.subscribe(module => {
                 this.selectedModule = module
              });    
-        }
+    }
 
     onChangeModule(){
         this.getCourses(this.videoVar.moduleType);

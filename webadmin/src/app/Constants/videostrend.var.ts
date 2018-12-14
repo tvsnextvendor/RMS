@@ -24,6 +24,7 @@ export class VideosTrendVar {
 
    exportTo = 'Export To';
    excel = 'Excel';
+   select = 'Select';
    pdf = 'PDF';
    noData = 'No Data';
    videosTrend;
@@ -31,5 +32,8 @@ export class VideosTrendVar {
    moduleType=null;
    pageLimitOptions=[];
    pageLimit;
+   videoId;
+   filterEmployeeList=[];
+   url;
 
 }

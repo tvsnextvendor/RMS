@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
+import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import { QuizComponent } from './quiz.component';
 import {AddQuizComponent} from './add-quiz/add-quiz.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,6 +19,7 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(routes),
+    NgHttpLoaderModule.forRoot()
     ],
   declarations: [
     QuizComponent,AddQuizComponent

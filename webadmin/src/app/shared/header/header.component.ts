@@ -4,6 +4,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import {AuthGuard} from '../../guard/auth.guard.component'
 import {HttpService} from '../../services/http.service';
 import {ModuleDropdownComponent} from './module-dropdown';
+import { Header } from '../../Constants/header';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,10 @@ export class HeaderComponent implements OnInit {
   title:string = '';
   moduleType: null;
   moduleList;
-  hideModule=0;
+  hideModule = false;
   splitUrl;
+  headerData: Header = {} as any;
+  filtersLoaded: Promise<boolean>;
  
 
   constructor(private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { 
@@ -25,9 +28,9 @@ export class HeaderComponent implements OnInit {
   }
    
   ngOnInit(){
-    this.headerService.title.subscribe((resp) => { 
+    this.headerService.TitleDetail.subscribe((resp) => { 
       setTimeout(() =>{ this.title=resp.title,
-                        this.hideModule=resp.hidemodule }, 0)
+                        this.hideModule=resp.hidemodule })
     });
   }
 

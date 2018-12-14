@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import {AuthGuard} from '../guard/auth.guard.component';
 import {VideosTrendComponent} from './videostrend.component';
 import {VideosTrendDetailsComponent} from './videostrend-details/videostrend-details.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
+    NgHttpLoaderModule.forRoot(),
     DataTableModule,
     FormsModule,
     SelectDropDownModule

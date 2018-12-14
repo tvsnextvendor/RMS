@@ -60,7 +60,7 @@ table td.td-pd {
 /******** check box ***************/
 .hole-cont {
     position: relative;
-    padding-left: 27px;
+    padding-left: 20px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -68,6 +68,7 @@ table td.td-pd {
     user-select: none;
     float: left;
     color: #495057;
+    font-size: 12px;
 }
 .hole-cont input {
     position: absolute;
@@ -78,17 +79,17 @@ table td.td-pd {
 }
 .checkmark {
     position: absolute;
-    top: 0px;
+    top: 2px;
     left: 0;
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 15px;
 }
 .hole-cont input:checked ~ .checkmark {
-        background-color: #468FB9;
-    border: 1px solid #468FB9;
+    background-color: #73737B;
+    border: 1px solid #73737B;
 }
 .checkmark:after {
     content: "";
@@ -99,8 +100,8 @@ table td.td-pd {
     display: block;
 }
 .hole-cont .checkmark:after {
-    left: 7px;
-    top: 4px;
+    left: 4px;
+    top: 1px;
     width: 5px;
     height: 10px;
     border: solid white;
@@ -165,22 +166,23 @@ table td.td-pd {
 }
 
 .sidebar-nav li {
-  text-indent: 8px;
+  /*text-indent: 8px;*/
   line-height: 70px;
-  width: 92px;
+  width: 75px;
+  text-align: center;
 }
 
 .sidebar-nav li a {
   display: block;
   text-decoration: none;
-  margin-left: 15px;
+  /*margin-left: 15px;*/
 }
 
 .sidebar-nav li a:hover {
     background-color: #E4EFF5;
-    width: 92px;
+    /*width: 92px;
     border-radius: 5px;
-    margin-left: 15px;
+    margin-left: 15px;*/
 }
 .fix{
   background-color: #E4EFF5;
@@ -281,7 +283,7 @@ li.search-block {
 
 /************************ Common colors ***********************/
 
-.hd-alg, .icons_header, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .chart-mr,.video-edit, h6, .drp-item, .ext-txt{
+.hd-alg, .icons_header, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .chart-mr,.video-edit, h6, h5,.drp-item, .ext-txt{
   color: #468FB9;
 }
 .chart-bg,.white-bg{
@@ -716,7 +718,7 @@ li {
 }
 
 .pagenation-dropdown  .ngx-dropdown-container .ngx-dropdown-list-container{
-    top: 45px !important;
+    top: 32px !important;
     right: 0px !important;
 }
 .pagenation-dropdown  .ngx-dropdown-container .ngx-dropdown-list-container ul li{
@@ -730,6 +732,9 @@ li {
 ul.pagination {
     margin: 0;
 }
+span.nsdicon-close {
+    display: none;
+}
 .page-item.active .page-link {
     z-index: 1;
     color: #fff;
@@ -739,6 +744,16 @@ ul.pagination {
 a {
     cursor: pointer;
 }
+
+.sk-wandering-cubes .sk-cube {
+    background-color: #468FB9 !important;
+}
+
+.sk-wave .sk-rect {
+    background-color: #468FB9 !important;
+       
+}
+
 .ng2-dropdown-menu{    
     z-index: 9999 !important;
 }

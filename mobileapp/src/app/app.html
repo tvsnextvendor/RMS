@@ -1,13 +1,10 @@
 <ion-split-pane>
     <!--  our side menu  -->
     <ion-menu [content]="content" [persistent]="true" class="menu-page" type="overlay">
-
         <ion-content class="sidebar-list">
             <ion-header class="sidebar-header">
-                <!-- <ion-toolbar> -->
-                <ion-title>Menu</ion-title>
+                <ion-title>{{constant.title.menu}}</ion-title>
                 <ion-icon name="close" class="menu-close-button" menuClose></ion-icon>
-                <!-- </ion-toolbar> -->
             </ion-header>
             <ion-list>
                 <ion-item *ngIf="currentUser" menuClose (tap)="openPage(profilePage)">
@@ -17,7 +14,7 @@
                     {{p.title}}
                 </button>
                 <button menuClose ion-item (tap)="logOut()">
-                    Log Out
+                    {{constant.title.logOut}}
                 </button>
             </ion-list>
         </ion-content>

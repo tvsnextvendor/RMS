@@ -1,10 +1,11 @@
+<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
 <div class="pr-3">
   <div>  
       <label class="emp-details">{{labels.employeeName}} : {{employeeName}}</label>
       <span class="float-right">
         <div class="dropdown show mb-3">
             <label class="ext-txt mb-0 mr-2">{{labels.exportTo}}</label>
-          <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">PDF</span></a>
+          <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">{{labels.btns.select}}</span></a>
             <div class="dropdown-menu drp-dwn" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{labels.btns.excel}}</a>
                 <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{labels.btns.pdf}}</a>             
@@ -54,7 +55,7 @@
                     <table class="inner-table">
                         <tr *ngFor="let video of emp.videos">
                             <td>{{ video.videoName }}</td>
-                            <td [ngClass] = "video.status !== 'In progress' ? (video.status === 'Assigned'?'text-danger':'text-success'):''">{{ video.status }}</td>
+                            <td [ngClass] = "video.status !== 'In progress' ? (video.status === 'Failed'?'text-danger':(video.status === 'Completed'?'text-success':'text-primary')):''">{{ video.status }}</td>
                             <td>{{ video.assignedDate }}</td>
                             <td></td>
                             <td>{{ video.viewedDate }}</td>

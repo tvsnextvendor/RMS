@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { GroupComponent } from './group.component';
+import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import { RouterModule, Routes } from '@angular/router';
 import {DataTableModule} from "angular-6-datatable";
 import {AuthGuard} from '../guard/auth.guard.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
     DataTableModule,
     FormsModule,
     SelectDropDownModule,
+    NgHttpLoaderModule.forRoot(),
     TagInputModule,
     RouterModule.forRoot(routes),
     ],

@@ -1,8 +1,9 @@
 import { Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {HeaderService} from '../services/header.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import {SettingVar} from '../Constants/setting.var';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-settings',
@@ -17,7 +18,7 @@ export class SettingsComponent implements OnInit {
         newPwd: '',
         confirmPwd: '',
     };
-   constructor(private headerService:HeaderService,private toastr:ToastrService,private router:Router,private constant:SettingVar){}
+   constructor(private location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,private constant:SettingVar){}
 
    ngOnInit(){
     this.headerService.setTitle({ title: 'Settings', hidemodule: false});
@@ -29,6 +30,6 @@ export class SettingsComponent implements OnInit {
         this.toastr.success('Password updated successfully');
         this.router.navigateByUrl('/dashboard');
     }
-   }
+    }
 
 }

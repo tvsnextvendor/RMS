@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 //import { API_URL } from '../../constants/API_URLS.var';
 import { Constant } from '../../constants/Constant.var';
+import {ToastrService} from '../../service/toastrService';
 
 @IonicPage({
   name: 'forget-page'
@@ -18,7 +19,7 @@ export class ForgetPage implements OnInit {
     "emailAddress": "",
     "phoneNumber": ""
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, private toastrCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, private toastr: ToastrService) {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForgetPage');
@@ -31,14 +32,7 @@ export class ForgetPage implements OnInit {
     });
   }
   forgetfn() {
-   // console.log(this.forget);
-    let toast = this.toastrCtrl.create({
-      message: 'Forget Password Successfully',
-      duration: 2000,
-      position: 'top',
-      cssClass: 'error'
-    });
-    toast.present();
+    this.toastr.success('Forget Password Successfully');
     this.navCtrl.setRoot('login-page');
     //API_URL.URLS.doSignup
     // this.http.post('/signup', this.signup).subscribe((data) => {

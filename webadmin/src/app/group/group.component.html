@@ -1,3 +1,4 @@
+<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
 <div class="row">
     <div class="col-sm-9">
         <div class="table-responsive">
@@ -60,7 +61,38 @@
                 </div>
                 <div class="form-group">
                     <label>Add Employee</label>
-                    <ngx-select-dropdown class="form-control" name = "employeeId" [options]="employeeOptions" multiple="true" [(value)]="selectedValues" [config]="dropDownConfig" (change)= "onEmployeeChange()"></ngx-select-dropdown>
+                    <!-- <ngx-select-dropdown class="form-control" name = "employeeId" [options]="employeeOptions" multiple="true" [(value)]="selectedValues" [config]="dropDownConfig" (change)= "onEmployeeChange()"></ngx-select-dropdown> -->
+                    <tag-input [ngModel]="employeeItems" #empName="ngModel"
+                        name="empItems"
+                        [onlyFromAutocomplete]="true"
+                        [placeholder]="'+ Employee'"      [displayBy]="'name'"
+                        [identifyBy]="'id'" [secondaryPlaceholder]="'Select Employee'" class="multi-input"
+                        required>
+                        <tag-input-dropdown [showDropdownIfEmpty]="true"
+                        [dynamicUpdate]="false"
+                        [focusFirstElement]="true"             
+                        [autocompleteItems]="autocompleteItemsAsEmpObjects">
+                        <ng-template let-item="item" let-index="index">
+                            {{ item.display }}
+                        </ng-template>
+                       </tag-input-dropdown>
+                        </tag-input>
+
+                        <tag-input [ngModel]="courseItems" #courseName="ngModel"
+                        name="courses"
+                        [onlyFromAutocomplete]="true"
+                        [placeholder]="'+ courses'"      [displayBy]="'courses'" (onAdd)="changeValue(courseName.value)" (onRemove) = "changeValue(courseName.value)"
+                        [identifyBy]="'id'" [secondaryPlaceholder]="'Select Course'" class="multi-input"
+                        required>
+                        <tag-input-dropdown [showDropdownIfEmpty]="true"
+                        [dynamicUpdate]="false"
+                        [focusFirstElement]="true"             
+                        [autocompleteItems]="autocompleteItemsAsCourseObjects">
+                        <ng-template let-item="item" let-index="index">
+                            {{ item.display }}
+                        </ng-template>
+                       </tag-input-dropdown>
+                        </tag-input>
                 </div>
                 <div class="text-center pt-5">
                     <button class="btn btn-default mr-3" (click)="clearForm()">CLEAR</button>

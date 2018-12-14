@@ -26,6 +26,11 @@ export class GroupComponent implements OnInit {
   selectedValues = [];
   dropDownConfig = {};
 
+  employeeItems;
+  courseItems;
+  autocompleteItemsAsEmpObjects;
+  autocompleteItemsAsCourseObjects;
+
   constructor(private route: Router, private toastr: ToastrService,private http: HttpService,private headerService: HeaderService) { }
 
   ngOnInit(){
@@ -34,20 +39,34 @@ export class GroupComponent implements OnInit {
       this.groupArray = resp.groupDetails;
     });
 
-    // get employee list
     this.http.get('5c0928d52f0000c21f637cd0').subscribe((resp) => {
-      this.dropdownList = resp.employeeList;
-      this.employeeOptions = resp.employeeList.map(item=>{
+      this.autocompleteItemsAsEmpObjects = resp.employeeList.map(item=>{
         return item.name;
       });
     });
+
+
+    this.autocompleteItemsAsCourseObjects = [
+       "Uniform and Appearance Policy",
+       "Park Smart Safety" ,
+        "Basic Rails" ,
+      "Welcome to 2018/19"
+    ];
+
+    // get employee list
+    // this.http.get('5c0928d52f0000c21f637cd0').subscribe((resp) => {
+    //   this.dropdownList = resp.employeeList;
+    //   this.employeeOptions = resp.employeeList.map(item=>{
+    //     return item.name;
+    //   });
+    // });
 
     // dropdown config
     this.dropDownConfig = {placeholder : 'Select employee',displayKey:'selectedValues',search:true,noResultsFound: 'No results found!',height: '195px',
     searchPlaceholder:'Search by employee'
     };
     // this.labels = this.employeeVar.employeeStatus;
-    this.headerService.setTitle("Groups");
+    // this.headerService.setTitle("Groups");
   }
   editGroup(data){
     let empName = [];
@@ -97,6 +116,10 @@ export class GroupComponent implements OnInit {
   statusUpdate(groupName,status){
     let statusName = status ? "is Activated" : "is Deativated"
     this.toastr.success(groupName +" group "+ statusName);
+  }
+
+  changeValue(data){
+    console.log("dsfsdfsdf",data)
   }
 
   onSubmitForm(data){

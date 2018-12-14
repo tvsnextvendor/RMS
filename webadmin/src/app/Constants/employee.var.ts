@@ -7,6 +7,7 @@ export class EmployeeVar {
         "exportTo" : "Export to",
         "noData" : "No Data!",
         "btns" : {
+            "select" : "Select",
             "excel" : "Excel",
             "pdf" : "PDF"
         },
@@ -16,6 +17,7 @@ export class EmployeeVar {
             "assignedCount" : "Assigned",
             "inProgressCount" : "In progress",
             "completedCount" : "Completed",
+            "failedCount" : "Failed",
             "ratings" : "Ratings",
             "total" : "Total"
         }
@@ -26,6 +28,7 @@ export class EmployeeVar {
         "noData" : "No Data!",
         "employeeName" : "Employee Name",
         "btns" : {
+            "select" : "Select",
             "excel" : "Excel",
             "pdf" : "PDF"
         },

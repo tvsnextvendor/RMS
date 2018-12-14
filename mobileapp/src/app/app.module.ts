@@ -16,6 +16,8 @@ import { API_URL } from '../constants/API_URLS.var';
 import { MyApp } from './app.component';
 import { HttpProvider } from '../providers/http/http';
 import { AuthProvider } from '../providers/auth/auth';
+import {LoaderService} from '../service/loaderService';
+import {ToastrService} from '../service/toastrService';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { AuthProvider } from '../providers/auth/auth';
     API_URL,
     HttpProvider,
     AuthProvider,
+    LoaderService,
+    ToastrService,
     GooglePlus,
     LinkedIn
   ]

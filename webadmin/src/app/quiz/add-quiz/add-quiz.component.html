@@ -1,3 +1,4 @@
+<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
 <div class="pr-3">
 	<div class="white-bg pt-5">
 		<form #quizForm="ngForm" (ngSubmit)="quizSubmit(quizForm)" novalidate>
@@ -41,7 +42,7 @@
 					<div class="form-group  row">
 						<label for="" class="col-sm-4 custm-label col-form-label">{{constant.quizLabels.questionType}}</label>
 						<div class="col-sm-8">
-							<select class="form-control" placeholder="Select" name="QuestionType{{i}}" [(ngModel)]="data.QuestionType"
+							<select class="form-control" placeholder="Select" name="QuestionType{{i}}" [(ngModel)]="data.QuestionType" (change)="questionTypeUpdate(data.QuestionType,i)"
 							 #QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
 								<option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
 							</select>
@@ -68,7 +69,7 @@
 							<div class="row" *ngIf="data.QuestionType === '1' && data.Options && data.Options.length">
 								<span class="col-sm-3 pl-0" *ngFor=" let optionValue of data.Options; let oi = index;">
 									<span class="option-btn">{{oi + 1}}</span>&nbsp;
-									<input type="text" class="form-control" placeholder="Options" name="optionValue{{oi}}" [(ngModel)]="data['Options'][oi]['Value']">
+									<input type="text" class="form-control" placeholder="Options" name="{{optionValue.Value}}" [(ngModel)]="optionValue.Value" [ngModelOptions]="{ standalone : true }">
 								</span>
 							</div>
 							<div class="row" *ngIf="data.QuestionType === '2'">

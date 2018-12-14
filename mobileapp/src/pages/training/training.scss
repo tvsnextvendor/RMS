@@ -100,3 +100,49 @@ page-training {
 	}
 
 }
+
+.module-select button {
+	width: 100%;
+	background: #fff;
+}
+.module-select {
+	button.btn {
+		word-wrap: break-word;
+		width: 100%;
+		background: #fff;
+		padding: 7px 10px;
+		margin-bottom: 10px;
+		font-size: 15px;
+		-webkit-box-shadow: -1px 4px 4px 0px #3333331c;
+		box-shadow: -1px 4px 4px 0px #3333331c;
+		overflow: hidden;
+		white-space: normal;
+		text-align: left;
+	}
+	ion-icon {
+		position: absolute;
+		right: 15px;
+		top: 20px;
+		color: #7E7E7E;
+		font-size: 22px;
+	}
+	.dropdown-toggle::after {
+		display: none;
+	}
+	.dropdown-menu {
+		width: 100%;
+		color: #000000;
+		font-size: 15px;
+		padding: 0;
+	}
+	.module-txt {
+		display: block;
+		font-size: 12px;
+	}
+	.dropdown-item{
+		border-bottom: 1px solid #e0e0e0;
+
+		padding: 0.55rem 1.5rem;
+	}
+
+}

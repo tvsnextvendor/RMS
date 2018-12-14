@@ -7,8 +7,13 @@
     padding: 4px 8px;
   }
   .export-btn::after{
-    margin-left: 2.255em;
-  }
+
+    margin-left: 5px;
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    color: #468FB9;
+}
   .ext-txt{
     font-size: 18px;
     font-weight: 600;

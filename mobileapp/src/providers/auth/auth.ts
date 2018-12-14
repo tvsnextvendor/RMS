@@ -1,9 +1,10 @@
 //import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpProvider } from '../http/http';
-import { ToastController } from 'ionic-angular';
-import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
+import { HttpProvider } from '../http/http';
+import { API_URL } from '../../constants/API_URLS.var';
+import {ToastrService} from '../../service/toastrService';
+
 export interface User {
   name: string;
   role: number;
@@ -12,7 +13,7 @@ export interface User {
 export class AuthProvider {
   currentUserSet: User;
   users: any = [];
-  constructor(public http: HttpProvider, public toastCtrl: ToastController, public storage: Storage) {
+  constructor(public http: HttpProvider, public toastr: ToastrService, public storage: Storage) {
     console.log('Hello AuthProvider Provider');
   }
   login(name: string, pw: string, keepmelogin: boolean): Promise<boolean> {
@@ -24,22 +25,10 @@ export class AuthProvider {
           let usernameCorrect = this.users.find(x => x.username === name);
           let passwordCorrect = this.users.find(x => x.password === pw);
           if (!usernameCorrect) {
-            let toast = self.toastCtrl.create({
-              message: 'Username is invalid',
-              duration: 2000,
-              position: 'top',
-              cssClass: 'error'
-            });
-            toast.present();
+            self.toastr.error('Username is invalid');
             reject(false);
           } else if (!passwordCorrect) {
-            let toast = self.toastCtrl.create({
-              message: 'Password is invalid',
-              duration: 2000,
-              position: 'top',
-              cssClass: 'error'
-            });
-            toast.present();
+            self.toastr.error('Password is invalid');
             reject(false);
           } else {
             this.storage.set('currentUser', usernameCorrect).then(() => {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import {AuthGuard} from '../guard/auth.guard.component';
 import {ForumComponent} from './forum.component';
 import {CreateForumComponent} from './createForum/createForum.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
     DataTableModule,
     FormsModule,
     TagInputModule,
+    NgHttpLoaderModule.forRoot(),
     SelectDropDownModule
     ],
   declarations: [

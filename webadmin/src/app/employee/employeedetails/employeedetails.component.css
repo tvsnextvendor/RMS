@@ -7,6 +7,10 @@
 .text-success{
     color: green;
 }
+.text-primary{
+  color: blue;
+}
+
  .export-btn{
     border-radius: 20px;
     background-color: transparent;
@@ -16,7 +20,11 @@
     padding: 4px 8px;
   }
   .export-btn::after{
-    margin-left: 2.255em;
+    margin-left: 14px;
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    color: #468FB9;
   }
   .ext-txt{
     font-size: 18px;

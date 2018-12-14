@@ -22,7 +22,7 @@
 <ion-content padding class="headerFull-bg">
   <div [ngSwitch]="forumTopics">
     <ion-list *ngSwitchCase="'mostRecent'">
-      <ion-card>
+      <ion-card class="forum-card">
         <ion-grid>
           <ion-row>
             <ion-col col-2 col-sm-6 col-lg-4>
@@ -36,7 +36,7 @@
             <ion-col col-3 col-sm-6 col-lg-4 class="heart-icon">
               <ion-icon name="md-heart"></ion-icon>
               <p></p>
-              <p class="forum-txt">03 Dec 2018</p>
+              <p class="forum-txt date-det">03 Dec 2018</p>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -53,14 +53,14 @@
               <p class="vote-count">365 <span class="forum-txt">Answers</span></p>
             </ion-col>
             <ion-col col-5 class="cmd-btn">
-              <button ion-button round small>
+              <button ion-button round small class="blue-btn">
                 Comment
               </button>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-card>
-      <ion-card>
+      <ion-card class="forum-card">
         <ion-grid>
           <ion-row>
             <ion-col col-2 col-sm-6 col-lg-4>
@@ -68,14 +68,14 @@
             </ion-col>
             <ion-col col-7 col-sm-6 col-lg-4>
               <h2>William</h2>
-              <p>6 Hours ago,36 Replays</p>
-              <p>36 Replies</p>
+              <p class="forum-txt">6 Hours ago,36 Replays</p>
+              <p class="forum-txt">36 Replies</p>
             </ion-col>
-            <ion-col col-3 col-sm-6 col-lg-4>
-              <ion-icon ios="ios-heart-outline" md="md-heart-outline" *ngIf="!like" (click)="likeUnlikeQuestion()"></ion-icon>
+            <ion-col col-3 col-sm-6 col-lg-4 class="heart-icon">
+              <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!like" (click)="likeUnlikeQuestion()"></ion-icon>
               <ion-icon name="md-heart" *ngIf="like" (click)="likeUnlikeQuestion()"></ion-icon>
               <p></p>
-              <p>03 Dec 2018</p>
+              <p class="forum-txt">03 Dec 2018</p>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -84,15 +84,15 @@
                 distinctive style. every employee plays significant role represnting our company</p>
             </ion-col>
           </ion-row>
-          <ion-row>
+          <ion-row class="review-block">
             <ion-col col-3>
-              <div>568 Votes</div>
+              <div class="vote-count">568 <span class="forum-txt">Votes</span></div>
             </ion-col>
             <ion-col col-4>
-              <div>365 Answers</div>
+              <div class="vote-count">365 <span class="forum-txt">Answers</span></div>
             </ion-col>
-            <ion-col col-5>
-              <button ion-button round small>
+            <ion-col col-5 class="cmd-btn">
+              <button ion-button round small class="blue-btn">
                 Comment
               </button>
             </ion-col>
