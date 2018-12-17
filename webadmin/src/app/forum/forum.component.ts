@@ -5,7 +5,7 @@ import {ForumVar} from '../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import {Header} from '../Constants/header';
+import { API_URL } from '../Constants/api_url';
 
 @Component({
     selector: 'app-forum',
@@ -15,30 +15,32 @@ import {Header} from '../Constants/header';
 
 export class ForumComponent implements OnInit {
    
-    forumName;
-    topics;
-    employeeItems;
-    autocompleteItemsAsEmpObjects
-    modalRef:BsModalRef;
    
+    modalRef:BsModalRef;
+    modalConfig = {
+        backdrop: false,
+        ignoreBackdropClick: true
+      };
   
-    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService){}
+    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService){
+       this.forumVar.url = API_URL.URLS;
+    }
 
    ngOnInit(){
-    this.headerService.setTitle({title:"Forum", hidemodule:false});
+    this.headerService.setTitle({title:this.forumVar.title, hidemodule:false});
     this.getForumList();
     this.getEmployeeList();
    }
 
     getForumList(){
-          this.http.get('5c0e36222e00004d00043d43').subscribe((data) => {
+          this.http.get(this.forumVar.url.getForumList).subscribe((data) => {
           this.forumVar.forumList= data.forumDetails;
         });
     }
 
     getEmployeeList(){
-        this.http.get('5c0928d52f0000c21f637cd0').subscribe((resp) => {
-           this.autocompleteItemsAsEmpObjects = resp.employeeList.map(item=>{
+        this.http.get(this.forumVar.url.getEmployeeList).subscribe((resp) => {
+           this.forumVar.autocompleteItemsAsEmpObjects = resp.employeeList.map(item=>{
              return item.name;
            });
          });
@@ -50,11 +52,13 @@ export class ForumComponent implements OnInit {
         this.toastr.success(forumName + statusName);
       }
 
+     
+
     openEditModal(template: TemplateRef<any>, forum) {
-        this.modalRef = this.modalService.show(template);
-        this.forumName= forum.forumName;
-        this.topics=forum.topic;
-        this.employeeItems=forum.employeeDetails;
+        this.modalRef = this.modalService.show(template,this.modalConfig);
+        this.forumVar.forumName= forum.forumName;
+        this.forumVar.topics=forum.topic;
+        this.forumVar.employeeItems=forum.employeeDetails;
     }
 
     onSave(form){

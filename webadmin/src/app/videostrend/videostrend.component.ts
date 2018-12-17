@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import {HeaderService} from '../services/header.service';
 import {HttpService} from '../services/http.service';
 import {VideosTrendVar} from '../Constants/videostrend.var';
-import { API_URL } from 'src/app/Constants/api_url';
+import { API_URL } from '../Constants/api_url';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class VideosTrendComponent implements OnInit {
    selectedModule;
    
    ngOnInit(){
-    this.headerService.setTitle({title:"Course Trend", hidemodule:false});
+    this.headerService.setTitle({title:this.trendsVar.title, hidemodule:false});
     this.getVideosTrend('');
     this.getModuleList();
     this.trendsVar.pageLimitOptions = [5, 10, 25];

@@ -77,5 +77,8 @@ export class HomePage {
   changeModule(list){
     this.selectedModule = list.moduleName;
   }
+  goToNotification(){
+    this.navCtrl.setRoot('notification-page');
+  }
 
 }

@@ -14,9 +14,10 @@ export class ForumVar{
     createForum = {
         editForum   : 'Edit Forum',
         createForum : 'Create Forum',
-        forumName : 'Forum Name',
-        topics    : 'Topics',
-        empName   : 'Enter Employee Name' 
+        forumName   : 'Forum Name',
+        topics      : 'Topics',
+        empName     : 'Enter Employee Name',
+        noData      : 'No data'
     };
     btns ={
         create : 'Create',
@@ -28,9 +29,11 @@ export class ForumVar{
         topic       :  'Topic is required',
         empName     :  'Employee Name is required',       
     };
- 
+    title = 'Forum';
+    addSuccessMsg = 'Forum Added Successfully';
     employeeItems;
     forumName;
     topics;
     autocompleteItemsAsEmpObjects;
+    url;
 }

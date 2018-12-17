@@ -20,10 +20,13 @@ export class API_URL {
    getModuleList        : '5c08da9b2f00004b00637a8c',
    getEmployeeStatus    : '5c1247ee3300009829998e4a',
   // getEmployeeDetails   : '5c124a4d330000bd2a998e64',
-   getEmployeeDetails:'5c135a573400008e00ecdf92',
+   getEmployeeDetails   :'5c135a573400008e00ecdf92',
    getTaskResortChart   : '5c135a3c3400008e00ecdf91',
    getCourseTrendChart  : '5c1362173400007c00ecdfc7',
-   getYearList          : '5c1355633400007500ecdf6f'
+   getYearList          : '5c1355633400007500ecdf6f',
+   moduleCourseList     : '5c1395393400006500ece168',
+   getEmployeeList      : '5c0928d52f0000c21f637cd0',
+   getForumList         : '5c0e36222e00004d00043d43'
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import {HeaderService} from '../../services/header.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-add-module',
@@ -8,61 +9,97 @@ import {HeaderService} from '../../services/header.service';
 })
 
 export class AddModuleComponent implements OnInit {
+    
+    autocompleteItemsAsCourseObjects;
+    courseItems;
+    selectedCourses = [];
+    moduleName;
+    sortableList;
+    videoList = [];
+    tabEnable = false;
+    selectCourseName;
+    selectVideoName;
+    description;
 
-    dropdownSettings;
-    moduleForm: any[] = [{
-        moduleId:1,
-        moduleName:'',
-        quiz:"true",
-        batchList : [
-            {id : 1,Value:"Batch 1"},
-            {id : 2,Value:"Batch 2"},
-            {id : 3,Value:"Batch 3"},
-            {Id : 4,Value:"Batch 4"}
-          ],
-          selectedItems:[
-            {id : 2,Value:"Batch 2"},
-            {id: 3,Value:"Batch 3"}
-          ]
-    }];
-
-
-   constructor(private headerService:HeaderService){}
+   constructor(private headerService:HeaderService,private toastr : ToastrService){}
 
    ngOnInit(){
-    // this.headerService.setTitle('Settings');
-    this.dropdownSettings = {
-        singleSelection: false,
-        idField: 'id',
-        textField: 'Value',
-        itemsShowLimit: 5,
-        allowSearchFilter: false
-      };
-   }
 
-   addModule(){
-       let obj={
-           moduleId:1,
-           moduleName:'',
-           quiz: 'true'
-       };
-       obj.moduleId=obj.moduleId+1;
-    this.moduleForm.push(obj);
-    console.log(this.moduleForm,"MODULEFORM");
+      this.autocompleteItemsAsCourseObjects = [
+        "Uniform and Appearance Policy",
+        "Park Smart Safety" ,
+        "Basic Rails" ,
+        "Welcome to 2018/19"
+     ];
+
+     this.sortableList = [
+       {name : "Video Name 1",description : "Description",file:"File1.mp4"},
+       {name : "Video Name 2",description : "Description",file:"File2.mp4"},
+       {name : "Video Name 3",description : "Description",file:"File3.mp4"},
+       {name : "Video Name 4",description : "Description",file:"File4.mp4"},
+     ];
    }
   
-   removeModule(i){
-    this.moduleForm.splice(i, 1);   
-    console.log(this.moduleForm,"MODULEREMOVE");
- 
+   removeCourse(i){
+    this.selectedCourses.splice(i, 1);   
+    console.log(this.selectedCourses,"courseUpdate");
+    if(this.selectedCourses.length === 0){
+        this.tabEnable = false;
+    }
+   }
+
+   updateCourse(data){
+       console.log(data);
+       this.tabEnable = true;
+       this.videoList = this.sortableList;
+       this.selectCourseName = data.value;
+   }
+
+   removeVideo(i){
+    this.sortableList.splice(i, 1);   
+    console.log(this.sortableList,"courseVideo");
+   }
+
+   updateVideo(data){
+       console.log(data);
+       this.selectVideoName = data.name;
+       this.description = data.description;
+
+   }
+
+   changeValue(data){
+       console.log(data);
+       this.selectedCourses = data;
+       if(this.selectedCourses.length === 0){
+           this.tabEnable = false;
+       }
+   }
+
+   addCourse(){
+       this.tabEnable = true;
+       this.videoList = [];
+       this.selectCourseName = '';
+       this.selectVideoName = '';
+       this.description = '';
+    console.log("Add new course")
+   } 
+
+   videoSubmit(){
+       console.log("video submitted");
+       if(this.selectVideoName && this.selectVideoName){
+        this.toastr.success("Video updated successfully");
+       }
+       
+       this.selectVideoName = '';
+       this.description = '';
+   }
+
+   cancelVideoSubmit(){
+       this.selectVideoName = '';
+       this.description = '';
    }
 
    submitForm(form){
-
+    console.log(this.moduleName,this.selectedCourses, this.sortableList)
    }
-
-   onItemSelect(item: any) {
-    console.log(item);
-  }
-
 }

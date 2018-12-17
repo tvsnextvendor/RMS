@@ -19,4 +19,7 @@ export class SettingVar {
         newPasswordReq: 'New password is required',
         confirmPasswordReq: 'Confirm Password is required'
     };
+    title= 'Settings';
+    pwdUpdateSuccessMsg = 'Password updated successfully';
+    pwdMissmatchMsg  = 'Password Mismatch';
 }

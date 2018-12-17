@@ -1,6 +1,6 @@
 <!-- Profile -->
 <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
-<div class="pr-3 py-4">
+<div class="pr-3 py-4" *ngIf="profVar.hideEditProfile">
 <div class="white-bg">
   <div class="row py-4"> 
   	 <div class="col-lg-6 col-md-6">
@@ -57,6 +57,8 @@
 </div>      
 
 
+
+
 <!-- Edit Profile -->
 <form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)" *ngIf="profVar.hideProfile">
         <div class="pr-3 py-4">
@@ -86,7 +88,7 @@
                   <div class="row">  		
                       <label class="col-lg-3 label-title">{{profVar.profileLabels.dob}}</label>  		
                        <div class="col-lg-5">
-                         <input type="text" class="form-control" #Dob="bsDatepicker" name="Dob" bsDatepicker [(ngModel)]="profVar.dob"  [bsConfig]="{dateInputFormat: 'D MMMM YYYY '}">
+                         <input type="text" class="form-control" #Dob="bsDatepicker" autocomplete="off" name="Dob" bsDatepicker [(ngModel)]="profVar.dob"  [bsConfig]="{dateInputFormat: 'D MMMM YYYY '}">
                         </div>
                   </div>
                   <div class="row">  		

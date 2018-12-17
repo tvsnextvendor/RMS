@@ -25,7 +25,8 @@ export class Constant {
         save:'SAVE',
         add:'ADD',
         cancel:'CANCEL',
-        addQuestion:'Add Question'
+        addQuestion:'Add Question',
+        comment:'Comment'
     };
     pages = {
     
@@ -129,9 +130,15 @@ export class Constant {
             designation:'Designation'
         },
         forumLabels:{
+            topics:'Topics',
             mostRecent:'Most Recent',
             featuredTopics:'Featured Topics',
             featuredFav:'Featured Favorite',
+            votes:'Votes',
+            answers:'Answers',
+            hoursAgo:'Hours ago',
+            replays:'Replays',
+            replies:'replies',
             typeQuestionHere:'Type your question here',
             validations:{
                 questionRequired:'Question is required'

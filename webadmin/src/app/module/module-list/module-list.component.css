@@ -1,0 +1,68 @@
+.switch {
+  position: relative;
+    display: inline-block;
+   
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 5px;
+    left: -43px;
+    right: 0px;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    width: 45px;
+    height: 15px;
+}
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+input:checked + .slider:before {
+      background-color: #468FB9;
+      left: -2px;
+}
+input:checked + .slider {
+    background-color: #A1C6DB;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 0px;
+    bottom: -2px;
+    background-color: #F1F1F1;
+    transition: .4s;
+}
+.module-hd-color{
+  color: #1D4960;
+}
+.module-play-icon{
+  font-size: 25px;
+  position: relative;
+  top: 4px;
+}
+.player-list{
+  color: #1D4960;
+    padding-top: 12px;
+}

@@ -14,6 +14,9 @@ button:focus {
 .pdt50{
   padding-top: 50px;
 }
+.pdl-36{
+	padding-left: 36px;
+}
 .pd30{
   padding: 30px 0;
 }
@@ -58,7 +61,7 @@ table td.td-pd {
   	opacity: 0.5;
   }
 /******** check box ***************/
-.hole-cont {
+/*.hole-cont {
     position: relative;
     padding-left: 20px;
     cursor: pointer;
@@ -108,6 +111,56 @@ table td.td-pd {
     border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
+}*/
+.hole-cont {
+   position: relative;
+   padding-left: 27px;
+   cursor: pointer;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   float: left;
+   color: #495057;
+}
+.hole-cont input {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   height: 0;
+   width: 0;
+}
+.checkmark {
+   position: absolute;
+   top: 0px;
+   left: 0;
+   height: 20px;
+   width: 20px;
+   background-color: #fff;
+   border: 1px solid #ccc;
+   border-radius: 15px;
+}
+.hole-cont input:checked ~ .checkmark {
+       background-color: #468FB9;
+   border: 1px solid #468FB9;
+}
+.checkmark:after {
+   content: "";
+   position: absolute;
+   display: none;
+}
+.hole-cont input:checked ~ .checkmark:after {
+   display: block;
+}
+.hole-cont .checkmark:after {
+   left: 7px;
+   top: 4px;
+   width: 5px;
+   height: 10px;
+   border: solid white;
+   border-width: 0 2px 2px 0;
+   -webkit-transform: rotate(45deg);
+   transform: rotate(45deg);
 }
 /*************** sidebar ********************/
 #wrapper {
@@ -643,15 +696,16 @@ li {
     margin: 0 auto;
 }
 .add-video-header ul.nav.nav-tabs {
-    margin-bottom: 20px;
     background-color: #fff;
     width: 260px;
     height: 51px;
     border: 2px solid #fff;
     cursor: pointer;
+    box-shadow: 0px 0px 8px 0px #ccc;
+    margin-top: 35px;
 }
 .add-video-header ul li.nav-item.active {
-    border-bottom: 2px solid #007bff;
+    border-bottom: 3px solid #468FB9;
 }
 .add-video-header ul li.nav-item{
     width: 128px;
@@ -667,6 +721,7 @@ li {
 }
 .add-video-header ul li a.nav-link{
 	text-align: center;
+	color: #808088;
 }
 .multiselect-input delete-icon svg {
     vertical-align: middle !important;
@@ -705,6 +760,11 @@ li {
     padding-right: 0 !important;
     height: 31px !important;
 }
+
+.sk-wave .sk-rect {
+    background-color: #468FB9 !important;   
+}
+
 .pagenation-dropdown button.ngx-dropdown-button {
     border-radius: 20px !important;
     background-color: transparent !important;
@@ -744,22 +804,42 @@ span.nsdicon-close {
 a {
     cursor: pointer;
 }
-
-.sk-wandering-cubes .sk-cube {
-    background-color: #468FB9 !important;
-}
-
-.sk-wave .sk-rect {
-    background-color: #468FB9 !important;
-       
-}
-
 .ng2-dropdown-menu{    
     z-index: 9999 !important;
 }
 .creat-btn{
 	float: none;
 }
+/***********Module style*******************/
+.module-list .owl-item {
+    background-color: #EDF0F8;
+    width: 226px !important;
+    height: 50px;
+    margin: 0 7px;
+    margin-bottom: 30px !important;
+}
+.module-list .owl-nav {
+    margin-top: 0;
+    text-align: unset;
+}
+.module-list .owl-theme .owl-nav{
+	margin-top: 0 !important;
+}
+.module-list .owl-prev {
+    position: absolute;
+    top: 7px;
+    left: -21px;
+    width: 30px;
+    background-color: #468FB9 !important;
+}
+.module-list .owl-next {
+    position: absolute;
+    top: 7px;
+    right: -21px;
+    width: 30px;
+    background-color: #468FB9 !important;
+}
+/***********************End Module style***************/
 @media (min-width: 1200px) { }
 @media (min-width: 980px) and (max-width: 1199px) { }
 @media (min-width: 768px) and (max-width: 979px) { 

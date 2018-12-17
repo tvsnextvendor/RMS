@@ -25,7 +25,7 @@ export class VideosTrendDetailsComponent implements OnInit {
 
    ngOnInit(){
 
-    this.headerService.setTitle({title:"Course Trend", hidemodule:false});
+    this.headerService.setTitle({title:this.trendsVar.title, hidemodule:false});
     this.http.get(this.trendsVar.url.getVideoTrendEmpList).subscribe((data) => {
         if(data.isSuccess === true){
 
@@ -47,12 +47,12 @@ export class VideosTrendDetailsComponent implements OnInit {
 // Create PDF
  exportAsPDF(){  
     var data = document.getElementById('contentToConvert'); 
-    this.pdfService.exportAsPDFFile(data, 'Videos Trend');  
+    this.pdfService.exportAsPDFFile(data, this.trendsVar.pdfExcelTitle);  
   } 
 
   // Create Excel sheet
   exportAsXLSX():void {
-    this.excelService.exportAsExcelFile(this.trendsVar.filterEmployeeList[0].employeeDetails, 'Videos Trend' );
+    this.excelService.exportAsExcelFile(this.trendsVar.filterEmployeeList[0].employeeDetails, this.trendsVar.pdfExcelTitle );
   }
 
 }

@@ -13,6 +13,8 @@ export class API_URL {
         //'getDashboard':'5c00e1ae3200004a00b288cc',
         //'getUsers':'5c01283c3500005d00ad085b',
         'getUsers': '5c0a7496350000d11ea86177',
-        'doSignup': 'signup'
+        'doSignup': 'signup',
+        'getForum':'5c15129a3400005b1cb8e9a2',
+        'getNotification':'5c15fac72e0000f30e37c6c9'
     };
 }

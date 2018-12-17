@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
    }
     
    ngOnInit(){
-    this.headerService.setTitle({title:"Profile", hidemodule:false});
+    this.headerService.setTitle({title:this.profVar.title, hidemodule:false});
     this.getProfile();
    }
   

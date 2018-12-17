@@ -22,6 +22,7 @@ export class ProfileVar {
          dept        : 'Department is required'  
      };
      successMsg='Profile Saved Successfully';
+     title= 'Profile';
      userName;
      dob;
      dept;

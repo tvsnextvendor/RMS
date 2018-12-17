@@ -9,53 +9,48 @@
 .txt-color{
     color: #8D8D8D;
 }
-/*.hole-cont {
-    position: relative;
-    padding-left: 27px;
-    cursor: pointer;
+.upload-label{
+    color: #697380;
+    font-size: 15px;
+}
+.upload-section{
+    float: right;
+    line-height: 100px;
+}
+.upload-btn{
     font-size: 12px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    float: left;
-    color: #495057;
+    float: none;
 }
-.hole-cont input {
+.upload-crt-icon{
+    padding: 0 25px;
+    color: #28a745;
+    font-size: 22px;
+}
+.upload-wrg-icon{
+    font-size: 22px;
+   color: #f44336;
+}
+.option-btn{
+    border: 1px solid #468FB9;
+    border-radius: 40px;
+    padding: 0px 5px;    
+    font-size: 12px;
+    color: #909CA8;
     position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
+    top: 12px;
 }
-.checkmark {
-    position: absolute;
-    top: 0px;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 15px;
+.option-btn:hover{
+background-color: #C1E1F3;
 }
-.hole-cont input:checked ~ .checkmark {
-    background-color: #73737B;
+.add-qtn-icon{
+    font-size: 20px;
+    line-height: 45px;
 }
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
+
+.drop-and-drag-pdr{
+    padding-right: 110px;
 }
-.hole-cont input:checked ~ .checkmark:after {
-    display: block;
+
+.drop-and-drag-pdb{
+    margin-bottom: 10px;
 }
-.hole-cont .checkmark:after {
-    left: 7px;
-    top: 4px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}*/

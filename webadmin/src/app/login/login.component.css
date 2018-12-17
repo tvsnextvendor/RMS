@@ -94,3 +94,54 @@ form{
     border-radius: 20px;
     box-shadow: 0 1.5px 11px 5px rgba(190, 190, 190, .4), 0 0 6px 3px #ADCDE0;
 }
+.hole-cont {
+    position: relative;
+    padding-left: 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    float: left;
+    color: #495057;
+    font-size: 12px;
+}
+.hole-cont input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+.hole-cont input:checked ~ .checkmark {
+    background-color: #73737B;
+    border: 1px solid #73737B;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.hole-cont input:checked ~ .checkmark:after {
+    display: block;
+}
+.hole-cont .checkmark:after {
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

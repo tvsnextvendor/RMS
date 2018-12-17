@@ -22,11 +22,13 @@ export class VideosTrendVar {
        completedDate : 'Completed Date'
    };
 
-   exportTo = 'Export To';
-   excel = 'Excel';
-   select = 'Select';
-   pdf = 'PDF';
-   noData = 'No Data';
+   exportTo   = 'Export To';
+   excel      = 'Excel';
+   select     = 'Select';
+   pdf        = 'PDF';
+   noData     = 'No Data';
+   title      = 'Course Trend';
+   pdfExcelTitle ='Videos Trend';
    videosTrend;
    moduleList:any=[];
    moduleType=null;

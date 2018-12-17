@@ -85,7 +85,7 @@ margin-top: 12px;
 }
 
 .toolbar-ios ion-title {
-    padding: 0 50px 0px;
+    padding: 0 30px 0 50px;
 }
 
 .toolbar-title-ios {
@@ -172,9 +172,10 @@ margin-top: 12px;
 }
 }
 
-a{
+a,.batch-icon{
     cursor: pointer;
 }
+
 .bg-trans{
     background:transparent;
 }
@@ -211,3 +212,42 @@ button:focus {
     outline: 0;
     box-shadow: none;
 }
+.forum-card {
+    margin-left: 0;
+    margin-right: 0;
+    width: calc(100% - 0px);
+}
+.red-color {
+    color: #DB4F4F;
+}
+.orange-color {
+    color: #FF5722;
+   
+}
+.green-color {
+    color: #1C8B17;
+}
+.header-icon {
+        display: inline-block;
+    float: right;
+    position: relative;
+    margin-right: 6px;
+        cursor: pointer;
+}
+.title-md .header-icon {
+    margin-right: 25px;
+        margin-top: 5px;
+}
+.dot-circle {
+    background: #fff;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 70px;
+    position: absolute;
+    right: -4px;
+    border: 1px solid #2F98D2;
+    top: 1px;
+}
+.toastr-error { .toast-message { border-radius: 0.65rem !important; background: color($colors, danger) } }
+.toastr-success { .toast-message { border-radius: 0.65rem !important; background: color($colors, secondary) } }

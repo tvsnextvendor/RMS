@@ -1,9 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Constant } from '../../constants/Constant.var';
+import { HttpProvider } from '../../providers/http/http';
+import { API_URL } from '../../constants/API_URLS.var';
+import { ForumDetailPage } from '../forum-detail/forum-detail';
 @IonicPage({
   name: 'forum-page'
 })
@@ -13,32 +13,28 @@ import { Constant } from '../../constants/Constant.var';
   providers: [Constant]
 })
 export class ForumPage implements OnInit {
-  forumTopics: any;
-  QuestionForm: FormGroup;
-  forum = {
-    'question': ''
-  }
-  like: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant) {
+  forumData: any = [];
+  paramsData:any= {'setData':[],'selectedIndex':''};
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL:API_URL) {
   }
   ionViewDidLoad() {
-    this.forumTopics = 'mostRecent';
-    console.log('ionViewDidLoad ForumPage');
+      console.log('ionViewDidLoad ForumPage');
   }
   ngOnInit() {
-    this.forumTopics = 'mostRecent';
-    this.QuestionForm = new FormGroup({
-      question: new FormControl('', [Validators.required])
+    this.getForumDatas();
+  }
+  goToForumDetail(detailObj,selectedIndex) {
+    this.paramsData['setData'] = detailObj; 
+    this.paramsData['selectedIndex'] = selectedIndex;
+    this.navCtrl.push(ForumDetailPage,this.paramsData);
+   // this.navCtrl.setRoot('forumdetail-page', this.paramsData);
+  }
+  getForumDatas() {
+    this.http.getData(API_URL.URLS.getForum).subscribe((data) => {
+      if (data['isSuccess']) {
+        this.forumData = data['ForumList'];
+      }
     });
-  }
-  modalRef: BsModalRef;
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-  }
-  questionSubmit() {
-    console.log(this.forum);
-  }
-  likeUnlikeQuestion() {
-    this.like = !this.like;
   }
 }

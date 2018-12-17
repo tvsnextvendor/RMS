@@ -31,7 +31,7 @@
                                     <td><a (click)="openEditModal(editForum,forum)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a></td> 
                         </tr>
                         <tr *ngIf="mf.data?.length == 0">
-                            <td colspan="5" class="text-center data-design">No data!</td>
+                            <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -57,21 +57,21 @@
                 <form #formDir="ngForm" (ngSubmit)="onSave(formDir)">
                 <div class="form-group">
                         <label>{{forumVar.createForum.forumName}}</label>
-                        <input type="text" class="form-control" [(ngModel)]="forumName" #ForumName="ngModel" name = "forumName" id="forumName" placeholder="Enter Forum Name" required> 
+                        <input type="text" class="form-control" [(ngModel)]="forumVar.forumName" #ForumName="ngModel" name = "forumName" id="forumName" placeholder="Enter Forum Name" required> 
                         <span class="required_color" *ngIf="ForumName && ForumName.invalid && (formDir.submitted || ForumName.touched)">
                                 {{forumVar.mandatoryLabels.forumName}}
                         </span>    
                     </div>
                     <div class="form-group">
                         <label>{{forumVar.createForum.topics}}</label>
-                        <input type="text" class="form-control" [(ngModel)]="topics" #Topics="ngModel" name = "topics" id="topics" placeholder="Add Topic" required>  
+                        <input type="text" class="form-control" [(ngModel)]="forumVar.topics" #Topics="ngModel" name = "topics" id="topics" placeholder="Add Topic" required>  
                         <span class="required_color" *ngIf="Topics && Topics.invalid && (formDir.submitted || Topics.touched)">
                                 {{forumVar.mandatoryLabels.topic}}
                         </span> 
                     </div> 
                     <div class="form-group">
                         <label>{{forumVar.createForum.empName}}</label> 
-                        <tag-input [ngModel]="employeeItems" #empName="ngModel"
+                        <tag-input [ngModel]="forumVar.employeeItems" #empName="ngModel"
                         name="empItems"
                         [onlyFromAutocomplete]="true"
                         [placeholder]="'+ Employee'"      [displayBy]="'name'"
@@ -80,7 +80,7 @@
                         <tag-input-dropdown [showDropdownIfEmpty]="true"
                         [dynamicUpdate]="false"
                         [focusFirstElement]="true"             
-                        [autocompleteItems]="autocompleteItemsAsEmpObjects">
+                        [autocompleteItems]="forumVar.autocompleteItemsAsEmpObjects">
                         <ng-template let-item="item" let-index="index">
                             {{ item.display }}
                         </ng-template>

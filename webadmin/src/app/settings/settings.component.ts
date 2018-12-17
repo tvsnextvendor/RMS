@@ -18,16 +18,17 @@ export class SettingsComponent implements OnInit {
         newPwd: '',
         confirmPwd: '',
     };
+
    constructor(private location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,private constant:SettingVar){}
 
    ngOnInit(){
-    this.headerService.setTitle({ title: 'Settings', hidemodule: false});
+    this.headerService.setTitle({ title:this.constant.title, hidemodule: false});
    }
    updatePwd(){
     if(this.settings.newPwd !== this.settings.confirmPwd){
-        this.toastr.error('Password Mismatch');
+        this.toastr.error(this.constant.pwdMissmatchMsg);
     }else{
-        this.toastr.success('Password updated successfully');
+        this.toastr.success(this.constant.pwdUpdateSuccessMsg);
         this.router.navigateByUrl('/dashboard');
     }
     }

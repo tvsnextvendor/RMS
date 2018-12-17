@@ -1,0 +1,181 @@
+<ion-header class="main-header my-component" color="primary">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{constant.title.forum}}</ion-title>
+  </ion-navbar>
+  <div class="segment-block">
+    <ion-segment [(ngModel)]="forumTopics">
+      <ion-segment-button value="mostRecent">
+        {{constant.pages.forumLabels.mostRecent}}
+      </ion-segment-button>
+      <ion-segment-button value="featuredTopics">
+        {{constant.pages.forumLabels.featuredTopics}}
+      </ion-segment-button>
+      <ion-segment-button value="featuredFav">
+        {{constant.pages.forumLabels.featuredFav}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+</ion-header>
+<ion-content padding class="headerFull-bg">
+  <div [ngSwitch]="forumTopics">
+    <ion-list *ngSwitchCase="'mostRecent'">
+      <ion-card class="forum-card" *ngFor="let emp of recentList;let j=index;">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-2 col-sm-6 col-lg-4>
+              <img src="assets/images/user.png" class="forum-img">
+            </ion-col>
+            <ion-col col-7 col-sm-6 col-lg-4>
+              <h2>{{emp.username}}</h2>
+              <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
+                {{constant.pages.forumLabels.replays}} </p>
+              <p class="forum-txt" (click)="hideShowDesc(recentList,j)">{{emp.totalReplies}}
+                {{constant.pages.forumLabels.replies}} </p>
+            </ion-col>
+            <ion-col col-3 col-sm-6 col-lg-4 class="heart-icon">
+              <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
+              <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
+              <p></p>
+              <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="emp.isActive">
+            <ion-col>
+              <p class="forum-desc">{{emp.description}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row class="review-block" *ngIf="emp.isActive">
+            <ion-col col-3>
+              <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
+            </ion-col>
+            <ion-col col-4>
+              <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+            </ion-col>
+            <ion-col col-5 class="cmd-btn">
+              <button ion-button round small class="blue-btn">
+                {{constant.buttons.comment}}
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+
+      <button ion-button round (click)="openModal(template)">
+        {{constant.buttons.addQuestion}}
+      </button>
+    </ion-list>
+    <ion-list *ngSwitchCase="'featuredTopics'">
+      <ion-card class="forum-card" *ngFor="let emp of featureList;let j=index;">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-2 col-sm-6 col-lg-4>
+              <img src="assets/images/user.png" class="forum-img">
+            </ion-col>
+            <ion-col col-7 col-sm-6 col-lg-4>
+              <h2>{{emp.username}}</h2>
+              <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
+                {{constant.pages.forumLabels.replays}}</p>
+              <p class="forum-txt" (click)="hideShowDesc(featureList,j)">{{emp.totalReplies}}
+                {{constant.pages.forumLabels.replies}} </p>
+            </ion-col>
+            <ion-col col-3 col-sm-6 col-lg-4 class="heart-icon">
+              <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
+              <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
+              <p></p>
+              <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="emp.isActive">
+            <ion-col>
+              <p class="forum-desc">{{emp.description}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row class="review-block" *ngIf="emp.isActive">
+            <ion-col col-3>
+              <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
+            </ion-col>
+            <ion-col col-4>
+              <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+            </ion-col>
+            <ion-col col-5 class="cmd-btn">
+              <button ion-button round small class="blue-btn">
+                {{constant.buttons.comment}}
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+
+
+    </ion-list>
+    <ion-list *ngSwitchCase="'featuredFav'">
+      <ion-card class="forum-card" *ngFor="let emp of favoriteList;let j=index;">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-2 col-sm-6 col-lg-4>
+              <img src="assets/images/user.png" class="forum-img">
+            </ion-col>
+            <ion-col col-7 col-sm-6 col-lg-4>
+              <h2>{{emp.username}}</h2>
+              <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
+                {{constant.pages.forumLabels.replays}}</p>
+              <p class="forum-txt" (click)="hideShowDesc(favoriteList,j)">{{emp.totalReplies}}
+                {{constant.pages.forumLabels.replies}} </p>
+            </ion-col>
+            <ion-col col-3 col-sm-6 col-lg-4 class="heart-icon">
+              <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
+              <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
+              <p></p>
+              <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="emp.isActive">
+            <ion-col>
+              <p class="forum-desc">{{emp.description}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row class="review-block" *ngIf="emp.isActive">
+            <ion-col col-3>
+              <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
+            </ion-col>
+            <ion-col col-4>
+              <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+            </ion-col>
+            <ion-col col-5 class="cmd-btn">
+              <button ion-button round small class="blue-btn">
+                {{constant.buttons.comment}}
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-list>
+  </div>
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">{{constant.pages.forumLabels.typeQuestionHere}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form novalidate (ngSubmit)="questionSubmit()" [formGroup]="QuestionForm">
+      <div class="modal-body">
+        <ion-item>
+          <ion-input type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty"></ion-input>
+        </ion-item>
+        <div *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
+          <div class="error" *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
+            {{constant.pages.forumLabels.validations.questionRequired}}
+          </div>
+        </div>
+      </div>
+      <div class="model-footer">
+        <button ion-button small clear type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
+        <button ion-button small clear type="submit" [disabled]="QuestionForm.invalid">{{constant.buttons.add}}</button>
+      </div>
+    </form>
+  </ng-template>
+</ion-content>
