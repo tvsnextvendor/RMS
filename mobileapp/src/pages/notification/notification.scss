@@ -1,3 +1,23 @@
 page-notification {
-
-}
+    .notify-arrow {
+       float: right;
+       padding-top: 5px;
+    }
+    .notify-tit{
+    font-weight: 600;
+    }
+    ion-header.header {
+       padding: 0;
+    }
+    .notify-txt {
+       margin-top: 15px;
+    }
+    .notify-tit {
+       margin-top: 5px !important;
+    }
+    .hour-status {
+       padding-top: 2px;
+       display: inline-block;
+    }
+    }
+    

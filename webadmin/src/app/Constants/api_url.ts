@@ -26,7 +26,9 @@ export class API_URL {
    getYearList          : '5c1355633400007500ecdf6f',
    moduleCourseList     : '5c1395393400006500ece168',
    getEmployeeList      : '5c0928d52f0000c21f637cd0',
-   getForumList         : '5c0e36222e00004d00043d43'
+   getForumList         : '5c17879a2f00008200b087a8',
+   getTemplateList      : '5c15bed92e00009c0937c6a6',
+   getBatchList         : '5c175edf2f00005f00b0862f'
   }
 
 }

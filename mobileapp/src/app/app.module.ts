@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
+import { Calendar } from '@ionic-native/calendar';
+
 
 import { AccomplishmentPageModule, CalendarPageModule, EventPageModule, ForgetPageModule, ForumPageModule, HomePageModule, LandingPageModule, LoginPageModule, ProfilePageModule, QuizPageModule, QuizResultModule, SettingsPageModule, SignupPageModule, TrainingPageModule, TrainingDetailPageModule,NotificationPageModule,ForumDetailPageModule } from '../pages';
 
@@ -64,7 +66,8 @@ import {ToastrService} from '../service/toastrService';
     LoaderService,
     ToastrService,
     GooglePlus,
-    LinkedIn
+    LinkedIn,
+    Calendar
   ]
 })
 export class AppModule { }

@@ -12,6 +12,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {DndModule} from 'ng2-dnd';
+import {AddQuizComponent} from './add-quiz/add-quiz.component';
 
 const routes: Routes = [
     { path: 'addModule', component:AddModuleComponent ,canActivate : [AuthGuard]},
@@ -34,7 +35,8 @@ const routes: Routes = [
   declarations: [
     AddModuleComponent,
     ModuleListComponent,
-    ModuleDetailsComponent
+    ModuleDetailsComponent,
+    AddQuizComponent
   ],
   bootstrap: [AddModuleComponent]
 })

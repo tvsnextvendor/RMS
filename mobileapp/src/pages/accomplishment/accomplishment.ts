@@ -1,6 +1,10 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { Component, OnInit,TemplateRef } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Constant } from '../../constants/Constant.var';
+import { HttpProvider } from '../../providers/http/http';
+import { API_URL } from '../../constants/API_URLS.var';
 declare var $;
 
 @IonicPage({
@@ -12,42 +16,30 @@ declare var $;
   providers: [Constant]
 })
 export class AccomplishmentPage implements OnInit {
-  @ViewChild(Slides) slides: Slides;
 
-  slidesArray: any = [];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant,private modalService: BsModalService,private http:HttpProvider,public API_URL:API_URL) {
   }
-  goToSlide() {
-    // this.slides.slideTo(2, 500);
+  modalRef: BsModalRef;
+  certificateList:any=[];
+  badgeList:any=[];
+  badgeSubImage;
+  certificateDetail:any={};
+  openModal(certificatetemplate: TemplateRef<any>,item) {
+    this.modalRef = this.modalService.show(certificatetemplate);
+    this.certificateDetail = item;
+    //console.log(this.certificateDetail);
+    // debugger;
+  }
+  openBadgeModal(badgetemplate: TemplateRef<any>,item) {
+    this.modalRef = this.modalService.show(badgetemplate);
+    this.badgeSubImage = item.badgeSubImage;
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccomplishmentPage');
-
-    this.slidesArray = [
-      {
-        title: "Welcome to the Docs!",
-        description: "The <b>Ionic Component Documentation</b> showcases a number of useful components that are included out of the box with Ionic.",
-        image: "assets/images/images1.png",
-      },
-      {
-        title: "What is Ionic?",
-        description: "<b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.",
-        image: "assets/images/images2.png",
-      },
-      {
-        title: "What is Ionic Cloud?",
-        description: "The <b>Ionic Cloud</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
-        image: "assets/img/images3.png",
-      }
-    ];
-  }
-  slideChanged() {
-    // let currentIndex = this.slides.getActiveIndex();
-    //console.log('Current index is', currentIndex);
   }
   ngOnInit() {
     this.formCarosuel();
+    this.getCertificates();
   }
   formCarosuel() {
     $('#carouselExample').on('slide.bs.carousel', function (e) {
@@ -88,5 +80,15 @@ export class AccomplishmentPage implements OnInit {
         }
       }
     });
+  }
+  getCertificates(){
+
+    this.http.getData(API_URL.URLS.getCertificates).subscribe((data) => {
+      if (data['isSuccess']) {
+        this.certificateList = data['certificateList'];
+        this.badgeList =data['badgeList'];
+      }
+    });
+
   }
 }

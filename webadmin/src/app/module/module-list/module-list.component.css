@@ -56,6 +56,13 @@ input:checked + .slider:before {
 }
 .module-hd-color{
   color: #1D4960;
+  font-size: 18px;
+  font-weight: 600;
+}
+.module-course-font{
+  color: #1D4960;
+  font-size: 16px;
+  font-weight: 600;
 }
 .module-play-icon{
   font-size: 25px;

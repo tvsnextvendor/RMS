@@ -15,6 +15,8 @@ export class API_URL {
         'getUsers': '5c0a7496350000d11ea86177',
         'doSignup': 'signup',
         'getForum':'5c15129a3400005b1cb8e9a2',
-        'getNotification':'5c15fac72e0000f30e37c6c9'
+        'getNotification':'5c15fac72e0000f30e37c6c9',
+        //'getCertificates':'5c174db82f00002a00b085d1'
+        'getCertificates':'5c175c4b2f00006e00b0861c'
     };
 }

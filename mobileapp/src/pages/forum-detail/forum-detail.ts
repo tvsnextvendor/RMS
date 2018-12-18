@@ -23,9 +23,9 @@ export class ForumDetailPage implements OnInit {
   indexs;
   employees;
   like: boolean = false;
-  forumFavor: any=[];
-  forumRecent: any=[];
-  forumFeature: any=[];
+  forumFavor: any = [];
+  forumRecent: any = [];
+  forumFeature: any = [];
   recentList: any = [];
   favoriteList: any = [];
   featureList: any = [];
@@ -38,7 +38,7 @@ export class ForumDetailPage implements OnInit {
     this.forumTopics = 'mostRecent';
     console.log('ionViewDidLoad ForumPage');
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.getTopicsRelated();
   }
   ngOnInit() {
@@ -49,14 +49,14 @@ export class ForumDetailPage implements OnInit {
   }
   getTopicsRelated() {
     var self = this;
-    this.employees.map(function(val,key){
+    this.employees.map(function (val, key) {
       val = Object.assign({}, val);
       val.isActive = false;
-      if(val.status === 'Recent'){
+      if (val.status === 'Recent') {
         self.recentList.push(val);
-      }else if(val.status === 'Featured'){
+      } else if (val.status === 'Featured') {
         self.featureList.push(val);
-      }else if(val.status === 'Favourite'){
+      } else if (val.status === 'Favourite') {
         self.favoriteList.push(val);
       }
     });
@@ -71,7 +71,7 @@ export class ForumDetailPage implements OnInit {
   likeUnlikeQuestion(emp, j) {
     emp[j]['like'] = !(emp[j]['like']);
   }
-  hideShowDesc(emp,j){
+  hideShowDesc(emp, j) {
     emp[j]['isActive'] = !(emp[j]['isActive']);
   }
 }

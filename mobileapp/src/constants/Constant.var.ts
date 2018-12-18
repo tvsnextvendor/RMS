@@ -12,7 +12,8 @@ export class Constant {
         profile:'Profile',
         forum:'Forum',
         menu:'Menu',
-        logOut:'Logout'
+        logOut:'Logout',
+        notification:'Notification'
     };
     buttons = {
         previous: 'Previous',
@@ -26,7 +27,8 @@ export class Constant {
         add:'ADD',
         cancel:'CANCEL',
         addQuestion:'Add Question',
-        comment:'Comment'
+        comment:'Comment',
+        next:'Next'
     };
     pages = {
     
@@ -143,6 +145,14 @@ export class Constant {
             validations:{
                 questionRequired:'Question is required'
             }
+        },
+        accomplishmentLabels:{
+            certificates:'Certificates',
+            badges:'Badges',
+            gradeAchieved:'Grade Acheived',
+            completedBy:'Completed By',
+            at:'At'
+
         }
     };
 }

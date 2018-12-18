@@ -54,3 +54,26 @@ background-color: #C1E1F3;
 .drop-and-drag-pdb{
     margin-bottom: 10px;
 }
+.add-course-icon{
+    line-height: 55px;
+}
+.upload-line{
+    line-height: 90px;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    float: none;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}

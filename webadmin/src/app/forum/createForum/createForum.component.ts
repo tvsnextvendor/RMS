@@ -13,8 +13,11 @@ export class CreateForumComponent implements OnInit {
    
     employeeItems;
     forumName;
-    topics;
     autocompleteItemsAsEmpObjects;
+    topicsArray = [{
+      topicName:''
+    }];
+    topics;
 
    constructor(private toastr:ToastrService,private forumVar:ForumVar,private http: HttpService){
     this.forumVar.url = API_URL.URLS;
@@ -32,18 +35,37 @@ export class CreateForumComponent implements OnInit {
         });
       });
     }
-  
+    
+    addTopic(){
+      let obj={
+        topicName:''
+      };
+      this.topicsArray.push(obj);
+    }
+
+    removeTopic(i){
+      this.topicsArray.splice(i, 1);   
+    }
 
     onSubmitForm(form){
+      if(this.topicsArray){
+        this.topics = this.topicsArray.map(item=>{
+           return item.topicName;
+        });
+      }
       if(form.valid){
-          let postData=form.value;
+          let postData={
+             forumName : form.value.forumName,
+             employeeList : form.value.empItems,
+             topic   : this.topics
+          };        
           this.toastr.success(this.forumVar.addSuccessMsg);
       }
     }
 
     clearForm(){
        this.forumName="";
-       this.topics="";
+       this.topicsArray=[];
     }
 
 }

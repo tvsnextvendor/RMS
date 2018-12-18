@@ -1,21 +1,29 @@
-<!--
-  Generated template for the NotificationPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
-    <ion-title>Notification</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{constant.title.notification}}</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
-<ion-content padding>
-
+<ion-content padding class="headerFull-bg">
+  <ion-list>
+    <ion-card class="forum-card" *ngFor="let notify of notificationList;let i=index;">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-2 col-sm-6 col-lg-4>
+            <img src="assets/images/user.png" class="forum-img">
+          </ion-col>
+          <ion-col col-8 col-sm-6 col-lg-4>
+            <h4 class="notify-tit">{{notify.notification}}</h4>
+            <p class="notify-txt">{{notify.description}}</p>
+          </ion-col>
+          <ion-col col-2 col-sm-6 col-lg-4 class="arrow-icon">
+            <span class="hour-status">2h</span>
+            <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </ion-list>
 </ion-content>

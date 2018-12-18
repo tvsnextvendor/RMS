@@ -1,5 +1,5 @@
 <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
-<div class="row pr-3">
+<div class="row pr-3 pt-5">
         <div class="col-sm-9 pl-0">
             <div class="table-responsive white-bg px-3">
                 <table class="table" [mfData]="forumVar.forumList" #mf="mfDataTable" [mfRowsOnPage]="10">
@@ -77,7 +77,7 @@
                         [placeholder]="'+ Employee'"      [displayBy]="'name'"
                         [identifyBy]="'id'" [secondaryPlaceholder]="'Select Employee'" class="multi-input"
                         required>
-                        <tag-input-dropdown [showDropdownIfEmpty]="true"
+                        <tag-input-dropdown [showDropdownIfEmpty]="false"
                         [dynamicUpdate]="false"
                         [focusFirstElement]="true"             
                         [autocompleteItems]="forumVar.autocompleteItemsAsEmpObjects">

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import * as $ from 'jquery';
 import { FormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {DataTableModule} from "angular-6-datatable";
@@ -19,16 +18,17 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard.component';
 import {QuizModule} from './quiz/quiz.module';
 import {GroupModule} from './group/group.module';
-import { ExcelService } from './services/excel.service';
-import { PDFService } from './services/pdf.service';
-import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import {ExcelService } from './services/excel.service';
+import {PDFService } from './services/pdf.service';
+import {ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import {SettingsModule} from './settings/settings.module';
 import {VideosTrendModule} from './videostrend/videostrend.module';
 import {EmployeeModule} from './employee/employee.module';
 import {ProfileModule} from './profile/profile.module';
 import {ForumModule} from './forum/forum.module';
 import {moduleModule} from './module/module.module';
-
+// import {BatchModule} from './batch/batch.module';
+import {CertificatesModule} from './certificates/certificates.module';
 
 @NgModule({
   declarations: [
@@ -49,6 +49,8 @@ import {moduleModule} from './module/module.module';
     CoursesModule,
     DataTableModule,
     QuizModule,
+    CertificatesModule,
+    // BatchModule,
     MaterialModule,
     GroupModule,
     HttpClientModule,

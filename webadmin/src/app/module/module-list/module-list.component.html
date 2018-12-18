@@ -1,11 +1,13 @@
-<a routerLink="/addModule"><<button class="btn btn-primary mr-3" >{{moduleVar.createModule}}</button></a>
-<div class="pr-3 pt-5" *ngFor="let data of moduleVar.moduleList;let i = index;">
+<div class="clearfix pt-4">
+<button class="btn btn-primary mr-3"  [routerLink]="['../addModule']">{{moduleVar.createModule}}</button>
+</div>
+<div class="pr-3 pt-4" *ngFor="let data of moduleVar.moduleList;let i = index;">
     <div class="white-bg p-3"> 
     	<div class="clearfix py-3" >
     			<h6 class="float-left module-hd-color">{{data.moduleName}}</h6>
     				<span class="float-right">
     					<a><i class="fa fa-pencil icons_header"></i></a>
-    					<span class="pr-5 module-hd-color">{{moduleVar.active}}</span>
+    					<span class="pr-5 module-course-font">{{moduleVar.active}}</span>
     					<span><label class="switch">
     						<input type="checkbox" id="activeStatus{{i}}" [(ngModel)]="moduleVar.activeStatus[i]" (change)="statusUpdate(data.moduleName,moduleVar.activeStatus[i])" ng-reflect-model="true" class="ng-untouched ng-pristine ng-valid"><span class="slider round"></span></label></span>
     				</span>
@@ -13,7 +15,7 @@
         <owl-carousel-o [options]="customOptions" class="module-list">
         <ng-container *ngFor="let slide of data.courseList">             	   	
                <ng-template carouselSlide [id]="slide.courseId"><div class="player-list" routerLink="/modules/{{data.moduleId}}/{{slide.courseId}}"><i class="fa fa-youtube-play module-play-icon ml-3" aria-hidden="true"></i>
-               <span class="module-hd-color"> {{slide.courseName}}</span></div></ng-template>  
+               <span class="module-course-font"> {{slide.courseName}}</span></div></ng-template>  
          </ng-container>     
          </owl-carousel-o>
     </div>

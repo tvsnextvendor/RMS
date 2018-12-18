@@ -81,5 +81,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-calendar": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-calendar@5.1.3"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

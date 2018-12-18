@@ -1,0 +1,84 @@
+<div class="pr-3 pt-5">
+<div class="white-bg p-3"> 
+    <div class="clearfix py-3">
+<button class="btn btn-primary mr-3" (click)="openAddtemplate(addTemplate)" >{{constant.btns.add}}</button>
+<h5 class="float-left">{{constant.formTitle}}</h5>
+</div>
+    <owl-carousel-o [options]="customOptions"  class="certificate-list">
+    <ng-container *ngFor="let template of certificateList">             	   	
+           <ng-template carouselSlide [id]="template.templateId">
+            <img class="img" src={{template.templateUrl}}>
+              <p class="text-center pt-3">{{template.templatename}} </p>
+            </ng-template>  
+     </ng-container>     
+     </owl-carousel-o>
+
+
+    <!--  <button type="button" class="btn btn-default" (click)="addModule()"><i class="fa fa-plus" aria-hidden="true"></i></button> -->
+     <form class="" (ngSubmit) = "submitForm(assignTemplate)" #assignTemplate = "ngForm">
+            <div class="pr-3 py-4" *ngFor="let data of templateAssign; let i = index">
+                    <span><a class="btn btn-link float-right" *ngIf="i!=0" (click)="removeModule(i)"><i class = "fa fa-times"></i></a></span>		
+                        <div class="row">
+                         <div class="col-md-6">
+                             <div class=" form-group row">
+                             <label class="col-md-3 label-title" *ngIf="i==0">{{constant.labels.batch}}</label>
+                             <div class=" col-md-6">
+                             <select id="Batch" class="form-control" name="Batch{{i}}" [(ngModel)]="data.batch">     
+                                    <option *ngFor="let batch of batchList"  value="{{batch.batchId}}">{{batch.batchName}}</option>
+                             </select>
+                         </div>
+                            </div>
+                         </div>
+                         <div class="col-md-6">
+                                <div class=" form-group row">
+                                <label class="col-md-3 label-title" *ngIf="i==0">{{constant.labels.template}}</label>
+                                <div class=" col-md-6">
+                                <select id="Template" class="form-control" name="Template{{i}}" [(ngModel)]="data.template">     
+                                        <option *ngFor="let template of certificateList"  value="{{template.templateId}}">{{template.templatename}}</option>
+                                 </select>
+                             </div>
+                             <span><a class="col-md-1 pl-0 " *ngIf="i==0" (click)="addModule()"><i class="fa fa-plus icons_header add-course-icon"></i></a></span>
+                               </div>
+                            </div>
+                             
+                         </div>
+                        </div>
+              <div class="text-center pt-5">        
+                    <button type="submit" class="btn btn-default mr-4">{{constant.btns.save}}</button>
+                    <button type="button" class="btn btn-primary creat-btn">{{constant.btns.cancel}}</button>
+              </div>
+        </form> 
+</div>
+</div>
+
+
+<ng-template #addTemplate>
+    <div class="modal-header">
+                        <h4 class="modal-title pull-left">{{constant.modalHeader}}</h4>
+                        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+    </div>
+    <div class="modal-body">
+                        <form #uploadTemplate="ngForm" (ngSubmit)="onSave(uploadTemplate)">
+                        <div class="form-group">
+                                <label>{{constant.labels.tempName}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="tempName" #TempName="ngModel" name = "tempName" id="tempName" placeholder="Enter Template Name" required> 
+                                <span class="required_color" *ngIf="TempName && TempName.invalid && (uploadTemplate.submitted || TempName.touched)">
+                                  {{constant.labels.tempNameMandatory}} 
+                                </span>    
+                            </div>
+                            <div class="form-group">
+                                <label>{{constant.labels.fileUpload}}</label>
+                                <input type="file"        
+                                id="file" accept="text/html"
+                                (change)="handleFileInput($event.target.files)">
+                            </div> 
+                           <div class="text-center pt-5">
+                    <button type="button" class="btn btn-default mr-3" (click)="modalRef.hide()">{{constant.btns.cancel}}</button>
+                    <button type = "submit" class="btn btn-primary creat-btn">{{constant.btns.upload}}</button>
+                </div>
+                </form>
+    </div>
+</ng-template> 
+        

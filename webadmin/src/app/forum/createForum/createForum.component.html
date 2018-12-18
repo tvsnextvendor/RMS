@@ -11,10 +11,14 @@
         </div>
         <div class="form-group">
             <label>{{forumVar.createForum.topics}}</label>
-            <input type="text" class="form-control" [(ngModel)]="topics" #Topics="ngModel" name = "topics" id="topics" placeholder="Add Topic" required> 
+            <span class="float-right"><i class="fa fa-plus icons_header add-course-icon" (click)=addTopic()></i></span>
+            <div *ngFor="let topic of topicsArray; let i = index ">
+            <input type="text" class="form-control" [(ngModel)]="topic.topicName" #Topics="ngModel" name = "topics{{i}}" id="topics" placeholder="Add Topic" required> 
+            <span *ngIf="i!=0"><img src="assets/images/close.png" (click)="removeTopic(i)"></span>
             <span class="required_color" *ngIf="Topics && Topics.invalid && (formDir.submitted || Topics.touched)">
                     {{forumVar.mandatoryLabels.topic}}
-            </span>    
+            </span>  
+            </div>  
         </div>
         <div class="form-group">
                 <label>{{forumVar.createForum.empName}}</label> 

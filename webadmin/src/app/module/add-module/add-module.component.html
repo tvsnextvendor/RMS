@@ -1,3 +1,4 @@
+<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
 <div class="row pr-3 pt-5">
 	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm()" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
@@ -10,22 +11,15 @@
 			<div class="row form-group">
 				<label class="col-md-2 pr-0 label-title">Course</label>
 				<div class="col-md-9 pl-0">
-						<tag-input [ngModel]="courseItems" #courseName="ngModel"
-                        name="courses"
-                        [onlyFromAutocomplete]="true"
-                        [placeholder]="'+ courses'"      [displayBy]="'courses'" (onAdd)="changeValue(courseName.value)" (onRemove) = "changeValue(courseName.value)"
-                        [identifyBy]="'id'" [secondaryPlaceholder]="'Select Course'" class="multi-input"
-						required>
-                        <tag-input-dropdown [showDropdownIfEmpty]="true"
-                        [dynamicUpdate]="false"
-                        [focusFirstElement]="true"             
-						[autocompleteItems]="autocompleteItemsAsCourseObjects">
-                        <ng-template let-item="item" let-index="index">
-                            <input type="checkbox" name ={{item.display}} /> {{ item.display }}
-                        </ng-template>
-					   </tag-input-dropdown>
-                        </tag-input>
-				</div><span><a class="col-md-1 pl-0" (click)="addCourse()"><i class="fa fa-plus"></i></a></span>
+					<ng-multiselect-dropdown
+					[placeholder]="'Select Course'"
+					[data]="courseList"
+					[(ngModel)]="selectedCourses"
+					[settings]="dropdownSettings"
+					(onSelect)="onItemSelect($event)"
+					(onDeSelect) = "onItemDeselect($event)"
+					></ng-multiselect-dropdown>
+				</div><span class="col-md-1 pl-0"><a  (click)="addCourse()"><i class="fa fa-plus"></i></a></span>
 			</div>
 		</div>
 	</form>
@@ -34,8 +28,8 @@
 			<h5 class="mb-4">Courses Added</h5>
 			<div *ngFor="let course of selectedCourses,index as i">
 				<p>{{course.value}}<span class="float-right">
-						<a (click)= "updateCourse(course)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
-						<a (click)= "removeCourse(i)"><i class="fa fa-times icons_header" aria-hidden="true"></i></a>
+						<a (click)= "updateCourse(course,i)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
+						<!-- <a (click)= "onItemDeselect(course)"><i class="fa fa-times icons_header" aria-hidden="true"></i></a> -->
 					</span>
 				</p>
 			</div>
@@ -43,10 +37,9 @@
 	</div>
 </div>
 <div *ngIf="tabEnable">
-<div>
-	<h4>Add New Course</h4>
+<div class="clearfix pt-4">
+	<h4>{{courseId === "" ? "Add New Course" : "Edit Course"}}</h4>
 </div>
-<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
 <tabset #staticTabs   class="add-video-header">
     <tab heading="Videos">
     	<div class="row pr-3 pt-2">
@@ -67,17 +60,20 @@
 							<label class="col-md-12 p-0 upload-label">Description Name</label>
 							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter Description Name" name="description" [(ngModel)]="description">
 						</div>
-						<div class="col-md-4 pr-0">
-								<input type="file" name="videoFile" accept="image/*"/>
-							<span class="upload-section">	
+						<div class="col-md-4 pr-0 upload-line">
+							<div class="fileUpload btn btn-primary">
+                                <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload</span>
+                                    <input type="file" name="videoFile" accept="image/*" class="upload" />
+                            </div>
+							<span class="">	
 									<a (click)="videoSubmit()"><i class="fa fa-check upload-crt-icon" aria-hidden="true"></i></a>
 									<a (click)="cancelVideoSubmit()"><i class="fa fa-times upload-wrg-icon" aria-hidden="true"></i></a>
 							</span>
 						</div>
 						<ul class="list-group" dnd-sortable-container [sortableData]="videoList">
-							<li *ngFor="let item of videoList; let i = index" class="list-group-item drop-and-drag-pdb" dnd-sortable [sortableIndex]="i"><span class="drop-and-drag-pdr">{{item.name}}</span><span class="drop-and-drag-pdr">{{item.description}}</span><span class="drop-and-drag-pdr">{{item.file}}</span><span class="float-right">
+							<li  *ngFor="let item of videoList; let i = index" class="list-group-item drop-and-drag-pdb" dnd-sortable [sortableIndex]="i"><span class="drop-and-drag-pdr">{{item.name}}</span><span class="drop-and-drag-pdr">{{item.description}}</span><span class="drop-and-drag-pdr">{{item.file}}</span><span class="float-right">
 									<a (click)= "updateVideo(item)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
-									<a (click)= "removeVideo(i)"><i class="fa fa-times icons_header" aria-hidden="true"></i></a>
+									<a (click)= "removeVideo(i)"><i class="fa fa-trash icons_header" aria-hidden="true"></i></a>
 								</span></li>
 						</ul>
 					</div>
@@ -87,113 +83,8 @@
    </tab>
         <tab heading="Quiz">
             <div class="pr-3 pt-2">
-                <div class="white-bg p-3">
-                	<div class="row form-group"> 
-                	<div class="col-md-4 row"> 
-                			<label class="col-md-4 p-0">Question Type</label>
-						<div class="col-md-6 p-0">
-							<select class="form-control" placeholder="MCQ">
-								<option>MCQ</option>
-							</select>
-                		</div>
-                	</div>                               	
-                	<div class="col-md-8 row">
-                			<label class="col-md-2 p-0">Weightage</label>
-						<div class="col-md-10 p-0">
-							<select class="form-control" placeholder="10%">
-								<option>10%</option>
-								<option>20%</option>
-								<option>30%</option>
-							</select>
-                		</div>
-                	</div>
-                	</div>
-                	<div class="row form-group">
-                		<label class="col-md-1 pr-0">Question 1</label>
-                      <div class="col-md-11 pdl-36"><input type="text" class="form-control" placeholder="Enter Question"></div>                		
-                	</div> 
-                	<div class="row form-group">
-                		<label class="col-md-1 pr-0">Options</label>
-                      <div class="col-md-11 pdl-36">
-                      	<div class="row">
-                      		<div class="col-md-12 form-group">
-                         <span class="option-btn">A</span>
-                      	<input type="text" class="form-control" placeholder="">
-                      </div>
-                      <div class="col-md-12 form-group">
-                         <span class="option-btn">B</span>
-                      	<input type="text" class="form-control" placeholder="">
-                      </div>
-                      <div class="col-md-12 form-group">
-                         <span class="option-btn">C</span>
-                      	<input type="text" class="form-control" placeholder="">
-                      </div>
-                      <div class="col-md-12 form-group">
-                         <span class="option-btn">D</span>
-                      	<input type="text" class="form-control" placeholder="">
-                      </div>
-                      </div>
-                      </div>                		
-                	</div> 
-                 	</div>
-                </div>
-                <div class="pr-3 pt-2">
-                <div class="white-bg p-3">
-                	<div class="row form-group"> 
-                	<div class="col-md-4 row"> 
-                			<label class="col-md-4 p-0">Question Type</label>
-						<div class="col-md-6 p-0">
-							<select class="form-control" placeholder="True/False">
-								<option>MCQ</option>
-							</select>
-                		</div>
-                	</div>                               	
-                	<div class="col-md-7 row">
-                			<label class="col-md-2 p-0">Weightage</label>
-						<div class="col-md-10 p-0">
-							<select class="form-control" placeholder="10%">
-								<option>10%</option>
-								<option>20%</option>
-								<option>30%</option>
-							</select>
-                		</div>
-                	</div>
-                	<div class="col-md-1">
-                		<i class="fa fa-plus icons_header add-qtn-icon"></i>
-                	</div>
-                	</div>
-                	<div class="row form-group">
-                		<label class="col-md-1 pr-0">Question 1</label>
-                      <div class="col-md-11 pdl-36"><input type="text" class="form-control" placeholder="Enter Question"></div>                		
-                	</div> 
-                	<div class="form-group row">
-                		<label class="col-md-1 pr-0" for="">Options</label>
-                		<div class="col-md-11 pdl-36">
-                		<div class="row">
-                			<div class="col-md-11 pl-0">
-                				<div class="row">
-                				<span class="col-md-1 pl-0">
-									<label class="hole-cont">True
-										<input type="checkbox" checked="checked">
-										<span class="checkmark"></span>
-									</label>  
-								</span> 
-								<span class="col-md-1 pl-0">
-									<label class="hole-cont">False
-										<input type="checkbox" checked="checked">
-										<span class="checkmark"></span>
-									</label>  
-								</span>     
-                			</div>
-                		</div>
-                		</div>
-                	    </div>
-                	</div>
-                	<!-- <div class="clearfix text-center mt-4">
-			             <button type="submit" class="btn btn-primary btn-save">SAVE</button>
-		            </div> -->
-                </div>
-                </div>          
+				<add-quiz courseId = "{{courseId}}" videoId = "{{videoId}}"></add-quiz>
+            </div>          
                 	
 </tab>
 </tabset>
