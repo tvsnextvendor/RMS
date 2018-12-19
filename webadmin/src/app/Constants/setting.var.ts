@@ -4,7 +4,7 @@ export class SettingVar {
     settingFormLabels = {
         oldPassword: 'Old Password',
         newPassword: 'New Password',
-        confirmPassword: 'ConfirmPassword',
+        confirmPassword: 'Confirm Password',
         uploadVideos: 'Upload Videos',
         active: 'Active'
     };

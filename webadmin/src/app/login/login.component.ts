@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {loginVar} from '../Constants/login.var';
 import {HttpService} from '../services/http.service'
+import { API_URL } from '../Constants/api_url';
 
 @Component({
     selector: 'app-login',
@@ -19,11 +20,11 @@ export class LoginComponent implements OnInit {
     labels;
     btns;
     constructor(private route: Router, public loginvar: loginVar, private toastr: ToastrService,
-            private http: HttpService) { }
+            private http: HttpService,private API_URL:API_URL) { }
 
     ngOnInit() {
-      // get user details
-      this.http.get('5c0fbeda3100003b1324ee75').subscribe((resp) => {
+      // get user details '5c0fbeda3100003b1324ee75'
+      this.http.get(API_URL.URLS.getUsers).subscribe((resp) => {
         this.userArray = resp.UserList;
       });
       
