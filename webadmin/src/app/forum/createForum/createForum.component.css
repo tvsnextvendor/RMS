@@ -1,0 +1,8 @@
+.close-icon{
+	position: relative;
+}
+.close-img{
+	position: absolute;
+	bottom: 5px;
+	left: 250px;
+}

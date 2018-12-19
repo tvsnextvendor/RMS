@@ -15,9 +15,9 @@ import {DndModule} from 'ng2-dnd';
 import {AddQuizComponent} from './add-quiz/add-quiz.component';
 
 const routes: Routes = [
-    { path: 'addModule', component:AddModuleComponent ,canActivate : [AuthGuard]},
+    { path: 'module', component:AddModuleComponent ,canActivate : [AuthGuard]},
     { path: 'modulelist', component:ModuleListComponent ,canActivate : [AuthGuard]},
-    { path:  'modules/:moduleId/:courseId', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}    
+    { path:  'module/:moduleId', component:AddModuleComponent ,canActivate : [AuthGuard]}    
 ];
 
 @NgModule({

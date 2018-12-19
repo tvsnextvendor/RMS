@@ -61,57 +61,6 @@ table td.td-pd {
   	opacity: 0.5;
   }
 /******** check box ***************/
-/*.hole-cont {
-    position: relative;
-    padding-left: 20px;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    float: left;
-    color: #495057;
-    font-size: 12px;
-}
-.hole-cont input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-.checkmark {
-    position: absolute;
-    top: 2px;
-    left: 0;
-    height: 15px;
-    width: 15px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-}
-.hole-cont input:checked ~ .checkmark {
-    background-color: #73737B;
-    border: 1px solid #73737B;
-}
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-.hole-cont input:checked ~ .checkmark:after {
-    display: block;
-}
-.hole-cont .checkmark:after {
-    left: 4px;
-    top: 1px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}*/
 .hole-cont {
    position: relative;
    padding-left: 27px;
@@ -868,6 +817,43 @@ a {
     background-color: #468FB9 !important;
 }
 /***************end certificate*************/
+/*************Add module style**************/
+.select-Courses span.dropdown-btn {
+    border: 1px solid #ccc !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    color: #495057 !important;
+}
+.select-Courses .dropdown-list {
+    width: 280px !important;
+    right: 15px;
+}
+.select-Courses span.selected-item {
+    border: 1px solid #ccc !important;
+    border-radius: 20px !important;
+    background-color: #EAEAEA !important;
+    color: #576271 !important;
+    margin: 2px;
+}
+.select-Courses span.selected-item:hover{
+	background-color: #ccc;
+}
+.select-Courses a {
+    border: 1px solid #989898;
+    border-radius: 20px;
+    background-color: #989898;
+    width: 20px;
+    display: inline-block;
+    height: 20px;
+    line-height: 15px;
+    text-align: center;
+    padding: 0 !important;
+    font-size: 18px;
+    margin: 3px 0 3px 0;
+    color: #EAEAEA !important;
+}
+/************end add module style************/
 @media (min-width: 1200px) { }
 @media (min-width: 980px) and (max-width: 1199px) { }
 @media (min-width: 768px) and (max-width: 979px) { 

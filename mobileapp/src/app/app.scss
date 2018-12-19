@@ -217,6 +217,9 @@ button:focus {
     margin-right: 0;
     width: calc(100% - 0px);
 }
+.bold-title{
+    font-weight: 600 !important;
+}
 .red-color {
     color: #DB4F4F;
 }
@@ -251,3 +254,17 @@ button:focus {
 }
 .toastr-error { .toast-message { border-radius: 0.65rem !important; background: color($colors, danger) } }
 .toastr-success { .toast-message { border-radius: 0.65rem !important; background: color($colors, secondary) } }
+.forum-img {
+    border-radius: 50%;
+}
+.forum-title, .notify-title{
+    font-weight: 600 !important;
+}
+.forum-title {
+    margin-top: 5px !important;
+}
+.img-block{
+        vertical-align: middle;
+    align-items: center;
+    display: flex;
+}

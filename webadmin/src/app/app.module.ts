@@ -27,7 +27,7 @@ import {EmployeeModule} from './employee/employee.module';
 import {ProfileModule} from './profile/profile.module';
 import {ForumModule} from './forum/forum.module';
 import {moduleModule} from './module/module.module';
-// import {BatchModule} from './batch/batch.module';
+import {BatchModule} from './batch/batch.module';
 import {CertificatesModule} from './certificates/certificates.module';
 
 @NgModule({
@@ -50,7 +50,7 @@ import {CertificatesModule} from './certificates/certificates.module';
     DataTableModule,
     QuizModule,
     CertificatesModule,
-    // BatchModule,
+    BatchModule,
     MaterialModule,
     GroupModule,
     HttpClientModule,

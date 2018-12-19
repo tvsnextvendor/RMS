@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import {HeaderService} from '../../services/header.service';
 import {HttpService} from '../../services/http.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +14,7 @@ import { API_URL } from '../../Constants/api_url';
 
 export class ModuleListComponent implements OnInit {
  
-    constructor(private http: HttpService,private moduleVar: ModuleVar,private toastr:ToastrService,private headerService:HeaderService){
+    constructor(private http: HttpService,private route: Router, private activatedRoute: ActivatedRoute,private moduleVar: ModuleVar,private toastr:ToastrService,private headerService:HeaderService){
         this.moduleVar.url=API_URL.URLS;
     }
     
@@ -54,5 +55,11 @@ export class ModuleListComponent implements OnInit {
     let statusName = status ? " is Activated" : " is Deativated"
     this.toastr.success(moduleName + statusName);
   }
+
+  moduleEdit(data,i){
+    console.log(data,i);
+    this.route.navigateByUrl('/module/'+data.moduleId)
+  }
+
 
 }

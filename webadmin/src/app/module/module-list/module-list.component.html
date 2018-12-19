@@ -1,15 +1,16 @@
+<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
 <div class="clearfix pt-4">
-<button class="btn btn-primary mr-3"  [routerLink]="['../addModule']">{{moduleVar.createModule}}</button>
+<button class="btn btn-primary mr-3"  [routerLink]="['../module']">{{moduleVar.createModule}}</button>
 </div>
 <div class="pr-3 pt-4" *ngFor="let data of moduleVar.moduleList;let i = index;">
     <div class="white-bg p-3"> 
     	<div class="clearfix py-3" >
     			<h6 class="float-left module-hd-color">{{data.moduleName}}</h6>
     				<span class="float-right">
-    					<a><i class="fa fa-pencil icons_header"></i></a>
+    					<a (click)="moduleEdit(data,i)"><i class="fa fa-pencil icons_header"></i></a>
     					<span class="pr-5 module-course-font">{{moduleVar.active}}</span>
     					<span><label class="switch">
-    						<input type="checkbox" id="activeStatus{{i}}" [(ngModel)]="moduleVar.activeStatus[i]" (change)="statusUpdate(data.moduleName,moduleVar.activeStatus[i])" ng-reflect-model="true" class="ng-untouched ng-pristine ng-valid"><span class="slider round"></span></label></span>
+    						<input type="checkbox" id="activeStatus{{i}}" [(ngModel)]="data.activeStatus" (change)="statusUpdate(data.moduleName,data.activeStatus)" ng-reflect-model="true" class="ng-untouched ng-pristine ng-valid"><span class="slider round"></span></label></span>
     				</span>
         </div>
         <owl-carousel-o [options]="customOptions" class="module-list">

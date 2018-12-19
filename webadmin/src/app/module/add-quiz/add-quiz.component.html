@@ -1,79 +1,147 @@
 <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
-<div class="pr-3">
-	<div class="white-bg pt-5">
-		<form #quizForm="ngForm" (ngSubmit)="quizSubmit(quizForm)" novalidate>
-			<div class="row">
-				<div class="col-md-12">
-					<a href="{javascript : void}"><i class="fa fa-plus float-right" aria-hidden="true" (click)="addQuestionForm()"></i></a>
-				</div>
-			</div>
-			<div class="row" *ngFor="let data of quizQuestionsForm;let i = index;">
-				<div class="col-sm-4">
-					<div class="form-group  row">
-						<label for="" class="col-sm-4 custm-label col-form-label">{{constant.quizLabels.questionType}}</label>
-						<div class="col-sm-8">
-							<select class="form-control" placeholder="Select" name="QuestionType{{i}}" [(ngModel)]="data.QuestionType" (change)="questionTypeUpdate(data.QuestionType,i)"
-							 #QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
-								<option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
-							</select>
-							<span class="required_color" *ngIf="QuestionTypeVal && QuestionTypeVal.invalid && (quizForm.submitted || QuestionTypeVal.touched)">
-								{{constant.quizLabels.questionType}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
-							</span>
-						</div>
+<div class="pr-3 pt-2">
+	<div class="white-bg p-3"> 
+			<form #quizForm="ngForm" (ngSubmit)="quizSubmit(quizForm)" novalidate>
+				<div class="row">
+					<div class="col-md-12">
+						<a><i class="fa fa-plus float-right" aria-hidden="true" (click)="addQuestionForm()"></i></a>
 					</div>
 				</div>
-				<div class="col-md-8">
-					<div class="form-group  row">
-						<label for="" class="col-sm-2 custm-label col-form-label">{{constant.quizLabels.question}} {{i+1}}</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" placeholder="Enter Question" name="Question{{i}}" [(ngModel)]="data.Question"
-							 #QuestionVal="ngModel" required>
-							<span class="required_color" *ngIf="QuestionVal && QuestionVal.invalid && (quizForm.submitted || QuestionVal.touched)">
-								{{constant.quizLabels.question}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
-							</span>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="" class="col-sm-2 custm-label col-form-label">{{constant.quizLabels.options}}</label>
-						<div class="col-sm-10">
-							<div class="row" *ngIf="data.QuestionType === '1' && data.Options && data.Options.length">
-								<span class="col-sm-3 pl-0" *ngFor=" let optionValue of data.Options; let oi = index;">
-									<span class="option-btn">{{oi + 1}}</span>&nbsp;
-									<input type="text" class="form-control" placeholder="Options" name="{{optionValue.Value}}" [(ngModel)]="optionValue.Value" [ngModelOptions]="{ standalone : true }">
+				<div class="" *ngFor="let data of quizQuestionsForm;let i = index;">
+					<span><a class="btn btn-link float-right" (click)="removeQuestionForm(i)"><i class="fa fa-times"></i></a></span>
+					<div class="row form-group">
+						<div class="col-md-4 row"> 
+							<label for="" class="col-sm-4 custm-label col-form-label">{{constant.quizLabels.questionType}}</label>
+							<div class="col-md-6 p-0">
+								<select class="form-control" placeholder="Select" name="QuestionType{{i}}" [(ngModel)]="data.QuestionType" (change)="questionTypeUpdate(data.QuestionType,i)"
+								#QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
+									<option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
+								</select>
+								<span class="required_color" *ngIf="QuestionTypeVal && QuestionTypeVal.invalid && (quizForm.submitted || QuestionTypeVal.touched)">
+									{{constant.quizLabels.questionType}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
 								</span>
 							</div>
-							<div class="row" *ngIf="data.QuestionType === '2'">
-								<span class="col-sm-3 pl-0">
-									<label class="radio-inline">
-										<input type="radio" name="options" [value]="1"> {{constant.quizLabels.true}}
-									</label>&nbsp;
-									<label class="radio-inline">
-										<input type="radio" name="options" [value]="0"> {{constant.quizLabels.false}}
-									</label>
-								</span>
-							</div>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="" class="col-sm-2 custm-label col-form-label">{{constant.quizLabels.weightage}}</label>
-						<div class="col-sm-9">
-							<div class="row">
-								<span class="col-sm-3 pl-0">
+						</div> 
+						<div class="col-md-8 row">
+							<label class="col-md-2 p-0">{{constant.quizLabels.weightage}}</label>
+							<div class="col-md-10 p-0">
+								<span>
 									<input type="text" class="form-control" placeholder="Enter Weightage" name="Weightage" value="{{weightage}}%"
-									 #WeightageVal="ngModel" [(ngModel)]="data.Weightage" required>
+									#WeightageVal="ngModel" [(ngModel)]="data.Weightage" required>
 								</span>
 								<span class="required_color" *ngIf="WeightageVal && WeightageVal.invalid && (quizForm.submitted || WeightageVal.touched)">
 									{{constant.quizLabels.weightage}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
 								</span>
+								<!-- <select class="form-control" placeholder="10%">
+									<option>10%</option>
+									<option>20%</option>
+									<option>30%</option>
+								</select> -->
 							</div>
 						</div>
 					</div>
-					<span><a class="btn btn-link float-right" (click)="removeQuestionForm(i)"><i class="fa fa-times"></i></a></span>
-				</div>
-
-			</div>
-			<!-- <div class="col-sm-12 clearfix pb-4">
+					<div class="row form-group">
+						<label class="col-md-1 pr-0">{{constant.quizLabels.question}} {{i+1}}</label>
+						<div class="col-md-11 pdl-36">
+							<input type="text" class="form-control" placeholder="Enter Question" name="Question{{i}}" [(ngModel)]="data.Question"
+							#QuestionVal="ngModel" required>
+							<span class="required_color" *ngIf="QuestionVal && QuestionVal.invalid && (quizForm.submitted || QuestionVal.touched)">
+								{{constant.quizLabels.question}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
+							</span>
+						</div>                		
+					</div>
+					<div class="row form-group">
+							<label class="col-md-1 pr-0">{{constant.quizLabels.options}}</label>
+									 <div class="col-md-11 pdl-36">
+									  <div class="row">
+										  <div class="col-md-12 form-group">
+												<div class="" *ngIf="data.QuestionType === '1' && data.Options && data.Options.length">
+													<span class="col-sm-3 pl-0" *ngFor=" let optionValue of data.Options; let oi = index;">
+														<!-- <span class="option-btn">{{oi + 1}}</span>&nbsp; -->
+														<input type="text" class="form-control" placeholder="{{oi + 1}}" name="{{optionValue.Value}}" [(ngModel)]="optionValue.Value" [ngModelOptions]="{ standalone : true }">
+													</span>
+												</div>
+												<div class="" *ngIf="data.QuestionType === '2'">
+														<span class="col-sm-3 pl-0">
+															<label class="radio-inline">
+																<input type="radio" name="options" [value]="1"> {{constant.quizLabels.true}}
+															</label>&nbsp;
+															<label class="radio-inline">
+																<input type="radio" name="options" [value]="0"> {{constant.quizLabels.false}}
+															</label>
+														</span>
+													</div>
+										  </div>
+								  </div>
+							  </div>                		
+						</div> 
+				</div>   
+				<!-- <div class="row" *ngFor="let data of quizQuestionsForm;let i = index;"> -->
+					<!-- <div class="col-sm-4">
+						<div class="form-group  row">
+							<label for="" class="col-sm-4 custm-label col-form-label">{{constant.quizLabels.questionType}}</label>
+							<div class="col-sm-8">
+								<select class="form-control" placeholder="Select" name="QuestionType{{i}}" [(ngModel)]="data.QuestionType" (change)="questionTypeUpdate(data.QuestionType,i)"
+								#QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
+									<option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
+								</select>
+								<span class="required_color" *ngIf="QuestionTypeVal && QuestionTypeVal.invalid && (quizForm.submitted || QuestionTypeVal.touched)">
+									{{constant.quizLabels.questionType}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
+								</span>
+							</div>
+						</div>
+					</div> -->
+					<!-- <div class="col-md-8"> -->
+						<!-- <div class="form-group  row">
+							<label for="" class="col-sm-2 custm-label col-form-label">{{constant.quizLabels.question}} {{i+1}}</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="Enter Question" name="Question{{i}}" [(ngModel)]="data.Question"
+								#QuestionVal="ngModel" required>
+								<span class="required_color" *ngIf="QuestionVal && QuestionVal.invalid && (quizForm.submitted || QuestionVal.touched)">
+									{{constant.quizLabels.question}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
+								</span>
+							</div>
+						</div> -->
+						<!-- <div class="form-group row"> -->
+							<!-- <label for="" class="col-sm-2 custm-label col-form-label">{{constant.quizLabels.options}}</label> -->
+							<!-- <div class="col-sm-10"> -->
+								<!-- <div class="row" *ngIf="data.QuestionType === '1' && data.Options && data.Options.length">
+									<span class="col-sm-3 pl-0" *ngFor=" let optionValue of data.Options; let oi = index;">
+										<span class="option-btn">{{oi + 1}}</span>&nbsp;
+										<input type="text" class="form-control" placeholder="Options" name="{{optionValue.Value}}" [(ngModel)]="optionValue.Value" [ngModelOptions]="{ standalone : true }">
+									</span>
+								</div>
+								<div class="row" *ngIf="data.QuestionType === '2'">
+									<span class="col-sm-3 pl-0">
+										<label class="radio-inline">
+											<input type="radio" name="options" [value]="1"> {{constant.quizLabels.true}}
+										</label>&nbsp;
+										<label class="radio-inline">
+											<input type="radio" name="options" [value]="0"> {{constant.quizLabels.false}}
+										</label>
+									</span>
+								</div> -->
+							<!-- </div> -->
+						<!-- </div> -->
+						<!-- <div class="form-group row">
+							<label for="" class="col-sm-2 custm-label col-form-label">{{constant.quizLabels.weightage}}</label>
+							<div class="col-sm-9">
+								<div class="row">
+									<span class="col-sm-3 pl-0">
+										<input type="text" class="form-control" placeholder="Enter Weightage" name="Weightage" value="{{weightage}}%"
+										#WeightageVal="ngModel" [(ngModel)]="data.Weightage" required>
+									</span>
+									<span class="required_color" *ngIf="WeightageVal && WeightageVal.invalid && (quizForm.submitted || WeightageVal.touched)">
+										{{constant.quizLabels.weightage}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
+									</span>
+								</div>
+							</div>
+						</div> -->
+						<!-- <span><a class="btn btn-link float-right" (click)="removeQuestionForm(i)"><i class="fa fa-times"></i></a></span> -->
+					<!-- </div> -->
+				<!-- </div> -->
+			<div class="col-sm-12 clearfix pb-4">
 				<button type="submit" class="btn btn-primary" [disabled]="!quizForm.form.valid">{{constant.btns.saveBtn}}</button>
-			</div> -->
+			</div>
 		</form>
 	</div>

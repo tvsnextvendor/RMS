@@ -1,0 +1,36 @@
+.choose-file-btn{
+	border: 1px solid #C6C6C6;
+    width: 99px;
+    height: 28px;
+    background-color: #F1F1F1;
+    color: #F1F1F1;
+    margin: 0 !important;
+    color: #656565;
+    padding: 0 7px;
+}
+.uploadTemplate-title{
+	color: #697380;
+	font-size: 14px;
+}
+.add-certificate{
+	color: #000000;
+    font-size: 20px;
+    font-weight: 600;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    float: none;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}

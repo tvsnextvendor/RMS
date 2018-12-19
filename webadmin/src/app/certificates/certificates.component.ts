@@ -1,8 +1,8 @@
 import { Component,TemplateRef, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {HeaderService} from '../services/header.service';
+import { Router} from '@angular/router';
+import { HeaderService} from '../services/header.service';
 import { ToastrService } from 'ngx-toastr';
-import {HttpService} from '../services/http.service';
+import { HttpService} from '../services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { CertificateVar } from '../Constants/certificate.var';
@@ -16,19 +16,7 @@ import { API_URL } from '../Constants/api_url';
 
 export class CertificatesComponent implements OnInit {
 
-    modalRef:BsModalRef;
-    certificateList;
-    batchList;
-    fileToUpload: File = null;
-    // template= 1;
-    // batch= 1;
-    templateAssign : any[]=[{
-       batch: 1,
-       template: 2
-     }
-    ]
-
-
+   modalRef:BsModalRef;
    constructor(private http: HttpService,private constant:CertificateVar,private modalService:BsModalService,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
        this.constant.url = API_URL.URLS;
    }
@@ -37,12 +25,12 @@ export class CertificatesComponent implements OnInit {
     
     //get Template list
     this.http.get(this.constant.url.getTemplateList).subscribe((data) => {
-        this.certificateList = data.templateList;
+        this.constant.certificateList = data.templateList;
     });
  
     //get Batch list
     this.http.get(this.constant.url.getBatchList).subscribe((data) => {
-        this.batchList = data.batchList;
+        this.constant.batchList = data.batchList;
     });
    }
 
@@ -76,35 +64,61 @@ export class CertificatesComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  //Template File Upload
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);;
+    this.constant.fileToUpload = files.item(0);;
   }
 
-  addModule(){
+  //dynamic add form
+  addForm(){
     let obj={
         batch: 1,
         template: 1
     };
-   this.templateAssign.push(obj);
+   this.constant.templateAssign.push(obj);
   }
 
-  submitForm(form){
-    console.log(this.templateAssign,"MODULEFORM");
+  //Assign template to batch
+  assignBatchTemplate(form){
+    let batchId = this.constant.templateAssign.map(function(item){ return item.batch });
+    batchId.sort();
+    let last = batchId[0]; 
+    if(batchId.length > 1){
+        for (let i=1; i<batchId.length; i++) {
+        if (batchId[i] == last){
+        this.toastr.error(this.constant.assignErrMsg);
+        }else{
+            let postData = this.constant.templateAssign;
+            this.toastr.success(this.constant.assignSuccessMsg);
+            this.clearAssignTemplate();
+        }
+        last = batchId[i];
+        }
+   }else{
+        let postData = this.constant.templateAssign;
+        this.toastr.success(this.constant.assignSuccessMsg);
+   }
   }
-    
-  removeModule(i){
-    this.templateAssign.splice(i, 1);   
-    console.log(this.templateAssign,"MODULEREMOVE");
- 
+  
+  //Reset Form
+  clearAssignTemplate(){
+   this.constant.templateAssign=[{
+        batch: 1,
+        template: 2
+      }]
+  }
+
+  removeForm(i){
+    this.constant.templateAssign.splice(i, 1);   
   }
  
   //Add Certificate Template
-  onSave(form){
+  addTemplate(form){
   if(form.valid){    
-   if(this.fileToUpload){
+   if(this.constant.fileToUpload){
        let postData={
            templateName : form.templateName,
-           file : this.fileToUpload
+           htmlFile : this.constant.fileToUpload
      }
       this.toastr.success(this.constant.uploadSuccessMsg);
       this.modalRef.hide();

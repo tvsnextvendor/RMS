@@ -5,21 +5,23 @@
 			<div class="row form-group">
 				<label class="col-md-2 pr-0 label-title">Module Name</label>
 				<span class="col-md-10 pl-0">
-					<input type="text" class="form-control" placeholder="Enter Module Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel">
+					<input type="text" class="form-control" placeholder="Enter Module Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" required>
+				</span>
+				<span class="required_color" *ngIf="module && module.invalid && (moduleForm.submitted || module.touched)">
+						Module name is required*
 				</span>
 			</div>
 			<div class="row form-group">
 				<label class="col-md-2 pr-0 label-title">Course</label>
-				<div class="col-md-9 pl-0">
+				<div class="col-md-9 pl-0 select-Courses">
 					<ng-multiselect-dropdown
 					[placeholder]="'Select Course'"
 					[data]="courseList"
 					[(ngModel)]="selectedCourses"
 					[settings]="dropdownSettings"
 					(onSelect)="onItemSelect($event)"
-					(onDeSelect) = "onItemDeselect($event)"
-					></ng-multiselect-dropdown>
-				</div><span class="col-md-1 pl-0"><a  (click)="addCourse()"><i class="fa fa-plus"></i></a></span>
+					(onDeSelect) = "onItemDeselect($event)"></ng-multiselect-dropdown>
+				</div><span class="col-md-1 pl-0"><a  (click)="addCourse()"><i class="fa fa-plus icons_header"></i></a></span>
 			</div>
 		</div>
 	</form>
@@ -60,35 +62,43 @@
 							<label class="col-md-12 p-0 upload-label">Description Name</label>
 							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter Description Name" name="description" [(ngModel)]="description">
 						</div>
+						<!-- <div class="col-md-1" *ngIf="{{videoFile}}"><img src="{{videoFile}}" style="height: 45px;" ></div> -->
 						<div class="col-md-4 pr-0 upload-line">
 							<div class="fileUpload btn btn-primary">
                                 <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload</span>
-                                    <input type="file" name="videoFile" accept="image/*" class="upload" />
+                                    <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/>
                             </div>
-							<span class="">	
+							<span>	
 									<a (click)="videoSubmit()"><i class="fa fa-check upload-crt-icon" aria-hidden="true"></i></a>
 									<a (click)="cancelVideoSubmit()"><i class="fa fa-times upload-wrg-icon" aria-hidden="true"></i></a>
 							</span>
 						</div>
+
+						<!-- <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/> -->
 						<ul class="list-group" dnd-sortable-container [sortableData]="videoList">
-							<li  *ngFor="let item of videoList; let i = index" class="list-group-item drop-and-drag-pdb" dnd-sortable [sortableIndex]="i"><span class="drop-and-drag-pdr">{{item.name}}</span><span class="drop-and-drag-pdr">{{item.description}}</span><span class="drop-and-drag-pdr">{{item.file}}</span><span class="float-right">
-									<a (click)= "updateVideo(item)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
-									<a (click)= "removeVideo(i)"><i class="fa fa-trash icons_header" aria-hidden="true"></i></a>
+							<li  *ngFor="let item of videoList; let i = index" class="list-group-item drop-and-drag-pdb" dnd-sortable [sortableIndex]="i">
+								<span class="drop-and-drag-pdr">{{item.videoName}}</span>
+								<span class="drop-and-drag-pdr">{{item.description}}</span>
+								<span class="drop-and-drag-pdr">{{item.url}}</span><span class="float-right">
+								<a (click)= "updateVideo(item)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
+								<a (click)= "removeVideo(i)"><i class="fa fa-trash icons_header" aria-hidden="true"></i></a>
 								</span></li>
 						</ul>
+						<div class="col-md-12 pr-0">
+							<button type="button" (click)="tabChange()" class="btn btn-primary float-right">Next</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-   </tab>
-        <tab heading="Quiz">
-            <div class="pr-3 pt-2">
-				<add-quiz courseId = "{{courseId}}" videoId = "{{videoId}}"></add-quiz>
-            </div>          
-                	
-</tab>
+   	</tab>
+	<tab heading="Quiz">
+		<div class="pr-3 pt-2">
+			<add-quiz courseId = "{{courseId}}" videoId = "{{videoId}}" [videoList]="videoList" selectCourseName={{selectCourseName}}  (valueChange)='hideTab($event)'></add-quiz>
+		</div>          	
+	</tab>
 </tabset>
 </div>
-<div class="clearfix text-center mt-4">
+<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
 	<button type="button" class="btn btn-primary btn-save" (click)="submitForm()">SAVE</button>
 </div>

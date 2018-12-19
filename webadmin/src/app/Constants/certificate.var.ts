@@ -24,6 +24,16 @@ export class CertificateVar{
     modalHeader      = 'Add Certificate Template';
     uploadSuccessMsg = 'Certificate Template uploaded successfully';
     uploadErrMsg     = 'Template File is mandatory';
+    assignSuccessMsg = 'Template Assigned Successfully';
+    assignErrMsg     = 'Invalid Batch Selection';
     url;
+    certificateList;
+    batchList;
+    fileToUpload: File = null;
+    templateAssign : any[]=[{
+        batch: 1,
+        template: 2
+      }
+     ]
   
 }

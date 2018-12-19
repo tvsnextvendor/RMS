@@ -5,7 +5,7 @@
 <h5 class="float-left">{{constant.formTitle}}</h5>
 </div>
     <owl-carousel-o [options]="customOptions"  class="certificate-list">
-    <ng-container *ngFor="let template of certificateList">             	   	
+    <ng-container *ngFor="let template of constant.certificateList">             	   	
            <ng-template carouselSlide [id]="template.templateId">
             <img class="img" src={{template.templateUrl}}>
               <p class="text-center pt-3">{{template.templatename}} </p>
@@ -14,69 +14,71 @@
      </owl-carousel-o>
 
 
-    <!--  <button type="button" class="btn btn-default" (click)="addModule()"><i class="fa fa-plus" aria-hidden="true"></i></button> -->
-     <form class="" (ngSubmit) = "submitForm(assignTemplate)" #assignTemplate = "ngForm">
-            <div class="pr-3 py-4" *ngFor="let data of templateAssign; let i = index">
-                    <span><a class="btn btn-link float-right" *ngIf="i!=0" (click)="removeModule(i)"><i class = "fa fa-times"></i></a></span>		
-                        <div class="row">
-                         <div class="col-md-6">
-                             <div class=" form-group row">
+     <form #assignTemplate="ngForm" (ngSubmit)="assignBatchTemplate(assignTemplate)" >
+            <div class="pr-3 py-4" *ngFor="let data of constant.templateAssign; let i = index">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class=" form-group row">
                              <label class="col-md-3 label-title" *ngIf="i==0">{{constant.labels.batch}}</label>
+                             <label class="col-md-3 label-title" *ngIf="i!=0"></label>
                              <div class=" col-md-6">
                              <select id="Batch" class="form-control" name="Batch{{i}}" [(ngModel)]="data.batch">     
-                                    <option *ngFor="let batch of batchList"  value="{{batch.batchId}}">{{batch.batchName}}</option>
+                                    <option *ngFor="let batch of constant.batchList"  value="{{batch.batchId}}">{{batch.batchName}}</option>
                              </select>
-                         </div>
-                            </div>
-                         </div>
-                         <div class="col-md-6">
-                                <div class=" form-group row">
-                                <label class="col-md-3 label-title" *ngIf="i==0">{{constant.labels.template}}</label>
-                                <div class=" col-md-6">
-                                <select id="Template" class="form-control" name="Template{{i}}" [(ngModel)]="data.template">     
-                                        <option *ngFor="let template of certificateList"  value="{{template.templateId}}">{{template.templatename}}</option>
-                                 </select>
                              </div>
-                             <span><a class="col-md-1 pl-0 " *ngIf="i==0" (click)="addModule()"><i class="fa fa-plus icons_header add-course-icon"></i></a></span>
-                               </div>
-                            </div>
-                             
-                         </div>
                         </div>
-              <div class="text-center pt-5">        
+                    </div>
+                    <div class="col-md-6">
+                        <div class=" form-group row">
+                             <label class="col-md-3 label-title" *ngIf="i==0">{{constant.labels.template}}</label>
+                             <label class="col-md-3 label-title" *ngIf="i!=0"></label>
+                             <div class=" col-md-6">
+                              <select id="Template" class="form-control" name="Template{{i}}" [(ngModel)]="data.template">     
+                                    <option *ngFor="let template of constant.certificateList"  value="{{template.templateId}}">{{template.templatename}}</option>
+                               </select>
+                              </div>
+                              <span><a class="col-md-1 pl-0" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-course-icon"></i></a></span>
+                              <span><a class="col-md-1 pl-0" *ngIf="i!=0" (click)="removeForm(i)"><i class = "fa fa-times icons_header"></i></a></span>		
+                        </div>
+                    </div>
+                             
+                </div>
+            </div>
+            <div class="text-center pt-5">        
                     <button type="submit" class="btn btn-default mr-4">{{constant.btns.save}}</button>
-                    <button type="button" class="btn btn-primary creat-btn">{{constant.btns.cancel}}</button>
-              </div>
-        </form> 
+                    <button type="button" class="btn btn-primary creat-btn" (click)="clearAssignTemplate()">{{constant.btns.cancel}}</button>
+            </div>
+    </form> 
 </div>
 </div>
 
 
 <ng-template #addTemplate>
     <div class="modal-header">
-                        <h4 class="modal-title pull-left">{{constant.modalHeader}}</h4>
+                         <p class="modal-title add-certificate">{{constant.modalHeader}}</p>
                         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                           <span aria-hidden="true">&times;</span>
                         </button>
     </div>
     <div class="modal-body">
-                        <form #uploadTemplate="ngForm" (ngSubmit)="onSave(uploadTemplate)">
+                        <form #uploadTemplate="ngForm" (ngSubmit)="addTemplate(uploadTemplate)">
                         <div class="form-group">
-                                <label>{{constant.labels.tempName}}</label>
-                                <input type="text" class="form-control" [(ngModel)]="tempName" #TempName="ngModel" name = "tempName" id="tempName" placeholder="Enter Template Name" required> 
+                                <label class="uploadTemplate-title">{{constant.labels.tempName}}</label>
+                                <input type="text" class="form-control pl-0" [(ngModel)]="tempName" #TempName="ngModel" name = "tempName" id="tempName" placeholder="Enter Template Name" required> 
                                 <span class="required_color" *ngIf="TempName && TempName.invalid && (uploadTemplate.submitted || TempName.touched)">
                                   {{constant.labels.tempNameMandatory}} 
-                                </span>    
+                                </span>                                  
                             </div>
-                            <div class="form-group">
-                                <label>{{constant.labels.fileUpload}}</label>
-                                <input type="file"        
-                                id="file" accept="text/html"
-                                (change)="handleFileInput($event.target.files)">
+                            <div class="form-group">                                
+                             <label class="col-md-12 pl-0 uploadTemplate-title">{{constant.labels.fileUpload}}</label>
+                               <div class="choose-file-btn fileUpload ">
+                                <span>Choose File</span>
+                                <input type="file" id="file" accept="text/html"
+                                (change)="handleFileInput($event.target.files)" class="upload"></div>
                             </div> 
-                           <div class="text-center pt-5">
+                           <div class="text-center pt-4">                    
+                    <button type = "submit" class="btn btn-primary creat-btn mr-3">{{constant.btns.upload}}</button>
                     <button type="button" class="btn btn-default mr-3" (click)="modalRef.hide()">{{constant.btns.cancel}}</button>
-                    <button type = "submit" class="btn btn-primary creat-btn">{{constant.btns.upload}}</button>
                 </div>
                 </form>
     </div>

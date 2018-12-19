@@ -1,4 +1,4 @@
-import { Component, OnInit ,Input} from '@angular/core';
+import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeaderService } from '../../services/header.service';
@@ -16,6 +16,10 @@ export class AddQuizComponent implements OnInit {
 
   @Input() courseId;
   @Input() videoId;
+  @Input() videoList;
+  @Input() selectCourseName;
+  @Output() valueChange = new EventEmitter();
+  courseUpdate = false;
   videoDetails = [];
   // courseId;
   // videoId;
@@ -87,7 +91,7 @@ export class AddQuizComponent implements OnInit {
     this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
       this.videoDetails = resp.QuizDetails;
       let slectedQuizDetails = resp.QuizDetails.find(x => x.CourseId === this.courseId);
-      let selectedVideoList = slectedQuizDetails && slectedQuizDetails.Videos && slectedQuizDetails.Videos.find(x => x.VideoId === this.videoId);
+      let selectedVideoList = slectedQuizDetails && slectedQuizDetails.Videos && slectedQuizDetails.Videos[0];
       this.selectedVideo = this.videoId;
       this.selectedCourse = this.courseId;
       this.quizQuestionsForm = selectedVideoList && selectedVideoList.QuestionsDetails ? selectedVideoList.QuestionsDetails : [{
@@ -110,6 +114,7 @@ export class AddQuizComponent implements OnInit {
     let quiz = this.quizQuestionsForm;
     quiz[i].QuestionType = data;
     if (data === "1") {
+      quiz[i].Option = '';
       quiz[i].Options = [
         { "Id": 1, "Value": "" },
         { "Id": 2, "Value": "" },
@@ -119,13 +124,14 @@ export class AddQuizComponent implements OnInit {
     }
     else {
       quiz[i].Options = [];
+      quiz[i].Option = "True/False"
     }
   }
 
 
   courseChange(){
-    // this.selectedCourse = 1;
-    console.log(this.selectedCourse);
+    // // this.selectedCourse = 1;
+    // console.log(this.selectedCourse);
   }
 
   // Add Question Box
@@ -151,6 +157,12 @@ export class AddQuizComponent implements OnInit {
   removeQuestionForm(index) {
     this.quizQuestionsForm.splice(index, 1);
   }
+
+  valueChanged(){
+    this.courseUpdate = true;
+    this.valueChange.emit(this.courseUpdate);
+  }
+
   // Quiz Submission
   quizSubmit() {
     //Weightage update
@@ -160,18 +172,31 @@ export class AddQuizComponent implements OnInit {
     })
     //final data for submission
     let params = {
-      "CourseId" : this.selectedCourse,
-      "VideoId" : this.selectedVideo,
-      "QuizDetails" : data
-    }
-    console.log(params);
+      "courseId":"",
+      "courseName":this.selectCourseName,
+      "videoDetails":[],
+      "quizDetails":data
+      }
+      if(this.videoList.length){
+        params.videoDetails = this.videoList.map(item=>{
+          let obj = {
+            videoName : item.name,
+            description : item.description,
+            url : item.file
+          }
+          return obj;
+        })
+      }
     if(this.courseId){
+      params.courseId = this.courseId;
+      console.log(params);
       this.toastr.success("Quiz updated successfully");
-      // this.route.navigateByUrl('/quiz');
+      this.valueChanged();
     }
     else{
+      console.log(params);
       this.toastr.success("Quiz added successfully");
-      // this.route.navigateByUrl('/module')
+      this.valueChanged();
     }
     
   }

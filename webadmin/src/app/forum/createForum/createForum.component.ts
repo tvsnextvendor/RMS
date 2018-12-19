@@ -7,6 +7,7 @@ import { API_URL } from '../../Constants/api_url';
 @Component({
     selector: 'app-createForum',
     templateUrl: './createForum.component.html',
+     styleUrls: ['./createForum.component.css']
 })
 
 export class CreateForumComponent implements OnInit {
@@ -60,12 +61,15 @@ export class CreateForumComponent implements OnInit {
              topic   : this.topics
           };        
           this.toastr.success(this.forumVar.addSuccessMsg);
+          this.clearForm();
       }
     }
 
     clearForm(){
        this.forumName="";
-       this.topicsArray=[];
+       this.topicsArray = [{
+        topicName:''
+      }];
     }
 
 }
