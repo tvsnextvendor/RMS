@@ -28,7 +28,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgMultiSelectDropDownModule.forRoot(),
     CarouselModule,
-    NgHttpLoaderModule.forRoot(),
+    // NgHttpLoaderModule.forRoot(),
     TabsModule.forRoot(),
     DndModule.forRoot()
     ],

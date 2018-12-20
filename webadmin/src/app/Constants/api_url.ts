@@ -8,6 +8,7 @@ export class API_URL {
    getKeyStat           : "5c04dd7f330000e900d01e32",
    getCourses           : "5c04e5553300005700d01e4e",
    getCoursesList       : "5c18fef82f00006300af133b",
+   getCoureseDetails    :"5c19e3ef3200002a0064adb8",
    getTopEmployees      : "5c04e6cf3300002900d01e56",
    getTotalNoOfBadges   : "5c04e7333300007800d01e5d",
    getTopResorts        : "5c04ea753300006a00d01e6e",
@@ -19,6 +20,7 @@ export class API_URL {
   // getVideoTrendEmpList : '5c08e0a12f00005400637aa6',
    getVideoTrendEmpList :'5c1355c43400005600ecdf71',
    getModuleList        : '5c18f3502f00002a00af12f9',
+   getModuleDetails     : "5c1a2a833200006c0064afa0",
    getEmployeeStatus    : '5c1247ee3300009829998e4a',
   // getEmployeeDetails   : '5c124a4d330000bd2a998e64',
    getEmployeeDetails   :'5c135a573400008e00ecdf92',
@@ -31,7 +33,7 @@ export class API_URL {
    getTemplateList      : '5c15bed92e00009c0937c6a6',
    getBatchList         : '5c175edf2f00005f00b0862f',
    getPercentageList    : '5c18f1d42f00005900af12e7',
-   getUsers:'5c1a5d1d320000540064b0fc'
+   getUsers              : '5c1a5d1d320000540064b0fc'
 
   }
 

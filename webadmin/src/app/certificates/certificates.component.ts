@@ -113,7 +113,7 @@ export class CertificatesComponent implements OnInit {
   }
  
   //Add Certificate Template
-  addTemplate(form){
+  onSave(form){
   if(form.valid){    
    if(this.constant.fileToUpload){
        let postData={

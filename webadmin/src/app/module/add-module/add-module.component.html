@@ -1,33 +1,35 @@
-<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="row pr-3 pt-5">
 	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm()" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
 			<div class="row form-group">
-				<label class="col-md-2 pr-0 label-title">Module Name</label>
+				<label class="col-md-2 pr-0 label-title">{{labels.moduleName}}</label>
 				<span class="col-md-10 pl-0">
 					<input type="text" class="form-control" placeholder="Enter Module Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" required>
 				</span>
 				<span class="required_color" *ngIf="module && module.invalid && (moduleForm.submitted || module.touched)">
-						Module name is required*
+					{{labels.moduleName}}{{labels.isRequire}}
 				</span>
 			</div>
 			<div class="row form-group">
-				<label class="col-md-2 pr-0 label-title">Course</label>
-				<div class="col-md-9 pl-0 select-Courses">
+				<label class="col-md-2 pr-0 label-title">{{labels.course}}</label>
+				<div class="col-md-10 pl-0 select-Courses">
 					<ng-multiselect-dropdown
 					[placeholder]="'Select Course'"
-					[data]="courseList"
+					[data]="moduleVar.courseList"
 					[(ngModel)]="selectedCourses"
-					[settings]="dropdownSettings"
+					[settings]="moduleVar.dropdownSettings"
 					(onSelect)="onItemSelect($event)"
-					(onDeSelect) = "onItemDeselect($event)"></ng-multiselect-dropdown>
-				</div><span class="col-md-1 pl-0"><a  (click)="addCourse()"><i class="fa fa-plus icons_header"></i></a></span>
+					(onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+				</div>
+				<!-- <span class="col-md-1 pl-0"><a  (click)="addCourse()"><i class="fa fa-plus icons_header"></i></a></span> -->
 			</div>
 		</div>
 	</form>
 	<div class="col-md-4 p-0">
-		<div class="white-bg p-4">
-			<h5 class="mb-4">Courses Added</h5>
+		<div class="white-bg pl-4 py-4">
+			<h5 class="mb-4">{{labels.coursesAdded}}</h5>
+			<div class="addedcourse-scroll">
 			<div *ngFor="let course of selectedCourses,index as i">
 				<p>{{course.value}}<span class="float-right">
 						<a (click)= "updateCourse(course,i)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
@@ -36,56 +38,57 @@
 				</p>
 			</div>
 		</div>
+		</div>
 	</div>
 </div>
-<div *ngIf="tabEnable">
+<div *ngIf="moduleVar.tabEnable">
 <div class="clearfix pt-4">
-	<h4>{{courseId === "" ? "Add New Course" : "Edit Course"}}</h4>
+	<h4>{{moduleVar.courseId === "" ? labels.addCourseTitle : labels.editCourseTitle}}</h4>
 </div>
+<!-- <button type="button" (click)="moduleVar.tabEnable = false" class="btn btn-link float-right">Cancel</button> -->
 <tabset #staticTabs   class="add-video-header">
     <tab heading="Videos">
     	<div class="row pr-3 pt-2">
 			<div class="col-md-8 pl-0">
 				<div class="white-bg p-3">
 					<div class="row form-group">
-						<label class="col-md-2 p-0 label-title">Course Name</label>
+						<label class="col-md-2 p-0 label-title">{{labels.courseName}}</label>
 						<span class="col-md-10 p-0">
-							<input type="text" class="form-control" placeholder="Enter Course Name" name="selectCourseName" [(ngModel)]="selectCourseName">
+							<input type="text" class="form-control" placeholder="Enter Course Name" name="selectCourseName" [(ngModel)]="moduleVar.selectCourseName">
 						</span>
 					</div>
 					<div class="row form-group">
 						<div class="col-md-4 pl-0">
-							<label class="col-md-12 p-0 upload-label">Video Name</label>
-							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter Video Name" name="selectVideoName" [(ngModel)]="selectVideoName">
+							<label class="col-md-12 p-0 upload-label">{{labels.videoName}}</label>
+							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter Video Name" name="selectVideoName" [(ngModel)]="moduleVar.selectVideoName">
 						</div>
 						<div class="col-md-4 pl-0">
-							<label class="col-md-12 p-0 upload-label">Description Name</label>
-							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter Description Name" name="description" [(ngModel)]="description">
+							<label class="col-md-12 p-0 upload-label">{{labels.description}}</label>
+							<input type="text" class="form-control col-md-12 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="moduleVar.description">
 						</div>
-						<!-- <div class="col-md-1" *ngIf="{{videoFile}}"><img src="{{videoFile}}" style="height: 45px;" ></div> -->
 						<div class="col-md-4 pr-0 upload-line">
 							<div class="fileUpload btn btn-primary">
-                                <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload</span>
-                                    <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/>
+                                <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span>
+                                    <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" accept="video/*" (change)="fileUpload($event)"/>
                             </div>
 							<span>	
 									<a (click)="videoSubmit()"><i class="fa fa-check upload-crt-icon" aria-hidden="true"></i></a>
 									<a (click)="cancelVideoSubmit()"><i class="fa fa-times upload-wrg-icon" aria-hidden="true"></i></a>
 							</span>
 						</div>
-
+						<!-- <div class="col-md-12 drop-and-drag-pdb"><span class="col-md-8"></span><span class="col-md-4 float-right"><img src="{{videoFile}}" style="height: 45px;" >{{fileUrl}}</span></div> -->
 						<!-- <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/> -->
-						<ul class="list-group" dnd-sortable-container [sortableData]="videoList">
-							<li  *ngFor="let item of videoList; let i = index" class="list-group-item drop-and-drag-pdb" dnd-sortable [sortableIndex]="i">
+						<ul class="list-group" dnd-sortable-container [sortableData]="moduleVar.videoList">
+							<li  *ngFor="let item of moduleVar.videoList; let i = index" class="list-group-item drop-and-drag-pdb" dnd-sortable [sortableIndex]="i">
 								<span class="drop-and-drag-pdr">{{item.videoName}}</span>
 								<span class="drop-and-drag-pdr">{{item.description}}</span>
 								<span class="drop-and-drag-pdr">{{item.url}}</span><span class="float-right">
-								<a (click)= "updateVideo(item)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
+								<a (click)= "updateVideo(item,i)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
 								<a (click)= "removeVideo(i)"><i class="fa fa-trash icons_header" aria-hidden="true"></i></a>
 								</span></li>
 						</ul>
 						<div class="col-md-12 pr-0">
-							<button type="button" (click)="tabChange()" class="btn btn-primary float-right">Next</button>
+							<button type="button" (click)="tabChange()" class="btn btn-primary float-right">{{labels.next}}</button>
 						</div>
 					</div>
 				</div>
@@ -94,11 +97,11 @@
    	</tab>
 	<tab heading="Quiz">
 		<div class="pr-3 pt-2">
-			<add-quiz courseId = "{{courseId}}" videoId = "{{videoId}}" [videoList]="videoList" selectCourseName={{selectCourseName}}  (valueChange)='hideTab($event)'></add-quiz>
+			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails"></add-quiz>
 		</div>          	
 	</tab>
 </tabset>
 </div>
-<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
-	<button type="button" class="btn btn-primary btn-save" (click)="submitForm()">SAVE</button>
+<div *ngIf ="!moduleVar.tabEnable" class="clearfix text-center mt-4">
+	<button type="button" class="btn btn-primary btn-save" (click)="submitForm()">{{labels.save}}</button>
 </div>

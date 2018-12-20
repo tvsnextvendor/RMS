@@ -1,4 +1,4 @@
-<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="clearfix pt-4">
 <button class="btn btn-primary mr-3"  [routerLink]="['../module']">{{moduleVar.createModule}}</button>
 </div>
@@ -15,7 +15,7 @@
         </div>
         <owl-carousel-o [options]="customOptions" class="module-list">
         <ng-container *ngFor="let slide of data.courseList">             	   	
-               <ng-template carouselSlide [id]="slide.courseId"><div class="player-list" routerLink="/modules/{{data.moduleId}}/{{slide.courseId}}"><i class="fa fa-youtube-play module-play-icon ml-3" aria-hidden="true"></i>
+               <ng-template carouselSlide [id]="slide.courseId"><div class="player-list" routerLink="/modules/{{data.moduleId}}/{{slide.courseId}}"><img src="assets/images/Course.png" class="module-img">
                <span class="module-course-font"> {{slide.courseName}}</span></div></ng-template>  
          </ng-container>     
          </owl-carousel-o>

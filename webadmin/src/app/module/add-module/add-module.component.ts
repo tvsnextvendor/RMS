@@ -1,11 +1,11 @@
-import { Component, OnInit,ViewChild} from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef} from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute,Params } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import {HeaderService} from '../../services/header.service';
 import { ToastrService } from 'ngx-toastr';
 import {AddQuizComponent} from '../add-quiz/add-quiz.component';
-import {ModuleVar } from '../../Constants/module.var';
+import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
 
 @Component({
@@ -19,58 +19,50 @@ export class AddModuleComponent implements OnInit {
     @ViewChild('staticTabs') staticTabs: TabsetComponent;
     @ViewChild(AddQuizComponent)
     private quiz: AddQuizComponent;
-    
-    courseList = [];
-    courseItems = [];
-    dropdownSettings;
-    selectedCourseIds = [];
-    courseId;
-    videoId;
     moduleId;
-    videoFile;
-    moduleObj;
     selectedCourses = [];
     moduleName;
-    sortableList;
-    videoList = [];
-    tabEnable = false;
-    selectCourseName;
-    selectVideoName;
-    description;
-    courseIndex;
-    tabKey;
-    api_url;
+    uploadFile;
+    fileUrl;
+    labels;
+    selectedCourseIds:any;
 
-   constructor(private headerService:HeaderService,private toastr : ToastrService,private moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute){
-    this.activatedRoute.params.subscribe((params: Params) => {
-        this.moduleId = params['moduleId'];
-    });
+   constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,private moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute){
+        this.activatedRoute.params.subscribe((params: Params) => {
+            this.moduleId = params['moduleId']; 
+        });
+        this.labels = moduleVar.labels;
    }
 
    ngOnInit(){
-    this.api_url = API_URL.URLS;
-    this.dropdownSettings = {
+    this.headerService.setTitle({title:this.moduleVar.title, hidemodule:false});
+    this.moduleVar.api_url = API_URL.URLS;
+    this.moduleVar.dropdownSettings = {
         singleSelection: false,
         idField: 'id',
         textField: 'value',
         enableCheckAll : false,
         itemsShowLimit: 8,
         // allowSearchFilter: true
-      };   
-    this.tabKey = 1;
+      }; 
+    var myEl = document.querySelector('ul.item1');
+    myEl.innerHTML = ' <i class="fa fa-plus newCourseId" id="newCourseId (click)="addCourse()"> ADD NEW COURSE</i>';
+    let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
+    ele.onclick = this.addCourse.bind(this);
+    this.moduleVar.tabKey = 1;
     this.courseData();
    }
 
     courseData(){
-        this.http.get(this.api_url.getCoursesList).subscribe((resp) => {
-            this.courseList = resp.courseDetails;
+        this.http.get(this.moduleVar.api_url.getCoursesList).subscribe((resp) => {
+            this.moduleVar.courseList = resp.courseDetails;
         })
         if(this.moduleId){
-            this.http.get(this.api_url.getModuleList).subscribe((data) => {
+            this.http.get(this.moduleVar.api_url.getModuleDetails).subscribe((data) => {
                 this.moduleVar.moduleList = data.moduleList;
-                this.moduleObj = this.moduleVar.moduleList.find(x=>x.moduleId === parseInt(this.moduleId));
-                this.moduleName = this.moduleObj.moduleName;
-                let dropdownLIst =  this.moduleObj.courseList.map(item=>{
+                this.moduleVar.moduleObj = this.moduleVar.moduleList.find(x=>x.moduleId === parseInt(this.moduleId));
+                this.moduleName = this.moduleVar.moduleObj.moduleName;
+                let dropdownLIst =  this.moduleVar.moduleObj.courseList.map(item=>{
                     let obj = {
                         id:item.courseId,
                         value : item.courseName
@@ -82,29 +74,39 @@ export class AddModuleComponent implements OnInit {
                 this.selectedCourseIds = dropdownLIst.map(item=>{return item.id})
             });
         }
+        else{
+            this.http.get(this.moduleVar.api_url.getCoureseDetails).subscribe((data) => {
+                this.moduleVar.moduleObj = data;
+            })
+        }
     }
 
-   onItemSelect(item: any) {
-    // console.log(item,this.selectedCourses)
-    this.selectedCourses.push(item);
-    this.selectedCourseIds.push(item.id);
-
-  }
-  onItemDeselect(item: any) {
-    let index= this.selectedCourses.findIndex(x=>x.id === item.id);
-    this.selectedCourses.splice(index, 1);
-    if(this.selectedCourses.length === 0 || this.courseIndex === index){
-        this.tabEnable = false;
-        // this.resetTabDetails();
+    onItemSelect(item: any) {
+        this.moduleVar.selectedCourseIds =  this.selectedCourses.map(item=>{return item.id})
     }
-  }
+    onItemDeselect(item: any) {
+        this.moduleVar.selectedCourseIds =  this.selectedCourses.map(item=>{return item.id})
+    }
+
+    fileUpload(e){
+        console.log(e);
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+          this.uploadFile = file;
+          this.fileUrl = reader.result;
+        }
+      reader.readAsDataURL(file)
+      console.log(this.fileUrl,this.uploadFile)
+    }
 
    updateCourse(data,i){
-       this.tabEnable = true;
-       let courseObj = (this.moduleObj.courseList.find(item => item.courseName ===  data.value));
-       this.videoList = courseObj.videosDetails;
-       this.selectCourseName = courseObj.courseName;
-       this.courseId = courseObj.courseId;
+       this.moduleVar.tabEnable = true;
+       let courseObj = (this.moduleVar.moduleObj.courseList.find(item => item.courseId ===  data.id));
+       this.moduleVar.videoList = courseObj.videosDetails;
+       this.moduleVar.selectCourseName = courseObj.courseName;
+       this.moduleVar.courseId = courseObj.courseId;
+       this.moduleVar.quizDetails = courseObj.quizDetails;
        if(this.quiz){
            this.quiz.editQuizDetails();
        }
@@ -112,19 +114,20 @@ export class AddModuleComponent implements OnInit {
    }
 
    removeVideo(i){
-    this.videoList.splice(i, 1);
+    this.moduleVar.videoList.splice(i, 1);
    }
 
    hideTab(data){
-       this.tabEnable = data ? false : true;
+       this.moduleVar.tabEnable = data ? false : true;
    }
 
-   updateVideo(data){
-        this.selectVideoName = data.videoName;
-        this.description = data.description;
-        this.videoFile = data.url;
-        let index =  (this.videoList.findIndex(item => item.videoName ===  data.videoName));
-        this.videoId = index + 1
+   updateVideo(data,i){
+        this.moduleVar.selectVideoName = data.videoName;
+        this.moduleVar.description = data.description;
+        this.moduleVar.videoFile = data.url;
+        this.moduleVar.videoIndex = i+1;
+        let index =  (this.moduleVar.videoList.findIndex(item => item.videoName ===  data.videoName));
+        this.moduleVar.videoId = index + 1
         if(this.quiz){
             this.quiz.editQuizDetails();
         }
@@ -137,52 +140,59 @@ export class AddModuleComponent implements OnInit {
    } 
 
    resetTabDetails(add){
-    this.tabEnable = add ? true : false;
-    this.videoList = [];
-    this.selectCourseName = '';
-    this.selectVideoName = '';
-    this.description = '';
-    this.courseIndex = '';
-    this.courseId = '';
-    this.videoId = '';
+    this.moduleVar.tabEnable = add ? true : false;
+    this.moduleVar.videoList = [];
+    this.moduleVar.selectCourseName = '';
+    this.moduleVar.selectVideoName = '';
+    this.moduleVar.description = '';
+    this.moduleVar.courseIndex = '';
+    this.moduleVar.courseId = '';
+    this.moduleVar.videoId = '';
     if(this.quiz && add){
            this.quiz.editQuizDetails();
     }
    }
    videoSubmit(){
        console.log("video submitted");
-       if(this.selectVideoName && this.description && this.videoFile){
-        this.courseId !== '' ? this.toastr.success("Course videos updated successfully") : this.toastr.success("Course videos added successfully"); 
+       if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
+        this.moduleVar.courseId !== '' ? this.toastr.success(this.labels.videoUpdatedToast) : this.toastr.success(this.labels.videoAddedToast); 
 
         let videoObj = {
-            videoName : this.selectVideoName ,
-            description : this.description,
-            url : this.videoFile
+            videoName : this.moduleVar.selectVideoName ,
+            description : this.moduleVar.description,
+            url : this.moduleVar.videoFile
         }
-        this.videoList.push(videoObj);
-        this.selectVideoName = '';
-        this.description = '';
+        if(this.moduleVar.videoIndex){
+          //this.moduleVar.videoIndex - 1
+            this.moduleVar.videoList[0] = videoObj;
+            this.moduleVar.videoIndex = false;
+        }
+        else{
+            this.moduleVar.videoList.push(videoObj);
+        }
+        this.moduleVar.selectVideoName = '';
+        this.moduleVar.description = '';
        }
        else{
-           this.toastr.error("mandatory fields missing")
+           this.toastr.error(this.labels.mandatoryFields)
        }
    }
 
    cancelVideoSubmit(){
-       this.selectVideoName = '';
-       this.description = '';
+       this.moduleVar.selectVideoName = '';
+       this.moduleVar.description = '';
    }
 
    tabChange(){
-        if(this.selectCourseName && this.videoList.length){
+        if(this.moduleVar.selectCourseName && this.moduleVar.videoList.length){
             this.staticTabs.tabs[1].disabled = false;
             this.staticTabs.tabs[1].active = true;
         }
-        else if(!this.selectCourseName){
-            this.toastr.error("Course name is mandatory");
+        else if(!this.moduleVar.selectCourseName){
+            this.toastr.error(this.labels.courseNameError);
         }
-        else if(!this.videoList.length){
-            this.toastr.error("Minimum one video data required");
+        else if(!this.moduleVar.videoList.length){
+            this.toastr.error(this.labels.videoError);
         }
   
    }
@@ -193,14 +203,14 @@ export class AddModuleComponent implements OnInit {
 
             let params = {
                 "ModuleName":this.moduleName,
-                "CourseIds":this.selectedCourseIds.toString(),
+                "CourseIds":this.moduleVar.selectedCourseIds.toString(),
                 }
             console.log("params-course",params)
-            this.toastr.success("Module Created Successfully");  
+            this.toastr.success(this.labels.moduleCreateMsg);  
             this.route.navigateByUrl('/modulelist')
         }
         else{
-            this.toastr.error("Unable to create module ")
+            this.toastr.error(this.labels.moduleCreateError)
         }
     }
    

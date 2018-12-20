@@ -1,19 +1,19 @@
-<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="pr-3 pt-2">
 	<div class="white-bg p-3"> 
 			<form #quizForm="ngForm" (ngSubmit)="quizSubmit(quizForm)" novalidate>
 				<div class="row">
 					<div class="col-md-12">
-						<a><i class="fa fa-plus float-right" aria-hidden="true" (click)="addQuestionForm()"></i></a>
+						<a><i class="fa fa-plus float-right icons_header" aria-hidden="true" (click)="addQuestionForm()"></i></a>
 					</div>
 				</div>
 				<div class="" *ngFor="let data of quizQuestionsForm;let i = index;">
-					<span><a class="btn btn-link float-right" (click)="removeQuestionForm(i)"><i class="fa fa-times"></i></a></span>
+					<span><a class="btn btn-link float-right" (click)="removeQuestionForm(i)"><i class="fa fa-times icons_header"></i></a></span>
 					<div class="row form-group">
 						<div class="col-md-4 row"> 
 							<label for="" class="col-sm-4 custm-label col-form-label">{{constant.quizLabels.questionType}}</label>
 							<div class="col-md-6 p-0">
-								<select class="form-control" placeholder="Select" name="QuestionType{{i}}" [(ngModel)]="data.QuestionType" (change)="questionTypeUpdate(data.QuestionType,i)"
+								<select class="form-control" placeholder="Select" name="questionType{{i}}" [(ngModel)]="data.questionType" (change)="questionTypeUpdate(data.questionType,i)"
 								#QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
 									<option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
 								</select>
@@ -27,7 +27,7 @@
 							<div class="col-md-10 p-0">
 								<span>
 									<input type="text" class="form-control" placeholder="Enter Weightage" name="Weightage" value="{{weightage}}%"
-									#WeightageVal="ngModel" [(ngModel)]="data.Weightage" required>
+									#WeightageVal="ngModel" [(ngModel)]="data.weightage" required>
 								</span>
 								<span class="required_color" *ngIf="WeightageVal && WeightageVal.invalid && (quizForm.submitted || WeightageVal.touched)">
 									{{constant.quizLabels.weightage}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
@@ -43,7 +43,7 @@
 					<div class="row form-group">
 						<label class="col-md-1 pr-0">{{constant.quizLabels.question}} {{i+1}}</label>
 						<div class="col-md-11 pdl-36">
-							<input type="text" class="form-control" placeholder="Enter Question" name="Question{{i}}" [(ngModel)]="data.Question"
+							<input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.question"
 							#QuestionVal="ngModel" required>
 							<span class="required_color" *ngIf="QuestionVal && QuestionVal.invalid && (quizForm.submitted || QuestionVal.touched)">
 								{{constant.quizLabels.question}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
@@ -54,20 +54,22 @@
 							<label class="col-md-1 pr-0">{{constant.quizLabels.options}}</label>
 									 <div class="col-md-11 pdl-36">
 									  <div class="row">
-										  <div class="col-md-12 form-group">
-												<div class="" *ngIf="data.QuestionType === '1' && data.Options && data.Options.length">
-													<span class="col-sm-3 pl-0" *ngFor=" let optionValue of data.Options; let oi = index;">
-														<!-- <span class="option-btn">{{oi + 1}}</span>&nbsp; -->
-														<input type="text" class="form-control" placeholder="{{oi + 1}}" name="{{optionValue.Value}}" [(ngModel)]="optionValue.Value" [ngModelOptions]="{ standalone : true }">
+										  <div class="col-md-12 pl-0 form-group">
+												<div class="row" *ngIf="data.questionType === '1' && data.options && data.options.length">
+													<span class="col-sm-12 pl-0" *ngFor=" let optionValue of data.options; let oi = index;">
+														<span class="option-btn">{{oi + 1}}</span>&nbsp;
+														<input type="text" class="form-control pl-4" placeholder="" name="{{optionValue.value}}" [(ngModel)]="optionValue.value" [ngModelOptions]="{ standalone : true }">
 													</span>
 												</div>
-												<div class="" *ngIf="data.QuestionType === '2'">
+												<div class="" *ngIf="data.questionType === '2'">
 														<span class="col-sm-3 pl-0">
-															<label class="radio-inline">
-																<input type="radio" name="options" [value]="1"> {{constant.quizLabels.true}}
+															<label class="hole-cont mr-2">
+																<input type="checkbox" checked="checked" name="options" [value]="1"> {{constant.quizLabels.true}}
+																<span class="checkmark"></span>
 															</label>&nbsp;
-															<label class="radio-inline">
-																<input type="radio" name="options" [value]="0"> {{constant.quizLabels.false}}
+															<label class="hole-cont mr-2">
+																<input type="checkbox" name="options" [value]="0"> {{constant.quizLabels.false}}
+																<span class="checkmark"></span>
 															</label>
 														</span>
 													</div>

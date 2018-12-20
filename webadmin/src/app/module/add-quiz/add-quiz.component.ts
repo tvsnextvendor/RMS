@@ -18,12 +18,12 @@ export class AddQuizComponent implements OnInit {
   @Input() videoId;
   @Input() videoList;
   @Input() selectCourseName;
+  @Input() quizDetails;
   @Output() valueChange = new EventEmitter();
   courseUpdate = false;
   videoDetails = [];
   // courseId;
   // videoId;
-  quizDetails = [];
   questionForm;
   weightage;
   questionOptions = [];
@@ -50,16 +50,16 @@ export class AddQuizComponent implements OnInit {
       { name: "True/False", value: "2" }
     ];
     this.quizQuestionsForm = [{
-      "QuestionId": 1,
-      "Question": "",
-      "QuestionType": "1",
-      "Options": [
-        { "Id": 1, "Value": "" },
-        { "Id": 2, "Value": "" },
-        { "id": 3, "Value": "" },
-        { "Id": 4, "Value": "" }
+      "questionId": 1,
+      "question": "",
+      "questionType": "1",
+      "options": [
+        { "id": 1, "value": "" },
+        { "id": 2, "value": "" },
+        { "id": 3, "value": "" },
+        { "id": 4, "value": "" }
       ],
-      "Weightage": '100'
+      "weightage": '100'
     }];
 
     this.courseOptions = [
@@ -83,31 +83,31 @@ export class AddQuizComponent implements OnInit {
     else {
       this.weightage = 100;
     }
-    this.headerService.setTitle({title: this.title, hidemodule: this.hidemodule});
   }
 
 
   editQuizDetails(){
-    this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
-      this.videoDetails = resp.QuizDetails;
-      let slectedQuizDetails = resp.QuizDetails.find(x => x.CourseId === this.courseId);
-      let selectedVideoList = slectedQuizDetails && slectedQuizDetails.Videos && slectedQuizDetails.Videos[0];
+    // this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
+      // this.videoDetails = resp.QuizDetails;
+      // let slectedQuizDetails = resp.QuizDetails.find(x => x.CourseId === this.courseId);
+      // let selectedVideoList = slectedQuizDetails && slectedQuizDetails.Videos && slectedQuizDetails.Videos[0];
+      let selectedVideoList = this.quizDetails;
       this.selectedVideo = this.videoId;
       this.selectedCourse = this.courseId;
-      this.quizQuestionsForm = selectedVideoList && selectedVideoList.QuestionsDetails ? selectedVideoList.QuestionsDetails : [{
-        "QuestionId": 1,
-        "Question": "",
-        "QuestionType": "1",
-        "Options": [
-          { "Id": 1, "Value": "" },
-          { "Id": 2, "Value": "" },
-          { "id": 3, "Value": "" },
-          { "Id": 4, "Value": "" }
+      this.quizQuestionsForm = selectedVideoList ? selectedVideoList : [{
+        "questionId": 1,
+        "qquestion": "",
+        "questionType": "1",
+        "options": [
+          { "id": 1, "value": "" },
+          { "id": 2, "value": "" },
+          { "id": 3, "value": "" },
+          { "id": 4, "value": "" }
         ],
-        "Weightage": '100'
+        "Wwightage": '100'
       }];
-      this.weightage = selectedVideoList && selectedVideoList.QuestionsDetails  ? (100 / selectedVideoList.QuestionsDetails.length).toFixed(2) : 100;
-    });
+      this.weightage = selectedVideoList && selectedVideoList  ? (100 / selectedVideoList.length).toFixed(2) : 100;
+    // });
   }
    // Select options toggle
   questionTypeUpdate(data, i) {
@@ -137,20 +137,20 @@ export class AddQuizComponent implements OnInit {
   // Add Question Box
   addQuestionForm() {
     let obj = {
-      "QuestionId": 1,
-      "Question": "",
-      "QuestionType": "1",
-      "Options": [
-        { "Id": 1, "Value": "" },
-        { "Id": 2, "Value": "" },
-        { "id": 3, "Value": "" },
-        { "Id": 4, "Value": "" }
+      "questionId": 1,
+      "question": "",
+      "questionType": "1",
+      "options": [
+        { "id": 1, "value": "" },
+        { "id": 2, "value": "" },
+        { "id": 3, "value": "" },
+        { "id": 4, "value": "" }
       ],
-      "Weightage": '100'
+      "weightage": '100'
     };
-    obj.QuestionId = this.quizQuestionsForm.length + 1;
+    obj.questionId = this.quizQuestionsForm.length + 1;
     this.quizQuestionsForm.push(obj);
-    obj.Weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+    obj.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
   }
 
   // Remove Question Box
@@ -167,7 +167,7 @@ export class AddQuizComponent implements OnInit {
   quizSubmit() {
     //Weightage update
     let data = this.quizQuestionsForm.map(item => {
-        item.Weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+        item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
         return item;
     })
     //final data for submission
@@ -180,9 +180,9 @@ export class AddQuizComponent implements OnInit {
       if(this.videoList.length){
         params.videoDetails = this.videoList.map(item=>{
           let obj = {
-            videoName : item.name,
+            videoName : item.videoName,
             description : item.description,
-            url : item.file
+            url : item.url
           }
           return obj;
         })

@@ -10,16 +10,36 @@ export class BatchVar{
         to         : 'To',
         batchName  : 'Batch Name',
         selectEmp  : 'Select Employee',
-        module     : 'Module'        
+        module     : 'Module',
+        mandatory  : 'Mandatory',
+        optional   : 'Optional',
+        percentage : 'Pass %'
     };
-
+    calLabels = {
+        next     : 'Next',
+        today    : 'Today',
+        previous : 'Previous',
+        month    : 'Month',
+        week     : 'Week',
+        day      : "Day"
+    };
     btns={
         clear  : 'CLEAR',
         create : 'CREATE',
         save   : 'SAVE'
-    }
+    };
+    mandatoryLabels = {
+         from       : 'From date is required.',
+         to         : 'To date is required.',
+         batchName  : 'Batch Name is required.',
+         selectEmp  : 'Employee is required.',
+         dateValidate : 'From date should be less than To Date'
+    };
      
     title = 'Add New Batch';
+    calendarTitle = 'Training Batch Calendar';
+    calendarView = 'Calendar View';
+    dategreater=false;
     employeeList: IMultiSelectOption[];
     moduleList;
     percentageList;

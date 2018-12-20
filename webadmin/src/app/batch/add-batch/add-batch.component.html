@@ -1,63 +1,84 @@
-<form #formDir="ngForm" (ngSubmit)="addBatch()">
+<form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
         <div class="pr-3 py-4">
         <div class="white-bg">
-          <div class="row py-4"> 
-             <div class="col-lg-6 col-md-6">
-                    <div class="row">  		
-                            <label class="col-lg-4">{{batchVar.labels.from}}</label>  		
-                            <div class="col-lg-5">
-                                    <input type="text" class="form-control" #dpFrom="bsDatepicker" autocomplete="off" name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom" [bsConfig]="{dateInputFormat: 'D MMMM YYYY '}">
-                            </div> 
-                            <span> <img src="assets/images/cal.png" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"></span>
+          <div class="row p-4"> 
+             <div class="col-md-6">
+                    <div class="row">  
+                            <label class="col-md-3 p-0 label-title">{{batchVar.labels.from}}</label>  		
+                            <div class="col-md-7 p-0">
+                              <span> <img src="assets/images/cal.png" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
+                                    <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off" name="batchFrom"  bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel" [bsConfig]="{dateInputFormat: 'D MMMM YYYY '}" required>
+                                    <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
+                                             {{batchVar.mandatoryLabels.from}} 
+                                   </span> 
+                                   <div *ngIf="batchVar.dategreater" class="required_color">
+                                        <span>{{batchVar.mandatoryLabels.dateValidate}} </span>
+                                  </div>  
+                                </span>
+                            </div>                         
                     </div>
                     <div class="row">  		
-                            <label class="col-lg-4" style="margin-top:10px">{{batchVar.labels.batchName}}</label>  		
-                            <div class="col-lg-5">
-                                    <input class="form-control" name="batchName" [(ngModel)]="batchVar.batchName" #BatchName="ngModel" type="text" placeholder="Enter Batch Name" required>
-                            </div> 
+                            <label class="col-md-3 p-0 label-title">{{batchVar.labels.batchName}}</label>  		
+                            <div class="col-md-7 p-0">
+                            <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName" #BatchName="ngModel" type="text" placeholder="Enter Batch Name" required>
+                            <span class="required_color" *ngIf="BatchName && BatchName.invalid && (formDir.submitted || BatchName.touched)">
+                                     {{batchVar.mandatoryLabels.batchName}}
+                            </span> 
+                        </div>  
                     </div>
                     <div class="row">  		
-                            <label class="col-lg-4" style="margin-top:10px">{{batchVar.labels.selectEmp}}</label>  		
-                            <div class="col-lg-5">
-                                    <ss-multiselect-dropdown class="form-control" [options]="batchVar.employeeList" name="employeeId" [(ngModel)]="batchVar.employeeId"></ss-multiselect-dropdown>
-     
+                            <label class="col-md-3 p-0 label-title">{{batchVar.labels.selectEmp}}</label>  		
+                            <div class="col-md-7 p-0">
+                                    <ss-multiselect-dropdown class="form-control employee-module" [options]="batchVar.employeeList" name="employeeId" [(ngModel)]="batchVar.employeeId" #employeeId="ngModel" required></ss-multiselect-dropdown>
+                                    <span class="required_color" *ngIf="employeeId && employeeId.invalid && (formDir.submitted && employeeId.touched)">
+                                              {{batchVar.mandatoryLabels.selectEmp}}
+                                    </span> 
+
                             </div> 
                     </div>
               </div>
               
-              <div class="col-lg-6 col-md-6">
+              <div class="col-md-6">
                   <div class="row">  		
-                      <label class="col-lg-3 label-title">{{batchVar.labels.to}}</label>  		
-                      <div class="col-lg-5">
-                            <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo" bsDatepicker [(ngModel)]="batchVar.batchTo" [bsConfig]="{dateInputFormat: 'D MMMM YYYY '}">
-                      </div> 
-                     <span> <img src="assets/images/cal.png" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"></span>
+                      <label class="col-md-2 p-0 label-title">{{batchVar.labels.to}}</label>  		
+                      <div class="col-md-8 p-0 batch-input">
+                        <span> <img src="assets/images/cal.png" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen" class="batch-icon">
+                            <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo" bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'D MMMM YYYY '}" required>
+                            <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
+                                       {{batchVar.mandatoryLabels.to}}
+                           </span> 
+                          </span>
+                      </div>                     
                   </div> 
                   <div class="row" *ngFor="let data of batchVar.moduleForm; let i = index">
-                        <label class="col-lg-3 label-title">{{batchVar.labels.module}}</label>  
-                        <div class="col-lg-3">
-                                <select id="moduleList" class="form-control" name="moduleId{{i}}" [(ngModel)]="data.moduleId">     
-                                        <option *ngFor="let batch of batchVar.moduleList"  value="{{batch.moduleId}}">{{batch.moduleName}}</option>
-                                 </select>
+                        <label class="col-md-2 p-0 label-title">{{batchVar.labels.module}}</label>                       
+                      <div class="col-md-8 p-0">
+                         <div class="row"> 
+                        <div class="col-md-5 pl-0">
+                                 <select id="moduleList" class="form-control form-group" name="moduleId{{i}}" [(ngModel)]="data.moduleId" #moduleId="ngModel">     
+                                                <option *ngFor="let batch of batchVar.moduleList"  value="{{batch.moduleId}}">{{batch.moduleName}}</option>
+                                         </select>
                                    
-                                 <select id="percentageList" class="form-control" name="passpercentage{{i}}" [(ngModel)]="data.passpercentage">  
-                                        <option value="null">Pass %</option>   
+                                 <select id="percentageList" class="form-control form-group" name="passpercentage{{i}}" [(ngModel)]="data.passpercentage">  
+                                        <option value="null">{{batchVar.labels.percentage}}</option>   
                                         <option *ngFor="let percentage of batchVar.percentageList"  value="{{percentage.percentage}}">{{percentage.percentage}}</option>
-                                 </select>
+                                 </select> 
                         </div>	
-                        <div class="col-lg-2">
-                                        <input class="" type="radio" name="mandatory{{i}}" value="true" [(ngModel)]="data.mandatory">Mandatory
-                                        <input class="" type="radio" name="mandatory{{i}}" value="false" [(ngModel)]="data.mandatory">Optional
-                        </div>
-                        <div class="col-lg-2">
-                        <span><a class="col-md-1 pl-0" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-course-icon"></i></a></span>
-                        <span><a class="col-md-1 pl-0" *ngIf="i!=0" (click)="removeForm(i)"><i class = "fa fa-times icons_header"></i></a></span>
-                        </div>
+                        <div class="col-md-5 module-radiobtn">
+                                        <label class="module-title"><input class="mr-2 module-btn-alg" type="radio" name="mandatory{{i}}" value="true" [(ngModel)]="data.mandatory"><label class="">{{batchVar.labels.mandatory}}</label></label>
+                                        <label class="module-title"><input class="mr-2 module-btn-alg" type="radio" name="mandatory{{i}}" value="false" [(ngModel)]="data.mandatory"><label class="">{{batchVar.labels.optional}}</label></label>
+                        </div>                        
                   </div>
+                </div>
+                <div class="col-md-2">
+                        <span><a class="col-md-1 pl-0" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span>
+                        <span><a class="col-md-1 pl-0" *ngIf="i!=0" (click)="removeForm(i)"><i class = "fa fa-times icons_header add-batch-icon"></i></a></span>
+                        </div>
+                </div>
               </div>
-              <div class="text-center">
-                        <button type="button" class="btn btn-default creat-btn" (click)="clearBatchForm()">{{batchVar.btns.clear}}</button>        
-                        <button type="submit" class="btn btn-primary mr-4">{{batchVar.btns.create}}</button>
+              <div class="text-center col-md-12 p-4">
+                        <button type="button" class="btn btn-default creat-btn mr-4" (click)="clearBatchForm()">{{batchVar.btns.clear}}</button>        
+                        <button type="submit" class="btn btn-primary module-createbtn">{{batchVar.btns.create}}</button>
               </div>
 
               </div>

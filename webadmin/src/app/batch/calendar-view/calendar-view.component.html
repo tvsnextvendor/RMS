@@ -1,0 +1,74 @@
+<p>{{batchVar.calendarView}}</p>
+<div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          {{batchVar.calLabels.previous}}
+        </div>
+        <div
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate">
+          {{batchVar.calLabels.today}}
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          {{batchVar.calLabels.next}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          (click)="view = CalendarView.Month"
+          [class.active]="view === CalendarView.Month">
+          {{batchVar.calLabels.month}}
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="view = CalendarView.Week"
+          [class.active]="view === CalendarView.Week">
+          {{batchVar.calLabels.week}}
+        </div>
+        <div
+          class="btn btn-primary"
+          (click)="view = CalendarView.Day"
+          [class.active]="view === CalendarView.Day">
+          {{batchVar.calLabels.day}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [refresh]="refresh"
+      (dayClicked)="goToBatch($event.day.date)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [refresh]="refresh">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [refresh]="refresh">
+    </mwl-calendar-day-view>
+  </div>
+  

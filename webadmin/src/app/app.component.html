@@ -3,7 +3,7 @@
     <div id="" [ngClass] = "!authGuard.showSidebar ? 'login_page' : 'page-content-wrapper'">
             <app-header *ngIf="authGuard.showHeader"></app-header>
             <router-outlet> 
-         <!--    <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
+                <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
             </router-outlet>
     </div>
 </div>

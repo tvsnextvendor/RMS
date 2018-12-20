@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import {DatePipe} from '@angular/common';
 import {HeaderService} from '../../services/header.service';
 import {Router} from '@angular/router';
 import {ToastrService } from 'ngx-toastr';
@@ -6,6 +7,7 @@ import {BatchVar} from '../../Constants/batch.var';
 import { HttpService } from 'src/app/services/http.service';
 import { API_URL } from '../../Constants/api_url';
 import {IMultiSelectSettings} from 'angular-2-dropdown-multiselect';
+
 
 @Component({
     selector: 'app-add-batch',
@@ -15,15 +17,16 @@ import {IMultiSelectSettings} from 'angular-2-dropdown-multiselect';
 
 export class AddBatchComponent implements OnInit {
 
-   constructor(private headerService:HeaderService,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
+   constructor(private headerService:HeaderService,private datepipe:DatePipe,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
        this.batchVar.url = API_URL.URLS;
+
    }
 
    ngOnInit(){
-    this.headerService.setTitle({title:this.batchVar.title, hidemodule:false});
+     this.headerService.setTitle({title:this.batchVar.title, hidemodule:false});
 
-    //get Employee list
-    this.http.get(this.batchVar.url.getEmployeeList).subscribe((resp) => {
+     //get Employee list
+      this.http.get(this.batchVar.url.getEmployeeList).subscribe((resp) => {
         this.batchVar.employeeList = resp.employeeList;
       });
      
@@ -37,6 +40,10 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.percentageList= data.passPercentage;
       });
 
+      let startDate=localStorage.getItem('BatchStartDate');
+      this.batchVar.batchFrom=this.datepipe.transform( startDate , 'dd MMM yyyy')
+  
+
    }
 
     // Settings configuration
@@ -49,15 +56,24 @@ export class AddBatchComponent implements OnInit {
     };
 
    
-   addBatch(){
-       let postData={
+   addBatch(form){
+      if(Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo)){
+        this.batchVar.dategreater= true;
+      }else{
+        this.batchVar.dategreater=false;
+        if(form.valid){
+          let postData={
            FromDate : this.batchVar.batchFrom,
            ToDate   : this.batchVar.batchTo,
            EmployeeIds : this.batchVar.employeeId,
            BatchName : this.batchVar.batchName,
            ModuleDetails : this.batchVar.moduleForm
-       }
-       console.log(postData)
+         }
+         this.toastr.success('Batch Added Successfully');
+         this.router.navigateByUrl('/calendar');
+         this.clearBatchForm();
+        }
+      }  
    }
 
    clearBatchForm(){
@@ -66,6 +82,10 @@ export class AddBatchComponent implements OnInit {
         passpercentage:"null",
         mandatory :"true",
      }];
+     this.batchVar.batchFrom = '';
+     this.batchVar.batchTo = '';
+     this.batchVar.employeeId ='';
+     this.batchVar.batchName = '';
    }
 
    addForm(){

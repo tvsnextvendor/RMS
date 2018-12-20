@@ -1,4 +1,4 @@
-<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <h6>{{forumVar.createForum.createForum}}</h6>
 <div>
     <form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)">
@@ -13,9 +13,9 @@
             <label>{{forumVar.createForum.topics}}</label>
             <span class="float-right"><a><i class="fa fa-plus icons_header add-course-icon" (click)=addTopic()></i></a>
             </span>
-            <div *ngFor="let topic of topicsArray; let i = index" class="form-group">
-            <input type="text" class="form-control" [(ngModel)]="topic.topicName" #Topics="ngModel" name = "topics{{i}}" id="topics" placeholder="Add Topic" required> 
-            <span *ngIf="i!=0" class="close-icon"><a><img src="assets/images/close.png" class="close-img" (click)="removeTopic(i)"></a></span>
+            <div *ngFor="let topic of topicsArray; let i = index" class="form-group close-icon">
+                <span *ngIf="i!=0"><img src="assets/images/close.png" class="close-img" (click)="removeTopic(i)"></span>
+            <input type="text" class="form-control" [(ngModel)]="topic.topicName" #Topics="ngModel" name = "topics{{i}}" id="topics" placeholder="Add Topic" required>             
             <span class="required_color" *ngIf="Topics && Topics.invalid && (formDir.submitted || Topics.touched)">
                     {{forumVar.mandatoryLabels.topic}}
             </span>  

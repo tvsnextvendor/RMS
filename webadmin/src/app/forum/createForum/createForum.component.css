@@ -3,6 +3,7 @@
 }
 .close-img{
 	position: absolute;
-	bottom: 5px;
-	left: 250px;
+    cursor: pointer;
+    right: 0;
+    top: 7px;
 }

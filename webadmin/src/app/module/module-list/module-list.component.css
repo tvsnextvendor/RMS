@@ -64,12 +64,12 @@ input:checked + .slider:before {
   font-size: 16px;
   font-weight: 600;
 }
-.module-play-icon{
-  font-size: 25px;
-  position: relative;
-  top: 4px;
-}
 .player-list{
   color: #1D4960;
     padding-top: 12px;
+}
+.module-img{
+  width: 30px !important;
+    margin: 0 5px 0 12px;
+    display: inline-block !important;
 }

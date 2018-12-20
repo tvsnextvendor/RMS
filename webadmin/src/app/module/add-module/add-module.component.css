@@ -77,3 +77,12 @@ background-color: #C1E1F3;
     opacity: 0;
     filter: alpha(opacity=0);
 }
+.addedcourse-scroll{
+    height: 140px;
+    overflow-y: scroll;
+}
+.decs-overflow{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
