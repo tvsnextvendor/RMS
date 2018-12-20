@@ -25,7 +25,7 @@ export class AuthProvider {
           let usernameCorrect = this.users.find(x => x.username === name);
           let passwordCorrect = this.users.find(x => x.password === pw);
           if (!usernameCorrect) {
-            self.toastr.error('Username is invalid');
+            self.toastr.error('Email ID is invalid');
             reject(false);
           } else if (!passwordCorrect) {
             self.toastr.error('Password is invalid');

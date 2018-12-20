@@ -36,7 +36,7 @@ export class Constant {
             signIn: 'SIGN IN',
             signInSmall: 'Sign In',
             keepmeLoggedIn: 'Keep me logged in',
-            forgetYourPassword: 'Forget Your password',
+            forgetYourPassword: 'Forget your password',
             needAnAccount: 'Need an account?',
             signUp: 'Sign Up'
         },

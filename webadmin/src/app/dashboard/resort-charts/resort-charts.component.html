@@ -14,8 +14,8 @@
       </div>
       <div class="clearfix">
         <p class="p-color">{{dashboardVar.employeeTabText.notification}} <b class="click-color">{{dashboardVar.btns.editTasks}}</b></p>
-        <button class="btn_alg">{{dashboardVar.btns.quickTasks}}</button>
-        <button class="btn_alg">{{dashboardVar.btns.openCalendar}}</button>
+        <button class="btn_alg" (click)="addQuickTasks()">{{dashboardVar.btns.quickTasks}}</button>
+        <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button>
       </div>
       </div>
     </div>

@@ -5,10 +5,13 @@
 			<div class="row form-group">
 				<label class="col-md-2 pr-0 label-title">{{labels.moduleName}}</label>
 				<span class="col-md-10 pl-0">
-					<input type="text" class="form-control" placeholder="Enter Module Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" required>
+					<input type="text" class="form-control" placeholder="Enter Module Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (change)="checkValidation()" required>
 				</span>
 				<span class="required_color" *ngIf="module && module.invalid && (moduleForm.submitted || module.touched)">
 					{{labels.moduleName}}{{labels.isRequire}}
+				</span>
+				<span class="required_color" *ngIf="moduleVar.moduleNameCheck">
+					{{labels.moduleNameValidation}}
 				</span>
 			</div>
 			<div class="row form-group">
@@ -29,15 +32,18 @@
 	<div class="col-md-4 p-0">
 		<div class="white-bg pl-4 py-4">
 			<h5 class="mb-4">{{labels.coursesAdded}}</h5>
-			<div class="addedcourse-scroll">
-			<div *ngFor="let course of selectedCourses,index as i">
-				<p>{{course.value}}<span class="float-right">
-						<a (click)= "updateCourse(course,i)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
-						<!-- <a (click)= "onItemDeselect(course)"><i class="fa fa-times icons_header" aria-hidden="true"></i></a> -->
-					</span>
-				</p>
+			<div *ngIf = "selectedCourses.length" class="addedcourse-scroll">
+				<div *ngFor="let course of selectedCourses,index as i">
+					<p>{{course.value}}<span class="float-right">
+							<a (click)= "updateCourse(course,i)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
+							<!-- <a (click)= "onItemDeselect(course)"><i class="fa fa-times icons_header" aria-hidden="true"></i></a> -->
+						</span>
+					</p>
+				</div>
 			</div>
-		</div>
+			<div class="ta-cen" *ngIf = "selectedCourses.length === 0">
+				<label class="label-title">{{labels.noData}}</label>
+			</div>
 		</div>
 	</div>
 </div>

@@ -7,7 +7,9 @@
 
 
 
-
+.table-desc-color{
+	color: #73737B;
+}
 button:focus {
   outline: none;
   outline: none;
@@ -30,7 +32,8 @@ button:focus {
     border-top: none;
     border-right: none;
     border-left: none;
-    color: #495057;
+    color: #73737B;
+    border-radius: 0;
 }
 .btn-primary{
 background-color: #468FB9;
@@ -363,6 +366,7 @@ li.search-block {
   padding: 5px 15px 5px 15px;
   border: 0px solid #468FB9;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .num-alg{
@@ -403,6 +407,7 @@ li.search-block {
     border-left: none;
 }
 .pdl60{padding-left: 60px;}
+.pdl68{padding-left: 68px !important;}
 .pdr7{padding-right: 7px;}
 .avg-alg{
 	color: #999999;
@@ -764,7 +769,7 @@ a {
 .multi-input tag {
     border: 1px solid #EAEAEA;
     background-color: #EAEAEA !important;
-    height: 24px !important;
+    height: 23px !important;
     min-width: 0 !important;
     padding: 0 0 0 6px !important;
     line-height: unset !important;

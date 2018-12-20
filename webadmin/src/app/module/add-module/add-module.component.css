@@ -86,3 +86,6 @@ background-color: #C1E1F3;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.ta-cen{
+    text-align: center;
+}

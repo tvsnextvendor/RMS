@@ -16,10 +16,11 @@ export class EmployeeChartsComponent implements OnInit {
 
      donutChartData = [];
      donutEnable = false;
+     todayDate;
      
      constructor(private dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
       this.dashboardVar.url=API_URL.URLS;
-   }
+    }
 
   ngOnInit() {
     this.http.get(this.dashboardVar.url.getCourses).subscribe((data) => {
@@ -31,7 +32,8 @@ export class EmployeeChartsComponent implements OnInit {
     });  
    //get Year List
     this.http.get(this.dashboardVar.url.getYearList).subscribe((data) => {
-        this.dashboardVar.yearList = data.Years;
+       // this.dashboardVar.yearList = data.Years;
+       this.dashboardVar.yearList = [2018];
     })
     //get Course Trend list   
     this.http.get(this.dashboardVar.url.getCourseTrendChart).subscribe((data) => {
@@ -547,5 +549,10 @@ topEmployees() {
         }
         );
     });
+  }
+  addQuickTasks(){
+    this.todayDate = new Date();
+    localStorage.setItem('BatchStartDate',this.todayDate);
+    this.route.navigateByUrl('/addBatch');
   }
 }

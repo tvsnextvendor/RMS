@@ -40,6 +40,7 @@ export class BatchVar{
     calendarTitle = 'Training Batch Calendar';
     calendarView = 'Calendar View';
     dategreater=false;
+    empValidate=false;
     employeeList: IMultiSelectOption[];
     moduleList;
     percentageList;

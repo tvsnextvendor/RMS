@@ -47,16 +47,19 @@ export class AddBatchComponent implements OnInit {
    }
 
     // Settings configuration
-    mySettings: IMultiSelectSettings = {
-        enableSearch: true,
-        checkedStyle: 'fontawesome',
-        buttonClasses: 'btn btn-default btn-block',
-        dynamicTitleMaxItems: 5,
-        displayAllSelectedText: true
+    mySettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      enableCheckAll : false,
+      itemsShowLimit: 8,
     };
 
    
    addBatch(form){
+     if(!this.batchVar.employeeId){
+       this.batchVar.empValidate = true;
+     }
       if(Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo)){
         this.batchVar.dategreater= true;
       }else{

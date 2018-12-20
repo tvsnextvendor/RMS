@@ -19,13 +19,24 @@ export class CreateForumComponent implements OnInit {
       topicName:''
     }];
     topics;
-
+   
    constructor(private toastr:ToastrService,private forumVar:ForumVar,private http: HttpService){
     this.forumVar.url = API_URL.URLS;
    }
 
    ngOnInit(){
     this.getEmployeeList();
+    this.getForumList();
+    
+   }
+
+   getForumList(){
+      this.http.get(this.forumVar.url.getForumList).subscribe((data) => {
+      this.forumVar.forumList= data.forumDetails;
+      this.forumVar.forumNameList=this.forumVar.forumList.map(item=>{
+        return item.forumName;
+      });
+     });   
    }
 
    getEmployeeList(){
@@ -48,20 +59,33 @@ export class CreateForumComponent implements OnInit {
       this.topicsArray.splice(i, 1);   
     }
 
+    checkNameUniqueness(forumName){
+      for (let i = 0; i <  this.forumVar.forumNameList.length; i++) {    
+        if(this.forumVar.forumNameList[i].toUpperCase()===forumName.toUpperCase()){
+          this.forumVar.uniqueValidate=true;
+          break;
+        }else{
+          this.forumVar.uniqueValidate=false;
+        }
+      }
+    }
+
     onSubmitForm(form){
       if(this.topicsArray){
         this.topics = this.topicsArray.map(item=>{
            return item.topicName;
         });
       }
-      if(form.valid){
-          let postData={
-             forumName : form.value.forumName,
-             employeeList : form.value.empItems,
-             topic   : this.topics
-          };        
+
+      if(form.valid && !this.forumVar.uniqueValidate ){
+        let postData={
+          forumName : form.value.forumName,
+          employeeList : form.value.empItems,
+          topic   : this.topics
+        }; 
           this.toastr.success(this.forumVar.addSuccessMsg);
           this.clearForm();
+          this.forumVar.uniqueValidate=false;
       }
     }
 

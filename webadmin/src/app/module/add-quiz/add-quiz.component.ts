@@ -62,18 +62,18 @@ export class AddQuizComponent implements OnInit {
       "weightage": '100'
     }];
 
-    this.courseOptions = [
-      { name: "Uniform and Appearance Policy", value: "1" },
-      { name: "Park Smart Safety", value: "2" },
-      { name: "Basic Rails", value: "3" },
-      { name: "Welcome to 2018/19", value: "4" }
-    ];
-    this.videoOptions = [
-      { name: "Video name 1", value: "1" },
-      { name: "Video name 2", value: "2" },
-      { name: "Video name 3", value: "3" },
-      { name: "Video name 4", value: "4" }
-    ];
+    // this.courseOptions = [
+    //   { name: "Uniform and Appearance Policy", value: "1" },
+    //   { name: "Park Smart Safety", value: "2" },
+    //   { name: "Basic Rails", value: "3" },
+    //   { name: "Welcome to 2018/19", value: "4" }
+    // ];
+    // this.videoOptions = [
+    //   { name: "Video name 1", value: "1" },
+    //   { name: "Video name 2", value: "2" },
+    //   { name: "Video name 3", value: "3" },
+    //   { name: "Video name 4", value: "4" }
+    // ];
 
 
     if (this.courseId) {
@@ -114,8 +114,8 @@ export class AddQuizComponent implements OnInit {
     let quiz = this.quizQuestionsForm;
     quiz[i].QuestionType = data;
     if (data === "1") {
-      quiz[i].Option = '';
-      quiz[i].Options = [
+      quiz[i].option = '';
+      quiz[i].options = [
         { "Id": 1, "Value": "" },
         { "Id": 2, "Value": "" },
         { "id": 3, "Value": "" },
@@ -123,8 +123,8 @@ export class AddQuizComponent implements OnInit {
       ];
     }
     else {
-      quiz[i].Options = [];
-      quiz[i].Option = "True/False"
+      quiz[i].options = [];
+      quiz[i].option = "True/False"
     }
   }
 

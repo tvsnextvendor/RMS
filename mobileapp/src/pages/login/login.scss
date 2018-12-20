@@ -55,6 +55,7 @@ ion-input.input {
 .item-block .item-inner {
 
     border-bottom: none !important;
+    box-shadow: none !important;
 }
 .keep-login ion-label,.frget-pwd a,.new-account {
     font-size: 13px;
@@ -92,5 +93,9 @@ button:focus {
 }
 .button-md:hover:not(.disable-hover) {
     background-color: #fff;
+}
+.list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child {
+
+    box-shadow: none !important;
 }
 }

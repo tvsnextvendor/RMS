@@ -17,43 +17,43 @@
       <div class="table-responsive custom-table2 px-1">
         <table class="table table-striped white-bg mt-1" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5" id="contentToConvert">
             <thead>
-            <tr class="text-center th-boxshadow">
-                <th>
-                    <mfDefaultSorter by="employeeName">{{labels.tableTitle.employeeName}}</mfDefaultSorter>
+            <tr class="th-boxshadow">
+                <th class="pl-4 employeestatus-width">
+                    <mfDefaultSorter by="employeeName">{{labels.tableTitle.employeeName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                 </th>
-                <th>
+                <th class="text-center">
                     <mfDefaultSorter by="employeeGroup">{{labels.tableTitle.employeeGroup}}</mfDefaultSorter>
                 </th>
-                <th>
+                <th class="text-center">
                     <mfDefaultSorter by="assignedCount">{{labels.tableTitle.assignedCount}}</mfDefaultSorter>
                 </th>
-                <th>
+                <th class="text-center">
                     <mfDefaultSorter by="inProgressCount">{{labels.tableTitle.inProgressCount}}</mfDefaultSorter>
                 </th>
-                <th>
+                <th class="text-center">
                     <mfDefaultSorter by="completedCount">{{labels.tableTitle.completedCount}}</mfDefaultSorter>
                 </th>
-                <th>
+                <th class="text-center">
                         <mfDefaultSorter by="failedCount">{{labels.tableTitle.failedCount}}</mfDefaultSorter>
                     </th>
                 <!-- <th>
                     <mfDefaultSorter by="ratings">{{labels.tableTitle.ratings}}</mfDefaultSorter>
                 </th> -->
-                <th>
+                <th class="text-center">
                     <mfDefaultSorter by="total">{{labels.tableTitle.total}}</mfDefaultSorter>
                 </th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let emp of mf.data" class="text-center">
-                <td>{{ emp.employeeName }}</td>
-                <td>{{ emp.employeeGroup }}</td>
-                <td>{{ emp.assignedCount }}</td>
-                <td>{{ emp.inProgressCount }}</td>
-                <td>{{ emp.completedCount }}</td>
-                <td>{{ emp.failedCount }}</td>
+            <tr *ngFor="let emp of mf.data" class="table-desc-color">
+                <td class="pl-4 employeeName-width">{{ emp.employeeName }}</td>
+                <td class="text-center">{{ emp.employeeGroup }}</td>
+                <td class="text-center">{{ emp.assignedCount }}</td>
+                <td class="text-center">{{ emp.inProgressCount }}</td>
+                <td class="text-center">{{ emp.completedCount }}</td>
+                <td class="text-center">{{ emp.failedCount }}</td>
                 <!-- <td>{{ emp.ratings }}</td> -->
-                <td><a href="javaScript:void" (click)="goToEmpDetails()">{{ emp.total }}</a></td>
+                <td class="text-center"><a href="javaScript:void" (click)="goToEmpDetails()">{{ emp.total }}</a></td>
             </tr>
             <tr *ngIf="mf.data?.length == 0">
                 <td colspan="5" class="text-center data-design">{{labels.noData}}</td>

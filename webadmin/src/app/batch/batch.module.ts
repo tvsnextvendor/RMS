@@ -9,7 +9,9 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AddBatchComponent} from './add-batch/add-batch.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
-import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+// import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 
 const routes: Routes = [
     { path: 'calendar', component:CalendarViewComponent ,canActivate : [AuthGuard]},
@@ -22,7 +24,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgHttpLoaderModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    MultiselectDropdownModule,
+    // MultiselectDropdownModule,
+    NgMultiSelectDropDownModule.forRoot(),
     FormsModule,
     CalendarModule.forRoot({
         provide: DateAdapter,

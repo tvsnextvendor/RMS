@@ -5,6 +5,7 @@ declare var require: any;
 const Highcharts = require('highcharts');
 import Chart from 'chart.js';
 import { API_URL } from 'src/app/Constants/api_url';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-resort-charts',
@@ -16,8 +17,9 @@ export class ResortChartsComponent implements OnInit {
     donutEnable = false;
     Badges = [];
     BadgesCertificate = [];
+    todayDate;
 
-  constructor(private dashboardVar: DashboardVar, private http: HttpService) {
+  constructor(private dashboardVar: DashboardVar, private http: HttpService,private route:Router) {
     this.dashboardVar.url=API_URL.URLS;
    }
 
@@ -432,5 +434,10 @@ reservationByResort() {
         );
     });
 }
+addQuickTasks(){
+    this.todayDate = new Date();
+    localStorage.setItem('BatchStartDate',this.todayDate);
+    this.route.navigateByUrl('/addBatch');
+  }
 
 }

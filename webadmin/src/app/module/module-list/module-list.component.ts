@@ -52,7 +52,7 @@ export class ModuleListComponent implements OnInit {
 
   //To change Activate/Deactive module status.
   statusUpdate(moduleName,status){
-    let statusName = status ? " is Activated" : " is Deativated"
+    let statusName = status ? this.moduleVar.labels.activeMsg : this.moduleVar.labels.deactiveMsg;
     this.toastr.success(moduleName + statusName);
   }
 

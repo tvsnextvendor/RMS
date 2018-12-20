@@ -1,4 +1,4 @@
-<ion-header class="my-component" >
+<ion-header class="my-component">
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -9,42 +9,35 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">
+  <div class="certificate-block">
   <h3>{{constant.pages.accomplishmentLabels.certificates}}</h3>
-  <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="9000">
-    <div class="carousel-inner row w-100 mx-auto" role="listbox">
-      <div class="carousel-item col-md-3" *ngFor="let item of certificateList;let i=index;" [ngClass]="(i === 0) ? 'active' : ''">
-        <img class="img-fluid mx-auto d-block" src="{{item.certificateImage}}" alt="slide 1" (click)="openModal(certificatetemplate,item)">
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-      <i class="fa fa-chevron-left fa-lg text-muted"></i>
-      <span class="sr-only">{{constant.buttons.previous}}</span>
-      <ion-icon name="arrow-dropleft-circle" class="arrow-dropleft-icon"></ion-icon>
-    </a>
-    <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
-      <i class="fa fa-chevron-right fa-lg text-muted"></i>
-      <span class="sr-only">{{constant.buttons.next}}</span>
-      <ion-icon name="arrow-dropright-circle" class="arrow-dropright-icon"></ion-icon>
-    </a>
+  <ion-slides #sliderOne [pager]="true" [slidesPerView]="2" class="certificate-slide" spaceBetween="1"
+    (ionSlideDidChange)="onSlideCertChanged()">
+    <ion-slide *ngFor="let item of certificateList;let i=index;" class="cert-indv-slide">
+      <img class="certificate-image" src="{{item.certificateImage}}" alt="Certificate Image" (click)="openModal(certificatetemplate,item)">
+    </ion-slide>
+  </ion-slides>
+  <span class="slider-btns">
+    <ion-icon name="ios-arrow-back" class="ios-arrow-back-icon" (click)="sliderOne.slidePrev()" *ngIf="leftButton"></ion-icon>
+    <ion-icon name="ios-arrow-back" class="ios-arrow-back-icon disabledSliderIcon" *ngIf="!leftButton"></ion-icon>
+    <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon" (click)="sliderOne.slideNext()" *ngIf="rightButton"></ion-icon>
+    <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon disabledSliderIcon" *ngIf="!rightButton"></ion-icon>
+  </span>
   </div>
+   <div class="badge-block">
   <h3>{{constant.pages.accomplishmentLabels.badges}}</h3>
-  <div id="badgecarouselExample" class="carousel slide" data-ride="carousel" data-interval="9000">
-    <div class="carousel-inner row w-100 mx-auto" role="listbox">
-      <div class="carousel-item col-md-3" *ngFor="let item of badgeList;let i=index;" [ngClass]="(i === 0) ? 'active' : ''">
-        <img class="img-fluid mx-auto d-block" src="{{item.badgeImage}}" alt="slide 1" (click)="openBadgeModal(badgetemplate,item)">
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#badgecarouselExample" role="button" data-slide="prev">
-      <i class="fa fa-chevron-left fa-lg text-muted"></i>
-      <span class="sr-only">{{constant.buttons.previous}}</span>
-      <ion-icon name="arrow-dropleft-circle" class="arrow-dropleft-icon"></ion-icon>
-    </a>
-    <a class="carousel-control-next text-faded" href="#badgecarouselExample" role="button" data-slide="next">
-      <i class="fa fa-chevron-right fa-lg text-muted"></i>
-      <span class="sr-only">{{constant.buttons.next}}</span>
-      <ion-icon name="arrow-dropright-circle" class="arrow-dropright-icon"></ion-icon>
-    </a>
-  </div>
+  <ion-slides #sliderTwo [pager]="true" [slidesPerView]="2" class="badge-slide" spaceBetween="1" (ionSlideDidChange)="onSlideBadgeChanged()">
+    <ion-slide *ngFor="let item of badgeList;let i=index;" class="badge-indv-slide">
+      <img class="badge-image" src="{{item.badgeImage}}" alt="Badge Image" (click)="openModal(badgetemplate,item)">
+    </ion-slide>
+  </ion-slides>
+  <span class="slider-btns">
+    <ion-icon name="ios-arrow-back" class="ios-arrow-back-icon" (click)="sliderTwo.slidePrev()" *ngIf="badgeLftBtn"></ion-icon>
+    <ion-icon name="ios-arrow-back" class="ios-arrow-back-icon disabledSliderIcon" *ngIf="!badgeLftBtn"></ion-icon>
+    <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon" (click)="sliderTwo.slideNext()" *ngIf="badgeRigBtn"></ion-icon>
+    <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon disabledSliderIcon" *ngIf="!badgeRigBtn"></ion-icon>
+  </span>
+</div>
   <ng-template #badgetemplate>
     <div class="modal-body">
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -63,7 +56,8 @@
         <h6>{{certificateDetail.moduleName}}</h6>
         <p>{{constant.pages.accomplishmentLabels.gradeAchieved}} {{certificateDetail.score}}%</p>
         <p>{{constant.pages.accomplishmentLabels.completedBy}} {{certificateDetail.certifiedTo}}</p>
-        <p>{{constant.pages.accomplishmentLabels.at}} {{certificateDetail.certifiedOn | date:'EEEE ,LLLL M,yyyy h:mm a'}}</p>
+        <p>{{constant.pages.accomplishmentLabels.at}} {{certificateDetail.certifiedOn | date:'EEEE ,LLLL M,yyyy h:mm
+          a'}}</p>
         <input class="form-control" name="certicateLink" disabled value="{{certificateDetail.certificateImage}}">
       </div>
     </div>

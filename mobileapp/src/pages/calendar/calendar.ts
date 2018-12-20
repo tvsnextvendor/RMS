@@ -38,7 +38,6 @@ export class CalendarPage {
         (err) => { console.log(err); }
     );
   }
-
 //   addEvent(){
 //     return this.calendar.createEventInteractively("event title");
 //    }
@@ -57,17 +56,15 @@ export class CalendarPage {
 //     }
 //     })     
 //   }
-
   addEvent(cal) {
     let date = new Date();
     let options = { calendarId: cal.id, calendarName: cal.name, url: 'https://ionicacademy.com', firstReminderMinutes: 15 };
- 
+
     this.calendar.createEventInteractivelyWithOptions('My new Event', 'Münster', 'Special Notes', date, date, options).then(res => {
     }, err => {
       console.log('err: ', err);
     });
   }
- 
   openCal(cal) {
     this.navCtrl.push('CalDetailsPage', { name: cal.name })
   }

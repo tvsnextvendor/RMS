@@ -84,6 +84,7 @@ page-forum-detail{
     background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
 }
+
 }
 .modal-dialog {
     width: auto;
@@ -92,4 +93,11 @@ page-forum-detail{
     justify-content: center;
     vertical-align: middle;
     min-height: 95%;
+}
+.modal-content {
+    max-width: 270px;
+}
+textarea.text-input {
+    display: block;
+    resize: none !important;
 }

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform,App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppVersion } from '@ionic-native/app-version';
@@ -19,11 +19,42 @@ export class MyApp {
   currentUser;
   windowWidth;
   profilePage = { title: 'Profile', component: ProfilePage };
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, private appVersion: AppVersion, public storage: Storage, public constant: Constant) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, private appVersion: AppVersion, public storage: Storage, public constant: Constant,public app: App) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+    platform.registerBackButtonAction(() => {
+      // Catches the active view
+      let nav = this.app.getActiveNavs()[0];
+      let activeView = nav.getActive();                
+      // Checks if can go back before show up the alert
+      if(activeView.name === 'HomePage') {
+          if (nav.canGoBack()){
+              nav.pop();
+          } else {
+              // const alert = this.alertCtrl.create({
+              //     title: 'Fechar o App',
+              //     message: 'Você tem certeza?',
+              //     buttons: [{
+              //         text: 'Cancelar',
+              //         role: 'cancel',
+              //         handler: () => {
+              //           this.nav.setRoot('HomePage');
+              //           console.log('** Saída do App Cancelada! **');
+              //         }
+              //     },{
+              //         text: 'Fechar o App',
+              //         handler: () => {
+              //           this.logout();
+              //           this.platform.exitApp();
+              //         }
+              //     }]
+              // });                                                                                                                      
+              // alert.present();
+          }
+      }
+  });
     this.pages = [
       { title: 'Dashboard', component: HomePage },
       { title: 'Training', component: TrainingPage },

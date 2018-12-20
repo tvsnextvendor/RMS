@@ -34,7 +34,11 @@ export class ModuleVar {
         "courseNameError" : "Course name is mandatory",
         "videoError" : "Minimum one video data required",
         "moduleCreateMsg" : "Module Created Successfully",
-        "moduleCreateError" : "Unable to create module"
+        "moduleCreateError" : "Unable to create module",
+        "noData" : "No Data Found !!",
+        "activeMsg"   : ' is Activated',
+        "deactiveMsg" : ' is Deativated',
+        "moduleNameValidation": "Module Name already taken"
     };
     courseList = [];
     courseItems = [];
@@ -58,6 +62,7 @@ export class ModuleVar {
     hidemodule;
     api_url;
     uploadFile ;
-    videoIndex = false;
+    videoIndex = 0;
     fileUrl;
+    moduleNameCheck = false;
 }

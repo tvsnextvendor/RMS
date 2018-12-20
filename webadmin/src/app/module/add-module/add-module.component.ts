@@ -25,7 +25,7 @@ export class AddModuleComponent implements OnInit {
     uploadFile;
     fileUrl;
     labels;
-    selectedCourseIds:any;
+    // selectedCourseIds:any;
 
    constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,private moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute){
         this.activatedRoute.params.subscribe((params: Params) => {
@@ -57,28 +57,28 @@ export class AddModuleComponent implements OnInit {
         this.http.get(this.moduleVar.api_url.getCoursesList).subscribe((resp) => {
             this.moduleVar.courseList = resp.courseDetails;
         })
-        if(this.moduleId){
-            this.http.get(this.moduleVar.api_url.getModuleDetails).subscribe((data) => {
-                this.moduleVar.moduleList = data.moduleList;
-                this.moduleVar.moduleObj = this.moduleVar.moduleList.find(x=>x.moduleId === parseInt(this.moduleId));
-                this.moduleName = this.moduleVar.moduleObj.moduleName;
-                let dropdownLIst =  this.moduleVar.moduleObj.courseList.map(item=>{
-                    let obj = {
-                        id:item.courseId,
-                        value : item.courseName
-                    }
-                    return obj;
-                });
-                // this.courseList =dropdownLIst;
-                this.selectedCourses = dropdownLIst;
-                this.selectedCourseIds = dropdownLIst.map(item=>{return item.id})
+        this.http.get(this.moduleVar.api_url.getModuleDetails).subscribe((data) => {
+            this.moduleVar.moduleList = data.moduleList;
+            if(this.moduleId){
+            this.moduleVar.moduleObj = this.moduleVar.moduleList.find(x=>x.moduleId === parseInt(this.moduleId));
+            this.moduleName = this.moduleVar.moduleObj.moduleName;
+            let dropdownLIst =  this.moduleVar.moduleObj.courseList.map(item=>{
+                let obj = {
+                    id:item.courseId,
+                    value : item.courseName
+                }
+                return obj;
             });
-        }
-        else{
-            this.http.get(this.moduleVar.api_url.getCoureseDetails).subscribe((data) => {
-                this.moduleVar.moduleObj = data;
-            })
-        }
+            // this.courseList =dropdownLIst;
+            this.selectedCourses = dropdownLIst;
+            this.moduleVar.selectedCourseIds = dropdownLIst.map(item=>{return item.id})
+            }
+            else{
+                this.http.get(this.moduleVar.api_url.getCoureseDetails).subscribe((data) => {
+                    this.moduleVar.moduleObj = data;
+                })
+            }
+        });
     }
 
     onItemSelect(item: any) {
@@ -86,6 +86,10 @@ export class AddModuleComponent implements OnInit {
     }
     onItemDeselect(item: any) {
         this.moduleVar.selectedCourseIds =  this.selectedCourses.map(item=>{return item.id})
+        // console.log(item,this.moduleVar.selectCourseName);
+        if(item.value === this.moduleVar.selectCourseName || this.selectedCourses.length === 0 ){
+            this.moduleVar.tabEnable = false;
+        }
     }
 
     fileUpload(e){
@@ -107,6 +111,7 @@ export class AddModuleComponent implements OnInit {
        this.moduleVar.selectCourseName = courseObj.courseName;
        this.moduleVar.courseId = courseObj.courseId;
        this.moduleVar.quizDetails = courseObj.quizDetails;
+       this.moduleVar.courseIndex = i;
        if(this.quiz){
            this.quiz.editQuizDetails();
        }
@@ -163,9 +168,9 @@ export class AddModuleComponent implements OnInit {
             url : this.moduleVar.videoFile
         }
         if(this.moduleVar.videoIndex){
-          //this.moduleVar.videoIndex - 1
-            this.moduleVar.videoList[0] = videoObj;
-            this.moduleVar.videoIndex = false;
+            let index = this.moduleVar.videoIndex - 1;
+            this.moduleVar.videoList[index] = videoObj;
+            this.moduleVar.videoIndex = 0;
         }
         else{
             this.moduleVar.videoList.push(videoObj);
@@ -181,6 +186,20 @@ export class AddModuleComponent implements OnInit {
    cancelVideoSubmit(){
        this.moduleVar.selectVideoName = '';
        this.moduleVar.description = '';
+   }
+
+   checkValidation(){
+       console.log(this.moduleVar.moduleList)
+    let validation = this.moduleVar.moduleList.find(x=>x.moduleName === this.moduleName);
+    if(validation){
+        console.log("validationFalse")
+                this.moduleVar.moduleNameCheck = true;
+    }
+    else{
+        console.log("validation True")
+        this.moduleVar.moduleNameCheck = false;   
+    }
+       
    }
 
    tabChange(){
@@ -199,8 +218,7 @@ export class AddModuleComponent implements OnInit {
 
     submitForm(form){
         // this.quiz  && this.quiz.quizSubmit();   
-        if(this.moduleName && this.selectedCourses){
-
+        if(this.moduleName && this.selectedCourses.length && !this.moduleVar.moduleNameCheck){
             let params = {
                 "ModuleName":this.moduleName,
                 "CourseIds":this.moduleVar.selectedCourseIds.toString(),

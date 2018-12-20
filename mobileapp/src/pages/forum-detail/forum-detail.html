@@ -165,7 +165,7 @@
     <form novalidate (ngSubmit)="questionSubmit()" [formGroup]="QuestionForm">
       <div class="modal-body">
         <ion-item>
-          <ion-input type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty"></ion-input>
+         <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty" placeholder="What is the safety precaution required to enter the ski sport?"></ion-textarea>
         </ion-item>
         <div *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
           <div class="error" *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
@@ -174,8 +174,9 @@
         </div>
       </div>
       <div class="model-footer">
-         <button ion-button small clear type="submit" [disabled]="QuestionForm.invalid">{{constant.buttons.add}}</button>
         <button ion-button small clear type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
+         <button ion-button small clear type="submit" [disabled]="QuestionForm.invalid">{{constant.buttons.add}}</button>
+       
        
       </div>
     </form>

@@ -28,7 +28,7 @@ export class VideosTrendVar {
    pdf        = 'PDF';
    noData     = 'No Data';
    title      = 'Course Trend';
-   pdfExcelTitle ='Videos Trend';
+   pdfExcelTitle ='Course Trend';
    videosTrend;
    moduleList:any=[];
    moduleType=null;

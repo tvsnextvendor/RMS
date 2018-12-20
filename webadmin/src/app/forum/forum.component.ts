@@ -4,7 +4,6 @@ import {HttpService} from '../services/http.service';
 import {ForumVar} from '../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { API_URL } from '../Constants/api_url';
 
 @Component({
@@ -16,11 +15,7 @@ import { API_URL } from '../Constants/api_url';
 export class ForumComponent implements OnInit {
    
    
-    modalRef:BsModalRef;
-    modalConfig = {
-        backdrop: false,
-        ignoreBackdropClick: true
-      };
+   
   
     constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService){
        this.forumVar.url = API_URL.URLS;
@@ -55,7 +50,7 @@ export class ForumComponent implements OnInit {
      
 
     openEditModal(template: TemplateRef<any>, forum) {
-        this.modalRef = this.modalService.show(template,this.modalConfig);
+        this.forumVar.modalRef = this.modalService.show(template,this.forumVar.modalConfig);
         this.forumVar.forumName= forum.forumName;
         this.forumVar.topics=forum.topic;
         this.forumVar.employeeItems=forum.employeeDetails;
@@ -64,8 +59,8 @@ export class ForumComponent implements OnInit {
     onSave(form){
       if(form.valid){
         let postData= form.value;
-        this.toastr.success(form.value.forumName + " is updated successfully");
-        this.modalRef.hide();
+        this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
+        this.forumVar.modalRef.hide();
      }
     }
 

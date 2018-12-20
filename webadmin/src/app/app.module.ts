@@ -29,6 +29,7 @@ import {ForumModule} from './forum/forum.module';
 import {moduleModule} from './module/module.module';
 import {BatchModule} from './batch/batch.module';
 import {CertificatesModule} from './certificates/certificates.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {CertificatesModule} from './certificates/certificates.module';
     ProfileModule,
     FormsModule, 
     GroupModule,
-    EmployeeModule
+    EmployeeModule,
+    UserModule
   ],
   providers: [AuthGuard,ExcelService,PDFService],
   bootstrap: [AppComponent]

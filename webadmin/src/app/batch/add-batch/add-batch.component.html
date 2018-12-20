@@ -28,9 +28,17 @@
                     </div>
                     <div class="row">  		
                             <label class="col-md-3 p-0 label-title">{{batchVar.labels.selectEmp}}</label>  		
-                            <div class="col-md-7 p-0">
-                                    <ss-multiselect-dropdown class="form-control employee-module" [options]="batchVar.employeeList" name="employeeId" [(ngModel)]="batchVar.employeeId" #employeeId="ngModel" required></ss-multiselect-dropdown>
-                                    <span class="required_color" *ngIf="employeeId && employeeId.invalid && (formDir.submitted && employeeId.touched)">
+                            <div class="col-md-7 p-0 select-Courses">
+                                    <!-- <ss-multiselect-dropdown class="form-control employee-module" [options]="batchVar.employeeList" name="employeeId" [(ngModel)]="batchVar.employeeId" #employeeId="ngModel" required></ss-multiselect-dropdown> -->
+                                    <ng-multiselect-dropdown
+                                    [placeholder]="'Enter Employee Name'"
+                                    name="employeeId" 
+                                    [data]="batchVar.employeeList"
+                                    [(ngModel)]="batchVar.employeeId"
+                                    [settings]="mySettings"
+                                    #employeeId="ngModel" required
+                                    ></ng-multiselect-dropdown>                              
+                                    <span class="required_color" *ngIf="batchVar.empValidate">
                                               {{batchVar.mandatoryLabels.selectEmp}}
                                     </span> 
 

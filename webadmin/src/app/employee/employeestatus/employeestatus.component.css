@@ -20,7 +20,7 @@
     padding: 4px 8px;
   }
   .export-btn::after{
-    margin-left: 12px;
+    margin-left: 8px;
     font-size: 20px;
     position: relative;
     top: 3px;
@@ -39,4 +39,11 @@
     display: inline-block;
     margin-left: 10px;
   }
+   .s-width{
+    width: 14px;
+    opacity: 0.5;
+  }
+.employeestatus-width{
+  width: 195px;
+}
   

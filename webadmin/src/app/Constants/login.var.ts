@@ -16,9 +16,10 @@ export class loginVar {
     
   };
   btns = {
-    "login" : "Login",
+    "login" : "Log in",
     "back" : "Back",
     "send" : "Send",
+    "submit":"Submit",
     "forgetPassword" : "Forgot Password?"
   };
 }

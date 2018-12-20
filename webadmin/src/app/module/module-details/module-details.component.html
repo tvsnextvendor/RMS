@@ -4,7 +4,7 @@
         <h6 class="video-header">{{moduleVar.selectedModule?.moduleName}} > {{moduleVar.selectedCourse?.courseName}}</h6>
     </div>
     <div class="row" >
-        <div class="col-md-4 pl-0" *ngFor="let video of moduleVar.selectedCourse?.videos">
+        <div class="col-md-4 pl-0 mt-3" *ngFor="let video of moduleVar.selectedCourse?.videos">
             <div class="video-img-alg">
                 <img src="{{video.videoImage}}" class="img-player-alg">
                 <div class="video-action clearfix">

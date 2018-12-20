@@ -24,3 +24,6 @@
   	display: block;
   	width: 100%;
   }
+  tfoot > tr > td {
+    border-bottom: 0;
+   }

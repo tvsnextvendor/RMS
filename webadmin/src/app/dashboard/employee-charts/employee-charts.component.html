@@ -15,8 +15,8 @@
         </div>
         <div  class="clearfix">
         <p class="p-color">{{dashboardVar.employeeTabText.notification}} <b class="click-color">{{dashboardVar.btns.editTasks}}</b></p>
-        <button class="btn_alg">{{dashboardVar.btns.quickTasks}}</button>
-        <button class="btn_alg">{{dashboardVar.btns.openCalendar}}</button>
+        <button class="btn_alg" (click)="addQuickTasks()">{{dashboardVar.btns.quickTasks}}</button>
+        <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button>
       </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
           </div>
           <div class="row mb-3">
             <div class="col-sm-8 pl-0">
-              <div class=" chart-bg">
+              <div class="chart-bg course-trend">
                 <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.videosTrend}}
                   <select class="vdo-btn" id="moduleType" name="moduleType" (change)="onChangeModule()" [(ngModel)]="dashboardVar.moduleType">     
@@ -105,10 +105,10 @@
                             <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
                           </slide>
                         <slide>
-                            <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                            <p class="small-txt"><span class="text-primary">@John Doe</span>, Can you look into this and give me an update on cross training employees</p>
                           </slide>
                         <slide>
-                            <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                            <p class="small-txt"><span class="text-primary">@Mark</span>, Can you look into this and give me an update on cross training employees</p>
                           </slide>
                       </carousel>
                       <div>

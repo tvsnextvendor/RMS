@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Injectable({ providedIn: 'root' })
 
@@ -31,9 +32,18 @@ export class ForumVar{
     };
     title = 'Forum';
     addSuccessMsg = 'Forum Added Successfully';
+    updateSuccessMsg = ' is updated successfully';
+    nameUniqueErr = 'Forum Name is already exist.'
     employeeItems;
     forumName;
     topics;
     autocompleteItemsAsEmpObjects;
     url;
+    forumNameList;
+    uniqueValidate = false;
+    modalRef:BsModalRef;
+    modalConfig = {
+        backdrop: true,
+        ignoreBackdropClick: true
+      };
 }

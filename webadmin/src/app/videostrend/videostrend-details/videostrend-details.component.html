@@ -1,69 +1,78 @@
-<ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader>
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="pr-3 pt-5">
-<div class="white-bg">
-  <div class="row"> 
-  <div class="col-md-9 row">
-        <div class="col-md-5"> 
-        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.courseName}} :</span> <span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.courseName}}</span></div>
-        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.uploadedDate}} :</span><span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.uploadedDate | date:'dd/MM/yyyy'}}</span> </div>        
-      </div>
-      <div class="col-md-5">
-        <!-- <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.videoName}} : </span><span class="trend-cont">{{filterEmployeeList[0]?.videoName}}</span></div> -->
-        <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.totalEmployees}} :</span> <span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.totalEmployees}}</span></div>
-      </div>
-      </div>
+    <div class="white-bg" id="contentToConvert">
+        <div class="row">
+            <div class="col-md-9 row">
+                <div class="col-md-5">
+                    <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.courseName}}
+                            :</span> <span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.courseName}}</span></div>
+                    <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.uploadedDate}}
+                            :</span><span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.uploadedDate |
+                            date:'dd/MM/yyyy'}}</span> </div>
+                </div>
+                <div class="col-md-5">
+                    <!-- <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.videoName}} : </span><span class="trend-cont">{{filterEmployeeList[0]?.videoName}}</span></div> -->
+                    <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.totalEmployees}}
+                            :</span> <span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.totalEmployees}}</span></div>
+                </div>
+            </div>
 
-        <div class="col-md-3 mt-3">
-           <div class="dropdown show mb-3">
-              <label class="ext-txt mb-0 mr-2">{{trendsVar.exportTo}}</label>
-              <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="float-left">{{trendsVar.select}}</span></a>
-              <div class="dropdown-menu drp-dwn" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{trendsVar.excel}}</a>
-                  <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{trendsVar.pdf}}</a>             
-              </div>
-            </div> 
-         </div>
-        </div>     
-
+            <div class="col-md-3 mt-3">
+                <div class="dropdown show mb-3" data-html2canvas-ignore="true">
+                    <label class="ext-txt mb-0 mr-2">{{trendsVar.exportTo}}</label>
+                    <a class="btn export-btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"><span class="float-left">{{trendsVar.select}}</span></a>
+                    <div class="dropdown-menu drp-dwn" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item drp-item" (click)="exportAsXLSX()">{{trendsVar.excel}}</a>
+                        <a class="dropdown-item drp-item" (click)="exportAsPDF()">{{trendsVar.pdf}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="table-responsive custom-table2 px-1">
-          <table class="table table-striped mt-3" [mfData]="trendsVar.filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable" [mfRowsOnPage]="10" id="contentToConvert">
-              <thead>
-              <tr class="th-boxshadow">
-                  <th colspan="1" class="text-center">
-                      <mfDefaultSorter by="employeeName" >{{trendsVar.empTableTitle.empName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-                  </th>
-                  <th colspan="1"  class="text-center">
-                      <mfDefaultSorter by="status">{{trendsVar.empTableTitle.status}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-                  </th>
-                  
-                  <th colspan="1"  class="text-center">
-                      <mfDefaultSorter by="viewDate">{{trendsVar.empTableTitle.viewDate}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-                  </th>
-                  <th colspan="1"  class="text-center">
-                      <mfDefaultSorter by="completedDate">{{trendsVar.empTableTitle.completedDate}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-                  </th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let emp of mf.data" class="text-center">
-                  <td class="vat">{{ emp.employeeName }}</td>
-                  <td class="vat" [ngClass] = "emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">{{ emp.status }}</td>
-                  <td class="vat">{{ emp.viewDate | date :'dd MMM yyyy' }}</td>
-                  <td class="vat">{{emp.completedDate | date :'dd MMM yyyy'}}</td>
-              </tr>
-              <!-- <tr *ngIf="mf.data?.length == 0">
+            <table class="table table-striped mt-3" [mfData]="trendsVar.filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable"
+                [mfRowsOnPage]="10">
+                <thead>
+                    <tr class="th-boxshadow">
+                        <th colspan="1" class="pl-4 employeeName-width">
+                            <mfDefaultSorter by="employeeName">{{trendsVar.empTableTitle.empName}}<span class="ml-2"><img
+                                        src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                        </th>
+                        <th colspan="1" class="text-center">
+                            <mfDefaultSorter by="status">{{trendsVar.empTableTitle.status}}<span class="ml-2"><img src="assets/images/sortby.png"
+                                        class="s-width"></span></mfDefaultSorter>
+                        </th>
+
+                        <th colspan="1" class="text-center">
+                            <mfDefaultSorter by="viewDate">{{trendsVar.empTableTitle.viewDate}}<span class="ml-2"><img
+                                        src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                        </th>
+                        <th colspan="1" class="text-center">
+                            <mfDefaultSorter by="completedDate">{{trendsVar.empTableTitle.completedDate}}<span class="ml-2"><img
+                                        src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let emp of mf.data" class="table-desc-color">
+                        <td class="vat pl-4 employeeName-width">{{ emp.employeeName }}</td>
+                        <td class="vat text-center" [ngClass]="emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">{{
+                            emp.status }}</td>
+                        <td class="vat text-center">{{ emp.viewDate | date :'dd MMM yyyy' }}</td>
+                        <td class="vat text-center">{{emp.completedDate | date :'dd MMM yyyy'}}</td>
+                    </tr>
+                    <!-- <tr *ngIf="mf.data?.length == 0">
                   <td colspan="10" class="text-center data-design">{{labels.noData}}</td>
               </tr> -->
-              </tbody>
-              <!-- <tfoot>
+                </tbody>
+                <!-- <tfoot>
               <tr>
                   <td colspan="10">
                       <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
                   </td>
               </tr>
               </tfoot> -->
-          </table>
+            </table>
         </div>
-      </div>
+    </div>
 </div>
-  

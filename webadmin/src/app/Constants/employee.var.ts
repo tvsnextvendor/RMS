@@ -12,8 +12,8 @@ export class EmployeeVar {
             "pdf" : "PDF"
         },
         "tableTitle" : {
-            "employeeName" : "Employee Name",
-            "employeeGroup" : "Employee Group",
+            "employeeName" : "Emp Name",
+            "employeeGroup" : "Department",
             "assignedCount" : "Assigned",
             "inProgressCount" : "In progress",
             "completedCount" : "Completed",

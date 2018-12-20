@@ -29,6 +29,12 @@
     margin-right: 7px;
   }
 .trend-cont{
-  color:#7C7373;
+  color: #A0A0A0;
   font-size:15px;
+}
+.employeeName-width{
+  width: 290px;
+}
+tbody > tr > td {
+  border-bottom: 0;
 }

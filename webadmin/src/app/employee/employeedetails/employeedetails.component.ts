@@ -35,7 +35,7 @@ export class EmployeedetailsComponent implements OnInit {
  exportAsPDF(){ 
   this.labels.btns.select =  this.labels.btns.pdf;
   var data = document.getElementById('contentToConvert'); 
-  this.pdfService.exportAsPDFFile(data, this.labels.title);  
+  this.pdfService.htmlPDFFormat(data,this.labels.title);  
 } 
 // Create Excel sheet
 exportAsXLSX():void {

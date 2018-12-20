@@ -44,9 +44,16 @@ export class EmployeestatusComponent implements OnInit {
 // Create PDF
   exportAsPDF(){  
     this.labels.btns.select =  this.labels.btns.pdf;
-    var data = document.getElementById('contentToConvert'); 
-    this.pdfService.exportAsPDFFile(data, this.labels.title);  
+    let header = ["S.no","Employee Name","Employee Group","Assigned","In progress","Completed","Failed","Total"]
+    let data = this.employeeArray.map((items,i)=>{
+      let pdfArr = [
+        i+1,items.employeeName,items.employeeGroup,items.assignedCount,items.inProgressCount,items.completedCount,items.failedCount,items.total
+      ]
+      return pdfArr
+    })
+    this.pdfService.exportAsPDFFile(header,data, this.labels.title); 
   } 
+  
   goToEmpDetails(){
     this.route.navigateByUrl('/employeedetails');
   }

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Constant } from '../../constants/Constant.var'
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
+import { Storage } from '@ionic/storage';
 
 @IonicPage({ name: 'landing-page' })
 @Component({
@@ -12,10 +13,16 @@ import { SignupPage } from '../signup/signup';
 })
 export class LandingPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant,public storage:Storage) {
   }
-
   ionViewDidLoad() {
+    this.storage.get('currentUser').then((resp) => {
+      //console.log("currentUser",resp);
+      if(resp){
+        this.navCtrl.setRoot('home-page');
+      }
+      //debugger;
+     });
     console.log('ionViewDidLoad LandingPage');
   }
   doSignIn() {
@@ -24,5 +31,4 @@ export class LandingPage {
   doSignUp() {
     this.navCtrl.push(SignupPage);
   }
-
 }

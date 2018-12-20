@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import * as jspdf from 'jspdf';  
+import * as jsPDF from 'jspdf';  
 import html2canvas from 'html2canvas';
+import 'jspdf-autotable';
 
 
 @Injectable({
@@ -10,8 +11,22 @@ export class PDFService {
 
   constructor() { }
 
-    public exportAsPDFFile(data,PDFFileName: string): void {
-        
+    public exportAsPDFFile(header,data,PDFFileName: string): void {
+        var doc = new jsPDF('p', 'pt');
+        var col = header;
+        var rows = data;
+        var header;
+         header = function(data) {
+            doc.setFontSize(18);
+            doc.setTextColor(40);
+            doc.setFontStyle('normal');
+            doc.text(PDFFileName, data.settings.margin.left, 50);
+          };
+        doc.autoTable(col, rows,{beforePageContent: header,margin: {top: 80}});
+        doc.save(PDFFileName+'.pdf');
+    }
+
+    public htmlPDFFormat(data,PDFFileName: string): void {
         html2canvas(data).then(canvas => {  
             // Few necessary setting options  
             var imgWidth = 208;   
@@ -20,9 +35,10 @@ export class PDFService {
             var heightLeft = imgHeight;  
         
             const contentDataURL = canvas.toDataURL('image/png')  
-            let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
-            var position = 0;  
-            pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+            let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+            var position = 15;
+            pdf.text(2, 10, PDFFileName);
+            pdf.addImage(contentDataURL, 'PNG', 1, position, imgWidth, imgHeight)  
             pdf.save(PDFFileName+'.pdf'); // Generated PDF   
         });  
     }

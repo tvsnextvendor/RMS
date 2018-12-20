@@ -4,14 +4,17 @@
     <form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)">
         <div class="form-group">
             <label>{{forumVar.createForum.forumName}}</label>
-            <input type="text" class="form-control" [(ngModel)]="forumName" #ForumName="ngModel"  name = "forumName" id="forumName" placeholder="Enter Forum Name" required>  
+            <input type="text" class="form-control" [(ngModel)]="forumName" autocomplete="off" #ForumName="ngModel" (ngModelChange)="checkNameUniqueness(forumName)"  name = "forumName" id="forumName" placeholder="Enter Forum Name" required>  
             <span class="required_color" *ngIf="ForumName && ForumName.invalid && (formDir.submitted || ForumName.touched)">
                     {{forumVar.mandatoryLabels.forumName}}
+            </span> 
+            <span class="required_color" *ngIf="forumVar.uniqueValidate">
+                  {{forumVar.nameUniqueErr}}
             </span>  
         </div>
         <div class="form-group">
             <label>{{forumVar.createForum.topics}}</label>
-            <span class="float-right"><a><i class="fa fa-plus icons_header add-course-icon" (click)=addTopic()></i></a>
+            <span class="float-right"><a><i class="fa fa-plus createForum-addicon" (click)=addTopic()></i></a>
             </span>
             <div *ngFor="let topic of topicsArray; let i = index" class="form-group close-icon">
                 <span *ngIf="i!=0"><img src="assets/images/close.png" class="close-img" (click)="removeTopic(i)"></span>
@@ -27,7 +30,7 @@
                     name="empItems"
                     #empName="ngModel"
                     [onlyFromAutocomplete]="true"
-                    [placeholder]="'+ Employee'"      [displayBy]="'name'"
+                    [placeholder]="'Add Employee'"      [displayBy]="'name'"
                     [identifyBy]="'id'" [secondaryPlaceholder]="'Select Employee'" class="multi-input"
                     required
                     >
