@@ -1,4 +1,3 @@
-//import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { HttpProvider } from '../http/http';
@@ -13,6 +12,7 @@ export interface User {
 export class AuthProvider {
   currentUserSet: User;
   users: any = [];
+  
   constructor(public http: HttpProvider, public toastr: ToastrService, public storage: Storage) {
     console.log('Hello AuthProvider Provider');
   }
@@ -22,7 +22,7 @@ export class AuthProvider {
       this.http.getData(API_URL.URLS.getUsers).subscribe((data) => {
         if (data['isSuccess']) {
           this.users = data['UserList'];
-          let usernameCorrect = this.users.find(x => x.username === name);
+          let usernameCorrect = this.users.find(x => x.emailAddress === name);
           let passwordCorrect = this.users.find(x => x.password === pw);
           if (!usernameCorrect) {
             self.toastr.error('Email ID is invalid');
@@ -51,5 +51,25 @@ export class AuthProvider {
     this.currentUserSet = null;
     this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
     this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
+  }
+  getCurrentUserDetails(){
+     let self = this;
+      return new Promise((resolve, reject) => {
+        self.storage.get('currentUser').then(
+        (val) => {
+          if (val) {
+            self.currentUserSet = val
+            resolve(self.currentUserSet);
+           
+         
+          }
+        
+        }, (err) => {
+          reject(err);
+          console.log('currentUser not received in app.component.ts', err);
+        });
+      //  return self.currentUserSet;
+
+      });
   }
 }

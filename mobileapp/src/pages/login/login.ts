@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Constant } from '../../constants/Constant.var';
@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
         keepmelogin: false,
     }
     paramsObj: any = {};
-    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, private alertCtrl: AlertController, public storage: Storage, public constant: Constant,private toastr:ToastrService) {
+    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, public storage: Storage, public constant: Constant,private toastr:ToastrService) {
     }
     ngOnInit() {
         this.storage.get('userInput').then(
@@ -35,6 +35,10 @@ export class LoginPage implements OnInit {
             });
     }
     doLogin() {
+
+        if(!this.user.name || !this.user.pw){
+            this.toastr.error("Email ID & Password Can't Be Blank"); return false;
+        }
         if (this.user.keepmelogin) {
             this.storage.set('userInput', this.user).then(() => {
                 console.log('Data has been set');
@@ -46,12 +50,14 @@ export class LoginPage implements OnInit {
                 this.toastr.success('Login Successful');
             }
         }).catch(err => {
-            const alert = this.alertCtrl.create({
-                title: 'Login Failed',
-                subTitle: 'Please check login credentials',
-                buttons: ['OK']
-            });
-            alert.present();
+            console.log(err);
+            // this.toastr.error("Please check login credentials"); return false;
+            // const alert = this.alertCtrl.create({
+            //     title: 'Login Failed',
+            //     subTitle: 'Please check login credentials',
+            //     buttons: ['OK']
+            // });
+            // alert.present();
         });
     }
     goToSignUp() {
