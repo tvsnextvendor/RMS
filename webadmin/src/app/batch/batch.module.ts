@@ -9,8 +9,9 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AddBatchComponent} from './add-batch/add-batch.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
-// import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { OwlDateTimeModule, OwlNativeDateTimeModule,OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 
 
 const routes: Routes = [
@@ -18,13 +19,25 @@ const routes: Routes = [
     { path: 'addBatch', component:AddBatchComponent ,canActivate : [AuthGuard]},
 ];
 
+export const MY_MOMENT_FORMATS = {
+  parseInput: 'l LT',
+  fullPickerInput: 'ddd D MMM YYYY LT',
+  datePickerInput: 'D MMM YYYY',
+  timePickerInput: 'LT',
+  monthYearLabel: 'MMM YYYY',
+  dateA11yLabel: 'LL',
+  monthYearA11yLabel: 'MMMM YYYY',
+};
+
 @NgModule({
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     NgHttpLoaderModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    // MultiselectDropdownModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    OwlMomentDateTimeModule,
     NgMultiSelectDropDownModule.forRoot(),
     FormsModule,
     CalendarModule.forRoot({
@@ -32,6 +45,9 @@ const routes: Routes = [
         useFactory: adapterFactory
       })
     ],
+    providers: [
+      {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},
+   ],
   declarations: [
     CalendarViewComponent,
     AddBatchComponent

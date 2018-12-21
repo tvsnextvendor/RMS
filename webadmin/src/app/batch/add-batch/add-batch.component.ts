@@ -1,12 +1,10 @@
 import { Component, OnInit} from '@angular/core';
-import {DatePipe} from '@angular/common';
 import {HeaderService} from '../../services/header.service';
 import {Router} from '@angular/router';
 import {ToastrService } from 'ngx-toastr';
 import {BatchVar} from '../../Constants/batch.var';
 import { HttpService } from 'src/app/services/http.service';
 import { API_URL } from '../../Constants/api_url';
-import {IMultiSelectSettings} from 'angular-2-dropdown-multiselect';
 
 
 @Component({
@@ -17,10 +15,11 @@ import {IMultiSelectSettings} from 'angular-2-dropdown-multiselect';
 
 export class AddBatchComponent implements OnInit {
 
-   constructor(private headerService:HeaderService,private datepipe:DatePipe,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
-       this.batchVar.url = API_URL.URLS;
 
+   constructor(private headerService:HeaderService,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
+       this.batchVar.url = API_URL.URLS; 
    }
+
 
    ngOnInit(){
      this.headerService.setTitle({title:this.batchVar.title, hidemodule:false});
@@ -39,10 +38,10 @@ export class AddBatchComponent implements OnInit {
       this.http.get(this.batchVar.url.getPercentageList).subscribe((data) => {
         this.batchVar.percentageList= data.passPercentage;
       });
-
+      
       let startDate=localStorage.getItem('BatchStartDate');
-      this.batchVar.batchFrom=this.datepipe.transform( startDate , 'dd MMM yyyy')
-  
+      this.batchVar.batchFrom= this.splitDate(startDate);
+      this.batchVar.min =this.splitDate(new Date());
 
    }
 
@@ -55,10 +54,23 @@ export class AddBatchComponent implements OnInit {
       itemsShowLimit: 8,
     };
 
+    splitDate(date){
+      const newDate = new Date(date);
+      const y = newDate.getFullYear();
+      const d = newDate.getDate();
+      const month= newDate.getMonth();
+      const h= newDate.getHours();
+      const m= newDate.getMinutes();
+      return new Date(y,month,d, h, m);
+    }
+
+
    
    addBatch(form){
      if(!this.batchVar.employeeId){
        this.batchVar.empValidate = true;
+     }else{
+       this.batchVar.empValidate = false;
      }
       if(Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo)){
         this.batchVar.dategreater= true;
