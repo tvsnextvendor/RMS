@@ -879,6 +879,7 @@ a {
 .addnewcourse-title{
   font-size: 15px;
     color: #576271;
+    cursor: pointer;
 }
 .select-Courses li.multiselect-item-checkbox {
     display: block;
