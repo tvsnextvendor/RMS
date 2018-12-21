@@ -5,11 +5,11 @@
 				<div class="row">
 					
 				</div>
-				<div class="white-bg p-3 mt-2" *ngFor="let data of quizQuestionsForm;let i = index;">
+				<div class="white-bg p-3 mt-2 table-decs" *ngFor="let data of quizQuestionsForm;let i = index;">
 					<!-- <div class="col-md-12"> -->
-						<a><i class="fa fa-plus float-right icon-design" aria-hidden="true" (click)="addQuestionForm()"></i></a>
+						<a><i class="fa fa-plus float-right icon-design" *ngIf="i==0" aria-hidden="true" (click)="addQuestionForm()"></i></a>
 					<!-- </div> -->
-					<span><a class="btn btn-link float-right" (click)="removeQuestionForm(i)"><i class="fa fa-times icon-design"></i></a></span>
+					<span><a class="btn btn-link float-right" *ngIf="i!=0" (click)="removeQuestionForm(i)"><img src="assets/images/close.png" class="cancel-icon"></a></span>
 					<div class="row form-group">
 						<div class="col-md-4 row"> 
 							<label for="" class="col-sm-5 custm-label col-form-label">{{constant.quizLabels.questionType}}</label>
