@@ -23,7 +23,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-
     TagInputModule,
     BrowserModule,
     FormsModule,

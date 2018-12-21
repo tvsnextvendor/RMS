@@ -15,14 +15,13 @@ export class PDFService {
         var doc = new jsPDF('p', 'pt');
         var col = header;
         var rows = data;
-        var header;
-         header = function(data) {
+        var pageTitle = function(data) {
             doc.setFontSize(18);
             doc.setTextColor(40);
             doc.setFontStyle('normal');
             doc.text(PDFFileName, data.settings.margin.left, 50);
           };
-        doc.autoTable(col, rows,{beforePageContent: header,margin: {top: 80}});
+        doc.autoTable(col, rows,{beforePageContent: pageTitle,margin: {top: 80}});
         doc.save(PDFFileName+'.pdf');
     }
 
