@@ -5,6 +5,7 @@ page-login {
    .scroll-content {
     padding: 0 !important;
         background: #329CD6;
+        overflow-y: auto !important;
 }
 .signin-process,.login-action {
     padding: 16px;
@@ -98,4 +99,9 @@ button:focus {
 
     box-shadow: none !important;
 }
+
+    .item.item-md .checkbox-md {
+    margin: 9px 10px 10px 4px;
+}
+
 }

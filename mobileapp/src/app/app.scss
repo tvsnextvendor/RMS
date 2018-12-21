@@ -55,7 +55,7 @@
     background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
 }
-.bar-button-default-ios,.bar-button-default-md{
+.bar-button-default-ios,.bar-button-default-md,.bar-buttons-wp{
     color: #fff;
 }
 .bar-button-default-md {
@@ -97,9 +97,12 @@ margin-top: 12px;
     padding: 0 0;
 }
 
-.toolbar-title-ios, .toolbar-title-md{
-    font-weight: normal; 
+.toolbar-title-ios, .toolbar-title-md,.toolbar-title-wp{
     font-family: 'sf_ui_textregular';
+    font-size: 2rem;
+    font-weight: 100;
+    text-transform: none; 
+
 }
 
 .bar-button-menutoggle-ios ion-icon {
@@ -127,7 +130,7 @@ margin-top: 12px;
     background-size: cover;
 
     .sidebar-list {
-        .item-ios,.item-md{
+        .item-ios,.item-md,.item-wp{
             padding: 0px;
             border: none;
             color: #fff;
@@ -168,8 +171,8 @@ margin-top: 12px;
     }
     button.item-ios:not([detail-none]) .item-inner{    background-image: none;}
     .menu-inner {
-    width: 100%;
-}
+        width: 100%;
+    }
 }
 
 a,.batch-icon{
@@ -204,7 +207,8 @@ button:focus {
     width: 100%;
     padding: 30px 10px;
 }
-.blue-btn.button-ios,.blue-btn.button-md{
+.blue-btn.button-ios,.blue-btn.button-md, .blue-btn.button-wp
+{
     background-color: #329CD6;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
@@ -225,21 +229,21 @@ button:focus {
 }
 .orange-color {
     color: #FF5722;
-   
+
 }
 .green-color {
     color: #1C8B17;
 }
 .header-icon {
-        display: inline-block;
+    display: inline-block;
     float: right;
     position: relative;
     margin-right: 6px;
-        cursor: pointer;
+    cursor: pointer;
 }
 .title-md .header-icon {
     margin-right: 25px;
-        margin-top: 5px;
+    margin-top: 5px;
 }
 .dot-circle {
     background: #fff;
@@ -264,7 +268,15 @@ button:focus {
     margin-top: 5px !important;
 }
 .img-block{
-        vertical-align: middle;
+    vertical-align: middle;
     align-items: center;
     display: flex;
+}
+.text-input-wp {
+    margin: 10px 8px 11px 0;
+    border:none;
+    line-height: normal;
+}
+.header-md::after{
+    background-image: none;
 }
