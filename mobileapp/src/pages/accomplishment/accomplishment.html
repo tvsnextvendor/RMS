@@ -28,7 +28,8 @@
   <h3>{{constant.pages.accomplishmentLabels.badges}}</h3>
   <ion-slides #sliderTwo [pager]="true" [slidesPerView]="2" class="badge-slide" spaceBetween="1" (ionSlideDidChange)="onSlideBadgeChanged()">
     <ion-slide *ngFor="let item of badgeList;let i=index;" class="badge-indv-slide">
-      <img class="badge-image" src="{{item.badgeImage}}" alt="Badge Image" (click)="openModal(badgetemplate,item)">
+      <img class="badge-image" src="{{item.badgeImage}}" alt="Badge Image" (click)="openBadgeModal(badgetemplate,item)">
+      <!-- <span>3 Days streak</span> -->
     </ion-slide>
   </ion-slides>
   <span class="slider-btns">

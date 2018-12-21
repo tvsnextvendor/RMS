@@ -60,10 +60,7 @@ export class AuthProvider {
           if (val) {
             self.currentUserSet = val
             resolve(self.currentUserSet);
-           
-         
           }
-        
         }, (err) => {
           reject(err);
           console.log('currentUser not received in app.component.ts', err);
