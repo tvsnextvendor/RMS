@@ -14,11 +14,11 @@ button:focus {
   outline: none;
   outline: none;
 }
-.pdt50{
-  padding-top: 50px;
+.pdt70{
+  padding-top: 70px;
 }
-.pdl-36{
-	padding-left: 36px;
+.pdl-50{
+	padding-left: 50px;
 }
 .pd30{
   padding: 30px 0;
@@ -657,7 +657,7 @@ li {
     border: 2px solid #fff;
     cursor: pointer;
     box-shadow: 0px 0px 8px 0px #ccc;
-    margin-top: 35px;
+    margin-top: 25px;
 }
 .add-video-header ul li.nav-item.active {
     border-bottom: 3px solid #468FB9;
@@ -867,8 +867,35 @@ a {
     color: #495057 !important;
 }
 .select-Courses .dropdown-list {
-    width: 295px !important;
+    width: 267px !important;
     right: 15px;
+}
+.addcourse{
+    color: #468FB9;
+    font-size: 20px;
+    padding: 11px;
+    cursor: pointer;
+}
+.addnewcourse-title{
+  font-size: 15px;
+    color: #576271;
+}
+.select-Courses li.multiselect-item-checkbox {
+    display: block;
+}
+.select-Courses span.dropdown-down {
+    border-top: 6px solid #989898 !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+}
+.select-Courses span.dropdown-up {
+    border-bottom: 6px solid #adadad !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+}
+.select-Courses div {
+    color: #576271 !important;
+    font-size: 15px;
 }
 .select-Courses span.selected-item {
     border: 1px solid #ccc !important;

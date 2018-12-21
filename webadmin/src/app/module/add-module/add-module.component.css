@@ -78,7 +78,7 @@ background-color: #C1E1F3;
     filter: alpha(opacity=0);
 }
 .addedcourse-scroll{
-    height: 140px;
+    max-height: 120px;
     overflow-y: scroll;
 }
 .decs-overflow{

@@ -5,7 +5,7 @@
     font-size: 12px;
     color: #909CA8;
     position: absolute;
-    top: 35px;
+    top: 15px;
     left: 4px;
 }
 .option-btn:hover{
@@ -14,4 +14,11 @@ background-color: #C1E1F3;
 
 .mrb{
     margin-bottom : 5px;
+}
+.save-btn{
+	float: none;
+}
+.icon-design{
+	color: #468FB9;
+	font-size: 20px;
 }

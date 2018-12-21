@@ -46,7 +46,7 @@ export class AddModuleComponent implements OnInit {
         // allowSearchFilter: true
       }; 
     var myEl = document.querySelector('ul.item1');
-    myEl.innerHTML = ' <i class="fa fa-plus newCourseId" id="newCourseId (click)="addCourse()"> ADD NEW COURSE</i>';
+    myEl.innerHTML = ' <span><i class="fa fa-plus newCourseId addcourse" id="newCourseId (click)="addCourse()"></i> <span class="addnewcourse-title">Add New Course</span></span>';
     let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
     ele.onclick = this.addCourse.bind(this);
     this.moduleVar.tabKey = 1;
