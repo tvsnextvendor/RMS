@@ -1,1 +1,61 @@
-User List Page
+
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
+<div class="pr-3" id="contentToConvert">
+    <div class="float-right row pdb5">
+        <span class="pdr"><a class = "btn btn-primary br-btn" (click)="addUser()">Add User</a></span>
+        <span class="pagenation-btn"><ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}" class="pagenation-dropdown"></ngx-select-dropdown></span>
+    </div>
+        <form class="table-responsive custom-table2 px-1" #userForm = "ngForm">
+          <table class="table table-striped white-bg mt-1" [mfData]="constant.userList" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
+              <thead>
+              <tr class="th-boxshadow text-center">
+                  <th>
+                      <mfDefaultSorter by="employeeName">{{labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                  </th>
+                  <th>
+                      <mfDefaultSorter by="designation">{{labels.designation}}</mfDefaultSorter>
+                  </th>
+                  
+                  <th>
+                      <mfDefaultSorter by="department">{{labels.department}}</mfDefaultSorter>
+                  </th>
+                
+                  <th>
+                      <mfDefaultSorter by="emailId">{{labels.email}}</mfDefaultSorter>
+                  </th>
+                  <th>
+                      <mfDefaultSorter by="mobile">{{labels.mobile}}</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter></mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter></mfDefaultSorter>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
+                  <td class="vat text-center"><label *ngIf="!user.editEnable">{{ user.employeeName }}</label><input *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter User Name" [(ngModel)]="userName" name="userName" #user = "ngModel" /></td>
+                  <td class="vat text-center"><label *ngIf="!user.editEnable">{{ user.designation }}</label><input *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter Department" [(ngModel)]="department" name="department" #departmentName = "ngModel" /></td>
+                  <td class="vat text-center"><label *ngIf="!user.editEnable">{{ user.department }}</label><input *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter Designation" [(ngModel)]="designation" name="designation" #designationName = "ngModel" /></td>
+                  <td class="vat text-center"><label *ngIf="!user.editEnable">{{ user.emailId }}</label><input *ngIf="user.editEnable" type="email" class="form-control" placeholder="Enter User Name" [(ngModel)]="emailAddress" name="emailAddress" #email = "ngModel" /></td>
+                  <td class="vat text-center"><label *ngIf="!user.editEnable">{{ user.mobile }}</label><input *ngIf="user.editEnable" type="number" class="form-control" placeholder="Enter User Name" [(ngModel)]="phoneNumber" name="phoneNumber" #mobile = "ngModel" /></td>
+                  <td class="vat text-center"><a *ngIf="!user.editEnable" (click)="userEdit(user,i)"><i class="fa fa-pencil header-icon"></i></a><a *ngIf="user.editEnable" (click)="userUpdate(user,i)"><i class="fa fa-check upload-crt-icon" aria-hidden="true"></i></a></td>
+                  <td class="vat text-center"><a *ngIf="!user.editEnable" (click)="removeUser(user,i)"><i class="fa fa-trash header-icon"></i></a><a *ngIf="user.editEnable" (click)="cancelEdit(user,i)"><i class="fa fa-times upload-wrg-icon" aria-hidden="true"></i></a></td>
+              </tr>
+              <tr *ngIf="mf.data?.length == 0">
+                  <td colspan="10" class="text-center data-design">No data</td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr data-html2canvas-ignore="true">
+                  <td colspan="10">
+                      <mfBootstrapPaginator></mfBootstrapPaginator>
+                  </td>
+              </tr>
+              </tfoot>
+          </table>
+        </form>
+    </div>
+  

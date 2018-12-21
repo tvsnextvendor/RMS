@@ -26,7 +26,7 @@
                           <input type="checkbox" [(ngModel)] = "rememberMe" name="rememberMe">
                           <span class="checkmark"></span>
                            </label>     
-                            <span  *ngIf="!forgetPasswordStatus" class="forgot-pwd" (click) = "forgetPasswordStatus = !forgetPasswordStatus">{{btns.forgetPassword}}</span>
+                            <span  *ngIf="!forgetPasswordStatus" class="forgot-pwd" (click) = "forgetPasswordUpdate()">{{btns.forgetPassword}}</span>
                         </div>
                         <div   *ngIf="!forgetPasswordStatus" class="form-group">
                             <button  type="submit" class="btn btn-primary login-btn">{{btns.login}}</button>
@@ -34,7 +34,7 @@
                         </div>
                         <!-- forget password -->
                         <div  *ngIf="forgetPasswordStatus"  class="form-group">                           
-                            <button  type="button" (click) = "forgetPasswordStatus = !forgetPasswordStatus" class="btn btn-default back-btn mr-3">{{btns.back}}</button>
+                            <button  type="button" (click) = "forgetPasswordUpdate()" class="btn btn-default back-btn mr-3">{{btns.back}}</button>
                              <button  type="submit"  class="btn btn-primary sent-btn">{{btns.submit}}</button>
                         </div>
                     </form>

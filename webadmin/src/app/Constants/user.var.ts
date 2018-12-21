@@ -5,11 +5,25 @@ import { Injectable } from '@angular/core';
 export class UserVar{
 
    labels = {
-        batch             : 'User',
-        template          : 'Template',
-        tempName          : 'Template Name',
-        tempNameMandatory : 'Template Name is required.',
-        fileUpload        : 'Upload your HTML File'        
+        "batch"             : 'User',
+        "template"          : 'Template',
+        "tempName"          : 'Template Name',
+        "tempNameMandatory" : 'Template Name is required.',
+        "fileUpload"        : 'Upload your HTML File',
+        "userName" : "User Name",
+        "designation" : "Designation",
+        "department" : "Department",
+        "mobile" : "Mobile",
+        "email" : "Email",
+        "updateRestrictMsg" : "Unable to perform update user" ,
+        "addRestrictMsg" : "Unable to perform add user" ,
+        "mandatoryFields" : "Fill all user data fields",
+        "emailError" : "Please enter valid mail id",
+        "mobileError" : "Please enter valid mobile number",
+        "userUpdated" : "User updated successfully",
+        "userAdded" : "User added successfully",
+        "removeUser" : " removed from the list"
+
     };
      
     btns = {

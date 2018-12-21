@@ -52,6 +52,13 @@ export class LoginComponent implements OnInit {
       }
     }
 
+    forgetPasswordUpdate(){
+      this.forgetPasswordStatus = !this.forgetPasswordStatus;
+      this.loginvar.email = '';
+      this.loginvar.password = '';
+      this.rememberMe = false;
+    }
+
     // Common function for login and forget password
     submitLogin(data, forgetStatus) {
       if(forgetStatus){
@@ -74,11 +81,11 @@ export class LoginComponent implements OnInit {
               }
             }
             else{
-              this.toastr.error("Please enter valid email id")
+              this.toastr.error("Please enter registered email id")
             }
         }
         else{
-          this.toastr.error("Please enter valid email id")
+          this.toastr.error("Please enter the registered email id")
         }
 
       }

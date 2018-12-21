@@ -35,7 +35,8 @@ export class API_URL {
    getTemplateList      : '5c15bed92e00009c0937c6a6',
    getBatchList         : '5c175edf2f00005f00b0862f',
    getPercentageList    : '5c18f1d42f00005900af12e7',
-   getUsers              : '5c1a5d1d320000540064b0fc'
+   getUsers             : '5c1a5d1d320000540064b0fc',
+   getUsersList          : '5c1cd7fd3100008a2b10424b'
 
   }
 
