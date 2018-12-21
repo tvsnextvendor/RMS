@@ -8,6 +8,10 @@
     top: 7px;
 }
 .createForum-addicon{
-  font-size: 20px;
+    font-size: 20px;
     color: #468FB9;
+    position: absolute;
+    cursor: pointer;
+    right: 0;
+    top: 7px;
 }

@@ -51,11 +51,12 @@
 <div class="clearfix pt-4">
 	<h4>{{moduleVar.courseId === "" ? labels.addCourseTitle : labels.editCourseTitle}}</h4>
 </div>
-<button type="button" (click)="moduleVar.tabEnable = false" class="btn btn-link float-right"><i class="fa fa-times icons_header"></i></button>
+
 <tabset #staticTabs   class="add-video-header">
     <tab heading="Videos">
     	<div class="row pr-3 pt-2">
 			<div class="col-md-12 pl-0">
+			   <button type="button" (click)="moduleVar.tabEnable = false" class="btn btn-link float-right"><i class="fa fa-times icons_header"></i></button>
 				<div class="white-bg p-3">
 					<div class="row form-group">
 						<label class="col-md-2 p-0 label-title">{{labels.courseName}}</label>
@@ -77,6 +78,7 @@
                                 <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span>
                                     <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" accept="video/*" (change)="fileUpload($event)"/>
                             </div>
+                            <span><img src="assets/images/Add_Profile_Picture.png"class="px-4"></span>
 							<span>	
 									<a (click)="videoSubmit()"><i class="fa fa-check upload-crt-icon" aria-hidden="true"></i></a>
 									<a (click)="cancelVideoSubmit()"><i class="fa fa-times upload-wrg-icon" aria-hidden="true"></i></a>
