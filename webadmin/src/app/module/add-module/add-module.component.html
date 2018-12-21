@@ -51,11 +51,11 @@
 <div class="clearfix pt-4">
 	<h4>{{moduleVar.courseId === "" ? labels.addCourseTitle : labels.editCourseTitle}}</h4>
 </div>
-<!-- <button type="button" (click)="moduleVar.tabEnable = false" class="btn btn-link float-right">Cancel</button> -->
+<button type="button" (click)="moduleVar.tabEnable = false" class="btn btn-link float-right"><i class="fa fa-times icons_header"></i></button>
 <tabset #staticTabs   class="add-video-header">
     <tab heading="Videos">
     	<div class="row pr-3 pt-2">
-			<div class="col-md-8 pl-0">
+			<div class="col-md-12 pl-0">
 				<div class="white-bg p-3">
 					<div class="row form-group">
 						<label class="col-md-2 p-0 label-title">{{labels.courseName}}</label>

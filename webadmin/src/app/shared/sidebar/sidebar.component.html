@@ -1,21 +1,21 @@
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
-        <li class="pdt50">
+        <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')" class="pdt50" >
             <a routerLink="/dashboard"><img src="assets/images/menu1.png"></a>
         </li>
-        <li>
+        <li [class.active]="router.isActive('/modulelist') || router.isActive('/module') || router.isActive('/module/:moduleId')">
             <a routerLink="/modulelist"><img src="assets/images/Modules.png"></a>
         </li>
-        <li>
+        <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
             <a routerLink="/calendar"><img src="assets/images/menu4.png"></a>
         </li>
-        <li>
+        <li [class.active]="router.isActive('/forum')">
             <a routerLink="/forum"><img src="assets/images/menu6.png"></a>
         </li>
-        <li>
+        <li [class.active]="router.isActive('/users')">
             <a routerLink="/users"><img src="assets/images/add_user.png"></a>
         </li>
-        <li>
+        <li [class.active]="router.isActive('/certificates')">
             <a routerLink="/certificates"><img src="assets/images/Certification.png"></a>
         </li>
     </ul>
