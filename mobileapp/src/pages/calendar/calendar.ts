@@ -22,9 +22,8 @@ export class CalendarPage {
       // this.calendar.listCalendars().then(data => {
       //   this.calendars = data;
       // });
-      this.openCalendar();
-   
    });
+   this.openCalendar();
    this.getCalendars();
   }
   ionViewDidLoad() {
@@ -59,7 +58,13 @@ export class CalendarPage {
   addEventWithOptions(cal){
   //  let date = new Date();
     let options = { calendarId: cal.calendarId, calendarName: cal.calendarName, url: cal.url };
-    this.calendar.createEventWithOptions(cal.title, cal.location, cal.notes, cal.startDate, cal.endDate, options).then(res => {
+    var startDates = new Date(2018,2,15,18,30,0,0); // beware: month 0 = january, 11 = december
+    var endDates = new Date(2018,2,15,19,30,0,0);
+    var title = "My nice event";
+    var eventLocation = "Home";
+    var notes = "Some notes about this event.";
+    this.calendar.createEventWithOptions(title, eventLocation, notes, startDates, endDates, options).then(res => {
+   // this.calendar.createEventWithOptions(cal.title, cal.location, cal.notes, cal.startDate, cal.endDate, options).then(res => {
     }, err => {
       console.log('err: ', err);
     });
