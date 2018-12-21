@@ -1,0 +1,33 @@
+.upload-crt-icon{
+    /* padding: 0 25px; */
+    color: #28a745;
+    font-size: 22px;
+}
+.upload-wrg-icon{
+    font-size: 22px;
+   color: #f44336;
+}
+
+.header-icon{
+    color: #468FB9;
+}
+
+.pdr{
+    padding-right: 10px;
+}
+
+.pdb5{
+    padding-bottom: 5px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) .input {
+    background-color: #F4FBFF;
+}
+
+.br-btn {
+    border-radius: 20px;
+    color: white !important;
+    min-height: unset !important;
+    height: 28px !important;
+    padding: 4px 8px !important;
+}

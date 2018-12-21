@@ -1,10 +1,8 @@
-import { Component, OnInit} from '@angular/core';
-import { Router} from '@angular/router';
-import { HeaderService} from '../services/header.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HttpService} from '../services/http.service';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { HeaderService } from '../services/header.service';
+import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { API_URL } from '../Constants/api_url';
 
@@ -16,36 +14,150 @@ import { API_URL } from '../Constants/api_url';
 
 export class UserComponent implements OnInit {
 
-   modalRef:BsModalRef;
-   constructor(private http: HttpService,private constant:UserVar,private modalService:BsModalService,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
-       this.constant.url = API_URL.URLS;
+   editEnable = false;
+   userName;
+   department;
+   designation;
+   emailAddress;
+   phoneNumber;
+   pageLimitOptions = [];
+   pageLimit;
+   labels;
+
+   constructor(private http: HttpService,private constant:UserVar,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
+        this.constant.url = API_URL.URLS;
+        this.labels  = constant.labels;
    }
-   ngOnInit(){
-    this.headerService.setTitle({ title:this.constant.title, hidemodule: false});
-    
-    //get Users list
-    this.http.get(this.constant.url.getUsers).subscribe((data) => {
-        if(data['isSuccess']){
-            this.constant.userList = data.UserList;
+    ngOnInit(){
+        this.headerService.setTitle({ title:this.constant.title, hidemodule: false});
+        this.pageLimitOptions = [5, 10, 25];
+        this.pageLimit=[this.pageLimitOptions[1]];
+        
+        //get Users list
+        this.http.get(this.constant.url.getUsersList).subscribe((data) => {
+            if(data['isSuccess']){
+                this.constant.userList = data.UserDetails.map(item=>{
+                    item.editEnable = false;
+                    return item;
+                });
+            }
+        });
+    }
+
+   //update user
+    userEdit(data,index){
+        if(!this.editEnable){       
+            this.constant.userList[index].editEnable =true;
+            this.editEnable = true;
+            this.userName = data.employeeName;
+            this.department = data.department;
+            this.designation = data.designation;
+            this.emailAddress = data.emailId;
+            this.phoneNumber = data.mobile;
         }
-    });
- 
-   }
+        else{
+            this.toastr.warning(this.labels.updateRestrictMsg);
+        }
+    }
 
-  
+   //add new user
+    addUser(){
+        // this.editEnable = false;
+        if(!this.editEnable){
+            let obj = { 
+                "department": "",
+                "designation": "",
+                "emailId": "",
+                "mobile": "",
+                "DOB" : "",
+                "employeeId": "",
+                "employeeName": "",
+                "editEnable" : true,
+            }
+            this.constant.userList.push(obj);
+            this.editEnable = true;
+            this.resetFields();
+        }
+        else{
+            this.toastr.warning(this.labels.addRestrictMsg);
+        }
+    }
 
-  
- 
- 
-  
- 
- 
+   //reset
+    resetFields(){
+        this.userName = '';
+        this.department = '';
+        this.designation = '';
+        this.emailAddress = '';
+        this.phoneNumber = '';
+    }
 
+   //cancel update
+    cancelEdit(data,index){
+        if(data.employeeId === ''){
+            let i = this.constant.userList.length - 1;
+            this.constant.userList.splice(i,1);
+        }
+        else{
+            this.constant.userList[index].editEnable =false;
+        }
+        this.editEnable = false;
+    }
 
- 
+    //delete user
+    removeUser(data,i){
+        if(this.constant.userList.length){
+            let index = this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
+            this.constant.userList.splice(index,1);
+            this.toastr.info(data.employeeName + this.labels.removeUser);
+        }
+    }
 
+    //user update submit
+    userUpdate(data,index){
+        let validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? true : false;
+        let validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? false : true;
+        if(this.userName && this.department && this.designation && validEmail && validPhone){
+            let i = data.employeeId === '' ? (this.constant.userList.length-1) : this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
+            this.constant.userList[i]={
+                "employeeId" : data.employeeId === '' ? this.constant.userList.length : data.employeeId ,
+                "employeeName" :  this.userName ,
+                "department" : this.department,
+                "designation" : this.designation,
+                "emailId" : this.emailAddress,
+                "DOB" : this.constant.userList[i].DOB,
+                "mobile" : this.phoneNumber,
+                "editEnable" : false
+            };
+            this.editEnable = false;
+            this.resetFields();
+            data.employeeId === '' ? this.toastr.success(this.labels.userAdded) : this.toastr.success(this.labels.userUpdated);
+            console.log(this.constant.userList)
+        }
+        else if(!validEmail){
+            this.toastr.error(this.labels.emailError);
+        }
+        else if(!validPhone){
+                this.toastr.error(this.labels.mobileError);
+        }
+        else{
+            this.toastr.error(this.labels.mandatoryFields);
+        }
+    }
 
-
-
-  
+    // email and mobile number validation check
+    validationCheck(type,value){
+        if(type === "email"){
+            var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if(!emailRegex.test(value)){
+                return "invalidEmail"
+            }
+        }     
+        if(type === "mobile"){
+            let data = value.toString(); 
+            let phoneNum =  data.replace("+","");
+            let phoneNumValid = phoneNum ? (phoneNum.length === 10 ? true :false) : false;
+            return phoneNumValid
+        }
+    }
 }
