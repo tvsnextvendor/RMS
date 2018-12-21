@@ -6,15 +6,19 @@
                     <div class="row">  
                             <label class="col-md-3 p-0 label-title">{{batchVar.labels.from}}</label>  		
                             <div class="col-md-7 p-0">
-                              <span> <img src="assets/images/cal.png" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
-                                    <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off" name="batchFrom"  bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel" [bsConfig]="{dateInputFormat: 'D MMMM YYYY '}" required>
+                            <input placeholder="Date Time"
+                                    name="batchForm" [min]="batchVar.min"
+                                    [(ngModel)]="batchVar.batchFrom"
+                                    [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
+                                    #dateTime1="ngModel">
+                                    <span [owlDateTimeTrigger]="dt1"><i class="fa fa-calendar"></i></span>  
+                                    <owl-date-time #dt1></owl-date-time>
                                     <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
                                              {{batchVar.mandatoryLabels.from}} 
-                                   </span> 
-                                   <div *ngIf="batchVar.dategreater" class="required_color">
+                                    </span> 
+                                    <div *ngIf="batchVar.dategreater" class="required_color">
                                         <span>{{batchVar.mandatoryLabels.dateValidate}} </span>
-                                  </div>  
-                                </span>
+                                    </div>  
                             </div>                         
                     </div>
                     <div class="row">  		
@@ -50,12 +54,13 @@
                   <div class="row">  		
                       <label class="col-md-2 p-0 label-title">{{batchVar.labels.to}}</label>  		
                       <div class="col-md-8 p-0 batch-input">
-                        <span> <img src="assets/images/cal.png" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen" class="batch-icon">
-                            <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo" bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'D MMMM YYYY '}" required>
+                       <input placeholder="Date Time:" name="batchTo"  [min]="batchVar.min" [(ngModel)]="batchVar.batchTo"
+                        [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" #dateTime2="ngModel">
+                        <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span> 
+                        <owl-date-time #dt2></owl-date-time>
                             <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
                                        {{batchVar.mandatoryLabels.to}}
                            </span> 
-                          </span>
                       </div>                     
                   </div> 
                   <div class="row" *ngFor="let data of batchVar.moduleForm; let i = index">

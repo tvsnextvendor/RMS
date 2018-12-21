@@ -52,6 +52,7 @@ export class BatchVar{
      }];
      batchFrom;
      batchTo;
+     min;
      employeeId;
      batchName;
   
