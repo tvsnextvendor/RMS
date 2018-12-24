@@ -71,3 +71,11 @@ tbody > tr:last-child > td {
 .forum-title{
   color: #576271;
 }
+.success-message{
+  color:#1fbb21;
+  text-align:left 
+}
+.error-message{
+   color:#f44336;
+   text-align:left 
+}

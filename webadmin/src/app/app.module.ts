@@ -30,12 +30,15 @@ import { moduleModule } from './module/module.module';
 import { BatchModule } from './batch/batch.module';
 import { CertificatesModule } from './certificates/certificates.module';
 import { UserModule } from './user/user.module';
+import { AlertService } from './services/alert.service';
+import { AlertComponent } from './alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,7 @@ import { UserModule } from './user/user.module';
     EmployeeModule,
     UserModule
   ],
-  providers: [AuthGuard,ExcelService,PDFService],
+  providers: [AuthGuard,ExcelService,PDFService,AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -44,3 +44,12 @@
     float: none;
     margin-right: 20px;
 }
+
+.success-message{
+   color:#1fbb21;
+   text-align:left 
+}
+.error-message{
+    color:#f44336;
+    text-align:left 
+ }

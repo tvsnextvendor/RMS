@@ -5,6 +5,7 @@ import {ForumVar} from '../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { API_URL } from '../Constants/api_url';
+import { AlertService } from '../services/alert.service';
 
 @Component({
     selector: 'app-forum',
@@ -15,9 +16,9 @@ import { API_URL } from '../Constants/api_url';
 export class ForumComponent implements OnInit {
    
    
-   
-  
-    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService){
+    successMessage = '';
+    errorMessage = '';
+    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService,private alertService:AlertService){
        this.forumVar.url = API_URL.URLS;
     }
 
@@ -42,7 +43,6 @@ export class ForumComponent implements OnInit {
     }
     getDepartmentList(){
         this.http.get(this.forumVar.url.getDepartments).subscribe((resp) => {
-            console.log(resp);
             this.forumVar.autocompleteItemsAsEmpObjects = resp.DepartmentList.map(item=>{
               return item.department;
             });
@@ -50,7 +50,8 @@ export class ForumComponent implements OnInit {
     }
     statusUpdate(forumName,status){
         let statusName = status ? " is Activated" : " is Deativated"
-        this.toastr.success(forumName + statusName);
+       // this.toastr.success(forumName + statusName);
+        this.alertService.success(forumName + statusName);
       }
 
     openEditModal(template: TemplateRef<any>, forum) {
@@ -62,8 +63,8 @@ export class ForumComponent implements OnInit {
 
     onSave(form){
       if(form.valid){
-        let postData= form.value;
-        this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
+       // this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
+        this.alertService.success(form.value.forumName + this.forumVar.updateSuccessMsg);
         this.forumVar.modalRef.hide();
      }
     }
