@@ -30,9 +30,34 @@ background-color: #C1E1F3;
 .table-decs{
 	position: relative;
 }
-.cancel-icon{
-	position: absolute;
+.videopage{
+    float: right;
+}
+.close-alg{
+    display: block;
+    width: 20px;
+    border: 1px solid #989898;
+    border-radius: 10px;
+    padding: 3px;
+    position: absolute;
     top: 10px;
     right: 10px;
-    width: 30px;
+    cursor: pointer;
+}
+.videopage:hover .close-alg{
+    display: none;
+}
+.cancel-alg{
+    display: none;
+    width: 20px;
+    border-radius: 10px;
+    padding: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ED2201;
+    cursor: pointer;
+}
+.videopage:hover .cancel-alg{
+    display: block;   
 }

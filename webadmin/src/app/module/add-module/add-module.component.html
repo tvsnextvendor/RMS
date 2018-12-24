@@ -35,13 +35,13 @@
 			<div *ngIf = "selectedCourses.length" class="addedcourse-scroll">
 				<div *ngFor="let course of selectedCourses,index as i">
 					<p>{{course.value}}<span class="float-right">
-							<a (click)= "updateCourse(course,i)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
+							<a (click)= "updateCourse(course,i)"><img src="assets/images/edit.png" class="px-3"></a>
 							<!-- <a (click)= "onItemDeselect(course)"><i class="fa fa-times icons_header" aria-hidden="true"></i></a> -->
 						</span>
 					</p>
 				</div>
 			</div>
-			<div class="ta-cen" *ngIf = "selectedCourses.length === 0">
+			<div class="text-center" *ngIf = "selectedCourses.length === 0">
 				<label class="label-title">{{labels.noData}}</label>
 			</div>
 		</div>
@@ -49,18 +49,20 @@
 </div>
 <div *ngIf="moduleVar.tabEnable">
 <div class="clearfix pt-4">
-	<h4>{{moduleVar.courseId === "" ? labels.addCourseTitle : labels.editCourseTitle}}</h4>
+	<h4 class="add-course">{{moduleVar.courseId === "" ? labels.addCourseTitle : labels.editCourseTitle}}</h4>
 </div>
 
 <tabset #staticTabs   class="add-video-header">
     <tab heading="Videos">
     	<div class="row pr-3 pt-2">
 			<div class="col-md-12 pl-0">
-			   <button type="button" (click)="moduleVar.tabEnable = false" class="btn btn-link float-right"><img src="assets/images/close.png"></button>
-				<div class="white-bg p-3">
+			   <span  (click)="moduleVar.tabEnable = false" class="videopage">
+			   	<img src="assets/images/Close-1.png" class="close-alg">
+			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></span>
+				<div class="white-bg p-4">
 					<div class="row form-group">
 						<label class="col-md-2 p-0 label-title">{{labels.courseName}}</label>
-						<span class="col-md-10 p-0">
+						<span class="col-md-9 p-0">
 							<input type="text" class="form-control" placeholder="Enter Course Name" name="selectCourseName" [(ngModel)]="moduleVar.selectCourseName">
 						</span>
 					</div>
@@ -80,8 +82,8 @@
                             </div>
                             <span><img src="assets/images/Add_Profile_Picture.png"class="px-4"></span>
 							<span>	
-									<a (click)="videoSubmit()"><i class="fa fa-check upload-crt-icon" aria-hidden="true"></i></a>
-									<a (click)="cancelVideoSubmit()"><i class="fa fa-times upload-wrg-icon" aria-hidden="true"></i></a>
+							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
+							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
 							</span>
 						</div>
 						<!-- <div class="col-md-12 drop-and-drag-pdb"><span class="col-md-8"></span><span class="col-md-4 float-right"><img src="{{videoFile}}" style="height: 45px;" >{{fileUrl}}</span></div> -->
