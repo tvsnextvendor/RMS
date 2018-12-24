@@ -19,6 +19,7 @@ export class API_URL {
         //'getCertificates':'5c174db82f00002a00b085d1'
         //'getCertificates':'5c175c4b2f00006e00b0861c',
         'getCertificates':'5c18f4fe2f00006500af130d',
-        'getCalendars':'5c1cc874310000ac2b1041f7'
+        'getCalendars':'5c1e5e063100002b00fdd27f'
+        //'getCalendars':'5c1e3d093100006600fdd269'
     };
 }

@@ -23,7 +23,7 @@
                         <tbody>
                         <tr *ngFor="let forum of mf.data" class="text-center table-desc-color">
                                 <td>{{ forum.forumName }}</td>
-                                <td>{{ forum.employeeDetails.length }}</td>
+                                <td>{{ forum.departments.length }}</td>
                                 <td><label class="switch">
                                         <input type="checkbox" [(ngModel)]="forum.activeStatus" (change)= "statusUpdate(forum.forumName,forum.activeStatus)" > 
                                         <span class="slider round"></span>
@@ -74,8 +74,8 @@
                         <tag-input [ngModel]="forumVar.employeeItems" #empName="ngModel"
                         name="empItems"
                         [onlyFromAutocomplete]="true"
-                        [placeholder]="'Add Employee'"      [displayBy]="'name'"
-                        [identifyBy]="'id'" [secondaryPlaceholder]="'Select Employee'" class="multi-input"
+                        [placeholder]="'Add Department'"      [displayBy]="'department'"
+                        [identifyBy]="'userId'" [secondaryPlaceholder]="'Select Department'" class="multi-input"
                         required>
                         <tag-input-dropdown [showDropdownIfEmpty]="false"
                         [dynamicUpdate]="false"

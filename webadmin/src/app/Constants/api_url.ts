@@ -31,12 +31,14 @@ export class API_URL {
    getYearList          : '5c1355633400007500ecdf6f',
    moduleCourseList     : '5c18c8502f00006a00af1181',
    getEmployeeList      : '5c0928d52f0000c21f637cd0',
-   getForumList         : '5c17879a2f00008200b087a8',
+  //* getForumList         : '5c17879a2f00008200b087a8',
+  getForumList :'5c208a6d2e000082001e0b03',
    getTemplateList      : '5c15bed92e00009c0937c6a6',
    getBatchList         : '5c175edf2f00005f00b0862f',
    getPercentageList    : '5c18f1d42f00005900af12e7',
    getUsers             : '5c1a5d1d320000540064b0fc',
-   getUsersList          : '5c1cd7fd3100008a2b10424b'
+   getUsersList          : '5c1cd7fd3100008a2b10424b',
+   getDepartments        :'5c2085822e00009c001e0af4'
 
   }
 

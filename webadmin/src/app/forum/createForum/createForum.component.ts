@@ -25,9 +25,9 @@ export class CreateForumComponent implements OnInit {
    }
 
    ngOnInit(){
-    this.getEmployeeList();
+   // this.getEmployeeList();
     this.getForumList();
-    
+    this.getDepartmentList();
    }
 
    getForumList(){
@@ -38,6 +38,16 @@ export class CreateForumComponent implements OnInit {
       });
      });   
    }
+
+   getDepartmentList(){
+    this.http.get(this.forumVar.url.getDepartments).subscribe((resp) => {
+        //console.log(resp);
+       // this.employeeItems=resp.DepartmentList;
+        this.autocompleteItemsAsEmpObjects = resp.DepartmentList.map(item=>{
+          return item.department;
+        });
+      });
+ }
 
    getEmployeeList(){
      this.http.get(this.forumVar.url.getEmployeeList).subscribe((resp) => {
@@ -84,16 +94,17 @@ export class CreateForumComponent implements OnInit {
           topic   : this.topics
         }; 
           this.toastr.success(this.forumVar.addSuccessMsg);
-          this.clearForm();
+          this.clearForm(null);
           this.forumVar.uniqueValidate=false;
       }
     }
 
-    clearForm(){
+    clearForm(formDir){
        this.forumName="";
        this.topicsArray = [{
         topicName:''
       }];
+      formDir.reset();
     }
 
 }
