@@ -1,4 +1,5 @@
 <p>{{batchVar.calendarView}}</p>
+
 <div class="row text-center">
     <div class="col-md-4">
       <div class="btn-group">
@@ -29,46 +30,25 @@
     <div class="col-md-4">
       <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
     </div>
-    <div class="col-md-4">
-      <div class="btn-group">
-        <div
-          class="btn btn-primary"
-          (click)="view = CalendarView.Month"
-          [class.active]="view === CalendarView.Month">
-          {{batchVar.calLabels.month}}
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="view = CalendarView.Week"
-          [class.active]="view === CalendarView.Week">
-          {{batchVar.calLabels.week}}
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="view = CalendarView.Day"
-          [class.active]="view === CalendarView.Day">
-          {{batchVar.calLabels.day}}
-        </div>
-      </div>
-    </div>
   </div>
   <br>
-  <div [ngSwitch]="view">
+<div [ngSwitch]="view">
     <mwl-calendar-month-view
       *ngSwitchCase="CalendarView.Month"
       [viewDate]="viewDate"
+      [events]="events"
+      [cellTemplate]="customCellTemplate"
       [refresh]="refresh"
       (dayClicked)="goToBatch($event.day.date)">
     </mwl-calendar-month-view>
-    <mwl-calendar-week-view
-      *ngSwitchCase="CalendarView.Week"
-      [viewDate]="viewDate"
-      [refresh]="refresh">
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view
-      *ngSwitchCase="CalendarView.Day"
-      [viewDate]="viewDate"
-      [refresh]="refresh">
-    </mwl-calendar-day-view>
-  </div>
+</div>
+  
+
+  <ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+      <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    </div>
+    <span style="margin: 5px" *ngFor="let event of day.events">{{event.title}}</span>
+  </ng-template>
   

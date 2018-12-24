@@ -5,7 +5,8 @@ import {ToastrService } from 'ngx-toastr';
 import {BatchVar} from '../../Constants/batch.var';
 import { HttpService } from 'src/app/services/http.service';
 import { API_URL } from '../../Constants/api_url';
-
+import {ActivatedRoute, Params} from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-add-batch',
@@ -16,8 +17,11 @@ import { API_URL } from '../../Constants/api_url';
 export class AddBatchComponent implements OnInit {
 
 
-   constructor(private headerService:HeaderService,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
-       this.batchVar.url = API_URL.URLS; 
+   constructor(private headerService:HeaderService,private datePipe: DatePipe,private activatedRoute : ActivatedRoute,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
+        this.batchVar.url = API_URL.URLS; 
+        this.activatedRoute.params.subscribe((params: Params) => {
+        this.batchVar.batchId = params['batchId'];
+      });
    }
 
 
@@ -52,7 +56,7 @@ export class AddBatchComponent implements OnInit {
       textField: 'name',
       enableCheckAll : false,
       itemsShowLimit: 8,
-    };
+    }
 
     splitDate(date){
       const newDate = new Date(date);
@@ -64,24 +68,25 @@ export class AddBatchComponent implements OnInit {
       return new Date(y,month,d, h, m);
     }
 
+    fromDateChange(date){
+     let fromDate=date.toISOString();
+     this.batchVar.batchFrom=fromDate;
+    }
 
+    toDateChange(date){
+      let toDate=date.toISOString();
+      this.batchVar.batchTo= toDate; 
+    }
    
    addBatch(form){
-     if(!this.batchVar.employeeId){
-       this.batchVar.empValidate = true;
-     }else{
-       this.batchVar.empValidate = false;
-     }
-      if(Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo)){
-        this.batchVar.dategreater= true;
-      }else{
-        this.batchVar.dategreater=false;
-        if(form.valid){
+      this.batchVar.empValidate= !this.batchVar.employeeId ? true : false;
+      this.batchVar.dategreater= Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo) ? true : false;
+      if(form.valid){
           let postData={
-           FromDate : this.batchVar.batchFrom,
-           ToDate   : this.batchVar.batchTo,
-           EmployeeIds : this.batchVar.employeeId,
-           BatchName : this.batchVar.batchName,
+           FromDate      : this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-mm-dd hh:mm'),
+           ToDate        : this.datePipe.transform(this.batchVar.batchTo, 'yyyy-mm-dd hh:mm'),
+           EmployeeIds   : this.batchVar.employeeId,
+           BatchName     : this.batchVar.batchName,
            ModuleDetails : this.batchVar.moduleForm
          }
          this.toastr.success('Batch Added Successfully');
@@ -89,7 +94,7 @@ export class AddBatchComponent implements OnInit {
          this.clearBatchForm();
         }
       }  
-   }
+   
 
    clearBatchForm(){
     this.batchVar.moduleForm = [{
@@ -101,6 +106,7 @@ export class AddBatchComponent implements OnInit {
      this.batchVar.batchTo = '';
      this.batchVar.employeeId ='';
      this.batchVar.batchName = '';
+     this.router.navigateByUrl('/calendar');
    }
 
    addForm(){
