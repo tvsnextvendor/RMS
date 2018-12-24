@@ -8,14 +8,14 @@
                             <div class="col-md-7 p-0">
                             <input placeholder="Date Time"
                                     name="batchForm" [min]="batchVar.min"
-                                    [(ngModel)]="batchVar.batchFrom"
+                                    [(ngModel)]="batchVar.batchFrom" (ngModelChange)="fromDateChange($event)"
                                     [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
                                     #dateTime1="ngModel">
                                     <span [owlDateTimeTrigger]="dt1"><i class="fa fa-calendar"></i></span>  
                                     <owl-date-time #dt1></owl-date-time>
-                                    <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
+                                    <!-- <span class="required_color" *ngIf="dateTime1 && dateTime1.invalid && (formDir.submitted || dateTime1.touched)">
                                              {{batchVar.mandatoryLabels.from}} 
-                                    </span> 
+                                    </span>  -->
                                     <div *ngIf="batchVar.dategreater" class="required_color">
                                         <span>{{batchVar.mandatoryLabels.dateValidate}} </span>
                                     </div>  
@@ -54,11 +54,11 @@
                   <div class="row">  		
                       <label class="col-md-2 p-0 label-title">{{batchVar.labels.to}}</label>  		
                       <div class="col-md-8 p-0 batch-input">
-                       <input placeholder="Date Time:" name="batchTo"  [min]="batchVar.min" [(ngModel)]="batchVar.batchTo"
-                        [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" #dateTime2="ngModel">
+                       <input placeholder="Date Time:" name="batchTo"  [min]="batchVar.min" [(ngModel)]="batchVar.batchTo" (ngModelChange)="toDateChange($event)"
+                        [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" #dateTime2="ngModel" required>
                         <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span> 
                         <owl-date-time #dt2></owl-date-time>
-                            <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
+                            <span class="required_color" *ngIf="dateTime2 && dateTime2.invalid && (formDir.submitted || dateTime2.touched)">
                                        {{batchVar.mandatoryLabels.to}}
                            </span> 
                       </div>                     

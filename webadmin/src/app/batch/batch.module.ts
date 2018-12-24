@@ -17,6 +17,7 @@ import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 const routes: Routes = [
     { path: 'calendar', component:CalendarViewComponent ,canActivate : [AuthGuard]},
     { path: 'addBatch', component:AddBatchComponent ,canActivate : [AuthGuard]},
+    { path: 'addBatch/:id', component:AddBatchComponent ,canActivate : [AuthGuard]},
 ];
 
 export const MY_MOMENT_FORMATS = {
