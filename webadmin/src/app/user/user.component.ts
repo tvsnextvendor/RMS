@@ -23,6 +23,10 @@ export class UserComponent implements OnInit {
    pageLimitOptions = [];
    pageLimit;
    labels;
+   videoSubmitted = false;
+   message;
+   validPhone = false;
+   validEmail = false;
 
    constructor(private http: HttpService,private constant:UserVar,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
         this.constant.url = API_URL.URLS;
@@ -54,6 +58,7 @@ export class UserComponent implements OnInit {
             this.designation = data.designation;
             this.emailAddress = data.emailId;
             this.phoneNumber = data.mobile;
+            this.videoSubmitted = false;
         }
         else{
             this.toastr.warning(this.labels.updateRestrictMsg);
@@ -62,6 +67,7 @@ export class UserComponent implements OnInit {
 
    //add new user
     addUser(){
+        this.videoSubmitted = false;
         // this.editEnable = false;
         if(!this.editEnable){
             let obj = { 
@@ -94,6 +100,7 @@ export class UserComponent implements OnInit {
 
    //cancel update
     cancelEdit(data,index){
+        this.videoSubmitted = false;
         if(data.employeeId === ''){
             let i = this.constant.userList.length - 1;
             this.constant.userList.splice(i,1);
@@ -109,15 +116,16 @@ export class UserComponent implements OnInit {
         if(this.constant.userList.length){
             let index = this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
             this.constant.userList.splice(index,1);
-            this.toastr.info(data.employeeName + this.labels.removeUser);
+            this.message = (data.employeeName + this.labels.removeUser);
         }
     }
 
     //user update submit
     userUpdate(data,index){
-        let validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? true : false;
-        let validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? false : true;
-        if(this.userName && this.department && this.designation && validEmail && validPhone){
+        this.videoSubmitted = true;
+         this.validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? false : true;
+         this.validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? true : false;
+        if(this.userName && this.department && this.designation && !this.validEmail && !this.validPhone){
             let i = data.employeeId === '' ? (this.constant.userList.length-1) : this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
             this.constant.userList[i]={
                 "employeeId" : data.employeeId === '' ? this.constant.userList.length : data.employeeId ,
@@ -131,18 +139,18 @@ export class UserComponent implements OnInit {
             };
             this.editEnable = false;
             this.resetFields();
-            data.employeeId === '' ? this.toastr.success(this.labels.userAdded) : this.toastr.success(this.labels.userUpdated);
+            this.message = data.employeeId === '' ? (this.labels.userAdded) : (this.labels.userUpdated);
             console.log(this.constant.userList)
         }
-        else if(!validEmail){
-            this.toastr.error(this.labels.emailError);
-        }
-        else if(!validPhone){
-                this.toastr.error(this.labels.mobileError);
-        }
-        else{
-            this.toastr.error(this.labels.mandatoryFields);
-        }
+        // else if(!validEmail){
+        //     this.toastr.error(this.labels.emailError);
+        // }
+        // else if(!validPhone){
+        //         this.toastr.error(this.labels.mobileError);
+        // }
+        // else{
+        //     this.toastr.error(this.labels.mandatoryFields);
+        // }
     }
 
     // email and mobile number validation check
@@ -160,4 +168,9 @@ export class UserComponent implements OnInit {
             return phoneNumValid
         }
     }
+
+    messageClose(){
+        this.message = '';
+        // console.log("messege redsad")
+      }
 }

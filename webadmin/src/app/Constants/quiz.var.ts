@@ -7,7 +7,7 @@ export class QuizVar {
         video        : 'Video',
         assignTo     : 'Assign To',
         questionType : 'Question Type',
-        question     : 'Quetion',
+        question     : 'Question',
         options      : 'Options',
         true         : 'True',
         false        : 'False',

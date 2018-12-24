@@ -7,7 +7,7 @@
 				<span class="col-md-10 pl-0">
 					<input type="text" class="form-control" placeholder="Enter Module Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (change)="checkValidation()" required>
 				</span>
-				<span class="required_color" *ngIf="module && module.invalid && (moduleForm.submitted || module.touched)">
+				<span class="required_color" *ngIf="moduleForm.form.controls.moduleName && moduleForm.form.controls.moduleName.invalid && (moduleForm.submitted || moduleForm.form.controls.moduleName.touched)">
 					{{labels.moduleName}}{{labels.isRequire}}
 				</span>
 				<span class="required_color" *ngIf="moduleVar.moduleNameCheck">
@@ -25,6 +25,9 @@
 					(onSelect)="onItemSelect($event)"
 					(onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
 				</div>
+				<span class="required_color" *ngIf="moduleSubmitted && selectedCourses.length === 0">
+						{{labels.courseError}}
+					</span>
 				<!-- <span class="col-md-1 pl-0"><a  (click)="addCourse()"><i class="fa fa-plus icons_header"></i></a></span> -->
 			</div>
 		</div>
@@ -47,7 +50,9 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="moduleVar.tabEnable">
+<p *ngIf="message && !tabEnable" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p>
+<p *ngIf="videoMessage && tabEnable" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{videoMessage}}</p>
+<div *ngIf="tabEnable">
 <div class="clearfix pt-4">
 	<h4 class="add-course">{{moduleVar.courseId === "" ? labels.addCourseTitle : labels.editCourseTitle}}</h4>
 </div>
@@ -64,27 +69,32 @@
 						<label class="col-md-2 p-0 label-title">{{labels.courseName}}</label>
 						<span class="col-md-9 p-0">
 							<input type="text" class="form-control" placeholder="Enter Course Name" name="selectCourseName" [(ngModel)]="moduleVar.selectCourseName">
+							<span class="required_color" *ngIf="courseSubmitted && !moduleVar.selectCourseName">Course name is required</span>
 						</span>
 					</div>
 					<div class="row form-group">
 						<div class="col-md-4 pl-0">
 							<label class="col-md-12 p-0 upload-label">{{labels.videoName}}</label>
 							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter Video Name" name="selectVideoName" [(ngModel)]="moduleVar.selectVideoName">
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.selectVideoName">Video name is required</span>
 						</div>
 						<div class="col-md-4 pl-0">
 							<label class="col-md-12 p-0 upload-label">{{labels.description}}</label>
 							<input type="text" class="form-control col-md-12 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="moduleVar.description">
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.description">Description is required</span>
 						</div>
 						<div class="col-md-4 pr-0 upload-line">
 							<div class="fileUpload btn btn-primary">
                                 <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span>
                                     <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" accept="video/*" (change)="fileUpload($event)"/>
                             </div>
-                            <span><img src="assets/images/Add_Profile_Picture.png"class="px-4"></span>
+							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span>
+							<span *ngIf="showImage && moduleVar.videoFile"><img src="{{moduleVar.videoFile}}" class="px-4 img-size"></span>
 							<span>	
 							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
 							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
 							</span>
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">Video FIle is required</span>
 						</div>
 						<!-- <div class="col-md-12 drop-and-drag-pdb"><span class="col-md-8"></span><span class="col-md-4 float-right"><img src="{{videoFile}}" style="height: 45px;" >{{fileUrl}}</span></div> -->
 						<!-- <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/> -->
@@ -113,6 +123,6 @@
 	</tab>
 </tabset>
 </div>
-<div *ngIf ="!moduleVar.tabEnable" class="clearfix text-center mt-4">
-	<button type="button" class="btn btn-primary btn-save" (click)="submitForm()">{{labels.save}}</button>
+<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
+	<button type="button" class="btn btn-primary btn-save" [disabled]="!moduleForm.form.valid" (click)="submitForm()">{{labels.save}}</button>
 </div>
