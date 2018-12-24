@@ -7,7 +7,7 @@
 
 
 
-
+.hd-alg{font-size: 20px;}
 .table-desc-color{
 	color: #73737B;
 }
@@ -356,12 +356,23 @@ li.search-block {
 	background-color: #8B8A88;
 }
 .carousel-control-next-icon{
-    background-image:  url(/assets/images/back_arrow.png);
+    background-image:  url(/assets/images/path.png);
 }
 .carousel-control-next {
     right: -10px;
-    width: 30px;
-    height: 27px;
+    width: 10px;
+    height: 10px;
+    top: 12px;
+}
+.carousel-control-prev-icon{
+    background-image:  url(/assets/images/path.png);
+}
+.carousel-control-prev  {
+    left: -10px;
+    width: 10px;
+    height: 10px;
+    top: 12px;
+    transform: rotate(180deg);
 }
 .btn_alg {
   background-color: #468FB9;
@@ -482,6 +493,11 @@ li {
   font-size: 13px;
   color: rgba(0,0,0,.54);
   margin: 0;
+  padding: 0 0 0 10px;
+}
+.share-icon{
+  box-shadow: 0px 0px 8px 0px #ccc;
+  float: right;
 }
 .growth-percen {
   text-align: right;

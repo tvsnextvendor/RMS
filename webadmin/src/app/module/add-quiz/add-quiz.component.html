@@ -9,7 +9,9 @@
 					<!-- <div class="col-md-12"> -->
 						<a><i class="fa fa-plus float-right icon-design" *ngIf="i==0" aria-hidden="true" (click)="addQuestionForm()"></i></a>
 					<!-- </div> -->
-					<span><a class="btn btn-link float-right" *ngIf="i!=0" (click)="removeQuestionForm(i)"><img src="assets/images/close.png" class="cancel-icon"></a></span>
+					<span><a class="btn btn-link videopage" *ngIf="i!=0" (click)="removeQuestionForm(i)">
+						<img src="assets/images/Close-1.png" class="close-alg">
+			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></a></span>
 					<div class="row form-group">
 						<div class="col-md-4 row"> 
 							<label for="" class="col-sm-5 label-title pl-0">{{constant.quizLabels.questionType}}</label>
@@ -41,7 +43,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row form-group">
+					<div class="row">
 						<label class="col-md-1 pr-0 label-title">{{constant.quizLabels.question}} {{i+1}}</label>
 						<div class="col-md-11 pdl65 pr-0">
 							<input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.question"

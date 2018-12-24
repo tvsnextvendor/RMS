@@ -23,12 +23,6 @@
 }
 .upload-crt-icon{
     padding: 0 30px;
-    color: #28a745;
-    font-size: 22px;
-}
-.upload-wrg-icon{
-    font-size: 22px;
-   color: #f44336;
 }
 .option-btn{
     border: 1px solid #468FB9;
@@ -86,12 +80,43 @@ background-color: #C1E1F3;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.ta-cen{
-    text-align: center;
-}
 .list-group-item{
-    display: flex !important;
+   display: inline-block !important;
 }
 .edit-bg{
     background-color: #EDF0F8;
+}
+.videopage{
+    float: right;
+}
+.close-alg{
+    display: block;
+    width: 20px;
+    border: 1px solid #989898;
+    border-radius: 10px;
+    padding: 3px;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    cursor: pointer;
+}
+.videopage:hover .close-alg{
+    display: none;
+}
+.cancel-alg{
+    display: none;
+    width: 20px;
+    border-radius: 10px;
+    padding: 3px;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    background-color: #ED2201;
+    cursor: pointer;
+}
+.videopage:hover .cancel-alg{
+    display: block;   
+}
+.add-course{
+    font-size: 18px;
 }
