@@ -22,7 +22,7 @@
     float: none;
 }
 .upload-crt-icon{
-    padding: 0 40px;
+    padding: 0 30px;
     color: #28a745;
     font-size: 22px;
 }
@@ -88,4 +88,10 @@ background-color: #C1E1F3;
 }
 .ta-cen{
     text-align: center;
+}
+.list-group-item{
+    display: flex !important;
+}
+.edit-bg{
+    background-color: #EDF0F8;
 }

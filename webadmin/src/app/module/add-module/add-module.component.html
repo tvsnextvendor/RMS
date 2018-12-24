@@ -14,7 +14,7 @@
 					{{labels.moduleNameValidation}}
 				</span>
 			</div>
-			<div class="row form-group">
+			<div class="row">
 				<label class="col-md-2 pr-0 label-title">{{labels.course}}</label>
 				<div class="col-md-10 pl-0 select-Courses">
 					<ng-multiselect-dropdown
@@ -87,13 +87,13 @@
 						<!-- <div class="col-md-12 drop-and-drag-pdb"><span class="col-md-8"></span><span class="col-md-4 float-right"><img src="{{videoFile}}" style="height: 45px;" >{{fileUrl}}</span></div> -->
 						<!-- <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/> -->
 						<ul class="list-group col-md-12 pt-2" dnd-sortable-container [sortableData]="moduleVar.videoList">
-							<li  *ngFor="let item of moduleVar.videoList; let i = index" class="list-group-item drop-and-drag-pdb row" dnd-sortable [sortableIndex]="i">
-								<span class="drop-and-drag-pdr col-md-2">{{item.videoName}}</span>
-								<span class="drop-and-drag-pdr col-md-4">{{item.description}}</span>
-								<span class="drop-and-drag-pdr col-md-4">{{item.url}}</span>
-								<span class="float-right col-md-2">
-								<a (click)= "updateVideo(item,i)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
-								<a (click)= "removeVideo(i)"><i class="fa fa-trash icons_header" aria-hidden="true"></i></a>
+							<li  *ngFor="let item of moduleVar.videoList; let i = index" class="list-group-item drop-and-drag-pdb row edit-bg" dnd-sortable [sortableIndex]="i">
+								<span class="col-md-2">{{item.videoName}}</span>
+								<span class="col-md-4">{{item.description}}</span>
+								<span class="col-md-4">{{item.url}}</span>
+								<span class="col-md-2">
+									<a (click)= "removeVideo(i)"><i class="fa fa-trash icons_header float-right" aria-hidden="true"></i></a>
+								<a (click)= "updateVideo(item,i)"><i class="fa fa-pencil icons_header float-right" aria-hidden="true"></i></a>								
 								</span></li>
 						</ul>
 						<div class="col-md-12 pr-0">
