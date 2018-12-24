@@ -29,8 +29,8 @@
                     name="empItems"
                     #empName="ngModel"
                     [onlyFromAutocomplete]="true"
-                    [placeholder]="'Add Employee'"      [displayBy]="'name'"
-                    [identifyBy]="'id'" [secondaryPlaceholder]="'Select Employee'" class="multi-input"
+                    [placeholder]="'Add Department'"      [displayBy]="'department'"
+                    [identifyBy]="'userId'" [secondaryPlaceholder]="'Select Department'" class="multi-input"
                     required
                     >
                     <tag-input-dropdown [showDropdownIfEmpty]="true"
@@ -42,12 +42,15 @@
                     </ng-template>
                 </tag-input-dropdown>
             </tag-input>
+            <!-- {{ empName.touched}}
+            {{ empName.invalid}}
+            {{ formDir.submitted }} -->
             <span class="required_color" *ngIf="empName && empName.invalid && (formDir.submitted || empName.touched)">
                     {{forumVar.mandatoryLabels.empName}}
             </span>    
       </div>
         <div class="text-center pt-5">
-            <button type="button" class="btn btn-default mr-3" (click)="clearForm()">{{forumVar.btns.cancel}}</button>
+            <button type="button" class="btn btn-default mr-3" (click)="clearForm(formDir)">{{forumVar.btns.cancel}}</button>
             <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.create}}</button>
         </div>
     </form>

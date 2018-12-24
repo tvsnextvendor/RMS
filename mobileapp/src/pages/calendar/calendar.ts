@@ -14,27 +14,18 @@ import { API_URL } from '../../constants/API_URLS.var';
 export class CalendarPage {
   calendars = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, private calendar: Calendar,private plt:Platform,private http:HttpProvider,public apiUrl:API_URL) {
-    // this.calendar.createCalendar('MyCalendar').then(
-    //   (msg) => { console.log(msg); },
-    //   (err) => { console.log(err); }
-    // );
     this.plt.ready().then(() => {
       // this.calendar.listCalendars().then(data => {
       //   this.calendars = data;
       // });
+      this.openCalendar();
+      this.getCalendars();
    });
-   this.openCalendar();
-   this.getCalendars();
+  
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalendarPage');
   }
-  // myCalendar() {
-  //   this.calendar.createCalendar('MyCalendar').then(
-  //     (msg) => { console.log(msg); },
-  //     (err) => { console.log(err); }
-  //   );
-  // }
   openCalendar(){
     this.calendar.openCalendar(new Date()).then(
         (msg) => { console.log(msg); },
@@ -47,8 +38,6 @@ export class CalendarPage {
         if (data['isSuccess']) {
           this.calendars = data['calendarList'];
           this.calendars.map(function(value,key){
-              console.log(key);
-              console.log(value);
               self.addEventWithOptions(value);
           });
         }
@@ -56,50 +45,42 @@ export class CalendarPage {
   }
 
   addEventWithOptions(cal){
-  //  let date = new Date();
-    let options = { calendarId: cal.calendarId, calendarName: cal.calendarName, url: cal.url };
-    var startDates = new Date(2018,2,15,18,30,0,0); // beware: month 0 = january, 11 = december
-    var endDates = new Date(2018,2,15,19,30,0,0);
-    var title = "My nice event";
-    var eventLocation = "Home";
-    var notes = "Some notes about this event.";
-    this.calendar.createEventWithOptions(title, eventLocation, notes, startDates, endDates, options).then(res => {
-   // this.calendar.createEventWithOptions(cal.title, cal.location, cal.notes, cal.startDate, cal.endDate, options).then(res => {
-    }, err => {
-      console.log('err: ', err);
+    return new Promise((resolve, reject) => {
+      let options    = { calendarId: cal.calendarId, calendarName: cal.calendarName, url: cal.url ,firstReminderMinutes:15 };
+      var startDate  = this.getDate(cal.startDate);
+      var endDate    = this.getDate(cal.endDate);
+      var startDates = new Date(startDate['year'],startDate['month'],startDate['date'],0,0,0,0); // beware: month 0 = january, 11 = december
+      var endDates   = new Date(endDate['year'],endDate['month'],endDate['date'],0,0,0,0);  
+      console.log(cal);
+      console.log("function call");
+
+      this.calendar.findEventWithOptions(cal.title,cal.location,cal.notes, startDates, endDates, options).then(resp=>{
+        console.log("find event resp",startDates,endDates);
+        console.log(resp);
+        console.log(resp.length);
+        if(resp.length === 0){
+          this.calendar.createEventWithOptions(cal.title, cal.location, cal.notes, startDates, endDates, options).then(res => {
+            console.log("create event resp",startDates,endDates);
+            console.log(res);
+            resolve(resp);
+          }, err => {
+            reject(err);
+            console.log('create err: ', err);
+          });
+        }
+      }, err => {
+        reject(err);
+        console.log('find err: ', err);
+      });
     });
   }
 
-
-  //   addEvent(){
-//     return this.calendar.createEventInteractively("event title");
-//    }
-// scheduleEvents(){
-//     this.calendar.hasReadWritePermission().then((result)=>{
-//     if(result === false){
-//         this.calendar.requestReadWritePermission().then((v)=>{
-//             this.addEvent();
-//         },(r)=>{
-//             console.log("Rejected");
-//         })
-//     }
-//     else
-//     {
-//         this.addEvent();
-//     }
-//     })     
-//   }
-
-
-  // addEvent(cal){
-  //   let date = new Date();
-  //   let options = { calendarId: cal.id, calendarName: cal.name, url: 'https://ionicacademy.com', firstReminderMinutes: 15 };
-  //   this.calendar.createEventInteractivelyWithOptions('My new Event', 'Münster', 'Special Notes', date, date, options).then(res => {
-  //   }, err => {
-  //     console.log('err: ', err);
-  //   });
-  // }
-  // openCal(cal) {
-  //   this.navCtrl.push('CalDetailsPage', { name: cal.name })
-  // }
+  getDate(dateFormat){
+     let date = dateFormat.split('-');
+     let resp = {};
+     resp['year'] = date[0];
+     resp['month'] = date[1];
+     resp['date'] = date[2];
+     return resp;
+  }
 }

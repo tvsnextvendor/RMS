@@ -17,7 +17,7 @@ export class ForumVar{
         createForum : 'Create Forum',
         forumName   : 'Forum Name',
         topics      : 'Topics',
-        empName     : 'Enter Employee Name',
+        empName     : 'Enter Department',
         noData      : 'No data'
     };
     btns ={
@@ -28,7 +28,7 @@ export class ForumVar{
     mandatoryLabels ={
         forumName   :  'Forum Name is required',
         topic       :  'Topic is required',
-        empName     :  'Employee Name is required',       
+        empName     :  'Department is required',       
     };
     title = 'Forum';
     addSuccessMsg = 'Forum Added Successfully';

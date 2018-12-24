@@ -24,7 +24,8 @@ export class ForumComponent implements OnInit {
    ngOnInit(){
     this.headerService.setTitle({title:this.forumVar.title, hidemodule:false});
     this.getForumList();
-    this.getEmployeeList();
+   // this.getEmployeeList();
+    this.getDepartmentList();
    }
 
     getForumList(){
@@ -32,7 +33,6 @@ export class ForumComponent implements OnInit {
           this.forumVar.forumList= data.forumDetails;
         });
     }
-
     getEmployeeList(){
         this.http.get(this.forumVar.url.getEmployeeList).subscribe((resp) => {
            this.forumVar.autocompleteItemsAsEmpObjects = resp.employeeList.map(item=>{
@@ -40,20 +40,24 @@ export class ForumComponent implements OnInit {
            });
          });
     }
-
-
+    getDepartmentList(){
+        this.http.get(this.forumVar.url.getDepartments).subscribe((resp) => {
+            console.log(resp);
+            this.forumVar.autocompleteItemsAsEmpObjects = resp.DepartmentList.map(item=>{
+              return item.department;
+            });
+          });
+    }
     statusUpdate(forumName,status){
         let statusName = status ? " is Activated" : " is Deativated"
         this.toastr.success(forumName + statusName);
       }
 
-     
-
     openEditModal(template: TemplateRef<any>, forum) {
         this.forumVar.modalRef = this.modalService.show(template,this.forumVar.modalConfig);
         this.forumVar.forumName= forum.forumName;
         this.forumVar.topics=forum.topic;
-        this.forumVar.employeeItems=forum.employeeDetails;
+        this.forumVar.employeeItems=forum.departments;
     }
 
     onSave(form){
