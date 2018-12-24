@@ -11,6 +11,11 @@
 .table-desc-color{
 	color: #73737B;
 }
+
+.sucess-msg{
+    color:green !important
+}
+
 button:focus {
   outline: none;
   outline: none;

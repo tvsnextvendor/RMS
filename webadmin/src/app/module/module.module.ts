@@ -2,6 +2,7 @@ import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import "angular2-navigate-with-data";
 import { TagInputModule } from 'ngx-chips';
 import {AuthGuard} from '../guard/auth.guard.component'
 import {AddModuleComponent} from './add-module/add-module.component';

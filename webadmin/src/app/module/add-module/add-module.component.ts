@@ -22,9 +22,16 @@ export class AddModuleComponent implements OnInit {
     moduleId;
     selectedCourses = [];
     moduleName;
+    showImage = false;
+    videoSubmitted = false;;
+    courseSubmitted = false;
+    moduleSubmitted = false;
     uploadFile;
     fileUrl;
     labels;
+    tabEnable = false;
+    message;
+    videoMessage;
     // selectedCourseIds:any;
 
    constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,private moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute){
@@ -46,7 +53,7 @@ export class AddModuleComponent implements OnInit {
         // allowSearchFilter: true
       }; 
     var myEl = document.querySelector('ul.item1');
-    myEl.innerHTML = ' <span><i class="fa fa-plus newCourseId addcourse" id="newCourseId (click)="addCourse()"></i> <span class="addnewcourse-title">Add New Course</span></span>';
+    myEl.innerHTML = ' <span class="newCourseId addcourse" (click)="addCourse()" id="newCourseId"><i class="fa fa-plus"></i> <span class="addnewcourse-title">Add New Course</span></span>';
     let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
     ele.onclick = this.addCourse.bind(this);
     this.moduleVar.tabKey = 1;
@@ -88,11 +95,12 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.selectedCourseIds =  this.selectedCourses.map(item=>{return item.id})
         // console.log(item,this.moduleVar.selectCourseName);
         if(item.value === this.moduleVar.selectCourseName || this.selectedCourses.length === 0 ){
-            this.moduleVar.tabEnable = false;
+            this.tabEnable = false;
         }
     }
 
     fileUpload(e){
+        this.showImage = true;
         console.log(e);
         let reader = new FileReader();
         let file = e.target.files[0];
@@ -105,7 +113,7 @@ export class AddModuleComponent implements OnInit {
     }
 
    updateCourse(data,i){
-       this.moduleVar.tabEnable = true;
+       this.tabEnable = true;
        let courseObj = (this.moduleVar.moduleObj.courseList.find(item => item.courseId ===  data.id));
        this.moduleVar.videoList = courseObj.videosDetails;
        this.moduleVar.selectCourseName = courseObj.courseName;
@@ -120,13 +128,29 @@ export class AddModuleComponent implements OnInit {
 
    removeVideo(i){
     this.moduleVar.videoList.splice(i, 1);
+
    }
 
    hideTab(data){
-       this.moduleVar.tabEnable = data ? false : true;
+       this.courseSubmitted = true;
+        if(this.moduleVar.selectCourseName){
+            this.tabEnable = data.courseUpdate ? false : true;
+            if(data.type){
+                this.message = "Course updated successfully"
+            }
+            else{
+                this.message = "Course added successfully"
+            }
+        }
    }
 
+   messageClose(){
+    this.message = '';
+    this.videoMessage = '';
+  } 
+
    updateVideo(data,i){
+       this.showImage = true;
         this.moduleVar.selectVideoName = data.videoName;
         this.moduleVar.description = data.description;
         this.moduleVar.videoFile = data.url;
@@ -145,7 +169,7 @@ export class AddModuleComponent implements OnInit {
    } 
 
    resetTabDetails(add){
-    this.moduleVar.tabEnable = add ? true : false;
+    this.tabEnable = add ? true : false;
     this.moduleVar.videoList = [];
     this.moduleVar.selectCourseName = '';
     this.moduleVar.selectVideoName = '';
@@ -153,15 +177,18 @@ export class AddModuleComponent implements OnInit {
     this.moduleVar.courseIndex = '';
     this.moduleVar.courseId = '';
     this.moduleVar.videoId = '';
+    this.message = '';
+    this.videoMessage = '';
     if(this.quiz && add){
            this.quiz.editQuizDetails();
     }
    }
    videoSubmit(){
+       this.videoSubmitted = true;
        console.log("video submitted");
        if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
-        this.moduleVar.courseId !== '' ? this.toastr.success(this.labels.videoUpdatedToast) : this.toastr.success(this.labels.videoAddedToast); 
-
+        this.videoMessage = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast); 
+        this.videoSubmitted = false;
         let videoObj = {
             videoName : this.moduleVar.selectVideoName ,
             description : this.moduleVar.description,
@@ -186,23 +213,25 @@ export class AddModuleComponent implements OnInit {
    cancelVideoSubmit(){
        this.moduleVar.selectVideoName = '';
        this.moduleVar.description = '';
+       this.moduleVar.videoFile = '';
    }
 
    checkValidation(){
        console.log(this.moduleVar.moduleList)
     let validation = this.moduleVar.moduleList.find(x=>x.moduleName === this.moduleName);
     if(validation){
-        console.log("validationFalse")
+        // console.log("validationFalse")
                 this.moduleVar.moduleNameCheck = true;
     }
     else{
-        console.log("validation True")
+        // console.log("validation True")
         this.moduleVar.moduleNameCheck = false;   
     }
        
    }
 
    tabChange(){
+       this.courseSubmitted = true;
         if(this.moduleVar.selectCourseName && this.moduleVar.videoList.length){
             this.staticTabs.tabs[1].disabled = false;
             this.staticTabs.tabs[1].active = true;
@@ -217,6 +246,7 @@ export class AddModuleComponent implements OnInit {
    }
 
     submitForm(form){
+        this.moduleSubmitted = true;
         // this.quiz  && this.quiz.quizSubmit();   
         if(this.moduleName && this.selectedCourses.length && !this.moduleVar.moduleNameCheck){
             let params = {
@@ -224,8 +254,13 @@ export class AddModuleComponent implements OnInit {
                 "CourseIds":this.moduleVar.selectedCourseIds.toString(),
                 }
             console.log("params-course",params)
-            this.toastr.success(this.labels.moduleCreateMsg);  
-            this.route.navigateByUrl('/modulelist')
+            // this.toastr.success(this.labels.moduleCreateMsg);  
+            let successMsg =  this.moduleId ? this.labels.moduleUpdateMsg : this.labels.moduleCreateMsg;
+            this.route.navigateByData({
+                url: ["/modulelist"],
+                data: successMsg
+            });
+            this.moduleSubmitted = false;
         }
         else{
             this.toastr.error(this.labels.moduleCreateError)

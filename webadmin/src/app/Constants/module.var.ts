@@ -34,8 +34,10 @@ export class ModuleVar {
         "courseNameError" : "Course name is mandatory",
         "videoError" : "Minimum one video data required",
         "moduleCreateMsg" : "Module Created Successfully",
+        "moduleUpdateMsg" : "Module Updated Successfully",
         "moduleCreateError" : "Unable to create module",
-        "noData" : "No Data Found !!",
+        "courseError":"Minimum one course is required*",
+        "noData" : "No Courses Found !!",
         "activeMsg"   : ' is Activated',
         "deactiveMsg" : ' is Deativated',
         "moduleNameValidation": "Module Name already taken"

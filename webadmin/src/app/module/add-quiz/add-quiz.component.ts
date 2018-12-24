@@ -158,46 +158,59 @@ export class AddQuizComponent implements OnInit {
     this.quizQuestionsForm.splice(index, 1);
   }
 
-  valueChanged(){
+  valueChanged(update){
     this.courseUpdate = true;
-    this.valueChange.emit(this.courseUpdate);
+    let data = {
+      courseUpdate : true,
+      type : update ? true : false
+    }
+    this.valueChange.emit(data);
   }
 
   // Quiz Submission
   quizSubmit() {
     //Weightage update
-    let data = this.quizQuestionsForm.map(item => {
-        item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
-        return item;
-    })
-    //final data for submission
-    let params = {
-      "courseId":"",
-      "courseName":this.selectCourseName,
-      "videoDetails":[],
-      "quizDetails":data
+    if(this.selectCourseName){
+      let data = this.quizQuestionsForm.map(item => {
+          item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+          return item;
+      })
+      //final data for submission
+      let params = {
+        "courseId":"",
+        "courseName":this.selectCourseName,
+        "videoDetails":[],
+        "quizDetails":data
+        }
+        if(this.videoList.length){
+          params.videoDetails = this.videoList.map(item=>{
+            let obj = {
+              videoName : item.videoName,
+              description : item.description,
+              url : item.url
+            }
+            return obj;
+          })
+        }
+      if(this.courseId){
+        params.courseId = this.courseId;
+        console.log(params);
+        // this.toastr.success("Quiz updated successfully");
+        this.valueChanged(true);
       }
-      if(this.videoList.length){
-        params.videoDetails = this.videoList.map(item=>{
-          let obj = {
-            videoName : item.videoName,
-            description : item.description,
-            url : item.url
-          }
-          return obj;
-        })
+      else{
+        console.log(params);
+        // this.toastr.success("Quiz added successfully");
+        this.valueChanged(false);
       }
-    if(this.courseId){
-      params.courseId = this.courseId;
-      console.log(params);
-      this.toastr.success("Quiz updated successfully");
-      this.valueChanged();
     }
     else{
-      console.log(params);
-      this.toastr.success("Quiz added successfully");
-      this.valueChanged();
+      this.toastr.error("Course name is mandatory");
+      this.courseId ? 
+        this.valueChanged(true)
+        :
+        this.valueChanged(false);
+      
     }
-    
   }
 }

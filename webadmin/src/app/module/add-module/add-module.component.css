@@ -41,6 +41,11 @@ background-color: #C1E1F3;
     line-height: 45px;
 }
 
+.img-size{
+    height: 90px;
+    width : 135px;
+}
+
 .drop-and-drag-pdr{
     padding-right: 110px;
 }
