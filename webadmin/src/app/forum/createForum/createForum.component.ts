@@ -3,6 +3,7 @@ import {HttpService} from '../../services/http.service';
 import {ForumVar} from '../../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { API_URL } from '../../Constants/api_url';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
     selector: 'app-createForum',
@@ -19,8 +20,9 @@ export class CreateForumComponent implements OnInit {
       topicName:''
     }];
     topics;
+    successMessage;
    
-   constructor(private toastr:ToastrService,private forumVar:ForumVar,private http: HttpService){
+   constructor(private toastr:ToastrService,private forumVar:ForumVar,private http: HttpService,private alertService:AlertService){
     this.forumVar.url = API_URL.URLS;
    }
 
@@ -41,8 +43,6 @@ export class CreateForumComponent implements OnInit {
 
    getDepartmentList(){
     this.http.get(this.forumVar.url.getDepartments).subscribe((resp) => {
-        //console.log(resp);
-       // this.employeeItems=resp.DepartmentList;
         this.autocompleteItemsAsEmpObjects = resp.DepartmentList.map(item=>{
           return item.department;
         });
@@ -71,7 +71,7 @@ export class CreateForumComponent implements OnInit {
 
     checkNameUniqueness(forumName){
       for (let i = 0; i <  this.forumVar.forumNameList.length; i++) {    
-        if(this.forumVar.forumNameList[i].toUpperCase()===forumName.toUpperCase()){
+        if(forumName && this.forumVar.forumNameList[i].toUpperCase()===forumName.toUpperCase()){
           this.forumVar.uniqueValidate=true;
           break;
         }else{
@@ -93,8 +93,9 @@ export class CreateForumComponent implements OnInit {
           employeeList : form.value.empItems,
           topic   : this.topics
         }; 
-          this.toastr.success(this.forumVar.addSuccessMsg);
-          this.clearForm(null);
+        this.alertService.success(this.forumVar.addSuccessMsg);
+         // this.toastr.success(this.forumVar.addSuccessMsg);
+          this.clearForm(form);
           this.forumVar.uniqueValidate=false;
       }
     }
@@ -105,6 +106,7 @@ export class CreateForumComponent implements OnInit {
         topicName:''
       }];
       formDir.reset();
+      formDir.submitted  = false;
     }
 
 }
