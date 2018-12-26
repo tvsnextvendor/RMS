@@ -993,6 +993,9 @@ a {
     font-weight: 700 !important;
     line-height: 35px !important;
 }
+.calender-view .cal-month-view .cal-cell-top {
+    min-height: unset;
+}
 /****************end calender style**********/
 @media (min-width: 1200px) { }
 @media (min-width: 980px) and (max-width: 1199px) { }
