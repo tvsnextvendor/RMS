@@ -151,11 +151,14 @@ export class AddQuizComponent implements OnInit {
     obj.questionId = this.quizQuestionsForm.length + 1;
     this.quizQuestionsForm.push(obj);
     obj.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+    this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
   }
 
   // Remove Question Box
   removeQuestionForm(index) {
     this.quizQuestionsForm.splice(index, 1);
+    this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
+
   }
 
   valueChanged(update){
