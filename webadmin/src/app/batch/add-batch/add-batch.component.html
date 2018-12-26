@@ -40,8 +40,10 @@
                                     [placeholder]="'Enter Employee Name'"
                                     name="employeeId" 
                                     [data]="batchVar.employeeList"
-                                    [(ngModel)]="batchVar.employeeId"
+                                    [(ngModel)]="batchVar.selectedEmp"
                                     [settings]="mySettings"
+                                   (onSelect)="onEmpSelect($event)"
+                                   (onDeSelect)="onEmpSelect($event)"
                                     #employeeId="ngModel" required
                                     ></ng-multiselect-dropdown>                              
                                     <span class="required_color" *ngIf="batchVar.empValidate">

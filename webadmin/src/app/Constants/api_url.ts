@@ -32,15 +32,15 @@ export class API_URL {
    moduleCourseList     : '5c18c8502f00006a00af1181',
    getEmployeeList      : '5c0928d52f0000c21f637cd0',
   //* getForumList         : '5c17879a2f00008200b087a8',
-  getForumList :'5c20c36a2e00004e001e0bf7',
+  getForumList          :'5c20c36a2e00004e001e0bf7',
    getTemplateList      : '5c15bed92e00009c0937c6a6',
    getBatchList         : '5c175edf2f00005f00b0862f',
    getPercentageList    : '5c18f1d42f00005900af12e7',
    getUsers             : '5c1a5d1d320000540064b0fc',
-   getUsersList          : '5c2086732e00006c001e0af8',
-   getDepartments        :'5c2085822e00009c001e0af4',
+   getUsersList         : '5c2086732e00006c001e0af8',
+   getDepartments       :'5c2085822e00009c001e0af4',
    getNewBatchList      : '5c23278e2f00009300049422',
-   //getNewBatchList      : '5c2319dd2f000091000493b6'
+   //getNewBatchList    : '5c2319dd2f000091000493b6'
 
   }
 

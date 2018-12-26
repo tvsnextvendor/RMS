@@ -26,8 +26,9 @@ export class AddBatchComponent implements OnInit {
 
 
    ngOnInit(){
+    this.batchVar.batchId ?this.headerService.setTitle({title:this.batchVar.editTitle, hidemodule:false}):
      this.headerService.setTitle({title:this.batchVar.title, hidemodule:false});
-
+     
      //get Employee list
       this.http.get(this.batchVar.url.getEmployeeList).subscribe((resp) => {
         this.batchVar.employeeList = resp.employeeList;
@@ -46,9 +47,30 @@ export class AddBatchComponent implements OnInit {
       let startDate=localStorage.getItem('BatchStartDate');
       this.batchVar.batchFrom= this.splitDate(startDate);
       this.batchVar.min =this.splitDate(new Date());
+      this.getBatchDetail();
 
    }
 
+
+   getBatchDetail(){
+    this.http.get(this.batchVar.url.getNewBatchList).subscribe((data) => {
+      this.batchVar.batchList= data.batchDetails;
+      if(this.batchVar.batchId){
+      let batchObj = this.batchVar.batchList.find(x=>x.batchId === parseInt(this.batchVar.batchId));
+      this.batchVar.selectedEmp = batchObj.employeeIds;
+      this.batchVar.batchFrom=batchObj.fromDate;
+      this.batchVar.batchTo =batchObj.toDate;
+      this.batchVar.batchName=batchObj.batchName;
+      this.batchVar.moduleForm=batchObj.moduleDetails;
+      }
+    });
+  }
+
+  onEmpSelect(item: any) {
+    this.batchVar.employeeId =  this.batchVar.selectedEmp.map(item=>{return item.id})
+    console.log(this.batchVar.employeeId,"EmpId");
+  }
+  
     // Settings configuration
     mySettings = {
       singleSelection: false,
@@ -62,15 +84,16 @@ export class AddBatchComponent implements OnInit {
       const newDate = new Date(date);
       const y = newDate.getFullYear();
       const d = newDate.getDate();
-      const month= newDate.getMonth();
-      const h= newDate.getHours();
-      const m= newDate.getMinutes();
+      const month = newDate.getMonth();
+      const h = newDate.getHours();
+      const m = newDate.getMinutes();
       return new Date(y,month,d, h, m);
     }
 
     fromDateChange(date){
      let fromDate=date.toISOString();
      this.batchVar.batchFrom=fromDate;
+     console.log(fromDate)
     }
 
     toDateChange(date){
@@ -89,6 +112,7 @@ export class AddBatchComponent implements OnInit {
            BatchName     : this.batchVar.batchName,
            ModuleDetails : this.batchVar.moduleForm
          }
+         console.log(postData);
          this.toastr.success('Batch Added Successfully');
          this.router.navigateByUrl('/calendar');
          this.clearBatchForm();
@@ -99,6 +123,7 @@ export class AddBatchComponent implements OnInit {
    clearBatchForm(){
     this.batchVar.moduleForm = [{
         moduleId : 1,
+        moduleName:'',
         passpercentage:"null",
         mandatory :"true",
      }];
@@ -112,6 +137,7 @@ export class AddBatchComponent implements OnInit {
    addForm(){
      let obj={
             moduleId : 1,
+            moduleName:'',
             passpercentage:"null",
             mandatory :"true",
      };
