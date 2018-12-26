@@ -13,7 +13,9 @@ export class BatchVar{
         module     : 'Module',
         mandatory  : 'Mandatory',
         optional   : 'Optional',
-        percentage : 'Pass %'
+        percentage : 'Pass %',
+        courses    : 'Courses'        
+
     };
     calLabels = {
         next     : 'Next',
@@ -37,6 +39,7 @@ export class BatchVar{
     };
      
     title = 'Add New Batch';
+    editTitle = 'Edit New Batch';
     calendarTitle = 'Training Batch Calendar';
     calendarView = 'Calendar View';
     dategreater=false;
