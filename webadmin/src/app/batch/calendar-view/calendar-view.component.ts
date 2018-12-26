@@ -8,6 +8,7 @@ import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,add
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
 import { HttpService } from 'src/app/services/http.service';
 import { API_URL } from '../../Constants/api_url';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -22,19 +23,10 @@ export class CalendarViewComponent implements OnInit {
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   refresh: Subject<any> = new Subject();
-   events: CalendarEvent[] = [
-//    {  start : subDays(startOfDay(new Date()), 1),
-//     end   : new Date(),
-//     title : 'Batch 1' + ' ' + '4' + ' courses' ,
-//     allDay: true },
-//     {  start : subDays(startOfDay(new Date()), 1),
-//         end   : new Date(),
-//         title : 'Batch 2' + ' ' + '49' + ' courses' ,
-//         allDay: true }
-    ];
+   events: CalendarEvent[] = [];
 
   
-   constructor(private headerService:HeaderService,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
+   constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
     this.batchVar.url = API_URL.URLS; 
    }
 
@@ -42,17 +34,22 @@ export class CalendarViewComponent implements OnInit {
         this.headerService.setTitle({title:this.batchVar.calendarTitle, hidemodule: false});
         this.http.get(this.batchVar.url.getNewBatchList).subscribe(data=>{
             this.batchVar.batchList = data.batchDetails;
+            let tempArray = [];
             this.batchVar.batchList.map(item => {
+                const fromTime= this.datePipe.transform(item.fromDate, 'hh:mm a');
+                const toTime= this.datePipe.transform(item.toDate, 'hh:mm a');
                 let obj = {
-                    start : subDays(startOfDay(new Date()), 1),
-                    end   : addDays(new Date(), 1),
-                    title : item.batchName + ' ' + item.courses + ' courses' ,
-                    allDay: true
+                    start  : new Date(item.fromDate),
+                    end    : new Date(item.toDate),
+                    title  : item.batchName + ' Module - ' + item.moduleDetails.length + ' ' + item.courses + ' courses ' + fromTime +'-' + toTime ,
+                    allDay : true
                 }
-               this.events.push(obj);    
+                tempArray.push(obj);
+
             });
+            this.events=tempArray;
+            console.log(this.events);
         });
-       //console.log(this.events,"NGONINIT");
     }
 
     goToBatch(event){
