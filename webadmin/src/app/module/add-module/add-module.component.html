@@ -61,7 +61,7 @@
     <tab heading="Videos">
     	<div class="row pr-3 pt-2">
 			<div class="col-md-12 pl-0">
-			   <span  (click)="moduleVar.tabEnable = false" class="videopage">
+			   <span  (click)="tabEnable = false" class="videopage">
 			   	<img src="assets/images/Close-1.png" class="close-alg">
 			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></span>
 				<div class="white-bg p-4">
@@ -89,7 +89,7 @@
                                     <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" accept="video/*" (change)="fileUpload($event)"/>
                             </div>
 							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span>
-							<span *ngIf="showImage && moduleVar.videoFile"><img src="{{moduleVar.videoFile}}" class="px-4 img-size"></span>
+							<span *ngIf="showImage && moduleVar.videoFile"><img src="{{previewImage}}" class="px-4 img-size"></span>
 							<span>	
 							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
 							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
@@ -104,9 +104,10 @@
 								<span class="col-md-4">{{item.description}}</span>
 								<span class="col-md-4">{{item.url}}</span>
 								<span class="col-md-2">
-									<a (click)= "removeVideo(i)"><i class="fa fa-trash icons_header float-right" aria-hidden="true"></i></a>
-								<a (click)= "updateVideo(item,i)"><i class="fa fa-pencil icons_header float-right" aria-hidden="true"></i></a>								
-								</span></li>
+									<a (click)= "removeVideo(item,i)"><i class="fa fa-trash icons_header float-right" aria-hidden="true"></i></a>
+									<a (click)= "updateVideo(item,i)"><i class="fa fa-pencil icons_header float-right" aria-hidden="true"></i></a>								
+								</span>
+							</li>
 						</ul>
 						<div class="col-md-12 pr-0">
 							<button type="button" (click)="tabChange()" class="btn btn-primary float-right">{{labels.next}}</button>

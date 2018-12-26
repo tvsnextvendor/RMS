@@ -40,7 +40,10 @@ export class ModuleVar {
         "noData" : "No Courses Found !!",
         "activeMsg"   : ' is Activated',
         "deactiveMsg" : ' is Deativated',
-        "moduleNameValidation": "Module Name already taken"
+        "moduleNameValidation": "Module Name already taken",
+        "addCourseSuccess" : "Course added successfully",
+        "updateCourseSuccess" : "Course updated successfully",
+        "removeVideoSuccess" : " removed from the video list"
     };
     courseList = [];
     courseItems = [];
