@@ -50,8 +50,8 @@
 		</div>
 	</div>
 </div>
-<p *ngIf="message && !tabEnable" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p>
-<p *ngIf="videoMessage && tabEnable" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{videoMessage}}</p>
+<!-- <p *ngIf="message && !tabEnable" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
+<!-- <p *ngIf="videoMessage && tabEnable" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{videoMessage}}</p> -->
 <div *ngIf="tabEnable">
 <div class="clearfix pt-4">
 	<h4 class="add-course">{{moduleVar.courseId === "" ? labels.addCourseTitle : labels.editCourseTitle}}</h4>

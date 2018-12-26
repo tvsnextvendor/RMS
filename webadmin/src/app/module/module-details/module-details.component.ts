@@ -8,6 +8,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 // import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 import {ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
+import { AlertService } from '../../services/alert.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class ModuleDetailsComponent implements OnInit {
     previewImage;
     videoIndex;
     
-    constructor(public videoVar: VideoVar,private moduleVar: ModuleVar,private activatedRoute: ActivatedRoute,private modalService:BsModalService,public http: HttpService, private headerService: HeaderService) { 
+    constructor(public videoVar: VideoVar,private moduleVar: ModuleVar,private activatedRoute: ActivatedRoute,private modalService:BsModalService,public http: HttpService, private headerService: HeaderService,private alertService:AlertService) { 
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleVar.moduleId = params['moduleId'];
             this.moduleVar.courseId = params['courseId'];
@@ -69,7 +70,6 @@ export class ModuleDetailsComponent implements OnInit {
             this.modalRef = this.modalService.show(template);
         }
         else{
-            console.log(data,index)
             this.showImage = true;
             this.videoName = data.videoTitle;
             this.videoFile = data.videoLink;
@@ -90,15 +90,14 @@ export class ModuleDetailsComponent implements OnInit {
 
     videoSubmit(){
         this.videoSubmitted = true;
-        console.log(this.videoIndex)
         if(this.videoName && this.videoFile && this.description){
             let i = this.videoIndex;
             this.moduleVar.selectedCourse.videos[i].videoTitle = this.videoName;
             this.moduleVar.selectedCourse.videos[i].videoLink = this.videoFile;
             this.moduleVar.selectedCourse.videos[i].videoDescription = this.description;
-            console.log(this.moduleVar.selectedCourse.videos[i])
             this.modalRef.hide();
             this.message = "Video updated successfully"
+            this.alertService.success(this.message);
         }
         else{
             console.log("video submitted error");
