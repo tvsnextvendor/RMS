@@ -15,7 +15,8 @@ import { API_URL } from '../../Constants/api_url';
 export class ModuleListComponent implements OnInit {
  
   textContent;
-  message;
+  message:string = '';
+  moduleAdd = false;
     constructor(private http: HttpService,private route: Router, private activatedRoute: ActivatedRoute,private moduleVar: ModuleVar,private toastr:ToastrService,private headerService:HeaderService){
         this.moduleVar.url=API_URL.URLS;
     }
@@ -25,9 +26,8 @@ export class ModuleListComponent implements OnInit {
     this.http.get(this.moduleVar.url.moduleCourseList).subscribe((data) => {
         this.moduleVar.moduleList = data.moduleList;
     });
-    // let data = this.route.getNavigatedData();
-    this.message = this.route.getNavigatedData(); 
-      // console.log(this.message)
+
+      this.message = this.route.getNavigatedData()[0].message;
    }
 
 
@@ -68,7 +68,7 @@ export class ModuleListComponent implements OnInit {
   } 
 
   moduleEdit(data,i){
-    console.log(data,i);
+    this.moduleAdd = true;
     this.route.navigateByUrl('/module/'+data.moduleId)
   }
 

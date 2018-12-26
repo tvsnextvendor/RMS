@@ -32,6 +32,7 @@ export class AddModuleComponent implements OnInit {
     tabEnable = false;
     message;
     videoMessage;
+    previewImage ;
     // selectedCourseIds:any;
 
    constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,private moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute){
@@ -109,6 +110,7 @@ export class AddModuleComponent implements OnInit {
           this.fileUrl = reader.result;
         }
       reader.readAsDataURL(file)
+      this.previewImage = "assets/videos/images/bunny.png";
       console.log(this.fileUrl,this.uploadFile)
     }
 
@@ -126,34 +128,30 @@ export class AddModuleComponent implements OnInit {
        this.cancelVideoSubmit();
    }
 
-   removeVideo(i){
-    this.moduleVar.videoList.splice(i, 1);
-
+   removeVideo(data,i){
+        this.moduleVar.videoList.splice(i, 1);
+        this.videoMessage = data.videoName + this.labels.removeVideoSuccess;
    }
 
    hideTab(data){
        this.courseSubmitted = true;
         if(this.moduleVar.selectCourseName){
             this.tabEnable = data.courseUpdate ? false : true;
-            if(data.type){
-                this.message = "Course updated successfully"
-            }
-            else{
-                this.message = "Course added successfully"
-            }
+            this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
         }
    }
 
-   messageClose(){
-    this.message = '';
-    this.videoMessage = '';
-  } 
+    messageClose(){
+        this.message = '';
+        this.videoMessage = '';
+    } 
 
    updateVideo(data,i){
        this.showImage = true;
         this.moduleVar.selectVideoName = data.videoName;
         this.moduleVar.description = data.description;
         this.moduleVar.videoFile = data.url;
+        this.previewImage = data.url;
         this.moduleVar.videoIndex = i+1;
         let index =  (this.moduleVar.videoList.findIndex(item => item.videoName ===  data.videoName));
         this.moduleVar.videoId = index + 1
@@ -174,6 +172,7 @@ export class AddModuleComponent implements OnInit {
     this.moduleVar.selectCourseName = '';
     this.moduleVar.selectVideoName = '';
     this.moduleVar.description = '';
+    this.moduleVar.videoFile = '';
     this.moduleVar.courseIndex = '';
     this.moduleVar.courseId = '';
     this.moduleVar.videoId = '';
@@ -204,6 +203,9 @@ export class AddModuleComponent implements OnInit {
         }
         this.moduleVar.selectVideoName = '';
         this.moduleVar.description = '';
+        this.moduleVar.videoFile = '';
+        this.showImage = false;
+        this.previewImage = '';
        }
        else{
            this.toastr.error(this.labels.mandatoryFields)
@@ -214,6 +216,7 @@ export class AddModuleComponent implements OnInit {
        this.moduleVar.selectVideoName = '';
        this.moduleVar.description = '';
        this.moduleVar.videoFile = '';
+       this.previewImage = '';
    }
 
    checkValidation(){
@@ -258,7 +261,7 @@ export class AddModuleComponent implements OnInit {
             let successMsg =  this.moduleId ? this.labels.moduleUpdateMsg : this.labels.moduleCreateMsg;
             this.route.navigateByData({
                 url: ["/modulelist"],
-                data: successMsg
+                data: [{message : successMsg ? successMsg : ''}]
             });
             this.moduleSubmitted = false;
         }
