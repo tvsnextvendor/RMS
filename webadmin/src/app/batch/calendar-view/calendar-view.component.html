@@ -1,15 +1,16 @@
-<p>{{batchVar.calendarView}}</p>
-
-<div class="row text-center">
-    <div class="col-md-4">
-      <div class="btn-group">
+<div class="pr-3 pt-5">
+  <div class="white-bg">
+    <div class="clearfix p-3">
+       <p class="calender-text">{{batchVar.calendarView}}</p>
+       <div class="btn-group">
         <div
           class="btn btn-primary"
           mwlCalendarPreviousView
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="activeDayIsOpen = false">
-          {{batchVar.calLabels.previous}}
+          <!-- {{batchVar.calLabels.previous}} -->
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
         </div>
         <div
           class="btn btn-outline-secondary"
@@ -23,16 +24,16 @@
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="activeDayIsOpen = false">
-          {{batchVar.calLabels.next}}
+          <!-- {{batchVar.calLabels.next}} -->
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+      <div class="text-center">
+      <h3 class="month-text">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}<img src="assets/images/sett.png" class="pl-2"></h3>
     </div>
-  </div>
   <br>
-<div [ngSwitch]="view">
+<div [ngSwitch]="view" class="px-3 calender-view">
     <mwl-calendar-month-view
       *ngSwitchCase="CalendarView.Month"
       [viewDate]="viewDate"
@@ -46,9 +47,12 @@
 
   <ng-template #customCellTemplate let-day="day" let-locale="locale">
     <div class="cal-cell-top">
-      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
-      <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+<!--       <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+ -->      <span class="calender-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
-    <span style="margin: 5px" *ngFor="let event of day.events">{{event.title}}</span>
+    <span class="calender-batch" *ngFor="let event of day.events">
+      <i class="fa fa-file-text pr-2" aria-hidden="true"></i><i class="fa fa-pencil float-right" aria-hidden="true"></i>{{event.title}}</span>
   </ng-template>
+</div>
+</div>
   
