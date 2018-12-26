@@ -32,6 +32,8 @@ import { CertificatesModule } from './certificates/certificates.module';
 import { UserModule } from './user/user.module';
 import { AlertService } from './services/alert.service';
 import { AlertComponent } from './alert.component';
+import { EmailModule } from './email/email.module';
+
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import { AlertComponent } from './alert.component';
     FormsModule, 
     GroupModule,
     EmployeeModule,
-    UserModule
+    UserModule,
+    EmailModule
   ],
   providers: [AuthGuard,ExcelService,PDFService,AlertService],
   bootstrap: [AppComponent]

@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
+    "@tinymce/tinymce-angular": "^2.3.3",
     "angular-2-dropdown-multiselect": "^1.8.1",
     "angular-6-datatable": "^0.8.0",
     "angular-calendar": "^0.26.4",
