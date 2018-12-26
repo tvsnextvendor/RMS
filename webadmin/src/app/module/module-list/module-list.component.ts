@@ -27,7 +27,7 @@ export class ModuleListComponent implements OnInit {
         this.moduleVar.moduleList = data.moduleList;
     });
 
-      this.message = this.route.getNavigatedData()[0].message;
+      // this.message = this.route.getNavigatedData()[0].message;
    }
 
 

@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import {AddQuizComponent} from '../add-quiz/add-quiz.component';
 import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
     selector: 'app-add-module',
@@ -35,7 +36,7 @@ export class AddModuleComponent implements OnInit {
     previewImage ;
     // selectedCourseIds:any;
 
-   constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,private moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute){
+   constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,private moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
         });
@@ -129,15 +130,19 @@ export class AddModuleComponent implements OnInit {
    }
 
    removeVideo(data,i){
+        this.messageClose();
         this.moduleVar.videoList.splice(i, 1);
-        this.videoMessage = data.videoName + this.labels.removeVideoSuccess;
+        this.message = data.videoName + this.labels.removeVideoSuccess;
+        this.alertService.success(this.message);
    }
 
    hideTab(data){
+        this.messageClose();
        this.courseSubmitted = true;
         if(this.moduleVar.selectCourseName){
             this.tabEnable = data.courseUpdate ? false : true;
             this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
+            this.alertService.success(this.message);
         }
    }
 
@@ -183,10 +188,12 @@ export class AddModuleComponent implements OnInit {
     }
    }
    videoSubmit(){
+        this.messageClose();
        this.videoSubmitted = true;
        console.log("video submitted");
        if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
-        this.videoMessage = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast); 
+        this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast); 
+        this.alertService.success(this.message);
         this.videoSubmitted = false;
         let videoObj = {
             videoName : this.moduleVar.selectVideoName ,
@@ -259,10 +266,8 @@ export class AddModuleComponent implements OnInit {
             console.log("params-course",params)
             // this.toastr.success(this.labels.moduleCreateMsg);  
             let successMsg =  this.moduleId ? this.labels.moduleUpdateMsg : this.labels.moduleCreateMsg;
-            this.route.navigateByData({
-                url: ["/modulelist"],
-                data: [{message : successMsg ? successMsg : ''}]
-            });
+            this.route.navigateByUrl("/modulelist");
+            this.alertService.success(successMsg);
             this.moduleSubmitted = false;
         }
         else{
