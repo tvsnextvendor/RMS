@@ -1,0 +1,26 @@
+.calender-text{
+	font-size: 18px;
+	color: #4D4F5C;
+	float: left;
+	font-weight: 600;
+}
+.btn-group{
+	float: right !important;
+}
+.month-text{
+	font-size: 19px;
+	color: #4D4F5C;
+	font-weight: 600;
+}
+.calender-batch{
+	background-color: #468FB9;
+    color: #fff;
+    font-size: 14px;
+    height: 100px;
+}
+.calender-number{
+	font-size: 1.2em;
+    opacity: 0.5;
+    margin: 8px;
+    float: right;
+}

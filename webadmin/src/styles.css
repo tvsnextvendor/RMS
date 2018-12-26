@@ -982,6 +982,16 @@ a {
     color: #EAEAEA !important;
 }
 /************end add module style************/
+/**************calender style*************/
+.calender-view .cal-header {
+    background-color: #F5F6FA !important;
+    border: 1px solid #EAF0F4 !important;
+    height: 47px !important;
+    color: #73737B !important;
+    font-weight: 700 !important;
+    line-height: 35px !important;
+}
+/****************end calender style**********/
 @media (min-width: 1200px) { }
 @media (min-width: 980px) and (max-width: 1199px) { }
 @media (min-width: 768px) and (max-width: 979px) { 
