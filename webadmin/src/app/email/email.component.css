@@ -1,0 +1,41 @@
+.mail-input{
+	width: 100%;
+    border: 1px solid #E8E9EC;
+    padding: 5px;
+    border-radius: 4px;
+}
+.dep-title{
+	color: #4D4F5C;
+    font-weight: 700;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+.dep-border{
+	border-top: 1px solid #E8E9EC;
+    margin: 50px 0 175px 0;
+    border-bottom: 1px solid #E8E9EC;
+}
+.dep-list{
+	color: #4D4F5C;
+    font-size: 14px;
+}
+.mail-box{
+	padding: 50px 15px 15px 75px;
+	border-left: 1px solid #E8E9EC;
+}
+.dep-border ul li {
+    color: #468FB9;
+    list-style-type: disc;
+    margin-left: 7px;
+    display: list-item;
+    font-size: 25px;
+}
+
+/*ul li::before {
+  content: "\2022";
+  color: green;
+  font-weight: bold;
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em;
+}*/

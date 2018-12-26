@@ -1,9 +1,9 @@
 <div class="pr-3 pt-5">
   <div class="white-bg">
     <div class="clearfix p-3 row calender-header">
-       <p class="calender-text col-md-4">{{batchVar.calendarView}}</p>
-       <h3 class="month-text col-md-4">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}<img src="assets/images/sett.png"class="pl-2"></h3>
-       <p class="col-md-4">
+       <span class="calender-text col-md-4">{{batchVar.calendarView}}</span>
+       <span class="month-text col-md-4">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}<img src="assets/images/sett.png"class="pl-2"></span>
+       <span class="col-md-4">
        <span class="btn-group">
         <div
           class="btn btn-primary"
@@ -11,7 +11,6 @@
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="activeDayIsOpen = false">
-          <!-- {{batchVar.calLabels.previous}} -->
           <i class="fa fa-chevron-left" aria-hidden="true"></i>
         </div>
         <div
@@ -26,17 +25,12 @@
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="activeDayIsOpen = false">
-          <!-- {{batchVar.calLabels.next}} -->
           <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </div>
       </span>
-    </p>
+    </span>
     </div>
-     <!--  <div class="text-center">
-      
-    </div> -->
-  <br>
-<div [ngSwitch]="view" class="px-3 calender-view">
+  <div [ngSwitch]="view" class="px-3 pb-3 calender-view">
     <mwl-calendar-month-view
       *ngSwitchCase="CalendarView.Month"
       [viewDate]="viewDate"
