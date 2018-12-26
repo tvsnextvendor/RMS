@@ -6,12 +6,14 @@
                     <div class="row">  
                             <label class="col-md-3 p-0 label-title">{{batchVar.labels.from}}</label>  		
                             <div class="col-md-7 p-0">
+                              <div class="form-control px-0">
                             <input placeholder="Date Time"
                                     name="batchForm" [min]="batchVar.min"
                                     [(ngModel)]="batchVar.batchFrom" (ngModelChange)="fromDateChange($event)"
                                     [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
-                                    #dateTime1="ngModel">
-                                    <span [owlDateTimeTrigger]="dt1"><i class="fa fa-calendar"></i></span>  
+                                    #dateTime1="ngModel" class="batch-calender">
+                                    <span [owlDateTimeTrigger]="dt1" class="float-right cp"><img src="assets/images/cal.png"></span>  
+                                  </div>
                                     <owl-date-time #dt1></owl-date-time>
                                     <!-- <span class="required_color" *ngIf="dateTime1 && dateTime1.invalid && (formDir.submitted || dateTime1.touched)">
                                              {{batchVar.mandatoryLabels.from}} 
@@ -54,9 +56,11 @@
                   <div class="row">  		
                       <label class="col-md-2 p-0 label-title">{{batchVar.labels.to}}</label>  		
                       <div class="col-md-8 p-0 batch-input">
+                        <div class="form-control px-0">
                        <input placeholder="Date Time:" name="batchTo"  [min]="batchVar.min" [(ngModel)]="batchVar.batchTo" (ngModelChange)="toDateChange($event)"
-                        [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" #dateTime2="ngModel" required>
-                        <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span> 
+                        [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" #dateTime2="ngModel" required class="batch-calender">
+                        <span [owlDateTimeTrigger]="dt2" class="float-right cp"><img src="assets/images/cal.png"></span>
+                        </div> 
                         <owl-date-time #dt2></owl-date-time>
                             <span class="required_color" *ngIf="dateTime2 && dateTime2.invalid && (formDir.submitted || dateTime2.touched)">
                                        {{batchVar.mandatoryLabels.to}}
@@ -68,11 +72,11 @@
                       <div class="col-md-8 p-0">
                          <div class="row"> 
                         <div class="col-md-5 pl-0">
-                                 <select id="moduleList" class="form-control form-group" name="moduleId{{i}}" [(ngModel)]="data.moduleId" #moduleId="ngModel">     
+                                 <select id="moduleList" class="form-control form-group pl-0" name="moduleId{{i}}" [(ngModel)]="data.moduleId" #moduleId="ngModel">     
                                                 <option *ngFor="let batch of batchVar.moduleList"  value="{{batch.moduleId}}">{{batch.moduleName}}</option>
                                          </select>
                                    
-                                 <select id="percentageList" class="form-control form-group" name="passpercentage{{i}}" [(ngModel)]="data.passpercentage">  
+                                 <select id="percentageList" class="form-control form-group pl-0" name="passpercentage{{i}}" [(ngModel)]="data.passpercentage">  
                                         <option value="null">{{batchVar.labels.percentage}}</option>   
                                         <option *ngFor="let percentage of batchVar.percentageList"  value="{{percentage.percentage}}">{{percentage.percentage}}</option>
                                  </select> 
@@ -84,8 +88,8 @@
                   </div>
                 </div>
                 <div class="col-md-2">
-                        <span><a class="col-md-1 pl-0" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span>
-                        <span><a class="col-md-1 pl-0" *ngIf="i!=0" (click)="removeForm(i)"><i class = "fa fa-times icons_header add-batch-icon"></i></a></span>
+                        <span><a class="float-right" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span>
+                        <span><a class="float-right" *ngIf="i!=0" (click)="removeForm(i)"><i class = "fa fa-times icons_header add-batch-icon"></i></a></span>
                         </div>
                 </div>
               </div>

@@ -924,6 +924,8 @@ a {
     border-right: none !important;
     border-left: none !important;
     color: #495057 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 .select-Courses .dropdown-list {
     width: 267px !important;

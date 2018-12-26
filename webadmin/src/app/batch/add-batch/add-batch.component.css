@@ -47,3 +47,8 @@
 .module-createbtn{
 	float: none;
 }
+.batch-calender{
+    border: none;
+    color: #576271;
+    width: 205px;
+}
