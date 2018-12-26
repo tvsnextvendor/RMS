@@ -22,7 +22,7 @@
     float: none;
 }
 .upload-crt-icon{
-    padding: 0 30px;
+    padding: 0 25px;
 }
 .option-btn{
     border: 1px solid #468FB9;
@@ -40,12 +40,10 @@ background-color: #C1E1F3;
     font-size: 20px;
     line-height: 45px;
 }
-
 .img-size{
     height: 90px;
     width : 135px;
 }
-
 .drop-and-drag-pdr{
     padding-right: 110px;
 }
