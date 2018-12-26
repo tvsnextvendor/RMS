@@ -1,0 +1,29 @@
+<div class="pr-3 white-bg">
+    <div class="col-12 row">
+        <div class="col-4">
+            <label>Department</label>
+            <ul *ngFor="let depart of departments;let i=index;">
+                <li>
+                    {{depart.department}}
+                </li>
+            </ul>
+        </div>
+        <div class="col-8">
+
+            <div class="form-group">
+                <input type="text-box" name="to" [(ngModel)]="emailForm.to" class="form-control" placeholder="to">
+            </div>
+
+            <div class="form-group">
+                <input type="text-box" name="cc" [(ngModel)]="emailForm.cc" class="form-control" placeholder="cc">
+            </div>
+
+            <div class="form-group">
+                <input type="text-box" name="subject" [(ngModel)]="emailForm.subject" class="form-control" placeholder="subject">
+            </div>
+            <div class="form-group">
+                    <editor [(ngModel)]="dataModel"></editor>
+            </div>
+        </div>
+    </div>
+</div>

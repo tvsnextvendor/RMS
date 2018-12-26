@@ -14,7 +14,6 @@ export enum AlertType {
 import { AlertService } from './services/alert.service';
  
 @Component({
-    moduleId: module.id,
     selector: 'alert',
     template: `<div *ngFor="let alert of alerts" class="{{ cssClass(alert) }} alert-dismissable"><i class="fa fa-times cp" (click)="removeAlert(alert)"></i> {{alert.message}}</div>`
 })
@@ -58,3 +57,4 @@ export class AlertComponent implements OnInit {
         }
     }
     
+}
