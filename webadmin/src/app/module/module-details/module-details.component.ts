@@ -17,7 +17,18 @@ import { API_URL } from '../../Constants/api_url';
 })
 
 export class ModuleDetailsComponent implements OnInit {
-   
+
+    description;
+    videoFile;
+    videoName;
+    videoSubmitted = false;
+    message;
+    showImage = false;
+    uploadFile;
+    fileUrl;
+    previewImage;
+    videoIndex;
+    
     constructor(public videoVar: VideoVar,private moduleVar: ModuleVar,private activatedRoute: ActivatedRoute,private modalService:BsModalService,public http: HttpService, private headerService: HeaderService) { 
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleVar.moduleId = params['moduleId'];
@@ -52,9 +63,64 @@ export class ModuleDetailsComponent implements OnInit {
         })
     }
 
-    openModal(template: TemplateRef<any>, videolink) {
-        this.moduleVar.videoLink= videolink;
-        this.modalRef = this.modalService.show(template);
+    openModal(template: TemplateRef<any>, data,type,index) {
+        if(type === "video"){
+            this.moduleVar.videoLink= data;
+            this.modalRef = this.modalService.show(template);
+        }
+        else{
+            console.log(data,index)
+            this.showImage = true;
+            this.videoName = data.videoTitle;
+            this.videoFile = data.videoLink;
+            this.description = data.videoDescription;
+            this.previewImage = "assets/videos/images/bunny.png";
+            this.videoIndex = index;
+            this.modalRef = this.modalService.show(template);
+        } 
+    }
+    cancelVideoSubmit(){
+        this.modalRef.hide();
+        this.videoName = '';
+        this.videoFile = '';
+        this.description = '';
+        this.showImage = false;
+        this.showImage = false;
     }
 
+    videoSubmit(){
+        this.videoSubmitted = true;
+        console.log(this.videoIndex)
+        if(this.videoName && this.videoFile && this.description){
+            let i = this.videoIndex;
+            this.moduleVar.selectedCourse.videos[i].videoTitle = this.videoName;
+            this.moduleVar.selectedCourse.videos[i].videoLink = this.videoFile;
+            this.moduleVar.selectedCourse.videos[i].videoDescription = this.description;
+            console.log(this.moduleVar.selectedCourse.videos[i])
+            this.modalRef.hide();
+            this.message = "Video updated successfully"
+        }
+        else{
+            console.log("video submitted error");
+        }
+    }
+    messageClose(){
+        this.message = '';
+        // console.log("messege redsad")
+      } 
+
+      fileUpload(e){
+        this.showImage = true;
+        console.log(e);
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+          this.uploadFile = file;
+          this.fileUrl = reader.result;
+        }
+      reader.readAsDataURL(file)
+      this.previewImage = "assets/videos/images/bunny.png";
+      console.log(this.fileUrl,this.uploadFile)
+    }
+    
 }
