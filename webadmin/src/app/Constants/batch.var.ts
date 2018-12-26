@@ -42,11 +42,13 @@ export class BatchVar{
     dategreater=false;
     empValidate=false;
     employeeList: IMultiSelectOption[];
+    selectedEmp;
     moduleList;
     percentageList;
     url;
     moduleForm = [{
         moduleId : 1,
+        moduleName: '',
         passpercentage:"null",
         mandatory :"true",
      }];

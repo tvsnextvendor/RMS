@@ -22,8 +22,7 @@ export class CalendarViewComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-  refresh: Subject<any> = new Subject();
-   events: CalendarEvent[] = [];
+  events: CalendarEvent[] = [];
 
   
    constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
@@ -39,13 +38,15 @@ export class CalendarViewComponent implements OnInit {
                 const fromTime= this.datePipe.transform(item.fromDate, 'hh:mm a');
                 const toTime= this.datePipe.transform(item.toDate, 'hh:mm a');
                 let obj = {
-                    start  : new Date(item.fromDate),
-                    end    : new Date(item.toDate),
-                    title  : item.batchName + ' Module - ' + item.moduleDetails.length + ' ' + item.courses + ' courses ' + fromTime +'-' + toTime ,
-                    allDay : true
+                    start       : new Date(item.fromDate),
+                    end         : new Date(item.toDate),
+                    batchName   : item.batchName,
+                    moduleCount : item.moduleDetails.length,
+                    courseCount : item.courses,
+                    timings     : fromTime +'-' + toTime ,
+                    id          : item.batchId, 
                 }
                 tempArray.push(obj);
-
             });
             this.events=tempArray;
             console.log(this.events);
