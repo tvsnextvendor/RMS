@@ -79,3 +79,6 @@ tbody > tr:last-child > td {
    color:#f44336;
    text-align:left 
 }
+.modal-title {
+   font-size: 20px !important;
+}

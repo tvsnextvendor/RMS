@@ -6,22 +6,50 @@
 
 
 
-
-.hd-alg{font-size: 20px;}
-.table-desc-color{
-	color: #73737B;
+body {
+    font-family: 'Open Sans', sans-serif;
 }
-
+.hd-alg{
+  font-size: 20px;
+  font-weight: 600;
+  float: left;
+  position: absolute;
+  border-left: 3px solid #468FB9;
+  height: 30px;
+  left: -16px;
+  padding: 0 0 0 12px;
+  line-height: 31px;
+}
 .sucess-msg{
     color:green !important
 }
-
+.table-desc-color{
+	color: #73737B;
+}
+.text-nowrap{
+  font-weight: 600 !important;
+}
+.alert-success{
+color:#1fbb21;
+text-align:left;
+background-color:transparent;
+border-color:transparent;
+}
+.alert-danger{
+color:#f44336;
+text-align:left ;
+background-color:transparent;
+border-color:transparent;
+}
+.cp{
+cursor: pointer;
+}
 button:focus {
   outline: none;
   outline: none;
 }
-.pdt70{
-  padding-top: 70px;
+.mt75{
+  margin-top: 75px;
 }
 .pdl65{
   padding-left: 65px;
@@ -174,7 +202,7 @@ table td.td-pd {
 .sidebar-nav {
   position: absolute;
   top: 0;
-  width: 92px;
+  width: 86px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -183,7 +211,7 @@ table td.td-pd {
 .sidebar-nav li {
   /*text-indent: 8px;*/
   line-height: 70px;
-  width: 75px;
+  width: 86px;
   text-align: center;
 }
 
@@ -195,10 +223,12 @@ table td.td-pd {
 
 .sidebar-nav li a:hover {
     background-color: #E4EFF5;
-    /*width: 92px;
-    border-radius: 5px;
-    margin-left: 15px;*/
+    width: 86px;
 }
+.sidebar-nav li.active{
+  background-color: #E4EFF5;
+  width: 86px;
+} 
 .fix{
   background-color: #E4EFF5;
     width: 92px;
@@ -336,6 +366,7 @@ li.search-block {
 }
 .fnt-size{
 	font-size: 35px;
+  font-weight: 600;
 }
 .circle-fnt{font-size: 12px;}
 .hd-button{
@@ -801,6 +832,8 @@ a {
 }
 .multi-input div {
     overflow: unset !important;
+    font-size: 15px;
+    padding: 0 2px 0 0;
 }
 .multi-input svg {
     border: 1px solid #989898;
@@ -811,6 +844,7 @@ a {
     line-height: 15px;
     color: #EAEAEA !important;
     vertical-align: unset !important;
+    margin: 0 0 0 4px;
 }
 .multi-input tag:hover{
 	background: unset !important;
