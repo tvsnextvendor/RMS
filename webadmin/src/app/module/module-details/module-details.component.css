@@ -1,4 +1,19 @@
-
+.label-title{
+    color: #697380;
+    line-height: 43px;
+    font-size: 15px;
+}
+.save-btn{
+    float: none;
+}
+.decs-overflow{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+textarea {
+    resize: none;
+}
 .video-img-alg{
 	max-height: 150px;
     overflow: hidden;

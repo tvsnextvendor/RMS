@@ -39,23 +39,23 @@
 
 
 <ng-template #editVideo>
-    <div class="modal-body modal-lg">
-        <div>
-            <h5>Edit Video <span class="float-right"><a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a></span></h5>
-        </div><hr/>
+    <div class="p-4">
+        <div class="clearfix">
+            <h5 class="float-left">Edit Video</h5><span class="float-right"><a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a></span>
+        </div>
         <div class="form-group">
             <div class="row pl-0 pdb20">
-                <label class="col-md-4 p-0 upload-label">Video Name</label>
+                <label class="col-md-4 p-0 label-title">Video Name</label>
                 <input type="text" class="form-control col-md-8 p-0" placeholder="Enter Video Name" name="selectVideoName" [(ngModel)]="videoName">
                 <span class="required_color" *ngIf="videoSubmitted && !videoName">Video name is required</span>
             </div>
             <div class="row pl-0 pdb20">
-                <label class="col-md-4 p-0 upload-label">Description</label>
+                <label class="col-md-4 p-0 label-title">Description</label>
                 <textarea class="form-control col-md-8 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="description"></textarea>
                 <span class="required_color" *ngIf="videoSubmitted && !description">Description is required</span>
             </div>
             <div class="row pl-0 pdb20">
-                <label class="col-md-4 p-0 upload-label">Video File</label>
+                <label class="col-md-4 p-0 label-title">Video File</label>
                 <div class="col-md-4">
                     <div class="fileUpload btn btn-primary">
                         <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>UPLOAD</span>
@@ -68,11 +68,9 @@
                 <!-- <span *ngIf="!videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span> -->
                 <span class="required_color" *ngIf="videoSubmitted && !videoFile">Video File is required</span>
             </div>
-            <div class="pl-0">
-                <span class="float-right" >	
-                   <a class="btn btn-default mr10 btn-blue" (click)="cancelVideoSubmit()">Cancel</a>
-                   <a class="btn btn-primary mr10 btn-white" (click)="videoSubmit()">SAVE</a>
-                </span>
+            <div class="text-center">                
+                   <button class="btn btn-default mr10" (click)="cancelVideoSubmit()">CANCEL</button>
+                   <button class="btn btn-primary mr10 save-btn" (click)="videoSubmit()">SAVE</button>               
             </div>
          </div>   
     </div>
