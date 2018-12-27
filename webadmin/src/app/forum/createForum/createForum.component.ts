@@ -71,7 +71,7 @@ export class CreateForumComponent implements OnInit {
 
     checkNameUniqueness(forumName){
       for (let i = 0; i <  this.forumVar.forumNameList.length; i++) {    
-        if(forumName && this.forumVar.forumNameList[i].toUpperCase()===forumName.toUpperCase()){
+        if(forumName && this.forumVar.forumNameList[i]===forumName){
           this.forumVar.uniqueValidate=true;
           break;
         }else{
