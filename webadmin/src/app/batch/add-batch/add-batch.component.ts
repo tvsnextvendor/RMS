@@ -26,14 +26,16 @@ export class AddBatchComponent implements OnInit {
 
 
    ngOnInit(){
-    this.batchVar.batchId ?this.headerService.setTitle({title:this.batchVar.editTitle, hidemodule:false}):
+     this.batchVar.batchId ?this.headerService.setTitle({title:this.batchVar.editTitle, hidemodule:false}):
      this.headerService.setTitle({title:this.batchVar.title, hidemodule:false});
      
-     //get Employee list
-      this.http.get(this.batchVar.url.getEmployeeList).subscribe((resp) => {
-        this.batchVar.employeeList = resp.employeeList;
-      });
-     
+  
+     //get Department list
+     this.http.get(this.batchVar.url.getDepartments).subscribe((data) => {
+          this.batchVar.employeeList = data.DepartmentList;
+     });
+  
+
      //get Module list
       this.http.get(this.batchVar.url.getModuleList).subscribe((data) => {
         this.batchVar.moduleList= data.ModuleList;
@@ -45,21 +47,21 @@ export class AddBatchComponent implements OnInit {
       });
       
       let startDate=localStorage.getItem('BatchStartDate');
-      this.batchVar.batchFrom= this.splitDate(startDate);
+      this.batchVar.batchFrom= this.splitDate(startDate).toISOString();
       this.batchVar.min =this.splitDate(new Date());
       this.getBatchDetail();
-
    }
 
 
-   getBatchDetail(){
+  //get edit batch details
+  getBatchDetail(){
     this.http.get(this.batchVar.url.getNewBatchList).subscribe((data) => {
       this.batchVar.batchList= data.batchDetails;
       if(this.batchVar.batchId){
       let batchObj = this.batchVar.batchList.find(x=>x.batchId === parseInt(this.batchVar.batchId));
       this.batchVar.selectedEmp = batchObj.employeeIds;
       this.batchVar.batchFrom=batchObj.fromDate;
-      this.batchVar.batchTo =batchObj.toDate;
+      this.batchVar.batchTo = batchObj.toDate;
       this.batchVar.batchName=batchObj.batchName;
       this.batchVar.moduleForm=batchObj.moduleDetails;
       }
@@ -67,15 +69,15 @@ export class AddBatchComponent implements OnInit {
   }
 
   onEmpSelect(item: any) {
-    this.batchVar.employeeId =  this.batchVar.selectedEmp.map(item=>{return item.id})
-    console.log(this.batchVar.employeeId,"EmpId");
+    this.batchVar.employeeId =  this.batchVar.selectedEmp.map(item=>{return item.userId});
+    this.batchVar.empValidate= false;
   }
   
-    // Settings configuration
+    //Employee dropdown Settings configuration
     mySettings = {
       singleSelection: false,
-      idField: 'id',
-      textField: 'name',
+      idField: 'userId',
+      textField: 'department',
       enableCheckAll : false,
       itemsShowLimit: 8,
     }
@@ -93,7 +95,6 @@ export class AddBatchComponent implements OnInit {
     fromDateChange(date){
      let fromDate=date.toISOString();
      this.batchVar.batchFrom=fromDate;
-     console.log(fromDate)
     }
 
     toDateChange(date){
@@ -101,10 +102,24 @@ export class AddBatchComponent implements OnInit {
       this.batchVar.batchTo= toDate; 
     }
    
+    //submit batch
    addBatch(form){
-      this.batchVar.empValidate= !this.batchVar.employeeId ? true : false;
+
+      this.batchVar.empValidate= this.batchVar.employeeId ? false : true;
       this.batchVar.dategreater= Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo) ? true : false;
-      if(form.valid){
+      let toastrMsg = this.batchVar.batchId ? this.batchVar.batchErrMsg :this.batchVar.batchSuccessMsg ;
+
+      //To find duplicate module selection
+      let moduleId = this.batchVar.moduleForm.map(function(item){ return item.moduleId });
+      moduleId.sort();
+      let last = moduleId[0]; 
+      if(moduleId.length > 1){
+          for (let i=1; i<moduleId.length; i++) {
+            this.batchVar.moduleDuplicate =  (moduleId[i] == last) ? true : false;
+          }
+      }
+
+      if(!this.batchVar.moduleDuplicate && this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.employeeId && this.batchVar.moduleForm){
           let postData={
            FromDate      : this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-mm-dd hh:mm'),
            ToDate        : this.datePipe.transform(this.batchVar.batchTo, 'yyyy-mm-dd hh:mm'),
@@ -112,8 +127,8 @@ export class AddBatchComponent implements OnInit {
            BatchName     : this.batchVar.batchName,
            ModuleDetails : this.batchVar.moduleForm
          }
-         console.log(postData);
-         this.toastr.success('Batch Added Successfully');
+
+         this.toastr.success(toastrMsg);
          this.router.navigateByUrl('/calendar');
          this.clearBatchForm();
         }
@@ -129,11 +144,12 @@ export class AddBatchComponent implements OnInit {
      }];
      this.batchVar.batchFrom = '';
      this.batchVar.batchTo = '';
-     this.batchVar.employeeId ='';
+     this.batchVar.selectedEmp ='';
      this.batchVar.batchName = '';
      this.router.navigateByUrl('/calendar');
    }
 
+   //dynamic add module fields 
    addForm(){
      let obj={
             moduleId : 1,
@@ -143,6 +159,8 @@ export class AddBatchComponent implements OnInit {
      };
      this.batchVar.moduleForm.push(obj);
    }
+
+   //dynamic remove module fields
   removeForm(i){
     this.batchVar.moduleForm.splice(i, 1);   
   }
