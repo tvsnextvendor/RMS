@@ -8,7 +8,13 @@ page-landing {
 			overflow-y: auto !important;
 			background-color: transparent;
 			.l-buttons .login-btn {
-				width: 100%;font-size: 15px;padding: 30px 10px;font-family: 'sf_pro_displayregular';	
+				    width: 100%;
+    font-size: 15px;
+    padding: 30px 10px;
+    font-family: 'sf_pro_displayregular';
+    display: block;
+    margin: 1.2rem auto;
+    text-align: center;	
 			}
 			.l-buttons {
 				vertical-align: bottom;width: calc(100vw - 0px);height: calc(100vh - 40px);display: table-cell;padding: 0 20px;

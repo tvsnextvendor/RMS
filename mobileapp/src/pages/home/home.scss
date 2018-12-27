@@ -97,6 +97,7 @@ page-home {
 				padding: 15px 15px;
 				box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
 
+
 			}
 			.sts-style .status-title {
 				text-decoration: underline;
@@ -278,6 +279,7 @@ page-home {
 	}
  .accomplishment-section .tvs-statusBox .sts-style {
     padding: 15px 0 0 15px;
+    position: relative;
 }
 
 }
@@ -352,9 +354,14 @@ page-home {
 }
 .com-percen {
     position: absolute;
-    bottom: 44%;
+   top: 44%;
     right: 0;
     background: #279014;
     color: #fff;
     padding: 2px 7px;
+}
+.certificate-footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }

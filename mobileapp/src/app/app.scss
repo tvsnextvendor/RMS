@@ -126,9 +126,15 @@ margin-top: 12px;
     }
 }
 .menu-page{
+
     background: url(../assets/imgs/loginbg.png);
     background-size: cover;
-
+    ion-header.header-ios.sidebar-header {
+        top: 40px;
+    }
+    ion-header.header-md.sidebar-header{
+        top: 25px;
+    }
     .sidebar-list {
         .item-ios,.item-md,.item-wp{
             padding: 0px;
@@ -167,7 +173,8 @@ margin-top: 12px;
         border:none;
     }
     ion-list {
-        padding-top: 30px;
+        padding-top: 50px;
+
     }
     button.item-ios:not([detail-none]) .item-inner{    background-image: none;}
     .menu-inner {
@@ -280,3 +287,18 @@ button:focus {
 .header-md::after{
     background-image: none;
 }
+.max-wth {
+    max-width: 460px;
+    margin: 0 auto;
+}
+.ovr-txt {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@media (min-width: 1200px) { } 
+@media (min-width: 980px) and (max-width: 1199px) { } 
+@media (min-width: 768px) and (max-width: 979px) { } 
+@media (min-width: 979px){}
+@media (max-width: 767px) { } 
+@media (max-width: 480px) { }

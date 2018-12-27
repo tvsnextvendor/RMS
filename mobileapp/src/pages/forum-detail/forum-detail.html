@@ -1,9 +1,6 @@
-<ion-header class="main-header my-component" color="primary">
+<ion-header class="main-header my-component">
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>{{constant.title.forum}}</ion-title>
+   <!--  <ion-title>{{constant.title.forum}}</ion-title> -->
   </ion-navbar>
   <div class="segment-block">
     <ion-segment [(ngModel)]="forumTopics">
@@ -28,14 +25,14 @@
             <ion-col col-2 col-sm-6 col-lg-4 class="img-block">
               <img src="assets/imgs/profile_circle.png" class="forum-img">
             </ion-col>
-            <ion-col col-7 col-sm-6 col-lg-4>
+            <ion-col col-7>
               <h4 class="forum-title">{{emp.username}}</h4>
               <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
                 {{constant.pages.forumLabels.replays}} </p>
               <p class="forum-txt" (click)="hideShowDesc(recentList,j)">{{emp.totalReplies}}
                 {{constant.pages.forumLabels.replies}} </p>
             </ion-col>
-            <ion-col col-3 col-sm-6 col-lg-4 class="heart-icon">
+            <ion-col col-3 class="heart-icon">
               <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
               <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
               <p></p>
@@ -75,14 +72,14 @@
             <ion-col col-2 col-sm-6 col-lg-4 class="img-block">
               <img src="assets/imgs/profile_circle.png" class="forum-img">
             </ion-col>
-            <ion-col col-7 col-sm-6 col-lg-4>
+            <ion-col col-7>
               <h4 class="forum-title">{{emp.username}}</h4>
               <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
                 {{constant.pages.forumLabels.replays}}</p>
               <p class="forum-txt" (click)="hideShowDesc(featureList,j)">{{emp.totalReplies}}
                 {{constant.pages.forumLabels.replies}} </p>
             </ion-col>
-            <ion-col col-3 col-sm-6 col-lg-4 class="heart-icon">
+            <ion-col col-3 class="heart-icon">
               <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
               <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
               <p></p>
@@ -116,17 +113,17 @@
       <ion-card class="forum-card" *ngFor="let emp of favoriteList;let j=index;">
         <ion-grid>
           <ion-row>
-            <ion-col col-2 col-sm-6 col-lg-4 class="img-block">
+            <ion-col col-2 class="img-block">
               <img src="assets/imgs/profile_circle.png" class="forum-img">
             </ion-col>
-            <ion-col col-7 col-sm-6 col-lg-4>
+            <ion-col col-7>
               <h2>{{emp.username}}</h2>
               <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
                 {{constant.pages.forumLabels.replays}}</p>
               <p class="forum-txt" (click)="hideShowDesc(favoriteList,j)">{{emp.totalReplies}}
                 {{constant.pages.forumLabels.replies}} </p>
             </ion-col>
-            <ion-col col-3 col-sm-6 col-lg-4 class="heart-icon">
+            <ion-col col-3  class="heart-icon">
               <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
               <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
               <p></p>
