@@ -56,10 +56,13 @@
                 <form #formDir="ngForm" (ngSubmit)="onSave(formDir)">
                 <div class="form-group">
                         <label class="forum-title">{{forumVar.createForum.forumName}}</label>
-                        <input type="text" class="form-control" [(ngModel)]="forumVar.forumName" #ForumName="ngModel" name = "forumName" id="forumName" placeholder="Enter Forum Name" required autocomplete="off"> 
+                        <input type="text" class="form-control" [(ngModel)]="forumVar.forumName" #ForumName="ngModel" (ngModelChange)="checkNameUniqueness(forumVar.forumName)" name = "forumName" id="forumName" placeholder="Enter Forum Name" required autocomplete="off"> 
                         <span class="required_color" *ngIf="ForumName && ForumName.invalid && (formDir.submitted || ForumName.touched)">
                                 {{forumVar.mandatoryLabels.forumName}}
-                        </span>    
+                        </span> 
+                        <span class="required_color" *ngIf="forumVar.editNameValidate">
+                                {{forumVar.nameUniqueErr}}
+                          </span>     
                     </div>
                     <div class="form-group">
                         <label class="forum-title">{{forumVar.createForum.topics}}</label>

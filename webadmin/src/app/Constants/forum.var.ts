@@ -41,6 +41,7 @@ export class ForumVar{
     url;
     forumNameList;
     uniqueValidate = false;
+    editNameValidate = false;
     modalRef:BsModalRef;
     modalConfig = {
         backdrop: true,

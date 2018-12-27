@@ -15,12 +15,11 @@ import { AlertService } from '../services/alert.service';
 
 export class ForumComponent implements OnInit {
    
-   
-    successMessage = '';
-    errorMessage = '';
+
     constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService,private alertService:AlertService){
        this.forumVar.url = API_URL.URLS;
     }
+    filteredNames=[];
 
    ngOnInit(){
     this.headerService.setTitle({title:this.forumVar.title, hidemodule:false});
@@ -59,10 +58,22 @@ export class ForumComponent implements OnInit {
         this.forumVar.forumName= forum.forumName;
         this.forumVar.topics=forum.topic;
         this.forumVar.employeeItems=forum.departments;
+        this.filteredNames = this.forumVar.forumNameList.filter(item => item !== this.forumVar.forumName);
     }
-
+   
+    checkNameUniqueness(forumName){  
+        for (let i = 0; i <  this.filteredNames.length; i++) {    
+          if(forumName && this.filteredNames[i]===forumName){
+            this.forumVar.editNameValidate=true;
+            break;
+          }else{
+            this.forumVar.editNameValidate=false;
+          }
+        }
+      }
+     
     onSave(form){
-      if(form.valid){
+      if(form.valid && !this.forumVar.editNameValidate){
        // this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
         this.alertService.success(form.value.forumName + this.forumVar.updateSuccessMsg);
         this.forumVar.modalRef.hide();
