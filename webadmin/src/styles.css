@@ -29,6 +29,10 @@ body {
 .text-nowrap{
   font-weight: 600 !important;
 }
+.alert {
+  width:99%;
+  margin-bottom:0;
+}
 .cp{
 cursor: pointer;
 }
@@ -669,29 +673,43 @@ li {
 .form-control:focus {
     box-shadow: none;
 }
+/*.video-screen .modal-content{
+    width: 70%;
+    margin: 0 auto;
+    background-color: transparent;
+    border: transparent;
+}
+.video-screen .video-player-set{
+    max-width: 100%;
+}
+.video-screen .modal-dialog {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+    height: calc(100vh - 0px);
+    width: calc(100vw - 0px);
+    vertical-align: middle;
+    display: table-cell;
+    max-width: unset;
+    margin: 0 auto;
+}*/
 .modalButtons,.modalButtons .btn-primary {
     text-align: center;
     float: none;
 }
-
 .modal-header {
     border-bottom: none;
 }
-    .modal-dialog
-    {
-      transform: translate(0,0);
+.modal-dialog {
+    transform: translate(0,0);
     height: calc(100vh - 60px);
     width: calc(100vw - 0px);
     vertical-align: middle;
     display: table-cell;
-        max-width: unset;
+    max-width: unset;
     margin: 0 auto;
-  }
-
-    .modal-content {
-
+}
+.modal-content {
     width: 40%;
-
     margin: 0 auto;
 }
 .add-video-header ul.nav.nav-tabs {
