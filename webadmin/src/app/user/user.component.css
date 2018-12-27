@@ -11,19 +11,9 @@
 .header-icon{
     color: #468FB9;
 }
-
-.pdr{
-    padding-right: 10px;
-}
-
-.pdb5{
-    padding-bottom: 5px;
-}
-
 .table-striped tbody tr:nth-of-type(odd) .input {
     background-color: #F4FBFF;
 }
-
 .br-btn {
     border-radius: 20px;
     color: white !important;

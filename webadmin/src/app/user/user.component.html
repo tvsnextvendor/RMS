@@ -1,9 +1,9 @@
 
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class="pr-3" id="contentToConvert">
+<div class="pr-3 pt-3" id="contentToConvert">
     <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p>
-    <div class="float-right row pdb5">
-        <span class="pdr"><a class = "btn btn-primary br-btn" (click)="addUser()">Add User</a></span>
+    <div class="float-right row pb-3">
+        <span class="pr-2"><a class = "btn btn-primary br-btn" (click)="addUser()">Add User</a></span>
         <span class="pagenation-btn"><ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}" class="pagenation-dropdown"></ngx-select-dropdown></span>
     </div>
         <form class="table-responsive custom-table2 px-1" #userForm = "ngForm">
