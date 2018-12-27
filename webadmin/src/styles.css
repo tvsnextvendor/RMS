@@ -321,7 +321,7 @@ li.search-block {
 	color: #9B9B9B;
     border: 1px solid #9B9B9B;
     border-radius: 5px;
-    margin: 5px 0 0 20px;
+    margin: 5px 0 0 165px;
     font-size: 15px;
 }
 /*************************End  Header ***********************/
@@ -858,6 +858,9 @@ a {
 .multi-input delete-icon path {
     fill: #fff !important;
 }
+.multi-input input.ng2-tag-input__text-input {
+    height: 27px;
+}
 /******************end Edit forum*************/
 /***********Module style*******************/
 .module-list .owl-item {
@@ -982,6 +985,9 @@ a {
     font-size: 18px;
     margin: 3px 0 3px 0;
     color: #EAEAEA !important;
+}
+.select-Courses .dropdown-list ul.item1 {
+    overflow: unset !important;
 }
 /************end add module style************/
 /**************calender style*************/
