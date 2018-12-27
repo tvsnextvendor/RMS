@@ -100,10 +100,10 @@
 						<!-- <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/> -->
 						<ul class="list-group col-md-12 pt-2" dnd-sortable-container [sortableData]="moduleVar.videoList">
 							<li  *ngFor="let item of moduleVar.videoList; let i = index" class="list-group-item drop-and-drag-pdb row edit-bg" dnd-sortable [sortableIndex]="i">
-								<span class="col-md-2">{{item.videoName}}</span>
-								<span class="col-md-4">{{item.description}}</span>
-								<span class="col-md-4">{{item.url}}</span>
-								<span class="col-md-2">
+								<span class="col-md-2 word-wrap">{{item.videoName}}</span>
+								<span class="col-md-4 word-wrap">{{item.description}}</span>
+								<span class="col-md-4 word-wrap">{{item.url}}</span>
+								<span class="col-md-2 word-wrap">
 									<a (click)= "removeVideo(item,i)"><i class="fa fa-trash icons_header float-right" aria-hidden="true"></i></a>
 									<a (click)= "updateVideo(item,i)"><i class="fa fa-pencil icons_header float-right" aria-hidden="true"></i></a>								
 								</span>
@@ -118,9 +118,7 @@
 		</div>
    	</tab>
 	<tab heading="Quiz">
-		<!-- <div class="pr-3 pt-2"> -->
 			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails"></add-quiz>
-		<!-- </div>      -->     	
 	</tab>
 </tabset>
 </div>

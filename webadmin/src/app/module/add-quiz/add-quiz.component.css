@@ -1,22 +1,21 @@
 
 .label-title{
 	color: #697380;
-	line-height: 47px;
+	line-height: 43px;
 	font-size: 15px;
 }.option-btn{
 	border: 1px solid #468FB9;
     border-radius: 40px;
     padding: 0px 5px;    
-    font-size: 12px;
+    font-size: 10px;
     color: #909CA8;
     position: absolute;
-    top: 18px;
+    top: 15px;
     left: 4px;
 }
 .option-btn:hover{
 background-color: #C1E1F3;
 }
-
 .mrb{
     margin-bottom : 5px;
 }

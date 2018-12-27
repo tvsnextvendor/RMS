@@ -84,7 +84,7 @@ background-color: #C1E1F3;
     text-overflow: ellipsis;
 }
 .list-group-item{
-   display: inline-block !important;
+   display: flex !important;
 }
 .edit-bg{
     background-color: #EDF0F8;
@@ -122,4 +122,9 @@ background-color: #C1E1F3;
 }
 .add-course{
     font-size: 18px;
+}
+.word-wrap{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
