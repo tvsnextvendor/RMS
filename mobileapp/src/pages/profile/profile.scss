@@ -22,11 +22,10 @@ page-profile {
 	}
 	.profile-img {
 		text-align: center;
+		color: #fff;
+		margin-bottom: 20px;
 	}
 	ion-list.profile-details p, ion-list.profile-details small {
-		color: #fff;
-	}
-	.profile-img {
 		color: #fff;
 	}
 	ion-icon {
@@ -42,5 +41,12 @@ page-profile {
 	.pwd-setting {
     padding-top: 200px;
     color: #fff;
+}
+.toolbar-content-ios p, ion-toolbar p.menu-tit{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.list-ios .item-block .item-inner ,.list-md .item-block .item-inner{
+    border-bottom: 0.55px solid rgba(241, 249, 255,0.60);
 }
 }

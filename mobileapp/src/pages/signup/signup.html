@@ -1,7 +1,11 @@
 <ion-content padding class="login-bg">
 	<div class="signin-process">
+		<div class="max-wth">
 		<p class="sign-title">{{constant.pages.signinLabels.signUp}}</p>
+		</div>
+		<div class="max-wth signup-center">
 		<div class="app-signup">
+			
 			<form novalidate (ngSubmit)="signupfn()" [formGroup]="signupform">
 				<ion-list class="signin-block">
 					<ion-item class="input-login">
@@ -56,6 +60,7 @@
 					</div>
 				</div>
 			</form>
+		</div>
 		</div>
 	</div>
 </ion-content>
