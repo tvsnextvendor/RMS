@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
- 
 export class Alert {
     type: AlertType;
     message: string;
 }
- 
 export enum AlertType {
     Success,
     Error,
@@ -12,39 +10,36 @@ export enum AlertType {
     Warning
 }
 import { AlertService } from './services/alert.service';
- 
 @Component({
     selector: 'alert',
-    template: `<div *ngFor="let alert of alerts" class="{{ cssClass(alert) }} alert-dismissable"><i class="fa fa-times cp" (click)="removeAlert(alert)"></i> {{alert.message}}</div>`
+    template: `<div *ngIf="hideTopMessage"><div *ngFor="let alert of alerts" id="alert-box" class="{{ cssClass(alert) }}  alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   {{alert.message}}</div></div>`
 })
  
 export class AlertComponent implements OnInit {
     alerts: Alert[] = [];
+    hideTopMessage:boolean = true;
     constructor(private alertService: AlertService) { }
- 
     ngOnInit() {
         this.alertService.getAlert().subscribe((alert: Alert) => {
             if (!alert) {
-                // clear alerts when an empty alert is received
                 this.alerts = [];
                 return;
             }
- 
-            // add alert to array
+            this.hideTopMessage = true;
             this.alerts.push(alert);
+            this.fadeOut();
         });
     }
- 
+    
     removeAlert(alert: Alert) {
         this.alerts = this.alerts.filter(x => x !== alert);
     }
- 
     cssClass(alert: Alert) {
         if (!alert) {
             return;
         }
- 
-        // return css class based on alert type
         switch (alert.type) {
             case AlertType.Success:
                 return 'alert alert-success';
@@ -55,6 +50,12 @@ export class AlertComponent implements OnInit {
             case AlertType.Warning:
                 return 'alert alert-warning';
         }
+    }
+    fadeOut(){
+        setTimeout(() => {
+                this.hideTopMessage = false;
+                this.alerts = [];
+            }, 2000); 
     }
     
 }

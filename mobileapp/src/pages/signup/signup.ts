@@ -7,7 +7,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
 
 import { Constant } from '../../constants/Constant.var';
-import {ToastrService} from '../../service/toastrService';
+import { ToastrService } from '../../service/toastrService';
 
 @IonicPage({ name: 'signup-page' })
 @Component({
@@ -40,41 +40,42 @@ export class SignupPage implements OnInit {
   signupfn() {
     console.log(this.signup);
     this.toastr.success('Sign up successfully');
-   
     //API_URL.URLS.doSignup
     // this.http.post('/signup', this.signup).subscribe((data) => {
     //   console.log(data);
     // });
   }
-  loginGooglePlus() 
-  {
+  loginGooglePlus() {
     console.log("here");
-
     console.log(this.googlePlus);
-    this.googlePlus.login({})
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err =>{
-       console.log(err)
+    this.googlePlus.login({'webClientId':'148431050807-0edt944ql6k9o1tmpf74ec7grq8111h9.apps.googleusercontent.com'})
+      .then(res => {
+        console.log(res);
+        this.toastr.success('Sign up successfully');
+        this.navCtrl.setRoot('login-page');
+      })
+      .catch(err => {
+        console.log(err)
+        this.toastr.error("Google sign up failed");
       });
-
-
     // this.googlePlus.login({})
     //   .then(res => console.log(res))
     //   .catch(err => console.log(err));
   }
-
   loginLinkedIn() {
     // check if there is an active session
     // this.linkedin.hasActiveSession().then((active) => console.log('has active session?', active));
-
     // login
     this.scopes = ['r_basicprofile', 'r_emailaddress', 'rw_company_admin', 'w_share'];
     this.linkedin.login(this.scopes, true)
-      .then(() => console.log('Logged in!'))
-      .catch(e => console.log('Error logging in', e));
-
+      .then(() => {
+        console.log('Logged in!');
+        this.toastr.success('Sign up successfully');
+        this.navCtrl.setRoot('login-page');
+      })
+      .catch(e => {
+        console.log('Error logging in', e);
+        this.toastr.error("Linked in sign up failed");
+      });
   }
-
 }
