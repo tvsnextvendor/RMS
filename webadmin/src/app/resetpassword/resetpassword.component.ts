@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {HttpService} from '../services/http.service'
+import { AlertService } from '../services/alert.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class ResetpasswordComponent implements OnInit {
   confirmPwd = '';
   userArray = [];
   userId;
-  constructor(private route: ActivatedRoute,private router: Router, private toastr: ToastrService,public http : HttpService) { }
+  constructor(private alertService:AlertService ,private route: ActivatedRoute,private router: Router, private toastr: ToastrService,public http : HttpService) { }
 
   ngOnInit() {
     // get user details
@@ -34,7 +35,8 @@ export class ResetpasswordComponent implements OnInit {
     if (this.resetFormData.newpassword === this.resetFormData.confirmpassword)
     {
       this.resetFormData.userId = this.userId;
-      this.toastr.success('Password reset successfully');
+      //this.toastr.success('Password reset successfully');
+      this.alertService.success('Password reset successfully');
       this.router.navigateByUrl('/login');
       // let updatedArray = this.userArray.map((item,index)=>{
       //   if(index === parseInt(this.userId)){
@@ -47,7 +49,8 @@ export class ResetpasswordComponent implements OnInit {
       //    console.log(resp);
       // });
     } else {
-      this.toastr.error('Password Mismatch');
+      //this.toastr.error('Password Mismatch');
+      this.alertService.error('Password Mismatch');
     }
   }
 }

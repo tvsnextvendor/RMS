@@ -7,6 +7,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { API_URL } from '../../Constants/api_url';
 import {ActivatedRoute, Params} from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
     selector: 'app-add-batch',
@@ -17,7 +18,7 @@ import { DatePipe } from '@angular/common';
 export class AddBatchComponent implements OnInit {
 
 
-   constructor(private headerService:HeaderService,private datePipe: DatePipe,private activatedRoute : ActivatedRoute,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
+   constructor(private alertService:AlertService,private headerService:HeaderService,private datePipe: DatePipe,private activatedRoute : ActivatedRoute,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
         this.batchVar.url = API_URL.URLS; 
         this.activatedRoute.params.subscribe((params: Params) => {
         this.batchVar.batchId = params['batchId'];
@@ -128,7 +129,8 @@ export class AddBatchComponent implements OnInit {
            ModuleDetails : this.batchVar.moduleForm
          }
 
-         this.toastr.success(toastrMsg);
+         //this.toastr.success(toastrMsg);
+         this.alertService.success(toastrMsg);
          this.router.navigateByUrl('/calendar');
          this.clearBatchForm();
         }

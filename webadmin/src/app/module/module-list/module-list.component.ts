@@ -5,6 +5,7 @@ import {HttpService} from '../../services/http.service';
 import { ToastrService } from 'ngx-toastr';
 import {ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
     selector: 'app-module-list',
@@ -17,7 +18,7 @@ export class ModuleListComponent implements OnInit {
   textContent;
   message:string = '';
   moduleAdd = false;
-    constructor(private http: HttpService,private route: Router, private activatedRoute: ActivatedRoute,private moduleVar: ModuleVar,private toastr:ToastrService,private headerService:HeaderService){
+    constructor(private http: HttpService,private alertService: AlertService,private route: Router, private activatedRoute: ActivatedRoute,private moduleVar: ModuleVar,private toastr:ToastrService,private headerService:HeaderService){
         this.moduleVar.url=API_URL.URLS;
     }
     
@@ -59,7 +60,8 @@ export class ModuleListComponent implements OnInit {
   //To change Activate/Deactive module status.
   statusUpdate(moduleName,status){
     let statusName = status ? this.moduleVar.labels.activeMsg : this.moduleVar.labels.deactiveMsg;
-    this.toastr.success(moduleName + statusName);
+    // this.toastr.success(moduleName + statusName);
+    this.alertService.success(moduleName + statusName);
   }
 
   messageClose(){

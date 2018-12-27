@@ -5,6 +5,7 @@ import { HeaderService } from '../../services/header.service';
 import { HttpService } from '../../services/http.service';
 import { QuizVar } from '../../Constants/quiz.var';
 import { API_URL } from '../../Constants/api_url';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'add-quiz',
@@ -38,7 +39,7 @@ export class AddQuizComponent implements OnInit {
   apiUrls;
   hidemodule = false;
   
-  constructor(private headerService: HeaderService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, private constant: QuizVar,private toastr: ToastrService) {
+  constructor(private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, private constant: QuizVar,private toastr: ToastrService) {
     this.apiUrls = API_URL.URLS;
   }
   
@@ -208,7 +209,8 @@ export class AddQuizComponent implements OnInit {
       }
     }
     else{
-      this.toastr.error("Course name is mandatory");
+      //this.toastr.error("Course name is mandatory");
+      this.alertService.error("Course name is mandatory");
       this.courseId ? 
         this.valueChanged(true)
         :
