@@ -1,20 +1,20 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class="pr-3 pt-2">
+<div class="pr-3">
 	<div class=""> 
 			<form #quizForm="ngForm" (ngSubmit)="quizSubmit(quizForm)" novalidate>
 				<div class="row">
 					
 				</div>
-				<div class="white-bg p-3 table-decs" *ngFor="let data of quizQuestionsForm;let i = index;">
+				<div class="white-bg p-3 mt-2 table-decs" *ngFor="let data of quizQuestionsForm;let i = index;">
 					<!-- <div class="col-md-12"> -->
 						<a><i class="fa fa-plus float-right icon-design" *ngIf="i==0" aria-hidden="true" (click)="addQuestionForm()"></i></a>
 					<!-- </div> -->
 					<span><a class="btn btn-link videopage" *ngIf="i!=0" (click)="removeQuestionForm(i)">
 						<img src="assets/images/Close-1.png" class="close-alg">
 			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></a></span>
-					<div class="row form-group">
+					<div class="row">
 						<div class="col-md-4 row"> 
-							<label for="" class="col-sm-5 label-title pl-0">{{constant.quizLabels.questionType}}</label>
+							<label for="" class="col-sm-5 label-title pl-0 m-0">{{constant.quizLabels.questionType}}</label>
 							<div class="col-md-6 p-0">
 								<select class="form-control" placeholder="Select" name="questionType{{i}}" [(ngModel)]="data.questionType" (change)="questionTypeUpdate(data.questionType,i)"
 								#QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
@@ -44,7 +44,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<label class="col-md-1 pr-0 label-title">{{constant.quizLabels.question}} {{i+1}}</label>
+						<label class="col-md-1 pr-0 label-title m-0">{{constant.quizLabels.question}} {{i+1}}</label>
 						<div class="col-md-11 pdl65 pr-0">
 							<input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.question"
 							#QuestionVal="ngModel" required>
@@ -55,16 +55,16 @@
 					</div>
 					<div class="row form-group">
 							<label class="col-md-1 pr-0 label-title">{{constant.quizLabels.options}}</label>
-									 <div class="col-md-11 pdl65 pr-0">
+									 <div class="col-md-11 pdl65">
 									  <div class="row">
 										  <div class="col-md-12 pl-0 form-group">
 												<div class="row" *ngIf="data.questionType === '1' && data.options && data.options.length">
-													<span class="col-sm-12 pl-0 pt-2" *ngFor=" let optionValue of data.options; let oi = index;">
+													<span class="col-sm-12 pl-0" *ngFor=" let optionValue of data.options; let oi = index;">
 														<span class="option-btn">{{oi + 1}}</span>
 														<input type="text" class="form-control pdl27" placeholder="" name="{{optionValue.value}}" [(ngModel)]="optionValue.value" [ngModelOptions]="{ standalone : true }">
 													</span>
 												</div>
-												<div class="" *ngIf="data.questionType === '2'">
+												<div class="pt-2" *ngIf="data.questionType === '2'">
 														<span class="col-sm-3 pl-0">
 															<label class="hole-cont mr-2">
 																<input type="checkbox" checked="checked" name="options" [value]="1"> {{constant.quizLabels.true}}
