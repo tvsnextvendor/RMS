@@ -29,18 +29,6 @@ body {
 .text-nowrap{
   font-weight: 600 !important;
 }
-.alert-success{
-color:#1fbb21;
-text-align:left;
-background-color:transparent;
-border-color:transparent;
-}
-.alert-danger{
-color:#f44336;
-text-align:left ;
-background-color:transparent;
-border-color:transparent;
-}
 .cp{
 cursor: pointer;
 }
