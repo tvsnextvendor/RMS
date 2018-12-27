@@ -190,7 +190,6 @@ export class AddModuleComponent implements OnInit {
    videoSubmit(){
         this.messageClose();
        this.videoSubmitted = true;
-       console.log("video submitted");
        if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
         this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast); 
         this.alertService.success(this.message);
@@ -215,7 +214,8 @@ export class AddModuleComponent implements OnInit {
         this.previewImage = '';
        }
        else{
-           this.toastr.error(this.labels.mandatoryFields)
+           //this.toastr.error(this.labels.mandatoryFields)
+           this.alertService.error(this.labels.mandatoryFields);
        }
    }
 
@@ -247,10 +247,12 @@ export class AddModuleComponent implements OnInit {
             this.staticTabs.tabs[1].active = true;
         }
         else if(!this.moduleVar.selectCourseName){
-            this.toastr.error(this.labels.courseNameError);
+            //this.toastr.error(this.labels.courseNameError);
+            this.alertService.error(this.labels.courseNameError);
         }
         else if(!this.moduleVar.videoList.length){
-            this.toastr.error(this.labels.videoError);
+            //this.toastr.error(this.labels.videoError);
+            this.alertService.error(this.labels.videoError);
         }
   
    }
@@ -271,7 +273,8 @@ export class AddModuleComponent implements OnInit {
             this.moduleSubmitted = false;
         }
         else{
-            this.toastr.error(this.labels.moduleCreateError)
+            // this.toastr.error(this.labels.moduleCreateError);
+            this.alertService.error(this.labels.moduleCreateError);
         }
     }
    

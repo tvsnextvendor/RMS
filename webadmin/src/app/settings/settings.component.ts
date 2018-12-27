@@ -4,6 +4,7 @@ import {HeaderService} from '../services/header.service';
 import { ToastrService } from 'ngx-toastr';
 import {SettingVar} from '../Constants/setting.var';
 import { Location } from '@angular/common';
+import { AlertService } from '../services/alert.service';
 
 @Component({
     selector: 'app-settings',
@@ -19,16 +20,18 @@ export class SettingsComponent implements OnInit {
         confirmPwd: '',
     };
 
-   constructor(private location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,private constant:SettingVar){}
+   constructor(private alertService:AlertService,private location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,private constant:SettingVar){}
 
    ngOnInit(){
     this.headerService.setTitle({ title:this.constant.title, hidemodule: false});
    }
    updatePwd(){
     if(this.settings.newPwd !== this.settings.confirmPwd){
-        this.toastr.error(this.constant.pwdMissmatchMsg);
+        //this.toastr.error(this.constant.pwdMissmatchMsg);
+        this.alertService.error(this.constant.pwdMissmatchMsg);
     }else{
-        this.toastr.success(this.constant.pwdUpdateSuccessMsg);
+        //this.toastr.success(this.constant.pwdUpdateSuccessMsg);
+        this.alertService.success(this.constant.pwdUpdateSuccessMsg);
         this.router.navigateByUrl('/dashboard');
     }
     }

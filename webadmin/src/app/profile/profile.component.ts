@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {ProfileVar} from '../Constants/profile.var';
 import {ToastrService } from 'ngx-toastr';
+import { AlertService } from '../services/alert.service';
 
 @Component({
     selector: 'app-profile',
@@ -13,7 +14,7 @@ import {ToastrService } from 'ngx-toastr';
 
 export class ProfileComponent implements OnInit {
 
-   constructor(private headerService:HeaderService,private toastr:ToastrService,private profVar: ProfileVar,private router:Router, private datepipe: DatePipe){
+   constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,private profVar: ProfileVar,private router:Router, private datepipe: DatePipe){
     
     const currentUrl = this.router.url;
     this.profVar.split_url= currentUrl.split('/');
@@ -45,7 +46,8 @@ export class ProfileComponent implements OnInit {
    onSubmitForm(form){
        if(form.valid){
            let postData=form.value;
-           this.toastr.success(this.profVar.successMsg);
+           //this.toastr.success(this.profVar.successMsg);
+           this.alertService.success(this.profVar.successMsg);
            this.router.navigateByUrl('/profile');
        }
    }

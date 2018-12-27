@@ -5,6 +5,7 @@ import { HeaderService } from '../services/header.service';
 import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { API_URL } from '../Constants/api_url';
+import { AlertService } from '../services/alert.service';
 
 @Component({
     selector: 'app-users',
@@ -28,7 +29,7 @@ export class UserComponent implements OnInit {
    validPhone = false;
    validEmail = false;
 
-   constructor(private http: HttpService,private constant:UserVar,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
+   constructor(private alertService:AlertService,private http: HttpService,private constant:UserVar,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
         this.constant.url = API_URL.URLS;
         this.labels  = constant.labels;
    }
@@ -61,7 +62,8 @@ export class UserComponent implements OnInit {
             this.videoSubmitted = false;
         }
         else{
-            this.toastr.warning(this.labels.updateRestrictMsg);
+            // this.toastr.warning(this.labels.updateRestrictMsg);
+            this.alertService.warn(this.labels.updateRestrictMsg);
         }
     }
 
@@ -85,7 +87,8 @@ export class UserComponent implements OnInit {
             this.resetFields();
         }
         else{
-            this.toastr.warning(this.labels.addRestrictMsg);
+           // this.toastr.warning(this.labels.addRestrictMsg);
+           this.alertService.warn(this.labels.addRestrictMsg);
         }
     }
 

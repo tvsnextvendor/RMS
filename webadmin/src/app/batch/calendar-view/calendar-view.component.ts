@@ -49,7 +49,6 @@ export class CalendarViewComponent implements OnInit {
                 tempArray.push(obj);
             });
             this.events=tempArray;
-            console.log(this.events);
         });
     }
 
