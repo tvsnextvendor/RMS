@@ -1,35 +1,37 @@
 <ion-content padding class="login-bg" no-bounce overflow-scroll="false">
 	<div class="signin-process">
-		<p class="sign-title">{{constant.pages.forgetPasswordLabels.forgetPassword}}</p>
-		<div class="app-signup">
-			<form novalidate (ngSubmit)="forgetfn()" [formGroup]="forgetform">
-				<ion-list class="signin-block">
-					<ion-item class="input-login">
-						<ion-input type="text" round [(ngModel)]="forget.emailAddress" formControlName="email" [class.error1]="!forgetform.controls.email.valid && forgetform.controls.email.dirty"
-						 placeholder="{{constant.pages.forgetPasswordLabels.emailId}}"></ion-input>
-					</ion-item>
-					<div *ngIf="( forgetform.get('email').hasError('minlength') || forgetform.get('email').hasError('pattern') ||forgetform.get('email').hasError('required') ) && forgetform.get('email').touched">
-						<div class="error" *ngIf="forgetform.get('email').hasError('required') && forgetform.get('email').touched">
-							{{constant.pages.forgetPasswordLabels.validations.emailRequired}}
+		<div class="max-wth">
+			<p class="sign-title">{{constant.pages.forgetPasswordLabels.forgetPassword}}</p>
+			<div class="app-signup">
+				<form novalidate (ngSubmit)="forgetfn()" [formGroup]="forgetform">
+					<ion-list class="signin-block">
+						<ion-item class="input-login">
+							<ion-input type="text" round [(ngModel)]="forget.emailAddress" formControlName="email" [class.error1]="!forgetform.controls.email.valid && forgetform.controls.email.dirty"
+							placeholder="{{constant.pages.forgetPasswordLabels.emailId}}"></ion-input>
+						</ion-item>
+						<div *ngIf="( forgetform.get('email').hasError('minlength') || forgetform.get('email').hasError('pattern') ||forgetform.get('email').hasError('required') ) && forgetform.get('email').touched">
+							<div class="error" *ngIf="forgetform.get('email').hasError('required') && forgetform.get('email').touched">
+								{{constant.pages.forgetPasswordLabels.validations.emailRequired}}
+							</div>
+							<div class="error" *ngIf="forgetform.get('email').hasError('pattern') && forgetform.get('email').touched">
+								{{constant.pages.forgetPasswordLabels.validations.emailInvalid}}
+							</div>
 						</div>
-						<div class="error" *ngIf="forgetform.get('email').hasError('pattern') && forgetform.get('email').touched">
-							{{constant.pages.forgetPasswordLabels.validations.emailInvalid}}
+						<ion-item class="input-login">
+							<ion-input type="text" round [(ngModel)]="forget.phoneNumber" formControlName="phone" [class.error1]="!forgetform.controls.phone.valid && forgetform.controls.phone.dirty"
+							placeholder="{{constant.pages.forgetPasswordLabels.mobileNumber}}"></ion-input>
+						</ion-item>
+						<div *ngIf="( forgetform.get('phone').hasError('minlength') || forgetform.get('phone').hasError('pattern') ||forgetform.get('phone').hasError('required') ) && forgetform.get('phone').touched">
+							<div class="error" *ngIf="forgetform.get('phone').hasError('required') && forgetform.get('phone').touched">
+								{{constant.pages.forgetPasswordLabels.validations.mobileNoRequired}}
+							</div>
 						</div>
+					</ion-list>
+					<div class="login-action">
+						<button ion-button round type="submit" class="login-btn" [disabled]="forgetform.invalid">{{constant.buttons.sendPassword}}</button>
 					</div>
-					<ion-item class="input-login">
-						<ion-input type="text" round [(ngModel)]="forget.phoneNumber" formControlName="phone" [class.error1]="!forgetform.controls.phone.valid && forgetform.controls.phone.dirty"
-						 placeholder="{{constant.pages.forgetPasswordLabels.mobileNumber}}"></ion-input>
-					</ion-item>
-					<div *ngIf="( forgetform.get('phone').hasError('minlength') || forgetform.get('phone').hasError('pattern') ||forgetform.get('phone').hasError('required') ) && forgetform.get('phone').touched">
-						<div class="error" *ngIf="forgetform.get('phone').hasError('required') && forgetform.get('phone').touched">
-							{{constant.pages.forgetPasswordLabels.validations.mobileNoRequired}}
-						</div>
-					</div>
-				</ion-list>
-				<div class="login-action">
-					<button ion-button round type="submit" class="login-btn" [disabled]="forgetform.invalid">{{constant.buttons.sendPassword}}</button>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
 </ion-content>

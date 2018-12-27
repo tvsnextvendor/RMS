@@ -1,5 +1,6 @@
 <ion-content padding class="login-bg" no-bounce overflow-scroll="false">
   <div class="signin-process">
+    <div class="max-wth">
     <p class="sign-title">{{constant.pages.loginLabels.signIn}}</p>
     <ion-list class="signin-block">
       <ion-item class="input-login">
@@ -9,8 +10,10 @@
         <ion-input type="password" round [(ngModel)]="user.pw" placeholder="Password"></ion-input>
       </ion-item>
     </ion-list>
+    </div>
   </div>
-  <div class="login-action">
+  <div class="login-action ">
+    <div class="max-wth">
     <button ion-button round type="submit" class="login-btn" (click)="doLogin()">{{constant.pages.loginLabels.signInSmall}}</button>
     <div class="keep-login">
       <ion-item class="bg-trans">
@@ -21,7 +24,8 @@
     <div class="frget-pwd"><a href="javascript:void(0);" (click)="goToForget()">{{constant.pages.loginLabels.forgetYourPassword}} ?</a></div>
     <div class="new-account">
       {{constant.pages.loginLabels.needAnAccount}} <a href="javascript:void(0);" (click)="goToSignUp()">
-        {{constant.pages.loginLabels.signUp}} </a>
+      {{constant.pages.loginLabels.signUp}} </a>
     </div>
+  </div>
   </div>
 </ion-content>
