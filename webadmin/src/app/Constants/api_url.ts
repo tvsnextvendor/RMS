@@ -19,7 +19,7 @@ export class API_URL {
    getQuiz              : '5c0f73143100002c0924ec31',
    //newgetVideoTrendList    : '5c12603d3300005632998f04',
   //& getVideoTrendList    : '5c09210a2f0000c21f637c9c',
-   getVideoTrendList:'5c1b552b33000066007fd6db',
+   getVideoTrendList    :'5c1b552b33000066007fd6db',
   // getVideoTrendEmpList : '5c08e0a12f00005400637aa6',
   //& getVideoTrendEmpList :'5c1355c43400005600ecdf71',
    getVideoTrendEmpList :'5c1b55f033000039007fd6e5',
@@ -32,18 +32,18 @@ export class API_URL {
    getCourseTrendChart  : '5c1362173400007c00ecdfc7',
    getYearList          : '5c1355633400007500ecdf6f',
   //  moduleCourseList     : '5c18c8502f00006a00af1181',
-   moduleCourseList     : "5c24973f30000077007a6042",
+   moduleCourseList     : '5c24973f30000077007a6042',
    getEmployeeList      : '5c0928d52f0000c21f637cd0',
   //* getForumList         : '5c17879a2f00008200b087a8',
-  getForumList          :'5c20c36a2e00004e001e0bf7',
+  getForumList          : '5c20c36a2e00004e001e0bf7',
    getTemplateList      : '5c15bed92e00009c0937c6a6',
    getBatchList         : '5c175edf2f00005f00b0862f',
    getPercentageList    : '5c18f1d42f00005900af12e7',
   //  getUsers             : '5c1a5d1d320000540064b0fc',
-   getUsers             :"5c24e2b430000058007a61cc",
+   getUsers             : '5c25ca1f300000750067f59d',
    getUsersList         : '5c2086732e00006c001e0af8',
-   getDepartments       :'5c2085822e00009c001e0af4',
-   getNewBatchList    : '5c24a7613000005f007a609c'
+   getDepartments       : '5c2085822e00009c001e0af4',
+   getNewBatchList      : '5c24a7613000005f007a609c'
 
   }
 

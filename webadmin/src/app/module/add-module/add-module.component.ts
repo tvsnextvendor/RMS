@@ -144,6 +144,7 @@ export class AddModuleComponent implements OnInit {
    hideTab(data){
         this.messageClose();
        this.courseSubmitted = true;
+       this.moduleVar.quizDetails = [];
         if(this.moduleVar.selectCourseName){
             this.tabEnable = data.courseUpdate ? false : true;
             this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;

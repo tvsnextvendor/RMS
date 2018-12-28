@@ -128,7 +128,7 @@ export class UserComponent implements OnInit {
     userUpdate(data,index){
         this.videoSubmitted = true;
         this.validationUpdate("submit");
-        if(this.userName && this.department && this.designation && !this.validEmail && !this.validPhone){
+        if(this.userName && this.department && this.designation && this.emailAddress && !this.validEmail && this.phoneNumber && !this.validPhone){
             let i = data.employeeId === '' ? (this.constant.userList.length-1) : this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
             this.constant.userList[i]={
                 "employeeId" : data.employeeId === '' ? this.constant.userList.length : data.employeeId ,
