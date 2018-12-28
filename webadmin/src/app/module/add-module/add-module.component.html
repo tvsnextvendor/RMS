@@ -75,7 +75,7 @@
 					<div class="row form-group">
 						<div class="col-md-4 pl-0">
 							<label class="col-md-12 p-0 upload-label">{{labels.videoName}}</label>
-							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter Video Name" name="selectVideoName" [(ngModel)]="moduleVar.selectVideoName">
+							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter File Name" name="selectVideoName" [(ngModel)]="moduleVar.selectVideoName">
 							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.selectVideoName">Video name is required</span>
 						</div>
 						<div class="col-md-4 pl-0">
@@ -86,7 +86,7 @@
 						<div class="col-md-4 pr-0 upload-line">
 							<div class="fileUpload btn btn-primary">
                                 <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span>
-                                    <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" accept="video/*" (change)="fileUpload($event)"/>
+                                    <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
                             </div>
 							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span>
 							<span *ngIf="showImage && moduleVar.videoFile"><img src="{{previewImage}}" class="px-4 img-size"></span>
@@ -94,7 +94,7 @@
 							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
 							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
 							</span>
-							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">Video FIle is required</span>
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">File is required</span>
 						</div>
 						<!-- <div class="col-md-12 drop-and-drag-pdb"><span class="col-md-8"></span><span class="col-md-4 float-right"><img src="{{videoFile}}" style="height: 45px;" >{{fileUrl}}</span></div> -->
 						<!-- <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/> -->

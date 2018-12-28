@@ -9,7 +9,7 @@
 <ion-content padding class="headerFull-bg">
   <ion-list>
     <ion-row>
-      <ion-col *ngFor="let forum of forumData; let i =index;" col-12 col-md-4 class="main-forum">
+      <ion-col *ngFor="let forum of forumData; let i =index;" col-12 col-sm-6 col-md-4  class="main-forum">
          <ion-card  class="forum-card">
       <ion-card-content (click)="goToForumDetail(forum,i)" class="forum-card">
         <ion-row>

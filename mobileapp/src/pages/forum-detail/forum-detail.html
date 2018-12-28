@@ -1,6 +1,6 @@
 <ion-header class="main-header my-component">
   <ion-navbar>
-   <!--  <ion-title>{{constant.title.forum}}</ion-title> -->
+    <!--  <ion-title>{{constant.title.forum}}</ion-title> -->
   </ion-navbar>
   <div class="segment-block">
     <ion-segment [(ngModel)]="forumTopics">
@@ -19,137 +19,153 @@
 <ion-content padding class="headerFull-bg">
   <div [ngSwitch]="forumTopics">
     <ion-list *ngSwitchCase="'mostRecent'">
-      <ion-card class="forum-card" *ngFor="let emp of recentList;let j=index;">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-2 col-sm-6 col-lg-4 class="img-block">
-              <img src="assets/imgs/profile_circle.png" class="forum-img">
-            </ion-col>
-            <ion-col col-7>
-              <h4 class="forum-title">{{emp.username}}</h4>
-              <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
-                {{constant.pages.forumLabels.replays}} </p>
-              <p class="forum-txt" (click)="hideShowDesc(recentList,j)">{{emp.totalReplies}}
-                {{constant.pages.forumLabels.replies}} </p>
-            </ion-col>
-            <ion-col col-3 class="heart-icon">
-              <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
-              <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
-              <p></p>
-              <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
-            </ion-col>
-          </ion-row>
-          <ion-row *ngIf="emp.isActive">
-            <ion-col>
-              <p class="forum-desc">{{emp.description}}</p>
-            </ion-col>
-          </ion-row>
-          <ion-row class="review-block" *ngIf="emp.isActive">
-            <ion-col col-3>
-              <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
-            </ion-col>
-            <ion-col col-4>
-              <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
-            </ion-col>
-            <ion-col col-5 class="cmd-btn">
-              <button ion-button round small class="blue-btn">
-                {{constant.buttons.comment}}
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card>
-      <div class="fixed-btn">
-      <button ion-button round class="add-question" (click)="openModal(template)">
-        {{constant.buttons.addQuestion}}
-      </button>
+      <ion-row>
+        <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of recentList;let j=index;">
+          <ion-card class="forum-card">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-2 class="img-block">
+                  <img src="assets/imgs/profile_circle.png" class="forum-img">
+                </ion-col>
+                <ion-col col-7>
+                  <h4 class="forum-title">{{emp.username}}</h4>
+                  <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
+                  {{constant.pages.forumLabels.replays}} </p>
+                  <p class="forum-txt" (click)="hideShowDesc(recentList,j)">{{emp.totalReplies}}
+                  {{constant.pages.forumLabels.replies}} </p>
+                </ion-col>
+                <ion-col col-3 class="heart-icon">
+                  <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
+                  <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
+                  <p></p>
+                  <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="emp.isActive">
+                <ion-col>
+                  <p class="forum-desc">{{emp.description}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row class="review-block" *ngIf="emp.isActive">
+                <ion-col col-3>
+                  <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
+                </ion-col>
+                <ion-col col-4>
+                  <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+                </ion-col>
+                <ion-col col-5 class="cmd-btn">
+                  <button ion-button round small class="blue-btn">
+                    {{constant.buttons.comment}}
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-footer no-shadow>
+        <ion-toolbar position="bottom">
+          <button ion-button full>Button</button>
+        </ion-toolbar>
+      </ion-footer>
+      <div class="fixed-btn" >
+        <button ion-button round class="add-question" (click)="openModal(template)">
+          {{constant.buttons.addQuestion}}
+        </button>
       </div>
     </ion-list>
     <ion-list *ngSwitchCase="'featuredTopics'">
-      <ion-card class="forum-card" *ngFor="let emp of featureList;let j=index;">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-2 col-sm-6 col-lg-4 class="img-block">
-              <img src="assets/imgs/profile_circle.png" class="forum-img">
-            </ion-col>
-            <ion-col col-7>
-              <h4 class="forum-title">{{emp.username}}</h4>
-              <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
-                {{constant.pages.forumLabels.replays}}</p>
-              <p class="forum-txt" (click)="hideShowDesc(featureList,j)">{{emp.totalReplies}}
-                {{constant.pages.forumLabels.replies}} </p>
-            </ion-col>
-            <ion-col col-3 class="heart-icon">
-              <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
-              <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
-              <p></p>
-              <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
-            </ion-col>
-          </ion-row>
-          <ion-row *ngIf="emp.isActive">
-            <ion-col>
-              <p class="forum-desc">{{emp.description}}</p>
-            </ion-col>
-          </ion-row>
-          <ion-row class="review-block" *ngIf="emp.isActive">
-            <ion-col col-3>
-              <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
-            </ion-col>
-            <ion-col col-4>
-              <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
-            </ion-col>
-            <ion-col col-5 class="cmd-btn">
-              <button ion-button round small class="blue-btn">
-                {{constant.buttons.comment}}
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card>
-
+      <ion-row>
+        <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of featureList;let j=index;">
+          <ion-card class="forum-card" >
+            <ion-grid>
+              <ion-row>
+                <ion-col col-2 class="img-block">
+                  <img src="assets/imgs/profile_circle.png" class="forum-img">
+                </ion-col>
+                <ion-col col-7>
+                  <h4 class="forum-title">{{emp.username}}</h4>
+                  <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
+                  {{constant.pages.forumLabels.replays}}</p>
+                  <p class="forum-txt" (click)="hideShowDesc(featureList,j)">{{emp.totalReplies}}
+                  {{constant.pages.forumLabels.replies}} </p>
+                </ion-col>
+                <ion-col col-3 class="heart-icon">
+                  <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
+                  <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
+                  <p></p>
+                  <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="emp.isActive">
+                <ion-col>
+                  <p class="forum-desc">{{emp.description}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row class="review-block" *ngIf="emp.isActive">
+                <ion-col col-3>
+                  <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
+                </ion-col>
+                <ion-col col-4>
+                  <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+                </ion-col>
+                <ion-col col-5 class="cmd-btn">
+                  <button ion-button round small class="blue-btn">
+                    {{constant.buttons.comment}}
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
 
     </ion-list>
     <ion-list *ngSwitchCase="'featuredFav'">
-      <ion-card class="forum-card" *ngFor="let emp of favoriteList;let j=index;">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-2 class="img-block">
-              <img src="assets/imgs/profile_circle.png" class="forum-img">
-            </ion-col>
-            <ion-col col-7>
-              <h2>{{emp.username}}</h2>
-              <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
-                {{constant.pages.forumLabels.replays}}</p>
-              <p class="forum-txt" (click)="hideShowDesc(favoriteList,j)">{{emp.totalReplies}}
-                {{constant.pages.forumLabels.replies}} </p>
-            </ion-col>
-            <ion-col col-3  class="heart-icon">
-              <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
-              <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
-              <p></p>
-              <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
-            </ion-col>
-          </ion-row>
-          <ion-row *ngIf="emp.isActive">
-            <ion-col>
-              <p class="forum-desc">{{emp.description}}</p>
-            </ion-col>
-          </ion-row>
-          <ion-row class="review-block" *ngIf="emp.isActive">
-            <ion-col col-3>
-              <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
-            </ion-col>
-            <ion-col col-4>
-              <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
-            </ion-col>
-            <ion-col col-5 class="cmd-btn">
-              <button ion-button round small class="blue-btn">
-                {{constant.buttons.comment}}
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card>
+      <ion-row>
+        <ion-col col-12 col-md-4 col-sm-6 class="main-forum">
+          <ion-card class="forum-card" *ngFor="let emp of favoriteList;let j=index;">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-2 class="img-block">
+                  <img src="assets/imgs/profile_circle.png" class="forum-img">
+                </ion-col>
+                <ion-col col-7>
+                  <h2>{{emp.username}}</h2>
+                  <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
+                  {{constant.pages.forumLabels.replays}}</p>
+                  <p class="forum-txt" (click)="hideShowDesc(favoriteList,j)">{{emp.totalReplies}}
+                  {{constant.pages.forumLabels.replies}} </p>
+                </ion-col>
+                <ion-col col-3  class="heart-icon">
+                  <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
+                  <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
+                  <p></p>
+                  <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="emp.isActive">
+                <ion-col>
+                  <p class="forum-desc">{{emp.description}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row class="review-block" *ngIf="emp.isActive">
+                <ion-col col-3>
+                  <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
+                </ion-col>
+                <ion-col col-4>
+                  <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+                </ion-col>
+                <ion-col col-5 class="cmd-btn">
+                  <button ion-button round small class="blue-btn">
+                    {{constant.buttons.comment}}
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
     </ion-list>
   </div>
   <ng-template #template>
@@ -162,7 +178,7 @@
     <form novalidate (ngSubmit)="questionSubmit()" [formGroup]="QuestionForm">
       <div class="modal-body">
         <ion-item>
-         <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty" placeholder="What is the safety precaution required to enter the ski sport?"></ion-textarea>
+          <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty" placeholder="What is the safety precaution required to enter the ski sport?"></ion-textarea>
         </ion-item>
         <div *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
           <div class="error" *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
@@ -172,9 +188,7 @@
       </div>
       <div class="model-footer">
         <button ion-button small clear type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
-         <button ion-button small clear type="submit" [disabled]="QuestionForm.invalid">{{constant.buttons.add}}</button>
-       
-       
+        <button ion-button small clear type="submit" [disabled]="QuestionForm.invalid">{{constant.buttons.add}}</button>
       </div>
     </form>
   </ng-template>

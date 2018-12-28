@@ -1,20 +1,24 @@
 page-notification {
-    .notify-arrow {
-       float: right;
-       padding-top: 5px;
-    }
-    ion-header.header {
-       padding: 0;
-    }
-    .notify-txt {
-       margin-top: 10px;
-    }
-    .notify-title {
-       margin-top: 5px !important;
-    }
-    .hour-status {
-       padding-top: 2px;
-       display: inline-block;
-    }
-    }
-    
+  .notify-arrow {
+    padding-top: 5px;
+    position: relative;
+    top: 3px;
+  }
+  .align-right {
+    float: right;
+  }
+  ion-header.header {
+    padding: 0;
+  }
+  .notify-txt {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+  .notify-title {
+    margin-top: 5px !important;
+  }
+  span.hour-status {
+    padding-right: 15px;
+}
+
+}
