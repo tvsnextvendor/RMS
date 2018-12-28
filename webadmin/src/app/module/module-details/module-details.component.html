@@ -2,7 +2,7 @@
  <div class="clearfix mt-5">
         <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
     <div class="row" >
-        <h6 class="video-header">{{moduleVar.selectedModule?.moduleName}} > {{moduleVar.selectedCourse?.courseName}}</h6>
+        <h6 class="video-header"><span class="module-color"> {{moduleVar.selectedModule?.moduleName}}</span> > {{moduleVar.selectedCourse?.courseName}}</h6>
     </div>
     <div class="row" >
         <div class="col-md-4 pl-0 mt-3" *ngFor="let video of moduleVar.selectedCourse?.videos;let i = index">
@@ -29,12 +29,14 @@
 
 
 <ng-template #playVideo>
-        <div class="modal-body modal-lg">
+    <div class="video-screen">
+        <div class="video-player-set">
            <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
              class="videoPlayer">
              <source src="{{moduleVar.videoLink}}" type="video/mp4" /> 
             </video> 
         </div>
+    </div>
 </ng-template>
 
 

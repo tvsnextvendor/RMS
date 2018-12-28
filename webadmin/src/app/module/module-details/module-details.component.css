@@ -7,9 +7,7 @@
     float: none;
 }
 .decs-overflow{
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 textarea {
     resize: none;
@@ -29,9 +27,11 @@ textarea {
 .video-header{
 	line-height: 27px;
     float: left;
-    color: #3F6579;
-    font-size: 17px;
+    color: #1D4960;
+    font-size: 18px;
+    font-weight: 600;
 }
+.module-color{color: #808088;}
 .video-para-alg{
    /* width: 90%;
     overflow: hidden;
@@ -110,12 +110,4 @@ video.videoPlayer{
 }
 .mr10{
     margin-right: 10px;
-}
-
-.btn-white{
-    color:white !important;
-}
- 
-.btn-blue{
-    color:#007bff !important;
 }
