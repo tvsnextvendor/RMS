@@ -68,7 +68,7 @@ export class CertificatesComponent implements OnInit {
 
   //Template File Upload
   handleFileInput(files: FileList) {
-    this.constant.fileToUpload = files.item(0);;
+    this.constant.fileToUpload = files.item(0);
   }
 
   //dynamic add form
