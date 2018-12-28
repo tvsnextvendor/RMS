@@ -103,8 +103,8 @@ export class LoginComponent implements OnInit {
             //  if(Object.keys(user).length){
               if(userData !== 'null'){
                 //let userData = JSON.stringify(user);
-                let encUserData = btoa(userData);
-                localStorage.setItem('userData',encUserData);
+                //let encUserData = btoa(userData);
+                localStorage.setItem('userData',userData);
                 this.toastr.success("Login successfully");
                 this.route.navigateByUrl('/');
                 let localObject = [];
