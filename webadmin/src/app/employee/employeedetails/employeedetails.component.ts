@@ -17,7 +17,7 @@ export class EmployeedetailsComponent implements OnInit {
   employeeArray = [];
   employeeName = '';
   labels;
-  hidemodule = false;
+  hidemodule = true;
   apiUrls;
   constructor(private route: Router, private toastr: ToastrService,private http: HttpService,private excelService:ExcelService,private employeeVar : EmployeeVar,private pdfService:PDFService,private headerService: HeaderService,private apiUrl:API_URL) {this.apiUrls=API_URL.URLS; }
 

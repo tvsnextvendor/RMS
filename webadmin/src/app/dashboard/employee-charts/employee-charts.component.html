@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="row course-section mb-3">      
-          <div class="col-sm-3 pl-0 course-style">
+          <div class="col-sm-2 pl-0 course-style">
             <div class=" chart-bg">
               <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.totalCourses}} <span class="num-alg">100</span></h6>
@@ -33,7 +33,7 @@
               <div id="totalCourses" style=" height: 100px; margin: 0 auto"></div>
             </div>
           </div>
-          <div class="col-sm-3 pl-0 course-style">
+          <div class="col-sm-2 pl-0 course-style">
             <div class=" chart-bg">
               <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.availableCourses}} <span class="num-alg">60</span></h6>
@@ -44,7 +44,7 @@
               <div id="assignedCourses" style=" height: 100px; margin: 0 auto"></div>
             </div>
           </div>
-          <div class="col-sm-3 pl-0 course-style">
+          <div class="col-sm-2 pl-0 course-style">
             <div class=" chart-bg">
               <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.completedCourses}} <span class="num-alg">40</span></h6>
@@ -54,7 +54,17 @@
                 <div id="completedCourses" style=" height: 100px; margin: 0 auto"></div>
             </div>
           </div>
-          <div class="col-sm-3 pl-0">
+          <div class="col-sm-2 pl-0 course-style">
+              <div class=" chart-bg">
+                <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                  {{dashboardVar.employeeGridsTitle.inProgress}} <span class="num-alg">40</span></h6>
+                  <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
+                    <p class="mr0 dwn-color"><i class="fa fa-caret-down pdr7" aria-hidden="true"></i>10%</p>
+                  </div>
+                   <div id="inProgress" style=" height: 100px; margin: 0 auto"></div> 
+              </div>
+            </div>
+          <div class="col-sm-4 pl-0">
               <div class=" chart-bg" (click)="goToEmpStatus()">
                 <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.employeeProgress}}</h6>
@@ -80,7 +90,29 @@
             <div id="videosTrend" style=" height: 200px; margin: 0 auto" (click)="goToVideosTrend()"></div>
           </div>
         </div>
-        <div class="col-sm-3 pl-0"></div>
+        <div class="col-sm-3 pl-0">
+            <div class=" chart-bg">
+                <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+                {{dashboardVar.employeeGridsTitle.topCourses}}</h6>
+                <table class="table">
+                    <tbody>
+                      <tr *ngFor="let item of topCourses">
+                        <td>
+                          {{item.courseName}}
+                        </td>
+                        <td>
+                          <ng-template #t let-fill="fill">
+                            <span class="star" [class.full]="fill === 100">
+                              <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
+                            </span>
+                          </ng-template>
+                          <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+        </div>
         <div class="col-sm-3 p-0">
           <div class=" chart-bg">
             <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
@@ -147,14 +179,14 @@
   <div class="col-sm-6 pl-0">
     <div class="chart-bg">
       <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-        Top 10 Employees<select class="select-btn"><option value="This Month">This Month</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
+        {{dashboardVar.employeeGridsTitle.topEmployees}}<select class="select-btn"><option value="This Month">This Month</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
       <div class="custom-table">
       <table class="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Ratings</th>
-            <th>Score</th>
+            <th>{{dashboardVar.employeeGridsTitle.name}}</th>
+            <th>{{dashboardVar.employeeGridsTitle.module}}</th>
+            <th>{{dashboardVar.employeeGridsTitle.score}}</th>
           </tr>
         </thead>
         <tbody>
@@ -162,13 +194,13 @@
             <td>
               {{item.id}}.{{item.name}}
             </td>
-            <td>
-              <ng-template #t let-fill="fill">
+            <td> {{item.module}}
+              <!-- <ng-template #t let-fill="fill">
                 <span class="star" [class.full]="fill === 100">
                   <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
                 </span>
               </ng-template>
-              <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+              <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating> -->
             </td>
             <td>
               {{item.score}}

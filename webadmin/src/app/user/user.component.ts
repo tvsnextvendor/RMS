@@ -63,7 +63,7 @@ export class UserComponent implements OnInit {
         }
         else{
             // this.toastr.warning(this.labels.updateRestrictMsg);
-            this.alertService.warn(this.labels.updateRestrictMsg);
+            this.alertService.error(this.labels.updateRestrictMsg);
         }
     }
 
@@ -88,7 +88,7 @@ export class UserComponent implements OnInit {
         }
         else{
            // this.toastr.warning(this.labels.addRestrictMsg);
-           this.alertService.warn(this.labels.addRestrictMsg);
+           this.alertService.error(this.labels.addRestrictMsg);
         }
     }
 
@@ -120,6 +120,7 @@ export class UserComponent implements OnInit {
             let index = this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
             this.constant.userList.splice(index,1);
             this.message = (data.employeeName + this.labels.removeUser);
+            this.alertService.success(this.message);
         }
     }
 
@@ -143,7 +144,7 @@ export class UserComponent implements OnInit {
             this.videoSubmitted = false;
             this.resetFields();
             this.message = data.employeeId === '' ? (this.labels.userAdded) : (this.labels.userUpdated);
-            console.log(this.constant.userList)
+            this.alertService.success(this.message);
         }
         // else if(!validEmail){
         //     this.toastr.error(this.labels.emailError);
