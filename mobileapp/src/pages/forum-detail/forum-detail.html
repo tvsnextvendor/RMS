@@ -63,16 +63,7 @@
           </ion-card>
         </ion-col>
       </ion-row>
-      <ion-footer no-shadow>
-        <ion-toolbar position="bottom">
-          <button ion-button full>Button</button>
-        </ion-toolbar>
-      </ion-footer>
-      <div class="fixed-btn" >
-        <button ion-button round class="add-question" (click)="openModal(template)">
-          {{constant.buttons.addQuestion}}
-        </button>
-      </div>
+     
     </ion-list>
     <ion-list *ngSwitchCase="'featuredTopics'">
       <ion-row>
@@ -123,15 +114,15 @@
     </ion-list>
     <ion-list *ngSwitchCase="'featuredFav'">
       <ion-row>
-        <ion-col col-12 col-md-4 col-sm-6 class="main-forum">
-          <ion-card class="forum-card" *ngFor="let emp of favoriteList;let j=index;">
+        <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of favoriteList;let j=index;">
+          <ion-card class="forum-card" >
             <ion-grid>
               <ion-row>
                 <ion-col col-2 class="img-block">
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
                 <ion-col col-7>
-                  <h2>{{emp.username}}</h2>
+                  <h4 class="forum-title">{{emp.username}}</h4>
                   <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
                   {{constant.pages.forumLabels.replays}}</p>
                   <p class="forum-txt" (click)="hideShowDesc(favoriteList,j)">{{emp.totalReplies}}
@@ -193,3 +184,8 @@
     </form>
   </ng-template>
 </ion-content>
+ <div class="fixed-btn" >
+        <button ion-button round class="add-question" (click)="openModal(template)">
+          {{constant.buttons.addQuestion}}
+        </button>
+      </div>
