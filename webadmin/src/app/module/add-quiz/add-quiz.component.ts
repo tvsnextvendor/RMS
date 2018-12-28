@@ -79,7 +79,7 @@ export class AddQuizComponent implements OnInit {
 
 
     if(this.enableQuiz){
-      this.editQuizDetails(this.quizQuestionsForm);
+      this.editQuizDetails(this.quizDetails);
     }
     if (this.courseId) {
       //'5c0f73143100002c0924ec31'
