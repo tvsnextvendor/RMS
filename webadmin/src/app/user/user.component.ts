@@ -51,20 +51,18 @@ export class UserComponent implements OnInit {
             }
         });
 
-        this.departmentArray=[
-            {id:1,name:"HR"},
-            {id:2,name:"Sales and marketing"},
-            {id:3,name:"Cooking"},
-            {id:4,name:"Drivers"},
-            {id:5,name:"Resort Managers"},
-        ]
-        this.designationArray=[
-            {id:1,name:"HR",designations:[{id:1,name:"Senior HR"},{id:2,name:"Junior HR"}]},
-            {id:2,name:"Sales and marketing",designations:[{id:1,name:"Sales manager"},{id:2,name:"Sales executive"}]},
-            {id:3,name:"Cooking",designations:[{id:1,name:"Senior Chef"},{id:2,name:"Junior Chef"}]},
-            {id:4,name:"Drivers",designations:[{id:1,name:"Senior Driver"},{id:2,name:"Junior Driver"}]},
-            {id:5,name:"Resort Managers",designations:[{id:1,name:"Senior manager"},{id:2,name:"Junior manager"}]},
-        ]
+        this.http.get(this.constant.url.getDepartments).subscribe((resp) => {
+            if(resp['isSuccess']){
+                this.departmentArray = resp.DepartmentList;
+                // console.log(this.departmentArray)
+            }
+          });
+        this.http.get(this.constant.url.getDesignations).subscribe((resp) => {
+            if(resp['isSuccess']){
+                this.designationArray = resp.DesignationList;
+                // console.log(this.departmentArray)
+            }
+        });
     }
 
    //update user

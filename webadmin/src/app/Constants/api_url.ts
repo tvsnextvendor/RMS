@@ -45,7 +45,7 @@ export class API_URL {
    getUsersList         : '5c260d313000007f0067f6ba',
    //getDepartments       : '5c2085822e00009c001e0af4',
    getDepartments        :'5c25fa2a300000540067f651',
-
+   getDesignations       : "5c2626bb3000007a0067f719",
    getNewBatchList      : '5c24a7613000005f007a609c'
 
   }
