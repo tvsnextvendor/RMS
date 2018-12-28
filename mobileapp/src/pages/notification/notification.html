@@ -11,16 +11,18 @@
     <ion-card class="forum-card" *ngFor="let notify of notificationList;let i=index;">
       <ion-grid>
         <ion-row>
-          <ion-col col-2 col-sm-6 col-lg-4>
+          <ion-col col-2 col-sm-1>
             <img src="assets/imgs/profile_circle.png" class="forum-img">
           </ion-col>
-          <ion-col col-8 col-sm-6 col-lg-4>
+          <ion-col col-8 col-sm-8>
             <h4 class="notify-title">{{notify.notification}}</h4>
             <p class="notify-txt">{{notify.description}}</p>
           </ion-col>
-          <ion-col col-2 col-sm-6 col-lg-4 class="arrow-icon">
-            <span class="hour-status">2h</span>
-            <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+          <ion-col col-2 col-sm-3 class="arrow-icon">
+            <div class="align-right">
+              <span class="hour-status">2h</span>
+              <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+            </div>
           </ion-col>
         </ion-row>
       </ion-grid>

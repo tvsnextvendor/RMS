@@ -26,9 +26,12 @@
   </div>
    <div class="badge-block">
   <h3>{{constant.pages.accomplishmentLabels.badges}}</h3>
-  <ion-slides #sliderTwo [pager]="true" [slidesPerView]="2" class="badge-slide" spaceBetween="1" (ionSlideDidChange)="onSlideBadgeChanged()">
+  <ion-slides #sliderTwo [pager]="true" [slidesPerView]="3" class="badge-slide" spaceBetween="1" (ionSlideDidChange)="onSlideBadgeChanged()">
     <ion-slide *ngFor="let item of badgeList;let i=index;" class="badge-indv-slide">
+      <div class="badge-slider">
       <img class="badge-image" src="{{item.badgeImage}}" alt="Badge Image" (click)="openBadgeModal(badgetemplate,item)">
+      <p class="badge-name">Midnight Owl</p>
+      </div>
       <!-- <span>3 Days streak</span> -->
     </ion-slide>
   </ion-slides>
@@ -40,7 +43,7 @@
   </span>
 </div>
   <ng-template #badgetemplate>
-    <div class="modal-body">
+    <div class="modal-body ">
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -48,18 +51,18 @@
     </div>
   </ng-template>
   <ng-template #certificatetemplate>
-    <div class="modal-body" *ngIf="certificateDetail">
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <div class="modal-body c-body" *ngIf="certificateDetail">
+    <!--   <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
-      </button>
-      <img class="img-subimage" src="{{certificateDetail.certificateImage}}" alt="{{certificateDetail.certificateImage}}">
+      </button> -->
+      <img class="c-popimage" src="{{certificateDetail.certificateImage}}" alt="{{certificateDetail.certificateImage}}">
       <div class="certificate-content">
-        <h6>{{certificateDetail.moduleName}}</h6>
-        <p>{{constant.pages.accomplishmentLabels.gradeAchieved}} {{certificateDetail.score}}%</p>
-        <p>{{constant.pages.accomplishmentLabels.completedBy}} {{certificateDetail.certifiedTo}}</p>
-        <p>{{constant.pages.accomplishmentLabels.at}} {{certificateDetail.certifiedOn | date:'EEEE ,LLLL M,yyyy h:mm
+        <h6 class="model-name">{{certificateDetail.moduleName}}</h6>
+        <p class="model-txt">{{constant.pages.accomplishmentLabels.gradeAchieved}} {{certificateDetail.score}}%</p>
+        <p class="model-txt m-0">{{constant.pages.accomplishmentLabels.completedBy}} {{certificateDetail.certifiedTo}}</p>
+        <p class="model-txt m-0">{{constant.pages.accomplishmentLabels.at}} {{certificateDetail.certifiedOn | date:'EEEE ,LLLL M,yyyy h:mm
           a'}}</p>
-        <input class="form-control" name="certicateLink" disabled value="{{certificateDetail.certificateImage}}">
+        <input class="form-control c-imgname" name="certicateLink" disabled value="{{certificateDetail.certificateImage}}">
       </div>
     </div>
   </ng-template>

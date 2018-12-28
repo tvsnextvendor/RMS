@@ -29,6 +29,7 @@ export class AccomplishmentPage implements OnInit {
   leftButton: boolean = true;
   rightButton: boolean = true;
   SlidePerPage = 2;
+  badgeslide = 3;
   badgeLftBtn:boolean = true;
   badgeRigBtn:boolean = true;
   
@@ -61,7 +62,7 @@ export class AccomplishmentPage implements OnInit {
   }
   badgeNagButton(){
     let currentIndex = this.sliderTwo.getActiveIndex();
-    let totalIndex = currentIndex + this.SlidePerPage;
+    let totalIndex = currentIndex + this.badgeslide;
     let totalItems = this.badgeList.length;
     if (currentIndex === 0) {
         this.badgeLftBtn = false;
