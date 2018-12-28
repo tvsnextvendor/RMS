@@ -61,7 +61,7 @@
 												<div class="row" *ngIf="data.questionType === '1' && data.options && data.options.length">
 													<span class="col-sm-12 pl-0" *ngFor=" let optionValue of data.options; let oi = index;">
 														<span class="option-btn">{{oi + 1}}</span>
-														<input type="text" class="form-control pdl27" placeholder="" name="{{optionValue.value}}" [(ngModel)]="optionValue.value" [ngModelOptions]="{ standalone : true }">
+														<input type="text" class="form-control pdl27" placeholder="" name="{{optionValue.value}}" [(ngModel)]="optionValue.value" [ngModelOptions]="{ standalone : true }" required>
 													</span>
 												</div>
 												<div class="pt-2" *ngIf="data.questionType === '2'">

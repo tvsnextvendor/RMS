@@ -34,6 +34,7 @@ export class AddModuleComponent implements OnInit {
     message;
     videoMessage;
     previewImage ;
+    quizCheck = false;
     // selectedCourseIds:any;
 
    constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,private moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
@@ -124,7 +125,11 @@ export class AddModuleComponent implements OnInit {
        this.moduleVar.quizDetails = courseObj.quizDetails;
        this.moduleVar.courseIndex = i;
        if(this.quiz){
-           this.quiz.editQuizDetails();
+            this.quizCheck = false;
+           this.quiz.editQuizDetails(this.moduleVar.quizDetails);
+       }
+       else{
+           this.quizCheck = true;
        }
        this.cancelVideoSubmit();
    }
@@ -161,7 +166,8 @@ export class AddModuleComponent implements OnInit {
         let index =  (this.moduleVar.videoList.findIndex(item => item.videoName ===  data.videoName));
         this.moduleVar.videoId = index + 1
         if(this.quiz){
-            this.quiz.editQuizDetails();
+            this.quizCheck = false;
+            this.quiz.editQuizDetails(this.moduleVar.quizDetails);
         }
 
    }
@@ -184,7 +190,10 @@ export class AddModuleComponent implements OnInit {
     this.message = '';
     this.videoMessage = '';
     if(this.quiz && add){
-           this.quiz.editQuizDetails();
+        let data = [];
+        this.quizCheck = false;
+        this.moduleVar.quizDetails = [];
+        this.quiz.editQuizDetails(data);
     }
    }
    videoSubmit(){
@@ -227,11 +236,10 @@ export class AddModuleComponent implements OnInit {
    }
 
    checkValidation(){
-       console.log(this.moduleVar.moduleList)
     let validation = this.moduleVar.moduleList.find(x=>x.moduleName === this.moduleName);
     if(validation){
         // console.log("validationFalse")
-                this.moduleVar.moduleNameCheck = true;
+                this.moduleVar.moduleNameCheck = this.moduleId ? (parseInt(this.moduleId) !== validation.moduleId ?  true : false) : true;
     }
     else{
         // console.log("validation True")
@@ -272,9 +280,11 @@ export class AddModuleComponent implements OnInit {
             this.alertService.success(successMsg);
             this.moduleSubmitted = false;
         }
-        else{
-            // this.toastr.error(this.labels.moduleCreateError);
-            this.alertService.error(this.labels.moduleCreateError);
+        else if(!this.moduleName){
+            this.alertService.error(this.labels.moduleName+this.labels.isRequire)
+        }
+        else if(!this.selectedCourses.length){
+            this.alertService.error(this.labels.moduleNameValidation)
         }
     }
    

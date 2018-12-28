@@ -126,8 +126,7 @@ export class UserComponent implements OnInit {
     //user update submit
     userUpdate(data,index){
         this.videoSubmitted = true;
-         this.validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? false : true;
-         this.validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? true : false;
+        this.validationUpdate("submit");
         if(this.userName && this.department && this.designation && !this.validEmail && !this.validPhone){
             let i = data.employeeId === '' ? (this.constant.userList.length-1) : this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
             this.constant.userList[i]={
@@ -141,6 +140,7 @@ export class UserComponent implements OnInit {
                 "editEnable" : false
             };
             this.editEnable = false;
+            this.videoSubmitted = false;
             this.resetFields();
             this.message = data.employeeId === '' ? (this.labels.userAdded) : (this.labels.userUpdated);
             console.log(this.constant.userList)
@@ -156,6 +156,21 @@ export class UserComponent implements OnInit {
         // }
     }
 
+    validationUpdate(type){
+        console.log(type)
+        if(type === "email"){
+            this.validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? true : false;
+        }
+        else if(type === "mobile"){
+            this.validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? false : true;
+        }
+        else{
+            this.validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? true : false;
+            this.validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? false : true;
+        }
+        
+        
+    }
     // email and mobile number validation check
     validationCheck(type,value){
         if(type === "email"){

@@ -20,6 +20,7 @@ export class AddQuizComponent implements OnInit {
   @Input() videoList;
   @Input() selectCourseName;
   @Input() quizDetails;
+  @Input() enableQuiz;
   @Output() valueChange = new EventEmitter();
   courseUpdate = false;
   videoDetails = [];
@@ -77,9 +78,12 @@ export class AddQuizComponent implements OnInit {
     // ];
 
 
+    if(this.enableQuiz){
+      this.editQuizDetails(this.quizDetails);
+    }
     if (this.courseId) {
       //'5c0f73143100002c0924ec31'
-      this.editQuizDetails();
+      // this.editQuizDetails();
     }
     else {
       this.weightage = 100;
@@ -87,15 +91,15 @@ export class AddQuizComponent implements OnInit {
   }
 
 
-  editQuizDetails(){
+  editQuizDetails(quizData){
     // this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
       // this.videoDetails = resp.QuizDetails;
       // let slectedQuizDetails = resp.QuizDetails.find(x => x.CourseId === this.courseId);
       // let selectedVideoList = slectedQuizDetails && slectedQuizDetails.Videos && slectedQuizDetails.Videos[0];
-      let selectedVideoList = this.quizDetails;
+      let selectedVideoList = quizData;
       this.selectedVideo = this.videoId;
       this.selectedCourse = this.courseId;
-      this.quizQuestionsForm = selectedVideoList ? selectedVideoList : [{
+      this.quizQuestionsForm = selectedVideoList && selectedVideoList.length ? selectedVideoList : [{
         "questionId": 1,
         "qquestion": "",
         "questionType": "1",

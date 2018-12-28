@@ -5,9 +5,9 @@
 			<div class="row form-group">
 				<label class="col-md-2 pr-0 label-title">{{labels.moduleName}}</label>
 				<span class="col-md-10 pl-0">
-					<input type="text" class="form-control" placeholder="Enter Module Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (change)="checkValidation()" required>
+					<input type="text" class="form-control" placeholder="Enter Module Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
 				</span>
-				<span class="required_color" *ngIf="moduleForm.form.controls.moduleName && moduleForm.form.controls.moduleName.invalid && (moduleForm.submitted || moduleForm.form.controls.moduleName.touched)">
+				<span class="required_color" *ngIf="moduleSubmitted && !moduleName">
 					{{labels.moduleName}}{{labels.isRequire}}
 				</span>
 				<span class="required_color" *ngIf="moduleVar.moduleNameCheck">
@@ -118,10 +118,13 @@
 		</div>
    	</tab>
 	<tab heading="Quiz">
-			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails"></add-quiz>
+			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}"></add-quiz>
+		<!-- <div class="pr-3 pt-2">
+			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}"></add-quiz>
+		</div>          	 -->
 	</tab>
 </tabset>
 </div>
 <div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
-	<button type="button" class="btn btn-primary btn-save" [disabled]="!moduleForm.form.valid" (click)="submitForm()">{{labels.save}}</button>
+	<button type="button" class="btn btn-primary btn-save" (click)="submitForm()">{{labels.save}}</button>
 </div>
