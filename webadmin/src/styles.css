@@ -823,6 +823,8 @@ a {
 }
 .ng2-dropdown-menu{    
     z-index: 9999 !important;
+    height: 150px !important;
+    width: 250px !important;
 }
 .creat-btn{
 	float: none;
@@ -853,7 +855,7 @@ a {
     margin: 0 0 0 4px;
 }
 .multi-input tag:hover{
-	background: unset !important;
+	  background: unset !important;
     color: unset !important;
     -webkit-box-shadow: 0 2px 3px 1px #d4d1d1;
     box-shadow: unset !important;
@@ -1021,10 +1023,27 @@ a {
     display: contents;
     text-align: center;
 }
+.mob-alg{
+  margin-top: 10px;
+}
+.module-title{
+  padding-right: 10px;
+}
 }
 @media (max-width: 480px) { 
 .did-line {
     display: contents;
     text-align: center;
+}
+.mob-alg{
+  margin-top: 10px;
+}
+.module-title{
+  padding-right: 10px;
+}
+.header-icon{
+  text-align: center;
+    padding-top: 15px;
+    float: none !important;
 }
 }
