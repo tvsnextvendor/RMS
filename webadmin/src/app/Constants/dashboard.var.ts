@@ -43,12 +43,17 @@ export class DashboardVar {
      totalCourses     : 'Total Courses',
      availableCourses : 'Assigned Courses',
      completedCourses : 'Completed Courses',
+     inProgress       : 'In Progress',
      videosTrend      : 'Course Trend',
      employeeProgress : 'Employee Progress',
      totalNoOfBadges  : 'Total No. of Badges',
      certificationTrend : 'Employee Certification Trend',
-     topEmployees : 'Top 10 Employess',
-     keyStats     : "Key Stats"
+     topEmployees : 'Top 5 Employees',
+     topCourses   : 'Top Rated Courses',
+     keyStats     : "Key Stats",
+     name         : "Name",
+     module       : "Module",
+     score        : "Score"
   };
 
   resortGridsTitle = {

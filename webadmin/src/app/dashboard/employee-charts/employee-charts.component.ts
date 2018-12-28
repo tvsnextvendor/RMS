@@ -19,6 +19,7 @@ export class EmployeeChartsComponent implements OnInit {
      todayDate;
      viewEnable = false;
      viewText;
+     topCourses;
      
      constructor(private dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
       this.dashboardVar.url=API_URL.URLS;
@@ -34,6 +35,7 @@ export class EmployeeChartsComponent implements OnInit {
       this.employeeProgressPie();
       this.assignedCourses();
       this.completedCourses();
+      this.inProgress();
     }, 1000);
   }
 
@@ -66,11 +68,19 @@ export class EmployeeChartsComponent implements OnInit {
             this.videosTrendStackBar();
             this.totalNoOfBadges();
             this.topEmployees();
+            this.topRatedCourses();
          }, 1000);
       }
       else{
         this.viewText = "View more";
       }
+  }
+
+  topRatedCourses(){
+    this.http.get(this.dashboardVar.url.getTopCourses).subscribe((data) => {
+        this.topCourses= data.TopCourses;
+
+      });
   }
 
   getKeyStat() {
@@ -299,6 +309,68 @@ legend: {
 
 }
 
+inProgress(){
+    Highcharts.chart('inProgress', {
+        credits: {
+         enabled: false
+     },
+     chart: {
+         type: 'area'
+     },
+     title: {
+          text: '',
+       style: {
+           display: 'none'
+       }
+       },
+       subtitle: {
+            text: '',
+       style: {
+           display: 'none'
+       }
+       },
+     xAxis: {
+       labels: {enabled: false}
+     },
+   
+     yAxis: {
+       labels: {
+              enabled: false
+                },
+       gridLineColor: 'transparent',
+       min: 0,
+       max: 10
+     },
+   legend: {
+       enabled: false,
+       },
+     plotOptions: {
+          series: {
+             marker: {
+             enabled: true,
+             symbol: 'circle',
+             radius: 2,
+             fillColor: '#ffffff',
+             lineColor: '#000000',
+             lineWidth: 1
+   
+           },
+           fillColor : {
+             linearGradient : [0, 0, 0, 300],
+             stops : [
+               [0, 'rgb(8,73,98)'],
+               [1, 'rgb(41,136,180)']
+             ]
+           }
+         }
+     },
+   
+     series: [{
+       data: this.dashboardVar.courses.CompletedCourses.data
+     }]
+   });
+    
+}
 
 
 videosTrendStackBar() {
