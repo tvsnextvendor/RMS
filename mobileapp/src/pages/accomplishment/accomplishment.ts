@@ -32,6 +32,7 @@ export class AccomplishmentPage implements OnInit {
   badgeslide = 3;
   badgeLftBtn:boolean = true;
   badgeRigBtn:boolean = true;
+  badgeDetails;
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccomplishmentPage');
@@ -49,6 +50,7 @@ export class AccomplishmentPage implements OnInit {
     let currentIndex = this.sliderOne.getActiveIndex();
     let totalIndex = currentIndex + this.SlidePerPage;
     let totalItems = this.certificateList.length;
+
     if (currentIndex === 0) {
         this.leftButton = false;
         this.rightButton = true;
@@ -81,7 +83,8 @@ export class AccomplishmentPage implements OnInit {
   }
   openBadgeModal(badgetemplate: TemplateRef<any>, item) {
     this.modalRef = this.modalService.show(badgetemplate);
-    this.badgeSubImage = item.badgeSubImage;
+    //this.badgeSubImage = item.badgeSubImage;
+    this.badgeDetails = item;
   }
   getCertificates() {
     this.http.getData(API_URL.URLS.getCertificates).subscribe((data) => {

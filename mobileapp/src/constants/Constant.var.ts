@@ -135,7 +135,7 @@ export class Constant {
             topics:'Topics',
             mostRecent:'Most Recent',
             featuredTopics:'Featured Topics',
-            featuredFav:'Featured Favorite',
+            featuredFav:'Featured Most Favorite',
             votes:'Votes',
             answers:'Answers',
             hoursAgo:'Hours ago',

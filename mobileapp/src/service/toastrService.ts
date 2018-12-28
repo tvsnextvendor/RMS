@@ -8,7 +8,7 @@ export class ToastrService {
     success(message) {
         let toast = this.toastrCtrl.create({
             message: message,
-            duration: 1000,
+            duration: 1500,
             position: 'top',
             cssClass: 'toastr-success'
         });
@@ -17,7 +17,7 @@ export class ToastrService {
     error(message) {
         let toast = this.toastrCtrl.create({
             message: message,
-            duration: 1000,
+            duration: 1500,
             position: 'top',
             cssClass: 'toastr-error'
         });

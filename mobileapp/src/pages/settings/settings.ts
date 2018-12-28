@@ -37,10 +37,10 @@ export class SettingsPage implements OnInit {
     console.log(this.currentUser.password);
   }
   submit() {
-    console.log(this.currentUser);
-    debugger;
+   // console.log(this.currentUser);
+   // debugger;
     if (this.setting.newpassword !== this.setting.confirmpassword) {
-      this.toastr.error("Password & confirm password is mismatch"); return false;
+      this.toastr.error("Password Mismatch"); return false;
     }
     this.toastr.success('Password changed successfully');
     this.navCtrl.setRoot('home-page');

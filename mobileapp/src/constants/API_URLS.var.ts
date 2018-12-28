@@ -9,7 +9,7 @@ export class API_URL {
         //'getCourses': '5c012a163500006c00ad0863',
         'getCourses':'5c120d55330000d70b998ccb',
         'getDashboard': '5c0a184d3500005300a85f30',
-        'getBatch':'5c0fc142310000f92f24ee83',
+        'getBatch':'5c26217a300000820067f6ff',
         //'getDashboard':'5c00e1ae3200004a00b288cc',
         //'getUsers':'5c01283c3500005d00ad085b',
         'getUsers': '5c0a7496350000d11ea86177',
@@ -19,7 +19,7 @@ export class API_URL {
         'getNotification':'5c15fac72e0000f30e37c6c9',
         //'getCertificates':'5c174db82f00002a00b085d1'
         //'getCertificates':'5c175c4b2f00006e00b0861c',
-        'getCertificates':'5c18f4fe2f00006500af130d',
+        'getCertificates':'5c2610193000005f0067f6c5',
         'getCalendars':'5c2475ea3000005b007a5fc4'
         //**** */'getCalendars':'5c1e5e063100002b00fdd27f'
         //'getCalendars':'5c1e3d093100006600fdd269'

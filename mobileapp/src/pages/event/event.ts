@@ -40,6 +40,8 @@ export class EventPage implements OnInit {
       this.batches.map(function(val,key){
         val = Object.assign({}, val);
         val.tag = false;
+
+        
         if(val.Score && val.Score <= 50){
           val.expireTwoDays = false;
           val.activeCompleteStatus = false;

@@ -79,7 +79,7 @@
                   <div class="row">  		
                       <label class="col-lg-3 label-title">{{profVar.profileLabels.name}}</label>  		
                       <div class="col-lg-5">
-                         <input class="form-control" name="UserName" [(ngModel)]="profVar.userName" #UserName="ngModel" type="text" required>
+                         <input class="form-control" name="username" [(ngModel)]="profVar.userName" #UserName="ngModel" type="text" required>
                          <span class="required_color" *ngIf="UserName && UserName.invalid && (formDir.submitted || UserName.touched)">
                              {{profVar.mandatoryLabels.name}}
                         </span>   
@@ -88,31 +88,44 @@
                   <div class="row">  		
                       <label class="col-lg-3 label-title">{{profVar.profileLabels.dob}}</label>  		
                        <div class="col-lg-5">
-                         <input type="text" class="form-control" #Dob="bsDatepicker" autocomplete="off" name="Dob" bsDatepicker [(ngModel)]="profVar.dob"  [bsConfig]="{dateInputFormat: 'D MMM YYYY '}">
+                         <input type="text" class="form-control" #Dob="bsDatepicker" autocomplete="off" name="dob" bsDatepicker [(ngModel)]="profVar.dob"  [bsConfig]="{dateInputFormat: 'D MMM YYYY '}">
                         </div>
                   </div>
                   <div class="row">  		
                       <label class="col-lg-3 label-title">{{profVar.profileLabels.email}}</label>  		
                     <div class="col-lg-5">
-                        <input class="form-control" name="Email" [(ngModel)]="profVar.email" #Email="ngModel" type="text" required>
-                         <span class="required_color" *ngIf="Email && Email.invalid && (formDir.submitted || Email.touched)">
-                             {{profVar.mandatoryLabels.email}}
-                           </span>  
+                       
+                           <input class="form-control" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="emailAddress" [(ngModel)]="profVar.email" #Email="ngModel" type="text" required>
+                           <div *ngIf="Email?.touched && Email.invalid || (Email.pristine && formDir.submitted)">
+                                <div class="required_color" *ngIf="Email.errors?.required">
+                                        {{profVar.mandatoryLabels.email}}
+                                </div>
+                                <div  class="required_color" [hidden]="!Email.hasError('pattern')">
+                                       {{profVar.mandatoryLabels.invalidEmail}}
+                                </div>
+                            </div>  
+ 
                     </div>
                   </div>
                   <div class="row">  		
                       <label class="col-lg-3 label-title">{{profVar.profileLabels.mobile}}</label>  		
                     <div class="col-lg-5">
-                        <input class="form-control" name="mobile" [(ngModel)]="profVar.mobile" #PhNumber="ngModel"  type="text" required> 
-                        <span class="required_color" *ngIf="PhNumber && PhNumber.invalid && (formDir.submitted || PhNumber.touched)">
-                            {{profVar.mandatoryLabels.mobile}}
-                        </span> 
+                     
+                        <input class="form-control" pattern="^((\\+91-?)|0)?[0-9]{10}$" name="phoneNumber" [(ngModel)]="profVar.mobile" #PhNumber="ngModel"  type="text" required> 
+                        <div *ngIf="PhNumber?.touched && PhNumber.invalid || (PhNumber.pristine && formDir.submitted)">
+                                <div class="required_color" *ngIf="PhNumber.errors?.required">
+                                        {{profVar.mandatoryLabels.mobile}}
+                                </div>
+                                <div  class="required_color" [hidden]="!PhNumber.hasError('pattern')">
+                                       {{profVar.mandatoryLabels.invalidMobile}}
+                                </div>
+                            </div>  
                     </div>
                   </div>
                   <div class="row">  		
                       <label class="col-lg-3 label-title">{{profVar.profileLabels.dept}}</label>  		
                     <div class="col-lg-5">
-                        <input class="form-control" name="Department" [(ngModel)]="profVar.dept"  #Dept="ngModel"  type="text" required>
+                        <input class="form-control" name="department" [(ngModel)]="profVar.dept"  #Dept="ngModel"  type="text" required>
                         <span class="required_color" *ngIf="Dept && Dept.invalid && (formDir.submitted || Dept.touched)">
                           {{profVar.mandatoryLabels.dept}}        
                         </span> 
@@ -121,7 +134,7 @@
                   <div class="row">  		
                       <label class="col-lg-3 label-title">{{profVar.profileLabels.designation}}</label>  		
                     <div class="col-lg-5">
-                        <input class="form-control" name="Designation" [(ngModel)]="profVar.designation" #Designation="ngModel"  type="text" required>
+                        <input class="form-control" name="designation" [(ngModel)]="profVar.designation" #Designation="ngModel"  type="text" required>
                         <span class="required_color" *ngIf="Designation && Designation.invalid && (formDir.submitted || Designation.touched)">
                               {{profVar.mandatoryLabels.designation}}
                            </span> 

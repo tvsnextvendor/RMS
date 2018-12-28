@@ -38,21 +38,21 @@
   <section class="training-section" *ngIf="trainingDatas && dashboardInfo">
     <ion-grid class="status-grid no-padding">
       <ion-row nowrap class="forecast_container">
-        <ion-col col-6 col-md-3 class="tvs-statusBox ">
+        <ion-col col-6 col-md-3 class="tvs-statusBox" (click)="goToChildPage('assigned')">
           <div class="tomato-red-bg assign-box sts-style">
             <h4 class="status-title">{{constant.pages.dashboardLabels.assignedLabel}}</h4>
             <span class="num-sec">{{trainingDatas.assignedCourses}}</span>
             <p class="course-sec">{{constant.pages.dashboardLabels.newCourses}}</p>
-            <a href="javascript:void(0);" class="read-more" (click)="goToChildPage('assigned')">{{constant.pages.dashboardLabels.more}}<ion-icon
+            <a href="javascript:void(0);" class="read-more" >{{constant.pages.dashboardLabels.more}}<ion-icon
                 ios="ios-arrow-forward" md="ios-arrow-forward" class="fwd-arw"></ion-icon></a>
           </div>
         </ion-col>
-        <ion-col col-6 col-md-3 class="tvs-statusBox ">
-          <div class="light-green-bg progress-box sts-style">
+        <ion-col col-6 col-md-3 class="tvs-statusBox " (click)="goToChildPage('inprogress')">
+          <div class="light-green-bg progress-box sts-style" >
             <h4 class="status-title">{{constant.pages.dashboardLabels.progressLabel}}</h4>
             <span class="num-sec">{{trainingDatas.inProgressCourses}}</span>
             <p class="course-sec">{{constant.pages.dashboardLabels.courses}}</p>
-            <a href="javascript:void(0);" class="read-more" (click)="goToChildPage('inprogress')">{{constant.pages.dashboardLabels.more}}<ion-icon
+            <a href="javascript:void(0);" class="read-more" >{{constant.pages.dashboardLabels.more}}<ion-icon
                 ios="ios-arrow-forward" md="ios-arrow-forward" class="fwd-arw"></ion-icon></a>
           </div>
         </ion-col>
