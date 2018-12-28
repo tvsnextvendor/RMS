@@ -111,3 +111,21 @@ video.videoPlayer{
 .mr10{
     margin-right: 10px;
 }
+
+.btn-white{
+    color:white !important;
+}
+ 
+.btn-blue{
+    color:#468FB9 !important;
+}
+.file-bg{
+   background: #468FB9;
+}
+.icon-ht{
+    height: 50px !important;
+    padding-top: 5px;
+}
+.text-pd{
+    padding: 10px;
+}

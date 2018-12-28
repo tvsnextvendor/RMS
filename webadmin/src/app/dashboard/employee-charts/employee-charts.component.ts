@@ -17,43 +17,61 @@ export class EmployeeChartsComponent implements OnInit {
      donutChartData = [];
      donutEnable = false;
      todayDate;
+     viewEnable = false;
+     viewText;
      
      constructor(private dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
       this.dashboardVar.url=API_URL.URLS;
     }
 
   ngOnInit() {
-    this.http.get(this.dashboardVar.url.getCourses).subscribe((data) => {
-      this.dashboardVar.courses = data;
-    });
-    //get Module list
-    this.http.get(this.dashboardVar.url.getModuleList).subscribe((data) => {
-        this.dashboardVar.moduleList= data.ModuleList;
-    });  
-   //get Year List
-    this.http.get(this.dashboardVar.url.getYearList).subscribe((data) => {
-       // this.dashboardVar.yearList = data.Years;
-       this.dashboardVar.yearList = [2018];
-    })
-    //get Course Trend list   
-    this.http.get(this.dashboardVar.url.getCourseTrendChart).subscribe((data) => {
-        this.dashboardVar.courseTrendData = data.CourseTrend;
-    })
-
-
+    this.viewText = "View more";
+    this.getData();
     this.getKeyStat();
+
     setTimeout(() => {       
       this.totalCoursesLine();
-      this.videosTrendStackBar();
       this.employeeProgressPie();
       this.assignedCourses();
       this.completedCourses();
-      this.topEmployees();
-      this.totalNoOfBadges();
-      this.certificationTrend();
     }, 1000);
   }
 
+  getData(){
+    this.http.get(this.dashboardVar.url.getCourses).subscribe((data) => {
+        this.dashboardVar.courses = data;
+      });
+      //get Module list
+      this.http.get(this.dashboardVar.url.getModuleList).subscribe((data) => {
+          this.dashboardVar.moduleList= data.ModuleList;
+      });  
+     //get Year List
+      this.http.get(this.dashboardVar.url.getYearList).subscribe((data) => {
+         // this.dashboardVar.yearList = data.Years;
+         this.dashboardVar.yearList = [2018];
+      })
+      //get Course Trend list   
+      this.http.get(this.dashboardVar.url.getCourseTrendChart).subscribe((data) => {
+          this.dashboardVar.courseTrendData = data.CourseTrend;
+      })
+  }
+
+  enableView(){
+      this.viewEnable = !this.viewEnable;
+      if(this.viewEnable){
+        this.viewText = "View less";
+        this.getKeyStat();
+        setTimeout(() => {  
+            this.certificationTrend();
+            this.videosTrendStackBar();
+            this.totalNoOfBadges();
+            this.topEmployees();
+         }, 1000);
+      }
+      else{
+        this.viewText = "View more";
+      }
+  }
 
   getKeyStat() {
     this.http.get(this.dashboardVar.url.getKeyStat).subscribe((data) => {

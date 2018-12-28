@@ -95,10 +95,11 @@ export class LoginComponent implements OnInit {
             this.userArray.map(item=>{
               if (item.emailAddress === data.email && item.password === data.password){
                 user =  item;
-                localStorage.setItem('user',JSON.stringify(user));
+
+                localStorage.setItem('user',btoa(JSON.stringify(user)));
               }
             })
-            let userData = JSON.stringify(localStorage.getItem('user'));
+            let userData = atob(localStorage.getItem('user'));
             //  if(Object.keys(user).length){
               if(userData !== 'null'){
                 //let userData = JSON.stringify(user);

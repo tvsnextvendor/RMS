@@ -58,7 +58,8 @@ export class ModuleDetailsComponent implements OnInit {
                    });
                    this.moduleVar.selectedModule.courseList.forEach((key,index) => {
                       if(key.courseId == this.moduleVar.courseId){
-                        this.moduleVar.selectedCourse = this.moduleVar.selectedModule.courseList[index];     
+                        this.moduleVar.selectedCourse = this.moduleVar.selectedModule.courseList[index];   
+                        console.log( this.moduleVar.selectedCourse)  
                       }
                    })                  
         })

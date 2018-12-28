@@ -37,7 +37,7 @@ export class ModuleVar {
         "moduleUpdateMsg" : "Module Updated Successfully",
         "moduleCreateError" : "Unable to create module",
         "courseError":"Minimum one course is required*",
-        "noData" : "No Courses Found !!",
+        "noData" : "No Courses Created Yet",
         "activeMsg"   : ' is Activated',
         "deactiveMsg" : ' is Deativated',
         "moduleNameValidation": "Module Name already taken",
