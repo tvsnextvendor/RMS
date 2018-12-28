@@ -22,17 +22,17 @@ export class ModuleVar {
         "addCourseTitle" : "Add New Course",
         "editCourseTitle" : "Edit Course",
         "courseName" : "Course Name",
-        "videoName" : "Video Name",
+        "videoName" : "File Name",
         "description" : "Description",
         "upload" : "Upload",
         "next": "NEXT",
         "save" : "SAVE",
         "addNewCourse" : "ADD NEW COURSE",
-        "videoAddedToast" : "Course videos added successfully",
-        "videoUpdatedToast" : "Course videos updated successfully",
+        "videoAddedToast" : "Course files added successfully",
+        "videoUpdatedToast" : "Course files updated successfully",
         "mandatoryFields" : "mandatory fields missing",
         "courseNameError" : "Course name is mandatory",
-        "videoError" : "Minimum one video data required",
+        "videoError" : "Minimum one file data required",
         "moduleCreateMsg" : "Module Created Successfully",
         "moduleUpdateMsg" : "Module Updated Successfully",
         "moduleCreateError" : "Unable to create module",
@@ -43,7 +43,7 @@ export class ModuleVar {
         "moduleNameValidation": "Module Name already taken",
         "addCourseSuccess" : "Course added successfully",
         "updateCourseSuccess" : "Course updated successfully",
-        "removeVideoSuccess" : " removed from the video list"
+        "removeVideoSuccess" : " removed from the file list"
     };
     courseList = [];
     courseItems = [];

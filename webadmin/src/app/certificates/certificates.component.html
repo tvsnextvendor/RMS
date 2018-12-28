@@ -73,7 +73,7 @@
                 <div class="choose-file-btn fileUpload ">
                     <span>Choose File</span>
                     <input type="file" id="file" accept="text/html" (change)="handleFileInput($event.target.files)"
-                        class="upload"></div>
+                        class="upload"></div><span>{{constant.fileToUpload.name}}</span>
             </div>
             <div class="text-center pt-4">
                 <button type="submit" class="btn btn-primary creat-btn mr-3">{{constant.btns.upload}}</button>
