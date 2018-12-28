@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class ProfileVar {
     profileLabels = {
       name        :  'Name',
-      dob         :  'Dob',
+      dob         :  'DOB',
       email       :  'Email',
       mobile      :  'Mobile',
       designation :  'Designation',
@@ -19,6 +19,8 @@ export class ProfileVar {
          email       : 'Email is required',
          mobile      : 'Mobile Number is required',     
          designation : 'Designation is required',
+         invalidEmail: 'Invalid Email',
+         invalidMobile : 'Invalid Mobile Number' ,  
          dept        : 'Department is required'  
      };
      successMsg='Profile Saved Successfully';

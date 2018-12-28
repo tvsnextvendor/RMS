@@ -4,6 +4,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Constant } from '../../constants/Constant.var';
+import { ToastrService } from '../../service/toastrService';
 
 @IonicPage({
   name: 'forumdetail-page'
@@ -29,7 +30,7 @@ export class ForumDetailPage implements OnInit {
   recentList: any = [];
   favoriteList: any = [];
   featureList: any = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant,private toastr:ToastrService) {
     this.forumDetailObject = this.navParams.data;
     this.employees = this.forumDetailObject['setData']['employees'];
     this.indexs = this.forumDetailObject['selectedIndex'];
@@ -67,6 +68,8 @@ export class ForumDetailPage implements OnInit {
   }
   questionSubmit() {
     console.log(this.forum);
+    this.toastr.success("Question Saved Successfully");
+    this.modalRef.hide();
   }
   likeUnlikeQuestion(emp, j) {
     emp[j]['like'] = !(emp[j]['like']);

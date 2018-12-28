@@ -13,9 +13,9 @@ import { AlertService } from '../services/alert.service';
 })
 
 export class ProfileComponent implements OnInit {
-
+    userDetails:any;
    constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,private profVar: ProfileVar,private router:Router, private datepipe: DatePipe){
-    
+   
     const currentUrl = this.router.url;
     this.profVar.split_url= currentUrl.split('/');
     
@@ -34,23 +34,25 @@ export class ProfileComponent implements OnInit {
    }
   
    getProfile(){
-    const userDetails =  JSON.parse(localStorage.getItem('userData'));
-    this.profVar.userName=userDetails.username;
-    this.profVar.email=userDetails.emailAddress;
-    console.log(userDetails.dob);
-    this.profVar.dob= this.datepipe.transform( userDetails.dob , 'dd MMM yyyy');
-    console.log( this.profVar.dob);
-    this.profVar.designation=userDetails.designation;
-    this.profVar.dept=userDetails.department;
-    this.profVar.mobile=userDetails.phoneNumber;
+    this.userDetails = JSON.parse(localStorage.getItem('userData'));
+    this.profVar.userName=this.userDetails.username;
+    this.profVar.email=this.userDetails.emailAddress;
+    this.profVar.dob= this.datepipe.transform( this.userDetails.dob , 'dd MMM yyyy');
+    this.profVar.designation=this.userDetails.designation;
+    this.profVar.dept=this.userDetails.department;
+    this.profVar.mobile=this.userDetails.phoneNumber;
    }
 
    onSubmitForm(form){
        if(form.valid){
            let postData=form.value;
+           let updatedValue = Object.assign({},this.userDetails,postData);
+           localStorage.setItem('userData',JSON.stringify(updatedValue));
            this.toastr.success(this.profVar.successMsg);
            this.alertService.success(this.profVar.successMsg);
            this.router.navigateByUrl('/profile');
+
+           
        }
    }
 
