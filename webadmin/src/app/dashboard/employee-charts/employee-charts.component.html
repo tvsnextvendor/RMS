@@ -11,7 +11,7 @@
         <div class="dashboard-header col-md-11">
           <div class="clearfix">
             <h4 class="float-left fnt-size">{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.comma}} {{dashboardVar.employeeTabText.name}}{{dashboardVar.symbols.apostrophe}}</h4>
-            <span class="float-right"><img src="assets/images/close.png"></span>
+           <!--  <span class="float-right"><img src="assets/images/close.png"></span> -->
           </div>
           <div  class="clearfix">
             <p class="p-color">{{dashboardVar.employeeTabText.notification}} <b class="click-color">{{dashboardVar.btns.editTasks}}</b></p>
@@ -122,8 +122,52 @@
             </div>
           </div>
         </div>
+         <div class="col-sm-6 pl-0">
+    <div class="chart-bg">
+      <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+      {{dashboardVar.employeeGridsTitle.certificationTrend}}<select class="select-btn"><option value="Total">Total</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
+      <div id="certificationTrend" style=" height: 200px; margin: 0 auto"></div>
+    </div>
+  </div>
+  <div class="col-sm-6 pl-0">
+    <div class="chart-bg">
+      <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+        {{dashboardVar.employeeGridsTitle.topEmployees}}<select class="select-btn"><option value="This Month">This Month</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
+      <div class="custom-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{{dashboardVar.employeeGridsTitle.name}}</th>
+            <th>{{dashboardVar.employeeGridsTitle.module}}</th>
+            <th>{{dashboardVar.employeeGridsTitle.score}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dashboardVar.topEmployees">
+            <td>
+              {{item.id}}.{{item.name}}
+            </td>
+            <td> {{item.module}}
+              <!-- <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
+                </span>
+              </ng-template>
+              <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating> -->
+            </td>
+            <td>
+              {{item.score}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
       </div>
     </div>
+  </div>
+      </div>
+    </div>
+    </div>
+</div> 
       <!-- <div class="col-sm-12 p-0"> -->
         <!-- <div class="side-widget"> -->
           <!-- <div class="chart-bg pt-3 pb-4"> -->
@@ -166,9 +210,8 @@
           <!-- </div> -->
         <!-- </div> -->
       <!-- </div> -->
-  </div>
-</div>  
-<div class="row"  *ngIf="viewEnable">
+   
+<!-- <div class="row"  *ngIf="viewEnable">
   <div class="col-sm-6 pl-0">
     <div class="chart-bg">
       <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
@@ -195,12 +238,12 @@
               {{item.id}}.{{item.name}}
             </td>
             <td> {{item.module}}
-              <!-- <ng-template #t let-fill="fill">
+              <ng-template #t let-fill="fill">
                 <span class="star" [class.full]="fill === 100">
                   <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
                 </span>
               </ng-template>
-              <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating> -->
+              <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
             </td>
             <td>
               {{item.score}}
@@ -211,4 +254,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

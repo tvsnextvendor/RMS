@@ -2,8 +2,27 @@
   <div class="white-bg">
     <div class="clearfix p-3 row calender-header">
        <span class="calender-text col-md-4">{{batchVar.calendarView}}</span>
-       <span class="month-text col-md-4">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}<img src="assets/images/sett.png"class="pl-2"></span>
-       <span class="col-md-4">
+       <span class="month-text col-md-4">
+        <div
+          class="float-left cp"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </div>
+      {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
+    <div
+          class="float-right cp"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+      </span>
+       </div>
+       <!-- <span class="col-md-4">
        <span class="btn-group">
         <div
           class="btn btn-primary"
@@ -28,8 +47,7 @@
           <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </div>
       </span>
-    </span>
-    </div>
+    </span> -->   
   <div [ngSwitch]="view" class="px-3 pb-3 calender-view">
     <mwl-calendar-month-view
       *ngSwitchCase="CalendarView.Month"
