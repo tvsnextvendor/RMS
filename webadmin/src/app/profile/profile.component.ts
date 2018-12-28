@@ -34,10 +34,12 @@ export class ProfileComponent implements OnInit {
    }
   
    getProfile(){
-    const userDetails =  JSON.parse(localStorage.getItem('user'));
+    const userDetails =  JSON.parse(localStorage.getItem('userData'));
     this.profVar.userName=userDetails.username;
     this.profVar.email=userDetails.emailAddress;
+    console.log(userDetails.dob);
     this.profVar.dob= this.datepipe.transform( userDetails.dob , 'dd MMM yyyy');
+    console.log( this.profVar.dob);
     this.profVar.designation=userDetails.designation;
     this.profVar.dept=userDetails.department;
     this.profVar.mobile=userDetails.phoneNumber;
@@ -46,7 +48,7 @@ export class ProfileComponent implements OnInit {
    onSubmitForm(form){
        if(form.valid){
            let postData=form.value;
-           //this.toastr.success(this.profVar.successMsg);
+           this.toastr.success(this.profVar.successMsg);
            this.alertService.success(this.profVar.successMsg);
            this.router.navigateByUrl('/profile');
        }
