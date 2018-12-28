@@ -37,7 +37,7 @@
             </div>
         </div>
     
-        <div class="col-sm-3 white-bg py-4 fs-12">
+        <div class="col-sm-3 white-bg pt-4 fs-12 mob-alg">
                 <app-createForum></app-createForum>
         </div>
     
@@ -79,7 +79,7 @@
                         [placeholder]="'Add Department'"      [displayBy]="'department'"
                         [identifyBy]="'userId'" [secondaryPlaceholder]="'Select Department'" class="multi-input"
                         required>
-                        <tag-input-dropdown [showDropdownIfEmpty]="false"
+                        <tag-input-dropdown [showDropdownIfEmpty]="true"
                         [dynamicUpdate]="false"
                         [focusFirstElement]="true"             
                         [autocompleteItems]="forumVar.autocompleteItemsAsEmpObjects">
@@ -93,7 +93,7 @@
                         </span>    
                   </div> 
                    <div class="text-center pt-5">
-            <button type="button" class="btn btn-default mr-3" (click)="forumVar.modalRef.hide()">{{forumVar.btns.cancel}}</button>
+           <button type="button" class="btn btn-default mr-3" (click)="forumVar.modalRef.hide()">{{forumVar.btns.cancel}}</button>
             <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.save}}</button>
         </div>
         </form>
