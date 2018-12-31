@@ -23,7 +23,7 @@
         <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of recentList;let j=index;">
           <ion-card class="forum-card">
             <ion-grid>
-              <ion-row>
+              <ion-row (click)="hideShowDesc(recentList,j)">
                 <ion-col col-2 class="img-block">
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
@@ -31,7 +31,7 @@
                   <h4 class="forum-title">{{emp.username}}</h4>
                   <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
                   {{constant.pages.forumLabels.replays}} </p>
-                  <p class="forum-txt" (click)="hideShowDesc(recentList,j)">{{emp.totalReplies}}
+                  <p class="forum-txt" >{{emp.totalReplies}}
                   {{constant.pages.forumLabels.replies}} </p>
                 </ion-col>
                 <ion-col col-3 class="heart-icon">
@@ -67,28 +67,32 @@
     </ion-list>
     <ion-list *ngSwitchCase="'featuredTopics'">
       <ion-row>
-        <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of featureList;let j=index;">
+        {{topics}}
+        <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of topics;let j=index;">
           <ion-card class="forum-card" >
             <ion-grid>
               <ion-row>
                 <ion-col col-2 class="img-block">
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
-                <ion-col col-7>
-                  <h4 class="forum-title">{{emp.username}}</h4>
+                <ion-col col-10>
+                    <h4 class="forum-title">{{emp.topicName}}</h4>
+
+
+                  <!-- <h4 class="forum-title">{{emp.username}}</h4>
                   <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
                   {{constant.pages.forumLabels.replays}}</p>
                   <p class="forum-txt" (click)="hideShowDesc(featureList,j)">{{emp.totalReplies}}
-                  {{constant.pages.forumLabels.replies}} </p>
+                  {{constant.pages.forumLabels.replies}} </p> -->
                 </ion-col>
-                <ion-col col-3 class="heart-icon">
+                <!-- <ion-col col-3 class="heart-icon">
                   <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
                   <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
                   <p></p>
                   <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
-                </ion-col>
+                </ion-col> -->
               </ion-row>
-              <ion-row *ngIf="emp.isActive">
+              <!-- <ion-row *ngIf="emp.isActive">
                 <ion-col>
                   <p class="forum-desc">{{emp.description}}</p>
                 </ion-col>
@@ -105,7 +109,7 @@
                     {{constant.buttons.comment}}
                   </button>
                 </ion-col>
-              </ion-row>
+              </ion-row> -->
             </ion-grid>
           </ion-card>
         </ion-col>

@@ -15,6 +15,8 @@ import { ForumDetailPage } from '../forum-detail/forum-detail';
 export class ForumPage implements OnInit {
   forumData: any = [];
   paramsData:any= {'setData':[],'selectedIndex':''};
+  search;
+  showSearchBar:boolean= false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL:API_URL) {
   }
@@ -36,5 +38,26 @@ export class ForumPage implements OnInit {
         this.forumData = data['ForumList'];
       }
     });
+  }
+  toggleSearchBox(){
+    this.showSearchBar = !this.showSearchBar;
+  }
+  onInput($e){
+    console.log("On input");
+    console.log($e);
+    console.log(this.search);
+    if(this.search){
+      this.forumData = this.forumData.filter(val => val.forumName === this.search);
+    }else{
+      this.showSearchBar = false;
+      this.getForumDatas();
+    }
+    console.log(this.forumData);
+  }
+  onCancel($e){
+    console.log("On Cancel");
+    this.showSearchBar = false;
+    this.getForumDatas();
+    console.log($e);
   }
 }

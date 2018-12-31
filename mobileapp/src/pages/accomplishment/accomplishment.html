@@ -1,12 +1,22 @@
 <ion-header class="my-component">
-  <ion-navbar>
+  <ion-navbar *ngIf="!showSearchBar">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title class="text-left">
       {{constant.title.accomplishment}}
+      <div class="header-icon">
+          <ion-icon name="search" (click)="toggleSearchBox()"></ion-icon>
+        </div>
     </ion-title>
   </ion-navbar>
+  <ion-navbar *ngIf="showSearchBar">
+      <ion-icon name="ios-arrow-back" (click)="toggleSearchBox()"></ion-icon>
+      <label class="item item-input">
+        <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+        </ion-searchbar>
+      </label>
+    </ion-navbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">
   <div class="certificate-block">

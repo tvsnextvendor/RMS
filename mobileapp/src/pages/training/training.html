@@ -3,9 +3,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
+    <ion-title class="text-left">
       {{constant.title.training}}
+      <div class="header-icon" (click)="goToNotification()">
+          <ion-icon name="ios-notifications-outline"></ion-icon>
+          <span class="dot-circle"></span>
+        </div>
     </ion-title>
+   
   </ion-navbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">

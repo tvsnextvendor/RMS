@@ -23,6 +23,7 @@ export class ForumDetailPage implements OnInit {
   forumDetailObject;
   indexs;
   employees;
+  topics;
   like: boolean = false;
   forumFavor: any = [];
   forumRecent: any = [];
@@ -33,6 +34,8 @@ export class ForumDetailPage implements OnInit {
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant,private toastr:ToastrService) {
     this.forumDetailObject = this.navParams.data;
     this.employees = this.forumDetailObject['setData']['employees'];
+    this.topics = this.forumDetailObject['setData']['topics'];
+
     this.indexs = this.forumDetailObject['selectedIndex'];
   }
   ionViewDidLoad() {
@@ -57,7 +60,7 @@ export class ForumDetailPage implements OnInit {
         self.recentList.push(val);
       } else if (val.status === 'Featured') {
         self.featureList.push(val);
-      } else if (val.status === 'Favourite') {
+      } else if (val.like === true) {
         self.favoriteList.push(val);
       }
     });

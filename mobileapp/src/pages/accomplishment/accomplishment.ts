@@ -33,6 +33,8 @@ export class AccomplishmentPage implements OnInit {
   badgeLftBtn:boolean = true;
   badgeRigBtn:boolean = true;
   badgeDetails;
+  showSearchBar:boolean = false;
+  search;
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccomplishmentPage');
@@ -93,5 +95,26 @@ export class AccomplishmentPage implements OnInit {
         this.badgeList = data['badgeList'];
       }
     });
+  }
+  toggleSearchBox(){
+    this.showSearchBar = !this.showSearchBar;
+  }
+  onInput($e){
+    console.log("On input");
+    console.log($e);
+    console.log(this.search);
+    if(this.search){
+      //this.certificateList = this.certificateList.filter(val => val.forumName === this.search);
+    }else{
+      this.showSearchBar = false;
+      this.getCertificates();
+    }
+    console.log(this.certificateList);
+  }
+  onCancel($e){
+    console.log("On Cancel");
+    this.showSearchBar = false;
+    this.getCertificates();
+    console.log($e);
   }
 }

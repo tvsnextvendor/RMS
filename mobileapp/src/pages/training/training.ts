@@ -50,6 +50,9 @@ export class TrainingPage{
     console.log('ionViewDidLoad TrainingPage');   
   }
   ionViewDidEnter(){
+    this.assignedCoursesList = [];
+    this.progressCoursesList = [];
+    this.completeCoursesList = [];
     this.showData(this.statusKey);
     this.getCousesList();
     this.getModules();
@@ -144,6 +147,9 @@ export class TrainingPage{
 
   changeModule(list) {
     this.selectedModule = list.moduleName;
+  }
+  goToNotification(){
+    this.navCtrl.setRoot('notification-page');
   }
 
 }

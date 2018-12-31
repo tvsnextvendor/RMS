@@ -1,33 +1,46 @@
-<ion-header >
-  <ion-navbar>
+<ion-header>
+  <ion-navbar *ngIf="!showSearchBar">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{constant.title.forum}}</ion-title>
+    <ion-title class="text-left">
+      {{constant.title.forum}}
+      <div class="header-icon">
+        <ion-icon name="search" (click)="toggleSearchBox()"></ion-icon>
+      </div>
+    </ion-title>
+  </ion-navbar>
+  <ion-navbar *ngIf="showSearchBar">
+    <ion-icon name="ios-arrow-back" (click)="toggleSearchBox()"></ion-icon>
+    <label class="item item-input">
+      <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+      </ion-searchbar>
+    </label>
   </ion-navbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">
   <ion-list>
     <ion-row>
-      <ion-col *ngFor="let forum of forumData; let i =index;" col-12 col-sm-6 col-md-4  class="main-forum">
-         <ion-card  class="forum-card">
-      <ion-card-content (click)="goToForumDetail(forum,i)" class="forum-card">
-        <ion-row>
-          <ion-col col-2 class="img-block">
-            <img src="assets/imgs/chat.png" class="forum-img">
-          </ion-col>
-          <ion-col col-6 class="forum-content">
-            <h4 class="forum-title ovr-txt">{{forum.forumName}}</h4>
-            <p class="forum-hours">6 {{constant.pages.forumLabels.hoursAgo}},{{forum.totalTopics}} {{constant.pages.forumLabels.topics}}</p>
-          </ion-col>
-          <ion-col col-4>
-            <p class="forum-date">{{forum.forumCreated | date:'dd MMM yyyy'}}</p>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
+      <ion-col *ngFor="let forum of forumData; let i =index;" col-12 col-sm-6 col-md-4 class="main-forum">
+        <ion-card class="forum-card">
+          <ion-card-content (click)="goToForumDetail(forum,i)" class="forum-card">
+            <ion-row>
+              <ion-col col-2 class="img-block">
+                <img src="assets/imgs/chat.png" class="forum-img">
+              </ion-col>
+              <ion-col col-6 class="forum-content">
+                <h4 class="forum-title ovr-txt">{{forum.forumName}}</h4>
+                <p class="forum-hours">6 {{constant.pages.forumLabels.hoursAgo}},{{forum.totalTopics}}
+                  {{constant.pages.forumLabels.topics}}</p>
+              </ion-col>
+              <ion-col col-4>
+                <p class="forum-date">{{forum.forumCreated | date:'dd MMM yyyy'}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
       </ion-col>
     </ion-row>
-   
+
   </ion-list>
 </ion-content>
