@@ -39,7 +39,7 @@ export class AddBatchComponent implements OnInit {
 
      //get Module list
       this.http.get(this.batchVar.url.getModuleList).subscribe((data) => {
-        this.batchVar.moduleList= data.ModuleList;
+        this.batchVar.moduleList= data.moduleList;
       }); 
          
       //get percentage list

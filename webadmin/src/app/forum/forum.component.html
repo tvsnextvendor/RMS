@@ -81,7 +81,7 @@
                         required>
                         <tag-input-dropdown [showDropdownIfEmpty]="true"
                         [dynamicUpdate]="false"
-                        [focusFirstElement]="true"             
+                        [focusFirstElement]="true" [zIndex]="9999" [keepOpen]="true" [appendToBody]="false"           
                         [autocompleteItems]="forumVar.autocompleteItemsAsEmpObjects">
                         <ng-template let-item="item" let-index="index">
                             {{ item.display }}
