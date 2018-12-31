@@ -313,7 +313,7 @@ li.search-block {
 	color: #9B9B9B;
     border: 1px solid #9B9B9B;
     border-radius: 5px;
-    margin: 5px 0 0 165px;
+    margin: 5px 0 0 170px;
     font-size: 15px;
 }
 /*************************End  Header ***********************/
@@ -413,15 +413,17 @@ li.search-block {
 }
 
 .num-alg{
-  font-size: 30px;
-  color: #336F90;
-  line-height: 20px;
-  float: right;
+    font-size: 32px;
+    color: #1D4960;
+    line-height: 20px;
+    text-align: center;
+    font-weight: 600;
+    padding: 20px;
 }
 .select-btn{
   border: 1px solid #999999;
   border-radius: 4px;
-  width: 22%;
+  width: 25%;
   padding: 2px;
   color: #999999;
   float: right;
@@ -457,7 +459,10 @@ li.search-block {
     padding-left: 12px;
 }
 .pect-color{color: #51CC3A;}
-.avg-color{color: #999999;}
+.avg-color{
+    color: #959595;
+    font-size: 14px;
+}
 .dwn-color{color: #ED2201;}
 .mr0{margin: 0;}
 li {
