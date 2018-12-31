@@ -17,6 +17,7 @@ export class DashboardVar {
   years="2018";
   taskChart;
   courseTrendData;
+  feedbackData;
   title = 'Dashboard';
   select= 'Module';
   recentComments;

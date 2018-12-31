@@ -73,7 +73,7 @@
           </div>
       </div>
       <div class="row mb-3" *ngIf="viewEnable">
-        <div class="col-sm-6 pl-0">
+        <div class="col-sm-6 pl-0" *ngIf="hideCharts">
           <div class="chart-bg course-trend">
             <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
             {{dashboardVar.employeeGridsTitle.videosTrend}}
@@ -122,7 +122,7 @@
             </div>
           </div>
         </div>
-         <div class="col-sm-6 pl-0">
+         <div class="col-sm-6 pl-0"  *ngIf="hideCharts">
     <div class="chart-bg">
       <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
       {{dashboardVar.employeeGridsTitle.certificationTrend}}<select class="select-btn"><option value="Total">Total</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>

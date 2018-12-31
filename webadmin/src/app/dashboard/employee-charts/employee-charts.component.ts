@@ -20,9 +20,12 @@ export class EmployeeChartsComponent implements OnInit {
      viewEnable = false;
      viewText;
      topCourses;
+     hideCharts=true;
      
      constructor(private dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
       this.dashboardVar.url=API_URL.URLS;
+      const userDetails = JSON.parse(localStorage.getItem('userData'));
+       this.hideCharts= userDetails.roleId == 2 ? false :true;
     }
 
   ngOnInit() {
@@ -36,7 +39,7 @@ export class EmployeeChartsComponent implements OnInit {
       this.assignedCourses();
       this.completedCourses();
       this.inProgress();
-    }, 1000);
+    }, 2000);
   }
 
   getData(){
@@ -63,9 +66,11 @@ export class EmployeeChartsComponent implements OnInit {
       if(this.viewEnable){
         this.viewText = "View less";
         this.getKeyStat();
-        setTimeout(() => {  
+        setTimeout(() => {
+          if(this.hideCharts){
             this.certificationTrend();
             this.videosTrendStackBar();
+            }
             this.totalNoOfBadges();
             this.topEmployees();
             this.topRatedCourses();
