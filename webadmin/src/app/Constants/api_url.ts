@@ -17,6 +17,7 @@ export class API_URL {
    getBadgesAndCertification : '5c04eb4a330000e900d01e70',
    getReservationByResort    : '5c04eba63300007900d01e71',
    getQuiz              : '5c0f73143100002c0924ec31',
+   getFeedbackRating    : '5c28ddc73300007400a58bb5',
    //newgetVideoTrendList    : '5c12603d3300005632998f04',
   //& getVideoTrendList    : '5c09210a2f0000c21f637c9c',
    getVideoTrendList    :'5c1b552b33000066007fd6db',

@@ -29,6 +29,11 @@ export class ResortChartsComponent implements OnInit {
         this.dashboardVar.taskChart = data.Tasks;
    })
 
+   //get Feedback & Rating data
+   this.http.get(this.dashboardVar.url.getFeedbackRating).subscribe((data) => {
+    this.dashboardVar.feedbackData = data;
+  })
+
     this.topResorts();
     this.badgesCertification();
     this.getKeyStat();
@@ -245,17 +250,37 @@ totalEmployeeLineChart() {
 feedbackrating() {
    const canvas: any = document.getElementById('rating');
    const ctx = canvas.getContext('2d');
+  const  options={
+    legend: {
+        display: false,
+    },
+    scales: {
+      yAxes: [{
+        gridLines: {
+          drawBorder: false,
+        },
+      }],
+      xAxes: [{
+        display: false,
+        gridLines: {
+          display: false,
+        },
+      }]
+    }
+  }
    const horizontalBarChartData = {
     labels: ['5', '4', '3', '2', '1'],
     datasets: [{
-        backgroundColor: '#00b0f0',
-        data: [4155, 812, 618, 159, 370]
-    }]
+        backgroundColor: ['#9FC05A','#ADD633','#F6D834','#F3B335','#F18C5A'],
+        data: this.dashboardVar.feedbackData.data
+    }],
    };
 
    const myBarChart = new Chart(ctx, {
         type: 'horizontalBar',
         data: horizontalBarChartData,
+        options : options
+
     });
 }
 

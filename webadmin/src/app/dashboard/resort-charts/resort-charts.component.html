@@ -14,7 +14,7 @@
       </div>
       <div class="clearfix">
         <p class="p-color">{{dashboardVar.employeeTabText.notification}} <b class="click-color">{{dashboardVar.btns.editTasks}}</b></p>
-        <button class="btn_alg" (click)="addQuickTasks()">{{dashboardVar.btns.quickTasks}}</button>
+        <!-- <button class="btn_alg" (click)="addQuickTasks()">{{dashboardVar.btns.quickTasks}}</button> -->
         <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button>
       </div>
       </div>
@@ -33,19 +33,30 @@
          <div class=" chart-bg">
          <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
       {{dashboardVar.resortGridsTitle.staff}} <span class="num-alg">300</span></h6>
-      <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
-            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>25%</p></div>
+      <!-- <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
+            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>25%</p></div> -->
       <div id="staff" style=" height: 100px; margin: 0 auto"></div>
     </div>
       </div>
       <div class="col-md-4 pl-0">
          <div class=" chart-bg">
         <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-      {{dashboardVar.resortGridsTitle.feedbackRating}}</h6>
-      <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
-            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>20%</p></div>
-      <canvas id="rating"  height="110"></canvas>
-    </div>
+        {{dashboardVar.resortGridsTitle.feedbackRating}}</h6>
+      <!-- <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
+            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>20%</p></div> -->
+            <div class="row py-3">
+            <div class="col-sm-6" *ngIf ="dashboardVar.feedbackData?.rating" >{{dashboardVar.feedbackData.rating}}
+                <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
+                    </span>
+                  </ng-template>
+              <ngb-rating [(rate)]='dashboardVar.feedbackData.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+              {{dashboardVar.feedbackData.people}} total
+            </div>
+            <div class="col-sm-6"> <canvas id="rating"  height="110"></canvas></div>
+            </div>
+       </div>
       </div>
     </div>
   </div>
