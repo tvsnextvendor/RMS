@@ -125,6 +125,12 @@ video.videoPlayer{
 .icon-ht{
     height: 50px !important;
     padding-top: 5px;
+    width: 40%;
+    margin: 0 auto;
+}
+.player-header{
+    font-weight: 700;
+    margin-top: 10px;
 }
 .text-pd{
     padding: 10px;
