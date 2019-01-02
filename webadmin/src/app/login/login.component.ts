@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     rememberMe = false;
     rememberMeCheck =[];
     labels;
+    passwordError = false;
     btns;
     constructor(private route: Router, public loginvar: loginVar, private toastr: ToastrService,
             private http: HttpService,private API_URL:API_URL,private alertService:AlertService) { }
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
       //labels
       this.labels = this.loginvar.labels;
       this.btns = this.loginvar.btns;
-
+      this.passwordError = false;
       //remember check
       let localData = (localStorage.getItem("rememberMe"));
       if(localData){
@@ -107,6 +108,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('userData',userData);
                // this.toastr.success("Login successfully");
                 this.route.navigateByUrl('/');
+                this.passwordError = false;
                 this.alertService.success('Login successfully');
                 let localObject = [];
                 // remember password settings
@@ -128,10 +130,11 @@ export class LoginComponent implements OnInit {
                 }
               }
               else{
-                this.toastr.error("Invalid login")
+                // this.toastr.error("Invalid login")
+                this.passwordError = true;
               }         
         } else {
-            this.toastr.error("Please enter login details")
+            // this.toastr.error("Please enter login details");
             localStorage.setItem('userData', '');
         }
     }

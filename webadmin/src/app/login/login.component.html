@@ -20,6 +20,7 @@
                             <span class="required_color" *ngIf="formDir.form.controls.password && formDir.form.controls.password.invalid && (formDir.submitted || formDir.form.controls.password.touched)">
                                 {{labels.passwordError}}
                             </span>
+                            <span class="required_color" *ngIf="loginvar.password && passwordError">Invalid password</span>
                         </div>
                         <div  *ngIf="!forgetPasswordStatus" class="form-group clearfix">
                         <label class="hole-cont">{{labels.rememberMe}}
