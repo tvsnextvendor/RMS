@@ -29,6 +29,7 @@ export class AddModuleComponent implements OnInit {
     moduleSubmitted = false;
     uploadFile;
     fileUrl;
+    fileName;
     labels;
     tabEnable = false;
     message;
@@ -107,13 +108,14 @@ export class AddModuleComponent implements OnInit {
         console.log(e);
         let reader = new FileReader();
         let file = e.target.files[0];
+        this.fileName = file.name;
         reader.onloadend = () => {
           this.uploadFile = file;
           this.fileUrl = reader.result;
         }
       reader.readAsDataURL(file)
       this.previewImage = "assets/videos/images/bunny.png";
-      console.log(this.fileUrl,this.uploadFile)
+      console.log(this.fileUrl,this.uploadFile,this.fileName)
     }
 
    updateCourse(data,i){
@@ -200,29 +202,30 @@ export class AddModuleComponent implements OnInit {
    videoSubmit(){
         this.messageClose();
        this.videoSubmitted = true;
-       if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
-        this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast); 
-        this.alertService.success(this.message);
-        this.videoSubmitted = false;
-        let videoObj = {
-            videoName : this.moduleVar.selectVideoName ,
-            description : this.moduleVar.description,
-            url : this.moduleVar.videoFile
+        if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
+            this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast); 
+            this.alertService.success(this.message);
+            this.videoSubmitted = false;
+            let videoObj = {
+                videoName : this.moduleVar.selectVideoName ,
+                description : this.moduleVar.description,
+                url : this.fileName ? this.fileName : this.moduleVar.videoFile
+            }
+            if(this.moduleVar.videoIndex){
+                let index = this.moduleVar.videoIndex - 1;
+                this.moduleVar.videoList[index] = videoObj;
+                this.moduleVar.videoIndex = 0;
+            }
+            else{
+                this.moduleVar.videoList.push(videoObj);
+            }
+            this.moduleVar.selectVideoName = '';
+            this.moduleVar.description = '';
+            this.moduleVar.videoFile = '';
+            this.showImage = false;
+            this.previewImage = '';
+            this.fileName = '';
         }
-        if(this.moduleVar.videoIndex){
-            let index = this.moduleVar.videoIndex - 1;
-            this.moduleVar.videoList[index] = videoObj;
-            this.moduleVar.videoIndex = 0;
-        }
-        else{
-            this.moduleVar.videoList.push(videoObj);
-        }
-        this.moduleVar.selectVideoName = '';
-        this.moduleVar.description = '';
-        this.moduleVar.videoFile = '';
-        this.showImage = false;
-        this.previewImage = '';
-       }
        else{
            //this.toastr.error(this.labels.mandatoryFields)
            this.alertService.error(this.labels.mandatoryFields);
@@ -240,7 +243,7 @@ export class AddModuleComponent implements OnInit {
     let validation = this.moduleVar.moduleList.find(x=>x.moduleName === this.moduleName);
     if(validation){
         // console.log("validationFalse")
-                this.moduleVar.moduleNameCheck = this.moduleId ? (parseInt(this.moduleId) !== validation.moduleId ?  true : false) : true;
+        this.moduleVar.moduleNameCheck = this.moduleId ? (parseInt(this.moduleId) !== validation.moduleId ?  true : false) : true;
     }
     else{
         // console.log("validation True")
@@ -263,7 +266,6 @@ export class AddModuleComponent implements OnInit {
             //this.toastr.error(this.labels.videoError);
             this.alertService.error(this.labels.videoError);
         }
-  
    }
 
     submitForm(form){
