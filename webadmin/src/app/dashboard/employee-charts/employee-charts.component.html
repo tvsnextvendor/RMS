@@ -68,9 +68,9 @@
                    <div id="inProgress" style=" height: 100px; margin: 0 auto"></div> 
               </div>
             </div>
-          <div class="col-sm-4 pl-0">
+          <div class="col-sm-4 p-0">
               <div class=" chart-bg" (click)="goToEmpStatus()">
-                <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+                <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.employeeProgress}}</h6>
                 <div id="employeeProgress" style=" height: 206px; margin: 0 auto"></div>
               </div>
@@ -79,7 +79,7 @@
       <div class="row mb-3" *ngIf="viewEnable">
         <div class="col-sm-6 pl-0" *ngIf="hideCharts">
           <div class="chart-bg course-trend">
-            <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
             {{dashboardVar.employeeGridsTitle.videosTrend}}
               <select class="vdo-btn" id="moduleType" name="moduleType" (change)="onChangeModule()" [(ngModel)]="dashboardVar.moduleType">     
                   <option [ngValue]="null">{{dashboardVar.select}}</option>
@@ -96,7 +96,7 @@
         </div>
         <div class="col-sm-3 pl-0">
             <div class=" chart-bg">
-                <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+                <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.topCourses}}</h6>
                 <table class="table">
                     <tbody>
@@ -117,18 +117,18 @@
                   </table>
               </div>
         </div>
-        <div class="col-sm-3 pl-0">
+        <div class="col-sm-3 p-0">
           <div class=" chart-bg">
-            <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
             {{dashboardVar.employeeGridsTitle.totalNoOfBadges}}</h6>
             <div class="donutchat-style"> 
               <div id="chartContainer" style="height: 200px; width: 295px"></div>
             </div>
           </div>
         </div>
-         <div class="col-sm-6 pl-0"  *ngIf="hideCharts">
-    <div class="chart-bg">
-      <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+         <div class="col-sm-6 p-0"  *ngIf="hideCharts">
+    <div class="chart-bg"  style=" height: 287px">
+      <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
       {{dashboardVar.employeeGridsTitle.certificationTrend}}<select class="select-btn"><option value="Total">Total</option>
         <i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
         <div class="avg-qualification">
@@ -139,9 +139,9 @@
       <div id="certificationTrend" style=" height: 210px; margin: 0 auto"></div>
     </div>
   </div>
-  <div class="col-sm-6 pl-0">
-    <div class="chart-bg">
-      <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
+  <div class="col-sm-6 pr-0">
+    <div class="chart-bg"  style="height: 288px">
+      <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
         {{dashboardVar.employeeGridsTitle.topEmployees}}<select class="select-btn"><option value="This Month">This Month</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
       <div class="custom-table">
       <table class="table">

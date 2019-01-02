@@ -360,7 +360,10 @@ li.search-block {
 	font-size: 35px;
   font-weight: 600;
 }
-.circle-fnt{font-size: 12px;}
+.circle-fnt{
+  font-size: 12px;
+  color: #468FB9;
+}
 .hd-button{
   background-color: #fff;
   width: 120px;
@@ -428,6 +431,11 @@ li.search-block {
   color: #999999;
   float: right;
   font-size: 14px;
+}
+.chart-mr{
+    color: #1D4960;
+    font-size: 16px;
+    font-weight: 600;
 }
 .chart-mr{padding: 10px;width: 100%;}
 .recent-command-tit {
