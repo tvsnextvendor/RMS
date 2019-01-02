@@ -19,7 +19,7 @@ export class DashboardVar {
   courseTrendData;
   feedbackData;
   title = 'Dashboard';
-  select= 'Module';
+  select= 'Program';
   recentComments;
   employeeTabLabel = 'Employee';
   resortTabLabel   = 'Resort';
@@ -53,7 +53,7 @@ export class DashboardVar {
      topCourses   : 'Top Rated Courses',
      keyStats     : "Key Stats",
      name         : "Name",
-     module       : "Module",
+     module       : "Program",
      score        : "Score"
   };
 

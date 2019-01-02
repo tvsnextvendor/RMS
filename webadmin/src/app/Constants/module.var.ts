@@ -35,7 +35,7 @@ export class ModuleVar {
         "videoError" : "Minimum one file data required",
         "moduleCreateMsg" : "Program Created Successfully",
         "moduleUpdateMsg" : "Program Updated Successfully",
-        "moduleCreateError" : "Unable to create module",
+        "moduleCreateError" : "Unable to create program",
         "courseError":"Minimum one course is required*",
         "noData" : "No Courses Created Yet",
         "activeMsg"   : ' is Activated',
