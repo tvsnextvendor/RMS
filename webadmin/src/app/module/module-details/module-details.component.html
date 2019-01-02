@@ -5,7 +5,7 @@
         <h6 class="video-header"><span class="module-color"> {{moduleVar.selectedModule?.moduleName}}</span> > {{moduleVar.selectedCourse?.courseName}}</h6>
     </div>
     <div class="row" >
-        <div class="col-md-4 pl-0 mt-3" *ngFor="let video of moduleVar.selectedCourse?.videos;let i = index">
+        <div class="col-md-4 col-sm-4 pl-0 mt-3" *ngFor="let video of moduleVar.selectedCourse?.videos;let i = index">
             <div class="video-img-alg">
                 <img src="{{video.videoImage}}" class="img-player-alg">
                 <div class="video-action clearfix">
@@ -21,23 +21,23 @@
                     </div>
                 </div> 
         </div>
-        <div class="col-md-4 pl-0 mt-3" *ngFor="let file of moduleVar.selectedCourse?.files;let i = index">
+        <div class="col-md-4 col-sm-4 pl-0 mt-3" *ngFor="let file of moduleVar.selectedCourse?.files;let i = index">
                 <div class="video-img-alg file-bg">
-                    <div class="clearfix">
+                    <div class="clearfix pt-3 pr-3">
                         <span class="float-right">
                             <a><i class="fa fa-pencil px-2"  aria-hidden="true"></i></a>
                         </span>
                         <div class="row">
-                                <span class="col-md-4"></span>
-                                <img  *ngIf="file.fileType === 'txt'" class = "col-md-4 icon-ht" src="assets/images/txt-icon.png">
-                                <img  *ngIf="file.fileType === 'ppt'" class = "col-md-4 icon-ht" src="assets/images/ppt-icon.png">
-                                <img  *ngIf="file.fileType === 'pdf'" class = "col-md-4 icon-ht" src="assets/images/pdf-icon.png">
-                                <span class="col-md-4"></span>
+                                <!-- <span class="col-md-4"></span> -->
+                                <img  *ngIf="file.fileType === 'txt'" class = "icon-ht" src="assets/images/txt-icon.png">
+                                <img  *ngIf="file.fileType === 'ppt'" class = "icon-ht" src="assets/images/ppt-icon.png">
+                                <img  *ngIf="file.fileType === 'pdf'" class = "icon-ht" src="assets/images/pdf-icon.png">
+                                <!-- <span class="col-md-4"></span> -->
                         </div>
                     </div>
-                        <div class="text-pd">
-                            <p class="play-video"><a></a>{{file.fileTitle}}</p>
-                            <p class="m-0 px-3 video-para-alg">{{file.fileDescription}}</p>
+                        <div class="px-2">
+                            <p class="player-header"><a></a>{{file.fileTitle}}</p>
+                            <p class="m-0 video-para-alg">{{file.fileDescription}}</p>
                         </div>
                     </div> 
             </div>

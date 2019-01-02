@@ -377,7 +377,7 @@ li.search-block {
   border-bottom: 3px solid #468FB9;
 }
 .carousel-indicators {
-    bottom: -35px;
+    bottom: -50px;
 }
 .carousel-indicators li{
 	background-color: #EAEAEA;
@@ -529,10 +529,10 @@ li {
   }
 }
 .small-txt {
-  font-size: 13px;
-  color: rgba(0,0,0,.54);
-  margin: 0;
-  padding: 0 0 0 10px;
+    font-size: 14px;
+    color: #9B9B9B;
+    margin: 0;
+    padding: 0 0 0 10px;
 }
 .share-icon{
   box-shadow: 0px 0px 8px 0px #ccc;
@@ -674,9 +674,11 @@ li {
 	padding: 7px 7px 45px 7px;
 }
 .resort-num{
-	font-size: 30px;
+	  font-size: 40px;
     color: #1D4960;
     float: right;
+    font-weight: 600;
+    line-height: 25px;
 }
 .rest-pd{
 	padding: 20px 0 0 0;
@@ -1067,6 +1069,7 @@ a {
   text-align: center;
     padding-top: 15px;
     float: none !important;
+    padding-left: 0;
 }
  .emp-details{
   float: none !important;
@@ -1096,7 +1099,7 @@ a {
 }
 .adduser-respon{
   float: none !important;
-  width: 57%;
+  width: 70%;
   margin: 0 auto;
 }
 }
