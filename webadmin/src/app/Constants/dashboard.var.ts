@@ -27,7 +27,7 @@ export class DashboardVar {
   employeeTabText  = {
     'wishes' : 'Good Morning',
     'name' : 'Adams',
-    'notification' : 'You have 5 important tasks today, Some messages and notifications. Finish them all! Or you can also'
+    'notification' : 'You have 5 important tasks today, Some messages and notifications.'
   };
   symbols = {
      comma : ',',
