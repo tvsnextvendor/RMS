@@ -21,6 +21,7 @@ export class EmailComponent implements OnInit {
      validEmail = false;
      selectedDepartment;
      userList = [];
+     dataModel;
     constructor(private toastr:ToastrService,private headerService:HeaderService,private emailVar:EmailVar,private http: HttpService,private alertService:AlertService){
         this.email.url = API_URL.URLS;
      }
@@ -40,6 +41,7 @@ export class EmailComponent implements OnInit {
     }
 
     sendMail(){
+        // console.log(this.dataModel)
         this.sendClicked = true;
         if(this.emailForm.to && this.emailForm.subject){
             let toAddress = this.selectedDepartment ? this.selectedDepartment + " Department" : this.emailForm.to;

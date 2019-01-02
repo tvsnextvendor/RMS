@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guard/auth.guard.component';
 import { EmailComponent  } from './email.component';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from '@tinymce/tinymce-angular';
+import { NgxEditorModule } from 'ngx-editor';
+// import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 
@@ -17,7 +18,8 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    EditorModule
+    // EditorModule
+    NgxEditorModule
     
     ],
   declarations: [

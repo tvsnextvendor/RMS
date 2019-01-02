@@ -31,6 +31,30 @@
     font-size: 25px;
 }
 
+.clr-grey{
+ color: grey;
+}
+.clr-green{
+color: green !important;
+}
+.clr-red{
+color: red !important;
+}
+.clr-blue{
+color: #007bff !important;
+}
+.clr-pink{
+color: pink !important;
+}
+
+ul li{
+    list-style-type: none !important;
+}
+
+.font-circle{
+    font-size: 12px;
+    padding: 0px 5px;
+}
 /*ul li::before {
   content: "\2022";
   color: green;
