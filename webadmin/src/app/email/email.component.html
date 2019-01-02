@@ -5,7 +5,7 @@
             <label class="dep-title">Department</label>
             <ul>
                 <li *ngFor="let depart of departments;let i=index;">
-                   <span class="dep-list"> <a (click)="groupMail(depart)">{{depart.department}}</a></span>
+                   <span class="dep-list"> <a (click)="groupMail(depart)"><span [ngClass] = "i===0 ? 'clr-grey' : i===1 ? 'clr-red' : i===2 ? 'clr-green' : i===3 ? 'clr-blue' : 'clr-pink'"><i class="fa fa-circle font-circle"></i></span>{{depart.department}}</a></span>
                 </li>
             </ul>
         </div>
@@ -25,7 +25,8 @@
                 <span class="required_color" *ngIf="sendClicked && !emailForm.subject" >Subject data is required</span>
             </div>
             <div class="form-group">
-                    <editor [(ngModel)]="dataModel"></editor>
+                    <app-ngx-editor  height="100px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="dataModel"></app-ngx-editor>
+                    <!-- <editor [(ngModel)]="dataModel"></editor> -->
             </div>
              <div class="py-4 clearfix"><button class="btn btn-primary" type="button" (click)="sendMail()">SEND</button></div>
         </div>
