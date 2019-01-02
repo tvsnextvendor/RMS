@@ -10,7 +10,7 @@ export class BatchVar{
         to         : 'To',
         batchName  : 'Batch Name',
         selectDept  : 'Select Department',
-        module     : 'Module',
+        module     : 'Program',
         mandatory  : 'Mandatory',
         optional   : 'Optional',
         percentage : 'Pass %',
@@ -44,7 +44,7 @@ export class BatchVar{
     calendarView = 'Calendar View';
     batchSuccessMsg = 'Batch Added Successfully';
     batchErrMsg = 'Batch Updated Successfully';
-    invalidModule = 'Invalid Module Selection';
+    invalidModule = 'Invalid Program Selection';
     dategreater=false;
     empValidate=false;
     moduleDuplicate= false;

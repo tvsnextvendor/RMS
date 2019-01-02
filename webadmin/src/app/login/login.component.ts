@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import {loginVar} from '../Constants/login.var';
 import {HttpService} from '../services/http.service'
 import { API_URL } from '../Constants/api_url';
+import { AlertService } from '../services/alert.service';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
     labels;
     btns;
     constructor(private route: Router, public loginvar: loginVar, private toastr: ToastrService,
-            private http: HttpService,private API_URL:API_URL) { }
+            private http: HttpService,private API_URL:API_URL,private alertService:AlertService) { }
 
     ngOnInit() {
       // get user details '5c0fbeda3100003b1324ee75'
@@ -104,7 +105,8 @@ export class LoginComponent implements OnInit {
                 //let userData = JSON.stringify(user);
                 //let encUserData = btoa(userData);
                 localStorage.setItem('userData',userData);
-                this.toastr.success("Login successfully");
+                this.alertService.success('Login successfully');
+               // this.toastr.success("Login successfully");
                 this.route.navigateByUrl('/');
                 let localObject = [];
                 // remember password settings

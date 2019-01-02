@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Tabs,Content } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { TrainingDetailPage } from '../training-detail/training-detail';
 import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
 import {LoaderService} from '../../service/loaderService';
+
 
 @IonicPage({
   name: 'training-page'
@@ -38,6 +39,8 @@ export class TrainingPage{
   assignedCoursesList = [];
   progressCoursesList = [];
   completeCoursesList = [];
+ @ViewChild(Content) content: Content;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public loader:LoaderService) {
     this.detailObject = this.navParams.data;

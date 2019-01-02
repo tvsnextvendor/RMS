@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { QuizResultPage } from './quiz-result';
+import { StarRatingModule } from 'ionic3-star-rating';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { QuizResultPage } from './quiz-result';
     QuizResultPage
   ],
   imports: [
+    StarRatingModule,
     IonicPageModule.forChild(QuizResultPage),
   ],
 })

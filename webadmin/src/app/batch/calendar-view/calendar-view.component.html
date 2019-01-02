@@ -69,8 +69,8 @@
         <span class="col-md-2 p-0"><i class="fa fa-file-text px-2" aria-hidden="true"></i></span>
            <span class="col-md-8 p-0"> 
             <p class="m-0">{{event.batchName}}</p>
-            <p class="m-0">Module - {{event.moduleCount}}</p>
-            <p class="m-0">{{event.courseCount}} Courses</p>
+            <p class="m-0">{{batchVar.labels.module}} - {{event.moduleCount}}</p>
+            <p class="m-0">{{event.courseCount}} {{batchVar.labels.courses}}</p>
             <p class="m-0">{{event.timings}}</p></span>
        <span class="col-md-2 p-0"> <i class="fa fa-pencil px-2" routerLink="/addBatch/{{event.id}}" aria-hidden="true"></i></span>
     </span>

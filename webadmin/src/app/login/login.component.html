@@ -2,7 +2,7 @@
         <div class="bg-img">
             <div class="">
                 <div class="Login clearfix clear login-page">
-                    <form #formDir="ngForm" (ngSubmit)="submitLogin(formDir.value,forgetPasswordStatus)" class="col-xs-3 col-xs-offset-4">
+                    <form #formDir="ngForm" (ngSubmit)="submitLogin(formDir.value,forgetPasswordStatus)" class="col-xs-3 col-xs-offset-4" autocomplete="off">
                         <!-- Title -->
                         <div *ngIf="!forgetPasswordStatus" class="login-text">{{labels.title}}</div>
                         <div *ngIf="forgetPasswordStatus" class="login-text text-center">{{labels.forgetPasswordTitle}} <p class="pwd-content">{{labels.forgetPasswordMsg}}</p></div>
