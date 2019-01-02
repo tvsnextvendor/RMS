@@ -17,9 +17,19 @@ page-landing {
     text-align: center;	
 			}
 			.l-buttons {
-				vertical-align: bottom;width: calc(100vw - 0px);height: calc(100vh - 40px);display: table-cell;padding: 0 20px;
+				vertical-align: bottom;width: calc(100vw - 0px);
+				height: calc(100vh - 90px);
+				display: table-cell;padding: 0 20px;
 			}
 		}
 	}
-
+.quick-tour {
+    text-align: center;
+    display: block;
+    color: #fff;
+    font-weight: 100;
+    font-size: 13px;
+    text-decoration: underline;
+    line-height: 50px;
+}
 }
