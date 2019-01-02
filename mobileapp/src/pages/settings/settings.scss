@@ -30,7 +30,7 @@ page-settings {
 		color: #fff;
 	}
 	ion-icon {
-
+		line-height: 50px;
 		color: #fff;
 	}
 	.profile-details ion-icon {
@@ -57,8 +57,8 @@ page-settings {
 	}
 	.pwd-setting ion-icon {
 		color: #fff;
-		transform: rotate(-80deg);
-		line-height: 61px;
+/*		transform: rotate(-80deg);
+*/		line-height: 50px;
 	}
 	.pwd-grid{
 		ion-label {
