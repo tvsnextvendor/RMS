@@ -161,9 +161,13 @@ export class AddQuizComponent implements OnInit {
 
   // Remove Question Box
   removeQuestionForm(index) {
-    this.quizQuestionsForm.splice(index, 1);
-    this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
-
+    if(this.quizQuestionsForm.length>1){
+      this.quizQuestionsForm.splice(index, 1);
+      this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
+    }
+    else{
+      this.alertService.warn("Minimum one quiz is mandatory");
+    }
   }
 
   valueChanged(update){
