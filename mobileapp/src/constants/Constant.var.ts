@@ -28,7 +28,8 @@ export class Constant {
         cancel:'CANCEL',
         addQuestion:'Add Question',
         comment:'Comment',
-        next:'Next'
+        next:'Next',
+        submit:'Submit'
     };
     pages = {
     
@@ -110,7 +111,13 @@ export class Constant {
             yourscored: 'You scored',
             outOf: 'out of',
             exc: '!',
-            yourScorePercent: 'Your Score:'
+            yourScorePercent: 'Your Score:',
+            feedbackDescription:'What did you love about this course ?',
+            feedbackPlaceholder:'Any Suggestions / Feedback',
+            validations:{
+                descriptionRequired:'Description is required'
+            }
+            
         },
         settingLabels:{
             oldPassword:'Old Password',

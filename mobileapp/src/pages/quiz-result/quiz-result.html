@@ -9,23 +9,28 @@
     </div>
     <div text-center class="congratulations-text">
         <span class="congratulations-text-span">
-            <h4> <img src='assets/imgs/success.png'/> {{constant.pages.quizResultLabels.congratulations}}</h4>
+            <h4> <img src='assets/imgs/success.png' /> {{constant.pages.quizResultLabels.congratulations}}</h4>
         </span>
         <p>{{constant.pages.quizResultLabels.yourscored}} {{resultData.correctAnswers}}
             {{constant.pages.quizResultLabels.outOf}} {{resultData.totalQuestions}}!</p>
         <span class="score-btn">
             <p>{{constant.pages.quizResultLabels.yourScorePercent}} {{resultData.percentage}}%</p>
         </span>
-        <form (ngSubmit)="feedbackForm()">
+        <form (ngSubmit)="feedbackForm()" [formGroup]="feedbackform" novalidate>
             <ionic3-star-rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#488aff" defaultColor="#f4f4f4"
-                readonly="false" [rating]="3">
+                readonly="false" [rating]="0">
             </ionic3-star-rating>
-            <div class="control-label">What did you love about this course ?</div>
+            <div class="control-label"> {{constant.pages.quizResultLabels.feedbackDescription}}</div>
             <ion-item>
-                <ion-label>Any Suggestions / Feedback</ion-label>
-                <ion-textarea [(ngModel)]="feedback.description" name="description"></ion-textarea>
+                <ion-textarea [(ngModel)]="feedback.description" formControlName="description" name="description"
+                    placeholder="{{constant.pages.quizResultLabels.feedbackPlaceholder}}" required></ion-textarea>
             </ion-item>
-            <button ion-button round type="submit">Submit</button>
+            <div *ngIf="( feedbackform.get('description').hasError('minlength') || feedbackform.get('description').hasError('pattern') ||feedbackform.get('description').hasError('required') ) && feedbackform.get('description').touched">
+                <div class="error" *ngIf="feedbackform.get('description').hasError('required') && feedbackform.get('description').touched">
+                    {{constant.pages.quizResultLabels.validations.descriptionRequired}}
+                </div>
+            </div>
+            <button ion-button round type="submit" [disabled]="feedbackform.invalid">{{constant.buttons.submit}}</button>
         </form>
     </div>
 </ion-content>
