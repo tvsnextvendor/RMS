@@ -164,16 +164,16 @@
     </ion-list>
   </div>
   <ng-template #template>
-    <div class="modal-header">
+    <div class="modal-header question-header">
       <h4 class="modal-title pull-left">{{constant.pages.forumLabels.typeQuestionHere}}</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+     <!--  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
-      </button>
+      </button> -->
     </div>
     <form novalidate (ngSubmit)="questionSubmit()" [formGroup]="QuestionForm">
       <div class="modal-body">
-        <ion-item>
-          <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty" placeholder="What is the safety precaution required to enter the ski sport?"></ion-textarea>
+        <ion-item class="textarea-item">
+          <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty" placeholder="What is the safety precaution required to enter the ski sport?" class="type-ques"></ion-textarea>
         </ion-item>
         <div *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
           <div class="error" *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">

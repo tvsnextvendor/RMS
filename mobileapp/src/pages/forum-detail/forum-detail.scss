@@ -128,3 +128,25 @@ page-forum-detail{
 .modal-content {
 	max-width: 270px;
 }
+.question-header {
+    border: none;
+    padding: 0 20px 0 25px;
+}
+.type-ques textarea {
+    font-size: 16px;
+}
+.text-input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+ion-item.textarea-item {
+    padding-right: 16px;
+        resize: none;
+}
+.model-footer {
+    text-align: right;
+    padding: 0 12px 12px 0;
+
+}
+.model-footer button {
+    font-size: 16px;
+}

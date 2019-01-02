@@ -66,7 +66,7 @@ page-home {
 			padding: 0;
 			margin: 0 10px 10px 0;
 			.num-sec {
-				font-size: 36px;
+				font-size: 26px;
 			}
 			.acc-num {
 				float: right;
@@ -151,11 +151,11 @@ page-home {
 				color: #fff;
 				text-align: center;
 				h4 {
-					font-size: 18px;
+					font-size: 14px;
 					color: #fff;
 				}
 				small {
-					font-size: 14px;
+					font-size: 12px;
 					font-weight: 100;
 				}
 				.score-cnt {
@@ -202,7 +202,7 @@ page-home {
 			text-align: center;
 			border-top: 1px solid rgba(255, 255, 255, 0.2);
 			padding: 18px 0 0 0;
-			font-size: 16px;
+			font-size: 14px;
 		}
 
 		a.score-viewAll:hover {
@@ -216,6 +216,8 @@ page-home {
 		.status-grid{
 			.certificate-box {
 				font-family: sf_ui_textregular;
+
+				
 			}
 
 		}
@@ -364,4 +366,19 @@ page-home {
     position: absolute;
     bottom: 0;
     right: 0;
+}
+ion-col:nth-child(2) .ranker-det .winner-img img {
+    width: 110px;
+}
+.certificate-box .sts-style {
+					min-height: 95px;
+				}
+				.module-drpdwn.show #dropdownMenuButton {
+    border-left: 3px solid #329CD6;
+}
+.module-drpdwn #dropdownMenuButton {
+    border-left: 3px solid #fff;
+}
+.badge-title {
+    font-size: 15px;
 }
