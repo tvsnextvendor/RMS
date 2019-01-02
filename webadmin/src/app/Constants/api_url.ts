@@ -51,9 +51,9 @@ export class API_URL {
    getDesignations      : '5c29c1d22e00006a00c18ac7',
    getNewBatchList      : '5c2c96142e0000050ae87653',
    // Content To Bo Live
-   getModuleList:'5c28b1fd3300005900a58b80',
-   moduleCourseList:'5c28aec43300004e00a58b7d'
-
+   getModuleList : '5c28b1fd3300005900a58b80',
+   //moduleCourseList:'5c28aec43300004e00a58b7d'
+   moduleCourseList: '5c2c95c42e00005e00e8764f'
   }
 
 }

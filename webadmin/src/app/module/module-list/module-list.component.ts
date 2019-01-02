@@ -33,9 +33,9 @@ export class ModuleListComponent implements OnInit {
 
 
   customOptions: any = {
-    loop: true,
-    mouseDrag: false,
-    touchDrag: false,
+    loop: false,
+    mouseDrag: true,
+    touchDrag: true,
     pullDrag: false,
     dots: false,
     navSpeed: 700,
@@ -45,7 +45,7 @@ export class ModuleListComponent implements OnInit {
       },
       307: {
         items: 2
-      },
+       },
       614: {
         items: 3
       },
