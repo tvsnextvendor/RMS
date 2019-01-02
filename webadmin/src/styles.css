@@ -181,6 +181,7 @@ table td.td-pd {
   position: absolute;
   padding: 15px;
   min-height: calc(100vh - 0px);
+  background-color: #F5F6FA;
 }
 
 #wrapper.toggled .page-content-wrapper {
@@ -320,15 +321,16 @@ li.search-block {
 
 /************************ Common colors ***********************/
 
-.hd-alg, .icons_header, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .chart-mr,.video-edit, h6, h5,.drp-item, .ext-txt{
+.hd-alg, .icons_header, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .video-edit, h6, h5,.drp-item, .ext-txt{
   color: #468FB9;
 }
 .chart-bg,.white-bg{
   background-color: #fff;
   box-shadow: 0px 0px 8px 0px #ccc;
 }
-
-
+.bg-color{
+    background-color: #F5F6FA;
+}
 .p-color{
   color: #7a8996;
   max-width: 83%;
@@ -519,15 +521,11 @@ li {
   .page-content-wrapper {
     padding: 20px 0px 40px 108px;
     position: relative;
-    background-color: #F5F6FA;
+    /*background-color: #F5F6FA;*/
   }
   #wrapper.toggled .page-content-wrapper {
     position: relative;
     margin-right: 0;
-  }
-
-  .bg-color{
-    background-color: #F5F6FA;
   }
 }
 .small-txt {
@@ -852,7 +850,7 @@ a {
     line-height: unset !important;
 }
 .multi-input div {
-    overflow: unset !important;
+    /*overflow: unset !important;*/
     font-size: 15px;
     padding: 0 2px 0 0;
 }
@@ -1030,6 +1028,13 @@ a {
 .did-line{
 	text-align: center;
 }
+.mob-alg{
+  margin-top: 10px;
+}
+.modal-content{
+  width: 50%;
+  margin: 0 auto;
+}
 }
 @media (max-width: 767px) { 
 .did-line {
@@ -1041,6 +1046,10 @@ a {
 }
 .module-title{
   padding-right: 10px;
+}
+.modal-content{
+  width: 60%;
+  margin: 0 auto;
 }
 }
 @media (max-width: 480px) { 
@@ -1058,5 +1067,36 @@ a {
   text-align: center;
     padding-top: 15px;
     float: none !important;
+}
+ .emp-details{
+  float: none !important;
+  text-align: center;
+  padding-bottom: 15px;
+  margin: 0 !important;
+}
+.exportto-resp{
+    float: none !important;
+    text-align: center;
+    margin: 0 !important;
+}
+.hd-alg{
+  display: contents;
+}
+.video-hd{
+  width: 65% !important;
+}
+.certificate-respon{
+  float: none !important;
+  /*margin-bottom: 7px;*/
+  text-align: center;
+}
+.modal-content{
+  width: 85%;
+  margin: 0 auto;
+}
+.adduser-respon{
+  float: none !important;
+  width: 57%;
+  margin: 0 auto;
 }
 }
