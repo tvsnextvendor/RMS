@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 export class ModuleVar {
    
     active       = 'Active';
-    title        = 'Modules';
-    createModule = 'Create Module';
+    title        = 'Programs';
+    createModule = 'Create Program';
     activeStatus =  [];
     moduleList;
     url;
@@ -15,7 +15,7 @@ export class ModuleVar {
     selectedModule;
     selectedCourse;
     labels = {
-        "moduleName" : "Module Name",
+        "moduleName" : "Program Name",
         "isRequire" : " is Required*",
         "course" : "Course",
         "coursesAdded" : "Courses Added",
@@ -33,14 +33,14 @@ export class ModuleVar {
         "mandatoryFields" : "mandatory fields missing",
         "courseNameError" : "Course name is mandatory",
         "videoError" : "Minimum one file data required",
-        "moduleCreateMsg" : "Module Created Successfully",
-        "moduleUpdateMsg" : "Module Updated Successfully",
+        "moduleCreateMsg" : "Program Created Successfully",
+        "moduleUpdateMsg" : "Program Updated Successfully",
         "moduleCreateError" : "Unable to create module",
         "courseError":"Minimum one course is required*",
         "noData" : "No Courses Created Yet",
         "activeMsg"   : ' is Activated',
         "deactiveMsg" : ' is Deativated',
-        "moduleNameValidation": "Module Name already taken",
+        "moduleNameValidation": "Program Name already taken",
         "addCourseSuccess" : "Course added successfully",
         "updateCourseSuccess" : "Course updated successfully",
         "removeVideoSuccess" : " removed from the file list"
