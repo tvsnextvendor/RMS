@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
     }else{
         //this.toastr.success(this.constant.pwdUpdateSuccessMsg);
         this.alertService.success(this.constant.pwdUpdateSuccessMsg);
-        this.router.navigateByUrl('/dashboard');
+       // this.router.navigateByUrl('/dashboard');
     }
     }
 

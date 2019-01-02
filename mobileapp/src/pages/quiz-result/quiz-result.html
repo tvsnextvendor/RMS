@@ -1,24 +1,31 @@
 <ion-content padding>
     <ion-header no-border>
-        <ion-toolbar text-right transparent class = "details-page-toolbar ">
+        <ion-toolbar text-right transparent class="details-page-toolbar ">
             <ion-icon name="close" class="close-button" (click)="closeToStart()"></ion-icon>
         </ion-toolbar>
     </ion-header>
-    <div class = "image-wrapper">
-        <img src ='assets/imgs/congratulations.png' />
+    <div class="image-wrapper">
+        <img src='assets/imgs/congratulations.png' />
     </div>
-    <div text-center class = "congratulations-text">
-        <span class= "congratulations-text-span">
-            <h4> <img src = 'assets/imgs/success.png' /> {{constant.pages.quizResultLabels.congratulations}}</h4>
+    <div text-center class="congratulations-text">
+        <span class="congratulations-text-span">
+            <h4> <img src='assets/imgs/success.png'/> {{constant.pages.quizResultLabels.congratulations}}</h4>
         </span>
-        <p>{{constant.pages.quizResultLabels.yourscored}} {{resultData.correctAnswers}} {{constant.pages.quizResultLabels.outOf}} {{resultData.totalQuestions}}!</p>
-        <span class = "score-btn">
+        <p>{{constant.pages.quizResultLabels.yourscored}} {{resultData.correctAnswers}}
+            {{constant.pages.quizResultLabels.outOf}} {{resultData.totalQuestions}}!</p>
+        <span class="score-btn">
             <p>{{constant.pages.quizResultLabels.yourScorePercent}} {{resultData.percentage}}%</p>
         </span>
+        <form (ngSubmit)="feedbackForm()">
+            <ionic3-star-rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#488aff" defaultColor="#f4f4f4"
+                readonly="false" [rating]="3">
+            </ionic3-star-rating>
+            <div class="control-label">What did you love about this course ?</div>
+            <ion-item>
+                <ion-label>Any Suggestions / Feedback</ion-label>
+                <ion-textarea [(ngModel)]="feedback.description" name="description"></ion-textarea>
+            </ion-item>
+            <button ion-button round type="submit">Submit</button>
+        </form>
     </div>
 </ion-content>
-
-
-
-
-

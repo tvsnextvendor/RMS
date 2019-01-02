@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams } from 'ionic-angular';
+import { Component ,ViewChild} from '@angular/core';
+import { NavController, IonicPage, NavParams,Content } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
@@ -26,6 +26,7 @@ export class HomePage {
   users: any;
   selectedModule;
   coursePercentage;
+  @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage,public loader:LoaderService) {
     this.currentdate = this.getCurrentTime();
     this.selectedModule = constant.pages.dashboardLabels.selectModules;

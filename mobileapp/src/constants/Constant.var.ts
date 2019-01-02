@@ -70,9 +70,9 @@ export class Constant {
         dashboardLabels: {
             goodMrng: 'Good Morning',
             currentTime: 'Thursday, Aug 10',
-            selectModules:'All Modules',
-            module:'Module',
-            modules:'Modules',
+            selectModules:'All Programs',
+            module:'Program',
+            modules:'Programs',
             training: 'Training',
             certification: 'Certification',
             newCourses: 'New Courses',
