@@ -54,7 +54,7 @@
                     </span>
                   </ng-template>
               <ngb-rating [(rate)]='dashboardVar.feedbackData.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-              {{dashboardVar.feedbackData.people}} total
+              <span class="total-alg"><img src="assets/images/user2.png" class="user-img">{{dashboardVar.feedbackData.people}} total</span>
             </div>
             <div class="col-sm-7"> <canvas id="rating" height="110" class="rating-chart"></canvas></div>
             </div>

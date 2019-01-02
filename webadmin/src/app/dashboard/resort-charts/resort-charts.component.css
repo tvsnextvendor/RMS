@@ -45,3 +45,15 @@
     float: left;
     font-weight: 600;
 }
+.d-inline-flex{
+  display: block !important;
+}
+.user-img{
+    width: 12px;
+    padding-right: 4px;
+}
+.total-alg{
+  color: #6A6868;
+    font-size: 12px;
+}
+
