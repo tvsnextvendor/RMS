@@ -7,7 +7,7 @@ export class API_URL {
 
    getKeyStat           : "5c04dd7f330000e900d01e32",
    getCourses           : "5c04e5553300005700d01e4e",
-   getCoursesList       : "5c18fef82f00006300af133b",
+   getCoursesList       : "5c2cbc432e00000b0ae8774b",
    getCoureseDetails    :"5c19e3ef3200002a0064adb8",
    //getTopEmployees      : "5c04e6cf3300002900d01e56",
    getTopEmployees      : "5c25c310300000670067f591",
@@ -26,7 +26,7 @@ export class API_URL {
    getVideoTrendEmpList :'5c25f9c5300000740067f64f',
    //*Needed-getModuleList        : '5c18f3502f00002a00af12f9',
    //*getModuleDetails     : "5c1a2a833200006c0064afa0",
-   getModuleDetails     : '5c2c6bf22e00006700e87553',
+   getModuleDetails     : '5c2cbd962e0000222fe8774d',
    getEmployeeStatus    : '5c1247ee3300009829998e4a',
    //getEmployeeDetails   : '5c124a4d330000bd2a998e64',
    getEmployeeDetails   : '5c135a573400008e00ecdf92',

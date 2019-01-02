@@ -39,6 +39,7 @@ export class AddQuizComponent implements OnInit {
   title;
   apiUrls;
   hidemodule = false;
+  optionData = true;
   
   constructor(private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, private constant: QuizVar,private toastr: ToastrService) {
     this.apiUrls = API_URL.URLS;
@@ -90,7 +91,10 @@ export class AddQuizComponent implements OnInit {
     }
   }
 
-
+  optionValueUpdate(){
+    this.optionData = !this.optionData;
+  }
+  
   editQuizDetails(quizData){
     // this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
       // this.videoDetails = resp.QuizDetails;
