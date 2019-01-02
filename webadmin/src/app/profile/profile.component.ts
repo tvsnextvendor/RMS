@@ -48,9 +48,9 @@ export class ProfileComponent implements OnInit {
            let postData=form.value;
            let updatedValue = Object.assign({},this.userDetails,postData);
            localStorage.setItem('userData',JSON.stringify(updatedValue));
-           this.toastr.success(this.profVar.successMsg);
+          // this.toastr.success(this.profVar.successMsg);
            this.alertService.success(this.profVar.successMsg);
-           this.router.navigateByUrl('/profile');
+          // this.router.navigateByUrl('/profile');
 
            
        }

@@ -105,9 +105,10 @@ export class LoginComponent implements OnInit {
                 //let userData = JSON.stringify(user);
                 //let encUserData = btoa(userData);
                 localStorage.setItem('userData',userData);
-                this.alertService.success('Login successfully');
+              
                // this.toastr.success("Login successfully");
                 this.route.navigateByUrl('/');
+                this.alertService.success('Login successfully');
                 let localObject = [];
                 // remember password settings
                 if(this.rememberMeCheck.length){

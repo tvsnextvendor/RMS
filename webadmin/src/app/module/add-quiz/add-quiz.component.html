@@ -1,4 +1,3 @@
-<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="pr-3">
 	<div class=""> 
 			<form #quizForm="ngForm" (ngSubmit)="quizSubmit(quizForm)" ngNativeValidate>
@@ -6,9 +5,6 @@
 					
 				</div>
 				<div class="white-bg p-3 mt-2 table-decs" *ngFor="let data of quizQuestionsForm;let i = index;">
-					<!-- <div class="col-md-12"> -->
-						
-					<!-- </div> -->
 					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i)">
 						<img src="assets/images/Close-1.png" class="close-alg">
 			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></a></span>
@@ -80,7 +76,7 @@
 							</div>
 						</div>  
 					</div>
-					<div class="form-group"><a><i class="fa fa-plus float-right icon-design" *ngIf="i==(quizQuestionsForm.length - 1)" aria-hidden="true" (click)="addQuestionForm()"></i></a></div>
+					<div class="clearfix"><a><i class="fa fa-plus float-right icon-design" *ngIf="i==(quizQuestionsForm.length - 1)" aria-hidden="true" (click)="addQuestionForm()"></i></a></div>
 				</div>   
 				<!-- <div class="row" *ngFor="let data of quizQuestionsForm;let i = index;"> -->
 					<!-- <div class="col-sm-4">
