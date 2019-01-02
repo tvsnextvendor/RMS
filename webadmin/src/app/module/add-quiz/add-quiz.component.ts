@@ -50,7 +50,8 @@ export class AddQuizComponent implements OnInit {
     this.selectedCourse = this.courseId ? this.courseId : null;
     this.questionOptions = [
       { name: "MCQ", value: "1" },
-      { name: "True/False", value: "2" }
+      { name: "True/False", value: "2" },
+      { name: "Non-MCQ", value: "3" }
     ];
     this.quizQuestionsForm = [{
       "questionId": 1,
@@ -131,9 +132,14 @@ export class AddQuizComponent implements OnInit {
         { "Id": 4, "Value": "" }
       ];
     }
-    else {
+    else if(data === "2"){
       quiz[i].options = [];
       quiz[i].option = "True/False"
+    }
+    else{
+      quiz[i].options = [];
+      quiz[i].option = '';
+      quiz[i].answer = '';
     }
   }
 

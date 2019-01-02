@@ -53,7 +53,8 @@ export class API_URL {
    // Content To Bo Live
    getModuleList : '5c28b1fd3300005900a58b80',
    //moduleCourseList:'5c28aec43300004e00a58b7d'
-   moduleCourseList: '5c2c95c42e00005e00e8764f'
+   moduleCourseList: '5c2c95c42e00005e00e8764f',
+   getProgramList:'5c2cca132e0000222fe8778c'
   }
 
 }

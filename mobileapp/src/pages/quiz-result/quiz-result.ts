@@ -1,31 +1,40 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,Events} from 'ionic-angular';
-import { Constant} from '../../constants/Constant.var';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { Constant } from '../../constants/Constant.var';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @IonicPage()
 @Component({
     selector: 'page-quiz-result',
     templateUrl: 'quiz-result.html',
-    providers:[Constant]
+    providers: [Constant]
 })
-export class QuizResultPage {
-    resultData  =   {};
+export class QuizResultPage implements OnInit {
+    resultData = {};
     Math: any;
     feedback = {
-        "description":""
+        "rating": "",
+        "description": ""
     }
-    constructor(public navCtrl: NavController,public constant:Constant, public navParams:NavParams,public events: Events) {
-        this.Math       =   Math;
-        this.resultData =   navParams.data;
-        this.resultData['percentage']   =   Math.round((this.resultData['correctAnswers']/this.resultData['totalQuestions'])*100);
-        events.subscribe('star-rating:changed', (starRating) => {console.log(starRating)});
+    feedbackform: FormGroup;
+    constructor(public navCtrl: NavController, public constant: Constant, public navParams: NavParams, public events: Events) {
+        this.Math = Math;
+        this.resultData = navParams.data;
+        this.resultData['percentage'] = Math.round((this.resultData['correctAnswers'] / this.resultData['totalQuestions']) * 100);
+        events.subscribe('star-rating:changed', (starRating) => { console.log(starRating) });
+    }
+    ngOnInit() {
+        this.feedbackform = new FormGroup({
+            'description': new FormControl('', [Validators.required]),
+            //'rating':new FormControl('', [Validators.required]),
+        });
     }
 
-    closeToStart(){
+    closeToStart() {
         this.navCtrl.setRoot('home-page');
     }
     feedbackForm() {
         console.log(this.feedback)
-      }
+    }
 
 }
