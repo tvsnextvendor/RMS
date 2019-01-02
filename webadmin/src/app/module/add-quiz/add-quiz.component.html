@@ -7,9 +7,9 @@
 				</div>
 				<div class="white-bg p-3 mt-2 table-decs" *ngFor="let data of quizQuestionsForm;let i = index;">
 					<!-- <div class="col-md-12"> -->
-						<a><i class="fa fa-plus float-right icon-design" *ngIf="i==0" aria-hidden="true" (click)="addQuestionForm()"></i></a>
+						
 					<!-- </div> -->
-					<span><a class="btn btn-link videopage" *ngIf="i!=0" (click)="removeQuestionForm(i)">
+					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i)">
 						<img src="assets/images/Close-1.png" class="close-alg">
 			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></a></span>
 					<div class="row">
@@ -54,32 +54,33 @@
 						</div>                		
 					</div>
 					<div class="row form-group">
-							<label class="col-md-1 pr-0 label-title">{{constant.quizLabels.options}}</label>
-									 <div class="col-md-11 pdl65">
-									  <div class="row">
-										  <div class="col-md-12 pl-0 form-group">
-												<div class="row" *ngIf="data.questionType === '1' && data.options && data.options.length">
-													<span class="col-sm-12 pl-0" *ngFor=" let optionValue of data.options; let oi = index;">
-														<span class="option-btn">{{oi + 1}}</span>
-														<input type="text" class="form-control pdl27" placeholder="" [name]="optionValue.value" [(ngModel)]="optionValue.value" [ngModelOptions]="{ standalone : true }" required>
-													</span>
-												</div>
-												<div class="pt-2" *ngIf="data.questionType === '2'">
-														<span class="col-sm-3 pl-0">
-															<label class="hole-cont mr-2">
-																<input type="checkbox" checked="checked" name="options" [value]="1"> {{constant.quizLabels.true}}
-																<span class="checkmark"></span>
-															</label>
-															<label class="hole-cont mr-2">
-																<input type="checkbox" name="options" [value]="0"> {{constant.quizLabels.false}}
-																<span class="checkmark"></span>
-															</label>
-														</span>
-													</div>
-										  </div>
-								  </div>
-							  </div>                		
-						</div> 						
+						<label class="col-md-1 pr-0 label-title">{{constant.quizLabels.options}}</label>
+						<div class="col-md-11 pdl65">
+							<div class="row">
+								<div class="col-md-12 pl-0 form-group">
+									<div class="row" *ngIf="data.questionType === '1' && data.options && data.options.length">
+										<span class="col-sm-12 pl-0" *ngFor=" let optionValue of data.options; let oi = index;">
+											<span class="option-btn">{{oi + 1}}</span>
+											<input type="text" class="form-control pdl27" placeholder="" [name]="optionValue.value" [(ngModel)]="optionValue.value" [ngModelOptions]="{ standalone : true }" required>
+										</span>
+									</div>
+									<div class="pt-2" *ngIf="data.questionType === '2'">
+										<span class="col-sm-3 pl-0">
+											<label class="hole-cont mr-2">
+												<input type="checkbox" checked="checked" name="options" [value]="1"> {{constant.quizLabels.true}}
+												<span class="checkmark"></span>
+											</label>
+											<label class="hole-cont mr-2">
+												<input type="checkbox" name="options" [value]="0"> {{constant.quizLabels.false}}
+												<span class="checkmark"></span>
+											</label>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>  
+					</div>
+					<div class="form-group"><a><i class="fa fa-plus float-right icon-design" *ngIf="i==(quizQuestionsForm.length - 1)" aria-hidden="true" (click)="addQuestionForm()"></i></a></div>
 				</div>   
 				<!-- <div class="row" *ngFor="let data of quizQuestionsForm;let i = index;"> -->
 					<!-- <div class="col-sm-4">

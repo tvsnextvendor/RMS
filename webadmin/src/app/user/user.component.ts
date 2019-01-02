@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import * as _ from "lodash";
 import { HeaderService } from '../services/header.service';
 import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
+
 
 @Component({
     selector: 'app-users',
@@ -95,8 +97,7 @@ export class UserComponent implements OnInit {
         })
         if(designation){
             this.designation = designation;
-        }
-        
+        }   
     }
 
    //add new user
@@ -116,6 +117,7 @@ export class UserComponent implements OnInit {
             }
             this.constant.userList.push(obj);
             this.editEnable = true;
+            this.constant.userList = _.orderBy(this.constant.userList, ['employeeName'],['asc'])
             this.resetFields();
         }
         else{
@@ -161,7 +163,7 @@ export class UserComponent implements OnInit {
         this.videoSubmitted = true;
         this.validationUpdate("submit");
         if(this.userName && this.department && this.designation && this.emailAddress && !this.validEmail && this.phoneNumber && !this.validPhone){
-            let i = data.employeeId === '' ? (this.constant.userList.length-1) : this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
+            let i = data.employeeId === '' ? ('0') : this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
             this.constant.userList[i]={
                 "employeeId" : data.employeeId === '' ? this.constant.userList.length : data.employeeId ,
                 "employeeName" :  this.userName ,
@@ -176,6 +178,7 @@ export class UserComponent implements OnInit {
             this.videoSubmitted = false;
             this.resetFields();
             this.message = data.employeeId === '' ? (this.labels.userAdded) : (this.labels.userUpdated);
+            this.constant.userList = _.orderBy(this.constant.userList, ['employeeName'],['asc'])
             this.alertService.success(this.message);
         }
         // else if(!validEmail){
