@@ -9,6 +9,7 @@ export class QuizVar {
         questionType : 'Question Type',
         question     : 'Question',
         options      : 'Options',
+        answer       : 'Answer',
         true         : 'True',
         false        : 'False',
         weightage    : 'Weightage',
