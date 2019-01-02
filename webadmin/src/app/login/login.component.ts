@@ -91,17 +91,16 @@ export class LoginComponent implements OnInit {
       }
       // login
       else if (data.email && data.password && !forgetStatus) {
-            let user;
+            let user = {};
             this.userArray.map(item=>{
               if (item.emailAddress === data.email && item.password === data.password){
                 user =  item;
-
                 localStorage.setItem('user',btoa(JSON.stringify(user)));
               }
             })
             let userData = atob(localStorage.getItem('user'));
             //  if(Object.keys(user).length){
-              if(userData !== 'null'){
+              if(Object.keys(user).length && userData && userData !== 'null'){
                 //let userData = JSON.stringify(user);
                 //let encUserData = btoa(userData);
                 localStorage.setItem('userData',userData);

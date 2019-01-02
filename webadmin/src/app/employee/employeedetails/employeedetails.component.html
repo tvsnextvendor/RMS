@@ -25,9 +25,9 @@
                     <mfDefaultSorter by="completedPercentage">{{labels.tableTitle.percentageCompleted}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                 </th>
                 
-                <th>
+                <!-- <th>
                     <mfDefaultSorter by="badgeName">{{labels.tableTitle.badgeName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-                </th>
+                </th> -->
               
                 <th>
                     <mfDefaultSorter by="videos">{{labels.tableTitle.videos}}</mfDefaultSorter>
@@ -50,7 +50,7 @@
             <tr *ngFor="let emp of mf.data" class="table-desc-color">
                 <td class="vat pl-4 employeeName-width"><a href="javascript:void" (click)="goToVideosTrend(emp.courseId)">{{ emp.courseName }} </a></td>
                 <td class="vat text-center">{{ emp.completedPercentage }}%</td>
-                <td class="vat text-center">{{ emp.badgeName }}</td>
+                <!-- <td class="vat text-center">{{ emp.badgeName }}</td> -->
                 <td class="vat text-center">{{emp.videos}}</td>
                 <td class="vat text-center" [ngClass] = "emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">
                         {{ emp.status }}
