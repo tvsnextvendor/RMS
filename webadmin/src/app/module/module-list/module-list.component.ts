@@ -23,10 +23,11 @@ export class ModuleListComponent implements OnInit {
     }
     
     ngOnInit(){
-    this.headerService.setTitle({title:this.moduleVar.title, hidemodule:false});
-    this.http.get(this.moduleVar.url.moduleCourseList).subscribe((data) => {
+      this.moduleVar.title = "Programs";
+      this.headerService.setTitle({title:this.moduleVar.title, hidemodule:false});
+      this.http.get(this.moduleVar.url.moduleCourseList).subscribe((data) => {
         this.moduleVar.moduleList = data.moduleList;
-    });
+      });
 
       // this.message = this.route.getNavigatedData()[0].message;
    }

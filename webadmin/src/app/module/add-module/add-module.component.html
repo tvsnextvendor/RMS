@@ -99,7 +99,7 @@
 						<!-- <div class="col-md-12 drop-and-drag-pdb"><span class="col-md-8"></span><span class="col-md-4 float-right"><img src="{{videoFile}}" style="height: 45px;" >{{fileUrl}}</span></div> -->
 						<!-- <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/> -->
 						<ul class="list-group col-md-12 pt-2" dnd-sortable-container [sortableData]="moduleVar.videoList">
-							<li  *ngFor="let item of moduleVar.videoList; let i = index" class="list-group-item drop-and-drag-pdb row edit-bg" dnd-sortable [sortableIndex]="i">
+							<li  *ngFor="let item of moduleVar.videoList; let i = index" [ngClass]="moduleId ? 'list-group-item drop-and-drag-pdb row edit-bg' : 'list-group-item drop-and-drag-pdb row add-module'" dnd-sortable [sortableIndex]="i">
 								<span class="col-md-2 word-wrap">{{item.videoName}}</span>
 								<span class="col-md-4 word-wrap">{{item.description}}</span>
 								<span class="col-md-4 word-wrap">{{item.url}}</span>
