@@ -19,7 +19,7 @@ export class AccomplishmentPage implements OnInit {
   @ViewChild('sliderOne') sliderOne: Slides;
   @ViewChild('sliderTwo') sliderTwo: Slides;
   constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, private modalService: BsModalService, private http: HttpProvider, public API_URL: API_URL) {
-   
+
   }
   modalRef: BsModalRef;
   certificateList: any = [];
@@ -30,22 +30,22 @@ export class AccomplishmentPage implements OnInit {
   rightButton: boolean = true;
   SlidePerPage = 2;
   badgeslide = 3;
-  badgeLftBtn:boolean = true;
-  badgeRigBtn:boolean = true;
+  badgeLftBtn: boolean = true;
+  badgeRigBtn: boolean = true;
   badgeDetails;
-  showSearchBar:boolean = false;
+  showSearchBar: boolean = false;
   search;
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccomplishmentPage');
   }
   ngOnInit() {
     this.getCertificates();
   }
-  onSlideCertChanged(){
+  onSlideCertChanged() {
     this.certNavigationButton();
   }
-  onSlideBadgeChanged(){
+  onSlideBadgeChanged() {
     this.badgeNagButton();
   }
   certNavigationButton() {
@@ -54,36 +54,36 @@ export class AccomplishmentPage implements OnInit {
     let totalItems = this.certificateList.length;
 
     if (currentIndex === 0) {
-        this.leftButton = false;
-        this.rightButton = true;
+      this.leftButton = false;
+      this.rightButton = true;
     } else if (totalItems === totalIndex) {
-        this.leftButton = true;
-        this.rightButton = false;
+      this.leftButton = true;
+      this.rightButton = false;
     } else {
-        this.leftButton = true;
-        this.rightButton = true;
+      this.leftButton = true;
+      this.rightButton = true;
     }
   }
-  badgeNagButton(){
+  badgeNagButton() {
     let currentIndex = this.sliderTwo.getActiveIndex();
     let totalIndex = currentIndex + this.badgeslide;
     let totalItems = this.badgeList.length;
     if (currentIndex === 0) {
-        this.badgeLftBtn = false;
-        this.badgeRigBtn = true;
+      this.badgeLftBtn = false;
+      this.badgeRigBtn = true;
     } else if (totalItems === totalIndex) {
-        this.badgeLftBtn = true;
-        this.badgeRigBtn = false;
+      this.badgeLftBtn = true;
+      this.badgeRigBtn = false;
     } else {
-        this.badgeLftBtn = true;
-        this.badgeRigBtn = true;
+      this.badgeLftBtn = true;
+      this.badgeRigBtn = true;
     }
   }
-  openModal(certificatetemplate: TemplateRef<any>, item){
+  openModal(certificatetemplate: TemplateRef<any>, item) {
     this.modalRef = this.modalService.show(certificatetemplate);
     this.certificateDetail = item;
     this.modalRef.setClass('certificate-popup');
-    
+
   }
   openBadgeModal(badgetemplate: TemplateRef<any>, item) {
     this.modalRef = this.modalService.show(badgetemplate);
@@ -98,22 +98,22 @@ export class AccomplishmentPage implements OnInit {
       }
     });
   }
-  toggleSearchBox(){
+  toggleSearchBox() {
     this.showSearchBar = !this.showSearchBar;
   }
-  onInput($e){
+  onInput($e) {
     console.log("On input");
     console.log($e);
     console.log(this.search);
-    if(this.search){
+    if (this.search) {
       //this.certificateList = this.certificateList.filter(val => val.forumName === this.search);
-    }else{
+    } else {
       this.showSearchBar = false;
       this.getCertificates();
     }
     console.log(this.certificateList);
   }
-  onCancel($e){
+  onCancel($e) {
     console.log("On Cancel");
     this.showSearchBar = false;
     this.getCertificates();

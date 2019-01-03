@@ -33,7 +33,7 @@ export class QuizResultPage implements OnInit {
     }
 
     closeToStart() {
-        this.navCtrl.setRoot('home-page');
+        this.navCtrl.setRoot('training-page');
     }
     feedbackForm() {
         if(this.feedback && !this.feedback.rating){
@@ -42,6 +42,5 @@ export class QuizResultPage implements OnInit {
             this.toastr.success('Feedback saved successfully');
             this.closeToStart();
         }
-       
     }
 }

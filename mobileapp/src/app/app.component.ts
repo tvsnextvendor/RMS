@@ -60,7 +60,7 @@ export class MyApp {
       { title: 'Training', component: TrainingPage },
       { title: 'Forum', component: ForumPage },
       { title: 'Calendar', component: CalendarPage },
-      { title: 'Training Batches', component: EventPage },
+      { title: 'Training Classes', component: EventPage },
       { title: 'Change Password', component: SettingsPage }
     ];
     this.appDetails();
