@@ -47,7 +47,7 @@
           </div>
           <div class="col-sm-3 pl-0 course-style">
             <div class=" chart-bg">
-              <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+              <h6 class="chart-mr pr-0"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.completedCourses}}</h6>
                 <div class="num-alg">{{dashboardVar.courses?.CompletedCourses.total}}</div>
                 <div class="avg-alg"><p class="mr0 avg-color">{{dashboardVar.avgWeekly}}</p>
@@ -86,7 +86,7 @@
             {{dashboardVar.employeeGridsTitle.videosTrend}}
               <select class="vdo-btn" id="moduleType" name="moduleType" (change)="onChangeModule()" [(ngModel)]="dashboardVar.moduleType">     
                   <option [ngValue]="null">{{dashboardVar.select}}</option>
-                  <option *ngFor="let module of dashboardVar.moduleList"  value="{{module.moduleId}}">{{module.moduleName}}</option>
+                  <option *ngFor="let module of dashboardVar.moduleList"  value="{{module.id}}">{{module.name}}</option>
                   <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
               </select>
               <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">     
