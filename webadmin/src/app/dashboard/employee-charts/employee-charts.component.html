@@ -1,23 +1,19 @@
-<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <div class="pr-3">
   <div class="row">
     <div class="col-md-12 p-0">
       <div class="row my-4">
         <div class="col-md-1 p-0 pt-2 snow-img"><img src="assets/images/cool@2x.png">
-          <p class="cloudy pt-2">-4   <sup>o</sup>C</p>
-          <h6>CLOUDY</h6>
+          <p class="cloudy pt-2">{{dashboardVar.temp}}  <sup>{{dashboardVar.degree}}</sup>{{dashboardVar.celcius}}</p>
+          <h6>{{dashboardVar.cloudy}}</h6>
         </div>
         <div class="dashboard-header col-md-11">
           <div class="clearfix">
             <h4 class="float-left fnt-size">{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.comma}} {{dashboardVar.employeeTabText.name}}{{dashboardVar.symbols.apostrophe}}</h4>
-           <!--  <span class="float-right"><img src="assets/images/close.png"></span> -->
           </div>
           <div  class="clearfix">
             <p class="p-color">{{dashboardVar.employeeTabText.notification}} 
-              <!-- <b class="click-color">{{dashboardVar.btns.editTasks}}</b> -->
             </p>
-            <!-- <button class="btn_alg" (click)="addQuickTasks()">{{dashboardVar.btns.quickTasks}}</button> -->
             <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button>
           </div>
           <button class="btn btn-link float-right" (click)="enableView()">{{viewText}}</button>
@@ -28,10 +24,10 @@
             <div class=" chart-bg">
               <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.totalCourses}}</h6>
-                <div class="num-alg">100</div>
+                <div class="num-alg">{{dashboardVar.courses?.TotalCourses.total}}</div>
               <div class="avg-alg">
-                <p class="mr0 avg-color">Average weekly</p>
-                <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>20%</p>
+                <p class="mr0 avg-color">{{dashboardVar.avgWeekly}}</p>
+                <p class="mr0 pect-color"><i [ngClass]="dashboardVar.courses?.TotalCourses.avgWeekly > 15  ? 'fa fa-caret-up pdr7':'fa fa-caret-down pdr7'" aria-hidden="true"></i>{{dashboardVar.courses?.TotalCourses.avgWeekly}}%</p>
               </div>
               <div id="totalCourses" style=" height: 100px; margin: 0 auto"></div>
             </div>
@@ -40,10 +36,10 @@
             <div class=" chart-bg">
               <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.availableCourses}}</h6>
-                <div class="num-alg">60</div>
+                <div class="num-alg">{{dashboardVar.courses?.AssignedCourses.total}}</div>
               <div class="avg-alg">
-                <p class="mr0 avg-color">Average weekly</p>
-                <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>16%</p>
+                <p class="mr0 avg-color">{{dashboardVar.avgWeekly}}</p>
+                <p class="mr0 pect-color"><i  [ngClass]="dashboardVar.courses?.AssignedCourses.avgWeekly > 15  ? 'fa fa-caret-up pdr7':'fa fa-caret-down pdr7'" aria-hidden="true"></i>{{dashboardVar.courses?.AssignedCourses.avgWeekly}}%</p>
               </div>
               <div id="assignedCourses" style=" height: 100px; margin: 0 auto"></div>
             </div>
@@ -52,9 +48,9 @@
             <div class=" chart-bg">
               <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.completedCourses}}</h6>
-                <div class="num-alg">40</div>
-                <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
-                  <p class="mr0 dwn-color"><i class="fa fa-caret-down pdr7" aria-hidden="true"></i>10%</p>
+                <div class="num-alg">{{dashboardVar.courses?.CompletedCourses.total}}</div>
+                <div class="avg-alg"><p class="mr0 avg-color">{{dashboardVar.avgWeekly}}</p>
+                  <p class="mr0 dwn-color"><i [ngClass]="dashboardVar.courses?.CompletedCourses.avgWeekly > 15  ? 'fa fa-caret-up pdr7':'fa fa-caret-down pdr7'" aria-hidden="true"></i>{{dashboardVar.courses?.CompletedCourses.avgWeekly}}%</p>
                 </div>
                 <div id="completedCourses" style=" height: 100px; margin: 0 auto"></div>
             </div>
@@ -63,9 +59,9 @@
               <div class=" chart-bg">
                 <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                   {{dashboardVar.employeeGridsTitle.inProgress}}</h6>
-                  <div class="num-alg">40</div>
-                  <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
-                    <p class="mr0 dwn-color"><i class="fa fa-caret-down pdr7" aria-hidden="true"></i>10%</p>
+                  <div class="num-alg">{{dashboardVar.courses?.InProgressCourses.total}}</div>
+                  <div class="avg-alg"><p class="mr0 avg-color">{{dashboardVar.avgWeekly}}</p>
+                    <p class="mr0 dwn-color"><i [ngClass]="dashboardVar.courses?.InProgressCourses.avgWeekly > 15  ? 'fa fa-caret-up pdr7':'fa fa-caret-down pdr7'" aria-hidden="true"></i>{{dashboardVar.courses?.InProgressCourses.avgWeekly}}%</p>
                   </div>
                    <div id="inProgress" style=" height: 100px; margin: 0 auto"></div> 
               </div>
@@ -75,6 +71,7 @@
                 <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.employeeProgress}}</h6>
                 <div id="employeeProgress" style=" height: 206px; margin: 0 auto"></div>
+                <p>{{dashboardVar.totEmp}} {{dashboardVar.empProgress?.totalEmployee}}</p>
               </div>
           </div>
       </div>
@@ -93,6 +90,8 @@
                   <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
               </select>
             </h6>
+            <div class="avg-alg"><p class="mr0 avg-color">{{dashboardVar.avgWeekly}}</p>
+              <p class="mr0 pect-color"><i  [ngClass]="dashboardVar.courseTrendData?.avgWeekly > 15  ? 'fa fa-caret-up pdr7':'fa fa-caret-down pdr7'" aria-hidden="true"></i>{{dashboardVar.courseTrendData?.avgWeekly}}%</p></div>  
             <div id="videosTrend" style=" height: 240px; margin: 0 auto" (click)="goToVideosTrend()"></div>
           </div>
         </div>
@@ -134,9 +133,9 @@
       {{dashboardVar.employeeGridsTitle.certificationTrend}}<select class="select-btn"><option value="Total">Total</option>
         <i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
         <div class="avg-qualification">
-          <p class="avg-qua-header">Average qualification</p>
-          <div class="percentage-alg">45%</div>
-          <p class="para-alg">Employees</p>
+          <p class="avg-qua-header">{{dashboardVar.avgQualification}}</p>
+          <div class="percentage-alg">{{dashboardVar.certificationTrend.avgQualification}}%</div>
+          <p class="para-alg">{{dashboardVar.emp}}</p>
         </div>
       <div id="certificationTrend" style=" height: 210px; margin: 0 auto"></div>
     </div>
@@ -144,7 +143,8 @@
   <div class="col-sm-6 pr-0">
     <div class="chart-bg"  style="height: 288px">
       <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
-        {{dashboardVar.employeeGridsTitle.topEmployees}}<select class="select-btn"><option value="This Month">This Month</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
+        {{dashboardVar.employeeGridsTitle.topEmployees}}
+        <select class="select-btn"><option value="This Month">{{dashboardVar.monthDropdown}}</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
       <div class="custom-table">
       <table class="table">
         <thead>
@@ -156,20 +156,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of dashboardVar.topEmployees">
-            <td>
-              {{item.id}}.{{item.name}}
-            </td>
-            <td> {{item.module}}
-              <!-- <ng-template #t let-fill="fill">
-                <span class="star" [class.full]="fill === 100">
-                  <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
-                </span>
-              </ng-template>
-              <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating> -->
-            </td>
-            <td>
-              {{item.score}}
-            </td>
+            <td>{{item.id}}.{{item.name}}</td>
+            <td>{{item.module}}</td>
+            <td>{{item.score}}</td>
           </tr>
         </tbody>
       </table>
@@ -180,90 +169,4 @@
     </div>
     </div>
 </div> 
-      <!-- <div class="col-sm-12 p-0"> -->
-        <!-- <div class="side-widget"> -->
-          <!-- <div class="chart-bg pt-3 pb-4"> -->
-            <!-- <div class="keyheader">
-              <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i> {{dashboardVar.employeeGridsTitle.keyStats}}</h6>
-            </div> -->
-            <!-- <div class="key-content"> -->
-              <!-- <div class="row py-3"> -->
-                <!-- <div class="col-sm-5">
-                  <p class="small-txt">New Employees (This week)</p>
-                  <h3>{{dashboardVar.newEmployee}}</h3>
-                </div> -->
-                <!-- <div class="col-sm-2"></div> -->
-                <!-- <div class="col-sm-5">
-                  <p class="week-growth">Weekly Growth</p>
-                  <span class="growth-percen pect-color">
-                  <i class="fa fa-caret-up pdr7" aria-hidden="true"></i>{{dashboardVar.weekGrowth}}{{dashboardVar.symbols.percentage}}</span>
-                </div> -->
-              <!-- </div> -->
-
-              <!-- <div class="recent-command col-md-12"> -->
-                  <!-- <h6 class="recent-command-tit">{{dashboardVar.recentComment}}</h6> -->
-                  <!-- <carousel>
-                      <slide>
-                          <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
-                        </slide>
-                      <slide>
-                          <p class="small-txt"><span class="text-primary">@John Doe</span>, Can you look into this and give me an update on cross training employees</p>
-                        </slide>
-                      <slide>
-                          <p class="small-txt"><span class="text-primary">@Mark</span>, Can you look into this and give me an update on cross training employees</p>
-                        </slide>
-                    </carousel> -->
-                    <!-- <div>
-                      <p class="float-left">-Anggoon</p>
-                      <a><img src="assets/images/Reply.png" class="share-icon"></a>                        
-                    </div> -->
-              <!-- </div> -->
-            <!-- </div> -->
-          <!-- </div> -->
-        <!-- </div> -->
-      <!-- </div> -->
-   
-<!-- <div class="row"  *ngIf="viewEnable">
-  <div class="col-sm-6 pl-0">
-    <div class="chart-bg">
-      <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-      {{dashboardVar.employeeGridsTitle.certificationTrend}}<select class="select-btn"><option value="Total">Total</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
-      <div id="certificationTrend" style=" height: 200px; margin: 0 auto"></div>
-    </div>
-  </div>
-  <div class="col-sm-6 pl-0">
-    <div class="chart-bg">
-      <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-        {{dashboardVar.employeeGridsTitle.topEmployees}}<select class="select-btn"><option value="This Month">This Month</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
-      <div class="custom-table">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>{{dashboardVar.employeeGridsTitle.name}}</th>
-            <th>{{dashboardVar.employeeGridsTitle.module}}</th>
-            <th>{{dashboardVar.employeeGridsTitle.score}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of dashboardVar.topEmployees">
-            <td>
-              {{item.id}}.{{item.name}}
-            </td>
-            <td> {{item.module}}
-              <ng-template #t let-fill="fill">
-                <span class="star" [class.full]="fill === 100">
-                  <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
-                </span>
-              </ng-template>
-              <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-            </td>
-            <td>
-              {{item.score}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-    </div>
-  </div>
-</div> -->
+      
