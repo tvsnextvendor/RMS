@@ -3,28 +3,24 @@
     <div>
       <div class="col-md-12 clearfix pr-3 pl-0">
         <span class="header-border"></span>
-          <h4 class="hd-alg">{{title}}</h4>
-        <span *ngIf="hideModule">
+          <h4 class="hd-alg">{{headerVar.title}}</h4>
+        <span *ngIf="headerVar.hideModule">
           <module-dropdown></module-dropdown>
         </span>
         <ul class="float-right header-icon">
           <!-- <li class="search-block"><a><input placeholder="Search" name="search" autocomplete="off" type="text" id="formInlineName"
                 class="form-searchbox searchbox-alg" value=""><i class="fa fa-search list_search" aria-hidden="true"></i></a></li>           -->
-          <li class="nav-item dropdown no-arrow bell-notification">
+          <li class="nav-item dropdown no-arrow bell-notification"  >
             <a class="nav-link dropdown-toggle p-0" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-bell icons_header" aria-hidden="true"></i>
-              <span class="badge badge-danger noti-pop">7</span>
+              <span class="badge badge-danger noti-pop">{{headerVar.notificationList?.count}}</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right header-noti-dropdown" aria-labelledby="alertsDropdown">
-              <a class="dropdown-item px-2 row" href="#">
+            <div class="dropdown-menu dropdown-menu-right header-noti-dropdown"  aria-labelledby="alertsDropdown">
+              <a class="dropdown-item px-2 row" href="#" *ngFor="let notification of headerVar.notificationList?.notifications">
                 <span class="mr-1 col-sm-1 px-1"><img src="assets/images/nofitication_photo1.png"></span>
-                <span class="fs-12 col-sm-10 px-1">Meson has completed all 4 videos</span>
-                <span class="col-sm-2 px-1">1m</span></a>
-              <a class="dropdown-item px-2" href="#">
-                <span class="mr-1 col-sm-1 px-1"><img src="assets/images/nofitication_photo2.png"></span>
-                <span class="fs-12 col-sm-5 px-1">Jack as received 2 badger</span>
-                <span class="col-sm-2 px-1">34m</span></a>
+                <span class="fs-12 col-sm-10 px-1">{{notification?.data}}</span>
+                <span class="col-sm-2 px-1">{{notification?.time}}</span></a>
             </div>
           </li>
           <li [class.active]="router.isActive('/email')"><a routerLink="/email"><i class="fa fa-envelope icons_header"
@@ -34,10 +30,10 @@
               aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-user icons_header" aria-hidden="true"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-              <a class="dropdown-item" routerLink="/profile"><i class="fa fa-user icons_header" aria-hidden="true"></i>Profile</a>
+              <a class="dropdown-item" routerLink="/profile"><i class="fa fa-user icons_header" aria-hidden="true"></i>{{headerVar.profile}}</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal" (click)="logOut()"><i
-                  class="fa fa-sign-out icons_header" aria-hidden="true"></i>Logout</a>
+                  class="fa fa-sign-out icons_header" aria-hidden="true"></i>{{headerVar.logOut}}</a>
             </div>
           </li>
           <li [class.active]="router.isActive('/settings')">

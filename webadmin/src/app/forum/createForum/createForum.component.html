@@ -11,7 +11,7 @@
                   {{forumVar.nameUniqueErr}}
             </span>  
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label>{{forumVar.createForum.topics}}</label>           
             <div *ngFor="let topic of topicsArray; let i = index" class="form-group close-icon">
                 <span *ngIf="i==0"><a><i class="fa fa-plus createForum-addicon" (click)=addTopic()></i></a></span>
@@ -21,7 +21,7 @@
                     {{forumVar.mandatoryLabels.topic}}
             </span>  
             </div>  
-        </div>
+        </div> -->
         <div class="form-group">
                 <label>{{forumVar.createForum.admin}}</label> 
                     <tag-input [ngModel]="adminItems" 
