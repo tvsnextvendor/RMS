@@ -12,7 +12,7 @@ export class API_URL {
    getCertificationTrend : '5c2dc0a72f00008e2f175203',
    getCoureseDetails    : "5c2e11db2f00003847175427",
    //getTopEmployees      : "5c04e6cf3300002900d01e56",
-   getTopEmployees      : "5c25c310300000670067f591",
+   getTopEmployees      : "5c2e14522f0000ba47175436",
    getvisitorsByResorts : "5c2df1f32f0000384717533d",
    getAdminList         : '5c2cb9652e00000b0ae8773a',
    getTotalNoOfBadges   : "5c2c58fa2e00008300e87505",
@@ -27,7 +27,7 @@ export class API_URL {
    getVideoTrendList    :'5c1b552b33000066007fd6db',
    // getVideoTrendEmpList : '5c08e0a12f00005400637aa6',
    //& getVideoTrendEmpList :'5c1355c43400005600ecdf71',
-   getVideoTrendEmpList :'5c25f9c5300000740067f64f',
+   getVideoTrendEmpList :'5c2e12ca2f00005d0017542c',
    //*Needed-getModuleList        : '5c18f3502f00002a00af12f9',
    //*getModuleDetails     : "5c1a2a833200006c0064afa0",
    getModuleDetails     : '5c2df09e2f0000a33017532c',
@@ -53,14 +53,15 @@ export class API_URL {
    getDepartments       : '5c25fa2a300000540067f651',
    //getDesignations      : "5c2626bb3000007a0067f719",
    getDesignations      : '5c29c1d22e00006a00c18ac7',
-   getNewBatchList      : '5c2e01482f0000b8471753bb',
+   getNewBatchList      : '5c2e16a32f0000a052175443',
    // Content To Bo Live
    getModuleList : '5c28b1fd3300005900a58b80',
    //moduleCourseList:'5c28aec43300004e00a58b7d'
    getProgramList:'5c2de3ee2f00001c3d1752bb',
    getResortList : '5c2df79b2f0000a230175376',
    moduleCourseList: '5c2deec42f00003747175314',
-   getNotifications : '5c2de58e2f0000a3301752c1'
+   getNotifications : '5c2de58e2f0000a3301752c1',
+
   }
 
 }
