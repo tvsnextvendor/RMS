@@ -463,6 +463,7 @@ li.search-block {
     border-top: none;
     border-right: none;
     border-left: none;
+    font-size: 14px;
 }
 .pdl60{padding-left: 60px;}
 .pdl68{padding-left: 68px !important;}
@@ -608,7 +609,7 @@ li {
   /* fallback */
 }
 .custom-table tbody td, .custom-table thead th {
-  width: 40%;
+  width: 33%;
   float: left;
 }
 .table-striped tbody tr:nth-of-type(odd) {

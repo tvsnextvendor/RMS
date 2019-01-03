@@ -47,8 +47,8 @@ export class EmployeeChartsComponent implements OnInit {
         this.dashboardVar.courses = data;
       });
       //get Module list
-      this.http.get(this.dashboardVar.url.getModuleList).subscribe((data) => {
-          this.dashboardVar.moduleList= data.ModuleList;
+      this.http.get(this.dashboardVar.url.getProgramList).subscribe((data) => {
+          this.dashboardVar.moduleList= data.programList;
       });  
      //get Year List
       this.http.get(this.dashboardVar.url.getYearList).subscribe((data) => {
