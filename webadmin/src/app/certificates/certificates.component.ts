@@ -31,8 +31,8 @@ export class CertificatesComponent implements OnInit {
     });
  
     //get Batch list
-    this.http.get(this.constant.url.getBatchList).subscribe((data) => {
-        this.constant.batchList = data.batchList;
+    this.http.get(this.constant.url.getProgramList).subscribe((data) => {
+        this.constant.programList = data.programList;
     });
    }
 
@@ -74,7 +74,7 @@ export class CertificatesComponent implements OnInit {
   //dynamic add form
   addForm(){
     let obj={
-        batch: 1,
+        program: 1,
         template: 1
     };
    this.constant.templateAssign.push(obj);
@@ -82,8 +82,7 @@ export class CertificatesComponent implements OnInit {
 
   //Assign template to batch
   assignBatchTemplate(form){
-   
-    let batchId = this.constant.templateAssign.map(function(item){ return item.batch });
+    let batchId = this.constant.templateAssign.map(function(item){ return item.program });
     batchId.sort();
     let last = batchId[0]; 
     if(batchId.length > 1){
@@ -109,7 +108,7 @@ export class CertificatesComponent implements OnInit {
   //Reset Form
   clearAssignTemplate(){
    this.constant.templateAssign=[{
-        batch: 1,
+        program: 1,
         template: 2
       }];  
   }
