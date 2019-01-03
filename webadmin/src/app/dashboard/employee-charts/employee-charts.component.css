@@ -48,3 +48,10 @@
     color: #73737B;
     text-align: center;
 }
+.totalEmployee{
+  position: absolute;
+    bottom: 43px;
+    left: 140px;
+    font-size: 15px;
+    color: #454545;
+}

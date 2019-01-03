@@ -171,12 +171,13 @@
 <div class="pr-3">
   <div class="chart-bg">
     <div class="row resort-pd">
-      <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>  {{dashboardVar.resortGridsTitle.resort}}
+      <div class="chart-mr clearfix">
+      <h6 class="float-left"><i class="fa fa-circle-o" aria-hidden="true"></i>  {{dashboardVar.resortGridsTitle.resort}}</h6>
         <span class="float-right wdt">Select Resort
         <select class="resort-btn">
           <option *ngFor="let resort of dashboardVar.resortList" value="{{resort.id}}">{{resort.name}}</option><i class="fa fa-chevron-down" aria-hidden="true"></i>
-        </select></span>
-      </h6>
+        </select></span>      
+    </div>
     <div class="col-md-4 bor-right">
         <h6 class="resort-hd">Total Employee</h6>
         <div class="clearfix rest-pd">
