@@ -5,6 +5,8 @@ import {AuthGuard} from '../../guard/auth.guard.component'
 import {HttpService} from '../../services/http.service';
 import {ModuleDropdownComponent} from './module-dropdown';
 import { Header } from '../../Constants/header';
+import { HeaderVar } from 'src/app/Constants/header.var';
+import { API_URL } from '../../Constants/api_url';
 
 @Component({
   selector: 'app-header',
@@ -12,26 +14,24 @@ import { Header } from '../../Constants/header';
 })
 export class HeaderComponent implements OnInit {
 
-  title:string = '';
-  moduleType: null;
-  moduleList;
-  hideModule = false;
-  splitUrl;
   headerData: Header = {} as any;
   filtersLoaded: Promise<boolean>;
- 
 
-  constructor(private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { 
+  constructor(private headerVar: HeaderVar,private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { 
     const currentUrl = this.router.url;
-    this.splitUrl = currentUrl.split('/');
-    
+    this.headerVar.splitUrl = currentUrl.split('/');
+    this.headerVar.url = API_URL.URLS;
   }
    
   ngOnInit(){
     this.headerService.TitleDetail.subscribe((resp) => { 
-      setTimeout(() =>{ this.title=resp.title,
-                        this.hideModule=resp.hidemodule })
+      setTimeout(() =>{ this.headerVar.title=resp.title,
+                        this.headerVar.hideModule=resp.hidemodule })
     });
+
+    this.http.get(this.headerVar.url.getNotifications).subscribe((data) => {
+       this.headerVar.notificationList = data;
+    })
   }
 
   logOut(){

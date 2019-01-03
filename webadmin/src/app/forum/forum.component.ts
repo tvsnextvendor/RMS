@@ -65,7 +65,7 @@ export class ForumComponent implements OnInit {
     openEditModal(template: TemplateRef<any>, forum) {
         this.forumVar.modalRef = this.modalService.show(template,this.forumVar.modalConfig);
         this.forumVar.forumName= forum.forumName;
-        this.forumVar.topics=forum.topic;
+        // this.forumVar.topics=forum.topic;
         this.forumVar.employeeItems=forum.departments;
         this.forumVar.adminItems=forum.admins;
         this.filteredNames = this.forumVar.forumNameList.filter(item => item !== this.forumVar.forumName);

@@ -64,13 +64,13 @@
                                 {{forumVar.nameUniqueErr}}
                           </span>     
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="forum-title">{{forumVar.createForum.topics}}</label>
                         <input type="text" class="form-control" [(ngModel)]="forumVar.topics" #Topics="ngModel" name = "topics" id="topics" placeholder="Add Topic" required autocomplete="off">  
                         <span class="required_color" *ngIf="Topics && Topics.invalid && (formDir.submitted || Topics.touched)">
                                 {{forumVar.mandatoryLabels.topic}}
                         </span> 
-                    </div> 
+                    </div>  -->
                     <div class="form-group">
                             <label>{{forumVar.createForum.admin}}</label> 
                                 <tag-input [ngModel]="forumVar.adminItems" 

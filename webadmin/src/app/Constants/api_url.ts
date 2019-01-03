@@ -40,7 +40,7 @@ export class API_URL {
    //*needed - moduleCourseList     : '5c24973f30000077007a6042',
    getEmployeeList      : '5c0928d52f0000c21f637cd0',
    //*getForumList      : '5c17879a2f00008200b087a8',
-   getForumList         : '5c2d97c62f0000670017517b',
+   getForumList         : '5c2de20f2f000052001752a2',
    getTemplateList      : '5c15bed92e00009c0937c6a6',
    getBatchList         : '5c175edf2f00005f00b0862f',
    getPercentageList    : '5c25f8a7300000520067f64c',
@@ -57,7 +57,8 @@ export class API_URL {
    getModuleList : '5c28b1fd3300005900a58b80',
    //moduleCourseList:'5c28aec43300004e00a58b7d'
    moduleCourseList: '5c2c95c42e00005e00e8764f',
-   getProgramList:'5c2cca132e0000222fe8778c'
+   getProgramList:'5c2de3ee2f00001c3d1752bb',
+   getNotifications : '5c2de58e2f0000a3301752c1'
   }
 
 }
