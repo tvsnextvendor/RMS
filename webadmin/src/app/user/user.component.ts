@@ -139,8 +139,8 @@ export class UserComponent implements OnInit {
     cancelEdit(data,index){
         this.videoSubmitted = false;
         if(data.employeeId === ''){
-            let i = this.constant.userList.length - 1;
-            this.constant.userList.splice(i,1);
+            // let i = this.constant.userList.length - 1;
+            this.constant.userList.splice(0,1);
         }
         else{
             this.constant.userList[index].editEnable =false;

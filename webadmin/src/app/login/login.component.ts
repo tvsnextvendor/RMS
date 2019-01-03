@@ -107,7 +107,7 @@ export class LoginComponent implements OnInit {
                 //let encUserData = btoa(userData);
                 localStorage.setItem('userData',userData);
                // this.toastr.success("Login successfully");
-                this.route.navigateByUrl('/');
+                this.route.navigateByUrl('/dashboard');
                 this.passwordError = false;
                 this.alertService.success('Login successfully');
                 let localObject = [];

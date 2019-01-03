@@ -43,6 +43,7 @@ export class AddModuleComponent implements OnInit {
             this.moduleId = params['moduleId']; 
         });
         this.labels = moduleVar.labels;
+        this.moduleVar.title = this.moduleId ? this.labels.editModule : this.labels.addModule;
    }
 
    ngOnInit(){
@@ -105,17 +106,52 @@ export class AddModuleComponent implements OnInit {
 
     fileUpload(e){
         this.showImage = true;
-        console.log(e);
         let reader = new FileReader();
         let file = e.target.files[0];
+        let type = file.type;
+        let typeValue = type.split('/');
+        let extensionType = typeValue[1].split('.').pop();
+        let fileType = typeValue[0];
         this.fileName = file.name;
         reader.onloadend = () => {
           this.uploadFile = file;
           this.fileUrl = reader.result;
+          this.extensionTypeCheck(fileType,extensionType,this.fileUrl);
         }
-      reader.readAsDataURL(file)
-      this.previewImage = "assets/videos/images/bunny.png";
-      console.log(this.fileUrl,this.uploadFile,this.fileName)
+       reader.readAsDataURL(file);  
+    }
+
+
+    extensionTypeCheck(fileType,extensionType,data){
+        switch(fileType){
+            case "video":
+                this.previewImage = "assets/videos/images/bunny.png";
+                break;
+            case "image":
+                this.previewImage = data;
+                break;
+            case "text":
+                this.previewImage =  "assets/images/txt-icon.png";   
+                break;
+            case "application":
+                if(extensionType === "ms-powerpoint"){
+                    this.previewImage =  "assets/images/ppt-icon.png";  
+                } 
+                else if(extensionType === "pdf"){
+                    this.previewImage =  "assets/images/pdf-icon.png";  
+                }   
+                else if(extensionType === "sheet"){
+                    this.previewImage = "assets/images/excel-icon.png";
+                }  
+                else if(extensionType === "document"){
+                    this.previewImage = "assets/images/doc-icon.png";
+                }  
+                else if(extensionType === "zip"){
+                    this.previewImage = "assets/images/file-zip-icon.png";
+                }  
+                break;    
+        }
+
     }
 
    updateCourse(data,i){
@@ -164,7 +200,7 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.selectVideoName = data.videoName;
         this.moduleVar.description = data.description;
         this.moduleVar.videoFile = data.url;
-        this.previewImage = data.url;
+        // this.previewImage = data.url;
         this.moduleVar.videoIndex = i+1;
         let index =  (this.moduleVar.videoList.findIndex(item => item.videoName ===  data.videoName));
         this.moduleVar.videoId = index + 1
@@ -172,7 +208,44 @@ export class AddModuleComponent implements OnInit {
             this.quizCheck = false;
             this.quiz.editQuizDetails(this.moduleVar.quizDetails);
         }
+        let fileExtension = data.url.split('.').pop();
+        this.extensionUpdate(fileExtension);
+   }
 
+   extensionUpdate(type){
+       switch(type){
+        case "mp4":
+            this.previewImage = "assets/videos/images/bunny.png";
+            break;
+        case "png":
+            this.previewImage = "assets/videos/images/bunny.png";
+            break;
+        case "jpeg":
+            this.previewImage = "assets/videos/images/bunny.png";
+            break;
+        case "jpg":
+            this.previewImage = "assets/videos/images/bunny.png";
+            break;
+        case "ppt":
+            this.previewImage =  "assets/images/ppt-icon.png";  
+            break;
+        case "pdf":
+            this.previewImage =  "assets/images/pdf-icon.png";
+            break;
+        case "txt":
+            this.previewImage =  "assets/images/txt-icon.png"; 
+            break;
+        case "docx":
+            this.previewImage =  "assets/images/doc-icon.png"; 
+            break;
+        case "xlsx":
+            this.previewImage =  "assets/images/excel-icon.png";
+            break; 
+        case "zip" :
+            this.previewImage =  "assets/images/file-zip-icon.png";
+            break; 
+
+       }
    }
 
    addCourse(){
@@ -237,6 +310,7 @@ export class AddModuleComponent implements OnInit {
        this.moduleVar.description = '';
        this.moduleVar.videoFile = '';
        this.previewImage = '';
+       this.moduleVar.videoIndex = 0;
    }
 
    checkValidation(){

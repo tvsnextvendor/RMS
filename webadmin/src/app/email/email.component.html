@@ -25,7 +25,7 @@
                 <span class="required_color" *ngIf="sendClicked && !emailForm.subject" >Subject data is required</span>
             </div>
             <div class="form-group">
-                    <app-ngx-editor  height="100px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="dataModel"></app-ngx-editor>
+                    <app-ngx-editor  height="100px" minHeight="50px" [placeholder]="'Write Something...'" [spellcheck]="true" [(ngModel)]="dataModel"></app-ngx-editor>
                     <!-- <editor [(ngModel)]="dataModel"></editor> -->
             </div>
              <div class="py-4 clearfix"><button class="btn btn-primary" type="button" (click)="sendMail()">SEND</button></div>

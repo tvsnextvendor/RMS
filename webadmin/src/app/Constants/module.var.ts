@@ -15,6 +15,8 @@ export class ModuleVar {
     selectedModule;
     selectedCourse;
     labels = {
+        "addModule" : "Add program",
+        "editModule" : "Edit Program",
         "moduleName" : "Program Name",
         "isRequire" : " is Required*",
         "course" : "Course",

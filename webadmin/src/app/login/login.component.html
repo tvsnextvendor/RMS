@@ -31,8 +31,10 @@
                         </div>
                         <div   *ngIf="!forgetPasswordStatus" class="form-group">
                             <button  type="submit" class="btn btn-primary login-btn">{{btns.login}}</button>
-                            
                         </div>
+                        <div   *ngIf="!forgetPasswordStatus" class="form-group">
+                                <button  type="button" class="btn btn-link">Take a tour</button>
+                            </div>
                         <!-- forget password -->
                         <div  *ngIf="forgetPasswordStatus"  class="form-group">                           
                             <button  type="button" (click) = "forgetPasswordUpdate()" class="btn btn-default back-btn mr-3">{{btns.back}}</button>

@@ -114,7 +114,7 @@ export class AddQuizComponent implements OnInit {
           { "id": 3, "value": "" },
           { "id": 4, "value": "" }
         ],
-        "Wwightage": '100'
+        "weightage": '100'
       }];
       this.weightage = selectedVideoList && selectedVideoList  ? (100 / selectedVideoList.length).toFixed(2) : 100;
     // });
