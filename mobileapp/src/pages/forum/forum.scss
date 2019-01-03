@@ -43,5 +43,13 @@ page-forum {
         padding-left: 16px;
         padding-right: 0;
     }
-
+.search-bar {
+    width: 90%;
+    float: right;
+}
+ion-toolbar ion-icon.ion-ios-arrow-back {
+    float: left;
+    font-size: 20pt;
+    line-height: 40px;
+}
 }
