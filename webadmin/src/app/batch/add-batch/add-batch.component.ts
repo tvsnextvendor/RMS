@@ -37,11 +37,15 @@ export class AddBatchComponent implements OnInit {
      });
   
 
-     //get Module list
-      this.http.get(this.batchVar.url.getModuleList).subscribe((data) => {
-        this.batchVar.moduleList= data.moduleList;
-      }); 
+    //  //get Module list
+    //   this.http.get(this.batchVar.url.getModuleList).subscribe((data) => {
+    //     this.batchVar.moduleList= data.moduleList;
+    //   }); 
          
+    this.http.get(this.batchVar.url.getProgramList).subscribe((data) => {
+      this.batchVar.programList = data.programList;
+     });
+  
       //get percentage list
       this.http.get(this.batchVar.url.getPercentageList).subscribe((data) => {
         this.batchVar.percentageList= data.passPercentage;
@@ -140,7 +144,7 @@ export class AddBatchComponent implements OnInit {
    clearBatchForm(){
     this.batchVar.moduleForm = [{
         moduleId : 1,
-        moduleName:'',
+        program:"null",
         passpercentage:"null",
         mandatory :"true",
      }];
@@ -155,7 +159,7 @@ export class AddBatchComponent implements OnInit {
    addForm(){
      let obj={
             moduleId : 1,
-            moduleName:'',
+            program:"null",
             passpercentage:"null",
             mandatory :"true",
      };

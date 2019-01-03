@@ -13,12 +13,13 @@ export class API_URL {
    getCoureseDetails    : "5c2df4472f00006700175352",
    //getTopEmployees      : "5c04e6cf3300002900d01e56",
    getTopEmployees      : "5c25c310300000670067f591",
+   getvisitorsByResorts : "5c2df1f32f0000384717533d",
    getAdminList         : '5c2cb9652e00000b0ae8773a',
    getTotalNoOfBadges   : "5c2c58fa2e00008300e87505",
-   getTopResorts        : "5c04ea753300006a00d01e6e",
+   getTopResorts        : "5c2df06d2f00005a00175329",
    getTopCourses        : "5c25bdcc300000620067f58b",
-   getBadgesAndCertification : '5c04eb4a330000e900d01e70',
-   getReservationByResort    : '5c04eba63300007900d01e71',
+   getBadgesAndCertification : '5c2dfc652f0000a23017539d',
+   getReservationByResort    : '5c2df39d2f0000b73617534f',
    getQuiz              : '5c0f73143100002c0924ec31',
    getFeedbackRating    : '5c28ddc73300007400a58bb5',
    //newgetVideoTrendList    : '5c12603d3300005632998f04',
@@ -52,12 +53,13 @@ export class API_URL {
    getDepartments       : '5c25fa2a300000540067f651',
    //getDesignations      : "5c2626bb3000007a0067f719",
    getDesignations      : '5c29c1d22e00006a00c18ac7',
-   getNewBatchList      : '5c2c96142e0000050ae87653',
+   getNewBatchList      : '5c2e01482f0000b8471753bb',
    // Content To Bo Live
    getModuleList : '5c28b1fd3300005900a58b80',
    //moduleCourseList:'5c28aec43300004e00a58b7d'
+   getProgramList:'5c2de3ee2f00001c3d1752bb',
+   getResortList : '5c2df79b2f0000a230175376',
    moduleCourseList: '5c2deec42f00003747175314',
-   getProgramList:'5c2cca132e0000222fe8778c',
    getNotifications : '5c2de58e2f0000a3301752c1'
   }
 

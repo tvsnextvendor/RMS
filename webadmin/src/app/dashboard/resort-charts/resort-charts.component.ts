@@ -33,6 +33,14 @@ export class ResortChartsComponent implements OnInit {
    this.http.get(this.dashboardVar.url.getFeedbackRating).subscribe((data) => {
     this.dashboardVar.feedbackData = data;
   })
+ 
+  this.http.get(this.dashboardVar.url.getResortList).subscribe((data) => {
+    this.dashboardVar.resortList = data.resortList;
+  })
+
+  this.http.get(this.dashboardVar.url.getvisitorsByResorts).subscribe((data) => {
+    this.dashboardVar.visitorsResort = data.resorts;
+  })
 
     this.topResorts();
     this.badgesCertification();
@@ -88,18 +96,14 @@ export class ResortChartsComponent implements OnInit {
     labels: {
            enabled: false
              },
+    title: {
+            text :null
+            },
     gridLineColor: 'transparent',
     min: 0,
     max: 10
   },
    title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
     style: {
         display: 'none'
     }
@@ -149,18 +153,14 @@ staffLineChart() {
       labels: {
              enabled: false
                },
+     title: {
+                text :null
+              },
       gridLineColor: 'transparent',
       min: 0,
       max: 10
     },
      title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
     style: {
         display: 'none'
     }
@@ -189,7 +189,6 @@ staffLineChart() {
         }
     },
     series: [{
-      // data: [0, 7.0, 5, 9, 8.3, 9.3, 6.8, 7.7, 6, 0]
       data: [0, 1.5, 1.5, 3, 3, 3, 0  ]
     }]
   });
@@ -204,13 +203,6 @@ totalEmployeeLineChart() {
         type: 'area'
     },
         title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
     style: {
         display: 'none'
     }
@@ -225,6 +217,9 @@ totalEmployeeLineChart() {
       labels: {
              enabled: false
                },
+      title: {
+           text : null
+      },
       gridLineColor: 'transparent',
       min: 0,
       max: 10
@@ -241,7 +236,6 @@ totalEmployeeLineChart() {
         }
     },
     series: [{
-      // data: [0, 7.0, 5, 9, 8.3, 9.3, 6.8, 7.7, 6, 0]
       data: [0, 2, 1.3, 3, 2.3, 3.3, 0.8, 1.7, 1, 0  ]
     }]
   });
@@ -387,18 +381,7 @@ visitorsByResortPie() {
         series: [{
             name: 'Brands',
             colorByPoint: true,
-            data: [{
-                name: 'Resort A',
-                y: 30,
-                sliced: true,
-                selected: true
-            }, {
-                name: 'Resort B',
-                y: 50
-            }, {
-                name: 'Resort C',
-                y: 20
-            }]
+            data: this.dashboardVar.visitorsResort
         }]
     });
 }

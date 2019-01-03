@@ -23,7 +23,7 @@
                     <div class="row">  		
                             <label class="col-md-3 p-0 label-title">{{batchVar.labels.batchName}}</label>  		
                             <div class="col-md-7 pr-0">
-                            <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName" #BatchName="ngModel" type="text" placeholder="Enter Batch Name" required>
+                            <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName" #BatchName="ngModel" type="text" placeholder="Enter Training Class" required>
                             <span class="required_color" *ngIf="BatchName && BatchName.invalid && (formDir.submitted || BatchName.touched)">
                                      {{batchVar.mandatoryLabels.batchName}}
                             </span> 
@@ -69,9 +69,14 @@
                       <div class="col-md-8 p-0">
                          <div class="row"> 
                         <div class="col-md-5 pl-0">
-                                 <select id="moduleList" class="form-control form-group pl-0" name="moduleId{{i}}" [(ngModel)]="data.moduleId" #moduleId="ngModel">     
+                                 <!-- <select id="moduleList" class="form-control form-group pl-0" name="moduleId{{i}}" [(ngModel)]="data.moduleId" #moduleId="ngModel">     
+                                                <option value="null">{{batchVar.select}}</option>
                                                 <option *ngFor="let batch of batchVar.moduleList"  value="{{batch.moduleId}}">{{batch.moduleName}}</option>
-                                         </select>
+                                         </select> -->
+                                <select id="program" class="form-control" name="program{{i}}" [(ngModel)]="data.program">
+                                        <option value="null">{{batchVar.select}}</option>
+                                        <option *ngFor="let program of batchVar.programList" value="{{program.id}}">{{program.name}}</option>
+                                </select>
                                    
                                  <select id="percentageList" class="form-control form-group pl-0" name="passpercentage{{i}}" [(ngModel)]="data.passpercentage" #passpercentage="ngModel" required>  
                                         <option value="null">{{batchVar.labels.percentage}}</option>   
