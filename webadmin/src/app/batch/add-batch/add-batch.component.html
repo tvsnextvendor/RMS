@@ -5,7 +5,7 @@
              <div class="col-md-6">
                     <div class="row">  
                             <label class="col-md-4 p-0 label-title">{{batchVar.labels.from}}</label>  		
-                            <div class="col-md-8 pr-0">
+                            <div class="col-md-7 pr-0">
                               <div class="form-control px-0">
                                    <input placeholder="Date Time"
                                     name="batchFrom" [min]="batchVar.min" 
@@ -22,7 +22,7 @@
                     </div>
                     <div class="row">  		
                             <label class="col-md-4 p-0 label-title">{{batchVar.labels.batchName}}</label>  		
-                            <div class="col-md-8 pr-0">
+                            <div class="col-md-7 pr-0">
                             <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName" #BatchName="ngModel" type="text" placeholder="Enter Training Class" required>
                             <span class="required_color" *ngIf="BatchName && BatchName.invalid && (formDir.submitted || BatchName.touched)">
                                      {{batchVar.mandatoryLabels.batchName}}
@@ -31,7 +31,7 @@
                     </div>
                     <div class="row">  		
                             <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label>  		
-                            <div class="col-md-8 pr-0 select-Courses">
+                            <div class="col-md-7 pr-0 select-Courses">
                                     <ng-multiselect-dropdown
                                     [placeholder]="'Enter Department'"
                                     name="employeeId" 
