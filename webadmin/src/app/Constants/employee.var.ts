@@ -13,6 +13,7 @@ export class EmployeeVar {
         },
         "tableTitle" : {
             "employeeName" : "Emp Name",
+            "employeeId" : "Emp ID",
             "employeeGroup" : "Department",
             "assignedCount" : "Assigned",
             "inProgressCount" : "In progress",

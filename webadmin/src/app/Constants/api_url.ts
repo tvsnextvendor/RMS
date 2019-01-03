@@ -7,10 +7,10 @@ export class API_URL {
 
    getKeyStat           : "5c04dd7f330000e900d01e32",
    getCourses           : "5c2dbf2e2f000056301751f7",
-   getCoursesList       : "5c2cbc432e00000b0ae8774b",
+   getCoursesList       : "5c2def862f0000253017531e",
    getEmployeeProgress  : '5c2dbf672f000056301751ff',
    getCertificationTrend : '5c2dc0a72f00008e2f175203',
-   getCoureseDetails    :"5c19e3ef3200002a0064adb8",
+   getCoureseDetails    : "5c2df4472f00006700175352",
    //getTopEmployees      : "5c04e6cf3300002900d01e56",
    getTopEmployees      : "5c25c310300000670067f591",
    getAdminList         : '5c2cb9652e00000b0ae8773a',
@@ -29,8 +29,8 @@ export class API_URL {
    getVideoTrendEmpList :'5c25f9c5300000740067f64f',
    //*Needed-getModuleList        : '5c18f3502f00002a00af12f9',
    //*getModuleDetails     : "5c1a2a833200006c0064afa0",
-   getModuleDetails     : '5c2cbd962e0000222fe8774d',
-   getEmployeeStatus    : '5c1247ee3300009829998e4a',
+   getModuleDetails     : '5c2df09e2f0000a33017532c',
+   getEmployeeStatus    : '5c2debd22f0000ba47175307',
    //getEmployeeDetails   : '5c124a4d330000bd2a998e64',
    getEmployeeDetails   : '5c135a573400008e00ecdf92',
    getTaskResortChart   : '5c135a3c3400008e00ecdf91',
@@ -45,8 +45,8 @@ export class API_URL {
    getBatchList         : '5c175edf2f00005f00b0862f',
    getPercentageList    : '5c25f8a7300000520067f64c',
    //getUsers           : '5c1a5d1d320000540064b0fc',
-   getUsers             : '5c2603ed300000620067f67b',
-   getUsersList         : '5c29c0f42e00006c00c18ac5',
+   getUsers             : '5c2de8b62f00005a001752df',
+   getUsersList         : '5c2df7672f00008431175372',
    //*getUsersList      : '5c260d313000007f0067f6ba',
    //getDepartments     : '5c2085822e00009c001e0af4',
    getDepartments       : '5c25fa2a300000540067f651',
@@ -56,8 +56,8 @@ export class API_URL {
    // Content To Bo Live
    getModuleList : '5c28b1fd3300005900a58b80',
    //moduleCourseList:'5c28aec43300004e00a58b7d'
-   moduleCourseList: '5c2c95c42e00005e00e8764f',
-   getProgramList:'5c2de3ee2f00001c3d1752bb',
+   moduleCourseList: '5c2deec42f00003747175314',
+   getProgramList:'5c2cca132e0000222fe8778c',
    getNotifications : '5c2de58e2f0000a3301752c1'
   }
 

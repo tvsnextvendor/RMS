@@ -22,6 +22,7 @@ export class AddModuleComponent implements OnInit {
     private quiz: AddQuizComponent;
     moduleId;
     selectedCourses = [];
+    courseDetailsList = [];
     moduleName;
     showImage = false;
     videoSubmitted = false;;
@@ -72,24 +73,24 @@ export class AddModuleComponent implements OnInit {
         this.http.get(this.moduleVar.api_url.getModuleDetails).subscribe((data) => {
             this.moduleVar.moduleList = data.moduleList;
             if(this.moduleId){
-            this.moduleVar.moduleObj = this.moduleVar.moduleList.find(x=>x.moduleId === parseInt(this.moduleId));
-            this.moduleName = this.moduleVar.moduleObj.moduleName;
-            let dropdownLIst =  this.moduleVar.moduleObj.courseList.map(item=>{
-                let obj = {
-                    id:item.courseId,
-                    value : item.courseName
-                }
-                return obj;
-            });
-            // this.courseList =dropdownLIst;
-            this.selectedCourses = dropdownLIst;
-            this.moduleVar.selectedCourseIds = dropdownLIst.map(item=>{return item.id})
+                this.moduleVar.moduleObj = this.moduleVar.moduleList.find(x=>x.moduleId === parseInt(this.moduleId));
+                this.moduleName = this.moduleVar.moduleObj.moduleName;
+                let dropdownLIst =  this.moduleVar.moduleObj.courseList.map(item=>{
+                    let obj = {
+                        id:item.courseId,
+                        value : item.courseName
+                    }
+                    return obj;
+                });
+                // this.courseList =dropdownLIst;
+                this.selectedCourses = dropdownLIst;
+                this.moduleVar.selectedCourseIds = dropdownLIst.map(item=>{return item.id})
             }
-            else{
+            // else{
                 this.http.get(this.moduleVar.api_url.getCoureseDetails).subscribe((data) => {
-                    this.moduleVar.moduleObj = data;
+                    this.courseDetailsList = data && data.courseList;
                 })
-            }
+            // }
         });
     }
 
@@ -156,7 +157,7 @@ export class AddModuleComponent implements OnInit {
 
    updateCourse(data,i){
        this.tabEnable = true;
-       let courseObj = (this.moduleVar.moduleObj.courseList.find(item => item.courseId ===  data.id));
+       let courseObj = (this.courseDetailsList.find(item => item.courseId ===  data.id));
        this.moduleVar.videoList = courseObj.videosDetails;
        this.moduleVar.selectCourseName = courseObj.courseName;
        this.moduleVar.courseId = courseObj.courseId;
