@@ -26,6 +26,7 @@ export class ForumComponent implements OnInit {
     this.getForumList();
    // this.getEmployeeList();
     this.getDepartmentList();
+    this.getAdminList();
    }
 
     getForumList(){
@@ -33,13 +34,13 @@ export class ForumComponent implements OnInit {
           this.forumVar.forumList= data.forumDetails;
         });
     }
-    getEmployeeList(){
-        this.http.get(this.forumVar.url.getEmployeeList).subscribe((resp) => {
-           this.forumVar.autocompleteItemsAsEmpObjects = resp.employeeList.map(item=>{
-             return item.name;
-           });
-         });
-    }
+    // getEmployeeList(){
+    //     this.http.get(this.forumVar.url.getEmployeeList).subscribe((resp) => {
+    //        this.forumVar.autocompleteItemsAsEmpObjects = resp.employeeList.map(item=>{
+    //          return item.name;
+    //        });
+    //      });
+    // }
     getDepartmentList(){
         this.http.get(this.forumVar.url.getDepartments).subscribe((resp) => {
             this.forumVar.autocompleteItemsAsEmpObjects = resp.DepartmentList.map(item=>{
@@ -47,6 +48,14 @@ export class ForumComponent implements OnInit {
             });
           });
     }
+    getAdminList(){
+      this.http.get(this.forumVar.url.getAdminList).subscribe((resp) => {
+        this.forumVar.adminList = resp.adminList.map(item=>{
+          return item.name;
+        });
+      });
+    }
+
     statusUpdate(forumName,status){
         let statusName = status ? " is Activated" : " is Deativated"
        // this.toastr.success(forumName + statusName);
@@ -58,6 +67,7 @@ export class ForumComponent implements OnInit {
         this.forumVar.forumName= forum.forumName;
         this.forumVar.topics=forum.topic;
         this.forumVar.employeeItems=forum.departments;
+        this.forumVar.adminItems=forum.admins;
         this.filteredNames = this.forumVar.forumNameList.filter(item => item !== this.forumVar.forumName);
     }
    
@@ -74,6 +84,7 @@ export class ForumComponent implements OnInit {
      
     onSave(form){
       if(form.valid && !this.forumVar.editNameValidate){
+        let postData= form.value;
        // this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
         this.alertService.success(form.value.forumName + this.forumVar.updateSuccessMsg);
         this.forumVar.modalRef.hide();

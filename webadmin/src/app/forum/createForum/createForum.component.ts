@@ -16,6 +16,7 @@ export class CreateForumComponent implements OnInit {
     employeeItems;
     forumName;
     autocompleteItemsAsEmpObjects;
+    adminList;
     topicsArray = [{
       topicName:''
     }];
@@ -30,6 +31,7 @@ export class CreateForumComponent implements OnInit {
    // this.getEmployeeList();
     this.getForumList();
     this.getDepartmentList();
+    this.getAdminList();
    }
 
    getForumList(){
@@ -40,6 +42,14 @@ export class CreateForumComponent implements OnInit {
       });
      });   
    }
+
+   getAdminList(){
+    this.http.get(this.forumVar.url.getAdminList).subscribe((resp) => {
+      this.adminList = resp.adminList.map(item=>{
+        return item.name;
+      });
+    });
+  }
 
    getDepartmentList(){
     this.http.get(this.forumVar.url.getDepartments).subscribe((resp) => {
@@ -86,13 +96,13 @@ export class CreateForumComponent implements OnInit {
            return item.topicName;
         });
       }
-
       if(form.valid && !this.forumVar.uniqueValidate ){
         let postData={
           forumName : form.value.forumName,
           employeeList : form.value.empItems,
+          adminList  : form.value.admin,
           topic   : this.topics
-        }; 
+        };
         this.alertService.success(this.forumVar.addSuccessMsg);
          // this.toastr.success(this.forumVar.addSuccessMsg);
           this.clearForm(form);

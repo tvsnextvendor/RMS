@@ -23,6 +23,29 @@
             </div>  
         </div>
         <div class="form-group">
+                <label>{{forumVar.createForum.admin}}</label> 
+                    <tag-input [ngModel]="adminItems" 
+                    name="admin"
+                    #adminName="ngModel"
+                    [onlyFromAutocomplete]="true"
+                    [placeholder]="'Select Admin'"      [displayBy]="'id'"
+                    [identifyBy]="'id'" [secondaryPlaceholder]="'Select Admin'" class="multi-input"
+                    required
+                    >
+                    <tag-input-dropdown [showDropdownIfEmpty]="true"
+                    [dynamicUpdate]="false"
+                    [focusFirstElement]="true"             
+                    [autocompleteItems]="adminList">
+                    <ng-template let-item="item" let-index="index">
+                        {{ item.display }}
+                    </ng-template>
+                </tag-input-dropdown>
+            </tag-input>
+            <span class="required_color" *ngIf="adminName && adminName.invalid && (formDir.submitted || adminName.touched)">
+                    {{forumVar.mandatoryLabels.admin}}
+            </span>    
+        </div>
+        <div class="form-group">
                 <label>{{forumVar.createForum.empName}}</label> 
                     <tag-input [ngModel]="employeeItems" 
                     name="empItems"

@@ -17,7 +17,10 @@ export class ForumVar{
         createForum : 'Create Forum',
         forumName   : 'Forum Name',
         topics      : 'Topics',
-        empName     : 'Enter Department',
+        empName     : 'Department',
+        admin       : 'Admin',
+        selDept     : 'Select Department',
+        selAdmin    : 'Select Admin',
         noData      : 'No data'
     };
     btns ={
@@ -28,7 +31,8 @@ export class ForumVar{
     mandatoryLabels ={
         forumName   :  'Forum Name is required',
         topic       :  'Topic is required',
-        empName     :  'Department is required',       
+        empName     :  'Department is required',    
+        admin       :  'Admin is required'   
     };
     title = 'Forum';
     addSuccessMsg = 'Forum Added Successfully';
@@ -38,6 +42,8 @@ export class ForumVar{
     forumName;
     topics;
     autocompleteItemsAsEmpObjects;
+    adminItems;
+    adminList;
     url;
     forumNameList;
     uniqueValidate = false;
