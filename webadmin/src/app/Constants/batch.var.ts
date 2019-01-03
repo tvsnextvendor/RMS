@@ -8,8 +8,8 @@ export class BatchVar{
    labels = {
         from       : 'From',
         to         : 'To',
-        batchName  : 'Batch Name',
-        selectDept  : 'Select Department',
+        batchName  : 'Training Class',
+        selectDept  : 'Department',
         module     : 'Program',
         mandatory  : 'Mandatory',
         optional   : 'Optional',
@@ -32,30 +32,32 @@ export class BatchVar{
     mandatoryLabels = {
          from         : 'From date is required.',
          to           : 'To date is required.',
-         batchName    : 'Batch Name is required.',
+         batchName    : 'Training Class is required.',
          selectDept   : 'Department is required.',
          dateValidate : 'From date should be less than To Date.',
          passpercentage : 'Pass Percentage is required.'         
     };
      
-    title = 'Add New Batch';
-    editTitle = 'Edit New Batch';
-    calendarTitle = 'Training Batch Calendar';
+    title = 'Add New Training Class';
+    editTitle = 'Edit New Training Class';
+    calendarTitle = 'Training Class Calendar';
     calendarView = 'Calendar View';
-    batchSuccessMsg = 'Batch Added Successfully';
-    batchErrMsg = 'Batch Updated Successfully';
+    batchSuccessMsg = 'Training Class Added Successfully';
+    batchErrMsg = 'Training Class Updated Successfully';
     invalidModule = 'Invalid Program Selection';
+    select = 'Select';
     dategreater=false;
     empValidate=false;
     moduleDuplicate= false;
     employeeList: IMultiSelectOption[];
     selectedEmp;
     moduleList;
+    programList;
     percentageList;
     url;
     moduleForm = [{
         moduleId : 1,
-        moduleName: '',
+        program: "null",
         passpercentage:"null",
         mandatory :"true",
      }];

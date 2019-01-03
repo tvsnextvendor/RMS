@@ -29,7 +29,7 @@
                             <!-- <p>{{list.videoName}}</p> -->
                         </td>
                         <td class="vdo-desc-height">{{list.duration}}</td>
-                        <td class="vdo-desc-height">{{list.uploadedDate | date: 'dd/MM/yyyy'}}</td>
+                        <td class="vdo-desc-height">{{list.uploadedDate | date: 'MM/dd/yyyy'}}</td>
                         <td class="vdo-desc-height text-center"><a href="javaScript:void"  routerLink="/videostrend/{{list.videoId}}">{{list.totalEmployees}}</a></td>              
                     </tr>
                     <tr *ngIf="mf.data?.length == 0">

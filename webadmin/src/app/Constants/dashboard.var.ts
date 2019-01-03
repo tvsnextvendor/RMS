@@ -20,6 +20,8 @@ export class DashboardVar {
   certificationTrend;
   feedbackData;
   empProgress;
+  visitorsResort;
+  resortList;
   title = 'Dashboard';
   select= 'Program';
   avgWeekly='Average weekly';
