@@ -79,14 +79,16 @@ export class AccomplishmentPage implements OnInit {
         this.badgeRigBtn = true;
     }
   }
-  openModal(certificatetemplate: TemplateRef<any>, item) {
+  openModal(certificatetemplate: TemplateRef<any>, item){
     this.modalRef = this.modalService.show(certificatetemplate);
     this.certificateDetail = item;
+    this.modalRef.setClass('certificate-popup');
+    
   }
   openBadgeModal(badgetemplate: TemplateRef<any>, item) {
     this.modalRef = this.modalService.show(badgetemplate);
-    //this.badgeSubImage = item.badgeSubImage;
     this.badgeDetails = item;
+    this.modalRef.setClass('badge-popup');
   }
   getCertificates() {
     this.http.getData(API_URL.URLS.getCertificates).subscribe((data) => {
