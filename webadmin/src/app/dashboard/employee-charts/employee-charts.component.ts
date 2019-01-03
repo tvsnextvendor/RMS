@@ -55,10 +55,19 @@ export class EmployeeChartsComponent implements OnInit {
          // this.dashboardVar.yearList = data.Years;
          this.dashboardVar.yearList = [2018];
       })
+
       //get Course Trend list   
       this.http.get(this.dashboardVar.url.getCourseTrendChart).subscribe((data) => {
-          this.dashboardVar.courseTrendData = data.CourseTrend;
+          this.dashboardVar.courseTrendData = data;
       })
+
+      this.http.get(this.dashboardVar.url.getEmployeeProgress).subscribe((data) => {
+        this.dashboardVar.empProgress = data;
+        });
+
+      this.http.get(this.dashboardVar.url.getCertificationTrend).subscribe((data) => {
+        this.dashboardVar.certificationTrend = data;
+        });
   }
 
   enableView(){
@@ -69,7 +78,7 @@ export class EmployeeChartsComponent implements OnInit {
         setTimeout(() => {
           if(this.hideCharts){
             this.certificationTrend();
-            this.videosTrendStackBar();
+            this.courseTrend();
             }
             this.totalNoOfBadges();
             this.topEmployees();
@@ -84,7 +93,6 @@ export class EmployeeChartsComponent implements OnInit {
   topRatedCourses(){
     this.http.get(this.dashboardVar.url.getTopCourses).subscribe((data) => {
         this.topCourses= data.TopCourses;
-
       });
   }
 
@@ -94,7 +102,6 @@ export class EmployeeChartsComponent implements OnInit {
         this.dashboardVar.newEmployee=keyStat.NewEmployees;
         this.dashboardVar.weekGrowth=keyStat.WeeklyGrowth;
         this.dashboardVar.recentComments=keyStat.RecentComments;
-
       });
   }
 
@@ -118,37 +125,32 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
 totalCoursesLine() {
-
   Highcharts.chart('totalCourses', {
      credits: {
       enabled: false
-  },
-  chart: {
-      type: 'area'
-  },
-  title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
     },
-    subtitle: {
-         text: '',
-    style: {
-        display: 'none'
-    }
+    chart: {
+        type: 'area'
     },
-  xAxis: {
-    labels: {enabled: false}
-  },
-  yAxis: {
-    labels: {
-           enabled: false
-             },
-    gridLineColor: 'transparent',
-    min: 0,
-    max: 10
-  },
+    title: {
+      style: {
+          display: 'none'
+      }
+      },
+    xAxis: {
+      labels: {enabled: false}
+    },
+    yAxis: {
+      labels: {
+            enabled: false
+              },
+        title: {
+          text :null
+        },
+      gridLineColor: 'transparent',
+      min: 0,
+      max: 10
+   },
   legend: {
     enabled: false,
     },
@@ -162,7 +164,6 @@ totalCoursesLine() {
           fillColor: '#ffffff',
           lineColor: '#000000',
           lineWidth: 1
-
         },
         fillColor : {
           linearGradient : [0, 0, 0, 300],
@@ -171,7 +172,6 @@ totalCoursesLine() {
           [1, 'rgb(67,138,179)']
           ]
         }
-
       }
     },
   series: [{
@@ -213,6 +213,9 @@ assignedCourses() {
     labels: {
            enabled: false
              },
+    title: {
+              text :null
+            },
     gridLineColor: 'transparent',
     min: 0,
     max: 10
@@ -279,6 +282,9 @@ completedCourses() {
     labels: {
            enabled: false
              },
+    title: {
+              text :null
+            },
     gridLineColor: 'transparent',
     min: 0,
     max: 10
@@ -342,6 +348,9 @@ inProgress(){
        labels: {
               enabled: false
                 },
+      title: {
+                  text :null
+                },
        gridLineColor: 'transparent',
        min: 0,
        max: 10
@@ -371,14 +380,14 @@ inProgress(){
      },
    
      series: [{
-       data: this.dashboardVar.courses.CompletedCourses.data
+       data: this.dashboardVar.courses.InProgressCourses.data
      }]
    });
     
 }
 
 
-videosTrendStackBar() {
+courseTrend() {
   Highcharts.chart('videosTrend', {
      credits: {
       enabled: false
@@ -426,12 +435,13 @@ videosTrendStackBar() {
             }
         }
     },
-    series:    this.dashboardVar.courseTrendData
+    series:this.dashboardVar.courseTrendData.CourseTrend
   });
 
 }
 
 employeeProgressPie() {
+ 
   Highcharts.chart('employeeProgress', {
      credits: {
       enabled: false
@@ -454,37 +464,12 @@ employeeProgressPie() {
         display: 'none'
     }
     },
-     xAxis: {
-                categories: [
-                    'Tokyo',
-                    'New York',
-                    'London',
-                    'Berlin'
-                ]
-            },
-    // title: {
-    //     text: 'Browser market shares in January, 2018'
-    // },
-    // tooltip: {
-    //     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    // },
     plotOptions: {
-        /*pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }*/
          pie: {
             allowPointSelect: true,
             cursor: 'pointer',
             dataLabels: {
-                enabled: false
+                enabled: false,
             },
             showInLegend: true
         }
@@ -493,18 +478,7 @@ employeeProgressPie() {
     series: [{
         name: 'Brands',
         colorByPoint: true,
-        data: [{
-            name: 'Assigned',
-            y: 70,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Completed',
-            y: 20
-        }, {
-            name: 'In Progress',
-            y: 10
-        }]
+        data:  this.dashboardVar.empProgress.data
     }]
 });
 }
@@ -516,10 +490,6 @@ certificationTrend() {
   },
     chart: {
         type: 'spline',
-        // scrollablePlotArea: {
-        //     minWidth: 600,
-        //     scrollPositionX: 1
-        // }
     },
     title: {
        text: '',
@@ -539,22 +509,12 @@ certificationTrend() {
     yAxis: {
        display: false
     },
-legend: {
+    legend: {
         layout: 'vertical',
         align: 'right',
         verticalAlign: 'bottom'
     },
-    series: [{
-        name: 'Certified Employees',
-        data: [
-           5, 8, 7, 10, 13, 11, 14, 15
-        ]
-    }, {
-        name: 'Uncertified Employees',
-        data: [
-           5, 4, 5, 6.5, 6, 8, 7.6, 6.5, 5
-        ]
-    }],
+    series:   this.dashboardVar.certificationTrend.data,
   });
   }
 

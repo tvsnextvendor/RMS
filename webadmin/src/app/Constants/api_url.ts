@@ -6,8 +6,10 @@ export class API_URL {
   public static URLS = {
 
    getKeyStat           : "5c04dd7f330000e900d01e32",
-   getCourses           : "5c04e5553300005700d01e4e",
+   getCourses           : "5c2dbf2e2f000056301751f7",
    getCoursesList       : "5c2cbc432e00000b0ae8774b",
+   getEmployeeProgress  : '5c2dbf672f000056301751ff',
+   getCertificationTrend : '5c2dc0a72f00008e2f175203',
    getCoureseDetails    :"5c19e3ef3200002a0064adb8",
    //getTopEmployees      : "5c04e6cf3300002900d01e56",
    getTopEmployees      : "5c25c310300000670067f591",
@@ -32,7 +34,7 @@ export class API_URL {
    //getEmployeeDetails   : '5c124a4d330000bd2a998e64',
    getEmployeeDetails   : '5c135a573400008e00ecdf92',
    getTaskResortChart   : '5c135a3c3400008e00ecdf91',
-   getCourseTrendChart  : '5c1362173400007c00ecdfc7',
+   getCourseTrendChart  : '5c2dbe012f000017331751f2',
    getYearList          : '5c1355633400007500ecdf6f',
    //moduleCourseList   : '5c18c8502f00006a00af1181',
    //*needed - moduleCourseList     : '5c24973f30000077007a6042',
