@@ -173,3 +173,26 @@ ion-toolbar ion-icon {
     font-size: 0;
     background: #D5D5D5;
 }
+.alert-button .button-inner{
+    font-weight: normal;
+}
+.alert-ios .alert-button, .alert-md .alert-button{
+    text-align: center;
+    width: 100%;
+}
+.alert-md .alert-button .button-inner{
+    justify-content: center;
+}
+.alert-ios .alert-title,.alert-md .alert-title {
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+}
+.alert-md .alert-button{   
+    border-top: 0.55px solid #dbdbdf;
+}
+.alert-md .alert-button .button-inner,.alert-ios .alert-button{
+        font-weight: normal;
+    text-transform: capitalize;
+    font-size: 16px;
+}
