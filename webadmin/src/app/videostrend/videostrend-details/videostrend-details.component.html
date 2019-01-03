@@ -58,8 +58,8 @@
                         <td class="vat pl-4 employeeName-width">{{ emp.employeeName }}</td>
                         <td class="vat text-center" [ngClass]="emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">{{
                             emp.status }}</td>
-                        <td class="vat text-center">{{ emp.viewDate | date :'dd MMM yyyy' }}</td>
-                        <td class="vat text-center">{{emp.completedDate | date :'dd MMM yyyy'}}</td>
+                        <td class="vat text-center">{{ emp.viewDate | date :'MM/dd/yyyy' }}</td>
+                        <td class="vat text-center">{{emp.completedDate | date :'MM/dd/yyyy'}}</td>
                     </tr>
                     <!-- <tr *ngIf="mf.data?.length == 0">
                   <td colspan="10" class="text-center data-design">{{labels.noData}}</td>

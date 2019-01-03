@@ -8,7 +8,7 @@ export class BatchVar{
    labels = {
         from       : 'From',
         to         : 'To',
-        batchName  : 'Training Class',
+        batchName  : 'Training Class Name',
         selectDept  : 'Department',
         module     : 'Program',
         mandatory  : 'Mandatory',
