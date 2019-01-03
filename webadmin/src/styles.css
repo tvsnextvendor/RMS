@@ -484,13 +484,13 @@ li {
 .resort-btn{
 	border: 1px solid #999999;
     border-radius: 4px;
-    width: 40%;
+    margin-left: 15px;
     padding: 2px;
     color: #999999;
     float: right;
     font-size: 14px;
 }
-.wdt{width: 20%;}
+/*.wdt{width: 20%;}*/
 .bor-right{
 	border-right: 2px solid #ccc;
 }
@@ -608,7 +608,7 @@ li {
   /* fallback */
 }
 .custom-table tbody td, .custom-table thead th {
-  width: 33.3%;
+  width: 40%;
   float: left;
 }
 .table-striped tbody tr:nth-of-type(odd) {
