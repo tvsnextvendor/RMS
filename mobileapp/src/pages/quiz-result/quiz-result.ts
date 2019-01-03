@@ -24,14 +24,11 @@ export class QuizResultPage implements OnInit {
         this.resultData['percentage'] = Math.round((this.resultData['correctAnswers'] / this.resultData['totalQuestions']) * 100);
         events.subscribe('star-rating:changed', (starRating) => { 
             this.feedback.rating = starRating;
-            
-            console.log(starRating)
          });
     }
     ngOnInit() {
         this.feedbackform = new FormGroup({
-            'description': new FormControl('', [Validators.required]),
-            //'rating':new FormControl('', [Validators.required]),
+            'description': new FormControl('', [Validators.required])
         });
     }
 
@@ -39,8 +36,12 @@ export class QuizResultPage implements OnInit {
         this.navCtrl.setRoot('home-page');
     }
     feedbackForm() {
-        console.log(this.feedback);
-        this.toastr.success('Feedback saved successfully');
-        this.closeToStart();
+        if(this.feedback && !this.feedback.rating){
+            this.toastr.error("Rating is required"); return false;
+        }else{
+            this.toastr.success('Feedback saved successfully');
+            this.closeToStart();
+        }
+       
     }
 }
