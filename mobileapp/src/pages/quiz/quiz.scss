@@ -1,4 +1,5 @@
-page-quiz .scroll-content {
+page-quiz{
+ .scroll-content {
     background-image: linear-gradient(#2F99D4, #005684);
     padding: 16px 32px !important;
 }
@@ -131,4 +132,5 @@ ion-toolbar ion-icon {
     font-size: 31px;
     color:#329CD6;
     float: left;
+}
 }

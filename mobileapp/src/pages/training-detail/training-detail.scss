@@ -1,7 +1,10 @@
-page-training-detail .scroll-content {
+page-training-detail {
+
+
+.scroll-content {
     // background-image: linear-gradient(#2F99D4, #005684);
     background: #F9F9F9;
-    padding: 16px 32px !important;
+    padding: 0px !important;
     font-family: 'sf_pro_displayregular';
 }
 
@@ -15,6 +18,9 @@ ion-header.header-ios {
 
 ion-toolbar {
     color: #fff;
+}
+.training-block{
+    padding: 16px;
 }
 
 ion-toolbar ion-icon {
@@ -34,8 +40,8 @@ ion-toolbar ion-icon {
     margin-left: 15px;
 }
 
-.inner-content {
-    margin-top: 100px;
+ .inner-content {
+    margin-top: 0;
 }
 
 .more-icon {
@@ -60,7 +66,21 @@ ion-toolbar ion-icon {
 }
 
 .videoPlayer {
-    width: 100%
+    width: 100%;
+    //position: fixed;
+    // top: 50%;
+    // left: 50%;
+    // min-width: 100%;
+    // min-height: 100%;
+   // height: auto;
+    //z-index: -100;
+	// -webkit-transform: translateX(-50%) translateY(-50%);
+	// -moz-transform: translateX(-50%) translateY(-50%);
+	// -ms-transform: translateX(-50%) translateY(-50%);
+	// -o-transform: translateX(-50%) translateY(-50%);
+    // transform: translateX(-50%) translateY(-50%);
+    object-fit: fill;
+    background-size: cover;
 }
 
 
@@ -173,6 +193,9 @@ ion-toolbar ion-icon {
     font-size: 0;
     background: #D5D5D5;
 }
+
+}
+// alert pop up
 .alert-button .button-inner{
     font-weight: normal;
 }

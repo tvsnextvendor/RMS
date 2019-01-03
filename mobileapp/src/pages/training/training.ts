@@ -75,6 +75,32 @@ export class TrainingPage{
         });
     });
   }
+  getCoursesSeparate() {
+    return new Promise(resolve => {
+      this.http.getData(API_URL.URLS.getCourses).subscribe((data) => {
+        this.allCourses = data;
+        var self = this;
+        this.userAssigned.map(function (value, key) {
+          let assignedobject = self.allCourses.find(x => x.courseId === value);
+          self.assignedCoursesList.push(assignedobject);
+        });
+        this.userProgress.map(function (value, key) {
+          let progressObject = self.allCourses.find(x => x.courseId === value);
+          self.progressCoursesList.push(progressObject);
+        });
+        this.userCompleted.map(function (value, key) {
+          let completedObject = self.allCourses.find(x => x.courseId === value);
+          self.completeCoursesList.push(completedObject);
+        });
+        resolve('resolved');
+      },(err) =>{
+        console.log('error occured', err);
+        resolve('rejected');
+      });
+    });
+  }
+
+
 
   // show tabs
   showData(show) {
@@ -104,20 +130,20 @@ export class TrainingPage{
   getModules() {
     this.http.getData(API_URL.URLS.getModules).subscribe((data) => {
       if (data['isSuccess']) {
-        this.modules = data['ModuleList'];
+        this.modules = data['programList'];
       }
     });
   }
 
   // get training list
-  getTrainingList() {
-    this.http.getData(API_URL.URLS.getTraining).subscribe((data) => {
-      this.training = data;
-      this.assignedList = this.training.assigned;
-      this.inprogressList = this.training.inprogress;
-      this.completedList = this.training.completed;
-    });
-  }
+  // getTrainingList() {
+  //   this.http.getData(API_URL.URLS.getTraining).subscribe((data) => {
+  //     this.training = data;
+  //     this.assignedList = this.training.assigned;
+  //     this.inprogressList = this.training.inprogress;
+  //     this.completedList = this.training.completed;
+  //   });
+  // }
   //open  page
   openTrainingDetail(detailObj, selectedIndex) {
     this.paramsData['setData'] = detailObj;
@@ -129,27 +155,13 @@ export class TrainingPage{
    
     this.loader.showLoader();
     await this.getLocalStorageInfo();
-    this.http.getData(API_URL.URLS.getCourses).subscribe((data) => {
-      this.allCourses = data;
-      var self = this;
-      this.userAssigned.map(function (value, key) {
-        let assignedobject = self.allCourses.find(x => x.courseId === value);
-        self.assignedCoursesList.push(assignedobject);
-      });
-      this.userProgress.map(function (value, key) {
-        let progressObject = self.allCourses.find(x => x.courseId === value);
-        self.progressCoursesList.push(progressObject);
-      });
-      this.userCompleted.map(function (value, key) {
-        let completedObject = self.allCourses.find(x => x.courseId === value);
-        self.completeCoursesList.push(completedObject);
-      });
-      this.loader.hideLoader();
-    });
+    await this.getCoursesSeparate();
+    this.loader.hideLoader();
+   
   }
 
   changeModule(list) {
-    this.selectedModule = list.moduleName;
+    this.selectedModule = list.name;
   }
   goToNotification(){
     this.navCtrl.setRoot('notification-page');

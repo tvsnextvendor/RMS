@@ -1,24 +1,20 @@
 <ion-content padding class="details-page-content">
     <ion-header no-border>
         <ion-toolbar transparent class="details-page-toolbar ">
-            <ion-icon name="ios-arrow-back" (click)="goBackToDetailPage()"></ion-icon>
-            <p>{{videoMenuTitle}}</p>
+            <ion-icon name="ios-arrow-back" (click)="goBackLevel()"></ion-icon>
+            <p>{{courseName}}</p>
         </ion-toolbar>
     </ion-header>
-    <div class="inner-content">
+
+    <!-- Previous Works Modifications -->
+    <!-- <div class="inner-content">
         <div class="row">
             <div class="slides-container">
                 <ion-slides pager (ionSlideDidChange)="slideChanged()">
                      <ion-slide *ngFor="let slide of trainingDatas">
-                       <!-- <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
-                                <source src="{{slide.videoLink}}" type="video/mp4" />
-                        </video> -->
-                        <video class="video-width" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer">
-                            <source src="{{slide.videoLink}}" type="video/mp4"/>
+                        <video class="video-width" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" playsinline class="videoPlayer">
+                            <source src="{{slide.fileLink}}" type="video/mp4"/>
                         </video>
-                        <!-- <video muted="true" playsinline looped preload="auto">
-                                <source src="{{slide.videoLink}}" type="video/mp4"/>
-                        </video> -->
                         <div class = "video-content">
                             <div class = "loading-bar-div">
                                 <div class = "loading-bar">
@@ -30,7 +26,7 @@
                                     <p>{{Math.round(loadingBarWidth * (currentVideoIndex+1))}}<sub>%</sub></p>
                                 </span>
                             </div>
-                            <ion-card-title [innerHTML]="slide.videoDescription" class = "video-title"></ion-card-title>
+                            <ion-card-title [innerHTML]="slide.fileDescription" class = "video-title"></ion-card-title>
                             <span class = "video-description">
                                 <p [innerHTML]="slide.description"></p>
                             </span>
@@ -50,6 +46,26 @@
                     </span>
                 </div>
             </div>
+        </div>
+    </div> -->
+
+
+    <div class="inner-content" *ngIf="setTraining">
+        <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
+            playsinline class="videoPlayer">
+            <source src="{{setTraining.fileLink}}" type="video/mp4" />
+        </video>
+        <div class="row training-block">
+            <h6>{{setTraining.fileTitle}}</h6>
+            <p>
+                {{setTraining.fileDescription}}
+            </p>
+            <span class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
+                {{constant.buttons.next}}
+            </span>
+            <span class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="quizBtn">
+                {{constant.buttons.takeQuiz}}
+            </span>
         </div>
     </div>
 </ion-content>

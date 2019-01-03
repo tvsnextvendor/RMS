@@ -6,11 +6,10 @@
     <ion-title class="text-left">
       {{constant.title.training}}
       <div class="header-icon" (click)="goToNotification()">
-          <ion-icon name="ios-notifications-outline"></ion-icon>
-          <span class="dot-circle"></span>
-        </div>
+        <ion-icon name="ios-notifications-outline"></ion-icon>
+        <span class="dot-circle"></span>
+      </div>
     </ion-title>
-   
   </ion-navbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">
@@ -24,8 +23,8 @@
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="modules">
         <a class="dropdown-item" href="javascript:void(0)" *ngFor="let list of modules;let i =index;" (click)="changeModule(list)">
-          <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span>
-          {{list.moduleName}}
+          <!-- <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span> -->
+          {{list.name}}
         </a>
       </div>
     </div>
@@ -41,12 +40,12 @@
       {{constant.pages.trainingLabels.completedLabel}}
     </a>
   </div>
-  <div class="tab-content" [hidden]="showAssigned">
+  <div class="tab-content" [hidden]="showAssigned" *ngIf="assignedCoursesList.length > 0">
     <ion-card class="training-list" *ngFor="let task of assignedCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
         <span class="course-name">{{task.courseName}}</span>
-        <span class="com-percen">{{task.completePercent}}% Complete</span>
-        <img src="{{task.videos[0].featuredImage}}" />
+        <span class="com-percen">{{task.completePercent}}% {{constant.pages.dashboardLabels.complete}}</span>
+        <img src="{{task.files[0].featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
         </span>
@@ -56,7 +55,7 @@
           <ion-grid no-padding class="post-details">
             <ion-row class="">
               <ion-col col-7 class=" ">
-                <p class="training-name">{{task.videos[0].videoTitle}} </p>
+                <p class="training-name">{{task.files[0].fileTitle}} </p>
               </ion-col>
               <ion-col col-5 class="">
                 <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate |
@@ -66,17 +65,17 @@
           </ion-grid>
         </ion-card-title>
         <p class="training-desc">
-          {{task.videos[0].videoDescription | words : 15 }}
+          {{task.files[0].fileDescription | words : 15 }}
         </p>
       </ion-card-content>
     </ion-card>
   </div>
-  <div class="tab-content" [hidden]="showProgress">
+  <div class="tab-content" [hidden]="showProgress" *ngIf="progressCoursesList.length > 0">
     <ion-card class="training-list" *ngFor="let task of progressCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
         <span class="course-name">{{task.courseName}}</span>
-        <span class="com-percen">{{task.completePercent}}% Complete</span>
-        <img src="{{task.videos[0].featuredImage}}" />
+        <span class="com-percen">{{task.completePercent}}% {{constant.pages.dashboardLabels.complete}}</span>
+        <img src="{{task.files[0].featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
         </span>
@@ -86,7 +85,7 @@
           <ion-grid no-padding class="post-details">
             <ion-row class="">
               <ion-col col-7 class=" ">
-                <p class="training-name">{{task.videos[0].videoTitle}} </p>
+                <p class="training-name">{{task.files[0].fileTitle}} </p>
               </ion-col>
               <ion-col col-5 class="">
                 <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate |
@@ -96,17 +95,17 @@
           </ion-grid>
         </ion-card-title>
         <p class="training-desc">
-          {{task.videos[0].videoDescription | words : 15 }}
+          {{task.files[0].fileDescription | words : 15 }}
         </p>
       </ion-card-content>
     </ion-card>
   </div>
-  <div class="tab-content" [hidden]="showCompleted">
+  <div class="tab-content" [hidden]="showCompleted" *ngIf="completeCoursesList.length > 0">
     <ion-card class="training-list" *ngFor="let task of completeCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
       <div class="training-image">
         <span class="course-name">{{task.courseName}}</span>
-        <span class="com-percen">{{task.completePercent}}% Complete</span>
-        <img src="{{task.videos[0].featuredImage}}" />
+        <span class="com-percen">{{task.completePercent}}% {{constant.pages.dashboardLabels.complete}}</span>
+        <img src="{{task.files[0].featuredImage}}" />
         <span class="play-icon">
           <img src="../assets/imgs/play-button (2).png" />
         </span>
@@ -116,7 +115,7 @@
           <ion-grid no-padding class="post-details">
             <ion-row class="">
               <ion-col col-7 class=" ">
-                <p class="training-name">{{task.videos[0].videoTitle}}</p>
+                <p class="training-name">{{task.files[0].fileTitle}}</p>
               </ion-col>
               <ion-col col-5 class="">
                 <p class="post-date">{{constant.pages.trainingLabels.lastViewed}} {{task.lastViewedDate |
@@ -126,7 +125,7 @@
           </ion-grid>
         </ion-card-title>
         <p class="training-desc">
-          {{task.videos[0].videoDescription | words : 15 }}
+          {{task.files[0].fileDescription | words : 15 }}
         </p>
       </ion-card-content>
     </ion-card>

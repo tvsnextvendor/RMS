@@ -65,7 +65,7 @@ export class HomePage {
   getModules() {
     this.http.getData(API_URL.URLS.getModules).subscribe((data) => {
       if (data['isSuccess']) {
-        this.modules = data['ModuleList'];
+        this.modules = data['programList'];
       }
     });
   }
@@ -76,7 +76,7 @@ export class HomePage {
     return days[d.getDay()] + ',' + months[d.getMonth()] + ' ' + d.getDate();
   }
   changeModule(list){
-    this.selectedModule = list.moduleName;
+    this.selectedModule = list.name;
   }
   goToNotification(){
     this.navCtrl.setRoot('notification-page');

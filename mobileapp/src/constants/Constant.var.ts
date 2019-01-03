@@ -8,7 +8,7 @@ export class Constant {
         quiz: 'Quiz',
         accomplishment:'Accomplishments',
         changePassword:'Change Password',
-        event:'Training Batches',
+        event:'Training Classes',
         profile:'Profile',
         forum:'Forum',
         menu:'Menu',
@@ -96,7 +96,8 @@ export class Constant {
             badges: 'Badges',
             accomplishments: 'Accomplishments',
             certificatesObtained:'Certificates Obtained',
-            badgesObtained:'Badges Obtained'
+            badgesObtained:'Badges Obtained',
+            complete:'Complete'
 
         },
         trainingLabels: {
