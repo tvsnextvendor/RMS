@@ -29,7 +29,7 @@
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="modules">
         <a class="dropdown-item" href="javascript:void(0)" *ngFor="let list of modules;let i =index;" (click)="changeModule(list)">
-          <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span>
+          <!-- <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span> -->
           {{list.moduleName}}
         </a>
       </div>
