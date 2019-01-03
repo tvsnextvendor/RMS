@@ -6,6 +6,7 @@ export class CertificateVar{
 
    labels = {
         batch             : 'Batch',
+        program           : 'Program',
         template          : 'Template',
         tempName          : 'Template Name',
         tempNameMandatory : 'Template Name is required.',
@@ -28,10 +29,10 @@ export class CertificateVar{
     assignErrMsg     = 'Invalid Batch Selection';
     url;
     certificateList;
-    batchList;
+    programList;
     fileToUpload: File = null;
     templateAssign : any[]=[{
-        batch: 1,
+        program: 1,
         template: 2
       }
      ]
