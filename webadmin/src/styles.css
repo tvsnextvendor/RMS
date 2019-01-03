@@ -12,13 +12,15 @@ body {
 .hd-alg{
   font-size: 20px;
   font-weight: 600;
-  float: left;
+  float: left;  
+  line-height: 31px;
+}
+.header-border{
   position: absolute;
   border-left: 3px solid #468FB9;
   height: 30px;
   left: -16px;
   padding: 0 0 0 12px;
-  line-height: 31px;
 }
 .sucess-msg{
     color:green !important
@@ -311,11 +313,12 @@ li.search-block {
     will-change: transform;
 }
 .module-btn{
-	color: #9B9B9B;
+	  color: #9B9B9B;
     border: 1px solid #9B9B9B;
     border-radius: 5px;
-    margin: 5px 0 0 170px;
     font-size: 15px;
+    margin-left: 7px;
+    margin-top: 5px;
 }
 /*************************End  Header ***********************/
 
@@ -1037,6 +1040,9 @@ a {
   width: 50%;
   margin: 0 auto;
 }
+.setting-alg{
+  width: 70% !important;
+}
 }
 @media (max-width: 767px) { 
 .did-line {
@@ -1052,6 +1058,10 @@ a {
 .modal-content{
   width: 60%;
   margin: 0 auto;
+}
+.setting-alg{
+  width: 95% !important;
+  text-align: center;
 }
 }
 @media (max-width: 480px) { 
@@ -1082,9 +1092,9 @@ a {
     text-align: center;
     margin: 0 !important;
 }
-.hd-alg{
+/*.hd-alg{
   display: contents;
-}
+}*/
 .video-hd{
   width: 65% !important;
 }
@@ -1101,5 +1111,15 @@ a {
   float: none !important;
   width: 70%;
   margin: 0 auto;
+}
+.setting-alg{
+  width: 95% !important;
+  text-align: center;
+}
+.header-border{
+   position: static;
+    width: 100%;
+    display: block;
+    border: unset;
 }
 }
