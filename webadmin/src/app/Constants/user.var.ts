@@ -15,6 +15,7 @@ export class UserVar{
         "department" : "Department",
         "mobile" : "Mobile",
         "email" : "Email",
+        "employeeId" : "Emp ID",
         "updateRestrictMsg" : "Unable to perform update user" ,
         "addRestrictMsg" : "Unable to perform add user" ,
         "mandatoryFields" : "Fill all user data fields",

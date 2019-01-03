@@ -19,10 +19,12 @@ export class UserComponent implements OnInit {
 
    editEnable = false;
    userName;
+   userId;
    department;
    designation;
    emailAddress;
    phoneNumber;
+   userIndex;
    pageLimitOptions = [];
    pageLimit;
    labels;
@@ -30,6 +32,7 @@ export class UserComponent implements OnInit {
    message;
    validPhone = false;
    validEmail = false;
+   validUserId = false;
    departmentArray = [];
    designationArray = [];
    designationData = [];
@@ -72,7 +75,9 @@ export class UserComponent implements OnInit {
         if(!this.editEnable){       
             this.constant.userList[index].editEnable =true;
             this.editEnable = true;
+            this.userIndex = index;
             this.userName = data.employeeName;
+            this.userId = data.employeeId;
             this.department = data.department;
             // this.designation = data.designation;
             this.emailAddress = data.emailId;
@@ -117,7 +122,7 @@ export class UserComponent implements OnInit {
             }
             this.constant.userList.push(obj);
             this.editEnable = true;
-            this.constant.userList = _.orderBy(this.constant.userList, ['employeeName'],['asc'])
+            this.constant.userList = _.orderBy(this.constant.userList, ['employeeId'],['asc'])
             this.resetFields();
         }
         else{
@@ -129,6 +134,7 @@ export class UserComponent implements OnInit {
    //reset
     resetFields(){
         this.userName = '';
+        this.userId = '';
         this.department = '';
         this.designation = '';
         this.emailAddress = '';
@@ -162,10 +168,10 @@ export class UserComponent implements OnInit {
     userUpdate(data,index){
         this.videoSubmitted = true;
         this.validationUpdate("submit");
-        if(this.userName && this.department && this.designation && this.emailAddress && !this.validEmail && this.phoneNumber && !this.validPhone){
+        if(this.userId && this.userName && this.department && this.designation && this.emailAddress && !this.validEmail && this.phoneNumber && !this.validPhone && !this.validUserId){
             let i = data.employeeId === '' ? ('0') : this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
             this.constant.userList[i]={
-                "employeeId" : data.employeeId === '' ? this.constant.userList.length : data.employeeId ,
+                "employeeId" : this.userId,
                 "employeeName" :  this.userName ,
                 "department" : this.department,
                 "designation" : this.designation,
@@ -176,9 +182,10 @@ export class UserComponent implements OnInit {
             };
             this.editEnable = false;
             this.videoSubmitted = false;
+            this.userIndex = '';
             this.resetFields();
             this.message = data.employeeId === '' ? (this.labels.userAdded) : (this.labels.userUpdated);
-            this.constant.userList = _.orderBy(this.constant.userList, ['employeeName'],['asc'])
+            this.constant.userList = _.orderBy(this.constant.userList, ['employeeId'],['asc'])
             this.alertService.success(this.message);
         }
         // else if(!validEmail){
@@ -193,16 +200,26 @@ export class UserComponent implements OnInit {
     }
 
     validationUpdate(type){
-        console.log(type)
         if(type === "email"){
             this.validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? true : false;
         }
         else if(type === "mobile"){
             this.validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? false : true;
         }
+        else if(type === "userId"){
+            let idCheck = this.constant.userList.find(x=>x.employeeId === this.userId);
+            let editIndexCheck =  this.constant.userList.findIndex(x=>x.employeeId === this.userId)
+            console.log(this.userIndex,editIndexCheck);
+            debugger;
+            this.validUserId = idCheck ? ( this.userIndex === editIndexCheck ? false : true) : false;
+        }
         else{
             this.validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? true : false;
             this.validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? false : true;
+            let idCheck = this.constant.userList.find(x=>x.employeeId === this.userId);
+            let editIndexCheck =  this.constant.userList.findIndex(x=>x.employeeId === this.userId)
+            debugger;
+            this.validUserId = idCheck ? (this.userIndex === editIndexCheck ? false : true) : false;
         }
         
         

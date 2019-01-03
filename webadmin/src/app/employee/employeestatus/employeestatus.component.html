@@ -18,6 +18,9 @@
         <table class="table table-striped white-bg mt-1" [mfData]="employeeArray" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5" id="contentToConvert">
             <thead>
             <tr class="th-boxshadow">
+                <th class="text-center">
+                    <mfDefaultSorter by="employeeId">{{labels.tableTitle.employeeId}}</mfDefaultSorter>
+                </th>
                 <th class="pl-4 employeestatus-width">
                     <mfDefaultSorter by="employeeName">{{labels.tableTitle.employeeName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                 </th>
@@ -46,6 +49,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let emp of mf.data" class="table-desc-color">
+                <td class="text-center">{{ emp.employeeId }}</td>
                 <td class="pl-4 employeeName-width">{{ emp.employeeName }}</td>
                 <td class="text-center">{{ emp.employeeGroup }}</td>
                 <td class="text-center">{{ emp.assignedCount }}</td>

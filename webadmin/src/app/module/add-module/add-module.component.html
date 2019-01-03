@@ -31,6 +31,9 @@
 				<!-- <span class="col-md-1 pl-0"><a  (click)="addCourse()"><i class="fa fa-plus icons_header"></i></a></span> -->
 			</div>
 		</div>
+		<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
+			<button type="button" class="btn btn-primary btn-save" (click)="submitForm()">{{labels.save}}</button>
+		</div>
 	</form>
 	<div class="col-md-4 p-0">
 		<div class="white-bg pl-4 py-4">
@@ -124,7 +127,4 @@
 		</div>          	 -->
 	</tab>
 </tabset>
-</div>
-<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
-	<button type="button" class="btn btn-primary btn-save" (click)="submitForm()">{{labels.save}}</button>
 </div>
