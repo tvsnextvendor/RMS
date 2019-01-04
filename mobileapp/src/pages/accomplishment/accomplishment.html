@@ -20,7 +20,7 @@
 </ion-header>
 <ion-content padding class="headerFull-bg">
   <div class="certificate-block">
-    <h3>{{constant.pages.accomplishmentLabels.certificates}}</h3>
+    <h3 class="popup-tit">{{constant.pages.accomplishmentLabels.certificates}}</h3>
     <ion-slides #sliderOne [pager]="true" [slidesPerView]="2" class="certificate-slide" spaceBetween="1"
       (ionSlideDidChange)="onSlideCertChanged()">
       <ion-slide *ngFor="let item of certificateList;let i=index;" class="cert-indv-slide">
@@ -35,7 +35,7 @@
     </span>
   </div>
   <div class="badge-block">
-    <h3>{{constant.pages.accomplishmentLabels.badges}}</h3>
+    <h3 class="popup-tit badge-tit">{{constant.pages.accomplishmentLabels.badges}}</h3>
     <ion-slides #sliderTwo [pager]="true" [slidesPerView]="3" class="badge-slide" spaceBetween="1" (ionSlideDidChange)="onSlideBadgeChanged()">
       <ion-slide *ngFor="let item of badgeList;let i=index;" class="badge-indv-slide">
         <div class="badge-slider">
@@ -53,10 +53,10 @@
   </div>
   <ng-template #badgetemplate>
     <div class="modal-body">
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <button type="button" class="close close-icon pull-right " aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
-      <img class="img-subimage" src="{{badgeDetails.badgeSubImage}}" alt="{{badgeDetails.badgeSubImage}}">
+      <img class="img-subimage badge-img" src="{{badgeDetails.badgeSubImage}}" alt="{{badgeDetails.badgeSubImage}}">
       <p class="badge-description">{{badgeDetails.badgeDescription}}</p>
     </div>
   </ng-template>
