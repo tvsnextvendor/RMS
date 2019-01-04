@@ -24,7 +24,7 @@
     border: 1px solid #ADADAD;
     position: absolute;
     top: 64px;
-    right: 25px;
+    right: 11px;
     z-index: 10;
     font-size: 12px;
     padding: 5px;
@@ -51,7 +51,21 @@
 .totalEmployee{
   position: absolute;
     bottom: 43px;
-    left: 140px;
+    left: 130px;
     font-size: 15px;
     color: #454545;
+    font-weight: 600;
+}
+.top-employee-height, .topratedcourse{  
+  font-size: 16px;
+  font-weight: 600;
+  color: #454545;
+}
+.top-employee-height{
+height: 240px !important;
+}
+.percent-alg{
+  color: #1D4960;
+  font-size: 20px;
+  font-weight: 600;
 }
