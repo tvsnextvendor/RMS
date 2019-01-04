@@ -596,9 +596,9 @@ li {
   visibility: hidden;
   clear: both;
 }
-.custom-table thead th {
+/*.custom-table thead th {
   height: 30px;
-}
+}*/
 
 .custom-table tbody {
   height: 180px;

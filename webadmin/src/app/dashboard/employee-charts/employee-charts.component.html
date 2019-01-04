@@ -74,7 +74,8 @@
                 <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.employeeProgress}}</h6>
                 <div id="employeeProgress" style=" height: 206px; margin: 0 auto"></div>
-                <span class="totalEmployee">{{dashboardVar.totEmp}} {{dashboardVar.empProgress?.totalEmployee}}</span>
+                <span class="totalEmployee">{{dashboardVar.totEmp}} 
+                  <span class="percent-alg">{{dashboardVar.empProgress?.totalEmployee}}</span></span>
               </div>
           </div>
       </div>
@@ -96,7 +97,7 @@
             </h6>
             <div class="avg-alg"><p class="mr0 avg-color">{{dashboardVar.avgWeekly}}</p>
               <p class="mr0 pect-color"><i  [ngClass]="dashboardVar.courseTrendData?.avgWeekly > 15  ? 'fa fa-caret-up pdr7':'fa fa-caret-down pdr7'" aria-hidden="true"></i>{{dashboardVar.courseTrendData?.avgWeekly}}%</p></div>  
-            <div id="videosTrend" style=" height: 195px; margin: 0 auto" (click)="goToVideosTrend()"></div>
+            <div id="videosTrend" style="height: 195px; margin: 0 auto; padding-left: 12px;" (click)="goToVideosTrend()"></div>
           </div>
         </div>
         <div class="col-sm-3 pl-0">
@@ -104,7 +105,7 @@
                 <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 {{dashboardVar.employeeGridsTitle.topCourses}}</h6>
                 <table class="table">
-                    <tbody>
+                    <tbody class="topratedcourse">
                       <tr *ngFor="let item of topCourses">
                         <td>
                           {{item.courseName}}
@@ -132,7 +133,7 @@
           </div>
         </div>
          <div class="col-sm-6 p-0"  *ngIf="hideCharts">
-    <div class="chart-bg"  style=" height: 287px">
+    <div class="chart-bg"  style=" height: 335px">
       <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
       {{dashboardVar.employeeGridsTitle.certificationTrend}}<select class="select-btn"><option value="Total">Total</option>
         <i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
@@ -141,11 +142,11 @@
           <div class="percentage-alg">{{dashboardVar.certificationTrend.avgQualification}}%</div>
           <p class="para-alg">{{dashboardVar.emp}}</p>
         </div>
-      <div id="certificationTrend" style=" height: 210px; margin: 0 auto"></div>
+      <div id="certificationTrend" style="height: 210px;margin: 0 auto;padding-top: 45px;"></div>
     </div>
   </div>
   <div class="col-sm-6 pr-0">
-    <div class="chart-bg"  style="height: 288px">
+    <div class="chart-bg"  style="height: 335px">
       <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
         {{dashboardVar.employeeGridsTitle.topEmployees}}
         <select class="select-btn"><option value="This Month">{{dashboardVar.monthDropdown}}</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
@@ -158,7 +159,7 @@
             <th>{{dashboardVar.employeeGridsTitle.score}}</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="top-employee-height">
           <tr *ngFor="let item of dashboardVar.topEmployees">
             <td>{{item.id}}.{{item.name}}</td>
             <td>{{item.module}}</td>
