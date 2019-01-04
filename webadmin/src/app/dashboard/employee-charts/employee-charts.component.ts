@@ -555,26 +555,26 @@ topEmployees() {
               text: 'Total',
               verticalAlign: 'middle',
               align: 'top',
-              x: 110,
+              x: 120,
               y: -10,
               floating: true,
               style: {
                 color: '#468FB9',
                 fontWeight: 'normal',
-                fontSize: '10px'
+                fontSize: '14px'
             }
           },
           subtitle: {
             text: '100',
             verticalAlign: 'middle',
-            align: 'left',
-            x: 105,
+            align: 'middle',
+            x: 120,
             floating: true,
             style: {
               color: '#468FB9',
               fontWeight: 'normal',
               fontSize: '20px'
-            }
+              }
           },
             tooltip: {
                 pointFormat: '<b>{point.percentage:.1f}%</b>'

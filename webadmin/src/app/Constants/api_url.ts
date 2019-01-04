@@ -51,7 +51,7 @@ export class API_URL {
    //*getUsersList      : '5c260d313000007f0067f6ba',
    //getDepartments     : '5c2085822e00009c001e0af4',
    getDepartments       : '5c25fa2a300000540067f651',
-   //getDesignations      : "5c2626bb3000007a0067f719",
+   //getDesignations    : "5c2626bb3000007a0067f719",
    getDesignations      : '5c29c1d22e00006a00c18ac7',
    getNewBatchList      : '5c2e16a32f0000a052175443',
    // Content To Bo Live
@@ -60,8 +60,8 @@ export class API_URL {
    getProgramList:'5c2de3ee2f00001c3d1752bb',
    getResortList : '5c2df79b2f0000a230175376',
    moduleCourseList: '5c2deec42f00003747175314',
-   getNotifications : '5c2de58e2f0000a3301752c1',
-
+   getNotifications : '5c2f13d23200001000590603',
+   getVisitorsStaffData     : '5c2ef7383200007200590561'
   }
 
 }
