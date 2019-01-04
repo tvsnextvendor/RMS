@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar *ngIf="!showSearchBar">
+  <ion-toolbar *ngIf="!showSearchBar">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -9,14 +9,12 @@
         <ion-icon name="search" (click)="toggleSearchBox()"></ion-icon>
       </div>
     </ion-title>
-  </ion-navbar>
-  <ion-navbar *ngIf="showSearchBar">
+  </ion-toolbar>
+  <ion-toolbar *ngIf="showSearchBar">
     <ion-icon name="ios-arrow-back" (click)="toggleSearchBox()"></ion-icon>
-    <label class="item item-input">
-      <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+      <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" class="search-bar">
       </ion-searchbar>
-    </label>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">
   <ion-list>

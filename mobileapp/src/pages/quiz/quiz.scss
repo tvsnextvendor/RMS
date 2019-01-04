@@ -49,14 +49,12 @@ ion-toolbar ion-icon {
 }
 
 .quiz-content .selectedQuizContentTitle {
-    font-size: 22px;
-    color: rgba(255,255,255, 1);
+   color: rgba(255,255,255, 1);
     text-transform: capitalize;
 }
 
 .quiz-description {
     color: rgba(255,255,255, 0.7);
-    font-size: 20px;
 }
 
 .quiz-content-options {
@@ -114,8 +112,8 @@ ion-toolbar ion-icon {
     background: none;
     color: #fff;
     height: 43px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 100;
 }
 
 .quiz-btn[disabled] {

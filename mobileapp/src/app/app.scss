@@ -296,6 +296,14 @@ button:focus {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.toolbar .searchbar-ios .searchbar-input,.searchbar-md .searchbar-input {
+    background: #fff;
+    border-radius: 0;
+    height: 30px !important;
+}
+.searchbar-md .searchbar-search-icon{
+    top: 6px;
+}
 @media (min-width: 1200px) { } 
 @media (min-width: 980px) and (max-width: 1199px) { } 
 @media (min-width: 768px) and (max-width: 979px) { } 
