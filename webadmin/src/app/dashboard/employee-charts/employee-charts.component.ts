@@ -334,12 +334,6 @@ inProgress(){
            display: 'none'
        }
        },
-       subtitle: {
-            text: '',
-       style: {
-           display: 'none'
-       }
-       },
      xAxis: {
        labels: {enabled: false}
      },
@@ -396,23 +390,24 @@ courseTrend() {
         type: 'column'
     },
     title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
+       text: 'null',
     style: {
         display: 'none'
     }
     },
     xAxis: {
+      gridLineWidth: 0,
+      minorGridLineWidth: 0,
         categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
     },
     yAxis: {
         min: 0,
-        max: 100,
+        max: 50,
+        title: {
+          text :null
+        },
+        gridLineWidth: 0,
+        minorGridLineWidth: 0,
         stackLabels: {
             enabled: false,
             style: {
@@ -478,7 +473,18 @@ employeeProgressPie() {
     series: [{
         name: 'Brands',
         colorByPoint: true,
-        data:  this.dashboardVar.empProgress.data
+        data:  this.dashboardVar.empProgress.data,
+        dataLabels: {
+          verticalAlign: 'top',
+          enabled: true,
+          color: '#ffffff',
+          connectorWidth: 1,
+          distance: -30,
+          connectorColor: '#ffffff',
+          formatter: function () {
+              return Math.round(this.percentage) + '%';
+          }
+        }
     }]
 });
 }
