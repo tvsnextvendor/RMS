@@ -1,6 +1,8 @@
 page-training {
 	.scroll-content{
 		background-color: #F9F9F9;
+		 padding-left: 0px !important;
+        padding-top: 10px !important;
 	}
 	.headerFull-bg {
 		 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
@@ -23,6 +25,13 @@ page-training {
 	ion-header.header {
 		padding: 0;
 	}
+	  .main-forum {
+        padding-left: 16px;
+        padding-right: 0;
+    }
+    .module-select {
+    padding-left: 16px;
+}
 }
 .training-title {
 	padding: 0 0 5px 0;

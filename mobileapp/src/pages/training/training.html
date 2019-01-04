@@ -41,7 +41,9 @@
     </a>
   </div>
   <div class="tab-content" [hidden]="showAssigned" *ngIf="assignedCoursesList.length > 0">
-    <ion-card class="training-list" *ngFor="let task of assignedCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of assignedCoursesList;let i=index;" (click)="openTrainingDetail(task,i)" class="main-forum">
+    <ion-card class="training-list" >
       <div class="training-image">
         <span class="course-name">{{task.courseName}}</span>
         <span class="com-percen">{{task.completePercent}}% {{constant.pages.dashboardLabels.complete}}</span>
@@ -69,6 +71,8 @@
         </p>
       </ion-card-content>
     </ion-card>
+  </ion-col>
+</ion-row>
   </div>
   <div class="tab-content" [hidden]="showProgress" *ngIf="progressCoursesList.length > 0">
     <ion-card class="training-list" *ngFor="let task of progressCoursesList;let i=index;" (click)="openTrainingDetail(task,i)">

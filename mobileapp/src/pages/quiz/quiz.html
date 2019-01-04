@@ -17,12 +17,18 @@
                         </div>
                         <div class="quiz-content-options" *ngIf="selectedQuizContent.options && selectedQuizContent.options.length">
                             <span *ngFor="let quizOption of selectedQuizContent.options" class="quizOption">
-                                <label for={{quizOption.value}}></label>
-                                <ion-icon name="radio-button-off" class="quizOption-icon" *ngIf="quizOption.value != quizData[quizStep]['selectedAnswer']"></ion-icon>
-                                <ion-icon name="checkmark-circle" class="quizOption-icon" *ngIf="quizOption.value == quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                <ion-row>
+                                    <ion-col col-1 class="quiz-radio">
+                                        <label for={{quizOption.value}}></label>
+                                        <ion-icon name="radio-button-off" class="quizOption-icon" *ngIf="quizOption.value != quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        <ion-icon name="checkmark-circle" class="quizOption-icon" *ngIf="quizOption.value == quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                    </ion-col>
+                                    <ion-col col-11>
                                 <input hidden id={{quizOption.value}} type="radio" class="with-font" name="radiogroup"
                                     [value]="quizOption.value" (change)="changeSelectedValue(quizOption)" [checked]="quizOption.value == quizData[quizStep]['selectedAnswer']" />
                                 <p>{{quizOption.label}}</p>
+                            </ion-col>
+                            </ion-row>
                             </span>
                         </div>
                     </div>
