@@ -46,7 +46,7 @@ button:focus {
   margin-top: 75px;
 }
 .pdl65{
-  padding-left: 65px;
+  padding-left: 65px !important;
 }
 .pdl27{
   padding-left: 27px;
@@ -307,10 +307,16 @@ li.search-block {
 }
 .header-noti-dropdown{
 	position: absolute;
-    transform: translate3d(-226px, 24px, 0px);
-    top: 15px;
-    left: 108px;
+    transform: translate3d(-226px, 24px, 0px) !important;
+    top: 7px !important;
+    left: 25px !important;
     will-change: transform;
+}
+.header-noti-dropdown .dropdown-item:hover {
+    background-color: #E5EFF5;
+}
+.user-logout .dropdown-item:hover {
+    background-color: #E5EFF5;
 }
 .module-btn{
 	  color: #9B9B9B;
@@ -1027,6 +1033,11 @@ a {
 .calender-view .cal-month-view .cal-cell-top {
     min-height: unset;
 }
+.cal-month-view .cal-cell-row .cal-cell:hover {
+    background-color: #E5EFF5 !important;
+}
+
+
 /****************end calender style**********/
 @media (min-width: 1200px) { }
 @media (min-width: 980px) and (max-width: 1199px) { }
