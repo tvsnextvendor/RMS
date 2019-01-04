@@ -30,7 +30,7 @@ export class ModuleDetailsComponent implements OnInit {
     previewImage;
     videoIndex;
     
-    constructor(public videoVar: VideoVar,private moduleVar: ModuleVar,private activatedRoute: ActivatedRoute,private modalService:BsModalService,public http: HttpService, private headerService: HeaderService,private alertService:AlertService) { 
+    constructor(public videoVar: VideoVar,public moduleVar: ModuleVar,private activatedRoute: ActivatedRoute,private modalService:BsModalService,public http: HttpService, private headerService: HeaderService,private alertService:AlertService) { 
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleVar.moduleId = params['moduleId'];
             this.moduleVar.courseId = params['courseId'];

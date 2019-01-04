@@ -13,7 +13,7 @@ import { API_URL } from '../Constants/api_url';
 
 export class VideosTrendComponent implements OnInit {
 
-   constructor(private headerService:HeaderService,private trendsVar: VideosTrendVar ,private http: HttpService){
+   constructor(private headerService:HeaderService,public trendsVar: VideosTrendVar ,private http: HttpService){
     this.trendsVar.url=API_URL.URLS;
    }
    

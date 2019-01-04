@@ -16,7 +16,7 @@ import { AlertService } from '../services/alert.service';
 export class ForumComponent implements OnInit {
    
 
-    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,private forumVar:ForumVar,private http: HttpService,private alertService:AlertService){
+    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,public forumVar:ForumVar,private http: HttpService,private alertService:AlertService){
        this.forumVar.url = API_URL.URLS;
     }
     filteredNames=[];

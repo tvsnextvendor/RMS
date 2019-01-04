@@ -19,7 +19,7 @@ export class ResortChartsComponent implements OnInit {
     BadgesCertificate = [];
     todayDate;
 
-  constructor(private dashboardVar: DashboardVar, private http: HttpService,private route:Router) {
+  constructor(public dashboardVar: DashboardVar, private http: HttpService,private route:Router) {
     this.dashboardVar.url=API_URL.URLS;
    }
 

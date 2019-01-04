@@ -16,7 +16,7 @@ import { MaterialModule } from './material.module';
 import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard.component';
-import { QuizModule } from './quiz/quiz.module';
+// import { QuizModule } from './quiz/quiz.module';
 import { GroupModule } from './group/group.module';
 import { ExcelService } from './services/excel.service';
 import { PDFService } from './services/pdf.service';
@@ -54,7 +54,7 @@ import { EmailModule } from './email/email.module';
     DashboardModule,
     CoursesModule,
     DataTableModule,
-    QuizModule,
+    // QuizModule,
     CertificatesModule,
     BatchModule,
     MaterialModule,

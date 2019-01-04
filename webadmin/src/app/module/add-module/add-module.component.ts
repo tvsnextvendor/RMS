@@ -39,7 +39,7 @@ export class AddModuleComponent implements OnInit {
     quizCheck = false;
     // selectedCourseIds:any;
 
-   constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,private moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
+   constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
         });
@@ -343,7 +343,7 @@ export class AddModuleComponent implements OnInit {
         }
    }
 
-    submitForm(form){
+    submitForm(){
         this.moduleSubmitted = true;
         // this.quiz  && this.quiz.quizSubmit();   
         if(this.moduleName && this.selectedCourses.length && !this.moduleVar.moduleNameCheck){
