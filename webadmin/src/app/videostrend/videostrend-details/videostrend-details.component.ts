@@ -16,7 +16,7 @@ import { API_URL } from 'src/app/Constants/api_url';
 export class VideosTrendDetailsComponent implements OnInit {
 
     CourseTrendList;
-    constructor(private headerService: HeaderService, private excelService: ExcelService, private pdfService: PDFService, private activatedRoute: ActivatedRoute, private trendsVar: VideosTrendVar, private http: HttpService) {
+    constructor(private headerService: HeaderService, private excelService: ExcelService, private pdfService: PDFService, private activatedRoute: ActivatedRoute, public trendsVar: VideosTrendVar, private http: HttpService) {
         this.activatedRoute.params.subscribe((params: Params) => {
             this.trendsVar.videoId = params['id'];
         });

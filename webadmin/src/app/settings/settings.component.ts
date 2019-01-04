@@ -20,7 +20,7 @@ export class SettingsComponent implements OnInit {
         confirmPwd: '',
     };
 
-   constructor(private alertService:AlertService,private location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,private constant:SettingVar){}
+   constructor(private alertService:AlertService,public location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,public constant:SettingVar){}
 
    ngOnInit(){
     this.headerService.setTitle({ title:this.constant.title, hidemodule: false});

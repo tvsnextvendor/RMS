@@ -19,7 +19,7 @@ export class CertificatesComponent implements OnInit {
 
    modalRef:BsModalRef;
 
-   constructor(private http: HttpService,private constant:CertificateVar,private modalService:BsModalService,private headerService:HeaderService,private toastr:ToastrService,private router:Router,private alertService:AlertService){
+   constructor(private http: HttpService,public constant:CertificateVar,private modalService:BsModalService,private headerService:HeaderService,private toastr:ToastrService,private router:Router,private alertService:AlertService){
        this.constant.url = API_URL.URLS;
    }
    ngOnInit(){

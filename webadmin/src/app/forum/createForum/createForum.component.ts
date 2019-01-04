@@ -15,6 +15,7 @@ export class CreateForumComponent implements OnInit {
    
     employeeItems;
     forumName;
+    adminItems;
     autocompleteItemsAsEmpObjects;
     adminList;
     topicsArray = [{
@@ -23,7 +24,7 @@ export class CreateForumComponent implements OnInit {
     topics;
     successMessage;
    
-   constructor(private toastr:ToastrService,private forumVar:ForumVar,private http: HttpService,private alertService:AlertService){
+   constructor(private toastr:ToastrService,public forumVar:ForumVar,private http: HttpService,private alertService:AlertService){
     this.forumVar.url = API_URL.URLS;
    }
 

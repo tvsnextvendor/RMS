@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
    designationArray = [];
    designationData = [];
 
-   constructor(private alertService:AlertService,private http: HttpService,private constant:UserVar,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
+   constructor(private alertService:AlertService,private http: HttpService,public constant:UserVar,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
         this.constant.url = API_URL.URLS;
         this.labels  = constant.labels;
    }

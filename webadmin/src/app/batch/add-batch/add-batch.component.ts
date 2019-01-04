@@ -18,7 +18,7 @@ import { AlertService } from '../../services/alert.service';
 export class AddBatchComponent implements OnInit {
 
 
-   constructor(private alertService:AlertService,private headerService:HeaderService,private datePipe: DatePipe,private activatedRoute : ActivatedRoute,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
+   constructor(private alertService:AlertService,private headerService:HeaderService,private datePipe: DatePipe,private activatedRoute : ActivatedRoute,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router){
         this.batchVar.url = API_URL.URLS; 
         this.activatedRoute.params.subscribe((params: Params) => {
         this.batchVar.batchId = params['batchId'];

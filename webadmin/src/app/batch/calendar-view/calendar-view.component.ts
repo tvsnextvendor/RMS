@@ -22,10 +22,11 @@ export class CalendarViewComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
+  activeDayIsOpen : boolean;
   events: CalendarEvent[] = [];
 
   
-   constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,private batchVar: BatchVar,private toastr:ToastrService,private router:Router){
+   constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router){
     this.batchVar.url = API_URL.URLS; 
    }
 

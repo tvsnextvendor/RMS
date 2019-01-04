@@ -22,7 +22,7 @@ export class EmployeeChartsComponent implements OnInit {
      topCourses;
      hideCharts=true;
      
-     constructor(private dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
+     constructor(public dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
       this.dashboardVar.url=API_URL.URLS;
       const userDetails = JSON.parse(localStorage.getItem('userData'));
        this.hideCharts= userDetails.roleId == 2 ? false :true;

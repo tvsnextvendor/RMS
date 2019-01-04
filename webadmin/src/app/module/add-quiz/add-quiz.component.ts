@@ -41,7 +41,7 @@ export class AddQuizComponent implements OnInit {
   hidemodule = false;
   optionData = true;
   
-  constructor(private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, private constant: QuizVar,private toastr: ToastrService) {
+  constructor(private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService) {
     this.apiUrls = API_URL.URLS;
   }
   

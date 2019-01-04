@@ -18,7 +18,7 @@ export class ModuleListComponent implements OnInit {
   textContent;
   message:string = '';
   moduleAdd = false;
-    constructor(private http: HttpService,private alertService: AlertService,private route: Router, private activatedRoute: ActivatedRoute,private moduleVar: ModuleVar,private toastr:ToastrService,private headerService:HeaderService){
+    constructor(private http: HttpService,private alertService: AlertService,private route: Router, private activatedRoute: ActivatedRoute,public moduleVar: ModuleVar,private toastr:ToastrService,private headerService:HeaderService){
         this.moduleVar.url=API_URL.URLS;
     }
     

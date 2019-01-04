@@ -14,7 +14,7 @@ import { AlertService } from '../services/alert.service';
 
 export class ProfileComponent implements OnInit {
     userDetails:any;
-   constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,private profVar: ProfileVar,private router:Router, private datepipe: DatePipe){
+   constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,public profVar: ProfileVar,private router:Router, private datepipe: DatePipe){
    
     const currentUrl = this.router.url;
     this.profVar.split_url= currentUrl.split('/');
