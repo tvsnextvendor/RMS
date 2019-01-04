@@ -22,12 +22,18 @@ export class DashboardVar {
   empProgress;
   visitorsResort;
   resortList;
+  visitorsData;
+  staffData;
+  total = 'total';
   title = 'Dashboard';
+  task = 'Task';
   select= 'Program';
   avgWeekly='Average weekly';
   avgQualification = 'Average Qualification';
   totEmp = "Total Employee";
   emp ='Employees';
+  selectResort = 'Select Resort';
+  weeklyGrowth='Weekly Growth';
   cloudy='CLOUDY';
   temp = '-4';
   degree = 'o';

@@ -42,6 +42,12 @@ export class ResortChartsComponent implements OnInit {
     this.dashboardVar.visitorsResort = data.resorts;
   })
 
+  this.http.get(this.dashboardVar.url.getVisitorsStaffData).subscribe((data) => {
+    this.dashboardVar.visitorsData = data.visitorsData;
+    this.dashboardVar.staffData = data.staffData;
+
+  })
+
     this.topResorts();
     this.badgesCertification();
     this.getKeyStat();
@@ -132,8 +138,7 @@ export class ResortChartsComponent implements OnInit {
       }
   },
   series: [{
-    // data: [0, 7.0, 5, 9, 8.3, 9.3, 6.8, 7.7, 6, 0]
-    data: [0, 5, 3.3, 4, 3.7, 5.5  , 4, 4.5, 5, 0 ]
+    data: this.dashboardVar.visitorsData.data
   }]
 });
 }
@@ -189,7 +194,7 @@ staffLineChart() {
         }
     },
     series: [{
-      data: [0, 1.5, 1.5, 3, 3, 3, 0  ]
+      data: this.dashboardVar.staffData.data
     }]
   });
   }
@@ -271,8 +276,8 @@ feedbackrating() {
    };
 
    const myBarChart = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: horizontalBarChartData,
+        type : 'horizontalBar',
+        data : horizontalBarChartData,
         options : options
 
     });

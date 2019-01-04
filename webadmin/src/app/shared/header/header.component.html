@@ -18,7 +18,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right header-noti-dropdown"  aria-labelledby="alertsDropdown">
               <a class="dropdown-item px-2 row" href="#" *ngFor="let notification of headerVar.notificationList?.notifications">
-                <span class="mr-1 col-sm-1 px-1"><img src="assets/images/nofitication_photo1.png"></span>
+                <span class="mr-1 col-sm-1 px-1"><img src={{notification?.imgUrl}}></span>
                 <span class="fs-12 col-sm-10 px-1">{{notification?.data}}</span>
                 <span class="col-sm-2 px-1">{{notification?.time}}</span></a>
             </div>

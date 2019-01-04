@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class SettingVar {
+
     settingFormLabels = {
         oldPassword: 'Old Password',
         newPassword: 'New Password',
@@ -22,4 +23,10 @@ export class SettingVar {
     title= 'Settings';
     pwdUpdateSuccessMsg = 'Password updated successfully';
     pwdMissmatchMsg  = 'Password Mismatch';
+    userId;
+    settings: any = {
+        oldPwd: '',
+        newPwd: '',
+        confirmPwd: '',
+    };
 }

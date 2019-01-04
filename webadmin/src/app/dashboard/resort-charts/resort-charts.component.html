@@ -3,19 +3,15 @@
   <div class="col-md-9 p-0">
     <div class="row my-4">
       <div class="col-md-1 p-0 pt-2 snow-img"><img src="assets/images/cool@2x.png">
-        <p class="cloudy pt-2">-4   <sup>o</sup>C</p>
-        <h6>CLOUDY</h6>
+        <p class="cloudy pt-2">{{dashboardVar.temp}}  <sup>{{dashboardVar.degree}}</sup>{{dashboardVar.celcius}}</p>
+        <h6>{{dashboardVar.cloudy}}</h6>
       </div>
       <div class="dashboard-header col-md-11">
          <div class="clearfix">
         <h4 class="float-left fnt-size">{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.apostrophe}}</h4>
-        <!-- <span class="float-right"><img src="assets/images/close.png"></span> -->
       </div>
       <div class="clearfix">
-        <p class="p-color">{{dashboardVar.employeeTabText.notification}} 
-          <!-- <b class="click-color">{{dashboardVar.btns.editTasks}}</b> -->
-        </p>
-        <!-- <button class="btn_alg" (click)="addQuickTasks()">{{dashboardVar.btns.quickTasks}}</button> -->
+        <p class="p-color">{{dashboardVar.employeeTabText.notification}}</p>
         <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button>
       </div>
       </div>
@@ -24,16 +20,16 @@
       <div class="col-md-4 pl-0">
          <div class=" chart-bg">
          <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-        {{dashboardVar.resortGridsTitle.visitors}} <span class="resort-num-alg">2000</span></h6>
-         <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
-            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>16%</p></div>
+        {{dashboardVar.resortGridsTitle.visitors}} <span class="resort-num-alg">{{dashboardVar.visitorsData?.total}}</span></h6>
+         <div class="avg-alg"><p class="mr0 avg-color">{{dashboardVar.avgWeekly}}</p>
+            <p class="mr0 pect-color"><i [ngClass]="this.dashboardVar.visitorsData?.avgWeekly > 15 ? 'fa fa-caret-up pdr7':'fa fa-caret-down pdr7'" aria-hidden="true"></i>{{this.dashboardVar.visitorsData?.avgWeekly}}%</p></div>
         <div id="visitors" style=" height: 100px; margin: 0 auto"></div>
       </div>
       </div>
       <div class="col-md-4 pl-0">
          <div class=" chart-bg">
          <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-      {{dashboardVar.resortGridsTitle.staff}} <span class="resort-num-alg">300</span></h6>
+      {{dashboardVar.resortGridsTitle.staff}} <span class="resort-num-alg">{{dashboardVar.staffData?.total}}</span></h6>
       <!-- <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
             <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>25%</p></div> -->
       <div id="staff" style=" height: 145px; margin: 0 auto"></div>
@@ -54,7 +50,7 @@
                     </span>
                   </ng-template>
               <ngb-rating [(rate)]='dashboardVar.feedbackData.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-              <span class="total-alg"><img src="assets/images/user2.png" class="user-img">{{dashboardVar.feedbackData.people}} total</span>
+              <span class="total-alg"><img src="assets/images/user2.png" class="user-img">{{dashboardVar.feedbackData.people}} {{dashboardVar.total}}</span>
             </div>
             <div class="col-sm-7"> <canvas id="rating" height="110" class="rating-chart"></canvas></div>
             </div>
@@ -77,7 +73,7 @@
                   </div>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-4">
-                    <p class="week-growth">Weekly Growth</p>
+                      <p class="week-growth">{{dashboardVar.weeklyGrowth}}</p>
                     <span class="growth-percen text-success">{{dashboardVar.weekGrowth}}{{dashboardVar.symbols.percentage}}</span>
                   </div>
                 </div>
@@ -144,7 +140,7 @@
       <div class="col-sm-6 pl-0">
         <div class="chart-bg" style="height: 247px;">
           <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-            {{dashboardVar.resortGridsTitle.topResorts}}<select class="select-btn"><option value="This Month">This Month</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
+            {{dashboardVar.resortGridsTitle.topResorts}}<select class="select-btn"><option value="This Month">{{dashboardVar.monthDropdown}}</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
             <div class="custom-table">
             <table class="table">
                 <tbody>
@@ -173,13 +169,13 @@
     <div class="row resort-pd">
       <div class="chart-mr clearfix">
       <h6 class="float-left"><i class="fa fa-circle-o" aria-hidden="true"></i>  {{dashboardVar.resortGridsTitle.resort}}</h6>
-        <span class="float-right">Select Resort
+        <span class="float-right">{{dashboardVar.selectResort}}
         <select class="resort-btn">
           <option *ngFor="let resort of dashboardVar.resortList" value="{{resort.id}}">{{resort.name}}</option><i class="fa fa-chevron-down" aria-hidden="true"></i>
         </select></span>      
     </div>
     <div class="col-md-4 bor-right">
-        <h6 class="resort-hd">Total Employee</h6>
+        <h6 class="resort-hd">{{dashboardVar.totEmp}}</h6>
         <div class="clearfix rest-pd">
           <h4 class="resort-alg">Whitetail resort</h4>
           <span class="resort-num">80</span>
@@ -187,7 +183,7 @@
             <div id="totalemployee" style="height: 200px;"></div>           
       </div>
 
-<div class="col-md-4  bor-right"> <h6 class="resort-hd">Task</h6>
+<div class="col-md-4  bor-right"> <h6 class="resort-hd">{{dashboardVar.task}}</h6>
   <div id="task" style="height: 200px; padding-top: 45px;"></div>
 </div>
 <div class="col-md-4 badge-section">
