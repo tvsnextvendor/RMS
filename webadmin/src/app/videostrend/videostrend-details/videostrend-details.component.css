@@ -38,3 +38,6 @@
 tbody > tr > td {
   border-bottom: 0;
 }
+.exportto-resp{
+  float: right;
+}

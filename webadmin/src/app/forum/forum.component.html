@@ -3,31 +3,31 @@
             <div class="table-responsive white-bg px-3">
                 <table class="table" [mfData]="forumVar.forumList" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
-                        <tr class="th-boxshadow"  class="text-center">
+                        <tr class="th-boxshadow"  class="">
                          
-                            <th>
+                            <th class="forumname-width">
                                 <mfDefaultSorter by="forumName">{{forumVar.ForumFormLabels.forumName}}</mfDefaultSorter>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <mfDefaultSorter by="employeeId">{{forumVar.ForumFormLabels.empCount}}</mfDefaultSorter>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <mfDefaultSorter by="activeStatus">{{forumVar.ForumFormLabels.activeInActive}}</mfDefaultSorter>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <mfDefaultSorter>{{forumVar.ForumFormLabels.action}}</mfDefaultSorter>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let forum of mf.data" class="text-center table-desc-color">
-                                <td>{{ forum.forumName }}</td>
-                                <td>{{ forum.departments.length }}</td>
-                                <td><label class="switch">
+                        <tr *ngFor="let forum of mf.data" class="table-desc-color">
+                                <td class="forumname-width">{{ forum.forumName }}</td>
+                                <td class="text-center">{{ forum.departments.length }}</td>
+                                <td class="text-center"><label class="switch">
                                         <input type="checkbox" [(ngModel)]="forum.activeStatus" (change)= "statusUpdate(forum.forumName,forum.activeStatus)" > 
                                         <span class="slider round"></span>
                                     </label></td>
-                                    <td><a (click)="openEditModal(editForum,forum)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a></td> 
+                                    <td class="text-center"><a (click)="openEditModal(editForum,forum)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a></td> 
                         </tr>
                         <tr *ngIf="mf.data?.length == 0">
                             <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>
