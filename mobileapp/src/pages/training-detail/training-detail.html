@@ -71,10 +71,10 @@
             </div>
             <h6>{{setTraining.fileTitle}} <span class="view-button" *ngIf="imageType">
                     <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
-                        (click)="viewContent(filePath)">View Content</a>
+                        (click)="viewContent(filePath)">View Content </a>
                 </span></h6>
             <div class="checkbox-item" *ngIf="imageType">
-                <ion-checkbox checked="true"></ion-checkbox>
+                <ion-checkbox [(ngModel)]="agree"></ion-checkbox>
                 <ion-label class="ack-label">{{constant.pages.trainingLabels.ackText}}</ion-label>
             </div>
             <div *ngIf="text">

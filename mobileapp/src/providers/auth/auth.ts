@@ -65,8 +65,6 @@ export class AuthProvider {
           reject(err);
           console.log('currentUser not received in app.component.ts', err);
         });
-      //  return self.currentUserSet;
-
       });
   }
 }
