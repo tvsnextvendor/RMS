@@ -69,19 +69,27 @@
                     <p>{{Math.round(loadingBarWidth * (initial+1))}}<sub>%</sub></p>
                 </span>
             </div>
-            <h6>{{setTraining.fileTitle}}   <span class="view-button" *ngIf="imageType"><ion-icon name="eye" class="eye-icon"></ion-icon>   <a href="javascript:void(0);" class="view-text" (click)="viewContent(filePath)">View Content</a></span></h6>
+            <h6>{{setTraining.fileTitle}} <span class="view-button" *ngIf="imageType">
+                    <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
+                        (click)="viewContent(filePath)">View Content</a>
+                </span></h6>
             <div class="checkbox-item" *ngIf="imageType">
-               
-                    <ion-checkbox checked="true"></ion-checkbox>
-                    <ion-label class="ack-label">I acknowledge that i have read the attached document.</ion-label>
-                  
-               
+                <ion-checkbox checked="true"></ion-checkbox>
+                <ion-label class="ack-label">{{constant.pages.trainingLabels.ackText}}</ion-label>
             </div>
-            <div >
-                {{setTraining.fileDescription}}
-                <div (click)="isCollapsed = !isCollapsed">Read more</div>
-            </div>
-            <span class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
+            <div *ngIf="text">
+                <div *ngIf="text.length <= 400">{{text}}</div>
+                <div *ngIf="truncating && text.length > 400">
+                    {{text | words : limit}}
+                    <a href="javascript:void(0);" (click)="truncating = false">
+                        {{constant.pages.trainingLabels.readMore}}</a>
+                </div>
+                <div *ngIf="!truncating && text.length > 400">
+                    {{text}}
+                    <a href="javascript:void(0);" (click)="truncating = true">
+                        {{constant.pages.trainingLabels.readLess}}
+                    </a> </div>
+            </div> <span class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
                 {{constant.buttons.next}}
             </span>
             <span class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="quizBtn">

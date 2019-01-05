@@ -6,33 +6,33 @@ export class Constant {
         dashboard: 'Dashboard',
         training: 'Training',
         quiz: 'Quiz',
-        accomplishment:'Accomplishments',
-        changePassword:'Change Password',
-        event:'Training Classes',
-        profile:'Profile',
-        forum:'Forum',
-        menu:'Menu',
-        logOut:'Logout',
-        notification:'Notification'
+        accomplishment: 'Accomplishments',
+        changePassword: 'Change Password',
+        event: 'Training Classes',
+        profile: 'Profile',
+        forum: 'Forum',
+        menu: 'Menu',
+        logOut: 'Logout',
+        notification: 'Notification'
     };
     buttons = {
         previous: 'Previous',
         takeQuiz: 'Take Quiz',
         sendPassword: 'SEND PASSWORD',
-        logOut:'Log Out',
-        menu:'Menu',
-        signIn:'SIGN IN',
-        signUp:'SIGN UP',
-        save:'SAVE',
-        add:'ADD',
-        cancel:'CANCEL',
-        addQuestion:'Add Question',
-        comment:'Comment',
-        next:'Next',
-        submit:'Submit'
+        logOut: 'Log Out',
+        menu: 'Menu',
+        signIn: 'SIGN IN',
+        signUp: 'SIGN UP',
+        save: 'SAVE',
+        add: 'ADD',
+        cancel: 'CANCEL',
+        addQuestion: 'Add Question',
+        comment: 'Comment',
+        next: 'Next',
+        submit: 'Submit'
     };
     pages = {
-    
+
         loginLabels: {
             signIn: 'SIGN IN',
             signInSmall: 'Sign In',
@@ -71,9 +71,9 @@ export class Constant {
         dashboardLabels: {
             goodMrng: 'Good Morning',
             currentTime: 'Thursday, Aug 10',
-            selectModules:'All Programs',
-            module:'Program',
-            modules:'Programs',
+            selectModules: 'All Programs',
+            module: 'Program',
+            modules: 'Programs',
             training: 'Training',
             certification: 'Certification',
             newCourses: 'New Courses',
@@ -95,9 +95,9 @@ export class Constant {
             view: 'View',
             badges: 'Badges',
             accomplishments: 'Accomplishments',
-            certificatesObtained:'Certificates Obtained',
-            badgesObtained:'Badges Obtained',
-            complete:'Complete'
+            certificatesObtained: 'Certificates Obtained',
+            badgesObtained: 'Badges Obtained',
+            complete: 'Complete'
 
         },
         trainingLabels: {
@@ -105,7 +105,11 @@ export class Constant {
             progressLabel: 'In Progress',
             completedLabel: 'Completed',
             postedLabel: 'Posted :',
-            lastViewed: 'Last Viewed :'
+            lastViewed: 'Last Viewed :',
+            ackText: 'I acknowledge that i have read the attached document.',
+            readMore: '>> Read More',
+            viewContent: 'View Content',
+            readLess: '<< Read Less'
         },
         quizResultLabels: {
             congratulations: 'Congratulations',
@@ -113,53 +117,53 @@ export class Constant {
             outOf: 'out of',
             exc: '!',
             yourScorePercent: 'Your Score:',
-            feedbackDescription:'What did you love about this course ?',
-            feedbackPlaceholder:'Any Suggestions / Feedback',
-            validations:{
-                descriptionRequired:'Description is required'
+            feedbackDescription: 'What did you love about this course ?',
+            feedbackPlaceholder: 'Any Suggestions / Feedback',
+            validations: {
+                descriptionRequired: 'Description is required'
             }
-            
+
         },
-        settingLabels:{
-            oldPassword:'Old Password',
-            newPassword:'New Password',
-            confirmPassword:'Confirm Password',
-            validations:{
+        settingLabels: {
+            oldPassword: 'Old Password',
+            newPassword: 'New Password',
+            confirmPassword: 'Confirm Password',
+            validations: {
                 oldPasswordRequired: 'Old password is required',
                 newPasswordRequired: 'New password is required',
-                confirmPasswordRequired:'Confirm password is required',
+                confirmPasswordRequired: 'Confirm password is required',
                 minLength: 'Minimum 8 characters',
                 maxLength: 'Maximum 12 characters',
                 pattern: 'Just use alphabet character',
             }
         },
-        profileLabels:{
-            email:'Email',
-            mobile:'Mobile',
-            department:'Department',
-            designation:'Designation'
+        profileLabels: {
+            email: 'Email',
+            mobile: 'Mobile',
+            department: 'Department',
+            designation: 'Designation'
         },
-        forumLabels:{
-            topics:'Topics',
-            mostRecent:'Most Recent',
-            featuredTopics:'Featured Topics',
-            featuredFav:'Featured Most Favorite',
-            votes:'Votes',
-            answers:'Answers',
-            hoursAgo:'Hours ago',
-            replays:'Replays',
-            replies:'replies',
-            typeQuestionHere:'Type your question here',
-            validations:{
-                questionRequired:'Question is required'
+        forumLabels: {
+            topics: 'Topics',
+            mostRecent: 'Most Recent',
+            featuredTopics: 'Featured Topics',
+            featuredFav: 'Featured Most Favorite',
+            votes: 'Votes',
+            answers: 'Answers',
+            hoursAgo: 'Hours ago',
+            replays: 'Replays',
+            replies: 'replies',
+            typeQuestionHere: 'Type your question here',
+            validations: {
+                questionRequired: 'Question is required'
             }
         },
-        accomplishmentLabels:{
-            certificates:'Certificates',
-            badges:'Badges',
-            gradeAchieved:'Grade Acheived',
-            completedBy:'Completed By',
-            at:'At'
+        accomplishmentLabels: {
+            certificates: 'Certificates',
+            badges: 'Badges',
+            gradeAchieved: 'Grade Acheived',
+            completedBy: 'Completed By',
+            at: 'At'
 
         }
     };

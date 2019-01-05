@@ -8,7 +8,7 @@ export class API_URL {
         //needed 'getQuiz': '5c0116873500006300ad07c4',
         // 'getCourses': '5c120d55330000d70b998ccb',
         // 'getDashboard': '5c0a184d3500005300a85f30',
-        'getDashboard': '5c2df73d2f0000b73617536e',
+        'getDashboard': '5c30a0713000007000e77a7a',
         'getBatch': '5c2df0912f0000520017532b',
         'getUsers': '5c0a7496350000d11ea86177',
         'doSignup': 'signup',
