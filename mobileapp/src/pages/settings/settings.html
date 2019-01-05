@@ -2,7 +2,7 @@
 <ion-header no-border>
   <ion-toolbar transparent class="change-password-toolbar">
     <ion-icon name="ios-arrow-back" (click)="goToPrevious()"></ion-icon>
-    <p>{{constant.title.changePassword}}</p>
+    <p>{{constant.title.settings}}</p>
   </ion-toolbar>
 </ion-header>
 <ion-content padding class="change-password profile-bg">
@@ -17,25 +17,28 @@
         </ion-col>
         <ion-item>
           <ion-label>SMS</ion-label>
-          <ion-checkbox ></ion-checkbox>
+          <ion-checkbox [(ngModel)]="setting.sms" formControlName="sms" (click)="notificationAPI()"></ion-checkbox>
         </ion-item>
         <ion-item>
           <ion-label>Email</ion-label>
-          <ion-checkbox ></ion-checkbox>          
+          <ion-checkbox [(ngModel)]="setting.email" formControlName="email" (click)="notificationAPI()"></ion-checkbox>          
         </ion-item>
       </ion-row>
       <ion-row>
-        <ion-col col-1 >
+        <ion-col col-1>
           <ion-icon name="ios-key"></ion-icon>
         </ion-col>
         <ion-col col-10 class="profile-info">
           <ion-label color="default">{{constant.title.changePassword}}</ion-label>
         </ion-col>
-        <ion-col col-1 >
-          <ion-icon name="ios-arrow-down"></ion-icon>
+        <ion-col col-1>
+          <ion-icon name="ios-arrow-down" *ngIf="showPasswordChange" (click)="toggleSection()"></ion-icon>
+          <ion-icon name="ios-arrow-forward" *ngIf="!showPasswordChange" (click)="toggleSection()"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-grid class="pwd-grid">
+
+      <ion-row *ngIf="showPasswordChange">
+      <ion-grid class="pwd-grid" >
         <ion-row>
           <ion-col col-1 >
           </ion-col>
@@ -112,6 +115,8 @@
         </div>
       </div>
       <button type="submit" class="login-btn blue-btn" ion-button round [disabled]="settingsForm.invalid"> {{constant.buttons.save}}</button>
+    </ion-row>
     </div>
+ 
   </form>
 </ion-content>

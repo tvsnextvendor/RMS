@@ -64,7 +64,7 @@ export class MyApp{
       { title: 'Forum', component: ForumPage },
       { title: 'Calendar', component: CalendarPage },
       { title: 'Training Classes', component: EventPage },
-      { title: 'Change Password', component: SettingsPage }
+      { title: 'Settings', component: SettingsPage }
     ];
   //  this.appDetails();
     this.windowWidth = window.screen.width;

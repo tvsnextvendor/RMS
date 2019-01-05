@@ -13,7 +13,8 @@ export class Constant {
         forum: 'Forum',
         menu: 'Menu',
         logOut: 'Logout',
-        notification: 'Notification'
+        notification: 'Notification',
+        settings:'Settings'
     };
     buttons = {
         previous: 'Previous',

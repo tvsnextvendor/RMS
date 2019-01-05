@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Slides, AlertController } from 'io
 import { QuizPage } from '../quiz/quiz';
 import { Constant } from '../../constants/Constant.var';
 import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
+import { ToastrService } from '../../service/toastrService';
 
 @IonicPage({
     name: 'trainingdetail-page'
@@ -39,11 +40,14 @@ export class TrainingDetailPage {
     @Input() text: string;
     limit: number = 100;
     truncating = true;
+    agree:boolean =false;
+    courseId;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private document: DocumentViewer) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private document: DocumentViewer,private toastr:ToastrService) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.courseName = this.detailObject['setData'].courseName;
+        this.courseId = this.detailObject['setData'].courseId;
         this.trainingDatas = this.detailObject['setData'].files;
         this.lastIndexs = this.trainingDatas.length - 1;
         this.selectedIndexs = this.detailObject['selectedIndex'];
@@ -86,6 +90,7 @@ export class TrainingDetailPage {
                 handler: () => {
                     // let currentIndex = self.slides.getActiveIndex();
                     //  self.paramsData['menu'] = self.trainingDatas[currentIndex]['fileTitle'];
+                    self.paramsData['courseId'] =  self.courseId 
                     self.paramsData['menu'] = self.courseName;
                     self.navCtrl.push(QuizPage, self.paramsData);
                 }
@@ -165,9 +170,17 @@ export class TrainingDetailPage {
         return fileLink;
     }
     viewContent(docFile) {
-        const options: DocumentViewerOptions = {
-            title: 'My PDF'
-        };
-        this.document.viewDocument(docFile, 'application/pdf', options);
+        if(this.agree){
+            const options: DocumentViewerOptions = {
+                title: 'My PDF'
+            };
+            let baseUrl =  'file:///android_asset/www/';
+            //For IOS platform 
+           // baseUrl = location.href.replace("/index.html", ""); 
+            this.document.viewDocument(baseUrl + docFile, 'application/pdf', options);
+        }else{
+            this.toastr.error("Please agree acknowledgement to view content"); return false;
+        }
+      
     }
 }
