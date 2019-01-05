@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild ,Input} from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
 import { Constant } from '../../constants/Constant.var';
@@ -36,6 +36,9 @@ export class TrainingDetailPage {
     trainingStatus;
     paramsToSend: any = {};
     isCollapsed: boolean = true;
+    @Input() text: string;
+    limit: number = 100;
+    truncating = true;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private document: DocumentViewer) {
         this.Math = Math;
@@ -58,6 +61,7 @@ export class TrainingDetailPage {
     // first page load
     ionViewDidLoad() {
         this.setTraining = this.trainingDatas[0];
+        this.text = this.setTraining.fileDescription;
         console.log('ionViewDidLoad TrainingDetailPage');
     }
     //  after load enter formed
@@ -118,6 +122,7 @@ export class TrainingDetailPage {
         this.initial = this.initial + 1;
         this.setTraining = this.trainingDatas[this.initial];
         this.setTraining.fileLink = this.getFileExtension(this.setTraining.fileLink);
+        this.text = this.setTraining.fileDescription;
         this.quizBtn = (this.initial === this.lastIndexs)?true :false;
     }
     goBackLevel() 
@@ -127,6 +132,7 @@ export class TrainingDetailPage {
         }else{
             this.initial = this.initial - 1;
             this.setTraining = this.trainingDatas[this.initial];
+            this.text = this.setTraining.fileDescription;
             this.setTraining.fileLink = this.getFileExtension(this.setTraining.fileLink);
             this.quizBtn = (this.initial === this.lastIndexs)?true :false;
         }
