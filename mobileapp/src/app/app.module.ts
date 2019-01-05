@@ -9,16 +9,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
 import { Calendar } from '@ionic-native/calendar';
+import { DocumentViewer } from '@ionic-native/document-viewer';
 
-import { AccomplishmentPageModule, CalendarPageModule, EventPageModule, ForgetPageModule, ForumPageModule, HomePageModule, LandingPageModule, LoginPageModule, ProfilePageModule, QuizPageModule, QuizResultModule, SettingsPageModule, SignupPageModule, TrainingPageModule, TrainingDetailPageModule,NotificationPageModule,ForumDetailPageModule } from '../pages';
+import { AccomplishmentPageModule, CalendarPageModule, EventPageModule, ForgetPageModule, ForumPageModule, HomePageModule, LandingPageModule, LoginPageModule, ProfilePageModule, QuizPageModule, QuizResultModule, SettingsPageModule, SignupPageModule, TrainingPageModule, TrainingDetailPageModule, NotificationPageModule, ForumDetailPageModule } from '../pages';
 
 import { API } from '../constants/API.var';
 import { API_URL } from '../constants/API_URLS.var';
 import { MyApp } from './app.component';
 import { HttpProvider } from '../providers/http/http';
 import { AuthProvider } from '../providers/auth/auth';
-import {LoaderService} from '../service/loaderService';
-import {ToastrService} from '../service/toastrService';
+import { LoaderService } from '../service/loaderService';
+import { ToastrService } from '../service/toastrService';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {ToastrService} from '../service/toastrService';
     ToastrService,
     GooglePlus,
     LinkedIn,
-    Calendar
+    Calendar,
+    DocumentViewer
   ]
 })
 export class AppModule { }

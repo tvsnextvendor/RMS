@@ -12,9 +12,9 @@ import { LandingPage, HomePage, TrainingPage, ForumPage, EventPage, CalendarPage
   templateUrl: 'app.html',
   providers: [AppVersion, Constant]
 })
-export class MyApp {
+export class MyApp{
   @ViewChild(Nav) nav; Nav;
-  rootPage: any = LandingPage;
+  rootPage: any;
   pages: Array<{ title: string, component: any }>;
   currentUser;
   windowWidth;
@@ -24,10 +24,13 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+    this.getDetails();
+  
     platform.registerBackButtonAction(() => {
       // Catches the active view
       let nav = this.app.getActiveNavs()[0];
-      let activeView = nav.getActive();                
+      let activeView = nav.getActive();       
+
       // Checks if can go back before show up the alert
       if(activeView.name === 'HomePage') {
           if (nav.canGoBack()){
@@ -63,10 +66,11 @@ export class MyApp {
       { title: 'Training Classes', component: EventPage },
       { title: 'Change Password', component: SettingsPage }
     ];
-    this.appDetails();
-    this.getDetails();
+  //  this.appDetails();
     this.windowWidth = window.screen.width;
   }
+
+  
   openPage(page) {
     this.nav.setRoot(page.component);
   }
@@ -79,11 +83,15 @@ export class MyApp {
     this.storage.get('currentUser').then(
       (val) => {
         if (val) {
-          self.currentUser = val
+          self.currentUser = val;
+          this.rootPage = HomePage;
+        }else{
+          this.rootPage = LandingPage;
         }
         console.log(self.currentUser);
         console.log('self.currentUser');
       }, (err) => {
+        this.rootPage = LandingPage;
         console.log('currentUser not received in app.component.ts', err);
       });
   }

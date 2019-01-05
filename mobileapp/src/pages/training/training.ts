@@ -145,7 +145,8 @@ export class TrainingPage{
   //   });
   // }
   //open  page
-  openTrainingDetail(detailObj, selectedIndex) {
+  openTrainingDetail(detailObj, selectedIndex,status) {
+    this.paramsData['status'] = status;
     this.paramsData['setData'] = detailObj;
     this.paramsData['selectedIndex'] = selectedIndex;
     this.navCtrl.push(TrainingDetailPage, this.paramsData);
