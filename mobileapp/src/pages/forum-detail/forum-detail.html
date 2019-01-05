@@ -30,9 +30,9 @@
                 <ion-col col-7>
                   <h4 class="forum-title">{{emp.username}}</h4>
                   <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
-                  {{constant.pages.forumLabels.replays}} </p>
-                  <p class="forum-txt" >{{emp.totalReplies}}
-                  {{constant.pages.forumLabels.replies}} </p>
+                    {{constant.pages.forumLabels.replays}} </p>
+                  <p class="forum-txt">{{emp.totalReplies}}
+                    {{constant.pages.forumLabels.replies}} </p>
                 </ion-col>
                 <ion-col col-3 class="heart-icon">
                   <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
@@ -63,20 +63,20 @@
           </ion-card>
         </ion-col>
       </ion-row>
-     
+
     </ion-list>
     <ion-list *ngSwitchCase="'featuredTopics'">
       <ion-row>
         {{topics}}
         <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of topics;let j=index;">
-          <ion-card class="forum-card" >
+          <ion-card class="forum-card">
             <ion-grid>
               <ion-row>
                 <ion-col col-2 class="img-block">
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
                 <ion-col col-10>
-                    <h4 class="forum-title">{{emp.topicName}}</h4>
+                  <h4 class="forum-title">{{emp.topicName}}</h4>
 
 
                   <!-- <h4 class="forum-title">{{emp.username}}</h4>
@@ -119,7 +119,7 @@
     <ion-list *ngSwitchCase="'featuredFav'">
       <ion-row>
         <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of favoriteList;let j=index;">
-          <ion-card class="forum-card" >
+          <ion-card class="forum-card">
             <ion-grid>
               <ion-row>
                 <ion-col col-2 class="img-block">
@@ -128,11 +128,11 @@
                 <ion-col col-7>
                   <h4 class="forum-title">{{emp.username}}</h4>
                   <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
-                  {{constant.pages.forumLabels.replays}}</p>
+                    {{constant.pages.forumLabels.replays}}</p>
                   <p class="forum-txt" (click)="hideShowDesc(favoriteList,j)">{{emp.totalReplies}}
-                  {{constant.pages.forumLabels.replies}} </p>
+                    {{constant.pages.forumLabels.replies}} </p>
                 </ion-col>
-                <ion-col col-3  class="heart-icon">
+                <ion-col col-3 class="heart-icon">
                   <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
                   <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
                   <p></p>
@@ -166,14 +166,15 @@
   <ng-template #template>
     <div class="modal-header question-header">
       <h4 class="modal-title pull-left">{{constant.pages.forumLabels.typeQuestionHere}}</h4>
-     <!--  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <!--  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button> -->
     </div>
     <form novalidate (ngSubmit)="questionSubmit()" [formGroup]="QuestionForm">
       <div class="modal-body">
         <ion-item class="textarea-item">
-          <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty" placeholder="What is the safety precaution required to enter the ski sport?" class="type-ques"></ion-textarea>
+          <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty"
+            placeholder="What is the safety precaution required to enter the ski sport?" class="type-ques"></ion-textarea>
         </ion-item>
         <div *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
           <div class="error" *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
@@ -188,8 +189,8 @@
     </form>
   </ng-template>
 </ion-content>
- <div class="fixed-btn" >
-        <button ion-button round class="add-question" (click)="openModal(template)">
-          {{constant.buttons.addQuestion}}
-        </button>
-      </div>
+<div class="fixed-btn">
+  <button ion-button round class="add-question" (click)="openModal(template)">
+    {{constant.buttons.addQuestion}}
+  </button>
+</div>
