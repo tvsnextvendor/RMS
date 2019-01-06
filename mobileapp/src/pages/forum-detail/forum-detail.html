@@ -54,11 +54,39 @@
                   <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
                 </ion-col>
                 <ion-col col-5 class="cmd-btn">
-                  <button ion-button round small class="blue-btn">
+                  <button ion-button round small class="blue-btn" (click)="showCommentSet(recentList,j)">
                     {{constant.buttons.comment}}
                   </button>
                 </ion-col>
               </ion-row>
+              <div *ngIf="emp.isComment">
+                <ion-row>
+                  <ion-col col-2>
+                    <img src="assets/images/images1.jpeg" class="comment-image">
+                  </ion-col>
+                  <ion-col col-8>
+                    <ion-item>
+                      <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..."></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-2>
+                    <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let comment of commentList;let i=index;">
+                  <!-- {{userId}}
+                  {{comment.sender.userId}} -->
+                  <ion-col col-2 *ngIf="userId != comment.sender.userId">
+                    <img src="{{comment.sender.userImage}}" class="comment-image">
+                  </ion-col>
+                  <ion-col col-10>
+                    {{comment.comment}}
+                  </ion-col>
+                  <ion-col col-2 *ngIf="userId == comment.sender.userId">
+                    <img src="{{comment.sender.userImage}}" class="comment-image">
+                  </ion-col>
+                </ion-row>
+              </div>
             </ion-grid>
           </ion-card>
         </ion-col>
@@ -152,11 +180,37 @@
                   <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
                 </ion-col>
                 <ion-col col-5 class="cmd-btn">
-                  <button ion-button round small class="blue-btn">
+                  <button ion-button round small class="blue-btn" (click)="showCommentSet(favoriteList,j)">
                     {{constant.buttons.comment}}
                   </button>
                 </ion-col>
               </ion-row>
+              <div *ngIf="emp.isComment">
+                <ion-row>
+                  <ion-col col-2>
+                    <img src="assets/images/images1.jpeg" class="comment-image">
+                  </ion-col>
+                  <ion-col col-8>
+                    <ion-item>
+                      <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..."></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-2>
+                    <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let comment of commentList;let i=index;">
+                  <ion-col col-2 *ngIf="userId != comment.sender.userId">
+                    <img src="{{comment.sender.userImage}}" class="comment-image">
+                  </ion-col>
+                  <ion-col col-10>
+                    {{comment.comment}}
+                  </ion-col>
+                  <ion-col col-2 *ngIf="userId == comment.sender.userId">
+                    <img src="{{comment.sender.userImage}}" class="comment-image">
+                  </ion-col>
+                </ion-row>
+              </div>
             </ion-grid>
           </ion-card>
         </ion-col>
