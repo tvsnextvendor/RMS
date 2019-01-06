@@ -5,6 +5,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Constant } from '../../constants/Constant.var';
 import { ToastrService } from '../../service/toastrService';
+import { API_URL } from '../../constants/API_URLS.var';
+import { HttpProvider } from '../../providers/http/http';
+import { Storage } from '@ionic/storage';
 
 @IonicPage({
   name: 'forumdetail-page'
@@ -31,7 +34,11 @@ export class ForumDetailPage implements OnInit {
   recentList: any = [];
   favoriteList: any = [];
   featureList: any = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant,private toastr:ToastrService) {
+  commentList: any = [];
+  currentUser;
+  userId;
+  comment;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage) {
     this.forumDetailObject = this.navParams.data;
     this.employees = this.forumDetailObject['setData']['employees'];
     this.topics = this.forumDetailObject['setData']['topics'];
@@ -50,12 +57,15 @@ export class ForumDetailPage implements OnInit {
     this.QuestionForm = new FormGroup({
       question: new FormControl('', [Validators.required])
     });
+    this.getUser();
+    this.getComments();
   }
   getTopicsRelated() {
     var self = this;
     this.employees.map(function (val, key) {
       val = Object.assign({}, val);
       val.isActive = false;
+      val.isComment = false;
       if (val.status === 'Recent') {
         self.recentList.push(val);
       } else if (val.status === 'Featured') {
@@ -79,5 +89,36 @@ export class ForumDetailPage implements OnInit {
   }
   hideShowDesc(emp, j) {
     emp[j]['isActive'] = !(emp[j]['isActive']);
+  }
+
+  showCommentSet(emp, j) {
+    emp[j]['isComment'] = !(emp[j]['isComment']);
+  }
+  getComments() {
+    this.http.getData(API_URL.URLS.getComments).subscribe((data) => {
+      if (data['isSuccess']) {
+        this.commentList = data['commentList'];
+      }
+    });
+  }
+  getUser() {
+    this.storage.get('currentUser').then(
+      (val) => {
+        if (val) {
+          this.currentUser = val;
+          this.userId = this.currentUser.userId;
+        }
+      }, (err) => {
+        console.log('currentUser not received in forum-detail.component.ts', err);
+      });
+  }
+  saveComment(list) {
+    console.log(list);
+    if (!this.comment) {
+      this.toastr.error("Comment is required");
+    } else {
+      this.comment = '';
+      this.toastr.success("Comment added successfully");
+    }
   }
 }

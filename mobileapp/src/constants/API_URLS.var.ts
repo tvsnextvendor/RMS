@@ -16,13 +16,14 @@ export class API_URL {
         'getNotification': '5c2dddc32f0000a23017528f',
         'getCertificates': '5c2df4fe2f00008535175355',
         'getCalendars': '5c2475ea3000005b007a5fc4',
+        'getComments': '5c31c41d350000e705ca9f8e',
         //**** */'getCalendars':'5c1e5e063100002b00fdd27f'
         //'getCalendars':'5c1e3d093100006600fdd269'
         // Content To Bo Live Mock Content 
         //'getModules': '5c28a6de3300006300a58b77',
         'getModules': '5c2de3ee2f00001c3d1752bb',
         'getCourses': '5c2f54463200007200590798',
-        'getQuiz':'5c2e1c4f2f0000fd54175475'
+        'getQuiz': '5c2e1c4f2f0000fd54175475'
         // 'getCourses':'5c28b3923300004e00a58b88'
     };
 }

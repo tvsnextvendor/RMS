@@ -1,10 +1,10 @@
-import { Component ,ViewChild} from '@angular/core';
-import { NavController, IonicPage, NavParams,Content } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, IonicPage, NavParams, Content } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
 import { API_URL } from '../../constants/API_URLS.var';
-import {LoaderService} from '../../service/loaderService';
+import { LoaderService } from '../../service/loaderService';
 
 @IonicPage({
   name: 'home-page'
@@ -27,15 +27,15 @@ export class HomePage {
   selectedModule;
   coursePercentage;
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage,public loader:LoaderService) {
+  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
     this.currentdate = this.getCurrentTime();
     this.selectedModule = constant.pages.dashboardLabels.selectModules;
   }
   //first load
   ionViewDidLoad() {
-  
+
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.getDashboardInfo();
     this.getModules();
   }
@@ -46,7 +46,7 @@ export class HomePage {
   goToAcc(set) {
     this.navCtrl.setRoot('accomplishment-page')
   }
-  getDashboardInfo(){
+  getDashboardInfo() {
     this.loader.showLoader();
     this.http.getData(API_URL.URLS.getDashboard).subscribe((data) => {
       this.loader.hideLoader();
@@ -58,7 +58,7 @@ export class HomePage {
         this.trainingDatas = this.dashboardInfo.training;
         this.accomplishments = this.dashboardInfo.accomplishments;
         this.users = this.dashboardInfo.users[0];
-        this.coursePercentage = parseFloat(this.trainingDatas.course)*100;
+        this.coursePercentage = parseFloat(this.trainingDatas.course) * 100;
       }
     });
   }
@@ -75,10 +75,10 @@ export class HomePage {
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return days[d.getDay()] + ',' + months[d.getMonth()] + ' ' + d.getDate();
   }
-  changeModule(list){
+  changeModule(list) {
     this.selectedModule = list.name;
   }
-  goToNotification(){
+  goToNotification() {
     this.navCtrl.setRoot('notification-page');
   }
 

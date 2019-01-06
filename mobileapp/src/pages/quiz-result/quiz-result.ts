@@ -21,7 +21,7 @@ export class QuizResultPage implements OnInit {
     }
     feedbackform: FormGroup;
     currentUser: any;
-    constructor(public navCtrl: NavController, public constant: Constant, public navParams: NavParams, public events: Events, private toastr: ToastrService, private auth: AuthProvider, private storage: Storage) {
+    constructor(public navCtrl: NavController, public constant: Constant, public navParams: NavParams, public events: Events, private toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
         this.Math = Math;
         this.resultData = navParams.data;
         this.resultData['percentage'] = Math.round((this.resultData['correctAnswers'] / this.resultData['totalQuestions']) * 100);

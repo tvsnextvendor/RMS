@@ -4,6 +4,7 @@ import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { ForumDetailPage } from '../forum-detail/forum-detail';
+import { LoaderService } from '../../service/loaderService';
 @IonicPage({
   name: 'forum-page'
 })
@@ -14,47 +15,51 @@ import { ForumDetailPage } from '../forum-detail/forum-detail';
 })
 export class ForumPage implements OnInit {
   forumData: any = [];
-  paramsData:any= {'setData':[],'selectedIndex':''};
+  paramsData: any = { 'setData': [], 'selectedIndex': '' };
   search;
-  showSearchBar:boolean= false;
+  showSearchBar: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL:API_URL) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL, private loader: LoaderService) {
   }
   ionViewDidLoad() {
-      console.log('ionViewDidLoad ForumPage');
+    console.log('ionViewDidLoad ForumPage');
   }
-  ngOnInit() {
+  ionViewDidEnter() {
     this.getForumDatas();
   }
-  goToForumDetail(detailObj,selectedIndex) {
-    this.paramsData['setData'] = detailObj; 
+  ngOnInit() {
+
+  }
+  goToForumDetail(detailObj, selectedIndex) {
+    this.paramsData['setData'] = detailObj;
     this.paramsData['selectedIndex'] = selectedIndex;
-    this.navCtrl.push(ForumDetailPage,this.paramsData);
-   // this.navCtrl.setRoot('forumdetail-page', this.paramsData);
+    this.navCtrl.push(ForumDetailPage, this.paramsData);
   }
   getForumDatas() {
+    this.loader.showLoader();
     this.http.getData(API_URL.URLS.getForum).subscribe((data) => {
       if (data['isSuccess']) {
         this.forumData = data['ForumList'];
       }
+      this.loader.hideLoader();
     });
   }
-  toggleSearchBox(){
+  toggleSearchBox() {
     this.showSearchBar = !this.showSearchBar;
   }
-  onInput($e){
+  onInput($e) {
     console.log("On input");
     console.log($e);
     console.log(this.search);
-    if(this.search){
+    if (this.search) {
       this.forumData = this.forumData.filter(val => val.forumName === this.search);
-    }else{
+    } else {
       this.showSearchBar = false;
       this.getForumDatas();
     }
     console.log(this.forumData);
   }
-  onCancel($e){
+  onCancel($e) {
     console.log("On Cancel");
     this.showSearchBar = false;
     this.getForumDatas();
