@@ -464,7 +464,7 @@ employeeProgressPie() {
          pie: {
             allowPointSelect: true,
             cursor: 'pointer',
-            colors:['#7DB5EC','#90ED7C','#F7A25C'],
+            colors:['#7DB5EC','#90ED7C','#F7A25C','#CCCCCC'],
             dataLabels: {
                 enabled: false,
             },
@@ -484,7 +484,7 @@ employeeProgressPie() {
           distance: -30,
           connectorColor: '#ffffff',
           formatter: function () {
-              return Math.round(this.percentage) + '%';
+              return (this.percentage > 0)?Math.round(this.percentage) + '%':'';
           }
         }
     }]

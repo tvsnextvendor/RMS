@@ -52,7 +52,7 @@
                 <td class="vat text-center">{{ emp.completedPercentage }}%</td>
                 <!-- <td class="vat text-center">{{ emp.badgeName }}</td> -->
                 <td class="vat text-center">{{emp.videos}}</td>
-                <td class="vat text-center" [ngClass] = "emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">
+                <td class="vat text-center" [ngClass] = "emp.status !== 'In progress' ? (emp.status === 'Failed' || emp.status === 'Expired'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">
                         {{ emp.status }}
                 </td >
                 <td class="vat text-center">
