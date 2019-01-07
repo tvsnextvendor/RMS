@@ -38,7 +38,7 @@
   <section class="training-section" *ngIf="trainingDatas && dashboardInfo">
     <ion-grid class="status-grid no-padding">
       <ion-row nowrap class="forecast_container">
-        <ion-col col-6 col-md-3 class="tvs-statusBox" (click)="goToChildPage('assigned')">
+        <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('assigned')">
           <div class="tomato-red-bg assign-box sts-style">
             <h4 class="status-title">{{constant.pages.dashboardLabels.assignedLabel}}</h4>
             <span class="num-sec">{{trainingDatas.assignedCourses}}</span>
@@ -47,7 +47,7 @@
                 ios="ios-arrow-forward" md="ios-arrow-forward" class="fwd-arw"></ion-icon></a>
           </div>
         </ion-col>
-        <ion-col col-6 col-md-3 class="tvs-statusBox " (click)="goToChildPage('inprogress')">
+        <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('inprogress')">
           <div class="light-green-bg progress-box sts-style" >
             <h4 class="status-title">{{constant.pages.dashboardLabels.progressLabel}}</h4>
             <span class="num-sec">{{trainingDatas.inProgressCourses}}</span>
@@ -56,7 +56,7 @@
                 ios="ios-arrow-forward" md="ios-arrow-forward" class="fwd-arw"></ion-icon></a>
           </div>
         </ion-col>
-        <ion-col col-6 col-md-3 class="tvs-statusBox ">
+        <ion-col col-5 col-md-5 class="tvs-statusBox course-sts">
           <div class="pink-bg average-box sts-style" (click)="goToChildPage('complete')">
             <h4 class="status-title">{{constant.pages.dashboardLabels.avgCompletionRate}}</h4>
             <div class="mb-3">
@@ -69,7 +69,7 @@
                 </div>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="">
               <p class="course-sec m-0">{{constant.pages.dashboardLabels.peers}}
                 {{trainingDatas.peersAverageCompletion}} %</p>
               <div class="progress">
