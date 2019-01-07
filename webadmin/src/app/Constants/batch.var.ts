@@ -6,8 +6,8 @@ import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 export class BatchVar{
 
    labels = {
-        from       : 'From',
-        to         : 'To',
+        from       : 'Assigned Date',
+        to         : 'Due Date',
         batchName  : 'Training Class Name',
         selectDept  : 'Department',
         module     : 'Program',

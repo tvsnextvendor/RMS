@@ -5,6 +5,7 @@ export class DashboardVar {
 
   topEmployees = [];
   topResorts   = [];
+  userName;
   courses;
   url;
   keyStat;

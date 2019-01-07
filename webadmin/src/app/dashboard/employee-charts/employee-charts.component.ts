@@ -25,6 +25,7 @@ export class EmployeeChartsComponent implements OnInit {
      constructor(public dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
       this.dashboardVar.url=API_URL.URLS;
       const userDetails = JSON.parse(localStorage.getItem('userData'));
+      this.dashboardVar.userName = userDetails.username 
        this.hideCharts= userDetails.roleId == 2 ? false :true;
     }
 
@@ -463,6 +464,7 @@ employeeProgressPie() {
          pie: {
             allowPointSelect: true,
             cursor: 'pointer',
+            colors:['#7DB5EC','#90ED7C','#F7A25C'],
             dataLabels: {
                 enabled: false,
             },
@@ -503,17 +505,14 @@ certificationTrend() {
         display: 'none'
     }
     },
-    subtitle: {
-         text: '',
-    style: {
-        display: 'none'
-    }
-    },
     xAxis: {
      display: false
     },
     yAxis: {
-       display: false
+       display: false,
+       title:{
+         text : null
+       }
     },
     legend: {
         layout: 'vertical',
