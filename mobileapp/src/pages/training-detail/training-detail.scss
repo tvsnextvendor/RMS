@@ -37,14 +37,14 @@ ion-toolbar ion-icon {
 
 .toolbar-content-ios p, ion-toolbar p {
     float: left;
-    margin: 4px;
+    margin: 0px;
     font-size: 17px;
     margin-left: 15px;
     
 }
 
 .toolbar-content-ios p {
-    margin: 2px;
+    margin: 0px;
     margin-left: 15px;
 }
 
@@ -146,6 +146,7 @@ ion-toolbar ion-icon {
 
 .take-quiz-btn {
     float: left;
+        max-width: 300px;
     width: 100%;
     border-radius: 39px;
     background-image: linear-gradient(to right, #1582BE, #329CD6);
@@ -153,6 +154,7 @@ ion-toolbar ion-icon {
     text-align: center;
     padding: 12px 0;
     font-size: 20px;
+   margin: 20px auto 20px auto;
 }
 
 .loading-bar-div {
@@ -179,9 +181,11 @@ ion-toolbar ion-icon {
     text-align: center;
     font-size: 10px;
     width: 30px;
+    height: 30px;
     padding: 9px 0;
     float: right;
     border-radius: 25px;
+    line-height: 10px;
 }
 
 .video-progress-bar {
@@ -203,22 +207,37 @@ ion-toolbar ion-icon {
 }
 h6{
     font-family: 'sf_pro_displaysemibold';
+        width: 100%;
 }
 .button-bottom{
     width: 100%;
 }
+.quiz-text {
+    color: #A0A0A0;
+    font-weight: 100;
+    font-family: 'sf_pro_displayregular';
+}
+.hole-cont {
+    color: #A0A0A0;
+}
 //sheema
 .view-button{
     float: right;
-    margin-left: 140px;
+    position: relative;
+    top: -7px;
 }
 .eye-icon{
     color:#219BCE;
     font-size: 24px;
+    position: relative;
+    top: 4px;
 }
 .view-text{
-    color:000;
-    font-size:14px;
+        color: #000000c7;
+    font-size: 14px;
+    line-height: 20px;
+    display: inline-block;
+    font-weight: 100;
 }
 .ack-label{
     float: right;
