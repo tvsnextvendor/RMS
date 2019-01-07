@@ -1,8 +1,8 @@
 
 <div class="clearfix pt-4">
+<button class="btn btn-primary mr-3"  [routerLink]="['../module']">{{moduleVar.createModule}}</button>
 <button class="btn btn-link float-right" routerLink="/modules">
             {{moduleVar.labels.showAll}}</button> 
-<button class="btn btn-primary mr-3"  [routerLink]="['../module']">{{moduleVar.createModule}}</button>
 </div>
 <div class="pr-3 pt-4" *ngFor="let data of moduleVar.moduleList;let i = index;">
     <div class="white-bg p-3"> 
