@@ -86,19 +86,26 @@
 							<input type="text" class="form-control col-md-12 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="moduleVar.description">
 							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.description">Description is required</span>
 						</div>
-						<div class="col-md-4 pr-0 upload-line">
+						<div class="col-md-4 p-0 upload-line">
+							<div class="row">
+							<div class="col-md-4">
 							<div class="fileUpload btn btn-primary">
                                 <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span>
                                     <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
-                            </div>
+                            </div>                           
+                        </div>
+                        <div class="col-md-4">
 							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span>
-							<span *ngIf="showImage && moduleVar.videoFile"><img src="{{previewImage}}" class="px-4 img-size"></span>
-							<span>	
+							<span *ngIf="showImage && moduleVar.videoFile"><img src="{{previewImage}}" class="px-4 img-size"></span></div>
+							<span class="col-md-4">	
 							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
 							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
 							</span>
-							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">File is required</span>
-						</div>
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">File is required</span>	
+							<span class="file-alg">Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI</span>		
+						</div>						 
+					</div>
+						<!-- <div class="clearfix col-md-12"><p class="file-alg">Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI</p></div> -->
 						<!-- <div class="col-md-12 drop-and-drag-pdb"><span class="col-md-8"></span><span class="col-md-4 float-right"><img src="{{videoFile}}" style="height: 45px;" >{{fileUrl}}</span></div> -->
 						<!-- <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/> -->
 						<ul class="list-group col-md-12 pt-2" dnd-sortable-container [sortableData]="moduleVar.videoList">
@@ -112,8 +119,8 @@
 								</span>
 							</li>
 						</ul>
-						<div class="col-md-12 pr-0">
-							<button type="button" (click)="tabChange()" class="btn btn-primary float-right">{{labels.next}}</button>
+						<div class="col-md-12">
+							<button type="button" (click)="tabChange()" class="btn btn-primary">{{labels.next}}</button>
 						</div>
 					</div>
 				</div>

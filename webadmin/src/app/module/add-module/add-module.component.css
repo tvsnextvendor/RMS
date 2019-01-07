@@ -74,6 +74,13 @@ background-color: #C1E1F3;
     opacity: 0;
     filter: alpha(opacity=0);
 }
+.file-alg{
+    font-size: 12px;
+    float: right;
+    color: #9B9B9B;
+    line-height: 35px;
+    padding-left: 25px;
+}
 .addedcourse-scroll{
     max-height: 120px;
     overflow-y: scroll;
