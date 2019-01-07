@@ -37,9 +37,9 @@ export class CreateForumComponent implements OnInit {
 
    getForumList(){
       this.http.get(this.forumVar.url.getForumList).subscribe((data) => {
-      this.forumVar.forumList= data.forumDetails;
+      this.forumVar.forumList= data.Message;
       this.forumVar.forumNameList=this.forumVar.forumList.map(item=>{
-        return item.forumName;
+        return item.forumname;
       });
      });   
    }
@@ -99,9 +99,9 @@ export class CreateForumComponent implements OnInit {
       // }
       if(form.valid && !this.forumVar.uniqueValidate ){
         let postData={
-          forumName : form.value.forumName,
-          employeeList : form.value.empItems,
-          adminList  : form.value.admin,
+          forumname : form.value.forumName,
+          employeelist : form.value.empItems,
+          adminlist  : form.value.admin
           //topic   : this.topics
         };
         this.alertService.success(this.forumVar.addSuccessMsg);

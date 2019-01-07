@@ -7,15 +7,15 @@ export class ForumVar{
 
     ForumFormLabels = {
         forumName        : 'Forum Name',
-        empCount         : 'Employee Count',
-        activeInActive   : 'Active/Inactive',
+        empCount         : 'Employee count',
+        activeInActive   : 'Active / Inactive',
         action           : 'Action'
     };
     forumList: any =[];
     createForum = {
         editForum   : 'Edit Forum',
         createForum : 'Create Forum',
-        forumName   : 'Forum Name',
+        forumName   : 'Forum',
         topics      : 'Topics',
         empName     : 'Department',
         admin       : 'Admin',
@@ -35,11 +35,12 @@ export class ForumVar{
         admin       :  'Admin is required'   
     };
     title = 'Forum';
-    addSuccessMsg = 'Forum Added Successfully';
-    updateSuccessMsg = ' is updated successfully';
+    addSuccessMsg = 'Forum created Successfully';
+    updateSuccessMsg = 'Forum updated successfully';
     nameUniqueErr = 'Forum Name is already exist.'
     employeeItems;
     forumName;
+    forumId;
     topics;
     autocompleteItemsAsEmpObjects;
     adminItems;
