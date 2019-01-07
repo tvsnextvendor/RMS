@@ -8,7 +8,8 @@ export class ProfileVar {
       email       :  'Email',
       mobile      :  'Mobile',
       designation :  'Designation',
-      dept        :  'Department'
+      dept        :  'Department',
+      empId       :  'Employee ID'
     };
     btns = {
         save        : 'SAVE',
@@ -23,10 +24,11 @@ export class ProfileVar {
          invalidMobile : 'Invalid Mobile Number' ,  
          dept        : 'Department is required'  
      };
-     successMsg='Profile Saved Successfully';
+     successMsg='Profile saved Successfully';
      title= 'Profile';
      userName;
      dob;
+     empId;
      dept;
      designation;
      mobile;

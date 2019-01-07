@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
     this.userDetails = JSON.parse(localStorage.getItem('userData'));
     this.profVar.userName=this.userDetails.username;
     this.profVar.email=this.userDetails.emailAddress;
+    this.profVar.empId= this.userDetails.employeeId;
     this.profVar.dob= this.datepipe.transform( this.userDetails.dob , 'dd MMM yyyy');
     this.profVar.designation=this.userDetails.designation;
     this.profVar.dept=this.userDetails.department;
