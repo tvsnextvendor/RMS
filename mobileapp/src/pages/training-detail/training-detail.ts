@@ -1,4 +1,4 @@
-import { Component, ViewChild ,Input} from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
 import { Constant } from '../../constants/Constant.var';
@@ -30,20 +30,21 @@ export class TrainingDetailPage {
     courseName;
     setTraining: any;
     initial: number = 0;
-    lastIndexs:number;
+    lastIndexs: number;
     quizBtn: boolean = false;
     imageType;
     filePath;
+    fileType;
     trainingStatus;
     paramsToSend: any = {};
     isCollapsed: boolean = true;
     @Input() text: string;
     limit: number = 100;
     truncating = true;
-    agree:boolean =false;
+    agree: boolean = false;
     courseId;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private document: DocumentViewer,private toastr:ToastrService) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private document: DocumentViewer, private toastr: ToastrService) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.courseName = this.detailObject['setData'].courseName;
@@ -90,12 +91,11 @@ export class TrainingDetailPage {
                 handler: () => {
                     // let currentIndex = self.slides.getActiveIndex();
                     //  self.paramsData['menu'] = self.trainingDatas[currentIndex]['fileTitle'];
-                    self.paramsData['courseId'] =  self.courseId 
+                    self.paramsData['courseId'] = self.courseId
                     self.paramsData['menu'] = self.courseName;
                     self.navCtrl.push(QuizPage, self.paramsData);
                 }
             }]
-
         });
         alert.present();
     }
@@ -122,24 +122,22 @@ export class TrainingDetailPage {
             this.rightButton = true;
         }
     }
-    showNextPage()
-    {
+    showNextPage() {
         this.initial = this.initial + 1;
         this.setTraining = this.trainingDatas[this.initial];
         this.setTraining.fileLink = this.getFileExtension(this.setTraining.fileLink);
         this.text = this.setTraining.fileDescription;
-        this.quizBtn = (this.initial === this.lastIndexs)?true :false;
+        this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
     }
-    goBackLevel() 
-    {
-        if(this.initial === 0){
+    goBackLevel() {
+        if (this.initial === 0) {
             this.goBackToDetailPage();
-        }else{
+        } else {
             this.initial = this.initial - 1;
             this.setTraining = this.trainingDatas[this.initial];
             this.text = this.setTraining.fileDescription;
             this.setTraining.fileLink = this.getFileExtension(this.setTraining.fileLink);
-            this.quizBtn = (this.initial === this.lastIndexs)?true :false;
+            this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
         }
     }
     getFileExtension(filename) {
@@ -151,36 +149,70 @@ export class TrainingDetailPage {
                 fileLink = "assets/imgs/pdf.png";
                 this.imageType = true;
                 this.filePath = filename;
+                this.fileType = fileType;
                 break;
             case "txt":
                 fileLink = "assets/imgs/text.png";
                 this.imageType = true;
                 this.filePath = filename;
+                this.fileType = fileType;
                 break;
             case "doc":
                 fileLink = "assets/imgs/doc.png";
                 this.imageType = true;
                 this.filePath = filename;
+                this.fileType = fileType;
+                break;
+            case "ppt":
+                fileLink = "assets/imgs/ppt.png";
+                this.imageType = true;
+                this.filePath = filename;
+                this.fileType = fileType;
                 break;
             default:
                 fileLink = filename;
                 this.imageType = false;
                 this.filePath = filename;
+                this.fileType = fileType;
         }
         return fileLink;
     }
     viewContent(docFile) {
-        if(this.agree){
+        // allowed files PPT, .TXT, MP4, .JPG, .DOC, MPEG, AVI
+        // Doc Viewed Files PPT,TXT,DOC
+        if (this.agree) {
             const options: DocumentViewerOptions = {
-                title: 'My PDF'
+                title: this.courseName
             };
-            let baseUrl =  'file:///android_asset/www/';
+            let docType;
+            switch (this.fileType) {
+                case "pdf":
+                    docType = 'application/pdf';
+                    break;
+                case 'ppt':
+                    docType = 'application/vnd.ms-powerpoint';
+                    break;
+                case 'pptx':
+                    docType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+                    break;
+                case 'doc':
+                    docType = 'application/msword';
+                    break;
+                case 'docx':
+                    docType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                    break;
+                case 'txt':
+                    docType = 'text/plain';
+                    break;
+                default:
+                    docType = 'application/pdf';
+            }
+            let baseUrl = 'file:///android_asset/www/';
             //For IOS platform 
-           // baseUrl = location.href.replace("/index.html", ""); 
-            this.document.viewDocument(baseUrl + docFile, 'application/pdf', options);
-        }else{
+            // baseUrl = location.href.replace("/index.html", ""); 
+            this.document.viewDocument(baseUrl + docFile, docType, options);
+        } else {
             this.toastr.error("Please agree acknowledgement to view content"); return false;
         }
-      
     }
 }
