@@ -355,6 +355,16 @@ position: absolute;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+.module-select {
+    margin-left: -16px;
+    margin-right: -16px;
+}
+.module-select .module-drpdwn .dropdown-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.55rem 1.5rem;
+    line-height: 35px;
+    color: #000;
+}
 @media (min-width: 1200px) { } 
 @media (min-width: 980px) and (max-width: 1199px) { } 
 @media (min-width: 768px) and (max-width: 979px) { } 
