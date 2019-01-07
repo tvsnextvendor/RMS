@@ -358,10 +358,13 @@ ion-col:nth-child(2) .ranker-det .winner-img img {
 					min-height: 95px;
 				}
 				.module-drpdwn.show #dropdownMenuButton {
-    border-left: 3px solid #329CD6;
+    border-left: 5px solid #329CD6;
 }
-.module-drpdwn #dropdownMenuButton {
-    border-left: 3px solid #fff;
+a.dropdown-item {
+    left: 6px !important;
+}
+.dropdown-menu {
+    left: 7px !important;
 }
 .badge-title {
     font-size: 15px;

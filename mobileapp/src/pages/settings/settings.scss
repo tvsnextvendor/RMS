@@ -30,8 +30,8 @@ page-settings {
 		color: #fff;
 	}
 	ion-icon {
-		line-height: 50px;
-		color: #fff;
+/*		line-height: 40px;
+*/		color: #fff;
 	}
 	.profile-details ion-icon {
 		line-height: 40px;
@@ -59,25 +59,53 @@ page-settings {
 		color: #fff;
 /*		transform: rotate(-80deg);
 */		line-height: 50px;
+}
+.pwd-grid{
+	ion-label {
+		margin: 0;
 	}
-	.pwd-grid{
-		ion-label {
-			margin: 0;
-		}
-		input.text-input {
-			margin: 5px 8px 5px 0;
-		}
+	input.text-input {
+		margin: 5px 8px 5px 0;
 	}
-	.blue-btn.button-ios, .blue-btn.button-md {
-    margin-top: 70px;
+}
+.blue-btn.button-ios, .blue-btn.button-md {
+	margin-top: 70px;
 }
 .pwd-setting {
-    color: #fff;
-    display: table-cell;
-    /* padding-top: 60%; */
-    width: calc(100vw - 10px);
-    vertical-align: bottom;
-    height: calc(100vh - 140px);
+	color: #fff;
+	/*display: table-cell;
+	 padding-top: 60%; 
+	width: calc(100vw - 10px);
+	vertical-align: bottom;
+	height: calc(100vh - 140px);*/
+}
+.checkbox-item{
+	display: block;
+	width: 100%;
+}
+.checkmark {
+    right: 0;
+    left: auto;
+}
+.hole-cont{	
+	width: 100%;
+	color: #fff;
+	margin-bottom: 15px;
+	padding-left: 0px;
+}
+.checkmark {
+    background-color: transparent;
+    border-radius: 3pt;
+    border: 2px solid #ccc;
+}
+.hole-cont input:checked ~ .checkmark {
+    background-color: transparent;
+    border: 2px solid #fff;
+}
+.hole-cont .checkmark:after {
+    left: 3.4px;
+    width: 5px;
+    height: 8px;
 }
 }
 $checkbox-md-icon-background-color-on: #fff;

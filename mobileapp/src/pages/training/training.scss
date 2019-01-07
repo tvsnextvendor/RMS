@@ -175,5 +175,11 @@ page-training {
 
 		padding: 0.55rem 1.5rem;
 	}
-
+				
+}
+.module-drpdwn.show #dropdownMenuButton {
+    border-left: 5px solid #329CD6;
+}
+a.dropdown-item {
+    left: 6px !important;
 }

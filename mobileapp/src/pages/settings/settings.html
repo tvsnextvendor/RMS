@@ -15,14 +15,31 @@
         <ion-col col-11 class="profile-info">
           <ion-label color="default">Notifiction</ion-label>
         </ion-col>
-        <ion-item>
-          <ion-label>SMS</ion-label>
-          <ion-checkbox [(ngModel)]="setting.sms" formControlName="sms" (click)="notificationAPI()"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-label>Email</ion-label>
-          <ion-checkbox [(ngModel)]="setting.email" formControlName="email" (click)="notificationAPI()"></ion-checkbox>          
-        </ion-item>
+        <div class="checkbox-item">
+          <ion-row>
+            <ion-col col-1 >
+            </ion-col>
+            <ion-col col-11 class="profile-info">
+              <label class="hole-cont mr-2">
+                SMS
+                <input type="checkbox" name="options" [(ngModel)]="setting.sms" formControlName="sms" (click)="notificationAPI()"> 
+
+                <span class="checkmark"></span>
+              </label>
+            </ion-col>
+
+            <ion-col col-1 >
+            </ion-col>
+            <ion-col col-11 class="profile-info">
+              <label class="hole-cont mr-2">
+                Email
+                <input type="checkbox" name="options" [(ngModel)]="setting.email" formControlName="email" (click)="notificationAPI()"> 
+
+                <span class="checkmark"></span>
+              </label>
+            </ion-col>
+          </ion-row>
+        </div>
       </ion-row>
       <ion-row>
         <ion-col col-1>
@@ -38,85 +55,85 @@
       </ion-row>
 
       <ion-row *ngIf="showPasswordChange">
-      <ion-grid class="pwd-grid" >
-        <ion-row>
-          <ion-col col-1 >
-          </ion-col>
-          <ion-col col-11 class="profile-info">
-            <ion-input type="password" [(ngModel)]="setting.oldpassword" formControlName="password" [class.error1]="!settingsForm.controls.password.valid && settingsForm.controls.password.dirty"
-            placeholder="**********"></ion-input>
-            <ion-label color="default"> {{constant.pages.settingLabels.oldPassword}}</ion-label>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <div *ngIf="( settingsForm.get('password').hasError('minlength') || settingsForm.get('password').hasError('maxlength') ||settingsForm.get('password').hasError('pattern') || settingsForm.get('password').hasError('required') ) && settingsForm.get('password').touched">
-        <div class="error" *ngIf="settingsForm.get('password').hasError('required') && settingsForm.get('password').touched">
-          {{constant.pages.settingLabels.validations.oldPasswordRequired}}
+        <ion-grid class="pwd-grid" >
+          <ion-row>
+            <ion-col col-1 >
+            </ion-col>
+            <ion-col col-11 class="profile-info">
+              <ion-input type="password" [(ngModel)]="setting.oldpassword" formControlName="password" [class.error1]="!settingsForm.controls.password.valid && settingsForm.controls.password.dirty"
+              placeholder="**********"></ion-input>
+              <ion-label color="default"> {{constant.pages.settingLabels.oldPassword}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div *ngIf="( settingsForm.get('password').hasError('minlength') || settingsForm.get('password').hasError('maxlength') ||settingsForm.get('password').hasError('pattern') || settingsForm.get('password').hasError('required') ) && settingsForm.get('password').touched">
+          <div class="error" *ngIf="settingsForm.get('password').hasError('required') && settingsForm.get('password').touched">
+            {{constant.pages.settingLabels.validations.oldPasswordRequired}}
+          </div>
+          <div class="error" *ngIf="settingsForm.get('password').hasError('minlength') && settingsForm.get('password').touched">
+            {{constant.pages.settingLabels.validations.minLength}}
+          </div>
+          <div class="error" *ngIf="settingsForm.get('password').hasError('maxlength') && settingsForm.get('password').touched">
+            {{constant.pages.settingLabels.validations.maxLength}}
+          </div>
+          <div class="error" *ngIf="settingsForm.get('password').hasError('pattern') && settingsForm.get('password').touched">
+            {{constant.pages.settingLabels.validations.pattern}}
+          </div>
         </div>
-        <div class="error" *ngIf="settingsForm.get('password').hasError('minlength') && settingsForm.get('password').touched">
-          {{constant.pages.settingLabels.validations.minLength}}
+        <ion-grid class="pwd-grid">
+          <ion-row>
+            <ion-col col-1 >
+            </ion-col>
+            <ion-col col-11 class="profile-info">
+              <ion-input type="password" [(ngModel)]="setting.newpassword" formControlName="newpassword" [class.error1]="!settingsForm.controls.newpassword.valid && settingsForm.controls.newpassword.dirty"
+              placeholder="**********"></ion-input>
+              <ion-label color="default">{{constant.pages.settingLabels.newPassword}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div *ngIf="( settingsForm.get('newpassword').hasError('minlength') || settingsForm.get('newpassword').hasError('maxlength') ||settingsForm.get('newpassword').hasError('pattern') || settingsForm.get('newpassword').hasError('required') ) && settingsForm.get('newpassword').touched">
+          <div class="error" *ngIf="settingsForm.get('newpassword').hasError('required') && settingsForm.get('newpassword').touched">
+            {{constant.pages.settingLabels.validations.newPasswordRequired}}
+          </div>
+          <div class="error" *ngIf="settingsForm.get('newpassword').hasError('minlength') && settingsForm.get('newpassword').touched">
+            {{constant.pages.settingLabels.validations.minLength}}
+          </div>
+          <div class="error" *ngIf="settingsForm.get('newpassword').hasError('maxlength') && settingsForm.get('newpassword').touched">
+            {{constant.pages.settingLabels.validations.maxLength}}
+          </div>
+          <div class="error" *ngIf="settingsForm.get('newpassword').hasError('pattern') && settingsForm.get('newpassword').touched">
+            {{constant.pages.settingLabels.validations.pattern}}
+          </div>
         </div>
-        <div class="error" *ngIf="settingsForm.get('password').hasError('maxlength') && settingsForm.get('password').touched">
-          {{constant.pages.settingLabels.validations.maxLength}}
+        <ion-grid class="pwd-grid">
+          <ion-row>
+            <ion-col col-1 >
+            </ion-col>
+            <ion-col col-11 class="profile-info">
+              <ion-input type="password" [(ngModel)]="setting.confirmpassword" formControlName="confirmpassword"
+              [class.error1]="!settingsForm.controls.confirmpassword.valid && settingsForm.controls.confirmpassword.dirty"
+              placeholder="**********"></ion-input>
+              <ion-label color="default">{{constant.pages.settingLabels.confirmPassword}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div *ngIf="( settingsForm.get('confirmpassword').hasError('minlength') || settingsForm.get('confirmpassword').hasError('maxlength') ||settingsForm.get('confirmpassword').hasError('pattern') || settingsForm.get('confirmpassword').hasError('required') ) && settingsForm.get('confirmpassword').touched">
+          <div class="error" *ngIf="settingsForm.get('password').hasError('required') && settingsForm.get('password').touched">
+            {{constant.pages.settingLabels.validations.confirmPasswordRequired}}
+          </div>
+          <div class="error" *ngIf="settingsForm.get('confirmpassword').hasError('minlength') && settingsForm.get('confirmpassword').touched">
+            {{constant.pages.settingLabels.validations.minLength}}
+          </div>
+          <div class="error" *ngIf="settingsForm.get('confirmpassword').hasError('maxlength') && settingsForm.get('confirmpassword').touched">
+            {{constant.pages.settingLabels.validations.maxLength}}
+          </div>
+          <div class="error" *ngIf="settingsForm.get('confirmpassword').hasError('pattern') && settingsForm.get('confirmpassword').touched">
+            {{constant.pages.settingLabels.validations.pattern}}
+          </div>
         </div>
-        <div class="error" *ngIf="settingsForm.get('password').hasError('pattern') && settingsForm.get('password').touched">
-          {{constant.pages.settingLabels.validations.pattern}}
-        </div>
-      </div>
-      <ion-grid class="pwd-grid">
-        <ion-row>
-          <ion-col col-1 >
-          </ion-col>
-          <ion-col col-11 class="profile-info">
-            <ion-input type="password" [(ngModel)]="setting.newpassword" formControlName="newpassword" [class.error1]="!settingsForm.controls.newpassword.valid && settingsForm.controls.newpassword.dirty"
-            placeholder="**********"></ion-input>
-            <ion-label color="default">{{constant.pages.settingLabels.newPassword}}</ion-label>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <div *ngIf="( settingsForm.get('newpassword').hasError('minlength') || settingsForm.get('newpassword').hasError('maxlength') ||settingsForm.get('newpassword').hasError('pattern') || settingsForm.get('newpassword').hasError('required') ) && settingsForm.get('newpassword').touched">
-        <div class="error" *ngIf="settingsForm.get('newpassword').hasError('required') && settingsForm.get('newpassword').touched">
-          {{constant.pages.settingLabels.validations.newPasswordRequired}}
-        </div>
-        <div class="error" *ngIf="settingsForm.get('newpassword').hasError('minlength') && settingsForm.get('newpassword').touched">
-          {{constant.pages.settingLabels.validations.minLength}}
-        </div>
-        <div class="error" *ngIf="settingsForm.get('newpassword').hasError('maxlength') && settingsForm.get('newpassword').touched">
-          {{constant.pages.settingLabels.validations.maxLength}}
-        </div>
-        <div class="error" *ngIf="settingsForm.get('newpassword').hasError('pattern') && settingsForm.get('newpassword').touched">
-          {{constant.pages.settingLabels.validations.pattern}}
-        </div>
-      </div>
-      <ion-grid class="pwd-grid">
-        <ion-row>
-          <ion-col col-1 >
-          </ion-col>
-          <ion-col col-11 class="profile-info">
-            <ion-input type="password" [(ngModel)]="setting.confirmpassword" formControlName="confirmpassword"
-            [class.error1]="!settingsForm.controls.confirmpassword.valid && settingsForm.controls.confirmpassword.dirty"
-            placeholder="**********"></ion-input>
-            <ion-label color="default">{{constant.pages.settingLabels.confirmPassword}}</ion-label>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <div *ngIf="( settingsForm.get('confirmpassword').hasError('minlength') || settingsForm.get('confirmpassword').hasError('maxlength') ||settingsForm.get('confirmpassword').hasError('pattern') || settingsForm.get('confirmpassword').hasError('required') ) && settingsForm.get('confirmpassword').touched">
-        <div class="error" *ngIf="settingsForm.get('password').hasError('required') && settingsForm.get('password').touched">
-          {{constant.pages.settingLabels.validations.confirmPasswordRequired}}
-        </div>
-        <div class="error" *ngIf="settingsForm.get('confirmpassword').hasError('minlength') && settingsForm.get('confirmpassword').touched">
-          {{constant.pages.settingLabels.validations.minLength}}
-        </div>
-        <div class="error" *ngIf="settingsForm.get('confirmpassword').hasError('maxlength') && settingsForm.get('confirmpassword').touched">
-          {{constant.pages.settingLabels.validations.maxLength}}
-        </div>
-        <div class="error" *ngIf="settingsForm.get('confirmpassword').hasError('pattern') && settingsForm.get('confirmpassword').touched">
-          {{constant.pages.settingLabels.validations.pattern}}
-        </div>
-      </div>
-      <button type="submit" class="login-btn blue-btn" ion-button round [disabled]="settingsForm.invalid"> {{constant.buttons.save}}</button>
-    </ion-row>
+        <button type="submit" class="login-btn blue-btn" ion-button round [disabled]="settingsForm.invalid"> {{constant.buttons.save}}</button>
+      </ion-row>
     </div>
- 
+
   </form>
 </ion-content>
