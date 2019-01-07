@@ -36,6 +36,7 @@ export class UserComponent implements OnInit {
    departmentArray = [];
    designationArray = [];
    designationData = [];
+   fileUploadValue;
 
    constructor(private alertService:AlertService,private http: HttpService,public constant:UserVar,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
         this.constant.url = API_URL.URLS;
