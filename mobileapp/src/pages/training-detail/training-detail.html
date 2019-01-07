@@ -6,95 +6,101 @@
         </ion-toolbar>
     </ion-header>
     <!-- Previous Works Modifications -->
-    <!-- <div class="inner-content">
-        <div class="row">
-            <div class="slides-container">
-                <ion-slides pager (ionSlideDidChange)="slideChanged()">
-                     <ion-slide *ngFor="let slide of trainingDatas">
-                        <video class="video-width" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" playsinline class="videoPlayer">
-                            <source src="{{slide.fileLink}}" type="video/mp4"/>
-                        </video>
-                        <div class = "video-content">
-                            <div class = "loading-bar-div">
-                                <div class = "loading-bar">
-                                    <span class = "video-progress-bar" [ngClass] = "{'playedProgressBar': i <= currentVideoIndex}" [ngStyle]="{'width.%': loadingBarWidth}" *ngFor = "let trainingVideo of trainingDatas; let i = index">
-                                        <p>{{i}}</p>
-                                    </span>
-                                </div>
-                                <span class = "loading-bar-percentage">
-                                    <p>{{Math.round(loadingBarWidth * (currentVideoIndex+1))}}<sub>%</sub></p>
-                                </span>
-                            </div>
-                            <ion-card-title [innerHTML]="slide.fileDescription" class = "video-title"></ion-card-title>
-                            <span class = "video-description">
-                                <p [innerHTML]="slide.description"></p>
-                            </span>
-                        </div>
-                    </ion-slide>
-                </ion-slides>
-                <div class="btn-container">
-                    <span class = "slider-btns">
-                        <ion-icon name="arrow-dropleft-circle" class="arrow-dropleft-icon" (click)="slides.slidePrev()" *ngIf="leftButton"></ion-icon>
-                        <ion-icon name="arrow-dropleft-circle" class="arrow-dropleft-icon disabledSliderIcon" *ngIf="!leftButton"></ion-icon>
-                        
-                        <ion-icon name="arrow-dropright-circle" class="arrow-dropright-icon" (click)="slides.slideNext()" *ngIf="rightButton"></ion-icon>
-                        <ion-icon name="arrow-dropright-circle" class="arrow-dropright-icon disabledSliderIcon" *ngIf="!rightButton"></ion-icon>
-                    </span>
-                    <span class = "take-quiz-btn" (click)="goToQuizPage()">
-                       {{constant.buttons.takeQuiz}}
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <div class="inner-content" *ngIf="setTraining">
-        <div class="image-tag" *ngIf="imageType">
-            <img src="{{setTraining.fileLink}}" alt="image" class="inner-image">
-        </div>
-        <div class="video-tag" *ngIf="!imageType">
-            <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
-                playsinline class="videoPlayer">
-                <source src="{{setTraining.fileLink}}" type="video/mp4" />
-            </video>
-        </div>
-        <div class="row training-block">
-            <div class="loading-bar-div">
-                <div class="loading-bar">
-                    <span class="video-progress-bar" [ngClass]="{'playedProgressBar': i <= initial}" [ngStyle]="{'width.%': loadingBarWidth}"
-                        *ngFor="let trainingVideo of trainingDatas; let i = index">
-                        <p>{{i}}</p>
-                    </span>
-                </div>
-                <span class="loading-bar-percentage">
-                    <p>{{Math.round(loadingBarWidth * (initial+1))}}<sub>%</sub></p>
-                </span>
-            </div>
-            <h6>{{setTraining.fileTitle}} <span class="view-button" *ngIf="imageType">
-                    <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
-                        (click)="viewContent(filePath)">View Content </a>
-                </span></h6>
-            <div class="checkbox-item" *ngIf="imageType">
-                <ion-checkbox [(ngModel)]="agree"></ion-checkbox>
-                <ion-label class="ack-label">{{constant.pages.trainingLabels.ackText}}</ion-label>
-            </div>
-            <div *ngIf="text">
-                <div *ngIf="text.length <= 400">{{text}}</div>
-                <div *ngIf="truncating && text.length > 400">
-                    {{text | words : limit}}
-                    <a href="javascript:void(0);" (click)="truncating = false">
-                        {{constant.pages.trainingLabels.readMore}}</a>
-                </div>
-                <div *ngIf="!truncating && text.length > 400">
-                    {{text}}
-                    <a href="javascript:void(0);" (click)="truncating = true">
-                        {{constant.pages.trainingLabels.readLess}}
-                    </a> </div>
-            </div> <span class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
-                {{constant.buttons.next}}
-            </span>
-            <span class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="quizBtn">
-                {{constant.buttons.takeQuiz}}
-            </span>
-        </div>
+<!-- <div class="inner-content">
+<div class="row">
+<div class="slides-container">
+<ion-slides pager (ionSlideDidChange)="slideChanged()">
+<ion-slide *ngFor="let slide of trainingDatas">
+<video class="video-width" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" playsinline class="videoPlayer">
+<source src="{{slide.fileLink}}" type="video/mp4"/>
+</video>
+<div class = "video-content">
+<div class = "loading-bar-div">
+<div class = "loading-bar">
+<span class = "video-progress-bar" [ngClass] = "{'playedProgressBar': i <= currentVideoIndex}" [ngStyle]="{'width.%': loadingBarWidth}" *ngFor = "let trainingVideo of trainingDatas; let i = index">
+<p>{{i}}</p>
+</span>
+</div>
+<span class = "loading-bar-percentage">
+<p>{{Math.round(loadingBarWidth * (currentVideoIndex+1))}}<sub>%</sub></p>
+</span>
+</div>
+<ion-card-title [innerHTML]="slide.fileDescription" class = "video-title"></ion-card-title>
+<span class = "video-description">
+<p [innerHTML]="slide.description"></p>
+</span>
+</div>
+</ion-slide>
+</ion-slides>
+<div class="btn-container">
+<span class = "slider-btns">
+<ion-icon name="arrow-dropleft-circle" class="arrow-dropleft-icon" (click)="slides.slidePrev()" *ngIf="leftButton"></ion-icon>
+<ion-icon name="arrow-dropleft-circle" class="arrow-dropleft-icon disabledSliderIcon" *ngIf="!leftButton"></ion-icon>
+
+<ion-icon name="arrow-dropright-circle" class="arrow-dropright-icon" (click)="slides.slideNext()" *ngIf="rightButton"></ion-icon>
+<ion-icon name="arrow-dropright-circle" class="arrow-dropright-icon disabledSliderIcon" *ngIf="!rightButton"></ion-icon>
+</span>
+<span class = "take-quiz-btn" (click)="goToQuizPage()">
+{{constant.buttons.takeQuiz}}
+</span>
+</div>
+</div>
+</div>
+</div> -->
+<div class="inner-content" *ngIf="setTraining">
+    <div class="image-tag" *ngIf="imageType">
+        <img src="{{setTraining.fileLink}}" alt="image" class="inner-image">
     </div>
+    <div class="video-tag" *ngIf="!imageType">
+        <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
+        playsinline class="videoPlayer">
+        <source src="{{setTraining.fileLink}}" type="video/mp4" />
+    </video>
+</div>
+<div class="row training-block">
+    <div class="loading-bar-div">
+        <div class="loading-bar">
+            <span class="video-progress-bar" [ngClass]="{'playedProgressBar': i <= initial}" [ngStyle]="{'width.%': loadingBarWidth}"
+            *ngFor="let trainingVideo of trainingDatas; let i = index">
+            <p>{{i}}</p>
+        </span>
+    </div>
+    <span class="loading-bar-percentage">
+        <p>{{Math.round(loadingBarWidth * (initial+1))}}<span>%</span></p>
+    </span>
+</div>
+<h6>{{setTraining.fileTitle}} <span class="view-button" *ngIf="imageType">
+    <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
+    (click)="viewContent(filePath)">View Content </a>
+</span></h6>
+
+<div class="checkbox-item" *ngIf="imageType">
+    <label class="hole-cont mr-2">
+        <input type="checkbox" [(ngModel)]="agree"  name="options" > 
+        {{constant.pages.trainingLabels.ackText}}
+        <span class="checkmark"></span>
+    </label>
+
+
+</div>
+<div *ngIf="text" class="quiz-text">
+    <div *ngIf="text.length <= 400">{{text}}</div>
+    <div *ngIf="truncating && text.length > 400">
+        {{text | words : limit}}
+        <a href="javascript:void(0);" (click)="truncating = false">
+        {{constant.pages.trainingLabels.readMore}}</a>
+    </div>
+    <div *ngIf="!truncating && text.length > 400">
+        {{text}}
+        <a href="javascript:void(0);" (click)="truncating = true">
+            {{constant.pages.trainingLabels.readLess}}
+        </a> </div>
+    </div> <span class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
+        {{constant.buttons.next}}
+    </span>
+    <span class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="quizBtn">
+        {{constant.buttons.takeQuiz}}
+    </span>
+</div>
+</div>
 </ion-content>
