@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, TemplateRef} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {HeaderService} from '../../services/header.service';
 import {HttpService} from '../../services/http.service';
@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import {ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
 import { AlertService } from 'src/app/services/alert.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
     selector: 'app-module-list',
@@ -18,7 +20,9 @@ export class ModuleListComponent implements OnInit {
   textContent;
   message:string = '';
   moduleAdd = false;
-    constructor(private http: HttpService,private alertService: AlertService,private route: Router, private activatedRoute: ActivatedRoute,public moduleVar: ModuleVar,private toastr:ToastrService,private headerService:HeaderService){
+  modalRef: BsModalRef;
+
+    constructor(private modalService:BsModalService,private http: HttpService,private alertService: AlertService,private route: Router, private activatedRoute: ActivatedRoute,public moduleVar: ModuleVar,private toastr:ToastrService,private headerService:HeaderService){
         this.moduleVar.url=API_URL.URLS;
     }
     
@@ -74,6 +78,14 @@ export class ModuleListComponent implements OnInit {
     this.moduleAdd = true;
     this.route.navigateByUrl('/module/'+data.moduleId)
   }
+
+
+  openModal(template: TemplateRef<any>, data,type,index) {
+    if(type === "video"){
+        this.moduleVar.videoLink= data;
+        this.modalRef = this.modalService.show(template);
+    }
+}
 
 
 }
