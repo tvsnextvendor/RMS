@@ -90,6 +90,7 @@ input:checked + .slider:before {
     color: #fff;
     font-size: 12px;
     position: relative;
+    height: 150px;
 }
 .img-player-alg{
 	max-width: 100%;

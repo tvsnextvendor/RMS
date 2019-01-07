@@ -145,3 +145,10 @@ form{
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+.tour-txt{
+    color: #1D4960;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
