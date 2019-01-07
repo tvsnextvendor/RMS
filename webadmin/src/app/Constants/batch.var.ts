@@ -8,13 +8,14 @@ export class BatchVar{
    labels = {
         from       : 'Assigned Date',
         to         : 'Due Date',
-        batchName  : 'Training Class Name',
+        batchName  : 'Training Schedule',
         selectDept  : 'Department',
         module     : 'Program',
         mandatory  : 'Mandatory',
         optional   : 'Optional',
         percentage : 'Pass %',
-        courses    : 'Courses'        
+        courses    : 'Courses'    ,
+        regNote    : 'Notification Reminder'    
     };
     calLabels = {
         next     : 'Next',
@@ -68,4 +69,9 @@ export class BatchVar{
      batchName;
      batchList;
      batchId;
+     regDuration=[
+         {"id":1,"name":"minutes"},
+         {"id":2,"name":"hours"},
+         {"id":3,"name":"days"}
+     ];
 }

@@ -23,7 +23,7 @@
                     <div class="row">  		
                             <label class="col-md-4 p-0 label-title">{{batchVar.labels.batchName}}</label>  		
                             <div class="col-md-7 pr-0">
-                            <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName" #BatchName="ngModel" type="text" placeholder="Enter Training Class" required>
+                            <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName" #BatchName="ngModel" type="text" placeholder="Enter Training Schedule" required>
                             <span class="required_color" *ngIf="BatchName && BatchName.invalid && (formDir.submitted || BatchName.touched)">
                                      {{batchVar.mandatoryLabels.batchName}}
                             </span> 
@@ -47,6 +47,24 @@
                                     </span> 
                             </div> 
                     </div>
+                    <div class="row"> 
+                        <label class="col-md-4 p-0 label-title">{{batchVar.labels.regNote}}</label> 
+                        <div class="row col-md-8">
+                            <span class="col-md-6 pl-0">
+                                <input class="form-control  p-0" name="reminder" [(ngModel)]="reminder" #reminderValue="ngModel" type="number" placeholder="Enter Count" min="1" max="{{maxdurationCount}}" (keyup)="countErrorCheck()" required>
+                            </span> 
+                            <span class="col-md-6 pl-0">
+                                <select id="notificationTime" class="form-control" name="notificationTime" [(ngModel)]="durationValue" (change)="durationUpdate()" required> 
+                                    <option value="null">{{batchVar.select}}</option>
+                                    <option *ngFor="let program of batchVar.regDuration" value="{{program.id}}">{{program.name}}</option>
+                                </select>
+                            </span>	 
+                            <div>
+                                <span class="required_color" *ngIf="formDir.submitted && (!reminder || !durationValue)">Valid notification reminder is required</span> 
+                                <span class="required_color" *ngIf="countCheck">{{countError}}</span>                          
+                            </div>
+                        </div>
+                    </div> 
               </div>
               
               <div class="col-md-6">
