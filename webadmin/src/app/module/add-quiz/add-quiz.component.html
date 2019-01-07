@@ -57,7 +57,10 @@
 								<div class="col-md-12 pl-0 form-group">
 									<div class="row" *ngIf="data.questionType === '1' && data.options && data.options.length">
 										<span class="col-sm-12 pl-0" *ngFor=" let optionValue of data.options; let oi = index;">
-											<span class="option-btn">{{oi + 1}}</span>
+											<span class="option-btn" *ngIf="oi===0">A</span>
+											<span class="option-btn" *ngIf="oi===1">B</span>
+											<span class="option-btn" *ngIf="oi===2">C</span>
+											<span class="option-btn" *ngIf="oi===3">D</span>
 											<input type="text" class="form-control pdl27" placeholder="" [name]="optionValue.value" [(ngModel)]="optionValue.value" [ngModelOptions]="{ standalone : true }" required>
 										</span>
 									</div>

@@ -16,8 +16,11 @@ import { AlertService } from '../../services/alert.service';
 })
 
 export class AddBatchComponent implements OnInit {
-
-
+  durationValue = null;
+  maxdurationCount;
+  countCheck = false;
+  countError;
+  reminder;
    constructor(private alertService:AlertService,private headerService:HeaderService,private datePipe: DatePipe,private activatedRoute : ActivatedRoute,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router){
         this.batchVar.url = API_URL.URLS; 
         this.activatedRoute.params.subscribe((params: Params) => {
@@ -57,6 +60,36 @@ export class AddBatchComponent implements OnInit {
       this.getBatchDetail();
    }
 
+
+
+    durationUpdate(){
+    // console.log(this.durationValue)
+        if(this.durationValue === '1'){
+            this.maxdurationCount = 60;
+        }
+        else if(this.durationValue === '2'){
+            this.maxdurationCount = 24;
+        }
+        else{
+            this.maxdurationCount = 500;
+        }
+        this.countErrorCheck();
+    }
+
+    countErrorCheck(){
+        if(this.durationValue === '1' && this.reminder > 60){
+            this.countCheck = true;
+            this.countError = "Minutes value should be less than 60";
+        }
+        else if(this.durationValue === '2' && this.reminder > 24){
+            this.countCheck = true;
+            this.countError = "Hours value should be less than 24";
+        }
+        else{
+            this.countCheck = false;
+            this.countError = "";
+        }
+    }
 
   //get edit batch details
   getBatchDetail(){
@@ -124,7 +157,7 @@ export class AddBatchComponent implements OnInit {
           }
       }
 
-      if(!this.batchVar.moduleDuplicate && this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.employeeId && this.batchVar.moduleForm){
+      if(!this.batchVar.moduleDuplicate && this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.employeeId && this.batchVar.moduleForm && this.durationValue && this.reminder){
           let postData={
            FromDate      : this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-mm-dd hh:mm'),
            ToDate        : this.datePipe.transform(this.batchVar.batchTo, 'yyyy-mm-dd hh:mm'),
