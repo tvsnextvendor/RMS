@@ -21,10 +21,10 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let forum of mf.data" class="table-desc-color">
-                                <td class="forumname-width">{{ forum.forumName }}</td>
+                                <td class="forumname-width">{{ forum.forumname }}</td>
                                 <td class="text-center">{{ forum.departments.length }}</td>
                                 <td class="text-center"><label class="switch">
-                                        <input type="checkbox" [(ngModel)]="forum.activeStatus" (change)= "statusUpdate(forum.forumName,forum.activeStatus)" > 
+                                        <input type="checkbox" [(ngModel)]="forum.active" (change)= "statusUpdate(forum.forumname,forum.active)" > 
                                         <span class="slider round"></span>
                                     </label></td>
                                     <td class="text-center"><a (click)="openEditModal(editForum,forum)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a></td> 
@@ -46,7 +46,7 @@
     
 
   <ng-template #editForum>
-        <div class="modal-header">
+        <div class="modal-header"> 
                 <h4 class="modal-title pull-left">{{forumVar.createForum.editForum}}</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="forumVar.modalRef.hide()">
                   <span aria-hidden="true">&times;</span>
@@ -116,8 +116,8 @@
                         </span>    
                   </div> 
                    <div class="text-center pt-5">
-           <button type="button" class="btn btn-default mr-3" (click)="forumVar.modalRef.hide()">{{forumVar.btns.cancel}}</button>
-            <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.save}}</button>
+            <button type = "submit" class="btn btn-default mr-3 ">{{forumVar.btns.save}}</button>
+            <button type="button" class="btn btn-primary creat-btn" (click)="forumVar.modalRef.hide()">{{forumVar.btns.cancel}}</button>
         </div>
         </form>
         </div>

@@ -31,7 +31,7 @@ export class ForumComponent implements OnInit {
 
     getForumList(){
           this.http.get(this.forumVar.url.getForumList).subscribe((data) => {
-          this.forumVar.forumList= data.forumDetails;
+          this.forumVar.forumList= data.Message;
         });
     }
     // getEmployeeList(){
@@ -64,7 +64,8 @@ export class ForumComponent implements OnInit {
 
     openEditModal(template: TemplateRef<any>, forum) {
         this.forumVar.modalRef = this.modalService.show(template,this.forumVar.modalConfig);
-        this.forumVar.forumName= forum.forumName;
+        this.forumVar.forumName= forum.forumname;
+        this.forumVar.forumId = forum.forumid;
         // this.forumVar.topics=forum.topic;
         this.forumVar.employeeItems=forum.departments;
         this.forumVar.adminItems=forum.admins;
@@ -84,9 +85,14 @@ export class ForumComponent implements OnInit {
      
     onSave(form){
       if(form.valid && !this.forumVar.editNameValidate){
-        let postData= form.value;
+        let postData= {
+          forumid : this.forumVar.forumId,
+          forumname : form.value.forumName,
+          employeelist : form.value.empItems,
+          adminlist  : form.value.admin
+        }
        // this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
-        this.alertService.success(form.value.forumName + this.forumVar.updateSuccessMsg);
+        this.alertService.success(this.forumVar.updateSuccessMsg);
         this.forumVar.modalRef.hide();
      }
     }

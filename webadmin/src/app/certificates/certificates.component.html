@@ -6,8 +6,8 @@
         </div>
         <owl-carousel-o [options]="customOptions" class="certificate-list">
             <ng-container *ngFor="let template of constant.certificateList">
-                <ng-template carouselSlide [id]="template.templateId">
-                    <img class="img" src={{template.templateUrl}}>
+                <ng-template carouselSlide [id]="template.templateid">
+                    <img class="img" src={{template.htmldetails}}>
                     <p class="text-center pt-3">{{template.templatename}} </p>
                 </ng-template>
             </ng-container>
@@ -33,7 +33,7 @@
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
                             <div class=" col-md-6 col-sm-7">
                                 <select id="Template" class="form-control" name="Template{{i}}" [(ngModel)]="data.template">
-                                    <option *ngFor="let template of constant.certificateList" value="{{template.templateId}}">{{template.templatename}}</option>
+                                    <option *ngFor="let template of constant.certificateList" value="{{template.templateid}}">{{template.templatename}}</option>
                                 </select>
                             </div>
                             <span><a class="col-md-1 pl-0" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-course-icon"></i></a></span>
@@ -45,8 +45,8 @@
             </div>
            
             <div class="text-center py-5">
-                <button type="submit" class="btn btn-primary save-btn">{{constant.btns.save}}</button>
-                <button type="button" class="btn btn-default" (click)="clearMessage()">{{constant.btns.cancel}}</button>
+                <button type="submit" class="btn btn-default mr-3">{{constant.btns.save}}</button>
+                <button type="button" class="btn btn-primary save-btn" (click)="clearMessage()">{{constant.btns.cancel}}</button>
             </div>
         </form>
     </div>
@@ -76,8 +76,8 @@
                         class="upload"></div><span>{{constant.fileToUpload?.name}}</span>
             </div>
             <div class="text-center pt-4">
-                <button type="submit" class="btn btn-primary creat-btn mr-3">{{constant.btns.upload}}</button>
-                <button type="button" class="btn btn-default mr-3" (click)="modalRef.hide()">{{constant.btns.cancel}}</button>
+                <button type="submit" class="btn btn-default  mr-3">{{constant.btns.upload}}</button>
+                <button type="button" class="btn btn-primary creat-btn mr-3" (click)="modalRef.hide()">{{constant.btns.cancel}}</button>
             </div>
         </form>
     </div>

@@ -27,7 +27,7 @@ export class CertificatesComponent implements OnInit {
     
     //get Template list
     this.http.get(this.constant.url.getTemplateList).subscribe((data) => {
-        this.constant.certificateList = data.templateList;
+        this.constant.certificateList = data.templatedetails;
     });
  
     //get Batch list
@@ -126,8 +126,8 @@ export class CertificatesComponent implements OnInit {
   if(form.valid){    
    if(this.constant.fileToUpload){
        let postData={
-           templateName : form.templateName,
-           htmlFile : this.constant.fileToUpload
+           templatename : form.templateName,
+           htmlfile : this.constant.fileToUpload
      }
      this.alertService.success(this.constant.uploadSuccessMsg);
      // this.toastr.success(this.constant.uploadSuccessMsg);
