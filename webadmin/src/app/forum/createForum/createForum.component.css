@@ -23,3 +23,19 @@
    color:#f44336;
    text-align:left 
 }
+.createforum-hd{
+  color: #0F0000;
+    font-size: 14px;
+}
+.multi-input{
+  cursor: pointer;
+  position: relative;
+}
+.multi-dropdown{
+    position: absolute;
+    right: 9px;
+    bottom: 5px;
+    font-size: 17px;
+    cursor: pointer;
+    color: #73737B;    
+}

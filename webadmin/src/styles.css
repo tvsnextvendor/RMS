@@ -476,7 +476,7 @@ li.search-block {
 .pdr7{padding-right: 7px;}
 .avg-alg{
 	color: #999999;
-    padding-left: 12px;
+    padding-left: 27px;
 }
 .pect-color{color: #51CC3A;}
 .avg-color{
@@ -975,6 +975,9 @@ a {
   font-size: 15px;
     color: #576271;
     cursor: pointer;
+    position: absolute;
+    top: 7px;
+    left: 40px;
 }
 .select-Courses li.multiselect-item-checkbox {
     display: block;

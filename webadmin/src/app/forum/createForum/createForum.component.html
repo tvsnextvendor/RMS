@@ -1,8 +1,8 @@
-<h6>{{forumVar.createForum.createForum}}</h6>
+<h6 class="mb-3">{{forumVar.createForum.createForum}}</h6>
 <div>
     <form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)">
         <div class="form-group">
-            <label>{{forumVar.createForum.forumName}}</label>
+            <label class="createforum-hd">{{forumVar.createForum.forumName}}</label>
             <input type="text" class="form-control" [(ngModel)]="forumName" autocomplete="off" #ForumName="ngModel" (ngModelChange)="checkNameUniqueness(forumName)"  name = "forumName" id="forumName" placeholder="Enter Forum Name" required autocomplete="off">  
             <span class="required_color" *ngIf="ForumName && ForumName.invalid && (formDir.submitted || ForumName.touched)">
                     {{forumVar.mandatoryLabels.forumName}}
@@ -23,7 +23,7 @@
             </div>  
         </div> -->
         <div class="form-group">
-                <label>{{forumVar.createForum.admin}}</label> 
+                <label class="createforum-hd">{{forumVar.createForum.admin}}</label>                  
                     <tag-input [ngModel]="adminItems" 
                     name="admin"
                     #adminName="ngModel"
@@ -39,14 +39,15 @@
                     <ng-template let-item="item" let-index="index">
                         {{ item.display }}
                     </ng-template>
-                </tag-input-dropdown>
+                </tag-input-dropdown>  
+                <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>              
             </tag-input>
             <span class="required_color" *ngIf="adminName && adminName.invalid && (formDir.submitted || adminName.touched)">
                     {{forumVar.mandatoryLabels.admin}}
             </span>    
         </div>
         <div class="form-group">
-                <label>{{forumVar.createForum.empName}}</label> 
+                <label class="createforum-hd">{{forumVar.createForum.empName}}</label> 
                     <tag-input [ngModel]="employeeItems" 
                     name="empItems"
                     #empName="ngModel"
@@ -63,6 +64,7 @@
                         {{ item.display }}
                     </ng-template>
                 </tag-input-dropdown>
+                <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
             </tag-input>
             <span class="required_color" *ngIf="empName && empName.invalid && (formDir.submitted || empName.touched)">
                     {{forumVar.mandatoryLabels.empName}}
