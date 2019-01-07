@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeaderService } from '../services/header.service';
@@ -21,8 +21,9 @@ export class EmailComponent implements OnInit {
      validEmail = false;
      selectedDepartment;
      userList = [];
+     userDetails;
      dataModel;
-    constructor(private toastr:ToastrService,private headerService:HeaderService,private emailVar:EmailVar,private http: HttpService,private alertService:AlertService){
+    constructor(private toastr:ToastrService,private headerService:HeaderService,private elementRef:ElementRef,private emailVar:EmailVar,private http: HttpService,private alertService:AlertService){
         this.email.url = API_URL.URLS;
      }
 
@@ -82,6 +83,15 @@ export class EmailComponent implements OnInit {
     resetFields(){
         this.emailForm = {'to':'','cc':'','subject':''};
         this.selectedDepartment = '';
+    }
+
+
+    addSign(){
+        // console.log(this.dataModel)
+        this.userDetails = JSON.parse(localStorage.getItem('userData'));
+        // console.log(this.userDetails)
+        let content = this.dataModel;
+        this.dataModel = content +"<br><b>Signature,</b><br>"+ this.userDetails.username;
     }
 
     groupMail(group){
