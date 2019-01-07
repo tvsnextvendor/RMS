@@ -30,6 +30,7 @@ export class ModuleVar {
         "next": "NEXT",
         "save" : "SAVE",
         "addNewCourse" : "ADD NEW COURSE",
+        "showAll" : 'Show All',
         "videoAddedToast" : "Course files added successfully",
         "videoUpdatedToast" : "Course files updated successfully",
         "mandatoryFields" : "mandatory fields missing",

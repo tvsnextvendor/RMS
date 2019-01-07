@@ -1,6 +1,5 @@
-<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
+<!-- 
 <div class="clearfix pt-4">
-<!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
 <button class="btn btn-primary mr-3"  [routerLink]="['../module']">{{moduleVar.createModule}}</button>
 </div>
 <div class="pr-3 pt-4" *ngFor="let data of moduleVar.moduleList;let i = index;">
@@ -22,6 +21,70 @@
          </owl-carousel-o>
     </div>
 </div> 
+ -->
+
+
+
+
+
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
+<div class="clearfix pt-4">
+        <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
+        <button class="btn btn-primary mr-3"  [routerLink]="['../module']">{{moduleVar.createModule}}</button>
+        </div>
+        <div class="pr-3 pt-4" *ngFor="let data of moduleVar.moduleList;let i = index;">
+                <div class="clearfix py-3" >
+                        <h6 class="float-left module-hd-color">{{data.moduleName}}</h6>
+                            <span class="float-right">
+                                <a (click)="moduleEdit(data,i)"><i class="fa fa-pencil icons_header"></i></a>
+                                <span class="pr-5 module-course-font">{{moduleVar.active}}</span>
+                                <span><label class="switch">
+                                    <input type="checkbox" id="activeStatus{{i}}" [(ngModel)]="data.activeStatus" (change)="statusUpdate(data.moduleName,data.activeStatus)" ng-reflect-model="true" class="ng-untouched ng-pristine ng-valid"><span class="slider round"></span></label></span>
+                            </span>
+                </div>
+             
+                <div *ngFor="let slide of data.courseList">
+                        <div class="white-bg p-3"> 
+                             {{slide.courseName}}  
+                             <button class="btn btn-link float-right" routerLink="/modules/{{data.moduleId}}/{{slide.courseId}}">
+                                 {{moduleVar.labels.showAll}}</button> 
+               <owl-carousel-o [options]="customOptions" class="module-list">
+                <ng-container  *ngFor="let video of slide.videos">         
+                       <ng-template carouselSlide > 
+                            <div class="player-list" (click)="openModal(playVideo, video.videoLink,'video',i)">         
+                            <div class="video-img-alg">
+                                    <img src="{{video.videoImage}}" class="img-player-alg">
+                                    <div class="video-action clearfix">
+                                        <span class="timer-alg">{{video.videoDuration}}</span>
+                                        <span class="float-right">
+                                            <a><i class="fa fa-pencil px-2"  aria-hidden="true" (click)="openModal(editVideo,video,'edit',i)"></i></a>
+                                        </span>
+                                    </div>
+                                        <div class="video-desc">
+                                            <p class="play-video"><a><i class="fa fa-play-circle player-icon px-2" (click)="openModal(playVideo, video.videoLink,'video',i)" aria-hidden="true"></i></a>{{video.videoTitle}}</p>
+                                            <p class="m-0 px-3 video-para-alg">{{video.videoDescription}}</p>
+                                        </div>
+                                    </div> 
+                                </div>
+                    </ng-template>  
+                 </ng-container>     
+                 </owl-carousel-o>
+            </div>
+        </div>   
+        </div> 
+
+
+
+<ng-template #playVideo>
+        <div class="video-screen">
+            <div class="video-player-set">
+               <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
+                 class="videoPlayer">
+                 <source src="{{moduleVar.videoLink}}" type="video/mp4" /> 
+                </video> 
+            </div>
+        </div>
+    </ng-template>
 
 
 

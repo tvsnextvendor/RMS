@@ -59,9 +59,12 @@ export class API_URL {
    //moduleCourseList:'5c28aec43300004e00a58b7d'
    getProgramList:'5c2de3ee2f00001c3d1752bb',
    getResortList : '5c2df79b2f0000a230175376',
-   moduleCourseList: '5c2deec42f00003747175314',
+  //*** */ moduleCourseList: '5c2deec42f00003747175314',
+  moduleCourseList: '5c3304e72e00003b00121e0a',
    getNotifications : '5c2f13d23200001000590603',
    getVisitorsStaffData     : '5c2ef7383200007200590561'
   }
 
 }
+
+
