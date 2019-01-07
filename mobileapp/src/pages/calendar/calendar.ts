@@ -22,11 +22,6 @@ export class CalendarPage {
       //this.deleteCalendar();
      
       this.createCalendar();
-     
-     
-     
-    
-      
     });
   }
   ionViewDidLoad() {
@@ -51,21 +46,31 @@ export class CalendarPage {
     this.calendar.createCalendar('RMS Calendar').then(
       (msg) => {
 
+        console.log("write permission");
+
+        self.calendar.hasReadWritePermission().then(
+          (res) => { 
+            console.log("RMS Calendar hasReadWritePermission",res); 
+            if(!res){
+              self.calendar.requestReadWritePermission().then(
+                (resp) =>{
+                  console.log('Request requestReadWritePermission',resp);
+                }
+              );
+            }
+        },
+          (err) => { console.log("RMS Calendar hasReadWritePermission error",err); }
+        );
+       console.log(this.calendar.hasReadWritePermission()) ;
+       console.log("write permission")
+
       
 
         this.calendarIdUnique = msg;
-
         self.openCalendar();
         self.getCalendars();
-        
-        console.log("RMS Calendar Created",msg
-
-
-
-        
-        
-        
-        ); },
+        console.log("RMS Calendar Created",msg); 
+      },
       (err) => { console.log("RMS Calendar Creation error",err); }
     );
   }
@@ -92,6 +97,8 @@ export class CalendarPage {
     var self = this;
     calendarArray.map(function (value, key) {
        self.addEventWithOptions(value).then(function (respCollect) {
+
+        console.log('Total Response Collected here');
         console.log(respCollect);
       });
     });
@@ -113,7 +120,7 @@ export class CalendarPage {
        // console.log("find event resp", startDates, endDates);
 
        console.log("function dates", startDates, endDates);
-      //  console.log(resp);
+       console.log(cal.title, cal.location, cal.notes, startDates, endDates, options);
        // console.log(resp.length);
        // if (resp.length >= 0){
           this.calendar.createEventWithOptions(cal.title, cal.location, cal.notes, startDates, endDates, options).then(res => {

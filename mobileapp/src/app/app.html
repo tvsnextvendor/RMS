@@ -7,11 +7,9 @@
                 <ion-icon name="ios-close" class="menu-close-button" menuClose></ion-icon>
             </ion-header>
             <ion-list>
-
                 <ion-item *ngIf="currentUser" menuClose (tap)="openPage(profilePage)">
                     <img *ngIf="currentUser.userImage" src="{{currentUser.userImage}}" class="profile-image">
                 </ion-item>
-
                 <ion-item *ngIf="!currentUser" menuClose (tap)="openPage(profilePage)">
                     <img src="assets/images/user.png" class="profile-image">
                 </ion-item>
