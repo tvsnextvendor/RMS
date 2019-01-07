@@ -60,30 +60,30 @@
                 </ion-col>
               </ion-row>
               <div *ngIf="emp.isComment">
-                <ion-row>
-                  <ion-col col-2>
-                    <img src="assets/images/images1.jpeg" class="comment-image">
-                  </ion-col>
-                  <ion-col col-8>
-                    <ion-item>
-                      <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..."></ion-input>
-                    </ion-item>
-                  </ion-col>
-                  <ion-col col-2>
+                <form (ngSubmit)="saveComment(emp)" novalidate>
+                  <ion-row>
+                    <ion-col col-2>
+                      <img src="assets/images/images1.jpeg" class="comment-image">
+                    </ion-col>
+                    <ion-col col-10>
+                      <ion-item>
+                        <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..."></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <!-- <ion-col col-2>
                     <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
-                  </ion-col>
-                </ion-row>
+                  </ion-col> -->
+                  </ion-row>
+                </form>
                 <ion-row *ngFor="let comment of commentList;let i=index;">
-                  <!-- {{userId}}
-                  {{comment.sender.userId}} -->
-                  <ion-col col-2 *ngIf="userId != comment.sender.userId">
-                    <img src="{{comment.sender.userImage}}" class="comment-image">
+                  <ion-col col-2>
+                    <img *ngIf="comment.user.userImage" src="{{comment.user.userImage}}" class="comment-image">
                   </ion-col>
                   <ion-col col-10>
-                    {{comment.comment}}
-                  </ion-col>
-                  <ion-col col-2 *ngIf="userId == comment.sender.userId">
-                    <img src="{{comment.sender.userImage}}" class="comment-image">
+                    <h6>{{comment.user.username}}</h6>
+                    <span>{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replays</span>
+                    <p>{{comment.comment}}</p>
+                    <span><a href="">Reply</a><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{comment.commentLike}}</span>
                   </ion-col>
                 </ion-row>
               </div>
@@ -91,7 +91,6 @@
           </ion-card>
         </ion-col>
       </ion-row>
-
     </ion-list>
     <ion-list *ngSwitchCase="'featuredTopics'">
       <ion-row>
@@ -105,8 +104,6 @@
                 </ion-col>
                 <ion-col col-10>
                   <h4 class="forum-title">{{emp.topicName}}</h4>
-
-
                   <!-- <h4 class="forum-title">{{emp.username}}</h4>
                   <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
                   {{constant.pages.forumLabels.replays}}</p>
@@ -142,7 +139,6 @@
           </ion-card>
         </ion-col>
       </ion-row>
-
     </ion-list>
     <ion-list *ngSwitchCase="'featuredFav'">
       <ion-row>
@@ -186,28 +182,30 @@
                 </ion-col>
               </ion-row>
               <div *ngIf="emp.isComment">
-                <ion-row>
-                  <ion-col col-2>
-                    <img src="assets/images/images1.jpeg" class="comment-image">
-                  </ion-col>
-                  <ion-col col-8>
-                    <ion-item>
-                      <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..."></ion-input>
-                    </ion-item>
-                  </ion-col>
-                  <ion-col col-2>
+                <form (ngSubmit)="saveComment(emp)" novalidate>
+                  <ion-row>
+                    <ion-col col-2>
+                      <img src="assets/images/images1.jpeg" class="comment-image">
+                    </ion-col>
+                    <ion-col col-10>
+                      <ion-item>
+                        <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..."></ion-input>
+                      </ion-item>
+                    </ion-col>
+                    <!-- <ion-col col-2>
                     <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
-                  </ion-col>
-                </ion-row>
+                  </ion-col> -->
+                  </ion-row>
+                </form>
                 <ion-row *ngFor="let comment of commentList;let i=index;">
-                  <ion-col col-2 *ngIf="userId != comment.sender.userId">
-                    <img src="{{comment.sender.userImage}}" class="comment-image">
+                  <ion-col col-2>
+                    <img *ngIf="comment.user.userImage" src="{{comment.user.userImage}}" class="comment-image">
                   </ion-col>
                   <ion-col col-10>
-                    {{comment.comment}}
-                  </ion-col>
-                  <ion-col col-2 *ngIf="userId == comment.sender.userId">
-                    <img src="{{comment.sender.userImage}}" class="comment-image">
+                    <h6>{{comment.user.username}}</h6>
+                    <span>{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replays</span>
+                    <p>{{comment.comment}}</p>
+                    <span><a href="">Reply</a><i class="fa fa-thumbs-up" aria-hidden="true"></i> {{comment.commentLike}}</span>
                   </ion-col>
                 </ion-row>
               </div>

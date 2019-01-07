@@ -42,7 +42,6 @@ export class ForumDetailPage implements OnInit {
     this.forumDetailObject = this.navParams.data;
     this.employees = this.forumDetailObject['setData']['employees'];
     this.topics = this.forumDetailObject['setData']['topics'];
-
     this.indexs = this.forumDetailObject['selectedIndex'];
   }
   ionViewDidLoad() {
