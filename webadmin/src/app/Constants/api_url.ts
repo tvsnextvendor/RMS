@@ -8,7 +8,7 @@ export class API_URL {
    getKeyStat           : "5c04dd7f330000e900d01e32",
    getCourses           : "5c2dbf2e2f000056301751f7",
    getCoursesList       : "5c2def862f0000253017531e",
-   getEmployeeProgress  : '5c2dbf672f000056301751ff',
+   getEmployeeProgress  : '5c3333842e00002900121f11',
    getCertificationTrend : '5c32f85c2e00007400121dcd',
    getCoureseDetails    : "5c2e11db2f00003847175427",
    //getTopEmployees      : "5c04e6cf3300002900d01e56",
@@ -33,7 +33,7 @@ export class API_URL {
    getModuleDetails     : '5c2df09e2f0000a33017532c',
    getEmployeeStatus    : '5c2debd22f0000ba47175307',
    //getEmployeeDetails   : '5c124a4d330000bd2a998e64',
-   getEmployeeDetails   : '5c135a573400008e00ecdf92',
+   getEmployeeDetails   : '5c3330f72e00002b00121f06',
    getTaskResortChart   : '5c135a3c3400008e00ecdf91',
    getCourseTrendChart  : '5c2dbe012f000017331751f2',
    getYearList          : '5c1355633400007500ecdf6f',
@@ -60,7 +60,7 @@ export class API_URL {
    getProgramList:'5c2de3ee2f00001c3d1752bb',
    getResortList : '5c2df79b2f0000a230175376',
   //*** */ moduleCourseList: '5c2deec42f00003747175314',
-  moduleCourseList: '5c3304e72e00003b00121e0a',
+  moduleCourseList: '5c332c832e00006b00121ee1',
    getNotifications : '5c2f13d23200001000590603',
    getVisitorsStaffData     : '5c2ef7383200007200590561'
   }

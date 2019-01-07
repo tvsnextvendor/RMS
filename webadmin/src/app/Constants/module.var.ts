@@ -7,13 +7,16 @@ export class ModuleVar {
     title        = 'Programs';
     createModule = 'Create Program';
     activeStatus =  [];
-    moduleList;
+    moduleList=[];
+    hideAllVideos;
+    hideCourseVideos;
     url;
     moduleId;
     courseId;
     videoLink;
     selectedModule;
     selectedCourse;
+    courseVideos=[];
     labels = {
         "addModule" : "Add program",
         "editModule" : "Edit Program",

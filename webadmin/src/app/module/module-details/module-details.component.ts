@@ -29,6 +29,7 @@ export class ModuleDetailsComponent implements OnInit {
     fileUrl;
     previewImage;
     videoIndex;
+  
     
     constructor(public videoVar: VideoVar,public moduleVar: ModuleVar,private activatedRoute: ActivatedRoute,private modalService:BsModalService,public http: HttpService, private headerService: HeaderService,private alertService:AlertService) { 
         this.activatedRoute.params.subscribe((params: Params) => {
@@ -43,26 +44,38 @@ export class ModuleDetailsComponent implements OnInit {
     
     ngOnInit() {  
         this.headerService.setTitle({title:this.moduleVar.title, hidemodule: false});
-        this.getVideoList();
+        this.getVideoList(); 
+        this.moduleVar.courseVideos =[];
+        this.moduleVar.moduleList=[];
     }
 
 
     //get videoList 
     getVideoList(){
-        this.http.get(this.moduleVar.url.moduleCourseList).subscribe((data)=>{
-                const respData=data.moduleList;
+        this.http.get(this.moduleVar.url.moduleCourseList).subscribe((data)=>{    
+             const respData=data.moduleDetails;            
+              if(this.moduleVar.courseId && this.moduleVar.moduleId){
+                this.moduleVar.hideAllVideos=false;
+                this.moduleVar.hideCourseVideos=true;
                 respData.forEach((key, index) => {
                     if(key.moduleId == this.moduleVar.moduleId){              
                           this.moduleVar.selectedModule= respData[index];
                       }
                    });
-                   this.moduleVar.selectedModule.courseList.forEach((key,index) => {
+                   this.moduleVar.selectedModule.courseDetails.forEach((key,index) => {
                       if(key.courseId == this.moduleVar.courseId){
-                        this.moduleVar.selectedCourse = this.moduleVar.selectedModule.courseList[index];   
-                        console.log( this.moduleVar.selectedCourse)  
+                        this.moduleVar.selectedCourse = this.moduleVar.selectedModule.courseDetails[index];   
                       }
-                   })                  
+                   })  
+            } else{
+                this.moduleVar.moduleList= respData;
+                this.moduleVar.hideCourseVideos=false;
+                this.moduleVar.hideAllVideos=true;
+            } 
+                              
         })
+
+
     }
 
     openModal(template: TemplateRef<any>, data,type,index) {
