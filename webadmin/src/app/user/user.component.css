@@ -42,3 +42,7 @@
     opacity: 0;
     filter: alpha(opacity=0);
 }
+.addUser-upload{
+    border-radius: 20px;
+    padding: 4px;
+}
