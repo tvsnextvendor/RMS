@@ -42,7 +42,7 @@ export class API_URL {
    getEmployeeList      : '5c0928d52f0000c21f637cd0',
    //*getForumList      : '5c17879a2f00008200b087a8',
    getForumList         : '5c32e1e22e00006b00121d6a',
-   getTemplateList      : '5c343b0c2e00005300378cc0',
+   getTemplateList      : '5c34b04e2e0000490037902a',
    getBatchList         : '5c175edf2f00005f00b0862f',
    getPercentageList    : '5c25f8a7300000520067f64c',
    //getUsers           : '5c1a5d1d320000540064b0fc',
