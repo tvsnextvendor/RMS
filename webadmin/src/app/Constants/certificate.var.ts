@@ -39,10 +39,10 @@ export class CertificateVar{
     badgePercentage;
     showUploadErrMsg= false;
     fileToUpload: File = null;
-    diamond=1;
-    gold=2;
-    silver=3;
-    bronze=4;
+    diamond=null;
+    gold=null;
+    silver=null;
+    bronze=null;
     templateAssign : any[]=[{
         course: 1,
         template: 1
