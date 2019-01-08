@@ -21,6 +21,7 @@ ion-toolbar {
 }
 .training-block{
     padding: 16px;
+
 }
 .image-tag{
     padding: 27% 45% 27% 45%;
@@ -30,23 +31,7 @@ ion-toolbar {
     width:90%
 }
 
-ion-toolbar ion-icon {
-    float: left;
-    font-size: 20pt;
-}
 
-.toolbar-content-ios p, ion-toolbar p {
-    float: left;
-    margin: 0px;
-    font-size: 17px;
-    margin-left: 15px;
-    
-}
-
-.toolbar-content-ios p {
-    margin: 0px;
-    margin-left: 15px;
-}
 
  .inner-content {
     margin-top: 0;
@@ -208,6 +193,7 @@ ion-toolbar ion-icon {
 h6{
     font-family: 'sf_pro_displaysemibold';
         width: 100%;
+            margin: 40px 0 15px 0;
 }
 .button-bottom{
     width: 100%;
@@ -220,6 +206,8 @@ h6{
 .hole-cont {
     color: #A0A0A0;
 }
+
+
 //sheema
 .view-button{
     float: right;
@@ -234,10 +222,11 @@ h6{
 }
 .view-text{
         color: #000000c7;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 20px;
     display: inline-block;
     font-weight: 100;
+     font-family: 'sf_pro_displaysemibold';
 }
 .ack-label{
     float: right;

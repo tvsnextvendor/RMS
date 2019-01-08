@@ -15,7 +15,7 @@ page-home {
 	}
 	.current-day{ 
 		font-family: 'sf_pro_displayregular';
-		padding: 25px 20px;
+		padding: 7px 20px 15px 20px;
 
 		.day-detail {
 			opacity: 0.3;
@@ -26,12 +26,12 @@ page-home {
 			margin: 0;
 		}
 	}
-.course-sts {
+	.course-sts {
 
-    flex: 0 0 140px;
-    width: 140px;
-    max-width: 41.66667%;
-}
+		flex: 0 0 140px;
+		width: 140px;
+		max-width: 41.66667%;
+	}
 	.status-grid {
 		padding: 0;
 		/* width */
@@ -65,7 +65,7 @@ page-home {
 		.tvs-statusBox:last-child {
 			margin-right: 0;
 		}
-			
+
 		.tvs-statusBox {
 			color: #fff;
 			font-family: 'sf_pro_displayregular';
@@ -120,7 +120,7 @@ page-home {
 		margin: 1em 0 1em 0;
 	}
 	.score-board {
-		margin: 1em 0 1em 0;
+		margin: 8px 0 20px 0;
 
 		ion-card-header {
 			background: #435DEA;
@@ -147,12 +147,13 @@ page-home {
 				display: inline-block;
 				position: relative;
 				top: -4px;
+				left: 6px;
 			}
 
 		}
 		.body-primary{
 			background: #5D76FF;
-			padding: 20px 10px !important;
+			padding: 20px 10px 14px 10px !important;
 			.ranker-det {
 				color: #fff;
 				text-align: center;
@@ -207,12 +208,18 @@ page-home {
 			display: block;
 			text-align: center;
 			border-top: 1px solid rgba(255, 255, 255, 0.2);
-			padding: 18px 0 0 0;
-			font-size: 14px;
+			padding: 15px 0 0 0;
+			font-size: 16px;
+			font-weight: 100;
+			font-family: sf_pro_displayregular;
 		}
 
 		a.score-viewAll:hover {
 			color: #fff !important;
+		}
+		.card-header-md,.card-header-ios {
+
+			padding: 5px 16px;
 		}
 	}
 	.certification-section{
@@ -223,7 +230,7 @@ page-home {
 			.certificate-box {
 				font-family: sf_ui_textregular;
 
-				
+
 			}
 
 		}
@@ -284,12 +291,25 @@ page-home {
 	}
 	.progress-set{
 		color:#ffffff;
+		margin-top: 15px !important;
 	}
- .accomplishment-section .tvs-statusBox .sts-style {
-    padding: 15px 0 0 15px;
-    position: relative;
-}
+	.accomplishment-section .tvs-statusBox .sts-style {
+		padding: 15px 0 0 15px;
+		position: relative;
+	}
 
+	ion-col:nth-child(2) .ranker-det .winner-img img {
+		width: 90px;
+	}
+	ion-col:nth-child(2) .ranker-det .person-name {
+		padding-top: 3px !important;
+	}
+	ion-col:nth-child(2) .ranker-det .tropy-sec img {
+		width: 30px;
+	}
+p.main-score {
+    font-size: 20px;
+}
 }
 .module-select button {
 	width: 100%;
@@ -299,47 +319,7 @@ page-home {
 	padding-top: 5px;
 	line-height: 27px;
 }
-.module-select {
-	button.btn {
-		word-wrap: break-word;
-		width: 100%;
-		background: #fff;
-		padding: 7px 10px;
-		margin-bottom: 20px;
-		font-size: 15px;
-		-webkit-box-shadow: -1px 4px 4px 0px #3333331c;
-		box-shadow: -1px 4px 4px 0px #3333331c;
-		overflow: hidden;
-		white-space: normal;
-		text-align: left;
-	}
-	ion-icon {
-		position: absolute;
-		right: 15px;
-		top: 20px;
-		color: #7E7E7E;
-		font-size: 22px;
-	}
-	.dropdown-toggle::after {
-		display: none;
-	}
-	.dropdown-menu {
-		width: 100%;
-		color: #000000;
-		font-size: 15px;
-		padding: 0;
-	}
-	.module-txt {
-		display: block;
-		font-size: 12px;
-	}
-	.dropdown-item{
-		border-bottom: 1px solid #e0e0e0;
 
-		padding: 0.55rem 1.5rem;
-	}
-
-}
 .view-tag {
 	float: right;
 	background: rgba(0,0,0,0.5);
@@ -348,34 +328,30 @@ page-home {
 	font-size: 13px;
 }
 .view-tag:hover {
-    color: #fff;
+	color: #fff;
 }
 
 
 .certificate-footer {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
-ion-col:nth-child(2) .ranker-det .winner-img img {
-    width: 110px;
-}
+
 .certificate-box .sts-style {
-					min-height: 95px;
-				}
-				.module-drpdwn.show #dropdownMenuButton {
-    border-left: 5px solid #329CD6;
+	min-height: 95px;
 }
+
 a.dropdown-item {
-    left: 6px !important;
+	left: 6px !important;
 }
 .dropdown-menu {
-    left: 7px !important;
+	left: 7px !important;
 }
 .badge-title {
-    font-size: 15px;
+	font-size: 15px;
 }
 .certificate-box{
 	flex: 0 0 49.33333%;
-    width: 49.33333%;
+	width: 49.33333%;
 }

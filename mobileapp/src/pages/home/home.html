@@ -1,12 +1,12 @@
 <ion-header class="main-header my-component" color="primary" [scrollingHeader]='content'>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+       <img src="../assets/imgs/menu.png" />
     </button>
     <ion-title class="text-left">
-      {{constant.title.dashboard}}
+      <span class="header-title">{{constant.title.dashboard}}</span>
       <div class="header-icon" (click)="goToNotification()">
-        <ion-icon name="ios-notifications-outline"></ion-icon>
+         <img src="../assets/imgs/notification.png" />
         <span class="dot-circle"></span>
       </div>
     </ion-title>
@@ -88,7 +88,7 @@
       <ion-card-header class="header-primary">
         <p class="score-title">{{constant.pages.dashboardLabels.yourAvgOnCourses}}</p>
         <span class="score-number">
-          <p style="font-size: 20px;">{{trainingDatas.yourAverageScore}}/</p>
+          <p class="main-score">{{trainingDatas.yourAverageScore}}/</p>
           <p>{{trainingDatas.yourTotalScore}}</p>
           <img src="../assets/imgs/like@3x.png" />
         </span>

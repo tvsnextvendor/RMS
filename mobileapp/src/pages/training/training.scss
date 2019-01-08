@@ -3,6 +3,7 @@ page-training {
 		background-color: #F3F6F9;
 		 padding-left: 0px !important;
         padding-top: 10px !important;
+        padding-right: 0px !important;
 	}
 	.headerFull-bg {
 		 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
@@ -14,11 +15,11 @@ page-training {
 }
 	.training-list {
 
-		margin: 0 0 15px 0;
+		margin: 0 0 0px 0;
 		width: 100%;
-		-webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
-		-moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
-		box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+		-webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.16);
+		-moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.16);
+		box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.16);
 		position: relative;
 		cursor: pointer;
 	}
@@ -26,8 +27,8 @@ page-training {
 		padding: 0;
 	}
 	  .main-forum {
-        padding-left: 16px;
-        padding-right: 0;
+        padding-left: 10px;
+        padding-right: 10px;
     }
     .module-select {
     padding-left: 16px;
@@ -53,6 +54,13 @@ page-training {
     opacity: 0.8;    
     font-weight: 100;
 }
+.module-select {
+    margin-left: -16px;
+    margin-right: 0px;
+}
+.dropdown-menu {
+    left: 6px !important;
+}
 }
 .training-title {
 	padding: 0 0 5px 0;
@@ -65,8 +73,8 @@ page-training {
 }
 .progress-tab{
 	text-align: center;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	    margin-top: 0;
+    margin-bottom: 14px;
 	a {
 		padding: 0 5px;
 		font-family: sf_ui_textregular;
@@ -136,47 +144,7 @@ page-training {
 	width: 100%;
 	background: #fff;
 }
-.module-select {
-	button.btn {
-		word-wrap: break-word;
-		width: 100%;
-		background: #fff;
-		padding: 7px 10px;
-		margin-bottom: 10px;
-		font-size: 15px;
-		-webkit-box-shadow: -1px 4px 4px 0px #3333331c;
-		box-shadow: -1px 4px 4px 0px #3333331c;
-		overflow: hidden;
-		white-space: normal;
-		text-align: left;
-	}
-	ion-icon {
-		position: absolute;
-		right: 15px;
-		top: 20px;
-		color: #7E7E7E;
-		font-size: 22px;
-	}
-	.dropdown-toggle::after {
-		display: none;
-	}
-	.dropdown-menu {
-		width: 100%;
-		color: #000000;
-		font-size: 15px;
-		padding: 0;
-	}
-	.module-txt {
-		display: block;
-		font-size: 12px;
-	}
-	.dropdown-item{
-		border-bottom: 1px solid #e0e0e0;
 
-		padding: 0.55rem 1.5rem;
-	}
-				
-}
 .module-drpdwn.show #dropdownMenuButton {
     border-left: 5px solid #329CD6;
 }

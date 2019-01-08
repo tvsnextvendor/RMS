@@ -1,12 +1,12 @@
 <ion-header [scrollingHeader]='content'>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <img src="../assets/imgs/menu.png" />
     </button>
     <ion-title class="text-left">
-      {{constant.title.training}}
+       <span class="header-title">{{constant.title.training}}</span>
       <div class="header-icon" (click)="goToNotification()">
-        <ion-icon name="ios-notifications-outline"></ion-icon>
+        <img src="../assets/imgs/notification.png" />
         <span class="dot-circle"></span>
       </div>
     </ion-title>

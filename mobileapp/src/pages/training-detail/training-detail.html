@@ -1,8 +1,12 @@
-<ion-content padding class="details-page-content">
+<ion-content padding class="page-training-detail">
     <ion-header no-border>
-        <ion-toolbar transparent class="details-page-toolbar">
-            <ion-icon name="ios-arrow-back" (click)="goBackLevel()"></ion-icon>
-            <p>{{courseName}}</p>
+        <ion-toolbar transparent class="details-page-toolbar title-type2">
+            <span class="back-arrow" (click)="goBackLevel()"> 
+                <img src="../assets/imgs/Back.png" />
+            </span>
+            <ion-title class="text-left ">
+                <span class="inner-title">{{courseName}}</span>
+            </ion-title>
         </ion-toolbar>
     </ion-header>
     <!-- Previous Works Modifications -->
@@ -57,7 +61,7 @@
         <source src="{{setTraining.fileLink}}" type="video/mp4" />
     </video>
 </div>
-<div class="row training-block">
+<div class="training-block">
     <div class="loading-bar-div">
         <div class="loading-bar">
             <span class="video-progress-bar" [ngClass]="{'playedProgressBar': i <= initial}" [ngStyle]="{'width.%': loadingBarWidth}"
@@ -74,10 +78,10 @@
     (click)="viewContent(filePath)">View Content </a>
 </span></h6>
 
-<div class="checkbox-item" *ngIf="imageType">
+<div class="checkbox-item clearfix" *ngIf="imageType">
     <label class="hole-cont mr-2">
         <input type="checkbox" [(ngModel)]="agree"  name="options" > 
-        {{constant.pages.trainingLabels.ackText}}
+        {{constant.pages.trainingLabels.ackText}} <a href="">Read more</a>
         <span class="checkmark"></span>
     </label>
 
@@ -95,12 +99,16 @@
         <a href="javascript:void(0);" (click)="truncating = true">
             {{constant.pages.trainingLabels.readLess}}
         </a> </div>
-    </div> <span class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
+    </div> 
+    <div class="ver-bottom align-items-end row">
+    <span class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
         {{constant.buttons.next}}
     </span>
+    
     <span class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="quizBtn">
         {{constant.buttons.takeQuiz}}
     </span>
+    </div>
 </div>
 </div>
 </ion-content>
