@@ -53,7 +53,8 @@ export class API_URL {
    getDepartments       : '5c25fa2a300000540067f651',
    //getDesignations    : "5c2626bb3000007a0067f719",
    getDesignations      : '5c29c1d22e00006a00c18ac7',
-   getNewBatchList      : '5c2e16a32f0000a052175443',
+  //  getNewBatchList      : '5c2e16a32f0000a052175443',
+  getNewBatchList       : '5c34ae832e00004a0037901f',
    // Content To Bo Live
    getModuleList : '5c28b1fd3300005900a58b80',
    //moduleCourseList:'5c28aec43300004e00a58b7d'

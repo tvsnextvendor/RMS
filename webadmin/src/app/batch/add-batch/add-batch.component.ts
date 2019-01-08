@@ -123,6 +123,8 @@ export class AddBatchComponent implements OnInit {
       this.batchVar.batchTo = batchObj.toDate;
       this.batchVar.batchName=batchObj.batchName;
       this.batchVar.moduleForm=batchObj.moduleDetails;
+      this.durationValue = batchObj.notification.durationType;
+      this.reminder = batchObj.notification.durationValue;
       }
     });
   }
