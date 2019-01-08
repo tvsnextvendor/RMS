@@ -1,16 +1,20 @@
 
 <ion-header no-border>
-  <ion-toolbar transparent class="change-password-toolbar">
-    <ion-icon name="ios-arrow-back" (click)="goToPrevious()"></ion-icon>
-    <p>{{constant.title.settings}}</p>
+  <ion-toolbar transparent class="change-password-toolbar title-type2">
+    <span class="back-arrow" (click)="goToPrevious()"> 
+      <img src="../assets/imgs/Back.png" />
+    </span>
+    <ion-title class="text-left ">
+      <span class="inner-title">{{constant.title.settings}}</span>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content padding class="change-password profile-bg">
   <form novalidate (ngSubmit)="submit()" [formGroup]="settingsForm">
     <div class="pwd-setting px-5">
-      <ion-row>
-        <ion-col col-1 >
-          <ion-icon name="ios-notifications-outline"></ion-icon>
+      <ion-row class="pwd-inner">
+        <ion-col col-1 class="notify-img ">
+           <img src="../assets/imgs/notification@2x.png" />
         </ion-col>
         <ion-col col-11 class="profile-info">
           <ion-label color="default">Notifiction</ion-label>
@@ -42,8 +46,8 @@
         </div>
       </ion-row>
       <ion-row>
-        <ion-col col-1>
-          <ion-icon name="ios-key"></ion-icon>
+        <ion-col col-1 class="key-img">
+         <img src="../assets/imgs/password@2x.png" />
         </ion-col>
         <ion-col col-10 class="profile-info">
           <ion-label color="default">{{constant.title.changePassword}}</ion-label>

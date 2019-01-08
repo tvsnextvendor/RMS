@@ -16,6 +16,8 @@ page-settings {
 		}
 
 	}
+
+
 	.toolbar-background {
 		background: transparent !important;	
 		border: none !important;
@@ -32,31 +34,31 @@ page-settings {
 	ion-icon {
 /*		line-height: 40px;
 */		color: #fff;
-	}
-	.profile-details ion-icon {
-		line-height: 40px;
-	}
-	.profile-info {
-		padding-left: 20px;
-	}
+}
+.profile-details ion-icon {
+	line-height: 40px;
+}
+.profile-info {
+	padding-left: 20px;
+}
 
-	.text-input::-moz-placeholder {
-		color: rgba(255, 255, 255, 0.4);
-	}
+.text-input::-moz-placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
 
-	.text-input:-ms-input-placeholder {
-		color: rgba(255, 255, 255, 0.4);
-	}
+.text-input:-ms-input-placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
 
-	.text-input::-webkit-input-placeholder {
-		text-indent: 0;
-		color: rgba(255, 255, 255, 0.4);
-	}
-	.pwd-grid {
-		border-bottom: 1px solid #dedede;
-	}
-	.pwd-setting ion-icon {
-		color: #fff;
+.text-input::-webkit-input-placeholder {
+	text-indent: 0;
+	color: rgba(255, 255, 255, 0.4);
+}
+.pwd-grid,.pwd-inner {
+	border-bottom: 1px solid rgba(241, 249, 255, 0.24);
+}
+.pwd-setting ion-icon {
+	color: #fff;
 /*		transform: rotate(-80deg);
 */		line-height: 50px;
 }
@@ -73,19 +75,24 @@ page-settings {
 }
 .pwd-setting {
 	color: #fff;
-	/*display: table-cell;
-	 padding-top: 60%; 
-	width: calc(100vw - 10px);
-	vertical-align: bottom;
-	height: calc(100vh - 140px);*/
+	    padding-top: 25px;
+/*display: table-cell;
+padding-top: 60%; 
+width: calc(100vw - 10px);
+vertical-align: bottom;
+height: calc(100vh - 140px);*/
+}
+
+.content-md .pwd-setting {
+    padding-top: 0;
 }
 .checkbox-item{
 	display: block;
 	width: 100%;
 }
 .checkmark {
-    right: 0;
-    left: auto;
+	right: 0;
+	left: auto;
 }
 .hole-cont{	
 	width: 100%;
@@ -94,18 +101,23 @@ page-settings {
 	padding-left: 0px;
 }
 .checkmark {
-    background-color: transparent;
-    border-radius: 3pt;
-    border: 2px solid #ccc;
+	background-color: transparent;
+	border-radius: 3pt;
+	border: 2px solid #ccc;
 }
 .hole-cont input:checked ~ .checkmark {
-    background-color: transparent;
-    border: 2px solid #fff;
+	background-color: transparent;
+	border: 2px solid #fff;
 }
 .hole-cont .checkmark:after {
-    left: 3.4px;
-    width: 5px;
-    height: 8px;
+	left: 3.4px;
+	width: 5px;
+	height: 8px;
+}
+.notify-img,.key-img {
+    padding: 3px;
+    align-items: center;
+    display: flex;
 }
 }
 $checkbox-md-icon-background-color-on: #fff;
