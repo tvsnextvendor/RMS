@@ -33,7 +33,7 @@ export class BatchVar{
     mandatoryLabels = {
          from         : 'From date is required.',
          to           : 'To date is required.',
-         batchName    : 'Training Class is required.',
+         batchName    : 'Training Schedule is required.',
          selectDept   : 'Department is required.',
          dateValidate : 'From date should be less than To Date.',
          passpercentage : 'Pass Percentage is required.' ,
@@ -42,12 +42,12 @@ export class BatchVar{
          hourCountError : 'Hours value should be less than 24'
     };
      
-    title = 'Add New Training Class';
-    editTitle = 'Edit New Training Class';
-    calendarTitle = 'Training Class Calendar';
+    title = 'Add New Training Schedule';
+    editTitle = 'Edit New Training Schedule';
+    calendarTitle = 'Training Schedule Calendar';
     calendarView = 'Calendar View';
-    batchSuccessMsg = 'Training Class Added Successfully';
-    batchErrMsg = 'Training Class Updated Successfully';
+    batchSuccessMsg = 'Training Schedule Added Successfully';
+    batchErrMsg = 'Training Schedule Updated Successfully';
     invalidModule = 'Invalid Program Selection';
     select = 'Select';
     dategreater=false;

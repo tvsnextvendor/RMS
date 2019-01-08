@@ -25,12 +25,10 @@ export class MyApp{
       splashScreen.hide();
     });
     this.getDetails();
-  
     platform.registerBackButtonAction(() => {
       // Catches the active view
       let nav = this.app.getActiveNavs()[0];
       let activeView = nav.getActive();       
-
       // Checks if can go back before show up the alert
       if(activeView.name === 'HomePage') {
           if (nav.canGoBack()){
@@ -63,14 +61,12 @@ export class MyApp{
       { title: 'Training', component: TrainingPage },
       { title: 'Forum', component: ForumPage },
       { title: 'Calendar', component: CalendarPage },
-      { title: 'Training Classes', component: EventPage },
+      { title: 'Training Schedule', component: EventPage },
       { title: 'Settings', component: SettingsPage }
     ];
   //  this.appDetails();
     this.windowWidth = window.screen.width;
   }
-
-  
   openPage(page) {
     this.nav.setRoot(page.component);
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,6 +8,8 @@ import { ToastrService } from '../../service/toastrService';
 import { API_URL } from '../../constants/API_URLS.var';
 import { HttpProvider } from '../../providers/http/http';
 import { Storage } from '@ionic/storage';
+import { ModalPage } from '../modal/modal';
+
 
 @IonicPage({
   name: 'forumdetail-page'
@@ -38,7 +40,7 @@ export class ForumDetailPage implements OnInit {
   currentUser;
   userId;
   comment;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage, public modalCtrl: ModalController) {
     this.forumDetailObject = this.navParams.data;
     this.employees = this.forumDetailObject['setData']['employees'];
     this.topics = this.forumDetailObject['setData']['topics'];
@@ -119,5 +121,12 @@ export class ForumDetailPage implements OnInit {
       this.comment = '';
       this.toastr.success("Comment added successfully");
     }
+  }
+  async presentModal(repliesObj) {
+    const modal = await this.modalCtrl.create({
+      component: ModalPage,
+      componentProps: { value: repliesObj }
+    });
+    return await modal.present();
   }
 }
