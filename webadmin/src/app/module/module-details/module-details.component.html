@@ -1,11 +1,11 @@
  <span *ngIf="moduleVar.hideAllVideos">
-     <div class="clearfix mt-5 white-bg p-3">
+     <div class="clearfix mt-5 mr-3 white-bg p-3">
  <div class="clearfix"  *ngFor="let module of moduleVar.moduleList" >
         <div *ngFor="let course of module.courseDetails">
     <div class="row pt-3">
         <h6 class="video-header"><span class="module-color"> {{module.moduleName}}</span> > {{course.courseName}}</h6>
     </div>
-    <div class="row" >
+    <div class="row pb-4" >
         <div class="col-md-4 col-sm-4 pl-0 mt-3" *ngFor="let video of course.videoDetails;let i = index">
             <div class="video-img-alg">
                 <img src="{{video.videoImage}}" class="img-player-alg">
@@ -48,7 +48,7 @@
 
 </span>
 
-<div class="clearfix mt-5 white-bg p-3" *ngIf="moduleVar.hideCourseVideos" >
+<div class="clearfix mt-5 mr-3 white-bg p-3" *ngIf="moduleVar.hideCourseVideos" >
     <div class="row" >
         <h6 class="video-header"><span class="module-color"> {{moduleVar.selectedModule?.moduleName}}</span> > {{moduleVar.selectedCourse?.courseName}}</h6>
     </div>

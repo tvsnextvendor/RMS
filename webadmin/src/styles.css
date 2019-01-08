@@ -65,6 +65,7 @@ button:focus {
     border-left: none;
     color: #73737B;
     border-radius: 0;
+    font-size: 16px;
 }
 .btn-primary{
 background-color: #468FB9;
@@ -529,7 +530,7 @@ li {
     width: 250px;
   }
   .page-content-wrapper {
-    padding: 20px 0px 40px 108px;
+    padding: 20px 0px 65px 108px;
     position: relative;
     /*background-color: #F5F6FA;*/
   }

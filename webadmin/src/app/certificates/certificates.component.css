@@ -53,3 +53,11 @@
     color:#f44336;
     text-align:left 
  }
+ .badge-title{
+    color: #697380;
+    font-size: 15px;
+ }
+ .badge-dropdown{
+    width: 200px;
+    padding-left: 0;
+ }
