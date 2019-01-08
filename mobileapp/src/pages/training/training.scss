@@ -183,3 +183,18 @@ page-training {
 a.dropdown-item {
     left: 6px !important;
 }
+.alert-message {
+    overflow-y: auto;
+}
+.alert-md .alert-wrapper {
+    border-radius: 13px;
+}
+.alert-md .alert-button-group{
+	padding: 0px;
+}
+.alert-md .alert-button {
+    text-align: center;
+    width: 100%;
+    height: 44px;
+    margin-right: 0;
+}
