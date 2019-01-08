@@ -56,8 +56,13 @@
  .badge-title{
     color: #697380;
     font-size: 15px;
+    padding-left: 4px;
  }
  .badge-dropdown{
     width: 200px;
     padding-left: 0;
+ }
+ .certificate-name{
+    font-size: 15px;
+    text-align: center;
  }

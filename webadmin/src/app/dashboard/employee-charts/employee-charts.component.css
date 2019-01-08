@@ -49,9 +49,9 @@
     text-align: center;
 }
 .totalEmployee{
-  position: absolute;
-    bottom: 43px;
-    left: 130px;
+    position: absolute;
+    bottom: 15px;
+    right: 12px;
     font-size: 15px;
     color: #454545;
     font-weight: 600;
