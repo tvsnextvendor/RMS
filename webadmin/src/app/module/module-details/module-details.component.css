@@ -136,3 +136,8 @@ video.videoPlayer{
 .text-pd{
     padding: 10px;
 }
+.module-hd-color{
+    color: #1D4960;
+    font-size: 18px;
+    font-weight: 600;
+  }

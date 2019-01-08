@@ -68,6 +68,7 @@ input:checked + .slider:before {
 .player-list{
   color: #1D4960;
     padding-top: 12px;
+    cursor:pointer;
 }
 .module-img{
   width: 30px !important;

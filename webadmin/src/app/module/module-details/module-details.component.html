@@ -5,70 +5,85 @@
     <div class="row pt-3">
         <h6 class="video-header"><span class="module-color"> {{module.moduleName}}</span> > {{course.courseName}}</h6>
     </div>
-    <div class="row pb-4" >
-        <div class="col-md-4 col-sm-4 pl-0 mt-3" *ngFor="let video of course.videoDetails;let i = index">
-            <div class="video-img-alg">
-                <img src="{{video.videoImage}}" class="img-player-alg">
-                <div class="video-action clearfix">
-                    <span class="timer-alg">{{video.videoDuration}}</span>
-                    <span class="float-right">
-                        <a><i class="fa fa-pencil px-2"  aria-hidden="true" (click)="openModal(editVideo,video,'edit',i)"></i></a>
-                    </span>
-                </div>
+    
+    <div class="col-md-12 pb-4">
+        <div class="row">
+        <div *ngFor="let file of course.files;let i = index" class="col-md-4 col-sm-4 pl-0 mt-3">
+          <div *ngIf="file.fileType == 'mp4'">
+            <div class="video-img-alg" >
+                <img src="{{file.videoImage}}" class="img-player-alg">
+                    <div class="video-action clearfix">
+                        <span class="timer-alg">{{file.videoDuration}}</span>
+                        <span class="float-right">
+                            <a><i class="fa fa-pencil px-2"  aria-hidden="true" (click)="openModal(editVideo,file,'edit',i)"></i></a>
+                        </span>
+                    </div>
                     <div class="video-desc">
-                        <p class="play-video"><a><i class="fa fa-play-circle player-icon px-2" (click)="openModal(playVideo, video.videoLink,'video',i)" aria-hidden="true"></i></a>{{video.videoTitle}}</p>
-                        <p class="m-0 px-3 video-para-alg">{{video.videoDescription}}</p>
+                        <p class="play-video"><a><i class="fa fa-play-circle player-icon px-2" (click)="openModal(playVideo, file.videoUrl,'video',i)" aria-hidden="true"></i></a>{{file.fileName}}</p>
+                        <p class="m-0 px-3 video-para-alg">{{file.fileDescription}}</p>
                     </div>
                 </div> 
             </div>
-        <div class="col-md-4 col-sm-4 pl-0 mt-3" *ngFor="let file of moduleVar.selectedCourse?.files;let i = index">
-                <div class="video-img-alg file-bg">
-                    <div class="clearfix pt-3 pr-3">
-                        <span class="float-right">
-                            <a><i class="fa fa-pencil px-2"  aria-hidden="true"></i></a>
-                        </span>
-                        <div class="row">
-                                <!-- <span class="col-md-4"></span> -->
-                                <img  *ngIf="file.fileType === 'txt'" class = "icon-ht" src="assets/images/txt-icon.png">
-                                <img  *ngIf="file.fileType === 'ppt'" class = "icon-ht" src="assets/images/ppt-icon.png">
-                                <img  *ngIf="file.fileType === 'pdf'" class = "icon-ht" src="assets/images/pdf-icon.png">
-                                <!-- <span class="col-md-4"></span> -->
+            <div class="col-md-12 col-sm-12 p-0 mt-3" >
+                <div *ngIf="file.fileType != 'mp4'">
+                    <div class="video-img-alg file-bg" >
+                        <div class="clearfix pt-3 pr-3">
+                            <span class="float-right">
+                                <a><i class="fa fa-pencil px-2"  aria-hidden="true"></i></a>
+                            </span>
+                            <div class="row">
+                                    <!-- <span class="col-md-4"></span> -->
+                                    <img  *ngIf="file.fileType === 'txt'" class = "icon-ht" src="assets/images/txt-icon.png">
+                                    <img  *ngIf="file.fileType === 'ppt'" class = "icon-ht" src="assets/images/ppt-icon.png">
+                                    <img  *ngIf="file.fileType === 'pdf'" class = "icon-ht" src="assets/images/pdf-icon.png">
+                                    <!-- <span class="col-md-4"></span> -->
+                            </div>
                         </div>
-                    </div>
-                        <div class="px-2">
-                            <p class="player-header"><a></a>{{file.fileTitle}}</p>
-                            <p class="m-0 video-para-alg">{{file.fileDescription}}</p>
+                            <div class="px-2">
+                                <p class="player-header"><a></a>{{file.fileName}}</p>
+                                <p class="m-0 video-para-alg">{{file.fileDescription}}</p>
+                            </div>
+                        </div> 
                         </div>
-                    </div> 
-            </div>
+                </div>
+                </div>
+                </div>
     </div>
+
     </div>
 </div>
 </div>
 
 </span>
 
+<span *ngFor="let file of moduleVar.selectedVideo;let i = index">
+        <div class="clearfix pt-4">
+    			<h6 class="float-left module-hd-color">{{moduleVar.programName}}</h6>
+        </div>
 <div class="clearfix mt-5 mr-3 white-bg p-3" *ngIf="moduleVar.hideCourseVideos" >
     <div class="row" >
-        <h6 class="video-header"><span class="module-color"> {{moduleVar.selectedModule?.moduleName}}</span> > {{moduleVar.selectedCourse?.courseName}}</h6>
+        <h6 class="video-header"><span class="module-color"> {{moduleVar.selectCourseName}}</span> > {{file.fileName}} </h6>
     </div>
     <div class="row" >
-        <div class="col-md-4 col-sm-4 pl-0 mt-3" *ngFor="let video of moduleVar.selectedCourse?.videoDetails;let i = index">
+        <div class="col-md-4 col-sm-4 pl-0 mt-3" >
+                <div *ngIf="file.fileType == 'mp4'">
             <div class="video-img-alg">
-                <img src="{{video.videoImage}}" class="img-player-alg">
+                <img src="{{file.videoImage}}" class="img-player-alg">
                 <div class="video-action clearfix">
-                    <span class="timer-alg">{{video.videoDuration}}</span>
+                    <span class="timer-alg">{{file.videoDuration}}</span>
                     <span class="float-right">
-                        <a><i class="fa fa-pencil px-2"  aria-hidden="true" (click)="openModal(editVideo,video,'edit',i)"></i></a>
+                        <a><i class="fa fa-pencil px-2"  aria-hidden="true" (click)="openModal(editVideo,file,'edit',i)"></i></a>
                     </span>
                 </div>
                     <div class="video-desc">
-                        <p class="play-video"><a><i class="fa fa-play-circle player-icon px-2" (click)="openModal(playVideo, video.videoLink,'video',i)" aria-hidden="true"></i></a>{{video.videoTitle}}</p>
-                        <p class="m-0 px-3 video-para-alg">{{video.videoDescription}}</p>
+                        <p class="play-video"><a><i class="fa fa-play-circle player-icon px-2" (click)="openModal(playVideo, file.videoUrl,'video',i)" aria-hidden="true"></i></a>{{file.fileName}}</p>
+                        <p class="m-0 px-3 video-para-alg">{{file.fileDescription}}</p>
                     </div>
                 </div> 
-        </div>
-        <div class="col-md-4 col-sm-4 pl-0 mt-3" *ngFor="let file of moduleVar.selectedCourse?.files;let i = index">
+                </div>
+       
+        <div class="col-md-12 col-sm-12 p-0 mt-3">
+                <div *ngIf="file.fileType != 'mp4'">
                 <div class="video-img-alg file-bg">
                     <div class="clearfix pt-3 pr-3">
                         <span class="float-right">
@@ -83,13 +98,17 @@
                         </div>
                     </div>
                         <div class="px-2">
-                            <p class="player-header"><a></a>{{file.fileTitle}}</p>
+                            <p class="player-header"><a></a>{{file.fileName}}</p>
                             <p class="m-0 video-para-alg">{{file.fileDescription}}</p>
                         </div>
                     </div> 
+                    </div>
+
             </div>
+        </div>
     </div>
 </div>
+</span>
 
 
 

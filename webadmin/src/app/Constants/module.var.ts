@@ -8,6 +8,7 @@ export class ModuleVar {
     createModule = 'Create Program';
     activeStatus =  [];
     moduleList=[];
+    fileId;
     hideAllVideos;
     hideCourseVideos;
     url;
@@ -15,6 +16,7 @@ export class ModuleVar {
     courseId;
     videoLink;
     selectedModule;
+    selectedVideo=[];
     selectedCourse;
     courseVideos=[];
     labels = {
@@ -67,6 +69,7 @@ export class ModuleVar {
     tabEnable = false;
     selectCourseName;
     selectVideoName;
+    programName;
     description;
     courseIndex;
     tabKey;

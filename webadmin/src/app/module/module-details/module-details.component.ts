@@ -33,8 +33,9 @@ export class ModuleDetailsComponent implements OnInit {
     
     constructor(public videoVar: VideoVar,public moduleVar: ModuleVar,private activatedRoute: ActivatedRoute,private modalService:BsModalService,public http: HttpService, private headerService: HeaderService,private alertService:AlertService) { 
         this.activatedRoute.params.subscribe((params: Params) => {
-            this.moduleVar.moduleId = params['moduleId'];
-            this.moduleVar.courseId = params['courseId'];
+            // this.moduleVar.moduleId = params['moduleId'];
+            // this.moduleVar.courseId = params['courseId'];
+            this.moduleVar.fileId = params ['fileId'];
         });
         this.moduleVar.url=API_URL.URLS;
     }
@@ -45,8 +46,9 @@ export class ModuleDetailsComponent implements OnInit {
     ngOnInit() {  
         this.headerService.setTitle({title:this.moduleVar.title, hidemodule: false});
         this.getVideoList(); 
-        this.moduleVar.courseVideos =[];
+        // this.moduleVar.courseVideos =[];
         this.moduleVar.moduleList=[];
+        this.moduleVar.selectedVideo=[];
     }
 
 
@@ -54,23 +56,38 @@ export class ModuleDetailsComponent implements OnInit {
     getVideoList(){
         this.http.get(this.moduleVar.url.moduleCourseList).subscribe((data)=>{    
              const respData=data.moduleDetails;            
-              if(this.moduleVar.courseId && this.moduleVar.moduleId){
-                this.moduleVar.hideAllVideos=false;
+              if(this.moduleVar.fileId){
                 this.moduleVar.hideCourseVideos=true;
-                respData.forEach((key, index) => {
-                    if(key.moduleId == this.moduleVar.moduleId){              
-                          this.moduleVar.selectedModule= respData[index];
-                      }
-                   });
-                   this.moduleVar.selectedModule.courseDetails.forEach((key,index) => {
-                      if(key.courseId == this.moduleVar.courseId){
-                        this.moduleVar.selectedCourse = this.moduleVar.selectedModule.courseDetails[index];   
-                      }
-                   })  
+                this.moduleVar.hideAllVideos=false;
+                respData.forEach((key, index) => {  
+                    this.moduleVar.programName =key.moduleName;           
+                    this.moduleVar.courseVideos= key.courseDetails;
+                    });
+               let selectedVideo = [];
+                this.moduleVar.courseVideos.forEach((key, index) =>{
+                    key.files.forEach((file, index)=>{
+                        if(file.fileId==this.moduleVar.fileId){
+                            this.moduleVar.selectCourseName =key.courseName;
+                            this.moduleVar.selectedVideo.push(file);
+                        }
+                     
+                    })
+                });
+                // this.moduleVar.hideCourseVideos=true;
+                // respData.forEach((key, index) => {
+                //     if(key.moduleId == this.moduleVar.moduleId){              
+                //           this.moduleVar.selectedModule= respData[index];
+                //       }
+                //    });
+                //    this.moduleVar.selectedModule.courseDetails.forEach((key,index) => {
+                //       if(key.courseId == this.moduleVar.courseId){
+                //         this.moduleVar.selectedCourse = this.moduleVar.selectedModule.courseDetails[index];   
+                //       }
+                //    })  
             } else{
                 this.moduleVar.moduleList= respData;
-                this.moduleVar.hideCourseVideos=false;
                 this.moduleVar.hideAllVideos=true;
+                this.moduleVar.hideCourseVideos= false;
             } 
                               
         })
@@ -85,9 +102,9 @@ export class ModuleDetailsComponent implements OnInit {
         }
         else{
             this.showImage = true;
-            this.videoName = data.videoTitle;
-            this.videoFile = data.videoLink;
-            this.description = data.videoDescription;
+            this.videoName = data.fileName;
+            this.videoFile = data.fileUrl;
+            this.description = data.fileDescription;
             this.previewImage = "assets/videos/images/bunny.png";
             this.videoIndex = index;
             this.modalRef = this.modalService.show(template);
@@ -106,9 +123,14 @@ export class ModuleDetailsComponent implements OnInit {
         this.videoSubmitted = true;
         if(this.videoName && this.videoFile && this.description){
             let i = this.videoIndex;
-            this.moduleVar.selectedCourse.videos[i].videoTitle = this.videoName;
-            this.moduleVar.selectedCourse.videos[i].videoLink = this.videoFile;
-            this.moduleVar.selectedCourse.videos[i].videoDescription = this.description;
+            let postData={
+                'fileName':this.videoName,
+                'fileUrl':this.videoFile,
+                'fileDescription':this.description
+            }
+            // this.moduleVar.selectedCourse.videos[i].videoTitle = this.videoName;
+            // this.moduleVar.selectedCourse.videos[i].videoLink = this.videoFile;
+            // this.moduleVar.selectedCourse.videos[i].videoDescription = this.description;
             this.modalRef.hide();
             this.message = "Video updated successfully"
             this.alertService.success(this.message);
@@ -124,7 +146,6 @@ export class ModuleDetailsComponent implements OnInit {
 
       fileUpload(e){
         this.showImage = true;
-        console.log(e);
         let reader = new FileReader();
         let file = e.target.files[0];
         reader.onloadend = () => {

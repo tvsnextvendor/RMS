@@ -60,7 +60,8 @@ export class API_URL {
    getProgramList:'5c2de3ee2f00001c3d1752bb',
    getResortList : '5c2df79b2f0000a230175376',
   //*** */ moduleCourseList: '5c2deec42f00003747175314',
-   moduleCourseList: '5c332c832e00006b00121ee1',
+   // moduleCourseList: '5c332c832e00006b00121ee1',
+   moduleCourseList :'5c34a7b72e00008000378fff',
    getNotifications : '5c2f13d23200001000590603',
    getVisitorsStaffData     : '5c2ef7383200007200590561',
    getBadgePercentage  : '5c3436f52e00006d00378c9a'
