@@ -7,8 +7,8 @@ export class API_URL {
 
    getKeyStat           : "5c04dd7f330000e900d01e32",
    getCourses           : "5c2dbf2e2f000056301751f7",
-   getCoursesList       : "5c2def862f0000253017531e",
-   getEmployeeProgress  : '5c3333842e00002900121f11',
+   getCoursesList       : "5c34596a2e00007d00378d8d",
+   getEmployeeProgress  : '5c3458c92e00009000378d89',
    getCertificationTrend : '5c32f85c2e00007400121dcd',
    getCoureseDetails    : "5c2e11db2f00003847175427",
    //getTopEmployees      : "5c04e6cf3300002900d01e56",
