@@ -448,6 +448,13 @@ employeeProgressPie() {
         plotShadow: false,
         type: 'pie'
     },
+    legend: {
+      align: 'left',
+      layout: 'horizontal',
+      verticalAlign: 'bottom',
+      x: 40,
+      y: 0
+     },
       title: {
        text: '',
     style: {

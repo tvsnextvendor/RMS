@@ -83,7 +83,8 @@
                     <h6>{{comment.user.username}}</h6>
                     <span>{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replays</span>
                     <p>{{comment.comment}}</p>
-                    <span><a href="">Reply</a><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{comment.commentLike}}</span>
+                    <span><a >Reply</a><i class="fa fa-thumbs-up" aria-hidden="true"></i>{{comment.commentLike}}</span>
+                    <!-- (click)="presentModal(comment)" -->
                   </ion-col>
                 </ion-row>
               </div>
@@ -205,7 +206,8 @@
                     <h6>{{comment.user.username}}</h6>
                     <span>{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replays</span>
                     <p>{{comment.comment}}</p>
-                    <span><a href="">Reply</a><i class="fa fa-thumbs-up" aria-hidden="true"></i> {{comment.commentLike}}</span>
+                    <span><a >Reply</a><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      {{comment.commentLike}}</span>
                   </ion-col>
                 </ion-row>
               </div>

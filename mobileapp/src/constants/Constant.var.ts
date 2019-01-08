@@ -8,13 +8,14 @@ export class Constant {
         quiz: 'Quiz',
         accomplishment: 'Accomplishments',
         changePassword: 'Change Password',
-        event: 'Training Classes',
+        event: 'Training Schedule',
         profile: 'Profile',
         forum: 'Forum',
         menu: 'Menu',
         logOut: 'Logout',
         notification: 'Notification',
-        settings:'Settings'
+        settings: 'Settings',
+        calendar:'Calendar'
     };
     buttons = {
         previous: 'Previous',
@@ -107,7 +108,8 @@ export class Constant {
             completedLabel: 'Completed',
             postedLabel: 'Posted :',
             lastViewed: 'Last Viewed :',
-            ackText: 'I acknowledge that i have read the attached document.',
+            ackText: 'I acknowledge that i have read the attached ',
+            document: 'document',
             readMore: '>> Read More',
             viewContent: 'View Content',
             readLess: '<< Read Less'

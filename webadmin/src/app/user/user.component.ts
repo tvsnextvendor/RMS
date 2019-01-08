@@ -245,4 +245,7 @@ export class UserComponent implements OnInit {
         this.message = '';
         // console.log("messege redsad")
       }
+      fileUpload($e){
+          
+      }
 }

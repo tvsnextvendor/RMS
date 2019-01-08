@@ -80,7 +80,7 @@
                         <label class="col-md-4 p-0 label-title">{{batchVar.labels.regNote}}</label> 
                         <div class="row col-md-8">
                             <span class="col-md-6 pl-0">
-                                <input class="form-control  p-0" name="reminder" [(ngModel)]="reminder" #reminderValue="ngModel" type="number" placeholder="Enter Count" min="1" max="{{maxdurationCount}}" (keyup)="countErrorCheck()" required>
+                                <input class="form-control  p-0" name="reminder" [(ngModel)]="reminder" #reminderValue="ngModel" type="number" placeholder="0" min="1" max="{{maxdurationCount}}" (keyup)="countErrorCheck()" required>
                             </span> 
                             <span class="col-md-6 pl-0">
                                 <select id="notificationTime" class="form-control" name="notificationTime" [(ngModel)]="durationValue" (change)="durationUpdate()" required> 
