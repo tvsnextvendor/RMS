@@ -8,6 +8,7 @@ import { API_URL } from '../../Constants/api_url';
 import {ActivatedRoute, Params} from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AlertService } from '../../services/alert.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-add-batch',
@@ -21,6 +22,10 @@ export class AddBatchComponent implements OnInit {
   countCheck = false;
   countError;
   reminder;
+  showToDate = false;
+  showFromDate = false;
+  dateError = false;
+
    constructor(private alertService:AlertService,private headerService:HeaderService,private datePipe: DatePipe,private activatedRoute : ActivatedRoute,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router){
         this.batchVar.url = API_URL.URLS; 
         this.activatedRoute.params.subscribe((params: Params) => {
@@ -54,16 +59,32 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.percentageList= data.passPercentage;
       });
       
-      let startDate=localStorage.getItem('BatchStartDate');
-      this.batchVar.batchFrom= this.splitDate(startDate).toISOString();
-      this.batchVar.min =this.splitDate(new Date());
+    //   let startDate=localStorage.getItem('BatchStartDate');
+    //   let startDate = new Date(); 
+    //   this.batchVar.batchFrom= this.splitDate(startDate).toISOString();
+    //   this.batchVar.min =this.splitDate(new Date());
+      this.batchVar.batchFrom =new Date();
       this.getBatchDetail();
    }
 
+   selectFilter(data){
+    return data.value >= new Date();
+   }
 
+   errorCheck(){
+    let now = moment(this.batchVar.batchFrom);
+    let end = moment(this.batchVar.batchTo); 
+    let duration = moment.duration(end.diff(now));
+    var days = duration.asDays();
+    if(days<0){
+        this.dateError = true;
+    }
+    else{
+        this.dateError = false;
+    }
+   }
 
     durationUpdate(){
-    // console.log(this.durationValue)
         if(this.durationValue === '1'){
             this.maxdurationCount = 60;
         }
@@ -79,11 +100,11 @@ export class AddBatchComponent implements OnInit {
     countErrorCheck(){
         if(this.durationValue === '1' && this.reminder > 60){
             this.countCheck = true;
-            this.countError = "Minutes value should be less than 60";
+            this.countError = this.batchVar.mandatoryLabels.minCountError;
         }
         else if(this.durationValue === '2' && this.reminder > 24){
             this.countCheck = true;
-            this.countError = "Hours value should be less than 24";
+            this.countError = this.batchVar.mandatoryLabels.hourCountError;
         }
         else{
             this.countCheck = false;
@@ -131,15 +152,27 @@ export class AddBatchComponent implements OnInit {
     }
 
     fromDateChange(date){
-     let fromDate=date.toISOString();
-     this.batchVar.batchFrom=fromDate;
+    //  let fromDate=date.toISOString();
+     this.batchVar.batchFrom=date;
+    }
+    dateInputClick(){
+        this.showToDate = !this.showToDate;
+    }
+    fromDateInputClick(){
+        this.showFromDate = !this.showFromDate;
     }
 
     toDateChange(date){
-      let toDate=date.toISOString();
-      this.batchVar.batchTo= toDate; 
+      this.batchVar.batchTo= date;
     }
-   
+    
+    autoHide(data){
+        let value = data[1];
+        if(value === 'dl-abdtp-date-button'){
+            this.showToDate = false;
+            this.showFromDate = false; 
+        }
+    }
     //submit batch
    addBatch(form){
 

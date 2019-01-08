@@ -10,9 +10,9 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AddBatchComponent} from './add-batch/add-batch.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
 import { OwlDateTimeModule, OwlNativeDateTimeModule,OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
-
 
 const routes: Routes = [
     { path: 'calendar', component:CalendarViewComponent ,canActivate : [AuthGuard]},
@@ -41,6 +41,7 @@ export const MY_MOMENT_FORMATS = {
     OwlMomentDateTimeModule,
     NgMultiSelectDropDownModule.forRoot(),
     FormsModule,
+    DlDateTimePickerDateModule,
     CalendarModule.forRoot({
         provide: DateAdapter,
         useFactory: adapterFactory

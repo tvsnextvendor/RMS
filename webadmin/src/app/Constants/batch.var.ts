@@ -8,14 +8,14 @@ export class BatchVar{
    labels = {
         from       : 'Assigned Date',
         to         : 'Due Date',
-        batchName  : 'Training Schedule',
+        batchName  : 'Training Schedule Name',
         selectDept  : 'Department',
         module     : 'Program',
         mandatory  : 'Mandatory',
         optional   : 'Optional',
         percentage : 'Pass %',
         courses    : 'Courses'    ,
-        regNote    : 'Notification Reminder'    
+        regNote    : 'Notification Every'    
     };
     calLabels = {
         next     : 'Next',
@@ -36,7 +36,10 @@ export class BatchVar{
          batchName    : 'Training Class is required.',
          selectDept   : 'Department is required.',
          dateValidate : 'From date should be less than To Date.',
-         passpercentage : 'Pass Percentage is required.'         
+         passpercentage : 'Pass Percentage is required.' ,
+         dateLimitError : 'Assigned date should be less than due date'  ,
+         minCountError : 'Minutes value should be less than 60',
+         hourCountError : 'Hours value should be less than 24'
     };
      
     title = 'Add New Training Class';
