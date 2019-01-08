@@ -10,7 +10,13 @@ export class CertificateVar{
         template          : 'Template',
         tempName          : 'Template Name',
         tempNameMandatory : 'Template Name is required.',
-        fileUpload        : 'Upload your HTML File'        
+        uploadErrMsg      :  'Template File is mandatory',
+        fileUpload        : 'Upload your HTML File',
+        badge             : 'Badge',
+        gold              : 'Gold',
+        silver            : 'Silver',
+        bronze            : 'Bronze',
+        diamond           : 'Diamond'       
     };
      
     btns = {
@@ -30,10 +36,16 @@ export class CertificateVar{
     url;
     certificateList;
     programList;
+    badgePercentage;
+    showUploadErrMsg= false;
     fileToUpload: File = null;
+    diamond=1;
+    gold=2;
+    silver=3;
+    bronze=4;
     templateAssign : any[]=[{
         program: 1,
-        template: 2
+        template: 1
       }
      ]
   

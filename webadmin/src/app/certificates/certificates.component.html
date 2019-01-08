@@ -1,4 +1,5 @@
 <div class="pr-3 pt-5">
+        <form #assignTemplate="ngForm" (ngSubmit)="assignBatchTemplate(assignTemplate)">
     <div class="white-bg p-3">
         <div class="clearfix py-3 certificate-respon">
             <h5 class="float-left certificate-respon">{{constant.formTitle}}</h5>
@@ -12,7 +13,6 @@
                 </ng-template>
             </ng-container>
         </owl-carousel-o>
-        <form #assignTemplate="ngForm" (ngSubmit)="assignBatchTemplate(assignTemplate)">
             <div class="pr-3" *ngFor="let data of constant.templateAssign; let i = index">
                 <div class="row">
                     <div class="col-md-6 col-sm-5">
@@ -43,14 +43,48 @@
 
                 </div>
             </div>
-           
-            <div class="text-center py-5">
+        </div>
+            <div class="white-bg p-3">
+                <div class="clearfix py-3">
+                        <h5 class="float-left certificate-respon">{{constant.labels.badge}}</h5>
+                </div>
+                  <div class="row">
+                      <div class="col-md-3">
+                        <label>{{constant.labels.diamond}}</label> 
+                        <select id="diamond" class="form-control" name="diamond" [(ngModel)]="constant.diamond">
+                                <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}">{{percentage.value}}</option>
+                        </select>  
+                      </div>
+                      <div class="col-md-3">
+                            <label>{{constant.labels.gold}}</label>  
+                            <select id="gold" class="form-control" name="gold" [(ngModel)]="constant.gold">
+                                    <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}">{{percentage.value}}</option>
+                            </select>  
+                      </div>
+                      <div class="col-md-3">
+                            <label>{{constant.labels.silver}}</label> 
+                            <select id="silver" class="form-control" name="silver" [(ngModel)]="constant.silver">
+                                    <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}">{{percentage.value}}</option>
+                            </select>   
+                      </div>
+                      <div class="col-md-3">
+                            <label>{{constant.labels.bronze}}</label> 
+                            <select id="bronze" class="form-control" name="bronze" [(ngModel)]="constant.bronze">
+                                    <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}">{{percentage.value}}</option>
+                            </select>   
+                      </div>
+                  </div>
+                
+            </div>
+            <div class="float-right py-5">
                 <button type="submit" class="btn btn-default mr-3">{{constant.btns.save}}</button>
                 <button type="button" class="btn btn-primary save-btn" (click)="clearMessage()">{{constant.btns.cancel}}</button>
             </div>
         </form>
-    </div>
+   
 </div>
+
+
 <ng-template #addTemplate>
     <div class="modal-header">
         <p class="modal-title add-certificate">{{constant.modalHeader}}</p>
