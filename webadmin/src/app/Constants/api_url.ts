@@ -42,7 +42,7 @@ export class API_URL {
    getEmployeeList      : '5c0928d52f0000c21f637cd0',
    //*getForumList      : '5c17879a2f00008200b087a8',
    getForumList         : '5c32e1e22e00006b00121d6a',
-   getTemplateList      : '5c32eeab2e00005100121d9c',
+   getTemplateList      : '5c343b0c2e00005300378cc0',
    getBatchList         : '5c175edf2f00005f00b0862f',
    getPercentageList    : '5c25f8a7300000520067f64c',
    //getUsers           : '5c1a5d1d320000540064b0fc',
@@ -60,9 +60,10 @@ export class API_URL {
    getProgramList:'5c2de3ee2f00001c3d1752bb',
    getResortList : '5c2df79b2f0000a230175376',
   //*** */ moduleCourseList: '5c2deec42f00003747175314',
-  moduleCourseList: '5c332c832e00006b00121ee1',
+   moduleCourseList: '5c332c832e00006b00121ee1',
    getNotifications : '5c2f13d23200001000590603',
-   getVisitorsStaffData     : '5c2ef7383200007200590561'
+   getVisitorsStaffData     : '5c2ef7383200007200590561',
+   getBadgePercentage  : '5c3436f52e00006d00378c9a'
   }
 
 }

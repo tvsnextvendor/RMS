@@ -29,6 +29,10 @@ export class CertificatesComponent implements OnInit {
     this.http.get(this.constant.url.getTemplateList).subscribe((data) => {
         this.constant.certificateList = data.templatedetails;
     });
+
+    this.http.get(this.constant.url.getBadgePercentage).subscribe((data) => {
+      this.constant.badgePercentage = data.badgePercentage;
+   });
  
     //get Batch list
     this.http.get(this.constant.url.getProgramList).subscribe((data) => {
@@ -82,6 +86,8 @@ export class CertificatesComponent implements OnInit {
 
   //Assign template to batch
   assignBatchTemplate(form){
+    console.log(form.value,"CERTI");
+
     let batchId = this.constant.templateAssign.map(function(item){ return item.program });
     batchId.sort();
     let last = batchId[0]; 
