@@ -9,7 +9,7 @@
             <ng-container *ngFor="let template of constant.certificateList">
                 <ng-template carouselSlide [id]="template.templateid">
                     <img class="img" src={{template.htmldetails}}>
-                    <p class="text-center pt-3">{{template.templatename}} </p>
+                    <p class="pt-3 certificate-name">{{template.templatename}} </p>
                 </ng-template>
             </ng-container>
         </owl-carousel-o>
