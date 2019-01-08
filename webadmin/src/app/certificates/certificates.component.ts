@@ -18,7 +18,8 @@ import { AlertService } from '../services/alert.service';
 export class CertificatesComponent implements OnInit {
 
    modalRef:BsModalRef;
-
+    precentageArray=[];
+    percentageTakenError={};
    constructor(private http: HttpService,public constant:CertificateVar,private modalService:BsModalService,private headerService:HeaderService,private toastr:ToastrService,private router:Router,private alertService:AlertService){
        this.constant.url = API_URL.URLS;
    }
@@ -30,14 +31,51 @@ export class CertificatesComponent implements OnInit {
         this.constant.certificateList = data.templatedetails;
     });
 
-    this.http.get(this.constant.url.getBadgePercentage).subscribe((data) => {
-      this.constant.badgePercentage = data.badgePercentage;
-   });
+    this.getbadgepercentage();
+  //   this.http.get(this.constant.url.getBadgePercentage).subscribe((data) => {
+  //     this.constant.badgePercentage = data.badgePercentage;
+  //  });
  
     // //get course list
     this.http.get(this.constant.url.getCoursesList).subscribe((data) => {
          this.constant.courseList = data.courseDetails;
      });
+   }
+
+   getbadgepercentage(){
+      this.http.get(this.constant.url.getBadgePercentage).subscribe((data) => {
+        this.constant.badgePercentage = data.badgePercentage;
+    });
+   }
+
+   resetPercentage(){
+    this.getbadgepercentage();
+    this.constant.gold = null;
+    this.constant.diamond=null;
+    this.constant.silver=null;
+    this.constant.bronze=null;
+   }
+
+   badgePercentageUPdate(name,value){
+    // this.percentageTaken = false;
+    // console.log(name,value);
+    // this.precentageArray.push(value);
+    // if(this.precentageArray.length){
+    //   this.precentageArray.forEach(item=>{
+    //     if(item === value){
+    //       this.percentageTaken = true;
+    //     }
+    //   })
+    // }
+    // let index =  this.constant.badgePercentage.findIndex(x => x.id === parseInt(value) );
+    // this.constant.badgePercentage.splice(index,1);
+    this.constant.badgePercentage.map(item=>{
+      if(item.id === parseInt(value)){
+        item.disable = true;
+        return item;
+      }
+    })
+
    }
 
    customOptions: any = {
