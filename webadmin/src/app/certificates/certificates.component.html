@@ -47,30 +47,35 @@
             <div class="white-bg p-4 mt-2">
                 <div class="clearfix pl-3 pb-3">
                         <h5 class="float-left certificate-respon">{{constant.labels.badge}}</h5>
+                        <span class="float-right"><a (click)="resetPercentage()"><i class="fa fa-refresh"></i></a></span>
                 </div>
                   <div class="row">
                       <div class="col-md-3">
                         <label class="badge-title">{{constant.labels.diamond}}</label> 
-                        <select id="diamond" class="form-control badge-dropdown" name="diamond" [(ngModel)]="constant.diamond">
-                                <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}">{{percentage.value}}</option>
+                        <select id="diamond" class="form-control badge-dropdown" name="diamond" [(ngModel)]="constant.diamond" (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
+                            <option value="null">Select percentage</option>    
+                            <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}" [disabled]="percentage.disable">{{percentage.value}}</option>
                         </select>  
                       </div>
                       <div class="col-md-3">
-                            <label class="badge-title">{{constant.labels.gold}}</label>  
-                            <select id="gold" class="form-control badge-dropdown" name="gold" [(ngModel)]="constant.gold">
-                                    <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}">{{percentage.value}}</option>
-                            </select>  
+                            <label class="badge-title">{{constant.labels.gold}}</label> 
+                            <select id="gold" class="form-control badge-dropdown" name="gold" [(ngModel)]="constant.gold"  (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
+                                    <option value="null">Select percentage</option>        
+                                <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}" [disabled]="percentage.disable">{{percentage.value}}</option>
+                            </select> 
                       </div>
                       <div class="col-md-3">
                             <label class="badge-title">{{constant.labels.silver}}</label> 
-                            <select id="silver" class="form-control badge-dropdown" name="silver" [(ngModel)]="constant.silver">
-                                    <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}">{{percentage.value}}</option>
+                            <select id="silver" class="form-control badge-dropdown" name="silver" [(ngModel)]="constant.silver"  (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
+                                    <option value="null">Select percentage</option>         
+                                <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}" [disabled]="percentage.disable">{{percentage.value}}</option>
                             </select>   
                       </div>
                       <div class="col-md-3">
                             <label class="badge-title">{{constant.labels.bronze}}</label> 
-                            <select id="bronze" class="form-control badge-dropdown" name="bronze" [(ngModel)]="constant.bronze">
-                                    <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}">{{percentage.value}}</option>
+                            <select id="bronze" class="form-control badge-dropdown" name="bronze" [(ngModel)]="constant.bronze"  (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
+                                    <option value="null">Select percentage</option>       
+                                <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}" [disabled]="percentage.disable">{{percentage.value}}</option>
                             </select>   
                       </div>
                   </div>
