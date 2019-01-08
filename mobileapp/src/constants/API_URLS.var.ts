@@ -25,7 +25,7 @@ export class API_URL {
         //'getModules': '5c28a6de3300006300a58b77',
         'getModules': '5c2de3ee2f00001c3d1752bb',
         ////////'getCourses': '5c2f54463200007200590798',
-        'getCourses': '5c34a70a2e00005000378ff9',
+        'getCourses': '5c34b6da2e00004e00379054',
         'getQuiz': '5c2e1c4f2f0000fd54175475'
         // 'getCourses':'5c28b3923300004e00a58b88'
     };
