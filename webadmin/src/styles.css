@@ -4,7 +4,8 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 /* @import '~css-star-rating/scss/star-rating'; */
 
-
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~open-iconic/font/css/open-iconic-bootstrap.css';
 
 body {
     font-family: 'Open Sans', sans-serif;
