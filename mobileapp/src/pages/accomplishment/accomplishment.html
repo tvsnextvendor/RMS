@@ -1,10 +1,10 @@
 <ion-header class="my-component">
   <ion-navbar *ngIf="!showSearchBar">
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+       <img src="../assets/imgs/menu.png" />
     </button>
     <ion-title class="text-left">
-      {{constant.title.accomplishment}}
+      <span class="header-title">{{constant.title.accomplishment}}</span>
       <div class="header-icon">
           <ion-icon name="search" (click)="toggleSearchBox()"></ion-icon>
         </div>
@@ -20,7 +20,7 @@
 </ion-header>
 <ion-content padding class="headerFull-bg">
   <div class="certificate-block">
-    <h3 class="popup-tit">{{constant.pages.accomplishmentLabels.certificates}}</h3>
+    <h4 class="popup-tit">{{constant.pages.accomplishmentLabels.certificates}}</h4>
     <ion-slides #sliderOne [pager]="true" [slidesPerView]="2" class="certificate-slide" spaceBetween="1"
       (ionSlideDidChange)="onSlideCertChanged()">
       <ion-slide *ngFor="let item of certificateList;let i=index;" class="cert-indv-slide">
@@ -35,9 +35,9 @@
     </span>
   </div>
   <div class="badge-block">
-    <h3 class="popup-tit badge-tit">{{constant.pages.accomplishmentLabels.badges}}</h3>
+    <h4 class="popup-tit badge-tit">{{constant.pages.accomplishmentLabels.badges}}</h4>
     <ion-slides #sliderTwo [pager]="true" [slidesPerView]="3" class="badge-slide" spaceBetween="1" (ionSlideDidChange)="onSlideBadgeChanged()">
-      <ion-slide *ngFor="let item of badgeList;let i=index;" class="badge-indv-slide">
+      <ion-slide *ngFor="let item of badgeList;let i=index;" class="badge-indv-slide badge-inner">
         <div class="badge-slider">
           <img class="badge-image" src="{{item.badgeImage}}" alt="Badge Image" (click)="openBadgeModal(badgetemplate,item)">
           <p class="badge-name">{{item.badgeName}}</p>

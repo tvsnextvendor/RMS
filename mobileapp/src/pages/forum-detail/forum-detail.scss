@@ -46,8 +46,10 @@ page-forum-detail{
 	.ion-md-heart, .ion-md-heart-outline{
 		color: #DA4453;
 	}
-	.forum-img {
+	.forum-img ,.comment-image{
 		border-radius: 50%;
+		width: 40px;
+		height: 40px;
 	}
 	.forum-txt {
 		font-size: 0.8em;
@@ -107,8 +109,9 @@ page-forum-detail{
 		padding-right: 5px;
 		padding-left: 5px;
 	}
-	.forum-desc {
-    font-size: 12px;
+	.forum-desc,.comment-content  {
+        font-size: 13px;
+    color: #656565;
 }
 .fixed-btn {
     display: flex;
@@ -116,6 +119,67 @@ page-forum-detail{
 }
 .back-button-icon-ios {
     font-size: 26px;
+}
+.comment-input {
+    font-size: 14px;
+    background: #EAF0F5;
+    border-radius: 5px;
+    border: 1px solid #CFD5D9;
+    padding-left: 10px;
+    font-family:'sf_pro_displayregular';
+}
+.comment-item {
+    padding-left: 10px;
+}
+.user-comment {
+    padding-top: 10px;
+}
+.user-name {
+    font-family: 'sf_pro_displaysemibold';
+    margin-top: 3px !important;
+}
+.comment-time {
+    font-size: 14px;
+    color: #A5A5A5;
+    font-weight: 100;
+    font-family: 'sf_pro_displayregular';
+    margin: 5px 0 15px 0;
+    display: inline-block;
+}
+.comment-box {
+    padding-left: 15px;
+    margin-top: 10px;
+}
+.left-border {
+    border-left: 1px solid #ccc;
+    height: 80%;
+    display: block;
+    position: absolute;
+    left: 25px;
+    top: 58px;
+}
+.comment-img {
+    position: relative;
+}
+.like-icon {
+        width: 18px;
+    display: inline-block;
+    margin: 0 7px 0 15px;
+    position: relative;
+    top: -2px;
+}
+.reply-optn {
+    line-height: 30px;
+    margin-top: 10px;
+}
+.comment-input .text-input-ios,.comment-input .text-input-md{
+    margin: 8px 8px 8px 0;
+}
+.list-md .comment-item.item-input:last-child {
+    border-bottom: none;
+}
+.toolbar-content-md .back-arrow img {
+    margin-left: 9px;
 }
 }
 .modal-dialog {
