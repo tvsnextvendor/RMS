@@ -42,7 +42,7 @@ cursor: pointer;
 
 
 .btn-save{
-    float: none;
+    float: none !important;
  }
  
 button:focus {
