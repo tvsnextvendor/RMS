@@ -51,7 +51,7 @@
                     <div class="row">
                         <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label>
                         <div class="col-md-7 pr-0 select-Courses">
-                            <ng-multiselect-dropdown [placeholder]="'Enter Department'" name="employeeId" [data]="batchVar.employeeList"
+                            <ng-multiselect-dropdown [placeholder]="'Select Department'" name="employeeId" [data]="batchVar.employeeList"
                                 [(ngModel)]="batchVar.selectedEmp" [settings]="mySettings" (onSelect)="onEmpSelect($event)"
                                 (onDeSelect)="onEmpSelect($event)" #employeeId="ngModel" required></ng-multiselect-dropdown>
                             <span class="required_color" *ngIf="batchVar.empValidate">
