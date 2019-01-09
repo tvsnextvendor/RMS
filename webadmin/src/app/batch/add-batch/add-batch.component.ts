@@ -59,16 +59,17 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.percentageList= data.passPercentage;
       });
       
-    //   let startDate=localStorage.getItem('BatchStartDate');
+      let startDate=localStorage.getItem('BatchStartDate');
     //   let startDate = new Date(); 
     //   this.batchVar.batchFrom= this.splitDate(startDate).toISOString();
     //   this.batchVar.min =this.splitDate(new Date());
-      this.batchVar.batchFrom =new Date();
+      this.batchVar.batchFrom =new Date(startDate);
       this.getBatchDetail();
    }
 
    selectFilter(data){
-    return data.value >= new Date();
+       let startDate = localStorage.getItem('BatchStartDate');
+        return data.value >= new Date(startDate);
    }
 
    errorCheck(){
