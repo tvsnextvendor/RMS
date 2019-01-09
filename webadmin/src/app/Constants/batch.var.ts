@@ -26,7 +26,7 @@ export class BatchVar{
         day      : "Day"
     };
     btns={
-        clear  : 'CLEAR',
+        clear  : 'CANCEL',
         create : 'CREATE',
         save   : 'SAVE'
     };
