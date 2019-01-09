@@ -67,7 +67,7 @@ export class AddModuleComponent implements OnInit {
    }
 
     courseData(){
-        this.http.get(this.moduleVar.api_url.getCoursesList).subscribe((resp) => {
+        this.http.get(this.moduleVar.api_url.getModuleCourseList).subscribe((resp) => {
             this.moduleVar.courseList = resp.courseDetails;
         })
         this.http.get(this.moduleVar.api_url.getModuleDetails).subscribe((data) => {
