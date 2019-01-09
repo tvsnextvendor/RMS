@@ -75,9 +75,8 @@
                                 </select>
                             </span>
                             <div>
-                                <span class="required_color" *ngIf="formDir.submitted && (!reminder || !durationValue)">Valid
-                                    notification reminder is required</span>
-                                <span class="required_color" *ngIf="countCheck">{{countError}}</span>
+                                <span class="required_color" *ngIf="formDir.submitted && (!reminder || !durationValue)">{{batchVar.mandatoryLabels.notificationError}}</span> 
+                                <span class="required_color" *ngIf="countCheck">{{countError}}</span>                          
                             </div>
                         </div>
                     </div>

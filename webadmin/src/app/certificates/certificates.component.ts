@@ -18,8 +18,13 @@ import { AlertService } from '../services/alert.service';
 export class CertificatesComponent implements OnInit {
 
    modalRef:BsModalRef;
-    precentageArray=[];
-    percentageTakenError={};
+    percentageArray=[];
+    percentageTakenError  = {
+      diamond : false,
+      gold : false,
+      silver : false,
+      bronze : false
+    };
    constructor(private http: HttpService,public constant:CertificateVar,private modalService:BsModalService,private headerService:HeaderService,private toastr:ToastrService,private router:Router,private alertService:AlertService){
        this.constant.url = API_URL.URLS;
    }
@@ -57,25 +62,57 @@ export class CertificatesComponent implements OnInit {
    }
 
    badgePercentageUPdate(name,value){
-    // this.percentageTaken = false;
-    // console.log(name,value);
-    // this.precentageArray.push(value);
-    // if(this.precentageArray.length){
-    //   this.precentageArray.forEach(item=>{
-    //     if(item === value){
-    //       this.percentageTaken = true;
-    //     }
-    //   })
-    // }
-    // let index =  this.constant.badgePercentage.findIndex(x => x.id === parseInt(value) );
-    // this.constant.badgePercentage.splice(index,1);
-    this.constant.badgePercentage.map(item=>{
-      if(item.id === parseInt(value)){
-       // item.disable = true;
-        return item;
-      }
-    })
-
+    if(this.percentageArray.length){
+        let index = this.percentageArray.find(x => x.value === value);
+        if (index){
+            switch(name){
+                case "diamond":
+                    this.constant.diamond = "null";
+                    this.percentageTakenError.diamond = true;
+                    this.percentageTakenError.gold = false;
+                    this.percentageTakenError.silver = false;
+                    this.percentageTakenError.bronze = false;
+                    break;
+                case "gold":
+                    this.constant.gold = "null";
+                    this.percentageTakenError.diamond = false;
+                    this.percentageTakenError.gold = true;
+                    this.percentageTakenError.silver = false;
+                    this.percentageTakenError.bronze = false;
+                    break;
+                case "silver":
+                    this.constant.silver = "null";
+                    this.percentageTakenError.diamond = false;
+                    this.percentageTakenError.gold = false;
+                    this.percentageTakenError.silver = true;
+                    this.percentageTakenError.bronze = false;
+                    break;
+                case "bronze":
+                    this.constant.bronze = "null";
+                    this.percentageTakenError.diamond = false;
+                    this.percentageTakenError.gold = false;
+                    this.percentageTakenError.silver = false;
+                    this.percentageTakenError.bronze = true;
+                    break;
+            }
+        }
+        else if(value === "null"){
+            let index = this.percentageArray.findIndex(x => x.name === name);
+            this.percentageArray.splice(index,1);
+        }
+        else{
+            let index = this.percentageArray.findIndex(x => x.name === name);
+            this.percentageArray.splice(index,1);
+            value !== "null" ? this.percentageArray.push({"name":name ,"value":value}) : '';
+            this.percentageTakenError.diamond = false;
+            this.percentageTakenError.gold = false;
+            this.percentageTakenError.silver = false;
+            this.percentageTakenError.bronze = false;
+        } 
+    }
+    else{
+        this.percentageArray.push({"name":name ,"value":value}) 
+    }
    }
 
    customOptions: any = {
