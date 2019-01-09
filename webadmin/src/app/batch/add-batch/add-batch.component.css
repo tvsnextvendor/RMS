@@ -15,9 +15,15 @@
 	line-height: 80px;
     font-size: 22px;
 }
-.module-title{
+.module-title-mand{
 	color: #697380;
-    line-height: 40px;
+    line-height: 36px;
+     margin-bottom: 0;
+    font-size: 15px;   
+}
+.module-title-opt{
+    color: #697380;
+    line-height: 27px;
     margin-bottom: 10px;
     font-size: 15px;
 }
