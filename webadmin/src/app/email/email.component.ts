@@ -87,11 +87,13 @@ export class EmailComponent implements OnInit {
 
 
     addSign(){
+      
         // console.log(this.dataModel)
         this.userDetails = JSON.parse(localStorage.getItem('userData'));
         // console.log(this.userDetails)
         let content = this.dataModel;
-        this.dataModel = content +"<br><b>Signature,</b><br>"+ this.userDetails.username;
+        const signature = "<br><b>Signature,</b><br>"+ this.userDetails.username;
+        this.dataModel = (content)? content+signature : signature;
     }
 
     groupMail(group){

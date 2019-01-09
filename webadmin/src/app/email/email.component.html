@@ -7,8 +7,9 @@
                 <li *ngFor="let depart of departments;let i=index;">
                    <span class="dep-list"> <a (click)="groupMail(depart)"><span [ngClass] = "i===0 ? 'clr-grey' : i===1 ? 'clr-red' : i===2 ? 'clr-green' : i===3 ? 'clr-blue' : 'clr-pink'"><i class="fa fa-circle font-circle"></i></span>{{depart.department}}</a></span>
                 </li>
-                <div class="py-4 clearfix" *ngIf="this.dataModel"><button class="btn btn-primary" type="button" (click)="addSign()">Add Signature</button></div>
             </ul>
+            <div class="py-4 clearfix text-center" ><button class="btn btn-primary btn-save" type="button" (click)="addSign()">Add Signature</button></div>
+
         </div>
         <div class="col-8 mail-box">
 

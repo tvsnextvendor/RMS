@@ -39,6 +39,12 @@ body {
 .cp{
 cursor: pointer;
 }
+
+
+.btn-save{
+    float: none;
+ }
+ 
 button:focus {
   outline: none;
   outline: none;
