@@ -317,8 +317,9 @@ li.search-block {
 	position: absolute;
     transform: translate3d(-226px, 24px, 0px) !important;
     top: 7px !important;
-    left: 25px !important;
+    left: -7px !important;
     will-change: transform;
+        min-width: 389px !important;
 }
 .header-noti-dropdown .dropdown-item:hover {
     background-color: #E5EFF5;
@@ -333,6 +334,14 @@ li.search-block {
     font-size: 15px;
     margin-left: 7px;
     margin-top: 5px;
+}
+.noti-desc{
+  font-size: 12px;
+  line-height: 30px;
+}
+.noti-timer{
+  font-size: 14px;
+  line-height: 30px;
 }
 /*************************End  Header ***********************/
 

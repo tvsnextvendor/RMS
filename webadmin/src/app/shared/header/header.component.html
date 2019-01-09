@@ -17,10 +17,11 @@
               <span class="badge badge-danger noti-pop">{{headerVar.notificationList?.count}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right header-noti-dropdown"  aria-labelledby="alertsDropdown">
-              <a class="dropdown-item px-2 row" href="#" *ngFor="let notification of headerVar.notificationList?.notifications">
-                <span class="mr-1 col-sm-1 px-1"><img src={{notification?.imgUrl}}></span>
-                <span class="fs-12 col-sm-10 px-1">{{notification?.data}}</span>
-                <span class="col-sm-2 px-1">{{notification?.time}}</span></a>
+              <div class="dropdown-item p-0" href="#" *ngFor="let notification of headerVar.notificationList?.notifications">
+                <div class="row pb-2">
+                <span class="col-md-2 pr-0"><img src={{notification?.imgUrl}}></span>
+                <span class="noti-desc col-md-8 p-0">{{notification?.data}}</span>
+                <span class="noti-timer col-md-2 pr-0">{{notification?.time}}</span></div></div>
             </div>
           </li>
           <li [class.active]="router.isActive('/email')"><a routerLink="/email"><i class="fa fa-envelope icons_header"
