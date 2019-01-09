@@ -102,7 +102,7 @@ export class CertificatesComponent implements OnInit {
         }
         else{
             let index = this.percentageArray.findIndex(x => x.name === name);
-            this.percentageArray.splice(index,1);
+            index >= 0 ?  this.percentageArray.splice(index,1) : '';
             value !== "null" ? this.percentageArray.push({"name":name ,"value":value}) : '';
             this.percentageTakenError.diamond = false;
             this.percentageTakenError.gold = false;

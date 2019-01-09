@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
            localStorage.setItem('userData',JSON.stringify(updatedValue));
           // this.toastr.success(this.profVar.successMsg);
            this.alertService.success(this.profVar.successMsg);
-          // this.router.navigateByUrl('/profile');
+          this.router.navigateByUrl('/profile');
 
            
        }
