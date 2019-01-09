@@ -33,6 +33,7 @@ export class CertificateVar{
     uploadErrMsg     = 'Template File is mandatory';
     assignSuccessMsg = 'Template Assigned Successfully';
     assignErrMsg     = 'Invalid Batch Selection';
+    badgepercentageError = 'Badge pass percentage already assigned';
     url;
     certificateList;
     courseList;

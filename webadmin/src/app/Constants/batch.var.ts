@@ -39,7 +39,8 @@ export class BatchVar{
          passpercentage : 'Pass Percentage is required.' ,
          dateLimitError : 'Assigned date should be less than due date'  ,
          minCountError : 'Minutes value should be less than 60',
-         hourCountError : 'Hours value should be less than 24'
+         hourCountError : 'Hours value should be less than 24',
+         notificationError : 'Valid notification reminder count is required'
     };
      
     title = 'Add New Training Schedule';
