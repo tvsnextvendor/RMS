@@ -15,11 +15,11 @@ export class CalendarPage {
   calendarIdUnique;
   constructor(public navCtrl: NavController, public navParams: NavParams, private calendar: Calendar, private plt: Platform, private http: HttpProvider, public apiUrl: API_URL) {
     this.plt.ready().then(() => {
-      // this.calendar.listCalendars().then(data => {
-      //   this.calendars = data;
-      // });
-     // this.openCalendar();
-      //this.deleteCalendar();
+     /* this.calendar.listCalendars().then(data => {
+        this.calendars = data;
+      });
+     this.openCalendar();
+      this.deleteCalendar();*/
      
       this.createCalendar();
     });

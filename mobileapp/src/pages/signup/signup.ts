@@ -39,7 +39,8 @@ export class SignupPage implements OnInit {
   }
   signupfn() {
     console.log(this.signup);
-    this.toastr.success('Sign up successfully');
+    this.toastr.success('Registration successful');
+    this.navCtrl.setRoot('login-page');
     //API_URL.URLS.doSignup
     // this.http.post('/signup', this.signup).subscribe((data) => {
     //   console.log(data);
@@ -51,7 +52,8 @@ export class SignupPage implements OnInit {
     this.googlePlus.login({'webClientId':'148431050807-0edt944ql6k9o1tmpf74ec7grq8111h9.apps.googleusercontent.com'})
       .then(res => {
         console.log(res);
-        this.toastr.success('Sign up successfully');
+        this.toastr.success('Registration successful');
+
         this.navCtrl.setRoot('login-page');
       })
       .catch(err => {
@@ -70,12 +72,15 @@ export class SignupPage implements OnInit {
     this.linkedin.login(this.scopes, true)
       .then(() => {
         console.log('Logged in!');
-        this.toastr.success('Sign up successfully');
+        this.toastr.success('Registration successful');
         this.navCtrl.setRoot('login-page');
       })
       .catch(e => {
         console.log('Error logging in', e);
         this.toastr.error("Linked in sign up failed");
       });
+  }
+  goBackLogin(){
+    this.navCtrl.setRoot('login-page');
   }
 }

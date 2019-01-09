@@ -106,7 +106,7 @@ export class AccomplishmentPage implements OnInit {
     console.log($e);
     console.log(this.search);
     if (this.search) {
-      //this.certificateList = this.certificateList.filter(val => val.forumName === this.search);
+      /*this.certificateList = this.certificateList.filter(val => val.forumName === this.search);*/
     } else {
       this.showSearchBar = false;
       this.getCertificates();

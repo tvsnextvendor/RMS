@@ -1,7 +1,7 @@
 <ion-content padding class="login-bg" no-bounce overflow-scroll="false">
 	<div class="signin-process">
 		<div class="max-wth">
-			<p class="sign-title"><ion-icon name="md-arrow-back" class="go-back"></ion-icon> {{constant.pages.forgetPasswordLabels.forgetPassword}}</p>
+			<p class="sign-title"><ion-icon name="md-arrow-back" class="go-back" (click)="goBackLogin()"></ion-icon> {{constant.pages.forgetPasswordLabels.forgetPassword}}</p>
 			<div class="app-signup">
 				<form novalidate (ngSubmit)="forgetfn()" [formGroup]="forgetform">
 					<ion-list class="signin-block">
