@@ -50,6 +50,9 @@
 .list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child{
     border-bottom: none;
 }
+.go-back {
+    margin-right: 15px;
+}
 /*******************sidebar style *******************/
 .sidebar-list .label-ios, .sidebar-list .label-md{
         line-height: 35px;
