@@ -17,7 +17,7 @@ import * as moment from 'moment';
 })
 
 export class AddBatchComponent implements OnInit {
-  durationValue = null;
+  durationValue = 1;
   maxdurationCount;
   countCheck = false;
   countError;

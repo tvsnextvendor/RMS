@@ -1,4 +1,4 @@
-import { Component, OnInit,ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeaderService } from '../services/header.service';
@@ -14,25 +14,26 @@ import { AlertService } from '../services/alert.service';
 })
 
 export class EmailComponent implements OnInit {
-     email:any={};
-     emailForm:any={'to':'','cc':'','subject':''};
-     departments:any=[];
-     sendClicked = false;
-     validEmail = false;
-     selectedDepartment;
-     userList = [];
-     userDetails;
-     dataModel;
-    constructor(private toastr:ToastrService,private headerService:HeaderService,private elementRef:ElementRef,private emailVar:EmailVar,private http: HttpService,private alertService:AlertService){
+    email: any = {};
+    emailForm: any = { 'to': '', 'cc': '', 'subject': '' };
+    departments: any = [];
+    sendClicked = false;
+    validEmail = false;
+    selectedDepartment;
+    userList = [];
+    userDetails;
+    dataModel;
+    setSignatureStatus: boolean = true;
+    constructor(private toastr: ToastrService, private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService) {
         this.email.url = API_URL.URLS;
-     }
+    }
 
-    ngOnInit(){
-        this.headerService.setTitle({title:this.emailVar.title, hidemodule:false});
+    ngOnInit() {
+        this.headerService.setTitle({ title: this.emailVar.title, hidemodule: false });
         this.departmentList();
 
     }
-    departmentList(){
+    departmentList() {
         this.http.get(this.email.url.getDepartments).subscribe((resp) => {
             this.departments = resp['DepartmentList'];
         });
@@ -41,75 +42,75 @@ export class EmailComponent implements OnInit {
         });
     }
 
-    sendMail(){
+    sendMail() {
         // console.log(this.dataModel)
         this.sendClicked = true;
-        if(this.emailForm.to && this.emailForm.subject){
+        if (this.emailForm.to && this.emailForm.subject) {
             let toAddress = this.selectedDepartment ? this.selectedDepartment + " Department" : this.emailForm.to;
-            this.alertService.success("Mail sent successfully to "+toAddress);
+            this.alertService.success("Mail sent successfully to " + toAddress);
             this.sendClicked = false;
             this.resetFields();
         }
-        else if(!this.emailForm.to){
+        else if (!this.emailForm.to) {
             this.alertService.error("To address is mandatory");
         }
-        else if(!this.emailForm.subject){
+        else if (!this.emailForm.subject) {
             this.alertService.error("Subject data is mandatory");
         }
     }
 
-    emailValidation(){
-        if( this.emailForm.to === ''){
+    emailValidation() {
+        if (this.emailForm.to === '') {
             this.selectedDepartment = '';
         }
-        this.validEmail = this.emailForm.to && this.validationCheck("email",this.emailForm.to) === 'invalidEmail' ? true : false;
+        this.validEmail = this.emailForm.to && this.validationCheck("email", this.emailForm.to) === 'invalidEmail' ? true : false;
     }
 
-    validationCheck(type,value){
-        if(type === "email"){
+    validationCheck(type, value) {
+        if (type === "email") {
             var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if(!emailRegex.test(value)){
+            if (!emailRegex.test(value)) {
                 return "invalidEmail"
             }
-        }     
-        if(type === "mobile"){
-            let data = value.toString(); 
-            let phoneNum =  data.replace("+","");
-            let phoneNumValid = phoneNum ? (phoneNum.length === 10 ? true :false) : false;
+        }
+        if (type === "mobile") {
+            let data = value.toString();
+            let phoneNum = data.replace("+", "");
+            let phoneNumValid = phoneNum ? (phoneNum.length === 10 ? true : false) : false;
             return phoneNumValid
         }
     }
 
-    resetFields(){
-        this.emailForm = {'to':'','cc':'','subject':''};
+    resetFields() {
+        this.emailForm = { 'to': '', 'cc': '', 'subject': '' };
         this.selectedDepartment = '';
     }
 
 
-    addSign(){
-      
-        // console.log(this.dataModel)
+    addSign() {
         this.userDetails = JSON.parse(localStorage.getItem('userData'));
-        // console.log(this.userDetails)
         let content = this.dataModel;
-        const signature = "<br><b>Signature,</b><br>"+ this.userDetails.username;
-        this.dataModel = (content)? content+signature : signature;
+        const signature = "<br><b>Signature,</b><br>" + this.userDetails.username;
+        if(this.setSignatureStatus){
+            this.dataModel = (content) ? content + signature : signature;
+            this.setSignatureStatus = false;
+        }
     }
 
-    groupMail(group){
+    groupMail(group) {
         console.log(group)
         let data = [];
         this.selectedDepartment = group.department;
-        this.userList.forEach(items=>{
-            if(items.department === group.department){
+        this.userList.forEach(items => {
+            if (items.department === group.department) {
                 data.push(items.emailAddress);
             }
         })
         console.log(data)
-        if(data.length){
+        if (data.length) {
             this.emailForm.to = data;
         }
-        else{
+        else {
             this.emailForm.to = '';
             this.alertService.warn("No members available in selected department");
         }
