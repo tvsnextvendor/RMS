@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
-import { ForumDetailPage } from '../forum-detail/forum-detail';
+//import { ForumDetailPage } from '../forum-detail/forum-detail';
 import { LoaderService } from '../../service/loaderService';
 @IonicPage({
   name: 'forum-page'
@@ -33,7 +33,8 @@ export class ForumPage implements OnInit {
   goToForumDetail(detailObj, selectedIndex) {
     this.paramsData['setData'] = detailObj;
     this.paramsData['selectedIndex'] = selectedIndex;
-    this.navCtrl.push(ForumDetailPage, this.paramsData);
+
+    this.navCtrl.setRoot('forumdetail-page', this.paramsData);
   }
   getForumDatas() {
     this.loader.showLoader();

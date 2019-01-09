@@ -129,4 +129,7 @@ export class ForumDetailPage implements OnInit {
     });
     return await modal.present();
   }
+  goBackLevel(){
+    this.navCtrl.setRoot('forum-page');
+  }
 }
