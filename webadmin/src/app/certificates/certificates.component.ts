@@ -71,7 +71,7 @@ export class CertificatesComponent implements OnInit {
     // this.constant.badgePercentage.splice(index,1);
     this.constant.badgePercentage.map(item=>{
       if(item.id === parseInt(value)){
-        item.disable = true;
+       // item.disable = true;
         return item;
       }
     })

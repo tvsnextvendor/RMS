@@ -15,7 +15,7 @@ export class BatchVar{
         optional   : 'Optional',
         percentage : 'Pass %',
         courses    : 'Courses'    ,
-        regNote    : 'Notification Every'    
+        regNote    : 'Send Notification Every'    
     };
     calLabels = {
         next     : 'Next',
