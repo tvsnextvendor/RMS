@@ -1,7 +1,7 @@
 <ion-header  class="main-header my-component" color="primary">
-  <ion-toolbar *ngIf="!showSearchBar">
+    <ion-navbar *ngIf="!showSearchBar">
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+       <img src="../assets/imgs/menu.png" />
     </button>
     <ion-title class="text-left">
       <span class="header-title">{{constant.title.forum}}</span>
@@ -9,7 +9,8 @@
         <ion-icon name="search" (click)="toggleSearchBox()"></ion-icon>
       </div>
     </ion-title>
-  </ion-toolbar>
+  </ion-navbar>
+  
   <ion-toolbar *ngIf="showSearchBar">
     <ion-icon name="ios-arrow-back" (click)="toggleSearchBox()"></ion-icon>
     <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" class="search-bar">
