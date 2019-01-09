@@ -449,10 +449,10 @@ employeeProgressPie() {
         type: 'pie'
     },
     legend: {
-      align: 'left',
-      layout: 'horizontal',
-      verticalAlign: 'bottom',
-      x: 40,
+      align: 'right',
+      layout: 'vertical',
+      verticalAlign: 'middle',
+      x: 0,
       y: 0
      },
       title: {
