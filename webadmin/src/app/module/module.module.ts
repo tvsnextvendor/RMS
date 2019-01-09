@@ -19,7 +19,7 @@ const routes: Routes = [
     { path: 'module', component:AddModuleComponent ,canActivate : [AuthGuard]},
     { path: 'modulelist', component:ModuleListComponent ,canActivate : [AuthGuard]},
     { path:  'module/:moduleId', component:AddModuleComponent ,canActivate : [AuthGuard]} ,
-    { path:  'modules/:fileId', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}, 
+    { path:  'modules/:moduleId/:courseId', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}, 
     { path:  'modules', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}          
 ];
 

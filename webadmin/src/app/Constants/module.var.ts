@@ -5,6 +5,7 @@ export class ModuleVar {
    
     active       = 'Active';
     title        = 'Programs';
+    divisionName   = 'Mt.Operation';
     createModule = 'Create Program';
     activeStatus =  [];
     moduleList=[];

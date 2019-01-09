@@ -1,33 +1,30 @@
-<div class="" *ngFor="let data of moduleVar.moduleList;let i = index;">
 <div class="clearfix pt-4">
-    			<h6 class="float-left module-hd-color">{{data.moduleName}}</h6>
-
-                <span class="">
-                    <a (click)="moduleEdit(data,i)"><i class="fa fa-pencil icons_header"></i></a>
-                    <span class="pr-5 module-course-font">{{moduleVar.active}}</span>
-                    <span><label class="switch">
-                        <input type="checkbox" id="activeStatus{{i}}" [(ngModel)]="data.active" (change)="statusUpdate(data.moduleName,data.active)" ng-reflect-model="true" class="ng-untouched ng-pristine ng-valid"><span class="slider round"></span></label></span>
-                </span>
+    			<h6 class="float-left module-hd-color">{{moduleVar.divisionName}}</h6>
 <button class="btn btn-primary mr-3"  [routerLink]="['../module']">{{moduleVar.createModule}}</button>
 <button class="btn btn-link float-right" routerLink="/modules">
             {{moduleVar.labels.showAll}}</button> 
 </div>
-<div class="pr-3 pt-4" *ngFor="let course of data.courseDetails">
+<div class="pr-3 pt-4" *ngFor="let module of moduleVar.moduleList;let i = index;">
     <div class="white-bg p-3"> 
             <div class="clearfix py-3" >
-                    <h6 class="float-left module-hd-color">{{course.courseName}}</h6>
-                       
+                    <h6 class="float-left module-hd-color">{{module.moduleName}}</h6>
+                    <span class="float-right">
+                            <a (click)="moduleEdit(module,i)"><i class="fa fa-pencil icons_header"></i></a>
+                            <span class="pr-5 module-course-font">{{moduleVar.active}}</span>
+                            <span><label class="switch">
+                                <input type="checkbox" id="activeStatus{{i}}" [(ngModel)]="module.active" (change)="statusUpdate(module.moduleName,module.active)" ng-reflect-model="true" class="ng-untouched ng-pristine ng-valid"><span class="slider round"></span></label></span>
+                        </span>
             </div>
     
         <owl-carousel-o [options]="customOptions" class="module-list">
-        <ng-container *ngFor="let file of course.files">             	
-               <ng-template carouselSlide><div class="player-list" routerLink="/modules/{{file.fileId}}"><img src="assets/images/Course.png" class="module-img">
-               <span class="module-course-font"> {{file.fileName}}</span></div></ng-template>  
+        <ng-container *ngFor="let course of module.courseDetails">             	
+               <ng-template carouselSlide><div class="player-list" routerLink="/modules/{{module.moduleId}}/{{course.courseId}}" ><img src="assets/images/Course.png" class="module-img">
+               <span class="module-course-font"> {{course.courseName}}</span></div></ng-template>  
          </ng-container>     
          </owl-carousel-o>
     </div>
 </div> 
-</div>
+
  
 
 
