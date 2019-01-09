@@ -64,10 +64,10 @@ export class API_URL {
    getResortList : '5c2df79b2f0000a230175376',
   //*** */ moduleCourseList: '5c2deec42f00003747175314',
    // moduleCourseList: '5c332c832e00006b00121ee1',
-   moduleCourseList :'5c359ca23000008e0021b3d2',
+   //moduleCourseList :'5c359ca23000008e0021b3d2',
+   moduleCourseList : '5c35d70d300000590021b58a',
    getNotifications : '5c2f13d23200001000590603',
    getVisitorsStaffData     : '5c2ef7383200007200590561',
-   getBadgePercentage  : '5c3436f52e00006d00378c9a'
   }
 
 }
