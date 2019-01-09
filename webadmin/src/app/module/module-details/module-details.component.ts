@@ -26,6 +26,7 @@ export class ModuleDetailsComponent implements OnInit {
     showImage = false;
     uploadFile;
     fileUrl;
+    fileType;
     previewImage;
     videoIndex;
 
@@ -82,10 +83,13 @@ export class ModuleDetailsComponent implements OnInit {
         }
         else {
             this.showImage = true;
+            this.fileType = data.fileType;
             this.videoName = data.fileName;
+
             this.videoFile = data.fileUrl;
+            console.log(this.videoFile.substring(this.videoFile.lastIndexOf('/') + 1));
             this.description = data.fileDescription;
-            this.previewImage = "assets/videos/images/bunny.png";
+            this.previewImage = data.videoImage;
             this.videoIndex = index;
             this.modalRef = this.modalService.show(template);
         }
