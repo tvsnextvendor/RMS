@@ -5,6 +5,11 @@ export class API_URL {
 
   public static URLS = {
 
+
+    //Program
+
+    ProgramModuleList: '5c36f14c3000005b001f60e1',
+
     getKeyStat: "5c04dd7f330000e900d01e32",
     getCourses: "5c2dbf2e2f000056301751f7",
     getCoursesList: "5c34596a2e00007d00378d8d",
@@ -48,6 +53,7 @@ export class API_URL {
     getTemplateList: '5c34b04e2e0000490037902a',
     getBatchList: '5c175edf2f00005f00b0862f',
     getPercentageList: '5c25f8a7300000520067f64c',
+    getBadgePercentage: '5c3436f52e00006d00378c9a',
     //getUsers           : '5c1a5d1d320000540064b0fc',
     getUsers: '5c35ea0a300000600021b667',
     getUsersList: '5c3344022e0000f508121fab',
