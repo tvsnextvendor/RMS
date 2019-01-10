@@ -47,7 +47,7 @@ export class LoginPage implements OnInit {
         this.authService.login(this.user.name, this.user.pw, this.user.keepmelogin).then(success => {
             if (success) {
                 this.navCtrl.setRoot('home-page');
-                this.toastr.success('Login Successful');
+               // this.toastr.success('Login Successful');
             }
         }).catch(err => {
             console.log(err);
@@ -66,4 +66,7 @@ export class LoginPage implements OnInit {
     goToForget() {
         this.navCtrl.setRoot('forget-page');
     }
+    goBackLogin(){
+        this.navCtrl.setRoot('login-page');
+      }
 }

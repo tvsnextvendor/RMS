@@ -1,4 +1,4 @@
-<ion-header class="main-header my-component">
+<ion-header class="main-header my-component" [scrollingHeader]='content'>
   <ion-toolbar transparent class="details-page-toolbar title-type2">
     <span class="back-arrow" (click)="goBackLevel()"> 
 <img src="../assets/imgs/Back.png" />
@@ -154,7 +154,7 @@
         <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of favoriteList;let j=index;">
           <ion-card class="forum-card">
             <ion-grid>
-              <ion-row>
+              <ion-row (click)="hideShowDesc(favoriteList,j)">
                 <ion-col col-2 class="img-block">
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
@@ -162,7 +162,7 @@
                   <h4 class="forum-title">{{emp.username}}</h4>
                   <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
                     {{constant.pages.forumLabels.replays}}</p>
-                  <p class="forum-txt" (click)="hideShowDesc(favoriteList,j)">{{emp.totalReplies}}
+                  <p class="forum-txt" >{{emp.totalReplies}}
                     {{constant.pages.forumLabels.replies}} </p>
                 </ion-col>
                 <ion-col col-3 class="heart-icon">
@@ -197,8 +197,8 @@
                       <img src="assets/images/images1.jpeg" class="comment-image">
                     </ion-col>
                     <ion-col col-10>
-                      <ion-item>
-                        <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..."></ion-input>
+                      <ion-item class="comment-item">
+                        <ion-input name="comment" [(ngModel)]="comment" class="comment-input" placeholder="Add a comment ..."></ion-input>
                       </ion-item>
                     </ion-col>
                     <!-- <ion-col col-2>
@@ -206,7 +206,7 @@
                   </ion-col> -->
                   </ion-row>
                 </form>
-                <ion-row *ngFor="let comment of commentList;let i=index;">
+                <!-- <ion-row *ngFor="let comment of commentList;let i=index;">
                   <ion-col col-2>
                     <img *ngIf="comment.user.userImage" src="{{comment.user.userImage}}" class="comment-image">
                   </ion-col>
@@ -217,7 +217,23 @@
                     <span><a >Reply</a><i class="fa fa-thumbs-up" aria-hidden="true"></i>
                       {{comment.commentLike}}</span>
                   </ion-col>
-                </ion-row>
+                </ion-row> -->
+
+                <ion-row *ngFor="let comment of commentList;let i=index;" class="comment-row">
+
+                    <ion-col col-2 class="comment-img">
+                      
+                      <img *ngIf="comment.user.userImage" src="{{comment.user.userImage}}" class="comment-image">
+                      <span class="left-border"></span>
+                    </ion-col>
+                    <ion-col col-10 class="comment-box">
+                      <h6 class="user-name">{{comment.user.username}}</h6>
+                      <span class="comment-time">{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replays</span>
+                      <p class="comment-content">{{comment.comment}}</p>
+                      <div class="reply-optn"><a href="javascript:void(0)">Reply</a><img src="assets/imgs/likeblack.png" class="like-icon"><span class="reply-cnt">{{comment.commentLike}}</span></div>
+                      <!-- (click)="presentModal(comment)" -->
+                    </ion-col>
+                  </ion-row>
               </div>
             </ion-grid>
           </ion-card>

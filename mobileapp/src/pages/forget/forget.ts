@@ -32,12 +32,15 @@ export class ForgetPage implements OnInit {
     });
   }
   forgetfn() {
-    this.toastr.success('Forget Password Successfully');
+    this.toastr.success('Your password has been sent to your registered email ID');
     this.navCtrl.setRoot('login-page');
     //API_URL.URLS.doSignup
     // this.http.post('/signup', this.signup).subscribe((data) => {
     //   console.log(data);
     // });
+  }
+  goBackLogin(){
+    this.navCtrl.setRoot('login-page');
   }
 
 }
