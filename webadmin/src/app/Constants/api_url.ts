@@ -52,7 +52,7 @@ export class API_URL {
     getTemplateList: '5c34b04e2e0000490037902a',
     getBatchList: '5c175edf2f00005f00b0862f',
     getPercentageList: '5c25f8a7300000520067f64c',
-    getBadgePercentage: '5c3436f52e00006d00378c9a',
+    // getBadgePercentage: '5c3436f52e00006d00378c9a',
     //getUsers           : '5c1a5d1d320000540064b0fc',
     getUsers: '5c35ea0a300000600021b667',
     getUsersList: '5c3344022e0000f508121fab',

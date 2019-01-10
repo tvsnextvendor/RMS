@@ -7,6 +7,7 @@ import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
+import * as XLSX from 'ts-xlsx';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class UserComponent implements OnInit {
    designationArray = [];
    designationData = [];
    fileUploadValue;
+   arrayBuffer:any;
 
    constructor(private alertService:AlertService,private http: HttpService,public constant:UserVar,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
         this.constant.url = API_URL.URLS;
@@ -245,7 +247,23 @@ export class UserComponent implements OnInit {
         this.message = '';
         // console.log("messege redsad")
       }
-      fileUpload($e){
-          
+      fileUpload(event){
+          let fileUploadValue = event.target.files[0];
+          let fileReader = new FileReader();
+          fileReader.onload = (e) => {
+              this.arrayBuffer = fileReader.result;
+              var data = new Uint8Array(this.arrayBuffer);
+              var arr = new Array();
+              for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+              var bstr = arr.join("");
+              var workbook = XLSX.read(bstr, {type:"binary"});
+              var first_sheet_name = workbook.SheetNames[0];
+              var worksheet = workbook.Sheets[first_sheet_name];
+              let finalData= XLSX.utils.sheet_to_json(worksheet,{raw:true})
+              finalData && finalData.forEach(item=>{
+                this.constant.userList.push(item)
+              })
+          }
+          fileReader.readAsArrayBuffer(fileUploadValue);
       }
 }

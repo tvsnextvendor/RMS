@@ -525,9 +525,11 @@ export class EmployeeChartsComponent implements OnInit {
         layout: 'vertical',
         align: 'right',
         verticalAlign: 'bottom'
-      },
-      series: this.dashboardVar.certificationTrend.data,
-    });
+    },
+    series:   this.dashboardVar.certificationTrend.data,
+    colors:['#7DB5EC','#CCCCCC'],
+    // stroke:'grey',
+  });
   }
 
   topEmployees() {
@@ -601,6 +603,38 @@ export class EmployeeChartsComponent implements OnInit {
                 fontWeight: 'normal',
                 fontSize: '8px',
               }
+          },
+            tooltip: {
+                pointFormat: '<b>{point.percentage:.1f}%</b>'
+            },
+
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    innerSize: '60%',
+                     cursor: 'pointer',
+                     indexLabelFontSize: 12,
+                     colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}',
+                      connectorColor: 'black',
+                      style: {
+                        fontWeight: 'normal',
+                        fontSize: '8px',
+                    }
+                  }
+                }
+            },
+            xAxis: {
+                categories: labels
+            },
+            series: [{
+                name: '',
+                data: data
+            }],
+            credits: {
+              enabled: false
             }
           },
         },

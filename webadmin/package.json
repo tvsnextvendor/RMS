@@ -24,6 +24,7 @@
     "@angular/router": "^6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
     "@tinymce/tinymce-angular": "^2.3.3",
+    "@types/xlsx": "0.0.36",
     "angular-2-dropdown-multiselect": "^1.8.1",
     "angular-6-datatable": "^0.8.0",
     "angular-bootstrap-datetimepicker": "^2.2.1",
@@ -66,6 +67,7 @@
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "save": "^2.3.3",
+    "ts-xlsx": "0.0.11",
     "xlsx": "^0.14.1",
     "zone.js": "^0.8.26"
   },
