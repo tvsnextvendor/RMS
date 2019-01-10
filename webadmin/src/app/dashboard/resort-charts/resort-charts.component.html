@@ -140,7 +140,7 @@
       <div class="col-sm-6 pl-0">
         <div class="chart-bg" style="height: 247px;">
           <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-            {{dashboardVar.resortGridsTitle.topResorts}}<select class="select-btn"><option value="This Month">{{dashboardVar.monthDropdown}}</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
+            {{dashboardVar.resortGridsTitle.topResorts}}<select class="select-btn" ><option *ngFor="let data of dashboardVar.topEmployeeDropdown" value="{{data.id}}">{{data.value}}</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
             <div class="custom-table">
             <table class="table">
                 <tbody>

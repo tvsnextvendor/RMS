@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Calendar } from '@ionic-native/calendar';
 import { HttpProvider } from '../../providers/http/http';
@@ -10,9 +10,10 @@ import { API_URL } from '../../constants/API_URLS.var';
   selector: 'page-calendar',
   templateUrl: 'calendar.html',
 })
-export class CalendarPage {
+export class CalendarPage implements OnInit{
   calendars = [];
   calendarIdUnique;
+  calendarShowEnable:boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private calendar: Calendar, private plt: Platform, private http: HttpProvider, public apiUrl: API_URL) {
     this.plt.ready().then(() => {
      /* this.calendar.listCalendars().then(data => {
@@ -24,10 +25,17 @@ export class CalendarPage {
       this.createCalendar();
     });
   }
+  ngOnInit(){
+    if(this.calendarShowEnable === true && this.calendarIdUnique){
+     this.navCtrl.setRoot('home-page');
+    }
+  }
   ionViewDidLoad() {
+    
     console.log('ionViewDidLoad CalendarPage');
   }
   openCalendar() {
+    
     this.calendar.openCalendar(new Date()).then(
       (msg) => {
         console.log("open calendar");
@@ -41,7 +49,7 @@ export class CalendarPage {
   }
 
   createCalendar(){
-
+   
     var self= this;
     this.calendar.createCalendar('RMS Calendar').then(
       (msg) => {

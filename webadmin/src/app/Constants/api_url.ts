@@ -7,8 +7,8 @@ export class API_URL {
 
 
     //Program
-
-    ProgramModuleList: '5c36f14c3000005b001f60e1',
+    ProgramModuleList :'5c3771913000009b001f644c',
+    //ProgramModuleList: '5c36f14c3000005b001f60e1',
 
     getKeyStat: "5c04dd7f330000e900d01e32",
     getCourses: "5c2dbf2e2f000056301751f7",
