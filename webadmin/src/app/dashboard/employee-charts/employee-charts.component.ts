@@ -527,6 +527,8 @@ certificationTrend() {
         verticalAlign: 'bottom'
     },
     series:   this.dashboardVar.certificationTrend.data,
+    colors:['#7DB5EC','#CCCCCC'],
+    // stroke:'grey',
   });
   }
 
@@ -592,6 +594,7 @@ topEmployees() {
                     innerSize: '60%',
                      cursor: 'pointer',
                      indexLabelFontSize: 12,
+                     colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
                     dataLabels: {
                         enabled: true,
                         format: '{point.name}',

@@ -23,6 +23,7 @@ export class EmailComponent implements OnInit {
     userList = [];
     userDetails;
     dataModel;
+    editorConfig ={};
     setSignatureStatus: boolean = true;
     constructor(private toastr: ToastrService, private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService) {
         this.email.url = API_URL.URLS;
@@ -31,6 +32,28 @@ export class EmailComponent implements OnInit {
     ngOnInit() {
         this.headerService.setTitle({ title: this.emailVar.title, hidemodule: false });
         this.departmentList();
+
+       this.editorConfig= {
+            "editable": true,
+            "spellcheck": true,
+            "height": "100px",
+            "minHeight": "50px",
+            "width": "auto",
+            "minWidth": "0",
+            "translate": "yes",
+            "enableToolbar": true,
+            "showToolbar": true,
+            "placeholder": "Write Something...",
+            "imageEndPoint": "",
+            "toolbar": [
+                ["bold", "italic", "underline", "strikeThrough", "superscript", "subscript"],
+                ["fontName", "fontSize", "color"],
+                ["justifyLeft", "justifyCenter", "justifyRight", "justifyFull", "indent", "outdent"],
+                ["cut", "copy", "delete", "removeFormat", "undo", "redo"],
+                ["paragraph", "blockquote", "removeBlockquote", "horizontalLine", "orderedList", "unorderedList"],
+                // ["link", "unlink", "image", "video"]
+            ]
+        }
 
     }
     departmentList() {

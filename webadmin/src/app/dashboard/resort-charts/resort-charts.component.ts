@@ -356,7 +356,8 @@ export class ResortChartsComponent implements OnInit {
                     }
                 }
             },
-            series: this.dashboardVar.taskChart
+            series: this.dashboardVar.taskChart,
+            colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
         });
     }
     visitorsByResortPie() {
@@ -387,6 +388,7 @@ export class ResortChartsComponent implements OnInit {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
+                    colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
                     dataLabels: {
                         enabled: true,
                         format: '<b>{point.name}</b>: {point.percentage:.1f} %',
@@ -435,6 +437,7 @@ export class ResortChartsComponent implements OnInit {
                         innerSize: '60%',
                         cursor: 'pointer',
                         indexLabelFontSize: 12,
+                        colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
                         dataLabels: {
                             enabled: true,
                             format: '{point.name}',
