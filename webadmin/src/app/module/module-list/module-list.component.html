@@ -1,31 +1,61 @@
 <div class="clearfix pt-4">
-    			<h6 class="float-left module-hd-color">{{moduleVar.divisionName}}</h6>
-<button class="btn btn-primary mr-3"  [routerLink]="['../module']">{{moduleVar.createModule}}</button>
-<button class="btn btn-link float-right" routerLink="/modules">
-            {{moduleVar.labels.showAll}}</button> 
+    <h6 class="float-left module-hd-color">{{moduleVar.divisionName}}</h6>
+    <button class="btn btn-primary mr-3" [routerLink]="['../module']">{{moduleVar.createModule}}</button>
+    <button class="btn btn-link float-right" routerLink="/modules">
+        {{moduleVar.labels.showAll}}</button>
 </div>
-<div class="pr-3 pt-4" *ngFor="let module of moduleVar.moduleList;let i = index;">
-    <div class="white-bg p-3"> 
-            <div class="clearfix py-3" >
-                    <h6 class="float-left module-hd-color">{{module.moduleName}}</h6>
-                    <span class="float-right">
-                            <a (click)="moduleEdit(module,i)"><i class="fa fa-pencil icons_header"></i></a>
-                            <span class="pr-5 module-course-font">{{moduleVar.active}}</span>
-                            <span><label class="switch">
-                                <input type="checkbox" id="activeStatus{{i}}" [(ngModel)]="module.active" (change)="statusUpdate(module.moduleName,module.active)" ng-reflect-model="true" class="ng-untouched ng-pristine ng-valid"><span class="slider round"></span></label></span>
-                        </span>
-            </div>
-    
+
+<div class="pr-3 pt-4" *ngFor="let program of moduleVar.moduleList;let i = index;">
+    <div class="white-bg p-3">
+        <div class="clearfix py-3">
+            <h6 class="float-left module-hd-color">{{program.programName}}</h6>
+            <span class="float-right">
+                <a (click)="moduleEdit(module,i)"><i class="fa fa-pencil icons_header"></i></a>
+                <span class="pr-5 module-course-font">{{moduleVar.active}}</span>
+                <span><label class="switch">
+                        <input type="checkbox" id="activeStatus{{i}}" [(ngModel)]="program.active" (change)="statusUpdate(program.moduleName,program.active)"
+                            ng-reflect-model="true" class="ng-untouched ng-pristine ng-valid"><span class="slider round"></span></label></span>
+            </span>
+        </div>
+
         <owl-carousel-o [options]="customOptions" class="module-list">
-        <ng-container *ngFor="let course of module.courseDetails">             	
-               <ng-template carouselSlide><div class="player-list" routerLink="/modules/{{module.moduleId}}/{{course.courseId}}" ><img src="assets/images/Course.png" class="module-img">
-               <span class="module-course-font"> {{course.courseName}}</span></div></ng-template>  
-         </ng-container>     
-         </owl-carousel-o>
+            <ng-container *ngFor="let file of program.files">
+                <ng-template carouselSlide>
+                    <div class="player-list">
+                        <div class="video-img-alg" *ngIf=" file.fileType=='mp4'">
+                            <img src="
+                            {{file.videoImage}}" class=" img-player-alg">
+                            <div class="video-action clearfix">
+                                <span class="timer-alg">{{file.videoDuration}}</span>
+                                <span class="float-right">
+                                    <a><i class="fa fa-pencil px-2" aria-hidden="true" (click)="openModal(editVideo,video,'edit',i)"></i></a>
+                                </span>
+                            </div>
+                            <div class="video-desc">
+                                <p class="play-video"><a><i class="fa fa-play-circle player-icon px-2" (click)="openModal(playVideo, video.videoLink,'video',i)"
+                                            aria-hidden="true"></i></a>{{file.fileName}}</p>
+                                <p class="m-0 px-3 video-para-alg">{{file.fileDescription}}</p>
+                            </div>
+                        </div>
+                        <div class="video-img-alg file-bg" *ngIf=" file.fileType !='mp4'">
+                            <div class="clearfix pt-3 pr-3">
+                                <span class="float-right">
+                                    <a><i class="fa fa-pencil px-2" aria-hidden="true" (click)="openModal(editVideo,file,'edit',i)"></i></a>
+                                </span>
+                                <div class="row">
+                                    <img *ngIf="file.fileType === 'txt'" class="icon-ht" src="assets/images/txt-icon.png">
+                                    <img *ngIf="file.fileType === 'ppt'" class="icon-ht" src="assets/images/ppt-icon.png">
+                                    <img *ngIf="file.fileType === 'pdf'" class="icon-ht" src="assets/images/pdf-icon.png">
+                                </div>
+                            </div>
+                            <div class="px-2">
+                                <p class="player-header"><a></a>{{file.fileName}}</p>
+                                <p class="m-0 video-para-alg">{{file.fileDescription}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
     </div>
-</div> 
-
- 
-
-
-
+</div>
