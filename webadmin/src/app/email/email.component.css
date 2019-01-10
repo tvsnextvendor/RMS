@@ -69,3 +69,12 @@ ul li{
     float: left;
     margin-left: 61px;
 }
+.msg-box{
+  position: relative;
+}
+.Signature-btn{
+  position: absolute;
+  top: 42px;
+  right: 15px;
+  z-index: 10;
+}
