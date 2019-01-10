@@ -911,7 +911,7 @@ a {
 }
 /******************end Edit forum*************/
 /***********Module style*******************/
-.module-list .owl-item {
+/*.module-list .owl-item {
     background-color: #EDF0F8;
     width: 226px !important;
     height: 50px;
@@ -924,17 +924,17 @@ a {
 }
 .module-list .owl-theme .owl-nav{
 	margin-top: 0 !important;
-}
-.module-list .owl-prev {
+}*/
+.owl-prev {
     position: absolute;
-    top: 7px;
+    top: 67px;
     left: -21px;
     width: 30px;
     background-color: #468FB9 !important;
 }
-.module-list .owl-next {
+.owl-next {
     position: absolute;
-    top: 7px;
+    top: 67px;
     right: -21px;
     width: 30px;
     background-color: #468FB9 !important;
