@@ -53,8 +53,8 @@ export class ModuleDetailsComponent implements OnInit {
 
     //get videoList 
     getVideoList() {
-        this.http.get(this.moduleVar.url.moduleCourseList).subscribe((data) => {
-            const respData = data.moduleDetails;
+        this.http.get(this.moduleVar.url.ProgramModuleList).subscribe((data) => {
+            const respData = data.programDetails;
             if (this.moduleVar.courseId) {
                 this.moduleVar.hideCourseVideos = true;
                 this.moduleVar.hideAllVideos = false;
