@@ -154,7 +154,7 @@ export class Constant {
             votes: 'Votes',
             answers: 'Answers',
             hoursAgo: 'Hours ago',
-            replays: 'Replays',
+            replays: 'Replies',
             replies: 'replies',
             typeQuestionHere: 'Type your question here',
             validations: {
