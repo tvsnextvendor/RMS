@@ -18,7 +18,7 @@
             </span>
         </div>
 
-        <owl-carousel-o [options]="customOptions" class="module-list">
+        <owl-carousel-o [options]="customOptions" class="">
             <ng-container *ngFor="let file of program.files">
                 <ng-template carouselSlide>
                     <div class="player-list">
@@ -37,7 +37,8 @@
                                 <p class="m-0 px-3 video-para-alg">{{file.fileDescription}}</p>
                             </div>
                         </div>
-                        <div class="video-img-alg file-bg" *ngIf=" file.fileType !='mp4'">
+                        <div class="video-img-alg" *ngIf=" file.fileType !='mp4'">
+                            <div class="file-bg">
                             <div class="clearfix pt-3 pr-3">
                                 <span class="float-right">
                                     <a><i class="fa fa-pencil px-2" aria-hidden="true" (click)="openModal(editVideo,file,'edit',i)"></i></a>
@@ -53,6 +54,7 @@
                                 <p class="m-0 video-para-alg">{{file.fileDescription}}</p>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </ng-template>
             </ng-container>
