@@ -24,7 +24,7 @@ export class API_URL {
     getTotalNoOfBadges: "5c3716a23000006f001f61b1",
     getTopResorts: "5c2df06d2f00005a00175329",
     getTopCourses: "5c25bdcc300000620067f58b",
-    getBadgesAndCertification: '5c2dfc652f0000a23017539d',
+    getBadgesAndCertification: '5c373a0830000086001f6309',
     getReservationByResort: '5c2df39d2f0000b73617534f',
     getQuiz: '5c0f73143100002c0924ec31',
     getFeedbackRating: '5c28ddc73300007400a58bb5',

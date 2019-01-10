@@ -651,19 +651,19 @@ li {
     padding: 10px 0 30px 0px;
 }
 .badge-li:nth-child(1) .badge-color {
-    background: #FA7D61;
+    background: #B9F2FF;
    
 }
 .badge-li:nth-child(2) .badge-color {
-    background: #FE87AF;
+    background: #FFD700;
    
 }
 .badge-li:nth-child(3) .badge-color {
-    background:#9FD000;
+    background:#C0C0C0;
    
 }
 .badge-li:nth-child(4) .badge-color {
-    background: #329CD6;
+    background: #CD7F32;
    
 }
 .badge-li{
