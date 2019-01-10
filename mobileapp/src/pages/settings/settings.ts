@@ -68,9 +68,9 @@ export class SettingsPage implements OnInit {
         "email": email
       }
     };
-    this.toastr.success('Notification setting updated');
+   // this.toastr.success('Notification setting updated');
     this.http.post('postNotification', json_notify).subscribe((data) => {
-      this.toastr.success('Notification setting updated');
+     // this.toastr.success('Notification setting updated');
     });
   }
   getUser() {

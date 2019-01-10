@@ -69,6 +69,7 @@ input:checked + .slider:before {
   color: #1D4960;
     padding-top: 12px;
     cursor:pointer;
+    padding: 0 10px 0 0;
 }
 .module-img{
   width: 30px !important;
@@ -91,7 +92,7 @@ input:checked + .slider:before {
     color: #fff;
     font-size: 12px;
     position: relative;
-    height: 150px;
+    height: 148px;
 }
 .img-player-alg{
 	max-width: 100%;
@@ -138,3 +139,25 @@ input:checked + .slider:before {
 video.videoPlayer{
     width: 100%;
 }
+.file-bg{
+   background: #468FB9;
+}
+.icon-ht{
+  width: 50px !important;
+    height: 50px !important;
+    padding-top: 5px;
+  /*  width: 40%;*/
+    margin: 0 auto;
+}
+.player-header{
+    font-weight: 700;
+    margin-top: 10px;
+}
+.text-pd{
+    padding: 10px;
+}
+.module-hd-color{
+    color: #1D4960;
+    font-size: 18px;
+    font-weight: 600;
+  }

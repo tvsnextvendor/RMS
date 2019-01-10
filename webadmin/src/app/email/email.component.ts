@@ -90,7 +90,7 @@ export class EmailComponent implements OnInit {
     addSign() {
         this.userDetails = JSON.parse(localStorage.getItem('userData'));
         let content = this.dataModel;
-        const signature = "<br><b>Signature,</b><br>" + this.userDetails.username;
+        const signature = "<br><b>Thanks,</b><br>" + this.userDetails.username;
         if(this.setSignatureStatus){
             this.dataModel = (content) ? content + signature : signature;
             this.setSignatureStatus = false;

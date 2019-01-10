@@ -17,6 +17,7 @@ export class API_URL {
     getEmployeeProgress: '5c3458c92e00009000378d89',
     getCertificationTrend: '5c32f85c2e00007400121dcd',
     getCoureseDetails: "5c2e11db2f00003847175427",
+    getBadgePercentage: '5c3436f52e00006d00378c9a',
     //getTopEmployees      : "5c04e6cf3300002900d01e56",
     getTopEmployees: "5c2e14522f0000ba47175436",
     getvisitorsByResorts: "5c2df1f32f0000384717533d",
