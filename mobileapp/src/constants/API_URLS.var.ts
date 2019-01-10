@@ -18,7 +18,7 @@ export class API_URL {
         'getCertificates': '5c345c712e00004b00378da5',
         'getCalendars': '5c2475ea3000005b007a5fc4',
         /////'getComments': '5c31f64e3500000609ca9fcf',
-        'getComments': '5c333c8d2e0000f508121f58',
+        'getComments': '5c372a5a30000059001f628e',
         //**** */'getCalendars':'5c1e5e063100002b00fdd27f'
         //'getCalendars':'5c1e3d093100006600fdd269'
         // Content To Bo Live Mock Content 
@@ -27,7 +27,8 @@ export class API_URL {
         'getModules':'5c35fc9c300000920021b700',
         ////////'getCourses': '5c2f54463200007200590798',
        //---- 'getCourses': '5c34b6da2e00004e00379054',
-        'getCourses':'5c35fa293000009a0021b6ed',
+        ////sheema'getCourses':'5c37251030000088001f625c',
+        'getCourses':'5c37260130000097001f6264',
         //'getCourses':'5c35a5523000006f0021b3fc',
         'getQuiz': '5c2e1c4f2f0000fd54175475'
         // 'getCourses':'5c28b3923300004e00a58b88'

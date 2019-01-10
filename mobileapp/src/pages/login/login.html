@@ -6,15 +6,18 @@
       <ion-item class="input-login">
         <ion-input type="text" [(ngModel)]="user.name" placeholder="Email ID"></ion-input>
       </ion-item>
+   
       <ion-item class="input-login">
         <ion-input type="password" round [(ngModel)]="user.pw" placeholder="Password"></ion-input>
       </ion-item>
+    
     </ion-list>
     </div>
   </div>
   <div class="login-action ">
     <div class="max-wth">
     <button ion-button round type="submit" class="login-btn" (click)="doLogin()">{{constant.pages.loginLabels.signInSmall}}</button>
+    <span  class="error-required" *ngIf="logincredentialerror">{{logincredentialerror}}</span>
     <div class="keep-login">
       <ion-item class="bg-trans">
         <ion-checkbox [(ngModel)]="user.keepmelogin"></ion-checkbox>

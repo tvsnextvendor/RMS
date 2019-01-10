@@ -12,6 +12,8 @@ export interface User {
 export class AuthProvider {
   currentUserSet: User;
   users: any = [];
+  loginEmailError;
+  loginPassErr;
   
   constructor(public http: HttpProvider, public toastr: ToastrService, public storage: Storage) {
     console.log('Hello AuthProvider Provider');
@@ -25,10 +27,12 @@ export class AuthProvider {
           let usernameCorrect = this.users.find(x => x.emailAddress === name);
           let passwordCorrect = this.users.find(x => x.password === pw);
           if (!usernameCorrect) {
-            self.toastr.error('Email ID is invalid');
+           // self.toastr.error('Email ID is invalid');
+            self.loginEmailError = "Email ID is invalid";
             reject(false);
           } else if (!passwordCorrect) {
-            self.toastr.error('Password is invalid');
+            //self.toastr.error('Password is invalid');
+            self.loginPassErr = "Password is invalid";
             reject(false);
           } else {
             this.storage.set('currentUser', usernameCorrect).then(() => {
