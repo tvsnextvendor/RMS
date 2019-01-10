@@ -147,21 +147,21 @@
             <div class="row pl-0 pdb20">
                 <label class="col-md-4 p-0 label-title">File</label>
                 <div class="col-md-4">
-                    <div class="fileUpload btn btn-primary">
+                    <div class="fileUpload btn btn-primary m-0 mt-4">
                         <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>UPLOAD</span>
                         <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" accept="" (change)="fileUpload($event)" />
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <span class="float-right" *ngIf="showImage && videoFile && fileType == 'mp4'"><img src="{{previewImage}}"
+                    <span class="float-right mt-2" *ngIf="showImage && videoFile && fileType == 'mp4'"><img src="{{previewImage}}"
                             class="px-4 img-size"></span>
                 </div>
                 <!-- <span *ngIf="!videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span> -->
                 <span class="required_color" *ngIf="videoSubmitted && !videoFile">File is required</span>
             </div>
-            <div class="text-center">
+            <div class="text-center pt-3">
                 <button class="btn btn-default mr10" (click)="cancelVideoSubmit()">CANCEL</button>
-                <button class="btn btn-primary mr10 save-btn" (click)="videoSubmit()">SAVE</button>
+                <button class="btn btn-primary save-btn" (click)="videoSubmit()">SAVE</button>
             </div>
         </div>
     </div>
