@@ -1,5 +1,5 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Component, OnInit, TemplateRef,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController,Content } from 'ionic-angular';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -19,6 +19,8 @@ import { ModalPage } from '../modal/modal';
   templateUrl: 'forum-detail.html',
 })
 export class ForumDetailPage implements OnInit {
+
+  @ViewChild(Content) content: Content;
 
   forumTopics: any;
   QuestionForm: FormGroup;

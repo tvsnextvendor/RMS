@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { ForumPage } from './forum';
 
 import { ModalModule } from 'ngx-bootstrap';
+import {ScrollingHeaderModule} from 'ionic-scrolling-header';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { ModalModule } from 'ngx-bootstrap';
   ],
   imports: [
     IonicPageModule.forChild(ForumPage),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ScrollingHeaderModule
   ],
 })
 export class ForumPageModule {}
