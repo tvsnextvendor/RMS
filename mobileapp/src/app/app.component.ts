@@ -25,47 +25,47 @@ export class MyApp{
       splashScreen.hide();
     });
     this.getDetails();
-
-
+    // platform.registerBackButtonAction(() => {
+    //  // let nav = this.app.getActiveNavs()[0];
+    //   if (this.nav.canGoBack()) { // CHECK IF THE USER IS IN THE ROOT PAGE.
+    //     this.nav.pop(); // IF IT'S NOT THE ROOT, POP A PAGE.
+    //   } else {
+    //     platform.exitApp(); // IF IT'S THE ROOT, EXIT THE APP.
+    //   }
+    // });
     platform.registerBackButtonAction(() => {
-     // let nav = this.app.getActiveNavs()[0];
-      if (this.nav.canGoBack()) { // CHECK IF THE USER IS IN THE ROOT PAGE.
-        this.nav.pop(); // IF IT'S NOT THE ROOT, POP A PAGE.
-      } else {
-        platform.exitApp(); // IF IT'S THE ROOT, EXIT THE APP.
+      // Catches the active view
+      let nav = this.app.getActiveNavs()[0];
+
+      console.log(nav);
+      let activeView = nav.getActive();       
+      // Checks if can go back before show up the alert
+      if(activeView.name === 'HomePage') {
+          if (nav.canGoBack()){
+              nav.pop();
+          } else {
+              // const alert = this.alertCtrl.create({
+              //     title: 'Fechar o App',
+              //     message: 'Você tem certeza?',
+              //     buttons: [{
+              //         text: 'Cancelar',
+              //         role: 'cancel',
+              //         handler: () => {
+              //           this.nav.setRoot('HomePage');
+              //           console.log('** Saída do App Cancelada! **');
+              //         }
+              //     },{
+              //         text: 'Fechar o App',
+              //         handler: () => {
+              //           this.logout();
+              //           this.platform.exitApp();
+              //         }
+              //     }]
+              // });                                                                                                                      
+              // alert.present();
+          }
       }
-    });
-  //   platform.registerBackButtonAction(() => {
-  //     // Catches the active view
-  //     let nav = this.app.getActiveNavs()[0];
-  //     let activeView = nav.getActive();       
-  //     // Checks if can go back before show up the alert
-  //     if(activeView.name === 'HomePage') {
-  //         if (nav.canGoBack()){
-  //             nav.pop();
-  //         } else {
-  //             // const alert = this.alertCtrl.create({
-  //             //     title: 'Fechar o App',
-  //             //     message: 'Você tem certeza?',
-  //             //     buttons: [{
-  //             //         text: 'Cancelar',
-  //             //         role: 'cancel',
-  //             //         handler: () => {
-  //             //           this.nav.setRoot('HomePage');
-  //             //           console.log('** Saída do App Cancelada! **');
-  //             //         }
-  //             //     },{
-  //             //         text: 'Fechar o App',
-  //             //         handler: () => {
-  //             //           this.logout();
-  //             //           this.platform.exitApp();
-  //             //         }
-  //             //     }]
-  //             // });                                                                                                                      
-  //             // alert.present();
-  //         }
-  //     }
-  // });
+  });
     this.pages = [
       { title: 'Dashboard', component: HomePage },
       { title: 'Training', component: TrainingPage },

@@ -93,10 +93,10 @@ export class ForumDetailPage implements OnInit {
   }
   hideShowDesc(emp, j) {
     emp[j]['isActive'] = !(emp[j]['isActive']);
-    this.hideQuestionBtn = !this.hideQuestionBtn ;
   }
   showCommentSet(emp, j) {
     emp[j]['isComment'] = !(emp[j]['isComment']);
+    this.hideQuestionBtn = !this.hideQuestionBtn ;
   }
   getComments() {
     this.http.getData(API_URL.URLS.getComments).subscribe((data) => {
