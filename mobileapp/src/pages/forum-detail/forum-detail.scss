@@ -52,9 +52,10 @@ page-forum-detail{
 		height: 40px;
 	}
 	.forum-txt {
-		font-size: 0.8em;
-		color: #666;
-		font-weight: normal;
+		font-size: 12px;
+    color: #656565;
+    font-weight: normal;
+    margin: 4px 0;
 	}
 	.heart-icon {
 		text-align: right;
@@ -139,12 +140,17 @@ page-forum-detail{
     margin-top: 3px !important;
 }
 .comment-time {
-    font-size: 14px;
-    color: #A5A5A5;
+    font-size: 12px;
+            color: #656565;
     font-weight: 100;
     font-family: 'sf_pro_displayregular';
     margin: 5px 0 15px 0;
     display: inline-block;
+}
+.reply-comment {
+    border-top: 1px solid #ccc;
+    margin-top: 5px;
+    padding-top: 10px;
 }
 .comment-box {
     padding-left: 15px;
@@ -178,8 +184,11 @@ page-forum-detail{
 .list-md .comment-item.item-input:last-child {
     border-bottom: none;
 }
-.toolbar-content-md .back-arrow img {
+.toolbar-content-md .back-arrow img,.toolbar-content-ios .back-arrow img {
     margin-left: 9px;
+}
+.title-ios .inner-title {
+    margin-left: 12px;
 }
 }
 .modal-dialog {
