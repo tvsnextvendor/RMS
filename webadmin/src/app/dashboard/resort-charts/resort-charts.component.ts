@@ -298,24 +298,15 @@ export class ResortChartsComponent implements OnInit {
                     display: 'none'
                 }
             },
-            subtitle: {
-                text: '',
-                style: {
-                    display: 'none'
-                }
-            },
-            // title: {
-            //     text: 'Stacked column chart'
-            // },
             xAxis: {
                 categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN']
             },
             yAxis: {
                 min: 0,
                 max: 100,
-                // title: {
-                //     text: 'Total fruit consumption'
-                // },
+                title: {
+                    text: null
+                },
                 stackLabels: {
                     enabled: true,
                     style: {
@@ -325,17 +316,17 @@ export class ResortChartsComponent implements OnInit {
                 }
             },
 
-            legend: {
-                align: 'left',
-                // layout: 'horizontal',
-                verticalAlign: 'bottom',
-                x: 100,
-                y: 0,
-                //  backgroundColor: 'white',
-                //  borderColor: '#CCC',
-                // borderWidth: 1,
-                // shadow: false
-            },
+            // legend: {
+            //     align: 'left',
+            //layout: 'horizontal',
+            //verticalAlign: 'bottom',
+            // x: 100,
+            // y: 0,
+            //  backgroundColor: 'white',
+            //  borderColor: '#CCC',
+            // borderWidth: 1,
+            // shadow: false
+            //},
             // legend: {
             //     align: 'right',
             //     x: -30,
@@ -352,12 +343,15 @@ export class ResortChartsComponent implements OnInit {
                     stacking: 'normal',
                     dataLabels: {
                         enabled: false,
-                        color: 'white'
-                    }
+                    },
+                    showInLegend: true,
+                    allowPointSelect: true,
+                    cursor: 'pointer',
                 }
             },
             series: this.dashboardVar.taskChart,
-            colors: ['#7DB5EC', '#CCCCCC', '#90ED7C', '#F7A25C'],
+
+            colors: ['#CCCCCC', '#468FB9'],
         });
     }
 
@@ -380,22 +374,40 @@ export class ResortChartsComponent implements OnInit {
             },
             plotOptions: {
                 pie: {
-                    allowPointSelect: true,
+                    size: '60%',
                     cursor: 'pointer',
                     colors: ['#7DB5EC', '#CCCCCC', '#90ED7C', '#F7A25C'],
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        }
-                    }
                 }
             },
             series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: this.dashboardVar.visitorsResort
+                data: this.dashboardVar.visitorsResort,
+                type: 'pie',
+                name: 'Percentage',
+                dataLabels: {
+                    verticalAlign: 'top',
+                    enabled: true,
+                    color: '#ffffff',
+                    connectorWidth: 1,
+                    distance: -30,
+                    connectorColor: '#ffffff',
+                    formatter: function () {
+                        return Math.round(this.percentage) + '%';
+                    }
+                }
+            }, {
+                data: this.dashboardVar.visitorsResort,
+                type: 'pie',
+                name: 'Percentage',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorWidth: 1,
+                    distance: 30,
+                    connectorColor: '#000000',
+                    formatter: function () {
+                        return '<b>' + this.point.name + '</b>:<br/> ' + Math.round(this.percentage) + '%';
+                    }
+                }
             }]
         });
     }

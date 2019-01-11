@@ -4,7 +4,6 @@ import { HeaderService } from '../services/header.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { CertificateVar } from '../Constants/certificate.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
@@ -17,7 +16,7 @@ import { AlertService } from '../services/alert.service';
 
 export class CertificatesComponent implements OnInit {
 
-    modalRef: BsModalRef;
+
     percentageArray = [];
     percentageTakenError = {
         diamond: false,
@@ -37,9 +36,6 @@ export class CertificatesComponent implements OnInit {
         });
 
         this.getbadgepercentage();
-        //   this.http.get(this.constant.url.getBadgePercentage).subscribe((data) => {
-        //     this.constant.badgePercentage = data.badgePercentage;
-        //  });
 
         // //get course list
         this.http.get(this.constant.url.getCoursesList).subscribe((data) => {
@@ -142,7 +138,7 @@ export class CertificatesComponent implements OnInit {
 
 
     openAddtemplate(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
+        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
     }
 
     //Template File Upload
@@ -210,17 +206,21 @@ export class CertificatesComponent implements OnInit {
                 }
                 this.alertService.success(this.constant.uploadSuccessMsg);
                 // this.toastr.success(this.constant.uploadSuccessMsg);
-                this.modalRef.hide();
+                this.clearAddForm();
             } else {
                 //  this.toastr.error(this.constant.uploadErrMsg);
                 this.alertService.error(this.constant.uploadErrMsg);
             }
         }
 
-
     }
 
-
+    //clear Add Certificate
+    clearAddForm() {
+        this.constant.modalRef.hide();
+        this.constant.tempName = "";
+        this.constant.fileToUpload = null;
+    }
 
 
 
