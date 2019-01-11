@@ -18,41 +18,41 @@ import * as XLSX from 'ts-xlsx';
 
 export class UserComponent implements OnInit {
 
-   editEnable = false;
-   userName;
-   userId;
-   department;
-   designation;
-   emailAddress;
-   phoneNumber;
-   userIndex;
-   pageLimitOptions = [];
-   pageLimit;
-   labels;
-   videoSubmitted = false;
-   message;
-   validPhone = false;
-   validEmail = false;
-   validUserId = false;
-   departmentArray = [];
-   designationArray = [];
-   designationData = [];
-   fileUploadValue;
-   arrayBuffer:any;
+    editEnable = false;
+    userName;
+    userId;
+    department = null;
+    designation = null;
+    emailAddress;
+    phoneNumber;
+    userIndex;
+    pageLimitOptions = [];
+    pageLimit;
+    labels;
+    videoSubmitted = false;
+    message;
+    validPhone = false;
+    validEmail = false;
+    validUserId = false;
+    departmentArray = [];
+    designationArray = [];
+    designationData = [];
+    fileUploadValue;
+    arrayBuffer: any;
 
-   constructor(private alertService:AlertService,private http: HttpService,public constant:UserVar,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
+    constructor(private alertService: AlertService, private http: HttpService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
-        this.labels  = constant.labels;
-   }
-    ngOnInit(){
-        this.headerService.setTitle({ title:this.constant.title, hidemodule: false});
+        this.labels = constant.labels;
+    }
+    ngOnInit() {
+        this.headerService.setTitle({ title: this.constant.title, hidemodule: false });
         this.pageLimitOptions = [5, 10, 25];
-        this.pageLimit=[this.pageLimitOptions[1]];
-        
+        this.pageLimit = [this.pageLimitOptions[1]];
+
         //get Users list
         this.http.get(this.constant.url.getUsersList).subscribe((data) => {
-            if(data['isSuccess']){
-                this.constant.userList = data.UserDetails.map(item=>{
+            if (data['isSuccess']) {
+                this.constant.userList = data.UserDetails.map(item => {
                     item.editEnable = false;
                     return item;
                 });
@@ -60,23 +60,23 @@ export class UserComponent implements OnInit {
         });
 
         this.http.get(this.constant.url.getDepartments).subscribe((resp) => {
-            if(resp['isSuccess']){
+            if (resp['isSuccess']) {
                 this.departmentArray = resp.DepartmentList;
                 // console.log(this.departmentArray)
             }
-          });
+        });
         this.http.get(this.constant.url.getDesignations).subscribe((resp) => {
-            if(resp['isSuccess']){
+            if (resp['isSuccess']) {
                 this.designationArray = resp.DesignationList;
                 // console.log(this.departmentArray)
             }
         });
     }
 
-   //update user
-    userEdit(data,index){
-        if(!this.editEnable){       
-            this.constant.userList[index].editEnable =true;
+    //update user
+    userEdit(data, index) {
+        if (!this.editEnable) {
+            this.constant.userList[index].editEnable = true;
             this.editEnable = true;
             this.userIndex = index;
             this.userName = data.employeeName;
@@ -86,56 +86,55 @@ export class UserComponent implements OnInit {
             this.emailAddress = data.emailId;
             this.phoneNumber = data.mobile;
             this.videoSubmitted = false;
-            this.designationUpdate(data.department,data.designation);
+            this.designationUpdate(data.department, data.designation);
         }
-        else{
+        else {
             // this.toastr.warning(this.labels.updateRestrictMsg);
             this.alertService.error(this.labels.updateRestrictMsg);
         }
     }
 
-    designationUpdate(data,designation){
-        // console.log(data,this.department,designation);
+    designationUpdate(data, designation) {
         this.designation = '';
         this.department = data !== "null" ? data : '';
-        this.designationArray.forEach(item=>{
-            if(data === item.name){
+        this.designationArray.forEach(item => {
+            if (data === item.name) {
                 this.designationData = item.designations;
             }
         })
-        if(designation){
+        if (designation) {
             this.designation = designation;
-        }   
+        }
     }
 
-   //add new user
-    addUser(){
+    //add new user
+    addUser() {
         this.videoSubmitted = false;
         // this.editEnable = false;
-        if(!this.editEnable){
-            let obj = { 
+        if (!this.editEnable) {
+            let obj = {
                 "department": "",
                 "designation": "",
                 "emailId": "",
                 "mobile": "",
-                "DOB" : "",
+                "DOB": "",
                 "employeeId": "",
                 "employeeName": "",
-                "editEnable" : true,
+                "editEnable": true,
             }
             this.constant.userList.push(obj);
             this.editEnable = true;
-            this.constant.userList = _.orderBy(this.constant.userList, ['employeeId'],['asc'])
+            this.constant.userList = _.orderBy(this.constant.userList, ['employeeId'], ['asc'])
             this.resetFields();
         }
-        else{
-           // this.toastr.warning(this.labels.addRestrictMsg);
-           this.alertService.error(this.labels.addRestrictMsg);
+        else {
+            // this.toastr.warning(this.labels.addRestrictMsg);
+            this.alertService.error(this.labels.addRestrictMsg);
         }
     }
 
-   //reset
-    resetFields(){
+    //reset
+    resetFields() {
         this.userName = '';
         this.userId = '';
         this.department = '';
@@ -144,51 +143,51 @@ export class UserComponent implements OnInit {
         this.phoneNumber = '';
     }
 
-   //cancel update
-    cancelEdit(data,index){
+    //cancel update
+    cancelEdit(data, index) {
         this.videoSubmitted = false;
-        if(data.employeeId === ''){
+        if (data.employeeId === '') {
             // let i = this.constant.userList.length - 1;
-            this.constant.userList.splice(0,1);
+            this.constant.userList.splice(0, 1);
         }
-        else{
-            this.constant.userList[index].editEnable =false;
+        else {
+            this.constant.userList[index].editEnable = false;
         }
         this.editEnable = false;
     }
 
     //delete user
-    removeUser(data,i){
-        if(this.constant.userList.length){
-            let index = this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
-            this.constant.userList.splice(index,1);
+    removeUser(data, i) {
+        if (this.constant.userList.length) {
+            let index = this.constant.userList.findIndex(x => x.employeeId === data.employeeId);
+            this.constant.userList.splice(index, 1);
             this.message = (data.employeeName + this.labels.removeUser);
             this.alertService.success(this.message);
         }
     }
 
     //user update submit
-    userUpdate(data,index){
+    userUpdate(data, index) {
         this.videoSubmitted = true;
         this.validationUpdate("submit");
-        if(this.userId && this.userName && this.department && this.designation && this.emailAddress && !this.validEmail && this.phoneNumber && !this.validPhone && !this.validUserId){
-            let i = data.employeeId === '' ? ('0') : this.constant.userList.findIndex(x=>x.employeeId === data.employeeId);
-            this.constant.userList[i]={
-                "employeeId" : this.userId,
-                "employeeName" :  this.userName ,
-                "department" : this.department,
-                "designation" : this.designation,
-                "emailId" : this.emailAddress,
-                "DOB" : this.constant.userList[i].DOB,
-                "mobile" : this.phoneNumber,
-                "editEnable" : false
+        if (this.userId && this.userName && this.department && this.designation && this.emailAddress && !this.validEmail && this.phoneNumber && !this.validPhone && !this.validUserId) {
+            let i = data.employeeId === '' ? ('0') : this.constant.userList.findIndex(x => x.employeeId === data.employeeId);
+            this.constant.userList[i] = {
+                "employeeId": this.userId,
+                "employeeName": this.userName,
+                "department": this.department,
+                "designation": this.designation,
+                "emailId": this.emailAddress,
+                "DOB": this.constant.userList[i].DOB,
+                "mobile": this.phoneNumber,
+                "editEnable": false
             };
             this.editEnable = false;
             this.videoSubmitted = false;
             this.userIndex = '';
             this.resetFields();
             this.message = data.employeeId === '' ? (this.labels.userAdded) : (this.labels.userUpdated);
-            this.constant.userList = _.orderBy(this.constant.userList, ['employeeId'],['asc'])
+            this.constant.userList = _.orderBy(this.constant.userList, ['employeeId'], ['asc'])
             this.alertService.success(this.message);
         }
         // else if(!validEmail){
@@ -202,68 +201,64 @@ export class UserComponent implements OnInit {
         // }
     }
 
-    validationUpdate(type){
-        if(type === "email"){
-            this.validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? true : false;
+    validationUpdate(type) {
+        if (type === "email") {
+            this.validEmail = this.emailAddress && this.validationCheck("email", this.emailAddress) === 'invalidEmail' ? true : false;
         }
-        else if(type === "mobile"){
-            this.validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? false : true;
+        else if (type === "mobile") {
+            this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber) ? false : true;
         }
-        else if(type === "userId"){
-            let idCheck = this.constant.userList.find(x=>x.employeeId === this.userId);
-            let editIndexCheck =  this.constant.userList.findIndex(x=>x.employeeId === this.userId)
-            console.log(this.userIndex,editIndexCheck);
-            debugger;
-            this.validUserId = idCheck ? ( this.userIndex === editIndexCheck ? false : true) : false;
-        }
-        else{
-            this.validEmail = this.emailAddress && this.validationCheck("email",this.emailAddress) === 'invalidEmail' ? true : false;
-            this.validPhone = this.phoneNumber && this.validationCheck("mobile",this.phoneNumber) ? false : true;
-            let idCheck = this.constant.userList.find(x=>x.employeeId === this.userId);
-            let editIndexCheck =  this.constant.userList.findIndex(x=>x.employeeId === this.userId)
-            debugger;
+        else if (type === "userId") {
+            let idCheck = this.constant.userList.find(x => x.employeeId === this.userId);
+            let editIndexCheck = this.constant.userList.findIndex(x => x.employeeId === this.userId)
             this.validUserId = idCheck ? (this.userIndex === editIndexCheck ? false : true) : false;
         }
-        
-        
+        else {
+            this.validEmail = this.emailAddress && this.validationCheck("email", this.emailAddress) === 'invalidEmail' ? true : false;
+            this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber) ? false : true;
+            let idCheck = this.constant.userList.find(x => x.employeeId === this.userId);
+            let editIndexCheck = this.constant.userList.findIndex(x => x.employeeId === this.userId)
+            this.validUserId = idCheck ? (this.userIndex === editIndexCheck ? false : true) : false;
+        }
+
+
     }
     // email and mobile number validation check
-    validationCheck(type,value){
-        if(type === "email"){
+    validationCheck(type, value) {
+        if (type === "email") {
             var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if(!emailRegex.test(value)){
+            if (!emailRegex.test(value)) {
                 return "invalidEmail"
             }
-        }     
-        if(type === "mobile"){
-            let data = value.toString(); 
-            let phoneNum =  data.replace("+","");
-            let phoneNumValid = phoneNum ? (phoneNum.length === 10 ? true :false) : false;
+        }
+        if (type === "mobile") {
+            let data = value.toString();
+            let phoneNum = data.replace("+", "");
+            let phoneNumValid = phoneNum ? (phoneNum.length === 10 ? true : false) : false;
             return phoneNumValid
         }
     }
 
-    messageClose(){
+    messageClose() {
         this.message = '';
-        // console.log("messege redsad")
-      }
-      fileUpload(event){
-          let fileUploadValue = event.target.files[0];
-          let fileReader = new FileReader();
-          fileReader.onload = (e) => {
-              this.arrayBuffer = fileReader.result;
-              var data = new Uint8Array(this.arrayBuffer);
-              var arr = new Array();
-              for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-              var bstr = arr.join("");
-              var workbook = XLSX.read(bstr, {type:"binary"});
-              var first_sheet_name = workbook.SheetNames[0];
-              var worksheet = workbook.Sheets[first_sheet_name];
-              let finalData= XLSX.utils.sheet_to_json(worksheet,{raw:true})
-              finalData && finalData.forEach(item=>{
+    }
+    fileUpload(event) {
+        let fileUploadValue = event.target.files[0];
+        let fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            this.arrayBuffer = fileReader.result;
+            var data = new Uint8Array(this.arrayBuffer);
+            var arr = new Array();
+            for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            var bstr = arr.join("");
+            var workbook = XLSX.read(bstr, { type: "binary" });
+            var first_sheet_name = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[first_sheet_name];
+            let finalData = XLSX.utils.sheet_to_json(worksheet, { raw: true })
+            finalData && finalData.forEach(item => {
                 this.constant.userList.push(item)
-              })
-          }
-          fileReader.readAsArrayBuffer(fileUploadValue);
-      }
+            })
+        }
+        fileReader.readAsArrayBuffer(fileUploadValue);
+    }
 }

@@ -291,7 +291,7 @@ export class ResortChartsComponent implements OnInit {
             chart: {
                 type: 'column'
             },
-           
+
             title: {
                 text: '',
                 style: {
@@ -308,7 +308,7 @@ export class ResortChartsComponent implements OnInit {
             //     text: 'Stacked column chart'
             // },
             xAxis: {
-                categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+                categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN']
             },
             yAxis: {
                 min: 0,
@@ -327,15 +327,15 @@ export class ResortChartsComponent implements OnInit {
 
             legend: {
                 align: 'left',
-               // layout: 'horizontal',
+                // layout: 'horizontal',
                 verticalAlign: 'bottom',
                 x: 100,
                 y: 0,
-              //  backgroundColor: 'white',
-                  //  borderColor: '#CCC',
-                   // borderWidth: 1,
-                   // shadow: false
-               },
+                //  backgroundColor: 'white',
+                //  borderColor: '#CCC',
+                // borderWidth: 1,
+                // shadow: false
+            },
             // legend: {
             //     align: 'right',
             //     x: -30,
@@ -357,11 +357,11 @@ export class ResortChartsComponent implements OnInit {
                 }
             },
             series: this.dashboardVar.taskChart,
-            colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
+            colors: ['#7DB5EC', '#CCCCCC', '#90ED7C', '#F7A25C'],
         });
     }
-    visitorsByResortPie() {
 
+    visitorsByResortPie() {
         Highcharts.chart('visitorsByResort', {
             credits: {
                 enabled: false
@@ -378,17 +378,11 @@ export class ResortChartsComponent implements OnInit {
                     display: 'none'
                 }
             },
-            subtitle: {
-                text: '',
-                style: {
-                    display: 'none'
-                }
-            },
             plotOptions: {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
+                    colors: ['#7DB5EC', '#CCCCCC', '#90ED7C', '#F7A25C'],
                     dataLabels: {
                         enabled: true,
                         format: '<b>{point.name}</b>: {point.percentage:.1f} %',
@@ -437,7 +431,7 @@ export class ResortChartsComponent implements OnInit {
                         innerSize: '60%',
                         cursor: 'pointer',
                         indexLabelFontSize: 12,
-                        colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
+                        colors: ['#7DB5EC', '#CCCCCC', '#90ED7C', '#F7A25C'],
                         dataLabels: {
                             enabled: true,
                             format: '{point.name}',
