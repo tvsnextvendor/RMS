@@ -95,7 +95,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div *ngIf="( settingsForm.get('newpassword').hasError('minlength') || settingsForm.get('newpassword').hasError('maxlength') ||settingsForm.get('newpassword').hasError('pattern') || settingsForm.get('newpassword').hasError('required') ) && settingsForm.get('newpassword').touched">
+        <div *ngIf="( settingsForm.get('newpassword').hasError('minlength') || settingsForm.get('newpassword').hasError('maxlength') ||settingsForm.get('newpassword').hasError('pattern') || settingsForm.get('newpassword').hasError('required') ) && settingsForm.get('newpassword').touched" class="error-block">
           <div class="error" *ngIf="settingsForm.get('newpassword').hasError('required') && settingsForm.get('newpassword').touched">
             {{constant.pages.settingLabels.validations.newPasswordRequired}}
           </div>
@@ -121,7 +121,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div *ngIf="( settingsForm.get('confirmpassword').hasError('minlength') || settingsForm.get('confirmpassword').hasError('maxlength') ||settingsForm.get('confirmpassword').hasError('pattern') || settingsForm.get('confirmpassword').hasError('required') ) && settingsForm.get('confirmpassword').touched">
+        <div *ngIf="( settingsForm.get('confirmpassword').hasError('minlength') || settingsForm.get('confirmpassword').hasError('maxlength') ||settingsForm.get('confirmpassword').hasError('pattern') || settingsForm.get('confirmpassword').hasError('required') ) && settingsForm.get('confirmpassword').touched" class="error-block">
           <div class="error" *ngIf="settingsForm.get('password').hasError('required') && settingsForm.get('password').touched">
             {{constant.pages.settingLabels.validations.confirmPasswordRequired}}
           </div>

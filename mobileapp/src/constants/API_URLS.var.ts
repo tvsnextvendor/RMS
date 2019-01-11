@@ -9,7 +9,7 @@ export class API_URL {
         // 'getCourses': '5c120d55330000d70b998ccb',
         // 'getDashboard': '5c0a184d3500005300a85f30',
         'getDashboard': '5c30a0713000007000e77a7a',
-        'getBatch': '5c3448b82e00005900378d0c',
+        'getBatch': '5c3878a03100005000a99043',
         'getUsers': '5c35fdb43000005b0021b70b',
         'doSignup': 'signup',
         //'getForum': '5c2de1e62f000085351752a0',
@@ -24,11 +24,11 @@ export class API_URL {
         // Content To Bo Live Mock Content 
         //'getModules': '5c28a6de3300006300a58b77',
        //----------------    'getModules': '5c2de3ee2f00001c3d1752bb',
-        'getModules':'5c35fc9c300000920021b700',
+        'getModules':'5c3842663100007800a98f0d',
         ////////'getCourses': '5c2f54463200007200590798',
        //---- 'getCourses': '5c34b6da2e00004e00379054',
         ////sheema'getCourses':'5c37251030000088001f625c',
-        'getCourses':'5c37260130000097001f6264',
+        'getCourses':'5c3842043100005200a98f0a',
         //'getCourses':'5c35a5523000006f0021b3fc',
         'getQuiz': '5c2e1c4f2f0000fd54175475'
         // 'getCourses':'5c28b3923300004e00a58b88'
