@@ -34,7 +34,6 @@ export class Constant {
         submit: 'Submit'
     };
     pages = {
-
         loginLabels: {
             signIn: 'SIGN IN',
             signInSmall: 'Sign In',
@@ -153,7 +152,7 @@ export class Constant {
             featuredFav: 'Featured Most Favorite',
             votes: 'Votes',
             answers: 'Answers',
-            hoursAgo: 'Hours ago',
+            hoursAgo: 'hours ago',
             replays: 'Replies',
             replies: 'replies',
             typeQuestionHere: 'Type your question here',

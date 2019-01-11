@@ -1,5 +1,11 @@
 page-login {
 
+    .error-required {
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
+
 .login-bg {
   
    .scroll-content {
@@ -24,6 +30,7 @@ page-login {
     margin: 0px 0 16px;
     
 }
+
 }
 .input-login {
     background: rgba(255,255,255,0.2) !important;

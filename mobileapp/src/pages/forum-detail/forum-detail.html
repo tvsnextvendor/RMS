@@ -1,12 +1,12 @@
 <ion-header class="main-header my-component" [scrollingHeader]='content'>
-  <ion-toolbar transparent class="details-page-toolbar title-type2">
+  <ion-navbar transparent class="details-page-toolbar title-type2">
     <span class="back-arrow" (click)="goBackLevel()"> 
 <img src="../assets/imgs/Back.png" />
 </span>
 <ion-title class="text-left">
   <span class="inner-title">{{constant.title.forum}}</span></ion-title>
     <!--  <ion-title>{{constant.title.forum}}</ion-title> -->
- </ion-toolbar>
+ </ion-navbar>
   <div class="segment-block">
     <ion-segment [(ngModel)]="forumTopics">
       <ion-segment-button value="mostRecent">
@@ -34,7 +34,7 @@
                 </ion-col>
                 <ion-col col-7>
                   <h4 class="forum-title">{{emp.username}}</h4>
-                  <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
+                  <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}}, {{emp.totalReplies}}
                     {{constant.pages.forumLabels.replays}} </p>
                   <p class="forum-txt">{{emp.totalReplies}}
                     {{constant.pages.forumLabels.replies}} </p>
@@ -89,7 +89,7 @@
                   </ion-col>
                   <ion-col col-10 class="comment-box">
                     <h6 class="user-name">{{comment.user.username}}</h6>
-                    <span class="comment-time">{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replays</span>
+                    <span class="comment-time">{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replies</span>
                     <p class="comment-content">{{comment.comment}}</p>
                     <div class="reply-optn"><a href="javascript:void(0)">Reply</a><img src="assets/imgs/likeblack.png" class="like-icon"><span class="reply-cnt">{{comment.commentLike}}</span></div>
                     <!-- (click)="presentModal(comment)" -->
@@ -114,7 +114,7 @@
                 <ion-col col-10>
                   <h4 class="forum-title">{{emp.topicName}}</h4>
                   <!-- <h4 class="forum-title">{{emp.username}}</h4>
-                  <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
+                  <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}}, {{emp.totalReplies}}
                   {{constant.pages.forumLabels.replays}}</p>
                   <p class="forum-txt" (click)="hideShowDesc(featureList,j)">{{emp.totalReplies}}
                   {{constant.pages.forumLabels.replies}} </p> -->
@@ -160,7 +160,7 @@
                 </ion-col>
                 <ion-col col-7>
                   <h4 class="forum-title">{{emp.username}}</h4>
-                  <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}},{{emp.totalReplies}}
+                  <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}}, {{emp.totalReplies}}
                     {{constant.pages.forumLabels.replays}}</p>
                   <p class="forum-txt" >{{emp.totalReplies}}
                     {{constant.pages.forumLabels.replies}} </p>
@@ -228,7 +228,7 @@
                     </ion-col>
                     <ion-col col-10 class="comment-box">
                       <h6 class="user-name">{{comment.user.username}}</h6>
-                      <span class="comment-time">{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replays</span>
+                      <span class="comment-time">{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replies</span>
                       <p class="comment-content">{{comment.comment}}</p>
                       <div class="reply-optn"><a href="javascript:void(0)">Reply</a><img src="assets/imgs/likeblack.png" class="like-icon"><span class="reply-cnt">{{comment.commentLike}}</span></div>
                       <!-- (click)="presentModal(comment)" -->
@@ -267,7 +267,7 @@
     </form>
   </ng-template>
 </ion-content>
-<div class="fixed-btn">
+<div class="fixed-btn" *ngIf="hideQuestionBtn">
   <button ion-button round class="add-question" (click)="openModal(template)">
     {{constant.buttons.addQuestion}}
   </button>
