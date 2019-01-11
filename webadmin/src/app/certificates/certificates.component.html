@@ -104,7 +104,7 @@
 <ng-template #addTemplate>
     <div class="modal-header">
         <p class="modal-title add-certificate">{{constant.modalHeader}}</p>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -112,7 +112,7 @@
         <form #uploadTemplate="ngForm" (ngSubmit)="onSave(uploadTemplate)">
             <div class="form-group">
                 <label class="uploadTemplate-title">{{constant.labels.tempName}}</label>
-                <input type="text" class="form-control pl-0" [(ngModel)]="tempName" #TempName="ngModel" name="tempName"
+                <input type="text" class="form-control pl-0" [(ngModel)]="constant.tempName" #TempName="ngModel" name="tempName"
                     id="tempName" placeholder="Enter Template Name" required>
                 <span class="required_color" *ngIf="TempName && TempName.invalid && (uploadTemplate.submitted || TempName.touched)">
                     {{constant.labels.tempNameMandatory}}
@@ -121,13 +121,13 @@
             <div class="form-group">
                 <label class="col-md-12 pl-0 uploadTemplate-title">{{constant.labels.fileUpload}}</label>
                 <div class="choose-file-btn fileUpload ">
-                    <span>Choose File</span>
+                    <span>{{constant.labels.chooseFile}}</span>
                     <input type="file" id="file" accept="text/html" (change)="handleFileInput($event.target.files)"
                         class="upload"></div><span>{{constant.fileToUpload?.name}}</span>
             </div>
             <div class="text-center pt-4">
                 <button type="submit" class="btn btn-default  mr-3">{{constant.btns.upload}}</button>
-                <button type="button" class="btn btn-primary creat-btn mr-3" (click)="modalRef.hide()">{{constant.btns.cancel}}</button>
+                <button type="button" class="btn btn-primary creat-btn mr-3" (click)="clearAddForm()">{{constant.btns.cancel}}</button>
             </div>
         </form>
     </div>
