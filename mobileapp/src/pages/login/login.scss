@@ -1,10 +1,10 @@
 page-login {
 
-    .error-required {
+  /*  .error-required {
         text-align: center;
         width: 100%;
         display: block;
-    }
+    }*/
 
 .login-bg {
   
@@ -58,7 +58,9 @@ ion-input.input {
 .login-action {
     margin-top: -43px;
      font-family: 'sf_pro_displayregular';
-
+.max-wth {
+    text-align: center;
+}
 }
 .item-block .item-inner {
 

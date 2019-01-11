@@ -83,16 +83,19 @@ page-signup {
 /*        border-bottom: none;
 */    }
     // Error Messages Validations
-    .error {
+ /*   .error {
         color: #df3e3e;
         font-size: 15px;
         margin-bottom: 15px;
         text-align: left;
-    }
+    }*/
 
     .error1 {
         color: rgb(75, 75, 75);
     }
+    .error {
+    margin-bottom: 10px;
+}
     .signup-center{
         max-width: 460px;
         margin: 0 auto;
