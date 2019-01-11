@@ -70,7 +70,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div *ngIf="( settingsForm.get('password').hasError('minlength') || settingsForm.get('password').hasError('maxlength') ||settingsForm.get('password').hasError('pattern') || settingsForm.get('password').hasError('required') ) && settingsForm.get('password').touched">
+        <div *ngIf="( settingsForm.get('password').hasError('minlength') || settingsForm.get('password').hasError('maxlength') ||settingsForm.get('password').hasError('pattern') || settingsForm.get('password').hasError('required') ) && settingsForm.get('password').touched" class="error-block">
           <div class="error" *ngIf="settingsForm.get('password').hasError('required') && settingsForm.get('password').touched">
             {{constant.pages.settingLabels.validations.oldPasswordRequired}}
           </div>

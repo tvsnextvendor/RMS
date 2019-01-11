@@ -48,7 +48,7 @@
 
 }
 .list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child{
-       border-bottom: 1px solid #dedede !important;
+       border-bottom: none;
     box-shadow: none !important;
 }
 .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
@@ -328,8 +328,11 @@ button:focus {
     font-weight: 600;
     color: #df3e3e;
     font-size: 15px;
-    text-shadow: 0 0 1px #000, 0px 0px 3px #fff;
-    letter-spacing: 0.5px;
+/*    text-shadow: 0 0 1px #000, 0px 0px 3px #fff;
+*/  letter-spacing: 0.5px;
+    text-align: center;
+    width: 100%;
+    display: block;
     }
 .login-btn {
     width: 100%;
