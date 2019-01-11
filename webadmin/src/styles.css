@@ -103,6 +103,9 @@ table td.td-pd {
   	width: 14px;
   	opacity: 0.5;
   }
+  .theme-green .bs-datepicker-head{background-color: #468FB9 !important;}
+  .theme-green .bs-datepicker-body table td span.selected{background-color: #468FB9 !important;}
+
 /******** check box ***************/
 .hole-cont {
    position: relative;
