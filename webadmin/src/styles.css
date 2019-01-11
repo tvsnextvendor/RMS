@@ -117,6 +117,7 @@ table td.td-pd {
    user-select: none;
    float: left;
    color: #495057;
+   line-height: 30px;
 }
 .hole-cont input {
    position: absolute;
@@ -127,7 +128,7 @@ table td.td-pd {
 }
 .checkmark {
    position: absolute;
-   top: 2px;
+   top: 6px;
    left: 0;
    height: 20px;
    width: 20px;
