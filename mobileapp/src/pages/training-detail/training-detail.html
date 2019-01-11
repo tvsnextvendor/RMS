@@ -52,63 +52,66 @@
 </div>
 </div> -->
 <div class="inner-content" *ngIf="setTraining">
-    <div class="image-tag" *ngIf="imageType">
-        <img src="{{setTraining.fileLink}}" alt="image" class="inner-image">
+    <div class="training-det">
+        <div class="image-tag" *ngIf="imageType">
+            <img src="{{setTraining.fileLink}}" alt="image" class="inner-image">
+        </div>
+        <div class="video-tag" *ngIf="!imageType">
+            <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
+            playsinline class="videoPlayer" poster="{{setTraining.featuredImage}}">
+            <source src="{{setTraining.fileLink}}" type="video/mp4" />
+        </video>
     </div>
-    <div class="video-tag" *ngIf="!imageType">
-        <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
-        playsinline class="videoPlayer" poster="{{setTraining.featuredImage}}">
-        <source src="{{setTraining.fileLink}}" type="video/mp4" />
-    </video>
-</div>
-<div class="training-block">
-    <div class="loading-bar-div">
-        <div class="loading-bar">
-            <span class="video-progress-bar" [ngClass]="{'playedProgressBar': i <= initial}" [ngStyle]="{'width.%': loadingBarWidth}"
-            *ngFor="let trainingVideo of trainingDatas; let i = index">
-            <p>{{i}}</p>
+    <div class="training-block">
+        <div class="loading-bar-div">
+            <div class="loading-bar">
+                <span class="video-progress-bar" [ngClass]="{'playedProgressBar': i <= initial}" [ngStyle]="{'width.%': loadingBarWidth}"
+                *ngFor="let trainingVideo of trainingDatas; let i = index">
+                <p>{{i}}</p>
+            </span>
+        </div>
+        <span class="loading-bar-percentage">
+            <p>{{Math.round(loadingBarWidth * (initial+1))}}<span>%</span></p>
         </span>
     </div>
-    <span class="loading-bar-percentage">
-        <p>{{Math.round(loadingBarWidth * (initial+1))}}<span>%</span></p>
-    </span>
-</div>
-<h6>{{setTraining.fileTitle}} <span class="view-button" *ngIf="imageType">
-    <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
-    (click)="viewContent(filePath)">View Content </a>
-</span></h6>
+    <h6>{{setTraining.fileTitle}} <span class="view-button" *ngIf="imageType">
+        <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
+        (click)="viewContent(filePath)">View Content </a>
+    </span></h6>
 
-<div class="checkbox-item clearfix" *ngIf="imageType">
-    <label class="hole-cont mr-2">
-        <input type="checkbox" [(ngModel)]="agree"  name="options" > 
-        {{constant.pages.trainingLabels.ackText}}<a href="">{{constant.pages.trainingLabels.document}}</a>
-        <span class="checkmark"></span>
-    </label>
+    <div class="checkbox-item clearfix" *ngIf="imageType">
+        <label class="hole-cont mr-2">
+            <input type="checkbox" [(ngModel)]="agree"  name="options" > 
+            {{constant.pages.trainingLabels.ackText}}<a href="">{{constant.pages.trainingLabels.document}}</a>
+            <span class="checkmark"></span>
+        </label>
 
 
-</div>
-<div *ngIf="text" class="quiz-text">
-    <div *ngIf="text.length <= 400">{{text}}</div>
-    <div *ngIf="truncating && text.length > 400">
-        {{text | words : limit}}
-        <a href="javascript:void(0);" (click)="truncating = false">
-        {{constant.pages.trainingLabels.readMore}}</a>
     </div>
-    <div *ngIf="!truncating && text.length > 400">
-        {{text}}
-        <a href="javascript:void(0);" (click)="truncating = true">
-            {{constant.pages.trainingLabels.readLess}}
-        </a> </div>
-    </div> 
-    <div class="ver-bottom align-items-end row">
-    <span class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
+    <div *ngIf="text" class="quiz-text">
+        <div *ngIf="text.length <= 400">{{text}}</div>
+        <div *ngIf="truncating && text.length > 400">
+            {{text | words : limit}}
+            <a href="javascript:void(0);" (click)="truncating = false">
+            {{constant.pages.trainingLabels.readMore}}</a>
+        </div>
+        <div *ngIf="!truncating && text.length > 400">
+            {{text}}
+            <a href="javascript:void(0);" (click)="truncating = true">
+                {{constant.pages.trainingLabels.readLess}}
+            </a> </div>
+        </div> 
+
+    </div>
+</div>
+</div>
+<div class="ver-bottom">
+    <div class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
         {{constant.buttons.next}}
-    </span>
-    
-    <span class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="quizBtn">
-        {{constant.buttons.takeQuiz}}
-    </span>
     </div>
-</div>
+
+    <div class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="quizBtn">
+        {{constant.buttons.takeQuiz}}
+    </div>
 </div>
 </ion-content>

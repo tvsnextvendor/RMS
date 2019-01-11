@@ -130,7 +130,6 @@ ion-toolbar {
 }
 
 .take-quiz-btn {
-    float: left;
         max-width: 300px;
     width: 100%;
     border-radius: 39px;
@@ -206,8 +205,13 @@ h6{
 .hole-cont {
     color: #A0A0A0;
 }
-
-
+.training-det {
+    min-height: calc(100vh - 100px);
+    display: block;
+}
+/*.training-block {
+    min-height: calc(100vh - 290px);
+}*/
 //sheema
 .view-button{
     float: right;

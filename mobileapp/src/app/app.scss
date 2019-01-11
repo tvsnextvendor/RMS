@@ -48,11 +48,19 @@
 
 }
 .list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child{
-    border-bottom: none;
+       border-bottom: 1px solid #dedede !important;
+    box-shadow: none !important;
+}
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
+    box-shadow: none !important;
+}
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
+    box-shadow: none !important;
 }
 .go-back {
     margin-right: 15px;
 }
+
 /*******************sidebar style *******************/
 .sidebar-list .label-ios, .sidebar-list .label-md{
         line-height: 35px;
@@ -125,7 +133,7 @@ padding: 0 !important;
     color: #fff;
 }
 .toolbar-title-md .header-title {
-    padding: 12px 0 0 0;
+    padding: 14px 0 0 0;
     display: inline-block;
 }
 .sidebar-header {
@@ -312,10 +320,16 @@ button:focus {
     border-radius: 50%;
     border: 5px solid rgba(255, 255, 255, 0.5);
 }
-.error {
+/*.error,.error-required {
     color: #df3e3e;
     font-size: 15px;
-}
+}*/
+.error-required,.error{
+    color: #da0404;
+    font-size: 15px;
+    text-shadow: 0 0 1px #000, 0px 0px 3px #fff;
+    letter-spacing: 0.5px;
+    }
 .login-btn {
     width: 100%;
     padding: 30px 10px;
