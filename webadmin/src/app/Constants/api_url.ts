@@ -7,7 +7,7 @@ export class API_URL {
 
 
     //Program
-    ProgramModuleList :'5c3771913000009b001f644c',
+    ProgramModuleList: '5c3771913000009b001f644c',
     //ProgramModuleList: '5c36f14c3000005b001f60e1',
 
     getKeyStat: "5c04dd7f330000e900d01e32",
@@ -41,7 +41,7 @@ export class API_URL {
     getEmployeeStatus: '5c2debd22f0000ba47175307',
     //getEmployeeDetails   : '5c124a4d330000bd2a998e64',
     getEmployeeDetails: '5c3330f72e00002b00121f06',
-    getTaskResortChart: '5c135a3c3400008e00ecdf91',
+    getTaskResortChart: '5c3847ee3100003600a98f24',
     getCourseTrendChart: '5c2dbe012f000017331751f2',
     getYearList: '5c1355633400007500ecdf6f',
     //moduleCourseList   : '5c18c8502f00006a00af1181',
