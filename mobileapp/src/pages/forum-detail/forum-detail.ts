@@ -42,6 +42,7 @@ export class ForumDetailPage implements OnInit {
   currentUser;
   userId;
   comment;
+  hideQuestionBtn:boolean = true;
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage, public modalCtrl: ModalController) {
     this.forumDetailObject = this.navParams.data;
     this.employees = this.forumDetailObject['setData']['employees'];
@@ -92,8 +93,8 @@ export class ForumDetailPage implements OnInit {
   }
   hideShowDesc(emp, j) {
     emp[j]['isActive'] = !(emp[j]['isActive']);
+    this.hideQuestionBtn = !this.hideQuestionBtn ;
   }
-
   showCommentSet(emp, j) {
     emp[j]['isComment'] = !(emp[j]['isComment']);
   }
