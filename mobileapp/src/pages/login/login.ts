@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Constant } from '../../constants/Constant.var';
-import {ToastrService} from '../../service/toastrService';
+//import {ToastrService} from '../../service/toastrService';
 import { Storage } from '@ionic/storage';
 
 @IonicPage({
@@ -22,7 +22,8 @@ export class LoginPage implements OnInit {
     }
     paramsObj: any = {};
     logincredentialerror;
-    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, public storage: Storage, public constant: Constant,private toastr:ToastrService) {
+    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, public storage: Storage, public constant: Constant) {
+        //,private toastr:ToastrService
     }
     ngOnInit() {
         this.storage.get('userInput').then(
