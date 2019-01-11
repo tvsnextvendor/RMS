@@ -21,7 +21,7 @@
                             </div>                          -->
                         <label class="col-md-4 p-0 label-title">{{batchVar.labels.from}}</label>
                         <div class="col-md-7 pr-0">
-                            <div class="form-control px-0">
+                            <!-- <div class="form-control px-0">
                                 <input placeholder="Select Date" name="batchFrom" value="{{batchVar.batchFrom | date : 'fullDate' }}"
                                     (click)="fromDateInputClick()" class="batch-calender">
                                 <span (click)="fromDateInputClick()" class="float-right cp"><img src="assets/images/cal.png"></span>
@@ -32,7 +32,19 @@
                                     (change)="errorCheck()" (click)="autoHide($event.target.classList)" [ngModel]="batchVar.batchFrom"
                                     (ngModelChange)="fromDateChange($event)" required class="batch-calender">
                                 </dl-date-time-picker>
-                            </div>
+                            </div> -->
+                            <span> <img src="assets/images/cal.png" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"
+                                    class="batch-icon">
+                                <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
+                                    name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel"
+                                    [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
+                                <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
+                                    {{batchVar.mandatoryLabels.from}}
+                                </span>
+                                <div *ngIf="batchVar.dategreater" class="required_color">
+                                    <span>{{batchVar.mandatoryLabels.dateValidate}} </span>
+                                </div>
+                            </span>
                         </div>
                         <span class="required_color" *ngIf="batchVar.batchFrom && batchVar.batchTo && dateError">
                             {{batchVar.mandatoryLabels.dateLimitError}}
@@ -75,8 +87,8 @@
                                 </select>
                             </span>
                             <div>
-                                <span class="required_color" *ngIf="formDir.submitted && (!reminder || !durationValue)">{{batchVar.mandatoryLabels.notificationError}}</span> 
-                                <span class="required_color" *ngIf="countCheck">{{countError}}</span>                          
+                                <span class="required_color" *ngIf="formDir.submitted && (!reminder || !durationValue)">{{batchVar.mandatoryLabels.notificationError}}</span>
+                                <span class="required_color" *ngIf="countCheck">{{countError}}</span>
                             </div>
                         </div>
                     </div>
@@ -98,7 +110,7 @@
                       </div>  -->
                         <label class="col-md-2 p-0 label-title">{{batchVar.labels.to}}</label>
                         <div class="col-md-8 p-0 batch-input">
-                            <div class="form-control px-0">
+                            <!-- <div class="form-control px-0">
                                 <input placeholder="Select Date" name="batchTo" value="{{batchVar.batchTo | date : 'fullDate' }}"
                                     (click)="dateInputClick()" class="batch-calender">
                                 <span (click)="dateInputClick()" class="float-right cp"><img src="assets/images/cal.png"></span>
@@ -109,7 +121,16 @@
                                     (change)="errorCheck()" (click)=autoHide($event.target.classList) [ngModel]="batchVar.batchTo"
                                     (ngModelChange)="toDateChange($event)" required class="batch-calender">
                                 </dl-date-time-picker>
-                            </div>
+                            </div> -->
+                            <span> <img src="assets/images/cal.png" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
+                                    class="batch-icon">
+                                <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo"
+                                    bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                                    required>
+                                <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
+                                    {{batchVar.mandatoryLabels.to}}
+                                </span>
+                            </span>
                         </div>
                     </div>
                     <div class="row" *ngFor="let data of batchVar.moduleForm; let i = index">
@@ -133,10 +154,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-5 module-radiobtn">
-                                    <label class="module-title-mand"><input class="mr-2 module-btn-alg" type="radio" name="mandatory{{i}}"
-                                            value="true" [(ngModel)]="data.mandatory"><label class="">{{batchVar.labels.mandatory}}</label></label>
-                                    <label class="module-title-opt"><input class="mr-2 module-btn-alg" type="radio" name="mandatory{{i}}"
-                                            value="false" [(ngModel)]="data.mandatory"><label class="">{{batchVar.labels.optional}}</label></label>
+                                    <label class="module-title-mand"><input class="mr-2 module-btn-alg" type="radio"
+                                            name="mandatory{{i}}" value="true" [(ngModel)]="data.mandatory"><label
+                                            class="">{{batchVar.labels.mandatory}}</label></label>
+                                    <label class="module-title-opt"><input class="mr-2 module-btn-alg" type="radio"
+                                            name="mandatory{{i}}" value="false" [(ngModel)]="data.mandatory"><label
+                                            class="">{{batchVar.labels.optional}}</label></label>
                                 </div>
                             </div>
                         </div>
