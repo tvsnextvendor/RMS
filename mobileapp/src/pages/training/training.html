@@ -18,7 +18,7 @@
       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span>
-        {{selectedModule}}
+        {{selectedModule}} <span class="badge">{{totalCount}}</span>
         <ion-icon name="md-funnel"></ion-icon>
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="modules">
