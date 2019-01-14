@@ -105,12 +105,18 @@
     </div>
 </div>
 </div>
-<div class="ver-bottom">
+<!-- <div class="ver-bottom">
     <div class="take-quiz-btn" (click)="showNextPage()" *ngIf="!quizBtn">
         {{constant.buttons.next}}
     </div>
 
     <div class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="quizBtn">
+        {{constant.buttons.takeQuiz}}
+    </div>
+</div> -->
+<span  (click)="showNextPage()" *ngIf="!quizBtn"> >> {{constant.buttons.next}}</span>
+<div class="ver-bottom">
+    <div class="take-quiz-btn" (click)="goToQuizPage()" >
         {{constant.buttons.takeQuiz}}
     </div>
 </div>
