@@ -105,6 +105,7 @@ form{
     float: left;
     color: #495057;
     font-size: 12px;
+    line-height: 19px;
 }
 .hole-cont input {
     position: absolute;
