@@ -1,7 +1,6 @@
-
 <ion-header no-border>
   <ion-toolbar transparent class="change-password-toolbar title-type2">
-    <span class="back-arrow" (click)="goToPrevious()"> 
+    <span class="back-arrow" (click)="goToPrevious()">
       <img src="../assets/imgs/Back.png" />
     </span>
     <ion-title class="text-left ">
@@ -14,30 +13,29 @@
     <div class="pwd-setting px-5">
       <ion-row class="pwd-inner">
         <ion-col col-1 class="notify-img ">
-           <img src="../assets/imgs/notification@2x.png" />
+          <img src="../assets/imgs/notification@2x.png" />
         </ion-col>
         <ion-col col-11 class="profile-info">
-          <ion-label color="default">Notifiction</ion-label>
+          <ion-label color="default">Notification</ion-label>
         </ion-col>
         <div class="checkbox-item">
           <ion-row>
-            <ion-col col-1 >
+            <ion-col col-1>
             </ion-col>
             <ion-col col-11 class="profile-info">
               <label class="hole-cont mr-2">
                 SMS
-                <input type="checkbox" name="options" [(ngModel)]="setting.sms" formControlName="sms" (click)="notificationAPI()"> 
-
+                <input type="checkbox" name="options" [(ngModel)]="setting.sms" formControlName="sms" (click)="notificationAPI()">
                 <span class="checkmark"></span>
               </label>
             </ion-col>
 
-            <ion-col col-1 >
+            <ion-col col-1>
             </ion-col>
             <ion-col col-11 class="profile-info">
               <label class="hole-cont mr-2">
                 Email
-                <input type="checkbox" name="options" [(ngModel)]="setting.email" formControlName="email" (click)="notificationAPI()"> 
+                <input type="checkbox" name="options" [(ngModel)]="setting.email" formControlName="email" (click)="notificationAPI()">
 
                 <span class="checkmark"></span>
               </label>
@@ -47,7 +45,7 @@
       </ion-row>
       <ion-row>
         <ion-col col-1 class="key-img">
-         <img src="../assets/imgs/password@2x.png" />
+          <img src="../assets/imgs/password@2x.png" />
         </ion-col>
         <ion-col col-10 class="profile-info">
           <ion-label color="default">{{constant.title.changePassword}}</ion-label>
@@ -59,18 +57,19 @@
       </ion-row>
 
       <ion-row *ngIf="showPasswordChange">
-        <ion-grid class="pwd-grid" >
+        <ion-grid class="pwd-grid">
           <ion-row>
-            <ion-col col-1 >
+            <ion-col col-1>
             </ion-col>
             <ion-col col-11 class="profile-info">
               <ion-input type="password" [(ngModel)]="setting.oldpassword" formControlName="password" [class.error1]="!settingsForm.controls.password.valid && settingsForm.controls.password.dirty"
-              placeholder="**********"></ion-input>
+                placeholder="**********"></ion-input>
               <ion-label color="default"> {{constant.pages.settingLabels.oldPassword}}</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div *ngIf="( settingsForm.get('password').hasError('minlength') || settingsForm.get('password').hasError('maxlength') ||settingsForm.get('password').hasError('pattern') || settingsForm.get('password').hasError('required') ) && settingsForm.get('password').touched" class="error-block">
+        <div *ngIf="( settingsForm.get('password').hasError('minlength') || settingsForm.get('password').hasError('maxlength') ||settingsForm.get('password').hasError('pattern') || settingsForm.get('password').hasError('required') ) && settingsForm.get('password').touched"
+          class="error-block">
           <div class="error" *ngIf="settingsForm.get('password').hasError('required') && settingsForm.get('password').touched">
             {{constant.pages.settingLabels.validations.oldPasswordRequired}}
           </div>
@@ -86,16 +85,17 @@
         </div>
         <ion-grid class="pwd-grid">
           <ion-row>
-            <ion-col col-1 >
+            <ion-col col-1>
             </ion-col>
             <ion-col col-11 class="profile-info">
               <ion-input type="password" [(ngModel)]="setting.newpassword" formControlName="newpassword" [class.error1]="!settingsForm.controls.newpassword.valid && settingsForm.controls.newpassword.dirty"
-              placeholder="**********"></ion-input>
+                placeholder="**********"></ion-input>
               <ion-label color="default">{{constant.pages.settingLabels.newPassword}}</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div *ngIf="( settingsForm.get('newpassword').hasError('minlength') || settingsForm.get('newpassword').hasError('maxlength') ||settingsForm.get('newpassword').hasError('pattern') || settingsForm.get('newpassword').hasError('required') ) && settingsForm.get('newpassword').touched" class="error-block">
+        <div *ngIf="( settingsForm.get('newpassword').hasError('minlength') || settingsForm.get('newpassword').hasError('maxlength') ||settingsForm.get('newpassword').hasError('pattern') || settingsForm.get('newpassword').hasError('required') ) && settingsForm.get('newpassword').touched"
+          class="error-block">
           <div class="error" *ngIf="settingsForm.get('newpassword').hasError('required') && settingsForm.get('newpassword').touched">
             {{constant.pages.settingLabels.validations.newPasswordRequired}}
           </div>
@@ -111,17 +111,18 @@
         </div>
         <ion-grid class="pwd-grid">
           <ion-row>
-            <ion-col col-1 >
+            <ion-col col-1>
             </ion-col>
             <ion-col col-11 class="profile-info">
               <ion-input type="password" [(ngModel)]="setting.confirmpassword" formControlName="confirmpassword"
-              [class.error1]="!settingsForm.controls.confirmpassword.valid && settingsForm.controls.confirmpassword.dirty"
-              placeholder="**********"></ion-input>
+                [class.error1]="!settingsForm.controls.confirmpassword.valid && settingsForm.controls.confirmpassword.dirty"
+                placeholder="**********"></ion-input>
               <ion-label color="default">{{constant.pages.settingLabels.confirmPassword}}</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div *ngIf="( settingsForm.get('confirmpassword').hasError('minlength') || settingsForm.get('confirmpassword').hasError('maxlength') ||settingsForm.get('confirmpassword').hasError('pattern') || settingsForm.get('confirmpassword').hasError('required') ) && settingsForm.get('confirmpassword').touched" class="error-block">
+        <div *ngIf="( settingsForm.get('confirmpassword').hasError('minlength') || settingsForm.get('confirmpassword').hasError('maxlength') ||settingsForm.get('confirmpassword').hasError('pattern') || settingsForm.get('confirmpassword').hasError('required') ) && settingsForm.get('confirmpassword').touched"
+          class="error-block">
           <div class="error" *ngIf="settingsForm.get('password').hasError('required') && settingsForm.get('password').touched">
             {{constant.pages.settingLabels.validations.confirmPasswordRequired}}
           </div>
@@ -135,7 +136,8 @@
             {{constant.pages.settingLabels.validations.pattern}}
           </div>
         </div>
-        <button type="submit" class="login-btn blue-btn" ion-button round [disabled]="settingsForm.invalid"> {{constant.buttons.save}}</button>
+        <button type="submit" class="login-btn blue-btn" ion-button round [disabled]="settingsForm.invalid">
+          {{constant.buttons.save}}</button>
       </ion-row>
     </div>
 
