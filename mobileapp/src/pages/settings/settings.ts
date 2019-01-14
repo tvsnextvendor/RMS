@@ -22,7 +22,8 @@ export class SettingsPage implements OnInit {
     'newpassword': '',
     'confirmpassword': '',
     'sms': false,
-    'email': false
+    'email': false,
+    'whatsapp':false
   }
   currentUser;
   showPasswordChange: boolean = true;
@@ -37,7 +38,8 @@ export class SettingsPage implements OnInit {
       newpassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
       confirmpassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
       sms: new FormControl(''),
-      email: new FormControl('')
+      email: new FormControl(''),
+      whatsapp:new FormControl('')
     });
     this.getUser();
   }
@@ -69,9 +71,9 @@ export class SettingsPage implements OnInit {
       }
     };
    // this.toastr.success('Notification setting updated');
-    this.http.post('postNotification', json_notify).subscribe((data) => {
+   // this.http.post('postNotification', json_notify).subscribe((data) => {
      // this.toastr.success('Notification setting updated');
-    });
+   // });
   }
   getUser() {
     this.storage.get('currentUser').then(
