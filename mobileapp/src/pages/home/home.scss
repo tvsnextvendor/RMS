@@ -13,6 +13,14 @@ page-home {
 		background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
 	}
+	.weather-img {
+    display: inline-block;
+    width: 40px;
+}
+.weather-sts {
+    font-size: 18px;
+    font-weight: 600;
+}
 	.current-day{ 
 		font-family: 'sf_pro_displayregular';
 		padding: 7px 20px 15px 20px;
