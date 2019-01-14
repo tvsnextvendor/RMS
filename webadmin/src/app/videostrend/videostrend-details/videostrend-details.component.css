@@ -41,3 +41,9 @@ tbody > tr > td {
 .exportto-resp{
   float: right;
 }
+.btn-select{
+    color: #468FB9;
+    font-size: 12px;
+    font-weight: 600;
+    float: left;
+}
