@@ -3,11 +3,11 @@
 	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm()" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
 			<div class="row form-group">
-				<label class="col-md-3 pr-0 label-title">{{labels.moduleName}}</label>
+				<label class="col-md-3 pr-0 label-title mb-0">{{labels.moduleName}}</label>
 				<span class="col-md-9 pl-0">
 					<input type="text" class="form-control" placeholder="Enter Program Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
 				</span>
-				<span class="required_color" *ngIf="moduleSubmitted && !moduleName">
+				<span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleName">
 					{{labels.moduleName}}{{labels.isRequire}}
 				</span>
 				<span class="required_color" *ngIf="moduleVar.moduleNameCheck">
@@ -15,7 +15,7 @@
 				</span>
 			</div>
 			<div class="row">
-				<label class="col-md-3 pr-0 label-title">{{labels.course}}</label>
+				<label class="col-md-3 pr-0 label-title mb-0">{{labels.course}}</label>
 				<div class="col-md-9 pl-0 select-Courses">
 					<ng-multiselect-dropdown
 					[placeholder]="'Select Course'"
@@ -25,7 +25,7 @@
 					(onSelect)="onItemSelect($event)"
 					(onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
 				</div>
-				<span class="required_color" *ngIf="moduleSubmitted && selectedCourses.length === 0">
+				<span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
 						{{labels.courseError}}
 					</span>
 				<!-- <span class="col-md-1 pl-0"><a  (click)="addCourse()"><i class="fa fa-plus icons_header"></i></a></span> -->
