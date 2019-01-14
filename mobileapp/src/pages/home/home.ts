@@ -26,6 +26,7 @@ export class HomePage {
   users: any;
   selectedModule;
   coursePercentage;
+  moduleId;
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
     this.currentdate = this.getCurrentTime();
@@ -53,9 +54,9 @@ export class HomePage {
       this.storage.set('userDashboardInfo', data['dashboardList']).then(() => {
         console.log('Data has been set');
       });
-      if (data['isSuccess']) {
+      if(data['isSuccess']){
         this.dashboardInfo = data['dashboardList'];
-        this.trainingDatas = this.dashboardInfo.training;
+        this.trainingDatas = this.dashboardInfo.training[0];
         this.accomplishments = this.dashboardInfo.accomplishments;
         this.users = this.dashboardInfo.users[0];
         this.coursePercentage = parseFloat(this.trainingDatas.course) * 100;
@@ -77,6 +78,8 @@ export class HomePage {
   }
   changeModule(list) {
     this.selectedModule = list.name;
+    this.moduleId = list.id;
+    this.trainingDatas = this.dashboardInfo.training[this.moduleId]?this.dashboardInfo.training[this.moduleId]:this.dashboardInfo.training[0];
   }
   goToNotification() {
     this.navCtrl.setRoot('notification-page');
