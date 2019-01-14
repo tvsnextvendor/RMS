@@ -78,7 +78,7 @@ export class TrainingDetailPage {
     goToQuizPage() {
         let self = this;
         const alert = this.alertCtrl.create({
-            title: 'Are you ready to take the comprehension ?',
+            title: 'Are you ready to take the Quiz ?',
             buttons: [{
                 text: 'Later',
                 role: 'later',
