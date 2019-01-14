@@ -1,9 +1,10 @@
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
-        <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')" class="mt75" >
+        <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')"
+            class="mt75">
             <a routerLink="/dashboard"><img src="assets/images/menu1.png"></a>
         </li>
-        <li [class.active]="router.isActive('/modulelist') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId')">
+        <li [class.active]="router.isActive('/modulelist') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
             <a routerLink="/modulelist"><img src="assets/images/Modules.png"></a>
         </li>
         <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
@@ -23,4 +24,3 @@
         </li> -->
     </ul>
 </div>
-
