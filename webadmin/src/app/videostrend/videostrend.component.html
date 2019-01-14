@@ -4,7 +4,7 @@
         <span class="float-right mb-2">
             <!-- <ngx-select-dropdown (change)="onLimitChange()" [options]="trendsVar.pageLimitOptions" [(value)]="trendsVar.pageLimit"
                 [config]="{placeholder : 'Select limit'}" class="pagenation-dropdown"></ngx-select-dropdown> -->
-            <select [(ngModel)]="trendsVar.pageLimit">
+            <select [(ngModel)]="trendsVar.pageLimit"  class="pagenation-dropdown">
                 <option *ngFor="let item of trendsVar.pageLimitOptions" [value]="item">{{item}}</option>
             </select>
         </span>

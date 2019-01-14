@@ -27,3 +27,12 @@
   tfoot > tr > td {
     border-bottom: 0;
    }
+   .pagenation-dropdown{
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid #468fb9;
+    width: 80px;
+    padding: 4px 8px;
+    height: 32px;
+    color: #468FB9;
+   }

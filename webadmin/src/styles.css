@@ -825,8 +825,18 @@ li {
 .sk-wave .sk-rect {
     background-color: #468FB9 !important;   
 }
+.pagenation-dropdown{
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid #468fb9;
+    width: 80px;
+    padding: 4px 8px;
+    height: 32px;
+    color: #468FB9;
+    outline: unset !important;
+}
 
-.pagenation-dropdown button.ngx-dropdown-button {
+/*.pagenation-dropdown button.ngx-dropdown-button {
     border-radius: 20px !important;
     background-color: transparent !important;
     border: 1px solid #468FB9 !important;
@@ -849,7 +859,7 @@ li {
 .pagenation-dropdown .ngx-dropdown-container button span {
    color: #468FB9;
    line-height: 4px;
-}
+}*/
 ul.pagination {
     margin: 0;
 }
