@@ -4,12 +4,15 @@ ion-header.header {
 	}
 	.batch-name {
     font-weight: 800;
+    padding-top: 6px;
+    padding-bottom: 0;
 }
 .batch-date {
         font-size: 12px;
     text-align: right;
     font-weight: 500;
         color: #7D7D7D;
+            padding-top: 8px;
 }
 .expires,.average,.completed
 {
@@ -35,6 +38,8 @@ ion-header.header {
 .batch-icon {
     text-align: right;
         color: rgba(0,0,0,0.54);
+            padding-bottom: 0;
+    padding-top: 7px;
 }
 .forum-card .grid{
    padding: 10px 10px 10px 10px; 

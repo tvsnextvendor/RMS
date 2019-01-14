@@ -82,7 +82,7 @@ export class Constant {
             more: 'More',
             assignedLabel: 'Assigned',
             progressLabel: 'In Progress',
-            avgCompletionRate: 'Average Completion Rate',
+            avgCompletionRate: 'Completed',
             you: 'You',
             peers: 'Peers',
             yourAvgOnCourses: 'Your Average Score On Courses',

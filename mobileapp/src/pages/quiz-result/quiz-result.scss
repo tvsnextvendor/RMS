@@ -13,7 +13,10 @@ ion-header.header-ios {
     top:30px; 
 }
 
-
+ion-toolbar ion-icon {
+    float: right;
+    font-size: 20pt;
+}
 /*page-quiz-result ion-toolbar ion-icon {
     font-size: 18px;
     margin-right: 10px;

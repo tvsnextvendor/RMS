@@ -60,7 +60,9 @@
 .go-back {
     margin-right: 15px;
 }
-
+a,.alert-md .alert-button .button-inner, .alert-ios .alert-button {
+    color: #329CD6;
+}
 /*******************sidebar style *******************/
 .sidebar-list .label-ios, .sidebar-list .label-md{
         line-height: 35px;
@@ -90,7 +92,7 @@ ion-toolbar ion-icon {
 
 
 .toolbar-ios ion-title {
-    padding: 0 20px 0 50px;
+    padding: 0 15px 0 50px;
 }
 
 .toolbar-title-ios {
@@ -369,23 +371,26 @@ button:focus {
     display: inline-block;
     float: right;
     position: relative;
-    margin-right: 6px;
+    margin-right: 10px;
     cursor: pointer;
 }
 .title-md .header-icon {
-    margin-right: 15px;
+    margin-right: 20px;
     margin-top: 10px;
 }
 .dot-circle {
-    background: #fff;
-    width: 10px;
-    height: 10px;
+    background: #df3e3e;
+    width: 18px;
+    height: 18px;
     display: inline-block;
     border-radius: 70px;
     position: absolute;
-    right: -4px;
+    right: -11px;
     border: 1px solid #2F98D2;
-    top: 1px;
+    top: 0px;
+    font-size: 8px;
+    text-align: center;
+    line-height: 17px;
 }
 .toastr-error { .toast-message { border-radius: 0.65rem !important; background: color($colors, danger) } }
 .toastr-success { .toast-message { border-radius: 0.65rem !important; background: color($colors, secondary) } }

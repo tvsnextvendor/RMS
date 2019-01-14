@@ -7,17 +7,20 @@
       <span class="header-title">{{constant.title.dashboard}}</span>
       <div class="header-icon" (click)="goToNotification()">
         <img src="../assets/imgs/notification.png" />
-        <span class="dot-circle"></span>
+        <span class="dot-circle">12</span>
       </div>
     </ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">
   <div class="current-day">
-    <h1> {{constant.pages.dashboardLabels.goodMrng}}</h1>
-    <p class="day-detail">
+    <h3> {{constant.pages.dashboardLabels.goodMrng}}</h3>
+    <!-- <p class="day-detail">
       {{currentdate}}
-    </p>
+    </p> -->
+    <p class="m-0"><span class="day-detail">Today's weather </span><!-- <img class="weather-img" src="../assets/imgs/weather-img.png" /> --></p>
+
+<p class="day-detail">Whitetail resort is celebrating their 4th year anniversary today</p>
   </div>
   <div class="module-select">
     <div class="dropdown module-drpdwn">
@@ -42,24 +45,28 @@
           <div class="tomato-red-bg assign-box sts-style">
             <h4 class="status-title">{{constant.pages.dashboardLabels.assignedLabel}}</h4>
             <span class="num-sec">{{trainingDatas.assignedCourses}}</span>
-            <p class="course-sec">{{constant.pages.dashboardLabels.newCourses}}</p>
-            <a href="javascript:void(0);" class="read-more">{{constant.pages.dashboardLabels.more}}<ion-icon ios="ios-arrow-forward"
-                md="ios-arrow-forward" class="fwd-arw"></ion-icon></a>
+            <p class="course-sec">{{constant.pages.dashboardLabels.newCourses}} <ion-icon ios="ios-arrow-forward"
+                md="ios-arrow-forward" class="fwd-arw"></ion-icon></p> 
+           <!--  <a href="javascript:void(0);" class="read-more">{{constant.pages.dashboardLabels.more}}</a> -->
           </div>
         </ion-col>
         <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('inprogress')">
           <div class="light-green-bg progress-box sts-style">
             <h4 class="status-title">{{constant.pages.dashboardLabels.progressLabel}}</h4>
             <span class="num-sec">{{trainingDatas.inProgressCourses}}</span>
-            <p class="course-sec">{{constant.pages.dashboardLabels.courses}}</p>
-            <a href="javascript:void(0);" class="read-more">{{constant.pages.dashboardLabels.more}}<ion-icon ios="ios-arrow-forward"
-                md="ios-arrow-forward" class="fwd-arw"></ion-icon></a>
+            <p class="course-sec">{{constant.pages.dashboardLabels.courses}}<ion-icon ios="ios-arrow-forward"
+                md="ios-arrow-forward" class="fwd-arw"></ion-icon></p>
+
+            <!-- <a href="javascript:void(0);" class="read-more">{{constant.pages.dashboardLabels.more}}</a> -->
           </div>
         </ion-col>
         <ion-col col-5 col-md-5 class="tvs-statusBox course-sts">
           <div class="pink-bg average-box sts-style" (click)="goToChildPage('complete')">
             <h4 class="status-title">{{constant.pages.dashboardLabels.avgCompletionRate}}</h4>
-            <div class="mb-3">
+              <span class="num-sec">{{trainingDatas.assignedCourses}}</span>
+            <p class="course-sec">{{constant.pages.dashboardLabels.newCourses}} <ion-icon ios="ios-arrow-forward"
+                md="ios-arrow-forward" class="fwd-arw"></ion-icon></p>
+          <!--   <div class="mb-3">
               <p class="course-sec m-0">{{constant.pages.dashboardLabels.you}}
                 {{trainingDatas.yourAverageCompletion}}
                 %</p>
@@ -77,7 +84,7 @@
                   <span class="sr-only">{{trainingDatas.peersAverageCompletion}} %</span>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </ion-col>
       </ion-row>
