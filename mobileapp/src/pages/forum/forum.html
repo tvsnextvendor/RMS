@@ -12,7 +12,7 @@
   </ion-navbar>
   
   <ion-toolbar *ngIf="showSearchBar">
-    <ion-icon name="ios-arrow-back" (click)="toggleSearchBox()"></ion-icon>
+    <ion-icon name="md-arrow-back" (click)="toggleSearchBox()"></ion-icon>
     <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" class="search-bar">
     </ion-searchbar>
   </ion-toolbar>
