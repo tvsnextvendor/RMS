@@ -4,9 +4,10 @@
         <span class="float-right mb-2">
             <!-- <ngx-select-dropdown (change)="onLimitChange()" [options]="trendsVar.pageLimitOptions" [(value)]="trendsVar.pageLimit"
                 [config]="{placeholder : 'Select limit'}" class="pagenation-dropdown"></ngx-select-dropdown> -->
-            <select [(ngModel)]="trendsVar.pageLimit"  class="pagenation-dropdown">
+            <select [(ngModel)]="trendsVar.pageLimit"  class="pagenation-dropdown">               
                 <option *ngFor="let item of trendsVar.pageLimitOptions" [value]="item">{{item}}</option>
             </select>
+             <span class="btn-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
         </span>
     </div>
     <div class="table-responsive white-bg px-3">
