@@ -59,6 +59,11 @@ export class TrainingPage {
     this.assignedCoursesList = [];
     this.progressCoursesList = [];
     this.completeCoursesList = [];
+    this.allProgramsAssignedCourses = [];
+    this.allProgramsProgressCourses = [];
+    this.allProgramsCompletedCourses = [];
+    this.selectedModule = this.constant.pages.dashboardLabels.selectModules;
+
     this.showData(this.statusKey);
     this.getCousesList();
     this.getModules();
@@ -98,8 +103,14 @@ export class TrainingPage {
         self.allProgramsAssignedCourses = self.assignedCoursesList;
         self.allProgramsProgressCourses = self.progressCoursesList;
         self.allProgramsCompletedCourses = self.completeCoursesList;
-        self.totalCount = self.allCourses.length;
 
+        if (self.statusKey === 'assigned') {
+          self.totalCount = self.allProgramsAssignedCourses.length;
+        } else if (self.statusKey === 'inprogress') {
+          self.totalCount = self.allProgramsProgressCourses.length;
+        } else if (self.statusKey === 'complete') {
+          self.totalCount = self.allProgramsCompletedCourses.length;
+        }
         resolve('resolved');
       }, (err) => {
         console.log('error occured', err);
@@ -107,7 +118,7 @@ export class TrainingPage {
       });
     });
   }
-  
+
   // show tabs
   showData(show) {
     switch (show) {
@@ -165,8 +176,13 @@ export class TrainingPage {
     this.assignedCoursesList = this.allProgramsAssignedCourses;
     this.progressCoursesList = this.allProgramsProgressCourses;
     this.completeCoursesList = this.allProgramsCompletedCourses;
-    this.totalCount = this.allCourses.length;
-
+    if (this.statusKey === 'assigned') {
+      this.totalCount = this.allProgramsAssignedCourses.length;
+    } else if (this.statusKey === 'inprogress') {
+      this.totalCount = this.allProgramsProgressCourses.length;
+    } else if (this.statusKey === 'complete') {
+      this.totalCount = this.allProgramsCompletedCourses.length;
+    }
   }
   selectedCourses(moduleId, status) {
     this.resetToAllCourses();
