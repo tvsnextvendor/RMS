@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SettingsPage } from './settings';
+import { LibraryPage } from './library';
 import {ScrollingHeaderModule} from 'ionic-scrolling-header';
-
+import { TruncateModule } from '@yellowspot/ng-truncate';
 @NgModule({
   declarations: [
-    SettingsPage,
+    LibraryPage,
   ],
   imports: [
+    TruncateModule,
     ScrollingHeaderModule,
-    IonicPageModule.forChild(SettingsPage),
+    IonicPageModule.forChild(LibraryPage),
   ],
 })
-export class SettingsPageModule { }
+export class LibraryPageModule {}

@@ -4,11 +4,20 @@
 		<p class="menu-tit">{{constant.title.profile}}</p>
 	</ion-toolbar> -->
 
+	<ion-navbar transparent class="title-type2">
+			<span class="back-arrow" (click)="goToPrevious()">
+				 <img src="../assets/imgs/Back.png" />
+			   </span>
+			   <ion-title class="text-left ">
+			 <span class="inner-title">{{constant.title.profile}}</span>
+			</ion-title>
+			</ion-navbar>
+
 	
-				<ion-navbar transparent class="title-type2">
+				<!-- <ion-navbar transparent class="title-type2">
 				   <ion-icon name="ios-arrow-back" (click)="goToPrevious()"></ion-icon>
 				   <p class="menu-tit">{{constant.title.profile}}</p>
-			   </ion-navbar>
+			   </ion-navbar> -->
 </ion-header>
 <ion-content padding class="profile-bg" *ngIf="currentUser">
 	<div class="max-wth">
