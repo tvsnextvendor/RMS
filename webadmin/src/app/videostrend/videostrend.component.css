@@ -31,8 +31,18 @@
     border-radius: 20px;
     background-color: transparent;
     border: 1px solid #468fb9;
-    width: 80px;
+    width: 75px;
     padding: 4px 8px;
     height: 32px;
     color: #468FB9;
+    -webkit-appearance: none;
+    position: relative;
+    cursor: pointer;
+  }
+   .btn-down{
+    position: absolute;
+    right: 25px;
+    top: 88px;
+    color: #468FB9;
+    cursor: pointer;
    }
