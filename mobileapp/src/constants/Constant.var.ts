@@ -15,6 +15,7 @@ export class Constant {
         logOut: 'Logout',
         notification: 'Notification',
         settings: 'Settings',
+        library:'Library',
         calendar:'Calendar'
     };
     buttons = {
@@ -112,6 +113,9 @@ export class Constant {
             readMore: '>> Read More',
             viewContent: 'View Content',
             readLess: '<< Read Less'
+        },
+        libraryLabels:{
+
         },
         quizResultLabels: {
             congratulations: 'Congratulations',

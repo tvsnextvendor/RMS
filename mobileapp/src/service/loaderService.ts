@@ -12,7 +12,8 @@ export class LoaderService {
     showLoader() {
         this.loading = this.loadingCtrl.create({
             content: 'Please wait...',
-            dismissOnPageChange: true
+            dismissOnPageChange: true,
+            duration: 5000
         });
         this.loading.present();
     }

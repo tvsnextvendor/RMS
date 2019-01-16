@@ -8,7 +8,7 @@
       <div class="header-icon" (click)="goToNotification()">
         <img src="../assets/imgs/notification.png" />
         <span class="dot-circle">4</span>
-      </div>
+      </div>  
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -60,11 +60,11 @@
             <!-- <a href="javascript:void(0);" class="read-more">{{constant.pages.dashboardLabels.more}}</a> -->
           </div>
         </ion-col>
-        <ion-col col-5 col-md-5 class="tvs-statusBox course-sts">
-          <div class="pink-bg average-box sts-style" (click)="goToChildPage('complete')">
+        <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('complete')">
+          <div class="pink-bg average-box sts-style" >
             <h4 class="status-title">{{constant.pages.dashboardLabels.avgCompletionRate}}</h4>
-              <span class="num-sec">{{trainingDatas.assignedCourses}}</span>
-            <p class="course-sec">{{constant.pages.dashboardLabels.newCourses}} <ion-icon ios="ios-arrow-forward"
+              <span class="num-sec">{{trainingDatas.completedCourses}}</span>
+            <p class="course-sec">{{constant.pages.dashboardLabels.courses}} <ion-icon ios="ios-arrow-forward"
                 md="ios-arrow-forward" class="fwd-arw"></ion-icon></p>
           <!--   <div class="mb-3">
               <p class="course-sec m-0">{{constant.pages.dashboardLabels.you}}

@@ -6,7 +6,8 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
 import { Constant } from '../constants/Constant.var';
 import { AuthProvider } from '../providers/auth/auth';
-import { LandingPage, HomePage, TrainingPage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage } from '../pages/indexComponent';
+import { LandingPage, HomePage, TrainingPage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage,LibraryPage } from '../pages/indexComponent';
+
 
 @Component({
   templateUrl: 'app.html',
@@ -72,6 +73,7 @@ export class MyApp{
       { title: 'Forum', component: ForumPage },
       { title: 'Calendar', component: CalendarPage },
       { title: 'Training Schedule', component: EventPage },
+      { title: 'Library', component: LibraryPage },
       { title: 'Settings', component: SettingsPage }
     ];
   //  this.appDetails();

@@ -13,5 +13,6 @@ export * from './settings/settings';
 export * from './signup/signup';
 export * from './training/training';
 export * from './training-detail/training-detail';
+export * from './library/library';
 export * from './notification/notification';
 export * from './forum-detail/forum-detail';
