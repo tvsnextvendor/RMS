@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Constant } from '../../constants/Constant.var';
 import { ToastrService } from '../../service/toastrService';
@@ -27,7 +27,8 @@ export class SettingsPage implements OnInit {
   }
   currentUser;
   showPasswordChange: boolean = true;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public toastr: ToastrService, public auth: AuthProvider, private http: HttpProvider, private storage: Storage) {
+  errorMessage = '';
+  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public toastr: ToastrService, public auth: AuthProvider, private http: HttpProvider, private storage: Storage,private alertCtrl:AlertController) {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
@@ -44,13 +45,42 @@ export class SettingsPage implements OnInit {
     this.getUser();
   }
   submit() {
+    let self=this;
+    this.errorMessage = '';
     if (this.setting.newpassword !== this.setting.confirmpassword) {
-      this.toastr.error("Password Mismatch"); return false;
+     // this.toastr.error("Password Mismatch"); return false;
+      this.errorMessage = "Password Mismatch";
     } else if (this.currentUser.password !== this.setting.oldpassword) {
-      this.toastr.error("Old password is wrong"); return false;
+     // this.toastr.error("Old password is wrong"); return false;
+      this.errorMessage = "Old password is wrong";
+
     } else {
-      this.toastr.success('Password changed successfully');
-      this.navCtrl.setRoot('home-page');
+      this.errorMessage = '';
+
+      const alert = this.alertCtrl.create({
+        title: 'Password changed successfully.',
+        buttons: [
+        //   {
+        //     text: 'No',
+        //     role: 'no',
+        //     handler: () => {
+        //         // console.log('Later clicked');
+        //     }
+        // },
+        {
+            text: 'Ok',
+            handler: () => {
+                self.navCtrl.setRoot('home-page');
+            }
+        }]
+    });
+    alert.present();
+
+
+
+
+      //this.toastr.success('Password changed successfully');
+     // this.navCtrl.setRoot('home-page');
     }
   }
   goToPrevious() {

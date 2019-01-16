@@ -1,12 +1,21 @@
 <ion-header no-border>
-  <ion-toolbar transparent class="change-password-toolbar title-type2">
+  <!-- <ion-toolbar transparent class="change-password-toolbar title-type2">
     <span class="back-arrow" (click)="goToPrevious()">
       <img src="../assets/imgs/Back.png" />
     </span>
     <ion-title class="text-left ">
       <span class="inner-title">{{constant.title.settings}}</span>
     </ion-title>
-  </ion-toolbar>
+  </ion-toolbar> -->
+
+  <ion-navbar transparent class="change-password-toolbar title-type2">
+      <span class="back-arrow" (click)="goToPrevious()">
+        <img src="../assets/imgs/Back.png" />
+      </span>
+      <ion-title class="text-left ">
+        <span class="inner-title">{{constant.title.settings}}</span>
+      </ion-title>
+    </ion-navbar>
 </ion-header>
 <ion-content padding class="change-password profile-bg">
   <form novalidate (ngSubmit)="submit()" [formGroup]="settingsForm">
@@ -25,7 +34,7 @@
             <ion-col col-11 class="profile-info">
               <label class="hole-cont mr-2">
                 SMS
-                <input type="checkbox" name="options" [(ngModel)]="setting.sms" formControlName="sms" (click)="notificationAPI()">
+                <input type="checkbox" name="options" [(ngModel)]="setting.sms" formControlName="sms" (click)="notificationAPI()" >
                 <span class="checkmark"></span>
               </label>
             </ion-col>
@@ -146,6 +155,7 @@
             {{constant.pages.settingLabels.validations.pattern}}
           </div>
         </div>
+        <div class="error-block" *ngIf="errorMessage"><div class="error">{{errorMessage}}</div></div>
         <button type="submit" class="login-btn blue-btn" ion-button round [disabled]="settingsForm.invalid">
           {{constant.buttons.save}}</button>
       </ion-row>

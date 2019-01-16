@@ -16,3 +16,4 @@ export * from './training-detail/training-detail.module';
 export * from './notification/notification.module';
 export * from './forum-detail/forum-detail.module';
 export * from './modal/modal.module';
+export * from './library/library.module';

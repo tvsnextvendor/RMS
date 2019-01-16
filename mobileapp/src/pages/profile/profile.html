@@ -1,8 +1,14 @@
 <ion-header class="main-header my-component">
-	<ion-toolbar transparent>
+	<!-- <ion-toolbar transparent>
 		<ion-icon name="ios-arrow-back" (click)="goToPrevious()"></ion-icon>
 		<p class="menu-tit">{{constant.title.profile}}</p>
-	</ion-toolbar>
+	</ion-toolbar> -->
+
+	
+				<ion-navbar transparent class="title-type2">
+				   <ion-icon name="ios-arrow-back" (click)="goToPrevious()"></ion-icon>
+				   <p class="menu-tit">{{constant.title.profile}}</p>
+			   </ion-navbar>
 </ion-header>
 <ion-content padding class="profile-bg" *ngIf="currentUser">
 	<div class="max-wth">

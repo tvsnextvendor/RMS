@@ -27,7 +27,7 @@
   tfoot > tr > td {
     border-bottom: 0;
    }
-   .pagenation-dropdown{
+   /* .pagenation-dropdown{
     border-radius: 20px;
     background-color: transparent;
     border: 1px solid #468fb9;
@@ -45,4 +45,4 @@
     top: 88px;
     color: #468FB9;
     cursor: pointer;
-   }
+   } */

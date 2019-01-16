@@ -20,20 +20,26 @@
         <form (ngSubmit)="feedbackForm()" [formGroup]="feedbackform" novalidate>
             <div class="rating-block">
             <ionic3-star-rating activeIcon="md-star" defaultIcon="md-star-outline" activeColor="#FFA000" defaultColor="#f4f4f4"
-                readonly="false" [rating]="0">
+                readonly="false" [rating]="0" >
             </ionic3-star-rating>
             <div class="control-label course-txt"> {{constant.pages.quizResultLabels.feedbackDescription}}</div>
         </div>
             <ion-item class="command-item">
                 <ion-textarea [(ngModel)]="feedback.description" formControlName="description" name="description"
-                    placeholder="{{constant.pages.quizResultLabels.feedbackPlaceholder}}" class="command-box" required></ion-textarea>
+                    placeholder="{{constant.pages.quizResultLabels.feedbackPlaceholder}}" class="command-box" ></ion-textarea>
             </ion-item>
-            <div *ngIf="( feedbackform.get('description').hasError('minlength') || feedbackform.get('description').hasError('pattern') ||feedbackform.get('description').hasError('required') ) && feedbackform.get('description').touched">
+            <div *ngIf="errorMessage" class="error-block">
+                <div class="error">
+                        {{errorMessage}}
+                </div>
+            </div>
+            <!-- <div *ngIf="( feedbackform.get('description').hasError('minlength') || feedbackform.get('description').hasError('pattern') ||feedbackform.get('description').hasError('required') ) && feedbackform.get('description').touched">
                 <div class="error" *ngIf="feedbackform.get('description').hasError('required') && feedbackform.get('description').touched">
                     {{constant.pages.quizResultLabels.validations.descriptionRequired}}
                 </div>
-            </div>
-            <button ion-button round type="submit" [disabled]="feedbackform.invalid" class="blue-btn">{{constant.buttons.submit}}</button>
+            </div> [disabled]="feedbackform.invalid" -->
+
+            <button ion-button round type="submit"  class="blue-btn">{{constant.buttons.submit}}</button>
         </form>
     </div>
 </div>
