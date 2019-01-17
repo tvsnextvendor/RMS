@@ -17,7 +17,7 @@ export class API_URL {
         //'getForum': '5c2de1e62f000085351752a0',
         'getForum': '5c31fa44350000d203ca9fd8',
         'getNotification': '5c2dddc32f0000a23017528f',
-        'getCertificates': '5c345c712e00004b00378da5',
+        'getCertificates': '5c40410e3500006f2eec3bf7',
         'getCalendars': '5c2475ea3000005b007a5fc4',
         /////'getComments': '5c31f64e3500000609ca9fcf',
         'getComments': '5c372a5a30000059001f628e',
@@ -31,7 +31,8 @@ export class API_URL {
        //---- 'getCourses': '5c34b6da2e00004e00379054',
         ////sheema'getCourses':'5c37251030000088001f625c',
        /////////6 'getCourses':'5c3842043100005200a98f0a',
-        'getCourses':'5c3eff543500005700ec35d9',
+        ///&&&&&&&'getCourses':'5c3eff543500005700ec35d9',
+        'getCourses':'5c403404350000512fec3ba9',
         //'getCourses':'5c35a5523000006f0021b3fc',
         'getQuiz': '5c2e1c4f2f0000fd54175475'
         // 'getCourses':'5c28b3923300004e00a58b88'

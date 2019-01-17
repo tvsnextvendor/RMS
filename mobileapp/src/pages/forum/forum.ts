@@ -28,7 +28,7 @@ export class ForumPage implements OnInit {
   ionViewDidEnter() {
     this.getForumDatas();
   }
-  ngOnInit() {
+  ngOnInit(){
 
   }
   goToForumDetail(detailObj, selectedIndex) {
