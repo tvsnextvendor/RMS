@@ -1,4 +1,5 @@
-<ion-header class="main-header my-component">
+<ion-content padding class="profile-bg default-header" >
+<ion-header class="main-header my-component static-header">
 	<!-- <ion-toolbar transparent>
 		<ion-icon name="ios-arrow-back" (click)="goToPrevious()"></ion-icon>
 		<p class="menu-tit">{{constant.title.profile}}</p>
@@ -19,8 +20,8 @@
 				   <p class="menu-tit">{{constant.title.profile}}</p>
 			   </ion-navbar> -->
 </ion-header>
-<ion-content padding class="profile-bg" *ngIf="currentUser">
-	<div class="max-wth">
+
+	<div class="max-wth main-content" *ngIf="currentUser">
 		<div class="profile-img">
 			<img src="../assets/images/images1.jpeg" class="profile-image">
 			<h4>{{currentUser.username}}</h4>

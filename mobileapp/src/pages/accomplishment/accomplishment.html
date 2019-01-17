@@ -1,4 +1,5 @@
-<ion-header class="my-component">
+<ion-content padding class="headerFull-bg default-header">
+<ion-header class="my-component static-header">
   <ion-navbar *ngIf="!showSearchBar">
     <button ion-button menuToggle>
        <img src="../assets/imgs/menu.png" />
@@ -16,7 +17,7 @@
         </ion-searchbar>
     </ion-navbar>
 </ion-header>
-<ion-content padding class="headerFull-bg">
+<div class="main-content">
   <div class="certificate-block">
     <h4 class="popup-tit">{{constant.pages.accomplishmentLabels.certificates}}</h4>
     <ion-slides #sliderOne [pager]="true" [slidesPerView]="2" class="certificate-slide" spaceBetween="1"
@@ -75,4 +76,6 @@
       </div>
     </div>
   </ng-template>
+
+</div>
 </ion-content>

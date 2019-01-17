@@ -1,4 +1,5 @@
-<ion-header>
+<ion-content padding class="headerFull-bg default-header">
+<ion-header class="static-header">
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -8,7 +9,7 @@
       </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding class="headerFull-bg">
+<div class="main-content">
   <ion-list>
     <ion-card class="forum-card" *ngFor="let notify of notificationList;let i=index;">
       <ion-grid>
@@ -30,4 +31,5 @@
       </ion-grid>
     </ion-card>
   </ion-list>
+</div>
 </ion-content>

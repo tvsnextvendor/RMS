@@ -1,4 +1,6 @@
-<ion-header  class="main-header my-component" color="primary" [scrollingHeader]='content'>
+
+<ion-content padding class="headerFull-bg default-header">
+<ion-header  class="main-header my-component static-header" color="primary" >
     <ion-navbar *ngIf="!showSearchBar">
     <button ion-button menuToggle>
        <img src="../assets/imgs/menu.png" />
@@ -17,7 +19,7 @@
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
-<ion-content padding class="headerFull-bg">
+<div class="main-content">
   <ion-list>
     <ion-row>
       <ion-col *ngFor="let forum of forumData; let i =index;" col-12 col-sm-6 col-md-4 class="main-forum">
@@ -41,4 +43,5 @@
       </ion-col>
     </ion-row>
   </ion-list>
+</div>
 </ion-content>

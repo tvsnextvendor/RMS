@@ -1,4 +1,9 @@
 page-settings {
+
+
+    ion-header.static-header {
+	background: transparent !important;
+}
 	  ion-header.header {
         padding: 0;
     }
@@ -79,7 +84,7 @@ page-settings {
 }
 .pwd-setting {
 	color: #fff;
-	    padding-top: 25px;
+	    padding-top: 0px;
 /*display: table-cell;
 padding-top: 60%; 
 width: calc(100vw - 10px);

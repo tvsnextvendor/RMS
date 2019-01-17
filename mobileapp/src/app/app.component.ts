@@ -28,28 +28,17 @@ export class MyApp {
       splashScreen.hide();
     });
     this.getDetails();
-    // platform.registerBackButtonAction(() => {
-    //  // let nav = this.app.getActiveNavs()[0];
-    //   if (this.nav.canGoBack()) { // CHECK IF THE USER IS IN THE ROOT PAGE.
-    //     this.nav.pop(); // IF IT'S NOT THE ROOT, POP A PAGE.
-    //   } else {
-    //     platform.exitApp(); // IF IT'S THE ROOT, EXIT THE APP.
-    //   }
-    // });
     console.log('ionViewWillEnter behaviour');
     this.platform.registerBackButtonAction(() => {
       // Catches the active view
       let nav = this.app.getActiveNavs()[0];
-
-      console.log('navigation behaviour');
-      console.log(nav);
       let activeView = nav.getActive();
-      console.log('navigation activeView');
-      console.log(activeView);
-      console.log(activeView.name);
-      console.log(activeView.id);
-      console.log(nav.canGoBack());
-      console.log(this.nav.canGoBack());
+      // console.log('navigation activeView');
+      // console.log(activeView);
+      // console.log(activeView.name);
+      // console.log(activeView.id);
+      // console.log(nav.canGoBack());
+      // console.log(this.nav.canGoBack());
       // Checks if can go back before show up the alert
       if (activeView.name === 'HomePage') {
         if (this.nav.canGoBack()) {
@@ -101,11 +90,10 @@ export class MyApp {
       { title: 'Library', component: LibraryPage },
       { title: 'Settings', component: SettingsPage }
     ];
-    //  this.appDetails();
+   
     this.windowWidth = window.screen.width;
   }
-  // ionViewWillEnter(){
-  // }
+ 
   openPage(page) {
     if(page.component === CalendarPage){
       this.platform.ready().then(() => {
