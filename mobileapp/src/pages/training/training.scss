@@ -2,9 +2,25 @@ page-training {
 	.scroll-content{
 		background-color: #e0e0e0;
 		 padding-left: 0px !important;
-        padding-top: 10px !important;
+        padding-top: 0px !important;
         padding-right: 0px !important;
+
 	}
+		ion-header {
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
+		background: rgb(33,131,185); /* Old browsers */
+		background: -moz-linear-gradient(left, rgba(33,131,185,1) 1%, rgba(50,156,214,1) 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(left, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
+	}
+	.toolbar-background {
+		background:transparent !important;
+		    border: none;
+	}
+	ion-header.header.header-ios {
+    padding-top: 20px;
+}
 	.headerFull-bg {
 		 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
         background: rgb(33,131,185); /* Old browsers */
@@ -24,8 +40,12 @@ page-training {
 		cursor: pointer;
 	}
 	ion-header.header {
-		padding: 0;
+		padding: 0 0 10px 0px;
+		    position: static;
 	}
+	ion-header.header.header-ios {
+    padding-top: 20px;
+}
 	  .main-forum {
         padding-left: 10px;
         padding-right: 10px;
