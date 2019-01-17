@@ -25,7 +25,7 @@
   <div [ngSwitch]="forumTopics">
     <ion-list *ngSwitchCase="'mostRecent'">
       <ion-row>
-        <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of recentList;let j=index;">
+        <ion-col col-12 col-md-6 col-sm-6 class="main-forum" *ngFor="let emp of recentList;let j=index;">
           <ion-card class="forum-card">
             <ion-grid>
               <ion-row (click)="hideShowDesc(recentList,j)">
@@ -151,7 +151,7 @@
     </ion-list>
     <ion-list *ngSwitchCase="'featuredFav'">
       <ion-row>
-        <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of favoriteList;let j=index;">
+        <ion-col col-12 col-md-6 col-sm-6 class="main-forum" *ngFor="let emp of favoriteList;let j=index;">
           <ion-card class="forum-card">
             <ion-grid>
               <ion-row (click)="hideShowDesc(favoriteList,j)">

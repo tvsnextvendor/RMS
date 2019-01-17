@@ -11,11 +11,9 @@
     </ion-title>
   </ion-navbar>
   <ion-navbar *ngIf="showSearchBar">
-      <ion-icon name="ios-arrow-back" (click)="toggleSearchBox()"></ion-icon>
-      <label class="item item-input">
-        <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+     <ion-icon name="md-arrow-back" class="search-backarrow" (click)="toggleSearchBox()"></ion-icon>
+        <ion-searchbar [(ngModel)]="search" ion-searchbar (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" class="search-bar">
         </ion-searchbar>
-      </label>
     </ion-navbar>
 </ion-header>
 <ion-content padding class="headerFull-bg">

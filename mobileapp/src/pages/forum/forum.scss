@@ -3,9 +3,7 @@ page-forum {
         padding-left: 0px !important;
         padding-top: 10px !important;
     }
-    .searchbar-search-icon {
-    display: none;
-}
+
     .notify-arrow {
         float: right;
         padding-top: 5px;
@@ -50,21 +48,5 @@ page-forum {
     width: 100%;
     float: right;
 }
-ion-toolbar ion-icon.ion-ios-arrow-back,ion-toolbar ion-icon.ion-md-arrow-back {
-      float: left;
-    font-size: 16pt;
-    line-height: 36px;
-    z-index: 1;
-    position: absolute;
-    left: 16px;
-        color: #329CD6;
-}
-.toolbar-content-ios .ion-md-arrow-back {
-    top: 8px;
-    left: 20px;
-}
-.searchbar-md .searchbar-input {
-    padding: 6px 30px;
-        font-size: 15px;
-    }
+
 }
