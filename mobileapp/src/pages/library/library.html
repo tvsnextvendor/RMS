@@ -1,4 +1,5 @@
-<ion-header [scrollingHeader]='content'>
+<ion-content padding class="headerFull-bg default-header">
+<ion-header class="static-header">
     <ion-navbar *ngIf="!showSearchBar">
       <button ion-button menuToggle>
         <img src="../assets/imgs/menu.png" />
@@ -22,7 +23,7 @@
           </ion-searchbar>
       </ion-toolbar>
   </ion-header>
-  <ion-content padding class="headerFull-bg">
+ 
     <!-- <div class="module-select">
       <div class="dropdown module-drpdwn">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"

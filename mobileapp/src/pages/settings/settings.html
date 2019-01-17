@@ -1,4 +1,5 @@
-<ion-header no-border [scrollingHeader]='content'>
+<ion-content padding class="change-password profile-bg default-header">
+<ion-header no-border class="static-header">
   <!-- <ion-toolbar transparent class="change-password-toolbar title-type2">
     <span class="back-arrow" (click)="goToPrevious()">
       <img src="../assets/imgs/Back.png" />
@@ -17,7 +18,7 @@
       </ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding class="change-password profile-bg">
+<div class="main-content">
   <form novalidate (ngSubmit)="submit()" [formGroup]="settingsForm">
     <div class="pwd-setting px-5">
       <ion-row class="pwd-inner">
@@ -162,4 +163,5 @@
     </div>
 
   </form>
+</div>
 </ion-content>

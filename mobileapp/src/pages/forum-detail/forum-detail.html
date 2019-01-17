@@ -1,4 +1,6 @@
-<ion-header class="main-header my-component" [scrollingHeader]='content'>
+
+<ion-content padding class="headerFull-bg default-header">
+<ion-header class="main-header my-component static-header" >
   <ion-navbar transparent class="details-page-toolbar title-type2">
     <span class="back-arrow" (click)="goBackLevel()"> 
 <img src="../assets/imgs/Back.png" />
@@ -21,7 +23,7 @@
     </ion-segment>
   </div>
 </ion-header>
-<ion-content padding class="headerFull-bg">
+<div class="main-content">
   <div [ngSwitch]="forumTopics">
     <ion-list *ngSwitchCase="'mostRecent'">
       <ion-row>
@@ -266,6 +268,7 @@
       </div>
     </form>
   </ng-template>
+</div>
 </ion-content>
 <div class="fixed-btn" *ngIf="hideQuestionBtn">
   <button ion-button round class="add-question" (click)="openModal(template)">

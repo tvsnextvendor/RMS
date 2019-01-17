@@ -22,11 +22,6 @@ export class CalendarPage implements OnInit {
     console.log(this.calendarIdUnique);
 
     this.plt.ready().then(() => {
-      /* this.calendar.listCalendars().then(data => {
-         this.calendars = data;
-       });
-      this.openCalendar();
-      this.deleteCalendar();*/
       this.createCalendar();
     });
   }

@@ -1,4 +1,7 @@
-<ion-header class="main-header my-component" color="primary" [scrollingHeader]='content'>
+
+
+<ion-content padding class="headerFull-bg default-header">
+<ion-header class="static-header main-header my-component" color="primary" >
   <ion-navbar>
     <button ion-button menuToggle>
       <img src="../assets/imgs/menu.png" />
@@ -12,7 +15,7 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding class="headerFull-bg">
+<div class="main-content">
   <div class="current-day">
     <h3> {{constant.pages.dashboardLabels.goodMrng}}, Vernon</h3>
     <!-- <p class="day-detail">
@@ -214,6 +217,7 @@
       </ion-row>
     </ion-grid>
   </section>
+</div>
   <!-- <section class="certification-section">
 <p class="section-title">{{constant.pages.dashboardLabels.certification}}</p>
 <ion-grid class="status-grid no-padding">

@@ -2,6 +2,7 @@ page-forum {
     .scroll-content{
         padding-left: 0px !important;
         padding-top: 10px !important;
+        
     }
 
     .notify-arrow {
@@ -40,10 +41,13 @@ page-forum {
     .forum-content {
         padding-left: 15px;
     }
-    .main-forum {
+    .list-ios {
+        margin: 16px 0 32px;
+    }
+   /* .main-forum {
         padding-left: 16px;
         padding-right: 0;
-    }
+    }*/
 .search-bar {
     width: 100%;
     float: right;
