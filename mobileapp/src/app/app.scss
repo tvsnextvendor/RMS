@@ -65,6 +65,31 @@ a,.alert-md .alert-button .button-inner, .alert-ios .alert-button {
 }
 .toolbar-content-md .back-arrow img,.toolbar-content-ios .back-arrow img {
     margin-left: 9px;
+    margin-right: 15px;
+
+}
+.title-type2 .title-ios .inner-title {
+    margin-left: 12px;
+}
+ion-header ion-icon.search-backarrow,ion-header ion-icon.search-backarrow {
+      float: left;
+    font-size: 16pt;
+    line-height: 36px;
+    z-index: 1;
+    position: absolute;
+    left: 16px;
+        color: #329CD6;
+}
+.toolbar-content-ios .ion-md-arrow-back.search-backarrow {
+    top: 8px;
+    left: 20px;
+}
+.searchbar-md .searchbar-input {
+    padding: 6px 30px;
+        font-size: 15px;
+    }
+        .searchbar-search-icon {
+    display: none;
 }
 /*******************sidebar style *******************/
 .sidebar-list .label-ios, .sidebar-list .label-md{
@@ -155,11 +180,17 @@ margin-top: 12px;
 }
 .title-type2.toolbar-md ion-title{
         margin-top: -4px;
-        padding: 0 20px 0 20px;
+        padding: 0 20px 0 0px;
 }
 .back-arrow img {
     width: 11px;
     float: left;
+}
+.back-arrow {
+    display: inline-block;
+    float: left;
+    position: relative;
+    z-index: 5;
 }
 /******************************** module dropdowm ****************/
 .module-select {
