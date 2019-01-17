@@ -95,6 +95,9 @@ export class UserComponent implements OnInit {
     }
 
     designationUpdate(data, designation) {
+        if (data == "") {
+            this.designationData = [];
+        }
         this.designation = '';
         this.department = data !== "null" ? data : '';
         this.designationArray.forEach(item => {
