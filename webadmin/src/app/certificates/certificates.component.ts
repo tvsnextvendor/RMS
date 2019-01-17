@@ -163,6 +163,7 @@ export class CertificatesComponent implements OnInit {
         if (batchId.length > 1) {
             for (let i = 1; i < batchId.length; i++) {
                 if (batchId[i] == last) {
+                    window.scrollTo(0, 0);
                     this.alertService.error(this.constant.assignErrMsg);
                     // this.toastr.error(this.constant.assignErrMsg);
                 } else {
