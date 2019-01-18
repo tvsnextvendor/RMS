@@ -35,12 +35,15 @@ export class CertificateVar {
     uploadErrMsg = 'Template File is mandatory';
     assignSuccessMsg = 'Template Assigned Successfully';
     assignErrMsg = 'Invalid Batch Selection';
+    badgeSuccessMsg = 'Badges Selected Successfully';
     badgepercentageError = 'Badge pass percentage already assigned';
+    badgeRequiredMsg = 'Select All Badge Percentages';
     url;
     certificateList;
     courseList;
     badgePercentage;
     showUploadErrMsg = false;
+    badgesRequired = false;
     tempName;
     fileToUpload: File = null;
     diamond = null;

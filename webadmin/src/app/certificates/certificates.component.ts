@@ -58,6 +58,7 @@ export class CertificatesComponent implements OnInit {
     }
 
     badgePercentageUPdate(name, value) {
+        this.constant.badgesRequired = false;
         if (this.percentageArray.length) {
             let index = this.percentageArray.find(x => x.value === value);
             if (index) {
@@ -160,10 +161,10 @@ export class CertificatesComponent implements OnInit {
         let batchId = this.constant.templateAssign.map(function (item) { return item.program });
         batchId.sort();
         let last = batchId[0];
+        window.scrollTo(0, 0);
         if (batchId.length > 1) {
             for (let i = 1; i < batchId.length; i++) {
                 if (batchId[i] == last) {
-                    window.scrollTo(0, 0);
                     this.alertService.error(this.constant.assignErrMsg);
                     // this.toastr.error(this.constant.assignErrMsg);
                 } else {
@@ -179,6 +180,32 @@ export class CertificatesComponent implements OnInit {
             this.alertService.success(this.constant.assignSuccessMsg);
             //this.toastr.success(this.constant.assignSuccessMsg);
         }
+    }
+
+    //Batch percentage selection
+    batchSelection(form) {
+        const badges = form.value;
+        if (badges.gold != null && badges.diamond != null && badges.silver != null && badges.bronze != null) {
+            window.scrollTo(0, 0);
+            this.alertService.success(this.constant.badgeSuccessMsg);
+            this.clearbatchSelection();
+        } else {
+            this.constant.badgesRequired = true;
+        }
+    }
+
+    //Reset Badge Form
+    clearbatchSelection() {
+        this.constant.diamond = null;
+        this.constant.gold = null;
+        this.constant.silver = null;
+        this.constant.bronze = null;
+        this.percentageArray = [];
+        this.constant.badgesRequired = false;
+        this.percentageTakenError.diamond = false;
+        this.percentageTakenError.gold = false;
+        this.percentageTakenError.silver = false;
+        this.percentageTakenError.bronze = false;
     }
 
     //Reset Form
