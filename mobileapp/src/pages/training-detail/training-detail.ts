@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input ,ElementRef} from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
 import { Constant } from '../../constants/Constant.var';
@@ -12,6 +12,7 @@ import { ToastrService } from '../../service/toastrService';
 export class TrainingDetailPage {
 
     @ViewChild(Slides) slides: Slides;
+    @ViewChild("videoTag") videotag: ElementRef;
     trainingDatas: any;
     detailObject;
     selectedIndexs: number;
@@ -126,6 +127,8 @@ export class TrainingDetailPage {
         this.initial = this.initial + 1;
         this.setTraining = this.trainingDatas[this.initial];
         this.setTraining.fileLink = this.getFileExtension(this.setTraining.fileLink);
+        const htmlVideoTag = this.videotag.nativeElement;
+        htmlVideoTag.load();
         this.text = this.setTraining.fileDescription;
         this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
     }
@@ -137,6 +140,8 @@ export class TrainingDetailPage {
             this.setTraining = this.trainingDatas[this.initial];
             this.text = this.setTraining.fileDescription;
             this.setTraining.fileLink = this.getFileExtension(this.setTraining.fileLink);
+            const htmlVideoTag = this.videotag.nativeElement;
+            htmlVideoTag.load();
             this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
         }
     }

@@ -57,7 +57,7 @@
             <img src="{{setTraining.fileLink}}" alt="image" class="inner-image">
         </div>
         <div class="video-tag" *ngIf="!imageType">
-            <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
+            <video #videoTag id="video-width" class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
             playsinline class="videoPlayer" poster="{{setTraining.featuredImage}}">
             <source src="{{setTraining.fileLink}}" type="video/mp4" />
         </video>
