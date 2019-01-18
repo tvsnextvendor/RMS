@@ -48,9 +48,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
-                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.employeeId }}</label><span><input
-                                *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter Emp ID"
-                                [(ngModel)]="userId" name="userId" #user="ngModel" (keyup)="validationUpdate('userId')" /><span
+                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.employeeId }}</label><span>
+                            <input *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter Emp ID"
+                                [(ngModel)]="userId" name="userId" #user="ngModel" (keyup)="validationUpdate(mf.data,'userId')" /><span
                                 class="required_color" *ngIf="videoSubmitted && user.editEnable && !userId">{{constant.mandatoryText.empId}}</span><span
                                 class="required_color" *ngIf="videoSubmitted && user.editEnable && userId && validUserId">{{constant.mandatoryText.empIdExist}}</span></span></td>
                     <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.employeeName }}</label><span><input
@@ -76,17 +76,17 @@
                     </td>
                     <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.emailId }}</label><span><input
                                 *ngIf="user.editEnable" type="email" class="form-control" placeholder="Enter Email"
-                                [(ngModel)]="emailAddress" name="emailAddress" #email="ngModel" (keyup)="validationUpdate('email')" /><span
+                                [(ngModel)]="emailAddress" name="emailAddress" #email="ngModel" (keyup)="validationUpdate(mf.data,'email')" /><span
                                 class="required_color" *ngIf="videoSubmitted && user.editEnable && !emailAddress">{{constant.mandatoryText.emailId}}</span><span
                                 class="required_color" *ngIf="videoSubmitted && user.editEnable && emailAddress && validEmail">{{constant.mandatoryText.emailInvalid}}</span></span></td>
                     <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.mobile }}</label><span><input
                                 *ngIf="user.editEnable" type="text" class="form-control Number-width" placeholder="Enter Mobile Number"
-                                [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate('mobile')" /><span
+                                [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate(mf.data,'mobile')" /><span
                                 class="required_color" *ngIf="videoSubmitted && user.editEnable && !phoneNumber">{{constant.mandatoryText.mobNo}}</span><span
                                 class="required_color" *ngIf="videoSubmitted &&  user.editEnable && phoneNumber && validPhone">
                                 {{constant.mandatoryText.invalidMobNo}}</span></span></td>
-                    <td class="vat user-desc"><a *ngIf="!user.editEnable" (click)="userEdit(user,i)"><i class="fa fa-pencil header-icon"></i></a><a
-                            *ngIf="user.editEnable" (click)="userUpdate(user,i)"><i class="fa fa-check upload-crt-icon"
+                    <td class="vat user-desc"><a *ngIf="!user.editEnable" (click)="userEdit(mf.data,user,i)"><i class="fa fa-pencil header-icon"></i></a><a
+                            *ngIf="user.editEnable" (click)="userUpdate(mf.data,user,i)"><i class="fa fa-check upload-crt-icon"
                                 aria-hidden="true"></i></a></td>
                     <td class="vat user-desc"><a *ngIf="!user.editEnable" (click)="removeUser(user,i)"><i class="fa fa-trash header-icon"></i></a><a
                             *ngIf="user.editEnable" (click)="cancelEdit(user,i)"><i class="fa fa-times upload-wrg-icon"
