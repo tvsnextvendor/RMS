@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { AppComponent } from './app.component';
@@ -25,7 +25,14 @@ import { UserModule } from './user/user.module';
 import { AlertService } from './services/alert.service';
 import { AlertComponent } from './alert.component';
 import { EmailModule } from './email/email.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
+
+const routes: Routes = [
+  { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'resetpassword/:id', component: ResetpasswordComponent }
+];
 
 @NgModule({
   declarations: [
@@ -36,7 +43,6 @@ import { EmailModule } from './email/email.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     CommonModule,
     moduleModule,
     BrowserAnimationsModule,
@@ -54,7 +60,8 @@ import { EmailModule } from './email/email.module';
     FormsModule,
     EmployeeModule,
     UserModule,
-    EmailModule
+    EmailModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [AuthGuard, AlertService],
   bootstrap: [AppComponent]
