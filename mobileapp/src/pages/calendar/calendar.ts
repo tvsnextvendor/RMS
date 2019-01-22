@@ -21,9 +21,11 @@ export class CalendarPage implements OnInit {
     console.log(this.calendarShowEnable);
     console.log(this.calendarIdUnique);
 
-    this.plt.ready().then(() => {
-      this.createCalendar();
-    });
+   // this.checkCalendarPromiseMethod();
+
+     this.plt.ready().then(() => {
+    //   this.createCalendar();
+     });
   }
   ngOnInit() {
     console.log('entered');
@@ -56,6 +58,33 @@ export class CalendarPage implements OnInit {
     );
   }
 
+    // Via Promise
+    error = false;
+    doAsyncTask() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (this.error) {
+            reject('error');
+          } else {
+            resolve('done');
+          }
+        }, 1000);
+      });
+    }
+  checkCalendarPromiseMethod()
+  {
+      this.doAsyncTask().then(
+          (val) => console.log(val),
+          (err) => console.error(err)
+      );
+      // Immediately Resolved Promise
+      let promise = Promise.resolve('done');
+      promise.then((val) => console.log(val)); 
+      Promise.resolve('done')
+         // .then((val) => {throw new Error("fail")})
+          .then((val) => console.log(val))
+          .catch((err) => console.error(err));
+  }
   createCalendar() {
 
     var self = this;
@@ -109,7 +138,6 @@ export class CalendarPage implements OnInit {
     var self = this;
     calendarArray.map(function (value, key) {
       self.addEventWithOptions(value).then(function (respCollect) {
-
         console.log('Total Response Collected here');
         console.log(respCollect);
       });
