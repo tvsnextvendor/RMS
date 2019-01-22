@@ -214,7 +214,7 @@ export class TrainingDetailPage {
             }
             let baseUrl = 'file:///android_asset/www/';
             //For IOS platform 
-            // baseUrl = location.href.replace("/index.html", ""); 
+            // let baseUrl = location.href.replace("/index.html", ""); 
             this.document.viewDocument(baseUrl + docFile, docType, options);
         } else {
             this.toastr.error("Please agree acknowledgement to view content"); return false;

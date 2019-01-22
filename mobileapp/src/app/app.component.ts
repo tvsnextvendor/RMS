@@ -33,48 +33,29 @@ export class MyApp {
       // Catches the active view
       let nav = this.app.getActiveNavs()[0];
       let activeView = nav.getActive();
-      // console.log('navigation activeView');
-      // console.log(activeView);
-      // console.log(activeView.name);
-      // console.log(activeView.id);
-      // console.log(nav.canGoBack());
-      // console.log(this.nav.canGoBack());
+     
       // Checks if can go back before show up the alert
       if (activeView.name === 'HomePage') {
-        if (this.nav.canGoBack()) {
-          this.nav.pop();
-        }
+        if(this.nav.canGoBack()) { this.nav.pop();}
       } else if (activeView.name === 'TrainingPage') {
-
-        console.log('in training page');
         this.nav.setRoot('home-page');
       }
       else if (activeView.name === 'ForumPage') {
-
-        console.log('in forum page');
         this.nav.setRoot('training-page');
       }
       else if (activeView.name === 'AccomplishmentPage') {
-
-        console.log('in AccomplishmentPage page');
         this.nav.setRoot('home-page');
       }
       else if (activeView.name === 'EventPage') {
-
-        console.log('in EventPage page');
         this.nav.setRoot('forum-page');
       }
       else if (activeView.name === 'LibraryPage') {
-
-        console.log('in LibraryPage page');
         this.nav.setRoot('event-page');
       }
       else if (activeView.name === 'SettingsPage') {
-        console.log('in SettingsPage page');
         this.nav.setRoot('library-page');
       }
       else {
-        console.log('back history');
         //this.nav.backHistory();
         // this.nav.pop({});
         this.nav.setRoot('home-page');
@@ -90,10 +71,8 @@ export class MyApp {
       { title: 'Library', component: LibraryPage },
       { title: 'Settings', component: SettingsPage }
     ];
-   
     this.windowWidth = window.screen.width;
   }
- 
   openPage(page) {
     if(page.component === CalendarPage){
       this.platform.ready().then(() => {
@@ -134,13 +113,10 @@ export class MyApp {
     console.log(versionCode);
     console.log(versionNumber);
   }
-
-
   //Calendar Options Formations Functions 
   calendarIdUnique;
   calendars;
   openCalendar() {
-
     this.calendar.openCalendar(new Date()).then(
       (msg) => {
         console.log("open calendar");
@@ -152,9 +128,7 @@ export class MyApp {
       }
     );
   }
-
   createCalendar() {
-
     var self = this;
     this.calendar.createCalendar('RMS Calendar').then(
       (msg) => {
