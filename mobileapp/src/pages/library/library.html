@@ -52,7 +52,7 @@
       </a>
     </div> -->
  
-      <ion-row>
+      <ion-row *ngIf="completeCoursesList.length > 0">
         <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of completeCoursesList;let i=index;" (click)="openTrainingDetail(task,i,'assigned')"
           class="main-forum">
           <ion-card class="training-list">
@@ -86,8 +86,7 @@
           </ion-card>
         </ion-col>
       </ion-row>
-
-   
-
-   
+      <div *ngIf="completeCoursesList.length === 0">
+        <img src="../assets/imgs/norecordsfound.png" class="no-records" />
+      </div>
   </ion-content>

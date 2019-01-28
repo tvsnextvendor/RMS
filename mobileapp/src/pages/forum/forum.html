@@ -12,7 +12,6 @@
       </div>
     </ion-title>
   </ion-navbar>
-  
   <ion-toolbar *ngIf="showSearchBar">
     <ion-icon name="md-arrow-back" class="search-backarrow" (click)="toggleSearchBox()"></ion-icon>
     <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" class="search-bar">
@@ -21,7 +20,7 @@
 </ion-header>
 <div class="main-content">
   <ion-list>
-    <ion-row>
+    <ion-row *ngIf="forumData.length > 0">
       <ion-col *ngFor="let forum of forumData; let i =index;" col-12 col-sm-6 col-md-4 class="main-forum">
         <ion-card class="forum-card">
           <ion-card-content (click)="goToForumDetail(forum,i)" class="forum-card">
@@ -43,5 +42,6 @@
       </ion-col>
     </ion-row>
   </ion-list>
+  <img *ngIf="forumData.length == 0" src="../assets/imgs/norecordsfound.png" class="no-records" />
 </div>
 </ion-content>

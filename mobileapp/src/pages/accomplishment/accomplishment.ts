@@ -5,6 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
+import { LoaderService } from '../../service/loaderService';
 
 @IonicPage({
   name: 'accomplishment-page'
@@ -18,7 +19,7 @@ export class AccomplishmentPage implements OnInit {
 
   @ViewChild('sliderOne') sliderOne: Slides;
   @ViewChild('sliderTwo') sliderTwo: Slides;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, private modalService: BsModalService, private http: HttpProvider, public API_URL: API_URL) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, private modalService: BsModalService, private http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {
 
   }
   modalRef: BsModalRef;
@@ -40,6 +41,8 @@ export class AccomplishmentPage implements OnInit {
     console.log('ionViewDidLoad AccomplishmentPage');
   }
   ngOnInit() {
+  }
+  ionViewDidEnter() {
     this.getCertificates();
   }
   onSlideCertChanged() {
@@ -91,7 +94,9 @@ export class AccomplishmentPage implements OnInit {
     this.modalRef.setClass('badge-popup');
   }
   getCertificates() {
+    this.loader.showLoader();
     this.http.getData(API_URL.URLS.getCertificates).subscribe((data) => {
+      this.loader.hideLoader();
       if (data['isSuccess']) {
         this.certificateList = data['certificateList'];
         this.badgeList = data['badgeList'];
@@ -105,9 +110,14 @@ export class AccomplishmentPage implements OnInit {
     console.log("On input");
     console.log($e);
     console.log(this.search);
-    if (this.search) {
+    if (this.search != '') {
+
+      console.log("On input if");
+      this.certificateList = [];
+      this.badgeList = [];
       /*this.certificateList = this.certificateList.filter(val => val.forumName === this.search);*/
     } else {
+      console.log("On input else");
       this.showSearchBar = false;
       this.getCertificates();
     }

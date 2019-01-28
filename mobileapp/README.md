@@ -46,3 +46,5 @@ Production Build
 ionic cordova run android --prod
 ionic cordova run ios     --prod
 
+cordova plugin add cordova-plugin-linkedin --variable APP_ID=5415155
+

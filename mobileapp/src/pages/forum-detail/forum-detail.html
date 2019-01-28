@@ -250,7 +250,7 @@
         <span aria-hidden="true">&times;</span>
       </button> -->
     </div>
-    <form novalidate (ngSubmit)="questionSubmit()" [formGroup]="QuestionForm">
+    <form novalidate (ngSubmit)="questionSubmit(QuestionForm)" [formGroup]="QuestionForm">
       <div class="modal-body">
         <ion-item class="textarea-item">
           <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty"

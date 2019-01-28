@@ -83,9 +83,11 @@ export class ForumDetailPage implements OnInit {
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
-  questionSubmit() {
+  questionSubmit(QuestionForm) {
     console.log(this.forum);
     this.toastr.success("Question Saved Successfully");
+    this.forum.question = '';
+    QuestionForm.reset();
     this.modalRef.hide();
   }
   likeUnlikeQuestion(emp, j) {

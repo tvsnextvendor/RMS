@@ -22,7 +22,7 @@ export class MyApp {
   currentUser;
   windowWidth;
   profilePage = { title: 'Profile', component: ProfilePage };
-  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, private appVersion: AppVersion, public storage: Storage, public constant: Constant, public app: App,public calendar:Calendar,public API_URL:API_URL,public http:HttpProvider) {
+  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, public appVersion: AppVersion, public storage: Storage, public constant: Constant, public app: App,public calendar:Calendar,public API_URL:API_URL,public http:HttpProvider) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -54,6 +54,15 @@ export class MyApp {
       }
       else if (activeView.name === 'SettingsPage') {
         this.nav.setRoot('library-page');
+      }
+      else if (activeView.name === 'LoginPage') {
+        this.nav.setRoot('landing-page');
+      }
+      else if (activeView.name === 'SignupPage') {
+        this.nav.setRoot('login-page');
+      }
+      else if (activeView.name === 'ForgetPage'){
+        this.nav.setRoot('login-page');
       }
       else {
         //this.nav.backHistory();
@@ -104,14 +113,14 @@ export class MyApp {
       });
   }
   appDetails() {
-    let appName = this.appVersion.getAppName();
-    let packageName = this.appVersion.getPackageName();
-    let versionCode = this.appVersion.getVersionCode();
-    let versionNumber = this.appVersion.getVersionNumber();
-    console.log(appName);
-    console.log(packageName);
-    console.log(versionCode);
-    console.log(versionNumber);
+    // let appName = this.appVersion.getAppName();
+    // let packageName = this.appVersion.getPackageName();
+    // let versionCode = this.appVersion.getVersionCode();
+    // let versionNumber = this.appVersion.getVersionNumber();
+    // console.log(appName);
+    // console.log(packageName);
+    // console.log(versionCode);
+    // console.log(versionNumber);
   }
   //Calendar Options Formations Functions 
   calendarIdUnique;
