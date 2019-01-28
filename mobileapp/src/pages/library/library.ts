@@ -17,6 +17,7 @@ import { LoaderService } from '../../service/loaderService';
   providers: [Constant]
 })
 export class LibraryPage {
+  search;
   training;
   assignedList;
   inprogressList;
@@ -171,7 +172,6 @@ export class LibraryPage {
     this.progressCoursesList = this.allProgramsProgressCourses;
     this.completeCoursesList = this.allProgramsCompletedCourses;
     this.totalCount = this.allCourses.length;
-
   }
   selectedCourses(moduleId, status) {
     this.resetToAllCourses();
@@ -219,6 +219,30 @@ export class LibraryPage {
   }
   goToNotification() {
     this.navCtrl.setRoot('notification-page');
+  }
+  onInput($e) {
+    console.log("On input");
+    console.log($e);
+    console.log(this.search);
+    if (this.search !== '') {
+      console.log("On here searched");
+      this.completeCoursesList = [];
+     // this.forumData = this.forumData.filter(val => val.forumName === this.search);
+    } else {
+      this.showSearchBar = false;
+      this.completeCoursesList = this.allProgramsCompletedCourses;
+      this.totalCount = this.completeCoursesList.length;
+    }
+  }
+  onCancel($e) {
+    
+    console.log("On Cancel");
+    this.showSearchBar = false;
+    console.log(this.allProgramsCompletedCourses);
+    this.completeCoursesList = [];
+    this.completeCoursesList = this.complet;
+    this.totalCount = this.complet.length;
+    console.log($e);
   }
 }
 

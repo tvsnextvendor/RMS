@@ -18,7 +18,7 @@
     </ion-navbar>
 </ion-header>
 <div class="main-content">
-  <div class="certificate-block">
+  <div class="certificate-block" *ngIf="certificateList.length > 0">
     <h4 class="popup-tit">{{constant.pages.accomplishmentLabels.certificates}}</h4>
     <ion-slides #sliderOne [pager]="true" [slidesPerView]="2" class="certificate-slide" spaceBetween="1"
       (ionSlideDidChange)="onSlideCertChanged()">
@@ -33,7 +33,7 @@
       <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon disabledSliderIcon" *ngIf="!rightButton"></ion-icon>
     </span>
   </div>
-  <div class="badge-block">
+  <div class="badge-block"  *ngIf="badgeList.length > 0">
     <h4 class="popup-tit badge-tit">{{constant.pages.accomplishmentLabels.badges}}</h4>
     <ion-slides #sliderTwo [pager]="true" [slidesPerView]="3" class="badge-slide" spaceBetween="1" (ionSlideDidChange)="onSlideBadgeChanged()">
       <ion-slide *ngFor="let item of badgeList;let i=index;" class="badge-indv-slide badge-inner">
@@ -49,6 +49,9 @@
       <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon" (click)="sliderTwo.slideNext()" *ngIf="badgeRigBtn"></ion-icon>
       <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon disabledSliderIcon" *ngIf="!badgeRigBtn"></ion-icon>
     </span>
+  </div>
+  <div class="norecord"  *ngIf="badgeList.length === 0 && certificateList.length === 0">
+    <img src="../assets/imgs/norecordsfound.png" class="no-records" />
   </div>
   <ng-template #badgetemplate>
     <div class="modal-body">
