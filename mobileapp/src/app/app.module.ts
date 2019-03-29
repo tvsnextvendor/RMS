@@ -4,20 +4,22 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
-
 import { HttpClientModule } from '@angular/common/http';
-import { LoginPageModule } from '../pages/login/login.module';
-import { HomePageModule } from '../pages/home/home.module';
-import { TrainingPageModule } from '../pages/training/training.module';
-import { TrainingDetailPageModule } from '../pages/training-detail/training-detail.module';
-import { QuizPageModule } from '../pages/quiz/quiz.module';
-import { QuizResultModule } from '../pages/quiz-result/quiz-result.module';
+
+import { GooglePlus } from '@ionic-native/google-plus';
+import { LinkedIn } from '@ionic-native/linkedin';
+import { Calendar } from '@ionic-native/calendar';
+import { DocumentViewer } from '@ionic-native/document-viewer';
+
+import { AccomplishmentPageModule, CalendarPageModule, EventPageModule, ForgetPageModule, ForumPageModule, HomePageModule, LandingPageModule, LoginPageModule, ProfilePageModule, QuizPageModule, QuizResultModule, SettingsPageModule, SignupPageModule, TrainingPageModule, TrainingDetailPageModule, NotificationPageModule, ForumDetailPageModule ,ModalPageModule,LibraryPageModule} from '../pages';
 
 import { API } from '../constants/API.var';
 import { API_URL } from '../constants/API_URLS.var';
 import { MyApp } from './app.component';
 import { HttpProvider } from '../providers/http/http';
 import { AuthProvider } from '../providers/auth/auth';
+import { LoaderService } from '../service/loaderService';
+import { ToastrService } from '../service/toastrService';
 
 
 @NgModule({
@@ -28,13 +30,29 @@ import { AuthProvider } from '../providers/auth/auth';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot(
+      // {name: '__mydb',driverOrder: ['indexeddb', 'sqlite', 'websql']}
+    ),
+    SignupPageModule,
     LoginPageModule,
+    ForgetPageModule,
     HomePageModule,
     TrainingPageModule,
     TrainingDetailPageModule,
     QuizPageModule,
-    QuizResultModule
+    QuizResultModule,
+    ForumPageModule,
+    SettingsPageModule,
+    ProfilePageModule,
+    CalendarPageModule,
+    LandingPageModule,
+    AccomplishmentPageModule,
+    EventPageModule,
+    NotificationPageModule,
+    ModalPageModule,
+    ForumDetailPageModule,
+    LibraryPageModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,7 +65,13 @@ import { AuthProvider } from '../providers/auth/auth';
     API,
     API_URL,
     HttpProvider,
-    AuthProvider
+    AuthProvider,
+    LoaderService,
+    ToastrService,
+    GooglePlus,
+    LinkedIn,
+    Calendar,
+    DocumentViewer
   ]
 })
 export class AppModule { }

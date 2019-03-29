@@ -1,55 +1,43 @@
-//import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpProvider } from '../http/http';
-import { ToastController } from 'ionic-angular';
-import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
+import { HttpProvider } from '../http/http';
+import { API_URL } from '../../constants/API_URLS.var';
+import {ToastrService} from '../../service/toastrService';
+
 export interface User {
   name: string;
   role: number;
 }
-/*
-  Generated class for the AuthProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthProvider {
   currentUserSet: User;
   users: any = [];
-  constructor(public http: HttpProvider, public toastCtrl: ToastController,public storage: Storage) {
+  loginEmailError;
+  loginPassErr;
+  
+  constructor(public http: HttpProvider, public toastr: ToastrService, public storage: Storage) {
     console.log('Hello AuthProvider Provider');
   }
-  login(name: string, pw: string): Promise<boolean> {
+  login(name: string, pw: string, keepmelogin: boolean): Promise<boolean> {
     var self = this;
     return new Promise((resolve, reject) => {
-
       this.http.getData(API_URL.URLS.getUsers).subscribe((data) => {
-        if (data) {
-          this.users = data;
-          let usernameCorrect = this.users.find(x => x.username === name);
+        if (data['isSuccess']) {
+          this.users = data['UserList'];
+          let usernameCorrect = this.users.find(x => x.emailAddress === name);
           let passwordCorrect = this.users.find(x => x.password === pw);
-
           if (!usernameCorrect) {
-            let toast = self.toastCtrl.create({
-              message: 'Username is invalid',
-              duration: 2000,
-              position: 'top',
-              cssClass: 'error'
-            });
-            toast.present();
+           // self.toastr.error('Email ID is invalid');
+            self.loginEmailError = "Email ID is invalid";
             reject(false);
           } else if (!passwordCorrect) {
-            let toast = self.toastCtrl.create({
-              message: 'Password is invalid',
-              duration: 2000,
-              position: 'top',
-              cssClass: 'error'
-            });
-            toast.present();
+            //self.toastr.error('Password is invalid');
+            self.loginPassErr = "Password is invalid";
             reject(false);
           } else {
+            this.storage.set('currentUser', usernameCorrect).then(() => {
+              console.log('currentUser has been set');
+            });
             this.currentUserSet = {
               name: name,
               role: 0
@@ -65,7 +53,22 @@ export class AuthProvider {
   }
   logout() {
     this.currentUserSet = null;
-    this.storage.remove('userDashboardInfo');
+    this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
+    this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
   }
-
+  getCurrentUserDetails(){
+     let self = this;
+      return new Promise((resolve, reject) => {
+        self.storage.get('currentUser').then(
+        (val) => {
+          if (val) {
+            self.currentUserSet = val
+            resolve(self.currentUserSet);
+          }
+        }, (err) => {
+          reject(err);
+          console.log('currentUser not received in app.component.ts', err);
+        });
+      });
+  }
 }

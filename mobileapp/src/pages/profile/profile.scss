@@ -1,0 +1,60 @@
+page-profile {
+	ion-header.static-header {
+		background: transparent !important;
+	}
+	.profile-bg{
+		background: url(../assets/imgs/loginbg.png);
+		background-size: cover;
+		background-repeat: no-repeat;
+		.list-ios {
+			margin: 0px 0 16px;
+
+		}
+		.scroll-content{
+			background-color: transparent;
+		}
+		.item.item-block,{
+			background: transparent ;
+			border: none;
+		}
+
+	}
+	ion-header {
+    padding: 0;
+}
+	.toolbar-background {
+		background: transparent !important;	
+		border: none !important;
+	}
+	.profile-img {
+		text-align: center;
+		color: #fff;
+		margin-bottom: 20px;
+	}
+	ion-list.profile-details p, ion-list.profile-details small {
+		color: #fff;
+	}
+	ion-icon {
+
+		color: #fff;
+	}
+	.profile-details ion-icon {
+		line-height: 40px;
+	}
+	.profile-info {
+		padding-left: 20px;
+	}
+	.pwd-setting {
+    padding-top: 200px;
+    color: #fff;
+}
+.toolbar-content-ios p, ion-toolbar p.menu-tit{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.list-ios .item-block .item-inner ,.list-md .item-block .item-inner{
+    border-bottom: 0.55px solid rgba(241, 249, 255,0.60);
+}
+
+
+}

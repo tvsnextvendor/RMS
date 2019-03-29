@@ -1,19 +1,19 @@
 {
-  "_from": "cordova-sqlite-storage",
+  "_from": "cordova-sqlite-storage@2.5.2",
   "_id": "cordova-sqlite-storage@2.5.2",
   "_inBundle": false,
   "_integrity": "sha512-v9As2sH4Ua16z+1fc2DZHOzAt1z6YHhG340Eg2+THRtXi5vfxD/khu9ZT5M0e/v+0/2oO1ivB3o7YUXM/jk+8g==",
   "_location": "/cordova-sqlite-storage",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "cordova-sqlite-storage",
+    "raw": "cordova-sqlite-storage@2.5.2",
     "name": "cordova-sqlite-storage",
     "escapedName": "cordova-sqlite-storage",
-    "rawSpec": "",
+    "rawSpec": "2.5.2",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "2.5.2"
   },
   "_requiredBy": [
     "#USER",
@@ -21,8 +21,8 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-sqlite-storage/-/cordova-sqlite-storage-2.5.2.tgz",
   "_shasum": "408c88992f2680a5aa285dbb30358e1e4a955d5d",
-  "_spec": "cordova-sqlite-storage",
-  "_where": "/Users/webmc003/EEE/tvs-app",
+  "_spec": "cordova-sqlite-storage@2.5.2",
+  "_where": "/Users/webmc003/CCC/RMS/mobileapp",
   "author": {
     "name": "various"
   },

@@ -1,12 +1,21 @@
-page-training-detail .scroll-content {
+page-training-detail {
+
+
+.scroll-content {
     // background-image: linear-gradient(#2F99D4, #005684);
     background: #F9F9F9;
-    padding: 16px 32px !important;
+    padding: 0px !important;
     font-family: 'sf_pro_displayregular';
 }
-
+.next-btn {
+    width: 100%;
+    text-align: center;
+    display: block;
+    padding: 0 36px;
+    text-align: right;
+}
 ion-header {
-    padding: 0 8px;
+    padding: 0 0px;
 }
 
 ion-header.header-ios {
@@ -16,26 +25,23 @@ ion-header.header-ios {
 ion-toolbar {
     color: #fff;
 }
+.training-block{
+    padding: 16px;
 
-ion-toolbar ion-icon {
-    float: left;
-    font-size: 20pt;
+}
+.image-tag{
+    padding: 27% 45% 27% 45%;
+    background-color: #468FB9;
+}
+.inner-image{
+       width: 32px;
+    height: 38px;
 }
 
-.toolbar-content-ios p, ion-toolbar p {
-    float: left;
-    margin: 4px;
-    font-size: 17px;
-    margin-left: 15px;
-}
 
-.toolbar-content-ios p {
-    margin: 2px;
-    margin-left: 15px;
-}
 
-.inner-content {
-    margin-top: 100px;
+ .inner-content {
+    margin-top: 0;
 }
 
 .more-icon {
@@ -60,7 +66,21 @@ ion-toolbar ion-icon {
 }
 
 .videoPlayer {
-    width: 100%
+    width: 100%;
+    //position: fixed;
+    // top: 50%;
+    // left: 50%;
+    // min-width: 100%;
+    // min-height: 100%;
+   // height: auto;
+    //z-index: -100;
+	// -webkit-transform: translateX(-50%) translateY(-50%);
+	// -moz-transform: translateX(-50%) translateY(-50%);
+	// -ms-transform: translateX(-50%) translateY(-50%);
+	// -o-transform: translateX(-50%) translateY(-50%);
+    // transform: translateX(-50%) translateY(-50%);
+    object-fit: fill;
+    background-size: cover;
 }
 
 
@@ -117,14 +137,15 @@ ion-toolbar ion-icon {
 }
 
 .take-quiz-btn {
-    float: left;
+        max-width: 300px;
     width: 100%;
     border-radius: 39px;
     background-image: linear-gradient(to right, #1582BE, #329CD6);
     color: #fff;
     text-align: center;
-    padding: 20px 0;
+    padding: 12px 0;
     font-size: 20px;
+   margin: 20px auto 20px auto;
 }
 
 .loading-bar-div {
@@ -151,9 +172,11 @@ ion-toolbar ion-icon {
     text-align: center;
     font-size: 10px;
     width: 30px;
+    height: 30px;
     padding: 9px 0;
     float: right;
     border-radius: 25px;
+    line-height: 10px;
 }
 
 .video-progress-bar {
@@ -172,4 +195,83 @@ ion-toolbar ion-icon {
     height: 5px;
     font-size: 0;
     background: #D5D5D5;
+}
+h6{
+    font-family: 'sf_pro_displaysemibold';
+        width: 100%;
+            margin: 40px 0 15px 0;
+}
+.button-bottom{
+    width: 100%;
+}
+.quiz-text {
+    color: #A0A0A0;
+    font-weight: 100;
+    font-family: 'sf_pro_displayregular';
+}
+.hole-cont {
+    color: #A0A0A0;
+}
+.training-det {
+    min-height: calc(100vh - 100px);
+    display: block;
+}
+/*.training-block {
+    min-height: calc(100vh - 290px);
+}*/
+//sheema
+.view-button{
+    float: right;
+    position: relative;
+    top: -7px;
+}
+.eye-icon{
+    color:#219BCE;
+    font-size: 24px;
+    position: relative;
+    top: 4px;
+}
+.view-text{
+        color:#000000;
+    font-size: 13px;
+    line-height: 20px;
+    display: inline-block;
+    font-weight: 100;
+     font-family: 'sf_pro_displaysemibold';
+}
+.ack-label{
+    float: right;
+    margin: -4px 0 0 11px;
+}
+.checkbox-item{
+    margin: 20px 0 20px 0;
+}
+.collapse{
+    height: 250px;
+}
+// sheema
+}
+// alert pop up
+.alert-button .button-inner{
+    font-weight: normal;
+}
+.alert-ios .alert-button, .alert-md .alert-button{
+    text-align: center;
+    width: 100%;
+}
+.alert-md .alert-button .button-inner{
+    justify-content: center;
+}
+.alert-ios .alert-title,.alert-md .alert-title {
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+}
+.alert-md .alert-button{   
+    border-top: 0.55px solid #dbdbdf;
+}
+.alert-md .alert-button .button-inner,.alert-ios .alert-button{
+        font-weight: normal;
+    text-transform: capitalize;
+    font-size: 16px;
 }

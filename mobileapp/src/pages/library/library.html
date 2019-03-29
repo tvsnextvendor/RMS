@@ -1,0 +1,92 @@
+<ion-content padding class="headerFull-bg default-header">
+<ion-header class="static-header">
+    <ion-navbar *ngIf="!showSearchBar">
+      <button ion-button menuToggle>
+        <img src="../assets/imgs/menu.png" />
+      </button>
+      <ion-title class="text-left">
+         <span class="header-title">{{constant.title.library}}</span>
+        <!-- <div class="header-icon" (click)="goToNotification()">
+          <img src="../assets/imgs/notification.png" />
+          <span class="dot-circle">4</span>
+        </div> -->
+
+        <div class="header-icon">
+            <ion-icon name="search" (click)="toggleSearchBox()"></ion-icon>
+          </div>
+
+      </ion-title>
+    </ion-navbar>
+     <ion-toolbar *ngIf="showSearchBar">
+        <ion-icon name="md-arrow-back" class="search-backarrow" (click)="toggleSearchBox()" ></ion-icon>
+          <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" class="search-bar">
+          </ion-searchbar>
+      </ion-toolbar>
+  </ion-header>
+ 
+    <!-- <div class="module-select">
+      <div class="dropdown module-drpdwn">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span>
+          {{selectedModule}} <span class="badge badge-success">{{totalCount}}</span>
+          <ion-icon name="md-funnel"></ion-icon>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="modules">
+          <a class="dropdown-item" href="javascript:void(0)" *ngFor="let list of modules;let i =index;" (click)="changeModule(list)">
+          
+            {{list.name}}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="tabs progress-tab">
+      <a class="tab-item" (click)="showData('assigned')" [ngClass]="!showAssigned ? 'assigned' : ''">
+        {{constant.pages.trainingLabels.assignedLabel}}
+      </a>
+      <a class="tab-item" (click)="showData('inprogress')" [ngClass]="!showProgress ? 'inprogress' : ''">
+        {{constant.pages.trainingLabels.progressLabel}}
+      </a>
+      <a class="tab-item" (click)="showData('complete')" [ngClass]="!showCompleted ? 'complete' : ''">
+        {{constant.pages.trainingLabels.completedLabel}}
+      </a>
+    </div> -->
+ 
+      <ion-row *ngIf="completeCoursesList.length > 0">
+        <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of completeCoursesList;let i=index;" (click)="openTrainingDetail(task,i,'assigned')"
+          class="main-forum">
+          <ion-card class="training-list">
+            <div class="training-image">
+              <!-- <span class="course-name">{{task.courseName}}</span> -->
+             
+              <img src="{{task.files[0].featuredImage}}" />
+              <span class="play-icon">
+                <img src="../assets/imgs/play-button (2).png" />
+              </span>
+            </div>
+            <ion-card-content class="training-content">
+               <!-- <span class="com-percen">{{task.completePercent}}% {{constant.pages.dashboardLabels.complete}}</span> -->
+              <ion-card-title class="training-title">
+                <ion-grid no-padding class="post-details">
+                  <ion-row class="">
+                    <ion-col col-7 class=" ">
+                      <p class="training-name">{{task.files[0].fileTitle}} </p>
+                    </ion-col>
+                    <ion-col col-5 class="">
+                      <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate |
+                        date:'dd/MM/yyyy'}}</p>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-title>
+              <p class="training-desc">
+                {{task.files[0].fileDescription | words : 15 }}
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="completeCoursesList.length === 0">
+        <img src="../assets/imgs/norecordsfound.png" class="no-records" />
+      </div>
+  </ion-content>

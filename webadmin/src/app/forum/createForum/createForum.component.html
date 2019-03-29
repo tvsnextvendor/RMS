@@ -1,0 +1,78 @@
+<h6 class="mb-3">{{forumVar.createForum.createForum}}</h6>
+<div>
+    <form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)">
+        <div class="form-group">
+            <label class="createforum-hd">{{forumVar.createForum.forumName}}</label>
+            <input type="text" class="form-control" [(ngModel)]="forumName" autocomplete="off" #ForumName="ngModel" (ngModelChange)="checkNameUniqueness(forumName)"  name = "forumName" id="forumName" placeholder="Enter Forum Name" required autocomplete="off">  
+            <span class="required_color" *ngIf="ForumName && ForumName.invalid && (formDir.submitted || ForumName.touched)">
+                    {{forumVar.mandatoryLabels.forumName}}
+            </span> 
+            <span class="required_color" *ngIf="forumVar.uniqueValidate">
+                  {{forumVar.nameUniqueErr}}
+            </span>  
+        </div>
+        <!-- <div class="form-group">
+            <label>{{forumVar.createForum.topics}}</label>           
+            <div *ngFor="let topic of topicsArray; let i = index" class="form-group close-icon">
+                <span *ngIf="i==0"><a><i class="fa fa-plus createForum-addicon" (click)=addTopic()></i></a></span>
+                <span *ngIf="i!=0"><img src="assets/images/close.png" class="close-img" (click)="removeTopic(i)"></span>
+            <input type="text" class="form-control" [(ngModel)]="topic.topicName" #Topics="ngModel" name = "topics{{i}}" id="topics" placeholder="Add Topic" required autocomplete="off">             
+            <span class="required_color" *ngIf="Topics && Topics.invalid && (formDir.submitted || Topics.touched)">
+                    {{forumVar.mandatoryLabels.topic}}
+            </span>  
+            </div>  
+        </div> -->
+        <div class="form-group">
+                <label class="createforum-hd">{{forumVar.createForum.admin}}</label>                  
+                    <tag-input [ngModel]="adminItems" 
+                    name="admin"
+                    #adminName="ngModel"
+                    [onlyFromAutocomplete]="true"
+                    [placeholder]="'Select Admin'"      [displayBy]="'id'"
+                    [identifyBy]="'id'" [secondaryPlaceholder]="'Select Admin'" class="multi-input"
+                    required
+                    >
+                    <tag-input-dropdown [showDropdownIfEmpty]="true"
+                    [dynamicUpdate]="false"
+                    [focusFirstElement]="true"             
+                    [autocompleteItems]="adminList">
+                    <ng-template let-item="item" let-index="index">
+                        {{ item.display }}
+                    </ng-template>
+                </tag-input-dropdown>  
+                <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>              
+            </tag-input>
+            <span class="required_color" *ngIf="adminName && adminName.invalid && (formDir.submitted || adminName.touched)">
+                    {{forumVar.mandatoryLabels.admin}}
+            </span>    
+        </div>
+        <div class="form-group">
+                <label class="createforum-hd">{{forumVar.createForum.empName}}</label> 
+                    <tag-input [ngModel]="employeeItems" 
+                    name="empItems"
+                    #empName="ngModel"
+                    [onlyFromAutocomplete]="true"
+                    [placeholder]="'Add Department'"      [displayBy]="'department'"
+                    [identifyBy]="'userId'" [secondaryPlaceholder]="'Select Department'" class="multi-input"
+                    required
+                    >
+                    <tag-input-dropdown [showDropdownIfEmpty]="true"
+                    [dynamicUpdate]="false"
+                    [focusFirstElement]="true"             
+                    [autocompleteItems]="autocompleteItemsAsEmpObjects">
+                    <ng-template let-item="item" let-index="index">
+                        {{ item.display }}
+                    </ng-template>
+                </tag-input-dropdown>
+                <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+            </tag-input>
+            <span class="required_color" *ngIf="empName && empName.invalid && (formDir.submitted || empName.touched)">
+                    {{forumVar.mandatoryLabels.empName}}
+            </span>    
+      </div>
+        <div class="text-center pt-5 mb-4">
+            <button type="button" class="btn btn-default mr-3" (click)="clearForm(formDir)">{{forumVar.btns.cancel}}</button>
+            <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.create}}</button>
+        </div>
+    </form>
+</div> 

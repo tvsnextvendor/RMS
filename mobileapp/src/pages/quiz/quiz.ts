@@ -18,10 +18,12 @@ export class QuizPage {
     isQuizCompleted = false;
     trainingObj;
     videoMenuTitle;
+    courseId;
 
     constructor(public navCtrl: NavController, private http: HttpProvider,private navParams:NavParams) {
         this.trainingObj = this.navParams.data;
         this.videoMenuTitle = this.trainingObj.menu;
+        this.courseId = this.trainingObj.courseId;
     }
     //first load
     ionViewDidLoad() {
@@ -69,7 +71,8 @@ export class QuizPage {
         });
         const resultData = {
             "totalQuestions"    : this.quizData.length,
-            "correctAnswers"    : correctAnswersCount
+            "correctAnswers"    : correctAnswersCount,
+            "courseId"          : this.courseId 
         };
         this.navCtrl.push(QuizResultPage, resultData);
     }

@@ -1,0 +1,35 @@
+page-landing {
+
+	.landing-bg{
+		background-image: url(../assets/imgs/loginbg.png);
+		background-size: cover;
+
+		.scroll-content{
+			overflow-y: auto !important;
+			background-color: transparent;
+			.l-buttons .login-btn {
+				    width: 100%;
+    font-size: 15px;
+    padding: 27px 10px;
+    font-family: 'sf_pro_displayregular';
+    display: block;
+    margin: 1.2rem auto;
+    text-align: center;	
+			}
+			.l-buttons {
+				vertical-align: bottom;width: calc(100vw - 0px);
+				height: calc(100vh - 90px);
+				display: table-cell;padding: 0 20px;
+			}
+		}
+	}
+.quick-tour {
+    text-align: center;
+    display: block;
+    color: #fff;
+    font-weight: 100;
+    font-size: 13px;
+    text-decoration: underline;
+    line-height: 50px;
+}
+}

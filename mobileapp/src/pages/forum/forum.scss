@@ -1,0 +1,60 @@
+page-forum {
+    .scroll-content{
+        padding-left: 0px !important;
+        padding-top: 10px !important;
+        
+    }
+    .main-content {
+        padding-left: 10px;
+        padding-right: 10px;
+        }
+
+    .notify-arrow {
+        float: right;
+        padding-top: 5px;
+    }
+
+    ion-header.header {
+        padding: 0;
+    }
+    .notify-txt {
+        margin-top: 15px;
+    }
+
+    .hour-status {
+        padding-top: 2px;
+        display: inline-block;
+    }
+    p.forum-hours,.forum-date {
+        font-size: 12px;
+            color: #656565;
+    }
+    .forum-card {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    .forum-date {
+        text-align: right;
+    }
+
+    .forum-hours {
+        margin-top: 5px;
+    }
+    .forum-content {
+        padding-left: 15px;
+    }
+    .list-ios {
+        margin: 16px 0 32px;
+    }
+   /* .main-forum {
+        padding-left: 16px;
+        padding-right: 0;
+    }*/
+.search-bar {
+    width: 100%;
+    float: right;
+}
+
+}

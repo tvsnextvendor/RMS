@@ -1,0 +1,63 @@
+
+.label-title{
+	color: #697380;
+	line-height: 43px;
+	font-size: 15px;
+}
+.option-btn{
+	border: 1px solid #468FB9;
+    border-radius: 40px;
+    padding: 0px 5px;    
+    font-size: 10px;
+    color: #909CA8;
+    position: absolute;
+    top: 11px;
+    left: 4px;
+}
+.option-btn:hover{
+background-color: #C1E1F3;
+}
+.mrb{
+    margin-bottom : 5px;
+}
+.save-btn{
+	float: none;
+}
+.icon-design{
+	color: #468FB9;
+	font-size: 20px;
+}
+.table-decs{
+	position: relative;
+}
+.videopage{
+    float: right;
+}
+.close-alg{
+    display: block;
+    width: 20px;
+    border: 1px solid #989898;
+    border-radius: 10px;
+    padding: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.videopage:hover .close-alg{
+    display: none;
+}
+.cancel-alg{
+    display: none;
+    width: 20px;
+    border-radius: 10px;
+    padding: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ED2201;
+    cursor: pointer;
+}
+.videopage:hover .cancel-alg{
+    display: block;   
+}

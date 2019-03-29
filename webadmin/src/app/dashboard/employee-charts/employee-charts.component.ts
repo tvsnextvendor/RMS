@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {DashboardVar} from '../../Constants/dashboard.var';
+import { DashboardVar } from '../../Constants/dashboard.var';
 declare var require: any;
 const Highcharts = require('highcharts');
 import { HttpService } from '../../services/http.service';
+import { API_URL } from 'src/app/Constants/api_url';
+import { Router } from '@angular/router';
 
-
-declare var CanvasJS: any;
 @Component({
   selector: 'app-employee-charts',
   templateUrl: './employee-charts.component.html',
@@ -14,478 +14,595 @@ declare var CanvasJS: any;
 
 export class EmployeeChartsComponent implements OnInit {
 
-     donutChartData = [];
-     donutEnable = false;
+  donutChartData = [];
+  donutEnable = false;
+  todayDate;
+  viewEnable = false;
+  viewText;
+  topCourses;
+  hideCharts = true;
 
-  constructor(private dashboardVar: DashboardVar, private http: HttpService) {
-
-   }
+  constructor(public dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
+    this.dashboardVar.url = API_URL.URLS;
+    const userDetails = JSON.parse(localStorage.getItem('userData'));
+    this.dashboardVar.userName = userDetails.username
+    this.hideCharts = userDetails.roleId == 2 ? false : true;
+  }
 
   ngOnInit() {
-    this.http.get('./assets/EmployeeData/Courses.json').subscribe((data) => {
-      this.dashboardVar.courses = data;
-      console.log(this.dashboardVar.courses);
-    });
+    this.viewText = "View more";
+    this.getData();
+    this.getKeyStat();
 
-  //  this.getCoursesJson();
     setTimeout(() => {
       this.totalCoursesLine();
-      this.videosTrendStackBar();
       this.employeeProgressPie();
       this.assignedCourses();
       this.completedCourses();
-      this.topEmployees();
-      this.totalNoOfBadges();
-      this.certificationTrend();
-      // this.chart();
-    }, 1000);
+      this.inProgress();
+    }, 2000);
+  }
+
+  getData() {
+    this.http.get(this.dashboardVar.url.getCourses).subscribe((data) => {
+      this.dashboardVar.courses = data;
+    });
+    //get Module list
+    this.http.get(this.dashboardVar.url.getProgramList).subscribe((data) => {
+      this.dashboardVar.moduleList = data.programList;
+    });
+    //get Year List
+    this.http.get(this.dashboardVar.url.getYearList).subscribe((data) => {
+      // this.dashboardVar.yearList = data.Years;
+      this.dashboardVar.yearList = [2018];
+    })
+
+    //get Course Trend list   
+    this.http.get(this.dashboardVar.url.getCourseTrendChart).subscribe((data) => {
+      this.dashboardVar.courseTrendData = data;
+    })
+
+    this.http.get(this.dashboardVar.url.getEmployeeProgress).subscribe((data) => {
+      this.dashboardVar.empProgress = data;
+    });
+
+    this.http.get(this.dashboardVar.url.getCertificationTrend).subscribe((data) => {
+      this.dashboardVar.certificationTrend = data;
+    });
+  }
+
+  enableView() {
+    this.viewEnable = !this.viewEnable;
+    if (this.viewEnable) {
+      this.viewText = "View less";
+      this.getKeyStat();
+      setTimeout(() => {
+        if (this.hideCharts) {
+          this.certificationTrend();
+          this.courseTrend();
+        }
+        this.totalNoOfBadges();
+        this.topEmployees();
+        this.topRatedCourses();
+      }, 1000);
+    }
+    else {
+      this.viewText = "View more";
+    }
+  }
+
+  topRatedCourses() {
+    this.http.get(this.dashboardVar.url.getTopCourses).subscribe((data) => {
+      this.topCourses = data.TopCourses;
+    });
+  }
+
+  getKeyStat() {
+    this.http.get(this.dashboardVar.url.getKeyStat).subscribe((data) => {
+      const keyStat = data;
+      this.dashboardVar.newEmployee = keyStat.NewEmployees;
+      this.dashboardVar.weekGrowth = keyStat.WeeklyGrowth;
+      this.dashboardVar.recentComments = keyStat.RecentComments;
+    });
+  }
+
+  onChangeModule() {
+    //console.log(this.dashboardVar.moduleType);
+  }
+
+  onChangeYear() {
+    //console.log(this.dashboardVar.years);
   }
 
 
-  getCoursesJson() {
+  //Navigate to videos trend list page
+  goToVideosTrend() {
+    this.route.navigateByUrl('/videostrend');
   }
 
-totalCoursesLine() {
+  //Navigate to employee status page
+  goToEmpStatus() {
+    this.route.navigateByUrl('/employeestatus');
+  }
 
-  Highcharts.chart('totalCourses', {
-     credits: {
-      enabled: false
-  },
-  chart: {
-      type: 'area'
-  },
-  title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
-    style: {
-        display: 'none'
-    }
-    },
-  xAxis: {
-    labels: {enabled: false}
-  },
-  yAxis: {
-    labels: {
-           enabled: false
-             },
-    gridLineColor: 'transparent',
-    min: 0,
-    max: 10
-  },
-  legend: {
-    enabled: false,
-    },
-
-    plotOptions: {
-      series: {
-        marker: {
-          enabled: true,
-          symbol: 'circle',
-          radius: 2,
-          fillColor: '#ffffff',
-          lineColor: '#000000',
-          lineWidth: 1
-
-        },
-        fillColor : {
-          linearGradient : [0, 0, 0, 300],
-          stops : [
-          [0, 'rgb(29,74,97)'],
-          [1, 'rgb(67,138,179)']
-          ]
+  totalCoursesLine() {
+    Highcharts.chart('totalCourses', {
+      credits: {
+        enabled: false
+      },
+      chart: {
+        type: 'area'
+      },
+      title: {
+        style: {
+          display: 'none'
         }
-
-      }
-    },
-  series: [{
-    data: this.dashboardVar.courses.TotalCourses.data
-  }]
-
-});
-
-}
-
-
-
-assignedCourses() {
-
-  Highcharts.chart('assignedCourses', {
-     credits: {
-      enabled: false
-  },
-  chart: {
-      type: 'area'
-  },
-  title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
-    style: {
-        display: 'none'
-    }
-    },
-  xAxis: {
-    labels: {enabled: false}
-  },
-
-  yAxis: {
-    labels: {
-           enabled: false
-             },
-    gridLineColor: 'transparent',
-    min: 0,
-    max: 10
-  },
-legend: {
-    enabled: false,
-    },
-  plotOptions: {
-       series: {
-          marker: {
-          enabled: true,
-          symbol: 'circle',
-          radius: 2,
-          fillColor: '#ffffff',
-          lineColor: '#000000',
-          lineWidth: 1
-
+      },
+      xAxis: {
+        labels: { enabled: false }
+      },
+      yAxis: {
+        labels: {
+          enabled: false
         },
-        fillColor : {
-          linearGradient : [0, 0, 0, 300],
-          stops : [
-            [0, 'rgb(8,73,98)'],
-            [1, 'rgb(41,136,180)']
-          ]
-        }
-      }
-  },
-
-  series: [{
-    // data: [0, 7.0, 5, 9, 8.3, 9.3, 6.8, 7.7, 6, 0]
-    data: this.dashboardVar.courses.AssignedCourses.data
-  }]
-});
-
-}
-
-
-completedCourses() {
-
-  Highcharts.chart('completedCourses', {
-     credits: {
-      enabled: false
-  },
-  chart: {
-      type: 'area'
-  },
-  title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
-    style: {
-        display: 'none'
-    }
-    },
-  xAxis: {
-    labels: {enabled: false}
-  },
-
-  yAxis: {
-    labels: {
-           enabled: false
-             },
-    gridLineColor: 'transparent',
-    min: 0,
-    max: 10
-  },
-legend: {
-    enabled: false,
-    },
-  plotOptions: {
-       series: {
-          marker: {
-          enabled: true,
-          symbol: 'circle',
-          radius: 2,
-          fillColor: '#ffffff',
-          lineColor: '#000000',
-          lineWidth: 1
-
+        title: {
+          text: null
         },
-        fillColor : {
-          linearGradient : [0, 0, 0, 300],
-          stops : [
-            [0, 'rgb(8,73,98)'],
-            [1, 'rgb(41,136,180)']
-          ]
-        }
-      }
-  },
-
-  series: [{
-    // data: [0, 7.0, 5, 9, 8.3, 9.3, 6.8, 7.7, 6, 0]
-    data: this.dashboardVar.courses.CompletedCourses.data
-  }]
-});
-
-}
-
-
-
-videosTrendStackBar() {
-  Highcharts.chart('videosTrend', {
-     credits: {
-      enabled: false
-  },
-    chart: {
-        type: 'column'
-    },
-    title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    xAxis: {
-        categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
-    },
-    yAxis: {
+        gridLineColor: 'transparent',
         min: 0,
-        max: 100,
-        // title: {
-        //     text: 'Total fruit consumption'
-        // },
-        stackLabels: {
+        max: 10
+      },
+      legend: {
+        enabled: false,
+      },
+
+      plotOptions: {
+        series: {
+          marker: {
             enabled: true,
-            style: {
-                fontWeight: 'bold',
-                color: 'gray'
-            }
+            symbol: 'circle',
+            radius: 2,
+            fillColor: '#ffffff',
+            lineColor: '#000000',
+            lineWidth: 1
+          },
+          fillColor: {
+            linearGradient: [0, 0, 0, 300],
+            stops: [
+              [0, 'rgb(29,74,97)'],
+              [1, 'rgb(67,138,179)']
+            ]
+          }
         }
-    },
-  legend: {
+      },
+      series: [{
+        data: this.dashboardVar.courses.TotalCourses.data
+      }]
+
+    });
+
+  }
+
+
+
+  assignedCourses() {
+
+    Highcharts.chart('assignedCourses', {
+      credits: {
+        enabled: false
+      },
+      chart: {
+        type: 'area'
+      },
+      title: {
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
+      subtitle: {
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
+      xAxis: {
+        labels: { enabled: false }
+      },
+
+      yAxis: {
+        labels: {
+          enabled: false
+        },
+        title: {
+          text: null
+        },
+        gridLineColor: 'transparent',
+        min: 0,
+        max: 10
+      },
+      legend: {
+        enabled: false,
+      },
+      plotOptions: {
+        series: {
+          marker: {
+            enabled: true,
+            symbol: 'circle',
+            radius: 2,
+            fillColor: '#ffffff',
+            lineColor: '#000000',
+            lineWidth: 1
+
+          },
+          fillColor: {
+            linearGradient: [0, 0, 0, 300],
+            stops: [
+              [0, 'rgb(8,73,98)'],
+              [1, 'rgb(41,136,180)']
+            ]
+          }
+        }
+      },
+
+      series: [{
+        // data: [0, 7.0, 5, 9, 8.3, 9.3, 6.8, 7.7, 6, 0]
+        data: this.dashboardVar.courses.AssignedCourses.data
+      }]
+    });
+
+  }
+
+
+  completedCourses() {
+
+    Highcharts.chart('completedCourses', {
+      credits: {
+        enabled: false
+      },
+      chart: {
+        type: 'area'
+      },
+      title: {
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
+      subtitle: {
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
+      xAxis: {
+        labels: { enabled: false }
+      },
+
+      yAxis: {
+        labels: {
+          enabled: false
+        },
+        title: {
+          text: null
+        },
+        gridLineColor: 'transparent',
+        min: 0,
+        max: 10
+      },
+      legend: {
+        enabled: false,
+      },
+      plotOptions: {
+        series: {
+          marker: {
+            enabled: true,
+            symbol: 'circle',
+            radius: 2,
+            fillColor: '#ffffff',
+            lineColor: '#000000',
+            lineWidth: 1
+
+          },
+          fillColor: {
+            linearGradient: [0, 0, 0, 300],
+            stops: [
+              [0, 'rgb(8,73,98)'],
+              [1, 'rgb(41,136,180)']
+            ]
+          }
+        }
+      },
+
+      series: [{
+        data: this.dashboardVar.courses.CompletedCourses.data
+      }]
+    });
+
+  }
+
+  inProgress() {
+    Highcharts.chart('inProgress', {
+      credits: {
+        enabled: false
+      },
+      chart: {
+        type: 'area'
+      },
+      title: {
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
+      xAxis: {
+        labels: { enabled: false }
+      },
+
+      yAxis: {
+        labels: {
+          enabled: false
+        },
+        title: {
+          text: null
+        },
+        gridLineColor: 'transparent',
+        min: 0,
+        max: 10
+      },
+      legend: {
+        enabled: false,
+      },
+      plotOptions: {
+        series: {
+          marker: {
+            enabled: true,
+            symbol: 'circle',
+            radius: 2,
+            fillColor: '#ffffff',
+            lineColor: '#000000',
+            lineWidth: 1
+
+          },
+          fillColor: {
+            linearGradient: [0, 0, 0, 300],
+            stops: [
+              [0, 'rgb(8,73,98)'],
+              [1, 'rgb(41,136,180)']
+            ]
+          }
+        }
+      },
+
+      series: [{
+        data: this.dashboardVar.courses.InProgressCourses.data
+      }]
+    });
+
+  }
+
+
+  courseTrend() {
+    Highcharts.chart('videosTrend', {
+      credits: {
+        enabled: false
+      },
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'null',
+        style: {
+          display: 'none'
+        }
+      },
+      xAxis: {
+        gridLineWidth: 0,
+        minorGridLineWidth: 0,
+        categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+      },
+      yAxis: {
+        min: 0,
+        max: 50,
+        title: {
+          text: null
+        },
+        gridLineWidth: 0,
+        minorGridLineWidth: 0,
+        stackLabels: {
+          enabled: false,
+          style: {
+            fontWeight: 'bold',
+            color: 'gray'
+          }
+        }
+      },
+      legend: {
         layout: 'vertical',
         align: 'right',
         verticalAlign: 'top'
-    },
-    plotOptions: {
+      },
+      plotOptions: {
         column: {
-            stacking: 'normal',
-            dataLabels: {
-                enabled: false,
-                color: 'red'
-            }
+          stacking: 'normal',
+          dataLabels: {
+            enabled: false,
+            color: 'red'
+          }
         }
-    },
-    series: [{
-        name: 'Unviewed Videos',
-        data: [27, 15, 32, 13, 26, 41, 40, 41, 40, 8, 22, 23]
-    },
-    {
-      name: 'Viewed Videos',
-      data: [48, 25, 66, 40, 48, 54, 56, 53, 42, 48, 53, 55 ]
-    }]
-  });
+      },
+      series: this.dashboardVar.courseTrendData.CourseTrend
+    });
 
-}
+  }
 
-employeeProgressPie() {
-  Highcharts.chart('employeeProgress', {
-     credits: {
-      enabled: false
-  },
-    chart: {
+  employeeProgressPie() {
+
+    Highcharts.chart('employeeProgress', {
+      credits: {
+        enabled: false
+      },
+      chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
         type: 'pie'
-    },
+      },
+      legend: {
+        align: 'right',
+        layout: 'vertical',
+        verticalAlign: 'middle',
+        x: 0,
+        y: 0
+      },
       title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
-    style: {
-        display: 'none'
-    }
-    },
-     xAxis: {
-                categories: [
-                    'Tokyo',
-                    'New York',
-                    'London',
-                    'Berlin'
-                ]
-            },
-    // title: {
-    //     text: 'Browser market shares in January, 2018'
-    // },
-    // tooltip: {
-    //     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    // },
-    plotOptions: {
-        /*pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }*/
-         pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: false
-            },
-            showInLegend: true
+        text: '',
+        style: {
+          display: 'none'
         }
-    },
+      },
+      subtitle: {
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          colors: ['#7DB5EC', '#90ED7C', '#F7A25C', '#CCCCCC'],
+          dataLabels: {
+            enabled: false,
+          },
+          showInLegend: true
+        }
+      },
 
-    series: [{
+      series: [{
         name: 'Brands',
         colorByPoint: true,
-        data: [{
-            name: 'Assigned',
-            y: 70,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Completed',
-            y: 20
-        }, {
-            name: 'In Progress',
-            y: 10
-        }]
-    }]
-});
-}
+        data: this.dashboardVar.empProgress.data,
+        dataLabels: {
+          verticalAlign: 'top',
+          enabled: true,
+          color: '#ffffff',
+          connectorWidth: 1,
+          distance: -30,
+          connectorColor: '#ffffff',
+          formatter: function () {
+            return (this.percentage > 0) ? Math.round(this.percentage) + '%' : '';
+          }
+        }
+      }]
+    });
+  }
 
-certificationTrend() {
-  Highcharts.chart('certificationTrend', {
-     credits: {
-      enabled: false
-  },
-    chart: {
+  certificationTrend() {
+    Highcharts.chart('certificationTrend', {
+      credits: {
+        enabled: false
+      },
+      chart: {
         type: 'spline',
-        // scrollablePlotArea: {
-        //     minWidth: 600,
-        //     scrollPositionX: 1
-        // }
-    },
-    title: {
-       text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    subtitle: {
-         text: '',
-    style: {
-        display: 'none'
-    }
-    },
-    xAxis: {
-     display: false
-    },
-    yAxis: {
-       display: false
-    },
-legend: {
+      },
+      title: {
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
+      xAxis: {
+        display: false
+      },
+      yAxis: {
+        display: false,
+        title: {
+          text: null
+        }
+      },
+      legend: {
         layout: 'vertical',
         align: 'right',
         verticalAlign: 'bottom'
     },
-    series: [{
-        name: 'Certified Employees',
-        data: [
-           5, 8, 7, 10, 13, 11, 14, 15
-        ]
-    }, {
-        name: 'Uncertified Employees',
-        data: [
-           5, 4, 5, 6.5, 6, 8, 7.6, 6.5, 5
-        ]
-    }],
+    series:   this.dashboardVar.certificationTrend.data,
+    colors:['#7DB5EC','#CCCCCC'],
+    // stroke:'grey',
   });
   }
 
-topEmployees() {
-  this.http.get('./assets/EmployeeData/TopEmployees.json').subscribe((data) => {
-    this.dashboardVar.topEmployees = data.TopEmployees;
-  });
-}
+  topEmployees() {
+    this.http.get(this.dashboardVar.url.getTopEmployees).subscribe((data) => {
+      this.dashboardVar.topEmployees = data.TopEmployees;
+    });
+  }
 
   // get total number of badges and display in chart
   totalNoOfBadges() {
 
-    this.http.get('./assets/EmployeeData/NoOfBadges.json').subscribe((resp) => {
+    this.http.get(this.dashboardVar.url.getTotalNoOfBadges).subscribe((resp) => {
       const donutChartData = resp.NoOfBadgesDonut;
       this.donutEnable = true;
       // console.log(donutChartData);
       const labels = donutChartData.labels;
       const data_values = donutChartData.data_values;
 
-      const data = data_values.map(function(value, index) {
+      const data = data_values.map(function (value, index) {
         return { name: labels[index], y: value };
       }, []);
 
-        Highcharts.chart('chartContainer', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-              text: 'Total',
-              verticalAlign: 'middle',
-              align: 'top',
-              x: 110,
-              y: -10,
-              floating: true,
+      Highcharts.chart('chartContainer', {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+        },
+        title: {
+          text: 'Total',
+          verticalAlign: 'middle',
+          align: 'top',
+          x: 120,
+          y: -10,
+          floating: true,
+          style: {
+            color: '#468FB9',
+            fontWeight: 'normal',
+            fontSize: '14px'
+          }
+        },
+        subtitle: {
+          text: '100',
+          verticalAlign: 'middle',
+          align: 'middle',
+          x: 120,
+          floating: true,
+          style: {
+            color: '#468FB9',
+            fontWeight: 'normal',
+            fontSize: '20px'
+          }
+        },
+        tooltip: {
+          pointFormat: '<b>{point.percentage:.1f}%</b>'
+        },
+
+        plotOptions: {
+          pie: {
+            colors: ['#B9F2FF', '#FFD700', '#C0C0C0', '#CD7F32'],
+            allowPointSelect: true,
+            innerSize: '60%',
+            cursor: 'pointer',
+            indexLabelFontSize: 12,
+            dataLabels: {
+              enabled: true,
+              format: '{point.name}',
+              connectorColor: 'black',
               style: {
-                color: '#468FB9',
                 fontWeight: 'normal',
-                fontSize: '10px'
-            }
-          },
-          subtitle: {
-            text: '100',
-            verticalAlign: 'middle',
-            align: 'left',
-            x: 105,
-            floating: true,
-            style: {
-              color: '#468FB9',
-              fontWeight: 'normal',
-              fontSize: '20px'
-            }
+                fontSize: '8px',
+              }
           },
             tooltip: {
                 pointFormat: '<b>{point.percentage:.1f}%</b>'
@@ -497,6 +614,7 @@ topEmployees() {
                     innerSize: '60%',
                      cursor: 'pointer',
                      indexLabelFontSize: 12,
+                     colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
                     dataLabels: {
                         enabled: true,
                         format: '{point.name}',
@@ -518,8 +636,25 @@ topEmployees() {
             credits: {
               enabled: false
             }
+          },
+        },
+        xAxis: {
+          categories: labels
+        },
+        series: [{
+          name: '',
+          data: data
+        }],
+        credits: {
+          enabled: false
         }
-        );
+      }
+      );
     });
+  }
+  addQuickTasks() {
+    this.todayDate = new Date();
+    localStorage.setItem('BatchStartDate', this.todayDate);
+    this.route.navigateByUrl('/addBatch');
   }
 }

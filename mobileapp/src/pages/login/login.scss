@@ -1,10 +1,17 @@
 page-login {
 
+  /*  .error-required {
+        text-align: center;
+        width: 100%;
+        display: block;
+    }*/
+
 .login-bg {
   
    .scroll-content {
     padding: 0 !important;
         background: #329CD6;
+        overflow-y: auto !important;
 }
 .signin-process,.login-action {
     padding: 16px;
@@ -23,6 +30,7 @@ page-login {
     margin: 0px 0 16px;
     
 }
+
 }
 .input-login {
     background: rgba(255,255,255,0.2) !important;
@@ -43,18 +51,21 @@ ion-input.input {
        width: 100%;
     background: #fff;
     color: #329CD6;
-    padding: 30px 10px;
+    padding: 27px 10px;
     text-transform: uppercase;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 .login-action {
     margin-top: -43px;
      font-family: 'sf_pro_displayregular';
-
+.max-wth {
+    text-align: center;
+}
 }
 .item-block .item-inner {
 
     border-bottom: none !important;
+    box-shadow: none !important;
 }
 .keep-login ion-label,.frget-pwd a,.new-account {
     font-size: 13px;
@@ -91,6 +102,25 @@ button:focus {
     font-size: 15px;
 }
 .button-md:hover:not(.disable-hover) {
-    background-color: #ffffff;
+    background-color: #fff;
+}
+.list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child {
+
+    box-shadow: none !important;
+}
+
+    .item.item-md .checkbox-md {
+    margin: 9px 10px 10px 4px;
+}
+.max-wth {
+    padding-left: 10px;
+    padding-right: 10px;
+        
+}
+.text-input-ios,.text-input-md{
+    margin:0;
+}
+.item-block{
+     min-height: 3.7rem;   
 }
 }

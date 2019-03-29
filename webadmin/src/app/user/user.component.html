@@ -1,0 +1,108 @@
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
+<div class="pr-3 pt-3" id="contentToConvert">
+    <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
+    <div class="float-right row pb-3 adduser-respon">
+        <span class="pr-2 upload-line">
+            <div class="fileUpload btn btn-primary addUser-upload">
+                <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{constant.btns.uploadEmp}}</span>
+                <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
+                    accept=".xlsx" />
+            </div>
+        </span>
+        <span class="pr-2"><a class="btn btn-primary br-btn" (click)="addUser()">{{constant.btns.addUser}}</a></span>
+        <span class="pagenation-btn">
+            <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
+                class="pagenation-dropdown"></ngx-select-dropdown>
+        </span>
+    </div>
+    <form class="table-responsive custom-table2 px-1" #userForm="ngForm">
+        <table class="table table-striped white-bg mt-1" [mfData]="constant.userList" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
+            <thead>
+                <tr class="th-boxshadow text-center">
+                    <th>
+                        <mfDefaultSorter by="employeeId">{{labels.employeeId}}</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="employeeName">{{labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"
+                                    class="s-width"></span></mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="department">{{labels.department}}</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="designation">{{labels.designation}}</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="emailId">{{labels.email}}</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="mobile">{{labels.mobile}}</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter></mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter></mfDefaultSorter>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
+                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.employeeId }}</label><span>
+                            <input *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter Emp ID"
+                                [(ngModel)]="userId" name="userId" #user="ngModel" (keyup)="validationUpdate(mf.data,'userId')" /><span
+                                class="required_color" *ngIf="videoSubmitted && user.editEnable && !userId">{{constant.mandatoryText.empId}}</span><span
+                                class="required_color" *ngIf="videoSubmitted && user.editEnable && userId && validUserId">{{constant.mandatoryText.empIdExist}}</span></span></td>
+                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.employeeName }}</label><span><input
+                                *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter User Name"
+                                [(ngModel)]="userName" name="userName" #user="ngModel" /><span class="required_color"
+                                *ngIf="videoSubmitted && user.editEnable && !userName">{{constant.mandatoryText.empName}}</span></span></td>
+                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.department }}</label><span>
+                            <!-- <input *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter Department" [(ngModel)]="department " name="department " #departmentName = "ngModel" /> -->
+                            <select *ngIf="user.editEnable" [(ngModel)]="department" (ngModelChange)="designationUpdate($event)"
+                                name="department" class="form-control">
+                                <option value="">{{constant.labels.select}}</option>
+                                <option *ngFor="let obj of departmentArray" [value]="obj.department">{{obj.department}}</option>
+                            </select>
+                            <span class="required_color" *ngIf="videoSubmitted && user.editEnable && !department">{{constant.mandatoryText.dept}}</span></span>
+                    </td>
+                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.designation }}</label><span>
+                            <select *ngIf="user.editEnable" [(ngModel)]="designation" name="designation" class="form-control designation-width">
+                                <option value="">{{constant.labels.select}}</option>
+                                <option *ngFor="let obj of designationData" [value]="obj.name">{{obj.name}}</option>
+                            </select>
+                            <span class="required_color" *ngIf="videoSubmitted && user.editEnable && !designation">
+                                {{constant.mandatoryText.designation}}</span></span>
+                    </td>
+                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.emailId }}</label><span><input
+                                *ngIf="user.editEnable" type="email" class="form-control" placeholder="Enter Email"
+                                [(ngModel)]="emailAddress" name="emailAddress" #email="ngModel" (keyup)="validationUpdate(mf.data,'email')" /><span
+                                class="required_color" *ngIf="videoSubmitted && user.editEnable && !emailAddress">{{constant.mandatoryText.emailId}}</span><span
+                                class="required_color" *ngIf="videoSubmitted && user.editEnable && emailAddress && validEmail">{{constant.mandatoryText.emailInvalid}}</span></span></td>
+                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.mobile }}</label><span><input
+                                *ngIf="user.editEnable" type="text" class="form-control Number-width" placeholder="Enter Mobile Number"
+                                [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate(mf.data,'mobile')" /><span
+                                class="required_color" *ngIf="videoSubmitted && user.editEnable && !phoneNumber">{{constant.mandatoryText.mobNo}}</span><span
+                                class="required_color" *ngIf="videoSubmitted &&  user.editEnable && phoneNumber && validPhone">
+                                {{constant.mandatoryText.invalidMobNo}}</span></span></td>
+                    <td class="vat user-desc"><a *ngIf="!user.editEnable" (click)="userEdit(mf.data,user,i)"><i class="fa fa-pencil header-icon"></i></a><a
+                            *ngIf="user.editEnable" (click)="userUpdate(mf.data,user,i)"><i class="fa fa-check upload-crt-icon"
+                                aria-hidden="true"></i></a></td>
+                    <td class="vat user-desc"><a *ngIf="!user.editEnable" (click)="removeUser(user,i)"><i class="fa fa-trash header-icon"></i></a><a
+                            *ngIf="user.editEnable" (click)="cancelEdit(user,i)"><i class="fa fa-times upload-wrg-icon"
+                                aria-hidden="true"></i></a></td>
+                </tr>
+                <tr *ngIf="mf.data?.length == 0">
+                    <td colspan="10" class="text-center data-design">{{constant.labels.noData}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr data-html2canvas-ignore="true">
+                    <td colspan="10">
+                        <mfBootstrapPaginator></mfBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

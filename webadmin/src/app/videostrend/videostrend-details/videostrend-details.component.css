@@ -1,0 +1,49 @@
+.export-btn{
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid #468FB9;
+    width: 80px;
+    min-width: unset;
+    padding: 4px 8px;
+  }
+  .export-btn::after{
+
+    margin-left: 5px;
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    color: #468FB9;
+}
+  .ext-txt{
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .drp-dwn{
+    min-width: 0;
+    width: 85px;    
+  }
+  .trend-title{
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 7px;
+  }
+.trend-cont{
+  color: #A0A0A0;
+  font-size:15px;
+}
+.employeeName-width{
+  width: 290px;
+}
+tbody > tr > td {
+  border-bottom: 0;
+}
+.exportto-resp{
+  float: right;
+}
+.btn-select{
+    color: #468FB9;
+    font-size: 12px;
+    font-weight: 600;
+    float: left;
+}
