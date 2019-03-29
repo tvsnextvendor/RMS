@@ -1,26 +1,65 @@
+<div *ngIf = "networkAdmin">
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav" >
+        <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')"
+            class="mt75">
+            <a routerLink="/dashboard"><img src="assets/images/menu1.png">Dashboard</a>
+        </li>
+        <li [class.active]="router.isActive('/modulelist') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
+            <a routerLink="/modulelist"><img src="assets/images/Modules.png">Subscription Model</a>
+        </li>
+        <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
+            <a routerLink=""><img src="assets/images/menu4.png">Resort Management</a>
+        </li>
+        <li [class.active]="router.isActive('/forum')">
+            <a routerLink=""><img src="assets/images/menu6.png">CMS Library</a>
+        </li>
+        <li [class.active]="router.isActive('/users')">
+            <a routerLink=""><img src="assets/images/add_user.png">Archival Settings</a>
+        </li>
+    </ul>
+</div>
+</div>
+<div  *ngIf="peerAdmin">
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
         <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')"
             class="mt75">
-            <a routerLink="/dashboard"><img src="assets/images/menu1.png"></a>
+            <a routerLink="/dashboard"><img src="assets/images/menu1.png">Dashboard</a>
         </li>
-        <li [class.active]="router.isActive('/modulelist') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
-            <a routerLink="/modulelist"><img src="assets/images/Modules.png"></a>
+        <li [class.active]="router.isActive('/dashboard')"
+            class="mt75">
+            <a routerLink=""><img src="assets/images/menu1.png">Subscription Model</a>
         </li>
-        <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
-            <a routerLink="/calendar"><img src="assets/images/menu4.png"></a>
-        </li>
-        <li [class.active]="router.isActive('/forum')">
-            <a routerLink="/forum"><img src="assets/images/menu6.png"></a>
+        <li [class.active]="router.isActive('/dashboard')" class="mt75">
+            <a routerLink=""><img src="assets/images/menu1.png">Resort Management</a>
         </li>
         <li [class.active]="router.isActive('/users')">
-            <a routerLink="/users"><img src="assets/images/add_user.png"></a>
+            <a routerLink="/users"><img src="assets/images/add_user.png">User Management</a>
         </li>
+        <li [class.active]="router.isActive('/users')">
+            <a routerLink=""><img src="assets/images/add_user.png">Approval Requests</a>
+        </li>
+        <li [class.active]="router.isActive('/users')">
+            <a routerLink=""><img src="assets/images/add_user.png">Approval Setting</a>
+        </li>
+        <li
+            [class.active]="router.isActive('/modulelist') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
+            <a routerLink="/modulelist"><img src="assets/images/Modules.png">Courses</a>
+        </li>
+        <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
+            <a routerLink="/calendar"><img src="assets/images/menu4.png">calendar</a>
+        </li>
+        <li [class.active]="router.isActive('/forum')">
+            <a routerLink="/forum"><img src="assets/images/menu6.png">Forum</a>
+        </li>
+       
         <li [class.active]="router.isActive('/certificates')">
-            <a routerLink="/certificates"><img src="assets/images/Certification.png"></a>
+            <a routerLink="/certificates"><img src="assets/images/Certification.png">Certificates</a>
         </li>
-        <!-- <li [class.active]="router.isActive('/email')">
-            <a routerLink="/email"><img src="assets/images/Email1.png"></a>
-        </li> -->
+        <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
+            <a routerLink=""><img src="assets/images/menu4.png">Roles & Permissions</a>
+        </li>
     </ul>
+</div>
 </div>
