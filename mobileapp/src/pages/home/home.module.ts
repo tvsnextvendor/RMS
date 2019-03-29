@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { HomePage } from './home';
+import {ScrollingHeaderModule} from 'ionic-scrolling-header';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { HomePage } from './home';
   ],
   imports: [
     IonicPageModule.forChild(HomePage),
+    ScrollingHeaderModule
   ],
 })
 export class HomePageModule {}

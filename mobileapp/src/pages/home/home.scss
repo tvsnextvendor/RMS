@@ -3,7 +3,7 @@ page-home {
 		padding: 0;
 	}
 	.scroll-content{
-		background-color: #fff;
+		background-color:  #F3F6F9;
 	}
 	.headerFull-bg {
 		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
@@ -13,18 +13,33 @@ page-home {
 		background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
 	}
+	.weather-img {
+    display: inline-block;
+    width: 40px;
+}
+.weather-sts {
+    font-size: 18px;
+    font-weight: 600;
+}
 	.current-day{ 
 		font-family: 'sf_pro_displayregular';
-		padding: 25px 20px;
+		padding: 7px 20px 15px 20px;
 
 		.day-detail {
 			opacity: 0.3;
-			font-size: 16px;
+			font-size: 15px;
 			margin: 0;
+			line-height: 19px;
 		}
 		h1{
 			margin: 0;
 		}
+	}
+	.course-sts {
+
+		flex: 0 0 140px;
+		width: 140px;
+		max-width: 31.26667%;
 	}
 	.status-grid {
 		padding: 0;
@@ -56,23 +71,32 @@ page-home {
 			font-weight:300;
 		}
 
-        .tvs-statusBox:last-child {
-            margin-right: 0;
-        }
+		.tvs-statusBox:last-child {
+			margin-right: 0;
+		}
 
 		.tvs-statusBox {
 			color: #fff;
-            font-family: 'sf_pro_displayregular';
-            padding: 0;
-            margin: 0 10px 10px 0;
-			span.num-sec {
-				font-size: 36px;
+			font-family: 'sf_pro_displayregular';
+			padding: 0;
+			margin: 0 10px 10px 0;
+			.num-sec {
+				font-size: 26px;
+			}
+			.acc-num {
+				float: right;
+				padding-right: 10px;
+				line-height: 40px;
 			}
 			.course-sec {
 				font-size: 12px;
 				margin-top: 0px;
 				color: rgba(255, 255, 255, 0.7);
 			}
+			.fwd-arw {
+					float: right;
+					line-height: 22px;
+				}
 			.read-more {
 				text-align: right;
 				display: block;
@@ -84,13 +108,16 @@ page-home {
 					top: 2px;
 					padding-left: 5px;
 					font-size: 15px;
+					float: right;
+					line-height: 22px;
 				}
 			}
 
 
 			.sts-style {
-				padding: 15px 15px;
+				padding: 15px 10px;
 				box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
+
 
 			}
 			.sts-style .status-title {
@@ -103,12 +130,12 @@ page-home {
 
 
 
-    }
-    .certification-section {
-        margin: 1em 0 1em 0;
-    }
-	.score-board {
+	}
+	.certification-section {
 		margin: 1em 0 1em 0;
+	}
+	.score-board {
+		margin: 8px 0 20px 0;
 
 		ion-card-header {
 			background: #435DEA;
@@ -124,7 +151,7 @@ page-home {
 				line-height: 27px;
 				float: left;
 				color: #fff;
-				    padding-top: 5px;
+				padding-top: 5px;
 			}
 			.score-number {
 				float: right;
@@ -134,22 +161,24 @@ page-home {
 				width: 24px;
 				display: inline-block;
 				position: relative;
-                top: -4px;
+				top: -4px;
+				left: 6px;
 			}
 
 		}
 		.body-primary{
 			background: #5D76FF;
-			padding: 20px 10px !important;
+			padding: 20px 10px 14px 10px !important;
 			.ranker-det {
 				color: #fff;
 				text-align: center;
 				h4 {
-					font-size: 18px;
+					font-size: 14px;
 					color: #fff;
 				}
 				small {
-					font-size: 14px;
+					font-size: 12px;
+					font-weight: 100;
 				}
 				.score-cnt {
 					display: inline-block;
@@ -194,13 +223,19 @@ page-home {
 			display: block;
 			text-align: center;
 			border-top: 1px solid rgba(255, 255, 255, 0.2);
-			padding: 18px 0 0 0;
+			padding: 15px 0 0 0;
 			font-size: 16px;
+			font-weight: 100;
+			font-family: sf_pro_displayregular;
 		}
-		
+
 		a.score-viewAll:hover {
-    color: #fff !important;
-}
+			color: #fff !important;
+		}
+		.card-header-md,.card-header-ios {
+
+			padding: 5px 16px;
+		}
 	}
 	.certification-section{
 		.download-txt {
@@ -209,6 +244,8 @@ page-home {
 		.status-grid{
 			.certificate-box {
 				font-family: sf_ui_textregular;
+
+
 			}
 
 		}
@@ -267,11 +304,69 @@ page-home {
 	.progress{
 		border-radius: 0
 	}
+	.progress-set{
+		color:#ffffff;
+		margin-top: 15px !important;
+	}
+	.accomplishment-section .tvs-statusBox .sts-style {
+		padding: 15px 0 0 15px;
+		position: relative;
+	}
 
+	ion-col:nth-child(2) .ranker-det .winner-img img {
+		width: 90px;
+	}
+	ion-col:nth-child(2) .ranker-det .person-name {
+		padding-top: 3px !important;
+	}
+	ion-col:nth-child(2) .ranker-det .tropy-sec img {
+		width: 30px;
+	}
+p.main-score {
+    font-size: 20px;
 }
-
+}
+.module-select button {
+	width: 100%;
+	background: #fff;
+}
 .score-number {
-    padding-top: 5px;
-    line-height: 27px;
+	padding-top: 5px;
+	line-height: 27px;
 }
 
+.view-tag {
+	float: right;
+	background: rgba(0,0,0,0.5);
+	color: #fff;
+	padding: 3px 10px;
+	font-size: 13px;
+}
+.view-tag:hover {
+	color: #fff;
+}
+
+
+.certificate-footer {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.certificate-box .sts-style {
+	min-height: 95px;
+}
+
+a.dropdown-item {
+	left: 6px !important;
+}
+.dropdown-menu {
+	left: 7px !important;
+}
+.badge-title {
+	font-size: 15px;
+}
+.certificate-box{
+	flex: 0 0 49.33333%;
+	width: 49.33333%;
+}

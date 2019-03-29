@@ -1,0 +1,27 @@
+page-notification {
+  .list-ios {
+    margin: 16px 0 32px;
+}
+  .notify-arrow {
+    padding-top: 5px;
+    position: relative;
+    top: 3px;
+  }
+  .align-right {
+    float: right;
+  }
+  ion-header.header {
+    padding: 0;
+  }
+  .notify-txt {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+  .notify-title {
+    margin-top: 5px !important;
+  }
+  span.hour-status {
+    padding-right: 15px;
+}
+
+}

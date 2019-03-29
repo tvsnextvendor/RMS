@@ -1,21 +1,25 @@
-
-<ion-split-pane>
+<ion-split-pane when="xl">
     <!--  our side menu  -->
-    <ion-menu [content]="content" [persistent]="true">
-        <ion-header class="sidebar-header">
-            <ion-toolbar>
-                <ion-title>TVS APP</ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content class="headerFull-bg sidebar-list">
+    <ion-menu [content]="content" [persistent]="true" class="menu-page" type="overlay">
+        <ion-content class="sidebar-list">
+            <ion-header class="sidebar-header">
+                <ion-title>{{constant.title.menu}}</ion-title>
+                <ion-icon name="ios-close" class="menu-close-button" menuClose></ion-icon>
+            </ion-header>
             <ion-list>
+                <ion-item *ngIf="currentUser" menuClose (tap)="openPage(profilePage)">
+                    <img *ngIf="currentUser.userImage" src="{{currentUser.userImage}}" class="profile-image">
+                </ion-item>
+                <ion-item *ngIf="!currentUser" menuClose (tap)="openPage(profilePage)">
+                    <img src="assets/images/user.png" class="profile-image">
+                </ion-item>
                 <button menuClose ion-item *ngFor="let p of pages" (tap)="openPage(p)">
-                  {{p.title}}
+                    {{p.title}}
                 </button>
                 <button menuClose ion-item (tap)="logOut()">
-                    Log Out
+                    {{constant.title.logOut}}
                 </button>
-              </ion-list>
+            </ion-list>
         </ion-content>
     </ion-menu>
     <!-- the main content -->

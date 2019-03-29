@@ -1,0 +1,54 @@
+/* .no-data-available {
+    text-align: center;
+  } */
+  
+  /*
+     src/styles.css (i.e. your global style)
+  */
+  /* .dataTables_empty {
+    display: none;
+  } */
+  .pdl{
+      padding-left: 10px;
+  }
+  .export-btn{
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid #468FB9;
+    width: 80px;
+    min-width: unset;
+    padding: 4px 8px;
+  }
+  .export-btn::after{
+    margin-left: 8px;
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    color: #468FB9;
+  }
+  .ext-txt{
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .drp-dwn{
+    min-width: 0;
+    width: 85px; 
+    top: 2px !important;   
+  }
+  .pagenation-btn{
+    display: inline-block;
+    margin-left: 10px;
+  }
+   .s-width{
+    width: 14px;
+    opacity: 0.5;
+  }
+.employeestatus-width{
+  width: 195px;
+}
+.btn-select{
+    color: #468FB9;
+    font-size: 12px;
+    font-weight: 600;
+    float: left;
+}

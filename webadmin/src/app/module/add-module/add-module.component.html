@@ -1,0 +1,137 @@
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
+<div class="row pr-3 pt-5">
+	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm()" #moduleForm = "ngForm">
+		<div class="white-bg p-4">
+			<div class="row form-group">
+				<label class="col-md-3 pr-0 label-title mb-0">{{labels.moduleName}}</label>
+				<span class="col-md-9 pl-0">
+					<input type="text" class="form-control" placeholder="Enter Program Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
+				</span>
+				<span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleName">
+					{{labels.moduleName}}{{labels.isRequire}}
+				</span>
+				<span class="required_color" *ngIf="moduleVar.moduleNameCheck">
+					{{labels.moduleNameValidation}}
+				</span>
+			</div>
+			<div class="row">
+				<label class="col-md-3 pr-0 label-title mb-0">{{labels.course}}</label>
+				<div class="col-md-9 pl-0 select-Courses">
+					<ng-multiselect-dropdown
+					[placeholder]="'Select Course'"
+					[data]="moduleVar.courseList"
+					[(ngModel)]="selectedCourses"
+					[settings]="moduleVar.dropdownSettings"
+					(onSelect)="onItemSelect($event)"
+					(onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+				</div>
+				<span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
+						{{labels.courseError}}
+					</span>
+				<!-- <span class="col-md-1 pl-0"><a  (click)="addCourse()"><i class="fa fa-plus icons_header"></i></a></span> -->
+			</div>
+		</div>
+		<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
+			<button type="button" class="btn btn-primary btn-save" (click)="submitForm()">{{labels.save}}</button>
+		</div>
+	</form>
+	<div class="col-md-4 p-0">
+		<div class="white-bg pl-4 py-4">
+			<h5 class="mb-4">{{labels.coursesAdded}}</h5>
+			<div *ngIf = "selectedCourses.length" class="addedcourse-scroll">
+				<div *ngFor="let course of selectedCourses,index as i">
+					<p>{{course.value}}<span class="float-right">
+							<a (click)= "updateCourse(course,i)"><img src="assets/images/edit.png" class="px-3"></a>
+							<!-- <a (click)= "onItemDeselect(course)"><i class="fa fa-times icons_header" aria-hidden="true"></i></a> -->
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="text-center" *ngIf = "selectedCourses.length === 0">
+				<label class="label-title">{{labels.noData}}</label>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <p *ngIf="message && !tabEnable" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
+<!-- <p *ngIf="videoMessage && tabEnable" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{videoMessage}}</p> -->
+<div *ngIf="tabEnable">
+<div class="clearfix pt-4">
+	<h4 class="add-course">{{moduleVar.courseId === "" ? labels.addCourseTitle : labels.editCourseTitle}}</h4>
+</div>
+
+<tabset #staticTabs   class="add-video-header">
+    <tab heading="Files">
+    	<div class="row pr-3 pt-2">
+			<div class="col-md-12 pl-0">
+			   <span  (click)="tabEnable = false" class="videopage">
+			   	<img src="assets/images/Close-1.png" class="close-alg">
+			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></span>
+				<div class="white-bg p-4">
+					<div class="row form-group">
+						<label class="col-md-2 p-0 label-title">{{labels.courseName}}</label>
+						<span class="col-md-9 p-0">
+							<input type="text" class="form-control" placeholder="Enter Course Name" name="selectCourseName" [(ngModel)]="moduleVar.selectCourseName">
+							<span class="required_color" *ngIf="courseSubmitted && !moduleVar.selectCourseName">Course name is required</span>
+						</span>
+					</div>
+					<div class="row form-group">
+						<div class="col-md-4 pl-0">
+							<label class="col-md-12 p-0 upload-label">{{labels.videoName}}</label>
+							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter File Name" name="selectVideoName" [(ngModel)]="moduleVar.selectVideoName">
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.selectVideoName">Video name is required</span>
+						</div>
+						<div class="col-md-4 pl-0">
+							<label class="col-md-12 p-0 upload-label">{{labels.description}}</label>
+							<input type="text" class="form-control col-md-12 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="moduleVar.description">
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.description">Description is required</span>
+						</div>
+						<div class="col-md-4 p-0 upload-line">
+							<div class="row">
+							<div class="col-md-4">
+							<div class="fileUpload btn btn-primary">
+                                <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span>
+                                    <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
+                            </div>                           
+                        </div>
+                        <div class="col-md-4">
+							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span>
+							<span *ngIf="showImage && moduleVar.videoFile"><img src="{{previewImage}}" class="px-4 img-size"></span></div>
+							<span class="col-md-4">	
+							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
+							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
+							</span>
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">File is required</span>	
+							<span class="file-alg">Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI</span>		
+						</div>						 
+					</div>
+						<!-- <div class="clearfix col-md-12"><p class="file-alg">Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI</p></div> -->
+						<!-- <div class="col-md-12 drop-and-drag-pdb"><span class="col-md-8"></span><span class="col-md-4 float-right"><img src="{{videoFile}}" style="height: 45px;" >{{fileUrl}}</span></div> -->
+						<!-- <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile"/> -->
+						<ul class="list-group col-md-12 pt-2" dnd-sortable-container [sortableData]="moduleVar.videoList">
+							<li  *ngFor="let item of moduleVar.videoList; let i = index" [ngClass]="moduleId ? 'list-group-item drop-and-drag-pdb row edit-bg' : 'list-group-item drop-and-drag-pdb row add-module'" dnd-sortable [sortableIndex]="i">
+								<span class="col-md-2 word-wrap">{{item.videoName}}</span>
+								<span class="col-md-4 word-wrap">{{item.description}}</span>
+								<span class="col-md-4 word-wrap">{{item.url}}</span>
+								<span class="col-md-2 word-wrap">
+									<a (click)= "removeVideo(item,i)"><i class="fa fa-trash icons_header float-right" aria-hidden="true"></i></a>
+									<a (click)= "updateVideo(item,i)"><i class="fa fa-pencil icons_header float-right" aria-hidden="true"></i></a>								
+								</span>
+							</li>
+						</ul>
+						<div class="col-md-12">
+							<button type="button" (click)="tabChange()" class="btn btn-primary">{{labels.next}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+   	</tab>
+	<tab heading="Quiz">
+			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}"></add-quiz>
+		<!-- <div class="pr-3 pt-2">
+			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}"></add-quiz>
+		</div>          	 -->
+	</tab>
+</tabset>
+</div>

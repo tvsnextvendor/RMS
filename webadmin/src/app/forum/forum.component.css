@@ -1,0 +1,84 @@
+.table td {
+    border-bottom: 1px solid #C5C5C5;
+}
+.creat-btn{
+	float: none;
+}
+.switch {
+  position: relative;
+    display: inline-block;
+   
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 7px;
+    left: -21px;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    width: 34px;
+    height: 14px;
+}
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+input:checked + .slider:before {
+      background-color: #468FB9;
+      left: -9px;
+}
+input:checked + .slider {
+    background-color: #A1C6DB;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: -2px;
+    bottom: -2px;
+    background-color: #F1F1F1;
+    transition: .4s;
+}
+.forumname-width{width: 225px;}
+.img {
+    height: 75px;
+    width: 75px;
+}
+tbody > tr:last-child > td {
+  border-bottom: 0;
+}
+.forum-title{
+  color: #576271;
+}
+.success-message{
+  color:#1fbb21;
+  text-align:left 
+}
+.error-message{
+   color:#f44336;
+   text-align:left 
+}
+.modal-title {
+   font-size: 20px !important;
+}

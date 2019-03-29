@@ -1,0 +1,13 @@
+.profile-save-btn{
+	float: none;
+	margin: 12px 0px 0 0px;
+}
+.did-line{
+	border-right: 2px solid #dee2e6;
+   margin: 30px 0;
+}
+.label-title{
+	color: #a3a3a8;
+	line-height: 35px;
+	font-size: 15px;
+}

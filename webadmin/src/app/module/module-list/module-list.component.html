@@ -1,0 +1,117 @@
+<div class="clearfix pt-4">
+    <h6 class="float-left module-hd-color">{{moduleVar.divisionName}}</h6>
+    <button class="btn btn-primary mr-3" [routerLink]="['../module']">{{moduleVar.createModule}}</button>
+    <button class="btn btn-link float-right" routerLink="/modules">
+        {{moduleVar.labels.showAll}}</button>
+</div>
+
+<div class="pr-3 pt-4" *ngFor="let program of moduleVar.moduleList;let i = index;">
+    <div class="white-bg p-3">
+        <div class="clearfix py-3">
+            <h6 class="float-left module-hd-color">{{program.programName}}</h6>
+            <span class="float-right">
+                <a (click)="moduleEdit(program,i)"><i class="fa fa-pencil icons_header"></i></a>
+                <span class="pr-5 module-course-font">{{moduleVar.active}}</span>
+                <span><label class="switch">
+                        <input type="checkbox" id="activeStatus{{i}}" [(ngModel)]="program.active" (change)="statusUpdate(program.programName,program.active)"
+                            ng-reflect-model="true" class="ng-untouched ng-pristine ng-valid"><span class="slider round"></span></label></span>
+            </span>
+        </div>
+
+        <owl-carousel-o [options]="customOptions" class="">
+            <ng-container *ngFor="let file of program.files">
+                <ng-template carouselSlide>
+                    <div class="player-list">
+                        <div class="video-img-alg" *ngIf=" file.fileType=='mp4'">
+                            <img src="
+                            {{file.videoImage}}" class=" img-player-alg">
+                            <div class="video-action clearfix">
+                                <span class="timer-alg">{{file.videoDuration}}</span>
+                                <span class="float-right">
+                                    <a><i class="fa fa-pencil px-2" aria-hidden="true" (click)="openModal(editVideo,file,'edit',i)"></i></a>
+                                </span>
+                            </div>
+                            <div class="video-desc">
+                                <p class="play-video"><a><i class="fa fa-play-circle player-icon px-2" (click)="openModal(playVideo, file.fileUrl,'video',i)"
+                                            aria-hidden="true"></i></a>{{file.fileName}}</p>
+                                <p class="m-0 px-3 video-para-alg">{{file.fileDescription}}</p>
+                            </div>
+                        </div>
+                        <div class="video-img-alg" *ngIf=" file.fileType !='mp4'">
+                            <div class="file-bg">
+                                <div class="clearfix pt-3 pr-3">
+                                    <span class="float-right">
+                                        <a><i class="fa fa-pencil px-2" aria-hidden="true" (click)="openModal(editVideo,file,'edit',i)"></i></a>
+                                    </span>
+                                    <div class="row">
+                                        <img *ngIf="file.fileType === 'txt'" class="icon-ht" src="assets/images/txt-icon.png">
+                                        <img *ngIf="file.fileType === 'ppt'" class="icon-ht" src="assets/images/ppt-icon.png">
+                                        <img *ngIf="file.fileType === 'pdf'" class="icon-ht" src="assets/images/pdf-icon.png">
+                                    </div>
+                                </div>
+                                <div class="px-2">
+                                    <p class="player-header"><a></a>{{file.fileName}}</p>
+                                    <p class="m-0 video-para-alg">{{file.fileDescription}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+</div>
+
+
+<ng-template #playVideo>
+    <div class="video-screen">
+        <div class="video-player-set">
+            <video class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
+                class="videoPlayer">
+                <source src="{{moduleVar.videoLink}}" type="video/mp4" />
+            </video>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #editVideo>
+    <div class="p-4">
+        <div class="clearfix">
+            <h5 class="float-left">Edit File</h5><span class="float-right"><a (click)="cancelVideoSubmit()"><img src="assets/images/Close-1.png"></a></span>
+        </div>
+        <div class="form-group">
+            <div class="row pl-0 pdb20">
+                <label class="col-md-4 p-0 label-title">File Name</label>
+                <input type="text" class="form-control col-md-8 p-0" placeholder="Enter File Name" name="selectVideoName"
+                    [(ngModel)]="videoName">
+                <span class="required_color" *ngIf="videoSubmitted && !videoName">File name is required</span>
+            </div>
+            <div class="row pl-0 pdb20">
+                <label class="col-md-4 p-0 label-title">Description</label>
+                <textarea class="form-control col-md-8 p-0 decs-overflow" placeholder="Enter Description" name="description"
+                    [(ngModel)]="description"></textarea>
+                <span class="required_color" *ngIf="videoSubmitted && !description">Description is required</span>
+            </div>
+            <div class="row pl-0 pdb20">
+                <label class="col-md-4 p-0 label-title">File</label>
+                <div class="col-md-4">
+                    <div class="fileUpload btn btn-primary m-0 mt-4">
+                        <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>UPLOAD</span>
+                        <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" accept="" (change)="fileUpload($event)" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <span class="float-right mt-2" *ngIf="showImage && videoFile && fileType == 'mp4'"><img src="{{previewImage}}"
+                            class="px-4 img-size"></span>
+                </div>
+                <!-- <span *ngIf="!videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span> -->
+                <span class="required_color" *ngIf="videoSubmitted && !videoFile">File is required</span>
+            </div>
+            <div class="text-center pt-3">
+                <button class="btn btn-default mr10" (click)="cancelVideoSubmit()">CANCEL</button>
+                <button class="btn btn-primary save-btn" (click)="videoSubmit()">SAVE</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

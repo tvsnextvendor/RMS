@@ -1,26 +1,35 @@
-<ion-content padding class="login-bg">
+<ion-content padding class="login-bg" no-bounce overflow-scroll="false">
   <div class="signin-process">
-    <p class="sign-title">SIGN IN</p>
-    <ion-list class="signin-block">
-      <ion-item class="input-login">
-        <ion-input type="text" [(ngModel)]="user.name" placeholder="Username"></ion-input>
-      </ion-item>
-      <ion-item class="input-login">
-        <ion-input type="text" round [(ngModel)]="user.pw" placeholder="Password"></ion-input>
-      </ion-item>
-    </ion-list>
-  </div>
-  <div class="login-action">
-    <button ion-button round type="submit" class="login-btn" (click)="doLogin()">Sign In</button>
-    <div class="keep-login">
-      <ion-item class="bg-trans">
-        <ion-checkbox [(ngModel)]="pepperoni"></ion-checkbox>
-        <ion-label>Keep me logged in</ion-label>
-      </ion-item>
+    <div class="max-wth">
+      <p class="sign-title">{{constant.pages.loginLabels.signIn}}</p>
+      <ion-list class="signin-block">
+        <ion-item class="input-login">
+          <ion-input type="text" [(ngModel)]="user.name" placeholder="Email ID"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-login">
+          <ion-input type="password" round [(ngModel)]="user.pw" placeholder="Password"></ion-input>
+        </ion-item>
+
+      </ion-list>
     </div>
-    <div class="frget-pwd"><a href="">Forget Your password</a></div>
-    <div class="new-account">
-      Need an account? <a href=""> Sign Up</a>
+  </div>
+  <div class="login-action ">
+    <div class="max-wth">
+      <button ion-button round type="submit" class="login-btn" (click)="doLogin()">{{constant.pages.loginLabels.signInSmall}}</button>
+      <span class="error-required" *ngIf="logincredentialerror">{{logincredentialerror}}</span>
+      <div class="keep-login">
+        <ion-item class="bg-trans">
+          <ion-checkbox [(ngModel)]="user.keepmelogin"></ion-checkbox>
+          <ion-label>{{constant.pages.loginLabels.keepmeLoggedIn}} </ion-label>
+        </ion-item>
+      </div>
+      <div class="frget-pwd"><a href="javascript:void(0);" (click)="goToForget()">{{constant.pages.loginLabels.forgetYourPassword}}
+          ?</a></div>
+      <div class="new-account">
+        {{constant.pages.loginLabels.needAnAccount}} <a href="javascript:void(0);" (click)="goToSignUp()">
+          {{constant.pages.loginLabels.signUp}} </a>
+      </div>
     </div>
   </div>
 </ion-content>

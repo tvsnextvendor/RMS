@@ -1,0 +1,58 @@
+.upload-crt-icon{
+    /* padding: 0 25px; */
+    color: #28a745;
+    font-size: 22px;
+}
+.upload-wrg-icon{
+    font-size: 22px;
+   color: #f44336;
+}
+
+.header-icon{
+    color: #468FB9;
+}
+.table-striped tbody tr:nth-of-type(odd) .input {
+    background-color: #F4FBFF;
+}
+.br-btn {
+    border-radius: 20px;
+    color: white !important;
+    min-height: unset !important;
+    height: 28px !important;
+    padding: 4px 8px !important;
+}
+
+.upload-line{
+    line-height: 90px;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    /* margin: 10px; */
+    /* float: none; */
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.addUser-upload{
+    border-radius: 20px;
+    padding: 4px;
+}
+.user-desc{
+    padding: 16px;
+    text-align: center;
+}
+.designation-width{
+    width: 132px;
+}
+.Number-width{
+    width: 185px;
+}

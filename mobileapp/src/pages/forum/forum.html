@@ -1,0 +1,47 @@
+
+<ion-content padding class="headerFull-bg default-header">
+<ion-header  class="main-header my-component static-header" color="primary" >
+    <ion-navbar *ngIf="!showSearchBar">
+    <button ion-button menuToggle>
+       <img src="../assets/imgs/menu.png" />
+    </button>
+    <ion-title class="text-left">
+      <span class="header-title">{{constant.title.forum}}</span>
+      <div class="header-icon">
+        <ion-icon name="search" (click)="toggleSearchBox()"></ion-icon>
+      </div>
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar *ngIf="showSearchBar">
+    <ion-icon name="md-arrow-back" class="search-backarrow" (click)="toggleSearchBox()"></ion-icon>
+    <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" class="search-bar">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<div class="main-content">
+  <ion-list>
+    <ion-row *ngIf="forumData.length > 0">
+      <ion-col *ngFor="let forum of forumData; let i =index;" col-12 col-sm-6 col-md-4 class="main-forum">
+        <ion-card class="forum-card">
+          <ion-card-content (click)="goToForumDetail(forum,i)" class="forum-card">
+            <ion-row>
+              <ion-col col-2 class="img-block">
+                <img src="assets/imgs/sms@3x.png" class="forum-image">
+              </ion-col>
+              <ion-col col-6 class="forum-content">
+                <h4 class="forum-title ovr-txt">{{forum.forumName}}</h4>
+                <p class="forum-hours">6 {{constant.pages.forumLabels.hoursAgo}},{{forum.totalTopics}}
+                  {{constant.pages.forumLabels.topics}}</p>
+              </ion-col>
+              <ion-col col-4>
+                <p class="forum-date">{{forum.forumCreated | date:'dd MMM yyyy'}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+  <img *ngIf="forumData.length == 0" src="../assets/imgs/norecordsfound.png" class="no-records" />
+</div>
+</ion-content>

@@ -1,20 +1,18 @@
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<div class="row">
+<div class="row pr-3">
   <div class="col-md-9 p-0">
-    <div class="row mb-4">
-      <div class="col-md-1 p-0 snow-img"><img src="assets/images/snowflake.jpg">
-        <p class="cloudy">-4   <sup>o</sup>C</p>
-        <p>CLOUDY</p>
+    <div class="row my-4">
+      <div class="col-md-1 p-0 pt-2 snow-img"><img src="assets/images/cool@2x.png">
+        <p class="cloudy pt-2">{{dashboardVar.temp}}  <sup>{{dashboardVar.degree}}</sup>{{dashboardVar.celcius}}</p>
+        <h6>{{dashboardVar.cloudy}}</h6>
       </div>
       <div class="dashboard-header col-md-11">
          <div class="clearfix">
-        <h4 class="float-left">{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.apostrophe}}</h4>
-        <span class="float-right"><button type="button" class="cancel-btn"><i class="fa fa-times cancel-icon" aria-hidden="true"></i></button></span>
+        <h4 class="float-left fnt-size">{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.apostrophe}}</h4>
       </div>
       <div class="clearfix">
-        <p class="p-color">{{dashboardVar.employeeTabText.notification}} <b class="click-color">{{dashboardVar.btns.editTasks}}</b></p>
-        <button class="btn_alg">{{dashboardVar.btns.quickTasks}}</button>
-        <button class="btn_alg">{{dashboardVar.btns.openCalendar}}</button>
+        <p class="p-color">{{dashboardVar.employeeTabText.notification}}</p>
+        <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button>
       </div>
       </div>
     </div>
@@ -22,53 +20,81 @@
       <div class="col-md-4 pl-0">
          <div class=" chart-bg">
          <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-        {{dashboardVar.resortGridsTitle.visitors}} <span class="num-alg">2000</span></h6>
-         <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
-            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>16%</p></div>
+        {{dashboardVar.resortGridsTitle.visitors}} <span class="resort-num-alg">{{dashboardVar.visitorsData?.total}}</span></h6>
+         <div class="avg-alg"><p class="mr0 avg-color">{{dashboardVar.avgWeekly}}</p>
+            <p class="mr0 pect-color"><i [ngClass]="this.dashboardVar.visitorsData?.avgWeekly > 15 ? 'fa fa-caret-up pdr7':'fa fa-caret-down pdr7'" aria-hidden="true"></i>{{this.dashboardVar.visitorsData?.avgWeekly}}%</p></div>
         <div id="visitors" style=" height: 100px; margin: 0 auto"></div>
       </div>
       </div>
       <div class="col-md-4 pl-0">
          <div class=" chart-bg">
          <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-      {{dashboardVar.resortGridsTitle.staff}} <span class="num-alg">300</span></h6>
-      <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
-            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>25%</p></div>
-      <div id="staff" style=" height: 100px; margin: 0 auto"></div>
+      {{dashboardVar.resortGridsTitle.staff}} <span class="resort-num-alg">{{dashboardVar.staffData?.total}}</span></h6>
+      <!-- <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
+            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>25%</p></div> -->
+      <div id="staff" style=" height: 145px; margin: 0 auto"></div>
     </div>
       </div>
       <div class="col-md-4 pl-0">
          <div class=" chart-bg">
         <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-      {{dashboardVar.resortGridsTitle.feedbackRating}}</h6>
-      <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
-            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>20%</p></div>
-      <canvas id="rating"  height="110"></canvas>
-    </div>
+        {{dashboardVar.resortGridsTitle.feedbackRating}}</h6>
+      <!-- <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
+            <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>20%</p></div> -->
+            <div class="row py-3" style=" height: 149px">
+            <div class="col-sm-5" *ngIf ="dashboardVar.feedbackData?.rating" >
+              <span class="rating-point">{{dashboardVar.feedbackData.rating}}</span>
+                <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
+                    </span>
+                  </ng-template>
+              <ngb-rating [(rate)]='dashboardVar.feedbackData.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+              <span class="total-alg"><img src="assets/images/user2.png" class="user-img">{{dashboardVar.feedbackData.people}} {{dashboardVar.total}}</span>
+            </div>
+            <div class="col-sm-7"> <canvas id="rating" height="110" class="rating-chart"></canvas></div>
+            </div>
+       </div>
       </div>
     </div>
   </div>
   <div class="col-sm-3 p-0">
     <div class="side-widget">
-            <div class=" chart-bg">
+            <div class=" chart-bg pt-3 pb-4" style=" height: 405px">
               <div class="keyheader">
                 <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i> Key Stats</h6>
               </div>
               <div class="key-content">
-                <div class="row">
+                <div class="row py-4">
                   <div class="col-sm-6">
-                    <p class="small-txt">New Employees (This week)</p>
-                    <h3>10</h3>
+                    <p class="small-txt">New Employees </p>
+                    <p class="small-txt">(This week)</p>
+                    <h3 class="pl-2">{{dashboardVar.newEmployee}}</h3>
                   </div>
-                  <div class="col-sm-6">
-                    <p class="week-growth">Weekly Growth</p>
-                    <span class="growth-percen text-success">14%</span>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-4">
+                      <p class="week-growth">{{dashboardVar.weeklyGrowth}}</p>
+                    <span class="growth-percen text-success">{{dashboardVar.weekGrowth}}{{dashboardVar.symbols.percentage}}</span>
                   </div>
                 </div>
 
                 <div class="recent-command col-md-12">
-                  <h6 class="recent-command-tit">Recent Comment</h6>
-                  <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                  <h6 class="recent-command-tit">{{dashboardVar.recentComment}}</h6>
+                    <carousel>
+                        <slide>
+                            <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                          </slide>
+                        <slide>
+                            <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                          </slide>
+                        <slide>
+                            <p class="small-txt"><span class="text-primary">@Siva</span>, Can you look into this and give me an update on cross training employees</p>
+                          </slide>
+                      </carousel>
+                      <div class="clearfix pt-3">
+                        <p class="float-left">-Anggoon</p>
+                        <a><img src="assets/images/Reply.png" class="share-icon"></a>
+                      </div>
                 </div>
               </div>
             </div>
@@ -112,9 +138,9 @@
       </div>
 
       <div class="col-sm-6 pl-0">
-        <div class="chart-bg">
+        <div class="chart-bg" style="height: 247px;">
           <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-            {{dashboardVar.resortGridsTitle.topResorts}}<select class="select-btn"><option value="This Month">This Month</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
+            {{dashboardVar.resortGridsTitle.topResorts}}<select class="select-btn" ><option *ngFor="let data of dashboardVar.topEmployeeDropdown" value="{{data.id}}">{{data.value}}</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></h6>
             <div class="custom-table">
             <table class="table">
                 <tbody>
@@ -136,34 +162,40 @@
             </div>
           </div>
       </div>
-
 </div>
 
-
+<div class="pr-3">
   <div class="chart-bg">
     <div class="row resort-pd">
-      <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>  {{dashboardVar.resortGridsTitle.resort}}<span class="float-right wdt">Select Resort<select class="resort-btn"><option value="This Month">Resort A</option><i class="fa fa-chevron-down" aria-hidden="true"></i></select></span></h6>
+      <div class="chart-mr clearfix">
+      <h6 class="float-left"><i class="fa fa-circle-o" aria-hidden="true"></i>  {{dashboardVar.resortGridsTitle.resort}}</h6>
+        <span class="float-right">{{dashboardVar.selectResort}}
+        <select class="resort-btn">
+          <option *ngFor="let resort of dashboardVar.resortList" value="{{resort.id}}">{{resort.name}}</option><i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </select></span>      
+    </div>
     <div class="col-md-4 bor-right">
-        <h6 class="hd-color">Total Employee</h6>
+        <h6 class="resort-hd">{{dashboardVar.totEmp}}</h6>
         <div class="clearfix rest-pd">
-          <h4 class="float-left">Resort A</h4>
+          <h4 class="resort-alg">Whitetail resort</h4>
           <span class="resort-num">80</span>
         </div>          
             <div id="totalemployee" style="height: 200px;"></div>           
       </div>
 
-<div class="col-md-4  bor-right"> <h6 class="hd-color">Task</h6>
-  <div id="task" style="height: 200px;"></div>
+<div class="col-md-4  bor-right"> <h6 class="resort-hd">{{dashboardVar.task}}</h6>
+  <div id="task" style="height: 250px; padding-top: 45px;"></div>
 </div>
 <div class="col-md-4 badge-section">
-  <h6 class="hd-color">{{dashboardVar.resortGridsTitle.badges}}</h6>
-  <div class="row">
-    <div class="col-sm-6 badge-li pl-0" *ngFor="let badge of Badges"><span class="badge">{{badge.label}}</span><span class="badge-color"> {{badge.value}}</span></div>
+  <h6 class="resort-hd">{{dashboardVar.resortGridsTitle.badges}}</h6>
+  <div class="row pt-4">
+    <div class="col-sm-6 badge-li pl-0" *ngFor="let badge of Badges"><span class="badge">{{badge.label}}</span><span class="badge-color">{{badge.value}}</span></div>
   </div>
-  <h6 class="hd-color">{{dashboardVar.resortGridsTitle.certification}}</h6>
+  <h6 class="resort-hd">{{dashboardVar.resortGridsTitle.certification}}</h6>
   <li *ngFor="let badgeC of BadgesCertificate"> 
     <span class="badge crt-alg">{{badgeC.label}}</span> <span class="Bbadge-color">{{badgeC.value}}</span>
   </li>
+</div>
 </div>
 </div>
 </div>

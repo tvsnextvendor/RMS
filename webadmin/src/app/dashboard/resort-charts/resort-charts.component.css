@@ -13,3 +13,49 @@
   overflow: hidden;
   color: #737373;
 }
+.silder-alg{
+	color: #ccc;
+    font-size: 25px;
+}
+.resort-num-alg{
+    font-size: 32px;
+    color: #1D4960;
+    line-height: 20px;
+    font-weight: 600;
+    padding: 10px;
+    float: right;
+}
+.rating-point{
+  display: block;
+    font-size: 38px;
+    padding-left: 5px;
+    color: #333333;
+}
+.rating-chart{
+    height: 85px !important;
+    width: 135px !important;
+    margin-top: 15px;
+}
+.resort-hd{
+  color: #1D4960;
+    font-size: 18px;
+    font-weight: 600;
+}
+.resort-alg{
+  color: #9F9F9F;
+    font-size: 22px;
+    float: left;
+    font-weight: 600;
+}
+.d-inline-flex{
+  display: block !important;
+}
+.user-img{
+    width: 12px;
+    padding-right: 4px;
+}
+.total-alg{
+  color: #6A6868;
+    font-size: 12px;
+}
+

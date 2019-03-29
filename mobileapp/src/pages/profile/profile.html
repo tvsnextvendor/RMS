@@ -1,0 +1,84 @@
+<ion-content padding class="profile-bg default-header" >
+<ion-header class="main-header my-component static-header">
+	<!-- <ion-toolbar transparent>
+		<ion-icon name="ios-arrow-back" (click)="goToPrevious()"></ion-icon>
+		<p class="menu-tit">{{constant.title.profile}}</p>
+	</ion-toolbar> -->
+
+	<ion-navbar transparent class="title-type2">
+			<span class="back-arrow" (click)="goToPrevious()">
+				 <img src="../assets/imgs/Back.png" />
+			   </span>
+			   <ion-title class="text-left ">
+			 <span class="inner-title">{{constant.title.profile}}</span>
+			</ion-title>
+			</ion-navbar>
+
+	
+				<!-- <ion-navbar transparent class="title-type2">
+				   <ion-icon name="ios-arrow-back" (click)="goToPrevious()"></ion-icon>
+				   <p class="menu-tit">{{constant.title.profile}}</p>
+			   </ion-navbar> -->
+</ion-header>
+
+	<div class="max-wth main-content" *ngIf="currentUser">
+		<div class="profile-img">
+			<img src="../assets/images/images1.jpeg" class="profile-image">
+			<h4>{{currentUser.username}}</h4>
+		</div>
+		<ion-list class="profile-details">
+			<ion-item>
+				<ion-grid>
+					<ion-row>
+						<ion-col col-1 align-self-center>
+							<img src="../assets/imgs/phone.png">
+						</ion-col>
+						<ion-col col-11 class="profile-info">
+							<p>{{currentUser.phoneNumber}}</p>
+							<small>{{constant.pages.profileLabels.mobile}}</small>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-item>
+			<ion-item>
+				<ion-grid>
+					<ion-row>
+						<ion-col col-1 align-self-center>
+							<img src="../assets/imgs/email.png">
+						</ion-col>
+						<ion-col col-11 class="profile-info">
+							<p>{{currentUser.emailAddress}}</p>
+							<small>{{constant.pages.profileLabels.email}}</small>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-item>
+			<ion-item>
+				<ion-grid>
+					<ion-row>
+						<ion-col col-1 align-self-center>
+							<img src="../assets/imgs/Department.png">
+						</ion-col>
+						<ion-col col-11 class="profile-info">
+							<p>{{currentUser.department}}</p>
+							<small>{{constant.pages.profileLabels.department}}</small>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-item>
+			<ion-item>
+				<ion-grid>
+					<ion-row>
+						<ion-col col-1 align-self-center>
+							<img src="../assets/imgs/Designation.png">
+						</ion-col>
+						<ion-col col-11 class="profile-info">
+							<p>{{currentUser.designation}}</p>
+							<small>{{constant.pages.profileLabels.designation}}</small>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-item>
+		</ion-list>
+	</div>
+</ion-content>

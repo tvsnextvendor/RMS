@@ -1,27 +1,62 @@
 page-training {
 	.scroll-content{
-		background-color: #F9F9F9;
+		background-color: #e0e0e0;
+
+
 	}
 	.headerFull-bg {
-		 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
-        background: rgb(33,131,185); /* Old browsers */
-        background: -moz-linear-gradient(left, rgba(33,131,185,1) 1%, rgba(50,156,214,1) 100%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(left, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
-}
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2183b9+1,329cd6+100 */
+		background: rgb(33,131,185); /* Old browsers */
+		background: -moz-linear-gradient(left, rgba(33,131,185,1) 1%, rgba(50,156,214,1) 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(left, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to right, rgba(33,131,185,1) 1%,rgba(50,156,214,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2183b9', endColorstr='#329cd6',GradientType=1 ); /* IE6-9 */
+	}
 	.training-list {
 
-		margin: 0 0 15px 0;
+		margin: 0 0 0px 0;
 		width: 100%;
-		-webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
-		-moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
-		box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+		-webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.16);
+		-moz-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.16);
+		box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.16);
 		position: relative;
 		cursor: pointer;
 	}
-	ion-header.header {
-		padding: 0;
+	
+	.main-forum {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.module-select {
+		padding-left: 16px;
+	}
+	.com-percen {
+		position: absolute;
+		top: -24px;
+		right: 0;
+		background: #279014;
+		color: #fff;
+		padding: 2px 7px;
+		font-weight: 100;
+	}
+	.course-name {
+		position: absolute;
+		left: 0;
+		background: rgba(0,0,0,0.8);
+		top: 0;
+		color: #fff;
+		padding: 2px 7px;
+		min-width: 90px;
+		text-align: center;
+		// opacity: 0.8;    
+		font-weight: 400;
+	}
+	.module-select {
+		margin-left: -16px;
+		margin-right: 0px;
+	}
+	.dropdown-menu {
+		left: 6px !important;
 	}
 }
 .training-title {
@@ -35,15 +70,15 @@ page-training {
 }
 .progress-tab{
 	text-align: center;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-top: 0;
+	margin-bottom: 14px;
 	a {
 		padding: 0 5px;
 		font-family: sf_ui_textregular;
-		color: rgba(0, 0, 0, 0.2) !important;
+		color: rgba(0, 0, 0, 0.6) !important;
 
-    }
-    
+	}
+
 	a.assigned,a.inprogress,a.complete{
 		color: #000 !important;
 		font-size: 25px;
@@ -69,7 +104,7 @@ page-training {
 .card-content .training-desc {
 	color: #000;
 	font-size: 12px;
-	 
+
 }
 .card-title p.training-name, .card-content .training-desc
 {
@@ -79,14 +114,15 @@ page-training {
 	cursor:pointer;
 }
 .training-content {
-    position: absolute;
-    background: #fff;
-    z-index: 25;
-    bottom: 0;
+	position: absolute;
+	background: #fff;
+	z-index: 25;
+	bottom: 0;
 }
 .training-image {
 	position: relative;
 	width: 100%;
+	height: 200px;
 
 	.play-icon {
 		position: absolute;
@@ -99,4 +135,31 @@ page-training {
 		}
 	}
 
+}
+
+.module-select button {
+	width: 100%;
+	background: #fff;
+}
+
+.module-drpdwn.show #dropdownMenuButton {
+	border-left: 5px solid #329CD6;
+}
+a.dropdown-item {
+	left: 6px !important;
+}
+.alert-message {
+	overflow-y: auto;
+}
+.alert-md .alert-wrapper {
+	border-radius: 13px;
+}
+.alert-md .alert-button-group{
+	padding: 0px;
+}
+.alert-md .alert-button {
+	text-align: center;
+	width: 100%;
+	height: 44px;
+	margin-right: 0;
 }

@@ -1,0 +1,67 @@
+<div class="pr-3 pt-5">
+  <div class="white-bg">
+    <div class="clearfix p-3 row calender-header">
+      <span class="calender-text col-md-4">{{batchVar.calendarView}}</span>
+      <span class="month-text col-md-4">
+        <div class="float-left cp" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </div>
+        {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
+        <div class="float-right cp" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+      </span>
+    </div>
+    <!-- <span class="col-md-4">
+       <span class="btn-group">
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </div>
+        <div
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate">
+          {{batchVar.calLabels.today}}
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+      </span>
+    </span> -->
+    <div [ngSwitch]="view" class="px-3 pb-3 calender-view">
+      <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+        [cellTemplate]="customCellTemplate" [refresh]="refresh" (dayClicked)="goToBatch($event.day.date)">
+      </mwl-calendar-month-view>
+    </div>
+
+
+    <ng-template #customCellTemplate let-day="day" let-locale="locale">
+      <div class="cal-cell-top">
+        <!--       <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+ --> <span class="calender-number">{{
+          day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+      </div>
+      <span class="calender-batch row py-2" *ngFor="let event of day.events">
+        <span class="col-md-2 p-0"><i class="fa fa-file-text px-2" aria-hidden="true"></i></span>
+        <span class="col-md-9 p-0">
+          <p class="m-0">{{event.batchName}}</p>
+          <p class="m-0">{{batchVar.labels.module}} - {{event.moduleCount}}</p>
+          <p class="m-0">{{event.courseCount}} {{batchVar.labels.courses}}</p>
+          <!-- <p class="m-0">{{event.timings}}</p> -->
+        </span>
+        <span class="col-md-1 p-0"> <i class="fa fa-pencil" routerLink="/addBatch/{{event.id}}" aria-hidden="true"></i></span>
+      </span>
+    </ng-template>
+
+  </div>
+</div>
