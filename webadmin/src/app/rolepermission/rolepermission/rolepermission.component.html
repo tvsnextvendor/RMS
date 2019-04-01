@@ -1,0 +1,161 @@
+<div class="pr-3 pt-5">
+	<div class="white-bg pt-3">
+		<div class="row">
+			<div class="col-md-4">
+				<select class="form-control pl-0">
+                        <option value="Resort1">Resort 1</option>
+                        <option value="Resort2">Resort 2</option>
+                         <option value="Resort3">Resort 3</option>
+                    </select>
+			</div>
+			<div class="col-md-4">
+				<select class="form-control pl-0">
+                        <option value="Division1">Division 1</option>
+                        <option value="Division2">Division 2</option>
+                         <option value="Division3">Division 3</option>
+                    </select>
+			</div>
+			<div class="col-md-4">
+				<select class="form-control pl-0">
+                        <option value="Department1">Department 1</option>
+                        <option value="Department2">Department 2</option>
+                         <option value="Department3">Department 3</option>
+                    </select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 pr-3">
+				<select class="form-control pl-0">
+                        <option value="Role1">Role 1</option>
+                        <option value="Role2">Role 2</option>
+                         <option value="Role3">Role 3</option>
+                    </select>
+			</div>
+			<div class="col-md-6">
+				<span>
+					<label class="hole-cont mr-5">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()"> Web
+						<span class="checkmark"></span>
+					</label>
+					<label class="hole-cont">
+						<input type="checkbox" [checked]="!optionData"  name="options" [value]="0" (change)="optionValueUpdate()"> Mobile
+						<span class="checkmark"></span>
+					</label>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+ <div class="table-responsive custom-table2 pt-1 pr-3">
+ 	<table class="table table-striped white-bg mt-1">
+ 		<thead>
+ 		<tr class="th-boxshadow">
+    <th class="pl-5">Menu</th>
+    <th class="text-center"><label class="table-checkbox-cont mb-0">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()"> View
+						<span class="table-checkmark"></span>
+					</label></th>
+    <th class="text-center"><label class="table-checkbox-cont mb-0">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()"> Upload
+						<span class="table-checkmark"></span>
+					</label></th>
+    <th class="text-center"><label class="table-checkbox-cont mb-0">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()"> Edit / Delete
+						<span class="table-checkmark"></span>
+					</label></th>
+  </tr>
+  </thead>
+  <tr class="table-desc-color">
+    <td class="pl-5">User Management</td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="edit-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+  </tr>
+  <tr class="table-desc-color">
+    <td class="pl-5">Resort Management</td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="edit-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+  </tr>
+  <tr class="table-desc-color">
+    <td class="pl-5">Dashboard</td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="edit-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+  </tr>
+  <tr class="table-desc-color">
+    <td class="pl-5">Calendar</td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="edit-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+  </tr>
+  <tr class="table-desc-color">
+    <td class="pl-5">Training</td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont mr-5">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="edit-padding"><label class="table-checkbox-cont mr-5">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+  </tr>
+  <tr class="table-desc-color">
+    <td class="pl-5">Forum</td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont mr-5">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont mr-5">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="edit-padding"><label class="table-checkbox-cont mr-5">
+						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()">
+						<span class="table-checkmark"></span>
+					</label></td>
+  </tr>
+ 		
+ 	</table>
+ </div>

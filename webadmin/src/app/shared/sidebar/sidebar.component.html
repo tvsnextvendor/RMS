@@ -56,8 +56,8 @@
         <li [class.active]="router.isActive('/certificates')">
             <a routerLink="/certificates"><img src="assets/images/Certification.png"class="pr-3">Certificates</a>
         </li>
-        <li>
-            <a routerLink=""><img src="assets/images/menu4.png"class="pr-3">Roles & Permissions</a>
+        <li [class.active]="router.isActive('/rolepermission')">
+            <a routerLink="/rolepermission"><img src="assets/images/menu4.png"class="pr-3">Roles & Permissions</a>
         </li>
     </ul>
 </div>
