@@ -30,6 +30,7 @@ export class API_URL {
     //User//
     getDepartments: '5c25fa2a300000540067f651',
     getDesignations: '5c29c1d22e00006a00c18ac7',
+    getDivision: '5ca1ad2a3700005c00899357',
 
     //Programs//
     getModuleCourseList: "5c35ccbf300000670021b539",
@@ -63,7 +64,7 @@ export class API_URL {
     //*needed - moduleCourseList     : '5c24973f30000077007a6042',
     getEmployeeList: '5c0928d52f0000c21f637cd0',
     getUsers: '5c35ea0a300000600021b667',
-    getUsersList: '5c3344022e0000f508121fab',
+    getUsersList: '5ca1b9af370000640089938c',
     //*getUsersList      : '5c260d313000007f0067f6ba', 
     // Content To Bo Live
     getModuleList: '5c28b1fd3300005900a58b80',

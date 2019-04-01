@@ -9,7 +9,7 @@
                     accept=".xlsx" />
             </div>
         </span>
-        <span class="pr-2"><a class="btn btn-primary br-btn" (click)="addUser()">{{constant.btns.addUser}}</a></span>
+        <span class="pr-2"><a class="btn btn-primary br-btn" (click)="openAddUser(addUserTemp,'','')">{{constant.btns.addUser}}</a></span>
         <span class="pagenation-btn">
             <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
                 class="pagenation-dropdown"></ngx-select-dropdown>
@@ -27,10 +27,13 @@
                                     class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>
+                        <mfDefaultSorter by="division">{{labels.division}}</mfDefaultSorter>
+                    </th>
+                    <th>
                         <mfDefaultSorter by="department">{{labels.department}}</mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="designation">{{labels.designation}}</mfDefaultSorter>
+                        <mfDefaultSorter by="role">{{labels.role}}</mfDefaultSorter>
                     </th>
                     <th>
                         <mfDefaultSorter by="emailId">{{labels.email}}</mfDefaultSorter>
@@ -48,49 +51,15 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
-                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.employeeId }}</label><span>
-                            <input *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter Emp ID"
-                                [(ngModel)]="userId" name="userId" #user="ngModel" (keyup)="validationUpdate(mf.data,'userId')" /><span
-                                class="required_color" *ngIf="videoSubmitted && user.editEnable && !userId">{{constant.mandatoryText.empId}}</span><span
-                                class="required_color" *ngIf="videoSubmitted && user.editEnable && userId && validUserId">{{constant.mandatoryText.empIdExist}}</span></span></td>
-                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.employeeName }}</label><span><input
-                                *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter User Name"
-                                [(ngModel)]="userName" name="userName" #user="ngModel" /><span class="required_color"
-                                *ngIf="videoSubmitted && user.editEnable && !userName">{{constant.mandatoryText.empName}}</span></span></td>
-                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.department }}</label><span>
-                            <!-- <input *ngIf="user.editEnable" type="text" class="form-control" placeholder="Enter Department" [(ngModel)]="department " name="department " #departmentName = "ngModel" /> -->
-                            <select *ngIf="user.editEnable" [(ngModel)]="department" (ngModelChange)="designationUpdate($event)"
-                                name="department" class="form-control">
-                                <option value="">{{constant.labels.select}}</option>
-                                <option *ngFor="let obj of departmentArray" [value]="obj.department">{{obj.department}}</option>
-                            </select>
-                            <span class="required_color" *ngIf="videoSubmitted && user.editEnable && !department">{{constant.mandatoryText.dept}}</span></span>
-                    </td>
-                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.designation }}</label><span>
-                            <select *ngIf="user.editEnable" [(ngModel)]="designation" name="designation" class="form-control designation-width">
-                                <option value="">{{constant.labels.select}}</option>
-                                <option *ngFor="let obj of designationData" [value]="obj.name">{{obj.name}}</option>
-                            </select>
-                            <span class="required_color" *ngIf="videoSubmitted && user.editEnable && !designation">
-                                {{constant.mandatoryText.designation}}</span></span>
-                    </td>
-                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.emailId }}</label><span><input
-                                *ngIf="user.editEnable" type="email" class="form-control" placeholder="Enter Email"
-                                [(ngModel)]="emailAddress" name="emailAddress" #email="ngModel" (keyup)="validationUpdate(mf.data,'email')" /><span
-                                class="required_color" *ngIf="videoSubmitted && user.editEnable && !emailAddress">{{constant.mandatoryText.emailId}}</span><span
-                                class="required_color" *ngIf="videoSubmitted && user.editEnable && emailAddress && validEmail">{{constant.mandatoryText.emailInvalid}}</span></span></td>
-                    <td class="vat user-desc"><label *ngIf="!user.editEnable" class="mb-0">{{ user.mobile }}</label><span><input
-                                *ngIf="user.editEnable" type="text" class="form-control Number-width" placeholder="Enter Mobile Number"
-                                [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate(mf.data,'mobile')" /><span
-                                class="required_color" *ngIf="videoSubmitted && user.editEnable && !phoneNumber">{{constant.mandatoryText.mobNo}}</span><span
-                                class="required_color" *ngIf="videoSubmitted &&  user.editEnable && phoneNumber && validPhone">
-                                {{constant.mandatoryText.invalidMobNo}}</span></span></td>
-                    <td class="vat user-desc"><a *ngIf="!user.editEnable" (click)="userEdit(mf.data,user,i)"><i class="fa fa-pencil header-icon"></i></a><a
-                            *ngIf="user.editEnable" (click)="userUpdate(mf.data,user,i)"><i class="fa fa-check upload-crt-icon"
-                                aria-hidden="true"></i></a></td>
-                    <td class="vat user-desc"><a *ngIf="!user.editEnable" (click)="removeUser(user,i)"><i class="fa fa-trash header-icon"></i></a><a
-                            *ngIf="user.editEnable" (click)="cancelEdit(user,i)"><i class="fa fa-times upload-wrg-icon"
-                                aria-hidden="true"></i></a></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.employeeId }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.employeeName }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.division }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.department }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.designation }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.emailId }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.mobile }}</label></td>
+                    <td class="vat user-desc"><a (click)="openAddUser(addUserTemp,user,i)"><i class="fa fa-pencil header-icon"></i></a></td>
+                    <td class="vat user-desc"><a (click)="removeUser(user,i)"><i class="fa fa-trash header-icon"></i></a></td> 
                 </tr>
                 <tr *ngIf="mf.data?.length == 0">
                     <td colspan="10" class="text-center data-design">{{constant.labels.noData}}</td>
@@ -106,3 +75,125 @@
         </table>
     </form>
 </div>
+
+
+
+<ng-template #addUserTemp>
+    <div class="modal-header">
+        <p class="hd-alg">{{constant.btns.addUser}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeAddForm()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+         <form #userForm="ngForm"  (ngSubmit)="addUser(userForm)">
+           
+            <div class="row form-group">
+                <label class="col-md-6">{{labels.employeeId}}</label>
+                <span class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Enter Emp ID" [(ngModel)]="userId"
+                    name="userId" #user="ngModel" (keyup)="validationUpdate(mf.data,'userId')" />
+                    <span class="required_color"
+                        *ngIf="userForm.submitted && !userId">{{constant.mandatoryText.empId}}</span>
+                    <span class="required_color"
+                            *ngIf="userForm.submitted && userId && validUserId">{{constant.mandatoryText.empIdExist}}</span>
+                </span>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-md-6">{{labels.userName}}</label>
+                <span class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Enter User Name" [(ngModel)]="userName"
+                        name="userName" #user="ngModel" />
+                    <span class="required_color"
+                        *ngIf="userForm.submitted && !userName">{{constant.mandatoryText.empName}}</span>                 
+                </span>
+            </div>
+            <div class="row form-group">
+                <label class="col-md-6">{{labels.division}}</label>
+                <span class="col-md-6">
+                    <select [(ngModel)]="division" name="division" class="form-control">
+                        <option value="">{{constant.labels.select}}</option>
+                        <option *ngFor="let obj of divisionArray" [value]="obj.divisionId">{{obj.divisionName}}</option>
+                    </select>
+                    <span class="required_color" *ngIf="userForm.submitted && !division">
+                        {{constant.mandatoryText.division}}</span>
+                </span>
+            </div>
+            
+            <div class="row form-group">
+                <label class="col-md-6">{{labels.department}}</label>
+                <span class="col-md-6">
+                    <select [(ngModel)]="department" (ngModelChange)="designationUpdate($event)" name="department"
+                        class="form-control">
+                        <option value="">{{constant.labels.select}}</option>
+                        <option *ngFor="let obj of departmentArray" [value]="obj.userId">{{obj.department}}</option>
+                    </select>
+                    <span class="required_color"
+                        *ngIf="userForm.submitted && !department">{{constant.mandatoryText.dept}}</span>
+                </span>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-md-6">{{labels.role}}</label>
+                <span class="col-md-6">
+                    <select [(ngModel)]="designation" name="designation" class="form-control">
+                        <option value="">{{constant.labels.select}}</option>
+                        <option *ngFor="let obj of designationData" [value]="obj.id">{{obj.name}}</option>
+                    </select>
+                    <span class="required_color" *ngIf="userForm.submitted && !designation">
+                        {{constant.mandatoryText.designation}}</span>
+                </span>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-md-6">{{labels.email}}</label>
+                <span class="col-md-6">
+                    <input type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="emailAddress"
+                        name="emailAddress" #email="ngModel" (keyup)="validationUpdate(mf.data,'email')" />
+                        <span class="required_color"
+                            *ngIf="userForm.submitted && !emailAddress">{{constant.mandatoryText.emailId}}</span>
+                        <span class="required_color"
+                            *ngIf="userForm.submitted  && emailAddress && validEmail">{{constant.mandatoryText.emailInvalid}}</span>
+                </span>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-md-6">{{labels.mobile}}</label>
+                <span class="col-md-6">
+                    <input type="text" class="form-control Number-width" placeholder="Enter Mobile Number"
+                        [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate(mf.data,'mobile')" /><span
+                        class="required_color"
+                        *ngIf="userForm.submitted && !phoneNumber">{{constant.mandatoryText.mobNo}}</span><span
+                        class="required_color" *ngIf="userForm.submitted  && phoneNumber && validPhone">
+                        {{constant.mandatoryText.invalidMobNo}}</span>
+                </span>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-md-6">{{labels.reportingTo}}</label>
+                <span class="col-md-6">
+                    <select [(ngModel)]="reportingTo" name="reportingTo" class="form-control">
+                        <option value="">{{constant.labels.select}}</option>
+                        <option *ngFor="let obj of designationData" [value]="obj.name">{{obj.name}}</option>
+                    </select>
+                    <span class="required_color" *ngIf="userForm.submitted && !reportingTo">
+                        {{constant.mandatoryText.reportingTo}}</span>
+                </span>
+            </div>
+
+            <div class="row form-group">
+                <input type="checkbox" [(ngModel)]="defaultSetting" name="defaultSetting" #setting="ngModel"  checked/>
+                <label>{{labels.defaultSetting}}</label>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" *ngIf="!editEnable" class="btn btn-default  mr-3">{{constant.btns.save}}1</button>
+                <button type="button" *ngIf="editEnable" (click)="updateUser(userForm)" class="btn btn-default  mr-3">{{constant.btns.save}}</button>
+                <button type="button" class="btn btn-primary creat-btn mr-3"
+                    (click)="closeAddForm()">{{constant.btns.cancel}}</button>
+            </div>
+        </form> 
+    </div>
+</ng-template>
+

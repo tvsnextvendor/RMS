@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { DataTableModule } from "angular-6-datatable";
 import { ExcelService } from '../services/excel.service';
 import { PDFService } from '../services/pdf.service';
+import { ModalModule } from 'ngx-bootstrap';
 
 const routes: Routes = [
   { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
@@ -16,6 +17,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
+    ModalModule.forRoot(),
     FormsModule,
     SelectDropDownModule,
     DataTableModule
