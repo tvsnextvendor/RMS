@@ -26,7 +26,7 @@ import { AlertService } from './services/alert.service';
 import { AlertComponent } from './alert.component';
 import { EmailModule } from './email/email.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { ResortModule } from './resort/resort.module';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -57,6 +57,7 @@ const routes: Routes = [
     SettingsModule,
     VideosTrendModule,
     ProfileModule,
+    ResortModule,
     FormsModule,
     EmployeeModule,
     UserModule,
