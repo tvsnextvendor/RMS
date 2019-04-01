@@ -8,8 +8,8 @@
         <li [class.active]="router.isActive('/modulelist') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
             <a routerLink="/modulelist"><img src="assets/images/Modules.png"class="pr-3">Subscription Model</a>
         </li>
-        <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
-            <a routerLink=""><img src="assets/images/menu4.png"class="pr-3">Resort Management</a>
+        <li [class.active]="router.isActive('/resorts')">
+            <a routerLink="/resorts"><img src="assets/images/menu4.png"class="pr-3">Resort Management</a>
         </li>
         <li [class.active]="router.isActive('/forum')">
             <a routerLink=""><img src="assets/images/menu6.png"class="pr-3">CMS Library</a>
@@ -30,8 +30,8 @@
         <li>
             <a routerLink=""><img src="assets/images/menu1.png"class="pr-3">Subscription Model</a>
         </li>
-        <li>
-            <a routerLink=""><img src="assets/images/menu1.png"class="pr-3">Resort Management</a>
+        <li [class.active]="router.isActive('/resorts')">
+            <a routerLink="/resorts"><img src="assets/images/menu1.png"class="pr-3">Resort Management</a>
         </li>
         <li [class.active]="router.isActive('/users')">
             <a routerLink="/users"><img src="assets/images/add_user.png"class="pr-3">User Management</a>
