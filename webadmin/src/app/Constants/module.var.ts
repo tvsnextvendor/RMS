@@ -52,9 +52,17 @@ export class ModuleVar {
         "moduleNameValidation": "Program Name already taken",
         "addCourseSuccess" : "Course added successfully",
         "updateCourseSuccess" : "Course updated successfully",
-        "removeVideoSuccess" : " removed from the file list"
+        "removeVideoSuccess" : " removed from the file list",
+        "topicName" : "Topic Name",
+        "trainingClass" : "Training Class",
+        "contentFiles" : "Content Files",
+        "createNotification" : "Create Notification",
+        "scheduleTraining" : "Schedule A Training",
+        "createCourse" : "Create Course"
+
     };
     courseList = [];
+    courseListPage = [];
     courseItems = [];
     dropdownSettings;
     quizDetails = [];

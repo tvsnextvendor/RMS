@@ -75,6 +75,7 @@ export class API_URL {
     moduleCourseList: '5c35f1bd3000008f0021b692',
     getNotifications: '5c2f13d23200001000590603',
     getVisitorsStaffData: '5c2ef7383200007200590561',
+    getListPageCourse : '5ca1ad583700005600899358'
   }
 
 }
