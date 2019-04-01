@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-sm-12 pb-10 pl-0">
+        <button type = "button" class="btn btn-primary mr-3 float-right" >{{moduleVar.labels.createNotification}}</button>
+        <button type = "button" class="btn btn-primary mr-3 float-right" [routerLink]="['../module']">{{moduleVar.labels.createCourse}}</button>
+        <button type = "button" class="btn btn-primary mr-3 float-right">{{moduleVar.labels.scheduleTraining}}</button>
+    </div>
+    <div class="col-lg-12 col-sm-12 pl-0">                
+        <div class="table-responsive white-bg px-3">
+            <table class="table" [mfData]="moduleVar.courseListPage" #mf="mfDataTable" [mfRowsOnPage]="10">
+                    <thead>
+                    <tr class="th-boxshadow"  class="">
+                        <th class="text-center">
+                            <mfDefaultSorter by="courseName">{{moduleVar.labels.courseName}}</mfDefaultSorter>
+                        </th>
+                        <th class="text-center">
+                            <mfDefaultSorter>{{moduleVar.labels.topicName}}</mfDefaultSorter>
+                        </th>
+                        <th class="text-center">
+                            <mfDefaultSorter>{{moduleVar.labels.trainingClass}}</mfDefaultSorter>
+                        </th>
+                        <th class="text-center">
+                            <mfDefaultSorter>{{moduleVar.labels.contentFiles}}</mfDefaultSorter>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let course of mf.data" class="table-desc-color">
+                            <td class="text-center"><a href="javascript:void" (click)="courseDetails(course.courseId)">{{ course.courseName }}</a></td>
+                            <td class="text-center">{{ course.topicName }}</td>
+                            <td class="text-center">{{ course.trainingClass }}</td>
+                            <td class="text-center">{{ course.contentFiles }}</td>
+                        </tr>
+                    <!-- <tr *ngIf="mf.data?.length == 0">
+                        <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>
+                    </tr> -->
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>

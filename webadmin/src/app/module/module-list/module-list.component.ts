@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute,Params } from '@angular/router';
 import { HeaderService } from '../../services/header.service';
 import { HttpService } from '../../services/http.service';
 import { ToastrService } from 'ngx-toastr';
@@ -32,19 +32,26 @@ export class ModuleListComponent implements OnInit {
   fileType;
   previewImage;
   videoIndex;
+  courseId;
 
   constructor(private modalService: BsModalService, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public moduleVar: ModuleVar, private toastr: ToastrService, private headerService: HeaderService) {
     this.moduleVar.url = API_URL.URLS;
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.courseId = params['id']; 
+  });
   }
 
   ngOnInit() {
-    this.moduleVar.title = "Programs";
+    this.moduleVar.title = "Courses";
     this.headerService.setTitle({ title: this.moduleVar.title, hidemodule: false });
+    this.moduleVar.moduleList = [];
     this.http.get(this.moduleVar.url.ProgramModuleList).subscribe((data) => {
-      this.moduleVar.moduleList = data.programDetails;
+      let courseData;
+      if(data && data.programDetails && data.programDetails.length){
+        courseData = data.programDetails.find(x=>x.programId == this.courseId);   
+      }
+      this.moduleVar.moduleList.push(courseData);
     });
-
-    // this.message = this.route.getNavigatedData()[0].message;
   }
 
 
