@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,TemplateRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from "lodash";
@@ -7,6 +7,7 @@ import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import * as XLSX from 'ts-xlsx';
 
 
@@ -18,29 +19,31 @@ import * as XLSX from 'ts-xlsx';
 
 export class UserComponent implements OnInit {
 
-    editEnable = false;
     userName;
     userId;
-    department = null;
-    designation = null;
+    department = "";
+    designation = "";
+    division = "";
+    reportingTo = "";
     emailAddress;
     phoneNumber;
     userIndex;
     pageLimitOptions = [];
     pageLimit;
     labels;
-    videoSubmitted = false;
     message;
+    editEnable= false;
     validPhone = false;
     validEmail = false;
     validUserId = false;
     departmentArray = [];
     designationArray = [];
+    divisionArray=[];
     designationData = [];
     fileUploadValue;
     arrayBuffer: any;
 
-    constructor(private alertService: AlertService, private http: HttpService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router) {
+    constructor(private alertService: AlertService, private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
         this.labels = constant.labels;
     }
@@ -53,7 +56,6 @@ export class UserComponent implements OnInit {
         this.http.get(this.constant.url.getUsersList).subscribe((data) => {
             if (data['isSuccess']) {
                 this.constant.userList = data.UserDetails.map(item => {
-                    item.editEnable = false;
                     return item;
                 });
             }
@@ -65,6 +67,14 @@ export class UserComponent implements OnInit {
                 // console.log(this.departmentArray)
             }
         });
+
+      this.http.get(this.constant.url.getDivision).subscribe((resp) => {
+            if (resp['isSuccess']) {
+                this.divisionArray = resp.divisionList;
+                // console.log(this.departmentArray)
+            }
+        });
+
         this.http.get(this.constant.url.getDesignations).subscribe((resp) => {
             if (resp['isSuccess']) {
                 this.designationArray = resp.DesignationList;
@@ -74,34 +84,27 @@ export class UserComponent implements OnInit {
     }
 
     //update user
-    userEdit(list, data, index) {
-        if (!this.editEnable) {
-            list[index].editEnable = true;
-            this.editEnable = true;
+    userEdit(data, index) {
+            this.editEnable= true;
             this.userIndex = index;
             this.userName = data.employeeName;
             this.userId = data.employeeId;
             this.department = data.department;
-            // this.designation = data.designation;
+            this.division = data.division;
             this.emailAddress = data.emailId;
             this.phoneNumber = data.mobile;
-            this.videoSubmitted = false;
             this.designationUpdate(data.department, data.designation);
-        }
-        else {
-            // this.toastr.warning(this.labels.updateRestrictMsg);
-            this.alertService.error(this.labels.updateRestrictMsg);
-        }
     }
 
     designationUpdate(data, designation) {
+        console.log(data, designation , "DESIGNATION");
         if (data == "") {
             this.designationData = [];
         }
         this.designation = '';
         this.department = data !== "null" ? data : '';
         this.designationArray.forEach(item => {
-            if (data === item.name) {
+            if (parseInt(data) === item.id) {
                 this.designationData = item.designations;
             }
         })
@@ -110,54 +113,56 @@ export class UserComponent implements OnInit {
         }
     }
 
-    //add new user
-    addUser() {
-        this.videoSubmitted = false;
-        // this.editEnable = false;
-        if (!this.editEnable) {
-            let obj = {
-                "department": "",
-                "designation": "",
-                "emailId": "",
-                "mobile": "",
-                "DOB": "",
-                "employeeId": "",
-                "employeeName": "",
-                "editEnable": true,
-            }
-            this.constant.userList.push(obj);
-            this.editEnable = true;
-            this.constant.userList = _.orderBy(this.constant.userList, ['employeeId'], ['asc'])
-            this.resetFields();
-        }
-        else {
-            // this.toastr.warning(this.labels.addRestrictMsg);
-            this.alertService.error(this.labels.addRestrictMsg);
+
+    closeAddForm() {
+        this.resetFields();
+        this.constant.modalRef.hide();
+    }
+
+
+    openAddUser(template: TemplateRef<any>, data,  index) {
+        if(data){
+         this.userEdit(data,index);
+         this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+        }else{
+         this.resetFields();   
+         this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
         }
     }
 
+    // onChangeSetting(setting){
+    //     this.defaultSetting = setting;
+    // }
+
+    //add new user
+    addUser(data) {
+        let postData = data.values;
+        this.closeAddForm();
+        this.alertService.success(this.labels.userAdded);
+        console.log(data)
+    }
+
+    updateUser(data){
+        this.closeAddForm();
+        this.alertService.success(this.labels.userUpdated);
+    }
+     
+    
+
     //reset
     resetFields() {
+        this.editEnable= false;
         this.userName = '';
         this.userId = '';
         this.department = '';
         this.designation = '';
+        this.division = '';
+        this.reportingTo = '';
         this.emailAddress = '';
         this.phoneNumber = '';
     }
 
-    //cancel update
-    cancelEdit(data, index) {
-        this.videoSubmitted = false;
-        if (data.employeeId === '') {
-            // let i = this.constant.userList.length - 1;
-            this.constant.userList.splice(0, 1);
-        }
-        else {
-            this.constant.userList[index].editEnable = false;
-        }
-        this.editEnable = false;
-    }
+   
 
     //delete user
     removeUser(data, i) {
@@ -171,7 +176,6 @@ export class UserComponent implements OnInit {
 
     //user update submit
     userUpdate(sortedList, data, index) {
-        this.videoSubmitted = true;
         this.validationUpdate(sortedList, "submit");
         if (this.userId && this.userName && this.department && this.designation && this.emailAddress && !this.validEmail && this.phoneNumber && !this.validPhone && !this.validUserId) {
             let i = data.employeeId === '' ? ('0') : this.constant.userList.findIndex(x => x.employeeId === data.employeeId);
@@ -183,10 +187,7 @@ export class UserComponent implements OnInit {
                 "emailId": this.emailAddress,
                 "DOB": this.constant.userList[i].DOB,
                 "mobile": this.phoneNumber,
-                "editEnable": false
             };
-            this.editEnable = false;
-            this.videoSubmitted = false;
             this.userIndex = '';
             this.resetFields();
             this.message = data.employeeId === '' ? (this.labels.userAdded) : (this.labels.userUpdated);

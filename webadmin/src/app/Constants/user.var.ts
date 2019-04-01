@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Injectable({ providedIn: 'root' })
 
@@ -6,9 +7,12 @@ export class UserVar {
 
     labels = {
         "userName": "User Name",
-        "designation": "Designation",
+        "role": "Role",
+        "division": "Division",
         "department": "Department",
         "mobile": "Mobile",
+        "reportingTo": "Reporting to",
+        "defaultSetting": "Default Setting",
         "email": "Email",
         "employeeId": "Emp ID",
         "updateRestrictMsg": "Unable to perform update user",
@@ -24,8 +28,10 @@ export class UserVar {
     }
 
     btns = {
-        "uploadEmp": 'upload employee',
-        "addUser": 'Add User'
+        "uploadEmp": 'Bulk Upload',
+        "addUser": 'Add User',
+        "save" : 'SAVE',
+        "cancel" : 'CANCEL'
     }
 
     mandatoryText = {
@@ -38,11 +44,17 @@ export class UserVar {
         "emailInvalid": 'Invalid Email',
         "mobNo": 'Mobile number is required',
         "invalidMobNo": 'Invalid Mobile Number',
-
+        "reportingTo": 'Reporting is required',
+        "division": 'Division is required'
     }
 
-    title = 'Users';
+    title = 'User Management';
     url;
     userList;
+    modalRef: BsModalRef;
+    modalConfig = {
+            backdrop: true,
+            ignoreBackdropClick: true
+        };
 
 }

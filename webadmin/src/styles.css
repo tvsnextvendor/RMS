@@ -545,13 +545,13 @@ li {
     padding-left: 250px;
   }
   #sidebar-wrapper {
-    width: 17%;
+    width: 19%;
   }
   #wrapper.toggled #sidebar-wrapper {
-    width: 17%;
+    width: 19%;
   }
   .page-content-wrapper {
-    padding: 20px 0px 65px 247px;
+    padding: 20px 0px 65px 258px;
     position: relative;
     /*background-color: #F5F6FA;*/
   }
