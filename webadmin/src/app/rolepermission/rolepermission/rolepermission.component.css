@@ -1,4 +1,4 @@
-.hole-cont {
+.role-cont {
    position: relative;
    padding-left: 30px;
    cursor: pointer;
@@ -10,7 +10,7 @@
    color: #495057;
    line-height: 65px;
 }
-.hole-cont input {
+.role-cont input {
    position: absolute;
    opacity: 0;
    cursor: pointer;
@@ -25,9 +25,9 @@
    width: 20px;
    background-color: #fff;
    border: 1px solid #ccc;
-   border-radius: 15px;
+   border-radius: 0 !important;
 }
-.hole-cont input:checked ~ .checkmark {
+.role-cont input:checked ~ .checkmark {
    background-color: #468FB9;
    border: 1px solid #468FB9;
 }
@@ -36,10 +36,10 @@
    position: absolute;
    display: none;
 }
-.hole-cont input:checked ~ .checkmark:after {
+.role-cont input:checked ~ .checkmark:after {
    display: block;
 }
-.hole-cont .checkmark:after {
+.role-cont .checkmark:after {
    left: 6px;
    top: 1px;
    width: 7px;
@@ -76,7 +76,7 @@
    width: 20px;
    background-color: #fff;
    border: 1px solid #ccc;
-   border-radius: 15px;
+  /* border-radius: 15px;*/
 }
 .table-checkbox-cont input:checked ~ .checkmark {
    background-color: #468FB9;
