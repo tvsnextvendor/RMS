@@ -209,7 +209,7 @@ table td.td-pd {
 .sidebar-nav {
   position: absolute;
   top: 0;
-  width: 86px;
+  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -217,24 +217,25 @@ table td.td-pd {
 
 .sidebar-nav li {
   /*text-indent: 8px;*/
-  line-height: 70px;
-  width: 86px;
-  text-align: center;
+  line-height: 65px;
+  width: 100%;
+  /*text-align: center;*/
 }
 
 .sidebar-nav li a {
   display: block;
   text-decoration: none;
   /*margin-left: 15px;*/
+  padding: 0 0 0 25px;
 }
 
 .sidebar-nav li a:hover {
     background-color: #E4EFF5;
-    width: 86px;
+    width: 100%;
 }
 .sidebar-nav li.active{
   background-color: #E4EFF5;
-  width: 86px;
+  width: 100%;
 } 
 .fix{
   background-color: #E4EFF5;
@@ -544,13 +545,13 @@ li {
     padding-left: 250px;
   }
   #sidebar-wrapper {
-    width: 92px;
+    width: 17%;
   }
   #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+    width: 17%;
   }
   .page-content-wrapper {
-    padding: 20px 0px 65px 108px;
+    padding: 20px 0px 65px 247px;
     position: relative;
     /*background-color: #F5F6FA;*/
   }
