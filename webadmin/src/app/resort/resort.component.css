@@ -1,0 +1,33 @@
+
+.top-section .label-title{
+    display: flex;
+    vertical-align: middle;
+    margin-top: 0px;
+    line-height: 20px;
+    align-items: center;
+}
+.tab-section .label-title{
+  margin-top: 5px;
+}
+.select-form{
+    border: none;
+    margin-right: 20px;
+    margin-top: 3px;
+}
+/* .nav-tabs li a:before {
+    content: "";
+    width: 0;
+    height: 15%;
+    background: purple;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    -webkit-transition: all .3s ease 0s;
+    -o-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+}
+.nav-tabs li a.active:before {
+    content: "";
+    width: 100%;
+} */

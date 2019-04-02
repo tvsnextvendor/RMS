@@ -22,7 +22,7 @@
     float: none;
 }
 .upload-crt-icon{
-    padding: 0 25px;
+    padding: 0 10px;
 }
 .option-btn{
     border: 1px solid #468FB9;
@@ -138,4 +138,8 @@ background-color: #C1E1F3;
 
 .add-module{
     border: 3px solid rgba(0,0,0,.125);
+}
+.multiselect-dropdown .dropdown-btn{
+    border-radius: 0;
+    padding-left: 10px !important;
 }
