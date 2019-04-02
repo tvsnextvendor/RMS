@@ -66,21 +66,11 @@
  margin-bottom: 15px;
  width: 160px;
 }   
-/* .select-style select {
-     font-family: 'Arial';
-     display: inline-block;
-     width: 100%;
-     cursor: pointer;
-     padding: 10px 15px;
-     outline: 0;
-     border: 0px solid #000000;
-     border-radius: 0px;
-     background: #e6e6e6;
-     color: #7b7b7b;
+ .select-style select {
      appearance: none;
      -webkit-appearance: none;
      -moz-appearance: none;
- }*/
+ }
      .select-style select::-ms-expand {
          display: none;
      }
