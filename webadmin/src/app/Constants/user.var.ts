@@ -30,6 +30,7 @@ export class UserVar {
     btns = {
         "uploadEmp": 'Bulk Upload',
         "addUser": 'Add User',
+        "editUser": 'Edit User',
         "save" : 'SAVE',
         "cancel" : 'CANCEL'
     }

@@ -80,7 +80,8 @@
 
 <ng-template #addUserTemp>
     <div class="modal-header pb-0">
-        <p class="hd-alg pl-3">{{constant.btns.addUser}}</p>
+        <p class="hd-alg pl-3" *ngIf="!editEnable">{{constant.btns.addUser}}</p>
+        <p class="hd-alg pl-3" *ngIf="editEnable">{{constant.btns.editUser}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="closeAddForm()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -88,7 +89,7 @@
     <div class="modal-body">
          <form #userForm="ngForm"  (ngSubmit)="addUser(userForm)">
            
-            <div class="row form-group">
+        <!-- <div class="row form-group">
                 <label class="col-md-3 pr-0 label-title mb-0">{{labels.employeeId}}</label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
@@ -99,7 +100,7 @@
                     <span class="required_color"
                             *ngIf="userForm.submitted && userId && validUserId">{{constant.mandatoryText.empIdExist}}</span>
                 </span>
-            </div>
+            </div>  -->
 
             <div class="row form-group">
                 <label class="col-md-3 pr-0 label-title mb-0">{{labels.userName}}</label>
@@ -135,9 +136,9 @@
                         <option *ngFor="let obj of departmentArray" [value]="obj.userId">{{obj.department}}</option>
                     </select>
                     <div class="select_arrow"></div>
-                    <span class="required_color"
-                        *ngIf="userForm.submitted && !department">{{constant.mandatoryText.dept}}</span>
-                </span>
+                    <!-- <span class="required_color"
+                        *ngIf="userForm.submitted && !department">{{constant.mandatoryText.dept}}</span>-->
+                </span> 
             </div>
 
             <div class="row form-group">
@@ -149,9 +150,9 @@
                         <option *ngFor="let obj of designationData" [value]="obj.id">{{obj.name}}</option>
                     </select>
                      <div class="select_arrow"></div>
-                    <span class="required_color" *ngIf="userForm.submitted && !designation">
-                        {{constant.mandatoryText.designation}}</span>
-                </span>
+                    <!-- <span class="required_color" *ngIf="userForm.submitted && !designation">
+                        {{constant.mandatoryText.designation}}</span> -->
+                </span> 
             </div>
 
             <div class="row form-group">
@@ -186,12 +187,12 @@
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="reportingTo" name="reportingTo" class="form-control">
                         <option value="">{{constant.labels.select}}</option>
-                        <option *ngFor="let obj of designationData" [value]="obj.name">{{obj.name}}</option>
+                        <option *ngFor="let obj of designationData" [value]="obj.id">{{obj.name}}</option>
                     </select>
                      <div class="select_arrow"></div>
-                    <span class="required_color" *ngIf="userForm.submitted && !reportingTo">
-                        {{constant.mandatoryText.reportingTo}}</span>
-                </span>
+                    <!-- <span class="required_color" *ngIf="userForm.submitted && !reportingTo">
+                        {{constant.mandatoryText.reportingTo}}</span>-->
+                </span> 
             </div>
 
             <div class="row form-group pl-3">
@@ -199,8 +200,6 @@
                     <input type="checkbox" [(ngModel)] = "defaultSetting" name="defaultSetting" #setting="ngModel"  checked/>
                           <span class="checkmark"></span>
                            </label>
-               <!--  <input type="checkbox" [(ngModel)]="defaultSetting" name="defaultSetting" #setting="ngModel"  checked/>
-                <label>{{labels.defaultSetting}}</label> -->
             </div>
 
             <div class="text-center">

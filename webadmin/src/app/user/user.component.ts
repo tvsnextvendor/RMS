@@ -8,13 +8,14 @@ import { UserVar } from '../Constants/user.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { UtilService  } from '../services/util.service';
 import * as XLSX from 'ts-xlsx';
-
+import {UserService} from '../services/requestservices/user.service';
 
 @Component({
     selector: 'app-users',
     templateUrl: './user.component.html',
-    styleUrls: ['./user.component.css'],
+    styleUrls: ['./user.component.css']
 })
 
 export class UserComponent implements OnInit {
@@ -36,6 +37,7 @@ export class UserComponent implements OnInit {
     validPhone = false;
     validEmail = false;
     validUserId = false;
+    defaultSetting=false;
     departmentArray = [];
     designationArray = [];
     divisionArray=[];
@@ -43,7 +45,7 @@ export class UserComponent implements OnInit {
     fileUploadValue;
     arrayBuffer: any;
 
-    constructor(private alertService: AlertService, private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router) {
+    constructor(private alertService: AlertService, private utilService: UtilService, private userService:UserService ,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
         this.labels = constant.labels;
     }
@@ -59,6 +61,10 @@ export class UserComponent implements OnInit {
                     return item;
                 });
             }
+        });
+
+        this.userService.getUser().subscribe((result)=>{
+            console.log(data);
         });
 
         this.http.get(this.constant.url.getDepartments).subscribe((resp) => {
@@ -130,20 +136,32 @@ export class UserComponent implements OnInit {
         }
     }
 
-    // onChangeSetting(setting){
-    //     this.defaultSetting = setting;
-    // }
+   
 
     //add new user
     addUser(data) {
-        let postData = data.values;
-        this.closeAddForm();
-        this.alertService.success(this.labels.userAdded);
-        console.log(data)
+        if(this.userName && this.emailAddress && this.phoneNumber){
+            let obj = {
+                userName : this.userName,
+                password: "123456",
+                email : this.emailAddress,
+                phoneNumber : this.phoneNumber,
+                roleId:this.utilService.getRole(),
+                designationId:this.designation,
+                divisionId:this.division,
+                departmentId:this.department,
+                reportingTo:this.reportingTo,
+                isDefault:this.defaultSetting,
+                }
+            this.userService.addUser(obj).subscribe(result => {
+                  this.closeAddForm();
+                  this.alertService.success(this.labels.userAdded);
+            });
+        }
     }
 
     updateUser(data){
-        this.closeAddForm();
+        //this.closeAddForm();
         this.alertService.success(this.labels.userUpdated);
     }
      

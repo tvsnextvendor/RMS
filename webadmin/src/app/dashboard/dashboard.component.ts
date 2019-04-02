@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DashboardVar} from '../Constants/dashboard.var';
 import {HeaderService} from '../services/header.service';
+import {UtilService} from '../services/util.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,21 +14,19 @@ export class DashboardComponent implements OnInit {
   tabTitle = [];
   selectedtab ;
 
-  constructor(private dashboardVar: DashboardVar,private headerService: HeaderService) { }
+  constructor(private dashboardVar: DashboardVar,private utilService: UtilService ,private headerService: HeaderService) { }
 
   ngOnInit() {
   this.headerService.setTitle({title:this.dashboardVar.title, hidemodule:false});
-  let data =  atob(localStorage.getItem('user'));
-  let user = JSON.parse(data);
-  if(user){
-    if(user.roleId === 1){
+  const roleId = this.utilService.getRole()
+    if(roleId === 1){
         this.tabTitle= ['Summary','Resort'];
     }
-    else if(user.roleId === 2){
+    else if(roleId === 2){
       this.tabTitle= ['Summary'];
     }
     this.selectedtab = this.tabTitle[0];
-  }
+  
   // console.log(data,user.roleId)
   }
 
