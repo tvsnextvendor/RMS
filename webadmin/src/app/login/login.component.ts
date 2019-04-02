@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
                password:data.password,
              }
             this.loginService.login(loginCredential).subscribe(result=>{
-             if(result.status == "success"){
+             if(result.isSuccess){
                 const loginData = result.data;
                 localStorage.setItem('userData',btoa(JSON.stringify(loginData)));
                 localStorage.setItem('token',loginData.token)
