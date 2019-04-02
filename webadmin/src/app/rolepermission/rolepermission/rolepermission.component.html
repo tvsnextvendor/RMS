@@ -1,48 +1,49 @@
 <div class="pr-3 pt-5">
-	<div class="white-bg pt-3 pl-3">
-		<div class="row">
-			<div class="col-md-3">
+	<div class="white-bg pt-3 pl-3 pr-3">
+		<div class="row pb-4">
+			<div class="col-md-4">
 				<select class="form-control pl-0">
+					<option>Resort</option>
                         <option value="Resort1">Resort 1</option>
                         <option value="Resort2">Resort 2</option>
                          <option value="Resort3">Resort 3</option>
                     </select>
 			</div>
-			<div class="col-md-1"></div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<select class="form-control pl-0">
+					<option>Division</option>
                         <option value="Division1">Division 1</option>
                         <option value="Division2">Division 2</option>
                          <option value="Division3">Division 3</option>
                     </select>
 			</div>
-			<div class="col-md-1"></div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<select class="form-control pl-0">
+					<option>Department</option>
                         <option value="Department1">Department 1</option>
                         <option value="Department2">Department 2</option>
                          <option value="Department3">Department 3</option>
                     </select>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-3 pr-3">
+		<div class="row pb-3">
+			<div class="col-md-4">
 				<select class="form-control pl-0">
+					<option>Role</option>
                         <option value="Role1">Role 1</option>
                         <option value="Role2">Role 2</option>
                          <option value="Role3">Role 3</option>
                     </select>
 			</div>
-			<div class="col-md-1"></div>
 			<div class="col-md-6">
 				<span>
-					<label class="role-cont mr-5">
+					<label class="square-cont mr-5">
 						<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()"> Web
-						<span class="checkmark"></span>
+						<span class="square-checkmark"></span>
 					</label>
-					<label class="role-cont">
+					<label class="square-cont">
 						<input type="checkbox" [checked]="!optionData"  name="options" [value]="0" (change)="optionValueUpdate()"> Mobile
-						<span class="checkmark"></span>
+						<span class="square-checkmark"></span>
 					</label>
 				</span>
 			</div>
@@ -162,3 +163,8 @@
  		
  	</table>
  </div>
+
+ <div class="float-right p-3">
+            <button type="button" class="btn btn-default mr-3" (click)="clearbatchSelection()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
