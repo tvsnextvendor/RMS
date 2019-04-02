@@ -24,6 +24,7 @@ export class AddModuleComponent implements OnInit {
     selectedCourses = [];
     courseDetailsList = [];
     moduleName;
+    topics;
     showImage = false;
     videoSubmitted = false;;
     courseSubmitted = false;
@@ -44,7 +45,7 @@ export class AddModuleComponent implements OnInit {
             this.moduleId = params['moduleId']; 
         });
         this.labels = moduleVar.labels;
-        this.moduleVar.title = this.moduleId ? this.labels.editModule : this.labels.addModule;
+        this.moduleVar.title = this.moduleId ? this.labels.editCourse : this.labels.createCourse;
    }
 
    ngOnInit(){
@@ -59,7 +60,7 @@ export class AddModuleComponent implements OnInit {
         // allowSearchFilter: true
       }; 
     var myEl = document.querySelector('ul.item1');
-    myEl.innerHTML = ' <span class="newCourseId addcourse" (click)="addCourse()" id="newCourseId"><i class="fa fa-plus pr-2"></i> <span class="addnewcourse-title">Add New Course</span></span>';
+    myEl.innerHTML = ' <span class="newCourseId addcourse" (click)="addCourse()" id="newCourseId"><i class="fa fa-plus pr-2"></i> <span class="addnewcourse-title">Add New Training Class</span></span>';
     let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
     ele.onclick = this.addCourse.bind(this);
     this.moduleVar.tabKey = 1;
@@ -75,6 +76,7 @@ export class AddModuleComponent implements OnInit {
             if(this.moduleId){
                 this.moduleVar.moduleObj = this.moduleVar.moduleList.find(x=>x.moduleId === parseInt(this.moduleId));
                 this.moduleName = this.moduleVar.moduleObj.moduleName;
+                this.topics = this.moduleVar.moduleObj.topics ? this.moduleVar.moduleObj.topics : '';
                 let dropdownLIst =  this.moduleVar.moduleObj.courseList.map(item=>{
                     let obj = {
                         id:item.courseId,
@@ -346,10 +348,11 @@ export class AddModuleComponent implements OnInit {
     submitForm(){
         this.moduleSubmitted = true;
         // this.quiz  && this.quiz.quizSubmit();   
-        if(this.moduleName && this.selectedCourses.length && !this.moduleVar.moduleNameCheck){
+        if(this.moduleName && this.topics && this.selectedCourses.length && !this.moduleVar.moduleNameCheck){
             let params = {
-                "ModuleName":this.moduleName,
-                "CourseIds":this.moduleVar.selectedCourseIds.toString(),
+                "CourseName":this.moduleName,
+                "Topics" : this.topics,
+                "TrainingClassIds":this.moduleVar.selectedCourseIds.toString(),
                 }
             console.log("params-course",params)
             // this.toastr.success(this.labels.moduleCreateMsg);  
@@ -360,6 +363,9 @@ export class AddModuleComponent implements OnInit {
         }
         else if(!this.moduleName){
             this.alertService.error(this.labels.moduleName+this.labels.isRequire)
+        }
+        else if(!this.topics){
+            this.alertService.error(this.labels.topics+this.labels.isRequire)
         }
         else if(!this.selectedCourses.length){
             this.alertService.error(this.labels.moduleNameValidation)

@@ -40,7 +40,7 @@
     </span> -->
     <div [ngSwitch]="view" class="px-3 pb-3 calender-view">
       <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-        [cellTemplate]="customCellTemplate" [refresh]="refresh" (dayClicked)="goToBatch($event.day.date)">
+        [cellTemplate]="customCellTemplate" [refresh]="refresh" (dayClicked)="goToBatch($event.day.date,editBatch)">
       </mwl-calendar-month-view>
     </div>
 
@@ -63,5 +63,14 @@
       </span>
     </ng-template>
 
+    <ng-template #editBatch>
+      <div class="modal-header"> 
+          <h4 class="modal-title pull-left">{{batchVar.title}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="batchVar.modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <app-add-batch (someEvent)="batchVar.modalRef.hide()"></app-add-batch>
+    </ng-template> 
   </div>
 </div>

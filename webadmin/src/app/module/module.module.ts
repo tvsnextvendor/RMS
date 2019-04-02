@@ -15,7 +15,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {DndModule} from 'ng2-dnd';
+import { BatchModule } from '../batch/batch.module';
 import {AddQuizComponent} from './add-quiz/add-quiz.component';
+
 
 const routes: Routes = [
     { path: 'module', component:AddModuleComponent ,canActivate : [AuthGuard]},
@@ -35,6 +37,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgMultiSelectDropDownModule.forRoot(),
     CarouselModule,
+    BatchModule,
     // NgHttpLoaderModule.forRoot(),
     TabsModule.forRoot(),
     DndModule.forRoot()

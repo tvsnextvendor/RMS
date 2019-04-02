@@ -3,22 +3,31 @@
 	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm()" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
 			<div class="row form-group">
-				<label class="col-md-3 pr-0 label-title mb-0">{{labels.moduleName}}</label>
+				<label class="col-md-3 pr-0 label-title mb-0">{{labels.courseName}}</label>
 				<span class="col-md-9 pl-0">
-					<input type="text" class="form-control" placeholder="Enter Program Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
+					<input type="text" class="form-control" placeholder="Enter Course Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
 				</span>
 				<span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleName">
-					{{labels.moduleName}}{{labels.isRequire}}
+					{{labels.courseName}}{{labels.isRequire}}
 				</span>
 				<span class="required_color" *ngIf="moduleVar.moduleNameCheck">
 					{{labels.moduleNameValidation}}
 				</span>
 			</div>
+			<div class="row form-group">
+				<label class="col-md-3 pr-0 label-title mb-0">{{labels.topics}}</label>
+				<span class="col-md-9 pl-0">
+					<input type="text" class="form-control" placeholder="Enter Topic Name" [(ngModel)]="topics" name="topics" #module = "ngModel" required>
+				</span>
+				<span class="required_color mt-0" *ngIf="moduleSubmitted && !topics">
+					{{labels.topics}}{{labels.isRequire}}
+				</span>
+			</div>
 			<div class="row">
-				<label class="col-md-3 pr-0 label-title mb-0">{{labels.course}}</label>
+				<label class="col-md-3 pr-0 label-title mb-0">{{labels.trainingClass}}</label>
 				<div class="col-md-9 pl-0 select-Courses">
 					<ng-multiselect-dropdown
-					[placeholder]="'Select Course'"
+					[placeholder]="'Select Training Class'"
 					[data]="moduleVar.courseList"
 					[(ngModel)]="selectedCourses"
 					[settings]="moduleVar.dropdownSettings"
@@ -69,10 +78,10 @@
 			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></span>
 				<div class="white-bg p-4">
 					<div class="row form-group">
-						<label class="col-md-2 p-0 label-title">{{labels.courseName}}</label>
+						<label class="col-md-2 p-0 label-title">{{labels.trainingClassName}}</label>
 						<span class="col-md-9 p-0">
-							<input type="text" class="form-control" placeholder="Enter Course Name" name="selectCourseName" [(ngModel)]="moduleVar.selectCourseName">
-							<span class="required_color" *ngIf="courseSubmitted && !moduleVar.selectCourseName">Course name is required</span>
+							<input type="text" class="form-control" placeholder="Enter Training Class Name" name="selectCourseName" [(ngModel)]="moduleVar.selectCourseName">
+							<span class="required_color" *ngIf="courseSubmitted && !moduleVar.selectCourseName">Training Class Name is required</span>
 						</span>
 					</div>
 					<div class="row form-group">
