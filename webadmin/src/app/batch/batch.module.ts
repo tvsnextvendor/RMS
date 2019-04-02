@@ -54,6 +54,7 @@ export const MY_MOMENT_FORMATS = {
     CalendarViewComponent,
     AddBatchComponent
   ],
+  exports:[AddBatchComponent],
   bootstrap: [AddBatchComponent]
 })
 export class BatchModule { }

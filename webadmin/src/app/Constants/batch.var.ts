@@ -78,4 +78,6 @@ export class BatchVar{
          {"id":2,"name":"hours"},
          {"id":3,"name":"days"}
      ];
+     modalRef;
+     modalConfig;
 }

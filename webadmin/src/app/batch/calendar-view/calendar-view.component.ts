@@ -1,8 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit,TemplateRef} from '@angular/core';
 import {HeaderService} from '../../services/header.service';
 import {Router} from '@angular/router';
 import {ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import {BatchVar} from '../../Constants/batch.var';
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
@@ -18,7 +19,6 @@ import { DatePipe } from '@angular/common';
 })
 
 export class CalendarViewComponent implements OnInit {
-
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
@@ -26,7 +26,7 @@ export class CalendarViewComponent implements OnInit {
   events: CalendarEvent[] = [];
 
   
-   constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router){
+   constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router,private modalService:BsModalService){
     this.batchVar.url = API_URL.URLS; 
    }
 
@@ -53,9 +53,14 @@ export class CalendarViewComponent implements OnInit {
         });
     }
 
-    goToBatch(event){
+    goToBatch(event,addBatch){
         localStorage.setItem('BatchStartDate',event);
-        this.router.navigateByUrl('/addBatch');
+        // this.router.navigateByUrl('/addBatch');
+        this.openEditModal(addBatch,event)
       }
+
+    openEditModal(template: TemplateRef<any>, forum) {
+        this.batchVar.modalRef = this.modalService.show(template,this.batchVar.modalConfig);
+    }
  
 }

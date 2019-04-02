@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Output, EventEmitter} from '@angular/core';
 import { HeaderService } from '../../services/header.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,7 @@ import * as moment from 'moment';
 })
 
 export class AddBatchComponent implements OnInit {
+    @Output() someEvent = new EventEmitter<string>();
     durationValue = '1';
     maxdurationCount;
     countCheck = false;
@@ -36,7 +37,7 @@ export class AddBatchComponent implements OnInit {
 
     ngOnInit() {
         this.batchVar.batchId ? this.headerService.setTitle({ title: this.batchVar.editTitle, hidemodule: false }) :
-            this.headerService.setTitle({ title: this.batchVar.title, hidemodule: false });
+            // this.headerService.setTitle({ title: this.batchVar.title, hidemodule: false });
 
 
         //get Department list
@@ -204,11 +205,15 @@ export class AddBatchComponent implements OnInit {
 
             //this.toastr.success(toastrMsg);
             this.alertService.success(toastrMsg);
-            this.router.navigateByUrl('/calendar');
-            this.clearBatchForm();
+            // this.router.navigateByUrl('/calendar');
+            this.hidePopup();
         }
     }
 
+    hidePopup(){
+        this.clearBatchForm();
+        this.someEvent.next();
+    }
 
     clearBatchForm() {
         this.batchVar.moduleForm = [{
@@ -221,7 +226,7 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.batchTo = '';
         this.batchVar.selectedEmp = '';
         this.batchVar.batchName = '';
-        this.router.navigateByUrl('/calendar');
+        // this.router.navigateByUrl('/calendar');
     }
 
     //dynamic add module fields 
