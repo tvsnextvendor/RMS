@@ -7,6 +7,7 @@ import { AlertService } from '../services/alert.service';
 @Component({
     selector: 'app-resort',
     templateUrl: './resort.component.html',
+    styleUrls: ['./resort.component.css'],
 })
 
 export class ResortComponent implements OnInit {

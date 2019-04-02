@@ -9,9 +9,9 @@
 						<img src="assets/images/Close-1.png" class="close-alg">
 			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></a></span>
 					<div class="row">
-						<div class="col-md-4 row"> 
-							<label for="" class="col-sm-5 label-title pl-0 m-0">{{constant.quizLabels.questionType}}</label>
-							<div class="col-md-6 p-0">
+						<div class="col-md-6 row p-0"> 
+							<label for="" class="col-sm-4 label-title p-0 m-0">{{constant.quizLabels.questionType}}</label>
+							<div class="col-md-8">
 								<select class="form-control" placeholder="Select" name="questionType{{i}}" [(ngModel)]="data.questionType" (change)="questionTypeUpdate(data.questionType,i)"
 								#QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
 									<option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
@@ -21,9 +21,9 @@
 								</span>
 							</div>
 						</div> 
-						<div class="col-md-8 row">
-							<label class="col-md-2 p-0 label-title">{{constant.quizLabels.weightage}}</label>
-							<div class="col-md-3 p-0">
+						<div class="col-md-6 row p-0">
+							<label class="col-md-4 p-0 label-title">{{constant.quizLabels.weightage}}</label>
+							<div class="col-md-8">
 								<span>
 									<input type="text" class="form-control" placeholder="Enter Weightage" name="Weightage" value="{{weightage}}%"
 									#WeightageVal="ngModel" [(ngModel)]="data.weightage" required>
@@ -40,8 +40,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<label class="col-md-1 pr-0 label-title m-0">{{constant.quizLabels.question}} {{i+1}}</label>
-						<div class="col-md-11 pdl65 pr-5">
+						<label class="col-md-2 pl-0 label-title m-0">{{constant.quizLabels.question}} {{i+1}}</label>
+						<div class="col-md-10 pl-0">
 							<input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.question"
 							#QuestionVal="ngModel" required>
 							<span class="required_color" *ngIf="QuestionVal && QuestionVal.invalid && (quizForm.submitted || QuestionVal.touched)">
@@ -50,13 +50,13 @@
 						</div>                		
 					</div>
 					<div class="row form-group">
-						<label *ngIf="data.questionType !== '3'" class="col-md-1 pr-0 label-title">{{constant.quizLabels.options}}</label>
-						<label *ngIf="data.questionType === '3'" class="col-md-1 pr-0 label-title">{{constant.quizLabels.answer}}</label>
-						<div class="col-md-11 pdl65">
+						<label *ngIf="data.questionType !== '3'" class="col-md-2 pl-0 label-title">{{constant.quizLabels.options}}</label>
+						<label *ngIf="data.questionType === '3'" class="col-md-2 pl-0 label-title">{{constant.quizLabels.answer}}</label>
+						<div class="col-md-10 pl-0">
 							<div class="row">
-								<div class="col-md-12 pl-0 form-group">
+								<div class="col-md-12 p-0 form-group">
 									<div class="row" *ngIf="data.questionType === '1' && data.options && data.options.length">
-										<span class="col-sm-12 pl-0" *ngFor=" let optionValue of data.options; let oi = index;">
+										<span class="col-sm-12 p-0" *ngFor=" let optionValue of data.options; let oi = index;">
 											<span class="option-btn" *ngIf="oi===0">A</span>
 											<span class="option-btn" *ngIf="oi===1">B</span>
 											<span class="option-btn" *ngIf="oi===2">C</span>

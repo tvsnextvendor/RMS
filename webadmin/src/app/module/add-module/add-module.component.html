@@ -3,7 +3,7 @@
 	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm()" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
 			<div class="row form-group">
-				<label class="col-md-3 pr-0 label-title mb-0">{{labels.courseName}}</label>
+				<label class="col-md-3 p-0 label-title mb-0">{{labels.courseName}}</label>
 				<span class="col-md-9 pl-0">
 					<input type="text" class="form-control" placeholder="Enter Course Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
 				</span>
@@ -15,7 +15,7 @@
 				</span>
 			</div>
 			<div class="row form-group">
-				<label class="col-md-3 pr-0 label-title mb-0">{{labels.topics}}</label>
+				<label class="col-md-3 p-0 label-title mb-0">{{labels.topics}}</label>
 				<span class="col-md-9 pl-0">
 					<input type="text" class="form-control" placeholder="Enter Topic Name" [(ngModel)]="topics" name="topics" #module = "ngModel" required>
 				</span>
@@ -24,7 +24,7 @@
 				</span>
 			</div>
 			<div class="row">
-				<label class="col-md-3 pr-0 label-title mb-0">{{labels.trainingClass}}</label>
+				<label class="col-md-3 p-0 label-title mb-0">{{labels.trainingClass}}</label>
 				<div class="col-md-9 pl-0 select-Courses">
 					<ng-multiselect-dropdown
 					[placeholder]="'Select Training Class'"
@@ -97,16 +97,16 @@
 						</div>
 						<div class="col-md-4 p-0 upload-line">
 							<div class="row">
-							<div class="col-md-4">
-							<div class="fileUpload btn btn-primary">
-                                <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span>
-                                    <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
-                            </div>                           
-                        </div>
-                        <div class="col-md-4">
-							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span>
+							<div class="col-md-4 p-0">
+								<div class="fileUpload btn btn-primary">
+									<span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span>
+										<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
+								</div>                           
+							</div>
+                        <div class="col-md-4 p-0">
+							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-2"></span>
 							<span *ngIf="showImage && moduleVar.videoFile"><img src="{{previewImage}}" class="px-4 img-size"></span></div>
-							<span class="col-md-4">	
+							<span class="col-md-4 p-0">	
 							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
 							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
 							</span>
