@@ -17,7 +17,7 @@ export class HttpService {
    // this.API_ENDPOINT = API.API_ENDPOINT;
     
     this.httpOptions = {
-      headers: new HttpHeaders({
+      headers: new Headers({
         'Content-Type': 'application/json',
         'Authorization': this.utilService.getToken()
       })
