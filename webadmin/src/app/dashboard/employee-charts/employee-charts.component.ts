@@ -5,6 +5,7 @@ const Highcharts = require('highcharts');
 import { HttpService } from '../../services/http.service';
 import { API_URL } from 'src/app/Constants/api_url';
 import { Router } from '@angular/router';
+import {UtilService} from '../../services/util.service';
 
 @Component({
   selector: 'app-employee-charts',
@@ -22,11 +23,10 @@ export class EmployeeChartsComponent implements OnInit {
   topCourses;
   hideCharts = true;
 
-  constructor(public dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
+  constructor(public dashboardVar: DashboardVar,private utilService:UtilService ,private http: HttpService, private route: Router) {
     this.dashboardVar.url = API_URL.URLS;
-    const userDetails = JSON.parse(localStorage.getItem('userData'));
-    this.dashboardVar.userName = userDetails.username
-    this.hideCharts = userDetails.roleId == 2 ? false : true;
+    this.dashboardVar.userName = this.utilService.getUserData().username
+    this.hideCharts = this.utilService.getRole() == 2 ? false : true;
   }
 
   ngOnInit() {

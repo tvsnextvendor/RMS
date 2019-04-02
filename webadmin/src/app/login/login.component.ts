@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import {loginVar} from '../Constants/login.var';
 import {HttpService} from '../services/http.service'
 import { API_URL } from '../Constants/api_url';
+import {LoginService} from '../services/requestservices/login.service' 
 import { AlertService } from '../services/alert.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
     passwordError = false;
     btns;
     constructor(private route: Router, public loginvar: loginVar, private toastr: ToastrService,
-            private http: HttpService,private API_URL:API_URL,private alertService:AlertService) { }
+            private http: HttpService,private loginService: LoginService,private API_URL:API_URL,private alertService:AlertService) { }
 
     ngOnInit() {
       // get user details '5c0fbeda3100003b1324ee75'
@@ -94,22 +95,19 @@ export class LoginComponent implements OnInit {
       // login
       else if (data.email && data.password && !forgetStatus) {
             let user = {};
-            this.userArray.map(item=>{
-              if (item.emailAddress === data.email && item.password === data.password){
-                user =  item;
-                localStorage.setItem('user',btoa(JSON.stringify(user)));
-              }
-            })
-            let userData = atob(localStorage.getItem('user'));
-            //  if(Object.keys(user).length){
-              if(Object.keys(user).length && userData && userData !== 'null'){
-                //let userData = JSON.stringify(user);
-                //let encUserData = btoa(userData);
-                localStorage.setItem('userData',userData);
-               // this.toastr.success("Login successfully");
+            let loginCredential ={ 
+              emailAddress:data.email,
+               password:data.password,
+             }
+            this.loginService.login(loginCredential).subscribe(result=>{
+             if(result.status == "success"){
+                const loginData = result.data;
+                localStorage.setItem('userData',btoa(JSON.stringify(loginData)));
+                localStorage.setItem('token',loginData.token)
                 this.route.navigateByUrl('/dashboard');
-                this.passwordError = false;
                 this.alertService.success('Login successfully');
+             }
+            })
                 let localObject = [];
                 // remember password settings
                 if(this.rememberMeCheck.length){
@@ -129,11 +127,8 @@ export class LoginComponent implements OnInit {
                   this.setATLocal(data,localObject);
                 }
               }
-              else{
-                // this.toastr.error("Invalid login")
-                this.passwordError = true;
-              }         
-        } else {
+                 
+         else {
             // this.toastr.error("Please enter login details");
             localStorage.setItem('userData', '');
         }
