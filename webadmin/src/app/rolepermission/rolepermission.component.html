@@ -1,0 +1,95 @@
+<form #rolepermission="ngForm" (ngSubmit)="saveRolePermission()">
+<div class="pr-3 pt-5">
+	<div class="white-bg pt-3 pl-3 pr-3">
+		<div class="row pb-4">
+			<div class="col-md-4 select select-style clearfix">
+					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0">
+						<option value="">{{constant.labels.selectResort}}</option>
+						<option *ngFor="let obj of constant.resortList" [value]="obj.resortId">{{obj.resortName}}</option>
+					</select>
+          <div class="select_arrow"></div>
+			</div>
+			<div class="col-md-4 select select-style clearfix">
+						<select [(ngModel)]="constant.divisionId" name="divisionId" class="form-control pl-0">
+							<option value="">{{constant.labels.selectDivision}}</option>
+							<option *ngFor="let obj of constant.divisionList" [value]="obj.divisionId">{{obj.divisionName}}</option>
+						</select>
+            <div class="select_arrow"></div>
+			</div>
+			<div class="col-md-4 select select-style clearfix">
+					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0">
+						<option value="">{{constant.labels.selectDepartment}}</option>
+						<option *ngFor="let obj of constant.departmentList" [value]="obj.departmentId">{{obj.departmentName}}</option>
+					</select>		
+					<div class="select_arrow"></div>
+			</div>
+		</div>
+		<div class="row pb-3">
+			<div class="col-md-4 select select-style clearfix">
+				<select [(ngModel)]="constant.roleId" name="roleId" class="form-control pl-0">
+					<option value="">{{constant.labels.selectRoles}}</option>
+					<option *ngFor="let obj of constant.roleList" [value]="obj.roleId">{{obj.roleName}}</option>
+				</select>
+        <div class="select_arrow"></div>
+			</div>
+			<div class="col-md-6">
+				<span>
+					<label class="square-cont mr-5">
+						<input type="checkbox" [(ngModel)]="constant.web" name="web"> {{constant.labels.web}}
+						<span class="square-checkmark"></span>
+					</label>
+					<label class="square-cont">
+						<input type="checkbox" [(ngModel)]="constant.mobile"  name="mobile"> {{constant.labels.mobile}}
+						<span class="square-checkmark"></span>
+					</label>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+  <div class="table-responsive custom-table2 pt-1 pr-3">
+ 	<table class="table table-striped white-bg mt-1">
+ 		<thead>
+ 		<tr class="th-boxshadow">
+    <th class="pl-5">{{constant.labels.menu}}</th>
+    <th class="text-center"><label class="table-checkbox-cont mb-0">
+						<input type="checkbox"  [(ngModel)]="constant.selectAllView"  name="view" (change)="selectAll($event)"> {{constant.labels.view}}
+						<span class="table-checkmark"></span>
+					</label></th>
+    <th class="text-center"><label class="table-checkbox-cont mb-0">
+						<input type="checkbox"  [(ngModel)]="constant.selectAllUpload"  name="upload"  (change)="selectAll($event)"> {{constant.labels.upload}}
+						<span class="table-checkmark"></span>
+					</label></th>
+    <th class="text-center"><label class="table-checkbox-cont mb-0">
+						<input type="checkbox"  [(ngModel)]="constant.selectAllEdit"  name="edit"  (change)="selectAll($event)"> {{constant.labels.edit}}
+						<span class="table-checkmark"></span>
+					</label></th>
+  </tr>
+	</thead>
+	<tbody>
+  <tr class="table-desc-color" *ngFor="let module of constant.modules">
+    <td class="pl-5">{{module.moduleName}}</td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox" [(ngModel)]="module.view" name="view" (change)="checkIfAllSelected($event)">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="checkbox-padding"><label class="table-checkbox-cont">
+						<input type="checkbox"  [(ngModel)]="module.upload"  name="upload"  (change)="checkIfAllSelected($event)">
+						<span class="table-checkmark"></span>
+					</label></td>
+    <td class="edit-padding"><label class="table-checkbox-cont">
+						<input type="checkbox"  [(ngModel)]="module.edit"  name="edit"  (change)="checkIfAllSelected($event)">
+						<span class="table-checkmark"></span>
+					</label></td>
+	</tr>
+	</tbody>
+ 	</table>
+ </div> 
+
+ <div class="float-right p-3">
+            <button type="button" class="btn btn-default mr-3" (click)="clearForm()">{{constant.btns.cancel}}</button>
+            <button type="submit" class="btn btn-primary">{{constant.btns.save}}</button>
+        </div>
+
+			</form>
