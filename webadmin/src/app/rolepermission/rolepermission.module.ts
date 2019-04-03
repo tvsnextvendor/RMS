@@ -4,7 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import {AuthGuard} from '../guard/auth.guard.component';
 import { NgHttpLoaderModule } from 'ng-http-loader'; 
-import { RolepermissionComponent } from './rolepermission/rolepermission.component';
+import { RolepermissionComponent } from './rolepermission.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
     { path: 'rolepermission', component: RolepermissionComponent ,canActivate : [AuthGuard]},
@@ -14,7 +15,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,   
+    BrowserModule, 
+    FormsModule,  
     RouterModule.forRoot(routes),
   ],
   declarations: [RolepermissionComponent]
