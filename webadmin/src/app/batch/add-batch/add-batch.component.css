@@ -1,7 +1,7 @@
 .label-title{
 	color: #697380;
 	line-height: 47px;
-	font-size: 15px;
+	font-size: 14px;
 }
 .batch-input{
 	position: relative;
@@ -57,4 +57,16 @@
     border: none;
     color: #576271;
     width: 215px;
+}
+.modal-cotent .label-title{
+    color: #000;
+}
+.prgm-select select:first-child{
+    margin-right: 15px;
+}
+.prgm-select select:last-child{
+    margin-left: 15px;
+}
+.module-radiobtn label{
+    width: 50%
 }

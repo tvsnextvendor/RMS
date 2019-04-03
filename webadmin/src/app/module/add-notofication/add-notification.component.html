@@ -1,9 +1,9 @@
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
-    <div class="pr-3 py-4">
-        <div class="white-bg">
-            <div class="row p-4">
+    <div class="notification-box">
+        
+            <div class="row p-1">
                 <div class="col-md-6" *ngIf="notificationType === 'no'">
-                    <div class="row">
+                    <div class="row form-group">
                         <!-- <label class="col-md-4 p-0 label-title">{{labels.trainingClass}}</label> -->
                         <div class="col-md-12 pl-0 select-Courses">
                             <ng-multiselect-dropdown
@@ -18,7 +18,7 @@
                             {{labels.courseError}}
                         </span>
                     </div>
-                    <div class="row">
+                    <div class="row form-group">
                             <!-- <label class="col-md-4 p-0 label-title">{{labels.trainingClass}}</label> -->
                         <div class="col-md-12 pl-0 select-Courses">
                             <ng-multiselect-dropdown
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col-md-6" *ngIf="notificationType === 'no'">
-                    <div class="row">
+                    <div class="row form-group">
                                 <!-- <label class="col-md-4 p-0 label-title">{{labels.topics}}</label> -->
                     <div class="col-md-12 pl-0 select-Courses">
                         <ng-multiselect-dropdown
@@ -50,7 +50,7 @@
                         {{labels.courseError}}
                     </span>
                     </div>
-                    <div class="row">
+                    <div class="row form-group">
                             <!-- <label class="col-md-4 p-0 label-title">{{labels.trainingClass}}</label> -->
                         <div class="col-md-12 pl-0 select-Courses">
                             <ng-multiselect-dropdown
@@ -71,7 +71,8 @@
                         <label class="col-md-3 pr-0 label-title mb-0">Upload File</label>
                         <span class="col-md-9 pl-0">
                             <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
-                            <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" required>
+                            <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" id="customFile" required>
+                            <label class="custom-file-label" for="customFile">{{file}}</label>
                         </span>
                     </div>
                     <div class="row form-group">
@@ -86,11 +87,11 @@
                             <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description" name="description" #descriptionData = "ngModel" required>
                         </span>
                     </div>
-                </div>
+               
                 <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 pr-0">
                             <div class="row">
-                                <label class="col-md-4 p-0 label-tile">{{batchVar.labels.from}}</label>
+                                <label class="col-md-5 p-0 label-title">{{batchVar.labels.from}}</label>
                                 <div class="col-md-7 pr-0">
                                     <span> <img src="assets/images/cal.png" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"
                                             class="batch-icon">
@@ -110,10 +111,10 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 pr-0">
                             <div class="row">
-                                <label class="col-md-3 p-0 label-title">{{batchVar.labels.to}}</label>
-                                <div class="col-md-8 p-0 batch-input">
+                                <label class="col-md-5 p-0 label-title">{{batchVar.labels.to}}</label>
+                                <div class="col-md-7 p-0 batch-input">
                                     <span> <img src="assets/images/cal.png" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
                                             class="batch-icon">
                                         <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo"
@@ -127,12 +128,14 @@
                             </div>
                         </div>
                 </div>
+            </div>
                 <div class="text-center col-md-12 p-4">
-                    <button type="submit" class="btn btn-primary module-createbtn mr-4">{{batchVar.btns.create}}</button>
                     <button type="button" class="btn btn-default creat-btn" (click)="hidePopup()">{{batchVar.btns.clear}}</button>
+                    <button type="submit" class="btn btn-primary module-createbtn mr-4">{{batchVar.btns.create}}</button>
+                    
                 </div>
 
             </div>
-        </div>
+       
     </div>
 </form>

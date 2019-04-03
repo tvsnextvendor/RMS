@@ -7,6 +7,40 @@
   border-bottom: 1px solid #C5C5C5;
 }
 
-.modal-content{
+/* .modal-content{
   width: 75%;
+} */
+@media (min-width: 992px){
+
+.modal-lg {
+    max-width: 800px;
+}
+}
+@media (min-width: 576px){
+
+.modal-dialog {
+    max-width: 500px;
+    margin: 1.75rem auto;
+}
+}
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: .5rem;
+    pointer-events: none;
+}
+@media (min-width: 992px){
+.modal-lg {
+    max-width: 800px;
+}}
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 500px;
+    margin: 1.75rem auto;
+}}
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: .5rem;
+    pointer-events: none;
 }
