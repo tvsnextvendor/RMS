@@ -64,7 +64,7 @@ export class UserComponent implements OnInit {
         });
 
         this.userService.getUser().subscribe((result)=>{
-            console.log(data);
+          //  console.log(data);
         });
 
         this.http.get(this.constant.url.getDepartments).subscribe((resp) => {

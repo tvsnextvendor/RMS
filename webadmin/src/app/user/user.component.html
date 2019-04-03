@@ -203,9 +203,9 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" *ngIf="!editEnable" class="btn btn-default  mr-3">{{constant.btns.save}}</button>
-                <button type="button" *ngIf="editEnable" (click)="updateUser(userForm)" class="btn btn-default  mr-3">{{constant.btns.save}}</button>
-                <button type="button" class="btn btn-primary creat-btn mr-3"
+                <button type="submit" *ngIf="!editEnable" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+                <button type="button" *ngIf="editEnable" (click)="updateUser(userForm)" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+                <button type="button" class="btn btn-default"
                     (click)="closeAddForm()">{{constant.btns.cancel}}</button>
             </div>
         </form> 
