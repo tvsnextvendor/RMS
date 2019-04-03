@@ -16,7 +16,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
   styleUrls: ['./course-list.component.css'],
 })
 export class CourseListComponent implements OnInit {
-  
+
+  notificationValue;
+
   constructor(private modalService: BsModalService, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public moduleVar: ModuleVar, private toastr: ToastrService, private headerService: HeaderService) {
     this.moduleVar.url = API_URL.URLS;
   }
@@ -38,4 +40,9 @@ export class CourseListComponent implements OnInit {
     this.moduleVar.modalRef = this.modalService.show(template,this.moduleVar.modalConfig);
   }
 
+  notificationType(template,key){
+    this.notificationValue = key;
+    this.moduleVar.modalRef.hide();
+    this.openEditModal(template);
+  }
 }

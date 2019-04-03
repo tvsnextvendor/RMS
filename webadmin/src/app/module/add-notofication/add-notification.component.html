@@ -1,0 +1,138 @@
+<form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
+    <div class="pr-3 py-4">
+        <div class="white-bg">
+            <div class="row p-4">
+                <div class="col-md-6" *ngIf="notificationType === 'no'">
+                    <div class="row">
+                        <!-- <label class="col-md-4 p-0 label-title">{{labels.trainingClass}}</label> -->
+                        <div class="col-md-12 pl-0 select-Courses">
+                            <ng-multiselect-dropdown
+                            [placeholder]="'Course'"
+                            [data]="moduleVar.courseList"
+                            [(ngModel)]="selectedCourses"
+                            [settings]="moduleVar.dropdownSettings"
+                            (onSelect)="onItemSelect($event)"
+                            (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                        </div>
+                        <span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
+                            {{labels.courseError}}
+                        </span>
+                    </div>
+                    <div class="row">
+                            <!-- <label class="col-md-4 p-0 label-title">{{labels.trainingClass}}</label> -->
+                        <div class="col-md-12 pl-0 select-Courses">
+                            <ng-multiselect-dropdown
+                            [placeholder]="'Training Class'"
+                            [data]="moduleVar.trainingClassList"
+                            [(ngModel)]="selectedTrainingClass"
+                            [settings]="moduleVar.dropdownSettings"
+                            (onSelect)="onItemSelect($event)"
+                            (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                        </div>
+                        <span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
+                            {{labels.courseError}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6" *ngIf="notificationType === 'no'">
+                    <div class="row">
+                                <!-- <label class="col-md-4 p-0 label-title">{{labels.topics}}</label> -->
+                    <div class="col-md-12 pl-0 select-Courses">
+                        <ng-multiselect-dropdown
+                        [placeholder]="'Topics'"
+                        [data]="moduleVar.topicsList"
+                        [(ngModel)]="selectedTopics"
+                        [settings]="moduleVar.dropdownSettings"
+                        (onSelect)="onItemSelect($event)"
+                        (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                    </div>
+                    <span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
+                        {{labels.courseError}}
+                    </span>
+                    </div>
+                    <div class="row">
+                            <!-- <label class="col-md-4 p-0 label-title">{{labels.trainingClass}}</label> -->
+                        <div class="col-md-12 pl-0 select-Courses">
+                            <ng-multiselect-dropdown
+                            [placeholder]="'All Employees'"
+                            [data]="moduleVar.employeeList"
+                            [(ngModel)]="selectedEmployee"
+                            [settings]="moduleVar.dropdownSettings"
+                            (onSelect)="onItemSelect($event)"
+                            (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                        </div>
+                        <span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
+                            {{labels.courseError}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-20">
+                    <div class="row form-group">
+                        <label class="col-md-3 pr-0 label-title mb-0">Upload File</label>
+                        <span class="col-md-9 pl-0">
+                            <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
+                            <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" required>
+                        </span>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 pr-0 label-title mb-0">File Name</label>
+                        <span class="col-md-9 pl-0">
+                            <input type="text" class="form-control" placeholder="Enter File Name" [(ngModel)]="fileName" name="fileName" #fileNameValue = "ngModel" required>
+                        </span>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 pr-0 label-title mb-0">Description</label>
+                        <span class="col-md-9 pl-0">
+                            <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description" name="description" #descriptionData = "ngModel" required>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 p-0 label-tile">{{batchVar.labels.from}}</label>
+                                <div class="col-md-7 pr-0">
+                                    <span> <img src="assets/images/cal.png" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"
+                                            class="batch-icon">
+                                        <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
+                                            name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel"
+                                            [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
+                                        <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
+                                            {{batchVar.mandatoryLabels.from}}
+                                        </span>
+                                        <div *ngIf="batchVar.dategreater" class="required_color">
+                                            <span>{{batchVar.mandatoryLabels.dateValidate}} </span>
+                                        </div>
+                                    </span>
+                                </div>
+                                <span class="required_color" *ngIf="batchVar.batchFrom && batchVar.batchTo && dateError">
+                                    {{batchVar.mandatoryLabels.dateLimitError}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-3 p-0 label-title">{{batchVar.labels.to}}</label>
+                                <div class="col-md-8 p-0 batch-input">
+                                    <span> <img src="assets/images/cal.png" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
+                                            class="batch-icon">
+                                        <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo"
+                                            bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                                            required>
+                                        <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
+                                            {{batchVar.mandatoryLabels.to}}
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="text-center col-md-12 p-4">
+                    <button type="submit" class="btn btn-primary module-createbtn mr-4">{{batchVar.btns.create}}</button>
+                    <button type="button" class="btn btn-default creat-btn" (click)="hidePopup()">{{batchVar.btns.clear}}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
