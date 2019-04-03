@@ -1,0 +1,64 @@
+.label-title{
+	color: #697380;
+	line-height: 47px;
+	font-size: 15px;
+}
+.batch-input{
+	position: relative;
+}
+.batch-icon{
+	position: absolute;
+    top: 10px;
+    right: 5px;
+}
+.add-batch-icon{
+	line-height: 80px;
+    font-size: 22px;
+}
+.module-title-mand{
+	color: #697380;
+    line-height: 36px;
+     margin-bottom: 0;
+    font-size: 15px;   
+}
+.module-title-opt{
+    color: #697380;
+    line-height: 27px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.module-radiobtn input[type='radio'] {
+ -webkit-appearance: none;
+    width: 17px;
+    height: 17px;
+    border: 2px solid #468FB9;
+    border-radius: 50%;
+    outline: none;
+} 
+.module-radiobtn input[type='radio']:before { 
+	content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    margin: 15% auto;
+    border-radius: 50%;
+} 
+.module-radiobtn input[type='radio']:checked:before { 
+	 	background: #468FB9; 
+}
+.module-btn-alg{
+	position: relative;
+    top: 3px;
+}
+.module-createbtn{
+	float: none;
+}
+.batch-calender{
+    border: none;
+    color: #576271;
+    width: 215px;
+}
+.mt-20{
+    margin-top: 20px !important;
+    padding-left: 0px !important;
+}

@@ -13,10 +13,17 @@ import {CourseListComponent} from './course-list/course-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgHttpLoaderModule } from 'ng-http-loader'; 
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 import {DndModule} from 'ng2-dnd';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule,OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 import { BatchModule } from '../batch/batch.module';
 import {AddQuizComponent} from './add-quiz/add-quiz.component';
+import {AddNotificationComponent} from './add-notofication/add-notification.component';
 
 
 const routes: Routes = [
@@ -27,6 +34,15 @@ const routes: Routes = [
     { path:  'modules/:moduleId/:courseId', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}, 
     { path:  'modules', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}          
 ];
+export const MY_MOMENT_FORMATS = {
+  parseInput: 'l LT',
+  fullPickerInput: 'ddd D MMM YYYY LT',
+  datePickerInput: 'D MMM YYYY',
+  timePickerInput: 'LT',
+  monthYearLabel: 'MMM YYYY',
+  dateA11yLabel: 'LL',
+  monthYearA11yLabel: 'MMMM YYYY',
+};
 
 @NgModule({
   imports: [
@@ -40,15 +56,28 @@ const routes: Routes = [
     BatchModule,
     // NgHttpLoaderModule.forRoot(),
     TabsModule.forRoot(),
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    OwlMomentDateTimeModule,
+    DlDateTimePickerDateModule,
+    CalendarModule.forRoot({
+        provide: DateAdapter,
+        useFactory: adapterFactory
+      })
     ],
   declarations: [
     AddModuleComponent,
     CourseListComponent,
     ModuleListComponent,
     ModuleDetailsComponent,
-    AddQuizComponent
+    AddQuizComponent,
+    AddNotificationComponent
   ],
+  providers: [
+    {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},
+ ],
   bootstrap: [AddModuleComponent]
 })
 export class moduleModule { }

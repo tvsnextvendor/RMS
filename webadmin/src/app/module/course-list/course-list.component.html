@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12 pb-10 pl-0">
-        <button type = "button" class="btn btn-primary mr-3 float-right">{{moduleVar.labels.createNotification}}</button>
+        <button type = "button" class="btn btn-primary mr-3 float-right" (click)="openEditModal(notification)">{{moduleVar.labels.createNotification}}</button>
         <button type = "button" class="btn btn-primary mr-3 float-right" [routerLink]="['../module']">{{moduleVar.labels.createCourse}}</button>
         <button type = "button" class="btn btn-primary mr-3 float-right" (click)="openEditModal(editBatch)">{{moduleVar.labels.scheduleTraining}}</button>
     </div>
@@ -46,4 +46,28 @@
         </div>
         <app-add-batch (someEvent)="moduleVar.modalRef.hide()"></app-add-batch>
     </ng-template> 
+    <ng-template #notification>  
+        <div class="modal-header"> 
+            <h4 class="modal-title pull-left">Create Notification</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="moduleVar.modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div>
+            <p class="text-center">Is this a general notification?</p>
+        </div>
+        <div class="row p-4">
+            <span class="col-md-6"><button type="button" class="btn btn-primary"  (click)="notificationType(createNotification,'yes')">YES</button></span>
+            <span class="col-md-6"><button type="button" class="btn btn-default" (click)="notificationType(createNotification,'no')">NO</button></span>                
+        </div> 
+    </ng-template> 
+    <ng-template #createNotification> 
+        <div class="modal-header"> 
+            <h4 class="modal-title pull-left">Notification Upload</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="moduleVar.modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <app-add-notification notificationType="{{notificationValue}}" (someEvent)="moduleVar.modalRef.hide()"></app-add-notification>
+    </ng-template>
 </div>
