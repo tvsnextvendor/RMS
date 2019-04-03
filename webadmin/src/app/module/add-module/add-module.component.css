@@ -79,7 +79,7 @@ background-color: #C1E1F3;
     float: right;
     color: #9B9B9B;
     line-height: 35px;
-    padding-left: 25px;
+    padding-left: 0;
 }
 .addedcourse-scroll{
     max-height: 120px;

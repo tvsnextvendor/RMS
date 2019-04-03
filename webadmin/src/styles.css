@@ -698,7 +698,10 @@ li {
   width: 33%;
   float: left;
 }
-.table-striped tbody tr:nth-of-type(odd) {
+.table-striped tbody tr:nth-child(odd){
+  background-color: #fff;
+}
+.table-striped tbody tr:nth-child(even) {
     background-color: #F4FBFF;
 }
 .th-boxshadow{
@@ -802,7 +805,7 @@ li {
 .modal-header {
     border-bottom: none;
 }
-.modal-dialog {
+/* .modal-dialog {
     transform: translate(0,0);
     height: calc(100vh - 60px);
     width: calc(100vw - 0px);
@@ -811,10 +814,10 @@ li {
     max-width: unset;
     margin: 0 auto;
 }
-.modal-content {
+ .modal-content {
     width: 40%;
     margin: 0 auto;
-}
+} */
 .add-video-header ul.nav.nav-tabs {
     background-color: #fff;
     width: 260px;
@@ -1189,7 +1192,25 @@ label{
 }
 /****************end Resort **********/
 
-
+.modal-content .white-bg{
+  background: none !important;
+  box-shadow: inherit
+}
+.modal-content{
+  border-radius: 0;
+}
+.modal-content .Schedule-box{
+  padding: 0;
+}
+.multiselect-dropdown .dropdown-btn{
+  border-radius: 0 !important;
+}
+.modal-title {
+  font-size: 20px !important;
+}
+.custom-modal{
+  max-width: 680px;
+}
 
 
 
@@ -1204,10 +1225,10 @@ label{
 .mob-alg{
   margin-top: 10px;
 }
-.modal-content{
+/* .modal-content{
   width: 50%;
   margin: 0 auto;
-}
+} */
 .setting-alg{
   width: 70% !important;
 }
@@ -1223,10 +1244,10 @@ label{
 .module-title{
   padding-right: 10px;
 }
-.modal-content{
+/* .modal-content{
   width: 60%;
   margin: 0 auto;
-}
+} */
 .setting-alg{
   width: 95% !important;
   text-align: center;
@@ -1271,10 +1292,10 @@ label{
   /*margin-bottom: 7px;*/
   text-align: center;
 }
-.modal-content{
+/* .modal-content{
   width: 85%;
   margin: 0 auto;
-}
+} */
 .adduser-respon{
   float: none !important;
   width: 70%;

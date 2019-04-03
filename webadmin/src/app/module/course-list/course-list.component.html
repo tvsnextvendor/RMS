@@ -1,34 +1,34 @@
 <div class="row">
     <div class="col-sm-12 pb-10 pl-0">
-        <button type = "button" class="btn btn-primary mr-3 float-right" (click)="openEditModal(notification)">{{moduleVar.labels.createNotification}}</button>
+        <button type = "button" class="btn btn-primary mr-3 float-right" (click)="openEditModal(notification,'notification')">{{moduleVar.labels.createNotification}}</button>
         <button type = "button" class="btn btn-primary mr-3 float-right" [routerLink]="['../module']">{{moduleVar.labels.createCourse}}</button>
-        <button type = "button" class="btn btn-primary mr-3 float-right" (click)="openEditModal(editBatch)">{{moduleVar.labels.scheduleTraining}}</button>
+        <button type = "button" class="btn btn-primary mr-3 float-right" (click)="openEditModal(editBatch,'batch')">{{moduleVar.labels.scheduleTraining}}</button>
     </div>
     <div class="col-lg-12 col-sm-12 pl-0">                
-        <div class="table-responsive white-bg px-3">
-            <table class="table" [mfData]="moduleVar.courseListPage" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <div class="table-responsive white-bg custom-table2">
+            <table class="table table-striped" [mfData]="moduleVar.courseListPage" #mf="mfDataTable" [mfRowsOnPage]="10">
                     <thead>
                     <tr class="th-boxshadow"  class="">
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter by="courseName">{{moduleVar.labels.courseName}}</mfDefaultSorter>
                         </th>
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter>{{moduleVar.labels.topicName}}</mfDefaultSorter>
                         </th>
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter>{{moduleVar.labels.trainingClass}}</mfDefaultSorter>
                         </th>
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter>{{moduleVar.labels.contentFiles}}</mfDefaultSorter>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let course of mf.data" class="table-desc-color">
-                            <td class="text-center"><a href="javascript:void" (click)="courseDetails(course.courseId)">{{ course.courseName }}</a></td>
-                            <td class="text-center">{{ course.topicName }}</td>
-                            <td class="text-center">{{ course.trainingClass }}</td>
-                            <td class="text-center">{{ course.contentFiles }}</td>
+                            <td class="text-left"><a href="javascript:void" (click)="courseDetails(course.courseId)">{{ course.courseName }}</a></td>
+                            <td class="text-left">{{ course.topicName }}</td>
+                            <td class="text-left">{{ course.trainingClass }}</td>
+                            <td class="text-left">{{ course.contentFiles }}</td>
                         </tr>
                     <!-- <tr *ngIf="mf.data?.length == 0">
                         <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>
@@ -37,14 +37,17 @@
                 </table>
         </div>
     </div>
-    <ng-template #editBatch>  
+    <ng-template #editBatch class="modal-lg">  
+ 
         <div class="modal-header"> 
             <h4 class="modal-title pull-left">Add New Training Schedule</h4>
             <button type="button" class="close pull-right" aria-label="Close" (click)="moduleVar.modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <app-add-batch (someEvent)="moduleVar.modalRef.hide()"></app-add-batch>
+        <div class="modal-body"><app-add-batch (someEvent)="moduleVar.modalRef.hide()"></app-add-batch></div>
+        
+    
     </ng-template> 
     <ng-template #notification>  
         <div class="modal-header"> 
@@ -53,6 +56,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        <div class="modal-body">
         <div>
             <p class="text-center">Is this a general notification?</p>
         </div>
@@ -60,6 +64,7 @@
             <span class="col-md-6"><button type="button" class="btn btn-primary"  (click)="notificationType(createNotification,'yes')">YES</button></span>
             <span class="col-md-6"><button type="button" class="btn btn-default" (click)="notificationType(createNotification,'no')">NO</button></span>                
         </div> 
+    </div>
     </ng-template> 
     <ng-template #createNotification> 
         <div class="modal-header"> 

@@ -36,13 +36,23 @@ export class CourseListComponent implements OnInit {
     this.route.navigateByUrl('/modulelist/'+id);
   }
 
-  openEditModal(template: TemplateRef<any>) {
-    this.moduleVar.modalRef = this.modalService.show(template,this.moduleVar.modalConfig);
+  openEditModal(template: TemplateRef<any>,modelValue) {
+    let modalConfig= modelValue === "batch" ?{
+      class : "modal-xl"
+    } : {
+      class : "modal-dialog-centered"
+    }
+    this.moduleVar.modalRef = this.modalService.show(template,modalConfig);
   }
 
-  notificationType(template,key){
+  notificationType(template: TemplateRef<any>,key){
+    
+      let modalConfig={
+        class : "custom-modal"
+      }
     this.notificationValue = key;
     this.moduleVar.modalRef.hide();
-    this.openEditModal(template);
+    //this.openEditModal(template);
+    this.moduleVar.modalRef = this.modalService.show(template,modalConfig);
   }
 }
