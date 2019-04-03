@@ -36,6 +36,9 @@ export class API_URL {
     getModuleCourseList: "5c35ccbf300000670021b539",
     getCoureseDetails: "5c2e11db2f00003847175427",
 
+    //resort//
+    getResortListPageData : "5ca456ba4b00003d422099f2",
+
     //Dashboard//
     getKeyStat: "5c04dd7f330000e900d01e32",
     getCourses: "5c2dbf2e2f000056301751f7",
