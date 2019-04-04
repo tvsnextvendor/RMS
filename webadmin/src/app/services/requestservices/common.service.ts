@@ -26,6 +26,10 @@ export class CommonService {
 getResortList(){
     return this.http.getLocal('local','resort/List');
 }
+
+getDesignationList(){
+        return this.http.getLocal('local','designation/List');
+}
  
 
 }
