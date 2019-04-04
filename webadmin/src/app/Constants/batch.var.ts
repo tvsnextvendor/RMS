@@ -35,6 +35,9 @@ export class BatchVar{
          to           : 'To date is required.',
          batchName    : 'Training Schedule is required.',
          selectDept   : 'Department is required.',
+         selectResort   : 'Resort is required.',
+         selectEmp   : 'Employee is required.',
+         selectDivision   : 'Division is required.',
          dateValidate : 'From date should be less than To Date.',
          passpercentage : 'Pass Percentage is required.' ,
          dateLimitError : 'Assigned date should be less than due date'  ,
@@ -54,8 +57,14 @@ export class BatchVar{
     dategreater=false;
     empValidate=false;
     moduleDuplicate= false;
+    resortList: IMultiSelectOption[];
+    divisionList: IMultiSelectOption[];
+    departmentList: IMultiSelectOption[];
     employeeList: IMultiSelectOption[];
-    selectedEmp;
+    selectedEmp = [];
+    selectedResort=[];
+    selectedDivision =[];
+    selectedDepartment=[];
     moduleList;
     programList;
     percentageList;

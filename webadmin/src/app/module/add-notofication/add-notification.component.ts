@@ -33,6 +33,7 @@ export class AddNotificationComponent implements OnInit {
     file;
     fileName;
     description;
+    uploadFileName;
     constructor(private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router) {
         this.batchVar.url = API_URL.URLS;
         this.labels = moduleVar.labels;
@@ -98,12 +99,13 @@ export class AddNotificationComponent implements OnInit {
     addBatch(form) {
 
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
-        let data = {
-
-        }
-        console.log(this.file,
+        let data = {}
+        console.log(
+            this.file,
             this.fileName,
-            this.description,this.batchVar.batchFrom,this.batchVar.batchTo)
+            this.description,
+            this.batchVar.batchFrom,
+            this.batchVar.batchTo)
         // this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo) ? true : false;
         // let toastrMsg = this.batchVar.batchId ? this.batchVar.batchErrMsg : this.batchVar.batchSuccessMsg;
 
@@ -136,7 +138,7 @@ export class AddNotificationComponent implements OnInit {
         }];
         this.batchVar.batchFrom = '';
         this.batchVar.batchTo = '';
-        this.batchVar.selectedEmp = '';
+        this.batchVar.selectedEmp = [];
         this.batchVar.batchName = '';
         // this.router.navigateByUrl('/calendar');
     }
@@ -157,6 +159,11 @@ export class AddNotificationComponent implements OnInit {
         this.batchVar.moduleForm.splice(i, 1);
     }
 
-
+    getFileDetails(event){
+        if(event.target.files){
+            this.uploadFileName = event.target.files[0] && event.target.files[0].name;
+        }
+         
+    }
 
 }

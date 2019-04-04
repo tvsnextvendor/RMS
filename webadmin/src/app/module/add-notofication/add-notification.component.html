@@ -71,8 +71,9 @@
                         <label class="col-md-3 pr-0 label-title mb-0">Upload File</label>
                         <span class="col-md-9 pl-0">
                             <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
-                            <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" id="customFile" required>
-                            <label class="custom-file-label" for="customFile">{{file}}</label>
+                            <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" id="customFile"  (change)="getFileDetails($event)"  required>
+                            <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}</label>
+                            <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">Upload File</label>
                         </span>
                     </div>
                     <div class="row form-group">
@@ -130,9 +131,8 @@
                 </div>
             </div>
                 <div class="text-center col-md-12 p-4">
-                    <button type="button" class="btn btn-default creat-btn" (click)="hidePopup()">{{batchVar.btns.clear}}</button>
-                    <button type="submit" class="btn btn-primary module-createbtn mr-4">{{batchVar.btns.create}}</button>
-                    
+                    <button type="button" class="btn btn-default creat-btn mr-4" (click)="hidePopup()">{{batchVar.btns.clear}}</button>
+                    <button type="submit" class="btn btn-primary module-createbtn">{{batchVar.btns.save}}</button>
                 </div>
 
             </div>

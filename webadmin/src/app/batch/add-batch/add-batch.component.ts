@@ -26,6 +26,7 @@ export class AddBatchComponent implements OnInit {
     showToDate = false;
     showFromDate = false;
     dateError = false;
+    submitted = false;
 
     constructor(private alertService: AlertService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router) {
         this.batchVar.url = API_URL.URLS;
@@ -36,15 +37,33 @@ export class AddBatchComponent implements OnInit {
 
 
     ngOnInit() {
-        this.batchVar.batchId ? this.headerService.setTitle({ title: this.batchVar.editTitle, hidemodule: false }) :
+        this.batchVar.batchId ? this.headerService.setTitle({ title: this.batchVar.editTitle, hidemodule: false }) : '';
             // this.headerService.setTitle({ title: this.batchVar.title, hidemodule: false });
 
 
         //get Department list
         this.http.get(this.batchVar.url.getDepartments).subscribe((data) => {
-            this.batchVar.employeeList = data.DepartmentList;
+            this.batchVar.departmentList = data.DepartmentList;
         });
-
+        //get Employee list
+        this.http.get(this.batchVar.url.getEmployeeStatus).subscribe((result) => {
+            let data = result.EmployeeList;
+            this.batchVar.employeeList = data.map(item=>{
+                let obj = {
+                    "empId" : item.employeeId,
+                    "empName" : item.employeeName
+                }
+                return obj;
+            });
+        });
+        //get Resort list
+        this.http.get(this.batchVar.url.getResortList).subscribe((data) => {
+            this.batchVar.resortList = data.resortList;
+        });
+        //get Division list
+        this.http.get(this.batchVar.url.getDivision).subscribe((data) => {
+            this.batchVar.divisionList = data.divisionList;
+        });
 
         //  //get Module list
         //   this.http.get(this.batchVar.url.getModuleList).subscribe((data) => {
@@ -132,18 +151,42 @@ export class AddBatchComponent implements OnInit {
     }
 
     onEmpSelect(item: any) {
+        console.log(this.batchVar.selectedDepartment)
         this.batchVar.employeeId = this.batchVar.selectedEmp.map(item => { return item.userId });
         this.batchVar.empValidate = false;
     }
 
     //Employee dropdown Settings configuration
-    mySettings = {
+    departmentSettings = {
         singleSelection: false,
         idField: 'userId',
         textField: 'department',
         enableCheckAll: false,
         itemsShowLimit: 8,
     }
+    resortSettings = {
+        singleSelection: false,
+        idField: 'id',
+        textField: 'name',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+    empSettings = {
+        singleSelection: false,
+        idField: 'empId',
+        textField: 'empName',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+    divisionSettings = {
+        singleSelection: false,
+        idField: 'divisionId',
+        textField: 'divisionName',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+
+
 
     splitDate(date) {
         const newDate = new Date(date);
@@ -179,7 +222,7 @@ export class AddBatchComponent implements OnInit {
     }
     //submit batch
     addBatch(form) {
-
+        this.submitted = true;
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
         this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo) ? true : false;
         let toastrMsg = this.batchVar.batchId ? this.batchVar.batchErrMsg : this.batchVar.batchSuccessMsg;
@@ -224,7 +267,7 @@ export class AddBatchComponent implements OnInit {
         }];
         this.batchVar.batchFrom = '';
         this.batchVar.batchTo = '';
-        this.batchVar.selectedEmp = '';
+        this.batchVar.selectedEmp = [];
         this.batchVar.batchName = '';
         // this.router.navigateByUrl('/calendar');
     }
