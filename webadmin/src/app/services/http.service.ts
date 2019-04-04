@@ -17,7 +17,7 @@ export class HttpService {
    // this.API_ENDPOINT = API.API_ENDPOINT;
     
     this.httpOptions = {
-      headers: new Headers({
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': this.utilService.getToken()
       })
@@ -49,7 +49,7 @@ export class HttpService {
   put(api,url, putData): Observable<any> {
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
 		return this.http.put(API_ENDPOINT+url,putData ,{headers: this.httpOptions.headers}).pipe(
-			.map(this.extractData));
+			map(this.extractData));
 	}
 
 }

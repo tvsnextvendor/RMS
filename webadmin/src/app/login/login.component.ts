@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {loginVar} from '../Constants/login.var';
-import {HttpService} from '../services/http.service'
+import {HttpService} from '../services/http.service';
 import { API_URL } from '../Constants/api_url';
-import {LoginService} from '../services/requestservices/login.service' 
+import {AuthService} from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     passwordError = false;
     btns;
     constructor(private route: Router, public loginvar: loginVar, private toastr: ToastrService,
-            private http: HttpService,private loginService: LoginService,private API_URL:API_URL,private alertService:AlertService) { }
+            private http: HttpService,private authService: AuthService,private API_URL:API_URL,private alertService:AlertService) { }
 
     ngOnInit() {
       // get user details '5c0fbeda3100003b1324ee75'
@@ -99,11 +99,9 @@ export class LoginComponent implements OnInit {
               emailAddress:data.email,
                password:data.password,
              }
-            this.loginService.login(loginCredential).subscribe(result=>{
+            this.authService.login(loginCredential).subscribe(result=>{
              if(result.isSuccess){
                 const loginData = result.data;
-                localStorage.setItem('userData',btoa(JSON.stringify(loginData)));
-                localStorage.setItem('token',loginData.token)
                 this.route.navigateByUrl('/dashboard');
                 this.alertService.success('Login successfully');
              }
