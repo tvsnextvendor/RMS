@@ -61,12 +61,7 @@
 .modal-cotent .label-title{
     color: #000;
 }
-.prgm-select select:first-child{
-    margin-right: 15px;
-}
-.prgm-select select:last-child{
-    margin-left: 15px;
-}
+
 .module-radiobtn label{
     width: 50%
 }

@@ -3,42 +3,42 @@
         <button type = "button" class="btn btn-primary mr-3 float-right" [routerLink]="['../resorts']"><i class="fa fa-plus pr-2"></i>{{resortVar.labels.createResort}}</button>
     </div>
     <div class="col-lg-12 col-sm-12 pl-0">                
-        <div class="table-responsive white-bg px-3">
-            <table class="table" [mfData]="resortVar.resortList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <div class="table-responsive white-bg ">
+            <table class="table table-striped" [mfData]="resortVar.resortList" #mf="mfDataTable" [mfRowsOnPage]="10">
                     <thead>
-                    <tr class="th-boxshadow"  class="">
-                        <th class="text-center">
+                    <tr class="th-boxshadow">
+                        <th class="text-left">
                             <mfDefaultSorter>{{resortVar.labels.resortName}}</mfDefaultSorter>
                         </th>
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter>{{resortVar.labels.location}}</mfDefaultSorter>
                         </th>
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter>{{resortVar.labels.email}}</mfDefaultSorter>
                         </th>
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter>{{resortVar.labels.mobile}}</mfDefaultSorter>
                         </th>
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter>{{resortVar.labels.utilizedSpace}}</mfDefaultSorter>
                         </th>
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter>{{resortVar.labels.numberOfUser}}</mfDefaultSorter>
                         </th>
-                        <th class="text-center">
+                        <th class="text-left">
                             <mfDefaultSorter>{{resortVar.labels.status}}</mfDefaultSorter>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let resort of mf.data" class="table-desc-color">
-                            <td class="text-center"><a href="javascript:void" (click)="resortDetails(resort.resortId)">{{ resort.resortName }}</a></td>
-                            <td class="text-center">{{ resort.location }}</td>
-                            <td class="text-center">{{ resort.email }}</td>
-                            <td class="text-center">{{ resort.mobile }}</td>
-                            <td class="text-center">{{ resort.utilizedSpace }}</td>
-                            <td class="text-center">{{ resort.numberOfUsers }}</td>
-                            <td class="text-center">{{ resort.status }}</td>
+                            <td class="text-left"><a href="javascript:void" (click)="resortDetails(resort.resortId)">{{ resort.resortName }}</a></td>
+                            <td class="text-left">{{ resort.location }}</td>
+                            <td class="text-left">{{ resort.email }}</td>
+                            <td class="text-left">{{ resort.mobile }}</td>
+                            <td class="text-left">{{ resort.utilizedSpace }}</td>
+                            <td class="text-left">{{ resort.numberOfUsers }}</td>
+                            <td class="text-left">{{ resort.status }}</td>
                         </tr>
                     <!-- <tr *ngIf="mf.data?.length == 0">
                         <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>

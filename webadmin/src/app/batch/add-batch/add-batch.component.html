@@ -1,7 +1,6 @@
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
     <div class="Schedule-box">       
-            <div class="row">
-                
+            <div class="row">                
                         <div class="col-md-6 row form-group">
                                 <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.from}}</label>  		
                                     <div class="col-md-7 pr-0">
@@ -19,7 +18,7 @@
                                             </div>  
                                     </div>                          -->
                                 <label class="col-md-4 p-0 label-title">{{batchVar.labels.from}}</label>
-                                <div class="col-md-8 pr-0">
+                                <div class="col-md-8 p-0">
                                     <!-- <div class="form-control px-0">
                                         <input placeholder="Select Date" name="batchFrom" value="{{batchVar.batchFrom | date : 'fullDate' }}"
                                             (click)="fromDateInputClick()" class="batch-calender">
@@ -92,7 +91,7 @@
                     
                     <div class="row form-group">
                         <label class="col-md-4 p-0 label-title">{{batchVar.labels.batchName}}</label>
-                        <div class="col-md-7 pr-0">
+                        <div class="col-md-8 p-0">
                             <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName"
                                 #BatchName="ngModel" type="text" placeholder="Enter Training Schedule Name" required>
                             <span class="required_color" *ngIf="BatchName && BatchName.invalid && (formDir.submitted || BatchName.touched)">
@@ -101,9 +100,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 pl-0 form-group">
+                        <div class="col-md-5 p-0 float-left">
                         <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
-                        <div class="col-md-11 pl-0 select-Courses">
+                        <div class="pl-0 form-group select-Courses">
                             <ng-multiselect-dropdown [placeholder]="'Resort'" name="resortId" [data]="batchVar.resortList"
                                 [(ngModel)]="batchVar.selectedResort" [settings]="resortSettings" (onSelect)="onEmpSelect($event)"
                                 (onDeSelect)="onEmpSelect($event)" #resortId="ngModel" required></ng-multiselect-dropdown>
@@ -111,37 +110,41 @@
                                 {{batchVar.mandatoryLabels.selectResort}}
                             </span>
                         </div>
+                    
+                        <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
+                        <div class="pl-0 form-group select-Courses">
+                            <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId" [data]="batchVar.departmentList"
+                                [(ngModel)]="batchVar.selectedDepartment" [settings]="departmentSettings" (onSelect)="onEmpSelect($event)"
+                                (onDeSelect)="onEmpSelect($event)" #departmentId="ngModel" required></ng-multiselect-dropdown>
+                            <span class="required_color" *ngIf="submitted && !batchVar.selectedDepartment.length">
+                                {{batchVar.mandatoryLabels.selectDept}}
+                            </span>
+                        </div>
                     </div>
-                    <div class="col-md-6 pl-0 form-group">
+                    <div class="col-md-5 p-0 ml-auto">
                             <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
-                            <div class="col-md-11 pl-0 select-Courses">
+                            <div class="pl-0 form-group select-Courses">
                                 <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId" [data]="batchVar.employeeList"
                                     [(ngModel)]="batchVar.selectedEmp" [settings]="empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
                                 <span class="required_color" *ngIf="submitted && !batchVar.selectedEmp.length">
                                     {{batchVar.mandatoryLabels.selectEmp}}
                                 </span>
                             </div>
-                        </div>
-                        <div class="col-md-6 pl-0 form-group">
-                                <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
-                                <div class="col-md-11 pl-0 select-Courses">
-                                    <ng-multiselect-dropdown [placeholder]="'Division'" name="dividionId" [data]="batchVar.divisionList"
-                                        [(ngModel)]="batchVar.selectedDivision" [settings]="divisionSettings"  #divisionId="ngModel" required></ng-multiselect-dropdown>
-                                    <span class="required_color" *ngIf="submitted && !batchVar.selectedDivision.length">
-                                        {{batchVar.mandatoryLabels.selectDivision}}
-                                    </span>
-                                </div>
+                            <div class="pl-0 form-group select-Courses">
+                                <ng-multiselect-dropdown [placeholder]="'Division'" name="dividionId" [data]="batchVar.divisionList"
+                                    [(ngModel)]="batchVar.selectedDivision" [settings]="divisionSettings"  #divisionId="ngModel" required></ng-multiselect-dropdown>
+                                <span class="required_color" *ngIf="submitted && !batchVar.selectedDivision.length">
+                                    {{batchVar.mandatoryLabels.selectDivision}}
+                                </span>
                             </div>
+                        </div>
+                        
+                                <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
+                                
+                            
                             <div class="col-md-6 pl-0 form-group">
                                     <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
-                                    <div class="col-md-11 pl-0 select-Courses">
-                                        <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId" [data]="batchVar.departmentList"
-                                            [(ngModel)]="batchVar.selectedDepartment" [settings]="departmentSettings" (onSelect)="onEmpSelect($event)"
-                                            (onDeSelect)="onEmpSelect($event)" #departmentId="ngModel" required></ng-multiselect-dropdown>
-                                        <span class="required_color" *ngIf="submitted && !batchVar.selectedDepartment.length">
-                                            {{batchVar.mandatoryLabels.selectDept}}
-                                        </span>
-                                    </div>
+                                    
                                 </div>
                     </div>
                 </div>
@@ -150,19 +153,19 @@
                     
                     <div class="row form-group" *ngFor="let data of batchVar.moduleForm; let i = index">
                         <label class="col-md-2 p-0 label-title">{{batchVar.labels.module}}</label>
-                        <div class="col-md-8 p-0">
+                        <div class="col-11 col-md-9 p-0">
                             <div class="row">
-                                <div class="row col-md-12 pl-0 prgm-select">
+                                <div class="row col-md-12 p-0 prgm-select">
                                     <!-- <select id="moduleList" class="form-control form-group pl-0" name="moduleId{{i}}" [(ngModel)]="data.moduleId" #moduleId="ngModel">     
                                                 <option value="null">{{batchVar.select}}</option>
                                                 <option *ngFor="let batch of batchVar.moduleList"  value="{{batch.moduleId}}">{{batch.moduleName}}</option>
                                          </select> -->
-                                    <select id="program" class="col-md-5 form-control pl-0" name="program{{i}}" [(ngModel)]="data.program">
+                                    <select id="program" class="col-md-5 form-control p-0" name="program{{i}}" [(ngModel)]="data.program">
                                         <option value="null">{{batchVar.select}}</option>
                                         <option *ngFor="let program of batchVar.programList" value="{{program.id}}">{{program.name}}</option>
                                     </select>
 
-                                    <select id="percentageList" class="col-md-5 form-control form-group pl-0" name="passpercentage{{i}}"
+                                    <select id="percentageList" class="col-md-5 form-control form-group p-0 ml-auto" name="passpercentage{{i}}"
                                         [(ngModel)]="data.passpercentage" #passpercentage="ngModel" required>
                                         <option value="null">{{batchVar.labels.percentage}}</option>
                                         <option *ngFor="let percentage of batchVar.percentageList" value="{{percentage.percentage}}">{{percentage.percentage}}</option>
@@ -178,14 +181,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-1 col-md-1 p-0">
                             <span><a class="float-right" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span>
                             <span><a class="float-right" *ngIf="i!=0" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon"></i></a></span>
                         </div>
                     </div>
                     <div class="row form-group">
                             <label class="col-md-4 p-0 label-title">{{batchVar.labels.regNote}}</label>
-                            <div class="row col-md-8">
+                            <div class="row col-md-8 p-0">
                                 <span class="col-md-6 pl-0">
                                     <input class="form-control  p-0" name="reminder" [(ngModel)]="reminder" #reminderValue="ngModel"
                                         type="number" placeholder="10" min="1" max="{{maxdurationCount}}" (keyup)="countErrorCheck()"
