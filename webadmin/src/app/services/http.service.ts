@@ -46,4 +46,10 @@ export class HttpService {
       map(this.extractData));
   }
 
+  put(api,url, putData): Observable<any> {
+    const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
+		return this.http.put(API_ENDPOINT+url,putData ,{headers: this.httpOptions.headers}).pipe(
+			.map(this.extractData));
+	}
+
 }
