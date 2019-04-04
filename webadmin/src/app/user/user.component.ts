@@ -7,6 +7,7 @@ import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
+import {CommonService} from '../services/requestservices/common.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { UtilService  } from '../services/util.service';
 import * as XLSX from 'ts-xlsx';
@@ -43,9 +44,10 @@ export class UserComponent implements OnInit {
     divisionArray=[];
     designationData = [];
     fileUploadValue;
+    userid;
     arrayBuffer: any;
 
-    constructor(private alertService: AlertService, private utilService: UtilService, private userService:UserService ,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router) {
+    constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService ,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
         this.labels = constant.labels;
     }
@@ -54,56 +56,44 @@ export class UserComponent implements OnInit {
         this.pageLimitOptions = [5, 10, 25];
         this.pageLimit = [this.pageLimitOptions[1]];
 
-        //get Users list
-        this.http.get(this.constant.url.getUsersList).subscribe((data) => {
-            if (data['isSuccess']) {
-                this.constant.userList = data.UserDetails.map(item => {
-                    return item;
-                });
-            }
-        });
 
-        this.userService.getUser().subscribe((result)=>{
-          //  console.log(data);
+        this.userService.getUser().subscribe((resp)=>{
+          if(resp.isSuccess){
+              this.constant.userList = resp.data.rows;
+          }
         });
+          this.commonService.getDivisionList().subscribe((result)=>{
+              this.divisionArray=result.data.rows;
+           })
 
-        this.http.get(this.constant.url.getDepartments).subscribe((resp) => {
-            if (resp['isSuccess']) {
-                this.departmentArray = resp.DepartmentList;
-                // console.log(this.departmentArray)
-            }
-        });
+        this.commonService.getDepartmentList().subscribe((result)=>{
+        this.departmentArray = result.data.rows;
+        })
 
-      this.http.get(this.constant.url.getDivision).subscribe((resp) => {
-            if (resp['isSuccess']) {
-                this.divisionArray = resp.divisionList;
-                // console.log(this.departmentArray)
-            }
-        });
+        this.commonService.getDesignationList().subscribe((result)=>{
+            this.designationArray=result.data.rows;
 
-        this.http.get(this.constant.url.getDesignations).subscribe((resp) => {
-            if (resp['isSuccess']) {
-                this.designationArray = resp.DesignationList;
-                // console.log(this.departmentArray)
-            }
-        });
+        })
+
     }
 
     //update user
-    userEdit(data, index) {
+    userEdit(data, index) {    
+            this.userid = data.UserRole[0].userId;   
             this.editEnable= true;
             this.userIndex = index;
-            this.userName = data.employeeName;
+            this.userName = data.userName;
             this.userId = data.employeeId;
-            this.department = data.department;
-            this.division = data.division;
-            this.emailAddress = data.emailId;
-            this.phoneNumber = data.mobile;
-            this.designationUpdate(data.department, data.designation);
+            this.department = data.DepartMent ? data.DepartMent.departmentId : "";
+            this.division =data.Division ? data.Division.divisionId : "";
+            this.designation= data.Designation?data.Designation.designationId : "";
+            this.emailAddress = data.email;
+            this.phoneNumber = data.phoneNumber;
+           
+           // this.designationUpdate(data.department, data.designation);
     }
 
     designationUpdate(data, designation) {
-        console.log(data, designation , "DESIGNATION");
         if (data == "") {
             this.designationData = [];
         }
@@ -161,8 +151,22 @@ export class UserComponent implements OnInit {
     }
 
     updateUser(data){
-        //this.closeAddForm();
-        this.alertService.success(this.labels.userUpdated);
+           let obj = {
+                userName : this.userName,
+                password: "123456",
+                email : this.emailAddress,
+                phoneNumber : this.phoneNumber,
+                roleId:this.utilService.getRole(),
+                designationId:this.designation,
+                divisionId:this.division,
+                departmentId:this.department,
+                reportingTo:this.reportingTo,
+                isDefault:this.defaultSetting,
+                }
+          this.userService.updateUser(this.userid,obj).subscribe((result)=>{
+                     this.closeAddForm(); 
+                     this.alertService.success(this.labels.userUpdated);
+            })
     }
      
     

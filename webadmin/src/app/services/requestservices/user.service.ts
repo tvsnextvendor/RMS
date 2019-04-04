@@ -20,4 +20,12 @@ export class UserService {
     return this.http.getLocal('local','user/List');
   }
 
+  getUserById(userId){
+    return this.http.getLocal('local','user/List?userId='+userId)
+  }
+
+  updateUser(userId, userData){
+      return this.http.put('local','user/Update/'+userId,userData)
+  }
+
 }

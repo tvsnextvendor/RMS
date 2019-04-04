@@ -52,12 +52,12 @@
             <tbody>
                 <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
                     <td class="vat user-desc"><label class="mb-0">{{ user.employeeId }}</label></td>
-                    <td class="vat user-desc"><label class="mb-0">{{ user.employeeName }}</label></td>
-                    <td class="vat user-desc"><label class="mb-0">{{ user.division }}</label></td>
-                    <td class="vat user-desc"><label class="mb-0">{{ user.department }}</label></td>
-                    <td class="vat user-desc"><label class="mb-0">{{ user.designation }}</label></td>
-                    <td class="vat user-desc"><label class="mb-0">{{ user.emailId }}</label></td>
-                    <td class="vat user-desc"><label class="mb-0">{{ user.mobile }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.userName }}</label></td>
+                    <td class="vat user-desc"><span *ngIf="user.Division"><label class="mb-0">{{ user.Division.divisionName }}</label></span></td>
+                    <td class="vat user-desc"><span *ngIf="user.DepartMent"><label class="mb-0">{{ user.DepartMent.departmentName }}</label></span></td>
+                    <td class="vat user-desc"><span *ngIf="user.Designation"><label class="mb-0">{{ user.Designation.designationName }}</label></span></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.email }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.phoneNumber }}</label></td>
                     <td class="vat user-desc"><a (click)="openAddUser(addUserTemp,user,i)"><i class="fa fa-pencil header-icon"></i></a></td>
                     <td class="vat user-desc"><a (click)="removeUser(user,i)"><i class="fa fa-trash header-icon"></i></a></td> 
                 </tr>
@@ -133,7 +133,7 @@
                     <select [(ngModel)]="department" (ngModelChange)="designationUpdate($event)" name="department"
                         class="form-control">
                         <option value="">{{constant.labels.select}}</option>
-                        <option *ngFor="let obj of departmentArray" [value]="obj.userId">{{obj.department}}</option>
+                        <option *ngFor="let obj of departmentArray" [value]="obj.departmentId">{{obj.departmentName}}</option>
                     </select>
                     <div class="select_arrow"></div>
                     <!-- <span class="required_color"
@@ -147,7 +147,7 @@
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="designation" name="designation" class="form-control">
                         <option value="">{{constant.labels.select}}</option>
-                        <option *ngFor="let obj of designationData" [value]="obj.id">{{obj.name}}</option>
+                        <option *ngFor="let obj of designationArray" [value]="obj.designationId">{{obj.designationName}}</option>
                     </select>
                      <div class="select_arrow"></div>
                     <!-- <span class="required_color" *ngIf="userForm.submitted && !designation">
@@ -187,7 +187,7 @@
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="reportingTo" name="reportingTo" class="form-control">
                         <option value="">{{constant.labels.select}}</option>
-                        <option *ngFor="let obj of designationData" [value]="obj.id">{{obj.name}}</option>
+                        <option *ngFor="let obj of designationArray" [value]="obj.designationId">{{obj.designationName}}</option>
                     </select>
                      <div class="select_arrow"></div>
                     <!-- <span class="required_color" *ngIf="userForm.submitted && !reportingTo">
