@@ -104,43 +104,41 @@
                         <div class="col-md-6 pl-0 form-group">
                         <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                         <div class="col-md-11 pl-0 select-Courses">
-                            <ng-multiselect-dropdown [placeholder]="'Resort'" name="employeeId" [data]="batchVar.employeeList"
-                                [(ngModel)]="batchVar.selectedEmp" [settings]="mySettings" (onSelect)="onEmpSelect($event)"
-                                (onDeSelect)="onEmpSelect($event)" #employeeId="ngModel" required></ng-multiselect-dropdown>
-                            <span class="required_color" *ngIf="batchVar.empValidate">
-                                {{batchVar.mandatoryLabels.selectDept}}
+                            <ng-multiselect-dropdown [placeholder]="'Resort'" name="resortId" [data]="batchVar.resortList"
+                                [(ngModel)]="batchVar.selectedResort" [settings]="resortSettings" (onSelect)="onEmpSelect($event)"
+                                (onDeSelect)="onEmpSelect($event)" #resortId="ngModel" required></ng-multiselect-dropdown>
+                            <span class="required_color" *ngIf="submitted && !batchVar.selectedResort.length">
+                                {{batchVar.mandatoryLabels.selectResort}}
                             </span>
                         </div>
                     </div>
                     <div class="col-md-6 pl-0 form-group">
                             <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                             <div class="col-md-11 pl-0 select-Courses">
-                                <ng-multiselect-dropdown [placeholder]="'Empolyees'" name="employeeId" [data]="batchVar.employeeList"
-                                    [(ngModel)]="batchVar.selectedEmp" [settings]="mySettings" (onSelect)="onEmpSelect($event)"
-                                    (onDeSelect)="onEmpSelect($event)" #employeeId="ngModel" required></ng-multiselect-dropdown>
-                                <span class="required_color" *ngIf="batchVar.empValidate">
-                                    {{batchVar.mandatoryLabels.selectDept}}
+                                <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId" [data]="batchVar.employeeList"
+                                    [(ngModel)]="batchVar.selectedEmp" [settings]="empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
+                                <span class="required_color" *ngIf="submitted && !batchVar.selectedEmp.length">
+                                    {{batchVar.mandatoryLabels.selectEmp}}
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-6 pl-0 form-group">
                                 <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                                 <div class="col-md-11 pl-0 select-Courses">
-                                    <ng-multiselect-dropdown [placeholder]="'Division'" name="employeeId" [data]="batchVar.employeeList"
-                                        [(ngModel)]="batchVar.selectedEmp" [settings]="mySettings" (onSelect)="onEmpSelect($event)"
-                                        (onDeSelect)="onEmpSelect($event)" #employeeId="ngModel" required></ng-multiselect-dropdown>
-                                    <span class="required_color" *ngIf="batchVar.empValidate">
-                                        {{batchVar.mandatoryLabels.selectDept}}
+                                    <ng-multiselect-dropdown [placeholder]="'Division'" name="dividionId" [data]="batchVar.divisionList"
+                                        [(ngModel)]="batchVar.selectedDivision" [settings]="divisionSettings"  #divisionId="ngModel" required></ng-multiselect-dropdown>
+                                    <span class="required_color" *ngIf="submitted && !batchVar.selectedDivision.length">
+                                        {{batchVar.mandatoryLabels.selectDivision}}
                                     </span>
                                 </div>
                             </div>
                             <div class="col-md-6 pl-0 form-group">
                                     <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                                     <div class="col-md-11 pl-0 select-Courses">
-                                        <ng-multiselect-dropdown [placeholder]="'Department'" name="employeeId" [data]="batchVar.employeeList"
-                                            [(ngModel)]="batchVar.selectedEmp" [settings]="mySettings" (onSelect)="onEmpSelect($event)"
-                                            (onDeSelect)="onEmpSelect($event)" #employeeId="ngModel" required></ng-multiselect-dropdown>
-                                        <span class="required_color" *ngIf="batchVar.empValidate">
+                                        <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId" [data]="batchVar.departmentList"
+                                            [(ngModel)]="batchVar.selectedDepartment" [settings]="departmentSettings" (onSelect)="onEmpSelect($event)"
+                                            (onDeSelect)="onEmpSelect($event)" #departmentId="ngModel" required></ng-multiselect-dropdown>
+                                        <span class="required_color" *ngIf="submitted && !batchVar.selectedDepartment.length">
                                             {{batchVar.mandatoryLabels.selectDept}}
                                         </span>
                                     </div>
