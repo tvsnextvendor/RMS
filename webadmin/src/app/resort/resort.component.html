@@ -7,20 +7,24 @@
                     <div class="row mb-4 ">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.resortName}}</label>
                         <input class="col-6 col-md-8 form-control" type="text" name="resortName" [(ngModel)]="resortVar.resortName">
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.resortName">{{resortVar.labels.resortName}}{{resortVar.labels.isRequired}} </span>
                     </div>
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.email}}</label>
-                        <input class="col-6 col-md-8 form-control" type="text" name="email" [(ngModel)]="resortVar.email">
+                        <input class="col-6 col-md-8 form-control" type="email" name="email" [(ngModel)]="resortVar.email">
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.email">{{resortVar.labels.email}}{{resortVar.labels.isRequired}} </span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.location}}</label>
                         <input class="col-6 col-md-8 form-control" type="text" name="location" [(ngModel)]="resortVar.location">
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.location">{{resortVar.labels.location}}{{resortVar.labels.isRequired}} </span>
                     </div>
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.mobile}}</label>
                         <input class="col-6 col-md-8 form-control" type="number" name="mobile" [(ngModel)]="resortVar.mobile">
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.mobile">{{resortVar.labels.mobile}} number{{resortVar.labels.isRequired}} </span>
                     </div>
                 </div>
             </div>
@@ -87,15 +91,18 @@
                 <div class="col-12 col-md-6 form-group">
                     <label class="col-6 col-sm-8 col-md-4 label-title pl-0">total Storage space</label>
                     <input class="col-6 col-sm-8 form-control" type="text" name="storageSpace" [(ngModel)]="resortVar.storageSpace">
+                    <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.storageSpace">{{resortVar.labels.storageSpace}}{{resortVar.labels.isRequired}} </span>
                 </div>
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4">
                         <label class="col-6 col-sm-4 label-title">Allocated Space</label>
                         <input class="col-6 col-sm-8 form-control" type="text" name="allocatedSpace" [(ngModel)]="resortVar.allocatedSpace">
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.allocatedSpace">{{resortVar.labels.allocatedSpace}}{{resortVar.labels.isRequired}} </span>
                     </div>
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">Status</label>
                         <input class="col-6 col-md-8 form-control" type="text" name="status" [(ngModel)]="resortVar.status">
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.status">{{resortVar.labels.status}}{{resortVar.labels.isRequired}} </span>
                     </div>
                 </div>
             </div>

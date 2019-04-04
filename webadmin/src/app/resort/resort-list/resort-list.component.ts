@@ -29,11 +29,9 @@ export class ResortListComponent implements OnInit {
     this.http.get(this.resortVar.url.getResortListPageData).subscribe((data) => {
       this.resortVar.resortList = data;
     });
-
   }
 
   resortDetails(id){
-    console.log(id)
     this.route.navigateByUrl('/resorts/'+id);
   }
 }

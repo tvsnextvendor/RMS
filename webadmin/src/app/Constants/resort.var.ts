@@ -24,7 +24,8 @@ export class ResortVar {
         status : "Status",
         createResort : "Add New",
         division : "Division",
-        department : "Department"
+        department : "Department",
+        isRequired : " is Required"
     };
     divisionTemplate: any[] = [{
         division: 1,
