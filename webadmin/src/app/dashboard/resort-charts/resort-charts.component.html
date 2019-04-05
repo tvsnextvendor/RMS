@@ -45,7 +45,7 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 Total Courses</h6>
-              <div id="visitorsByResort" style="height: 200px;"></div>
+             
           </div>
         </div>
         <div class="col-md-8 pl-0">
@@ -57,7 +57,7 @@
                 <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
               </select>
             </h6>
-            <div id="videosTrend" style="height: 195px; margin: 0 auto; padding-left: 12px;" (click)="goToVideosTrend()"></div>
+            
           </div>
         </div>
       </div>
@@ -68,32 +68,14 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 Top Rated Training Class</h6>
-             <div class="custom-table">
-            <table class="table">
-                <tbody>
-                  <tr *ngFor="let item of dashboardVar.topResorts">
-                    <td>
-                      {{item.id}}.{{item.name}}
-                    </td>
-                    <td>
-                        <ng-template #t let-fill="fill">
-                            <span class="star" [class.full]="fill === 100">
-                              <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
-                            </span>
-                          </ng-template>
-                      <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>          
+               
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                Badges</h6>
-              <div id="visitorsByResort" style="height: 200px;"></div>
+             
           </div>
         </div>
         <div class="col-md-4 pl-0">
