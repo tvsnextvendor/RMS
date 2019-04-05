@@ -12,7 +12,8 @@
                            <span class="input-group-addon"><img src="assets/images/email.png" class="icon"></span>
                             <span class="required_color text-left" *ngIf="formDir.form.controls.email && formDir.form.controls.email.invalid && (formDir.submitted || formDir.form.controls.email.touched)">
                                     {{labels.emailError}}
-                                </span>
+                            </span>
+                            <span class="required_color text-left" *ngIf="loginvar.email && emailError && formDir.submitted">{{labels.invalidEmail}}</span>
                         </div>
                         <div *ngIf="!forgetPasswordStatus" class="input-group login-input">
                             <input id="password" type="password" class="form-control input-alg" [(ngModel)]="loginvar.password" #Pwd="ngModel" name="password" placeholder="Password" required>
@@ -20,7 +21,7 @@
                             <span class="required_color text-left" *ngIf="formDir.form.controls.password && formDir.form.controls.password.invalid && (formDir.submitted || formDir.form.controls.password.touched)">
                                 {{labels.passwordError}}
                             </span>
-                            <!-- <span class="required_color" *ngIf="loginvar.password && passwordError">Invalid password</span> -->
+                             <span class="required_color text-left" *ngIf="loginvar.password && passwordError && formDir.submitted">{{labels.invalidPassword}}</span>
                         </div>
                         <div  *ngIf="!forgetPasswordStatus" class="form-group clearfix">
                         <label class="hole-cont">{{labels.rememberMe}}

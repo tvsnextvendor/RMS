@@ -55,13 +55,7 @@ export class UserComponent implements OnInit {
         this.headerService.setTitle({ title: this.constant.title, hidemodule: false });
         this.pageLimitOptions = [5, 10, 25];
         this.pageLimit = [this.pageLimitOptions[1]];
-
-
-        this.userService.getUser().subscribe((resp)=>{
-          if(resp.isSuccess){
-              this.constant.userList = resp.data.rows;
-          }
-        });
+        this.userList();
           this.commonService.getDivisionList().subscribe((result)=>{
               this.divisionArray=result.data.rows;
            })
@@ -77,6 +71,14 @@ export class UserComponent implements OnInit {
 
     }
 
+    userList(){
+      this.userService.getUser().subscribe((resp)=>{
+          if(resp.isSuccess){
+              this.constant.userList = resp.data.rows;
+          }
+        });
+    }
+
     //update user
     userEdit(data, index) {    
             this.userid = data.UserRole[0].userId;   
@@ -87,9 +89,9 @@ export class UserComponent implements OnInit {
             this.department = data.DepartMent ? data.DepartMent.departmentId : "";
             this.division =data.Division ? data.Division.divisionId : "";
             this.designation= data.Designation?data.Designation.designationId : "";
+            this.reportingTo=data.reportDetails?data.reportDetails.designationId : "";
             this.emailAddress = data.email;
-            this.phoneNumber = data.phoneNumber;
-           
+            this.phoneNumber = data.phoneNumber;      
            // this.designationUpdate(data.department, data.designation);
     }
 
@@ -127,6 +129,22 @@ export class UserComponent implements OnInit {
     }
 
    
+    //delete user
+    removeUser(template: TemplateRef<any>,data, i) {
+     this.userid= data.UserRole[0].userId;
+     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig); 
+    }
+
+
+   deleteuser(){
+     this.userService.deleteUser(this.userid).subscribe((result)=>{
+         if(result.isSuccess){
+             this.constant.modalRef.hide();
+             this.userList();
+             this.alertService.success(result.message);
+         }
+     })
+   }
 
     //add new user
     addUser(data) {
@@ -145,6 +163,7 @@ export class UserComponent implements OnInit {
                 }
             this.userService.addUser(obj).subscribe(result => {
                   this.closeAddForm();
+                  this.userList();
                   this.alertService.success(this.labels.userAdded);
             });
         }
@@ -164,7 +183,8 @@ export class UserComponent implements OnInit {
                 isDefault:this.defaultSetting,
                 }
           this.userService.updateUser(this.userid,obj).subscribe((result)=>{
-                     this.closeAddForm(); 
+                     this.closeAddForm();
+                      this.userList(); 
                      this.alertService.success(this.labels.userUpdated);
             })
     }
@@ -185,16 +205,6 @@ export class UserComponent implements OnInit {
     }
 
    
-
-    //delete user
-    removeUser(data, i) {
-        if (this.constant.userList.length) {
-            let index = this.constant.userList.findIndex(x => x.employeeId === data.employeeId);
-            this.constant.userList.splice(index, 1);
-            this.message = (data.employeeName + this.labels.removeUser);
-            this.alertService.success(this.message);
-        }
-    }
 
     //user update submit
     userUpdate(sortedList, data, index) {

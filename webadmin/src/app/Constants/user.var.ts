@@ -23,6 +23,8 @@ export class UserVar {
         "userUpdated": "User updated successfully",
         "userAdded": "User added successfully",
         "removeUser": " removed from the list",
+        "deleteUser": "Delete User",
+        "deleteConfirmation": "Are you sure you want to delete this user?",
         "select": 'Select',
         "noData": 'No data'
     }
@@ -32,7 +34,9 @@ export class UserVar {
         "addUser": 'Add User',
         "editUser": 'Edit User',
         "save" : 'SAVE',
-        "cancel" : 'CANCEL'
+        "cancel" : 'CANCEL',
+        "ok":'Ok',
+        "Cancel":'Cancel'
     }
 
     mandatoryText = {

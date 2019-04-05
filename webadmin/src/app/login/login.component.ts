@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     rememberMeCheck =[];
     labels;
     passwordError = false;
+    emailError = false;
     btns;
     constructor(private route: Router, public loginvar: loginVar, private toastr: ToastrService,
             private http: HttpService,private authService: AuthService,private API_URL:API_URL,private alertService:AlertService) { }
@@ -95,6 +96,8 @@ export class LoginComponent implements OnInit {
       // login
       else if (data.email && data.password && !forgetStatus) {
             let user = {};
+            this.passwordError = false;
+            this.emailError = false;
             let loginCredential ={ 
               emailAddress:data.email,
                password:data.password,
@@ -105,7 +108,9 @@ export class LoginComponent implements OnInit {
                 this.route.navigateByUrl('/dashboard');
                 this.alertService.success('Login successfully');
              }
-            })
+            },error => {
+            error.error == "Invalid Password" ? this.passwordError= true : this.emailError = true;
+        })
                 let localObject = [];
                 // remember password settings
                 if(this.rememberMeCheck.length){
