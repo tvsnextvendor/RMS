@@ -46,55 +46,21 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 Total Storage Space</h6>
-              <div class="donutchat-style">
-              <div id="chartContainer" style="height: 200px; width: 295px"></div>
-            </div>          
+                      
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                Top 5 Resort</h6>
-              <div class="custom-table">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Sub-Resort</th>
-                    <th class="pdl45">Total no of courses</th>
-                  </tr>
-                </thead>
-                <tbody class="top-employee-height">
-                  <tr>
-                    <td class="Sub-Resort">Resort 1</td>
-                    <td class="total-Resort">100</td>
-                  </tr>
-                  <tr>
-                    <td class="Sub-Resort">Resort 2</td>
-                    <td class="total-Resort">50</td>
-                  </tr>
-                  <tr>
-                    <td class="Sub-Resort">Resort 3</td>
-                    <td class="total-Resort">40</td>
-                  </tr>
-                  <tr>
-                    <td class="Sub-Resort">Resort 4</td>
-                    <td class="total-Resort">30</td>
-                  </tr>
-                  <tr>
-                    <td class="Sub-Resort">Resort 5</td>
-                    <td class="total-Resort">20</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+              
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 Total Courses</h6>
-              <div id="employeeProgress" style=" height: 200px; margin: 0 auto"></div>
-              <span class="totalcourses">Total Courses
+                <span class="totalcourses">Total Courses
                 <span class="percent-alg">{{dashboardVar.empProgress?.totalEmployee}}</span></span>  
           </div>
         </div>
@@ -105,23 +71,7 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 Top Rated Training Classes</h6>
-              <table class="table">
-              <tbody class="topratedcourse">
-                <tr *ngFor="let item of topCourses">
-                  <td>
-                    {{item.courseName}}
-                  </td>
-                  <td>
-                    <ng-template #t let-fill="fill">
-                      <span class="star" [class.full]="fill === 100">
-                        <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
-                      </span>
-                    </ng-template>
-                    <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              
           </div>
         </div>
         <div class="col-md-8 pl-0">
@@ -133,7 +83,7 @@
                 <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
               </select>
             </h6>
-            <div id="videosTrend" style="height: 195px; margin: 0 auto; padding-left: 12px;" (click)="goToVideosTrend()"></div>
+            
           </div>
         </div>
       </div>
@@ -144,9 +94,7 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 Badges</h6>
-             <div class="donutchat-style">
-              <div id="chartContainer" style="height: 200px; width: 295px"></div>
-            </div> 
+             
           </div>
         </div>
         <div class="col-md-8 pl-0">
@@ -156,12 +104,12 @@
               <select class="select-btn"><option value="Total">Total</option>
               <i class="fa fa-chevron-down" aria-hidden="true"></i></select>
             </h6>
-             <div class="avg-qualification">
+             <!-- <div class="avg-qualification">
               <p class="avg-qua-header">{{dashboardVar.avgQualification}}</p>
               <div class="percentage-alg">{{dashboardVar.certificationTrend.avgQualification}}</div>
               <p class="para-alg">{{dashboardVar.emp}}</p>
-            </div>
-            <div id="certificationTrend" style="height: 210px;margin: 0 auto;padding-top: 45px;"></div>
+            </div> -->
+            
           </div>
         </div>
       </div>
@@ -196,18 +144,14 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                 Subscription Status</h6>
-             <div class="donutchat-style">
-              <div id="chartContainer" style="height: 200px; width: 295px"></div>
-            </div> 
+             
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">            
               <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                Total Storage Space</h6>
-             <div class="donutchat-style">
-              <div id="chartContainer" style="height: 200px; width: 295px"></div>
-          </div>
+            
         </div>
       </div>
     </div>
@@ -221,18 +165,14 @@
                 <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">All Resort</option>
                 <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
               </select></h6>
-             <div class="donutchat-style">
-              <div id="chartContainer" style="height: 200px; width: 295px"></div>
-            </div> 
+              
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">            
               <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
                Top 5 Resort</h6>
-             <div class="donutchat-style">
-              <div id="chartContainer" style="height: 200px; width: 295px"></div>
-          </div>
+             
         </div>
       </div>
     </div>     
