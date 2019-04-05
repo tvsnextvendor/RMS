@@ -1,5 +1,122 @@
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<div class="row pr-3">
+<div class="row">
+  <div class="col-md-12 p-0">
+    <div class="row my-4">
+        <div class="col-md-1 p-0 pt-2 snow-img"><img src="assets/images/cool@2x.png">
+          <p class="cloudy pt-2">{{dashboardVar.temp}} <sup>{{dashboardVar.degree}}</sup>{{dashboardVar.celcius}}</p>
+          <h6>{{dashboardVar.cloudy}}</h6>
+        </div>
+        <div class="dashboard-header col-md-11">
+          <div class="clearfix">
+            <h4 class="float-left fnt-size">Good Morning, Peak Resort!</h4>
+          </div>
+          <div class="clearfix">
+            <p class="notification-alg">{{dashboardVar.employeeTabText.notification}}
+            </p>
+            <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
+          </div>
+          <!-- <button class="btn btn-link float-right" (click)="enableView()">{{viewText}}</button> -->
+        </div>
+      </div>
+       <div class="row mb-3">
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-4">
+            <div class="resort-list">10</div>
+            <p class="resort-title">Total Division</p>
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-4">
+            <div class="resort-list">15</div>
+            <p class="resort-title">Total Department</p>
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-4">
+            <div class="resort-list">150</div>
+            <p class="resort-title">Total Employee</p>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="row mb-3">
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                Total Courses</h6>
+              <div id="visitorsByResort" style="height: 200px;"></div>
+          </div>
+        </div>
+        <div class="col-md-8 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+              Course Trend
+              <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
+                <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">{{year}}</option>
+                <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
+              </select>
+            </h6>
+            <div id="videosTrend" style="height: 195px; margin: 0 auto; padding-left: 12px;" (click)="goToVideosTrend()"></div>
+          </div>
+        </div>
+      </div>
+     
+
+            <div class="row mb-3">
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                Top Rated Training Class</h6>
+             <div class="custom-table">
+            <table class="table">
+                <tbody>
+                  <tr *ngFor="let item of dashboardVar.topResorts">
+                    <td>
+                      {{item.id}}.{{item.name}}
+                    </td>
+                    <td>
+                        <ng-template #t let-fill="fill">
+                            <span class="star" [class.full]="fill === 100">
+                              <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
+                            </span>
+                          </ng-template>
+                      <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>          
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+               Badges</h6>
+              <div id="visitorsByResort" style="height: 200px;"></div>
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                Resort Certificate Trend
+              <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
+                <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">{{year}}</option>
+                <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
+              </select></h6>
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+</div>
+
+
+
+
+
+<!-- <div class="row pr-3">
   <div class="col-md-9 p-0">
     <div class="row my-4">
       <div class="col-md-1 p-0 pt-2 snow-img"><img src="assets/images/cool@2x.png">
@@ -29,19 +146,19 @@
       <div class="col-md-4 pl-0">
          <div class=" chart-bg">
          <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-      {{dashboardVar.resortGridsTitle.staff}} <span class="resort-num-alg">{{dashboardVar.staffData?.total}}</span></h6>
+      {{dashboardVar.resortGridsTitle.staff}} <span class="resort-num-alg">{{dashboardVar.staffData?.total}}</span></h6> -->
       <!-- <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
             <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>25%</p></div> -->
-      <div id="staff" style=" height: 145px; margin: 0 auto"></div>
+      <!-- <div id="staff" style=" height: 145px; margin: 0 auto"></div>
     </div>
       </div>
       <div class="col-md-4 pl-0">
          <div class=" chart-bg">
         <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-        {{dashboardVar.resortGridsTitle.feedbackRating}}</h6>
+        {{dashboardVar.resortGridsTitle.feedbackRating}}</h6> -->
       <!-- <div class="avg-alg"><p class="mr0 avg-color">Average weekly</p>
             <p class="mr0 pect-color"><i class="fa fa-caret-up pdr7" aria-hidden="true"></i>20%</p></div> -->
-            <div class="row py-3" style=" height: 149px">
+            <!-- <div class="row py-3" style=" height: 149px">
             <div class="col-sm-5" *ngIf ="dashboardVar.feedbackData?.rating" >
               <span class="rating-point">{{dashboardVar.feedbackData.rating}}</span>
                 <ng-template #t let-fill="fill">
@@ -100,14 +217,14 @@
             </div>
           </div>
   </div>
-</div>
+</div> -->
 
 
 
 
 
 
-<div class="row">
+<!-- <div class="row"> -->
 
 <!--   <div class="col-sm-6">
     <h4>{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.apostrophe}}</h4>
@@ -116,9 +233,9 @@
     <button mat-stroked-button>{{dashboardVar.btns.openCalendar}}</button>
  </div> -->
 
-</div>
-
-<div class="row mb-3">
+<!-- </div>
+ -->
+<!-- <div class="row mb-3">
 
     <div class="col-sm-3 pl-0">
        <div class=" chart-bg">
@@ -131,9 +248,9 @@
       <div class="col-sm-3 pl-0" >
          <div class=" chart-bg">
           <h6 class="chart-mr"><i class="fa fa-circle-o" aria-hidden="true"></i>
-               {{dashboardVar.resortGridsTitle.reservationByResort}}</h6>
+               {{dashboardVar.resortGridsTitle.reservationByResort}}</h6> -->
             <!-- <angular-d3-donut *ngIf = "this.donutEnable" [id]="reservationByResort" [data]="donutChartData" [middleText]="'Total 100%'" [innerRadius]=100 ></angular-d3-donut> -->
-            <div id="chartContainer" style="height: 200px;"></div>
+           <!--  <div id="chartContainer" style="height: 200px;"></div>
           </div>
       </div>
 
@@ -198,7 +315,7 @@
 </div>
 </div>
 </div>
-</div>
+</div> -->
 
 
 

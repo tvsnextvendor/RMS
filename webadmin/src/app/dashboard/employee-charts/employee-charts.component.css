@@ -24,7 +24,7 @@
     border: 1px solid #ADADAD;
     position: absolute;
     top: 64px;
-    right: 11px;
+    right: 33px;
     z-index: 10;
     font-size: 12px;
     padding: 5px;
@@ -48,13 +48,13 @@
     color: #73737B;
     text-align: center;
 }
-.totalEmployee{
+.totalcourses{
     position: absolute;
-    bottom: 30px;
-    right: 12px;
+    bottom: 20px;
     font-size: 15px;
     color: #454545;
     font-weight: 600;
+    left: 80px;
 }
 .top-employee-height, .topratedcourse{  
   font-size: 14px;
@@ -62,10 +62,33 @@
   color: #454545;
 }
 .top-employee-height{
-height: 240px !important;
+height: 145px !important;
 }
 .percent-alg{
   color: #1D4960;
   font-size: 20px;
   font-weight: 600;
+}
+.resort-list{
+  font-size: 60px;
+    color: #468FB9;
+    font-weight: 600;
+    text-align: center;
+}
+.resort-title{
+  font-size: 16px;
+    color: #1D4960;
+    font-weight: 600;
+    text-align: center; 
+}
+.Sub-Resort{
+  padding-bottom: 5px;
+    padding-right: 0;
+    padding-top: 0;
+}
+.total-Resort{
+  padding-bottom: 5px;
+    padding-right: 0;
+    padding-left: 108px;
+    padding-top: 0;
 }

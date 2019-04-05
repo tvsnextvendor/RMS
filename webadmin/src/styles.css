@@ -52,6 +52,7 @@ button:focus {
 .mt75{
   margin-top: 75px;
 }
+.pdl45{padding-left: 45px !important}
 .pdl65{
   padding-left: 65px !important;
 }
@@ -420,16 +421,16 @@ li.search-block {
 .bg-color{
     background-color: #F5F6FA;
 }
-.p-color{
+.notification-alg{
   color: #7a8996;
   max-width: 83%;
+  font-size: 14px;
 }
 .click-color{color: #39647a;}
 
 .icons_header{
   padding: 0 12px; 
 }
-
 
 .btn-alg{
   padding: 25px 0 25px 0px;
@@ -448,8 +449,10 @@ li.search-block {
   margin: 0;
 }
 .fnt-size{
-	font-size: 35px;
+  font-size: 35px;
   font-weight: 600;
+  padding-bottom: 2px;
+  line-height: 2;
 }
 .circle-fnt{
   font-size: 12px;
@@ -609,7 +612,7 @@ li {
     width: 19%;
   }
   .page-content-wrapper {
-    padding: 20px 15px 20px 274px;
+    padding: 20px 15px 65px 274px;
     position: relative;
     /*background-color: #F5F6FA;*/
   }
@@ -695,7 +698,7 @@ li {
   /* fallback */
 }
 .custom-table tbody td, .custom-table thead th {
-  width: 33%;
+  width: 50%;
   float: left;
 }
 .table-striped tbody tr:nth-child(odd){

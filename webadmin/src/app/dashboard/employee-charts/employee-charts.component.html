@@ -1,5 +1,5 @@
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<div class="pr-3">
+<div class="">
   <div class="row">
     <div class="col-md-12 p-0">
       <div class="row my-4">
@@ -9,18 +9,242 @@
         </div>
         <div class="dashboard-header col-md-11">
           <div class="clearfix">
-            <h4 class="float-left fnt-size">{{dashboardVar.employeeTabText.wishes}}{{dashboardVar.symbols.comma}}
-              {{dashboardVar.userName}}{{dashboardVar.symbols.apostrophe}}</h4>
+            <h4 class="float-left fnt-size">Good Morning, Peak Resort!</h4>
           </div>
           <div class="clearfix">
-            <p class="p-color">{{dashboardVar.employeeTabText.notification}}
+            <p class="notification-alg">{{dashboardVar.employeeTabText.notification}}
             </p>
-            <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button>
+            <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
           </div>
-          <button class="btn btn-link float-right" (click)="enableView()">{{viewText}}</button>
+          <!-- <button class="btn btn-link float-right" (click)="enableView()">{{viewText}}</button> -->
         </div>
       </div>
-      <div class="row course-section mb-3">
+      <div class="row mb-3">
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-4">
+            <div class="resort-list">10</div>
+            <p class="resort-title">Total Division</p>
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-4">
+            <div class="resort-list">15</div>
+            <p class="resort-title">Total Department</p>
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-4">
+            <div class="resort-list">150</div>
+            <p class="resort-title">Total Employee</p>
+          </div>
+        </div>
+      </div>
+
+
+       <div class="row mb-3">
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                Total Storage Space</h6>
+              <div class="donutchat-style">
+              <div id="chartContainer" style="height: 200px; width: 295px"></div>
+            </div>          
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+               Top 5 Resort</h6>
+              <div class="custom-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Sub-Resort</th>
+                    <th class="pdl45">Total no of courses</th>
+                  </tr>
+                </thead>
+                <tbody class="top-employee-height">
+                  <tr>
+                    <td class="Sub-Resort">Resort 1</td>
+                    <td class="total-Resort">100</td>
+                  </tr>
+                  <tr>
+                    <td class="Sub-Resort">Resort 2</td>
+                    <td class="total-Resort">50</td>
+                  </tr>
+                  <tr>
+                    <td class="Sub-Resort">Resort 3</td>
+                    <td class="total-Resort">40</td>
+                  </tr>
+                  <tr>
+                    <td class="Sub-Resort">Resort 4</td>
+                    <td class="total-Resort">30</td>
+                  </tr>
+                  <tr>
+                    <td class="Sub-Resort">Resort 5</td>
+                    <td class="total-Resort">20</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                Total Courses</h6>
+              <div id="employeeProgress" style=" height: 200px; margin: 0 auto"></div>
+              <span class="totalcourses">Total Courses
+                <span class="percent-alg">{{dashboardVar.empProgress?.totalEmployee}}</span></span>  
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                Top Rated Training Classes</h6>
+              <table class="table">
+              <tbody class="topratedcourse">
+                <tr *ngFor="let item of topCourses">
+                  <td>
+                    {{item.courseName}}
+                  </td>
+                  <td>
+                    <ng-template #t let-fill="fill">
+                      <span class="star" [class.full]="fill === 100">
+                        <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
+                      </span>
+                    </ng-template>
+                    <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-8 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+              Course Trend
+              <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
+                <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">{{year}}</option>
+                <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
+              </select>
+            </h6>
+            <div id="videosTrend" style="height: 195px; margin: 0 auto; padding-left: 12px;" (click)="goToVideosTrend()"></div>
+          </div>
+        </div>
+      </div>
+
+
+       <div class="row mb-3">
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                Badges</h6>
+             <div class="donutchat-style">
+              <div id="chartContainer" style="height: 200px; width: 295px"></div>
+            </div> 
+          </div>
+        </div>
+        <div class="col-md-8 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">            
+              <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+              Employee Certificate Trend
+              <select class="select-btn"><option value="Total">Total</option>
+              <i class="fa fa-chevron-down" aria-hidden="true"></i></select>
+            </h6>
+             <div class="avg-qualification">
+              <p class="avg-qua-header">{{dashboardVar.avgQualification}}</p>
+              <div class="percentage-alg">{{dashboardVar.certificationTrend.avgQualification}}</div>
+              <p class="para-alg">{{dashboardVar.emp}}</p>
+            </div>
+            <div id="certificationTrend" style="height: 210px;margin: 0 auto;padding-top: 45px;"></div>
+          </div>
+        </div>
+      </div>
+       </div>
+  </div>
+</div>
+
+    
+
+
+    <div class="row">
+      <div class="col-md-12 p-0">
+         <div class="row my-4">
+        <div class="col-md-1 p-0 pt-2 snow-img"><img src="assets/images/cool@2x.png">
+          <p class="cloudy pt-2">{{dashboardVar.temp}} <sup>{{dashboardVar.degree}}</sup>{{dashboardVar.celcius}}</p>
+          <h6>{{dashboardVar.cloudy}}</h6>
+        </div>
+        <div class="dashboard-header col-md-11">
+          <div class="clearfix">
+            <h4 class="float-left fnt-size">Good Morning, 1Risk!</h4>
+          </div>
+          <div class="clearfix">
+            <p class="notification-alg">{{dashboardVar.employeeTabText.notification}}
+            </p>
+            <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
+          </div>
+          <!-- <button class="btn btn-link float-right" (click)="enableView()">{{viewText}}</button> -->
+        </div>
+      </div>
+        <div class="row mb-3">
+        <div class="col-md-8 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                Subscription Status</h6>
+             <div class="donutchat-style">
+              <div id="chartContainer" style="height: 200px; width: 295px"></div>
+            </div> 
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">            
+              <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+               Total Storage Space</h6>
+             <div class="donutchat-style">
+              <div id="chartContainer" style="height: 200px; width: 295px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-8 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+                Storage Utilisation
+              <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
+                <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">All Resort</option>
+                <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
+              </select></h6>
+             <div class="donutchat-style">
+              <div id="chartContainer" style="height: 200px; width: 295px"></div>
+            </div> 
+          </div>
+        </div>
+        <div class="col-md-4 pl-0">
+          <div class=" chart-bg p-2" style=" height: 275px">            
+              <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+               Top 5 Resort</h6>
+             <div class="donutchat-style">
+              <div id="chartContainer" style="height: 200px; width: 295px"></div>
+          </div>
+        </div>
+      </div>
+    </div>     
+
+      </div>
+    </div>
+
+
+
+
+
+     <!--  <div class="row course-section mb-3">
         <div class="col-sm-8 row p-0">
           <div class="col-sm-3 pl-0 course-style">
             <div class=" chart-bg">
@@ -146,8 +370,8 @@
           <div class="chart-bg" style=" height: 335px">
             <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
               {{dashboardVar.employeeGridsTitle.certificationTrend}}
-              <!-- <select class="select-btn"><option value="Total">Total</option> -->
-              <!-- <i class="fa fa-chevron-down" aria-hidden="true"></i></select> -->
+              <select class="select-btn"><option value="Total">Total</option>
+              <i class="fa fa-chevron-down" aria-hidden="true"></i></select>
             </h6>
             <div class="avg-qualification">
               <p class="avg-qua-header">{{dashboardVar.avgQualification}}</p>
@@ -186,6 +410,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+ -->
+
+   
