@@ -28,4 +28,8 @@ export class UserService {
       return this.http.put('local','user/Update/'+userId,userData)
   }
 
+  deleteUser(userId){
+    return this.http.delete('local','user/Delete/'+userId)
+  }
+
 }

@@ -52,4 +52,10 @@ export class HttpService {
 			map(this.extractData));
 	}
 
+  delete(api,url,deleteData){
+    const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
+		return this.http.delete(API_ENDPOINT+url , {headers: this.httpOptions.headers, body: deleteData}).pipe(
+		map(this.extractData)); 
+	}
+
 }

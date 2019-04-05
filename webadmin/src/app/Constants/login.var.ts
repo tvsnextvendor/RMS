@@ -13,6 +13,8 @@ export class loginVar {
     "emailError" : "Email is Required",
     "passwordError" : "Password is Required",
     "rememberMe" : "Keep me logged in",
+    "invalidPassword": "Invalid Password",
+    "invalidEmail":"Invalid Email"
     
   };
   btns = {

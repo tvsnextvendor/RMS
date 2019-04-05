@@ -16,6 +16,10 @@ export class RolePermissionService {
     return this.http.post('local','permission/Add', permissionData);
   }
 
+   getRolePermission(){
+    return this.http.getLocal('local','permission/List');
+  }
+
  
 
 }

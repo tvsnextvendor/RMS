@@ -59,7 +59,7 @@
                     <td class="vat user-desc"><label class="mb-0">{{ user.email }}</label></td>
                     <td class="vat user-desc"><label class="mb-0">{{ user.phoneNumber }}</label></td>
                     <td class="vat user-desc"><a (click)="openAddUser(addUserTemp,user,i)"><i class="fa fa-pencil header-icon"></i></a></td>
-                    <td class="vat user-desc"><a (click)="removeUser(user,i)"><i class="fa fa-trash header-icon"></i></a></td> 
+                    <td class="vat user-desc"><a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a></td> 
                 </tr>
                 <tr *ngIf="mf.data?.length == 0">
                     <td colspan="10" class="text-center data-design">{{constant.labels.noData}}</td>
@@ -212,3 +212,19 @@
     </div>
 </ng-template>
 
+<ng-template #deleteUser>
+    <div class="modal-header pb-0">
+        <p class="hd-alg pl-3">{{constant.labels.deleteUser}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+         <span>{{constant.labels.deleteConfirmation}}</span>
+        <div class="text-center">
+            <button (click)="deleteuser()"
+                class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
+            <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
+        </div>
+    </div>
+</ng-template>

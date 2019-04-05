@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-// import { Http, Headers, Response, URLSearchParams } from '@angular/http';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Rx'
+import { HttpClient, HttpHeaders, HttpResponse ,HttpErrorResponse } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { map, catchError, tap } from 'rxjs/operators';
@@ -15,9 +14,7 @@ export class AuthService {
         API_ENDPOINT;
      
 constructor(private http: HttpClient, private router: Router) { 
-  
     this.API_ENDPOINT = API.API_ENDPOINT;
-
 }
 
  private extractData(res: Response) {
@@ -26,23 +23,21 @@ constructor(private http: HttpClient, private router: Router) {
   }
 
 login(postData): Observable <any>{
-
     const headers = new HttpHeaders({ 'Content-Type':'application/json' });
     if(!postData){
         this.router.navigate(['/login']);
     }
     return this.http.post(this.API_ENDPOINT+'login', postData, {headers: headers}).pipe(
-     tap((res)=>{
-        if( res.data && res.isSuccess){
+     map((res: Response) =>{
+        if( res.data){
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('userData',btoa(JSON.stringify(res.data)));
-            return true;
-        }else{
-            localStorage.setItem('error',JSON.stringify(res));
-            return false;
+            return res;
         }
-     }));
-
-}
+     }),catchError((error: Error) => {
+          return Observable.throw(error.error);
+        }
+    )
+  }
 
 }
