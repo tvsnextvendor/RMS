@@ -58,4 +58,16 @@
   color: #6A6868;
     font-size: 12px;
 }
+.resort-list{
+  font-size: 60px;
+    color: #468FB9;
+    font-weight: 600;
+    text-align: center;
+}
+.resort-title{
+  font-size: 16px;
+    color: #1D4960;
+    font-weight: 600;
+    text-align: center; 
+}
 
