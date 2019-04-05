@@ -56,15 +56,15 @@
                         </div>                       
                     </div>
                 </div>
-                <div id="menu1" class="container tab-pane fade col-md-12 pl-0 "><br>
-                    <div class="row col-md-6 pl-0" *ngFor="let data of resortVar.departmentTemplate; let i = index">
-                        <select class="col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
+                <div id="menu1" class="container tab-pane fade col-md-12 p-0 "><br>
+                    <div class="row col-12 col-md-6 p-0" *ngFor="let data of resortVar.departmentTemplate; let i = index">
+                        <select class="col-5 col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
                             <!-- <option class="">Division</option> -->
                             <option *ngFor="let name of resortVar.divisionTemplate">{{name.divisionName}}</option>
                             <!-- <option>Division1</option> -->
                         </select>
                         <label class="col-md-3 select-form form-control pl-0" *ngIf="i!=0"></label>
-                        <div class="input-group mb-3 col-md-8 group-box">
+                        <div class="col-7 input-group mb-3 col-md-8 group-box">
                             <input type="text" class="form-control col-md-11" placeholder="Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
                             <div class="input-group-prepend">
                                 <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('department')">
