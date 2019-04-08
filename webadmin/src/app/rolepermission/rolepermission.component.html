@@ -1,45 +1,53 @@
-<form #rolepermission="ngForm" (ngSubmit)="saveRolePermission()">
+<form #rolepermission="ngForm" (ngSubmit)="saveRolePermission(rolepermission)">
 <div class="pr-3 pt-5">
 	<div class="white-bg pt-3 pl-3 pr-3">
 		<div class="row pb-4">
 			<div class="col-md-4 select select-style clearfix">
-					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0" (onChange)="getRolePermission()">
+					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0" (change)="getRolePermission()">
 						<option value="">{{constant.labels.selectResort}}</option>
 						<option *ngFor="let obj of constant.resortList" [value]="obj.resortId">{{obj.resortName}}</option>
 					</select>
-          <div class="select_arrow"></div>
+					<div class="select_arrow"></div>
+					<span class="required_color" *ngIf="rolepermission.submitted && !constant.resortId">
+						{{constant.mandatoryText.resort}}</span>
 			</div>
 			<div class="col-md-4 select select-style clearfix">
-						<select [(ngModel)]="constant.divisionId" name="divisionId" class="form-control pl-0"  (onChange)="getRolePermission()">
+						<select [(ngModel)]="constant.divisionId" name="divisionId" class="form-control pl-0"  (change)="getRolePermission()">
 							<option value="">{{constant.labels.selectDivision}}</option>
 							<option *ngFor="let obj of constant.divisionList" [value]="obj.divisionId">{{obj.divisionName}}</option>
 						</select>
-            <div class="select_arrow"></div>
+						<div class="select_arrow"></div>
+							<span class="required_color" *ngIf="rolepermission.submitted && !constant.divisionId">
+								{{constant.mandatoryText.division}}</span>
 			</div>
 			<div class="col-md-4 select select-style clearfix">
-					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0"  (onChange)="getRolePermission()">
+					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0"  (change)="getRolePermission()">
 						<option value="">{{constant.labels.selectDepartment}}</option>
 						<option *ngFor="let obj of constant.departmentList" [value]="obj.departmentId">{{obj.departmentName}}</option>
 					</select>		
 					<div class="select_arrow"></div>
+						<span class="required_color" *ngIf="rolepermission.submitted && !constant.departmentId">
+							{{constant.mandatoryText.department}}</span>
 			</div>
 		</div>
 		<div class="row pb-3">
 			<div class="col-md-4 select select-style clearfix">
-				<select [(ngModel)]="constant.roleId" name="roleId" class="form-control pl-0"  (onChange)="getRolePermission()">
+				<select [(ngModel)]="constant.roleId" name="roleId" class="form-control pl-0"  (change)="getRolePermission()">
 					<option value="">{{constant.labels.selectRoles}}</option>
 					<option *ngFor="let obj of constant.roleList" [value]="obj.designationId">{{obj.designationName}}</option>
 				</select>
-        <div class="select_arrow"></div>
+				<div class="select_arrow"></div>
+					<span class="required_color" *ngIf="rolepermission.submitted && !constant.roleId">
+						{{constant.mandatoryText.roles}}</span>
 			</div>
 			<div class="col-md-6">
 				<span>
 					<label class="square-cont mr-5">
-						<input type="checkbox" [(ngModel)]="constant.web" name="web"> {{constant.labels.web}}
+						<input type="checkbox" [(ngModel)]="constant.web" (change)="getRolePermission()" name="web"> {{constant.labels.web}}
 						<span class="square-checkmark"></span>
 					</label>
 					<label class="square-cont">
-						<input type="checkbox" [(ngModel)]="constant.mobile"  name="mobile"> {{constant.labels.mobile}}
+						<input type="checkbox" [(ngModel)]="constant.mobile" (change)="getRolePermission()"  name="mobile"> {{constant.labels.mobile}}
 						<span class="square-checkmark"></span>
 					</label>
 				</span>
@@ -88,7 +96,7 @@
  </div> 
 
  <div class="float-right p-3">
-            <button type="button" class="btn btn-default mr-3" (click)="clearForm()">{{constant.btns.cancel}}</button>
+            <button type="button" class="btn btn-default mr-3" (click)="clearForm(rolepermission)">{{constant.btns.cancel}}</button>
             <button type="submit" class="btn btn-primary">{{constant.btns.save}}</button>
         </div>
 

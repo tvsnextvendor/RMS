@@ -11,13 +11,12 @@ export class RolePermissionService {
 
   }
 
-
   addRolePermission(permissionData){
     return this.http.post('local','permission/Add', permissionData);
   }
 
    getRolePermission(data){
-    let params = 'departmentId=' + data.departmentId + '&divisionId=' + data.divisionId + '&resortId=' +data.resortId + '&designationId=' +data.designationId; 
+    let params = 'departmentId=' + data.departmentId + '&divisionId=' + data.divisionId + '&resortId=' +data.resortId + '&designationId=' +data.designationId + '&web=' +data.web+ '&mobile=' +data.mobile; 
     return this.http.getLocal('local','permission/List?'+params);
   }
 

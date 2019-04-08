@@ -63,12 +63,20 @@ labels = {
 	  edit:'Edit / Delete',
 	  web: 'Web',
 	  mobile: 'Mobile'
-    };
+	};
+
+mandatoryText = {
+   resort : 'Resort is required',
+   division : 'Division is required',
+   department : 'Department is required',
+   roles : 'Role is required',
+};
+
 btns ={
 	save : 'Save',
 	cancel: 'Cancel'
 }
-defaultModules = [{
+static readonly defaultModules = [{
 	'moduleName': 'User Management',
 	'view': false,
 	'upload': false,
