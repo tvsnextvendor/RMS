@@ -38,19 +38,7 @@
 /* Resort Detail Page */
 
 
-.detail-pg span {
-    display: block;
-    font-weight: 600;
-    color: #73737B;
-    font-size: 17px;
-}
-.detail-pg label{
-    font-size: 15px;
-    margin-bottom: 10px;
-}
-.detail-pg .form-group {
-    margin-bottom: 1.6rem;
-}
+
 .detail-top {
     border-bottom: 1px solid #EAF0F4;
     margin-bottom: 20px;

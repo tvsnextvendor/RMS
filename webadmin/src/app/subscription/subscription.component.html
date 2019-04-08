@@ -1,6 +1,10 @@
-<div class="pr-3 pt-5">
+<div class="pt-4">
+    <div class="col-sm-12 pb-3 p-0 clearfix">
+        <button type = "button" class="btn btn-primary float-right" >Available Plan</button>
+    </div>
   <div class="col-12 col-md-12 white-bg ptb-4"> 
-      <form (ngSubmit)="submitResortData()">
+    <!-- Subscription Form page -->
+      <form>
       <div class="top-section">      
           <div class="row mb-2">
               
@@ -51,10 +55,46 @@
     </div> 
   
       </form> 
+<!-- End Subscription Form page -->
+
+<!-- Subscription Detail page -->
 
 
+      <div class="detail-pg">
+        <form>
+        <div class="row col-md-6">
+          <div class="col-md-6 form-group">
+            <label class="label-title">Subscription Name</label>
+            <span>Green</span>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="label-title">Total Storage Space</label>
+            <span>100 MB</span>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="label-title">Allocated Space</label>
+            <span>50 MB</span>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="label-title">Available Space</label>
+            <span>50 MB</span>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="label-title">Active From</label>
+            <span>31 Dec 2018</span>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="label-title">Expire On</label>
+            <span>30 May 2019</span>
+          </div>
+        </div>
+        <div _ngcontent-c16="" class="text-center pt-5 mb-4">
+          <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">RENEW PLAN</button>
+      </div> 
+      </form>
+      </div>
 
-
+<!-- End Subscription Detail page -->
 
 
   </div>

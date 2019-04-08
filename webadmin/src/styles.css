@@ -1194,6 +1194,20 @@ a {
 label{
   text-transform: capitalize;
 }
+.detail-pg span {
+  display: block;
+  font-weight: 600;
+  color: #73737B;
+  font-size: 17px;
+}
+.detail-pg label{
+  font-size: 15px;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+.detail-pg .form-group {
+  margin-bottom: 1.6rem;
+}
 /****************end Resort **********/
 
 .modal-content .white-bg{
