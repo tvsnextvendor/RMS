@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {UtilService } from './util.service';
+import {AuthService} from '../services/auth.service';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
-import {API} from '../../app/Constants/api'
+import {API} from '../../app/Constants/api';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +13,7 @@ export class HttpService {
   API_ENDPOINT;
   httpOptions;
 
-  constructor(private http: HttpClient, private utilService:UtilService) {
+  constructor(private http: HttpClient, private utilService:UtilService, private authService: AuthService) {
 
      this.API_ENDPOINT = API.API_URL;
    // this.API_ENDPOINT = API.API_ENDPOINT;
@@ -37,7 +39,8 @@ export class HttpService {
   getLocal(api, params): Observable<any> {
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
     return this.http.get(API_ENDPOINT+params,{headers:this.httpOptions.headers}).pipe(
-      map(this.extractData));
+      map(this.extractData)
+      ).catch((e: HttpErrorResponse) => Observable.throw(this.errorHandler(e)));;
   }
 
   post(api,url,params):Observable<any> {
@@ -52,10 +55,19 @@ export class HttpService {
 			map(this.extractData));
 	}
 
-  delete(api,url,deleteData){
+  delete(api,url,deleteData): Observable<any>{
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
-		return this.http.delete(API_ENDPOINT+url , {headers: this.httpOptions.headers, body: deleteData}).pipe(
+		return this.http.request('delete',API_ENDPOINT+url , {headers: this.httpOptions.headers, body: deleteData}).pipe(
 		map(this.extractData)); 
+  }
+  
+
+  errorHandler(error: any): void {
+		if(error.status === 403 || error.status === 401){
+			this.authService.logOut();
+		}
 	}
+
+  
 
 }

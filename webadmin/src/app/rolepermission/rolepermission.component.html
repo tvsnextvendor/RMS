@@ -3,21 +3,21 @@
 	<div class="white-bg pt-3 pl-3 pr-3">
 		<div class="row pb-4">
 			<div class="col-md-4 select select-style clearfix">
-					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0">
+					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0" (onChange)="getRolePermission()">
 						<option value="">{{constant.labels.selectResort}}</option>
 						<option *ngFor="let obj of constant.resortList" [value]="obj.resortId">{{obj.resortName}}</option>
 					</select>
           <div class="select_arrow"></div>
 			</div>
 			<div class="col-md-4 select select-style clearfix">
-						<select [(ngModel)]="constant.divisionId" name="divisionId" class="form-control pl-0">
+						<select [(ngModel)]="constant.divisionId" name="divisionId" class="form-control pl-0"  (onChange)="getRolePermission()">
 							<option value="">{{constant.labels.selectDivision}}</option>
 							<option *ngFor="let obj of constant.divisionList" [value]="obj.divisionId">{{obj.divisionName}}</option>
 						</select>
             <div class="select_arrow"></div>
 			</div>
 			<div class="col-md-4 select select-style clearfix">
-					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0">
+					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0"  (onChange)="getRolePermission()">
 						<option value="">{{constant.labels.selectDepartment}}</option>
 						<option *ngFor="let obj of constant.departmentList" [value]="obj.departmentId">{{obj.departmentName}}</option>
 					</select>		
@@ -26,9 +26,9 @@
 		</div>
 		<div class="row pb-3">
 			<div class="col-md-4 select select-style clearfix">
-				<select [(ngModel)]="constant.roleId" name="roleId" class="form-control pl-0">
+				<select [(ngModel)]="constant.roleId" name="roleId" class="form-control pl-0"  (onChange)="getRolePermission()">
 					<option value="">{{constant.labels.selectRoles}}</option>
-					<option *ngFor="let obj of constant.roleList" [value]="obj.roleId">{{obj.roleName}}</option>
+					<option *ngFor="let obj of constant.roleList" [value]="obj.designationId">{{obj.designationName}}</option>
 				</select>
         <div class="select_arrow"></div>
 			</div>

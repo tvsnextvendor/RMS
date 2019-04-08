@@ -7,9 +7,9 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class CommonService {
-  constructor (
-    private http: HttpService
-  ) {}
+  constructor (private http: HttpService) {
+      
+  }
 
  getDivisionList(){
     return this.http.getLocal('local','division/List');

@@ -7,11 +7,11 @@ import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
-import {CommonService} from '../services/requestservices/common.service';
+import {CommonService} from '../services/restservices/common.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { UtilService  } from '../services/util.service';
 import * as XLSX from 'ts-xlsx';
-import {UserService} from '../services/requestservices/user.service';
+import {UserService} from '../services/restservices/user.service';
 
 @Component({
     selector: 'app-users',

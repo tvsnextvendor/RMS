@@ -5,6 +5,9 @@ import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { map, catchError, tap } from 'rxjs/operators';
 import {API} from '../../app/Constants/api'
+import { Response } from '@angular/http';
+import {AuthGuard} from '../guard/auth.guard.component'
+
 
 @Injectable({
       providedIn: 'root'
@@ -13,31 +16,38 @@ export class AuthService {
       
         API_ENDPOINT;
      
-constructor(private http: HttpClient, private router: Router) { 
+constructor(private http: HttpClient, private router: Router, private authGuard: AuthGuard) { 
     this.API_ENDPOINT = API.API_ENDPOINT;
 }
 
- private extractData(res: Response) {
-    const body = res;
-    return body || {};
-  }
-
+ 
 login(postData): Observable <any>{
     const headers = new HttpHeaders({ 'Content-Type':'application/json' });
     if(!postData){
         this.router.navigate(['/login']);
     }
     return this.http.post(this.API_ENDPOINT+'login', postData, {headers: headers}).pipe(
-     map((res: Response) =>{
-        if( res.data){
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('userData',btoa(JSON.stringify(res.data)));
-            return res;
+     map((response : any) =>{
+        if(response.data){
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('userData',btoa(JSON.stringify(response.data)));
+            return response;
         }
-     }),catchError((error: Error) => {
-          return Observable.throw(error.error);
+     }),catchError((error: HttpErrorResponse) => {
+         return Observable.throw(error.error);
         }
     ))
+  }
 
-}
+
+  logOut(){
+    localStorage.removeItem("userData");
+    localStorage.removeItem("user");
+    this.authGuard.showSidebar  = false;
+    this.authGuard.showHeader = false;
+    this.router.navigateByUrl('/login');
+  }
+
+
+
 }
