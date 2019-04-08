@@ -81,17 +81,17 @@
         </div>    
         <div class="col-sm-12 p-0 subscription-section" *ngIf="userType === 1">
             <div class="row">
-                <div class="col-12 col-md-6 form-group">
+                <div class="row col-12 col-md-6 form-group ">
                     <label class="col-6 col-sm-8 col-md-4 label-title pl-0">subscription type</label>
-                    <select class="col-md-3 select-form form-control pl-0">
+                    <select class="col-md-8 select-form form-control">
                         <option>Economy</option>
                         <option>Premium</option>
                     </select> 
                 </div>
-                <div class="col-12 col-md-6 form-group">
+                <div class="row col-12 col-md-6 form-group ">
                     <label class="col-6 col-sm-8 col-md-4 label-title pl-0">total Storage space</label>
-                    <input class="col-6 col-sm-8 form-control" type="text" name="storageSpace" [(ngModel)]="resortVar.storageSpace">
-                    <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.storageSpace">{{resortVar.labels.storageSpace}}{{resortVar.labels.isRequired}} </span>
+                    <input class="col-6 col-sm-8 col-md-4 form-control" type="text" name="storageSpace" [(ngModel)]="resortVar.storageSpace">
+                    <!-- <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.storageSpace">{{resortVar.labels.storageSpace}}{{resortVar.labels.isRequired}} </span> -->
                 </div>
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4">
@@ -111,5 +111,53 @@
             <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">save</button>
         </div> 
         </form> 
+
+<!-- Resort Detail Page -->
+
+
+<form class="detail-pg">
+    <div class="detail-top row">
+            <div class="col-md-3 form-group">
+                <label class="label-title">Resort Name</label>
+                <span>Boston Mill</span>
+            </div>
+            <div class="col-md-3 form-group">
+                <label class="label-title">Location</label>
+                <span>Boston Mill</span>
+            </div>
+            <div class="col-md-3 form-group">
+                <label class="label-title">Email</label>
+                <span>boston@mail.com</span>
+            </div>
+            <div class="col-md-3 form-group">
+                <label class="label-title">Mobile</label>
+                <span>0963852741</span>
+            </div>
+            <div class="col-md-3 form-group">
+                <label class="label-title">Status</label>
+                <span>Active</span>
+            </div>
+            <div class="col-md-3 form-group">
+                <label class="label-title">Utilize Space</label>
+                <span>40 GB</span>
+            </div> 
+
+    </div>
+    <div class="detail-bottom row">
+        <label class="label-title">Division</label>
+        <div class="row depart-dtl col-md-12 p-0">
+            <label class="col-md-12 p-0 label-title">Division1</label>
+            <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
+        </div>
+        <div class="row depart-dtl col-md-12 p-0">
+            <label class="col-md-12 p-0 label-title">Division1</label>
+            <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
+        </div>
+    </div> 
+</form>
+
+
+
+
     </div>
 </div>
