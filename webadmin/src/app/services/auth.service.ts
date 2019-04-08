@@ -37,7 +37,7 @@ login(postData): Observable <any>{
      }),catchError((error: Error) => {
           return Observable.throw(error.error);
         }
-    )
-  }
+    ))
 
+}
 }
