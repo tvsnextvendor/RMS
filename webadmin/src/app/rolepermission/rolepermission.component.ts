@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RolePermissionVar} from '../Constants/rolepermission.var';
-import { CommonService } from '../services/requestservices/common.service';
-import {RolePermissionService} from '../services/requestservices/rolepermission.service';
+import { CommonService } from '../services/restservices/common.service';
+import {RolePermissionService} from '../services/restservices/rolepermission.service';
 import {UtilService} from '../services/util.service';
 import {HeaderService} from '../services/header.service';
 import { AlertService } from '../services/alert.service';
@@ -27,8 +27,8 @@ export class RolepermissionComponent implements OnInit {
       this.constant.departmentList = result.data.rows;
     })
 
-    this.commonService.getRoleList().subscribe((result)=>{
-          this.constant.roleList=result.data;
+    this.commonService.getDesignationList().subscribe((result)=>{
+          this.constant.roleList=result.data.rows;
 
     })
      this.commonService.getResortList().subscribe((result)=>{
@@ -36,6 +36,17 @@ export class RolepermissionComponent implements OnInit {
     })
     
   }
+
+   getRolePermission(){
+     let data:any={};
+     this.constant.divisionId? data.divisionId = this.constant.divisionId : '';
+     this.constant.departmentId? data.departmentId = this.constant.departmentId : '';
+     this.constant.resortId? data.resortId = this.constant.resortId:'';
+     this.constant.roleId? data.designationId = this.constant.roleId:'';
+     this.rolePermissionService.getRolePermission(data).subscribe((result)=>{
+       console.log(result);
+     })
+   }
 
   
 
@@ -74,7 +85,7 @@ export class RolepermissionComponent implements OnInit {
      resortId:this.constant.resortId,
      divisionId:this.constant.divisionId,
      departmentId:this.constant.departmentId,
-     roleId:this.constant.roleId,
+     designationId:this.constant.roleId,
      menu: this.constant.modules,
      web:this.constant.web,
      mobile:this.constant.mobile,

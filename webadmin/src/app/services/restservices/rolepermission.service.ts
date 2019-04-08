@@ -7,17 +7,18 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class RolePermissionService {
-  constructor (
-    private http: HttpService
-  ) {}
+  constructor (private http: HttpService) {
+
+  }
 
 
   addRolePermission(permissionData){
     return this.http.post('local','permission/Add', permissionData);
   }
 
-   getRolePermission(){
-    return this.http.getLocal('local','permission/List');
+   getRolePermission(data){
+    let params = 'departmentId=' + data.departmentId + '&divisionId=' + data.divisionId + '&resortId=' +data.resortId + '&designationId=' +data.designationId; 
+    return this.http.getLocal('local','permission/List?'+params);
   }
 
  

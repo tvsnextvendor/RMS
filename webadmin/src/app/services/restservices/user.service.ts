@@ -29,7 +29,7 @@ export class UserService {
   }
 
   deleteUser(userId){
-    return this.http.delete('local','user/Delete/'+userId)
+    return this.http.delete('local','user/Delete/',+userId)
   }
 
 }
