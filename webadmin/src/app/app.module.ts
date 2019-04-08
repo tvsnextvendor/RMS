@@ -28,6 +28,7 @@ import { EmailModule } from './email/email.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ResortModule } from './resort/resort.module';
 import { RolepermissionModule } from './rolepermission/rolepermission.module';
+import { SubscriptionModule } from './subscription/subscription.module';
 
 
 const routes: Routes = [
@@ -41,7 +42,8 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     ResetpasswordComponent,
-    AlertComponent
+    AlertComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -65,6 +67,7 @@ const routes: Routes = [
     UserModule,
     EmailModule,
     RolepermissionModule,
+    SubscriptionModule,
     RouterModule.forRoot(routes)
   ],
   providers: [AuthGuard, AlertService],
