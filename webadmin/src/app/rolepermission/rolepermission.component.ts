@@ -38,16 +38,64 @@ export class RolepermissionComponent implements OnInit {
   }
 
    getRolePermission(){
-     let data:any={};
-     this.constant.divisionId? data.divisionId = this.constant.divisionId : '';
-     this.constant.departmentId? data.departmentId = this.constant.departmentId : '';
-     this.constant.resortId? data.resortId = this.constant.resortId:'';
-     this.constant.roleId? data.designationId = this.constant.roleId:'';
-     this.rolePermissionService.getRolePermission(data).subscribe((result)=>{
-       console.log(result);
-     })
+      this.constant.modules = RolePermissionVar.defaultModules;
+      this.constant.selectAllView = false;
+      this.constant.selectAllUpload=false;
+      this.constant.selectAllEdit=false;
+      let data:any={};
+      data.divisionId = this.constant.divisionId;
+      data.departmentId = this.constant.departmentId;
+      data.resortId = this.constant.resortId;
+      data.designationId = this.constant.roleId;
+      data.web=this.constant.web;
+      data.mobile=this.constant.mobile;
+      this.rolePermissionService.getRolePermission(data).subscribe((result)=>{
+        if(result.isSuccess){
+        this.constant.modules = result.data.rows[0].userPermission;
+         this.constant.selectAllView = this.constant.modules.every(function(item:any) {
+              return item.view == true;
+        })
+         this.constant.selectAllUpload = this.constant.modules.every(function(item:any) {
+                  return item.upload == true;
+            })
+         this.constant.selectAllEdit = this.constant.modules.every(function(item:any) {
+                  return item.edit == true;
+            })
+          }
+      })
+    
    }
 
+  selectAll(event){
+    const name = event.target.name;
+    const value = event.target.checked;
+    for (var i = 0; i < this.constant.modules.length; i++) {
+        this.constant.modules[i][name] = value;
+      }
+  }
+
+
+  saveRolePermission(form){
+    console.log(form)
+    let obj ={
+     resortId:this.constant.resortId,
+     divisionId:this.constant.divisionId,
+     departmentId:this.constant.departmentId,
+     designationId:this.constant.roleId,
+     menu: this.constant.modules,
+     web:this.constant.web,
+     mobile:this.constant.mobile,
+     userId: this.utilService.getUserData().userId
+    }
+    const data = this.constant;
+    if(data.resortId && data.divisionId && data.departmentId && data.roleId){
+    this.rolePermissionService.addRolePermission(obj).subscribe((result)=>{
+      if(result.isSuccess){
+        this.alertService.success(this.constant.messages.successMsg);
+        this.clearForm(form);
+      }
+    })} 
+  }
   
 
   checkIfAllSelected(event) {
@@ -67,40 +115,13 @@ export class RolepermissionComponent implements OnInit {
          this.constant.selectAllEdit = this.constant.modules.every(function(item:any) {
                   return item.edit == true;
             })
-        break;
+        break;         
     }
   }
 
-  selectAll(event){
-    const name = event.target.name;
-    const value = event.target.checked;
-    for (var i = 0; i < this.constant.modules.length; i++) {
-        this.constant.modules[i][name] = value;
-      }
-  }
 
-
-  saveRolePermission(){
-    let obj ={
-     resortId:this.constant.resortId,
-     divisionId:this.constant.divisionId,
-     departmentId:this.constant.departmentId,
-     designationId:this.constant.roleId,
-     menu: this.constant.modules,
-     web:this.constant.web,
-     mobile:this.constant.mobile,
-     userId: this.utilService.getUserData().userId
-    }
-    this.rolePermissionService.addRolePermission(obj).subscribe((result)=>{
-      if(result.isSuccess){
-        this.alertService.success(this.constant.messages.successMsg);
-        this.clearForm();
-      }
-    })    
-  }
-
-
-  clearForm(){
+  clearForm(formDir){
+  this.constant.modules = RolePermissionVar.defaultModules;
   this.constant.resortId="";
   this.constant.divisionId="";
   this.constant.departmentId="";
@@ -110,7 +131,7 @@ export class RolepermissionComponent implements OnInit {
   this.constant.selectAllView = false;
   this.constant.selectAllUpload=false;
   this.constant.selectAllEdit=false;
-  this.constant.modules=this.constant.defaultModules;
+  formDir.submitted  = false;
   }
 
 }
