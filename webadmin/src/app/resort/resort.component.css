@@ -10,10 +10,11 @@
 .tab-section .label-title{
   margin-top: 5px;
 }
-.select-form{
+.tab .select-form{
     border: none;
     margin-right: 30px;
     margin-top: 3px;
+    font-size: 15px;
     
 }
 /* .nav-tabs li a:before {
@@ -33,3 +34,45 @@
     content: "";
     width: 100%;
 } */
+
+/* Resort Detail Page */
+
+
+.detail-pg span {
+    display: block;
+    font-weight: 600;
+    color: #73737B;
+    font-size: 17px;
+}
+.detail-pg label{
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.detail-pg .form-group {
+    margin-bottom: 1.6rem;
+}
+.detail-top {
+    border-bottom: 1px solid #EAF0F4;
+    margin-bottom: 20px;
+}
+.dpt-list{
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-top:10px;
+}
+.detail-bottom{
+    
+}
+.detail-bottom span{
+    font-size: 15px;
+    font-weight: normal;
+    padding: 3px 7px;
+    background-color:#EAEAEA;
+    border-radius: 20px;
+    color: #576271;
+    float: left;
+    margin-right: 5px;
+}
+.depart-dtl{
+    margin-bottom: 20px;
+}
