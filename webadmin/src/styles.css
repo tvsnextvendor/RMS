@@ -655,7 +655,7 @@ li {
   vertical-align: bottom;
   border: none;
 }
-.table thead th {
+.table thead th,a i{
 
   color: #468FB9;
 }
@@ -1232,7 +1232,19 @@ label{
 .custom-modal{
   max-width: 680px;
 }
-
+.option-btn{
+	border: 1px solid #468FB9;
+    border-radius: 40px;
+    padding: 0px 5px;    
+    font-size: 10px;
+    color: #909CA8;
+    position: absolute;
+    top: 11px;
+    left: 4px;
+}
+.option-btn:hover{
+background-color: #C1E1F3;
+}
 
 
 

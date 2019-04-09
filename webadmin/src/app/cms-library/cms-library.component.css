@@ -225,3 +225,16 @@
 th .square-cont {
     color: #737373;
 }
+td .square-cont {
+    font-weight: 500;
+}
+.top-select-bx{
+    padding-bottom: 2em;
+}
+.top-select-bx select:first-child{
+    margin-right: 5em;
+}
+.quiz-box{
+    border-top: 1px solid #ccc;
+    
+}
