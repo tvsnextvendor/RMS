@@ -36,7 +36,8 @@ export class UserVar {
         "save" : 'SAVE',
         "cancel" : 'CANCEL',
         "ok":'Ok',
-        "Cancel":'Cancel'
+        "Cancel":'Cancel',
+        "next" : "Next"
     }
 
     mandatoryText = {
@@ -50,7 +51,10 @@ export class UserVar {
         "mobNo": 'Mobile number is required',
         "invalidMobNo": 'Invalid Mobile Number',
         "reportingTo": 'Reporting is required',
-        "division": 'Division is required'
+        "division": 'Division is required',
+        "divisionName" : "Division",
+        "department" : "Department",
+        "isRequired" : " is Required"
     }
 
     title = 'User Management';
@@ -61,5 +65,14 @@ export class UserVar {
             backdrop: true,
             ignoreBackdropClick: true
         };
+
+    divisionTemplate: any[] = [{
+        division: 1,
+        divisionName : 'Division1'
+    }];
+    departmentTemplate: any[] = [{
+        department: 1,
+        departmentName : ''
+    }];
 
 }

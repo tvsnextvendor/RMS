@@ -21,6 +21,7 @@ export class ResortComponent implements OnInit {
     resortId = '';
     resortDetails;
     submitted = false;
+    enableEdit = false;
    constructor(private alertService: AlertService,private activeRoute:ActivatedRoute,private http:HttpService,private location:Location,private resortVar : ResortVar,private utilsService:UtilService,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
     this.activeRoute.params.subscribe((params:Params)=>{
         this.resortId = params['id'] ;
@@ -36,6 +37,7 @@ export class ResortComponent implements OnInit {
         }
         if(!this.resortId || this.resortId === undefined || this.resortId === null) {
             this.resortVar.title = "Add New Resort";
+            this.enableEdit = true;
             this.headerService.setTitle({title:this.resortVar.title, hidemodule:false});
             this.clearData();
         }    
@@ -51,6 +53,7 @@ export class ResortComponent implements OnInit {
                     this.resortVar.location = item.location;
                     this.resortVar.mobile = item.mobile;
                     this.resortVar.email = item.email;
+                    this.resortVar.status = item.status;
                     if(this.userType === 1){
                         this.resortVar.storageSpace = item.utilizedSpace;
                         this.resortVar.status = item.status;
@@ -92,6 +95,10 @@ export class ResortComponent implements OnInit {
         this.location.back();
     }
 
+    editDetails(){
+        this.enableEdit=true;
+    }
+
     submitResortData(){
         console.log(this.resortVar);
         this.submitted = true;
@@ -110,4 +117,5 @@ export class ResortComponent implements OnInit {
         this.resortVar.status = '';
         this.resortVar.allocatedSpace = '';
     }
+
 }

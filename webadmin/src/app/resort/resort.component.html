@@ -1,6 +1,7 @@
+<span *ngIf="!enableEdit" class="pr-2"><a class="btn btn-primary" (click)="editDetails()">Edit</a></span>
 <div class="pr-3 pt-5">
     <div class="col-12 col-md-12 white-bg ptb-4"> 
-        <form (ngSubmit)="submitResortData()">
+        <form (ngSubmit)="submitResortData()" *ngIf="enableEdit">
         <div class="top-section">      
             <div class="row mb-2">
                 <div class="col-12 col-md-6 pl-0">
@@ -29,7 +30,7 @@
                 </div>
             </div>
         </div>  
-        <div class="col-md-12 tab-section" >           
+        <!-- <div class="col-md-12 tab-section" >           
             <ul class="nav nav-tabs" *ngIf="userType === 2">
                 <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#home">{{resortVar.labels.division}}</a>
@@ -59,9 +60,7 @@
                 <div id="menu1" class="container tab-pane fade col-md-12 p-0 "><br>
                     <div class="row col-12 col-md-6 p-0" *ngFor="let data of resortVar.departmentTemplate; let i = index">
                         <select class="col-5 col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
-                            <!-- <option class="">Division</option> -->
                             <option *ngFor="let name of resortVar.divisionTemplate">{{name.divisionName}}</option>
-                            <!-- <option>Division1</option> -->
                         </select>
                         <label class="col-md-3 select-form form-control pl-0" *ngIf="i!=0"></label>
                         <div class="col-7 input-group mb-3 col-md-8 group-box">
@@ -78,7 +77,7 @@
                     </div>
                 </div>
             </div>            
-        </div>    
+        </div>     -->
         <div class="col-sm-12 p-0 subscription-section" *ngIf="userType === 1">
             <div class="row">
                 <div class="row col-12 col-md-6 form-group ">
@@ -93,7 +92,7 @@
                     <input class="col-6 col-sm-8 col-md-4 form-control" type="text" name="storageSpace" [(ngModel)]="resortVar.storageSpace">
                     <!-- <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.storageSpace">{{resortVar.labels.storageSpace}}{{resortVar.labels.isRequired}} </span> -->
                 </div>
-                <div class="col-12 col-md-6 pl-0">
+                <!-- <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4">
                         <label class="col-6 col-sm-4 label-title">Allocated Space</label>
                         <input class="col-6 col-sm-8 form-control" type="text" name="allocatedSpace" [(ngModel)]="resortVar.allocatedSpace">
@@ -104,41 +103,49 @@
                         <input class="col-6 col-md-8 form-control" type="text" name="status" [(ngModel)]="resortVar.status">
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.status">{{resortVar.labels.status}}{{resortVar.labels.isRequired}} </span>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div> 
+        <div class="col-12 col-md-6 pl-0">
+            <div class="row mb-4">
+                <label class="col-6 col-md-4 label-title">{{resortVar.labels.status}}</label>
+                <select class="col-6 col-md-8 form-control"> 
+                    <option *ngFor="let status of resortVar.statusList">{{status.name}}</option>
+                </select>
+                <!-- <input class="col-6 col-md-8 form-control" type="text" name="location" [(ngModel)]="resortVar.location"> -->
+                <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.location">{{resortVar.labels.location}}{{resortVar.labels.isRequired}} </span>
+            </div>
+        </div>
         <div _ngcontent-c16="" class="text-center pt-5 mb-4"><button _ngcontent-c16="" class="btn btn-default mr-3" type="button" (click)="back()">Cancel</button>
             <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">save</button>
         </div> 
         </form> 
 
 <!-- Resort Detail Page -->
-
-
-<form class="detail-pg">
+<form class="detail-pg" *ngIf="!enableEdit">
     <div class="detail-top row">
             <div class="col-md-3 form-group">
-                <label class="label-title">Resort Name</label>
-                <span>Boston Mill</span>
+                <label class="label-title">{{resortVar.labels.resortName}}</label>
+                <span>{{resortVar.resortName}}</span>
             </div>
             <div class="col-md-3 form-group">
-                <label class="label-title">Location</label>
-                <span>Boston Mill</span>
+                <label class="label-title">{{resortVar.labels.location}}</label>
+                <span>{{resortVar.location}}</span>
             </div>
             <div class="col-md-3 form-group">
-                <label class="label-title">Email</label>
-                <span>boston@mail.com</span>
+                <label class="label-title">{{resortVar.labels.email}}</label>
+                <span>{{resortVar.email}}</span>
             </div>
             <div class="col-md-3 form-group">
-                <label class="label-title">Mobile</label>
-                <span>0963852741</span>
+                <label class="label-title">{{resortVar.labels.mobile}}</label>
+                <span>{{resortVar.mobile}}</span>
             </div>
             <div class="col-md-3 form-group">
-                <label class="label-title">Status</label>
-                <span>Active</span>
+                <label class="label-title">{{resortVar.labels.status}}</label>
+                <span>{{resortVar.status}}</span>
             </div>
             <div class="col-md-3 form-group">
-                <label class="label-title">Utilize Space</label>
+                <label class="label-title">{{resortVar.labels.utilizedSpace}}</label>
                 <span>40 GB</span>
             </div> 
 

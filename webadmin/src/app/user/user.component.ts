@@ -1,7 +1,8 @@
-import { Component,TemplateRef, OnInit } from '@angular/core';
+import { Component,TemplateRef, OnInit ,ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from "lodash";
+import { TabsetComponent } from 'ngx-bootstrap';
 import { HeaderService } from '../services/header.service';
 import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
@@ -20,9 +21,10 @@ import {UserService} from '../services/restservices/user.service';
 })
 
 export class UserComponent implements OnInit {
-
+    @ViewChild('staticTabs') staticTabs: TabsetComponent;
     userName;
     userId;
+    userType;
     department = "";
     designation = "";
     division = "";
@@ -39,6 +41,7 @@ export class UserComponent implements OnInit {
     validEmail = false;
     validUserId = false;
     defaultSetting=false;
+    triggerNext = false;
     departmentArray = [];
     designationArray = [];
     divisionArray=[];
@@ -56,17 +59,16 @@ export class UserComponent implements OnInit {
         this.pageLimitOptions = [5, 10, 25];
         this.pageLimit = [this.pageLimitOptions[1]];
         this.userList();
-          this.commonService.getDivisionList().subscribe((result)=>{
-              this.divisionArray=result.data.rows;
-           })
+        this.commonService.getDivisionList().subscribe((result)=>{
+            this.divisionArray=result.data.rows;
+        })
 
         this.commonService.getDepartmentList().subscribe((result)=>{
-        this.departmentArray = result.data.rows;
+            this.departmentArray = result.data.rows;
         })
 
         this.commonService.getDesignationList().subscribe((result)=>{
             this.designationArray=result.data.rows;
-
         })
 
     }
@@ -77,6 +79,10 @@ export class UserComponent implements OnInit {
               this.constant.userList = resp.data.rows;
           }
         });
+        let data = this.utilService.getUserData();
+        if(data && data.UserRole && data.UserRole[0] &&  data.UserRole[0].roleId){
+            this.userType  = data.UserRole[0].roleId;
+        }
     }
 
     //update user
@@ -202,6 +208,7 @@ export class UserComponent implements OnInit {
         this.reportingTo = '';
         this.emailAddress = '';
         this.phoneNumber = '';
+        this.triggerNext = false;
     }
 
    
@@ -278,6 +285,25 @@ export class UserComponent implements OnInit {
     messageClose() {
         this.message = '';
     }
+
+    addDivision(){
+        this.triggerNext = false;
+    }
+
+    next(){
+        this.triggerNext = true;
+    }
+
+    tabchange(event){
+        console.log(event.target.name)
+        if(event.target.name === "department"){
+            this.triggerNext = true;
+        }
+        else{
+            this.triggerNext = false;
+        }
+    }
+
     fileUpload(event) {
         let fileUploadValue = event.target.files[0];
         let fileReader = new FileReader();
@@ -296,5 +322,31 @@ export class UserComponent implements OnInit {
             })
         }
         fileReader.readAsArrayBuffer(fileUploadValue);
+    }
+
+    addForm(type) {
+        if(type === "division"){
+            let obj = {
+                division: 1,
+                divisionName : ''
+            };
+            this.constant.divisionTemplate.push(obj);
+        }
+        else if(type === "department"){
+            let obj = {
+                department: 1,
+                departmentName : ''
+            };
+            this.constant.departmentTemplate.push(obj);
+        }
+    }
+    
+    removeForm(i,type) {
+        if(type === "division"){
+            this.constant.divisionTemplate.splice(i, 1);
+        }
+        else if(type === 'department'){
+            this.constant.departmentTemplate.splice(i, 1);
+        }
     }
 }

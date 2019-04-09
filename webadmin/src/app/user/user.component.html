@@ -1,6 +1,102 @@
     <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class="pr-3 pt-3" id="contentToConvert">
-    <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
+<tabset #staticTabs *ngIf="userType === 2">
+    <tab heading="User">
+        <div class="pr-3 pt-3" id="contentToConvert">
+        <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
+            <div class="float-right row pb-3 adduser-respon">
+                <span class="pr-2 upload-line">
+                    <div class="fileUpload btn btn-primary addUser-upload">
+                        <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{constant.btns.uploadEmp}}</span>
+                        <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
+                            accept=".xlsx" />
+                    </div>
+                </span>
+                <span class="pr-2"><a class="btn btn-primary br-btn" (click)="openAddUser(addUserTemp,'','')">{{constant.btns.addUser}}</a></span>
+                <span class="pagenation-btn">
+                    <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
+                        class="pagenation-dropdown"></ngx-select-dropdown>
+                </span>
+            </div>
+            <form class="table-responsive custom-table2 px-1" #userForm="ngForm">
+                <table class="table table-striped white-bg mt-1" [mfData]="constant.userList" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
+                    <thead>
+                        <tr class="th-boxshadow text-center">
+                            <th>
+                                <mfDefaultSorter by="employeeId">{{labels.employeeId}}</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="employeeName">{{labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"
+                                            class="s-width"></span></mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="division">{{labels.division}}</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="department">{{labels.department}}</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="role">{{labels.role}}</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="emailId">{{labels.email}}</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="mobile">{{labels.mobile}}</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter></mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter></mfDefaultSorter>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
+                            <td class="vat user-desc"><label class="mb-0">{{ user.employeeId }}</label></td>
+                            <td class="vat user-desc"><label class="mb-0">{{ user.userName }}</label></td>
+                            <td class="vat user-desc"><span *ngIf="user.Division"><label class="mb-0">{{ user.Division.divisionName }}</label></span></td>
+                            <td class="vat user-desc"><span *ngIf="user.DepartMent"><label class="mb-0">{{ user.DepartMent.departmentName }}</label></span></td>
+                            <td class="vat user-desc"><span *ngIf="user.Designation"><label class="mb-0">{{ user.Designation.designationName }}</label></span></td>
+                            <td class="vat user-desc"><label class="mb-0">{{ user.email }}</label></td>
+                            <td class="vat user-desc"><label class="mb-0">{{ user.phoneNumber }}</label></td>
+                            <td class="vat user-desc"><a (click)="openAddUser(addUserTemp,user,i)"><i class="fa fa-pencil header-icon"></i></a></td>
+                            <td class="vat user-desc"><a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a></td> 
+                        </tr>
+                        <tr *ngIf="mf.data?.length == 0">
+                            <td colspan="10" class="text-center data-design">{{constant.labels.noData}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr data-html2canvas-ignore="true">
+                            <td colspan="10">
+                                <mfBootstrapPaginator></mfBootstrapPaginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+    </tab>
+    <tab heading="Hierarchy">  
+        <div class="pr-3 pt-3">
+            <span class="pr-2"><a class="btn btn-primary br-btn" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Add New</a></span>
+            <div class="detail-bottom row ">
+                <label class="label-title">Division</label>
+                <div class="row depart-dtl col-md-12 p-0">
+                    <label class="col-md-12 p-0 label-title">Division1</label>
+                    <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
+                </div>
+                <div class="row depart-dtl col-md-12 p-0">
+                    <label class="col-md-12 p-0 label-title">Division1</label>
+                    <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
+                </div>
+            </div> 
+        </div>    
+    </tab>
+</tabset>  
+<div class="pr-3 pt-3" id="contentToConvert" *ngIf="userType !== 2">
+<!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
     <div class="float-right row pb-3 adduser-respon">
         <span class="pr-2 upload-line">
             <div class="fileUpload btn btn-primary addUser-upload">
@@ -74,10 +170,7 @@
             </tfoot>
         </table>
     </form>
-</div>
-
-
-
+</div>  
 <ng-template #addUserTemp>
     <div class="modal-header pb-0">
         <p class="hd-alg pl-3" *ngIf="!editEnable">{{constant.btns.addUser}}</p>
@@ -226,5 +319,66 @@
                 class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
             <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
         </div>
+    </div>
+</ng-template>
+<ng-template #addDivision>
+    <div class="modal-header pb-0">
+        <p class="hd-alg pl-3">Add Division</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="col-md-12 tab-section" >           
+        <ul class="nav nav-tabs" (click)="tabchange($event)">
+            <li class="nav-item">
+                <a [ngClass] = "!triggerNext ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#home" name="division">{{constant.labels.division}}</a>
+            </li>
+            <li class="nav-item">
+                <a [ngClass] = "triggerNext ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#menu1" name="department">{{constant.labels.department}}</a>
+            </li>
+        </ul>    
+        <div class="tab-content" *ngIf="userType === 2">
+            <div id="home" [ngClass] = "!triggerNext ? 'container tab-pane col-md-12 pl-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
+                <div class="row col-12 col-md-6 pl-0" *ngFor="let data of constant.divisionTemplate; let i = index">
+                    <label class="col-5 col-md-4 label-title pl-0" *ngIf="i==0">{{constant.labels.division}}</label>
+                    <label class="col-5 col-md-4 label-title pl-0" *ngIf="i!=0"></label>
+                    <div class="input-group mb-3 col-7 col-md-8 group-box">
+                        <input type="text" class="form-control col-md-11" placeholder="Division{{i+1}}" [(ngModel)]="data.divisionName" name = "division{{i+1}}" aria-label="" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('division')">
+                                <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
+                            </button>
+                            <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeForm(i,'division')">
+                                <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
+                            </button>
+                        </div> 
+                    </div>                       
+                </div>
+            </div>
+            <div id="menu1" [ngClass] = "triggerNext ? 'container tab-pane col-md-12 pl-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
+                <div class="row col-12 col-md-6 p-0" *ngFor="let data of constant.departmentTemplate; let i = index">
+                    <select class="col-4 col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
+                        <option *ngFor="let name of constant.divisionTemplate">{{name.divisionName}}</option>
+                    </select>
+                    <label class="col-md-3 select-form form-control pl-0" *ngIf="i!=0"></label>
+                    <div class="col-7 input-group mb-3 col-md-8 group-box">
+                        <input type="text" class="form-control col-md-11" placeholder="Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('department')">
+                                <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
+                            </button>
+                            <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeForm(i,'department')">
+                                <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
+                            </button>
+                        </div> 
+                    </div>   
+                </div>
+            </div>
+        </div>  
+        <div class="text-center mrb-15">
+            <button type="submit" *ngIf="!triggerNext" (click)="next()" class="btn btn-primary creat-btn mr-3">{{constant.btns.next}}</button>
+            <button type="button" *ngIf="triggerNext" (click)="addDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+            <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
+        </div>          
     </div>
 </ng-template>
