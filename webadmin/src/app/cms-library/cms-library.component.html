@@ -2,10 +2,10 @@
 <div class="row">
     <div class="col-md-9 pt-3 px-0">
     	<div class="clearfix">
-        <button type = "button" class="btn btn-primary">Create Notification</button>
-        <button type = "button" class="btn btn-primary mr-3">Create Course</button>
-        <button type = "button" class="btn btn-primary mr-3">Schedule a Training</button>
-    </div>
+            <button type = "button" class="btn btn-primary">Create Notification</button>
+            <button type = "button" class="btn btn-primary mr-3">Create Course</button>
+            <button type = "button" class="btn btn-primary mr-3">Schedule a Training</button>
+        </div>
     <div class="clearfix pt-5 tab-section">
         <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -15,10 +15,10 @@
                 <a class="nav-link" data-toggle="tab" href="#training">Training Class</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link">Videos</a>
+                <a class="nav-link" data-toggle="tab" href="#">Videos</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link">Documents</a>
+                <a class="nav-link"  data-toggle="tab" href="#document">Documents</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link">Notification</a>
@@ -29,11 +29,15 @@
                 <li class="nav-item">
                 <a class="nav-link">Recently Deleted</a>
                 </li>
-            </ul> 
-            </div>
+        </ul> 
+    </div>
+   
+            <div class="tab-content">
+            <div id="coss" class="col-md-12 pt-2 clearfix px-0 container tab-pane active">
             <div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">Count:100</h6></div>
             <div id="coss" class="col-md-12 pt-2 clearfix px-0">
-            <div class="white-bg p-4 clearfix">
+            <div class="white-bg p-3 clearfix">
+            
             	<div class="clearfix">
             	<label class="square-cont float-left">
 						<input type="checkbox" name="web"> Course Name 1
@@ -131,6 +135,176 @@
      </div>
 
     
+<!-- Training Tab Content -->
+
+<div id="training" class="col-md-12 pt-2 clearfix px-0 container tab-pane">
+    <div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">Count:100</h6></div>
+    <div class="white-bg pt-4 pb-4 mb-3">
+        <div class="head-part clearfix pr-3">
+            <h6 class="float-left">Course Name 1</h6>
+            <div class="float-right">
+                <a href="#"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="select-arbx p-4">
+                <label class="square-cont float-left col-md-12">
+						<input type="checkbox" name="web"> Training Class 1
+						<span class="square-checkmark"></span>
+                </label>
+                <div class="clk-part clearfix pt-1">
+                    <div class="clk-sec float-left">
+                        <a href="#">Video(s):3</a>
+                        <a href="#" class="ml-2">Document(s):4</a>
+                    </div>
+                    <a class="float-right" href="#">View Quize</a>
+                </div>
+        </div>
+        <div class="select-arbx p-4">
+                <label class="square-cont float-left col-md-12">
+						<input type="checkbox" name="web"> Training Class 2
+						<span class="square-checkmark"></span>
+                </label>
+                <div class="clk-part clearfix pt-1">
+                    <div class="clk-sec float-left">
+                        <a href="#">Video(s):3</a>
+                        <a href="#" class="ml-2">Document(s):4</a>
+                    </div>
+                    <a class="float-right" href="#">View Quize</a>
+                </div>
+        </div>
+    </div>
+    <div class="white-bg pt-4 pb-4 mb-3">
+            <div class="head-part clearfix pr-3">
+                <h6 class="float-left">Course Name 2</h6>
+                <div class="float-right">
+                    <a href="#"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="select-arbx p-4">
+                    <label class="square-cont float-left col-md-12">
+                            <input type="checkbox" name="web"> Training Class 1
+                            <span class="square-checkmark"></span>
+                    </label>
+                    <div class="clk-part clearfix pt-1">
+                        <div class="clk-sec float-left">
+                            <a href="#">Video(s):3</a>
+                            <a href="#" class="ml-2">Document(s):4</a>
+                        </div>
+                        <a class="float-right" href="#">View Quize</a>
+                    </div>
+            </div>
+            <div class="select-arbx p-4">
+                    <label class="square-cont float-left col-md-12">
+                            <input type="checkbox" name="web"> Training Class 2
+                            <span class="square-checkmark"></span>
+                    </label>
+                    <div class="clk-part clearfix pt-1">
+                        <div class="clk-sec float-left">
+                            <a href="#">Video(s):3</a>
+                            <a href="#" class="ml-3">Document(s):4</a>
+                        </div>
+                        <a class="float-right" href="#">View Quize</a>
+                    </div>
+            </div>
+        </div>
+</div>    
+
+
+<!-- End Training Tab Content -->
+
+<!-- Documents Tab Content -->
+
+<div id="document" class="col-md-12 pt-2 clearfix px-0 container tab-pane doc-table">
+    <div class="col-md-12 clearfix py-2 px-0">
+        <button class="btn btn-primary creat-btn float-left" type="submit">Add Documents to Course</button>
+        <h6 class="pt-2 float-right">Count:100</h6>
+    </div>
+    <div class="col-lg-12 col-sm-12 p-0">                
+            <div class="table-responsive custom-table2 px-1">
+                <table class="table table-striped white-bg mt-1">
+                        <thead>
+                        <tr class="th-boxshadow">
+                            <th class="text-left">
+                                <label class="square-cont float-left col-md-12">
+                                    <input type="checkbox" name="web"> Files
+                                    <span class="square-checkmark"></span>
+                                </label>
+                            </th>
+                            <th class="text-left">
+                               File Name
+                            </th>
+                            <th class="text-left">
+                               Type
+                            </th>
+                            <th class="text-left">
+                               No.of Emp.
+                            </th>
+                            <th class="text-left">
+                                Permission
+                            </th>
+                            <th class="text-left">
+                               Action
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr  class="table-desc-color">
+                                <td class="text-left">
+                                    <label class="square-cont float-left col-md-12">
+                                        <input type="checkbox" name="web"> Document
+                                        <span class="square-checkmark"></span>
+                                    </label>
+                                </td>
+                                <td class="text-left">10 MB</td>
+                                <td class="text-left">.doc</td>
+                                <td class="text-left">100</td>
+                                <td>Private</td>
+                                <td>
+                                    <a><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a (click)="openAddUser(addUserTemp,user,i)"><i class="fa fa-pencil header-icon"></i></a>
+                                    <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
+                                </td>
+                            </tr>
+                            <tr  class="table-desc-color">
+                                    <td class="text-left">
+                                        <label class="square-cont float-left col-md-12">
+                                            <input type="checkbox" name="web"> Document
+                                            <span class="square-checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td class="text-left">10 MB</td>
+                                    <td class="text-left">.doc</td>
+                                    <td class="text-left">100</td>
+                                    <td>Private</td>
+                                    <td>
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                        <a (click)="openAddUser(addUserTemp,user,i)"><i class="fa fa-pencil header-icon"></i></a>
+                                        <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
+                                    </td>
+                                </tr>
+                       
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+</div>
+
+<!--End Documents Tab Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
 </div>
     <div class="col-md-3 pr-0">
     	<div class="white-bg p-4">

@@ -716,6 +716,9 @@ li {
    font-weight: 600;
     color: #737373;
 }
+.table tr a i{
+  color: #468FB9;
+}
 .donutchat-style {
     padding: 10px 0 30px 0px;
 }

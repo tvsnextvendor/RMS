@@ -17,6 +17,10 @@
     font-size: 15px;
     
 }
+.form-control.label-title{
+    margin-top: 1px;
+    font-size: 15px;
+}
 /* .nav-tabs li a:before {
     content: "";
     width: 0;
