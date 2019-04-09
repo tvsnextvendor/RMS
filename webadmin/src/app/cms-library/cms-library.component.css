@@ -84,6 +84,9 @@
    float: left;
    color: #495057;
    line-height: 27px;
+   font-size: 16px;
+    color: #73737B;
+    font-weight: 600;
 }
 .square-cont input {
    position: absolute;
@@ -94,13 +97,13 @@
 }
 .square-checkmark {
    position: absolute;
-   top: 2px;
-   left: 0;
-   height: 20px;
-   width: 20px;
-   background-color: #fff;
-   border: 1px solid #ccc;
-   border-radius: 0 !important;
+    top: 4px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: 2px solid #73737B;
+    border-radius: 0 !important;
 }
 .square-cont input:checked ~ .square-checkmark {
    background-color: #468FB9;
@@ -158,4 +161,21 @@
 	text-align: center;
     font-size: 14px;
     font-weight: 700;
+}
+.file-size{
+	color: #73737B;
+    font-size: 15px;
+    font-weight: 600;
+}
+.dup-hd{
+	color: #1D4960;
+    font-size: 20px;
+    font-weight: 600;
+    float: left;
+    line-height: 18px;
+}
+.course-list{
+	border: 1px solid #ccc;
+    padding: 5px 20px;
+    margin-right: 10px;
 }
