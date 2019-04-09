@@ -29,6 +29,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ResortModule } from './resort/resort.module';
 import { RolepermissionModule } from './rolepermission/rolepermission.module';
 import { SubscriptionModule } from './subscription/subscription.module';
+import { CMSLibraryModule } from './cms-library/cms-library.module';
+
 
 
 const routes: Routes = [
@@ -68,6 +70,7 @@ const routes: Routes = [
     EmailModule,
     RolepermissionModule,
     SubscriptionModule,
+    CMSLibraryModule,
     RouterModule.forRoot(routes)
   ],
   providers: [AuthGuard, AlertService],
