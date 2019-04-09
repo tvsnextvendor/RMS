@@ -8,7 +8,7 @@
 					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i)">
 						<img src="assets/images/Close-1.png" class="close-alg">
 			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></a></span>
-					<div class="row">
+					<div class="row  form-group">
 						<div class="col-md-6 row p-0"> 
 							<label for="" class="col-sm-4 label-title p-0 m-0">{{constant.quizLabels.questionType}}</label>
 							<div class="col-md-8">
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row  form-group">
 						<label class="col-md-2 pl-0 label-title m-0">{{constant.quizLabels.question}} {{i+1}}</label>
 						<div class="col-md-10 pl-0">
 							<input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.question"

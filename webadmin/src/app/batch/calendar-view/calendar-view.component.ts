@@ -54,13 +54,19 @@ export class CalendarViewComponent implements OnInit {
     }
 
     goToBatch(event,addBatch){
+
+        
         localStorage.setItem('BatchStartDate',event);
         // this.router.navigateByUrl('/addBatch');
         this.openEditModal(addBatch,event)
       }
 
     openEditModal(template: TemplateRef<any>, forum) {
-        this.batchVar.modalRef = this.modalService.show(template,this.batchVar.modalConfig);
+        let modalConfig={
+            class : "modal-xl"
+          }
+
+        this.batchVar.modalRef = this.modalService.show(template,modalConfig);
     }
  
 }
