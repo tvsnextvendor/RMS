@@ -33,14 +33,14 @@
         <!-- <div class="col-md-12 tab-section" >           
             <ul class="nav nav-tabs" *ngIf="userType === 2">
                 <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#home">{{resortVar.labels.division}}</a>
+                <a class="nav-link active" data-toggle="tab" href="#division">{{resortVar.labels.division}}</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#menu1">{{resortVar.labels.department}}</a>
+                <a class="nav-link" data-toggle="tab" href="#department">{{resortVar.labels.department}}</a>
                 </li>
             </ul>    
             <div class="tab-content" *ngIf="userType === 2">
-                <div id="home" class="container tab-pane col-md-12 pl-0 active"><br>
+                <div id="division" class="container tab-pane col-md-12 pl-0 active"><br>
                    <div class="row col-12 col-md-6 pl-0" *ngFor="let data of resortVar.divisionTemplate; let i = index">
                         <label class="col-5 col-md-4 label-title pl-0" *ngIf="i==0">{{resortVar.labels.division}}</label>
                         <label class="col-5 col-md-4 label-title pl-0" *ngIf="i!=0"></label>
@@ -57,7 +57,7 @@
                         </div>                       
                     </div>
                 </div>
-                <div id="menu1" class="container tab-pane fade col-md-12 p-0 "><br>
+                <div id="department" class="container tab-pane fade col-md-12 p-0 "><br>
                     <div class="row col-12 col-md-6 p-0" *ngFor="let data of resortVar.departmentTemplate; let i = index">
                         <select class="col-5 col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
                             <option *ngFor="let name of resortVar.divisionTemplate">{{name.divisionName}}</option>

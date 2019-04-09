@@ -97,6 +97,7 @@
 }
 .square-checkmark {
    position: absolute;
+<<<<<<< Updated upstream
     top: 4px;
     left: 0;
     height: 18px;
@@ -104,6 +105,15 @@
     background-color: #fff;
     border: 2px solid #73737B;
     border-radius: 0 !important;
+=======
+   top: 4px;
+   left: 0;
+   height: 18px;
+   width: 18px;
+   background-color: #fff;
+   border: 2px solid #9c9c9c;
+   border-radius: 3px !important;
+>>>>>>> Stashed changes
 }
 .square-cont input:checked ~ .square-checkmark {
    background-color: #468FB9;
@@ -118,8 +128,8 @@
    display: block;
 }
 .square-cont .square-checkmark:after {
-   left: 6px;
-   top: 1px;
+   left: 5px;
+   top: 0px;
    width: 7px;
    height: 12px;
    border: solid white;
@@ -178,4 +188,50 @@
 	border: 1px solid #ccc;
     padding: 5px 20px;
     margin-right: 10px;
+}
+/* Training */
+.head-part{
+    padding-left: 30px;
+}
+.head-part h6{
+    font-weight: 600;
+    color: #697380;
+    font-size: 15px;
+}
+.select-arbx .square-cont{
+    font-size: 16px;
+    font-weight: 600;
+    color: #468FB9;
+}
+.clk-part{
+    clear: both;
+}
+.clk-part a{
+    color: #000;
+    font-size: 14px;
+    text-decoration: underline;
+}
+.clk-sec{
+    padding-left: 30px;
+}
+.select-arbx{   
+    border-bottom:1px solid #ccc;
+}
+.select-arbx:last-child{
+    margin-bottom:0;
+    border-bottom:none;
+    padding-bottom: 0 !important;
+}
+/* Documents Tab */
+.doc-table .square-cont{
+    margin-bottom: 0;
+}
+.doc-table .table th{
+    padding-top: 10px;
+}
+.table tr a {
+    margin: 0 5px;
+}
+th .square-cont {
+    color: #737373;
 }
