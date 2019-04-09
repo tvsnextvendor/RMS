@@ -97,15 +97,6 @@
 }
 .square-checkmark {
    position: absolute;
-<<<<<<< Updated upstream
-    top: 4px;
-    left: 0;
-    height: 18px;
-    width: 18px;
-    background-color: #fff;
-    border: 2px solid #73737B;
-    border-radius: 0 !important;
-=======
    top: 4px;
    left: 0;
    height: 18px;
@@ -113,7 +104,6 @@
    background-color: #fff;
    border: 2px solid #9c9c9c;
    border-radius: 3px !important;
->>>>>>> Stashed changes
 }
 .square-cont input:checked ~ .square-checkmark {
    background-color: #468FB9;
