@@ -183,3 +183,13 @@
 .depart-dtl{
     margin-bottom: 20px;
 }
+.hierarchy-tab{
+    clear: both;
+}
+.title-hd{
+    font-size: 18px;
+    margin-bottom: 0;
+    color: #6c6c6c;
+    font-weight: 600;
+    margin-top: 8px;
+}
