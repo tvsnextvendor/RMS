@@ -281,6 +281,23 @@ td .square-cont {
   .filter-search .search-container button:hover {
     background: #ccc;
   }
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px 62px 10px 10px;
+    float: right;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
   
   @media screen and (max-width: 600px) {
     .filter-search .search-container {
