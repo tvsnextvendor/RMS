@@ -126,6 +126,12 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+    <div class="col-md-12 p-0 clearfix">
+								<div class="fileUpload btn btn-primary">
+									<span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload<!-- <i class="fa fa-sort-desc ml-2" aria-hidden="true"></i> --></span>
+										<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
+								</div>                           
+							</div>
     <div class="px-5 py-3">
     	<div class="row">
     	<div class="col-md-6 mb-3 select select-style clearfix">
@@ -173,6 +179,12 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+    <div class="col-md-12 p-0 clearfix">
+								<div class="fileUpload btn btn-primary">
+									<span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload<!-- <i class="fa fa-sort-desc ml-2" aria-hidden="true"></i> --></span>
+										<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
+								</div>                           
+							</div>
     <div class="px-5 py-3">
     	<div class="row">
     	<div class="col-md-6 mb-3"><input type="text" class="form-control pl-0" placeholder="Copy of Course Name 1" name="course"/></div>
