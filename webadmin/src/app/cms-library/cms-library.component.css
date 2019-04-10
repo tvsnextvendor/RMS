@@ -54,6 +54,9 @@
     align-items: center;
     font-size: 15px;
 }
+ul.nav.nav-tabs{
+    width:100%;
+}
 .tab-section .label-title{
   margin-top: 5px;
 }
@@ -63,7 +66,7 @@
     margin-top: 3px;    
 }
 .tab-section .nav-link{
-	padding: 8px 18.2px;
+	padding: 8px 14.7px;
 }
 .tab-section a{
 	display: block;
@@ -281,6 +284,7 @@ td .square-cont {
   .filter-search .search-container button:hover {
     background: #ccc;
   }
+<<<<<<< Updated upstream
   .fileUpload {
     position: relative;
     overflow: hidden;
@@ -299,6 +303,18 @@ td .square-cont {
     filter: alpha(opacity=0);
 }
   
+=======
+  .breadcrumb{
+    background: none;
+    padding:0;
+  }
+  .breadcrumb-item+.breadcrumb-item::before {
+     content: ">";
+}
+.breadcrumb-item a,.breadcrumb-item{
+    font-size: 14px;
+}
+>>>>>>> Stashed changes
   @media screen and (max-width: 600px) {
     .filter-search .search-container {
       float: none;

@@ -1,4 +1,6 @@
     <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
+
+<div class="pt-4 tab-section">    
 <tabset #staticTabs *ngIf="userType === 2">
     <tab heading="User">
         <div class="pr-3 pt-3" id="contentToConvert">
@@ -79,10 +81,11 @@
         </div>
     </tab>
     <tab heading="Hierarchy">  
-        <div class="pr-3 pt-3">
-            <span class="pr-2"><a class="btn btn-primary br-btn" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Add New</a></span>
-            <div class="detail-bottom row ">
-                <label class="label-title">Division</label>
+        <div class="pr-3 pt-3 clearfix">
+                <h5 class="float-left title-hd">Division</h5>
+            <span class="pr-2"><button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Add New</button></span>
+            <div class="hierarchy-tab white-bg pl-4 mt-3">
+            <div class="detail-bottom row ">                
                 <div class="row depart-dtl col-md-12 p-0">
                     <label class="col-md-12 p-0 label-title">Division1</label>
                     <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
@@ -92,9 +95,14 @@
                     <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
                 </div>
             </div> 
+            </div>
         </div>    
     </tab>
+    <tab heading="Role Permission">
+
+    </tab>
 </tabset>  
+</div>
 <div class="pr-3 pt-3" id="contentToConvert" *ngIf="userType !== 2">
 <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
     <div class="float-right row pb-3 adduser-respon">

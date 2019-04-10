@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HeaderService } from '../services/header.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// declare var $;
 
 @Component({
   selector: 'app-cms-library',
@@ -7,9 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CMSLibraryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private headerService: HeaderService) { }
 
   ngOnInit() {
+    this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
+    
   }
 
 }

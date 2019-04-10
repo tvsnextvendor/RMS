@@ -20,7 +20,7 @@ body {
   position: absolute;
   border-left: 3px solid #468FB9;
   height: 30px;
-  left: -16px;
+  left: -15px;
   padding: 0 0 0 12px;
 }
 .sucess-msg{
@@ -606,15 +606,19 @@ li {
     padding-left: 250px;
   }
   #sidebar-wrapper {
-    width: 19%;
+    /* width: 19%; */
+    width:244px;
   }
   #wrapper.toggled #sidebar-wrapper {
-    width: 19%;
+    /* width: 19%; */
+    width:244px;
   }
   .page-content-wrapper {
-    padding: 20px 15px 65px 274px;
+    /* padding: 20px 15px 65px 274px; */
     position: relative;
     /*background-color: #F5F6FA;*/
+    margin-left: 244px;
+    width: inherit;
   }
   #wrapper.toggled .page-content-wrapper {
     position: relative;
@@ -1174,6 +1178,7 @@ a {
   border-bottom: none;
   display: inline-block;
   box-shadow: 0 0 3px 2px rgba(204, 204, 204, 0.44);
+  background-color: #fff;
 }
 .tab-section input{
   background: none;

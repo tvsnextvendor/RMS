@@ -6,6 +6,7 @@ import {AuthGuard} from '../guard/auth.guard.component';
 import { NgHttpLoaderModule } from 'ng-http-loader'; 
 import { CMSLibraryComponent } from './cms-library.component';
 import { FormsModule } from '@angular/forms';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 const routes: Routes = [
     { path: 'cms-library', component:  CMSLibraryComponent ,canActivate : [AuthGuard]},
@@ -18,6 +19,7 @@ const routes: Routes = [
     BrowserModule, 
     FormsModule,  
     RouterModule.forRoot(routes),
+    TooltipModule.forRoot(),
   ],
   declarations: [CMSLibraryComponent]
 })
