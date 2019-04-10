@@ -651,6 +651,9 @@ li {
   text-align: center;
 }
 /*********************** table css*********************/
+.table{
+  margin-bottom: 0;
+}
 .table thead th, .table td {
   vertical-align: bottom;
   border: none;

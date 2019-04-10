@@ -6,11 +6,13 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
 import {DataTableModule} from "angular-6-datatable";
 import {AuthGuard} from '../guard/auth.guard.component';
 import { SubscriptionComponent } from './subscription.component';
+import { SubscriptionListComponent } from './subscription-list/subscription-list.component';
 
 
 
 const routes: Routes = [
     { path: 'subscription', component: SubscriptionComponent ,canActivate : [AuthGuard]},
+    { path: 'subscriptionlist', component: SubscriptionListComponent ,canActivate : [AuthGuard]},
    
 ];
 
@@ -23,7 +25,8 @@ const routes: Routes = [
     DataTableModule
     ],
   declarations: [
-    SubscriptionComponent
+    SubscriptionComponent,
+    SubscriptionListComponent
     
   ],
   bootstrap: []
