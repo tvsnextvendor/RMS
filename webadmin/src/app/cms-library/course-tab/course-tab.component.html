@@ -1,0 +1,184 @@
+<div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">Count:100</h6></div>
+            <div id="coss" class="col-md-12 pt-2 clearfix px-0">
+                <div class="white-bg p-3 clearfix">
+                    <div class="clearfix">
+                        <label class="square-cont float-left">
+                            <input type="checkbox" name="web"> Course Name 1
+                            <span class="square-checkmark"></span>
+                        </label>
+                        <span class="float-right">
+                            <a><i class="fa fa-pencil icons_header" aria-hidden="true" (click)="enableDropData('edit')"></i></a>                    
+                            <a><i class="fa fa-exclamation-circle icons_header" aria-hidden="true" (click)="enableDropData('trainingClass')"></i></a>
+                            <a><i class="fa fa-angle-down icons_header" aria-hidden="true" (click)="enableDropData('view')"></i></a>
+                        </span>
+                    </div>
+                <div class="row py-3" *ngIf="enableView">
+                    <div class="col-md-3 p-0">
+                        <div class="form-group pl-0">
+                            <label class="course-header">Create By</label>
+                            <input type="text" class="form-control pl-0" placeholder="John"/> 
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">Create On</label>
+                            <input type="text" class="form-control pl-0" placeholder="Apr 12 2019 & 11.30"/> 
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">Last Modified On</label>
+                            <input type="text" class="form-control pl-0" placeholder="Apr 12 2019 & 11.30"/> 
+                        </div>              		
+                     </div>
+                </div> 
+                <div class="row py-3" *ngIf="enableView">
+                    <div class="col-md-3 p-0">
+                        <div class="form-group pl-0">
+                            <label class="course-header">No. of Training Class</label>
+                            <span class="course-count">2</span>
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">No. of Content Files</label>
+                            <span class="course-count">10</span> 
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">No. of Employees</label>
+                            <span class="course-count">100</span> 
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">File Size</label>
+                            <span class="file-size">154Mb</span>
+                        </div>              		
+                    </div>
+                </div> 
+                <div *ngIf="enableView">
+                    <div class="clearfix">
+                        <h6>Usage Stats</h6>
+                        <div class="total-count row">
+                            <span class="col-md-6 p-0">Total No. of Employees enrolled:150</span>
+                            <span class="col-md-6 text-center">Total No. of Certificate: 30</span>
+                        </div>
+                    </div>
+                    <div class="row py-3">
+                        <div class="col-md-3 p-3 assigned-perc">20%</div>
+                        <div class="col-md-3 p-3 inprogress-perc">30%</div>
+                        <div class="col-md-6 p-3 completed-perc">50%</div>
+                    </div>
+                    <div class="row usage-state">
+                        <div class="col-md-3">Assigned</div>
+                        <div class="col-md-3">In Progress</div>
+                        <div class="col-md-6">Completed</div>
+                    </div>
+                    <div class="py-3 clearfix">
+                        <button class="btn btn-primary" type="button" (click)="enableDropData('duplicate')">Duplicate</button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+
+<!-- Edit -->
+
+
+    <div class="col-md-12 pt-2 clearfix px-0" *ngIf="enableEdit">
+     	<div class="white-bg p-4 clearfix">
+            <div class="clearfix">
+                <p class="dup-hd">Edit</p>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeEdit')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col-md-12 p-0 clearfix">
+                <div class="fileUpload btn btn-primary">
+                    <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload<!-- <i class="fa fa-sort-desc ml-2" aria-hidden="true"></i> --></span>
+                        <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
+                </div>                           
+            </div>
+            <div class="px-5 py-3">
+    	        <div class="row">
+    	            <div class="col-md-6 mb-3 select select-style clearfix">
+    		            <select name="Course" class="form-control pl-0">
+                            <option value="">Course 1</option>
+                            <option>Course 2</option>
+                        </select>
+                        <div class="select_arrow"></div>
+                    </div>
+    	            <div class="col-md-6 mb-3 select select-style clearfix">
+                        <select name="Training Class" class="form-control pl-0">
+                            <option value="">Training Class 1</option>
+                            <option>Training Class 2</option>
+                        </select>
+                        <div class="select_arrow"></div>
+                    </div>
+                </div>
+                <div class="col-md-12 pt-3">
+                    <p class="course-list">Video 1<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Video 2<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Video 3<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Document 1<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Document 2<img  class="close-alg" src="assets/images/close.png"></p>
+                </div>
+                <div class="col-md-12 pt-3">
+                    <p class="course-list">Video 4<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Video 3<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Video 5<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Document 4<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Document 6<img  class="close-alg" src="assets/images/close.png"></p>
+                </div>
+                <div class="py-3 clearfix">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>    
+        </div>
+    </div>
+
+<!-- End Edit -->
+
+<!-- Duplicate -->
+
+    <div class="col-md-12 pt-2 clearfix px-0" *ngIf="enableDuplicate">
+     	<div class="white-bg p-4 clearfix">
+     	    <div class="clearfix">
+                <p class="dup-hd">Duplicate</p>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeDuplicate')"> 
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col-md-12 p-0 clearfix">
+                <div class="fileUpload btn btn-primary">
+                    <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload<!-- <i class="fa fa-sort-desc ml-2" aria-hidden="true"></i> --></span>
+                    <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
+                </div>                           
+            </div>
+            <div class="px-5 py-3">
+            	<div class="row">
+    	            <div class="col-md-6 mb-3"><input type="text" class="form-control pl-0" placeholder="Copy of Course Name 1" name="course"/></div>
+                    <div class="col-md-6 mb-3"><input type="text" class="form-control pl-0" placeholder="Training class" name="course"/></div>
+                </div>
+                <div class="col-md-12 pt-3">
+                    <p class="course-list">Video 1<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Video 2<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Video 3<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Document 1<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Document 2<img  class="close-alg" src="assets/images/close.png"></p>
+                </div>
+                <div class="col-md-12 pt-3">
+                    <p class="course-list">Video 4<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Video 3<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Video 5<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Document 4<img  class="close-alg" src="assets/images/close.png"></p>
+                    <p class="course-list">Document 6<img  class="close-alg" src="assets/images/close.png"></p>
+                </div>
+                <div class="py-3 clearfix">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>    
+        </div>
+    </div>

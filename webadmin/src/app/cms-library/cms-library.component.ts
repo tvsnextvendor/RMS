@@ -18,6 +18,9 @@ export class CMSLibraryComponent implements OnInit {
   constructor(private modalService: BsModalService, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
   modalRef;
   videoFile;
+  enableEdit = false;
+  enableDuplicate = false;;
+  enableView = false;;
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
     
@@ -26,5 +29,34 @@ export class CMSLibraryComponent implements OnInit {
   openEditModal(template: TemplateRef<any>,modelValue) {
     let modalConfig= {class : "modal-xl"};
     this.modalRef = this.modalService.show(template,modalConfig);
+  }
+  enableDropData(type){
+    console.log(type);
+    if(type === "view"){
+      this.enableView = !this.enableView;
+      this.enableEdit = false;
+      this.enableDuplicate = false;
+    }
+    else if(type === "closeDuplicate"){
+      this.enableView = true;
+      this.enableEdit = false;
+      this.enableDuplicate = false;
+    }
+    else if(type === "closeEdit"){
+      this.enableView = false;
+      this.enableEdit = false;
+      this.enableDuplicate = false;
+    }
+    else if(type === "edit"){
+      this.enableView = false;
+      this.enableEdit = true;
+      this.enableDuplicate = false;
+
+    }
+    else if(type === "duplicate"){
+      this.enableView = true;
+      this.enableEdit = false;
+      this.enableDuplicate = true;
+    }
   }
 }

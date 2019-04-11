@@ -38,11 +38,14 @@ export class CourseService {
   }
 
   getTrainingClass(){
-    return this.http.getLocal('local','trainingClass/List');
+    return this.http.getLocal('local','trainingClass/trainingList');
   }
 
   getTrainingClassById(trainingClassId){
-    return this.http.getLocal('local','trainingClass/List?trainingClassId='+trainingClassId)
+    return this.http.getLocal('local','trainingClass/trainingList?trainingClassId='+trainingClassId)
   }
 
+  getTrainingClassQuiz(trainingClassId,courseId){
+    return this.http.getLocal('local','/trainingClass/QuizList?trainingClassId='+trainingClassId+'&courseId='+courseId)
+  }
 }

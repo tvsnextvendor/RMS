@@ -6,6 +6,14 @@ import {AuthGuard} from '../guard/auth.guard.component';
 import { CMSLibraryComponent } from './cms-library.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BatchModule } from '../batch/batch.module';
+import { CourseTabComponent } from './course-tab/course-tab.component';
+import { TraingClassTabComponent } from './traing-class-tab/traing-class-tab.component';
+import { VideoTabComponent } from './video-tab/video-tab.component';
+import { DocumentTabComponent } from './document-tab/document-tab.component';
+import { NotificationTabComponent } from './notification-tab/notification-tab.component';
+import { QuizTabComponent } from './quiz-tab/quiz-tab.component';
+import { RecentDeleteTabComponent } from './recent-delete-tab/recent-delete-tab.component';
+import { FilterTabComponent } from './filter-tab/filter-tab.component';
 
 
 const routes: Routes = [
@@ -31,7 +39,15 @@ export const MY_MOMENT_FORMATS = {
     TooltipModule.forRoot(),
     BatchModule
   ],
-  declarations: [CMSLibraryComponent],
+  declarations: [
+    CMSLibraryComponent, 
+    CourseTabComponent,
+    TraingClassTabComponent, 
+    VideoTabComponent, 
+    DocumentTabComponent, 
+    NotificationTabComponent, 
+    QuizTabComponent, 
+    RecentDeleteTabComponent, FilterTabComponent],
   bootstrap: [CMSLibraryComponent]
 })
 export class CMSLibraryModule { }
