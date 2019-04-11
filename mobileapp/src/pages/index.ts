@@ -17,3 +17,4 @@ export * from './notification/notification.module';
 export * from './forum-detail/forum-detail.module';
 export * from './modal/modal.module';
 export * from './library/library.module';
+export * from './course/course.module';

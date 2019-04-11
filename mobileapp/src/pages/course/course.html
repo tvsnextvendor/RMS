@@ -1,0 +1,140 @@
+<ion-content padding class="headerFull-bg default-header">
+  <ion-header class="static-header main-header my-component" color="primary">
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <img src="../assets/imgs/menu.png" />
+      </button>
+      <ion-title class="text-left">
+        <span class="header-title">{{constant.title.training}}</span>
+        <div class="header-icon" (click)="goToNotification()">
+          <img src="../assets/imgs/notification.png" />
+          <span class="dot-circle">4</span>
+        </div>
+      </ion-title>
+    </ion-navbar>
+  </ion-header> 
+
+  <div class="tabs progress-tab">
+    <a class="tab-item" (click)="showData('assigned')" [ngClass]="!showAssigned ? 'assigned' : ''">
+      {{constant.pages.trainingLabels.assignedLabel}}
+    </a>
+    <a class="tab-item" (click)="showData('inprogress')" [ngClass]="!showProgress ? 'inprogress' : ''">
+      {{constant.pages.trainingLabels.progressLabel}}
+    </a>
+    <a class="tab-item" (click)="showData('signRequire')" [ngClass]="!showSignRequire ? 'signRequire' : ''">
+      {{constant.pages.trainingLabels.signRequired}}
+    </a>
+    <a class="tab-item" (click)="showData('complete')" [ngClass]="!showCompleted ? 'complete' : ''">
+      {{constant.pages.trainingLabels.completedLabel}}
+    </a>
+  </div>
+
+
+  <div class="tab-content" [hidden]="showAssigned" *ngIf="assignedCoursesList.length > 0">
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of assignedCoursesList;let i=index;"
+        (click)="openTrainingClass()" class="main-forum">
+        <ion-card class="training-list">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-2 col-sm-1>
+                <img src="assets/imgs/profile_circle.png" class="forum-img">
+              </ion-col>
+              <ion-col col-8 col-sm-8>
+                <h4 class="notify-title">{{task.courseName}}</h4>
+                <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
+              </ion-col>
+              <ion-col col-2 col-sm-3 class="arrow-icon">
+                <div class="align-right" *ngIf="task.dueDate">
+                  <span class="hour-status">{{task.dueDate | date:'dd MMM yyyy'}}</span>
+                  {{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}
+                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="tab-content" [hidden]="showProgress" *ngIf="progressCoursesList.length > 0">
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of progressCoursesList;let i=index;"
+        (click)="openTrainingClass()" class="main-forum">
+        <ion-card class="training-list">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-2 col-sm-1>
+                  <img src="assets/imgs/profile_circle.png" class="forum-img">
+                </ion-col>
+                <ion-col col-8 col-sm-8>
+                  <h4 class="notify-title">{{task.courseName}}</h4>
+                  <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
+                </ion-col>
+                <ion-col col-2 col-sm-3 class="arrow-icon">
+                  <div class="align-right" *ngIf="task.dueDate">
+                  <span class="hour-status">{{task.dueDate | date:'dd MMM yyyy'}}</span>
+                 {{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}
+                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+                </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="tab-content" [hidden]="showSignRequire">
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of assignedCoursesList;let i=index;"
+        (click)="openTrainingClass()" class="main-forum">
+        <ion-card class="training-list">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-2 col-sm-1>
+                <img src="assets/imgs/profile_circle.png" class="forum-img">
+              </ion-col>
+              <ion-col col-8 col-sm-8>
+                <h4 class="notify-title">{{task.courseName}}</h4>
+                <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
+              </ion-col>
+              <ion-col col-2 col-sm-3 class="arrow-icon">
+                <div class="align-right" *ngIf="task.dueDate">
+                  <span class="hour-status">{{task.dueDate | date:'dd MMM yyyy'}}</span>
+                  {{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}
+                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="tab-content" [hidden]="showCompleted" *ngIf="completeCoursesList.length > 0">
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of completeCoursesList;let i=index;"
+        (click)="openTrainingClass()" class="main-forum">
+        <ion-card class="training-list">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-2 col-sm-1>
+                  <img src="assets/imgs/profile_circle.png" class="forum-img">
+                </ion-col>
+                <ion-col col-8 col-sm-8>
+                  <h4 class="notify-title">{{task.courseName}}</h4>
+                  <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
+                </ion-col>
+                <!-- <ion-col col-2 col-sm-3 class="arrow-icon">
+                  <div class="align-right">
+                    <span class="hour-status">2h</span>
+                    <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+                  </div>
+                </ion-col> -->
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  </ion-content>

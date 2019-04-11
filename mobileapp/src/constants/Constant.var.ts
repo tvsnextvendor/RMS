@@ -106,13 +106,16 @@ export class Constant {
             assignedLabel: 'Assigned',
             progressLabel: 'In Progress',
             completedLabel: 'Completed',
+            signRequired: 'Sign Required',
+            trainingClass:'Training Class',
             postedLabel: 'Posted :',
             lastViewed: 'Last Viewed :',
             ackText: 'I acknowledge that i have read the attached ',
             document: 'document',
             readMore: '>> Read More',
             viewContent: 'View Content',
-            readLess: '<< Read Less'
+            readLess: '<< Read Less',
+            willExpire: 'Will expire'
         },
         libraryLabels:{
 
