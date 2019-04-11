@@ -1,15 +1,15 @@
 import { Component, OnInit,ViewChild,ElementRef} from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute,Params } from '@angular/router';
-import { HttpService } from '../../services/http.service';
+import { HttpService,HeaderService,UtilService,AlertService } from '../../services';
 import { CommonService } from '../../services/restservices/common.service';
-import {HeaderService} from '../../services/header.service';
+// import { HeaderService } from '../../services/header.service';
 import { CourseService } from '../../services/restservices/course.service';
 import { ToastrService } from 'ngx-toastr';
 import {AddQuizComponent} from '../add-quiz/add-quiz.component';
 import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
-import { AlertService } from '../../services/alert.service';
+// import { AlertService } from '../../services/alert.service';
 
 @Component({
     selector: 'app-add-module',
@@ -44,7 +44,7 @@ export class AddModuleComponent implements OnInit {
     fileExtensionType;
     // selectedCourseIds:any;
 
-   constructor(private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
+   constructor(private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
         });
@@ -72,8 +72,18 @@ export class AddModuleComponent implements OnInit {
    }
 
     courseData(){
-        this.http.get(this.moduleVar.api_url.getModuleCourseList).subscribe((resp) => {
-            this.moduleVar.courseList = resp.courseDetails;
+        this.courseService.getTrainingClass().subscribe((resp) => {
+            // this.moduleVar.courseList = resp.courseDetails;
+            console.log(resp)
+            if(resp && resp.isSuccess){
+                this.moduleVar.courseList = resp.data && resp.data.length && resp.data.map(item=>{
+                    let obj = {
+                        id : item.trainingClassId,
+                        value : item.trainingClassName
+                    }
+                    return obj;
+                })
+            }
         })
         this.http.get(this.moduleVar.api_url.getModuleDetails).subscribe((data) => {
             this.moduleVar.moduleList = data.moduleList;
@@ -193,6 +203,7 @@ export class AddModuleComponent implements OnInit {
    hideTab(data){
         this.messageClose();
        this.courseSubmitted = true;
+       this.courseData();
        this.moduleVar.quizDetails = [];
         if(this.moduleVar.selectCourseName){
             this.tabEnable = data.courseUpdate ? false : true;
@@ -367,19 +378,30 @@ export class AddModuleComponent implements OnInit {
 
     submitForm(){
         this.moduleSubmitted = true;
+        let user = this.utilService.getUserData();
+        console.log(user);
         // this.quiz  && this.quiz.quizSubmit();   
-        if(this.moduleName && this.topics && this.selectedCourses.length && !this.moduleVar.moduleNameCheck){
+        if(this.moduleName && this.selectedCourses.length ){
             let params = {
-                "CourseName":this.moduleName,
-                "Topics" : this.topics,
-                "TrainingClassIds":this.moduleVar.selectedCourseIds.toString(),
+                "courseName":this.moduleName,
+                "courseTrainingClasses":this.moduleVar.selectedCourseIds,
+                "createdBy" : user.userId
             }
             console.log("params-course",params)
+            this.courseService.addCourse(params).subscribe((resp)=>{
+                if(resp && resp.isSuccess){
+                    // let successMsg =  this.moduleId ? this.labels.moduleUpdateMsg : this.labels.moduleCreateMsg;
+                    this.route.navigateByUrl("/cms-library");
+                    this.alertService.success(this.labels.moduleCreateMsg);
+                    this.moduleSubmitted = false;
+                }
+                console.log(resp)
+            })
             // this.toastr.success(this.labels.moduleCreateMsg);  
-            let successMsg =  this.moduleId ? this.labels.moduleUpdateMsg : this.labels.moduleCreateMsg;
-            this.route.navigateByUrl("/modulelist");
-            this.alertService.success(successMsg);
-            this.moduleSubmitted = false;
+            // let successMsg =  this.moduleId ? this.labels.moduleUpdateMsg : this.labels.moduleCreateMsg;
+            // this.route.navigateByUrl("/modulelist");
+            // this.alertService.success(successMsg);
+            // this.moduleSubmitted = false;
         }
         else if(!this.moduleName){
             this.alertService.error(this.labels.moduleName+this.labels.isRequire)
