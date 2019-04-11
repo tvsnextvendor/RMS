@@ -47,7 +47,31 @@
             </span>    
         </div>
         <div class="form-group">
-                <label class="createforum-hd">{{forumVar.createForum.empName}}</label> 
+                <!-- <label class="createforum-hd">{{forumVar.createForum.empName}}</label>  -->
+                    <tag-input [ngModel]="employeeItems" 
+                    name="empItems"
+                    #empName="ngModel"
+                    [onlyFromAutocomplete]="true"
+                    [placeholder]="'Add Division'"      [displayBy]="'Division'"
+                    [identifyBy]="'userId'" [secondaryPlaceholder]="'Select Division'" class="multi-input"
+                    required
+                    >
+                    <tag-input-dropdown [showDropdownIfEmpty]="true"
+                    [dynamicUpdate]="false"
+                    [focusFirstElement]="true"             
+                    [autocompleteItems]="autocompleteItemsAsEmpObjects">
+                    <ng-template let-item="item" let-index="index">
+                        {{ item.display }}
+                    </ng-template>
+                </tag-input-dropdown>
+                <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+            </tag-input>
+            <span class="required_color" *ngIf="empName && empName.invalid && (formDir.submitted || empName.touched)">
+                    {{forumVar.mandatoryLabels.empName}}
+            </span>    
+      </div>
+        <div class="form-group">
+                <!-- <label class="createforum-hd">{{forumVar.createForum.empName}}</label>  -->
                     <tag-input [ngModel]="employeeItems" 
                     name="empItems"
                     #empName="ngModel"
@@ -70,6 +94,7 @@
                     {{forumVar.mandatoryLabels.empName}}
             </span>    
       </div>
+      
         <div class="text-center pt-5 mb-4">
             <button type="button" class="btn btn-default mr-3" (click)="clearForm(formDir)">{{forumVar.btns.cancel}}</button>
             <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.create}}</button>

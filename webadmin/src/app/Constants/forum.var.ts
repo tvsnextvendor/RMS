@@ -9,6 +9,7 @@ export class ForumVar{
         forumName        : 'Forum Name',
         empCount         : 'Employee count',
         activeInActive   : 'Active / Inactive',
+        lastactivedate   : 'Last Active Date',
         action           : 'Action'
     };
     forumList: any =[];
