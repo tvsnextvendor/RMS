@@ -5,7 +5,7 @@ import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
 import { API_URL } from '../../constants/API_URLS.var';
 import { LoaderService } from '../../service/loaderService';
-import * as _ from 'lodash';
+//import * as _ from 'lodash';
 
 @IonicPage({
   name: 'home-page'

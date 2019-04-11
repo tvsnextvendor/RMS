@@ -16,3 +16,4 @@ export * from './training-detail/training-detail';
 export * from './library/library';
 export * from './notification/notification';
 export * from './forum-detail/forum-detail';
+export * from './course/course';

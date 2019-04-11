@@ -5,6 +5,7 @@ export class API_URL {
     public static URLS = {
         // Need 'getModules': '5c08da9b2f00004b00637a8c',
         'getTraining': '5bffc31e3200002a00b28422',
+        'getCourse': '5cadc7542f000061283a97db',
         //needed 'getQuiz': '5c0116873500006300ad07c4',
         'getDashboard':'5c3edb0e3500002d003e99f8',
         'getBatch': '5c3878a03100005000a99043',
@@ -24,7 +25,8 @@ export class API_URL {
        //----------------    'getModules': '5c2de3ee2f00001c3d1752bb',
         'getModules':'5c3842663100007800a98f0d',
       
-        'getCourses':'5c40a2050f0000d318e7b5d1',
+        //'getCourses':'5c40a2050f0000d318e7b5d1', *needed
+        'getCourses': '5caebe043400009620ab6dc7',
         'getQuiz': '5c2e1c4f2f0000fd54175475'
         // 'getCourses':'5c28b3923300004e00a58b88'
     };
