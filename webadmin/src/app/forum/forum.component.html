@@ -1,18 +1,20 @@
 <div class="row pr-3 pt-5">
         <div class="col-lg-9 col-sm-12 pl-0">                
-            <div class="table-responsive white-bg px-3">
+            <div class="table-responsive white-bg px-2">
                 <table class="table" [mfData]="forumVar.forumList" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
-                        <tr class="th-boxshadow"  class="">
-                         
-                            <th class="forumname-width">
+                        <tr class="th-boxshadow"  class="">                         
+                            <th class="forumname-width text-left">
                                 <mfDefaultSorter by="forumName">{{forumVar.ForumFormLabels.forumName}}</mfDefaultSorter>
                             </th>
-                            <th class="text-center">
-                                <mfDefaultSorter by="employeeId">{{forumVar.ForumFormLabels.empCount}}</mfDefaultSorter>
+                            <th class="text-left">
+                                <span><mfDefaultSorter by="employeeId">{{forumVar.ForumFormLabels.empCount}}</mfDefaultSorter></span>
                             </th>
-                            <th class="text-center">
-                                <mfDefaultSorter by="activeStatus">{{forumVar.ForumFormLabels.activeInActive}}</mfDefaultSorter>
+                            <th class="text-left lt-dt-act">
+                                <span><mfDefaultSorter>{{forumVar.ForumFormLabels.lastactivedate}}</mfDefaultSorter></span>
+                            </th>
+                            <th class="text-left">
+                                <span><mfDefaultSorter by="activeStatus">{{forumVar.ForumFormLabels.activeInActive}}</mfDefaultSorter></span>
                             </th>
                             <th class="text-center">
                                 <mfDefaultSorter>{{forumVar.ForumFormLabels.action}}</mfDefaultSorter>
@@ -21,13 +23,18 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let forum of mf.data" class="table-desc-color">
-                                <td class="forumname-width">{{ forum.forumname }}</td>
-                                <td class="text-center">{{ forum.departments.length }}</td>
-                                <td class="text-center"><label class="switch">
+                                <td class="forumname-width text-left"><a>{{ forum.forumname }}</a></td>
+                                <td class="text-left">{{ forum.departments.length }}</td>
+                                <td class="lt-dt-act text-left"><span>12 May 2019</span></td>
+                                <td class="text-left"><label class="switch">
                                         <input type="checkbox" [(ngModel)]="forum.active" (change)= "statusUpdate(forum.forumname,forum.active)" > 
                                         <span class="slider round"></span>
                                     </label></td>
-                                    <td class="text-center"><a (click)="openEditModal(editForum,forum)"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a></td> 
+                                    <td class="text-center">
+                                        <a (click)="openEditModal(editForum,forum)"><i class="fas fa-pencil-alt header-icon" aria-hidden="true"></i></a>
+                                        <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
+                                        <a href="#"><i class="fas fa-thumbtack header-icon"></i></a>
+                                    </td> 
                         </tr>
                         <tr *ngIf="mf.data?.length == 0">
                             <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>

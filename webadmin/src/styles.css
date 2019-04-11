@@ -723,6 +723,9 @@ li {
    font-weight: 600;
     color: #737373;
 }
+.table td a{
+  margin: 0 7px;
+}
 .table tr a i{
   color: #468FB9;
 }
@@ -1253,7 +1256,9 @@ label{
 .option-btn:hover{
 background-color: #C1E1F3;
 }
-
+.modal-content .group-box .form-control{
+  border: none;
+}
 
 
 

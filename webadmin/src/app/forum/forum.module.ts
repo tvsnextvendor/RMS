@@ -9,12 +9,14 @@ import {DataTableModule} from "angular-6-datatable";
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { FormsModule} from '@angular/forms';
 import { TagInputModule } from 'ngx-chips';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ForumDetailComponent } from './forum-detail/forum-detail.component'; 
 
 
 
 const routes: Routes = [
     { path: 'forum', component:ForumComponent ,canActivate : [AuthGuard]},
+    { path: 'forumdetail', component:ForumDetailComponent ,canActivate : [AuthGuard]},
 ];
 
 @NgModule({
@@ -29,7 +31,7 @@ const routes: Routes = [
     SelectDropDownModule
     ],
   declarations: [
-    ForumComponent,CreateForumComponent
+    ForumComponent,CreateForumComponent, ForumDetailComponent
   ],
   bootstrap: [ForumComponent]
 })
