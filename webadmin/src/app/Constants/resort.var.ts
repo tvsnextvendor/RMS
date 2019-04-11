@@ -8,13 +8,13 @@ export class ResortVar {
     resortName;
     location;
     email;
-    mobile;
+    phoneNumber;
     utilizedSpace;
     numberOfUser;
     status;
     storageSpace;
     allocatedSpace;
-    statusList = [{id:1,name:"Active"},{id:2,name:"Inactive"},{id:3,name:"Expired"}];
+    statusList = [{id:1,name:"Active"},{id:2,name:"InActive"},{id:3,name:"Expired"}];
     labels ={
         "resortName" : "Resort Name",
         "location" : "Location",

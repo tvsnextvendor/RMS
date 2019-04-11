@@ -54,6 +54,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgHttpLoaderModule.forRoot(),
+    RouterModule.forRoot(routes),
     DashboardModule,
     CertificatesModule,
     BatchModule,
@@ -70,8 +71,7 @@ const routes: Routes = [
     EmailModule,
     RolepermissionModule,
     SubscriptionModule,
-    CMSLibraryModule,
-    RouterModule.forRoot(routes)
+    CMSLibraryModule
   ],
   providers: [AuthGuard, AlertService],
   bootstrap: [AppComponent]

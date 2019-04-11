@@ -66,8 +66,29 @@ export class HttpService {
 		if(error.status === 403 || error.status === 401){
 			this.authService.logOut();
 		}
-	}
+  }
+  
+  upload(api,url,params):Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.utilService.getToken()
+      })
+    };
+    const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
+    return this.http.post(API_ENDPOINT+url,params, {headers:httpOptions.headers}).pipe(
+      map(this.extractData));
+  }
 
+  removeFile(api,url,params):Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.utilService.getToken()
+      })
+    };
+    const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
+    return this.http.request('delete',API_ENDPOINT+url, {headers:httpOptions.headers}).pipe(
+      map(this.extractData));
+  }
   
 
 }

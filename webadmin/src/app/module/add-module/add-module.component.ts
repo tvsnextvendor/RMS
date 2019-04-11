@@ -2,7 +2,9 @@ import { Component, OnInit,ViewChild,ElementRef} from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute,Params } from '@angular/router';
 import { HttpService } from '../../services/http.service';
+import { CommonService } from '../../services/restservices/common.service';
 import {HeaderService} from '../../services/header.service';
+import { CourseService } from '../../services/restservices/course.service';
 import { ToastrService } from 'ngx-toastr';
 import {AddQuizComponent} from '../add-quiz/add-quiz.component';
 import { ModuleVar } from '../../Constants/module.var';
@@ -38,9 +40,11 @@ export class AddModuleComponent implements OnInit {
     videoMessage;
     previewImage ;
     quizCheck = false;
+    filePath = '';
+    fileExtensionType;
     // selectedCourseIds:any;
 
-   constructor(private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
+   constructor(private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
         });
@@ -110,18 +114,22 @@ export class AddModuleComponent implements OnInit {
     fileUpload(e){
         this.showImage = true;
         let reader = new FileReader();
-        let file = e.target.files[0];
-        let type = file.type;
-        let typeValue = type.split('/');
-        let extensionType = typeValue[1].split('.').pop();
-        let fileType = typeValue[0];
-        this.fileName = file.name;
-        reader.onloadend = () => {
-          this.uploadFile = file;
-          this.fileUrl = reader.result;
-          this.extensionTypeCheck(fileType,extensionType,this.fileUrl);
+        if(e.target && e.target.files[0]){
+            let file = e.target.files[0];
+            this.uploadFile = file;
+            let type = file.type;
+            let typeValue = type.split('/');
+            let extensionType = typeValue[1].split('.').pop();
+            this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+            console.log(this.fileExtensionType)
+            let fileType = typeValue[0];
+            this.fileName = file.name;
+            reader.onloadend = () => {
+            this.fileUrl = reader.result;
+            this.extensionTypeCheck(fileType,extensionType,this.fileUrl);
+            }
+            reader.readAsDataURL(file);  
         }
-       reader.readAsDataURL(file);  
     }
 
 
@@ -271,41 +279,53 @@ export class AddModuleComponent implements OnInit {
     if(this.quiz && add){
         let data = [];
         this.quizCheck = false;
+        this.courseSubmitted = false;
+        this.videoSubmitted = false;
         this.moduleVar.quizDetails = [];
         this.quiz.editQuizDetails(data);
     }
    }
    videoSubmit(){
         this.messageClose();
+        let self = this;
        this.videoSubmitted = true;
+       let videoObj = {videoName : self.moduleVar.selectVideoName,description : self.moduleVar.description,url:'',fileType:this.fileExtensionType}
         if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
-            this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast); 
-            this.alertService.success(this.message);
-            this.videoSubmitted = false;
-            let videoObj = {
-                videoName : this.moduleVar.selectVideoName ,
-                description : this.moduleVar.description,
-                url : this.fileName ? this.fileName : this.moduleVar.videoFile
-            }
-            if(this.moduleVar.videoIndex){
-                let index = this.moduleVar.videoIndex - 1;
-                this.moduleVar.videoList[index] = videoObj;
-                this.moduleVar.videoIndex = 0;
-            }
-            else{
-                this.moduleVar.videoList.push(videoObj);
-            }
-            this.moduleVar.selectVideoName = '';
-            this.moduleVar.description = '';
-            this.moduleVar.videoFile = '';
-            this.showImage = false;
-            this.previewImage = '';
-            this.fileName = '';
+            this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
+            this.commonService.uploadFiles(this.uploadFile).subscribe((result)=>{
+                console.log(result,this);
+                if(result && result.isSuccess){
+                    // self.moduleVar.videoFile = result.data && result.data[0].filename;
+                    self.filePath = result.data && result.data[0].path;
+                    self.alertService.success(this.message);    
+                    self.videoSubmitted = false;
+                    videoObj.url = result.data && result.data[0].filename;
+                    if(self.moduleVar.videoIndex){
+                        let index = self.moduleVar.videoIndex - 1;
+                        self.moduleVar.videoList[index] = videoObj;
+                        self.moduleVar.videoIndex = 0;
+                    }
+                    else{
+                        self.moduleVar.videoList.push(videoObj);
+                    }
+                }
+            })
+            this.clearData();
         }
        else{
            //this.toastr.error(this.labels.mandatoryFields)
            this.alertService.error(this.labels.mandatoryFields);
        }
+   }
+
+   clearData(){
+        this.moduleVar.selectVideoName = '';
+        this.moduleVar.description = '';
+        this.moduleVar.videoFile = '';
+        this.showImage = false;
+        this.previewImage = '';
+        this.fileName = '';
+        this.fileExtensionType = '';
    }
 
    cancelVideoSubmit(){
@@ -353,7 +373,7 @@ export class AddModuleComponent implements OnInit {
                 "CourseName":this.moduleName,
                 "Topics" : this.topics,
                 "TrainingClassIds":this.moduleVar.selectedCourseIds.toString(),
-                }
+            }
             console.log("params-course",params)
             // this.toastr.success(this.labels.moduleCreateMsg);  
             let successMsg =  this.moduleId ? this.labels.moduleUpdateMsg : this.labels.moduleCreateMsg;
