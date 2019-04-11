@@ -2,6 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService } from '../../services/header.service';
 import { HttpService } from '../../services/http.service';
+import { CommonService } from '../../services/restservices/common.service';
+import { UserService } from '../../services/restservices/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { ResortVar } from '../../Constants/resort.var';
 import { API_URL } from '../../Constants/api_url';
@@ -19,15 +21,18 @@ export class ResortListComponent implements OnInit {
 
   notificationValue;
 
-  constructor(private modalService: BsModalService, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar, private toastr: ToastrService, private headerService: HeaderService) {
+  constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar, private toastr: ToastrService, private headerService: HeaderService) {
     this.resortVar.url = API_URL.URLS;
   }
 
   ngOnInit() {
     this.resortVar.title = "Resort Management";
     this.headerService.setTitle({ title: this.resortVar.title, hidemodule: false });
-    this.http.get(this.resortVar.url.getResortListPageData).subscribe((data) => {
-      this.resortVar.resortList = data;
+    this.commonService.getResortList().subscribe((result) => {  
+      if(result && result.isSuccess){
+        this.resortVar.resortList = result.data.rows;
+        console.log(this.resortVar.resortList)
+      }
     });
   }
 

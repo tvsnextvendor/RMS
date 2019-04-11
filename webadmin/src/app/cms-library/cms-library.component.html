@@ -12,116 +12,120 @@
 <div class="row">
     <div class="col-md-9 pt-3 px-0">
     	<div class="clearfix">
-            
-            <button type = "button" class="btn btn-primary" placement="top" tooltip="Create Notification">Create Notification</button>
-            <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course">Create Course</button>
-            <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training">Schedule a Training</button>
-            <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Export to Excel">Export to Excel</button>
+            <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">Print</button>
+            <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification">Create Notification</button>
+            <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" [routerLink]="['../module']">Create Course</button>
+            <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">Schedule a Training</button>
             <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress">Work in Progress</button>
         </div>
-    <div class="clearfix pt-5 tab-section">
-        <ul class="nav nav-tabs">
+        <div class="clearfix pt-5 tab-section">
+            <ul class="nav nav-tabs">
                 <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#course">Courses</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#training">Training Class</a>
+                    <a class="nav-link" data-toggle="tab" href="#training">Training Class</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#video">Videos</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link"  data-toggle="tab" href="#document">Documents</a>
+                    <a class="nav-link"  data-toggle="tab" href="#document">Documents</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link">Notification</a>
+                    <a class="nav-link">Notification</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#quiz">Quiz</a>
+                    <a class="nav-link" data-toggle="tab" href="#quiz">Quiz</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link">Recently Deleted</a>
+                    <a class="nav-link">Recently Deleted</a>
                 </li>
-        </ul> 
-    </div>
-   
-            <div class="tab-content">
+            </ul> 
+        </div>
+        <div class="tab-content">
             <div id="course" class="col-md-12 pt-2 clearfix px-0 container tab-pane active">
             <div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">Count:100</h6></div>
             <div id="coss" class="col-md-12 pt-2 clearfix px-0">
-            <div class="white-bg p-3 clearfix">
-            
-            	<div class="clearfix">
-            	<label class="square-cont float-left">
-						<input type="checkbox" name="web"> Course Name 1
-						<span class="square-checkmark"></span>
-				</label>
-                <span class="float-right">
-                  	<a><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>                    
-                    <a><i class="fa fa-exclamation-circle icons_header" aria-hidden="true"></i></a>
-                    <a><i class="fa fa-angle-down icons_header" aria-hidden="true"></i></a>
-                </span>
-			</div>
-              <div class="row py-3">
-              	<div class="col-md-3 p-0">
-              		<div class="form-group pl-0">
-            <label class="course-header">Create By</label>
-            <input type="text" class="form-control pl-0" placeholder="John"/> </div>              		
-              </div>
-              <div class="col-md-3">
-              		<div class="form-group">
-            <label class="course-header">Create On</label>
-            <input type="text" class="form-control pl-0" placeholder="Apr 12 2019 & 11.30"/> </div>              		
-              </div>
-              <div class="col-md-3">
-              		<div class="form-group">
-            <label class="course-header">Last Modified On</label>
-            <input type="text" class="form-control pl-0" placeholder="Apr 12 2019 & 11.30"/> </div>              		
-              </div>
-              </div> 
+                <div class="white-bg p-3 clearfix">
+                    <div class="clearfix">
+                        <label class="square-cont float-left">
+                            <input type="checkbox" name="web"> Course Name 1
+                            <span class="square-checkmark"></span>
+                        </label>
+                        <span class="float-right">
+                            <a><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>                    
+                            <a><i class="fa fa-exclamation-circle icons_header" aria-hidden="true"></i></a>
+                            <a><i class="fa fa-angle-down icons_header" aria-hidden="true"></i></a>
+                        </span>
+                    </div>
+                <div class="row py-3">
+                    <div class="col-md-3 p-0">
+                        <div class="form-group pl-0">
+                            <label class="course-header">Create By</label>
+                            <input type="text" class="form-control pl-0" placeholder="John"/> 
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">Create On</label>
+                            <input type="text" class="form-control pl-0" placeholder="Apr 12 2019 & 11.30"/> 
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">Last Modified On</label>
+                            <input type="text" class="form-control pl-0" placeholder="Apr 12 2019 & 11.30"/> 
+                        </div>              		
+                     </div>
+                </div> 
+                <div class="row py-3">
+                    <div class="col-md-3 p-0">
+                        <div class="form-group pl-0">
+                            <label class="course-header">No. of Training Class</label>
+                            <span class="course-count">2</span>
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">No. of Content Files</label>
+                            <span class="course-count">10</span> 
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">No. of Employees</label>
+                            <span class="course-count">100</span> 
+                        </div>              		
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="course-header">File Size</label>
+                            <span class="file-size">154Mb</span>
+                        </div>              		
+                    </div>
+                </div> 
+            <div class="clearfix">
+                <h6>Usage Stats</h6>
+                <div class="total-count row">
+                    <span class="col-md-6 p-0">Total No. of Employees enrolled:150</span>
+                    <span class="col-md-6 text-center">Total No. of Certificate: 30</span>
+                </div>
+            </div>
             <div class="row py-3">
-              	<div class="col-md-3 p-0">
-              		<div class="form-group pl-0">
-            <label class="course-header">No. of Training Class</label>
-            <span class="course-count">2</span> </div>              		
-              </div>
-              <div class="col-md-3">
-              		<div class="form-group">
-            <label class="course-header">No. of Content Files</label>
-            <span class="course-count">10</span> </div>              		
-              </div>
-              <div class="col-md-3">
-              		<div class="form-group">
-            <label class="course-header">No. of Employees</label>
-            <span class="course-count">100</span> </div>              		
-              </div>
-              <div class="col-md-3">
-              		<div class="form-group">
-            <label class="course-header">File Size</label>
-           <span class="file-size">154Mb</span>	 </div>              		
-              </div>
-            </div> 
-         <div class="clearfix">
-         	<h6>Usage Stats</h6>
-         	<div class="total-count row">
-         		<span class="col-md-6 p-0">Total No. of Employees enrolled:150</span>
-         		<span class="col-md-6 text-center">Total No. of Certificate: 30</span>
-         	</div>
-         </div>
-         <div class="row py-3">
-         	<div class="col-md-3 p-3 assigned-perc">20%</div>
-         	<div class="col-md-3 p-3 inprogress-perc">30%</div>
-         	<div class="col-md-6 p-3 completed-perc">50%</div>
-         </div>
-         <div class="row usage-state">
-         	<div class="col-md-3">Assigned</div>
-         	<div class="col-md-3">In Progress</div>
-         	<div class="col-md-6">Completed</div>
-         </div>
-         <div class="py-3 clearfix">
-            <button class="btn btn-primary" type="submit">Duplicate</button>
-        </div>
-            </div> 
+                <div class="col-md-3 p-3 assigned-perc">20%</div>
+                <div class="col-md-3 p-3 inprogress-perc">30%</div>
+                <div class="col-md-6 p-3 completed-perc">50%</div>
+            </div>
+            <div class="row usage-state">
+                <div class="col-md-3">Assigned</div>
+                <div class="col-md-3">In Progress</div>
+                <div class="col-md-6">Completed</div>
+            </div>
+            <div class="py-3 clearfix">
+                <button class="btn btn-primary" type="submit">Duplicate</button>
+            </div>
+        </div> 
     </div>
 
 
@@ -139,7 +143,7 @@
     <div class="col-md-12 p-0 clearfix">
 								<div class="fileUpload btn btn-primary">
 									<span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload<!-- <i class="fa fa-sort-desc ml-2" aria-hidden="true"></i> --></span>
-										<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
+										<input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
 								</div>                           
 							</div>
     <div class="px-5 py-3">
@@ -192,7 +196,7 @@
     <div class="col-md-12 p-0 clearfix">
 								<div class="fileUpload btn btn-primary">
 									<span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload<!-- <i class="fa fa-sort-desc ml-2" aria-hidden="true"></i> --></span>
-										<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
+										<input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
 								</div>                           
 							</div>
     <div class="px-5 py-3">
@@ -508,7 +512,7 @@
 <!--End Documents Tab Content -->
 
 <!--Quiz Tab Content -->
-<div id="quiz" class="col-md-12 pt-2 clearfix px-0 container tab-pane quiz-tab">
+<!-- <div id="quiz" class="col-md-12 pt-2 clearfix px-0 container tab-pane quiz-tab">
     <div class="white-bg pt-4 pb-4">
         <form>
             <div class="col-md-9 row m-auto top-select-bx">
@@ -587,7 +591,7 @@
                                             </div>
                                             <div class="row" *ngIf="data.questionType === '3'">
                                                 <span class="col-sm-12 pl-0">
-                                                    <!-- <span class="option-btn">{{oi + 1}}</span> -->
+                                                    <span class="option-btn">{{oi + 1}}</span>
                                                     <input type="text" class="form-control" placeholder="Enter Your Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
                                                 </span>
                                             </div>
@@ -666,7 +670,7 @@
                                             </div>
                                             <div class="row" *ngIf="data.questionType === '3'">
                                                 <span class="col-sm-12 pl-0">
-                                                    <!-- <span class="option-btn">{{oi + 1}}</span> -->
+                                                    <span class="option-btn">{{oi + 1}}</span>
                                                     <input type="text" class="form-control" placeholder="Enter Your Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
                                                 </span>
                                             </div>
@@ -683,12 +687,8 @@
             </div>
         </form>
     </div>
-</div>
-
-
-
+</div> -->
 <!--End Quiz Tab Content -->
-
 </div>
 </div>
     <div class="col-md-3 pr-0">
@@ -765,3 +765,15 @@
     </div>
 </div>
 </div>
+
+<ng-template #editBatch>  
+    <div class="modal-header"> 
+        <h4 class="modal-title pull-left">Add New Training Schedule</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-add-batch (someEvent)="modalRef.hide()"></app-add-batch>
+    </div>
+</ng-template> 

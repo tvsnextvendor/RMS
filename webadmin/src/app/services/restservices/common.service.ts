@@ -30,6 +30,15 @@ getResortList(){
 getDesignationList(){
         return this.http.getLocal('local','designation/List');
 }
- 
+
+uploadFiles(file){
+    const formData = new FormData();
+    formData.append("file",file)
+    return this.http.upload('local','uploadFiles', formData);
+}
+
+removeFiles(path){
+    return this.http.removeFile('local','remove', path);
+}
 
 }

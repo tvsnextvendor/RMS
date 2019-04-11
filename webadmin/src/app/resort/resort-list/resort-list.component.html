@@ -34,10 +34,10 @@
                         <tr *ngFor="let resort of mf.data" class="table-desc-color">
                             <td class="text-left"><a href="javascript:void" (click)="resortDetails(resort.resortId)">{{ resort.resortName }}</a></td>
                             <td class="text-left">{{ resort.location }}</td>
-                            <td class="text-left">{{ resort.email }}</td>
-                            <td class="text-left">{{ resort.mobile }}</td>
+                            <td class="text-left">{{ resort.User.email }}</td>
+                            <td class="text-left">{{ resort.User.phoneNumber }}</td>
                             <td class="text-left">{{ resort.utilizedSpace }}</td>
-                            <td class="text-left">{{ resort.numberOfUsers }}</td>
+                            <td class="text-left">{{ resort.totalNoOfUsers }}</td>
                             <td class="text-left">{{ resort.status }}</td>
                         </tr>
                     <!-- <tr *ngIf="mf.data?.length == 0">

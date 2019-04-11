@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HeaderService } from '../../services/header.service';
 import { HttpService } from '../../services/http.service';
 import { QuizVar } from '../../Constants/quiz.var';
+import { CourseService } from '../../services/restservices/course.service';
 import { API_URL } from '../../Constants/api_url';
 import { AlertService } from '../../services/alert.service';
 
@@ -41,7 +42,7 @@ export class AddQuizComponent implements OnInit {
   hidemodule = false;
   optionData = true;
   
-  constructor(private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService) {
+  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService) {
     this.apiUrls = API_URL.URLS;
   }
   
@@ -49,19 +50,19 @@ export class AddQuizComponent implements OnInit {
     this.selectedVideo = this.videoId ? this.videoId : null;
     this.selectedCourse = this.courseId ? this.courseId : null;
     this.questionOptions = [
-      { name: "MCQ", value: "1" },
-      { name: "True/False", value: "2" },
-      { name: "Non-MCQ", value: "3" }
+      { name: "MCQ", value: "MCQ" },
+      { name: "True/False", value: "True/False" },
+      { name: "Non-MCQ", value: "NON-MCQ" }
     ];
     this.quizQuestionsForm = [{
-      "questionId": 1,
-      "question": "",
-      "questionType": "1",
+      // "questionId": 1,
+      "questionName": "",
+      "questionType": "MCQ",
       "options": [
-        { "id": 1, "value": "" },
-        { "id": 2, "value": "" },
-        { "id": 3, "value": "" },
-        { "id": 4, "value": "" }
+        { "optionId": 1, "optionName": "" },
+        { "optionId": 2, "optionName": "" },
+        { "optionId": 3, "optionName": "" },
+        { "optionId": 4, "optionName": "" }
       ],
       "weightage": '100'
     }];
@@ -105,14 +106,14 @@ export class AddQuizComponent implements OnInit {
       this.selectedVideo = this.videoId;
       this.selectedCourse = this.courseId;
       this.quizQuestionsForm = selectedVideoList && selectedVideoList.length ? selectedVideoList : [{
-        "questionId": 1,
-        "qquestion": "",
-        "questionType": "1",
+        // "questionId": 1,
+        "questionName": "",
+        "questionType": "MCQ",
         "options": [
-          { "id": 1, "value": "" },
-          { "id": 2, "value": "" },
-          { "id": 3, "value": "" },
-          { "id": 4, "value": "" }
+          { "optionId": 1, "optionName": "" },
+          { "optionId": 2, "optionName": "" },
+          { "optionId": 3, "optionName": "" },
+          { "optionId": 4, "optionName": "" }
         ],
         "weightage": '100'
       }];
@@ -126,10 +127,10 @@ export class AddQuizComponent implements OnInit {
     if (data === "1") {
       quiz[i].option = '';
       quiz[i].options = [
-        { "Id": 1, "Value": "" },
-        { "Id": 2, "Value": "" },
-        { "id": 3, "Value": "" },
-        { "Id": 4, "Value": "" }
+        { "optionId": 1, "OptionName": "" },
+        { "optionId": 2, "OptionName": "" },
+        { "optionId": 3, "OptionName": "" },
+        { "optionId": 4, "OptionName": "" }
       ];
     }
     else if(data === "2"){
@@ -152,18 +153,18 @@ export class AddQuizComponent implements OnInit {
   // Add Question Box
   addQuestionForm() {
     let obj = {
-      "questionId": 1,
-      "question": "",
-      "questionType": "1",
+      // "questionId": 1,
+      "questionName": "",
+      "questionType": "MCQ",
       "options": [
-        { "id": 1, "value": "" },
-        { "id": 2, "value": "" },
-        { "id": 3, "value": "" },
-        { "id": 4, "value": "" }
+        { "optionId": 1, "optionName": "" },
+        { "optionId": 2, "optionName": "" },
+        { "optionId": 3, "optionName": "" },
+        { "optionId": 4, "optionName": "" }
       ],
       "weightage": '100'
     };
-    obj.questionId = this.quizQuestionsForm.length + 1;
+    // obj.questionId = this.quizQuestionsForm.length + 1;
     this.quizQuestionsForm.push(obj);
     obj.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
     this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
@@ -199,36 +200,39 @@ export class AddQuizComponent implements OnInit {
       })
       //final data for submission
       let params = {
-        "courseId":"",
-        "courseName":this.selectCourseName,
-        "videoDetails":[],
-        "quizDetails":data
+        "trainingClassName":this.selectCourseName,
+        "files":[],
+        "quizQuestions":data
         }
         if(this.videoList.length){
-          params.videoDetails = this.videoList.map(item=>{
+          params.files = this.videoList.map(item=>{
             let obj = {
-              videoName : item.videoName,
-              description : item.description,
-              url : item.url
+              fileName : item.videoName,
+              fileDescription : item.description,
+              fileType : item.fileType,
+              fileUrl : item.url
             }
             return obj;
           })
         }
       if(this.courseId){
-        params.courseId = this.courseId;
+        // params.courseId = this.courseId;
         console.log(params);
         // this.toastr.success("Quiz updated successfully");
         this.valueChanged(true);
       }
       else{
-        console.log(params);
-        // this.toastr.success("Quiz added successfully");
+        console.log(JSON.stringify(params));
+        this.courseService.addTrainingClass(params).subscribe((result)=>{
+          console.log(result)
+        })
+      
         this.valueChanged(false);
       }
     }
     else{
       //this.toastr.error("Course name is mandatory");
-      this.alertService.error("Course name is mandatory");
+      this.alertService.error("Training Class is mandatory");
       this.courseId ? 
         this.valueChanged(true)
         :

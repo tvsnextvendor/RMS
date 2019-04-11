@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
 import {HeaderService} from '../services/header.service';
 import { HttpService } from '../services/http.service';
+import { ResortService } from '../services/restservices/resort.service';
 import {Router,ActivatedRoute,Params} from '@angular/router';
 import {ToastrService } from 'ngx-toastr';
 import { ResortVar } from '../Constants/resort.var';
@@ -22,11 +23,20 @@ export class ResortComponent implements OnInit {
     resortDetails;
     submitted = false;
     enableEdit = false;
-   constructor(private alertService: AlertService,private activeRoute:ActivatedRoute,private http:HttpService,private location:Location,private resortVar : ResortVar,private utilsService:UtilService,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
+    resortName;
+    locationName;
+    phoneNumber;
+    email;
+    status;
+    emailValidation = false;
+    mobileValidation =  false;
+    userId;
+    userObj;
+
+   constructor(private alertService: AlertService,private activeRoute:ActivatedRoute,private resortService : ResortService,private http:HttpService,private location:Location,private resortVar : ResortVar,private utilsService:UtilService,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
     this.activeRoute.params.subscribe((params:Params)=>{
         this.resortId = params['id'] ;
     })
-    console.log(this.resortId)
     this.resortVar.url = API_URL.URLS;
    }
     
@@ -43,24 +53,42 @@ export class ResortComponent implements OnInit {
         }    
         
         this.selectedDivision = this.resortVar.divisionTemplate[0].division;
-        this.http.get(this.resortVar.url.getResortListPageData).subscribe((data) => {
-            this.resortDetails = data;
+        if(this.resortId){
+           this.getResortDetails("add");
+        }
+   }
+
+   getResortDetails(data){
+        this.resortService.getResortById(this.resortId).subscribe((result) => {
             console.log(this.resortDetails)
-            this.resortDetails.forEach(item=>{
-                if(item.resortId == this.resortId){
-                    this.headerService.setTitle({title:item.resortName, hidemodule:false});
-                    this.resortVar.resortName = item.resortName;
-                    this.resortVar.location = item.location;
-                    this.resortVar.mobile = item.mobile;
-                    this.resortVar.email = item.email;
-                    this.resortVar.status = item.status;
+            if(result && result.isSuccess){
+                this.resortDetails = result.data.rows[0];
+                if(data === "add"){
+                    this.headerService.setTitle({title:this.resortDetails.resortName, hidemodule:false});
+                    this.resortVar.resortName = this.resortDetails.resortName;
+                    this.resortVar.location = this.resortDetails.location;
+                    this.resortVar.phoneNumber = this.resortDetails.User.phoneNumber;
+                    this.resortVar.email = this.resortDetails.User.email;
+                    this.resortVar.status = this.resortDetails.status;
                     if(this.userType === 1){
-                        this.resortVar.storageSpace = item.utilizedSpace;
-                        this.resortVar.status = item.status;
-                        this.resortVar.allocatedSpace = item.utilizedSpace;
+                        this.resortVar.storageSpace = this.resortDetails.utilizedSpace;
+                        this.resortVar.status = this.resortDetails.status;
+                        this.resortVar.allocatedSpace = this.resortDetails.utilizedSpace;
                     }
                 }
-            })
+                else{
+                    this.headerService.setTitle({title:this.resortDetails.resortName, hidemodule:false});
+                    this.resortName = this.resortDetails.resortName;
+                    this.locationName = this.resortDetails.location;
+                    this.phoneNumber = this.resortDetails.User.phoneNumber;
+                    this.email = this.resortDetails.User.email;
+                    this.status = this.resortDetails.status; 
+                    this.emailValidation =true;
+                    this.mobileValidation = true;
+                    this.userId = this.resortDetails.userId;
+                    this.userObj = this.resortDetails.User;
+                }
+            }
         });
    }
 
@@ -97,25 +125,94 @@ export class ResortComponent implements OnInit {
 
     editDetails(){
         this.enableEdit=true;
+        this.getResortDetails("edit");
     }
 
     submitResortData(){
-        console.log(this.resortVar);
         this.submitted = true;
-        this.clearData();
-        this.toastr.success("Resort added successfully");
-        this.router.navigateByUrl('/resortslist');
+        if(this.resortName && this.locationName && this.email && this.phoneNumber && this.status && this.mobileValidation && this.emailValidation){
+           
+            if(this.resortId){
+                this.userObj.email = this.email;
+                this.userObj.phoneNumber = this.phoneNumber;
+                let postData = {
+                    "resortName" : this.resortName,
+                    "email" : this.email,
+                    "location" : this.locationName,
+                    "phoneNumber":this.phoneNumber,
+                    "status":this.status,
+                    "roleId" : this.userType,
+                    "userId" : this.userId,
+                    "User" : this.userObj
+                };
+                this.resortService.updateResort(this.resortId,postData).subscribe((result)=>{
+                    console.log(result)
+                    if(result && result.isSuccess){
+                        this.clearData();
+                        this.toastr.success("Resort updated successfully");
+                        this.router.navigateByUrl('/resortslist');
+                    }
+                });
+            }
+            else{
+                let postData = {
+                    "resortName" : this.resortName,
+                    "email" : this.email,
+                    "location" : this.locationName,
+                    "phoneNumber":this.phoneNumber,
+                    "status":this.status,
+                    "roleId" : this.userType
+                }
+                this.resortService.addResort(postData).subscribe((result)=>{
+                    console.log(result)
+                    if(result && result.isSuccess){
+                        this.clearData();
+                        this.toastr.success("Resort added successfully");
+                        this.router.navigateByUrl('/resortslist');
+                    }
+                })
+            }   
+        }    
+        else{
+            this.alertService.error("Mandatory fields are Required")
+        }
     }
 
     clearData(){
         this.resortVar.resortName = '';
         this.resortVar.location = '';
-        this.resortVar.mobile = '';
+        this.resortVar.phoneNumber = '';
         this.resortVar.email = '';
         this.resortId = '';
         this.resortVar.storageSpace = '';
         this.resortVar.status = '';
         this.resortVar.allocatedSpace = '';
+    }
+
+    validationValueCheck(type){
+        if(type === "email"){
+            this.emailValidation = this.validationCheck(type,this.email) == "invalidEmail" ? false :true;
+        }
+        else if(type === "mobile"){
+            let data = this.phoneNumber.toString();
+            let phoneNum = data.replace("+", "");
+            this.mobileValidation = phoneNum ? (phoneNum.length === 10 ? true : false) : false; 
+        } 
+    }
+
+    validationCheck(type, value) {
+        if (type === "email") {
+            var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (!emailRegex.test(value)) {
+                return "invalidEmail"
+            }
+        }
+        if (type === "mobile") {
+            let data = value.toString();
+            let phoneNum = data.replace("+", "");
+            let phoneNumValid = phoneNum ? (phoneNum.length === 10 ? true : false) : false;
+            return phoneNumValid
+        }
     }
 
 }
