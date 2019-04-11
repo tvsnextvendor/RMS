@@ -28,9 +28,11 @@ export class SignupPage implements OnInit {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
   }
-
   ngOnInit() {
     let EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+    //var regex = '[0-9]{3}-[0-9]{3}-[0-9]{4}';
+    //,Validators.pattern(regex)
+
     this.signupform = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(8)]),
       phone: new FormControl('', [Validators.required]),
@@ -49,11 +51,10 @@ export class SignupPage implements OnInit {
   loginGooglePlus() {
     console.log("here");
     console.log(this.googlePlus);
-    this.googlePlus.login({'webClientId':'148431050807-0edt944ql6k9o1tmpf74ec7grq8111h9.apps.googleusercontent.com'})
+    this.googlePlus.login({ 'webClientId': '148431050807-0edt944ql6k9o1tmpf74ec7grq8111h9.apps.googleusercontent.com' })
       .then(res => {
         console.log(res);
         this.toastr.success('Registration successful');
-
         this.navCtrl.setRoot('login-page');
       })
       .catch(err => {
@@ -80,7 +81,7 @@ export class SignupPage implements OnInit {
         this.toastr.error("Linked in sign up failed");
       });
   }
-  goBackLogin(){
+  goBackLogin() {
     this.navCtrl.setRoot('login-page');
   }
 }
