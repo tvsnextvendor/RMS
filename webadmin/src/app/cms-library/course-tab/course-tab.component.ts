@@ -14,7 +14,7 @@ export class CourseTabComponent implements OnInit {
   enableView = false;
   labels;
   totalCourseCount = 0;
-  courseList = [];
+  courseListValue = [];
   selectedEditCourse;
   trainingClassList =[];
   selectedEditTrainingClass;
@@ -36,7 +36,7 @@ export class CourseTabComponent implements OnInit {
       console.log(resp);
       if(resp && resp.isSuccess){
         this.totalCourseCount = resp.data.count;
-        this.courseList = resp.data && resp.data.rows.length && resp.data.rows;
+        this.courseListValue = resp.data && resp.data.rows.length && resp.data.rows;
       }
     });
   }
@@ -75,8 +75,8 @@ export class CourseTabComponent implements OnInit {
   }
 
   editCourseData(index,id){
-    let checkData = id ? this.courseList.findIndex(x=>x.courseId === parseInt(id)) : index;
-    this.courseList.forEach((item,i)=>{
+    let checkData = id ? this.courseListValue.findIndex(x=>x.courseId === parseInt(id)) : index;
+    this.courseListValue.forEach((item,i)=>{
       if(i===checkData){
         this.selectedEditCourse = item.courseId;
         this.trainingClassList = item.CourseTrainingClassMaps;
