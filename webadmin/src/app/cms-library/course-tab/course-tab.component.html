@@ -7,8 +7,8 @@
                     <input type="checkbox" name="web">{{courses.courseName}}
                     <span class="square-checkmark"></span>
                 </label>
-                <span class="float-right">
-                    <a><i class="fa fa-pencil icons_header" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
+                <span class="float-right icon-list">
+                    <a><i class="pencil-icon" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
                     <a><i class="fa fa-exclamation-circle icons_header" aria-hidden="true" (click)="enableDropData('trainingClass',i)"></i></a>
                     <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header" aria-hidden="true"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header" aria-hidden="true"></i></a>
                 </span>
@@ -184,4 +184,4 @@
         </div>
     </div>
 </div>    
-<pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
+<pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  

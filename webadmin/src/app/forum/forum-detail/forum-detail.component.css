@@ -6,6 +6,11 @@
     float: left;
     width: 68%;
 }
+.topic-thumb{
+    width:135px;
+    height: 135px;
+    border-radius: 68px;
+}
 .hd-tit{
     font-size: 16px;
     color: #545454;   
@@ -15,7 +20,7 @@
 }
 small{
     font-size: 12px;
-    color: #b1afaf;
+    color: #868383;
 }
 .topic-name a{
     font-size: 15px;
@@ -67,6 +72,10 @@ strong{
 .topic-into i{
     color: #545454;font-size: 16px;
     margin-left: 10px;
+
+}
+.tp-ry-section .topic-into i{
+    color: #1D4960
 }
 .tp-ry-content .topic-foot{
     box-shadow: -1px 4px 4px 0px #ccc;
