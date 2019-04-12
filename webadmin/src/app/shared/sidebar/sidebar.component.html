@@ -36,11 +36,8 @@
         <li [class.active]="router.isActive('/resortslist') || router.isActive('/resorts') || router.isActive('/resorts/:id')">
             <a routerLink="/resortslist"><img src="assets/images/menu1.png" class="pr-3">Resort Management</a>
         </li> 
-        <li>
-            <a routerLink=""><img src="assets/images/add_user.png"class="pr-3">Approval Requests</a>
-        </li>
-        <li>
-            <a routerLink=""><img src="assets/images/add_user.png"class="pr-3">Approval Setting</a>
+        <li [class.active]="router.isActive('/approvalrequests')">
+            <a routerLink="/approvalrequests"><img src="assets/images/add_user.png"class="pr-3">Approval Requests</a>
         </li>
         <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
             <a routerLink="/calendar"><img src="assets/images/menu4.png" class="pr-3">Calendar</a>

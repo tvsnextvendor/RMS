@@ -1,0 +1,48 @@
+.videopage{
+    float: right;
+}
+.close-alg{
+    display: block;
+    width: 20px;
+    border: 1px solid #989898;
+    border-radius: 10px;
+    padding: 3px;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    cursor: pointer;
+}
+.videopage:hover .close-alg{
+    display: none;
+}
+.cancel-alg{
+    display: none;
+    width: 20px;
+    border-radius: 10px;
+    padding: 3px;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    background-color: #ED2201;
+    cursor: pointer;
+}
+.videopage:hover .cancel-alg{
+    display: block;   
+}
+.add-course{
+    font-size: 18px;
+}
+.word-wrap{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.list-group-item{
+   display: flex !important;
+}
+.add-module{
+    border: 3px solid rgba(0,0,0,.125);
+}
+.tab-section .nav-link {    
+    padding: 8px 35px;
+}
