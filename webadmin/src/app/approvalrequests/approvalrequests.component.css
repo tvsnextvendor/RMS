@@ -1,0 +1,56 @@
+.tab-section .nav-link{
+	padding: 8px 14.5px;
+}
+.tab-section a{
+	display: block;
+    border: none;
+    color: #697380;
+    font-weight: 600;
+}
+.tab-section .nav-tabs{
+	background-color: #fff;
+}
+.select-style {
+ position: relative;
+ display: inline-block;
+ margin-bottom: 15px;
+ width: 160px;
+}   
+ .select-style select {
+     appearance: none;
+     -webkit-appearance: none;
+     -moz-appearance: none;
+ }
+     .select-style select::-ms-expand {
+         display: none;
+     }
+    /* .select-style select:hover,
+     .select-style select:focus {
+         color: #000000;
+         background: #cccccc;
+     } */
+     .select-style select:disabled {
+         opacity: 0.5;
+         pointer-events: none;
+     }
+.select_arrow {
+ position: absolute;
+ top: 16px;
+ right: 13px;
+ pointer-events: none;
+ border-style: solid;
+ border-width: 5px 4px 0px 4px;
+ border-color: #7b7b7b transparent transparent transparent;
+}
+.select select-style:hover ~ .select_arrow,
+.select select-style:focus ~ .select_arrow {
+ border-top-color: #000000;
+}
+.select select-style:disabled ~ .select_arrow {
+ border-top-color: #cccccc;
+}
+.select-style{
+ float: right;
+ clear: both;
+ padding-bottom: 0px;
+}

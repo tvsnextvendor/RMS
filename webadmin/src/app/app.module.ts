@@ -30,7 +30,7 @@ import { ResortModule } from './resort/resort.module';
 import { RolepermissionModule } from './rolepermission/rolepermission.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { CMSLibraryModule } from './cms-library/cms-library.module';
-
+import { ApprovalrequestsModule } from './approvalrequests/approvalrequests.module';
 
 
 const routes: Routes = [
@@ -71,7 +71,8 @@ const routes: Routes = [
     EmailModule,
     RolepermissionModule,
     SubscriptionModule,
-    CMSLibraryModule
+    CMSLibraryModule,
+    ApprovalrequestsModule
   ],
   providers: [AuthGuard, AlertService],
   bootstrap: [AppComponent]
