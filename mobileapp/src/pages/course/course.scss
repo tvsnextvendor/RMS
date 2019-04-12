@@ -1,9 +1,52 @@
 page-course {
-
-}
-.assigned,.inprogress,.complete, .signRequire{
-	color: #000;
-	font-size: 30px;
-
-
+	
+	.progress-tab{
+		text-align: center;
+		margin-top: 0;
+		margin-bottom: 14px;
+		span {
+			padding: 0 5px;
+    font-family: sf_ui_textregular;
+    color: #329CD6;
+    border: 1px solid #329CD6;
+    border-right: none;
+    line-height: 35px;
+    float: left;
+    font-size: 13px;
+	
+		}
+		 span:last-child {
+			border-right: 1px solid #329CD6;
+		}
+		.assigned,.inprogress,.complete, .signRequire{
+			color: #fff;
+			background: #329CD6;
+		
+		
+		}
+	}
+	p.notify-txt {
+		font-size: 13px;
+	}
+	.align-right {
+		text-align: right;
+	}
+	.middle-arw {
+		align-items: center;
+		display: flex;
+	}
+	.arrow-icon {
+		padding: 6px 0 0 0;
+	}
+	.notify-arrow {
+		display: block;
+    width: 100%;
+    text-align: right;
+	}
+	.batch-date {
+		font-weight: normal;
+	}
+	.course-det {
+		padding-top: 12px;
+	}
 }

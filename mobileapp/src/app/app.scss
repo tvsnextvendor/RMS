@@ -425,7 +425,7 @@ button:focus {
     font-weight: 600 !important;
 }
 .red-color {
-    color: #D63232;
+    color: #D63232 !important;
 }
 .orange-color {
     color: #FF5722;
@@ -433,6 +433,13 @@ button:focus {
 }
 .green-color {
     color: #12860D;
+}
+.alert-txt-style, .card-ios p.alert-txt-style,.card-md p.alert-txt-style{
+        font-weight: 600;
+    height: 100%;
+    text-align: right;
+    width: 100%;
+    font-size: 13px;
 }
 .header-icon {
     display: inline-block;
@@ -552,7 +559,13 @@ button:focus {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-
+.batch-date {
+font-size: 12px;
+text-align: right;
+font-weight: 500;
+color: #7D7D7D;
+padding-top: 8px;
+}
 
 @media (min-width: 1200px) { } 
 @media (min-width: 980px) and (max-width: 1199px) { } 
