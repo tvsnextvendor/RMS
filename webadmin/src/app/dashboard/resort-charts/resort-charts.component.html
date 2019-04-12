@@ -11,8 +11,14 @@
             <h4 class="float-left fnt-size">Good Morning, Peak Resort!</h4>
           </div>
           <div class="clearfix">
-            <p class="notification-alg">{{dashboardVar.employeeTabText.notification}}
-            </p>
+            <p class="notification-alg">You have 5 notification alert.</p>
+            <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
+          </div>
+          <div class="clearfix pt-3">
+            <p class="parent-data">Please select the parent resort to view the data</p>
+             <span><button type="button" class="btn btn-primary parent-resortbtn">Go</button></span>
+            <select class="select-btn"><option value="Total">Parent Resort</option>
+              <i class="fa fa-chevron-down" aria-hidden="true"></i></select>
             <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
           </div>
           <!-- <button class="btn btn-link float-right" (click)="enableView()">{{viewText}}</button> -->
@@ -43,14 +49,14 @@
       <div class="row mb-3">
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
-            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+            <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                 Total Courses</h6>
              
           </div>
         </div>
         <div class="col-md-8 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
-            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+            <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
               Course Trend
               <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
                 <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">{{year}}</option>
@@ -66,21 +72,21 @@
             <div class="row mb-3">
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
-            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+            <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                 Top Rated Training Class</h6>
                
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
-            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+            <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                Badges</h6>
              
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
-            <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+            <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                 Resort Certificate Trend
               <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
                 <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">{{year}}</option>

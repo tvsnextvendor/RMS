@@ -10,6 +10,7 @@
     float: left;
     color: #495057;
     line-height: 27px;
+    font-size: 16px;
 }
 .table-checkbox-cont input {
    position: absolute;

@@ -4,8 +4,8 @@
     <div class="setting-alg">
         <form #formDir="ngForm" (ngSubmit)="updatePwd(formDir)" class="p-4" autocomplete="off">
             <div class="form-group row">
-                <label for="oldPassword" class="col-sm-4 custm-label col-form-label pr-0">{{constant.settingFormLabels.oldPassword}}</label>
-                <div class="col-sm-8">
+                <label for="oldPassword" class="col-sm-5 custm-label col-form-label pr-0">{{constant.settingFormLabels.oldPassword}}</label>
+                <div class="col-sm-7 pl-0">
                     <input type="password" class="form-control" id="oldPwd" name="oldPwd" [(ngModel)]="constant.settings.oldPwd"
                         #oldPwd="ngModel" required placeholder="Old Password" minlength="8" maxlength="12" autocomplete="off">
                     <div class="required_color" *ngIf="oldPwd?.touched && oldPwd.invalid || (oldPwd.pristine && oldPwd.submitted)">
@@ -18,8 +18,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="newPassword" class="col-sm-4 custm-label col-form-label pr-0">{{constant.settingFormLabels.newPassword}}</label>
-                <div class="col-sm-8">
+                <label for="newPassword" class="col-sm-5 custm-label col-form-label pr-0">{{constant.settingFormLabels.newPassword}}</label>
+                <div class="col-sm-7 pl-0">
                     <input type="password" class="form-control" id="newPwd" name="newPwd" [(ngModel)]="constant.settings.newPwd"
                         #newPwd="ngModel" required placeholder="New Password" minlength="8" maxlength="12" autocomplete="off">
                     <div class="required_color" *ngIf="newPwd?.touched && newPwd.invalid || (newPwd.pristine && newPwd.submitted)">
@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="confirmPassword" class="col-sm-4 custm-label col-form-label pr-0">{{constant.settingFormLabels.confirmPassword}}</label>
-                <div class="col-sm-8">
+                <label for="confirmPassword" class="col-sm-5 custm-label col-form-label pr-0">{{constant.settingFormLabels.confirmPassword}}</label>
+                <div class="col-sm-7 pl-0">
                     <input type="password" class="form-control" id="confirmPwd" name="confirmPwd" [(ngModel)]="constant.settings.confirmPwd"
                         #confirmPwd="ngModel" required placeholder="Confirm Password" minlength="8" maxlength="12" autocomplete="off">
                     <div class="required_color" *ngIf="confirmPwd?.touched && confirmPwd.invalid || (confirmPwd.pristine && confirmPwd.submitted)">
