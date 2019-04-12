@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class CommonService {
-  port= '3002/';
+  port= '3003/';
   constructor (private http: HttpService) {
 
   }
@@ -35,11 +35,11 @@ getDesignationList(){
 uploadFiles(file){
     const formData = new FormData();
     formData.append("file",file)
-    return this.http.upload('local','uploadFiles', formData);
+    return this.http.upload('local',this.port,'uploadFiles', formData);
 }
 
 removeFiles(path){
-    return this.http.removeFile('local','remove', path);
+    return this.http.removeFile('local',this.port,'remove', path);
 }
 
 }

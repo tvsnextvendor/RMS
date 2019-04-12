@@ -1,8 +1,8 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService, HttpService, AlertService } from '../services';
 import { ToastrService } from 'ngx-toastr';
-import { API_URL } from '../Constants/api_url';
+// import { TraingClassTabComponent } from './traing-class-tab/traing-class-tab.component'
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 
@@ -12,19 +12,28 @@ import { BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./cms-library.component.css']
 })
 export class CMSLibraryComponent implements OnInit {
-
   constructor(private modalService: BsModalService, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
   modalRef;
   videoFile;
+  selectedTab;
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
-    
+    this.selectedTab = 'course';
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
     let modalConfig= {class : "modal-xl"};
     this.modalRef = this.modalService.show(template,modalConfig);
+  }
+
+  headerTabChange(title){
+    this.selectedTab = title;
+    console.log("dataemit")
+  }
+
+  redirectTab(value){
+    console.log(value);
   }
   
 }

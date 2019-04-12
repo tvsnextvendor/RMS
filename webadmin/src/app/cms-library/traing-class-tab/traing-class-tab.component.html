@@ -1,74 +1,27 @@
 <!-- Training Tab Content -->
-    <div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">Count:100</h6></div>
-    <div class="white-bg pt-4 pb-4 mb-3">
-        <div class="head-part clearfix pr-3">
-            <h6 class="float-left">Course Name 1</h6>
-            <div class="float-right">
-                <a href="#"><i class="pencil-icon"></i></a>
-            </div>
-        </div>
-        <div class="select-arbx p-4">
-                <label class="square-cont float-left col-md-12">
-						<input type="checkbox" name="web"> Training Class 1
-						<span class="square-checkmark"></span>
-                </label>
-                <div class="clk-part clearfix pt-1">
-                    <div class="clk-sec float-left">
-                        <a href="#">Video(s):3</a>
-                        <a href="#" class="ml-2">Document(s):4</a>
-                    </div>
-                    <a class="float-right" href="#">View Quiz</a>
-                </div>
-        </div>
-        <div class="select-arbx p-4">
-                <label class="square-cont float-left col-md-12">
-						<input type="checkbox" name="web"> Training Class 2
-						<span class="square-checkmark"></span>
-                </label>
-                <div class="clk-part clearfix pt-1">
-                    <div class="clk-sec float-left">
-                        <a href="#">Video(s):3</a>
-                        <a href="#" class="ml-2">Document(s):4</a>
-                    </div>
-                    <a class="float-right" href="#">View Quiz</a>
-                </div>
+<div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">{{cmsLibraryVar.labels.count}} : {{totalCourseTrainingCount}}</h6></div>
+<div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalCourseTrainingCount};">
+    <div class="head-part clearfix pr-3">
+        <h6 class="float-left">{{course.courseName}}</h6>
+        <div class="float-right">
+            <a href="#"><i class="fa fa-pencil icons_header" aria-hidden="true"></i></a>
         </div>
     </div>
-    <div class="white-bg pt-4 pb-4 mb-3">
-            <div class="head-part clearfix pr-3">
-                <h6 class="float-left">Course Name 2</h6>
-                <div class="float-right">
-                    <a href="#"><i class="pencil-icon"></i></a>
-                </div>
+    <div class="select-arbx p-4" *ngFor="let training of course.CourseTrainingClassMaps">
+        <label class="square-cont float-left col-md-12">
+                <input type="checkbox" name="web">{{training?.TrainingClass?.trainingClassName}}
+                <span class="square-checkmark"></span>
+        </label>
+        <div class="clk-part clearfix pt-1">
+            <div class="clk-sec float-left">
+                <a href="javascript:void(0);" (click) = "tabChange('video',training.trainingClassId)" >{{cmsLibraryVar.labels.video}} : {{training?.TrainingClass?.videosCount}}</a>
+                <a href="#" class="ml-2">{{cmsLibraryVar.labels.document}} : {{training?.TrainingClass?.documentsCount}}</a>
             </div>
-            <div class="select-arbx p-4">
-                    <label class="square-cont float-left col-md-12">
-                            <input type="checkbox" name="web"> Training Class 1
-                            <span class="square-checkmark"></span>
-                    </label>
-                    <div class="clk-part clearfix pt-1">
-                        <div class="clk-sec float-left">
-                            <a href="#">Video(s):3</a>
-                            <a href="#" class="ml-2">Document(s):4</a>
-                        </div>
-                        <a class="float-right" href="#">View Quiz</a>
-                    </div>
-            </div>
-            <div class="select-arbx p-4">
-                    <label class="square-cont float-left col-md-12">
-                            <input type="checkbox" name="web"> Training Class 2
-                            <span class="square-checkmark"></span>
-                    </label>
-                    <div class="clk-part clearfix pt-1">
-                        <div class="clk-sec float-left">
-                            <a href="#">Video(s):3</a>
-                            <a href="#" class="ml-3">Document(s):4</a>
-                        </div>
-                        <a class="float-right" href="#">View Quiz</a>
-                    </div>
-            </div>
+            <a class="float-right" href="#">{{cmsLibraryVar.labels.viewQuiz}}</a>
         </div>
-   
+    </div>
+</div> 
 
+<pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> 
 
 <!-- End Training Tab Content -->

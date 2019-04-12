@@ -21,22 +21,22 @@
             <div class="clearfix pt-5 tab-section">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#course">Courses</a>
+                        <a class="nav-link active" data-toggle="tab" href="#course" (click)="headerTabChange('course')">Courses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#training">Training Class</a>
+                        <a class="nav-link" data-toggle="tab" href="#training" (click)="headerTabChange('training')">Training Class</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#video">Videos</a>
+                        <a class="nav-link" data-toggle="tab" href="#video" (click)="headerTabChange('video')">Videos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  data-toggle="tab" href="#document">Documents</a>
+                        <a class="nav-link"  data-toggle="tab" href="#document" (click)="headerTabChange('document')">Documents</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link">Notification</a>
+                        <a class="nav-link" (click)="headerTabChange('notification')">Notification</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#quiz">Quiz</a>
+                        <a class="nav-link" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz')">Quiz</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link">Recently Deleted</a>
@@ -45,22 +45,22 @@
             </div>
             <div class="tab-content">
                 <!-- Course Tab Content -->
-                <div id="course" class="col-md-12 pt-2 clearfix px-0 container tab-pane active">
+                <div *ngIf = "selectedTab === 'course'" id="course" class="col-md-12 pt-2 clearfix px-0 container tab-pane active">
                     <app-course-tab></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
-                <div id="training" class="col-md-12 pt-2 clearfix px-0 container tab-pane">
+                <div *ngIf = "selectedTab === 'training'" id="training" class="col-md-12 pt-2 clearfix px-0 container tab-pane">
                     <app-traing-class-tab></app-traing-class-tab>
                 </div>
                 <!-- Video Tab Content -->
-                <div id="video" class="col-md-12 pt-2 clearfix px-0 container tab-pane doc-table">
-                    <app-video-tab></app-video-tab>
+                <div *ngIf = "selectedTab === 'video'" id="video" class="col-md-12 pt-2 clearfix px-0 container tab-pane doc-table">
+                    <app-video-tab (videoList)="redirectTab($event)"></app-video-tab>
                 </div>
                 <!-- Documents Tab Content -->
-                <div id="document" class="col-md-12 pt-2 clearfix px-0 container tab-pane doc-table">
+                <div  *ngIf = "selectedTab === 'document'" id="document" class="col-md-12 pt-2 clearfix px-0 container tab-pane doc-table">
                     <app-document-tab></app-document-tab>
                 </div>
-                <div id="quiz" class="col-md-12 pt-2 clearfix px-0 container tab-pane quiz-tab">
+                <div  *ngIf = "selectedTab === 'quiz'" id="quiz" class="col-md-12 pt-2 clearfix px-0 container tab-pane quiz-tab">
                     <app-quiz-tab></app-quiz-tab>
                 </div>
             </div>

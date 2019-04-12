@@ -11,7 +11,13 @@ export class CmsLibraryVar {
         "noOfEmployee" : "No. of Employees",
         "fileSize" : "File Size",
         "count" : "Count",
-        "edit" : "Edit"
+        "edit" : "Edit",
+        "viewQuiz" : "View Quiz",
+        "video" : "Video(s)",
+        "document" : "Document(s)",
+        "filter" : "Filter",
+        "clearFilter" : "Clear Filter",
+        "apply" : "Apply"
 
     }
 
