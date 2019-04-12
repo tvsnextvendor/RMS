@@ -7,13 +7,14 @@ import { UserComponent } from './user.component';
 import { FormsModule } from '@angular/forms';
 import { DataTableModule } from "angular-6-datatable";
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ExcelService } from '../services/excel.service';
-import { PDFService } from '../services/pdf.service';
+import { ExcelService, PDFService } from '../services';
 import { ModalModule } from 'ngx-bootstrap';
+import {RolepermissionModule } from '../rolepermission/rolepermission.module';
 
 const routes: Routes = [
   { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
 ];
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -22,6 +23,7 @@ const routes: Routes = [
     FormsModule,
     SelectDropDownModule,
     DataTableModule,
+    RolepermissionModule,
     TabsModule
   ],
   declarations: [

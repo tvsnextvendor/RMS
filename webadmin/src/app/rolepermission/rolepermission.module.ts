@@ -19,6 +19,8 @@ const routes: Routes = [
     FormsModule,  
     RouterModule.forRoot(routes),
   ],
-  declarations: [RolepermissionComponent]
+  declarations: [RolepermissionComponent],
+    exports:[RolepermissionComponent],
+
 })
 export class RolepermissionModule { }
