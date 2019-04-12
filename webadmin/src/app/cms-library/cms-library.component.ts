@@ -1,9 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService,HttpService } from '../services';
+import { HeaderService, HttpService, AlertService } from '../services';
 import { ToastrService } from 'ngx-toastr';
 import { API_URL } from '../Constants/api_url';
-import { AlertService } from 'src/app/services/alert.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 

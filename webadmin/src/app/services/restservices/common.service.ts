@@ -7,28 +7,29 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class CommonService {
+  port= '3002/';
   constructor (private http: HttpService) {
-      
+
   }
 
  getDivisionList(){
-    return this.http.getLocal('local','division/List');
+    return this.http.getLocal('local',this.port,'division/List');
  }
 
  getDepartmentList(){
-     return this.http.getLocal('local','department/List');
+     return this.http.getLocal('local',this.port,'department/List');
  }
 
  getRoleList(){
-     return this.http.getLocal('local','role/List');
+     return this.http.getLocal('local',this.port,'role/List');
  }
 
 getResortList(){
-    return this.http.getLocal('local','resort/List');
+    return this.http.getLocal('local',this.port,'resort/List');
 }
 
 getDesignationList(){
-        return this.http.getLocal('local','designation/List');
+    return this.http.getLocal('local',this.port,'designation/List');
 }
 
 uploadFiles(file){

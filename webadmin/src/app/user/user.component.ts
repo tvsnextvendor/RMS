@@ -215,7 +215,7 @@ export class UserComponent implements OnInit {
 
     //user update submit
     userUpdate(sortedList, data, index) {
-        this.validationUpdate(sortedList, "submit");
+        this.validationUpdate("submit");
         if (this.userId && this.userName && this.department && this.designation && this.emailAddress && !this.validEmail && this.phoneNumber && !this.validPhone && !this.validUserId) {
             let i = data.employeeId === '' ? ('0') : this.constant.userList.findIndex(x => x.employeeId === data.employeeId);
             this.constant.userList[i] = {
@@ -233,39 +233,21 @@ export class UserComponent implements OnInit {
             this.constant.userList = _.orderBy(this.constant.userList, ['employeeId'], ['asc'])
             this.alertService.success(this.message);
         }
-        // else if(!validEmail){
-        //     this.toastr.error(this.labels.emailError);
-        // }
-        // else if(!validPhone){
-        //         this.toastr.error(this.labels.mobileError);
-        // }
-        // else{
-        //     this.toastr.error(this.labels.mandatoryFields);
-        // }
     }
 
-    validationUpdate(list, type) {
+    validationUpdate(type) {
         if (type === "email") {
             this.validEmail = this.emailAddress && this.validationCheck("email", this.emailAddress) === 'invalidEmail' ? true : false;
         }
         else if (type === "mobile") {
             this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber) ? false : true;
         }
-        else if (type === "userId") {
-            let idCheck = list.find(x => x.employeeId === this.userId);
-            let editIndexCheck = list.findIndex(x => x.employeeId === this.userId)
-            this.validUserId = idCheck ? (this.userIndex === editIndexCheck ? false : true) : false;
-        }
         else {
             this.validEmail = this.emailAddress && this.validationCheck("email", this.emailAddress) === 'invalidEmail' ? true : false;
             this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber) ? false : true;
-            let idCheck = list.find(x => x.employeeId === this.userId);
-            let editIndexCheck = list.findIndex(x => x.employeeId === this.userId)
-            this.validUserId = idCheck ? (this.userIndex === editIndexCheck ? false : true) : false;
         }
-
-
     }
+    
     // email and mobile number validation check
     validationCheck(type, value) {
         if (type === "email") {

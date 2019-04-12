@@ -14,8 +14,8 @@ import {AuthGuard} from '../guard/auth.guard.component'
 })
 export class AuthService {
       
-        API_ENDPOINT;
-     
+API_ENDPOINT;
+port= '3000/';
 constructor(private http: HttpClient, private router: Router, private authGuard: AuthGuard) { 
     this.API_ENDPOINT = API.API_ENDPOINT;
 }
@@ -26,7 +26,7 @@ login(postData): Observable <any>{
     if(!postData){
         this.router.navigate(['/login']);
     }
-    return this.http.post(this.API_ENDPOINT+'login', postData, {headers: headers}).pipe(
+    return this.http.post(this.API_ENDPOINT+this.port+'login', postData, {headers: headers}).pipe(
      map((response : any) =>{
         if(response.data){
             localStorage.setItem('token', response.data.token);

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { HeaderService,HttpService } from '../../services';
-import { CourseService } from '../../services/restservices/course.service';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { HeaderService,HttpService,CourseService } from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 
 @Component({
@@ -20,6 +19,8 @@ export class CourseTabComponent implements OnInit {
   trainingClassList =[];
   selectedEditTrainingClass;
   constructor(private courseService : CourseService ,private cmsLibraryVar : CmsLibraryVar) { }
+  @Output() courseList = new EventEmitter<string>();
+
 
   ngOnInit() {
     this.getCourseDetails();
@@ -79,4 +80,9 @@ export class CourseTabComponent implements OnInit {
     })
   }
 
+  selectCourse(courseId){
+    console.log(courseId);
+    this.courseList.emit(courseId);
+  }
 }
+

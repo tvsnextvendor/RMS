@@ -2,35 +2,8 @@
     <div class="Schedule-box">       
             <div class="row">                
                         <div class="col-md-6 row form-group">
-                                <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.from}}</label>  		
-                                    <div class="col-md-7 pr-0">
-                                      <div class="form-control px-0">
-                                           <input placeholder="Date Time"
-                                            name="batchFrom" [min]="batchVar.min" 
-                                            [(ngModel)]="batchVar.batchFrom" (ngModelChange)="fromDateChange($event)"
-                                            [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
-                                            #dateTime1="ngModel" class="batch-calender">
-                                            <span [owlDateTimeTrigger]="dt1" class="float-right cp"><img src="assets/images/cal.png"></span>  
-                                          </div>
-                                            <owl-date-time #dt1></owl-date-time>
-                                            <div *ngIf="batchVar.dategreater" class="required_color">
-                                                <span>{{batchVar.mandatoryLabels.dateValidate}} </span>
-                                            </div>  
-                                    </div>                          -->
                                 <label class="col-md-4 p-0 label-title">{{batchVar.labels.from}}</label>
                                 <div class="col-md-8 p-0">
-                                    <!-- <div class="form-control px-0">
-                                        <input placeholder="Select Date" name="batchFrom" value="{{batchVar.batchFrom | date : 'fullDate' }}"
-                                            (click)="fromDateInputClick()" class="batch-calender">
-                                        <span (click)="fromDateInputClick()" class="float-right cp"><img src="assets/images/cal.png"></span>
-                                    </div>
-                                    <div *ngIf="showFromDate">
-                                        <dl-date-time-picker startView="day" [selectFilter]="selectFilter" maxView="year"
-                                            minView="day" datepicker-options="dateOptions" minuteStep="5" name="batchTo"
-                                            (change)="errorCheck()" (click)="autoHide($event.target.classList)" [ngModel]="batchVar.batchFrom"
-                                            (ngModelChange)="fromDateChange($event)" required class="batch-calender">
-                                        </dl-date-time-picker>
-                                    </div> -->
                                     <span> <img src="assets/images/cal.png" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"
                                             class="batch-icon">
                                         <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
@@ -49,32 +22,8 @@
                                 </span>
                             </div>
                             <div class="col-md-6 row form-group">
-                                    <!-- <label class="col-md-2 p-0 label-title">{{batchVar.labels.to}}</label> 
-                                  <div class="col-md-8 p-0 batch-input">
-                                    <div class="form-control px-0">
-                                   <input placeholder="Date Time:" name="batchTo"  [min]="batchVar.min" [(ngModel)]="batchVar.batchTo" (ngModelChange)="toDateChange($event)"
-                                    [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" #dateTime2="ngModel" required class="batch-calender">
-                                    <span [owlDateTimeTrigger]="dt2" class="float-right cp"><img src="assets/images/cal.png"></span>
-                                    </div> 
-                                    <owl-date-time #dt2></owl-date-time>
-                                        <span class="required_color" *ngIf="dateTime2 && dateTime2.invalid && (formDir.submitted || dateTime2.touched)">
-                                                   {{batchVar.mandatoryLabels.to}}
-                                       </span> 
-                                  </div>  -->
                                     <label class="col-md-4 p-0 label-title">{{batchVar.labels.to}}</label>
                                     <div class="col-md-8 p-0 batch-input">
-                                        <!-- <div class="form-control px-0">
-                                            <input placeholder="Select Date" name="batchTo" value="{{batchVar.batchTo | date : 'fullDate' }}"
-                                                (click)="dateInputClick()" class="batch-calender">
-                                            <span (click)="dateInputClick()" class="float-right cp"><img src="assets/images/cal.png"></span>
-                                        </div>
-                                        <div *ngIf="showToDate">
-                                            <dl-date-time-picker startView="day" [selectFilter]="selectFilter" maxView="year"
-                                                minView="day" datepicker-options="dateOptions" minuteStep="5" name="batchTo"
-                                                (change)="errorCheck()" (click)=autoHide($event.target.classList) [ngModel]="batchVar.batchTo"
-                                                (ngModelChange)="toDateChange($event)" required class="batch-calender">
-                                            </dl-date-time-picker>
-                                        </div> -->
                                         <span> <img src="assets/images/cal.png" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
                                                 class="batch-icon">
                                             <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo"
@@ -103,9 +52,13 @@
                         <div class="col-md-5 p-0 float-left">
                         <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                         <div class="pl-0 form-group select-Courses">
-                            <ng-multiselect-dropdown [placeholder]="'Resort'" name="resortId" [data]="batchVar.resortList"
-                                [(ngModel)]="batchVar.selectedResort" [settings]="resortSettings" (onSelect)="onEmpSelect($event)"
-                                (onDeSelect)="onEmpSelect($event)" #resortId="ngModel" required></ng-multiselect-dropdown>
+                            <!-- <ng-multiselect-dropdown [placeholder]="'Resort'" name="resortId" [data]="batchVar.resortList"
+                                [(ngModel)]="batchVar.selectedResort" [settings]="batchVar.resortSettings" (onSelect)="onEmpSelect($event)"
+                                (onDeSelect)="onEmpSelect($event)" #resortId="ngModel" required></ng-multiselect-dropdown> -->
+                            <select id="resort" class="col-md-5 form-control p-0" name="resortId" [(ngModel)]="batchVar.selectedResort">
+                                <option value="null">{{batchVar.select}}</option>
+                                <option *ngFor="let data of batchVar.resortList" value="{{data.resortId}}">{{data.resortName}}</option>
+                            </select>
                             <span class="required_color" *ngIf="submitted && !batchVar.selectedResort.length">
                                 {{batchVar.mandatoryLabels.selectResort}}
                             </span>
@@ -114,7 +67,7 @@
                         <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                         <div class="pl-0 form-group select-Courses">
                             <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId" [data]="batchVar.departmentList"
-                                [(ngModel)]="batchVar.selectedDepartment" [settings]="departmentSettings" (onSelect)="onEmpSelect($event)"
+                                [(ngModel)]="batchVar.selectedDepartment" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event)"
                                 (onDeSelect)="onEmpSelect($event)" #departmentId="ngModel" required></ng-multiselect-dropdown>
                             <span class="required_color" *ngIf="submitted && !batchVar.selectedDepartment.length">
                                 {{batchVar.mandatoryLabels.selectDept}}
@@ -124,24 +77,22 @@
                     <div class="col-md-5 p-0 ml-auto">
                             <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                             <div class="pl-0 form-group select-Courses">
-                                <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId" [data]="batchVar.employeeList"
-                                    [(ngModel)]="batchVar.selectedEmp" [settings]="empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
-                                <span class="required_color" *ngIf="submitted && !batchVar.selectedEmp.length">
-                                    {{batchVar.mandatoryLabels.selectEmp}}
-                                </span>
-                            </div>
-                            <div class="pl-0 form-group select-Courses">
-                                <ng-multiselect-dropdown [placeholder]="'Division'" name="dividionId" [data]="batchVar.divisionList"
-                                    [(ngModel)]="batchVar.selectedDivision" [settings]="divisionSettings"  #divisionId="ngModel" required></ng-multiselect-dropdown>
+                                <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event)" [data]="batchVar.divisionList"
+                                    [(ngModel)]="batchVar.selectedDivision" [settings]="batchVar.divisionSettings"  #divisionId="ngModel" required></ng-multiselect-dropdown>
                                 <span class="required_color" *ngIf="submitted && !batchVar.selectedDivision.length">
                                     {{batchVar.mandatoryLabels.selectDivision}}
                                 </span>
                             </div>
+                            <div class="pl-0 form-group select-Courses">
+                                <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"  (onSelect)="onEmpSelect($event)" [data]="batchVar.employeeList"
+                                    [(ngModel)]="batchVar.selectedEmp" [settings]="batchVar.empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
+                                <span class="required_color" *ngIf="submitted && !batchVar.selectedEmp.length">
+                                    {{batchVar.mandatoryLabels.selectEmp}}
+                                </span>
+                            </div>
                         </div>
                         
-                                <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
-                                
-                            
+                                <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->    
                             <div class="col-md-6 pl-0 form-group">
                                     <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                                     
@@ -182,7 +133,7 @@
                             </div>
                         </div>
                         <div class="col-1 col-md-1 p-0">
-                            <span><a class="float-right" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span>
+                            <!-- <span><a class="float-right" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span> -->
                             <span><a class="float-right" *ngIf="i!=0" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon"></i></a></span>
                         </div>
                     </div>

@@ -25,6 +25,7 @@ export class API_URL {
     //Training Batch//
     getNewBatchList: '5c34ae832e00004a0037901f',
     getProgramList: '5c2de3ee2f00001c3d1752bb',
+    getPercentageList: '5c25f8a7300000520067f64c',
     //getNewBatchList : '5c2e16a32f0000a052175443',
 
     //User//

@@ -262,7 +262,7 @@
                  <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="emailAddress"
-                        name="emailAddress" #email="ngModel" (keyup)="validationUpdate(mf.data,'email')" />
+                        name="emailAddress" #email="ngModel" (keyup)="validationUpdate('email')" />
                         <span class="required_color"
                             *ngIf="userForm.submitted && !emailAddress">{{constant.mandatoryText.emailId}}</span>
                         <span class="required_color"
@@ -275,7 +275,7 @@
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Mobile Number"
-                        [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate(mf.data,'mobile')" /><span
+                        [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate('mobile')" /><span
                         class="required_color"
                         *ngIf="userForm.submitted && !phoneNumber">{{constant.mandatoryText.mobNo}}</span><span
                         class="required_color" *ngIf="userForm.submitted  && phoneNumber && validPhone">

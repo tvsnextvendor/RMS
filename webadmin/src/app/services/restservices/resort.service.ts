@@ -7,29 +7,34 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class ResortService {
+  port= '3003/';
   constructor (
     private http: HttpService
   ) {}
 
 
   addResort(userData){
-    return this.http.post('local','resort/Add', userData);
+    return this.http.post('local',this.port,'resort/Add', userData);
   }
 
   getResort(){
-    return this.http.getLocal('local','resort/List');
+    return this.http.getLocal('local',this.port,'resort/List');
   }
 
   getResortById(resortId){
-    return this.http.getLocal('local','resort/List?resortId='+resortId)
+    return this.http.getLocal('local',this.port,'resort/List?resortId='+resortId)
+  }
+
+  getResortByParentId(resortId){
+        return this.http.getLocal('local',this.port,'resort/List?parentResort='+resortId)
   }
 
   updateResort(resortId, userData){
-      return this.http.put('local','resort/Update/'+resortId,userData)
+      return this.http.put('local',this.port,'resort/Update/'+resortId,userData)
   }
 
   deleteResort(resortId){
-    return this.http.delete('local','resort/Delete/',+resortId)
+    return this.http.delete('local',this.port,'resort/Delete/',+resortId)
   }
 
 }
