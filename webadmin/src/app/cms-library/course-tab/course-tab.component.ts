@@ -33,7 +33,6 @@ export class CourseTabComponent implements OnInit {
 
   getCourseDetails(){
     this.courseService.getCourse().subscribe(resp=>{
-      console.log(resp);
       if(resp && resp.isSuccess){
         this.totalCourseCount = resp.data.count;
         this.courseListValue = resp.data && resp.data.rows.length && resp.data.rows;

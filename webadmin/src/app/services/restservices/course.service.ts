@@ -40,6 +40,10 @@ export class CourseService {
     return this.http.post('local',this.port,'trainingClass/Add', userData);
   }
 
+  getCourseTrainingClass(){
+    return this.http.getLocal('local',this.port,'trainingClass/List');
+  }
+
   getTrainingClass(){
     return this.http.getLocal('local',this.port,'trainingClass/trainingList');
   }
@@ -49,6 +53,25 @@ export class CourseService {
   }
 
   getTrainingClassQuiz(trainingClassId,courseId){
-    return this.http.getLocal('local',this.port,'/trainingClass/QuizList?trainingClassId='+trainingClassId+'&courseId='+courseId)
+    return this.http.getLocal('local',this.port,'trainingClass/QuizList?trainingClassId='+trainingClassId+'&courseId='+courseId)
+  }
+
+  getDivision(resortId,resortType){
+      let resort = resortType === "parent" ? 'parentResort='+resortId : 'childResort='+resortId
+      return this.http.getLocal('local',this.port,'resort/getresortDivision?'+resort+'&type=division');
+  }
+
+  getChildResort(resortId){
+    return this.http.getLocal('local',this.port,'resort/getresortDivision?childResort='+resortId);
+  }
+
+  getDepartment(divisionId){
+    let port = '3002/'
+    return this.http.post('local',port,'department/List',{'divisionId':divisionId});
+  }
+
+  getCreatedByDetails(){
+    // let port = '3002/'
+    return this.http.getLocal('local',this.port,'course/getCreatedByDetails');
   }
 }

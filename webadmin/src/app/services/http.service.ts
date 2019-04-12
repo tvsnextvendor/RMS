@@ -79,18 +79,18 @@ export class HttpService {
 		}
   }
   
-  upload(api,url,params):Observable<any> {
+  upload(api,port,url,params):Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
         'Authorization': this.utilService.getToken()
       })
     };
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
-    return this.http.post(API_ENDPOINT+url,params, {headers:httpOptions.headers}).pipe(
+    return this.http.post(API_ENDPOINT+port+url,params, {headers:httpOptions.headers}).pipe(
       map(this.extractData));
   }
 
-  removeFile(api,url,params):Observable<any> {
+  removeFile(api,port,url,params):Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
         'Authorization': this.utilService.getToken()
