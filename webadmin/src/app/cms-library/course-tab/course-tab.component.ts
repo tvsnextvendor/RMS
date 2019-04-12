@@ -18,11 +18,16 @@ export class CourseTabComponent implements OnInit {
   selectedEditCourse;
   trainingClassList =[];
   selectedEditTrainingClass;
+  pageSize;
+  p;
+  total;
   constructor(private courseService : CourseService ,private cmsLibraryVar : CmsLibraryVar) { }
   @Output() courseList = new EventEmitter<string>();
 
 
   ngOnInit() {
+    this.pageSize = 1;
+    this.p=1;
     this.getCourseDetails();
   }
 
@@ -78,6 +83,10 @@ export class CourseTabComponent implements OnInit {
         this.selectedEditTrainingClass = this.trainingClassList[0].trainingClassId;
       }
     })
+  }
+  pageChanged(e){
+      console.log(e)
+      this.p = e;
   }
 
   selectCourse(courseId){
