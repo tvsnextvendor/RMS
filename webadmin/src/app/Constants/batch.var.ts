@@ -4,6 +4,35 @@ import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 @Injectable({ providedIn: 'root' })
 
 export class BatchVar{
+   //Employee dropdown Settings configuration
+    departmentSettings = {
+        singleSelection: false,
+        idField: 'departmentId',
+        textField: 'departmentName',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+    resortSettings = {
+        singleSelection: false,
+        idField: 'resortId',
+        textField: 'resortName',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+    empSettings = {
+        singleSelection: false,
+        idField: 'employeeId',
+        textField: 'userName',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+    divisionSettings = {
+        singleSelection: false,
+        idField: 'divisionId',
+        textField: 'divisionName',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
 
    labels = {
         from       : 'Assigned Date',
@@ -79,6 +108,9 @@ export class BatchVar{
      batchTo;
      min;
      employeeId;
+     resortId;
+     divisionId;
+     departmentId;
      batchName;
      batchList;
      batchId;

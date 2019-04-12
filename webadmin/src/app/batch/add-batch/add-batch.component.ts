@@ -1,13 +1,11 @@
-import { Component, OnInit ,Output, EventEmitter} from '@angular/core';
-import { HeaderService } from '../../services/header.service';
+import { Component, OnInit ,Output, Input, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BatchVar } from '../../Constants/batch.var';
-import { HttpService } from 'src/app/services/http.service';
 import { API_URL } from '../../Constants/api_url';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { AlertService } from '../../services/alert.service';
+import {CommonService,AlertService,HttpService,UtilService,HeaderService,UserService, ResortService} from '../../services';
 import * as moment from 'moment';
 
 @Component({
@@ -18,6 +16,7 @@ import * as moment from 'moment';
 
 export class AddBatchComponent implements OnInit {
     @Output() someEvent = new EventEmitter<string>();
+    @Input() courseList: any = [];
     durationValue = '1';
     maxdurationCount;
     countCheck = false;
@@ -28,47 +27,43 @@ export class AddBatchComponent implements OnInit {
     dateError = false;
     submitted = false;
 
-    constructor(private alertService: AlertService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router) {
+    constructor(private alertService: AlertService,private utilService:UtilService,private resortService:ResortService,private userService: UserService,private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService:CommonService) {
         this.batchVar.url = API_URL.URLS;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.batchVar.batchId = params['batchId'];
         });
+
+        console.log(this.courseList,"COURSELIST");
     }
 
 
     ngOnInit() {
-        this.batchVar.batchId ? this.headerService.setTitle({ title: this.batchVar.editTitle, hidemodule: false }) : '';
-            // this.headerService.setTitle({ title: this.batchVar.title, hidemodule: false });
+      this.batchVar.batchId ? this.headerService.setTitle({ title: this.batchVar.editTitle, hidemodule: false }) : '';
 
+     //get Division list
+      this.commonService.getDivisionList().subscribe((result)=>{
+        this.batchVar.divisionList=result.data.rows;
+       })
+ 
+       //get Department list
+        this.commonService.getDepartmentList().subscribe((result)=>{
+            if(result.isSuccess){
+            this.batchVar.departmentList = result.data.rows;
+            }
+        })
 
-        //get Department list
-        this.http.get(this.batchVar.url.getDepartments).subscribe((data) => {
-            this.batchVar.departmentList = data.DepartmentList;
-        });
-        //get Employee list
-        this.http.get(this.batchVar.url.getEmployeeStatus).subscribe((result) => {
-            let data = result.EmployeeList;
-            this.batchVar.employeeList = data.map(item=>{
-                let obj = {
-                    "empId" : item.employeeId,
-                    "empName" : item.employeeName
-                }
-                return obj;
-            });
-        });
         //get Resort list
-        this.http.get(this.batchVar.url.getResortList).subscribe((data) => {
-            this.batchVar.resortList = data.resortList;
-        });
-        //get Division list
-        this.http.get(this.batchVar.url.getDivision).subscribe((data) => {
-            this.batchVar.divisionList = data.divisionList;
-        });
+        const resortId = this.utilService.getUserData().Resorts[0].resortId; 
+        this.resortService.getResortByParentId(resortId).subscribe((result)=>{
+            console.log(result)
+            this.batchVar.resortList=result.data.rows;
+        })
 
-        //  //get Module list
-        //   this.http.get(this.batchVar.url.getModuleList).subscribe((data) => {
-        //     this.batchVar.moduleList= data.moduleList;
-        //   }); 
+        //get Employee list
+        this.userService.getUser().subscribe((result)=>{        
+           this.batchVar.employeeList = result.data.rows;
+        })
+   
 
         this.http.get(this.batchVar.url.getProgramList).subscribe((data) => {
             this.batchVar.programList = data.programList;
@@ -151,43 +146,15 @@ export class AddBatchComponent implements OnInit {
     }
 
     onEmpSelect(item: any) {
-        console.log(this.batchVar.selectedDepartment)
-        this.batchVar.employeeId = this.batchVar.selectedEmp.map(item => { return item.userId });
+        this.batchVar.employeeId = this.batchVar.selectedEmp.map(item => { return item.employeeId });
+        this.batchVar.resortId = this.batchVar.selectedResort.map(item => { return item.resortId });
+        this.batchVar.divisionId = this.batchVar.selectedDivision.map(item => { return item.divisionId });
+        this.batchVar.departmentId = this.batchVar.selectedDepartment.map(item => { return item.departmentId });
+        console.log(this.batchVar, "BatchVar")
         this.batchVar.empValidate = false;
     }
 
-    //Employee dropdown Settings configuration
-    departmentSettings = {
-        singleSelection: false,
-        idField: 'userId',
-        textField: 'department',
-        enableCheckAll: false,
-        itemsShowLimit: 8,
-    }
-    resortSettings = {
-        singleSelection: false,
-        idField: 'id',
-        textField: 'name',
-        enableCheckAll: false,
-        itemsShowLimit: 8,
-    }
-    empSettings = {
-        singleSelection: false,
-        idField: 'empId',
-        textField: 'empName',
-        enableCheckAll: false,
-        itemsShowLimit: 8,
-    }
-    divisionSettings = {
-        singleSelection: false,
-        idField: 'divisionId',
-        textField: 'divisionName',
-        enableCheckAll: false,
-        itemsShowLimit: 8,
-    }
-
-
-
+    
     splitDate(date) {
         const newDate = new Date(date);
         const y = newDate.getFullYear();
@@ -246,9 +213,8 @@ export class AddBatchComponent implements OnInit {
                 ModuleDetails: this.batchVar.moduleForm
             }
 
-            //this.toastr.success(toastrMsg);
+             console.log(postData);
             this.alertService.success(toastrMsg);
-            // this.router.navigateByUrl('/calendar');
             this.hidePopup();
         }
     }
