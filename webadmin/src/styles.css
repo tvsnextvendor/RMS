@@ -176,8 +176,9 @@ table td.td-pd {
    -ms-user-select: none;
    user-select: none;
    float: left;
-   color: #495057;
+   color: #576271;
    line-height: 50px;
+   font-size: 15px;
 }
 .square-cont input {
    position: absolute;
@@ -253,7 +254,7 @@ table td.td-pd {
 .page-content-wrapper {
   width: 100%;
   position: absolute;
-  padding: 15px;
+  padding: 15px 15px 65px 15px;
   min-height: calc(100vh - 0px);
   background-color: #F5F6FA;
 }
@@ -529,7 +530,7 @@ li.search-block {
 }
 .chart-mr{
     color: #1D4960;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
 }
 .chart-mr{padding: 10px;width: 100%;}

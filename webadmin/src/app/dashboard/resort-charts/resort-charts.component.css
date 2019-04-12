@@ -70,4 +70,21 @@
     font-weight: 600;
     text-align: center; 
 }
+.select-btn{
+  width: 13%;
+  font-size: 12px;
+}
+.parent-resortbtn{
+  margin-left: 20px;
+    line-height: 10px;
+    font-size: 10px;
+    padding: 5px 0;
+    min-width: 23px;
+}
+.parent-data{
+  font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 0;
+    float: left;
+}
 
