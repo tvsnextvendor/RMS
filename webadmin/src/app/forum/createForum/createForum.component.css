@@ -39,3 +39,8 @@
     cursor: pointer;
     color: #73737B;    
 }
+.group-box i{
+    font-size: 20px;
+    line-height: 36px;
+    padding-right: 0;
+}

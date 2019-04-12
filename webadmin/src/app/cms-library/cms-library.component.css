@@ -66,7 +66,8 @@ ul.nav.nav-tabs{
     margin-top: 3px;    
 }
 .tab-section .nav-link{
-	padding: 8px 14.5px;
+	padding: 8px 14px;
+    font-size:15px;
 }
 .tab-section a{
 	display: block;

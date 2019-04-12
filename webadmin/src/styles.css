@@ -1262,9 +1262,95 @@ background-color: #C1E1F3;
   border: none;
 }
 
+/* pagination */
+.my-pagination .ngx-pagination {
+  margin-top:1.5em;
+  padding-left:0;
+}
+.my-pagination .ngx-pagination li.current {
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    color: #828181;
+    padding: 5px 12px;
+    border-radius: 32px;
+}
+.my-pagination .current{
+  background-color:#fff;
+  border:1px solid #dcdcdc;
+}
+.my-pagination .ngx-pagination .pagination-previous a::before,
+.my-pagination .ngx-pagination .pagination-previous.disabled::before,
+.my-pagination .ngx-pagination .pagination-next a::after,
+.my-pagination .ngx-pagination .pagination-next.disabled::after{
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: #A2A9AB;
+    font-size: 18px;
+    font-family: FontAwesome;
+    vertical-align:-1px;
+}
+.my-pagination .ngx-pagination .pagination-previous a::before,
+.my-pagination .ngx-pagination .pagination-previous.disabled::before
+{
+  content: "\f0d9";  
+
+}
+.my-pagination .ngx-pagination .pagination-next a::after,
+.my-pagination .ngx-pagination .pagination-next.disabled::after
+{
+  content: "\f0da";  
+  margin-left:10px; 
+}
+.my-pagination li.pagination-previous,.my-pagination li.pagination-next {
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 25px;
+    padding:3px 12px;
+}
+.my-pagination .ngx-pagination li.current,
+.my-pagination .ngx-pagination li.pagination-previous a,
+.my-pagination .ngx-pagination li.pagination-next a{
+  color:#A2A9AB;
+}
+.my-pagination .ngx-pagination li.pagination-previous a:hover,
+.my-pagination .ngx-pagination li.pagination-next a:hover{
+  background:none;
+}
+.my-pagination .ngx-pagination li {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right:10px;
+}
+.my-pagination .ngx-pagination li a {
+    color: #abaaaa;
+}
+.my-pagination .ngx-pagination li.small-screen {
+    display: none;
+}
+.my-pagination .ngx-pagination .pagination-next a,
+.my-pagination .ngx-pagination .pagination-previous a{
+  padding:0;
+  text-decoration:none
+}
+.icon-list a{
+  float:left;
+}
+.pencil-icon{
+  background:url("assets/images/edit.png") no-repeat;
+  width:19px;
+  height:20px;
+  display:block;
+}
 
 
-@media (min-width: 1200px) { }
+
+
+
+
+@media (min-width: 1200px) {}
 @media (min-width: 980px) and (max-width: 1199px) { }
 @media (min-width: 768px) and (max-width: 979px) { 
 .did-line{

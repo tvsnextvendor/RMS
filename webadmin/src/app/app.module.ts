@@ -31,6 +31,9 @@ import { RolepermissionModule } from './rolepermission/rolepermission.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { CMSLibraryModule } from './cms-library/cms-library.module';
 import { ApprovalrequestsModule } from './approvalrequests/approvalrequests.module';
+import { ArchivalSettingModule } from './archival-setting/archival-setting.module';
+
+
 
 
 const routes: Routes = [
@@ -45,6 +48,7 @@ const routes: Routes = [
     LoginComponent,
     ResetpasswordComponent,
     AlertComponent,
+    
     
   ],
   imports: [
@@ -72,7 +76,12 @@ const routes: Routes = [
     RolepermissionModule,
     SubscriptionModule,
     CMSLibraryModule,
+<<<<<<< Updated upstream
     ApprovalrequestsModule
+=======
+    ArchivalSettingModule
+    
+>>>>>>> Stashed changes
   ],
   providers: [AuthGuard, AlertService],
   bootstrap: [AppComponent]
