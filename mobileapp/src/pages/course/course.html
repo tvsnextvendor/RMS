@@ -14,42 +14,44 @@
     </ion-navbar>
   </ion-header> 
 
-  <div class="tabs progress-tab">
-    <a class="tab-item" (click)="showData('assigned')" [ngClass]="!showAssigned ? 'assigned' : ''">
+  <div class="tabs progress-tab col-md-12 clearfix">
+    <span class="tab-item" (click)="showData('assigned')" [ngClass]="!showAssigned ? 'assigned' : ''">
       {{constant.pages.trainingLabels.assignedLabel}}
-    </a>
-    <a class="tab-item" (click)="showData('inprogress')" [ngClass]="!showProgress ? 'inprogress' : ''">
+    </span>
+    <span class="tab-item" (click)="showData('inprogress')" [ngClass]="!showProgress ? 'inprogress' : ''">
       {{constant.pages.trainingLabels.progressLabel}}
-    </a>
-    <a class="tab-item" (click)="showData('signRequire')" [ngClass]="!showSignRequire ? 'signRequire' : ''">
+    </span>
+    <span class="tab-item" (click)="showData('signRequire')" [ngClass]="!showSignRequire ? 'signRequire' : ''">
       {{constant.pages.trainingLabels.signRequired}}
-    </a>
-    <a class="tab-item" (click)="showData('complete')" [ngClass]="!showCompleted ? 'complete' : ''">
+    </span>
+    <span class="tab-item" (click)="showData('complete')" [ngClass]="!showCompleted ? 'complete' : ''">
       {{constant.pages.trainingLabels.completedLabel}}
-    </a>
+    </span>
   </div>
 
 
-  <div class="tab-content" [hidden]="showAssigned" *ngIf="assignedCoursesList.length > 0">
+  <div class="tab-content clearfix" [hidden]="showAssigned" *ngIf="assignedCoursesList.length > 0">
     <ion-row>
       <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of assignedCoursesList;let i=index;"
         (click)="openTrainingClass()" class="main-forum">
         <ion-card class="training-list">
           <ion-grid>
             <ion-row>
-              <ion-col col-2 col-sm-1>
+              <ion-col col-2 col-sm-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
-              <ion-col col-8 col-sm-8>
+              <ion-col col-4 col-sm-8 class="course-det">
                 <h4 class="notify-title">{{task.courseName}}</h4>
                 <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
               </ion-col>
-              <ion-col col-2 col-sm-3 class="arrow-icon">
+              <ion-col col-5 col-sm-3 class="arrow-icon">
                 <div class="align-right" *ngIf="task.dueDate">
-                  <span class="hour-status">{{task.dueDate | date:'dd MMM yyyy'}}</span>
-                  {{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}
-                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+                  <span class="hour-status batch-date">{{task.dueDate | date:'dd MMM yyyy'}}</span>
+                  <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}</p>
                 </div>
+              </ion-col>
+              <ion-col col-1 col-sm-1 class="middle-arw">
+                <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -64,19 +66,21 @@
         <ion-card class="training-list">
             <ion-grid>
               <ion-row>
-                <ion-col col-2 col-sm-1>
+                <ion-col col-2 col-sm-1 class="align-self-center">
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
-                <ion-col col-8 col-sm-8>
+                <ion-col col-4 col-sm-8 class="course-det">
                   <h4 class="notify-title">{{task.courseName}}</h4>
                   <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
                 </ion-col>
-                <ion-col col-2 col-sm-3 class="arrow-icon">
+                <ion-col col-5 col-sm-3 class="arrow-icon">
                   <div class="align-right" *ngIf="task.dueDate">
-                  <span class="hour-status">{{task.dueDate | date:'dd MMM yyyy'}}</span>
-                 {{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}
-                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+                  <span class="hour-status batch-date">{{task.dueDate | date:'dd MMM yyyy'}}</span>
+                <p  class="red-color alert-txt-style"> {{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}  </p>              
                 </div>
+                </ion-col>
+                <ion-col col-1 col-sm-1 class="middle-arw">
+                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -91,19 +95,22 @@
         <ion-card class="training-list">
           <ion-grid>
             <ion-row>
-              <ion-col col-2 col-sm-1>
+              <ion-col col-2 col-sm-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
-              <ion-col col-8 col-sm-8>
+              <ion-col col-4 col-sm-8 class="course-det">
                 <h4 class="notify-title">{{task.courseName}}</h4>
                 <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
               </ion-col>
-              <ion-col col-2 col-sm-3 class="arrow-icon">
+              <ion-col col-5 col-sm-3 class="arrow-icon">
                 <div class="align-right" *ngIf="task.dueDate">
-                  <span class="hour-status">{{task.dueDate | date:'dd MMM yyyy'}}</span>
-                  {{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}
-                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+                  <span class="hour-status batch-date">{{task.dueDate | date:'dd MMM yyyy'}}</span>
+                  <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}</p>
+                 
                 </div>
+              </ion-col>
+              <ion-col col-1 col-sm-1 class="middle-arw">
+                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -118,10 +125,10 @@
         <ion-card class="training-list">
             <ion-grid>
               <ion-row>
-                <ion-col col-2 col-sm-1>
+                <ion-col col-2 col-sm-1 class="align-self-center" >
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
-                <ion-col col-8 col-sm-8>
+                <ion-col col-8 col-sm-9 class="course-det">
                   <h4 class="notify-title">{{task.courseName}}</h4>
                   <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
                 </ion-col>

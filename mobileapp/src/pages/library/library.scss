@@ -73,16 +73,17 @@ page-library {
 .dropdown-menu {
     left: 6px !important;
 }
-}
-.training-title {
-	padding: 0 0 5px 0;
-}
 .assigned,.inprogress,.complete{
 	color: #000;
 	font-size: 30px;
 
 
 }
+
+.training-title {
+	padding: 0 0 5px 0;
+}
+
 .progress-tab{
 	text-align: center;
 	    margin-top: 0;
@@ -151,7 +152,7 @@ page-library {
 	}
 
 }
-
+}
 .module-select button {
 	width: 100%;
 	background: #fff;
