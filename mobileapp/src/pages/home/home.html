@@ -1,251 +1,284 @@
-
-
 <ion-content padding class="headerFull-bg default-header">
-<ion-header class="static-header main-header my-component" color="primary" >
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <img src="../assets/imgs/menu.png" />
-    </button>
-    <ion-title class="text-left">
-      <span class="header-title">{{constant.title.dashboard}}</span>
-      <div class="header-icon" (click)="goToNotification()">
-        <img src="../assets/imgs/notification.png" />
-        <span class="dot-circle">4</span>
-      </div>  
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-<div class="main-content">
-  <div class="current-day">
-    <h3> {{constant.pages.dashboardLabels.goodMrng}}, Vernon</h3>
-    <!-- <p class="day-detail">
-      {{currentdate}}
-    </p> -->
-    <p class="m-0"><span class="day-detail">Today's weather </span><img class="weather-img" src="../assets/imgs/weather.png" /> <span class="weather-sts">-1</span> <sup>&#x2103;  <span class="split-txt">|</span>  &#8457;</sup></p>
-
-<p class="day-detail">Whitetail resort is celebrating their 4th year anniversary today</p>
-  </div>
-  <div class="module-select">
-    <div class="dropdown module-drpdwn">
-      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span>
-        {{selectedModule}}
-        <ion-icon name="md-funnel"></ion-icon>
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="modules">
-        <a class="dropdown-item" href="javascript:void(0)" *ngFor="let list of modules;let i =index;" (click)="changeModule(list)">
-          <!-- <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span> -->
-          {{list.name}}
-        </a>
-      </div>
-    </div>
-  </div>
-  <section class="training-section" *ngIf="trainingDatas && dashboardInfo">
-    <ion-grid class="status-grid no-padding">
-      <ion-row nowrap class="forecast_container">
-        <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('assigned')">
-          <div class="tomato-red-bg assign-box sts-style">
-            <h4 class="status-title">{{constant.pages.dashboardLabels.assignedLabel}}</h4>
-            <span class="num-sec">{{trainingDatas.assignedCourses}}</span>
-            <p class="course-sec">{{constant.pages.dashboardLabels.newCourses}} <ion-icon ios="ios-arrow-forward"
-                md="ios-arrow-forward" class="fwd-arw"></ion-icon></p> 
-           <!--  <a href="javascript:void(0);" class="read-more">{{constant.pages.dashboardLabels.more}}</a> -->
+        <ion-header class="static-header main-header my-component" color="primary" >
+          <ion-navbar>
+            <button ion-button menuToggle>
+              <img src="../assets/imgs/menu.png" />
+            </button>
+            <ion-title class="text-left">
+              <span class="header-title">{{constant.title.dashboard}}</span>
+              <div class="header-icon" (click)="goToNotification()">
+                <img src="../assets/imgs/notification.png" />
+                <span class="dot-circle">4</span>
+              </div>  
+            </ion-title>
+          </ion-navbar>
+        </ion-header>
+        <div class="main-content">
+          <div class="current-day">
+            <h3> {{constant.pages.dashboardLabels.goodMrng}}, Vernon</h3>
+            <!-- <p class="day-detail">
+              {{currentdate}}
+            </p> -->
+            <p class="m-0"><span class="day-detail">Today's weather </span><img class="weather-img" src="../assets/imgs/weather.png" /> <span class="weather-sts">-1</span> <sup>&#x2103;  <span class="split-txt">|</span>  &#8457;</sup></p>
+        
+        <p class="day-detail">Whitetail resort is celebrating their 4th year anniversary today</p>
           </div>
-        </ion-col>
-        <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('inprogress')">
-          <div class="light-green-bg progress-box sts-style">
-            <h4 class="status-title">{{constant.pages.dashboardLabels.progressLabel}}</h4>
-            <span class="num-sec">{{trainingDatas.inProgressCourses}}</span>
-            <p class="course-sec">{{constant.pages.dashboardLabels.courses}}<ion-icon ios="ios-arrow-forward"
-                md="ios-arrow-forward" class="fwd-arw"></ion-icon></p>
-
-            <!-- <a href="javascript:void(0);" class="read-more">{{constant.pages.dashboardLabels.more}}</a> -->
-          </div>
-        </ion-col>
-        <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('complete')">
-          <div class="pink-bg average-box sts-style" >
-            <h4 class="status-title">{{constant.pages.dashboardLabels.avgCompletionRate}}</h4>
-              <span class="num-sec">{{trainingDatas.completedCourses}}</span>
-            <p class="course-sec">{{constant.pages.dashboardLabels.courses}} <ion-icon ios="ios-arrow-forward"
-                md="ios-arrow-forward" class="fwd-arw"></ion-icon></p>
-          <!--   <div class="mb-3">
-              <p class="course-sec m-0">{{constant.pages.dashboardLabels.you}}
-                {{trainingDatas.yourAverageCompletion}}
-                %</p>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" [style.width.%]="trainingDatas.yourAverageCompletion">
-                  <span class="sr-only">{{trainingDatas.yourAverageCompletion}} %</span>
-                </div>
-              </div>
-            </div>
-            <div class="">
-              <p class="course-sec m-0">{{constant.pages.dashboardLabels.peers}}
-                {{trainingDatas.peersAverageCompletion}} %</p>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" [style.width.%]="trainingDatas.peersAverageCompletion">
-                  <span class="sr-only">{{trainingDatas.peersAverageCompletion}} %</span>
-                </div>
-              </div>
-            </div> -->
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </section>
-  <section class="score-board">
-    <ion-card class="score-head">
-      <ion-card-header class="header-primary">
-        <p class="score-title">{{constant.pages.dashboardLabels.yourAvgOnCourses}}</p>
-        <span class="score-number">
-          <p class="main-score">{{trainingDatas.yourAverageScore}}/</p>
-          <p>{{trainingDatas.yourTotalScore}}</p>
-          <img src="../assets/imgs/like@3x.png" />
-        </span>
-      </ion-card-header>
-      <ion-card-content class="body-primary">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-4 *ngFor="let ranks of trainingDatas.topScorers;">
-              <div class="ranker-det">
-                <div class="winner-img">
-                  <img src="{{ranks.image}}" />
-                  <span class="rank-num">{{ranks.rank}}</span>
-                </div>
-                <div class="person-name">
-                  <h4>{{ranks.name}}</h4>
-                  <small>{{ranks.country}}</small>
-                </div>
-                <div class="tropy-sec">
-                  <img src="../assets/imgs/Path 382.png" />
-                  <span class="score-cnt">{{ranks.score}}</span>
-                </div>
-              </div>
-            </ion-col>
-          </ion-row>
-          <ion-row class="progress-set" *ngIf="showMore">
-            <ion-col col-4>
-              <div class="course-label">{{constant.pages.dashboardLabels.course}}</div>
-            </ion-col>
-            <ion-col col-4>
-              <div class="course-point">{{trainingDatas.course}}</div>
-            </ion-col>
-            <ion-col col-4>
-              <div class="course-bar">
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" [style.width.%]="coursePercentage">
-                    <span class="sr-only">{{coursePercentage}} %</span>
-                  </div>
-                </div>
-              </div>
-            </ion-col>
-            <ion-col col-4>
-              <div class="score-label">{{constant.pages.dashboardLabels.score}}</div>
-            </ion-col>
-            <ion-col col-4>
-              <div class="score-point">{{trainingDatas.score}} %</div>
-            </ion-col>
-            <ion-col col-4>
-              <div class="score-bar">
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" [style.width.%]="trainingDatas.score">
-                    <span class="sr-only">{{trainingDatas.score}} %</span>
-                  </div>
-                </div>
-              </div>
-            </ion-col>
-            <ion-col col-4>
-              <div class="avg-label">{{constant.pages.dashboardLabels.average}}</div>
-            </ion-col>
-            <ion-col col-4>
-              <div class="avg-point">{{trainingDatas.average}} %</div>
-            </ion-col>
-            <ion-col col-4>
-              <div class="avg-bar">
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" [style.width.%]="trainingDatas.average">
-                    <span class="sr-only">{{trainingDatas.average}} %</span>
-                  </div>
-                </div>
-              </div>
-            </ion-col>
-          </ion-row>
+          <ion-grid class="status-grid no-padding">
+            <ion-row nowrap class="forecast_container">
+                    <ion-col col-4 col-md-4>
+                            <div class="status-block">
+                                <div class="expire-circle circle-style">
+                                        <h4 class="status-title">4</h4>
+                                </div>
+                                   
+                                    <p class="course-sec">Courses Expiring</p> 
+                                  
+                                  </div>
+                    </ion-col>
+                    <ion-col col-4 col-md-4>
+                            <div class="assign-box sts-style">
+                                    <div class="blue-circle  circle-style">
+                                            <h4 class="status-title">4</h4>
+                                    </div>
+                                       
+                                        <p class="course-sec">Signature Required</p> 
+                                      
+                                      </div>
+                    </ion-col>
+                    <ion-col col-4 col-md-4>
+                            <div class="assign-box sts-style">
+                                    <div class="green-circle  circle-style">
+                                            <h4 class="status-title">4</h4>
+                                    </div>
+                                       
+                                        <p class="course-sec">General Notifications</p> 
+                                      
+                                      </div>
+                    </ion-col>
+            </ion-row>
         </ion-grid>
-        <a class="score-viewAll" (click)="showMore = !showMore">
-          <span *ngIf="showMore">{{constant.pages.dashboardLabels.viewLess}}</span>
-          <span *ngIf="!showMore">{{constant.pages.dashboardLabels.viewMore}}</span>
-        </a>
-      </ion-card-content>
-    </ion-card>
-  </section>
-  <section class="accomplishment-section" *ngIf="accomplishments">
-    <p class="section-title">{{constant.pages.dashboardLabels.accomplishments}}</p>
-    <ion-grid class="status-grid no-padding">
-      <ion-row nowrap class="forecast_container">
-        <ion-col col-7 col-md-4 class="tvs-statusBox certificate-box">
-          <div class="light-green-bg sts-style clearfix">
-            <ion-row>
-              <ion-col col-8>
-                <h4 class="badge-title">{{constant.pages.dashboardLabels.certificatesObtained}}</h4>
-              </ion-col>
-              <ion-col col-4>
-                <span class="num-sec acc-num">{{accomplishments.certificatesObtained}}</span>
-              </ion-col>
-            </ion-row>
-            <div class="certificate-footer clearfix">
-              <a href="javascript:void(0)" class="view-tag" (click)="goToAcc('certificates');">{{constant.pages.dashboardLabels.viewAll}}</a>
+         <!---- <div class="module-select">
+            <div class="dropdown module-drpdwn">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span>
+                {{selectedModule}}
+                <ion-icon name="md-funnel"></ion-icon>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="modules">
+                <a class="dropdown-item" href="javascript:void(0)" *ngFor="let list of modules;let i =index;" (click)="changeModule(list)">
+                   <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span> 
+                  {{list.name}}
+                </a>
+              </div>
             </div>
-          </div>
+          </div>-->
+          <!--<section class="training-section" *ngIf="trainingDatas && dashboardInfo">
+            <ion-grid class="status-grid no-padding">
+              <ion-row nowrap class="forecast_container">
+                <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('assigned')">
+                  <div class="tomato-red-bg assign-box sts-style">
+                    <h4 class="status-title">{{constant.pages.dashboardLabels.assignedLabel}}</h4>
+                    <span class="num-sec">{{trainingDatas.assignedCourses}}</span>
+                    <p class="course-sec">{{constant.pages.dashboardLabels.newCourses}} <ion-icon ios="ios-arrow-forward"
+                        md="ios-arrow-forward" class="fwd-arw"></ion-icon></p> 
+                    <a href="javascript:void(0);" class="read-more">{{constant.pages.dashboardLabels.more}}</a> 
+                  </div>
+                </ion-col>
+                <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('inprogress')">
+                  <div class="light-green-bg progress-box sts-style">
+                    <h4 class="status-title">{{constant.pages.dashboardLabels.progressLabel}}</h4>
+                    <span class="num-sec">{{trainingDatas.inProgressCourses}}</span>
+                    <p class="course-sec">{{constant.pages.dashboardLabels.courses}}<ion-icon ios="ios-arrow-forward"
+                        md="ios-arrow-forward" class="fwd-arw"></ion-icon></p>
+        
+                    <a href="javascript:void(0);" class="read-more">{{constant.pages.dashboardLabels.more}}</a> 
+                  </div>
+                </ion-col>
+                <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('complete')">
+                  <div class="pink-bg average-box sts-style" >
+                    <h4 class="status-title">{{constant.pages.dashboardLabels.avgCompletionRate}}</h4>
+                      <span class="num-sec">{{trainingDatas.completedCourses}}</span>
+                    <p class="course-sec">{{constant.pages.dashboardLabels.courses}} <ion-icon ios="ios-arrow-forward"
+                        md="ios-arrow-forward" class="fwd-arw"></ion-icon></p>
+                     <div class="mb-3">
+                      <p class="course-sec m-0">{{constant.pages.dashboardLabels.you}}
+                        {{trainingDatas.yourAverageCompletion}}
+                        %</p>
+                      <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" [style.width.%]="trainingDatas.yourAverageCompletion">
+                          <span class="sr-only">{{trainingDatas.yourAverageCompletion}} %</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="">
+                      <p class="course-sec m-0">{{constant.pages.dashboardLabels.peers}}
+                        {{trainingDatas.peersAverageCompletion}} %</p>
+                      <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" [style.width.%]="trainingDatas.peersAverageCompletion">
+                          <span class="sr-only">{{trainingDatas.peersAverageCompletion}} %</span>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </section>
+          <section class="score-board">
+            <ion-card class="score-head">
+              <ion-card-header class="header-primary">
+                <p class="score-title">{{constant.pages.dashboardLabels.yourAvgOnCourses}}</p>
+                <span class="score-number">
+                  <p class="main-score">{{trainingDatas.yourAverageScore}}/</p>
+                  <p>{{trainingDatas.yourTotalScore}}</p>
+                  <img src="../assets/imgs/like@3x.png" />
+                </span>
+              </ion-card-header>
+              <ion-card-content class="body-primary">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-4 *ngFor="let ranks of trainingDatas.topScorers;">
+                      <div class="ranker-det">
+                        <div class="winner-img">
+                          <img src="{{ranks.image}}" />
+                          <span class="rank-num">{{ranks.rank}}</span>
+                        </div>
+                        <div class="person-name">
+                          <h4>{{ranks.name}}</h4>
+                          <small>{{ranks.country}}</small>
+                        </div>
+                        <div class="tropy-sec">
+                          <img src="../assets/imgs/Path 382.png" />
+                          <span class="score-cnt">{{ranks.score}}</span>
+                        </div>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="progress-set" *ngIf="showMore">
+                    <ion-col col-4>
+                      <div class="course-label">{{constant.pages.dashboardLabels.course}}</div>
+                    </ion-col>
+                    <ion-col col-4>
+                      <div class="course-point">{{trainingDatas.course}}</div>
+                    </ion-col>
+                    <ion-col col-4>
+                      <div class="course-bar">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width.%]="coursePercentage">
+                            <span class="sr-only">{{coursePercentage}} %</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ion-col>
+                    <ion-col col-4>
+                      <div class="score-label">{{constant.pages.dashboardLabels.score}}</div>
+                    </ion-col>
+                    <ion-col col-4>
+                      <div class="score-point">{{trainingDatas.score}} %</div>
+                    </ion-col>
+                    <ion-col col-4>
+                      <div class="score-bar">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width.%]="trainingDatas.score">
+                            <span class="sr-only">{{trainingDatas.score}} %</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ion-col>
+                    <ion-col col-4>
+                      <div class="avg-label">{{constant.pages.dashboardLabels.average}}</div>
+                    </ion-col>
+                    <ion-col col-4>
+                      <div class="avg-point">{{trainingDatas.average}} %</div>
+                    </ion-col>
+                    <ion-col col-4>
+                      <div class="avg-bar">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width.%]="trainingDatas.average">
+                            <span class="sr-only">{{trainingDatas.average}} %</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+                <a class="score-viewAll" (click)="showMore = !showMore">
+                  <span *ngIf="showMore">{{constant.pages.dashboardLabels.viewLess}}</span>
+                  <span *ngIf="!showMore">{{constant.pages.dashboardLabels.viewMore}}</span>
+                </a>
+              </ion-card-content>
+            </ion-card>
+          </section>
+          <section class="accomplishment-section" *ngIf="accomplishments">
+            <p class="section-title">{{constant.pages.dashboardLabels.accomplishments}}</p>
+            <ion-grid class="status-grid no-padding">
+              <ion-row nowrap class="forecast_container">
+                <ion-col col-7 col-md-4 class="tvs-statusBox certificate-box">
+                  <div class="light-green-bg sts-style clearfix">
+                    <ion-row>
+                      <ion-col col-8>
+                        <h4 class="badge-title">{{constant.pages.dashboardLabels.certificatesObtained}}</h4>
+                      </ion-col>
+                      <ion-col col-4>
+                        <span class="num-sec acc-num">{{accomplishments.certificatesObtained}}</span>
+                      </ion-col>
+                    </ion-row>
+                    <div class="certificate-footer clearfix">
+                      <a href="javascript:void(0)" class="view-tag" (click)="goToAcc('certificates');">{{constant.pages.dashboardLabels.viewAll}}</a>
+                    </div>
+                  </div>
+                </ion-col>
+                <ion-col col-7 col-md-4 class="tvs-statusBox certificate-box">
+                  <div class="blue-bg sts-style clearfix">
+                    <ion-row>
+                      <ion-col col-8>
+                        <h4 class="badge-title">{{constant.pages.dashboardLabels.badgesObtained}}</h4>
+                      </ion-col>
+                      <ion-col col-4>
+                        <span class="num-sec acc-num">{{accomplishments.badgesObtained}}</span>
+                      </ion-col>
+                    </ion-row>
+        
+        
+                    <div class="certificate-footer clearfix">
+                      <a href="javascript:void(0)" class="view-tag" (click)="goToAcc('badges');">{{constant.pages.dashboardLabels.viewAll}}</a>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </section>
+        </div>
+           <section class="certification-section">
+        <p class="section-title">{{constant.pages.dashboardLabels.certification}}</p>
+        <ion-grid class="status-grid no-padding">
+        <ion-row nowrap class="forecast_container">
+        <ion-col col-8 class="tvs-statusBox certificate-box" *ngFor="let cert of dashboardInfo.certification">
+        <div class="purple-bg sts-style clearfix" [ngStyle]="{'background-color': cert.colorCode}">
+        <img src="../assets/imgs/pdf.png" />
+        <p class="pdf-name">{{cert.label}}</p>
+        <div class="certificate-footer clearfix">
+        <a href="" class="download-txt">{{constant.pages.dashboardLabels.download}}</a>
+        <a href="" class="">{{constant.pages.dashboardLabels.view}}</a>
+        </div>
+        </div>
         </ion-col>
-        <ion-col col-7 col-md-4 class="tvs-statusBox certificate-box">
-          <div class="blue-bg sts-style clearfix">
-            <ion-row>
-              <ion-col col-8>
-                <h4 class="badge-title">{{constant.pages.dashboardLabels.badgesObtained}}</h4>
-              </ion-col>
-              <ion-col col-4>
-                <span class="num-sec acc-num">{{accomplishments.badgesObtained}}</span>
-              </ion-col>
-            </ion-row>
-
-
-            <div class="certificate-footer clearfix">
-              <a href="javascript:void(0)" class="view-tag" (click)="goToAcc('badges');">{{constant.pages.dashboardLabels.viewAll}}</a>
-            </div>
-          </div>
+        </ion-row>
+        </ion-grid>
+        </section>
+        <section class="badge-section">
+        <p class="section-title">{{constant.pages.dashboardLabels.badges}}</p>
+        <ion-grid class="status-grid no-padding">
+        <ion-row nowrap class="forecast_container">
+        <ion-col col-8 class="tvs-statusBox badge-box" *ngFor="let badge of dashboardInfo.badges">
+        <div class="tomato-red-bg sts-style clearfix" [ngStyle]="{'background-color': badge.colorCode}">
+        <h4 class="badge-title">{{badge.label}}</h4>
+        <p class="badge-content">{{badge.description}}</p>
+        </div>
         </ion-col>
-      </ion-row>
-    </ion-grid>
-  </section>
-</div>
-  <!-- <section class="certification-section">
-<p class="section-title">{{constant.pages.dashboardLabels.certification}}</p>
-<ion-grid class="status-grid no-padding">
-<ion-row nowrap class="forecast_container">
-<ion-col col-8 class="tvs-statusBox certificate-box" *ngFor="let cert of dashboardInfo.certification">
-<div class="purple-bg sts-style clearfix" [ngStyle]="{'background-color': cert.colorCode}">
-<img src="../assets/imgs/pdf.png" />
-<p class="pdf-name">{{cert.label}}</p>
-<div class="certificate-footer clearfix">
-<a href="" class="download-txt">{{constant.pages.dashboardLabels.download}}</a>
-<a href="" class="">{{constant.pages.dashboardLabels.view}}</a>
-</div>
-</div>
-</ion-col>
-</ion-row>
-</ion-grid>
-</section>
-<section class="badge-section">
-<p class="section-title">{{constant.pages.dashboardLabels.badges}}</p>
-<ion-grid class="status-grid no-padding">
-<ion-row nowrap class="forecast_container">
-<ion-col col-8 class="tvs-statusBox badge-box" *ngFor="let badge of dashboardInfo.badges">
-<div class="tomato-red-bg sts-style clearfix" [ngStyle]="{'background-color': badge.colorCode}">
-<h4 class="badge-title">{{badge.label}}</h4>
-<p class="badge-content">{{badge.description}}</p>
-</div>
-</ion-col>
-</ion-row>
-</ion-grid>
-</section> -->
-</ion-content>
+        </ion-row>
+        </ion-grid>
+        </section> -->
+        </div>
+        </ion-content>

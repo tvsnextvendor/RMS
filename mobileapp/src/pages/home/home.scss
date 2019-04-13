@@ -325,6 +325,35 @@ page-home {
 p.main-score {
     font-size: 20px;
 }
+.circle-style {
+    height: 60px;
+    width: 60px;
+    border-radius: 70px;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+	align-items: center;
+	margin: 0 auto;
+	.status-title {
+		width: 100%;
+		margin: 0;
+	}
+}
+.course-sec {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 9px;
+}
+.expire-circle {
+    background: #E24343;
+    color: #fff;
+}
+.blue-circle {
+    border: 5px solid #329CD6;
+}
+.green-circle {
+    border: 5px solid #12860D;
+}
 }
 .module-select button {
 	width: 100%;
