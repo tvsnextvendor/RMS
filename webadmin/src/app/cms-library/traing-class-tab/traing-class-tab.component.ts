@@ -22,7 +22,7 @@ export class TraingClassTabComponent implements OnInit {
   }
 
   getTrainingClassDetails(){
-    this.courseService.getCourseTrainingClass().subscribe((resp)=>{
+    this.courseService.getCourseTrainingClass(this.currentPage,this.pageLength).subscribe((resp)=>{
       console.log(resp);
       if(resp && resp.isSuccess){
         this.totalCourseTrainingCount = resp.data.count;
@@ -34,6 +34,7 @@ export class TraingClassTabComponent implements OnInit {
   pageChanged(e){
     console.log(e)
     this.currentPage = e;
+    this.getTrainingClassDetails();
   }
 
 tabChange(tabName,id){
