@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
 export class API_URL {
 
   public static URLS = {
-
-
     //Forum//
     getForumList: '5c32e1e22e00006b00121d6a',
     //*getForumList : '5c17879a2f00008200b087a8',
@@ -80,7 +78,51 @@ export class API_URL {
     moduleCourseList: '5c35f1bd3000008f0021b692',
     getNotifications: '5c2f13d23200001000590603',
     getVisitorsStaffData: '5c2ef7383200007200590561',
-    getListPageCourse : '5ca1ad583700005600899358'
+    getListPageCourse : '5ca1ad583700005600899358',
+
+   
+    //Common Services
+    divisionList: '3002/division/List',
+    departmentList: '3002/department/List',
+    roleList:'3003/role/List',
+    resortList:'3002/resort/List',
+    designationList:'3002/designation/List',
+    uploadFiles:'3003/uploadFiles',
+    removeFiles:'3003/remove',
+   
+    //Course Services
+    courseAdd: '3003/course/Add',
+    courseList:'3003/course/List',
+    courseUpdate:'3003/course/Update/',
+    courseDelete:'3003/course/Delete/',
+    trainingClassAdd:'3003/trainingClass/Add',
+    trainingClassCourse:'3003/trainingClass/List',
+    trainingClass:'3003/trainingClass/trainingList',
+    trainingClassQuiz:'3003/trainingClass/QuizList',
+    getCreatedByDetails:'3003/course/getCreatedByDetails',
+    fileList:'3003/trainingClass/fileList',
+    getResortDivision:'3003/resort/getresortDivision',
+
+
+    //Resort Services
+    resortAdd : '3003/resort/Add',
+    resortUpdate: '3003/resort/Update/',
+    resortDelete: '3003/resort/Delete/',
+
+    //Role Permission Services
+    permissionAdd: '3000/permission/Add',
+    permissionList: '3000/permission/List',
+
+    //Subscription Services
+    subscriptionAdd: '3003/subscription/Add',
+
+    //User Services
+    userAdd: '3000/user/Add',
+    userList:'3000/user/List',
+    getUserByDivDept: '3003/user/getEmployeeDetails',
+    userUpdate: '3000/user/Update/',
+    userDelete: '3000/user/Delete/'
+
   }
 
 }

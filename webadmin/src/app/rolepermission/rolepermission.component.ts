@@ -23,7 +23,7 @@ export class RolepermissionComponent implements OnInit {
      this.constant.divisionList=result.data.rows;
     })
 
-    this.commonService.getDepartmentList().subscribe((result)=>{
+    this.commonService.getDepartmentList('').subscribe((result)=>{
       this.constant.departmentList = result.data.rows;
     })
 
@@ -63,7 +63,6 @@ export class RolepermissionComponent implements OnInit {
             })
           }
       })
-    
    }
 
   selectAll(event){

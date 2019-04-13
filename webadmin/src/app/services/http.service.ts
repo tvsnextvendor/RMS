@@ -36,36 +36,36 @@ export class HttpService {
       map(this.extractData));
   }
 
-  getLocal(api,port, params): Observable<any> {
+  getLocal(api, params): Observable<any> {
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
-    return this.http.get(API_ENDPOINT+port+params,{headers:this.httpOptions.headers}).pipe(
+    return this.http.get(API_ENDPOINT+params,{headers:this.httpOptions.headers}).pipe(
       map(this.extractData),
       catchError((error: HttpErrorResponse) => {
          return Observable.throw(error);
         }));
   }
 
-  post(api,port,url,params):Observable<any> {
+  post(api,url,params):Observable<any> {
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
-    return this.http.post(API_ENDPOINT+port+url,params, {headers:this.httpOptions.headers}).pipe(
+    return this.http.post(API_ENDPOINT+url,params, {headers:this.httpOptions.headers}).pipe(
       map(this.extractData),
       catchError((error: HttpErrorResponse) => {
          return Observable.throw(error);
         }));
   }
 
-  put(api,port,url, putData): Observable<any> {
+  put(api,url, putData): Observable<any> {
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
-		return this.http.put(API_ENDPOINT+port+url,putData ,{headers: this.httpOptions.headers}).pipe(
+		return this.http.put(API_ENDPOINT+url,putData ,{headers: this.httpOptions.headers}).pipe(
 			map(this.extractData),
       catchError((error: HttpErrorResponse) => {
          return Observable.throw(error);
         }));
 	}
 
-  delete(api,port,url,deleteData): Observable<any>{
+  delete(api,url,deleteData): Observable<any>{
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
-		return this.http.request('delete',API_ENDPOINT+port+url , {headers: this.httpOptions.headers, body: deleteData}).pipe(
+		return this.http.request('delete',API_ENDPOINT+url , {headers: this.httpOptions.headers, body: deleteData}).pipe(
 		map(this.extractData),
       catchError((error: HttpErrorResponse) => {
          return Observable.throw(error);
@@ -79,18 +79,18 @@ export class HttpService {
 		}
   }
   
-  upload(api,port,url,params):Observable<any> {
+  upload(api,url,params):Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
         'Authorization': this.utilService.getToken()
       })
     };
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
-    return this.http.post(API_ENDPOINT+port+url,params, {headers:httpOptions.headers}).pipe(
+    return this.http.post(API_ENDPOINT+url,params, {headers:httpOptions.headers}).pipe(
       map(this.extractData));
   }
 
-  removeFile(api,port,url,params):Observable<any> {
+  removeFile(api,url,params):Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
         'Authorization': this.utilService.getToken()

@@ -17,15 +17,23 @@ export class CMSLibraryComponent implements OnInit {
   videoFile;
   selectedTab;
   redirectId;
+  selectedCourse=[];
+  showWarning=false;
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
     this.selectedTab = 'course';
+  
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
+    this.showWarning =false;
     let modalConfig= {class : "modal-xl"};
+    if(this.selectedCourse.length > 0){
     this.modalRef = this.modalService.show(template,modalConfig);
+    }else{
+    this.showWarning =true;
+    }
   }
 
   headerTabChange(title){
@@ -39,4 +47,9 @@ export class CMSLibraryComponent implements OnInit {
     this.headerTabChange(value.tab);
   }
   
+  getCourse(event){
+    this.selectedCourse=event;
+    console.log(this.selectedCourse);
+  }
+
 }

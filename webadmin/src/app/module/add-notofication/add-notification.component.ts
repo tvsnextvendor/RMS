@@ -130,12 +130,12 @@ export class AddNotificationComponent implements OnInit {
     }
 
     clearBatchForm() {
-        this.batchVar.moduleForm = [{
-            moduleId: 1,
-            program: "null",
-            passpercentage: "null",
-            mandatory: "true",
-        }];
+        // this.batchVar.moduleForm = [{
+        //     moduleId: 1,
+        //     program: "null",
+        //     passpercentage: "null",
+        //     mandatory: "true",
+        // }];
         this.batchVar.batchFrom = '';
         this.batchVar.batchTo = '';
         this.batchVar.selectedEmp = [];
@@ -145,18 +145,18 @@ export class AddNotificationComponent implements OnInit {
 
     //dynamic add module fields 
     addForm() {
-        let obj = {
-            moduleId: 1,
-            program: "null",
-            passpercentage: "null",
-            mandatory: "true",
-        };
-        this.batchVar.moduleForm.push(obj);
+        // let obj = {
+        //     moduleId: 1,
+        //     program: "null",
+        //     passpercentage: "null",
+        //     mandatory: "true",
+        // };
+        // this.batchVar.moduleForm.push(obj);
     }
 
     //dynamic remove module fields
     removeForm(i) {
-        this.batchVar.moduleForm.splice(i, 1);
+     //   this.batchVar.moduleForm.splice(i, 1);
     }
 
     getFileDetails(event){

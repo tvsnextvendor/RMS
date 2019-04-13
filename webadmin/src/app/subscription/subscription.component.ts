@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {SubscriptionVar} from '../Constants/subscription.var';
+import {HeaderService} from '../services/header.service';
 
 @Component({
   selector: 'app-subscription',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubscriptionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private constant : SubscriptionVar, private headerService : HeaderService) { }
 
-  ngOnInit() {
+  ngOnInit(){
+
+        console.log(this.constant.title);
+        this.headerService.setTitle({title:this.constant.title, hidemodule:false});
   }
 
 }

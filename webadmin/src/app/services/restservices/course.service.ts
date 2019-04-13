@@ -2,85 +2,85 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http.service';
 import { map } from 'rxjs/operators';
-import {API} from '../../Constants/api';
+import { API_URL } from '../../Constants/api_url';
 
 @Injectable({    
     providedIn: 'root'
 })
 export class CourseService {
   
-   port = '3003/';
+  url;
 
   constructor (private http: HttpService) {
+     this.url = API_URL.URLS;
   }
 
 
   addCourse(userData){
-    return this.http.post('local',this.port,'course/Add', userData);
+    return this.http.post('local',this.url.courseAdd, userData);
   }
 
   getCourse(currentPage,size){
-    return this.http.getLocal('local',this.port,'course/List?page='+currentPage+'&size='+size);
+    return this.http.getLocal('local',this.url.courseList+'?page='+currentPage+'&size='+size);
   }
 
   getAllCourse(){
-    return this.http.getLocal('local',this.port,'course/List');
+    return this.http.getLocal('local',this.url.courseList);
   }
 
   getCourseById(courseId){
-    return this.http.getLocal('local',this.port,'course/List?courseId='+courseId)
+    return this.http.getLocal('local',this.url.courseList+'?courseId='+courseId)
   }
 
 
   updateCourse(courseId, userData){
-      return this.http.put('local',this.port,'course/Update/'+courseId,userData)
+      return this.http.put('local',this.url.courseUpdate+courseId,userData)
   }
 
   deleteCourse(courseId){
-    return this.http.delete('local',this.port,'course/Delete/',+courseId)
+    return this.http.delete('local',this.url.courseDelete,courseId)
   }
 
   addTrainingClass(userData){
-    return this.http.post('local',this.port,'trainingClass/Add', userData);
+    return this.http.post('local',this.url.trainingClassAdd,userData);
   }
 
   getCourseTrainingClass(currentPage,size){
-    return this.http.getLocal('local',this.port,'trainingClass/List?page='+currentPage+'&size='+size);
+    return this.http.getLocal('local',this.url.trainingClassCourse+'?page='+currentPage+'&size='+size);
   }
 
   getTrainingClass(){
-    return this.http.getLocal('local',this.port,'trainingClass/trainingList');
+    return this.http.getLocal('local',this.url.trainingClass);
   }
 
   getTrainingClassById(trainingClassId){
-    return this.http.getLocal('local',this.port,'trainingClass/trainingList?trainingClassId='+trainingClassId)
+    return this.http.getLocal('local',this.url.trainingClass+'?trainingClassId='+trainingClassId)
   }
 
   getTrainingClassQuiz(trainingClassId,courseId){
-    return this.http.getLocal('local',this.port,'trainingClass/QuizList?trainingClassId='+trainingClassId+'&courseId='+courseId)
+    return this.http.getLocal('local',this.url.trainingClassQuiz+'?trainingClassId='+trainingClassId+'&courseId='+courseId)
   }
 
   getDivision(resortId,resortType){
       let resort = resortType === "parent" ? 'parentResort='+resortId : 'childResort='+resortId
-      return this.http.getLocal('local',this.port,'resort/getresortDivision?'+resort+'&type=division');
+      return this.http.getLocal('local',this.url.getResortDivision+'?'+resort+'&type=division');
   }
 
   getChildResort(resortId){
-    return this.http.getLocal('local',this.port,'resort/getresortDivision?childResort='+resortId);
+    return this.http.getLocal('local',this.url.getResortDivision+'?childResort='+resortId);
   }
 
   getDepartment(divisionId){
-    let port = '3002/'
-    return this.http.post('local',port,'department/List',{'divisionId':divisionId});
+    return this.http.post('local',this.url.departmentList,{'divisionId':divisionId});
   }
 
   getCreatedByDetails(){
    //  let port = '3002/'
-    return this.http.getLocal('local',this.port,'course/getCreatedByDetails');
+    return this.http.getLocal('local',this.url.getCreatedByDetails);
   }
 
   getFiles(fileType){
     // let port = '3002/'
-    return this.http.getLocal('local',this.port,'trainingClass/fileList?fileType='+fileType);
+    return this.http.getLocal('local',this.url.fileList+'?fileType='+fileType);
   }
 }
