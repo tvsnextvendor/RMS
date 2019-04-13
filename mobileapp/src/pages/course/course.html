@@ -14,7 +14,10 @@
     </ion-navbar>
   </ion-header>
 
-  <div class="tabs progress-tab col-md-12 clearfix">
+
+  <div class="main-content">
+
+  <div class="tabs progress-tab  clearfix">
     <span class="tab-item" (click)="showData('assigned')" [ngClass]="!showAssigned ? 'assigned' : ''">
       {{constant.pages.trainingLabels.assignedLabel}}
     </span>
@@ -61,8 +64,8 @@
     </ion-row> -->
 
     <ion-row *ngIf="assignedCount > 0">
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of courseList;let i=index;" class="main-forum">
-        <ion-card class="training-list">
+      <ion-col col-12 col-sm-6 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
+        <ion-card class="forum-card">
           <ion-grid>
             <ion-row>
               <ion-col col-2 col-sm-1 class="align-self-center">
@@ -75,9 +78,9 @@
               </ion-col>
               <ion-col col-5 col-sm-3 class="arrow-icon">
                 <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
-                  <span class="hour-status batch-date">{{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
+                  <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
-                    {{task.TrainingSchedule.dueDate}}</p>
+                    {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
                 </div>
               </ion-col>
               <ion-col col-1 col-sm-1 class="middle-arw" (click)="openTrainingClass()">
@@ -90,7 +93,7 @@
     </ion-row>
     <ion-row *ngIf="assignedCount == 0">
         <ion-col class="main-forum">
-          <ion-card class="training-list">
+          <ion-card class="forum-card">
             <ion-grid>
               <ion-row>
                 <ion-col col-12>{{noRecordsFoundMessage}}</ion-col>
@@ -129,8 +132,8 @@
       </ion-col>
     </ion-row> -->
     <ion-row *ngIf="assignedCount > 0">
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of courseList;let i=index;" class="main-forum">
-        <ion-card class="training-list">
+      <ion-col col-12 col-sm-6 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
+        <ion-card class="forum-card">
           <ion-grid>
             <ion-row>
               <ion-col col-2 col-sm-1 class="align-self-center">
@@ -143,7 +146,7 @@
               </ion-col>
               <ion-col col-5 col-sm-3 class="arrow-icon">
                 <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
-                  <span class="hour-status batch-date">{{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
+                  <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
                     {{task.TrainingSchedule.dueDate}}</p>
                 </div>
@@ -158,7 +161,7 @@
     </ion-row>
     <ion-row *ngIf="assignedCount == 0">
         <ion-col class="main-forum">
-          <ion-card class="training-list">
+          <ion-card class="forum-card">
             <ion-grid>
               <ion-row>
                 <ion-col col-12>{{noRecordsFoundMessage}}</ion-col>
@@ -199,8 +202,8 @@
     </ion-row> -->
    
     <ion-row *ngIf="assignedCount > 0">
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of courseList;let i=index;" class="main-forum">
-        <ion-card class="training-list">
+      <ion-col col-12 col-sm-6 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
+        <ion-card class="forum-card">
           <ion-grid>
             <ion-row>
               <ion-col col-2 col-sm-1 class="align-self-center">
@@ -213,7 +216,7 @@
               </ion-col>
               <ion-col col-5 col-sm-3 class="arrow-icon">
                 <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
-                  <span class="hour-status batch-date">{{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
+                  <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
                     {{task.TrainingSchedule.dueDate}}</p>
                 </div>
@@ -230,7 +233,7 @@
 
     <ion-row *ngIf="assignedCount == 0">
         <ion-col class="main-forum">
-          <ion-card class="training-list">
+          <ion-card class="forum-card">
             <ion-grid>
               <ion-row>
                 <ion-col col-12>{{noRecordsFoundMessage}}</ion-col>
@@ -261,8 +264,8 @@
       </ion-col>
     </ion-row> -->
     <ion-row *ngIf="assignedCount > 0">
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of courseList;let i=index;" class="main-forum">
-        <ion-card class="training-list">
+      <ion-col col-12 col-sm-6 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
+        <ion-card class="forum-card">
           <ion-grid>
             <ion-row>
               <ion-col col-2 col-sm-1 class="align-self-center">
@@ -275,7 +278,7 @@
               </ion-col>
               <ion-col col-5 col-sm-3 class="arrow-icon">
                 <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
-                  <span class="hour-status batch-date">{{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
+                  <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
                     {{task.TrainingSchedule.dueDate}}</p>
                 </div>
@@ -292,7 +295,7 @@
 
     <ion-row *ngIf="assignedCount == 0">
       <ion-col class="main-forum">
-        <ion-card class="training-list">
+        <ion-card class="forum-card">
           <ion-grid>
             <ion-row>
               <ion-col col-12>{{noRecordsFoundMessage}}</ion-col>
@@ -303,4 +306,10 @@
     </ion-row>
 
   </div>
+  </div>
 </ion-content>
+<div class="fixed-btn">
+    <button ion-button round class="add-question">
+     UPLOAD CONTENT
+    </button>
+  </div>

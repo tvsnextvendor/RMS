@@ -1,63 +1,164 @@
 <ion-content padding class="headerFull-bg default-header">
-        <ion-header class="static-header main-header my-component" color="primary" >
-          <ion-navbar>
-            <button ion-button menuToggle>
-              <img src="../assets/imgs/menu.png" />
-            </button>
-            <ion-title class="text-left">
-              <span class="header-title">{{constant.title.dashboard}}</span>
-              <div class="header-icon" (click)="goToNotification()">
-                <img src="../assets/imgs/notification.png" />
-                <span class="dot-circle">4</span>
-              </div>  
-            </ion-title>
-          </ion-navbar>
-        </ion-header>
-        <div class="main-content">
-          <div class="current-day">
-            <h3> {{constant.pages.dashboardLabels.goodMrng}}, Vernon</h3>
-            <!-- <p class="day-detail">
+  <ion-header class="static-header main-header my-component" color="primary">
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <img src="../assets/imgs/menu.png" />
+      </button>
+      <ion-title class="text-left">
+        <span class="header-title">{{constant.title.dashboard}}</span>
+        <div class="header-icon" (click)="goToNotification()">
+          <img src="../assets/imgs/notification.png" />
+          <span class="dot-circle">4</span>
+        </div>
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  <div class="main-content">
+    <div class="current-day">
+      <h3> {{constant.pages.dashboardLabels.goodMrng}}, Vernon</h3>
+      <!-- <p class="day-detail">
               {{currentdate}}
             </p> -->
-            <p class="m-0"><span class="day-detail">Today's weather </span><img class="weather-img" src="../assets/imgs/weather.png" /> <span class="weather-sts">-1</span> <sup>&#x2103;  <span class="split-txt">|</span>  &#8457;</sup></p>
-        
-        <p class="day-detail">Whitetail resort is celebrating their 4th year anniversary today</p>
+      <p class="m-0"><span class="day-detail">Today's weather </span><img class="weather-img" src="../assets/imgs/weather.png" />
+        <span class="weather-sts">-1</span> <sup>&#x2103; <span class="split-txt">|</span> &#8457;</sup></p>
+
+      <p class="day-detail">Whitetail resort is celebrating their 4th year anniversary today</p>
+    </div>
+    <ion-grid class="status-grid no-padding">
+      <ion-row nowrap class="forecast_container">
+        <ion-col col-4 col-md-4>
+          <div class="status-block">
+            <div class="expire-circle circle-style">
+              <h4 class="status-title">4</h4>
+            </div>
+
+            <p class="course-sec">Courses Expiring</p>
+
           </div>
-          <ion-grid class="status-grid no-padding">
-            <ion-row nowrap class="forecast_container">
-                    <ion-col col-4 col-md-4>
-                            <div class="status-block">
-                                <div class="expire-circle circle-style">
-                                        <h4 class="status-title">4</h4>
-                                </div>
-                                   
-                                    <p class="course-sec">Courses Expiring</p> 
-                                  
-                                  </div>
-                    </ion-col>
-                    <ion-col col-4 col-md-4>
-                            <div class="assign-box sts-style">
-                                    <div class="blue-circle  circle-style">
-                                            <h4 class="status-title">4</h4>
-                                    </div>
-                                       
-                                        <p class="course-sec">Signature Required</p> 
-                                      
-                                      </div>
-                    </ion-col>
-                    <ion-col col-4 col-md-4>
-                            <div class="assign-box sts-style">
-                                    <div class="green-circle  circle-style">
-                                            <h4 class="status-title">4</h4>
-                                    </div>
-                                       
-                                        <p class="course-sec">General Notifications</p> 
-                                      
-                                      </div>
-                    </ion-col>
+        </ion-col>
+        <ion-col col-4 col-md-4>
+          <div class="assign-box sts-style">
+            <div class="blue-circle  circle-style">
+              <h4 class="status-title">4</h4>
+            </div>
+
+            <p class="course-sec">Signature Required</p>
+
+          </div>
+        </ion-col>
+        <ion-col col-4 col-md-4>
+          <div class="assign-box sts-style">
+            <div class="green-circle  circle-style">
+              <h4 class="status-title">4</h4>
+            </div>
+
+            <p class="course-sec">General Notifications</p>
+
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <div class="main-content">
+      <ion-list>
+        <ion-card class="forum-card">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4 class="batch-name">Schedule 1</ion-col>
+              <ion-col col-7 class="batch-date">
+                28 Jan 2019
+                <!-- {{batch.BatchStart | date:'d MMM y'}} -->
+                <span class="to-txt"> To </span>
+                28 Jan 2019
+                <!-- {{batch.BatchEnd| date:'d MMM y'}} -->
+              </ion-col>
+              <ion-col col-1 class="batch-icon">
+                <!-- <ion-icon name="ios-arrow-forward" ></ion-icon> -->
+                <ion-icon name="ios-arrow-down"></ion-icon>
+              </ion-col>
             </ion-row>
-        </ion-grid>
-         <!---- <div class="module-select">
+            <ion-row>
+              <ion-col col-6 class="course-count">
+                <p>Course 1</p>
+                <p>4 Training Classes</p>
+              </ion-col>
+              <ion-col col-6>
+                <div class="expires red-color"><span class="aligtxt">Will expire in 2 days</span></div>
+                <!-- <div class="average orange-color" *ngIf="batch.retakeCourse"><span class="aligtxt"> Avg Score
+                          {{batch.Score}}% <br>
+                          <ion-icon name="md-refresh"></ion-icon>Retake Course
+                        </span></div>
+                      <div class="completed green-color" *ngIf="batch.activeCompleteStatus"><span class="aligtxt"><img src="../assets/imgs/completed.png" class="completed-img" />{{batch.CourseStatus}}</span></div> -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+
+
+
+        <ion-card class="forum-card">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4 class="batch-name">Schedule 1</ion-col>
+              <ion-col col-7 class="batch-date">
+                28 Jan 2019
+
+                <span class="to-txt"> To </span>
+                28 Jan 2019
+
+              </ion-col>
+              <ion-col col-1 class="batch-icon">
+                <!-- <ion-icon name="ios-arrow-forward" ></ion-icon> -->
+                <ion-icon name="ios-arrow-down"></ion-icon>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-6 class="course-count">
+                <p>Course 1</p>
+                <p>4 Training Classes</p>
+              </ion-col>
+              <ion-col col-6>
+                <div class="expires red-color"><span class="aligtxt">Will expire in 2 days</span></div>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+        <ion-card class="forum-card">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4 class="batch-name">Schedule 1</ion-col>
+              <ion-col col-7 class="batch-date">
+                28 Jan 2019
+
+                <span class="to-txt"> To </span>
+                28 Jan 2019
+
+              </ion-col>
+              <ion-col col-1 class="batch-icon">
+                <!-- <ion-icon name="ios-arrow-forward" ></ion-icon> -->
+                <ion-icon name="ios-arrow-down"></ion-icon>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-6 class="course-count">
+                <p>Course 1</p>
+                <p>4 Training Classes</p>
+              </ion-col>
+              <ion-col col-6>
+                <div class="expires red-color"><span class="aligtxt">Will expire in 2 days</span></div>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-list>
+    </div>
+
+
+
+    <!---- <div class="module-select">
             <div class="dropdown module-drpdwn">
               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -73,7 +174,7 @@
               </div>
             </div>
           </div>-->
-          <!--<section class="training-section" *ngIf="trainingDatas && dashboardInfo">
+    <!--<section class="training-section" *ngIf="trainingDatas && dashboardInfo">
             <ion-grid class="status-grid no-padding">
               <ion-row nowrap class="forecast_container">
                 <ion-col col-5 col-md-5 class="tvs-statusBox course-sts" (click)="goToChildPage('assigned')">
@@ -280,5 +381,5 @@
         </ion-row>
         </ion-grid>
         </section> -->
-        </div>
-        </ion-content>
+  </div>
+</ion-content>

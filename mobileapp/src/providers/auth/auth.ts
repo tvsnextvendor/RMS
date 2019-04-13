@@ -67,6 +67,8 @@ export class AuthProvider {
   }
   logout() {
     this.currentUserSet = null;
+    // this.currentUserSet.name = '';
+    // this.currentUserSet.role = 0;
     this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
     this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
   }
