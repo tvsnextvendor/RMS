@@ -16,6 +16,7 @@ export class CMSLibraryComponent implements OnInit {
   modalRef;
   videoFile;
   selectedTab;
+  redirectId;
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
@@ -29,11 +30,13 @@ export class CMSLibraryComponent implements OnInit {
 
   headerTabChange(title){
     this.selectedTab = title;
-    console.log("dataemit")
+    console.log("dataemit",title)
   }
 
   redirectTab(value){
     console.log(value);
+    this.redirectId = value.id;
+    this.headerTabChange(value.tab);
   }
   
 }

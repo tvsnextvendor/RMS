@@ -21,22 +21,22 @@
             <div class="clearfix pt-5 tab-section">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#course" (click)="headerTabChange('course')">Courses</a>
+                        <a [ngClass] = "selectedTab === 'course' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#course" (click)="headerTabChange('course')">Courses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#training" (click)="headerTabChange('training')">Training Class</a>
+                        <a [ngClass] = "selectedTab === 'training' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#training" (click)="headerTabChange('training')">Training Class</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#video" (click)="headerTabChange('video')">Videos</a>
+                        <a [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabChange('video')">Videos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  data-toggle="tab" href="#document" (click)="headerTabChange('document')">Documents</a>
+                        <a [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document')">Documents</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" (click)="headerTabChange('notification')">Notification</a>
+                        <a [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification')">Notification</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz')">Quiz</a>
+                        <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz')">Quiz</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link">Recently Deleted</a>
@@ -45,22 +45,22 @@
             </div>
             <div class="tab-content">
                 <!-- Course Tab Content -->
-                <div *ngIf = "selectedTab === 'course'" id="course" class="col-md-12 pt-2 clearfix px-0 container tab-pane active">
+                <div *ngIf = "selectedTab === 'course'" id="course" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'course' ? 'active show' : 'nav-link')">
                     <app-course-tab></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
-                <div *ngIf = "selectedTab === 'training'" id="training" class="col-md-12 pt-2 clearfix px-0 container tab-pane">
-                    <app-traing-class-tab></app-traing-class-tab>
+                <div *ngIf = "selectedTab === 'training'" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
+                    <app-traing-class-tab (videoList)="redirectTab($event)"></app-traing-class-tab>
                 </div>
                 <!-- Video Tab Content -->
-                <div *ngIf = "selectedTab === 'video'" id="video" class="col-md-12 pt-2 clearfix px-0 container tab-pane doc-table">
-                    <app-video-tab (videoList)="redirectTab($event)"></app-video-tab>
+                <div *ngIf = "selectedTab === 'video'" id="video" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
+                    <app-video-tab [videoId] = 'redirectId'></app-video-tab>
                 </div>
                 <!-- Documents Tab Content -->
-                <div  *ngIf = "selectedTab === 'document'" id="document" class="col-md-12 pt-2 clearfix px-0 container tab-pane doc-table">
-                    <app-document-tab></app-document-tab>
+                <div  *ngIf = "selectedTab === 'document'" id="document" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
+                    <app-document-tab [documentId] = "redirectId"></app-document-tab>
                 </div>
-                <div  *ngIf = "selectedTab === 'quiz'" id="quiz" class="col-md-12 pt-2 clearfix px-0 container tab-pane quiz-tab">
+                <div  *ngIf = "selectedTab === 'quiz'" id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
                     <app-quiz-tab></app-quiz-tab>
                 </div>
             </div>

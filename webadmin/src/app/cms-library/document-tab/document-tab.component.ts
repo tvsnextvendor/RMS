@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 
 @Component({
   selector: 'app-document-tab',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./document-tab.component.css']
 })
 export class DocumentTabComponent implements OnInit {
-
+  @Input() documentId;
   constructor() { }
 
   ngOnInit() {
+    console.log(this.documentId);
   }
 
 }
