@@ -40,7 +40,7 @@ export class FilterTabComponent implements OnInit {
   }
 
   getFilterData(){
-    this.courseService.getCourse().subscribe(result=>{
+    this.courseService.getAllCourse().subscribe(result=>{
       if(result && result.isSuccess){
         this.courseFilterList = result.data && result.data.rows.length && result.data.rows;
       }

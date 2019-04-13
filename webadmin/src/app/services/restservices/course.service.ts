@@ -19,7 +19,11 @@ export class CourseService {
     return this.http.post('local',this.port,'course/Add', userData);
   }
 
-  getCourse(){
+  getCourse(currentPage,size){
+    return this.http.getLocal('local',this.port,'course/List?page='+currentPage+'&size='+size);
+  }
+
+  getAllCourse(){
     return this.http.getLocal('local',this.port,'course/List');
   }
 
@@ -40,8 +44,8 @@ export class CourseService {
     return this.http.post('local',this.port,'trainingClass/Add', userData);
   }
 
-  getCourseTrainingClass(){
-    return this.http.getLocal('local',this.port,'trainingClass/List');
+  getCourseTrainingClass(currentPage,size){
+    return this.http.getLocal('local',this.port,'trainingClass/List?page='+currentPage+'&size='+size);
   }
 
   getTrainingClass(){

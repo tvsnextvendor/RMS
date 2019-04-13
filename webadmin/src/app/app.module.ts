@@ -76,12 +76,9 @@ const routes: Routes = [
     RolepermissionModule,
     SubscriptionModule,
     CMSLibraryModule,
-<<<<<<< Updated upstream
-    ApprovalrequestsModule
-=======
+    ApprovalrequestsModule,
     ArchivalSettingModule
     
->>>>>>> Stashed changes
   ],
   providers: [AuthGuard, AlertService],
   bootstrap: [AppComponent]
