@@ -354,6 +354,88 @@ p.main-score {
 .green-circle {
     border: 5px solid #12860D;
 }
+.weather-status {
+    color: #237FBC;
+}
+.batch-name {
+    font-weight: 800;
+    padding-top: 6px;
+    padding-bottom: 0;
+}
+.batch-date {
+        font-size: 12px;
+    text-align: right;
+    font-weight: 500;
+        color: #7D7D7D;
+            padding-top: 8px;
+}
+.expires,.average,.completed
+{
+     font-weight: 600;
+     height: 100%;
+    align-items: flex-end;
+    display: flex;
+    text-align: right;
+    width: 100%;
+}
+.aligtxt {
+    width: 100%;
+}
+.to-txt {
+    padding: 0 3px;
+}
+.course-count p {
+    font-size: 13px;
+}
+.ion-md-refresh {
+    margin-right: 10px;
+}
+.batch-icon {
+    text-align: right;
+        color: rgba(0,0,0,0.54);
+            padding-bottom: 0;
+    padding-top: 7px;
+}
+.forum-card .grid{
+   padding: 10px 10px 10px 10px; 
+}
+img.completed-img {
+    display: inline-block;
+    width: 19px;
+    margin-right: 7px;
+}
+.tab-footer {
+    position: fixed;
+	bottom: 0;
+	width: 100%;
+	.tab-foot-bg {
+		background: #329CD6;
+		ul {
+			padding: 0 20px;
+    background: #329CD6;
+    width: auto;
+    margin: 0 auto;
+    display: table;
+			 li {
+				float: left;
+				list-style: none;
+				span {
+					opacity: 0.4;
+    color: #fff;
+    padding: 0 10px;
+    line-height: 40px;
+	font-size: 13px;
+	
+				}
+				.active-color{
+					opacity: 1;
+				}
+			}
+		}
+		
+	}
+}
+
 }
 .module-select button {
 	width: 100%;
