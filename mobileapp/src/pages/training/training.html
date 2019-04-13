@@ -1,84 +1,55 @@
-
 <ion-content padding class="headerFull-bg default-header">
   <ion-header class="static-header">
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <img src="../assets/imgs/menu.png" />
-    </button>
-    <ion-title class="text-left">
-       <span class="header-title">{{constant.title.training}}</span>
-      <div class="header-icon" (click)="goToNotification()">
-        <img src="../assets/imgs/notification.png" />
-        <span class="dot-circle">4</span>
-      </div>
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-  <!-- <div class="module-select">
-    <div class="dropdown module-drpdwn">
-      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span>
-        {{selectedModule}} <span class="badge badge-success">{{totalCount}}</span>
-        <ion-icon name="md-funnel"></ion-icon>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <img src="../assets/imgs/menu.png" />
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngIf="modules">
-        <a class="dropdown-item" href="javascript:void(0)" *ngFor="let list of modules;let i =index;" (click)="changeModule(list)">
-           <span class="module-txt">{{constant.pages.dashboardLabels.module}}</span> 
-          {{list.name}}
-        </a>
-      </div>
-    </div>
-  </div> -->
-  <!-- <div class="tabs progress-tab">
-    <a class="tab-item" (click)="showData('assigned')" [ngClass]="!showAssigned ? 'assigned' : ''">
-      {{constant.pages.trainingLabels.assignedLabel}}
-    </a>
-    <a class="tab-item" (click)="showData('inprogress')" [ngClass]="!showProgress ? 'inprogress' : ''">
-      {{constant.pages.trainingLabels.progressLabel}}
-    </a>
-    <a class="tab-item" (click)="showData('complete')" [ngClass]="!showCompleted ? 'complete' : ''">
-      {{constant.pages.trainingLabels.completedLabel}}
-    </a>
-  </div> -->
-  <div class="tab-content" [hidden]="showAssigned" *ngIf="assignedCoursesList.length > 0">
+      <ion-title class="text-left">
+        <span class="header-title">{{constant.title.training}}</span>
+        <div class="header-icon" (click)="goToNotification()">
+          <img src="../assets/imgs/notification.png" />
+          <span class="dot-circle">4</span>
+        </div>
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+
+  <div class="tab-content" *ngIf="allTrainingClassesCount > 0">
     <ion-row>
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of assignedCoursesList;let i=index;" (click)="openTrainingDetail(task,i,'assigned')"
+      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of allTrainingClasses;let i=index;" (click)="openTrainingDetail(task,i,'assigned')"
         class="main-forum">
         <ion-card class="training-list">
           <div class="training-image">
-            <span class="course-name">{{task.courseName}}</span>
-           
-            <img src="{{task.files[0].featuredImage}}" />
+            <span class="course-name">{{task.trainingClassName}}</span>
+            <img src="" />
             <span class="play-icon">
               <img src="../assets/imgs/play-button (2).png" />
             </span>
           </div>
           <ion-card-content class="training-content">
-              <!-- {{task.completePercent}} -->
-             <!-- <span class="com-percen"> 0% {{constant.pages.dashboardLabels.complete}}</span> -->
+
             <ion-card-title class="training-title">
               <ion-grid no-padding class="post-details">
                 <ion-row class="">
                   <ion-col col-7 class=" ">
-                    <p class="training-name">{{task.files[0].fileTitle}} </p>
+                    <p class="training-name" *ngIf="task.Files[0]">{{task.Files[0].fileName}} </p>
                   </ion-col>
                   <ion-col col-5 class="">
-                    <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.postedDate |
+                    <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.updated |
                       date:'dd/MM/yyyy'}}</p>
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </ion-card-title>
-            <p class="training-desc">
-              {{task.files[0].fileDescription | words : 15 }}
+            <p class="training-desc" *ngIf="task.Files[0]">
+              {{task.Files[0].fileDescription | words : 15 }}
             </p>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </div>
-  <div class="tab-content" [hidden]="showProgress" *ngIf="progressCoursesList.length > 0">
+  <!-- <div class="tab-content" [hidden]="showProgress" *ngIf="progressCoursesList.length > 0">
     <ion-row>
       <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of progressCoursesList;let i=index;" (click)="openTrainingDetail(task,i,'inprogress')"
         class="main-forum">
@@ -91,7 +62,7 @@
             </span>
           </div>
           <ion-card-content class="training-content">
-            <!-- <span class="com-percen">50% {{constant.pages.dashboardLabels.complete}}</span> -->
+            <span class="com-percen">50% {{constant.pages.dashboardLabels.complete}}</span> 
             <ion-card-title class="training-title">
               <ion-grid no-padding class="post-details">
                 <ion-row class="">
@@ -127,7 +98,7 @@
             </span>
           </div>
           <ion-card-content class="training-content">
-             <!-- <span class="com-percen">100% {{constant.pages.dashboardLabels.complete}}</span> -->
+     <span class="com-percen">100% {{constant.pages.dashboardLabels.complete}}</span> 
             <ion-card-title class="training-title">
               <ion-grid no-padding class="post-details">
                 <ion-row class="">
@@ -148,5 +119,5 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  </div>
+  </div> -->
 </ion-content>

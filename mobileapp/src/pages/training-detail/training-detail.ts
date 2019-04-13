@@ -44,17 +44,20 @@ export class TrainingDetailPage {
     truncating = true;
     agree: boolean = false;
     courseId;
+    trainingClassName;
+    trainingClassId;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private document: DocumentViewer, private toastr: ToastrService) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
-        this.courseName = this.detailObject['setData'].courseName;
-        this.courseId = this.detailObject['setData'].courseId;
-        this.trainingDatas = this.detailObject['setData'].files;
+        this.trainingClassName = this.detailObject['setData'].trainingClassName;
+        this.trainingClassId = this.detailObject['setData'].trainingClassId;
+        this.trainingDatas = this.detailObject['setData'].Files;
         this.lastIndexs = this.trainingDatas.length - 1;
         this.selectedIndexs = this.detailObject['selectedIndex'];
         this.trainingStatus = this.detailObject.status;
         this.loadingBarWidth = (100 / parseInt(this.trainingDatas.length, 10));
+        this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
     }
     // go to particular index
     goToSlideIndex() {
@@ -92,8 +95,8 @@ export class TrainingDetailPage {
                 handler: () => {
                     // let currentIndex = self.slides.getActiveIndex();
                     //  self.paramsData['menu'] = self.trainingDatas[currentIndex]['fileTitle'];
-                    self.paramsData['courseId'] = self.courseId
-                    self.paramsData['menu'] = self.courseName;
+                    self.paramsData['trainingClassId'] = self.trainingClassId
+                    self.paramsData['menu'] = self.trainingClassName;
                     self.navCtrl.push(QuizPage, self.paramsData);
                 }
             }]
@@ -126,7 +129,7 @@ export class TrainingDetailPage {
     showNextPage() {
         this.initial = this.initial + 1;
         this.setTraining = this.trainingDatas[this.initial];
-        this.setTraining.fileLink = this.getFileExtension(this.setTraining.fileLink);
+        this.setTraining.fileUrl = this.getFileExtension(this.setTraining.fileUrl);
         const htmlVideoTag = this.videotag.nativeElement;
         htmlVideoTag.load();
         this.text = this.setTraining.fileDescription;
@@ -139,7 +142,7 @@ export class TrainingDetailPage {
             this.initial = this.initial - 1;
             this.setTraining = this.trainingDatas[this.initial];
             this.text = this.setTraining.fileDescription;
-            this.setTraining.fileLink = this.getFileExtension(this.setTraining.fileLink);
+            this.setTraining.fileUrl = this.getFileExtension(this.setTraining.fileUrl);
             const htmlVideoTag = this.videotag.nativeElement;
             htmlVideoTag.load();
             this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
@@ -187,7 +190,7 @@ export class TrainingDetailPage {
         // Doc Viewed Files PPT,TXT,DOC
         if (this.agree) {
             const options: DocumentViewerOptions = {
-                title: this.courseName
+                title: this.trainingClassName
             };
             let docType;
             switch (this.fileType) {

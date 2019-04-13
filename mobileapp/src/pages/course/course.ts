@@ -41,12 +41,15 @@ export class CoursePage implements OnInit {
   progressCoursesList = [];
   completeCoursesList = [];
   noRecordsFoundMessage;
+  paramsData ={};
+  currentUser;
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController, public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
   }
 
   ngOnInit() {
+   
   }
 
   ionViewDidLoad() {
@@ -54,36 +57,46 @@ export class CoursePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    
     this.assignedCoursesList = [];
     this.progressCoursesList = [];
     this.completeCoursesList = [];
+    this.getuserDetails();
     this.getCourseStatus('assigned');
     this.getCoursesList();
-    
-  }
+   
 
+  
+  }
   goToNotification() {
     this.navCtrl.setRoot('notification-page');
   }
-
-  openTrainingClass() {
-    this.navCtrl.setRoot('training-page');
+  openTrainingClass(courseId) 
+  {
+    this.paramsData['courseId'] = courseId;
+    this.navCtrl.setRoot('training-page',this.paramsData);
   }
-
-
   //getcourse 
-  async getCoursesList() {
+  async getCoursesList(){
     this.loader.showLoader();
     await this.getCourse();
     this.loader.hideLoader();
   }
-
   getCourseStatus(status) {
     let self = this;
+    // self.storage.get('currentUser').then(
+    //   (val) => {
+    //     if (val) {
+    //       self.currentUser = val
+    //     }
+    //   }, (err) => {
+    //     console.log('currentUser not received in course.component.ts', err);
+    //   });
     this.courseList = [];
     return new Promise(resolve => {
-      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + 6).subscribe((res) => {
+      console.log('this.currentUser');
+      console.log(this.currentUser);
+      let userId = 6;
+      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId).subscribe((res) => {
 
         console.log(res);
 
@@ -96,7 +109,6 @@ export class CoursePage implements OnInit {
           self.assignedCount = 0;
           self.noRecordsFoundMessage = res['message'];
         }
-
 
         console.log(self.courseList);
         console.log(self.courseList);
@@ -181,6 +193,24 @@ export class CoursePage implements OnInit {
 
     this.getCourseStatus(show);
 
+  }
+
+  getuserDetails() {
+    let self = this;
+    this.storage.get('currentUser').then(
+      (val) => {
+        if (val) {
+          self.currentUser = val
+        }
+
+       
+        console.log("sadasdasdas self.currentUser");
+        console.log(self.currentUser);
+      }, (err) => {
+        console.log('currentUser not received in course.component.ts', err);
+      });
+      console.log(self.currentUser);
+    
   }
 
 }

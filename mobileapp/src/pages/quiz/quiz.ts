@@ -23,7 +23,7 @@ export class QuizPage {
     constructor(public navCtrl: NavController, private http: HttpProvider,private navParams:NavParams) {
         this.trainingObj = this.navParams.data;
         this.videoMenuTitle = this.trainingObj.menu;
-        this.courseId = this.trainingObj.courseId;
+        this.courseId = this.trainingObj.trainingClassId;
     }
     //first load
     ionViewDidLoad() {
@@ -79,6 +79,15 @@ export class QuizPage {
 
     //Get Quiz API datas
     getQuizDatas() {
+        this.http.getData(API_URL.URLS.getQuiz).subscribe((data) => {
+            if (data) {
+                this.quizData = data;
+                this.getQuizContent();
+            }
+        });
+    }
+
+    getQuizInfos() {
         this.http.getData(API_URL.URLS.getQuiz).subscribe((data) => {
             if (data) {
                 this.quizData = data;

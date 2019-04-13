@@ -33,6 +33,7 @@ export class API_URL {
 
         'loginAPI':'3000/login',
         'trainingCourseAPI':'3003/course/courseByStatus',
-        'trainingCourseFilesAPI':'3003/trainingClass/TrainingFileList'
+        'trainingCourseFilesAPI':'3003/trainingClass/TrainingFileList',
+        'quizAPI':'3003/trainingClass/QuizList'
     };
 }

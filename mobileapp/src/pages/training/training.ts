@@ -45,8 +45,12 @@ export class TrainingPage {
   allProgramsProgressCourses = [];
   allProgramsCompletedCourses = [];
   totalCount;
+  courseIdParams;
+  allTrainingClasses;
+  allTrainingClassesCount;
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage, public loader: LoaderService) {
     this.detailObject = this.navParams.data;
+    this.courseIdParams = this.detailObject.courseId;
     this.statusKey = this.detailObject['status'] ? this.detailObject['status'] : 'assigned';
     this.selectedModule = constant.pages.dashboardLabels.selectModules;
   }
@@ -67,6 +71,7 @@ export class TrainingPage {
     this.showData(this.statusKey);
     this.getCousesList();
     this.getModules();
+    this.getCourseTrainingClasses();
   }
   getLocalStorageInfo() {
     return new Promise(resolve => {
@@ -82,6 +87,24 @@ export class TrainingPage {
           resolve('rejected');
         });
     });
+  }
+  getCourseTrainingClasses(){
+    let courseId = this.courseIdParams;
+    let self = this;
+    return new Promise(resolve => {
+      this.http.get(API_URL.URLS.trainingCourseFilesAPI+'?courseId='+courseId).subscribe((res) => {
+        self.allTrainingClasses = res['data']['rows'];
+        self.allTrainingClassesCount = res['data']['count'];
+        console.log(res);
+        console.log('self.allTrainingClasses');
+        console.log(self.allTrainingClasses);
+        resolve('resolved');
+      }, (err) => {
+        console.log('error occured', err);
+        resolve('rejected');
+      });
+    });
+
   }
   getCoursesSeparate() {
     return new Promise(resolve => {
@@ -158,6 +181,7 @@ export class TrainingPage {
     this.paramsData['status'] = status;
     this.paramsData['setData'] = detailObj;
     this.paramsData['selectedIndex'] = selectedIndex;
+
     this.navCtrl.push(TrainingDetailPage, this.paramsData);
   }
   //getcourse 

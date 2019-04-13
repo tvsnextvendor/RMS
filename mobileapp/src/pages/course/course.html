@@ -72,7 +72,7 @@
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
               <ion-col col-4 col-sm-8 class="course-det">
-                <h4 class="notify-title" (click)="openTrainingClass()"> {{task.Course.courseName}}</h4>
+                <h4 class="notify-title" (click)="openTrainingClass(task.Course.courseId)"> {{task.Course.courseName}}</h4>
                 <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                   {{constant.pages.trainingLabels.trainingClass}}</p>
               </ion-col>
@@ -83,7 +83,7 @@
                     {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
                 </div>
               </ion-col>
-              <ion-col col-1 col-sm-1 class="middle-arw" (click)="openTrainingClass()">
+              <ion-col col-1 col-sm-1 class="middle-arw" (click)="openTrainingClass(task.Course.courseId)">
                 <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
               </ion-col>
             </ion-row>
