@@ -28,10 +28,11 @@ export class ResortListComponent implements OnInit {
   ngOnInit() {
     this.resortVar.title = "Resort Management";
     this.headerService.setTitle({ title: this.resortVar.title, hidemodule: false });
+   
     this.commonService.getResortList().subscribe((result) => {  
-      if(result && result.isSuccess){
+      if(result ){
         this.resortVar.resortList = result.data.rows;
-        console.log(this.resortVar.resortList)
+      
       }
     });
   }
