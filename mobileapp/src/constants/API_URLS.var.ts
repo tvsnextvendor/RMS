@@ -32,6 +32,7 @@ export class API_URL {
 
 
         'loginAPI':'3000/login',
-        'trainingCourseAPI':'3003/course/courseByStatus'
+        'trainingCourseAPI':'3003/course/courseByStatus',
+        'trainingCourseFilesAPI':'3003/trainingClass/TrainingFileList'
     };
 }
