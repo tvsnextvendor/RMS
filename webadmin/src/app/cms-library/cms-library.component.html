@@ -37,7 +37,7 @@
                         <a [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification')">Notification</a>
                     </li>
                     <li class="nav-item">
-                        <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz')">Quiz</a>
+                        <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show' : 'nav-link disabled'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz')">Quiz</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link">Recently Deleted</a>
@@ -55,14 +55,14 @@
                 </div>
                 <!-- Video Tab Content -->
                 <div *ngIf = "selectedTab === 'video'" id="video" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
-                    <app-video-tab [videoId] = 'redirectId'></app-video-tab>
+                    <app-video-tab [videoId] = 'trainingClassId'></app-video-tab>
                 </div>
                 <!-- Documents Tab Content -->
                 <div  *ngIf = "selectedTab === 'document'" id="document" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
-                    <app-document-tab [documentId] = "redirectId"></app-document-tab>
+                    <app-document-tab [documentId] = "trainingClassId"></app-document-tab>
                 </div>
                 <div  *ngIf = "selectedTab === 'quiz'" id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
-                    <app-quiz-tab></app-quiz-tab>
+                    <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId"></app-quiz-tab>
                 </div>
             </div>
         </div>

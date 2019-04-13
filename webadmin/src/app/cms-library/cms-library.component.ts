@@ -19,6 +19,8 @@ export class CMSLibraryComponent implements OnInit {
   redirectId;
   selectedCourse=[];
   showWarning=false;
+  trainingClassId;
+  courseId;
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
@@ -43,7 +45,8 @@ export class CMSLibraryComponent implements OnInit {
 
   redirectTab(value){
     console.log(value);
-    this.redirectId = value.id;
+    this.trainingClassId = value.id;
+    this.courseId = value.courseId;
     this.headerTabChange(value.tab);
   }
   

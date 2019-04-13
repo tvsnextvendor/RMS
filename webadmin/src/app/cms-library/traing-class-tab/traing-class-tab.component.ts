@@ -37,9 +37,9 @@ export class TraingClassTabComponent implements OnInit {
     this.getTrainingClassDetails();
   }
 
-  tabChange(tabName,id){
+  tabChange(tabName,id,courseId){
     console.log(tabName)
-    let data = {tab : tabName,id:id}
+    let data = {tab : tabName,id:id,courseId : courseId}
     this.videoList.next(data);
   }
 

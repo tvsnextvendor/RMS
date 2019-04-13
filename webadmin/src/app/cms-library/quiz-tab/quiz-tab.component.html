@@ -1,8 +1,11 @@
 <!--Quiz Tab Content -->
-    <!-- <div class="white-bg pt-4 pb-4">
+    <div class="white-bg pt-4 pb-4">
         <form>
             <div class="col-md-9 row m-auto top-select-bx">
-                <select class="col-md-5 form-control">
+                <span class="col-md-5 form-control"> {{courseName}}</span>
+                <span class="col-md-1 form-control" style='border-bottom: none'></span>
+                <span class="col-md-5 form-control"> {{trainingClassName}}</span>
+                <!-- <select class="col-md-5 form-control">
                     <option>Course Name1</option>
                     <option>Course Name2</option>
                     <option>Course Name3</option>
@@ -11,21 +14,21 @@
                     <option>Training Name1</option>
                     <option>Training Name2</option>
                     <option>Training Name3</option>
-                </select>
+                </select> -->
             </div>
-            <div class="quiz-box row p-4">                   
+            <div class="quiz-box row p-4" *ngFor="let data of quizQuestionsForm;let i = index;">                   
                     <div class="col-md-11 p-0">
-                        <div class="row">
+                        <div class="row" >
                             <div class="col-md-6 row p-0"> 
                                 <label for="" class="col-sm-4 label-title p-0 m-0">Question Type</label>
                                 <div class="col-md-8 pl-0">
                                     <select class="form-control" placeholder="Select" name="questionType{{i}}" [(ngModel)]="data.questionType" (change)="questionTypeUpdate(data.questionType,i)"
-                                    #QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
+                                    #QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required disabled>
                                         <option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
                                     </select>
-                                    <span class="required_color" *ngIf="QuestionTypeVal && QuestionTypeVal.invalid && (quizForm.submitted || QuestionTypeVal.touched)">
+                                    <!-- <span class="required_color" *ngIf="QuestionTypeVal && QuestionTypeVal.invalid && (quizForm.submitted || QuestionTypeVal.touched)">
                                         {{constant.quizLabels.questionType}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
-                                    </span>
+                                    </span> -->
                                 </div>
                             </div> 
                             <div class="col-md-6 row p-0 form-group">
@@ -33,52 +36,56 @@
                                 <div class="col-md-8 pl-0">
                                     <span>
                                         <input type="text" class="form-control" placeholder="Enter Weightage" name="Weightage" value="{{weightage}}%"
-                                        #WeightageVal="ngModel" [(ngModel)]="data.weightage" required>
+                                        #WeightageVal="ngModel" [(ngModel)]="data.weightage" required disabled>
                                     </span>
-                                    <span class="required_color" *ngIf="WeightageVal && WeightageVal.invalid && (quizForm.submitted || WeightageVal.touched)">
+                                    <!-- <span class="required_color" *ngIf="WeightageVal && WeightageVal.invalid && (quizForm.submitted || WeightageVal.touched)">
                                         {{constant.quizLabels.weightage}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
-                                    </span>
+                                    </span> -->
                                 
                                 </div>
                             </div>
                         </div>
                         <div class="row  form-group">
-                            <label class="col-md-2 pl-0 label-title m-0">Question 1</label>
+                            <label class="col-md-2 pl-0 label-title m-0">{{constant.quizLabels.question}}{{i+1}}</label>
                             <div class="col-md-10 pl-0">
-                                <input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.question"
-                                #QuestionVal="ngModel" required>
-                                <span class="required_color" *ngIf="QuestionVal && QuestionVal.invalid && (quizForm.submitted || QuestionVal.touched)">
+                                <input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.questionName"
+                                #QuestionVal="ngModel" required disabled>
+                                <!-- <span class="required_color" *ngIf="QuestionVal && QuestionVal.invalid && (quizForm.submitted || QuestionVal.touched)">
                                     {{constant.quizLabels.question}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
-                                </span>
+                                </span> -->
                             </div>                		
                         </div>
                         <div class="row form-group">
-                                <label  class="col-md-2 pl-0 label-title">Option</label>                                
+                                <label *ngIf="data.questionType !== 'NON-MCQ'" class="col-md-2 pl-0 label-title">{{constant.quizLabels.options}}</label>
+                                <label *ngIf="data.questionType === 'NON-MCQ'" class="col-md-2 pl-0 label-title">{{constant.quizLabels.answer}}</label>
                                 <div class="col-md-10 pl-0">
                                     <div class="row">
                                         <div class="col-md-12 p-0 form-group">
-                                            <div class="row" >
-                                                <span class="col-sm-12 p-0" >
-                                                    <span class="option-btn">A</span>                                                   
-                                                    <input type="text" class="form-control pdl27" placeholder="" [name]="optionValue.value"  required>
+                                            <div class="row" *ngIf="data.questionType === 'MCQ' && data.options && data.options.length">
+                                                <span class="col-sm-12 p-0" *ngFor=" let optionValue of data.options; let oi = index;">
+                                                    <span class="option-btn" *ngIf="oi===0">A</span>
+                                                    <span class="option-btn" *ngIf="oi===1">B</span>
+                                                    <span class="option-btn" *ngIf="oi===2">C</span>
+                                                    <span class="option-btn" *ngIf="oi===3">D</span>
+                                                    <input disabled type="text" class="form-control pdl27" placeholder="" [name]="optionValue.value" [(ngModel)]="optionValue.optionName" [ngModelOptions]="{ standalone : true }" required>
                                                 </span>
                                             </div>
-                                            <div class="pt-2" *ngIf="data.questionType === '2'">
+                                            <div class="pt-2" *ngIf="data.questionType === 'True/False'">
                                                 <span class="col-sm-3 pl-0">
                                                     <label class="hole-cont mr-2">
-                                                        <input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()"> {{constant.quizLabels.true}}
+                                                        <input disabled type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate()"> {{constant.quizLabels.true}}
                                                         <span class="checkmark"></span>
                                                     </label>
                                                     <label class="hole-cont mr-2">
-                                                        <input type="checkbox" [checked]="!optionData"  name="options" [value]="0" (change)="optionValueUpdate()"> {{constant.quizLabels.false}}
+                                                        <input  disabled type="checkbox" [checked]="!optionData"  name="options" [value]="0" (change)="optionValueUpdate()"> {{constant.quizLabels.false}}
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </span>
                                             </div>
-                                            <div class="row" *ngIf="data.questionType === '3'">
+                                            <div class="row" *ngIf="data.questionType === 'NON-MCQ'">
                                                 <span class="col-sm-12 pl-0">
-                                                    <span class="option-btn">{{oi + 1}}</span>
-                                                    <input type="text" class="form-control" placeholder="Enter Your Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
+                                                    <!-- <span class="option-btn">{{oi + 1}}</span> -->
+                                                    <input  disabled type="text" class="form-control" placeholder="Enter Your Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
                                                 </span>
                                             </div>
                                         </div>
@@ -92,7 +99,7 @@
                     </div>
                         
             </div>
-            <div class="quiz-box row p-4">                   
+            <!-- <div class="quiz-box row p-4">                   
                     <div class="col-md-11 p-0">
                         <div class="row  form-group">
                             <div class="col-md-6 row p-0"> 
@@ -170,8 +177,8 @@
                         <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
                     </div>
                         
-            </div>
+            </div> -->
         </form>
-    </div> -->
+    </div> 
 
 <!--End Quiz Tab Content -->
