@@ -8,7 +8,7 @@ import { CmsLibraryVar } from '../../Constants/cms-library.var';
   styleUrls: ['./traing-class-tab.component.css']
 })
 export class TraingClassTabComponent implements OnInit {
-  @Output() videoList = new EventEmitter<string>();
+  @Output() videoList = new EventEmitter();
   totalCourseTrainingCount = 0;
   trainingClassCourseList = [];
   pageLength;
@@ -37,9 +37,10 @@ export class TraingClassTabComponent implements OnInit {
     this.getTrainingClassDetails();
   }
 
-tabChange(tabName,id){
-  console.log(tabName,id)
-  this.videoList.emit(id);
-}
+  tabChange(tabName,id){
+    console.log(tabName)
+    let data = {tab : tabName,id:id}
+    this.videoList.next(data);
+  }
 
 }

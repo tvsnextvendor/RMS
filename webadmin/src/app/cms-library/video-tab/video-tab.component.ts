@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
 import { HeaderService, HttpService, CourseService } from '../../services';
 
 @Component({
@@ -7,7 +7,7 @@ import { HeaderService, HttpService, CourseService } from '../../services';
   styleUrls: ['./video-tab.component.css']
 })
 export class VideoTabComponent implements OnInit {
-
+  @Input() videoId;
   totalVideosCount;
   videoListValue;
   addVideosToCourse = false;
@@ -22,6 +22,7 @@ export class VideoTabComponent implements OnInit {
   }
 
   ngOnInit(){
+    console.log(this.videoId)
     this.getCourseFileDetails();
   }
   getCourseFileDetails() {

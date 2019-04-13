@@ -228,6 +228,7 @@ export class AddQuizComponent implements OnInit {
         })
       
         this.valueChanged(false);
+        this.redirectCourseList();
       }
     }
     else{
@@ -237,7 +238,11 @@ export class AddQuizComponent implements OnInit {
         this.valueChanged(true)
         :
         this.valueChanged(false);
-      
+        this.redirectCourseList();
     }
+  }
+
+  redirectCourseList(){
+    this.route.navigateByUrl('/cms-library');
   }
 }
