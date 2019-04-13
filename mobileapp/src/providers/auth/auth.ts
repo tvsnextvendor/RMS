@@ -3,10 +3,12 @@ import { Storage } from '@ionic/storage';
 import { HttpProvider } from '../http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import {ToastrService} from '../../service/toastrService';
+import 'rxjs/add/operator/catch';
 
 export interface User {
   name: string;
   role: number;
+  token:string;
 }
 @Injectable()
 export class AuthProvider {
@@ -19,32 +21,44 @@ export class AuthProvider {
     console.log('Hello AuthProvider Provider');
   }
   login(name: string, pw: string, keepmelogin: boolean): Promise<boolean> {
-    var self = this;
+   // var self = this;
     return new Promise((resolve, reject) => {
-      this.http.getData(API_URL.URLS.getUsers).subscribe((data) => {
-        if (data['isSuccess']) {
-          this.users = data['UserList'];
-          let usernameCorrect = this.users.find(x => x.emailAddress === name);
-          let passwordCorrect = this.users.find(x => x.password === pw);
-          if (!usernameCorrect) {
-           // self.toastr.error('Email ID is invalid');
-            self.loginEmailError = "Email ID is invalid";
-            reject(false);
-          } else if (!passwordCorrect) {
-            //self.toastr.error('Password is invalid');
-            self.loginPassErr = "Password is invalid";
-            reject(false);
-          } else {
-            this.storage.set('currentUser', usernameCorrect).then(() => {
-              console.log('currentUser has been set');
-            });
+      let postData = {'emailAddress':name,'password':pw,'keepmelogin':keepmelogin};
+
+      console.log(API_URL.URLS.loginAPI);
+      this.http.post(false,API_URL.URLS.loginAPI,postData).subscribe((res) => {
+
+
+        console.log(res);
+        if (res['isSuccess'])
+        {
+          this.storage.set('currentUser', res['data']).then(() => {
+            console.log('currentUser has been set');
+
             this.currentUserSet = {
-              name: name,
-              role: 0
-            }
-            resolve(true);
-          }
+              token :res['data']['token'],
+              name: res['data']['userName'],
+              role: res['data']['UserRole'][0]['roleId']
+            } 
+            
+          });
+          resolve(true);
+
+
+        
+        }else{
+
+          console.log(res);
+          console.log(res['error']);
+         // self.loginEmailError = res['error'];
+           reject(false);
         }
+
+
+      },(err)=>{
+        console.log(err);
+        reject(false);
+
       });
     });
   }

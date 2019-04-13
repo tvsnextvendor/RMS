@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderService, HttpService, CourseService } from '../../services';
 
 @Component({
   selector: 'app-video-tab',
@@ -7,9 +8,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VideoTabComponent implements OnInit {
 
-  constructor() { }
+  totalVideosCount;
+  videoListValue;
+  addVideosToCourse = false;
+  p;
+  pageSize;
+  
 
-  ngOnInit() {
+  constructor(private courseService: CourseService) { 
+    this.pageSize = 3;
+    this.p=1;
+
   }
 
+  ngOnInit(){
+    this.getCourseFileDetails();
+  }
+  getCourseFileDetails() {
+    this.courseService.getFiles('Video').subscribe(resp => {
+      console.log(resp);
+      if (resp && resp.isSuccess) {
+        this.totalVideosCount = resp.data.count;
+        this.videoListValue = resp.data && resp.data.rows.length && resp.data.rows;
+      }
+    });
+  }
+  openAddVideosToCourse(){
+   
+    this.addVideosToCourse = !this.addVideosToCourse;
+  }
+  pageChanged(e){
+    console.log(e)
+    this.p = e;
+  }
 }

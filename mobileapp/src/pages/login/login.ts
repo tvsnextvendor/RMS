@@ -48,6 +48,8 @@ export class LoginPage implements OnInit {
             });
         }
         this.authService.login(this.user.name, this.user.pw, this.user.keepmelogin).then(success => {
+
+            console.log(status);
             if (success) {
                 console.log('success',success);
               

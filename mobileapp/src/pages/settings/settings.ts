@@ -102,7 +102,7 @@ export class SettingsPage implements OnInit {
       }
     };
    // this.toastr.success('Notification setting updated');
-    this.http.post('postNotification', json_notify).subscribe((data) => {
+    this.http.post(true,'postNotification', json_notify).subscribe((data) => {
      // this.toastr.success('Notification setting updated');
     });
   }

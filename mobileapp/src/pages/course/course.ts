@@ -6,7 +6,7 @@ import { API_URL } from '../../constants/API_URLS.var';
 import { LoaderService } from '../../service/loaderService';
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
-import { TrainingPage } from '../training/training';
+//import { TrainingPage } from '../training/training';
 
 /**
  * Generated class for the CoursePage page.
@@ -16,7 +16,7 @@ import { TrainingPage } from '../training/training';
  */
 
 @IonicPage({
-    name: 'course-page'
+  name: 'course-page'
 })
 @Component({
   selector: 'page-course',
@@ -24,54 +24,93 @@ import { TrainingPage } from '../training/training';
   providers: [Constant]
 
 })
-export class CoursePage  implements OnInit {
+export class CoursePage implements OnInit {
   showAssigned: boolean = false;
   showProgress: boolean = true;
   showCompleted: boolean = true;
   showSignRequire: boolean = true;
   statusKey;
-    userInformation: any = [];
+  userInformation: any = [];
   userAssigned: any;
   userProgress: any;
   userCompleted: any;
+  courseList:any =[];
   allCourses: any = [];
+  assignedCount;
   assignedCoursesList = [];
   progressCoursesList = [];
   completeCoursesList = [];
+  noRecordsFoundMessage;
 
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController,public storage:Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
+  constructor(public navCtrl: NavController, public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CoursePage');
   }
 
-   ionViewDidEnter() {
+  ionViewDidEnter() {
+    
     this.assignedCoursesList = [];
     this.progressCoursesList = [];
     this.completeCoursesList = [];
+    this.getCourseStatus('assigned');
     this.getCoursesList();
+    
   }
 
-  goToNotification(){
+  goToNotification() {
     this.navCtrl.setRoot('notification-page');
   }
 
-     openTrainingClass(){
-      this.navCtrl.setRoot('training-page');
-     }
+  openTrainingClass() {
+    this.navCtrl.setRoot('training-page');
+  }
 
 
-   //getcourse 
+  //getcourse 
   async getCoursesList() {
     this.loader.showLoader();
     await this.getCourse();
     this.loader.hideLoader();
   }
+
+  getCourseStatus(status) {
+    let self = this;
+    this.courseList = [];
+    return new Promise(resolve => {
+      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + 6).subscribe((res) => {
+
+        console.log(res);
+
+        if(res['data']['rows']){
+          self.courseList    = res['data']['rows'];
+          self.assignedCount = res['data']['count'];
+
+          console.log("here");
+        }else{
+          self.assignedCount = 0;
+          self.noRecordsFoundMessage = res['message'];
+        }
+
+
+        console.log(self.courseList);
+        console.log(self.courseList);
+        resolve('resolved');
+      },(err) => {
+        console.log('error occured', err);
+        resolve('rejected');
+      });
+    });
+   
+  }
+
+
+
 
 
   getCourse() {
@@ -98,11 +137,11 @@ export class CoursePage  implements OnInit {
     });
   }
 
-  calculateExpireDays(dueDate){
-        const a = moment(new Date());
-        const date = new Date(dueDate);
-        const b = moment([date.getFullYear(), date.getMonth() , date.getDate()]);
-        return a.to(b);
+  calculateExpireDays(dueDate) {
+    const a = moment(new Date());
+    const date = new Date(dueDate);
+    const b = moment([date.getFullYear(), date.getMonth(), date.getDate()]);
+    return a.to(b);
   }
 
   // show tabs
@@ -114,19 +153,19 @@ export class CoursePage  implements OnInit {
         this.showCompleted = true;
         this.showSignRequire = true;
         break;
-      case 'inprogress':
+      case 'inProgress':
         this.showAssigned = true;
         this.showProgress = false;
         this.showCompleted = true;
-       this.showSignRequire = true;
+        this.showSignRequire = true;
         break;
-      case 'complete':
+      case 'completed':
         this.showAssigned = true;
         this.showProgress = true;
         this.showCompleted = false;
         this.showSignRequire = true;
         break;
-        case 'signRequire':
+      case 'signRequired':
         this.showAssigned = true;
         this.showProgress = true;
         this.showCompleted = true;
@@ -139,6 +178,8 @@ export class CoursePage  implements OnInit {
         this.showCompleted = true;
         this.showSignRequire = true;
     }
+
+    this.getCourseStatus(show);
 
   }
 

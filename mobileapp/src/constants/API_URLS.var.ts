@@ -27,7 +27,11 @@ export class API_URL {
       
         //'getCourses':'5c40a2050f0000d318e7b5d1', *needed
         'getCourses': '5caebe043400009620ab6dc7',
-        'getQuiz': '5c2e1c4f2f0000fd54175475'
+        'getQuiz': '5c2e1c4f2f0000fd54175475',
         // 'getCourses':'5c28b3923300004e00a58b88'
+
+
+        'loginAPI':'3000/login',
+        'trainingCourseAPI':'3003/course/courseByStatus'
     };
 }
