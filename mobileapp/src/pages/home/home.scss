@@ -23,7 +23,7 @@ page-home {
 }
 	.current-day{ 
 		font-family: 'sf_pro_displayregular';
-		padding: 7px 20px 15px 20px;
+		padding: 7px 20px 6px 13px;
 
 		.day-detail {
 			opacity: 0.3;
@@ -355,7 +355,9 @@ p.main-score {
     border: 5px solid #12860D;
 }
 .weather-status {
-    color: #237FBC;
+	color: #237FBC;
+	margin-bottom: 0;
+    margin-top: 10px;
 }
 .batch-name {
     font-weight: 800;
