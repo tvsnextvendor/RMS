@@ -1,7 +1,7 @@
 <div class="col-md-12 clearfix py-2 px-0">
     <button class="btn btn-primary creat-btn float-left" type="submit" (click)="openAddVideosToCourse()">Add Video to
         Course</button>
-    <h6 class="pt-2 float-right">Count:100</h6>
+    <h6 class="pt-2 float-right">Count:{{totalVideosCount}}</h6>
 </div>
 
 <div class="col-md-12 pt-2 clearfix px-0" *ngIf="addVideosToCourse">
@@ -120,6 +120,6 @@
 
             </tbody>
         </table>
-        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
+        <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
     </div>
 </div>

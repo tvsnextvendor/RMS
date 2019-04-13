@@ -75,12 +75,12 @@ export class CourseService {
   }
 
   getCreatedByDetails(){
-   //  let port = '3002/'
+
     return this.http.getLocal('local',this.url.getCreatedByDetails);
   }
 
-  getFiles(fileType){
-    // let port = '3002/'
-    return this.http.getLocal('local',this.url.fileList+'?fileType='+fileType);
+  getFiles(fileType,page,size){
+
+    return this.http.getLocal('local',this.url.fileList+'?fileType='+fileType+'&page='+page+'&size='+size);
   }
 }

@@ -8,16 +8,16 @@ import { HeaderService, HttpService, CourseService } from '../../services';
 })
 export class VideoTabComponent implements OnInit {
   @Input() videoId;
-  totalVideosCount;
+  totalVideosCount = 0;
   videoListValue;
   addVideosToCourse = false;
-  p;
+  page;
   pageSize;
   
 
   constructor(private courseService: CourseService) { 
     this.pageSize = 3;
-    this.p=1;
+    this.page=1;
 
   }
 
@@ -26,7 +26,7 @@ export class VideoTabComponent implements OnInit {
     this.getCourseFileDetails();
   }
   getCourseFileDetails() {
-    this.courseService.getFiles('Video').subscribe(resp => {
+    this.courseService.getFiles('Video',this.page,this.pageSize).subscribe(resp => {
       console.log(resp);
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
@@ -40,6 +40,7 @@ export class VideoTabComponent implements OnInit {
   }
   pageChanged(e){
     console.log(e)
-    this.p = e;
+    this.page = e;
+    this.getCourseFileDetails();
   }
 }
