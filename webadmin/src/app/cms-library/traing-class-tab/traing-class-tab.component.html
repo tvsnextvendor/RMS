@@ -14,14 +14,13 @@
         </label>
         <div class="clk-part clearfix pt-1">
             <div class="clk-sec float-left">
-                <a href="javascript:void(0);" (click) = "tabChange('video',training.trainingClassId)" >{{cmsLibraryVar.labels.video}} : {{training?.TrainingClass?.videosCount}}</a>
-                <a href="javascript:void(0);" (click) = "tabChange('document',training.trainingClassId)" class="ml-2">{{cmsLibraryVar.labels.document}} : {{training?.TrainingClass?.documentsCount}}</a>
+                <a href="javascript:void(0);" (click) = "tabChange('video',training.trainingClassId,'')" >{{cmsLibraryVar.labels.video}} : {{training?.TrainingClass?.videosCount}}</a>
+                <a href="javascript:void(0);" (click) = "tabChange('document',training.trainingClassId,'')" class="ml-2">{{cmsLibraryVar.labels.document}} : {{training?.TrainingClass?.documentsCount}}</a>
             </div>
-            <a class="float-right" href="javascript:void(0);" (click) = "tabChange('quiz',training.trainingClassId)">{{cmsLibraryVar.labels.viewQuiz}}</a>
+            <a class="float-right" href="javascript:void(0);" (click) = "tabChange('quiz',training.trainingClassId,course.courseId)">{{cmsLibraryVar.labels.viewQuiz}}</a>
         </div>
     </div>
 </div> 
-
 <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> 
 
 <!-- End Training Tab Content -->
