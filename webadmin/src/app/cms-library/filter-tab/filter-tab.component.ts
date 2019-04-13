@@ -42,32 +42,30 @@ export class FilterTabComponent implements OnInit {
   getFilterData(){
     this.courseService.getAllCourse().subscribe(result=>{
       if(result && result.isSuccess){
-        this.courseFilterList = result.data && result.data.rows.length && result.data.rows;
+        this.courseFilterList = result.data && result.data.rows;
       }
     })
     this.courseService.getDivision(this.parentResortId,'parent').subscribe(result=>{
       if(result && result.isSuccess){
-        this.parentDivisionFilterList = result.data.divisions && result.data.divisions.length && result.data.divisions;
-        console.log(this.parentDivisionFilterList);
+        this.parentDivisionFilterList = result.data && result.data.divisions;
       }
     })
     this.courseService.getChildResort(this.parentResortId).subscribe(result=>{
       if(result && result.isSuccess){
-        this.childResortFilterList = result.data.Resort && result.data.Resort.length && result.data.Resort;
-        console.log(result);
+        this.childResortFilterList = result.data  && result.data.Resort;
+       
       }
     })
 
     this.courseService.getCreatedByDetails().subscribe(result=>{
       if(result && result.isSuccess){
-        this.createdByList = result.data && result.data.length && result.data;
-        console.log(result);
+        this.createdByList = result.data  && result.data;
       }
     })
   }
 
   courseChange(courseId){
-    console.log(courseId)
+    
     this.filterTrainingClass = 'null';
     this.courseService.getTrainingClassById(this.filterCourse).subscribe(result=>{
       if(result && result.isSuccess){
@@ -93,7 +91,7 @@ export class FilterTabComponent implements OnInit {
   }
 
   childResortChange(resortId){
-    console.log(this.filterChildResort);
+   
     this.courseService.getDivision(this.filterChildResort,'parent').subscribe(result=>{
       if(result && result.isSuccess){
         this.childDivisionFilterList = result.data.divisions && result.data.divisions.length && result.data.divisions;
