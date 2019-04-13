@@ -18,12 +18,13 @@ export class CourseTabComponent implements OnInit {
   selectedEditCourse;
   trainingClassList =[];
   selectedEditTrainingClass;
+  selectedCourse = [];
   pageSize;
   p;
   total;
   constructor(private courseService : CourseService ,private cmsLibraryVar : CmsLibraryVar) { }
- // @Output() courseList = new EventEmitter<string>();
 
+  @Output() SelectedcourseList = new EventEmitter<object>();
 
   ngOnInit() {
     this.pageSize = 1;
@@ -89,9 +90,14 @@ export class CourseTabComponent implements OnInit {
       this.getCourseDetails();
   }
 
-  selectCourse(courseId){
-    // console.log(courseId);
-    // this.courseList.emit(courseId);
+  selectCourse(courseId,courseName, isChecked){
+    if(isChecked){
+      this.selectedCourse.push({'courseId':courseId, 'courseName': courseName});
+    }else {
+        let index = this.selectedCourse.indexOf(courseId);
+        this.selectedCourse.splice(index,1);
+      }
+    this.SelectedcourseList.emit(this.selectedCourse);
   }
 }
 

@@ -17,11 +17,13 @@ import * as moment from 'moment';
 export class AddBatchComponent implements OnInit {
     @Output() someEvent = new EventEmitter<string>();
     @Input() courseList: any = [];
+    courseIds=[];
     durationValue = '1';
     maxdurationCount;
     countCheck = false;
     countError;
     reminder;
+    status;
     showToDate = false;
     showFromDate = false;
     dateError = false;
@@ -33,41 +35,21 @@ export class AddBatchComponent implements OnInit {
             this.batchVar.batchId = params['batchId'];
         });
 
-        console.log(this.courseList,"COURSELIST");
     }
 
 
     ngOnInit() {
       this.batchVar.batchId ? this.headerService.setTitle({ title: this.batchVar.editTitle, hidemodule: false }) : '';
-
-     //get Division list
-      this.commonService.getDivisionList().subscribe((result)=>{
-        this.batchVar.divisionList=result.data.rows;
-       })
- 
-       //get Department list
-        this.commonService.getDepartmentList().subscribe((result)=>{
-            if(result.isSuccess){
-            this.batchVar.departmentList = result.data.rows;
-            }
-        })
+        this.batchVar.moduleForm=[];
+        this.courseForm();
 
         //get Resort list
         const resortId = this.utilService.getUserData().Resorts[0].resortId; 
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
-            console.log(result)
-            this.batchVar.resortList=result.data.rows;
-        })
+            this.batchVar.resortList=result.data.Resort;
+            this.batchVar.divisionList=result.data.divisions;
 
-        //get Employee list
-        this.userService.getUser().subscribe((result)=>{        
-           this.batchVar.employeeList = result.data.rows;
         })
-   
-
-        this.http.get(this.batchVar.url.getProgramList).subscribe((data) => {
-            this.batchVar.programList = data.programList;
-        });
 
         //get percentage list
         this.http.get(this.batchVar.url.getPercentageList).subscribe((data) => {
@@ -85,6 +67,17 @@ export class AddBatchComponent implements OnInit {
     selectFilter(data) {
         let startDate = localStorage.getItem('BatchStartDate');
         return data.value >= new Date(startDate);
+    }
+
+    courseForm(){
+      this.courseIds = this.courseList.map(a => a.courseId);
+      this.courseList.forEach((item,key) => {
+        let obj = { 'courseId': item.courseId,
+                 'courseName': item.courseName,
+                 'passpercentage':"null",
+                 'mandatory' :"true"}
+         this.batchVar.moduleForm.push(obj);
+     });
     }
 
     errorCheck() {
@@ -144,13 +137,33 @@ export class AddBatchComponent implements OnInit {
             }
         });
     }
+    
 
-    onEmpSelect(item: any) {
+    onEmpSelect(event,key) {
         this.batchVar.employeeId = this.batchVar.selectedEmp.map(item => { return item.employeeId });
-        this.batchVar.resortId = this.batchVar.selectedResort.map(item => { return item.resortId });
-        this.batchVar.divisionId = this.batchVar.selectedDivision.map(item => { return item.divisionId });
         this.batchVar.departmentId = this.batchVar.selectedDepartment.map(item => { return item.departmentId });
-        console.log(this.batchVar, "BatchVar")
+        this.batchVar.divisionId = this.batchVar.selectedDivision.map(item => { return item.divisionId });
+
+        if(key == 'div'){
+            const obj={'divisionId': this.batchVar.divisionId};
+            this.commonService.getDepartmentList(obj).subscribe((result)=>{
+            if(result.isSuccess){
+                this.batchVar.departmentList = result.data.rows;
+                }
+            })
+        }
+       
+        if(key == 'dept'){
+        const data={'divisionId': this.batchVar.divisionId, 'departmentId':  this.batchVar.departmentId, 'createdBy':this.utilService.getUserData().userId}
+         this.userService.getUserByDivDept(data).subscribe(result=>{
+             this.batchVar.employeeList = result.data;
+         })
+        }
+
+        if(key == 'emp'){
+            console.log(event,"EVENT");
+        }
+
         this.batchVar.empValidate = false;
     }
 
@@ -187,33 +200,29 @@ export class AddBatchComponent implements OnInit {
             this.showFromDate = false;
         }
     }
+
+
     //submit batch
     addBatch(form) {
         this.submitted = true;
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
         this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo) ? true : false;
+        //this.status = ( Date.parse(this.batchVar.batchFrom) == Date.parse(new Date()) ) ? 'assigned' : 'unassigned';
         let toastrMsg = this.batchVar.batchId ? this.batchVar.batchErrMsg : this.batchVar.batchSuccessMsg;
-
-        //To find duplicate module selection
-        let moduleId = this.batchVar.moduleForm.map(function (item) { return item.moduleId });
-        moduleId.sort();
-        let last = moduleId[0];
-        if (moduleId.length > 1) {
-            for (let i = 1; i < moduleId.length; i++) {
-                this.batchVar.moduleDuplicate = (moduleId[i] == last) ? true : false;
-            }
-        }
-
-        if (!this.batchVar.moduleDuplicate && this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.employeeId && this.batchVar.moduleForm && this.durationValue && this.reminder) {
+        if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.employeeId && this.batchVar.moduleForm && this.durationValue && this.reminder) {
             let postData = {
-                FromDate: this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-mm-dd hh:mm'),
-                ToDate: this.datePipe.transform(this.batchVar.batchTo, 'yyyy-mm-dd hh:mm'),
-                EmployeeIds: this.batchVar.employeeId,
-                BatchName: this.batchVar.batchName,
-                ModuleDetails: this.batchVar.moduleForm
+                assignedDate: this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-mm-dd hh:mm'),
+                dueDate: this.datePipe.transform(this.batchVar.batchTo, 'yyyy-mm-dd hh:mm'),
+                name: this.batchVar.batchName,
+                status: 'assigned',
+                notificationDays: this.reminder,
+                resort:{
+                    "resortId": this.batchVar.selectedResort,
+                    "courses":  this.courseIds,
+                    "users": this.batchVar.selectedEmp
+                 },
+                courses: this.batchVar.moduleForm,
             }
-
-             console.log(postData);
             this.alertService.success(toastrMsg);
             this.hidePopup();
         }
@@ -225,29 +234,20 @@ export class AddBatchComponent implements OnInit {
     }
 
     clearBatchForm() {
-        this.batchVar.moduleForm = [{
-            moduleId: 1,
-            program: "null",
-            passpercentage: "null",
-            mandatory: "true",
-        }];
-        this.batchVar.batchFrom = '';
-        this.batchVar.batchTo = '';
-        this.batchVar.selectedEmp = [];
-        this.batchVar.batchName = '';
+        // this.batchVar.moduleForm = [{
+        //     moduleId: 1,
+        //     program: "null",
+        //     passpercentage: "null",
+        //     mandatory: "true",
+        // }];
+        // this.batchVar.batchFrom = '';
+        // this.batchVar.batchTo = '';
+        // this.batchVar.selectedEmp = [];
+        // this.batchVar.batchName = '';
         // this.router.navigateByUrl('/calendar');
     }
 
-    //dynamic add module fields 
-    addForm() {
-        let obj = {
-            moduleId: 1,
-            program: "null",
-            passpercentage: "null",
-            mandatory: "true",
-        };
-        this.batchVar.moduleForm.push(obj);
-    }
+  
 
     //dynamic remove module fields
     removeForm(i) {

@@ -52,11 +52,8 @@
                         <div class="col-md-5 p-0 float-left">
                         <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                         <div class="pl-0 form-group select-Courses">
-                            <!-- <ng-multiselect-dropdown [placeholder]="'Resort'" name="resortId" [data]="batchVar.resortList"
-                                [(ngModel)]="batchVar.selectedResort" [settings]="batchVar.resortSettings" (onSelect)="onEmpSelect($event)"
-                                (onDeSelect)="onEmpSelect($event)" #resortId="ngModel" required></ng-multiselect-dropdown> -->
                             <select id="resort" class="col-md-5 form-control p-0" name="resortId" [(ngModel)]="batchVar.selectedResort">
-                                <option value="null">{{batchVar.select}}</option>
+                                <option value="null">{{batchVar.resort}}</option>
                                 <option *ngFor="let data of batchVar.resortList" value="{{data.resortId}}">{{data.resortName}}</option>
                             </select>
                             <span class="required_color" *ngIf="submitted && !batchVar.selectedResort.length">
@@ -67,7 +64,7 @@
                         <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                         <div class="pl-0 form-group select-Courses">
                             <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId" [data]="batchVar.departmentList"
-                                [(ngModel)]="batchVar.selectedDepartment" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event)"
+                                [(ngModel)]="batchVar.selectedDepartment" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
                                 (onDeSelect)="onEmpSelect($event)" #departmentId="ngModel" required></ng-multiselect-dropdown>
                             <span class="required_color" *ngIf="submitted && !batchVar.selectedDepartment.length">
                                 {{batchVar.mandatoryLabels.selectDept}}
@@ -77,14 +74,14 @@
                     <div class="col-md-5 p-0 ml-auto">
                             <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                             <div class="pl-0 form-group select-Courses">
-                                <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event)" [data]="batchVar.divisionList"
+                                <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event,'div')" [data]="batchVar.divisionList"
                                     [(ngModel)]="batchVar.selectedDivision" [settings]="batchVar.divisionSettings"  #divisionId="ngModel" required></ng-multiselect-dropdown>
                                 <span class="required_color" *ngIf="submitted && !batchVar.selectedDivision.length">
                                     {{batchVar.mandatoryLabels.selectDivision}}
                                 </span>
                             </div>
                             <div class="pl-0 form-group select-Courses">
-                                <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"  (onSelect)="onEmpSelect($event)" [data]="batchVar.employeeList"
+                                <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"  (onSelect)="onEmpSelect($event,'emp')" [data]="batchVar.employeeList"
                                     [(ngModel)]="batchVar.selectedEmp" [settings]="batchVar.empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
                                 <span class="required_color" *ngIf="submitted && !batchVar.selectedEmp.length">
                                     {{batchVar.mandatoryLabels.selectEmp}}
@@ -107,14 +104,12 @@
                         <div class="col-11 col-md-11 p-0">
                             <div class="row">
                                 <div class="row col-md-6 p-0 prgm-select">
-                                    <!-- <select id="moduleList" class="form-control form-group pl-0" name="moduleId{{i}}" [(ngModel)]="data.moduleId" #moduleId="ngModel">     
-                                                <option value="null">{{batchVar.select}}</option>
-                                                <option *ngFor="let batch of batchVar.moduleList"  value="{{batch.moduleId}}">{{batch.moduleName}}</option>
-                                         </select> -->
-                                    <select id="program" class="col-md-5 form-control p-0" name="program{{i}}" [(ngModel)]="data.program">
+                                    <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
+                                    <input type="text" class="form-control p-0" [(ngModel)]="data.courseName" name="courseName{{i}}">
+                                    <!-- <select id="program" class="col-md-5 form-control p-0" name="program{{i}}" [(ngModel)]="data.program">
                                         <option value="null">{{batchVar.select}}</option>
                                         <option *ngFor="let program of batchVar.programList" value="{{program.id}}">{{program.name}}</option>
-                                    </select>
+                                    </select> -->
 
                                     <select id="percentageList" class="col-md-5 form-control p-0 ml-4" name="passpercentage{{i}}"
                                         [(ngModel)]="data.passpercentage" #passpercentage="ngModel" required>

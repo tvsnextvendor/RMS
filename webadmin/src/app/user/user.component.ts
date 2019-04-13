@@ -63,7 +63,7 @@ export class UserComponent implements OnInit {
             this.divisionArray=result.data.rows;
         })
 
-        this.commonService.getDepartmentList().subscribe((result)=>{
+        this.commonService.getDepartmentList('').subscribe((result)=>{
             this.departmentArray = result.data.rows;
         })
 
@@ -74,7 +74,8 @@ export class UserComponent implements OnInit {
     }
 
     userList(){
-      this.userService.getUser().subscribe((resp)=>{
+     const userId = this.utilService.getUserData().userId;
+      this.userService.getUser(userId).subscribe((resp)=>{
           if(resp.isSuccess){
               this.constant.userList = resp.data.rows;
           }
@@ -160,12 +161,12 @@ export class UserComponent implements OnInit {
                 password: "123456",
                 email : this.emailAddress,
                 phoneNumber : this.phoneNumber,
-                roleId:this.utilService.getRole(),
                 designationId:this.designation,
                 divisionId:this.division,
                 departmentId:this.department,
                 reportingTo:this.reportingTo,
                 isDefault:this.defaultSetting,
+                createdBy: this.utilService.getUserData().userId
                 }
             this.userService.addUser(obj).subscribe(result => {
                   this.closeAddForm();

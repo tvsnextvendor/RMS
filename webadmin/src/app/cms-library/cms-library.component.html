@@ -18,6 +18,7 @@
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">Schedule a Training</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress">Work in Progress</button>
             </div>
+            <span class="required_color" *ngIf="showWarning">Select courses to Schedule a training</span>
             <div class="clearfix pt-5 tab-section">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -46,7 +47,7 @@
             <div class="tab-content">
                 <!-- Course Tab Content -->
                 <div *ngIf = "selectedTab === 'course'" id="course" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'course' ? 'active show' : 'nav-link')">
-                    <app-course-tab></app-course-tab>
+                    <app-course-tab (SelectedcourseList)="getCourse($event)"></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
                 <div *ngIf = "selectedTab === 'training'" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
@@ -79,6 +80,6 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-add-batch (someEvent)="modalRef.hide()"></app-add-batch>
+        <app-add-batch [courseList]="this.selectedCourse" (someEvent)="modalRef.hide()"></app-add-batch>
     </div>
 </ng-template> 

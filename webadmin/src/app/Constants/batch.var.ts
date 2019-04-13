@@ -21,7 +21,7 @@ export class BatchVar{
     }
     empSettings = {
         singleSelection: false,
-        idField: 'employeeId',
+        idField: 'userId',
         textField: 'userName',
         enableCheckAll: false,
         itemsShowLimit: 8,
@@ -83,6 +83,7 @@ export class BatchVar{
     batchErrMsg = 'Training Schedule Updated Successfully';
     invalidModule = 'Invalid Program Selection';
     select = 'Select';
+    resort= 'Resort';
     dategreater=false;
     empValidate=false;
     moduleDuplicate= false;
@@ -91,19 +92,14 @@ export class BatchVar{
     departmentList: IMultiSelectOption[];
     employeeList: IMultiSelectOption[];
     selectedEmp = [];
-    selectedResort=[];
+    selectedResort=null;
     selectedDivision =[];
     selectedDepartment=[];
-    moduleList;
-    programList;
-    percentageList;
-    url;
-    moduleForm = [{
-        moduleId : 1,
-        program: "null",
-        passpercentage:"null",
-        mandatory :"true",
-     }];
+     moduleForm = [];
+     moduleList;
+     programList;
+     percentageList;
+     url;
      batchFrom;
      batchTo;
      min;
