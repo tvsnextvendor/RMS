@@ -92,4 +92,5 @@ export class ModuleVar {
     moduleNameCheck = false;
     modalRef;
     modalConfig;
+    fileExtension;
 }

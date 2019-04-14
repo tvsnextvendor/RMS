@@ -126,12 +126,16 @@ export class AddModuleComponent implements OnInit {
         let reader = new FileReader();
         if(e.target && e.target.files[0]){
             let file = e.target.files[0];
+            document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
             this.uploadFile = file;
             let type = file.type;
             let typeValue = type.split('/');
             let extensionType = typeValue[1].split('.').pop();
+            this.moduleVar.fileExtension = extensionType;
             this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
-            console.log(this.fileExtensionType)
+            if(this.fileExtensionType === 'Video'){
+                this.filePreviewImage(file);
+            }
             let fileType = typeValue[0];
             this.fileName = file.name;
             reader.onloadend = () => {
@@ -142,7 +146,47 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
-
+    filePreviewImage(file){
+            var fileReader = new FileReader(); 
+              fileReader.onload = function() {
+                var blob = new Blob([fileReader.result], {type: file.type});
+                var url = URL.createObjectURL(blob);
+                var video = document.createElement('video');
+                var timeupdate = function() {
+                  if (snapImage()) {
+                    video.removeEventListener('timeupdate', timeupdate);
+                    video.pause();
+                  }
+                };
+                video.addEventListener('loadeddata', function() {
+                  if (snapImage()) {
+                    video.removeEventListener('timeupdate', timeupdate);
+                  }
+                });
+                var snapImage = function() {
+                  var canvas = document.createElement('canvas');
+                  canvas.width = video.videoWidth;
+                  canvas.height = video.videoHeight;
+                  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                  var image = canvas.toDataURL();
+                  var success = image.length > 100000;
+                  if (success) {
+                    var img = document.querySelector('.thumbnail_img');
+                    img.setAttribute('src', image);
+                    URL.revokeObjectURL(url);
+                  }
+                  return success;
+                };
+                video.addEventListener('timeupdate', timeupdate);
+                video.preload = 'metadata';
+                video.src = url;
+                // Load video in Safari / IE11
+                video.muted = true;
+                //video.playsInline = true;
+                video.play();
+              };
+              fileReader.readAsArrayBuffer(file);       
+    }
     extensionTypeCheck(fileType,extensionType,data){
         switch(fileType){
             case "video":
@@ -300,7 +344,7 @@ export class AddModuleComponent implements OnInit {
         this.messageClose();
         let self = this;
        this.videoSubmitted = true;
-       let videoObj = {videoName : self.moduleVar.selectVideoName,description : self.moduleVar.description,url:'',fileType:this.fileExtensionType}
+       let videoObj = {videoName : self.moduleVar.selectVideoName,description : self.moduleVar.description,url:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension}
         if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
             this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
             this.commonService.uploadFiles(this.uploadFile).subscribe((result)=>{

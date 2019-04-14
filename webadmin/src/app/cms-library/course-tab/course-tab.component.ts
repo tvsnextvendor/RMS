@@ -27,7 +27,7 @@ export class CourseTabComponent implements OnInit {
   @Output() SelectedcourseList = new EventEmitter<object>();
 
   ngOnInit() {
-    this.pageSize = 1;
+    this.pageSize = 10;
     this.p=1;
     this.getCourseDetails();
   }
