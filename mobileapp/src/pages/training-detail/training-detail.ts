@@ -46,6 +46,7 @@ export class TrainingDetailPage {
     courseId;
     trainingClassName;
     trainingClassId;
+    uploadPath;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private document: DocumentViewer, private toastr: ToastrService) {
         this.Math = Math;
@@ -53,6 +54,7 @@ export class TrainingDetailPage {
         this.trainingClassName = this.detailObject['setData'].trainingClassName;
         this.trainingClassId = this.detailObject['setData'].trainingClassId;
         this.trainingDatas = this.detailObject['setData'].Files;
+        this.uploadPath = this.detailObject['uploadPath'];
         this.lastIndexs = this.trainingDatas.length - 1;
         this.selectedIndexs = this.detailObject['selectedIndex'];
         this.trainingStatus = this.detailObject.status;
@@ -70,6 +72,7 @@ export class TrainingDetailPage {
     // first page load
     ionViewDidLoad() {
         this.setTraining = this.trainingDatas[0];
+        
         this.text = this.setTraining.fileDescription;
         console.log('ionViewDidLoad TrainingDetailPage');
     }
@@ -130,6 +133,8 @@ export class TrainingDetailPage {
         this.initial = this.initial + 1;
         this.setTraining = this.trainingDatas[this.initial];
         this.setTraining.fileUrl = this.getFileExtension(this.setTraining.fileUrl);
+
+        //alert(fileLink);
         const htmlVideoTag = this.videotag.nativeElement;
         htmlVideoTag.load();
         this.text = this.setTraining.fileDescription;
@@ -178,11 +183,12 @@ export class TrainingDetailPage {
                 this.fileType = fileType;
                 break;
             default:
-                fileLink = filename;
+                fileLink = this.uploadPath + filename;
                 this.imageType = false;
                 this.filePath = filename;
                 this.fileType = fileType;
         }
+       
         return fileLink;
     }
     viewContent(docFile) {

@@ -13,11 +13,12 @@
 <div class="inner-content" *ngIf="setTraining">
     <div class="training-det">
         <div class="image-tag" *ngIf="imageType">
-            <img src="{{setTraining.fileUrl}}" alt="image" class="inner-image">
+            <img src="{{setTraining.fileImage}}" alt="image" class="inner-image">
         </div>
         <div class="video-tag" *ngIf="!imageType">
+                {{setTraining.fileUrl}}
             <video #videoTag id="video-width" class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
-            playsinline class="videoPlayer" poster="{{setTraining.featuredImage}}">
+            playsinline class="videoPlayer" poster="{{setTraining.fileImage}}">
             <source src="{{setTraining.fileUrl}}" type="video/mp4" />
         </video>
     </div>

@@ -48,6 +48,7 @@ export class TrainingPage {
   courseIdParams;
   allTrainingClasses;
   allTrainingClassesCount;
+  uploadPath;
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage, public loader: LoaderService) {
     this.detailObject = this.navParams.data;
     this.courseIdParams = this.detailObject.courseId;
@@ -95,6 +96,8 @@ export class TrainingPage {
       this.http.get(API_URL.URLS.trainingCourseFilesAPI+'?courseId='+courseId).subscribe((res) => {
         self.allTrainingClasses = res['data']['rows'];
         self.allTrainingClassesCount = res['data']['count'];
+        self.uploadPath = res['data']['uploadPaths']['uploadPath'];
+        //alert(self.uploadPath);
         console.log(res);
         console.log('self.allTrainingClasses');
         console.log(self.allTrainingClasses);
@@ -177,10 +180,12 @@ export class TrainingPage {
     });
   }
   //open  page
-  openTrainingDetail(detailObj, selectedIndex, status) {
+  openTrainingDetail(detailObj, selectedIndex, status,uploadPath) {
+    //alert(uploadPath);
     this.paramsData['status'] = status;
     this.paramsData['setData'] = detailObj;
     this.paramsData['selectedIndex'] = selectedIndex;
+    this.paramsData['uploadPath'] = uploadPath;
 
     this.navCtrl.push(TrainingDetailPage, this.paramsData);
   }

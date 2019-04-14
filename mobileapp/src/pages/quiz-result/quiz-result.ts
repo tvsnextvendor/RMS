@@ -40,7 +40,7 @@ export class QuizResultPage implements OnInit {
     }
 
     closeToStart() {
-        this.navCtrl.setRoot('training-page');
+        this.navCtrl.setRoot('course-page');
     }
     feedbackForm() {
         if (this.feedback && !this.feedback.rating) {

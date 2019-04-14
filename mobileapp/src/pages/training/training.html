@@ -16,12 +16,12 @@
 
   <div class="tab-content" *ngIf="allTrainingClassesCount > 0">
     <ion-row>
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of allTrainingClasses;let i=index;" (click)="openTrainingDetail(task,i,'assigned')"
+      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of allTrainingClasses;let i=index;" (click)="openTrainingDetail(task,i,'assigned',uploadPath)"
         class="main-forum">
         <ion-card class="training-list">
           <div class="training-image">
             <span class="course-name">{{task.trainingClassName}}</span>
-            <img src="" />
+            <img *ngIf="task.Files[0]" src="{{task.Files[0].fileImage}}" />
             <span class="play-icon">
               <img src="../assets/imgs/play-button (2).png" />
             </span>
