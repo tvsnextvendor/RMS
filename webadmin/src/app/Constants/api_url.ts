@@ -82,46 +82,46 @@ export class API_URL {
 
    
     //Common Services
-    divisionList: '3002/division/List',
-    departmentList: '3002/department/List',
-    roleList:'3003/role/List',
-    resortList:'3002/resort/List',
-    designationList:'3002/designation/List',
-    uploadFiles:'3003/uploadFiles',
-    removeFiles:'3003/remove',
+    divisionList: '8102/division/List',
+    departmentList: '8102/department/List',
+    roleList:'8103/role/List',
+    resortList:'8102/resort/List',
+    designationList:'8102/designation/List',
+    uploadFiles:'8103/uploadFiles',
+    removeFiles:'8103/remove',
    
     //Course Services
-    courseAdd: '3003/course/Add',
-    courseList:'3003/course/List',
-    courseUpdate:'3003/course/Update/',
-    courseDelete:'3003/course/Delete/',
-    trainingClassAdd:'3003/trainingClass/Add',
-    trainingClassCourse:'3003/trainingClass/List',
-    trainingClass:'3003/trainingClass/trainingList',
-    trainingClassQuiz:'3003/trainingClass/QuizList',
-    getCreatedByDetails:'3003/course/getCreatedByDetails',
-    fileList:'3003/trainingClass/fileList',
-    getResortDivision:'3003/resort/getresortDivision',
+    courseAdd: '8103/course/Add',
+    courseList:'8103/course/List',
+    courseUpdate:'8103/course/Update/',
+    courseDelete:'8103/course/Delete/',
+    trainingClassAdd:'8103/trainingClass/Add',
+    trainingClassCourse:'8103/trainingClass/List',
+    trainingClass:'8103/trainingClass/trainingList',
+    trainingClassQuiz:'8103/trainingClass/QuizList',
+    getCreatedByDetails:'8103/course/getCreatedByDetails',
+    fileList:'8103/trainingClass/fileList',
+    getResortDivision:'8103/resort/getresortDivision',
 
 
     //Resort Services
-    resortAdd : '3003/resort/Add',
-    resortUpdate: '3003/resort/Update/',
-    resortDelete: '3003/resort/Delete/',
+    resortAdd : '8103/resort/Add',
+    resortUpdate: '8103/resort/Update/',
+    resortDelete: '8103/resort/Delete/',
 
     //Role Permission Services
-    permissionAdd: '3000/permission/Add',
-    permissionList: '3000/permission/List',
+    permissionAdd: '8101/permission/Add',
+    permissionList: '8101/permission/List',
 
     //Subscription Services
-    subscriptionAdd: '3003/subscription/Add',
+    subscriptionAdd: '8103/subscription/Add',
 
     //User Services
-    userAdd: '3000/user/Add',
-    userList:'3000/user/List',
-    getUserByDivDept: '3003/user/getEmployeeDetails',
-    userUpdate: '3000/user/Update/',
-    userDelete: '3000/user/Delete/'
+    userAdd: '8101/user/Add',
+    userList:'8101/user/List',
+    getUserByDivDept: '8103/user/getEmployeeDetails',
+    userUpdate: '8101/user/Update/',
+    userDelete: '8101/user/Delete/'
 
   }
 
