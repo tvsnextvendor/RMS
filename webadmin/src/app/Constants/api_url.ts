@@ -106,9 +106,9 @@ export class API_URL {
 
 
     //Resort Services
-    resortAdd : '8103/resort/Add',
-    resortUpdate: '8103/resort/Update/',
-    resortDelete: '8103/resort/Delete/',
+    resortAdd : '8102/resort/Add',
+    resortUpdate: '8102/resort/Update/',
+    resortDelete: '8102/resort/Delete/',
 
     //Role Permission Services
     permissionAdd: '8101/permission/Add',

@@ -52,6 +52,10 @@ export class CoursePage implements OnInit {
    
   }
 
+  ngAfterViewInit() {
+       this.getuserDetails();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad CoursePage');
   }
@@ -60,12 +64,8 @@ export class CoursePage implements OnInit {
     this.assignedCoursesList = [];
     this.progressCoursesList = [];
     this.completeCoursesList = [];
-    this.getuserDetails();
     this.getCourseStatus('assigned');
-    this.getCoursesList();
-   
-
-  
+    this.getCoursesList(); 
   }
   goToNotification() {
     this.navCtrl.setRoot('notification-page');
@@ -83,38 +83,20 @@ export class CoursePage implements OnInit {
   }
   getCourseStatus(status) {
     let self = this;
-    // self.storage.get('currentUser').then(
-    //   (val) => {
-    //     if (val) {
-    //       self.currentUser = val
-    //     }
-    //   }, (err) => {
-    //     console.log('currentUser not received in course.component.ts', err);
-    //   });
     this.courseList = [];
     return new Promise(resolve => {
-      console.log('this.currentUser');
-      console.log(this.currentUser);
-      let userId = 6;
+      console.log(this.currentUser, "YAYYY");
+      let userId = 8;
       this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId).subscribe((res) => {
-
-        console.log(res);
-
         if(res['data']['rows']){
           self.courseList    = res['data']['rows'];
           self.assignedCount = res['data']['count'];
-
-          console.log("here");
         }else{
           self.assignedCount = 0;
           self.noRecordsFoundMessage = res['message'];
         }
-
-        console.log(self.courseList);
-        console.log(self.courseList);
         resolve('resolved');
       },(err) => {
-        console.log('error occured', err);
         resolve('rejected');
       });
     });
@@ -202,10 +184,7 @@ export class CoursePage implements OnInit {
         if (val) {
           self.currentUser = val
         }
-
-       
-        console.log("sadasdasdas self.currentUser");
-        console.log(self.currentUser);
+        console.log("sadasdasdas",self.currentUser);
       }, (err) => {
         console.log('currentUser not received in course.component.ts', err);
       });

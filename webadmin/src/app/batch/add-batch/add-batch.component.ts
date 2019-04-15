@@ -232,7 +232,7 @@ export class AddBatchComponent implements OnInit {
         this.submitted = true;
         this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
-        this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) >= Date.parse(this.batchVar.batchTo) ? true : false;
+        this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) > Date.parse(this.batchVar.batchTo) ? true : false;
         //this.status = ( Date.parse(this.batchVar.batchFrom) == Date.parse(new Date()) ) ? 'assigned' : 'unassigned';
         if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.employeeId && this.batchVar.moduleForm && this.durationValue && this.reminder) {
             let postData = {
