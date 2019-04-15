@@ -102,17 +102,18 @@
 									<span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span>
 										<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/>
 								</div>      
-								
+								<div *ngIf='!previewImage'>
 							     	<video id="video-element" controls [hidden]="true">
 										<source type="video/mp4">
 									</video>
 									<canvas id="canvas-element" [hidden]="true" ></canvas>
-									
+								</div>	
 									
 							</div>
                         <div class="col-md-4 p-0">
 							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-2"></span>
-							<span *ngIf="showImage && moduleVar.videoFile"><img  class="thumbnail_img px-4 img-size"></span></div>
+							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img class="thumbnail_img px-4 img-size"></span>
+							<span *ngIf="showImage && moduleVar.videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img px-4 img-size"></span></div>
 							<span class="col-md-4 p-0">	
 							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
 							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>

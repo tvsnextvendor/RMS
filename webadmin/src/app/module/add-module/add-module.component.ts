@@ -42,6 +42,7 @@ export class AddModuleComponent implements OnInit {
     quizCheck = false;
     filePath = '';
     fileExtensionType;
+    fileImageDataPreview;
     // selectedCourseIds:any;
 
    constructor(private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
@@ -131,22 +132,30 @@ export class AddModuleComponent implements OnInit {
             let type = file.type;
             let typeValue = type.split('/');
             let extensionType = typeValue[1].split('.').pop();
-            this.moduleVar.fileExtension = extensionType;
-            this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
-            if(this.fileExtensionType === 'Video'){
-                this.filePreviewImage(file);
+            if( typeValue[0].split('.').pop() === 'image'){
+                this.alertService.error('Please add the valid file format')
+                this.moduleVar.videoFile = '';
             }
-            let fileType = typeValue[0];
-            this.fileName = file.name;
-            reader.onloadend = () => {
-            this.fileUrl = reader.result;
-            this.extensionTypeCheck(fileType,extensionType,this.fileUrl);
+            else{
+                console.log(type,"extennnnnnn",typeValue[1].split('.').pop(),'typeeeeeeee',typeValue[0].split('.').pop())
+                this.moduleVar.fileExtension = extensionType;
+                this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+                if(this.fileExtensionType === 'Video'){
+                    this.filePreviewImage(file);
+                }
+                let fileType = typeValue[0];
+                this.fileName = file.name;
+                reader.onloadend = () => {
+                this.fileUrl = reader.result;
+                this.extensionTypeCheck(fileType,extensionType,this.fileUrl);
+            }
             }
             reader.readAsDataURL(file);  
         }
     }
 
     filePreviewImage(file){
+        let self = this;
             var fileReader = new FileReader(); 
               fileReader.onload = function() {
                 var blob = new Blob([fileReader.result], {type: file.type});
@@ -179,18 +188,24 @@ export class AddModuleComponent implements OnInit {
                 };
                 video.addEventListener('timeupdate', timeupdate);
                 video.preload = 'metadata';
-                video.src = url;
+                video.src = url; 
+                url = video.src
+                fetch(url)
+                .then(res => res.blob())
+                .then(blob => {
+                    self.fileImageDataPreview =  new File([blob], "File name");
+                })  
                 // Load video in Safari / IE11
                 video.muted = true;
                 //video.playsInline = true;
                 video.play();
               };
-              fileReader.readAsArrayBuffer(file);       
+              fileReader.readAsArrayBuffer(file);   
     }
     extensionTypeCheck(fileType,extensionType,data){
         switch(fileType){
             case "video":
-                this.previewImage = "assets/videos/images/bunny.png";
+                this.previewImage = "";
                 break;
             case "image":
                 this.previewImage = data;
@@ -344,12 +359,18 @@ export class AddModuleComponent implements OnInit {
         this.messageClose();
         let self = this;
        this.videoSubmitted = true;
-       let videoObj = {videoName : self.moduleVar.selectVideoName,description : self.moduleVar.description,url:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension}
+       let videoObj = {videoName : self.moduleVar.selectVideoName,description : self.moduleVar.description,url:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:''}
         if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
             this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
+            // console.log(viewImageFile,'fileeeeee');
             this.commonService.uploadFiles(this.uploadFile).subscribe((result)=>{
-                console.log(result,this);
                 if(result && result.isSuccess){
+                    if(videoObj.fileType === 'Video'){
+                        self.commonService.uploadFiles(self.fileImageDataPreview).subscribe((resp)=>{
+                            let fileImagePath =  resp.data && resp.data[0].path;
+                            videoObj.fileImage = resp.data && resp.data[0].filename;
+                        })
+                    }
                     // self.moduleVar.videoFile = result.data && result.data[0].filename;
                     self.filePath = result.data && result.data[0].path;
                     self.alertService.success(this.message);    
