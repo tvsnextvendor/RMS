@@ -89,3 +89,6 @@ tbody > tr:last-child > td {
 .table th a{
   padding: 0;
 }
+.pinned-icon{
+  transform: rotate(-40deg);
+}
