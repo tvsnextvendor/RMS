@@ -1,5 +1,5 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class="row pr-3 pt-5">
+<div class="row pt-5">
 	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm()" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
 			<div class="row form-group">
@@ -50,7 +50,7 @@
 			<div *ngIf = "selectedCourses.length" class="addedcourse-scroll">
 				<div *ngFor="let course of selectedCourses,index as i">
 					<p>{{course.value}}<span class="float-right">
-							<a (click)= "updateCourse(course,i)"><img src="assets/images/edit.png" class="px-3"></a>
+							<a (click)= "updateCourse(course,i)"><i class="fas fa-pencil-alt icons_header px-3" aria-hidden="true"></i></a>
 							<!-- <a (click)= "onItemDeselect(course)"><i class="fa fa-times icons_header" aria-hidden="true"></i></a> -->
 						</span>
 					</p>
@@ -71,7 +71,7 @@
 
 <tabset #staticTabs   class="add-video-header">
     <tab heading="Files">
-    	<div class="row pr-3 pt-2">
+    	<div class="row pt-2">
 			<div class="col-md-12 pl-0">
 			   <span  (click)="tabEnable = false" class="videopage">
 			   	<img src="assets/images/Close-1.png" class="close-alg">
@@ -132,7 +132,7 @@
 								<span class="col-md-4 word-wrap">{{item.url}}</span>
 								<span class="col-md-2 word-wrap">
 									<a (click)= "removeVideo(item,i)"><i class="fa fa-trash icons_header float-right" aria-hidden="true"></i></a>
-									<a (click)= "updateVideo(item,i)"><i class="fa fa-pencil icons_header float-right" aria-hidden="true"></i></a>								
+									<a (click)= "updateVideo(item,i)"><i class="fas fa-pencil-alt icons_header float-right" aria-hidden="true"></i></a>								
 								</span>
 							</li>
 						</ul>

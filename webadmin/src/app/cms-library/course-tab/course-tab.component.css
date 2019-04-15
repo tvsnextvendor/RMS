@@ -156,19 +156,19 @@
       font-weight: 700;
   }
   .assigned-perc{
-      background-color: #28a745;
+      background-color: #A6F795;
       text-align: center;
       font-weight: 700;
   }
   .inprogress-perc{
       text-align: center;
-      background-color: lightblue;
+      background-color: #95CDFA;
       font-weight: 700;
   }
   .completed-perc{
       text-align: center;
       font-weight: 700;
-      background-color: #ccc;
+      background-color: #EBEBED;
   }
   .usage-state{
       text-align: center;

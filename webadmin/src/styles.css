@@ -417,6 +417,10 @@ li.search-block {
 .hd-alg, .icons_header, .sidebar-nav li a, .list_search, button, button.accounts_li.active, h4, .video-edit, h6, h5,.drp-item, .ext-txt{
   color: #468FB9;
 }
+h5{
+  font-weight: 700;
+  font-size: 18px;
+}
 .chart-bg,.white-bg{
   background-color: #fff;
   box-shadow: 0px 0px 8px 0px #ccc;
@@ -1267,6 +1271,7 @@ background-color: #C1E1F3;
 .my-pagination .ngx-pagination {
   margin-top:1.5em;
   padding-left:0;
+  text-align: center;
 }
 .my-pagination .ngx-pagination li.current {
     background-color: #fff;
