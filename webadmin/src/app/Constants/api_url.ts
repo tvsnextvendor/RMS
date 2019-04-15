@@ -95,6 +95,7 @@ export class API_URL {
     courseList:'8103/course/List',
     courseUpdate:'8103/course/Update/',
     courseDelete:'8103/course/Delete/',
+    scheduleTraining: '8103/scheduleTraining',
     trainingClassAdd:'8103/trainingClass/Add',
     trainingClassCourse:'8103/trainingClass/List',
     trainingClass:'8103/trainingClass/trainingList',

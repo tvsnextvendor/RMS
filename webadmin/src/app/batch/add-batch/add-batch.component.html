@@ -1,6 +1,7 @@
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
     <div class="Schedule-box">       
-            <div class="row">                
+            <div class="row">  
+                    <span class="required_color" *ngIf="errStatus">{{errMsg}}</span>              
                         <div class="col-md-6 row form-group">
                                 <label class="col-md-4 p-0 label-title">{{batchVar.labels.from}}</label>
                                 <div class="col-md-8 p-0">
@@ -64,7 +65,7 @@
 
                                 <option *ngFor="let data of batchVar.resortList" value="{{data.resortId}}">{{data.resortName}}</option>
                             </select>
-                            <span class="required_color" *ngIf="submitted && !batchVar.selectedResort.length">
+                            <span class="required_color" *ngIf="submitted && !batchVar.selectedResort">
                                 {{batchVar.mandatoryLabels.selectResort}}
                             </span>
                         </div>
@@ -89,7 +90,7 @@
                                 </span>
                             </div>
                             <div class="pl-0 form-group select-Courses">
-                                <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"  (onSelect)="onEmpSelect($event,'emp')" [data]="batchVar.employeeList"
+                                <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"  (onSelect)="onEmpSelect($event,'emp')"  (onDeSelect)="onEmpDeSelect($event)" [data]="batchVar.employeeList"
                                     [(ngModel)]="batchVar.selectedEmp" [settings]="batchVar.empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
                                 <span class="required_color" *ngIf="submitted && !batchVar.selectedEmp.length">
                                     {{batchVar.mandatoryLabels.selectEmp}}
@@ -119,8 +120,8 @@
                                         <option *ngFor="let program of batchVar.programList" value="{{program.id}}">{{program.name}}</option>
                                     </select> -->
 
-                                    <select id="percentageList" class="col-md-5 form-control p-0 ml-4" name="passpercentage{{i}}"
-                                        [(ngModel)]="data.passpercentage" #passpercentage="ngModel" required>
+                                    <select id="percentageList" class="col-md-5 form-control p-0 ml-4" name="passPercentage{{i}}"
+                                        [(ngModel)]="data.passPercentage" #passpercentage="ngModel" required>
                                         <option value="null">{{batchVar.labels.percentage}}</option>
                                         <option *ngFor="let percentage of batchVar.percentageList" value="{{percentage.percentage}}">{{percentage.percentage}}</option>
                                     </select>

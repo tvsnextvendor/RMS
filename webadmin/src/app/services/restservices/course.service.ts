@@ -61,6 +61,10 @@ export class CourseService {
     return this.http.getLocal('local',this.url.trainingClassQuiz+'?trainingClassId='+trainingClassId+'&courseId='+courseId)
   }
 
+  scheduleTraining(data){
+    return this.http.post('local',this.url.scheduleTraining, data)
+  }
+
   getDivision(resortId,resortType){
       let resort = resortType === "parent" ? 'parentResort='+resortId : 'childResort='+resortId
       return this.http.getLocal('local',this.url.getResortDivision+'?'+resort+'&type=division');
