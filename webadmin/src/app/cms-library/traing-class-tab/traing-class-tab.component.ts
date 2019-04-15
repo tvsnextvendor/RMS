@@ -26,7 +26,7 @@ export class TraingClassTabComponent implements OnInit {
       console.log(resp);
       if(resp && resp.isSuccess){
         this.totalCourseTrainingCount = resp.data.count;
-        this.trainingClassCourseList = resp.data && resp.data.rows.length && resp.data.rows;
+        this.trainingClassCourseList = resp.data && resp.data.rows.length  ? resp.data.rows : [];
       }
     })
   }

@@ -11,7 +11,8 @@ export class UtilService {
   getRole(){
   let data =  atob(localStorage.getItem('userData'));
   let user = JSON.parse(data);
-   return user.UserRole[0].roleId;
+  let roleId = user.UserRole && user.UserRole[0] && user.UserRole[0].roleId
+   return roleId;
   }
   
   getToken(){

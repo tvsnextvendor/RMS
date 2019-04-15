@@ -28,9 +28,9 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
       // get user details '5c0fbeda3100003b1324ee75'
-      this.http.get(API_URL.URLS.getUsers).subscribe((resp) => {
-        this.userArray = resp.UserList;
-      });
+      // this.http.get(API_URL.URLS.getUsers).subscribe((resp) => {
+      //   this.userArray = resp.UserList;
+      // });
       
       //labels
       this.labels = this.loginvar.labels;
