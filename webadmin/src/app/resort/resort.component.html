@@ -7,24 +7,24 @@
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4 ">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.resortName}}</label>
-                        <input class="col-6 col-md-8 form-control" type="text" name="resortName" [(ngModel)]="resortName" #resort = "ngModel" required>
+                        <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Resort Name" [(ngModel)]="resortName" #resort = "ngModel" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortName">{{resortVar.labels.resortName}}{{resortVar.labels.isRequired}} </span>
                     </div>
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.email}}</label>
-                        <input class="col-6 col-md-8 form-control" type="email" name="email" [(ngModel)]="email" (keyup) = "validationValueCheck('email')" #resort = "ngModel" required>
+                        <input class="col-6 col-md-8 form-control" type="email" placeholder="Email" name="email" [(ngModel)]="email" (keyup) = "validationValueCheck('email')" #resort = "ngModel" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !email">{{resortVar.labels.email}}{{resortVar.labels.isRequired}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && email && !emailValidation">Invalid {{resortVar.labels.email}} </span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.location}}</label>
-                        <input class="col-6 col-md-8 form-control" type="text" name="location" [(ngModel)]="locationName" #resort = "ngModel" required>
+                        <input class="col-6 col-md-8 form-control" placeholder="Location" type="text" name="location" [(ngModel)]="locationName" #resort = "ngModel" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !locationName">{{resortVar.labels.location}}{{resortVar.labels.isRequired}} </span>
                     </div>
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.mobile}}</label>
-                        <input class="col-6 col-md-8 form-control" type="number" name="mobile" [(ngModel)]="phoneNumber" #resort = "ngModel" (keyup) = "validationValueCheck('mobile')" required>
+                        <input class="col-6 col-md-8 form-control" placeholder="mobile" type="number" name="mobile" [(ngModel)]="phoneNumber" #resort = "ngModel" (keyup) = "validationValueCheck('mobile')" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !phoneNumber">{{resortVar.labels.mobile}} number{{resortVar.labels.isRequired}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && phoneNumber && !mobileValidation">Invalid {{resortVar.labels.mobile}} number </span>
                     </div>
                 </div>
@@ -83,6 +83,7 @@
                 <div class="row col-12 col-md-6 form-group ">
                     <label class="col-6 col-sm-8 col-md-4 label-title pl-0">subscription type</label>
                     <select class="col-md-8 select-form form-control">
+                        <option>Type</option>
                         <option>Economy</option>
                         <option>Premium</option>
                     </select> 
@@ -110,6 +111,7 @@
             <div class="row mb-4">
                 <label class="col-6 col-md-4 label-title">{{resortVar.labels.status}}</label>
                 <select class="col-6 col-md-8 form-control" [(ngModel)] = "status" name="status"> 
+               
                     <option *ngFor="let status of resortVar.statusList" [value]="status.name">{{status.name}}</option>
                 </select>
                 <!-- <input class="col-6 col-md-8 form-control" type="text" name="location" [(ngModel)]="resortVar.location"> -->

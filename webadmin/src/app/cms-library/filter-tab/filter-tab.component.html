@@ -1,11 +1,11 @@
 
     <div class="filter-search white-bg mb-3">           
         <form class="search-container clearfix">
-            <input type="text" placeholder="Search.." name="search">
+            <input type="text" placeholder="Search Keyword.." name="search">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>            
     </div>
-    <div class="white-bg p-4">
+    <div class="white-bg p-3">
         <h6>{{cmsLibraryVar.labels.filter}}</h6>
         <div class="row">
         <div class="col-md-12 p-0 select select-style clearfix">
@@ -58,7 +58,7 @@
             </select>
             <div class="select_arrow"></div></div>
             <div class="col-md-12 p-0">
-                <button class="float-left m-0 pt-2 btn btn-link" (click)="resetFilter()">{{cmsLibraryVar.labels.clearFilter}}</button>
+                <button class="float-left m-0 p-0 pt-2 btn btn-link" (click)="resetFilter()">{{cmsLibraryVar.labels.clearFilter}}</button>
                 <button type = "button" class="btn btn-primary">{{cmsLibraryVar.labels.apply}}</button>
             </div>
         </div>

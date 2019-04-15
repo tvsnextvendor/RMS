@@ -1,3 +1,4 @@
+<div class="forum-create-form">
 <h6 class="mb-3">{{forumVar.createForum.createForum}}</h6>
 <div>
     <form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)">
@@ -29,30 +30,7 @@
             </span>  
             </div>  
         </div> -->
-        <div class="form-group">
-                <label class="createforum-hd">{{forumVar.createForum.admin}}</label>                  
-                    <tag-input [ngModel]="adminItems" 
-                    name="admin"
-                    #adminName="ngModel"
-                    [onlyFromAutocomplete]="true"
-                    [placeholder]="'Select Admin'"      [displayBy]="'id'"
-                    [identifyBy]="'id'" [secondaryPlaceholder]="'Select Admin'" class="multi-input"
-                    required
-                    >
-                    <tag-input-dropdown [showDropdownIfEmpty]="true"
-                    [dynamicUpdate]="false"
-                    [focusFirstElement]="true"             
-                    [autocompleteItems]="adminList">
-                    <ng-template let-item="item" let-index="index">
-                        {{ item.display }}
-                    </ng-template>
-                </tag-input-dropdown>  
-                <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>              
-            </tag-input>
-            <span class="required_color" *ngIf="adminName && adminName.invalid && (formDir.submitted || adminName.touched)">
-                    {{forumVar.mandatoryLabels.admin}}
-            </span>    
-        </div>
+        
         <div class="form-group">
                 <!-- <label class="createforum-hd">{{forumVar.createForum.empName}}</label>  -->
                     <tag-input [ngModel]="employeeItems" 
@@ -60,7 +38,7 @@
                     #empName="ngModel"
                     [onlyFromAutocomplete]="true"
                     [placeholder]="'Add Division'"      [displayBy]="'Division'"
-                    [identifyBy]="'userId'" [secondaryPlaceholder]="'Select Division'" class="multi-input"
+                    [identifyBy]="'userId'" [secondaryPlaceholder]="'Division'" class="multi-input"
                     required
                     >
                     <tag-input-dropdown [showDropdownIfEmpty]="true"
@@ -84,7 +62,7 @@
                     #empName="ngModel"
                     [onlyFromAutocomplete]="true"
                     [placeholder]="'Add Department'"      [displayBy]="'department'"
-                    [identifyBy]="'userId'" [secondaryPlaceholder]="'Select Department'" class="multi-input"
+                    [identifyBy]="'userId'" [secondaryPlaceholder]="'Department'" class="multi-input"
                     required
                     >
                     <tag-input-dropdown [showDropdownIfEmpty]="true"
@@ -101,10 +79,52 @@
                     {{forumVar.mandatoryLabels.empName}}
             </span>    
       </div>
-      
+      <div class="form-group">
+        <!-- <label class="createforum-hd">{{forumVar.createForum.admin}}</label>                   -->
+            <tag-input [ngModel]="adminItems" 
+            name="admin"
+            #adminName="ngModel"
+            [onlyFromAutocomplete]="true"
+            [placeholder]="'Select Admin'"      [displayBy]="'id'"
+            [identifyBy]="'id'" [secondaryPlaceholder]="'Select Admin'" class="multi-input"
+            required
+            >
+            <tag-input-dropdown [showDropdownIfEmpty]="true"
+            [dynamicUpdate]="false"
+            [focusFirstElement]="true"             
+            [autocompleteItems]="adminList">
+            <ng-template let-item="item" let-index="index">
+                {{ item.display }}
+            </ng-template>
+        </tag-input-dropdown>  
+        <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>              
+            </tag-input>
+            <span class="required_color" *ngIf="adminName && adminName.invalid && (formDir.submitted || adminName.touched)">
+                    {{forumVar.mandatoryLabels.admin}}
+            </span>    
+        </div>
+        <div class="date-section">
+            <div class="form-group group-box">
+                <div class="input-group date" data-provide="datepicker">
+                    <input type="text" class="form-control" placeholder="Start Date">
+                    <div class="input-group-addon">
+                        <i class="far fa-calendar-alt icons_header"></i>                        
+                    </div>
+                </div>
+            </div>
+            <div class="form-group group-box">
+                    <div class="input-group date" data-provide="datepicker">
+                        <input type="text" class="form-control" placeholder="End Date">
+                        <div class="input-group-addon">
+                            <i class="far fa-calendar-alt icons_header"></i>                        
+                        </div>
+                    </div>
+                </div>
+        </div>
         <div class="text-center pt-5 mb-4">
             <button type="button" class="btn btn-default mr-3" (click)="clearForm(formDir)">{{forumVar.btns.cancel}}</button>
             <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.create}}</button>
         </div>
     </form>
 </div> 
+</div>

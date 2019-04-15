@@ -55,7 +55,7 @@ export class UserComponent implements OnInit {
         this.labels = constant.labels;
     }
     ngOnInit() {
-        this.headerService.setTitle({ title: this.constant.title, hidemodule: false });
+        this.headerService.setTitle({ title: 'User Management', hidemodule: false });
         this.pageLimitOptions = [5, 10, 25];
         this.pageLimit = [this.pageLimitOptions[1]];
         this.userList();

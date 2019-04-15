@@ -29,8 +29,8 @@
 }
 .module-radiobtn input[type='radio'] {
  -webkit-appearance: none;
-    width: 17px;
-    height: 17px;
+    width: 18px;
+    height: 18px;
     border: 2px solid #468FB9;
     border-radius: 50%;
     outline: none;
@@ -38,9 +38,9 @@
 .module-radiobtn input[type='radio']:before { 
 	content: '';
     display: block;
-    width: 9px;
-    height: 9px;
-    margin: 15% auto;
+    width: 11x;
+    height: 11px;
+    margin: 13% auto;
     border-radius: 50%;
 } 
 .module-radiobtn input[type='radio']:checked:before { 

@@ -10,7 +10,7 @@
 
 <div class="pt-2">    
     <div class="row">
-        <div class="col-md-9 pt-3 px-0">
+        <div class="col-md-9 pt-2 px-0">
     	    <div class="clearfix">
                 <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">Print</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification">Create Notification</button>
@@ -19,7 +19,7 @@
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress">Work in Progress</button>
             </div>
             <span class="required_color" *ngIf="showWarning">Select courses to Schedule a training</span>
-            <div class="clearfix pt-5 tab-section">
+            <div class="clearfix pt-4 tab-section">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a [ngClass] = "selectedTab === 'course' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#course" (click)="headerTabChange('course')">Courses</a>
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 pr-0">
+        <div class="col-md-3 pr-0 pt-2">
             <app-filter-tab></app-filter-tab>
         </div>
     </div>

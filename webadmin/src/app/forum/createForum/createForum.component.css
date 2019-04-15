@@ -44,3 +44,7 @@
     line-height: 36px;
     padding-right: 0;
 }
+.input-group-addon i{ color: #7F7F7F;font-size: 18px;}
+input{
+  padding-left: 0;
+}

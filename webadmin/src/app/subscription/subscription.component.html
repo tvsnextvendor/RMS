@@ -10,37 +10,37 @@
               
                   <div class="row col-md-6 mb-4">
                       <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.name}}</label>
-                      <input class="col-6 col-md-8 form-control" type="text" name="resortName">
+                      <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Subscription Name">
                       <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.resortName">{{resortVar.labels.resortName}}{{resortVar.labels.isRequired}} </span>
                   </div>
                   <div class="row col-md-6 mb-4">
                       <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.storageSpace}}</label>
-                      <input class="col-6 col-md-8 form-control" type="email" name="email" >
+                      <input class="col-6 col-md-8 form-control" type="email" name="email"  placeholder="Storage Space">
                       <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.email"> </span>
                   </div>
               
              
                 <div class="row mb-4 col-md-6">
                     <label class="col-6 col-md-4 label-title  pl-0">{{constant.labels.allocatedSpace}}</label>
-                    <input class="col-6 col-md-8 form-control" type="text" name="resortName">
+                    <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Allocated Space">
                     <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.resortName">{{resortVar.labels.resortName}}{{resortVar.labels.isRequired}} </span>
               </div>
                 <div class="row mb-4 col-md-6 ">
                     <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.availableSpace}}</label>
-                    <input class="col-6 col-md-8 form-control" type="email" name="email" >
+                    <input class="col-6 col-md-8 form-control" type="email" name="email" placeholder="Available Space">
                     <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.email"> </span>
                 </div>
             
              
                   <div class="row mb-4 col-md-6">
                       <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.course}}</label>
-                      <input class="col-6 col-md-8 form-control" type="text" name="location" >
+                      <input class="col-6 col-md-8 form-control" type="text" name="location" placeholder="No of Course">
                       <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.location"> </span>
                   </div>
                   <div class="row mb-4 col-md-6">
                       <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.tenure}}</label>   
-                      <span class="col-md-4 "><input class="form-control" type="text" name="location"></span>
-                      <span class="col-md-4"> <select class="pl-1 select-form form-control">
+                      <span class="col-md-4 pl-0"><input class="form-control" type="text" name="location" placeholder="No of Days"></span>
+                      <span class="col-md-4 pr-0"> <select class="pl-1 select-form form-control">
                         <option>{{constant.labels.month}}</option>
                         <option>{{constant.labels.year}}</option>
                     </select>
