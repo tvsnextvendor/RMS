@@ -16,7 +16,7 @@ export class TraingClassTabComponent implements OnInit {
   constructor(private courseService : CourseService,private cmsLibraryVar : CmsLibraryVar) { }
 
   ngOnInit() {
-    this.pageLength = 1;
+    this.pageLength = 10;
     this.currentPage=1;
     this.getTrainingClassDetails();
   }
