@@ -15,10 +15,14 @@ import { NotificationTabComponent } from './notification-tab/notification-tab.co
 import { QuizTabComponent } from './quiz-tab/quiz-tab.component';
 import { RecentDeleteTabComponent } from './recent-delete-tab/recent-delete-tab.component';
 import { FilterTabComponent } from './filter-tab/filter-tab.component';
+import { EmployeesListComponent } from './course-tab/employees-list/employees-list.component';
+import { EmployeeComponent } from './course-tab/employee/employee.component';
 
 
 const routes: Routes = [
     { path: 'cms-library', component:  CMSLibraryComponent ,canActivate : [AuthGuard]},
+    { path: 'employeeslist', component:  EmployeesListComponent ,canActivate : [AuthGuard]},
+    { path: 'employee', component:  EmployeeComponent ,canActivate : [AuthGuard]},
    
 ];
 
@@ -49,7 +53,9 @@ export const MY_MOMENT_FORMATS = {
     DocumentTabComponent, 
     NotificationTabComponent, 
     QuizTabComponent, 
-    RecentDeleteTabComponent, FilterTabComponent],
+    RecentDeleteTabComponent, FilterTabComponent, 
+    EmployeesListComponent, EmployeeComponent
+    ],
   bootstrap: [CMSLibraryComponent]
 })
 export class CMSLibraryModule { }

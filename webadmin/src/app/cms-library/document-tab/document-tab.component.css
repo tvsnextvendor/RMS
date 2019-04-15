@@ -90,6 +90,7 @@
      font-size: 16px;
       color: #73737B;
       font-weight: 600;
+      margin-bottom: 0;
   }
   .square-cont input {
      position: absolute;
