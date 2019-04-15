@@ -9,7 +9,7 @@ import {HeaderService} from '../services/header.service';
 })
 export class SubscriptionComponent implements OnInit {
 
-  constructor(private constant : SubscriptionVar, private headerService : HeaderService) { }
+  constructor(public constant : SubscriptionVar, private headerService : HeaderService) { }
 
   ngOnInit(){
 

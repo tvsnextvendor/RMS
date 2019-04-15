@@ -474,5 +474,8 @@ export class ResortChartsComponent implements OnInit {
         localStorage.setItem('BatchStartDate', this.todayDate);
         this.route.navigateByUrl('/addBatch');
     }
+    onChangeYear(){
+        
+    }
 
 }

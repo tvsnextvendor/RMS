@@ -22,7 +22,7 @@ export class CourseTabComponent implements OnInit {
   pageSize;
   p;
   total;
-  constructor(private courseService : CourseService ,private cmsLibraryVar : CmsLibraryVar) { }
+  constructor(private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar) { }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
 
