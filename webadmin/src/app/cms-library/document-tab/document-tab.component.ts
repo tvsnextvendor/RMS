@@ -34,7 +34,7 @@ export class DocumentTabComponent implements OnInit {
       console.log(resp);
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
-        this.videoListValue = resp.data && resp.data.rows.length && resp.data.rows;
+        this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
       }
     });
   }
