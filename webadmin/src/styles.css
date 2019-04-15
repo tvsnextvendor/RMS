@@ -471,6 +471,7 @@ h5{
   height: 46px;
   border: 2px solid #fff;
   cursor: pointer;
+  color: #697380;
 }
 .hd-button.accounts_li.active {
   border-bottom: 3px solid #468FB9;
