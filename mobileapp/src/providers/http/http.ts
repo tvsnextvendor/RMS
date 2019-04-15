@@ -30,7 +30,7 @@ export class HttpProvider {
           self.httpOptions = {
             headers: new HttpHeaders({
               'Content-Type': 'application/json',
-              'Authorization':val.token
+              'Authorization':(val)?val.token:''
             })
           };
          
