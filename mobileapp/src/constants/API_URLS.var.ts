@@ -31,9 +31,13 @@ export class API_URL {
         // 'getCourses':'5c28b3923300004e00a58b88'
 
 
-        'loginAPI':'3000/login',
-        'trainingCourseAPI':'3003/course/courseByStatus',
-        'trainingCourseFilesAPI':'3003/trainingClass/TrainingFileList',
-        'quizAPI':'3003/trainingClass/QuizList'
+        // 'loginAPI':'3000/login',
+        // 'trainingCourseAPI':'3003/course/courseByStatus',
+        // 'trainingCourseFilesAPI':'3003/trainingClass/TrainingFileList',
+        // 'quizAPI':'3003/trainingClass/QuizList'
+        'loginAPI':'8101/login',
+       'trainingCourseAPI':'8103/course/courseByStatus',
+       'trainingCourseFilesAPI':'8103/trainingClass/TrainingFileList',
+       'quizAPI':'8103/trainingClass/QuizList'
     };
 }
