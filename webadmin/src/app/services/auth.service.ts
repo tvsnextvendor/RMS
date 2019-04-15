@@ -15,7 +15,7 @@ import {AuthGuard} from '../guard/auth.guard.component'
 export class AuthService {
       
 API_ENDPOINT;
-port= '3000/';
+port= '8101/';
 constructor(private http: HttpClient, private router: Router, private authGuard: AuthGuard) { 
     this.API_ENDPOINT = API.API_ENDPOINT;
 }
