@@ -1,6 +1,9 @@
-<span *ngIf="!enableEdit" class="pr-2"><a class="btn btn-primary" (click)="editDetails()">Edit</a></span>
-<div class="pr-3 pt-5">
-    <div class="col-12 col-md-12 white-bg ptb-4"> 
+
+
+<div class="pt-4">
+<span *ngIf="!enableEdit" class="pr-2"><button class="btn btn-primary" (click)="editDetails()">Edit</button></span>
+<div class="pt-4">
+    <div class="col-12 col-md-12 white-bg ptb-3"> 
         <form (ngSubmit)="submitResortData()" *ngIf="enableEdit" #resortForm = "ngForm">
         <div class="top-section">      
             <div class="row mb-2">
@@ -166,7 +169,7 @@
 </form>
 
 
-
+</div>
 
     </div>
 </div>
