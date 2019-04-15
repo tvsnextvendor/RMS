@@ -1,4 +1,4 @@
-import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit ,Input,Output,EventEmitter,TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeaderService } from '../../services/header.service';
@@ -7,6 +7,7 @@ import { QuizVar } from '../../Constants/quiz.var';
 import { CourseService } from '../../services/restservices/course.service';
 import { API_URL } from '../../Constants/api_url';
 import { AlertService } from '../../services/alert.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'add-quiz',
@@ -41,8 +42,8 @@ export class AddQuizComponent implements OnInit {
   apiUrls;
   hidemodule = false;
   optionData = true;
-  
-  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService) {
+  modalRef;
+  constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService) {
     this.apiUrls = API_URL.URLS;
   }
   
@@ -227,10 +228,12 @@ export class AddQuizComponent implements OnInit {
         console.log(JSON.stringify(params));
         this.courseService.addTrainingClass(params).subscribe((result)=>{
           console.log(result)
+          this.modalRef.hide();
+          this.valueChanged(false);
         })
       
-        this.valueChanged(false);
-        this.redirectCourseList();
+        
+        // this.redirectCourseList();
       }
     }
     else{
@@ -240,11 +243,18 @@ export class AddQuizComponent implements OnInit {
         this.valueChanged(true)
         :
         this.valueChanged(false);
-        this.redirectCourseList();
+        // this.redirectCourseList();
     }
   }
 
   redirectCourseList(){
-    this.route.navigateByUrl('/cms-library');
+    // this.route.navigateByUrl('/cms-library');
+  }
+
+  openEditModal(template: TemplateRef<any>,modelValue) {
+    let modalConfig= {
+      class : "modal-dialog-centered"
+    }
+    this.modalRef = this.modalService.show(template,modalConfig);
   }
 }

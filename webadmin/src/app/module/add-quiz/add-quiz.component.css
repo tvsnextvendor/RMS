@@ -49,3 +49,6 @@
 .videopage:hover .cancel-alg{
     display: block;   
 }
+.button-section .btn-primary{
+    float: inherit;
+}
