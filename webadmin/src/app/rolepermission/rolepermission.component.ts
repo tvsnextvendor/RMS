@@ -14,7 +14,7 @@ import { AlertService } from '../services/alert.service';
 export class RolepermissionComponent implements OnInit {
 
  
-  constructor(private constant:RolePermissionVar,private alertService:AlertService ,private headerService:HeaderService,private commonService:CommonService, private utilService:UtilService, private rolePermissionService:RolePermissionService) {
+  constructor(public constant:RolePermissionVar,private alertService:AlertService ,private headerService:HeaderService,private commonService:CommonService, private utilService:UtilService, private rolePermissionService:RolePermissionService) {
    }
 
   ngOnInit() {

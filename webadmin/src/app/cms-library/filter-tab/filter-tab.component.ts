@@ -28,7 +28,7 @@ export class FilterTabComponent implements OnInit {
   filterParentDepartment = 'null';
   filterCreatedBy = 'null';
 
-  constructor(private utilService : UtilService,private courseService : CourseService,private cmsLibraryVar : CmsLibraryVar) { }
+  constructor(private utilService : UtilService,private courseService : CourseService,public cmsLibraryVar : CmsLibraryVar) { }
 
   ngOnInit() {
     let data = this.utilService.getUserData();

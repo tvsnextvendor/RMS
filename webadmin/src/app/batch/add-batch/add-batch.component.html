@@ -74,7 +74,7 @@
                         <div class="pl-0 form-group select-Courses">
                             <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId" [data]="batchVar.departmentList"
                                 [(ngModel)]="batchVar.selectedDepartment" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
-                                (onDeSelect)="onEmpSelect($event)" #departmentId="ngModel" required></ng-multiselect-dropdown>
+                                (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" required></ng-multiselect-dropdown>
                             <span class="required_color" *ngIf="submitted && !batchVar.selectedDepartment.length">
                                 {{batchVar.mandatoryLabels.selectDept}}
                             </span>
