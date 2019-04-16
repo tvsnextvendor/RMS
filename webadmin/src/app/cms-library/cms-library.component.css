@@ -262,23 +262,5 @@ td .square-cont {
 }
 
   
-  .breadcrumb{
-    background: none;
-    padding:0;
-  }
-  .breadcrumb-item+.breadcrumb-item::before {
-     content: "\f054";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-    font-size:11px;
-    color:#468FB9;
-}
-.breadcrumb-item a{
-    color:#468FB9;
-}
-.breadcrumb-item a,.breadcrumb-item{
-    font-size: 14px;
-}
+ 
   

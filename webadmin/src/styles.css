@@ -1366,8 +1366,34 @@ th.action-hd {
 .forum-create-form input{
   padding-left: 0 !important;
 }
-
-
+.breadcrumb{
+  background: none;
+  padding:0;
+}
+.breadcrumb-item+.breadcrumb-item::before {
+   content: "\f054";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size:11px;
+  color:#468FB9;
+}
+.breadcrumb-item a{
+  color:#468FB9;
+}
+.breadcrumb-item a,.breadcrumb-item{
+  font-size: 14px;
+}
+.tooltip.top .tooltip-inner,.tooltip.bottom .tooltip-inner,
+.tooltip.right .tooltip-inner,.tooltip.left .tooltip-inner {
+  background-color:#F4F4F5;
+  border:1px solid #468fb9;
+  color: #468FB9;
+}
+/* .tooltip.top .tooltip-arrow {
+    border-top-color: #51CC3A !important;
+} */
 
 @media (min-width: 1200px) {}
 @media (min-width: 980px) and (max-width: 1199px) { }

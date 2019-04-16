@@ -131,6 +131,7 @@ export class AddModuleComponent implements OnInit {
             this.uploadFile = file;
             let type = file.type;
             let typeValue = type.split('/');
+            console.log(file,"extennnnnnn",typeValue[1].split('.').pop(),'typeeeeeeee',typeValue[0].split('.').pop())
             let extensionType = typeValue[1].split('.').pop();
             if( typeValue[0].split('.').pop() === 'image'){
                 this.alertService.error('Please add the valid file format')
@@ -203,6 +204,7 @@ export class AddModuleComponent implements OnInit {
               fileReader.readAsArrayBuffer(file);   
     }
     extensionTypeCheck(fileType,extensionType,data){
+        debugger;
         switch(fileType){
             case "video":
                 this.previewImage = "";
@@ -220,10 +222,10 @@ export class AddModuleComponent implements OnInit {
                 else if(extensionType === "pdf"){
                     this.previewImage =  "assets/images/pdf-icon.png";  
                 }   
-                else if(extensionType === "sheet"){
+                else if(extensionType === "sheet" || extensionType === 'ms-excel'){
                     this.previewImage = "assets/images/excel-icon.png";
                 }  
-                else if(extensionType === "document"){
+                else if(extensionType === "document" || extensionType === 'msword'){
                     this.previewImage = "assets/images/doc-icon.png";
                 }  
                 else if(extensionType === "zip"){
