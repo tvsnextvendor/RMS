@@ -38,8 +38,8 @@
 .module-radiobtn input[type='radio']:before { 
 	content: '';
     display: block;
-    width: 11x;
-    height: 11px;
+    width: 10px;
+    height: 10px;
     margin: 13% auto;
     border-radius: 50%;
 } 
