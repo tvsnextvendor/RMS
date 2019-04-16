@@ -183,9 +183,14 @@
       margin-right: 8px;
       position: relative;
       display: inline-block;
-      margin-bottom: 0;
+      margin-bottom: 8px;
       font-size: 15px;
       color: #576271;
+  }
+  .search-icon{
+    color: #808080;
+    font-size: 14px;
+    padding-right: 10px;
   }
   .close-alg{
       display: block;
@@ -213,6 +218,9 @@
       font-size: 16px;
       font-weight: 600;
       color: #468FB9;
+  }
+  .form-control:disabled, .form-control[readonly]{
+    background-color: unset;
   }
   .clk-part{
       clear: both;
@@ -264,7 +272,7 @@
     } */
     
     .filter-search input[type=text] {
-      padding: 6px;
+      padding: 8px;
       /* margin-top: 8px; */
       font-size: 14px;
       border: none;
