@@ -251,7 +251,7 @@ export class AddBatchComponent implements OnInit {
             this.courseService.scheduleTraining(postData).subscribe(result=>{
                 if(result.isSuccess){ 
                           this.clearBatchForm();
-                          this.hidePopup();
+                          this.hidePopup('submit');
                           this.alertService.success(result.message);                        
                 }else{
                     this.errStatus= true;
@@ -261,17 +261,18 @@ export class AddBatchComponent implements OnInit {
         }
     }
 
-    hidePopup(){
+    hidePopup(data){
         this.clearBatchForm();
-        this.someEvent.next();
+        console.log(data)
+        this.someEvent.next(data);
     }
 
     clearBatchForm() {
         this.batchVar.moduleForm = [{
-                 'courseId': "",
-                 'courseName': "",
-                 'passPercentage':"null",
-                 'mandatory' :"true"
+            'courseId': "",
+            'courseName': "",
+            'passPercentage':"null",
+            'mandatory' :"true"
         }];
         this.batchVar.batchFrom = '';
         this.batchVar.batchTo = '';
@@ -288,6 +289,18 @@ export class AddBatchComponent implements OnInit {
     removeForm(i) {
         this.batchVar.moduleForm.splice(i, 1);
     }
+
+    //dynamic add module fields 
+    addForm() {
+        let obj = {
+            moduleId: 1,
+            program: "null",
+            passpercentage: "null",
+            mandatory: "true",
+        };
+        this.batchVar.moduleForm.push(obj);
+    }
+    
 
 
 

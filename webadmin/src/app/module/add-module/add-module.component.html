@@ -9,7 +9,7 @@
 	</div>
 	
 <div class="row pt-5">
-	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm()" #moduleForm = "ngForm">
+	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm('true')" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
 			<div class="row form-group">
 				<label class="col-md-3 p-0 label-title mb-0">{{labels.courseName}}</label>
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
-			<button type="button" class="btn btn-primary btn-save" (click)="submitForm()">{{labels.save}}</button>
+			<button type="button" class="btn btn-primary btn-save" (click)="submitForm('true')">{{labels.save}}</button>
 		</div>
 	</form>
 	<div class="col-md-4 p-0 ltside-sec">
@@ -154,7 +154,7 @@
 		</div>
    	</tab>
 	<tab heading="Quiz">
-			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}"></add-quiz>
+			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}'></add-quiz>
 		<!-- <div class="pr-3 pt-2">
 			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}"></add-quiz>
 		</div>          	 -->

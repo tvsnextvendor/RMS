@@ -25,6 +25,7 @@ export class CourseTabComponent implements OnInit {
   constructor(private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar) { }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
+  @Output() trainingClassRedirect = new EventEmitter<object>();
 
   ngOnInit() {
     this.pageSize = 10;
@@ -71,6 +72,10 @@ export class CourseTabComponent implements OnInit {
       this.enableView = true;
       this.enableEdit = false;
       this.enableDuplicate = true;
+    }
+    else if(type === 'trainingClass'){
+      let value = {tab : 'training'}
+      this.trainingClassRedirect.emit(value);
     }
   }
 

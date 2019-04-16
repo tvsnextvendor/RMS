@@ -2,8 +2,17 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">CMS Library</a></li>
-            <li class="breadcrumb-item"><a href="#">Course</a></li>
-            <li class="breadcrumb-item active">Videos 1</li>
+            <!-- <li class="breadcrumb-item"><a href="#">Course</a></li> -->
+            <!-- <li class="breadcrumb-item active">Videos 1</li> -->
+            <!-- <li class="breadcrumb-item"><a href="#">CMS</a></li> -->
+            <!-- <li class="breadcrumb-item"><a href="#">Course</a></li> -->
+            <li *ngIf ="selectedTab === 'course'" class="breadcrumb-item active">Course</li>
+            <li *ngIf ="selectedTab === 'training'" class="breadcrumb-item active">Training Class</li>
+            <li *ngIf ="selectedTab === 'video'" class="breadcrumb-item active">Videos</li>
+            <li *ngIf ="selectedTab === 'document'" class="breadcrumb-item active">Documents</li>
+            <li *ngIf ="selectedTab === 'notification'" class="breadcrumb-item active">Notification</li>
+            <li *ngIf ="selectedTab === 'quiz'" class="breadcrumb-item active">Quiz</li>
+            <li *ngIf ="selectedTab === 'recent'" class="breadcrumb-item active">Recently Deleted</li>
         </ol>
     </nav>
 </div>
@@ -47,7 +56,7 @@
             <div class="tab-content">
                 <!-- Course Tab Content -->
                 <div *ngIf = "selectedTab === 'course'" id="course" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'course' ? 'active show' : 'nav-link')">
-                    <app-course-tab (SelectedcourseList)="getCourse($event)"></app-course-tab>
+                    <app-course-tab (SelectedcourseList)="getCourse($event)" (trainingClassRedirect)="redirectTab($event)"></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
                 <div *ngIf = "selectedTab === 'training'" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
@@ -80,6 +89,6 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-add-batch [courseList]="this.selectedCourse" (someEvent)="modalRef.hide()"></app-add-batch>
+        <app-add-batch [courseList]="this.selectedCourse" (someEvent)="hidePopup($event)"></app-add-batch>
     </div>
 </ng-template> 

@@ -25,7 +25,6 @@ export class CMSLibraryComponent implements OnInit {
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
     this.selectedTab = 'course';
-  
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
@@ -53,6 +52,16 @@ export class CMSLibraryComponent implements OnInit {
   getCourse(event){
     this.selectedCourse=event;
     console.log(this.selectedCourse);
+  }
+
+  hidePopup(type){
+    this.modalRef.hide();
+    console.log(type)
+    if(type !== 'cancel'){
+      // window.location.reload();
+      this.selectedCourse = [];
+    }
+    
   }
 
 }
