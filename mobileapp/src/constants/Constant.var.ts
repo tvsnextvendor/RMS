@@ -115,7 +115,7 @@ export class Constant {
             readMore: '>> Read More',
             viewContent: 'View Content',
             readLess: '<< Read Less',
-            willExpire: 'Will expire'
+            willExpire: 'Will expire in' 
         },
         libraryLabels:{
 

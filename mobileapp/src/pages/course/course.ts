@@ -49,44 +49,50 @@ export class CoursePage implements OnInit {
   }
 
   ngOnInit() {
-   
   }
 
   ngAfterViewInit() {
-       this.getuserDetails();
+            let self = this;
+            this.storage.get('currentUser').then((user: any) => {
+            if (user) {
+             self.currentUser = user;
+             this.getCourseStatus('assigned');
+             console.log(self.currentUser, "HEHEHEHE");             
+            }
+        });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CoursePage');
   }
 
   ionViewDidEnter() {
     this.assignedCoursesList = [];
     this.progressCoursesList = [];
     this.completeCoursesList = [];
-    this.getCourseStatus('assigned');
     this.getCoursesList(); 
   }
   goToNotification() {
     this.navCtrl.setRoot('notification-page');
   }
+  
   openTrainingClass(courseId) 
   {
     this.paramsData['courseId'] = courseId;
     this.navCtrl.setRoot('training-page',this.paramsData);
   }
+
   //getcourse 
   async getCoursesList(){
     this.loader.showLoader();
     await this.getCourse();
     this.loader.hideLoader();
   }
+  
   getCourseStatus(status) {
     let self = this;
     this.courseList = [];
     return new Promise(resolve => {
-      console.log(this.currentUser, "YAYYY");
-      let userId = 8;
+      let userId = this.currentUser.userId;
       this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId).subscribe((res) => {
         if(res['data']['rows']){
           self.courseList    = res['data']['rows'];
@@ -102,10 +108,6 @@ export class CoursePage implements OnInit {
     });
    
   }
-
-
-
-
 
   getCourse() {
     return new Promise(resolve => {
@@ -133,9 +135,8 @@ export class CoursePage implements OnInit {
 
   calculateExpireDays(dueDate) {
     const a = moment(new Date());
-    const date = new Date(dueDate);
-    const b = moment([date.getFullYear(), date.getMonth(), date.getDate()]);
-    return a.to(b);
+    const b = moment(new Date(dueDate));
+    return a.to(b, true);
   }
 
   // show tabs
@@ -177,20 +178,7 @@ export class CoursePage implements OnInit {
 
   }
 
-  getuserDetails() {
-    let self = this;
-    this.storage.get('currentUser').then(
-      (val) => {
-        if (val) {
-          self.currentUser = val
-        }
-        console.log("sadasdasdas",self.currentUser);
-      }, (err) => {
-        console.log('currentUser not received in course.component.ts', err);
-      });
-      console.log(self.currentUser);
-    
-  }
+ 
 
 }
 
