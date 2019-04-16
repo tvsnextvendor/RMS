@@ -28,6 +28,7 @@ body {
 }
 .table-desc-color{
 	color: #73737B;
+  font-size: 15px;
 }
 .text-nowrap{
   font-weight: 600 !important;
@@ -195,8 +196,8 @@ table td.td-pd {
    height: 20px;
    width: 20px;
    background-color: #fff;
-   border: 1px solid #ccc;
-   border-radius: 0 !important;
+   border: 2px solid #9c9c9c;
+   border-radius: 3px !important;
 }
 .square-cont input:checked ~ .square-checkmark {
    background-color: #468FB9;
@@ -673,6 +674,7 @@ li {
 .table thead th,a i{
 
   color: #468FB9;
+  font-size: 15px;
 }
 .custom-table {
     padding: 0px 20px 1px;
@@ -730,6 +732,7 @@ li {
 .custom-table2 .table thead th {
    font-weight: 600;
     color: #737373;
+    font-size: 15px;
 }
 .table td a{
   margin: 0 7px;
