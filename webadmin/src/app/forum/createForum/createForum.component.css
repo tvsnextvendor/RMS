@@ -42,7 +42,7 @@
 .group-box i{
     font-size: 20px;
     line-height: 36px;
-    padding-right: 0;
+    padding-right: 5px;
 }
 .input-group-addon i{ color: #7F7F7F;font-size: 18px;}
 input{
