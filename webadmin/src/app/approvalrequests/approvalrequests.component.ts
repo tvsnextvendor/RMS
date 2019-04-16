@@ -11,9 +11,10 @@ import { API_URL } from '../Constants/api_url'
 })
 export class ApprovalrequestsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private headerService:HeaderService) { }
 
   ngOnInit() {
+    this.headerService.setTitle({title:'Approval Request', hidemodule:false});
   }
 
 }
