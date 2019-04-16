@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
     userid;
     arrayBuffer: any;
 
-    constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService ,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router) {
+    constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService ,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
         this.labels = constant.labels;
     }
