@@ -23,7 +23,7 @@ export class AddBatchComponent implements OnInit {
     countCheck = false;
     countError;
     reminder;
-    status;
+    status='';
     errStatus=false;
     errMsg;
     showToDate = false;
@@ -233,13 +233,13 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
         this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) > Date.parse(this.batchVar.batchTo) ? true : false;
-        //this.status = ( Date.parse(this.batchVar.batchFrom) == Date.parse(new Date()) ) ? 'assigned' : 'unassigned';
+        this.status = ( this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') == this.datePipe.transform(new Date(), 'yyyy-MM-dd') ) ? 'assigned' : 'unassigned';
         if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.employeeId && this.batchVar.moduleForm && this.durationValue && this.reminder) {
             let postData = {
                 assignedDate: this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd'),
                 dueDate: this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd'),
                 name: this.batchVar.batchName,
-                status: 'assigned',
+                status: this.status,
                 notificationDays: this.reminder,
                 resort:{
                     "resortId": this.batchVar.selectedResort,

@@ -21,7 +21,7 @@
         <ion-card class="training-list">
           <div class="training-image">
             <span class="course-name">{{task.trainingClassName}}</span>
-            <img *ngIf="task.Files[0]" src="{{task.Files[0].fileImage}}" />
+            <img *ngIf="task.Files[0]" src="{{uploadPath}}{{task.Files[0].fileImage}}" />
             <span class="play-icon">
               <img src="../assets/imgs/play-button (2).png" />
             </span>
