@@ -137,7 +137,7 @@
                             </div>
                         </div>
                         <div class="col-1 col-md-1 p-0">
-                            <!-- <span><a class="float-right" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span> -->
+                            <span><a class="float-right" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span>
                             <span><a class="float-right" *ngIf="i!=0" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon"></i></a></span>
                         </div>
                     </div>
@@ -168,7 +168,7 @@
                 </div>
                 <div class="text-center col-md-12 p-4">
                     <button type="submit" class="btn btn-primary module-createbtn mr-4">{{batchVar.btns.create}}</button>
-                    <button type="button" class="btn btn-default creat-btn" (click)="hidePopup()">{{batchVar.btns.clear}}</button>
+                    <button type="button" class="btn btn-default creat-btn" (click)="hidePopup('cancel')">{{batchVar.btns.clear}}</button>
                 </div>
 
             </div>

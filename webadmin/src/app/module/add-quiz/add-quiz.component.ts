@@ -8,6 +8,7 @@ import { CourseService } from '../../services/restservices/course.service';
 import { API_URL } from '../../Constants/api_url';
 import { AlertService } from '../../services/alert.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { ModuleDetailsComponent } from '../module-details/module-details.component';
 
 @Component({
   selector: 'add-quiz',
@@ -23,6 +24,7 @@ export class AddQuizComponent implements OnInit {
   @Input() selectCourseName;
   @Input() quizDetails;
   @Input() enableQuiz;
+  @Input() moduleName;
   @Output() valueChange = new EventEmitter();
   courseUpdate = false;
   videoDetails = [];
@@ -182,18 +184,20 @@ export class AddQuizComponent implements OnInit {
     }
   }
 
-  valueChanged(update){
+  valueChanged(resp,submitCheck,update){
     this.courseUpdate = true;
     let data = {
-      courseUpdate : true,
-      type : update ? true : false
+      courseUpdate : submitCheck,
+      type : update ? true : false,
+      resp : resp
     }
     this.valueChange.emit(data);
   }
 
   // Quiz Submission
-  quizSubmit() {
+  quizSubmit(submitType) {
     //Weightage update
+    let hideTraining = submitType === 'yes' ? true : false;
     if(this.selectCourseName){
       let data = this.quizQuestionsForm.map(item => {
           item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
@@ -222,27 +226,27 @@ export class AddQuizComponent implements OnInit {
         // params.courseId = this.courseId;
         console.log(params);
         // this.toastr.success("Quiz updated successfully");
-        this.valueChanged(true);
+        // this.valueChanged('',hideTraining,true);
       }
       else{
-        console.log(JSON.stringify(params));
+        // console.log(JSON.stringify(params));
         this.courseService.addTrainingClass(params).subscribe((result)=>{
           console.log(result)
+          if(result && result.isSuccess){
+            this.valueChanged(result.data,hideTraining,false);
+          }
           this.modalRef.hide();
-          this.valueChanged(false);
+       
         })
-      
-        
-        // this.redirectCourseList();
       }
     }
     else{
       //this.toastr.error("Course name is mandatory");
       this.alertService.error("Training Class is mandatory");
       this.courseId ? 
-        this.valueChanged(true)
+        this.valueChanged('',hideTraining,true)
         :
-        this.valueChanged(false);
+        this.valueChanged('',hideTraining,false);
         // this.redirectCourseList();
     }
   }
@@ -252,9 +256,15 @@ export class AddQuizComponent implements OnInit {
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
-    let modalConfig= {
-      class : "modal-dialog-centered"
+    console.log(this.moduleName)
+    if(this.moduleName){
+      let modalConfig= {
+        class : "modal-dialog-centered"
+      }
+      this.modalRef = this.modalService.show(template,modalConfig);
     }
-    this.modalRef = this.modalService.show(template,modalConfig);
+    else{
+      this.alertService.error('Please add the Course name');
+    }
   }
 }

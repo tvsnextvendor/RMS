@@ -133,12 +133,13 @@ export class AddModuleComponent implements OnInit {
             let typeValue = type.split('/');
             console.log(file,"extennnnnnn",typeValue[1].split('.').pop(),'typeeeeeeee',typeValue[0].split('.').pop())
             let extensionType = typeValue[1].split('.').pop();
-            if( typeValue[0].split('.').pop() === 'image'){
+            console.log(file,"extennnnnnn",typeValue[1].split('.').pop(),'typeeeeeeee',typeValue[0].split('.').pop())
+            if( typeValue[0].split('.').pop() === 'image' && extensionType === 'gif'){
+                
                 this.alertService.error('Please add the valid file format')
                 this.moduleVar.videoFile = '';
             }
             else{
-                console.log(type,"extennnnnnn",typeValue[1].split('.').pop(),'typeeeeeeee',typeValue[0].split('.').pop())
                 this.moduleVar.fileExtension = extensionType;
                 this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
                 if(this.fileExtensionType === 'Video'){
@@ -204,7 +205,6 @@ export class AddModuleComponent implements OnInit {
               fileReader.readAsArrayBuffer(file);   
     }
     extensionTypeCheck(fileType,extensionType,data){
-        debugger;
         switch(fileType){
             case "video":
                 this.previewImage = "";
@@ -266,6 +266,15 @@ export class AddModuleComponent implements OnInit {
        this.courseSubmitted = true;
        this.courseData();
        this.moduleVar.quizDetails = [];
+       let newTrainingClass = {
+            id : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassId : '',
+            value : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassName : ''
+        }
+        if(newTrainingClass.id !== ''){
+            this.selectedCourses.push(newTrainingClass);
+            this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
+            data.courseUpdate ? this.submitForm(true) : this.submitForm(false); 
+        }
         if(this.moduleVar.selectCourseName){
             this.tabEnable = data.courseUpdate ? false : true;
             this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
@@ -443,22 +452,30 @@ export class AddModuleComponent implements OnInit {
         }
    }
 
-    submitForm(){
+    submitForm(courseSubmitType){
         this.moduleSubmitted = true;
         let user = this.utilService.getUserData();
         console.log(user);
-        // this.quiz  && this.quiz.quizSubmit();   
+        // this.quiz  && this.quiz.quizSubmit();  
         if(this.moduleName && this.selectedCourses.length ){
             let params = {
                 "courseName":this.moduleName,
                 "courseTrainingClasses":this.moduleVar.selectedCourseIds,
-                "createdBy" : user.userId
+                "createdBy" : user.userId,
+                "workInProgress" : courseSubmitType
             }
             console.log("params-course",params)
             this.courseService.addCourse(params).subscribe((resp)=>{
                 if(resp && resp.isSuccess){
                     // let successMsg =  this.moduleId ? this.labels.moduleUpdateMsg : this.labels.moduleCreateMsg;
-                    this.route.navigateByUrl("/cms-library");
+                    if(courseSubmitType) {
+                        this.route.navigateByUrl("/cms-library") 
+                    }
+                    else{
+                        this.staticTabs.tabs[0].disabled = false;
+                        this.staticTabs.tabs[0].active = true;
+                        // this.courseData();
+                    }
                     this.alertService.success(this.labels.moduleCreateMsg);
                     this.moduleSubmitted = false;
                 }
@@ -480,5 +497,9 @@ export class AddModuleComponent implements OnInit {
             this.alertService.error(this.labels.moduleNameValidation)
         }
     }
+
+    redirectCourseList(){
+        this.route.navigateByUrl('/cms-library');
+      }
    
 }
