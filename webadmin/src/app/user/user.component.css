@@ -122,7 +122,10 @@
  clear: both;
  padding-bottom: 0px;
 }
-
+.tab-section .nav-link{
+    font-size: 15px;
+    font-weight: 600;
+}
 .top-section .label-title{
     display: flex;
     vertical-align: middle;
