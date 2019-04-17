@@ -26,43 +26,46 @@
                             <th>
                                 <mfDefaultSorter by="employeeId">{{labels.employeeId}}</mfDefaultSorter>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <mfDefaultSorter by="employeeName">{{labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"
                                             class="s-width"></span></mfDefaultSorter>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <mfDefaultSorter by="division">{{labels.division}}</mfDefaultSorter>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <mfDefaultSorter by="department">{{labels.department}}</mfDefaultSorter>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <mfDefaultSorter by="role">{{labels.role}}</mfDefaultSorter>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <mfDefaultSorter by="emailId">{{labels.email}}</mfDefaultSorter>
                             </th>
-                            <th>
+                            <th class="text-center">
                                 <mfDefaultSorter by="mobile">{{labels.mobile}}</mfDefaultSorter>
                             </th>
-                            <th>
-                                <mfDefaultSorter></mfDefaultSorter>
+                            <th class="text-center action-hd">
+                               <!-- Action -->
                             </th>
                            
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
-                            <td class="vat user-desc"><label class="mb-0">{{ user.employeeId }}</label></td>
-                            <td class="vat user-desc"><label class="mb-0">{{ user.userName }}</label></td>
-                            <td class="vat user-desc"><span *ngIf="user.Division"><label class="mb-0">{{ user.Division.divisionName }}</label></span></td>
-                            <td class="vat user-desc"><span *ngIf="user.Department"><label class="mb-0">{{ user.Department.departmentName }}</label></span></td>
-                            <td class="vat user-desc"><span *ngIf="user.Designation"><label class="mb-0">{{ user.Designation.designationName }}</label></span></td>
-                            <td class="vat user-desc"><label class="mb-0">{{ user.email }}</label></td>
-                            <td class="vat user-desc"><label class="mb-0">{{ user.phoneNumber }}</label></td>
-                            <td class="vat user-desc"><a (click)="openAddUser(addUserTemp,user,i)"><i class="fas fa-pencil-alt"></i></a>
+                            <td class="text-center"><label class="mb-0">{{ user.employeeId }}</label></td>
+                            <td class="text-center"><label class="mb-0">{{ user.userName }}</label></td>
+                            <td class="text-center"><span *ngIf="user.Division"><label class="mb-0">{{ user.Division.divisionName }}</label></span></td>
+                            <td class="text-center"><span *ngIf="user.Department"><label class="mb-0">{{ user.Department.departmentName }}</label></span></td>
+                            <td class="text-center"><span *ngIf="user.Designation"><label class="mb-0">{{ user.Designation.designationName }}</label></span></td>
+                            <td class="text-center"><label class="mb-0">{{ user.email }}</label></td>
+                            <td class="text-center"><label class="mb-0">{{ user.phoneNumber }}</label></td>
+                            <td class="text-center"><a (click)="openAddUser(addUserTemp,user,i)"><i class="fas fa-pencil-alt"></i></a>
                                 <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
-                                <a><i class="fas fa-toggle-on"></i></a>
+                                <a><label class="switch">
+                                        <input type="checkbox" > 
+                                        <span class="slider round"></span>
+                                    </label></a>
                             </td> 
                                 
                         </tr>
@@ -89,12 +92,18 @@
             <div class="detail-bottom row ">                
                 <div class="row depart-dtl col-md-12 p-0">
                     <label class="col-md-12 p-0 label-title">Division1 <a href="#"><i class="fas fa-pencil-alt"></i></a></label>
-                    <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
+                    <div class="dpt-list pl-1 ml-4"><span>Department 1<a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span>
+                        <span>Department 1<a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span></div>
                 </div>
                 <div class="row depart-dtl col-md-12 p-0">
                     <label class="col-md-12 p-0 label-title">Division1 <a href="#"><i class="fas fa-pencil-alt"></i></a></label>
-                    <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
-                </div>
+                    <div class="dpt-list pl-1 ml-4">
+                        <div>
+                        <span>Department 1 <a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span>
+                        <span>Department 1 <a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span></div>
+                        </div>
+                        <a href="#" class="icon-section pt-2 pl-4"><i class="fas fa-trash"></i></a>
+                    </div>
             </div> 
             </div>
         </div>    

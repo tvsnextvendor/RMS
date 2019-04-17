@@ -47,7 +47,7 @@
     padding: 4px;
 } */
 .user-desc{
-    padding: 16px;
+    /* padding: 16px; */
     text-align: center;
 }
 .designation-width{
@@ -195,4 +195,15 @@
     color: #6c6c6c;
     font-weight: 600;
     margin-top: 8px;
+}
+th.action-hd {
+    width: 135px;
+    display: block;
+}
+.icon-section i{
+    font-size: 18px;
+}
+.icon-section{
+    padding-top: 13px;
+    padding-left: 18px;
 }
