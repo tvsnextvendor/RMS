@@ -1,0 +1,48 @@
+<ion-content padding class="headerFull-bg default-header">
+<ion-header class="static-header main-header my-component" color="primary">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <img src="../assets/imgs/menu.png" />
+    </button>
+    <ion-title class="text-left">
+      <span class="header-title">Feedback</span>
+      <div class="header-icon" (click)="goToNotification()">
+        <img src="../assets/imgs/notification.png" />
+        <span class="dot-circle">4</span>
+      </div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<div class="main-content">
+  <h4>Select Type Of Feedback</h4>
+  <div class="feedback-action">
+      <ion-row>
+          <ion-col col-4 col-sm-4>
+              <span class="smiley-icon clearfix">
+                  <img src="../assets/imgs/good_unselicn.png" />
+                <p>Compliment</p>
+              </span>
+          </ion-col>
+          <ion-col col-4 col-sm-4>
+              <span class="smiley-icon clearfix">
+                  <img src="../assets/imgs/avg_unselicn.png" />
+                <p>Query or Suggestion</p>
+              </span>
+          </ion-col>
+          <ion-col col-4 col-sm-4>
+              <span class="smiley-icon clearfix">
+                  <img src="../assets/imgs/poor_unselicn.png" />
+                <p>Complaint</p>
+              </span>
+          </ion-col>
+          </ion-row>
+  </div>
+  <h4>Tell us more</h4>
+   <ion-textarea rows="1" cols="20" placeholder="What's you Feedback" class="your-feedback"></ion-textarea>
+</div>
+</ion-content>
+<div class="fixed-btn">
+    <button ion-button round class="add-question">
+     Submit Feedback
+    </button>
+  </div>

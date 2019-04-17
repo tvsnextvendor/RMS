@@ -6,7 +6,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
 import { Constant } from '../constants/Constant.var';
 import { AuthProvider } from '../providers/auth/auth';
-import { LandingPage, HomePage, TrainingPage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage, LibraryPage, CoursePage } from '../pages/indexComponent';
+import { LandingPage, HomePage, TrainingPage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage, LibraryPage, CoursePage, FeedbackPage } from '../pages/indexComponent';
 import { Calendar } from '@ionic-native/calendar';
 import { API_URL } from '../constants/API_URLS.var';
 import { HttpProvider } from '../providers/http/http';
@@ -78,6 +78,7 @@ export class MyApp {
       { title: 'Calendar', component: CalendarPage },
       { title: 'Training Schedule', component: EventPage },
       { title: 'Library', component: LibraryPage },
+      { title: 'Feedback', component: FeedbackPage },
       { title: 'Settings', component: SettingsPage }
     ];
     this.windowWidth = window.screen.width;
