@@ -43,24 +43,29 @@ export class HttpProvider {
   }
 
   get(url) {
+    this.getHeaders();
     this.API_ENDPOINT = API['API_LINK'];
     return this.http.get(this.API_ENDPOINT+url, this.httpOptions);
   }
   getData(url) {
+    this.getHeaders();
     this.API_ENDPOINT = API['API_URL'];
     return this.http.get(this.API_ENDPOINT + url);
   }
   post(mockyStatus, params, data) {
+    this.getHeaders();
     this.API_ENDPOINT = (mockyStatus) ? API['API_URL'] : API['API_LINK'];
     let body = JSON.stringify(data);
     return this.http.post(this.API_ENDPOINT + params, body, this.httpOptions);
   }
   put(mockyStatus, data) {
+    this.getHeaders();
     this.API_ENDPOINT = (mockyStatus) ? API['API_URL'] : API['API_LINK'];
     let body = JSON.stringify(data);
     return this.http.put(this.API_ENDPOINT + data.id, body, this.httpOptions);
   }
   delete(mockyStatus, data) {
+    this.getHeaders();
     this.API_ENDPOINT = (mockyStatus) ? API['API_URL'] : API['API_LINK'];
     return this.http.delete(this.API_ENDPOINT + data.id);
   }
