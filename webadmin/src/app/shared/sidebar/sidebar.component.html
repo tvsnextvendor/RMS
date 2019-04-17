@@ -5,8 +5,8 @@
             class="mt75">
             <a routerLink="/dashboard"><img src="assets/images/menu1.png"class="pr-3">Dashboard</a>
         </li>
-        <li [class.active]="router.isActive('/modulelist') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
-            <a routerLink="/modulelist"><img src="assets/images/Subscription.png"class="pr-3">Subscription Model</a>
+        <li [class.active]="router.isActive('/subscriptionlist') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
+            <a routerLink="/subscriptionlist"><img src="assets/images/Subscription.png"class="pr-3">Subscription Model</a>
         </li>
         <li [class.active]="router.isActive('/resortslist') || router.isActive('/resorts') || router.isActive('/resorts/:id')">
             <a routerLink="/resortslist"><img src="assets/images/Resort.png"class="pr-3">Resort Management</a>
@@ -14,8 +14,8 @@
         <li [class.active]="router.isActive('/forum')">
             <a routerLink=""><img src="assets/images/CMS.png"class="pr-3">CMS Library</a>
         </li>
-        <li [class.active]="router.isActive('/users')">
-            <a routerLink=""><img src="assets/images/Archival Settings.png"class="pr-3">Archival Settings</a>
+        <li [class.active]="router.isActive('/archivalsetting')">
+            <a routerLink="/archivalsetting"><img src="assets/images/Approval.png"class="pr-3">Archival Settings</a>
         </li>
     </ul>
 </div>

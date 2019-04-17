@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderService } from '../services/header.service';
 
 @Component({
   selector: 'app-archival-setting',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArchivalSettingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private headerService:HeaderService) { }
 
   ngOnInit() {
+    this.headerService.setTitle({title:'Archival Setting', hidemodule:false});
   }
 
 }

@@ -7,7 +7,7 @@
             <table class="table table-striped" [mfData]="resortVar.resortList" #mf="mfDataTable" [mfRowsOnPage]="10">
                     <thead>
                     <tr class="th-boxshadow">
-                        <th class="text-left">
+                        <th class="text-left name-txt">
                             <mfDefaultSorter>{{resortVar.labels.resortName}}</mfDefaultSorter>
                         </th>
                         <th class="text-left">
@@ -19,14 +19,24 @@
                         <th class="text-left">
                             <mfDefaultSorter>{{resortVar.labels.mobile}}</mfDefaultSorter>
                         </th>
+                        <th class="text-center">
+                                <p class="text-nowrap">Subscription Type</p>
+                        </th>
+                        <th class="text-center">
+                                <p class="text-nowrap">Total Storage Space</p>
+                        </th>
                         <th class="text-left">
                             <mfDefaultSorter>{{resortVar.labels.utilizedSpace}}</mfDefaultSorter>
                         </th>
-                        <th class="text-left">
+                        <th class="text-center">
                             <mfDefaultSorter>{{resortVar.labels.numberOfUser}}</mfDefaultSorter>
                         </th>
-                        <th class="text-left">
+                        <th class="text-center">
                             <mfDefaultSorter>{{resortVar.labels.status}}</mfDefaultSorter>
+                        </th>
+                        
+                        <th class="text-center">
+                            <p class="text-nowrap">Expiry due in</p>
                         </th>
                     </tr>
                     </thead>
@@ -36,9 +46,13 @@
                             <td class="text-left">{{ resort.location }}</td>
                             <td class="text-left">{{ resort.User.email }}</td>
                             <td class="text-left">{{ resort.User.phoneNumber }}</td>
+                            <td class="text-center">Economy</td>
+                            <td class="text-center">100 MB</td>
                             <td class="text-left">{{ resort.utilizedSpace }}</td>
-                            <td class="text-left">{{ resort.totalNoOfUsers }}</td>
-                            <td class="text-left">{{ resort.status }}</td>
+                            <td class="text-center">{{ resort.totalNoOfUsers }}</td>
+                            <td class="text-center">{{ resort.status }}</td>
+                           
+                            <td class="text-center last-dt">3 days</td>
                         </tr>
                     <!-- <tr *ngIf="mf.data?.length == 0">
                         <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>

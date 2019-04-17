@@ -10,3 +10,14 @@
 .modal-content{
   width: 75%;
 }
+p.text-nowrap{
+  margin-bottom: 0;
+}
+.last-dt{
+  color: red;
+}
+.table th{border-bottom: none;}
+.name-txt{
+  width: 200px;
+  display: block;
+}
