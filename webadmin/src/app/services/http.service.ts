@@ -18,6 +18,9 @@ export class HttpService {
      this.API_ENDPOINT = API.API_URL;
    // this.API_ENDPOINT = API.API_ENDPOINT;
     
+    this.headerAssign();
+  }
+  headerAssign(){
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -25,6 +28,7 @@ export class HttpService {
       })
     };
   }
+ 
 
   private extractData(res: Response) {
     const body = res;
@@ -32,11 +36,13 @@ export class HttpService {
   }
 
   get(params): Observable<any> {
+    this.headerAssign();
     return this.http.get(this.API_ENDPOINT+params).pipe(
       map(this.extractData));
   }
 
   getLocal(api, params): Observable<any> {
+    this.headerAssign();
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
     return this.http.get(API_ENDPOINT+params,{headers:this.httpOptions.headers}).pipe(
       map(this.extractData),
@@ -46,6 +52,7 @@ export class HttpService {
   }
 
   post(api,url,params):Observable<any> {
+    this.headerAssign();
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
     return this.http.post(API_ENDPOINT+url,params, {headers:this.httpOptions.headers}).pipe(
       map(this.extractData),
@@ -55,6 +62,7 @@ export class HttpService {
   }
 
   put(api,url, putData): Observable<any> {
+    this.headerAssign();
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
 		return this.http.put(API_ENDPOINT+url,putData ,{headers: this.httpOptions.headers}).pipe(
 			map(this.extractData),
@@ -64,6 +72,7 @@ export class HttpService {
 	}
 
   delete(api,url,deleteData): Observable<any>{
+    this.headerAssign();
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
 		return this.http.request('delete',API_ENDPOINT+url , {headers: this.httpOptions.headers, body: deleteData}).pipe(
 		map(this.extractData),
@@ -74,6 +83,7 @@ export class HttpService {
   
 
   errorHandler(error: any): void {
+    this.headerAssign();
 		if(error.status === 403 || error.status === 401){
 			this.authService.logOut();
 		}
