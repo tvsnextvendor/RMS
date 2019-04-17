@@ -67,7 +67,8 @@ export class AddQuizComponent implements OnInit {
         { "optionId": 3, "optionName": "" },
         { "optionId": 4, "optionName": "" }
       ],
-      "weightage": '100'
+      "weightage": '100',
+      "answer" : ''
     }];
 
     // this.courseOptions = [
@@ -118,7 +119,8 @@ export class AddQuizComponent implements OnInit {
           { "optionId": 3, "optionName": "" },
           { "optionId": 4, "optionName": "" }
         ],
-        "weightage": '100'
+        "weightage": '100',
+        "answer" : ''
       }];
       this.weightage = selectedVideoList && selectedVideoList  ? (100 / selectedVideoList.length).toFixed(2) : 100;
     // });
@@ -127,8 +129,9 @@ export class AddQuizComponent implements OnInit {
   questionTypeUpdate(data, i) {
     let quiz = this.quizQuestionsForm;
     quiz[i].QuestionType = data;
-    if (data === "1") {
+    if (data === "MCQ") {
       quiz[i].option = '';
+      quiz[i].answer = '';
       quiz[i].options = [
         { "optionId": 1, "OptionName": "" },
         { "optionId": 2, "OptionName": "" },
@@ -136,9 +139,10 @@ export class AddQuizComponent implements OnInit {
         { "optionId": 4, "OptionName": "" }
       ];
     }
-    else if(data === "2"){
+    else if(data === "True/False"){
       quiz[i].options = [];
-      quiz[i].option = "True/False"
+      quiz[i].option = "True/False";
+      quiz[i].answer = '';
     }
     else{
       quiz[i].options = [];
@@ -165,7 +169,8 @@ export class AddQuizComponent implements OnInit {
         { "optionId": 3, "optionName": "" },
         { "optionId": 4, "optionName": "" }
       ],
-      "weightage": '100'
+      "weightage": '100',
+      "answer" : ''
     };
     // obj.questionId = this.quizQuestionsForm.length + 1;
     this.quizQuestionsForm.push(obj);
@@ -187,9 +192,10 @@ export class AddQuizComponent implements OnInit {
   valueChanged(resp,submitCheck,update){
     this.courseUpdate = true;
     let data = {
-      courseUpdate : submitCheck,
+      courseUpdate : true,
       type : update ? true : false,
-      resp : resp
+      resp : resp,
+      submitCheck : submitCheck
     }
     this.valueChange.emit(data);
   }
