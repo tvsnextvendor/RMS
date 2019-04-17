@@ -301,7 +301,9 @@
       opacity: 0;
       filter: alpha(opacity=0);
   }
-    
+    .form-control:disabled, .form-control[readonly]{
+    background-color: unset;
+  }
     .breadcrumb{
       background: none;
       padding:0;

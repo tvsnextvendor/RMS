@@ -1414,8 +1414,8 @@ th.action-hd {
   border:1px solid #468fb9;
   color: #468FB9;
 }
-.tooltip.top .tooltip-arrow {
-    border-top-color: #F4F4F5 !important;
+.tooltip.top .tooltip-arrow.arrow::before {
+    border-top-color: #468FB9 !important;
 }
 /* Tooltip */
 
