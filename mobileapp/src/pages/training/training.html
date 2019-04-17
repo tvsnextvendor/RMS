@@ -6,12 +6,9 @@
       </button>
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.training}}</span>
-        <div class="header-icon">
-            <ion-icon name="ios-chatboxes" class="chat-icon"></ion-icon>
-            <span (click)="goToNotification()">
+        <div class="header-icon" (click)="goToNotification()">
           <img src="../assets/imgs/notification.png" />
           <span class="dot-circle">4</span>
-          </span>
         </div>
       </ion-title>
     </ion-navbar>
@@ -24,7 +21,7 @@
         <ion-card class="training-list">
           <div class="training-image">
             <span class="course-name">{{task.trainingClassName}}</span>
-            <img *ngIf="task.Files[0]" src="{{uploadPath}}{{task.Files[0].fileImage}}" />
+            <img *ngIf="task.Files[0]" src="../assets/imgs/COURSE.png" />
             <span class="play-icon">
               <img src="../assets/imgs/play-button (2).png" />
             </span>
