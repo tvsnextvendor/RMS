@@ -2,7 +2,7 @@
 <div class="pt-2">   
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="#">CMS Library</a></li>
+				<li class="breadcrumb-item"><a routerLink="/cms-library">CMS Library</a></li>
 				<li class="breadcrumb-item active">Create Course</li>
 			</ol>
 		</nav>
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
-			<button type="button" class="btn btn-primary btn-save" (click)="submitForm('true')">{{labels.save}}</button>
+			<button type="button" class="btn btn-primary btn-save" (click)="submitForm('true')">Publish</button>
 		</div>
 	</form>
 	<div class="col-md-4 p-0 ltside-sec">

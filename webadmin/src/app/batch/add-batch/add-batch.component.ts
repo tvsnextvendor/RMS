@@ -230,11 +230,11 @@ export class AddBatchComponent implements OnInit {
     addBatch(form) {
         this.errStatus= false;
         this.submitted = true;
-        this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
         this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) > Date.parse(this.batchVar.batchTo) ? true : false;
         this.status = ( this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') == this.datePipe.transform(new Date(), 'yyyy-MM-dd') ) ? 'assigned' : 'unassigned';
         if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.employeeId && this.batchVar.moduleForm && this.durationValue && this.reminder) {
+            this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
             let postData = {
                 assignedDate: this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd'),
                 dueDate: this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd'),
@@ -250,7 +250,7 @@ export class AddBatchComponent implements OnInit {
             }
             this.courseService.scheduleTraining(postData).subscribe(result=>{
                 if(result.isSuccess){ 
-                          this.clearBatchForm();
+                        //   this.clearBatchForm();
                           this.hidePopup('submit');
                           this.alertService.success(result.message);                        
                 }else{

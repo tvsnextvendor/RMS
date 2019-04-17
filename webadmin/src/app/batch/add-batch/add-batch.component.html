@@ -114,7 +114,7 @@
                             <div class="row">
                                 <div class="row col-md-6 p-0 prgm-select">
                                     <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
-                                    <input type="text" class="form-control p-0 col-md-5 word-wrap" [(ngModel)]="data.courseName" name="courseName{{i}}">
+                                    <input type="text" class="form-control p-0 col-md-5 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
                                     <!-- <select id="program" class="col-md-5 form-control p-0" name="program{{i}}" [(ngModel)]="data.program">
                                         <option value="null">{{batchVar.select}}</option>
                                         <option *ngFor="let program of batchVar.programList" value="{{program.id}}">{{program.name}}</option>
@@ -146,7 +146,7 @@
                             <div class="row col-md-8 p-0">
                                 <span class="col-md-6 pl-0">
                                     <input class="form-control  p-0" name="reminder" [(ngModel)]="reminder" #reminderValue="ngModel"
-                                        type="number" placeholder="10" min="1" max="{{maxdurationCount}}" (keyup)="countErrorCheck()"
+                                        type="number" placeholder="Select" min="1" max="{{maxdurationCount}}" (keyup)="countErrorCheck()"
                                         required>
                                 </span>
                                 <span class="col-md-6 pl-0">
