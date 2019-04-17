@@ -53,13 +53,14 @@
       </div>
       <span class="calender-batch row py-2" *ngFor="let event of day.events">
         <span class="col-md-2 p-0"><i class="fa fa-file-text px-2" aria-hidden="true"></i></span>
-        <span class="col-md-9 p-0">
+        <span class="col-md-10 p-0">
           <p class="m-0">{{event.batchName}}</p>
-          <p class="m-0">{{batchVar.labels.module}} - {{event.moduleCount}}</p>
-          <p class="m-0">{{event.courseCount}} {{batchVar.labels.courses}}</p>
+          <p class="m-0 clearfix pt-1 pr-2"><i class="fas fa-pencil-alt float-right"></i></p>
+          <p class="m-0">Course 1</p>
+          <p class="m-0">8:00 AM-6:30 PM</p>
           <!-- <p class="m-0">{{event.timings}}</p> -->
         </span>
-        <span class="col-md-1 p-0"> <i class="fa fa-pencil" routerLink="/addBatch/{{event.id}}" aria-hidden="true"></i></span>
+        <!-- <span class="col-md-1 p-0"> <i class="fa fa-pencil" routerLink="/addBatch/{{event.id}}" aria-hidden="true"></i></span> -->
       </span>
     </ng-template>
 
