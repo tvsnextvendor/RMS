@@ -102,6 +102,11 @@ button:focus {
 .fs-12{
 font-size: 12px;
 }
+.word-wrap{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .inner-table tr {
     background: transparent !important;
 }
