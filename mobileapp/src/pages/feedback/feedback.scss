@@ -1,0 +1,27 @@
+page-feedback {
+    .smiley-icon ion-icon {
+        font-size: 120px;
+    }
+    .smiley-icon {
+        display: block;
+        text-align: center;
+        p {
+            text-align: center;
+        }
+    }
+    .your-feedback textarea {
+        border-bottom: 1px solid #ACAEAF;
+        resize: none;
+        max-height: 40px;
+    }
+    .your-feedback textarea {
+        border-bottom: 1px solid #ACAEAF;
+        resize: none;
+        max-height: 40px;
+        height: 35px;
+        font-size: 16px;
+    }
+    .smiley-icon img {
+        width: 80px;
+    }
+}
