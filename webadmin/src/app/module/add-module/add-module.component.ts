@@ -133,7 +133,7 @@ export class AddModuleComponent implements OnInit {
             let typeValue = type.split('/');
             console.log(file,"extennnnnnn",typeValue[1].split('.').pop(),'typeeeeeeee',typeValue[0].split('.').pop())
             let extensionType = typeValue[1].split('.').pop();
-            console.log(file,"extennnnnnn",typeValue[1].split('.').pop(),'typeeeeeeee',typeValue[0].split('.').pop())
+            // console.log(file,"extennnnnnn",typeValue[1].split('.').pop(),'typeeeeeeee',typeValue[0].split('.').pop())
             if( typeValue[0].split('.').pop() === 'image' && extensionType === 'gif'){
                 
                 this.alertService.error('Please add the valid file format')
@@ -149,7 +149,14 @@ export class AddModuleComponent implements OnInit {
                 this.fileName = file.name;
                 reader.onloadend = () => {
                 this.fileUrl = reader.result;
-                this.extensionTypeCheck(fileType,extensionType,this.fileUrl);
+                if(fileType === 'application'){
+                    let appType = (this.fileName.split('.').pop()).toString();
+                    let appDataType = appType.toLowerCase();
+                    this.extensionUpdate(appDataType)
+                }
+                else{
+                    this.extensionTypeCheck(fileType,extensionType,this.fileUrl);
+                }   
             }
             }
             reader.readAsDataURL(file);  
@@ -191,11 +198,13 @@ export class AddModuleComponent implements OnInit {
                 video.addEventListener('timeupdate', timeupdate);
                 video.preload = 'metadata';
                 video.src = url; 
-                url = video.src
+                // url = video.src; 
                 fetch(url)
                 .then(res => res.blob())
                 .then(blob => {
-                    self.fileImageDataPreview =  new File([blob], "File name");
+                    self.fileImageDataPreview =  new File([blob], "File_name.png");
+                    // self.fileImageDataPreview.type = "image/png";
+                    console.log(self.fileImageDataPreview)
                 })  
                 // Load video in Safari / IE11
                 video.muted = true;
@@ -270,11 +279,11 @@ export class AddModuleComponent implements OnInit {
             id : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassId : '',
             value : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassName : ''
         }
-        if(newTrainingClass.id !== ''){
+        if(data.submitCheck && newTrainingClass.id !== ''){
             this.selectedCourses.push(newTrainingClass);
             this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
-            data.courseUpdate ? this.submitForm(true) : this.submitForm(false); 
         }
+        data.submitCheck ? this.submitForm(true) :this.courseData(); 
         if(this.moduleVar.selectCourseName){
             this.tabEnable = data.courseUpdate ? false : true;
             this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
@@ -306,18 +315,18 @@ export class AddModuleComponent implements OnInit {
 
    extensionUpdate(type){
        switch(type){
-        case "mp4":
-            this.previewImage = "assets/videos/images/bunny.png";
-            break;
-        case "png":
-            this.previewImage = "assets/videos/images/bunny.png";
-            break;
-        case "jpeg":
-            this.previewImage = "assets/videos/images/bunny.png";
-            break;
-        case "jpg":
-            this.previewImage = "assets/videos/images/bunny.png";
-            break;
+        // case "mp4":
+        //     this.previewImage = "assets/videos/images/bunny.png";
+        //     break;
+        // case "png":
+        //     this.previewImage = "assets/videos/images/bunny.png";
+        //     break;
+        // case "jpeg":
+        //     this.previewImage = "assets/videos/images/bunny.png";
+        //     break;
+        // case "jpg":
+        //     this.previewImage = "assets/videos/images/bunny.png";
+        //     break;
         case "ppt":
             this.previewImage =  "assets/images/ppt-icon.png";  
             break;
@@ -330,9 +339,15 @@ export class AddModuleComponent implements OnInit {
         case "docx":
             this.previewImage =  "assets/images/doc-icon.png"; 
             break;
+        case "doc":
+            this.previewImage =  "assets/images/doc-icon.png"; 
+            break;
         case "xlsx":
             this.previewImage =  "assets/images/excel-icon.png";
-            break; 
+            break;
+        case "xls":
+            this.previewImage =  "assets/images/excel-icon.png";
+            break;     
         case "zip" :
             this.previewImage =  "assets/images/file-zip-icon.png";
             break; 
@@ -468,14 +483,14 @@ export class AddModuleComponent implements OnInit {
             this.courseService.addCourse(params).subscribe((resp)=>{
                 if(resp && resp.isSuccess){
                     // let successMsg =  this.moduleId ? this.labels.moduleUpdateMsg : this.labels.moduleCreateMsg;
-                    if(courseSubmitType) {
+                    // if(courseSubmitType) {
                         this.route.navigateByUrl("/cms-library") 
-                    }
-                    else{
-                        this.staticTabs.tabs[0].disabled = false;
-                        this.staticTabs.tabs[0].active = true;
+                    // }
+                    // else{
+                    //     this.staticTabs.tabs[0].disabled = false;
+                    //     this.staticTabs.tabs[0].active = true;
                         // this.courseData();
-                    }
+                    // }
                     this.alertService.success(this.labels.moduleCreateMsg);
                     this.moduleSubmitted = false;
                 }
