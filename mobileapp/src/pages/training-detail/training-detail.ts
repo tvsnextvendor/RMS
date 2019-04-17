@@ -37,6 +37,7 @@ export class TrainingDetailPage {
     fileType;
     fileImage;
     fileUrl;
+    showPreView;
     trainingStatus;
     paramsToSend: any = {};
     isCollapsed: boolean = true;
@@ -73,8 +74,7 @@ export class TrainingDetailPage {
     // first page load
     ionViewDidLoad() {
         this.setTraining = this.trainingDatas[0];
-        this.fileImage = this.uploadPath + this.setTraining.fileImage;
-        this.fileUrl = this.uploadPath + this.setTraining.fileUrl;
+        this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         this.text = this.setTraining.fileDescription;
         console.log('ionViewDidLoad TrainingDetailPage');
     }
@@ -134,12 +134,10 @@ export class TrainingDetailPage {
     showNextPage() {
         this.initial = this.initial + 1;
         this.setTraining = this.trainingDatas[this.initial];
-        this.setTraining.fileUrl = this.getFileExtension(this.setTraining.fileUrl);
-        this.fileImage = this.uploadPath + this.setTraining.fileImage;
-        this.fileUrl = this.uploadPath + this.setTraining.fileUrl;
-        //alert(fileLink);
-        const htmlVideoTag = this.videotag.nativeElement;
-        htmlVideoTag.load();
+        this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
+        console.log(this.videotag,"VideoTAG")
+        // const htmlVideoTag = this.videotag.nativeElement;
+        // htmlVideoTag.load();
         this.text = this.setTraining.fileDescription;
         this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
     }
@@ -150,11 +148,10 @@ export class TrainingDetailPage {
             this.initial = this.initial - 1;
             this.setTraining = this.trainingDatas[this.initial];
             this.text = this.setTraining.fileDescription;
-            this.setTraining.fileUrl = this.getFileExtension(this.setTraining.fileUrl);
-            this.fileImage = this.uploadPath + this.setTraining.fileImage;
-            this.fileUrl = this.uploadPath + this.setTraining.fileUrl;
-            const htmlVideoTag = this.videotag.nativeElement;
-            htmlVideoTag.load();
+            this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
+            // console.log(this.videotag,"VideoTAG")
+            // const htmlVideoTag = this.videotag.nativeElement;
+            // htmlVideoTag.load();
             this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
         }
     }
@@ -187,6 +184,12 @@ export class TrainingDetailPage {
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
+            case "xlsx":
+                 fileLink = 'assets/imgs/xlsx.png';
+                 this.imageType = true;
+                 this.filePath = filename;
+                 this.fileType = fileType;
+                 break;
             default:
                 fileLink = this.uploadPath + filename;
                 this.imageType = false;
@@ -226,10 +229,11 @@ export class TrainingDetailPage {
                 default:
                     docType = 'application/pdf';
             }
-            let baseUrl = 'file:///android_asset/www/';
+            let baseUrl = 'http://demo.greatinnovus.com:8103/uploads/';
             //For IOS platform 
             // let baseUrl = location.href.replace("/index.html", ""); 
             this.document.viewDocument(baseUrl + docFile, docType, options);
+            console.log(baseUrl + docFile,  docType, options)
         } else {
             this.toastr.error("Please agree acknowledgement to view content"); return false;
         }

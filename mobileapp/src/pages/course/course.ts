@@ -92,7 +92,7 @@ export class CoursePage implements OnInit {
     let self = this;
     this.courseList = [];
     return new Promise(resolve => {
-      let userId = this.currentUser.userId;
+      let userId = this.currentUser ? this.currentUser.userId : 8;
       this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId).subscribe((res) => {
         if(res['data']['rows']){
           self.courseList    = res['data']['rows'];
