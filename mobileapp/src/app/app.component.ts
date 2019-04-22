@@ -6,7 +6,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
 import { Constant } from '../constants/Constant.var';
 import { AuthProvider } from '../providers/auth/auth';
-import { LandingPage, HomePage, TrainingPage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage, LibraryPage, CoursePage, FeedbackPage } from '../pages/indexComponent';
+import { LandingPage, HomePage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage, LibraryPage, CoursePage,AccomplishmentPage,FeedbackPage } from '../pages/indexComponent';
 import { Calendar } from '@ionic-native/calendar';
 import { API_URL } from '../constants/API_URLS.var';
 import { HttpProvider } from '../providers/http/http';
@@ -75,9 +75,10 @@ export class MyApp {
       { title: 'Dashboard', component: HomePage },
       { title: 'Training', component: CoursePage },
       { title: 'Forum', component: ForumPage },
-      { title: 'Calendar', component: CalendarPage },
+      { title:'Accomplishments', component: HomePage},
+      //{ title: 'Calendar', component: CalendarPage },
       { title: 'Training Schedule', component: EventPage },
-      { title: 'Library', component: LibraryPage },
+      // { title: 'Library', component: LibraryPage },
       { title: 'Feedback', component: FeedbackPage },
       { title: 'Settings', component: SettingsPage }
     ];

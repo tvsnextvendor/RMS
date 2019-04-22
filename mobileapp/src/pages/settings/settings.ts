@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController,Content } from 'ionic-angular';
+import {Nav, IonicPage, NavController, NavParams, AlertController,Content } from 'ionic-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Constant } from '../../constants/Constant.var';
 import { ToastrService } from '../../service/toastrService';
@@ -16,6 +16,7 @@ import { Storage } from '@ionic/storage';
   providers: [Constant]
 })
 export class SettingsPage implements OnInit {
+  @ViewChild(Nav) nav; Nav;
   settingsForm: FormGroup;
   setting = {
     'oldpassword': '',
@@ -106,6 +107,12 @@ export class SettingsPage implements OnInit {
      // this.toastr.success('Notification setting updated');
     });
   }
+
+   logOut() {
+    this.auth.logout();
+    this.navCtrl.setRoot('login-page');
+  }
+
   getUser() {
     this.storage.get('currentUser').then(
       (val) => {
