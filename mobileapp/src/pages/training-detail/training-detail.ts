@@ -135,9 +135,11 @@ export class TrainingDetailPage {
         this.initial = this.initial + 1;
         this.setTraining = this.trainingDatas[this.initial];
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
-        console.log(this.videotag,"VideoTAG")
-        // const htmlVideoTag = this.videotag.nativeElement;
-        // htmlVideoTag.load();
+        let ext = this.setTraining.fileUrl.split('.').pop();
+        if(ext == "mp4" && this.videotag){
+        const htmlVideoTag = this.videotag.nativeElement;
+        htmlVideoTag.load();
+        }
         this.text = this.setTraining.fileDescription;
         this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
     }
@@ -149,9 +151,11 @@ export class TrainingDetailPage {
             this.setTraining = this.trainingDatas[this.initial];
             this.text = this.setTraining.fileDescription;
             this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
-            // console.log(this.videotag,"VideoTAG")
-            // const htmlVideoTag = this.videotag.nativeElement;
-            // htmlVideoTag.load();
+            let ext = this.setTraining.fileUrl.split('.').pop();
+            if(ext == "mp4" && this.videotag){
+                const htmlVideoTag = this.videotag.nativeElement;
+                htmlVideoTag.load();
+            }
             this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
         }
     }
@@ -186,6 +190,13 @@ export class TrainingDetailPage {
                 break;
             case "xlsx":
                  fileLink = 'assets/imgs/xlsx.png';
+                 this.imageType = true;
+                 this.filePath = filename;
+                 this.fileType = fileType;
+                 break;
+            case "png" :
+            case "jpg" :
+                 fileLink = this.uploadPath + filename;
                  this.imageType = true;
                  this.filePath = filename;
                  this.fileType = fileType;
