@@ -104,5 +104,13 @@ export class CourseTabComponent implements OnInit {
       }
     this.SelectedcourseList.emit(this.selectedCourse);
   }
+  calculateContentFiles(courses){
+    console.log(courses);
+    let i =0;
+    courses.forEach(function(value,key){
+      i = i + parseInt(value.TrainingClass.filesCount);
+    });
+    return i;
+  }
 }
 
