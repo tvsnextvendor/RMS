@@ -2,7 +2,7 @@ import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import {AuthGuard} from '../guard/auth.guard.component';
+import { AuthGuard } from '../guard/auth.guard.component';
 import { CMSLibraryComponent } from './cms-library.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -17,14 +17,14 @@ import { RecentDeleteTabComponent } from './recent-delete-tab/recent-delete-tab.
 import { FilterTabComponent } from './filter-tab/filter-tab.component';
 import { EmployeesListComponent } from './course-tab/employees-list/employees-list.component';
 import { EmployeeComponent } from './course-tab/employee/employee.component';
-// import { ContentFileComponent } from './course-tab/content-file/content-file.component';
+import { ContentFileComponent } from './course-tab/content-file/content-file.component';
 
 
 const routes: Routes = [
     { path: 'cms-library', component:  CMSLibraryComponent ,canActivate : [AuthGuard]},
     { path: 'employeeslist', component:  EmployeesListComponent ,canActivate : [AuthGuard]},
     { path: 'employee', component:  EmployeeComponent ,canActivate : [AuthGuard]},
-    // { path: 'contentfile', component:  ContentFileComponent ,canActivate : [AuthGuard]},
+    { path: 'contentfile', component:  ContentFileComponent ,canActivate : [AuthGuard]},
    
 ];
 
@@ -59,8 +59,8 @@ export const MY_MOMENT_FORMATS = {
     FilterTabComponent, 
     EmployeesListComponent, 
     EmployeeComponent,
-    //  ContentFileComponent
-    ],
+    ContentFileComponent
+  ],
   bootstrap: [CMSLibraryComponent]
 })
 export class CMSLibraryModule { }

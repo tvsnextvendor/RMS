@@ -46,8 +46,12 @@ uploadFiles(file){
     return this.http.upload('local',this.url.uploadFiles, formData);
 }
 
-removeFiles(path){
-    return this.http.removeFile('local',this.url.removeFiles, path);
+removeFiles(params){
+    return this.http.removeFile('local',this.url.removeFiles, params);
+}
+
+getResortDivision(id){
+    return this.http.getLocal('local',this.url.resortDivisionList+id);
 }
 
 }

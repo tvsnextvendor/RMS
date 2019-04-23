@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpParams, HttpErrorResponse } from '@angular/common/http';
 import {UtilService } from './util.service';
 import {AuthService} from '../services/auth.service';
 import { Observable, of } from 'rxjs';
@@ -100,14 +100,17 @@ export class HttpService {
       map(this.extractData));
   }
 
-  removeFile(api,url,params):Observable<any> {
+  removeFile(api,url,paramPath):Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
         'Authorization': this.utilService.getToken()
       })
     };
+    let paramData = {
+      path : paramPath
+    }
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
-    return this.http.request('delete',API_ENDPOINT+url, {headers:httpOptions.headers}).pipe(
+    return this.http.request('delete',API_ENDPOINT+url, {headers:httpOptions.headers,body:paramData}).pipe(
       map(this.extractData));
   }
   

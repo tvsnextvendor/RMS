@@ -16,12 +16,12 @@ export class VideoTabComponent implements OnInit {
   
 
   constructor(private courseService: CourseService) { 
-    this.pageSize = 3;
-    this.page=1;
 
   }
 
   ngOnInit(){
+    this.pageSize = 10;
+    this.page=1;
     console.log(this.videoId)
     this.getCourseFileDetails();
   }

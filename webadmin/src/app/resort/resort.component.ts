@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import {HeaderService} from '../services/header.service';
 import { HttpService } from '../services/http.service';
 import { ResortService } from '../services/restservices/resort.service';
+import { CommonService } from '../services/restservices/common.service';
 import {Router,ActivatedRoute,Params} from '@angular/router';
 import {ToastrService } from 'ngx-toastr';
 import { ResortVar } from '../Constants/resort.var';
@@ -32,35 +33,35 @@ export class ResortComponent implements OnInit {
     mobileValidation =  false;
     userId;
     userObj;
+    divisionDetails;
 
-   constructor(private alertService: AlertService,private activeRoute:ActivatedRoute,private resortService : ResortService,private http:HttpService,private location:Location,private resortVar : ResortVar,private utilsService:UtilService,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
+   constructor(private alertService: AlertService,private activeRoute:ActivatedRoute,private resortService : ResortService,private commonService:CommonService,private http:HttpService,private location:Location,private resortVar : ResortVar,private utilsService:UtilService,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
     this.activeRoute.params.subscribe((params:Params)=>{
-        this.resortId = params['id'] ;
+        this.resortId = params['id'];
     })
     this.resortVar.url = API_URL.URLS;
    }
     
    ngOnInit(){
         let data = this.utilsService.getUserData();
+        this.status = null;
         if(data && data.UserRole && data.UserRole[0] &&  data.UserRole[0].roleId){
-                this.userType  = data.UserRole[0].roleId;
+            this.userType  = data.UserRole[0].roleId;
         }
         if(!this.resortId || this.resortId === undefined || this.resortId === null) {
             this.resortVar.title = "Add New Resort";
             this.enableEdit = true;
             this.headerService.setTitle({title:this.resortVar.title, hidemodule:false});
             this.clearData();
-        }    
-        
+        }
         this.selectedDivision = this.resortVar.divisionTemplate[0].division;
-        if(this.resortId){
+        if(this.resortId !== ''){
            this.getResortDetails("add");
         }
    }
 
    getResortDetails(data){
         this.resortService.getResortById(this.resortId).subscribe((result) => {
-            console.log(this.resortDetails)
             if(result && result.isSuccess){
                 this.resortDetails = result.data.rows[0];
                 if(data === "add"){
@@ -90,6 +91,11 @@ export class ResortComponent implements OnInit {
                 }
             }
         });
+        this.commonService.getResortDivision(this.resortId).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+                this.divisionDetails = resp.data && resp.data[0].resortMapping && resp.data[0].resortMapping;
+            }
+        })
    }
 
    addForm(type) {
