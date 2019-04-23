@@ -201,34 +201,7 @@
       background-color: #fff;
       border-radius: 10px;
   }
-  /* Training */
-  .head-part{
-      padding-left: 30px;
-  }
-  .head-part h6{
-      font-weight: 600;
-      color: #697380;
-      font-size: 15px;
-  }
-  .select-arbx .square-cont{
-      font-size: 16px;
-      font-weight: 600;
-      color: #468FB9;
-  }
-  .clk-part{
-      clear: both;
-  }
-  .clk-part a{
-      color: #000;
-      font-size: 14px;
-      text-decoration: underline;
-  }
-  .clk-sec{
-      padding-left: 30px;
-  }
-  .select-arbx{   
-      border-bottom:1px solid #ccc;
-  }
+  
   .select-arbx:last-child{
       margin-bottom:0;
       border-bottom:none;

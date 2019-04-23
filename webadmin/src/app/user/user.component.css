@@ -182,6 +182,10 @@
     color: #576271;
     float: left;
     margin-right: 5px;
+    text-transform: capitalize;
+}
+.detail-bottom span a{
+    margin-left:5px;
 }
 .depart-dtl{
     margin-bottom: 20px;
@@ -206,4 +210,7 @@ th.action-hd {
 .icon-section{
     padding-top: 13px;
     padding-left: 18px;
+}
+.modal .label-title{
+    line-height: 37px;
 }

@@ -1,16 +1,16 @@
 .topic-img-wrap{
     float: left;
-    width:120px;
+    width:10%;
 }
 .topic-wrap{
     margin-bottom: 20px;
 }
 .topic-wrap-rt{
     float: left;
-    width: 87%;
+    width: 89%;
 }
 .topic-thumb{
-    width:100px;    
+    width:100%;    
     border-radius: 68px;
     display: block;
     text-align: center;

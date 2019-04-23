@@ -58,7 +58,7 @@
                             <td class="text-center"><span *ngIf="user.Division"><label class="mb-0">{{ user.Division.divisionName }}</label></span></td>
                             <td class="text-center"><span *ngIf="user.Department"><label class="mb-0">{{ user.Department.departmentName }}</label></span></td>
                             <td class="text-center"><span *ngIf="user.Designation"><label class="mb-0">{{ user.Designation.designationName }}</label></span></td>
-                            <td class="text-center"><label class="mb-0">{{ user.email }}</label></td>
+                            <td class="text-center email-td"><label class="mb-0">{{ user.email }}</label></td>
                             <td class="text-center"><label class="mb-0">{{ user.phoneNumber }}</label></td>
                             <td class="text-center"><a (click)="openAddUser(addUserTemp,user,i)"><i class="fas fa-pencil-alt"></i></a>
                                 <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
