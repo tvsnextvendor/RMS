@@ -34,7 +34,7 @@
             </thead>
             <tbody>
               
-                <tr class="table-desc-color" *ngFor="let file of videoListValue">
+                <tr class="table-desc-color" *ngFor="let file of videoListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalVideosCount};let i = index">
                     <td class="text-left">
                         <label class="square-cont float-left col-md-12 mb-0">
                             <input type="checkbox" name="web" value="{{file.fileName}}"> {{file.fileName}}

@@ -84,6 +84,7 @@ export class API_URL {
     //Common Services
     divisionList: '8102/division/List',
     departmentList: '8102/department/List',
+    resortDivisionList : '8102/resort/getResortDetails?resortId=',
     roleList:'8103/role/List',
     resortList:'8102/resort/List',
     designationList:'8102/designation/List',

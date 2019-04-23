@@ -17,15 +17,17 @@ export class DocumentTabComponent implements OnInit {
   addVideosToCourse = false;
   page;
   pageSize;
+  p;
+  total;
   
 
   constructor(private courseService: CourseService) { 
-    this.pageSize = 3;
-    this.page=1;
 
   }
 
   ngOnInit(){
+    this.pageSize = 10;
+    this.page=1;
     console.log(this.documentId)
     this.getCourseFileDetails();
   }
