@@ -114,7 +114,7 @@
             <div class="row mb-4">
                 <label class="col-6 col-md-4 label-title">{{resortVar.labels.status}}</label>
                 <select class="col-6 col-md-8 form-control" [(ngModel)] = "status" name="status"> 
-               
+                    <option [value]="null">--Select Status--</option>
                     <option *ngFor="let status of resortVar.statusList" [value]="status.name">{{status.name}}</option>
                 </select>
                 <!-- <input class="col-6 col-md-8 form-control" type="text" name="location" [(ngModel)]="resortVar.location"> -->
@@ -157,13 +157,21 @@
     </div>
     <div class="detail-bottom row">
         <h5 class="pb-2">Division</h5>
-        <div class="row depart-dtl col-md-12 pr-0">
+        <!-- <div class="row depart-dtl col-md-12 pr-0">
             <label class="col-md-12 p-0 label-title">Division1</label>
             <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
         </div>
         <div class="row depart-dtl col-md-12 pr-0">
             <label class="col-md-12 p-0 label-title">Division1</label>
             <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
+        </div> -->
+        <div class="row depart-dtl col-md-12 p-0" *ngFor="let division of divisionDetails">
+            <label class="col-md-12 p-0 label-title">{{division?.Division?.divisionName}}</label>
+            <div class="dpt-list pl-1 ml-4" >
+                <div>
+                    <span  *ngFor="let dept of division?.Division?.Departments">{{dept.departmentName}}</span>
+                </div>
+            </div>
         </div>
     </div> 
 </form>

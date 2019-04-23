@@ -49,6 +49,7 @@ export class UserComponent implements OnInit {
     fileUploadValue;
     userid;
     arrayBuffer: any;
+    divisionDetails;
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService ,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
@@ -59,6 +60,8 @@ export class UserComponent implements OnInit {
         this.pageLimitOptions = [5, 10, 25];
         this.pageLimit = [this.pageLimitOptions[1]];
         this.userList();
+        let userData = this.utilService.getUserData();
+        let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
         this.commonService.getDivisionList().subscribe((result)=>{
             this.divisionArray=result.data.rows;
         })
@@ -69,6 +72,13 @@ export class UserComponent implements OnInit {
 
         this.commonService.getDesignationList().subscribe((result)=>{
             this.designationArray=result.data.rows;
+        })
+        this.commonService.getResortDivision(resortId).subscribe(resp=>{
+            // console.log(resp);
+            if(resp && resp.isSuccess){
+                this.divisionDetails = resp.data.length && resp.data[0].resortMapping && resp.data[0].resortMapping;
+            }
+            
         })
 
     }

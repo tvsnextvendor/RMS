@@ -192,10 +192,10 @@ export class AddQuizComponent implements OnInit {
   valueChanged(resp,submitCheck,update){
     this.courseUpdate = true;
     let data = {
-      courseUpdate : true,
+      courseUpdate : submitCheck,
       type : update ? true : false,
       resp : resp,
-      submitCheck : submitCheck
+      // submitCheck : submitCheck
     }
     this.valueChange.emit(data);
   }
@@ -223,7 +223,8 @@ export class AddQuizComponent implements OnInit {
               fileType : item.fileType,
               fileUrl : item.url,
               fileExtension:item.fileExtension,
-              fileImage : item.fileImage
+              fileImage : item.fileImage,
+              fileSize : item.fileSize
             }
             return obj;
           })
@@ -236,6 +237,7 @@ export class AddQuizComponent implements OnInit {
       }
       else{
         // console.log(JSON.stringify(params));
+        debugger;
         this.courseService.addTrainingClass(params).subscribe((result)=>{
           console.log(result)
           if(result && result.isSuccess){
