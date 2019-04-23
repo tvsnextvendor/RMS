@@ -6,6 +6,13 @@
     </button>
     <ion-title class="text-left">
       <span class="header-title">{{constant.title.event}}</span>
+      <div class="header-icon">
+          <ion-icon name="ios-chatboxes" class="chat-icon"></ion-icon>
+          <span (click)="goToNotification()">
+        <img src="assets/imgs/notification.png" />
+        <span class="dot-circle">4</span>
+        </span>
+      </div>
     </ion-title>
   </ion-navbar>
 </ion-header>
