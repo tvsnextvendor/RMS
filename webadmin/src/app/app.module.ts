@@ -32,6 +32,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
 import { CMSLibraryModule } from './cms-library/cms-library.module';
 import { ApprovalrequestsModule } from './approvalrequests/approvalrequests.module';
 import { ArchivalSettingModule } from './archival-setting/archival-setting.module';
+import { FeedBackModule } from './feedback/feedback.module';
 
 
 
@@ -48,6 +49,7 @@ const routes: Routes = [
     LoginComponent,
     ResetpasswordComponent,
     AlertComponent,
+    
     
     
   ],
@@ -77,7 +79,8 @@ const routes: Routes = [
     SubscriptionModule,
     CMSLibraryModule,
     ApprovalrequestsModule,
-    ArchivalSettingModule
+    ArchivalSettingModule,
+    FeedBackModule
     
   ],
   providers: [AuthGuard, AlertService],
