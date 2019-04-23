@@ -2,7 +2,7 @@
   <ion-header class="my-component static-header">
     <ion-navbar *ngIf="!showSearchBar">
       <button ion-button menuToggle>
-        <img src="../assets/imgs/menu.png" />
+        <img src="assets/imgs/menu.png" />
       </button>
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.accomplishment}}</span>
@@ -53,7 +53,7 @@
       </span>
     </div>
     <div class="norecord" *ngIf="badgeList.length === 0 && certificateList.length === 0">
-      <img src="../assets/imgs/norecordsfound.png" class="no-records" />
+      <img src="assets/imgs/norecordsfound.png" class="no-records" />
     </div>
     <ng-template #badgetemplate>
       <div class="modal-body">

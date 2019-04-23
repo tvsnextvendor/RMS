@@ -2,7 +2,7 @@
 <ion-header class="static-header">
     <ion-navbar *ngIf="!showSearchBar">
       <button ion-button menuToggle>
-        <img src="../assets/imgs/menu.png" />
+        <img src="assets/imgs/menu.png" />
       </button>
       <ion-title class="text-left">
          <span class="header-title">{{constant.title.library}}</span>
@@ -61,7 +61,7 @@
              
               <img src="{{task.files[0].featuredImage}}" />
               <span class="play-icon">
-                <img src="../assets/imgs/play-button (2).png" />
+                <img src="assets/imgs/play-button (2).png" />
               </span>
             </div>
             <ion-card-content class="training-content">
@@ -87,6 +87,6 @@
         </ion-col>
       </ion-row>
       <div *ngIf="completeCoursesList.length === 0">
-        <img src="../assets/imgs/norecordsfound.png" class="no-records" />
+        <img src="assets/imgs/norecordsfound.png" class="no-records" />
       </div>
   </ion-content>
