@@ -3,7 +3,7 @@
 <ion-header  class="main-header my-component static-header" color="primary" >
     <ion-navbar *ngIf="!showSearchBar">
     <button ion-button menuToggle>
-       <img src="../assets/imgs/menu.png" />
+       <img src="assets/imgs/menu.png" />
     </button>
     <ion-title class="text-left">
       <span class="header-title">{{constant.title.forum}}</span>
@@ -42,6 +42,6 @@
       </ion-col>
     </ion-row>
   </ion-list>
-  <img *ngIf="forumData.length == 0" src="../assets/imgs/norecordsfound.png" class="no-records" />
+  <img *ngIf="forumData.length == 0" src="assets/imgs/norecordsfound.png" class="no-records" />
 </div>
 </ion-content>
