@@ -24,7 +24,9 @@ export class UserVar {
         "userAdded": "User added successfully",
         "removeUser": " removed from the list",
         "deleteUser": "Delete User",
+        "deleteDivision": "Delete Division",
         "deleteConfirmation": "Are you sure you want to delete this user?",
+        "deleteDivisionConfirmation": "Are you sure you want to delete this division?",
         "select": 'Select',
         "noData": 'No data'
     }
@@ -67,12 +69,17 @@ export class UserVar {
         };
 
     divisionTemplate: any[] = [{
-        division: 1,
-        divisionName : 'Division1'
+        divisionName : 'Division1',
+        departments : [
+            {
+               departmentName : ''
+            }
+        ]
     }];
-    departmentTemplate: any[] = [{
-        department: 1,
-        departmentName : ''
-    }];
+    departmentTemplate: any[] = [
+        {
+            departmentName : ''
+        }
+    ];
 
 }

@@ -71,10 +71,10 @@ export class HttpService {
         }));
 	}
 
-  delete(api,url,deleteData): Observable<any>{
+  delete(api,url): Observable<any>{
     this.headerAssign();
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
-		return this.http.request('delete',API_ENDPOINT+url , {headers: this.httpOptions.headers, body: deleteData}).pipe(
+		return this.http.request('delete',API_ENDPOINT+url , {headers: this.httpOptions.headers}).pipe(
 		map(this.extractData),
       catchError((error: HttpErrorResponse) => {
          return Observable.throw(error);

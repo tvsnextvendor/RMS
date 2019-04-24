@@ -96,15 +96,15 @@
                  <span>Department 1<a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span>
                     </div>
                 </div> -->
-                <div class="row depart-dtl col-md-12 p-0" *ngFor="let division of divisionDetails">
-                    <label class="col-md-12 p-0 label-title">{{division?.Division?.divisionName}} <a href="#"><i class="fas fa-pencil-alt"></i></a></label>
+                <div class="row depart-dtl col-md-12 p-0" *ngFor="let division of divisionDetails;let i = index;">
+                    <label class="col-md-12 p-0 label-title">{{division?.Division?.divisionName}} <a (click)="editDivisionData(division?.Division,editDivision)"><i class="fas fa-pencil-alt"></i></a></label>
                         <div class="dpt-list pl-1 ml-4" >
                             <div>
-                                <span  *ngFor="let dept of division?.Division?.Departments">{{dept.departmentName}}<a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span>
+                                <span  *ngFor="let dept of division?.Division?.Departments">{{dept.departmentName}}</span>
                                 <!-- <span>Department 1 <a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span> -->
                             </div>
                         </div>
-                        <a href="#" class="icon-section pt-2 pl-4"><i class="fas fa-trash"></i></a>
+                        <a (click)="removeDivision(deleteDivision,division,i)" class="icon-section pt-2 pl-4"><i class="fas fa-trash"></i></a>
                     </div>
                 </div> 
 
@@ -342,6 +342,7 @@
         </div>
     </div>
 </ng-template>
+
 <ng-template #addDivision>
     <div class="modal-header pb-0">
         <p class="hd-alg pl-0">Add Division</p>
@@ -352,12 +353,13 @@
     <div class="col-md-12 tab-section" >           
         <ul class="nav nav-tabs" (click)="tabchange($event)">
             <li class="nav-item">
-                <a [ngClass] = "!triggerNext ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#home" name="division">{{constant.labels.division}}</a>
+                <a [ngClass] = "!triggerNext ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#home" name="division">{{constant.labels.division}}</a>
             </li>
             <li class="nav-item">
-                <a [ngClass] = "triggerNext ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#menu1" name="department">{{constant.labels.department}}</a>
+                <a [ngClass] = "triggerNext ? 'nav-link active show' : 'nav-link disabled'" data-toggle="tab" href="#menu1" name="department">{{constant.labels.department}}</a>
             </li>
-        </ul>    
+        </ul>   
+        <div *ngIf="!divisionValidationCheck"><span class="required_color text-left">{{divisionError}}</span></div> 
         <div class="tab-content" *ngIf="userType === 2">
             <div id="home" [ngClass] = "!triggerNext ? 'container tab-pane col-md-12 pl-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
                 <div class="row col-12 col-md-12 pl-0" *ngFor="let data of constant.divisionTemplate; let i = index">
@@ -366,10 +368,10 @@
                     <div class="input-group mb-3 col-7 col-md-8 group-box">
                         <input type="text" class="form-control col-md-11" placeholder="Enter the Division{{i+1}}" [(ngModel)]="data.divisionName" name = "division{{i+1}}" aria-label="" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
-                            <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('division')">
+                            <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('division',i)">
                                 <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
                             </button>
-                            <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeForm(i,'division')">
+                            <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeForm(i,'division','')">
                                 <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
                             </button>
                         </div> 
@@ -377,18 +379,19 @@
                 </div>
             </div>
             <div id="menu1" [ngClass] = "triggerNext ? 'container tab-pane col-md-12 pl-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
-                <div class="row col-12 col-md-12 p-0" *ngFor="let data of constant.departmentTemplate; let i = index">
-                    <select class="col-4 col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
+                <div class="row col-12 col-md-12 p-0" *ngFor="let data of constant.divisionTemplate; let i = index">
+                    <!-- <select class="col-4 col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
                         <option *ngFor="let name of constant.divisionTemplate">{{name.divisionName}}</option>
-                    </select>
-                    <label class="col-md-3 select-form form-control pl-0" *ngIf="i!=0"></label>
-                    <div class="col-7 input-group mb-3 col-md-8 group-box">
-                        <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
+                    </select> -->
+                    <label class="col-md-3 select-form form-control pl-0">{{data.divisionName}}</label>
+                    <!-- <label class="col-md-3 select-form form-control pl-0" *ngIf="i!=0"></label> -->
+                    <div class="col-7 input-group mb-3 col-md-8 group-box" *ngFor="let dept of data.departments; let oi = index">
+                        <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{oi+1}}" [(ngModel)]="dept.departmentName" name = "department{{oi+1}}" aria-label="" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
-                            <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('department')">
+                            <button class="btn btn-icon" type="button" *ngIf="oi==0" (click)="addForm('department',i)">
                                 <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
                             </button>
-                            <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeForm(i,'department')">
+                            <button class="btn btn-icon" type="button" *ngIf="oi!=0" (click)="removeForm(i,'department',oi)">
                                 <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
                             </button>
                         </div> 
@@ -397,9 +400,53 @@
             </div>
         </div>  
         <div class="text-center mrb-15">
-            <button type="submit" *ngIf="!triggerNext" (click)="next()" class="btn btn-primary creat-btn mr-3">{{constant.btns.next}}</button>
-            <button type="button" *ngIf="triggerNext" (click)="addDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+            <button type="button" *ngIf="!triggerNext" (click)="next()" class="btn btn-primary creat-btn mr-3">{{constant.btns.next}}</button>
+            <button type="button" *ngIf="triggerNext" (click)="submitDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
             <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
         </div>          
     </div>
 </ng-template>
+
+<ng-template #deleteDivision>
+    <div class="modal-header pb-0">
+        <p class="hd-alg pl-3">{{constant.labels.deleteDivision}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <span>{{constant.labels.deleteDivisionConfirmation}}</span>
+        <div class="text-center">
+            <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteDivisionContent()">{{constant.btns.ok}}</button>
+            <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #editDivision>
+        <div class="modal-header pb-0">
+            <p class="hd-alg pl-3">{{editDivisionValue.divisionName}}</p>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row col-12 col-md-12 p-0" *ngFor="let data of editDepartmentList; let i = index">
+                <div class="col-4 input-group mb-3 col-md-8 group-box">
+                    <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group-prepend">
+                    <button class="btn btn-icon" type="button" *ngIf="i == 0" (click)="editDivisionForm('add')">
+                        <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
+                    </button>
+                    <button class="btn btn-icon" type="button" *ngIf="i != 0" (click)="editDivisionForm('edit',i)">
+                        <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
+                    </button>
+                </div> 
+            </div>
+            <div class="text-center">
+                <button (click)="updateDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+                <button type="button" class="btn btn-default" (click)="cancelUpdate()">{{constant.btns.Cancel}}</button>
+            </div>
+        </div>
+    </ng-template>

@@ -123,7 +123,10 @@ export class API_URL {
     userList:'8101/user/List',
     getUserByDivDept: '8103/user/getEmployeeDetails',
     userUpdate: '8101/user/Update/',
-    userDelete: '8101/user/Delete/'
+    userDelete: '8101/user/Delete/',
+    addDivision : '8102/division/Add',
+    deleteDivision : '8102/division/Delete/',
+    divisionUpdate : '8102/division/Update/'
 
   }
 

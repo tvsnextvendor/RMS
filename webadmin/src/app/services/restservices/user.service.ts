@@ -35,7 +35,19 @@ export class UserService {
   }
 
   deleteUser(userId){
-    return this.http.delete('local',this.url.userDelete,+userId)
+    return this.http.delete('local',this.url.userDelete+userId)
+  }
+
+  addDivision(params){
+    return this.http.post('local',this.url.addDivision, params);
+  }
+
+  deleteDivision(id){
+    return this.http.delete('local',this.url.deleteDivision+id)
+  }
+
+  divisionUpdate(params,id){
+    return this.http.put('local',this.url.divisionUpdate+id,params)
   }
 
 }
