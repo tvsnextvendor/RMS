@@ -50,6 +50,11 @@ export class UserComponent implements OnInit {
     userid;
     arrayBuffer: any;
     divisionDetails;
+    divisionError;
+    divisionValidationCheck = true;
+    editDivisionValue;
+    editDepartmentList;
+    divisionId;
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService ,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
@@ -73,6 +78,11 @@ export class UserComponent implements OnInit {
         this.commonService.getDesignationList().subscribe((result)=>{
             this.designationArray=result.data.rows;
         })
+        this.getDivisionList(resortId);
+
+    }
+
+    getDivisionList(resortId){
         this.commonService.getResortDivision(resortId).subscribe(resp=>{
             // console.log(resp);
             if(resp && resp.isSuccess){
@@ -80,7 +90,6 @@ export class UserComponent implements OnInit {
             }
             
         })
-
     }
 
     userList(){
@@ -279,22 +288,62 @@ export class UserComponent implements OnInit {
         this.message = '';
     }
 
-    addDivision(){
-        this.triggerNext = false;
+    submitDivision(){
+        let userData = this.utilService.getUserData();
+        let resortId = userData && userData.Resorts && userData.Resorts[0].resortId;
+        this.divisionValidationCheck = true;
+        this.constant.divisionTemplate.forEach(item=>{
+            item.departments.forEach(value=>{
+                if(value.departmentName === ''){
+                    this.divisionValidationCheck = false;
+                }
+            })
+        })
+        if(this.divisionValidationCheck) {
+            let params = {
+                "resortId" : resortId,
+                "division" : this.constant.divisionTemplate
+
+            }
+            this.userService.addDivision(params).subscribe(resp=>{
+                console.log(resp);
+                if(resp && resp.isSuccess){
+                    this.triggerNext = false ;
+                    this.getDivisionList(resortId);
+                    this.closeAddForm();
+                }    
+            })
+        }else{
+            this.divisionError = 'Department name is mandatory';
+        }
     }
 
     next(){
-        this.triggerNext = true;
+        this.divisionValidationCheck = true;
+        this.constant.divisionTemplate.forEach(item=>{
+            if(item.divisionName === ''){
+                this.divisionValidationCheck = false;
+            }
+        })
+        console.log(this.constant.divisionTemplate)
+        this.divisionValidationCheck ?  this.triggerNext = true : this.divisionError = 'Division name is mandatory';
     }
 
     tabchange(event){
-        console.log(event.target.name)
+        console.log(event.target.name,this.constant.divisionTemplate)
         if(event.target.name === "department"){
-            this.triggerNext = true;
+            this.next();
         }
         else{
             this.triggerNext = false;
         }
+    }
+
+    editDivisionData(data,template : TemplateRef<any>){
+        this.editDivisionValue = data;
+        let dataValue = data && data.Departments;
+        this.editDepartmentList = dataValue;
+        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig)
     }
 
     fileUpload(event) {
@@ -317,29 +366,86 @@ export class UserComponent implements OnInit {
         fileReader.readAsArrayBuffer(fileUploadValue);
     }
 
-    addForm(type) {
+    addForm(type,i) {
         if(type === "division"){
             let obj = {
-                division: 1,
-                divisionName : ''
+                divisionName : '',
+                departments : [
+                    {
+                       departmentName : ''
+                    }
+                ]
             };
             this.constant.divisionTemplate.push(obj);
         }
         else if(type === "department"){
             let obj = {
-                department: 1,
                 departmentName : ''
             };
-            this.constant.departmentTemplate.push(obj);
+            this.constant.divisionTemplate[i].departments.push(obj);
         }
     }
     
-    removeForm(i,type) {
+    removeForm(i,type,oi) {
         if(type === "division"){
             this.constant.divisionTemplate.splice(i, 1);
         }
         else if(type === 'department'){
-            this.constant.departmentTemplate.splice(i, 1);
+            this.constant.divisionTemplate[i].departments.splice(oi, 1);
         }
+    }
+
+    editDivisionForm(type,i){
+        console.log(type,i,"indexxxxxxx")
+        if(type === 'add'){
+            let obj = {
+                departmentName : ''
+            };
+            this.editDepartmentList.push(obj);
+        }
+        else if(type === 'edit'){
+            this.editDepartmentList.splice(i, 1);
+            console.log(this.editDivisionValue,'division update')
+        }
+    }
+
+     //delete division
+     removeDivision(template: TemplateRef<any>,data, i) {
+        this.divisionId= data.Division.divisionId;
+        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig); 
+       }
+
+    deleteDivisionContent(){
+        this.userService.deleteDivision(this.divisionId).subscribe(resp=>{
+            console.log(resp);
+            if(resp && resp.isSuccess){
+                let userData = this.utilService.getUserData();
+                let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+                this.constant.modalRef.hide();
+                this.getDivisionList(resortId);
+                this.alertService.success('Division deleted successfully');
+            }
+        })
+    }
+
+    updateDivision(){
+        if(Object.keys(this.editDivisionValue).length){
+            this.userService.divisionUpdate(this.editDivisionValue,this.editDivisionValue.divisionId).subscribe(resp=>{
+                if(resp && resp.isSuccess){
+                    let userData = this.utilService.getUserData();
+                    let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+                    this.constant.modalRef.hide();
+                    this.getDivisionList(resortId);
+                    this.alertService.success('Division updated successfully');
+                }
+            })
+        }
+    }
+
+    cancelUpdate(){
+        let userData = this.utilService.getUserData();
+        let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+        this.constant.modalRef.hide();
+        this.getDivisionList(resortId);
     }
 }

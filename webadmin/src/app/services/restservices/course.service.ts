@@ -38,7 +38,7 @@ export class CourseService {
   }
 
   deleteCourse(courseId){
-    return this.http.delete('local',this.url.courseDelete,courseId)
+    return this.http.delete('local',this.url.courseDelete+courseId)
   }
 
   addTrainingClass(userData){

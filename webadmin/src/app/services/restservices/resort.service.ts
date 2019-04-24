@@ -33,7 +33,7 @@ export class ResortService {
   }
 
   deleteResort(resortId){
-    return this.http.delete('local',this.url.resortDelete,resortId)
+    return this.http.delete('local',this.url.resortDelete+resortId)
   }
 
 }
