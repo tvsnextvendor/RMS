@@ -233,32 +233,13 @@
       border-bottom:none;
       padding-bottom: 0 !important;
   }
-  /* Documents Tab */
-  .doc-table .square-cont{
-      margin-bottom: 0;
-  }
-  .doc-table .table th{
-      padding-top: 10px;
-  }
-  .table tr a {
-      margin: 0 5px;
-  }
-  th .square-cont {
-      color: #737373;
-  }
-  td .square-cont {
-      font-weight: 500;
-  }
-  .top-select-bx{
-      padding-bottom: 2em;
-  }
-  .top-select-bx select:first-child{
-      margin-right: 5em;
-  }
-  .quiz-box{
-      border-top: 1px solid #ccc;
-      
-  }
+.square-cont {
+    display: block;
+}
+
+
+
+
   /* .filter-search .search-container {
       float: right;
     } */
