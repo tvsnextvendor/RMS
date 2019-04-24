@@ -155,8 +155,12 @@ export class UserComponent implements OnInit {
    
     //delete user
     removeUser(template: TemplateRef<any>,data, i) {
+        let modalConfig={
+            class : "modal-dialog-centered"
+
+        }
      this.userid= data.UserRole[0].userId;
-     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig); 
+     this.constant.modalRef = this.modalService.show(template,modalConfig); 
     }
 
 

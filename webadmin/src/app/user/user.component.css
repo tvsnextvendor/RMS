@@ -214,3 +214,21 @@ th.action-hd {
 .modal .label-title{
     line-height: 37px;
 }
+.group-section-bx{
+    margin-left: 7rem;
+}
+
+
+@media (max-width:767px){
+    .group-section-bx{
+        margin-left: 50%;
+    }
+    /* .modal .select-form{
+       
+        margin-right: 0px;
+      
+        
+    } */
+
+
+}

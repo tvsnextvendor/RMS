@@ -1500,6 +1500,10 @@ p.text-nowrap{
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
   width: 6px !important;
 }
+.text-cont{
+  font-size:15px;
+  color: #73737B;
+}
 /************************************ Responsive Alignment ************************************/
 
 

@@ -194,8 +194,8 @@
 </div>  
 <ng-template #addUserTemp>
     <div class="modal-header pb-0">
-        <p class="hd-alg pl-3" *ngIf="!editEnable">{{constant.btns.addUser}}</p>
-        <p class="hd-alg pl-3" *ngIf="editEnable">{{constant.btns.editUser}}</p>
+        <p class="hd-alg" *ngIf="!editEnable">{{constant.btns.addUser}}</p>
+        <p class="hd-alg" *ngIf="editEnable">{{constant.btns.editUser}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="closeAddForm()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -328,14 +328,14 @@
 
 <ng-template #deleteUser>
     <div class="modal-header pb-0">
-        <p class="hd-alg pl-3">{{constant.labels.deleteUser}}</p>
+        <p class="hd-alg">{{constant.labels.deleteUser}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
-         <span>{{constant.labels.deleteConfirmation}}</span>
-        <div class="text-center">
+    <div class="modal-body text-center">
+         <span class="text-cont">{{constant.labels.deleteConfirmation}}</span>
+        <div class="text-center mt-4">
             <button (click)="deleteuser()"
                 class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
             <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
@@ -383,9 +383,10 @@
                     <!-- <select class="col-4 col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
                         <option *ngFor="let name of constant.divisionTemplate">{{name.divisionName}}</option>
                     </select> -->
-                    <label class="col-md-3 select-form form-control pl-0">{{data.divisionName}}</label>
+                    <label class="col-4 col-md-3  label-title pl-0">{{data.divisionName}}</label>
                     <!-- <label class="col-md-3 select-form form-control pl-0" *ngIf="i!=0"></label> -->
-                    <div class="col-7 input-group mb-3 col-md-8 group-box" *ngFor="let dept of data.departments; let oi = index">
+                    <div *ngFor="let dept of data.departments; let oi = index" class="col-8 col-md-8 p-0">
+                        <div  [ngClass] = "oi === 0 ? 'col-12 input-group mb-3 col-md-12 group-box cll' : 'col-12 input-group mb-3 col-md-12 group-box group-section-bx'" >
                         <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{oi+1}}" [(ngModel)]="dept.departmentName" name = "department{{oi+1}}" aria-label="" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
                             <button class="btn btn-icon" type="button" *ngIf="oi==0" (click)="addForm('department',i)">
@@ -394,12 +395,12 @@
                             <button class="btn btn-icon" type="button" *ngIf="oi!=0" (click)="removeForm(i,'department',oi)">
                                 <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
                             </button>
-                        </div> 
+                        </div> </div>
                     </div>   
                 </div>
             </div>
         </div>  
-        <div class="text-center mrb-15">
+        <div class="text-center mt-3 mrb-15">
             <button type="button" *ngIf="!triggerNext" (click)="next()" class="btn btn-primary creat-btn mr-3">{{constant.btns.next}}</button>
             <button type="button" *ngIf="triggerNext" (click)="submitDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
             <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
@@ -409,14 +410,14 @@
 
 <ng-template #deleteDivision>
     <div class="modal-header pb-0">
-        <p class="hd-alg pl-3">{{constant.labels.deleteDivision}}</p>
+        <p class="hd-alg">{{constant.labels.deleteDivision}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
         <span>{{constant.labels.deleteDivisionConfirmation}}</span>
-        <div class="text-center">
+        <div class="text-center mt-3">
             <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteDivisionContent()">{{constant.btns.ok}}</button>
             <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
         </div>
@@ -425,7 +426,7 @@
 
 <ng-template #editDivision>
         <div class="modal-header pb-0">
-            <p class="hd-alg pl-3">{{editDivisionValue.divisionName}}</p>
+            <p class="hd-alg">{{editDivisionValue.divisionName}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -444,7 +445,7 @@
                     </button>
                 </div> 
             </div>
-            <div class="text-center">
+            <div class="text-center mt-3">
                 <button (click)="updateDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
                 <button type="button" class="btn btn-default" (click)="cancelUpdate()">{{constant.btns.Cancel}}</button>
             </div>

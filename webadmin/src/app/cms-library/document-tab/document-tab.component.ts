@@ -55,8 +55,12 @@ export class DocumentTabComponent implements OnInit {
 
 
    removeDoc(template: TemplateRef<any>,fileId, i) {
+    let modalConfig={
+      class : "modal-dialog-centered"
+    }
+
      this.constant.fileId= fileId;
-     this.constant.modalRef = this.modalService.show(template); 
+     this.constant.modalRef = this.modalService.show(template,modalConfig); 
     }
 
      deleteDoc(){
