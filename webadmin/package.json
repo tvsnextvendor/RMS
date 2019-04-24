@@ -59,6 +59,7 @@
     "ngx-bootstrap": "^3.1.2",
     "ngx-chips": "^2.0.0-beta.0",
     "ngx-editor": "^4.1.0",
+    "ngx-malihu-scrollbar": "^7.0.0",
     "ngx-owl-carousel-o": "^0.1.2",
     "ngx-pagination": "^3.2.1",
     "ngx-select-dropdown": "^0.8.1",

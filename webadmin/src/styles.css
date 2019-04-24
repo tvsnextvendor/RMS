@@ -278,7 +278,7 @@ table td.td-pd {
 /* Sidebar Styles */
 
 .sidebar-nav {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   width: 100%;
   margin: 0;
@@ -461,7 +461,7 @@ h5{
     margin-top: 30px;
     margin-bottom: 45px;
 }
-.snow-img img{width: 80px;}
+.snow-img img{width: 100%;}
 .cloudy{
   font-size: 25px;
   color: #468FB9;
@@ -692,9 +692,12 @@ li {
 }
 ::-webkit-scrollbar {
   width: 6px;
+  height: 10px;
+  border-radius: 10px;
 } 
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  /* background: #007bff; */
 } 
 ::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
@@ -1488,7 +1491,15 @@ p.text-nowrap{
 .cross-icon{
   color: #999999;
 }
-
+.email-td label{
+  text-transform: lowercase;
+}
+.mCSB_container{
+  overflow: inherit;
+}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+  width: 6px !important;
+}
 /************************************ Responsive Alignment ************************************/
 
 
