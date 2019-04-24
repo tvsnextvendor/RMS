@@ -1,12 +1,11 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderService } from '../../services/header.service';
-import { HttpService } from '../../services/http.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { HeaderService,HttpService,AlertService } from '../../services';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CourseService } from '../../services/restservices/course.service';
 // import { API_URL } from '../../Constants/api_url';
-import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-quiz-tab',
@@ -29,8 +28,11 @@ export class QuizTabComponent implements OnInit {
   apiUrls;
   hidemodule = false;
   optionData = true;
+  modalRef;
+  modalConfig;
+  deleteQueId;
   
-  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService) {
+  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,private modalService : BsModalService) {
     // this.apiUrls = API_URL.URLS;
   }
   
@@ -171,57 +173,55 @@ export class QuizTabComponent implements OnInit {
     // this.valueChange.emit(data);
   }
 
-  // Quiz Submission
-  quizSubmit() {
-    // if(this.selectCourseName){
-    //   let data = this.quizQuestionsForm.map(item => {
-    //       item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
-    //       return item;
-    //   })
-    //   let params = {
-    //     "trainingClassName":this.selectCourseName,
-    //     "files":[],
-    //     "quizQuestions":data
-    //     }
-    //     if(this.videoList.length){
-    //       params.files = this.videoList.map(item=>{
-    //         let obj = {
-    //           fileName : item.videoName,
-    //           fileDescription : item.description,
-    //           fileType : item.fileType,
-    //           fileUrl : item.url
-    //         }
-    //         return obj;
-    //       })
-    //     }
-    //   if(this.courseId){
-    //     this.valueChanged(true);
-    //   }
-    //   else{
-    //     console.log(JSON.stringify(params));
-    //     this.courseService.addTrainingClass(params).subscribe((result)=>{
-    //       console.log(result)
-    //     })
-      
-    //     this.valueChanged(false);
-    //     this.redirectCourseList();
-    //   }
-    // }
-    // else{
-    //   this.alertService.error("Training Class is mandatory");
-    //   this.courseId ? 
-    //     this.valueChanged(true)
-    //     :
-    //     this.valueChanged(false);
-    //     this.redirectCourseList();
-    // }
-  }
-
   redirectCourseList(){
     this.route.navigateByUrl('/cms-library');
   }
 
   editQuizEnable(i){
     this.quizQuestionsForm[i].enableEdit = true;
+  }
+
+  cancelQuizSubmit(i){
+    this.quizQuestionsForm[i].enableEdit = false;
+    this.editQuizDetails();
+  }
+
+  quizSubmit(data,i){
+    console.log(data)
+    let params = {
+      "questionName" : data.questionName,
+      "questionType" : data.questionType,
+      "weightage" : data.weightage,
+      "options" : data.options ,
+      "answer": data.answer,
+      "trainingClassId" : data.trainingClassId
+    }
+    this.courseService.updateQuizList(data.questionId,params).subscribe(resp=>{
+      console.log(resp);
+      if(resp && resp.isSuccess){
+        this.alertService.success(resp.message);
+        this.cancelQuizSubmit(i);
+      }
+    })
+  }
+
+  removeQuiz(template  : TemplateRef<any>,data){
+    let modalConfig={
+      class:"modal-dialog-centered"
+    }
+    console.log(data);
+    this.deleteQueId = data.questionId;
+    this.modalRef = this.modalService.show(template, this.modalConfig);
+  }
+
+  deleteQuizQuestion(){
+    this.courseService.deleteQuizList(this.deleteQueId).subscribe(resp=>{
+      if(resp && resp.isSuccess){
+        console.log(resp)
+        this.modalRef.hide();
+        this.alertService.success(resp.message);
+        this.editQuizDetails();
+      }
+    })
   }
 }

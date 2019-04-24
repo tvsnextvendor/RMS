@@ -107,7 +107,8 @@ export class API_URL {
     getResortDivision:'8103/resort/getresortDivision',
     courseEditFileList : '8103/course/getEditdetails',
     courseListUpdate : '8103/course/courseUpdate/',
-
+    quizListUpdate : '8103/trainingClass/quizUpdate/',
+    quizDelete : '8103/trainingClass/quizDelete/',
 
     //Resort Services
     resortAdd : '8102/resort/Add',

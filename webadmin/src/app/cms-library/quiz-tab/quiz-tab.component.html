@@ -69,7 +69,7 @@
                                                     <span class="option-btn" *ngIf="oi===3">D</span>
                                                     <input [disabled] = "data.enableEdit === false ? 'true' : false" type="text" class="form-control pdl27" placeholder="" [name]="optionValue.value" [(ngModel)]="optionValue.optionName" [ngModelOptions]="{ standalone : true }" required>
                                                 </span>
-                                                <input type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
+                                                <input [disabled] = "data.enableEdit === false ? 'true' : false"  type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
                                             </div>
                                             <div class="pt-2" *ngIf="data.questionType === 'True/False'">
                                                 <span class="col-sm-3 pl-0">
@@ -82,14 +82,14 @@
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </span>
-                                                <input type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
+                                                <input [disabled] = "data.enableEdit === false ? 'true' : false"  type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
                                             </div>
                                             <div class="row" *ngIf="data.questionType === 'NON-MCQ'">
                                                 <span class="col-sm-12 pl-0">
                                                     <!-- <span class="option-btn">{{oi + 1}}</span> -->
                                                     <input  [disabled] = "data.enableEdit === false ? 'true' : false" type="text" class="form-control" placeholder="Enter Your Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
                                                 </span>
-                                                <input type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
+                                                <input [disabled] = "data.enableEdit === false ? 'true' : false"  type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
                                             </div>
                                         </div>
                                     </div>
@@ -97,12 +97,30 @@
                             </div>
                     </div>
                     <div class="col-md-1 p-0">
-                        <a (click)="editQuizEnable(i)"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
-                        <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
+                        <a *ngIf="data.enableEdit === false" (click)="editQuizEnable(i)"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
+                        <a *ngIf="data.enableEdit === false" (click)="removeQuiz(deleteQuiz,data)"><i class="fa fa-trash header-icon"></i></a>
+                        <a *ngIf="data.enableEdit === true" (click)="quizSubmit(data,i)"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
+                        <a *ngIf="data.enableEdit === true" (click)="cancelQuizSubmit(i)"><img src="assets/images/cancel2.png"></a>
                     </div>
                         
             </div>
         </form>
     </div> 
+
+    <ng-template #deleteQuiz>
+            <div class="modal-header pb-0">
+                <p class="hd-alg">{{constant.quizLabels.deleteQuiz}}</p>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <span class="text-cont">{{constant.quizLabels.deleteConfirmation}}</span>
+                <div class="text-center">
+                    <button type="button" (click)="deleteQuizQuestion()" class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
+                    <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{constant.btns.cancel}}</button>
+                </div>
+            </div>
+        </ng-template>
 
 <!--End Quiz Tab Content -->
