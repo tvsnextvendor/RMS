@@ -143,7 +143,7 @@
     		            <!-- <select name="Course" class="form-control pl-0" [(ngModel)]="selectedEditCourse" (change)="editCourseData('',course.value)" #course>
                             <option *ngFor="let courselist of courseListValue;let courseIndex = index" [value]="courselist.courseId">{{courselist.courseName}}</option>
                         </select> -->
-                        <span class="form-control pl-0">{{selectedEditCourseName}}</span>
+                        <input type = "text" class="form-control pl-0" [(ngModel)] = "selectedEditCourseName" name="courseName"/>
                     </div>
     	            <div class="col-md-6 mb-3 select select-style clearfix">
                         <select name="Training Class" class="form-control pl-0" [(ngModel)]="selectedEditTrainingClass" (change)="getEditFileData(trainingClass.value)" #trainingClass>
