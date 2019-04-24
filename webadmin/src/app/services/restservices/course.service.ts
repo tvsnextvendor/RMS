@@ -41,6 +41,10 @@ export class CourseService {
     return this.http.delete('local',this.url.courseDelete+courseId)
   }
 
+  deleteDocument(docId){
+    return this.http.delete('local',this.url.fileDelete+docId)
+  }
+
   addTrainingClass(userData){
     return this.http.post('local',this.url.trainingClassAdd,userData);
   }

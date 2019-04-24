@@ -103,6 +103,7 @@ export class API_URL {
     trainingClassQuiz:'8103/trainingClass/QuizList',
     getCreatedByDetails:'8103/course/getCreatedByDetails',
     fileList:'8103/trainingClass/fileList',
+    fileDelete:'8103/trainingClass/fileDelete/',
     getResortDivision:'8103/resort/getresortDivision',
 
 
