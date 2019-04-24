@@ -92,4 +92,8 @@ export class CourseService {
 
     return this.http.getLocal('local',this.url.fileList+'?fileType='+fileType+'&page='+page+'&size='+size);
   }
+
+  getEditCourseDetails(courseId,classId){
+    return this.http.getLocal('local',this.url.courseEditFileList+'?courseId='+courseId+'&trainingClassId='+classId);
+  }
 }

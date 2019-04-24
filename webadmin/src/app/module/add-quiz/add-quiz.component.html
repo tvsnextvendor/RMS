@@ -76,6 +76,7 @@
 												<span class="checkmark"></span>
 											</label>
 										</span>
+										<input type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
 									</div>
 									<div class="row" *ngIf="data.questionType === 'NON-MCQ'">
 										<span class="col-sm-12 pl-0">

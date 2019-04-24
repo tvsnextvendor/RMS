@@ -79,12 +79,10 @@ export class UserComponent implements OnInit {
             this.designationArray=result.data.rows;
         })
         this.getDivisionList(resortId);
-
     }
 
     getDivisionList(resortId){
         this.commonService.getResortDivision(resortId).subscribe(resp=>{
-            // console.log(resp);
             if(resp && resp.isSuccess){
                 this.divisionDetails = resp.data.length && resp.data[0].resortMapping && resp.data[0].resortMapping;
             }
@@ -303,10 +301,8 @@ export class UserComponent implements OnInit {
             let params = {
                 "resortId" : resortId,
                 "division" : this.constant.divisionTemplate
-
             }
             this.userService.addDivision(params).subscribe(resp=>{
-                console.log(resp);
                 if(resp && resp.isSuccess){
                     this.triggerNext = false ;
                     this.getDivisionList(resortId);
@@ -325,12 +321,10 @@ export class UserComponent implements OnInit {
                 this.divisionValidationCheck = false;
             }
         })
-        console.log(this.constant.divisionTemplate)
         this.divisionValidationCheck ?  this.triggerNext = true : this.divisionError = 'Division name is mandatory';
     }
 
     tabchange(event){
-        console.log(event.target.name,this.constant.divisionTemplate)
         if(event.target.name === "department"){
             this.next();
         }
@@ -396,7 +390,6 @@ export class UserComponent implements OnInit {
     }
 
     editDivisionForm(type,i){
-        console.log(type,i,"indexxxxxxx")
         if(type === 'add'){
             let obj = {
                 departmentName : ''
@@ -405,7 +398,6 @@ export class UserComponent implements OnInit {
         }
         else if(type === 'edit'){
             this.editDepartmentList.splice(i, 1);
-            console.log(this.editDivisionValue,'division update')
         }
     }
 
@@ -417,7 +409,6 @@ export class UserComponent implements OnInit {
 
     deleteDivisionContent(){
         this.userService.deleteDivision(this.divisionId).subscribe(resp=>{
-            console.log(resp);
             if(resp && resp.isSuccess){
                 let userData = this.utilService.getUserData();
                 let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';

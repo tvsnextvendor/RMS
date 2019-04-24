@@ -22,8 +22,10 @@ export class CmsLibraryVar {
         "apply" : "Apply",
         "deleteDoc" : "Delete Document",
         "deleteDocConfirmation": "Are you sure you want to delete this document?",
-
+        "upload" : "Upload",
+        "cancel" : "Cancel"
     }
+       
 
      btns = {
         "ok":'Ok',
