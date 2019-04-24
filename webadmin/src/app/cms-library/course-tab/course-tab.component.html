@@ -126,7 +126,6 @@
 
 <!-- Edit -->
 
-
     <div class="col-md-12 pt-2 clearfix px-0" *ngIf="enableEdit && enableIndex === i">
      	<div class="white-bg p-4 clearfix">
             <div class="clearfix">
@@ -135,43 +134,29 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="col-md-12 p-0 clearfix">
-                <div class="fileUpload btn btn-primary">
-                    <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload<!-- <i class="fa fa-sort-desc ml-2" aria-hidden="true"></i> --></span>
-                        <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
-                </div>                           
+            <div class="col-md-11 p-0 clearfix">
+                <button class="btn btn-primary" type="button" (click)="fileUploadPopup(uploadPopup)"><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload</button>                         
             </div>
             <div class="px-4 py-3">
     	        <div class="row">
     	            <div class="col-md-6 mb-3 select select-style clearfix">
-    		            <select name="Course" class="form-control pl-0" [(ngModel)]="selectedEditCourse" (change)="editCourseData('',course.value)" #course>
+    		            <!-- <select name="Course" class="form-control pl-0" [(ngModel)]="selectedEditCourse" (change)="editCourseData('',course.value)" #course>
                             <option *ngFor="let courselist of courseListValue;let courseIndex = index" [value]="courselist.courseId">{{courselist.courseName}}</option>
-                        </select>
-                        <div class="select_arrow"></div>
+                        </select> -->
+                        <span class="form-control pl-0">{{selectedEditCourseName}}</span>
                     </div>
     	            <div class="col-md-6 mb-3 select select-style clearfix">
-                        <select name="Training Class" class="form-control pl-0" [(ngModel)]="selectedEditTrainingClass">
+                        <select name="Training Class" class="form-control pl-0" [(ngModel)]="selectedEditTrainingClass" (change)="getEditFileData(trainingClass.value)" #trainingClass>
                             <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.TrainingClass.trainingClassName}}</option>
                         </select>
                         <div class="select_arrow"></div>
                     </div>
                 </div>
-                <div class="col-md-12 pt-3">
-                    <p class="course-list">Video 1<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Video 2<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Video 3<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Document 1<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Document 2<img  class="close-alg" src="assets/images/close.png"></p>
+                <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
+                    <p class="course-list" *ngFor="let fileData of fileList;let i = index" dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="assets/images/close.png"></a></p>
                 </div>
-                <!-- <div class="col-md-12 pt-3">
-                    <p class="course-list">Video 4<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Video 3<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Video 5<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Document 4<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Document 6<img  class="close-alg" src="assets/images/close.png"></p>
-                </div> -->
                 <div class="p-3 clearfix">
-                    <button class="btn btn-primary" type="submit">Save</button>
+                    <button class="btn btn-primary" type="button" (click)="updateCourse()">Save</button>
                 </div>
             </div>    
         </div>
@@ -215,10 +200,66 @@
                     <p class="course-list">Document 6<img  class="close-alg" src="assets/images/close.png"></p>
                 </div> -->
                 <div class="p-3 clearfix">
-                    <button class="btn btn-primary" type="submit">Save</button>
+                    <button class="btn btn-primary" type="button">Save</button>
                 </div>
             </div>    
         </div>
     </div>
 </div>    
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
+
+<ng-template #uploadPopup>
+        <div class="modal-header pb-0">
+                <p class="hd-alg pl-3">File Upload</p>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row col-12 col-md-12 p-0">
+                    <div class="row form-group">
+                        <div class="col-md-4 pl-0">
+                            <label class="col-md-12 p-0 upload-label">File name</label>
+                            <input type="text" class="form-control col-md-12 p-0" placeholder="Enter File Name" name="selectVideoName" [(ngModel)]="uploadFileName">
+                            <span class="required_color" *ngIf="videoSubmitted && !selectVideoName">Video name is required</span>
+                        </div>
+                        <div class="col-md-4 pl-0">
+                            <label class="col-md-12 p-0 upload-label">Description</label>
+                            <input type="text" class="form-control col-md-12 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="description">
+                            <span class="required_color" *ngIf="videoSubmitted && !description">Description is required</span>
+                        </div>
+                        <div class="col-md-4 p-0 upload-line">
+                            <div class="row">
+                                <div class="col-md-4 p-0">
+                                    <div class="fileUpload btn btn-primary">
+                                        <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload</span>
+                                            <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
+                                    </div>      
+                                <div *ngIf='!previewImage'>
+                                        <video id="video-element" controls [hidden]="true">
+                                        <source type="video/mp4">
+                                    </video>
+                                    <canvas id="canvas-element" [hidden]="true" ></canvas>
+                                </div>	
+                                    
+                                </div>
+                        <div class="col-md-4 p-0">
+                            <span *ngIf="!videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-2"></span>
+                            <span *ngIf="showImage && videoFile && !previewImage"><img class="thumbnail_img px-4 img-size"></span>
+                            <span *ngIf="showImage && videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img px-4 img-size"></span></div>
+                            <!-- <span class="col-md-4 p-0">	
+                                <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
+                                <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
+                            </span> -->
+                            <span class="required_color" *ngIf="videoSubmitted && !videoFile">File is required</span>	
+                            <span class="file-alg">Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI</span>	 	
+                            </div>						
+                        </div>
+                    </div>
+                </div>    
+                <div class="text-center">
+                    <button (click)="submitUpload()" class="btn btn-primary creat-btn mr-3">{{cmsLibraryVar.labels.upload}}</button>
+                    <button type="button" class="btn btn-default" (click)="cancelUpload()">{{cmsLibraryVar.labels.cancel}}</button>
+                </div>
+            </div>
+</ng-template>
