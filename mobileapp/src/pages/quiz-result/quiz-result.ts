@@ -50,7 +50,7 @@ export class QuizResultPage implements OnInit {
             this.errorMessage  = '';
             let percentages = [{ 1: 20, 2: 40, 3: 60, 4: 80, 5: 100 }];
             let postFeedback = {
-                "courseId": this.resultData['courseId'],
+                "courseId": this.resultData['trainingClassId'],
                 "ratingStar": this.feedback.rating,
                 "ratingPercent": percentages[0][this.feedback.rating],
                 "feedback": this.feedback.description,
