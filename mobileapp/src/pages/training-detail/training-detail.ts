@@ -50,11 +50,12 @@ export class TrainingDetailPage {
     trainingClassId;
     uploadPath;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private document: DocumentViewer, private toastr: ToastrService) {
+    constructor(public navCtrl: NavController,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.trainingClassName = this.detailObject['setData'].trainingClassName;
         this.trainingClassId = this.detailObject['setData'].trainingClassId;
+        this.courseId = this.detailObject['setData'].CourseTrainingClassMaps[0].courseId;
         this.trainingDatas = this.detailObject['setData'].Files;
         this.uploadPath = this.detailObject['uploadPath'];
         this.lastIndexs = this.trainingDatas.length - 1;
@@ -100,7 +101,8 @@ export class TrainingDetailPage {
                 handler: () => {
                     // let currentIndex = self.slides.getActiveIndex();
                     //  self.paramsData['menu'] = self.trainingDatas[currentIndex]['fileTitle'];
-                    self.paramsData['trainingClassId'] = self.trainingClassId
+                    self.paramsData['trainingClassId'] = self.trainingClassId;
+                    self.paramsData['courseId'] = self.courseId;
                     self.paramsData['menu'] = self.trainingClassName;
                     self.navCtrl.push(QuizPage, self.paramsData);
                 }

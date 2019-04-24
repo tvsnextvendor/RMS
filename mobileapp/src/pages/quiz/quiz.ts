@@ -18,12 +18,14 @@ export class QuizPage {
     isQuizCompleted = false;
     trainingObj;
     videoMenuTitle;
+    trainingClassId;
     courseId;
 
     constructor(public navCtrl: NavController, private http: HttpProvider,private navParams:NavParams) {
         this.trainingObj = this.navParams.data;
         this.videoMenuTitle = this.trainingObj.menu;
-        this.courseId = this.trainingObj.trainingClassId;
+        this.trainingClassId = this.trainingObj.trainingClassId;
+        this.courseId = this.trainingObj.courseId;
     }
     //first load
     ionViewDidLoad() {
@@ -36,7 +38,9 @@ export class QuizPage {
 
     // Change selected question
     changeSelectedValue(option) {
-        this.selectedQuizContent['selectedAnswer'] = option.value;
+        console.log(option)
+        this.selectedQuizContent['selectedAnswer'] = option;
+        console.log(this.selectedQuizContent);
     }
 
     // Select previous question
@@ -64,36 +68,41 @@ export class QuizPage {
     // Final Congrats
     calcualteAndGoToCongartulations() {
         let correctAnswersCount  =   0;
+        console.log(this.quizData);
         this.quizData.forEach(quizValues => {
-            if (quizValues['selectedAnswer'] === quizValues['correctAnswer']['value']) {
+            if (quizValues['selectedAnswer'] == quizValues['answer']) {
                 correctAnswersCount ++;
             }
         });
         const resultData = {
             "totalQuestions"    : this.quizData.length,
             "correctAnswers"    : correctAnswersCount,
-            "courseId"          : this.courseId 
+            "trainingClassId"   : this.trainingClassId 
         };
         this.navCtrl.push(QuizResultPage, resultData);
     }
 
     //Get Quiz API datas
     getQuizDatas() {
-        this.http.getData(API_URL.URLS.getQuiz).subscribe((data) => {
-            if (data) {
-                this.quizData = data;
+        this.http.get(API_URL.URLS.quizAPI + '?trainingClassId=' + this.trainingClassId + '&courseId=' + this.courseId).subscribe((res) => {
+            if (res['isSuccess']) {
+                const quiz = res['data'];
+                this.quizData =quiz[0].CourseTrainingClassMaps[0].TrainingClass.Questions;
+                console.log(this.quizData);
                 this.getQuizContent();
             }
         });
     }
 
-    getQuizInfos() {
-        this.http.getData(API_URL.URLS.getQuiz).subscribe((data) => {
-            if (data) {
-                this.quizData = data;
-                this.getQuizContent();
-            }
-        });
-    }
+
+    // getQuizInfos() {
+    //     this.http.getData(API_URL.URLS.getQuiz).subscribe((data) => {
+    //         if (data) {
+    //             this.quizData = data;
+    //             console.log(this.quizData);
+    //             this.getQuizContent();
+    //         }
+    //     });
+    // }
 
 }
