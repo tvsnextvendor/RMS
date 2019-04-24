@@ -11,7 +11,7 @@ import { CmsLibraryVar } from '../../Constants/cms-library.var';
 export class CourseTabComponent implements OnInit {
   enableEdit = false;
   enableIndex;
-  enableDuplicate = false;;
+  enableDuplicate = false;
   enableView = false;
   labels;
   totalCourseCount = 0;
@@ -48,11 +48,18 @@ export class CourseTabComponent implements OnInit {
 
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
+ // @Output() CMSFilterSearchEvent = new EventEmitter<object>();
+  @Input() CMSFilterSearchEvent;
+
 
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
     this.getCourseDetails();
+
+    console.log('this.CMSFilterSearchEvent');
+
+    console.log(this.CMSFilterSearchEvent);
   }
 
   getCourseDetails(){
@@ -137,14 +144,34 @@ export class CourseTabComponent implements OnInit {
       }
     this.SelectedcourseList.emit(this.selectedCourse);
   }
-  
+
   calculateContentFiles(courses){
     let i =0;
     courses.forEach(function(value,key){
-      i = i + parseInt(value.TrainingClass.filesCount);
+      i = i + parseInt(value.TrainingClass.Files.length);
     });
     return i;
   }
+
+   // To Calc File Size
+  calculateFileMbSize(courses){
+    let i = 0;
+    courses.forEach(function(value,key){
+      value.TrainingClass.Files.forEach(function(val,key){
+        i = i + val.fileSize;
+      });
+    });
+    return this.formatBytes(i,2);
+  }
+  formatBytes(bytes,decimals){
+    if(bytes == 0) return '0 Bytes';
+      var k = 1024,
+        dm = decimals <= 0 ? 0 : decimals || 2,
+        sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+   }
+=======
 
   fileUploadPopup(template  : TemplateRef<any>){
     this.clearData();
@@ -381,5 +408,6 @@ clearData(){
   this.fileName = '';
   this.fileExtensionType = '';
 }
+
 }
 

@@ -7,59 +7,61 @@
     </div>
     <div class="white-bg p-3">
         <h6>{{cmsLibraryVar.labels.filter}}</h6>
+        <form  #filterForm = "ngForm" (ngSubmit)="submitForm(filterForm)" >
         <div class="row">
         <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="Course" class="form-control pl-0" [(ngModel)] = "filterCourse" #course (change)="courseChange(course.value)">
+            <select name="courseId" class="form-control pl-0" [(ngModel)] = "filterCourse" #course (change)="courseChange(course.value)">
                 <option [value]=null>--Select course--</option>
                 <option *ngFor="let course of courseFilterList" [value]="course.courseId">{{course.courseName}}</option>
             </select>
             <div class="select_arrow"></div></div>
         <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="Training Class" class="form-control pl-0" [(ngModel)] = "filterTrainingClass" #trainingClass [disabled]="filterCourse === 'null'" >
+            <select name="trainingClassId" class="form-control pl-0" [(ngModel)] = "filterTrainingClass" #trainingClass [disabled]="filterCourse === 'null'" >
                     <option [value]=null>--Select Training Class--</option>
                     <option *ngFor="let training of trainingClassFilterList" [value]="training.trainingClassId">{{training.trainingClassName}}</option>
             </select>
             <div class="select_arrow"></div></div>
         <div class="col-md-12 p-0 mb-3"><input type="text" class="form-control pl-0" placeholder="Parent Resort" name="course" [(ngModel)]="parentResort" disabled/></div>
         <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="Division Name" class="form-control pl-0" [(ngModel)] = "filterParentDivision" #parentdivision (change)="divisionChange(parentdivision.value,'parent')">
+            <select name="parentDivsionId" class="form-control pl-0" [(ngModel)] = "filterParentDivision" #parentdivision (change)="divisionChange(parentdivision.value,'parent')">
                     <option [value]=null>--Select Parent Division--</option>
                     <option *ngFor="let division of parentDivisionFilterList" [value]="division.divisionId">{{division.divisionName}}</option>
             </select>
             <div class="select_arrow"></div></div>
             <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="Parent Department Name" class="form-control pl-0" [(ngModel)] = "filterParentDepartment" [disabled]="filterParentDivision === 'null'">
+            <select name="parentDepartmentId" class="form-control pl-0" [(ngModel)] = "filterParentDepartment" [disabled]="filterParentDivision === 'null'">
                     <option [value]=null>--Select Parent Department --</option>
                     <option *ngFor="let dep of parentDepartmentFilterList" [value]="dep.departmentId">{{dep.departmentName}}</option>
             </select>
             <div class="select_arrow"></div></div>
             <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="Sub Resort" class="form-control pl-0" [(ngModel)] = "filterChildResort" #childResort (change)="childResortChange(childResort.value)">
+            <select name="childResortId" class="form-control pl-0" [(ngModel)] = "filterChildResort" #childResort (change)="childResortChange(childResort.value)">
                     <option [value]=null>--Select Child Resort--</option>
                     <option *ngFor="let resort of childResortFilterList" [value]="resort.resortId">{{resort.resortName}}</option>
             </select>
             <div class="select_arrow"></div></div>
             <div class="col-md-12 p-0 select select-style clearfix">
-                <select name="Division Name" class="form-control pl-0" [(ngModel)] = "filterChildDivision" #division (change)="divisionChange(division.value,'child')" [disabled]="filterChildResort === 'null'">
+                <select name="childDivisionId" class="form-control pl-0" [(ngModel)] = "filterChildDivision" #division (change)="divisionChange(division.value,'child')" [disabled]="filterChildResort === 'null'">
                         <option [value]=null>--Select Child Division--</option>
                         <option *ngFor="let division of childDivisionFilterList" [value]="division.divisionId">{{division.divisionName}}</option>
                 </select>
             <div class="select_arrow"></div></div>
             <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="Child Department Name" class="form-control pl-0" [(ngModel)] = "filterChildDepartment" [disabled]="filterChildDivision === 'null'">
+            <select name="childDepartmentId" class="form-control pl-0" [(ngModel)] = "filterChildDepartment" [disabled]="filterChildDivision === 'null'">
                     <option [value]=null>--Select Child Department --</option>
                     <option *ngFor="let dep of childDepartmentFilterList" [value]="dep.departmentId">{{dep.departmentName}}</option>
             </select>
             <div class="select_arrow"></div></div>
             <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="Create By" class="form-control pl-0" [(ngModel)] = "filterCreatedBy">
+            <select name="createdBy" class="form-control pl-0" [(ngModel)] = "filterCreatedBy">
                     <option [value]=null>--Select Create user --</option>
                     <option *ngFor="let creator of createdByList" [value]="creator.userid">{{creator.userName}}</option>
             </select>
             <div class="select_arrow"></div></div>
             <div class="col-md-12 p-0">
                 <button class="float-left m-0 p-0 pt-2 btn btn-link" (click)="resetFilter()">{{cmsLibraryVar.labels.clearFilter}}</button>
-                <button type = "button" class="btn btn-primary">{{cmsLibraryVar.labels.apply}}</button>
+                <button type ="submit" class="btn btn-primary">{{cmsLibraryVar.labels.apply}}</button>
             </div>
         </div>
+        </form>
     </div>

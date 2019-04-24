@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input, Output, EventEmitter} from '@angular/core';
 import { UtilService } from '../../services/util.service';
 import { CourseService } from '../../services/restservices';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
@@ -27,6 +27,7 @@ export class FilterTabComponent implements OnInit {
   filterChildDepartment = 'null';
   filterParentDepartment = 'null';
   filterCreatedBy = 'null';
+  @Output() FilterSearchEvent = new EventEmitter<string>();
 
   constructor(private utilService : UtilService,private courseService : CourseService,public cmsLibraryVar : CmsLibraryVar) { }
 
@@ -101,6 +102,10 @@ export class FilterTabComponent implements OnInit {
       }
     })
   }
+  submitForm(data){
+    let formValues = data.form.value;
+    this.FilterSearchEvent.emit(formValues);
+  }
 
   resetFilter(){
     this.courseFilterList = [];
@@ -120,5 +125,6 @@ export class FilterTabComponent implements OnInit {
     this.filterParentDepartment = 'null';
     this.filterCreatedBy = 'null';
     this.getFilterData();
+    this.FilterSearchEvent.emit(null);
   }
 }

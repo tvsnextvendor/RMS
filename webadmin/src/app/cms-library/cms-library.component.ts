@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef} from '@angular/core';
+import { Component, OnInit, TemplateRef,Input, Output, EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService, HttpService, AlertService } from '../services';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +21,8 @@ export class CMSLibraryComponent implements OnInit {
   showWarning=false;
   trainingClassId;
   courseId;
+  CMSFilterSearchEvent;
+ // @Output() CMSFilterSearchEvent = new EventEmitter<string>();
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
@@ -60,8 +62,13 @@ export class CMSLibraryComponent implements OnInit {
     if(type !== 'cancel'){
       // window.location.reload();
       this.selectedCourse = [];
-    }
-    
+    } 
   }
 
+  receivefilterMessage($event) {
+    console.log("CMS Library search options receive");
+    console.log($event);
+    this.CMSFilterSearchEvent = $event;
+    this.headerTabChange('course');
+   }
 }

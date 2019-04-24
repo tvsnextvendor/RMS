@@ -56,7 +56,7 @@
             <div class="tab-content">
                 <!-- Course Tab Content -->
                 <div *ngIf = "selectedTab === 'course'" id="course" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'course' ? 'active show' : 'nav-link')">
-                    <app-course-tab (SelectedcourseList)="getCourse($event)" (trainingClassRedirect)="redirectTab($event)"></app-course-tab>
+                    <app-course-tab (SelectedcourseList)="getCourse($event)" (trainingClassRedirect)="redirectTab($event)" [CMSFilterSearchEvent]="CMSFilterSearchEvent"  ></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
                 <div *ngIf = "selectedTab === 'training'" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="col-md-3 pr-0 pt-2">
-            <app-filter-tab></app-filter-tab>
+            <app-filter-tab  (FilterSearchEvent)="receivefilterMessage($event)"></app-filter-tab>
         </div>
     </div>
 </div>
