@@ -1,5 +1,8 @@
-import { Component, OnInit,Input } from '@angular/core';
-import { HeaderService, HttpService, CourseService } from '../../services';
+import { Component, OnInit,Input,TemplateRef} from '@angular/core';
+import { HeaderService, HttpService, CourseService, AlertService } from '../../services';
+import { CmsLibraryVar } from '../../Constants/cms-library.var';
+import { BsModalService } from 'ngx-bootstrap/modal';
+
 
 @Component({
   selector: 'app-document-tab',
@@ -21,7 +24,7 @@ export class DocumentTabComponent implements OnInit {
   total;
   
 
-  constructor(private courseService: CourseService) { 
+  constructor(private courseService: CourseService,private alertService: AlertService,public constant: CmsLibraryVar, private modalService : BsModalService) { 
 
   }
 
@@ -49,5 +52,22 @@ export class DocumentTabComponent implements OnInit {
     this.page = e;
     this.getCourseFileDetails();
   }
+
+
+   removeDoc(template: TemplateRef<any>,fileId, i) {
+     this.constant.fileId= fileId;
+     this.constant.modalRef = this.modalService.show(template); 
+    }
+
+     deleteDoc(){
+     this.courseService.deleteDocument(this.constant.fileId).subscribe((result)=>{
+         if(result.isSuccess){
+             this.constant.modalRef.hide();
+             this.getCourseFileDetails();
+             this.alertService.success(result.message);
+         }
+     })
+   }
+
 
 }

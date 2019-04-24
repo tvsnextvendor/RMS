@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 
 @Injectable({ providedIn: 'root' })
 export class CmsLibraryVar {
@@ -17,8 +19,20 @@ export class CmsLibraryVar {
         "document" : "Document(s)",
         "filter" : "Filter",
         "clearFilter" : "Clear Filter",
-        "apply" : "Apply"
+        "apply" : "Apply",
+        "deleteDoc" : "Delete Document",
+        "deleteDocConfirmation": "Are you sure you want to delete this document?",
 
     }
+
+     btns = {
+        "ok":'Ok',
+        "cancel":'Cancel',
+    }
+    fileId;
+    modalRef: BsModalRef;
+
+
+
 
 }
