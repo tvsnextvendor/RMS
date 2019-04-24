@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output,TemplateRef } from '@angular/core';
-import { HeaderService,HttpService,CourseService,CommonService } from '../../services';
+import { HeaderService,HttpService,CourseService,CommonService,AlertService } from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 
@@ -26,6 +26,7 @@ export class CourseTabComponent implements OnInit {
   total;
   fileList;
   deletedFilePath = [];
+  deletedFileId = [];
   modalRef;
   modalConfig;
   previewImage;
@@ -44,7 +45,7 @@ export class CourseTabComponent implements OnInit {
   videoIndex;
   videoList;
 
-  constructor(private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar,private modalService : BsModalService,private commonService:CommonService) { }
+  constructor(private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService) { }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
@@ -63,6 +64,7 @@ export class CourseTabComponent implements OnInit {
   }
 
   getCourseDetails(){
+    this.deletedFileId = [];
     this.courseService.getCourse(this.p,this.pageSize).subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.totalCourseCount = resp.data.count;
@@ -171,7 +173,6 @@ export class CourseTabComponent implements OnInit {
         i = Math.floor(Math.log(bytes) / Math.log(k));
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
    }
-=======
 
   fileUploadPopup(template  : TemplateRef<any>){
     this.clearData();
@@ -181,7 +182,7 @@ export class CourseTabComponent implements OnInit {
   submitUpload(){
     let self = this;
     this.videoSubmitted = true;
-    let videoObj = {fileName : self.uploadFileName,fileDescription : self.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.fileExtension,fileImage:'',filePath:'',fileSize:''}
+    let videoObj = {fileName : self.uploadFileName,fileDescription : self.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.fileExtension,fileImage:'',filePath:'',fileSize:'',trainingClassId:this.selectedEditTrainingClass}
      if(this.uploadFileName && this.description && this.videoFile){
         //  this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
          // console.log(viewImageFile,'fileeeeee');
@@ -228,6 +229,7 @@ export class CourseTabComponent implements OnInit {
     console.log(data,i)
     this.fileList.splice(i,1);
     this.deletedFilePath.push(data.fileUrl);
+    this.deletedFileId.push(data.fileId);
     if(data.fileType === 'Video'){
       this.deletedFilePath.push(data.fileImage);
     }
@@ -235,7 +237,21 @@ export class CourseTabComponent implements OnInit {
   }
 
   updateCourse(){
-    console.log(this.fileList,'file',this.deletedFilePath)
+    console.log(this.fileList,'file',this.deletedFileId)
+    let params = {
+      'trainingClassId' : this.selectedEditTrainingClass,
+      'courseName' : this.selectedEditCourseName,
+      'fileIds' : this.deletedFileId,
+      'files' : this.fileList
+    }
+    this.courseService.updateCourseList(this.selectedEditCourse,params).subscribe(resp=>{
+      console.log(resp);
+      if(resp && resp.isSuccess){
+        this.enableDropData('closeEdit','');
+        this.getCourseDetails();
+        this.alertService.success('Course updated successfully');
+      }
+    })
   }
 
   fileUpload(e){

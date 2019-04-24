@@ -106,6 +106,7 @@ export class API_URL {
     fileDelete:'8103/trainingClass/fileDelete/',
     getResortDivision:'8103/resort/getresortDivision',
     courseEditFileList : '8103/course/getEditdetails',
+    courseListUpdate : '8103/course/courseUpdate/',
 
 
     //Resort Services

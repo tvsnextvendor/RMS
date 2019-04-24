@@ -51,7 +51,8 @@ export class QuizTabComponent implements OnInit {
         { "optionId": 3, "optionName": "" },
         { "optionId": 4, "optionName": "" }
       ],
-      "weightage": '100'
+      "weightage": '100',
+      "answer" : ''
     }];
 
     // if (this.courseId) {
@@ -75,7 +76,12 @@ export class QuizTabComponent implements OnInit {
       if(resp && resp.isSuccess){
         this.courseName = resp.data && resp.data.length &&  resp.data[0].courseName;
         this.trainingClassName = resp.data && resp.data.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.trainingClassName;
-        QuizList = resp.data && resp.data.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Questions;
+        let responseList =  resp.data && resp.data.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Questions;
+        QuizList = responseList.map(item=>{
+           item.enableEdit = false;
+           return item;
+        })
+       
         this.quizQuestionsForm = QuizList && QuizList.length ? QuizList : [{
           "questionName": "",
           "questionType": "MCQ",
@@ -85,7 +91,8 @@ export class QuizTabComponent implements OnInit {
             { "optionId": 3, "optionName": "" },
             { "optionId": 4, "optionName": "" }
           ],
-          "weightage": '100'
+          "weightage": '100',
+          "answer" : ''
         }];
         this.weightage = QuizList && QuizList  ? (100 / QuizList.length).toFixed(2) : 100;
       }
@@ -103,11 +110,13 @@ export class QuizTabComponent implements OnInit {
         { "optionId": 3, "OptionName": "" },
         { "optionId": 4, "OptionName": "" }
       ];
+      quiz[i].answer = '';
     }
     else if(data === "2"){
       quiz[i].options = [];
-      quiz[i].option = "True/False"
-    }
+      quiz[i].option = "True/False";
+      quiz[i].answer = '';
+     }
     else{
       quiz[i].options = [];
       quiz[i].option = '';
@@ -133,7 +142,8 @@ export class QuizTabComponent implements OnInit {
         { "optionId": 3, "optionName": "" },
         { "optionId": 4, "optionName": "" }
       ],
-      "weightage": '100'
+      "weightage": '100',
+      "answer" : ''
     };
     // obj.questionId = this.quizQuestionsForm.length + 1;
     this.quizQuestionsForm.push(obj);
@@ -211,4 +221,7 @@ export class QuizTabComponent implements OnInit {
     this.route.navigateByUrl('/cms-library');
   }
 
+  editQuizEnable(i){
+    this.quizQuestionsForm[i].enableEdit = true;
+  }
 }

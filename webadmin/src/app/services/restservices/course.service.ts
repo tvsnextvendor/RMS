@@ -96,4 +96,8 @@ export class CourseService {
   getEditCourseDetails(courseId,classId){
     return this.http.getLocal('local',this.url.courseEditFileList+'?courseId='+courseId+'&trainingClassId='+classId);
   }
+
+  updateCourseList(courseId,params){
+    return this.http.put('local',this.url.courseListUpdate+courseId,params)
+  }
 }
