@@ -13,13 +13,16 @@ export class QuizVar {
         true         : 'True',
         false        : 'False',
         weightage    : 'Weightage',
-        totalNoOfQuestions:'Total No of Question(s)'
+        totalNoOfQuestions:'Total No of Question(s)',
+        "deleteQuiz": "Delete Quiz",
+        "deleteConfirmation": "Are you sure you want to delete this quiz question?",
        
     };
     btns = {
         saveBtn : 'SAVE',
         cancel : 'Cancel',
-        addQuiz      : 'Add Quiz'
+        addQuiz  : 'Add Quiz',
+        ok : 'Ok'
      };
      mandatoryLabels ={
          courseName  : 'Course name is required',
