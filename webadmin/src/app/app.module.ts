@@ -33,6 +33,7 @@ import { CMSLibraryModule } from './cms-library/cms-library.module';
 import { ApprovalrequestsModule } from './approvalrequests/approvalrequests.module';
 import { ArchivalSettingModule } from './archival-setting/archival-setting.module';
 import { FeedBackModule } from './feedback/feedback.module';
+import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
 
 
 
@@ -49,6 +50,7 @@ const routes: Routes = [
     LoginComponent,
     ResetpasswordComponent,
     AlertComponent,
+    
     
     
     
@@ -80,7 +82,8 @@ const routes: Routes = [
     CMSLibraryModule,
     ApprovalrequestsModule,
     ArchivalSettingModule,
-    FeedBackModule
+    FeedBackModule,
+    MalihuScrollbarModule.forRoot(),
     
   ],
   providers: [AuthGuard, AlertService],

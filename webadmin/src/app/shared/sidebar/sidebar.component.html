@@ -22,7 +22,7 @@
 </div>
 <div  *ngIf="peerAdmin">
 <div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
+    <ul class="sidebar-nav" id="scroll-bx">
         <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')"
             class="mt75">
             <a routerLink="/dashboard"><img src="assets/images/menu1.png"class="pr-3">Dashboard</a>
