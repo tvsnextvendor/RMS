@@ -64,14 +64,14 @@
 
 <ng-template #deleteDocument>
     <div class="modal-header pb-0">
-        <p class="hd-alg pl-3">{{constant.labels.deleteDoc}}</p>
+        <p class="hd-alg">{{constant.labels.deleteDoc}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
-        <span>{{constant.labels.deleteDocConfirmation}}</span>
-        <div class="text-center">
+    <div class="modal-body text-center">
+        <span class="text-cont">{{constant.labels.deleteDocConfirmation}}</span>
+        <div class="text-center mt-4">
             <button (click)="deleteDoc()" class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
             <button type="button" class="btn btn-default"
                 (click)="constant.modalRef.hide()">{{constant.btns.cancel}}</button>

@@ -175,8 +175,12 @@ export class CourseTabComponent implements OnInit {
    }
 
   fileUploadPopup(template  : TemplateRef<any>){
+    let modalConfig={
+      
+        class : "custom-modal"
+    }
     this.clearData();
-    this.modalRef = this.modalService.show(template, this.modalConfig);
+    this.modalRef = this.modalService.show(template,modalConfig);
   }
 
   submitUpload(){

@@ -106,4 +106,8 @@
  clear: both;
  padding-bottom: 0px;
 }
+.table-responsive{
+   box-shadow: 0px 6px 8px 0px #ccc;
+   border-radius: 0;
+}
 
