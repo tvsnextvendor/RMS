@@ -54,6 +54,7 @@ export class UserComponent implements OnInit {
     editDivisionValue;
     editDepartmentList;
     divisionId;
+    errMsg;
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
@@ -150,6 +151,18 @@ export class UserComponent implements OnInit {
         this.constant.modalRef.hide();
     }
 
+    activeStatus(data){
+        let userId = data.UserRole[0].userId;
+        let status = {active : data.active}
+         this.userService.updateUser(userId,status).subscribe(res=>{
+            if(res.isSuccess){
+                this.alertService.success(res.result);
+                this.userList();
+            }
+         })
+    
+    }
+
 
     openAddUser(template: TemplateRef<any>, data,  index) {
         if(data){
@@ -185,7 +198,7 @@ export class UserComponent implements OnInit {
 
     //add new user
     addUser(data) {
-        if(this.userName && this.division && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
+        if(this.userName && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
             let obj = {
                 userName : this.userName,
                 password: "123456",
@@ -199,21 +212,25 @@ export class UserComponent implements OnInit {
                 createdBy: this.utilService.getUserData().userId
                 }
             this.userService.addUser(obj).subscribe(result => {
+                if(result.isSuccess){
                   this.closeAddForm();
                   this.userList();
                   this.alertService.success(this.labels.userAdded);
+                }else{
+                  this.errMsg = result.error;     
+                }
             });
         }
     }
 
     updateUser(data){
-      if(this.userName && this.division && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
+      if(this.userName && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
            let obj = {
                 userName : this.userName,
                 password: "123456",
                 email : this.emailAddress,
                 phoneNumber : this.phoneNumber,
-                roleId:this.utilService.getRole(),
+                //roleId:this.utilService.getRole(),
                 designationId:this.designation,
                 divisionId:this.division,
                 departmentId:this.department,
@@ -221,9 +238,13 @@ export class UserComponent implements OnInit {
                 isDefault:this.defaultSetting,
                 }
           this.userService.updateUser(this.userid,obj).subscribe((result)=>{
+                if(result.isSuccess){
                      this.closeAddForm();
-                      this.userList(); 
+                     this.userList(); 
                      this.alertService.success(this.labels.userUpdated);
+                }else{
+                     this.errMsg = result.error;
+                }
             })
       }
     }
@@ -231,6 +252,7 @@ export class UserComponent implements OnInit {
 
     //reset
     resetFields() {
+        this.defaultSetting=false;
         this.editEnable= false;
         this.userName = '';
         this.userId = '';

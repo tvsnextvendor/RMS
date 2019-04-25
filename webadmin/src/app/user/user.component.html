@@ -63,9 +63,10 @@
                             <td class="text-center"><a (click)="openAddUser(addUserTemp,user,i)"><i class="fas fa-pencil-alt"></i></a>
                                 <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
                                 <a><label class="switch">
-                                        <input type="checkbox" > 
-                                        <span class="slider round"></span>
-                                    </label></a>
+                                    <input type="checkbox" name="active" id="active" [(ngModel)]="user.active" (change)="activeStatus(user)" g-reflect-model="true"
+                                            class="ng-untouched ng-pristine ng-valid" > 
+                                    <span class="slider round"></span>
+                                </label></a>                                
                             </td> 
                                 
                         </tr>
@@ -235,8 +236,6 @@
                         <option *ngFor="let obj of divisionArray" [value]="obj.divisionId">{{obj.divisionName}}</option>
                     </select>
                     <div class="select_arrow"></div>
-                    <span class="required_color" *ngIf="userForm.submitted && !division">
-                        {{constant.mandatoryText.division}}</span>
                 </span>
             </div>
             
@@ -317,6 +316,7 @@
             </div>
 
             <div class="text-center">
+                <span *ngIf="errMsg">{{errMsg}}</span>
                 <button type="submit" *ngIf="!editEnable" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
                 <button type="button" *ngIf="editEnable" (click)="updateUser(userForm)" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
                 <button type="button" class="btn btn-default"
