@@ -50,8 +50,8 @@ export class CourseService {
   }
 
   getCourseTrainingClass(currentPage,size){
-    // return this.http.getLocal('local',this.url.trainingClassCourse+'?page='+currentPage+'&size='+size);
-    return this.http.getLocal('local',this.url.trainingClassCourse);
+    return this.http.getLocal('local',this.url.trainingClassCourse+'?page='+currentPage+'&size='+size);
+    // return this.http.getLocal('local',this.url.trainingClassCourse);
   }
 
   getTrainingClass(){

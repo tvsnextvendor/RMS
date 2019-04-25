@@ -81,7 +81,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="table-desc-color" *ngFor="let file of videoListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalVideosCount};let i = index">
+                <tr class="table-desc-color"
+                    *ngFor="let file of videoListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalVideosCount};let i = index">
                     <td class="text-left">
                         <label class="square-cont float-left col-md-12 mb-0">
                             <input type="checkbox" name="web" value="{{file.fileName}}"> {{file.fileName}}
@@ -95,7 +96,7 @@
                     <td>{{file.fileName}}</td>
                     <td>
                         <a><i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a (click)="openAddUser(addUserTemp,user,i)"><i class="fas fa-pencil-alt header-icon"></i></a>
+                        <a (click)="openEditVideo(editVideoTemp,user,i)"><i class="fas fa-pencil-alt header-icon"></i></a>
                         <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
                     </td>
                 </tr>
@@ -120,6 +121,68 @@
 
             </tbody>
         </table>
-        <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
+        <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>
     </div>
 </div>
+
+<ng-template #editVideoTemp>
+    <div class="modal-header pb-0">
+        <p class="hd-alg pl-3">{{constant.btns.editVideo}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeEditVideoForm()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #videoEditForm="ngForm" (ngSubmit)="editVideos(videoEditForm)">
+            <div class="row form-group">
+                <div class="col-md-5 p-0 float-left">
+                    <div class="pl-0 form-group select-Courses">
+                        <select id="resort" class="form-control p-0" name="resortId"
+                            [(ngModel)]="videoEditForm.selectedResort">
+                            <option value="null" selected disabled>Select</option>
+                            <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">
+                                {{data.resortName}}</option>
+                        </select>
+                        <span class="required_color" *ngIf="submitted && !videoEditForm.selectedResort">
+                            {{constant.mandatoryLabels.selectResort}}
+                        </span>
+                    </div>
+
+                    <div class="pl-0 form-group select-Courses">
+                        <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId"
+                            [data]="constant.departmentList" [(ngModel)]="videoEditForm.selectedDepartment"
+                            [settings]="constant.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
+                            (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" required>
+                        </ng-multiselect-dropdown>
+                        <span class="required_color" *ngIf="submitted && !constant.selectedDepartment.length">
+                            {{constant.mandatoryLabels.selectDept}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-5 p-0 ml-auto">
+                    <div class="pl-0 form-group select-Courses">
+                        <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId"
+                            (onSelect)="onEmpSelect($event,'div')" [data]="constant.divisionList"
+                            [(ngModel)]="videoEditForm.selectedDivision" [settings]="constant.divisionSettings"
+                            #divisionId="ngModel" required></ng-multiselect-dropdown>
+                        <span class="required_color" *ngIf="submitted && !constant.selectedDivision.length">
+                            {{constant.mandatoryLabels.selectDivision}}
+                        </span>
+                    </div>
+                    <div class="pl-0 form-group select-Courses">
+                        <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"
+                            (onSelect)="onEmpSelect($event,'emp')" (onDeSelect)="onEmpDeSelect($event)"
+                            [data]="constant.employeeList" [(ngModel)]="videoEditForm.selectedEmp"
+                            [settings]="constant.empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
+                        <span class="required_color" *ngIf="submitted && !constant.selectedEmp.length">
+                            {{constant.mandatoryLabels.selectEmp}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary creat-btn mr-3">{{constant.btns.set}}</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
