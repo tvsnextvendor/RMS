@@ -10,9 +10,8 @@ import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
 import {CommonService} from '../services/restservices/common.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { UtilService  } from '../services/util.service';
 import * as XLSX from 'ts-xlsx';
-import {UserService} from '../services/restservices/user.service';
+import {UserService,ResortService, UtilService} from '../services';
 
 @Component({
     selector: 'app-users',
@@ -56,7 +55,7 @@ export class UserComponent implements OnInit {
     editDepartmentList;
     divisionId;
 
-    constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService ,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
+    constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
         this.labels = constant.labels;
     }
@@ -67,12 +66,11 @@ export class UserComponent implements OnInit {
         this.userList();
         let userData = this.utilService.getUserData();
         let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
-        this.commonService.getDivisionList().subscribe((result)=>{
-            this.divisionArray=result.data.rows;
-        })
+        
+        //get Resort list
+        this.resortService.getResortByParentId(resortId).subscribe((result)=>{
+            this.divisionArray=result.data.divisions;
 
-        this.commonService.getDepartmentList('').subscribe((result)=>{
-            this.departmentArray = result.data.rows;
         })
 
         this.commonService.getDesignationList().subscribe((result)=>{
@@ -102,6 +100,17 @@ export class UserComponent implements OnInit {
             this.userType  = data.UserRole[0].roleId;
         }
     }
+
+    changedivision(){
+         this.departmentArray= [];
+            const obj={'divisionId': this.division};
+            this.commonService.getDepartmentList(obj).subscribe((result)=>{
+            if(result.isSuccess){
+                this.departmentArray = result.data.rows;
+                }
+            })
+        
+     }
 
     //update user
     userEdit(data, index) {    
