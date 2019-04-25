@@ -16,7 +16,7 @@
                         </label>
                     </th>
                     <th class="text-left">
-                        File Name
+                        File Size
                     </th>
                     <th class="text-left">
                         Type
@@ -41,11 +41,12 @@
                             <span class="square-checkmark"></span>
                         </label>
                     </td>
-                    <td>{{file.fileName}}</td>
-                    <td class="text-left">{{file.fileSize}}10 MB</td>
-                    <td class="text-left">.doc</td>
+                   
+                    <td class="text-left">{{file.fileSize}} MB</td>
+                    <td class="text-left">{{file.fileExtension}}</td>
                    
                     <td class="text-left">100</td>
+                    <td>{{file.filePermissionType}}</td>
                    
                     <td>
                         <a><i class="fa fa-eye" aria-hidden="true"></i></a>

@@ -89,11 +89,12 @@
                             <span class="square-checkmark"></span>
                         </label>
                     </td>
-                    <td class="text-left">{{file.fileSize}}10 MB</td>
-                    <td class="text-left">{{file.fileName}}</td>
+                    <td class="text-left">{{file.fileSize}} MB</td>
+                    <td class="text-left">{{file.fileExtension}}</td>
                     <td class="text-left">03:55</td>
-                    <td class="text-left">100</td>
-                    <td>{{file.fileName}}</td>
+                   
+                    <td>100</td>
+                    <td class="text-left">{{file.filePermissionType}}</td>
                     <td>
                         <a><i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a (click)="openEditVideo(editVideoTemp,user,i)"><i class="fas fa-pencil-alt header-icon"></i></a>
