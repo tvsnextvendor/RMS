@@ -34,8 +34,12 @@ body {
   font-weight: 600 !important;
 }
 .alert {
-  width:99%;
+  width:50%;
   margin-bottom:0;
+  position: fixed;
+  right: 0;
+  top:10px;
+  z-index: 100;
 }
 .cp{
 cursor: pointer;

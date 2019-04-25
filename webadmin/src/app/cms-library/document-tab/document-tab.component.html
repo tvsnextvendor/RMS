@@ -36,7 +36,7 @@
               
                 <tr class="table-desc-color" *ngFor="let file of videoListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalVideosCount};let i = index">
                     <td class="text-left">
-                        <label class="square-cont float-left col-md-12 mb-0">
+                        <label class="square-cont float-left mb-0">
                             <input type="checkbox" name="web" value="{{file.fileName}}"> {{file.fileName}}
                             <span class="square-checkmark"></span>
                         </label>
@@ -49,9 +49,9 @@
                     <td>{{file.filePermissionType}}</td>
                    
                     <td>
-                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a><i class="fas fa-pencil-alt header-icon"></i></a>
-                        <a (click)="removeDoc(deleteDocument,file.fileId,i)"><i class="fa fa-trash header-icon"></i></a>
+                        <a title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
+                        <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Trash"><i class="fa fa-trash header-icon"></i></a>
                     </td>
                 </tr>
 

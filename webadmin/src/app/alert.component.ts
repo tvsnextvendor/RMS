@@ -12,7 +12,7 @@ export enum AlertType {
 import { AlertService } from './services/alert.service';
 @Component({
     selector: 'alert',
-    template: `<div *ngIf="hideTopMessage"><div *ngFor="let alert of alerts" id="alert-box" class="{{ cssClass(alert) }}  alert-dismissable">
+    template: `<div *ngIf="hideTopMessage"><div *ngFor="let alert of alerts" id="alert-box" class="{{ cssClass(alert) }}  fade show alert-dismissable">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
    {{alert.message}}</div></div>`
 })
@@ -55,7 +55,7 @@ export class AlertComponent implements OnInit {
         setTimeout(() => {
                 this.hideTopMessage = false;
                 this.alerts = [];
-            }, 2000); 
+            }, 1000); 
     }
     
 }

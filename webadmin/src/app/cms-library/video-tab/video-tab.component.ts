@@ -33,7 +33,7 @@ this.labels = constant.videoFormLabels;
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
-    console.log(this.trainingClassId)
+    console.log(this.trainingClassId,this.constant.selectedResort)
     this.getCourseFileDetails();
   }
   getCourseFileDetails() {

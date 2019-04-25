@@ -17,7 +17,7 @@
             <input type="checkbox" name="web">{{training?.TrainingClass?.trainingClassName}}
             <!-- <span class="square-checkmark"></span> -->
             <div class="float-right">
-                <a (click)="editTrainingClassName(training.trainingClassId,i,ci)"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
+                <a (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
             </div>
         </label>
         <div class="float-left" *ngIf="training.enableEdit == true">
