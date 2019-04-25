@@ -11,7 +11,7 @@ templateUrl: './video-tab.component.html',
 styleUrls: ['./video-tab.component.css']
 })
 export class VideoTabComponent implements OnInit {
-@Input() videoId;
+@Input() trainingClassId;
 totalVideosCount = 0;
 videoListValue;
 addVideosToCourse = false;
@@ -33,11 +33,12 @@ this.labels = constant.videoFormLabels;
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
-    console.log(this.videoId)
+    console.log(this.trainingClassId)
     this.getCourseFileDetails();
   }
   getCourseFileDetails() {
-    this.courseService.getFiles('Video',this.page,this.pageSize).subscribe(resp => {
+    let classId = this.trainingClassId ? this.trainingClassId : '';
+    this.courseService.getFiles('Video',classId,this.page,this.pageSize).subscribe(resp => {
       console.log(resp);
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;

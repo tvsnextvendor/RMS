@@ -10,7 +10,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./document-tab.component.css']
 })
 export class DocumentTabComponent implements OnInit {
-  @Input() documentId;
+  @Input() trainingClassId;
  
 
 
@@ -31,11 +31,12 @@ export class DocumentTabComponent implements OnInit {
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
-    console.log(this.documentId)
+    console.log(this.trainingClassId)
     this.getCourseFileDetails();
   }
   getCourseFileDetails() {
-    this.courseService.getFiles('Document',this.page,this.pageSize).subscribe(resp => {
+    let classId = this.trainingClassId ? this.trainingClassId : '';
+    this.courseService.getFiles('Document',classId,this.page,this.pageSize).subscribe(resp => {
       console.log(resp);
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
