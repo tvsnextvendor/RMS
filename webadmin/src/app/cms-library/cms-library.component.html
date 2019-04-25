@@ -64,11 +64,11 @@
                 </div>
                 <!-- Video Tab Content -->
                 <div *ngIf = "selectedTab === 'video'" id="video" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
-                    <app-video-tab [videoId] = 'trainingClassId'></app-video-tab>
+                    <app-video-tab [trainingClassId] = 'trainingClassId'></app-video-tab>
                 </div>
                 <!-- Documents Tab Content -->
                 <div  *ngIf = "selectedTab === 'document'" id="document" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
-                    <app-document-tab [documentId] = "trainingClassId"></app-document-tab>
+                    <app-document-tab [trainingClassId] = "trainingClassId"></app-document-tab>
                 </div>
                 <div  *ngIf = "selectedTab === 'quiz'" id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
                     <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId"></app-quiz-tab>

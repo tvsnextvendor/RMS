@@ -88,9 +88,14 @@ export class CourseService {
     return this.http.getLocal('local',this.url.getCreatedByDetails);
   }
 
-  getFiles(fileType,page,size){
-
-    return this.http.getLocal('local',this.url.fileList+'?fileType='+fileType+'&page='+page+'&size='+size);
+  getFiles(fileType,classId,page,size){
+    if(classId === ''){
+      return this.http.getLocal('local',this.url.fileList+'?fileType='+fileType+'&page='+page+'&size='+size);
+    }
+    else{
+      return this.http.getLocal('local',this.url.fileList+'?fileType='+fileType+'&trainingClassId='+classId+'&page='+page+'&size='+size);
+    }
+    
   }
 
   getEditCourseDetails(courseId,classId){
