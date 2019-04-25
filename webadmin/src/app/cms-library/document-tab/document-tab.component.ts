@@ -11,10 +11,6 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 })
 export class DocumentTabComponent implements OnInit {
   @Input() trainingClassId;
- 
-
-
-
   totalVideosCount = 0;
   videoListValue;
   addVideosToCourse = false;
@@ -22,6 +18,7 @@ export class DocumentTabComponent implements OnInit {
   pageSize;
   p;
   total;
+  @Input() CMSFilterSearchEventSet;
   
 
   constructor(private courseService: CourseService,private alertService: AlertService,public constant: CmsLibraryVar, private modalService : BsModalService) { 
@@ -31,18 +28,26 @@ export class DocumentTabComponent implements OnInit {
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
-    console.log(this.trainingClassId)
     this.getCourseFileDetails();
   }
+  ngDoCheck(){
+    if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
+      this.getCourseFileDetails();
+    }
+  }
   getCourseFileDetails() {
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
     let classId = this.trainingClassId ? this.trainingClassId : '';
-    this.courseService.getFiles('Document',classId,this.page,this.pageSize).subscribe(resp => {
-      console.log(resp);
+    this.courseService.getFiles('Document',classId,this.page,this.pageSize,query).subscribe(resp => {
+      this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
         this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
       }
+    },err =>{
+      this.CMSFilterSearchEventSet = '';
     });
+  
   }
   openAddVideosToCourse(){
    
