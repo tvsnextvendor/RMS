@@ -14,7 +14,10 @@ export class VideoVar {
         division         : 'Division',
         department       : 'Department',
         employees        : 'All Employees',
-        select           : 'Select'
+        select           : 'Select',
+        deleteVideo      : "Delete Video",
+        deleteDocConfirmation: "Are you sure you want to delete this Video?",
+
     };
     btns = {
         addBtn : 'ADD NEW',
@@ -24,7 +27,8 @@ export class VideoVar {
         no     : 'No',
         create : 'Create',
         cancel : 'Cancel',
-        set    : "Set"
+        set    : "Set",
+        ok     : "Ok"
      };
      modalLabels ={
        title      : 'Add New Course Name',
@@ -53,6 +57,7 @@ export class VideoVar {
     employeeList: IMultiSelectOption[];
     employeeId;
     resortId;
+    fileId;
     divisionId;
     departmentId;
     empValidate = false;
