@@ -84,7 +84,7 @@
                 <tr class="table-desc-color"
                     *ngFor="let file of videoListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalVideosCount};let i = index">
                     <td class="text-left">
-                        <label class="square-cont float-left col-md-12 mb-0">
+                        <label class="square-cont float-left mb-0">
                             <input type="checkbox" name="web" value="{{file.fileName}}"> {{file.fileName}}
                             <span class="square-checkmark"></span>
                         </label>
@@ -140,10 +140,11 @@
                 <div class="col-md-5 p-0 float-left">
                     <div class="pl-0 form-group select-Courses">
                         <select id="resort" class="form-control p-0" name="resortId"
-                            [(ngModel)]="videoEditForm.selectedResort">
-                            <option value="null" selected disabled>Select</option>
-                            <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">
-                                {{data.resortName}}</option>
+                            [(ngModel)]="constant.selectedResort">
+                            <!-- <select class="form-control p-0"> -->
+                            <option value="null" disabled >Select</option>
+                            <!-- <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">
+                                {{data.resortName}}</option> -->
                         </select>
                         <span class="required_color" *ngIf="submitted && !videoEditForm.selectedResort">
                             {{constant.mandatoryLabels.selectResort}}
