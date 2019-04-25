@@ -6,6 +6,7 @@ import { AuthGuard } from '../guard/auth.guard.component';
 import { CMSLibraryComponent } from './cms-library.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {DndModule} from 'ng2-dnd';
 import { ModalModule } from 'ngx-bootstrap';
 import { BatchModule } from '../batch/batch.module';
@@ -47,6 +48,7 @@ export const MY_MOMENT_FORMATS = {
     RouterModule.forRoot(routes),
     TooltipModule.forRoot(),
     NgxPaginationModule,
+    NgMultiSelectDropDownModule,
     DndModule,
     ModalModule,
     BatchModule

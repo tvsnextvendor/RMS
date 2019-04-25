@@ -1,8 +1,8 @@
 <!-- Training Tab Content -->
 
 <div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">{{cmsLibraryVar.labels.count}} : {{totalCourseTrainingCount}}</h6></div>
-<!-- <div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalCourseTrainingCount};"> -->
-        <div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList">
+<div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalCourseTrainingCount};">
+        <!-- <div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList"> -->
     <div class="head-part clearfix pr-3">
         <h6 class="float-left">{{course.courseName}}</h6>
         <div class="float-right">
@@ -23,6 +23,6 @@
         </div>
     </div>
 </div> 
-<!-- <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  -->
+<pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls> 
 
 <!-- End Training Tab Content -->
