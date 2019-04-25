@@ -97,7 +97,7 @@
                     <td>
                         <a><i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a (click)="openEditVideo(editVideoTemp,user,i)"><i class="fas fa-pencil-alt header-icon"></i></a>
-                        <a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a>
+                        <a (click)="removeDoc(deleteDocument,file.fileId,i)"><i class="fa fa-trash header-icon"></i></a>
                     </td>
                 </tr>
                 <!-- <tr class="table-desc-color">
@@ -184,5 +184,23 @@
                 <button type="submit" class="btn btn-primary creat-btn mr-3">{{constant.btns.set}}</button>
             </div>
         </form>
+    </div>
+</ng-template>
+
+
+<ng-template #deleteDocument>
+    <div class="modal-header pb-0">
+        <p class="hd-alg">{{constant.videoFormLabels.deleteVideo}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <span class="text-cont">{{constant.videoFormLabels.deleteDocConfirmation}}</span>
+        <div class="text-center mt-4">
+            <button (click)="deleteDoc()" class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
+            <button type="button" class="btn btn-default"
+                (click)="constant.modalRef.hide()">{{constant.btns.cancel}}</button>
+        </div>
     </div>
 </ng-template>

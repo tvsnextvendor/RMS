@@ -2,7 +2,7 @@ import { Component, TemplateRef, OnInit, Output, Input, EventEmitter } from '@an
 import { HeaderService, HttpService, CourseService } from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { VideoVar } from '../../Constants/video.var';
-import { CommonService, UtilService, ResortService, UserService } from '../../services';
+import { CommonService, UtilService, ResortService, UserService, AlertService } from '../../services';
 
 
 @Component({
@@ -25,7 +25,7 @@ allEmployees = {};
 employeesInBatch = [];
 
 
-constructor(private courseService: CourseService, private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService) {
+constructor(private courseService: CourseService, private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService) {
 this.labels = constant.videoFormLabels;
 }
 
@@ -95,8 +95,28 @@ this.labels = constant.videoFormLabels;
    
     this.addVideosToCourse = !this.addVideosToCourse;
   }
+
+
+   removeDoc(template: TemplateRef<any>,fileId, i) {
+    let modalConfig={
+      class : "modal-dialog-centered"
+    }
+     this.constant.fileId= fileId;
+     this.constant.modalRef = this.modalService.show(template,modalConfig); 
+    }
+
+     deleteDoc(){
+     this.courseService.deleteDocument(this.constant.fileId).subscribe((result)=>{
+         if(result.isSuccess){
+             this.constant.modalRef.hide();
+             this.getCourseFileDetails();
+             this.alertService.success(result.message);
+         }
+     })
+   }
+
+
   pageChanged(e){
-    console.log(e)
     this.page = e;
     this.getCourseFileDetails();
   }
