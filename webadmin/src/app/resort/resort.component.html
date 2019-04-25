@@ -27,7 +27,7 @@
                     </div>
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.mobile}}</label>
-                        <input class="col-6 col-md-8 form-control" placeholder="mobile" type="number" name="mobile" [(ngModel)]="phoneNumber" #resort = "ngModel" (keyup) = "validationValueCheck('mobile')" required>
+                        <input class="col-6 col-md-8 form-control" placeholder="mobile" type="text" autocomplete="off" name="mobile" [(ngModel)]="phoneNumber" #resort = "ngModel" (keyup) = "validationValueCheck('mobile')" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !phoneNumber">{{resortVar.labels.mobile}} number{{resortVar.labels.isRequired}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && phoneNumber && !mobileValidation">Invalid {{resortVar.labels.mobile}} number </span>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
 
 <!-- Resort Detail Page -->
 <form class="detail-pg" *ngIf="!enableEdit">
-    <div class="detail-top row">
+    <div class="row">
             <div class="col-md-3 form-group">
                 <label class="label-title">{{resortVar.labels.resortName}}</label>
                 <span>{{resortVar.resortName}}</span>
@@ -149,22 +149,22 @@
                 <label class="label-title">{{resortVar.labels.status}}</label>
                 <span>{{resortVar.status}}</span>
             </div>
-            <div class="col-md-3 form-group">
+            <!-- <div class="col-md-3 form-group">
                 <label class="label-title">{{resortVar.labels.utilizedSpace}}</label>
                 <span>40 GB</span>
-            </div> 
+            </div>  -->
 
     </div>
-    <div class="detail-bottom row">
+    <!-- <div class="detail-bottom row">
         <h5 class="pb-2">Division</h5>
-        <!-- <div class="row depart-dtl col-md-12 pr-0">
+        <div class="row depart-dtl col-md-12 pr-0">
             <label class="col-md-12 p-0 label-title">Division1</label>
             <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
         </div>
         <div class="row depart-dtl col-md-12 pr-0">
             <label class="col-md-12 p-0 label-title">Division1</label>
             <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
-        </div> -->
+        </div>
         <div class="row depart-dtl col-md-12 p-0" *ngFor="let division of divisionDetails">
             <label class="col-md-12 p-0 label-title">{{division?.Division?.divisionName}}</label>
             <div class="dpt-list pl-1 ml-4" >
@@ -173,7 +173,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>  -->
 </form>
 
 
