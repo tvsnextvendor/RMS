@@ -18,10 +18,10 @@
     <ion-row>
       <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of allTrainingClasses;let i=index;" (click)="openTrainingDetail(task,i,'assigned',uploadPath)"
         class="main-forum">
-        <ion-card class="training-list">
+        <ion-card class="training-list" *ngIf="task.Files[0]">
           <div class="training-image">
             <span class="course-name">{{task.trainingClassName}}</span>
-            <img *ngIf="task.Files[0]" src="assets/imgs/COURSE.png" />
+            <img  src="assets/imgs/COURSE.png" />
             <span class="play-icon">
               <img src="assets/imgs/play-button (2).png" />
             </span>

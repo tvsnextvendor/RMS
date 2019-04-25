@@ -176,7 +176,7 @@ export class UserComponent implements OnInit {
 
     //add new user
     addUser(data) {
-        if(this.userName && this.emailAddress && this.phoneNumber){
+        if(this.userName && this.division && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
             let obj = {
                 userName : this.userName,
                 password: "123456",
@@ -198,6 +198,7 @@ export class UserComponent implements OnInit {
     }
 
     updateUser(data){
+      if(this.userName && this.division && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
            let obj = {
                 userName : this.userName,
                 password: "123456",
@@ -215,9 +216,9 @@ export class UserComponent implements OnInit {
                       this.userList(); 
                      this.alertService.success(this.labels.userUpdated);
             })
+      }
     }
      
-    
 
     //reset
     resetFields() {
@@ -231,30 +232,6 @@ export class UserComponent implements OnInit {
         this.emailAddress = '';
         this.phoneNumber = '';
         this.triggerNext = false;
-    }
-
-   
-
-    //user update submit
-    userUpdate(sortedList, data, index) {
-        this.validationUpdate("submit");
-        if (this.userId && this.userName && this.department && this.designation && this.emailAddress && !this.validEmail && this.phoneNumber && !this.validPhone && !this.validUserId) {
-            let i = data.employeeId === '' ? ('0') : this.constant.userList.findIndex(x => x.employeeId === data.employeeId);
-            this.constant.userList[i] = {
-                "employeeId": this.userId,
-                "employeeName": this.userName,
-                "department": this.department,
-                "designation": this.designation,
-                "emailId": this.emailAddress,
-                "DOB": this.constant.userList[i].DOB,
-                "mobile": this.phoneNumber,
-            };
-            this.userIndex = '';
-            this.resetFields();
-            this.message = data.employeeId === '' ? (this.labels.userAdded) : (this.labels.userUpdated);
-            this.constant.userList = _.orderBy(this.constant.userList, ['employeeId'], ['asc'])
-            this.alertService.success(this.message);
-        }
     }
 
     validationUpdate(type) {

@@ -274,11 +274,11 @@
                  <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="emailAddress"
-                        name="emailAddress" #email="ngModel" (keyup)="validationUpdate('email')" />
+                        name="emailAddress" #email="ngModel" (focusout)="validationUpdate('email')" />
                         <span class="required_color"
                             *ngIf="userForm.submitted && !emailAddress">{{constant.mandatoryText.emailId}}</span>
                         <span class="required_color"
-                            *ngIf="userForm.submitted  && emailAddress && validEmail">{{constant.mandatoryText.emailInvalid}}</span>
+                            *ngIf="emailAddress && validEmail">{{constant.mandatoryText.emailInvalid}}</span>
                 </span>
             </div>
 
@@ -287,10 +287,10 @@
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Mobile Number"
-                        [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate('mobile')" /><span
+                        [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (focusout)="validationUpdate('mobile')" /><span
                         class="required_color"
                         *ngIf="userForm.submitted && !phoneNumber">{{constant.mandatoryText.mobNo}}</span><span
-                        class="required_color" *ngIf="userForm.submitted  && phoneNumber && validPhone">
+                        class="required_color" *ngIf="phoneNumber && validPhone">
                         {{constant.mandatoryText.invalidMobNo}}</span>
                 </span>
             </div>
