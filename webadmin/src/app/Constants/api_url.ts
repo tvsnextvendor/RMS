@@ -105,6 +105,7 @@ export class API_URL {
     fileList:'8103/trainingClass/fileList',
     fileDelete:'8103/trainingClass/fileDelete/',
     getResortDivision:'8103/resort/getresortDivision',
+    trainingClassUpdate: '8103/trainingClass/trainingClassUpdateByName/',
     courseEditFileList : '8103/course/getEditdetails',
     courseListUpdate : '8103/course/courseUpdate/',
     quizListUpdate : '8103/trainingClass/quizUpdate/',

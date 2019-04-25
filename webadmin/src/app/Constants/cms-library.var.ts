@@ -4,6 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Injectable({ providedIn: 'root' })
 export class CmsLibraryVar {
+        
     labels = {
         "createdBy" : "Create By",
         "createdOn"  : "Created On",
@@ -30,6 +31,7 @@ export class CmsLibraryVar {
      btns = {
         "ok":'Ok',
         "cancel":'Cancel',
+        "save": "Save"
     }
     fileId;
     modalRef: BsModalRef;

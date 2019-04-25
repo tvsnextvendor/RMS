@@ -223,7 +223,7 @@
       text-decoration: underline;
   }
   .clk-sec{
-      padding-left: 30px;
+      padding-left: 12px;
   }
   .select-arbx{   
       border-bottom:1px solid #ccc;
@@ -236,8 +236,11 @@
 .square-cont {
     display: block;
 }
-
-
+.select-arbx .square-cont{
+    font-size: 14px;
+    padding-left: 9px;
+}
+ /* Training */
 
 
   /* .filter-search .search-container {

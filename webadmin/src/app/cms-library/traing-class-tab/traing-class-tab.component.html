@@ -1,28 +1,55 @@
 <!-- Training Tab Content -->
 
-<div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">{{cmsLibraryVar.labels.count}} : {{totalCourseTrainingCount}}</h6></div>
-<div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalCourseTrainingCount};">
-        <!-- <div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList"> -->
+<div class="col-md-12 clearfix py-2 px-0">
+    <h6 class="float-right">{{cmsLibraryVar.labels.count}} : {{totalCourseTrainingCount}}</h6>
+</div>
+<div class="white-bg pt-4 pb-4 mb-3"
+    *ngFor="let course of trainingClassCourseList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalCourseTrainingCount};let i = index">
+    <!-- <div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList"> -->
     <div class="head-part clearfix pr-3">
         <h6 class="float-left">{{course.courseName}}</h6>
-        <div class="float-right">
+        <!-- <div class="float-right">
             <a href="#"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
-        </div>
+        </div> -->
     </div>
-    <div class="select-arbx p-4" *ngFor="let training of course.CourseTrainingClassMaps">
-        <label class="square-cont float-left">
-                <input type="checkbox" name="web">{{training?.TrainingClass?.trainingClassName}}
-                <span class="square-checkmark"></span>
+    <div class="select-arbx p-4" *ngFor="let training of course.CourseTrainingClassMaps;let ci = index">
+        <label class="square-cont float-left col-md-12" *ngIf="training.enableEdit == false">
+            <input type="checkbox" name="web">{{training?.TrainingClass?.trainingClassName}}
+            <!-- <span class="square-checkmark"></span> -->
+            <div class="float-right">
+                <a (click)="editTrainingClassName(training.trainingClassId,i,ci)"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
+            </div>
         </label>
+        <div class="float-left" *ngIf="training.enableEdit == true">
+            <form #trainingClassNameForm="ngForm" (ngSubmit)="saveTrainingClassName(trainingClassNameForm,i,ci)">
+                <div class="row form-group">
+                    <span class="col-md-1 p-0"></span>
+                    <span class="row col-md-11 p-0">
+                        <div class="col-md-9 p-0">
+                        <input type="text" class="form-control" [(ngModel)]="training.TrainingClass.trainingClassName"
+                            name="trainingClassName" #trainingClassName="ngModel" />
+                        </div>
+                        <div class="col-md-3 pr-0 pl-2">
+                        <button type="submit"
+                            class="btn btn-primary creat-btn">{{cmsLibraryVar.btns.save}}</button>
+                        </div>
+                    </span>
+                </div>
+            </form>
+        </div>
         <div class="clk-part clearfix pt-1">
             <div class="clk-sec float-left">
-                <a href="javascript:void(0);" (click) = "tabChange('video',training.trainingClassId,'')" >{{cmsLibraryVar.labels.video}} : {{training?.TrainingClass?.videosCount}}</a>
-                <a href="javascript:void(0);" (click) = "tabChange('document',training.trainingClassId,'')" class="ml-2">{{cmsLibraryVar.labels.document}} : {{training?.TrainingClass?.documentsCount}}</a>
+                <a href="javascript:void(0);"
+                    (click)="tabChange('video',training.trainingClassId,'')">{{cmsLibraryVar.labels.video}} :
+                    {{training?.TrainingClass?.videosCount}}</a>
+                <a href="javascript:void(0);" (click)="tabChange('document',training.trainingClassId,'')"
+                    class="ml-2">{{cmsLibraryVar.labels.document}} : {{training?.TrainingClass?.documentsCount}}</a>
             </div>
-            <a class="float-right" href="javascript:void(0);" (click) = "tabChange('quiz',training.trainingClassId,course.courseId)">{{cmsLibraryVar.labels.viewQuiz}}</a>
+            <a class="float-right" href="javascript:void(0);"
+                (click)="tabChange('quiz',training.trainingClassId,course.courseId)">{{cmsLibraryVar.labels.viewQuiz}}</a>
         </div>
     </div>
-</div> 
-<pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls> 
+</div>
+<pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>
 
 <!-- End Training Tab Content -->

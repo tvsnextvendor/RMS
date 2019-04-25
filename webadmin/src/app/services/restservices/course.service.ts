@@ -37,6 +37,10 @@ export class CourseService {
       return this.http.put('local',this.url.courseUpdate+courseId,userData)
   }
 
+  updateTrainingClassName(trainingClassId, trainingClassName) {
+    return this.http.put('local', this.url.trainingClassUpdate + trainingClassId, trainingClassName)
+  }
+
   deleteCourse(courseId){
     return this.http.delete('local',this.url.courseDelete+courseId)
   }
@@ -105,6 +109,7 @@ export class CourseService {
   updateCourseList(courseId,params){
     return this.http.put('local',this.url.courseListUpdate+courseId,params)
   }
+    
   updateQuizList(quizId,params){
     return this.http.put('local',this.url.quizListUpdate+quizId,params)
   }
