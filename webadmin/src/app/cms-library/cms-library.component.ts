@@ -22,9 +22,6 @@ export class CMSLibraryComponent implements OnInit {
   trainingClassId;
   courseId;
   CMSFilterSearchEvent;
-  
- 
-  // @Output() CMSFilterSearchEvent = new EventEmitter<string>();
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });

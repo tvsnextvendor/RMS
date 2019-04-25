@@ -23,6 +23,7 @@ resortArray = [];
 divisionArray = [];
 allEmployees = {};
 employeesInBatch = [];
+@Input() CMSFilterSearchEventSet;
 
 
 constructor(private courseService: CourseService, private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService) {
@@ -33,18 +34,26 @@ constructor(private courseService: CourseService, private alertService: AlertSer
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
-    console.log(this.trainingClassId,this.constant.selectedResort)
     this.getCourseFileDetails();
   }
+  ngDoCheck(){
+    if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
+      this.getCourseFileDetails();
+    }
+  }
   getCourseFileDetails() {
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
     let classId = this.trainingClassId ? this.trainingClassId : '';
-    this.courseService.getFiles('Video',classId,this.page,this.pageSize).subscribe(resp => {
-      console.log(resp);
+    this.courseService.getFiles('Video',classId,this.page,this.pageSize,query).subscribe(resp => {
+      this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
         this.videoListValue = resp.data && resp.data.rows.length && resp.data.rows;
       }
+    },err =>{
+      this.CMSFilterSearchEventSet = '';
     });
+  
   }
   openEditVideo(template: TemplateRef<any>, data, index) {
     console.log("Open Pop-up");
