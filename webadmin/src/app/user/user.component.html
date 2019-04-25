@@ -230,7 +230,7 @@
                 <label class="col-md-3 pr-0 label-title mb-0">{{labels.division}}</label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
-                    <select [(ngModel)]="division" name="division" class="form-control">
+                    <select [(ngModel)]="division" name="division" (ngModelChange)="changedivision()" class="form-control">
                         <option value="">{{constant.labels.select}}</option>
                         <option *ngFor="let obj of divisionArray" [value]="obj.divisionId">{{obj.divisionName}}</option>
                     </select>
