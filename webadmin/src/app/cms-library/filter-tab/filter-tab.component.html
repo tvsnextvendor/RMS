@@ -1,13 +1,15 @@
 
+      <form  #filterForm = "ngForm" (ngSubmit)="submitForm(filterForm)" >
+    
     <div class="filter-search white-bg mb-3">           
-        <form class="search-container clearfix">
-            <input type="text" placeholder="Search Keyword.." name="search">
+        <div class="search-container clearfix">
+            <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)] = "search">
             <button type="submit"><i class="fa fa-search search-icon"></i></button>
-        </form>            
+        </div>            
     </div>
     <div class="white-bg p-3">
         <h6>{{cmsLibraryVar.labels.filter}}</h6>
-        <form  #filterForm = "ngForm" (ngSubmit)="submitForm(filterForm)" >
+      
         <div class="row">
         <div class="col-md-12 p-0 select select-style clearfix">
             <select name="courseId" class="form-control pl-0" [(ngModel)] = "filterCourse" #course (change)="courseChange(course.value)">
@@ -63,5 +65,6 @@
                 <button type ="submit" class="btn btn-primary">{{cmsLibraryVar.labels.apply}}</button>
             </div>
         </div>
-        </form>
+      
     </div>
+</form>
