@@ -18,7 +18,7 @@ export class RolepermissionComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.headerService.setTitle({title:this.constant.title, hidemodule:false});
+    // this.headerService.setTitle({title:this.constant.title, hidemodule:false});
     this.commonService.getDivisionList().subscribe((result)=>{
      this.constant.divisionList=result.data.rows;
     })
