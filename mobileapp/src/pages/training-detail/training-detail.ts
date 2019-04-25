@@ -1,13 +1,19 @@
 import { Component, ViewChild, Input ,ElementRef} from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
+import { IonicPage,Platform, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
 import { Constant } from '../../constants/Constant.var';
-import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
-import { ToastrService } from '../../service/toastrService';
+import {DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
+import {ToastrService} from '../../service/toastrService';
+import {FileTransfer} from '@ionic-native/file-transfer/ngx';
+import {File} from '@ionic-native/file/ngx';
+import { HttpProvider } from '../../providers/http/http';
+import { API_URL } from '../../constants/API_URLS.var';
+declare var cordova:any;
 
 @IonicPage({
     name: 'trainingdetail-page'
 })
+
 @Component({ selector: 'page-training-detail', templateUrl: 'training-detail.html', providers: [Constant] })
 export class TrainingDetailPage {
 
@@ -32,6 +38,7 @@ export class TrainingDetailPage {
     initial: number = 0;
     lastIndexs: number;
     quizBtn: boolean = false;
+    quizData;
     imageType;
     filePath;
     fileType;
@@ -50,7 +57,7 @@ export class TrainingDetailPage {
     trainingClassId;
     uploadPath;
 
-    constructor(public navCtrl: NavController,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
+    constructor(public navCtrl: NavController,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.trainingClassName = this.detailObject['setData'].trainingClassName;
@@ -87,28 +94,36 @@ export class TrainingDetailPage {
     // go to quiz page for training details
     goToQuizPage() {
         let self = this;
-        const alert = this.alertCtrl.create({
-            title: 'Are you ready to take the Quiz ?',
-            buttons: [{
-                text: 'Later',
-                role: 'later',
-                handler: () => {
-                    // console.log('Later clicked');
-                }
-            },
-            {
-                text: 'Yes',
-                handler: () => {
-                    // let currentIndex = self.slides.getActiveIndex();
-                    //  self.paramsData['menu'] = self.trainingDatas[currentIndex]['fileTitle'];
-                    self.paramsData['trainingClassId'] = self.trainingClassId;
-                    self.paramsData['courseId'] = self.courseId;
-                    self.paramsData['menu'] = self.trainingClassName;
-                    self.navCtrl.push(QuizPage, self.paramsData);
-                }
-            }]
-        });
-        alert.present();
+          this.http.get(API_URL.URLS.quizAPI + '?trainingClassId=' + this.trainingClassId + '&courseId=' + this.courseId).subscribe((res) => {
+            if (res['isSuccess']) {
+                const quiz = res['data'];
+                this.quizData =quiz[0].CourseTrainingClassMaps[0].TrainingClass.Questions;     
+                if(this.quizData.length > 0){
+                const alert = this.alertCtrl.create({
+                    title: 'Are you ready to take the Quiz ?',
+                    buttons: [{
+                        text: 'Later',
+                        role: 'later',
+                        handler: () => {
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: () => {
+                            self.paramsData['trainingClassId'] = self.trainingClassId;
+                            self.paramsData['courseId'] = self.courseId;
+                            self.paramsData['menu'] = self.trainingClassName;
+                            self.paramsData['quizData'] = self.quizData;
+                            self.navCtrl.push(QuizPage, self.paramsData);
+                        }
+                    }]
+                });
+                alert.present();
+            }else{
+                this.toastr.error('No Questions available.');
+            }
+         }
+     });
     }
     // go back
     goBackToDetailPage() {
@@ -139,6 +154,7 @@ export class TrainingDetailPage {
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
         if(ext == "mp4" && this.videotag){
+            console.log(this.videotag,"VideoTag");
         const htmlVideoTag = this.videotag.nativeElement;
         htmlVideoTag.load();
         }
@@ -242,13 +258,68 @@ export class TrainingDetailPage {
                 default:
                     docType = 'application/pdf';
             }
-            let baseUrl = 'http://demo.greatinnovus.com:8103/uploads/';
+               let baseUrl = 'http://demo.greatinnovus.com:8103/uploads/';
+                  
+                // const url = 'http://demo.greatinnovus.com:8103/uploads/';
+                // const transfer = this.transfer.create();
+                // transfer.download(url+ docFile, this.file.dataDirectory + docFile).then((entry) => {
+                //     console.log('download complete: ' + entry.toURL());
+                // }, (error) => {
+                //     console.log(error);
+                //     // handle error
+                // });
+             console.log(baseUrl + docFile)
+             this.document.viewDocument(baseUrl + docFile, docType , options)
+
+
+
+
+
             //For IOS platform 
-            // let baseUrl = location.href.replace("/index.html", ""); 
-            this.document.viewDocument(baseUrl + docFile, docType, options);
-            console.log(baseUrl + docFile,  docType, options)
+            //let baseUrl = location.href.replace("/index.html", ""); 
+            //this.document.viewDocument(baseUrl + docFile, docType, options);
+            //let path = null;
+                //console.log(this.platform, "PLATFORM");
+                //console.log(cordova.file,"CORDOVA FILE");
+                // if (this.platform.is('ios')) {
+                //   console.log(this.file)
+                //    //path = this.file.documentsDirectory;
+                // } else if (this.platform.is('android')) {
+                //    console.log(this.file.dataDirectory)
+                //    //path = this.file.dataDirectory;
+                // }
+                // const transfer = this.transfer.create();
+                // transfer.download(baseUrl + docFile, this.file.dataDirectory + 'myfile.pdf').then(entry => {
+                // let url = entry.toURL();
+                // this.document.viewDocument(url,docType , {});
+                // });
+            //console.log(baseUrl + docFile,  docType)
         } else {
             this.toastr.error("Please agree acknowledgement to view content"); return false;
         }
     }
+
+
+
+//    download() {
+
+//         const url = 'http://demo.greatinnovus.com:8103/uploads/';
+//         const transfer = this.transfer.create();
+//         transfer.download(url+ docFile, this.file.dataDirectory + docFile).then((entry) => {
+//             console.log('download complete: ' + entry.toURL());
+//         }, (error) => {
+//             console.log(error);
+//             // handle error
+//         });
+
+//         // const url = 'http://demo.greatinnovus.com:8103/uploads/';
+//         // const transfer = this.transfer.create();
+//         // transfer.download(url+ docFile, this.file.dataDirectory + 
+//         // docFile).then((entry) => {
+//         //  cons ole.log('download complete: ' + entry.toURL());
+//         // }, (error) => {
+//         //  console.log(error);
+//         // // handle error
+//         // });
+//     }
 }
