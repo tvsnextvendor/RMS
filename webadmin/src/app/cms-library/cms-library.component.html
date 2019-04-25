@@ -60,7 +60,7 @@
                 </div>
                 <!-- Training Class Tab Content -->
                 <div *ngIf = "selectedTab === 'training'" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
-                    <app-traing-class-tab (videoList)="redirectTab($event)"></app-traing-class-tab>
+                    <app-traing-class-tab (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"></app-traing-class-tab>
                 </div>
                 <!-- Video Tab Content -->
                 <div *ngIf = "selectedTab === 'video'" id="video" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">

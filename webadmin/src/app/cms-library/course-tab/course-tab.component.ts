@@ -52,39 +52,52 @@ export class CourseTabComponent implements OnInit {
  // @Output() CMSFilterSearchEvent = new EventEmitter<object>();
   @Input() CMSFilterSearchEventSet;
 
-
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
     this.getCourseDetails();
-    console.log('this.CMSFilterSearchEvent');
-    console.log(this.CMSFilterSearchEventSet);
   }
-  // ngDoCheck(){
-  //   if(this.CMSFilterSearchEventSet){
-  //     this.getCourseDetails();
-  //   }
-  // }
+  ngDoCheck(){
+    console.log("this.CMSFilterSearchEventSet");
+    console.log(this.CMSFilterSearchEventSet);
+    if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
+      this.getCourseDetails();
+    }
+  }
 
   getCourseDetails(){
     this.deletedFileId  = [];
     let query = '';
-    if(this.CMSFilterSearchEventSet)
+    if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== '')
     {
-      let courseId           = this.CMSFilterSearchEventSet.courseId;
-      let trainingClassId    = this.CMSFilterSearchEventSet.trainingClassId;
-      let divisionId         = (this.CMSFilterSearchEventSet.parentDivisionId)?this.CMSFilterSearchEventSet.parentDivisionId:this.CMSFilterSearchEventSet.childDivisionId;
-      let departmentId       = (this.CMSFilterSearchEventSet.parentDepartmentId)?this.CMSFilterSearchEventSet.parentDepartmentId:this.CMSFilterSearchEventSet.childDepartmentId;
-      let subResortId        = this.CMSFilterSearchEventSet.childResortId;
-      let createdBy          = this.CMSFilterSearchEventSet.createdBy;
-      query = '&courseId='+courseId+'&trainingClassId='+trainingClassId+'&subResortId='+subResortId+'&divisionId'+divisionId+'&departmentId'+departmentId+'&createdBy'+createdBy;
+      let courseId           = (this.CMSFilterSearchEventSet.courseId)?this.CMSFilterSearchEventSet.courseId:'';
+      let trainingClassId    = (this.CMSFilterSearchEventSet.trainingClassId)?this.CMSFilterSearchEventSet.trainingClassId:'';
+      let divisionId         = (this.CMSFilterSearchEventSet.parentDivisionId)?this.CMSFilterSearchEventSet.parentDivisionId:((this.CMSFilterSearchEventSet.childDivisionId)?this.CMSFilterSearchEventSet.childDivisionId:'');
+      let departmentId       = (this.CMSFilterSearchEventSet.parentDepartmentId)?this.CMSFilterSearchEventSet.parentDepartmentId:((this.CMSFilterSearchEventSet.childDepartmentId)?this.CMSFilterSearchEventSet.childDepartmentId:'');
+      let subResortId        = (this.CMSFilterSearchEventSet.childResortId)?this.CMSFilterSearchEventSet.childResortId:'';
+      let createdBy          = (this.CMSFilterSearchEventSet.createdBy)?this.CMSFilterSearchEventSet.createdBy:'';
+      let search             = (this.CMSFilterSearchEventSet.search)?this.CMSFilterSearchEventSet.search:''
+
+      courseId=  (courseId == 'null')?'':courseId;
+      trainingClassId = (trainingClassId == 'null')?'':trainingClassId;
+      divisionId= (divisionId == 'null')?'':divisionId;
+      departmentId= (departmentId == 'null')?'':departmentId;
+      subResortId=   (subResortId == 'null')?'':subResortId;
+      createdBy =(createdBy == 'null')?'':createdBy;
+      query = '&courseId='+courseId+'&trainingClassId='+trainingClassId+'&subResortId='+subResortId+'&divisionId='+divisionId+'&departmentId='+departmentId+'&createdBy='+createdBy+'&search='+search;
+
     }
+    console.log("query");
+    console.log(query);
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
+      console.log(resp);
       if(resp && resp.isSuccess){
+        console.log("resp");
         this.totalCourseCount = resp.data.count;
         this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
       }
     });
+    this.CMSFilterSearchEventSet = '';
   }
 
   enableDropData(type,index){

@@ -27,6 +27,7 @@ export class FilterTabComponent implements OnInit {
   filterChildDepartment = 'null';
   filterParentDepartment = 'null';
   filterCreatedBy = 'null';
+  search = '';
   @Output() FilterSearchEvent = new EventEmitter<string>();
 
   constructor(private utilService : UtilService,private courseService : CourseService,public cmsLibraryVar : CmsLibraryVar) { }
@@ -124,7 +125,10 @@ export class FilterTabComponent implements OnInit {
     this.filterChildDepartment = 'null';
     this.filterParentDepartment = 'null';
     this.filterCreatedBy = 'null';
+    this.search = '';
+
     this.getFilterData();
+    
     this.FilterSearchEvent.emit(null);
   }
 }

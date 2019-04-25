@@ -26,7 +26,7 @@ employeesInBatch = [];
 
 
 constructor(private courseService: CourseService, private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService) {
-this.labels = constant.videoFormLabels;
+   this.labels = constant.videoFormLabels;
 }
 
 

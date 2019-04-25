@@ -73,6 +73,6 @@ export class CMSLibraryComponent implements OnInit {
     console.log("CMS Library search options receive");
     console.log($event);
     this.CMSFilterSearchEvent = $event;
-    this.headerTabChange('course','');
+    //this.headerTabChange('course','');
    }
 }
