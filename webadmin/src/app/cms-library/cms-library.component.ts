@@ -17,12 +17,14 @@ export class CMSLibraryComponent implements OnInit {
   videoFile;
   selectedTab;
   redirectId;
-  selectedCourse=[];
+  selectedCourse =[];
   showWarning=false;
   trainingClassId;
   courseId;
   CMSFilterSearchEvent;
- // @Output() CMSFilterSearchEvent = new EventEmitter<string>();
+  
+ 
+  // @Output() CMSFilterSearchEvent = new EventEmitter<string>();
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
@@ -30,8 +32,8 @@ export class CMSLibraryComponent implements OnInit {
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
-    this.showWarning =false;
-    let modalConfig= {class : "modal-xl"};
+    this.showWarning = false;
+    let modalConfig  = {class : "modal-xl"};
     if(this.selectedCourse.length > 0){
     this.modalRef = this.modalService.show(template,modalConfig);
     }else{
@@ -39,21 +41,23 @@ export class CMSLibraryComponent implements OnInit {
     }
   }
 
-  headerTabChange(title){
+  headerTabChange(title,key){
     this.selectedTab = title;
-    console.log("dataemit",title)
+    if(key != 'trainingfiles'){
+      this.trainingClassId = '';
+    }
   }
 
   redirectTab(value){
-    console.log(value);
-    this.trainingClassId = value.id;
+    if(value && (value.tab == 'video' || value.tab == 'document') ){
+      this.trainingClassId = value.id;
+    }
     this.courseId = value.courseId;
-    this.headerTabChange(value.tab);
+    this.headerTabChange(value.tab,'trainingfiles');
   }
   
   getCourse(event){
     this.selectedCourse=event;
-    console.log(this.selectedCourse);
   }
 
   hidePopup(type){

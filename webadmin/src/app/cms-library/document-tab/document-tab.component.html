@@ -56,7 +56,7 @@
 
             </tbody>
         </table>
-        <pagination-controls *ngIf="videoListValue.length" class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
+        <pagination-controls *ngIf="videoListValue && videoListValue.length" class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
     </div>
 </div>
  

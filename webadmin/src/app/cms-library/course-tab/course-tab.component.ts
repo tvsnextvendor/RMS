@@ -50,22 +50,36 @@ export class CourseTabComponent implements OnInit {
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
  // @Output() CMSFilterSearchEvent = new EventEmitter<object>();
-  @Input() CMSFilterSearchEvent;
+  @Input() CMSFilterSearchEventSet;
 
 
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
     this.getCourseDetails();
-
     console.log('this.CMSFilterSearchEvent');
-
-    console.log(this.CMSFilterSearchEvent);
+    console.log(this.CMSFilterSearchEventSet);
   }
+  // ngDoCheck(){
+  //   if(this.CMSFilterSearchEventSet){
+  //     this.getCourseDetails();
+  //   }
+  // }
 
   getCourseDetails(){
-    this.deletedFileId = [];
-    this.courseService.getCourse(this.p,this.pageSize).subscribe(resp=>{
+    this.deletedFileId  = [];
+    let query = '';
+    if(this.CMSFilterSearchEventSet)
+    {
+      let courseId           = this.CMSFilterSearchEventSet.courseId;
+      let trainingClassId    = this.CMSFilterSearchEventSet.trainingClassId;
+      let divisionId         = (this.CMSFilterSearchEventSet.parentDivisionId)?this.CMSFilterSearchEventSet.parentDivisionId:this.CMSFilterSearchEventSet.childDivisionId;
+      let departmentId       = (this.CMSFilterSearchEventSet.parentDepartmentId)?this.CMSFilterSearchEventSet.parentDepartmentId:this.CMSFilterSearchEventSet.childDepartmentId;
+      let subResortId        = this.CMSFilterSearchEventSet.childResortId;
+      let createdBy          = this.CMSFilterSearchEventSet.createdBy;
+      query = '&courseId='+courseId+'&trainingClassId='+trainingClassId+'&subResortId='+subResortId+'&divisionId'+divisionId+'&departmentId'+departmentId+'&createdBy'+createdBy;
+    }
+    this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.totalCourseCount = resp.data.count;
         this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];

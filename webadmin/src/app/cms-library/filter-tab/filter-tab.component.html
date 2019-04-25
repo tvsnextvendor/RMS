@@ -23,7 +23,7 @@
             <div class="select_arrow"></div></div>
         <div class="col-md-12 p-0 mb-3"><input type="text" class="form-control pl-0" placeholder="Parent Resort" name="course" [(ngModel)]="parentResort" disabled/></div>
         <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="parentDivsionId" class="form-control pl-0" [(ngModel)] = "filterParentDivision" #parentdivision (change)="divisionChange(parentdivision.value,'parent')">
+            <select name="parentDivisionId" class="form-control pl-0" [(ngModel)] = "filterParentDivision" #parentdivision (change)="divisionChange(parentdivision.value,'parent')">
                     <option [value]=null>--Select Parent Division--</option>
                     <option *ngFor="let division of parentDivisionFilterList" [value]="division.divisionId">{{division.divisionName}}</option>
             </select>

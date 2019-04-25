@@ -20,8 +20,8 @@ export class CourseService {
     return this.http.post('local',this.url.courseAdd, userData);
   }
 
-  getCourse(currentPage,size){
-    return this.http.getLocal('local',this.url.courseList+'?page='+currentPage+'&size='+size);
+  getCourse(currentPage,size,query){
+    return this.http.getLocal('local',this.url.courseList+'?page='+currentPage+'&size='+size+query);
   }
 
   getAllCourse(){
