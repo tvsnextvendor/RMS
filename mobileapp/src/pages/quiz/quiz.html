@@ -18,12 +18,6 @@
                         <div class="quiz-content-options">
                             <span class="quizOption">
                                 <ion-row>
-                                    <!-- <ion-col col-1 class="quiz-radio">
-                                    <input type="radio"  name="TorF" value="True"  [(ngModel)]="TorF" (change)="changeSelectedValue('True')"> True
-                                    </ion-col>
-                                    <ion-col col-11>
-                                    <input type="radio" name="TorF" value="False" [(ngModel)]="TorF" (change)="changeSelectedValue('False')"> False
-                                    </ion-col> -->
                                 <ion-col col-1 class="quiz-radio">
                                     <label for="True"></label>
                                     <ion-icon name="radio-button-off" class="quizOption-icon"
@@ -35,7 +29,7 @@
                                 <ion-col col-11>
                                     <input hidden id="True" type="radio" class="with-font" name="TorF"
                                         [value]="True" (change)="changeSelectedValue('True')"
-                                        [checked]="quizData[quizStep]['answer'] == quizData[quizStep]['selectedAnswer']" />
+                                        [checked]="'True' == quizData[quizStep]['selectedAnswer']" />
                                     <p>True</p>
                                 </ion-col>
 
@@ -54,12 +48,10 @@
 
                                 <ion-col col-11>
                                     <input hidden id="False" type="radio" class="with-font" name="TorF" [value]="False" (change)="changeSelectedValue('False')"
-                                        [checked]="quizData[quizStep]['answer'] == quizData[quizStep]['selectedAnswer']" />
+                                        [checked]="'False' == quizData[quizStep]['selectedAnswer']" />
                                     <p>False</p>
                                 </ion-col>
-
                             </ion-row>
-
                             </span>
                         </div>
                     </div>
@@ -101,7 +93,9 @@
                         <div class="quiz-content-options">
                             <span class="quizOption">
                                 <ion-row>
-                                    <input type="text" class="with-font" name="nonMcq" [(ngModel)]="nonMcq" (ngModelChange)="changeSelectedValue($event)"  />
+                                    <ion-item>
+                                        <ion-input type="text" [(ngModel)]="nonMcq" (ngModelChange)="changeSelectedValue($event)"></ion-input>
+                                    </ion-item>
                                 </ion-row>
                             </span>
                         </div>
