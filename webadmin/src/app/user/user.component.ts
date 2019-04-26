@@ -493,8 +493,12 @@ export class UserComponent implements OnInit {
 
      //delete division
      removeDivision(template: TemplateRef<any>,data, i) {
+        let modalConfig={
+            class : "modal-dialog-centered"
+
+        }
         this.divisionId= data.Division.divisionId;
-        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig); 
+        this.constant.modalRef = this.modalService.show(template,modalConfig); 
        }
 
     deleteDivisionContent(){
