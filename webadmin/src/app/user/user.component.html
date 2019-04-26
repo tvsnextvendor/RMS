@@ -53,7 +53,6 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
-                            {{user.active}}
                             <td class="text-center"><label class="mb-0">{{ user.employeeId }}</label></td>
                             <td class="text-center"><label class="mb-0">{{ user.userName }}</label></td>
                             <td class="text-center"><span *ngIf="user.Division"><label class="mb-0">{{ user.Division.divisionName }}</label></span></td>
@@ -64,7 +63,7 @@
                             <td class="text-center"><a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                 <a (click)="removeUser(deleteUser,user,i)" title="Trash"><i class="fa fa-trash header-icon"></i></a>
                                 <a><label class="switch">
-                                    <input type="checkbox" [checked]="user.active == 'true' ? true : false" (change)="activeStatus(user)"> 
+                                    <input type="checkbox" [checked]="user.active" (change)="activeStatus(user)"> 
                                     <span class="slider round"></span>
                                 </label></a>                                
                             </td> 

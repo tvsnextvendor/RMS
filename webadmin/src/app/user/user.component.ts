@@ -154,18 +154,15 @@ export class UserComponent implements OnInit {
     activeStatus(data){
         let userId = data.UserRole[0].userId;
         let params ={
-             status : data.active === 'true' ? 'false' : 'true'
+             active : !data.active 
           }
-         this.userService.updateUser(userId,params).subscribe(res=>{
+         this.userService.activeUser(userId,params).subscribe(res=>{
             if(res.isSuccess){
                 this.alertService.success(res.result);
                 this.userList();
             }
-         })
-    
+         });
     }
-
-
     openAddUser(template: TemplateRef<any>, data,  index) {
         if(data){
          this.userEdit(data,index);
