@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { HeaderService } from '../../services/header.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import {AuthGuard} from '../../guard/auth.guard.component'
-import {HttpService} from '../../services/http.service';
+import {HttpService,CommonService} from '../../services';
 import {ModuleDropdownComponent} from './module-dropdown';
 import { Header } from '../../Constants/header';
 import { HeaderVar } from 'src/app/Constants/header.var';
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   headerData: Header = {} as any;
   filtersLoaded: Promise<boolean>;
 
-  constructor(public headerVar: HeaderVar,private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { 
+  constructor(private commonService:CommonService,public headerVar: HeaderVar,private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { 
     const currentUrl = this.router.url;
     this.headerVar.splitUrl = currentUrl.split('/');
     this.headerVar.url = API_URL.URLS;
