@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-md-12 pt-3">
-                <p class="course-list" *ngFor="let fileData of fileList;let i = index" dnd-sortable [sortableIndex]="i">
+                <p class="course-list course-list-select" *ngFor="let fileData of fileList;let i = index" dnd-sortable [sortableIndex]="i">
                     {{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img class="close-alg" src="assets/images/close.png"></a>
                 </p>
             </div>
@@ -120,7 +120,7 @@
 
 <ng-template #editVideoTemp>
     <div class="modal-header pb-0">
-        <p class="hd-alg pl-3">{{constant.btns.editVideo}}</p>
+        <p class="hd-alg"><!-- {{constant.btns.editVideo}} -->Edit Video</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="closeEditVideoForm()">
             <span aria-hidden="true">&times;</span>
         </button>
