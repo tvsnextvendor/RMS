@@ -153,8 +153,10 @@ export class UserComponent implements OnInit {
 
     activeStatus(data){
         let userId = data.UserRole[0].userId;
-        let status = {active : data.active}
-         this.userService.updateUser(userId,status).subscribe(res=>{
+        let params ={
+             status : data.active === 'true' ? 'false' : 'true'
+          }
+         this.userService.updateUser(userId,params).subscribe(res=>{
             if(res.isSuccess){
                 this.alertService.success(res.result);
                 this.userList();
