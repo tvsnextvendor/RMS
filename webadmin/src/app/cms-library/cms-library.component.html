@@ -21,11 +21,11 @@
     <div class="row">
         <div class="col-md-9 pt-2 px-0">
     	    <div class="clearfix">
-                <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">Print</button>
+                <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">Print</button>    
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress">Work in Progress</button>
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">Schedule a Training</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification">Create Notification</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" [routerLink]="['../module']">Create Course</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">Schedule a Training</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress">Work in Progress</button>
             </div>
             <span class="required_color" *ngIf="showWarning">Select courses to Schedule a training</span>
             <div class="clearfix pt-4 tab-section">

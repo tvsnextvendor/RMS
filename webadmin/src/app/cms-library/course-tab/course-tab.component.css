@@ -232,6 +232,14 @@
       font-size: 14px;
       text-decoration: underline;
   }
+  .text-over{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    float: left;
+    width: 640px;
+  }
   .clk-sec{
       padding-left: 30px;
   }
