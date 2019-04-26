@@ -40,7 +40,6 @@ export class FilterTabComponent implements OnInit {
       this.parentResortId = resortDetails[0].resortId;
       this.getFilterData();
     }
-    // console.log(data);
   }
 
   getFilterData(){
@@ -57,21 +56,18 @@ export class FilterTabComponent implements OnInit {
     this.courseService.getChildResort(this.parentResortId).subscribe(result=>{
       if(result && result.isSuccess){
         this.childResortFilterList = result.data  && result.data.Resort;
-       
       }
     })
-
     this.courseService.getCreatedByDetails().subscribe(result=>{
       if(result && result.isSuccess){
         this.createdByList = result.data  && result.data;
       }
     })
   }
-
   courseChange(courseId){
-    
     this.filterTrainingClass = 'null';
-    this.courseService.getTrainingClassById(this.filterCourse).subscribe(result=>{
+    this.courseService.getTrainingclassesById(courseId).subscribe(result=>{
+      console.log(result);
       if(result && result.isSuccess){
         this.trainingClassFilterList = result.data && result.data.length && result.data;
         console.log(result);
