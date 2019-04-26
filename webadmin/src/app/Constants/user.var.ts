@@ -26,6 +26,8 @@ export class UserVar {
         "deleteUser": "Delete User",
         "deleteDivision": "Delete Division",
         "deleteConfirmation": "Are you sure you want to delete this user?",
+        "deleteRole": "Delete Role",
+        "deleteRoleConfirmation": "Are you sure you want to delete this role?",
         "deleteDivisionConfirmation": "Are you sure you want to delete this division?",
         "select": 'Select',
         "noData": 'No data'
@@ -69,7 +71,7 @@ export class UserVar {
         };
 
     divisionTemplate: any[] = [{
-        divisionName : 'Division1',
+        divisionName : '',
         departments : [
             {
                departmentName : ''

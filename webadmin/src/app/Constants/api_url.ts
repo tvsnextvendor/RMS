@@ -134,7 +134,10 @@ export class API_URL {
     userDelete: '8101/user/Delete/',
     addDivision : '8102/division/Add',
     deleteDivision : '8102/division/Delete/',
-    divisionUpdate : '8102/division/Update/'
+    divisionUpdate : '8102/division/Update/',
+    addDesignation : '8102/designation/Add',
+    updateDesignation : '8102/designation/Update/',
+    deleteDesignation : '8102/designation/Delete/'
 
   }
 
