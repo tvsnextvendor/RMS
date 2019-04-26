@@ -19,6 +19,8 @@ page;
 pageSize;
 editEnable = false;
 labels;
+trainingVideoUrl;
+uploadPath;
 resortArray = [];
 divisionArray = [];
 allEmployees = {};
@@ -87,6 +89,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
         this.videoListValue = resp.data && resp.data.rows.length && resp.data.rows;
+        this.uploadPath = resp.data.uploadPaths.uploadPath;
       }
     },err =>{
       this.CMSFilterSearchEventSet = '';
@@ -97,6 +100,13 @@ constructor(private courseService: CourseService, private alertService: AlertSer
     console.log("Open Pop-up");
     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
     }
+    viewTraningVideo(template: TemplateRef<any>, videourl) {
+      let modalConfig={
+        class:"modal-lg video-box"
+      }
+      this.constant.modalRef = this.modalService.show(template, modalConfig);
+      this.trainingVideoUrl = videourl;
+      }
 
     onEmpSelect(event, key) {
 

@@ -970,6 +970,10 @@ li {
 ul.pagination {
     margin: 0;
 }
+.pagination-next a{
+  outline: none;
+  -webkit-appearance: none;
+}
 span.nsdicon-close {
     display: none;
 }
@@ -989,6 +993,31 @@ a {
 }
 .creat-btn{
 	float: none;
+}
+.video-play{
+  width:100%;
+}
+.video-box .modal-header .close {
+  padding: 5px 10px;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  z-index: 1000;
+  background: #fff;
+  border-radius: 25px;
+  top: -6px;
+  right: -10px;
+}
+.video-box .modal-header {
+  border-bottom: none;
+  padding: 0;
+}
+.video-box .modal-body{
+  padding: 0;
+}
+.video-box .modal-content{
+  background: transparent;
+  border: none;
 }
 /*************Edit forum***************/
 .multi-input tag {
