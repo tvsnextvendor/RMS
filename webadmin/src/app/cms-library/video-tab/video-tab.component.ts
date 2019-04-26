@@ -23,6 +23,11 @@ resortArray = [];
 divisionArray = [];
 allEmployees = {};
 employeesInBatch = [];
+selectedCourse="";
+selectedClass="";
+courseList;
+trainingClassList;
+fileList;
 @Input() CMSFilterSearchEventSet;
 
 
@@ -35,12 +40,45 @@ constructor(private courseService: CourseService, private alertService: AlertSer
     this.pageSize = 10;
     this.page=1;
     this.getCourseFileDetails();
+    this.getCourseAndTrainingClass();
   }
   ngDoCheck(){
     if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
       this.getCourseFileDetails();
     }
   }
+
+  getCourseAndTrainingClass(){
+    this.courseService.getAllCourse().subscribe(result=>{
+      if(result && result.isSuccess){
+        this.courseList = result.data && result.data.rows;
+      }
+    })
+
+    this.courseService.getTrainingClass().subscribe((resp) => {
+        if(resp && resp.isSuccess){
+          this.trainingClassList = resp.data && resp.data.length && resp.data.map(item=>{
+                    let obj = {
+                        id : item.trainingClassId,
+                        value : item.trainingClassName
+                    }
+                    return obj;
+                })
+            }
+        })
+
+  }
+
+    getEditFileData(){
+      console.log(this.selectedClass);
+      this.courseService.getEditCourseDetails( this.selectedCourse,this.selectedClass).subscribe(resp => {
+        console.log(resp);
+        if(resp && resp.isSuccess){
+          this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
+        }
+      })
+  }
+
   getCourseFileDetails() {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
     let classId = this.trainingClassId ? this.trainingClassId : '';

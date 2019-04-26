@@ -15,33 +15,24 @@
         <div class="px-5 py-3">
             <div class="row">
                 <div class="col-md-6 mb-3 select select-style clearfix">
-                    <select name="Course" class="form-control pl-0">
-                        <option value="">Course 1</option>
-                        <option>Course 2</option>
+                    <select name="courseId" class="form-control pl-0" [(ngModel)]="selectedCourse" >
+                        <option value="">--Select course--</option>
+                        <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}</option>
                     </select>
                     <div class="select_arrow"></div>
                 </div>
                 <div class="col-md-6 mb-3 select select-style clearfix">
-                    <select name="Training Class" class="form-control pl-0">
-                        <option value="">Training Class 1</option>
-                        <option>Training Class 2</option>
+                    <select name="courseId" class="form-control pl-0" [(ngModel)]="selectedClass" (change)="getEditFileData()">
+                        <option value="">--Select Training Class--</option>
+                        <option *ngFor="let class of trainingClassList" [value]="class.id">{{class.value}}</option>
                     </select>
                     <div class="select_arrow"></div>
                 </div>
             </div>
             <div class="col-md-12 pt-3">
-                <p class="course-list">Video 1<img class="close-alg" src="assets/images/close.png"></p>
-                <p class="course-list">Video 2<img class="close-alg" src="assets/images/close.png"></p>
-                <p class="course-list">Video 3<img class="close-alg" src="assets/images/close.png"></p>
-                <p class="course-list">Document 1<img class="close-alg" src="assets/images/close.png"></p>
-                <p class="course-list">Document 2<img class="close-alg" src="assets/images/close.png"></p>
-            </div>
-            <div class="col-md-12 pt-3">
-                <p class="course-list">Video 4<img class="close-alg" src="assets/images/close.png"></p>
-                <p class="course-list">Video 3<img class="close-alg" src="assets/images/close.png"></p>
-                <p class="course-list">Video 5<img class="close-alg" src="assets/images/close.png"></p>
-                <p class="course-list">Document 4<img class="close-alg" src="assets/images/close.png"></p>
-                <p class="course-list">Document 6<img class="close-alg" src="assets/images/close.png"></p>
+                <p class="course-list" *ngFor="let fileData of fileList;let i = index" dnd-sortable [sortableIndex]="i">
+                    {{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img class="close-alg" src="assets/images/close.png"></a>
+                </p>
             </div>
             <div class="py-3 clearfix">
                 <button class="btn btn-primary" type="submit">Save</button>
