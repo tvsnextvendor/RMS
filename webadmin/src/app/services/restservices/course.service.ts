@@ -32,15 +32,15 @@ export class CourseService {
     return this.http.getLocal('local',this.url.courseList+'?courseId='+courseId)
   }
 
-
+  getTrainingclassesById(courseId){
+    return this.http.getLocal('local',this.url.getTrainingClassById+'?courseId='+courseId)
+  }
   updateCourse(courseId, userData){
       return this.http.put('local',this.url.courseUpdate+courseId,userData)
   }
-
   updateTrainingClassName(trainingClassId, trainingClassName) {
     return this.http.put('local', this.url.trainingClassUpdate + trainingClassId, trainingClassName)
   }
-
   deleteCourse(courseId){
     return this.http.delete('local',this.url.courseDelete+courseId)
   }
@@ -88,7 +88,6 @@ export class CourseService {
   }
 
   getCreatedByDetails(){
-
     return this.http.getLocal('local',this.url.getCreatedByDetails);
   }
 

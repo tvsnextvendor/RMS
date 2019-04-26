@@ -110,6 +110,7 @@ export class API_URL {
     courseListUpdate : '8103/course/courseUpdate/',
     quizListUpdate : '8103/trainingClass/quizUpdate/',
     quizDelete : '8103/trainingClass/quizDelete/',
+    getTrainingClassById :'8103/course/getTrainingClasses',
 
     //Resort Services
     resortAdd : '8102/resort/Add',
