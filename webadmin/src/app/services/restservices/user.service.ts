@@ -34,6 +34,10 @@ export class UserService {
       return this.http.put('local',this.url.userUpdate+userId,userData)
   }
 
+  activeUser(userId, userData){
+    return this.http.put('local',this.url.userUpdate+userId+'?active='+userData.active,userData)
+  }
+
   deleteUser(userId){
     return this.http.delete('local',this.url.userDelete+userId)
   }
