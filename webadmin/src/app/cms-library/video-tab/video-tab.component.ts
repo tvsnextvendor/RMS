@@ -31,8 +31,9 @@ employeesInBatch = [];
 selectedCourse="";
 selectedClass="";
 courseList;
+submitted=false;
 trainingClassList;
-fileList;
+fileList=[];
 @Input() CMSFilterSearchEventSet;
 
 
@@ -73,19 +74,22 @@ constructor(private courseService: CourseService, private alertService: AlertSer
 
 
   getEditFileData(){
-      console.log(this.selectedClass);
       this.courseService.getEditCourseDetails( this.selectedCourse,this.selectedClass).subscribe(resp => {
-        console.log(resp);
         if(resp && resp.isSuccess){
-          this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
-          console.log(this.fileList,"FILELIST");
+          let files = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
+          if(this.fileList){
+           files.map(x=>{
+             this.fileList.push(x);
+           })
+          }else{
+           this.fileList= files;
+          }
         }
       })
   }
 
 
   removeVideo(data,i){
-    console.log(data,i)
     this.fileList.splice(i,1);
     this.deletedFilePath.push(data.fileUrl);
     this.deletedFileId.push(data.fileId);
@@ -189,6 +193,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
 
 
   addFiles(event,file,i){
+    console.log(this.fileList, file);
     let type=event.target.checked;
     if(type){
       file['addNew'] = true;
@@ -200,35 +205,32 @@ constructor(private courseService: CourseService, private alertService: AlertSer
   }
 
   AssignNewFiles(){
-   
+      this.submitted=true;
       let updatedFileList = this.fileList.filter(function (x) {
           if(x.addNew){
             return delete x.addNew;
           }
-      });
-    
+      }); 
       let fileIds = updatedFileList.map(a => a.fileId);
-
       updatedFileList.forEach(function(x){ delete x.fileId });
+      let postData = {
+        trainingClassId : this.selectedClass,
+        courseId : this.selectedCourse,
+        fileType :"video",
+        assignedFiles: updatedFileList,
+        filesIds: fileIds,
+     }
 
-      console.log(updatedFileList, fileIds)
-     let postData = {
-      trainingClassId : this.selectedClass,
-      courseId : this.selectedCourse,
-      fileType :"video",
-      assignedFiles: updatedFileList,
-      filesIds: fileIds,
+    if(this.submitted && this.selectedClass && this.selectedCourse){
+      this.courseService.assignVideosToCourse(postData).subscribe(res=>{
+            if(res.isSuccess){
+              this.alertService.success(res.message);
+              this.openAddVideosToCourse();
+              this.getCourseFileDetails();
+              this.fileCheck= false;
+            }
+      })
     }
-
-    console.log(postData,"PostDATA")
-
-    this.courseService.assignVideosToCourse(postData).subscribe(res=>{
-          if(res.isSuccess){
-            this.alertService.success(res.message);
-            this.openAddVideosToCourse();
-            this.getCourseFileDetails();
-          }
-    })
   }
 
   pageChanged(e){
