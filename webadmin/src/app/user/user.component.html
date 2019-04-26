@@ -27,17 +27,17 @@
                                 <mfDefaultSorter by="employeeId">{{labels.employeeId}}</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="employeeName">{{labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"
+                                <mfDefaultSorter by="userName">{{labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"
                                             class="s-width"></span></mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="division">{{labels.division}}</mfDefaultSorter>
+                                <mfDefaultSorter by="Division">{{labels.division}}</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="department">{{labels.department}}</mfDefaultSorter>
+                                <mfDefaultSorter by="Department">{{labels.department}}</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="role">{{labels.role}}</mfDefaultSorter>
+                                <mfDefaultSorter by="Designation">{{labels.role}}</mfDefaultSorter>
                             </th>
                             <th class="text-center">
                                 <mfDefaultSorter by="emailId">{{labels.email}}</mfDefaultSorter>
@@ -111,7 +111,23 @@
             </div>
         </div>    
     </tab>
-    <tab heading="Role Permission">
+    <tab heading = "List of Roles">
+        <div class="pr-3 pt-3 clearfix">
+            <h5 class="float-left title-hd">List of Roles</h5>
+            <span class="pr-2"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Add New</button></span>
+            <div class="hierarchy-tab white-bg pl-4 mt-3">
+            <div class="detail-bottom row">                
+                <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
+                    <label class="col-md-12 p-0 label-title"><span class="col-md-2">{{i+1}}.{{role.designationName}} </span>
+                        <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4"><i class="fas fa-pencil-alt"></i></a>
+                        <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4"><i class="fas fa-trash"></i></a>
+                    </label>
+                    </div>
+                </div> 
+            </div>
+        </div> 
+    </tab>
+    <tab heading="Roles & Permission">
        <app-rolepermission></app-rolepermission>
     </tab>
 </tabset>  
@@ -424,29 +440,89 @@
 </ng-template>
 
 <ng-template #editDivision>
+    <div class="modal-header pb-0">
+        <p class="hd-alg">Edit division</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <input type="text" class="form-control col-md-11" placeholder="Division Name" [(ngModel)]="editDivisionValue.divisionName" name = "division" aria-label="" aria-describedby="basic-addon1">
+        <div class="row col-12 col-md-12 p-0" *ngFor="let data of editDepartmentList; let i = index">
+            <div class="col-4 input-group mb-3 col-md-8 group-box">
+                <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group-prepend">
+                <button class="btn btn-icon" type="button" *ngIf="i == 0" (click)="editDivisionForm('add')">
+                    <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
+                </button>
+                <button class="btn btn-icon" type="button" *ngIf="i != 0" (click)="editDivisionForm('edit',i)">
+                    <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
+                </button>
+            </div> 
+        </div>
+        <div class="text-center mt-3">
+            <button (click)="updateDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+            <button type="button" class="btn btn-default" (click)="cancelUpdate()">{{constant.btns.Cancel}}</button>
+        </div>
+    </div>
+</ng-template>
+
+    <ng-template #addRole>
         <div class="modal-header pb-0">
-            <p class="hd-alg">{{editDivisionValue.divisionName}}</p>
+            <p class="hd-alg pl-0">Add Role</p>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div *ngFor="let dept of roles; let oi = index" class="col-8 col-md-8 p-0">
+            <!-- <div  [ngClass] = "oi === 0 ? 'col-12 input-group mb-3 col-md-12 group-box cll' : 'col-12 input-group mb-3 col-md-12 group-box group-section-bx'" > -->
+            <div class ='row'>
+                <input type="text" class="form-control col-md-11" placeholder="Enter the  Role {{oi+1}}" [(ngModel)]="dept.designationName" name = "role{{oi+1}}" aria-label="" aria-describedby="basic-addon1">
+                <div class="input-group-prepend">
+                    <button class="btn btn-icon" type="button" *ngIf="oi==0" (click)="addForm('roles','')">
+                        <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
+                    </button>
+                    <button class="btn btn-icon" type="button" *ngIf="oi!=0" (click)="removeForm('','roles',oi)">
+                        <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
+                    </button>
+                </div>
+            </div>
+        </div> 
+        <div class="text-center mt-3 mrb-15">
+            <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+            <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
+        </div>    
+    </ng-template>
+
+    <ng-template #editRole>
+        <div class="modal-header pb-0">
+            <p class="hd-alg pl-0">Edit Role</p>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="col-md-9 p-0">
+            <input type="text" class="form-control col-md-11" [(ngModel)]="editRoleValue"  name="designationName" #roleEditName="ngModel" />
+        </div>
+        <div class="text-center mt-3 mrb-15">
+                <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+                <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
+            </div>   
+    </ng-template>
+    
+    <ng-template #deleteRole>
+        <div class="modal-header pb-0">
+            <p class="hd-alg">{{constant.labels.deleteRole}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <div class="row col-12 col-md-12 p-0" *ngFor="let data of editDepartmentList; let i = index">
-                <div class="col-4 input-group mb-3 col-md-8 group-box">
-                    <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
-                </div>
-                <div class="input-group-prepend">
-                    <button class="btn btn-icon" type="button" *ngIf="i == 0" (click)="editDivisionForm('add')">
-                        <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
-                    </button>
-                    <button class="btn btn-icon" type="button" *ngIf="i != 0" (click)="editDivisionForm('edit',i)">
-                        <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
-                    </button>
-                </div> 
-            </div>
+            <span>{{constant.labels.deleteRoleConfirmation}}</span>
             <div class="text-center mt-3">
-                <button (click)="updateDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
-                <button type="button" class="btn btn-default" (click)="cancelUpdate()">{{constant.btns.Cancel}}</button>
+                <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteRoleContent()">{{constant.btns.ok}}</button>
+                <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
             </div>
         </div>
     </ng-template>

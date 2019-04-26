@@ -55,6 +55,10 @@ export class UserComponent implements OnInit {
     editDepartmentList;
     divisionId;
     errMsg;
+    roles;
+    roleDetails;
+    roleId;
+    editRoleValue;
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
@@ -84,9 +88,18 @@ export class UserComponent implements OnInit {
         this.commonService.getResortDivision(resortId).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 this.divisionDetails = resp.data.length && resp.data[0].resortMapping && resp.data[0].resortMapping;
-            }
-            
+            }  
         })
+
+        this.userService.getResortDesignation(resortId).subscribe(resp=>{
+            console.log(resp);
+            if(resp && resp.isSuccess){
+                this.roleDetails = resp.data.rows.length && resp.data.rows;
+            }
+        })
+        this.roles = [{
+            designationName : ''
+        }]
     }
 
     userList(){
@@ -173,6 +186,49 @@ export class UserComponent implements OnInit {
         }
     }
 
+    openAddRole(template: TemplateRef<any>, data,  index){
+        // if(data){
+            this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+        //    }else{
+            // this.resetFields();   
+            // this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+        //    }
+    }
+
+
+    submitRole(){
+        console.log(this.roleId)
+        let userData = this.utilService.getUserData();
+        let resortId = userData && userData.Resorts && userData.Resorts[0].resortId;
+        if(this.roleId){
+            let params = {
+                designationName : this.editRoleValue
+            }
+            this.userService.updateDesignation(this.roleId,params).subscribe(resp=>{
+                if(resp && resp.isSuccess){
+                    this.getDivisionList(resortId);
+                    this.constant.modalRef.hide();
+                    this.resetFields();
+                    this.alertService.success("Designation updated successfully")
+                }
+            })
+
+        }else{
+            let params = {
+                resortId : resortId,
+                designation : this.roles
+            }
+            this.userService.addResortDesignation(params).subscribe(resp=>{
+                if(resp && resp.isSuccess){
+                    this.getDivisionList(resortId);
+                    this.constant.modalRef.hide();
+                    this.resetFields();
+                    this.alertService.success("Designation added successfully")
+                }
+            })
+        }
+        
+    }
    
     //delete user
     removeUser(template: TemplateRef<any>,data, i) {
@@ -255,6 +311,7 @@ export class UserComponent implements OnInit {
         this.editEnable= false;
         this.userName = '';
         this.userId = '';
+        this.roleId = '';
         this.department = '';
         this.designation = '';
         this.division = '';
@@ -262,6 +319,18 @@ export class UserComponent implements OnInit {
         this.emailAddress = '';
         this.phoneNumber = '';
         this.triggerNext = false;
+        this.editRoleValue = '';
+        this.roles = [{
+            designationName : ''
+        }]
+        this.constant.divisionTemplate = [{
+            divisionName : '',
+            departments : [
+                {
+                   departmentName : ''
+                }
+            ]
+        }];
     }
 
     validationUpdate(type) {
@@ -345,6 +414,7 @@ export class UserComponent implements OnInit {
     }
 
     editDivisionData(data,template : TemplateRef<any>){
+        this.editDepartmentList = [];
         this.editDivisionValue = data;
         let dataValue = data && data.Departments;
         this.editDepartmentList = dataValue;
@@ -389,6 +459,12 @@ export class UserComponent implements OnInit {
             };
             this.constant.divisionTemplate[i].departments.push(obj);
         }
+        else if (type === 'roles'){
+            let obj = {
+                designationName : ''
+            };
+            this.roles.push(obj);
+        }
     }
     
     removeForm(i,type,oi) {
@@ -397,6 +473,9 @@ export class UserComponent implements OnInit {
         }
         else if(type === 'department'){
             this.constant.divisionTemplate[i].departments.splice(oi, 1);
+        }
+        else if(type === 'roles'){
+            this.roles.splice(oi,1);
         }
     }
 
@@ -430,7 +509,32 @@ export class UserComponent implements OnInit {
         })
     }
 
+     //delete role
+     removeRole(template: TemplateRef<any>,data, i) {
+        this.roleId= data.designationId;
+        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig); 
+       }
+
+    deleteRoleContent(){
+        this.userService.deleteDesignation(this.roleId).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+                let userData = this.utilService.getUserData();
+                let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+                this.constant.modalRef.hide();
+                this.getDivisionList(resortId);
+                this.alertService.success('Designation deleted successfully');
+            }
+        })
+    }
+
+    editRoleData(data,template : TemplateRef<any>){
+        this.roleId =  data && data.designationId;
+        this.editRoleValue = data && data.designationName;
+        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig)
+    }
+
     updateDivision(){
+        console.log(this.editDivisionValue)
         if(Object.keys(this.editDivisionValue).length){
             this.userService.divisionUpdate(this.editDivisionValue,this.editDivisionValue.divisionId).subscribe(resp=>{
                 if(resp && resp.isSuccess){

@@ -54,4 +54,20 @@ export class UserService {
     return this.http.put('local',this.url.divisionUpdate+id,params)
   }
 
+  getResortDesignation(resortId){
+    return this.http.getLocal('local',this.url.designationList+'?resortId='+resortId);
+  }
+
+  addResortDesignation(params){
+    return this.http.post('local',this.url.addDesignation, params);
+  }
+
+  updateDesignation(id,params){
+    return this.http.put('local',this.url.updateDesignation+id,params)
+  }
+
+  deleteDesignation(id){
+    return this.http.delete('local',this.url.deleteDesignation+id)
+  }
+
 }
