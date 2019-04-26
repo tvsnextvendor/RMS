@@ -21,7 +21,10 @@ editEnable = false;
 labels;
 trainingVideoUrl;
 uploadPath;
+fileCheck = false;
 resortArray = [];
+deletedFileId=[];
+deletedFilePath=[];
 divisionArray = [];
 allEmployees = {};
 employeesInBatch = [];
@@ -37,13 +40,13 @@ constructor(private courseService: CourseService, private alertService: AlertSer
    this.labels = constant.videoFormLabels;
 }
 
-
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
   }
+
   ngDoCheck(){
     if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
       this.getCourseFileDetails();
@@ -56,29 +59,40 @@ constructor(private courseService: CourseService, private alertService: AlertSer
         this.courseList = result.data && result.data.rows;
       }
     })
-
-    this.courseService.getTrainingClass().subscribe((resp) => {
-        if(resp && resp.isSuccess){
-          this.trainingClassList = resp.data && resp.data.length && resp.data.map(item=>{
-                    let obj = {
-                        id : item.trainingClassId,
-                        value : item.trainingClassName
-                    }
-                    return obj;
-                })
-            }
-        })
-
   }
 
-    getEditFileData(){
+   courseChange(){
+     this.selectedClass="";
+      this.courseService.getTrainingclassesById(this.selectedCourse).subscribe(result=>{
+      if(result && result.isSuccess){       
+           this.trainingClassList = result.data;
+        }
+    })
+   }
+
+
+
+  getEditFileData(){
       console.log(this.selectedClass);
       this.courseService.getEditCourseDetails( this.selectedCourse,this.selectedClass).subscribe(resp => {
         console.log(resp);
         if(resp && resp.isSuccess){
           this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
+          console.log(this.fileList,"FILELIST");
         }
       })
+  }
+
+
+  removeVideo(data,i){
+    console.log(data,i)
+    this.fileList.splice(i,1);
+    this.deletedFilePath.push(data.fileUrl);
+    this.deletedFileId.push(data.fileId);
+    if(data.fileType === 'Video'){
+      this.deletedFilePath.push(data.fileImage);
+    }
+    console.log(this.deletedFilePath)
   }
 
   getCourseFileDetails() {
@@ -149,10 +163,10 @@ constructor(private courseService: CourseService, private alertService: AlertSer
       closeEditVideoForm() {
       this.constant.modalRef.hide();
       }
-  openAddVideosToCourse(){
-   
-    this.addVideosToCourse = !this.addVideosToCourse;
-  }
+  
+      openAddVideosToCourse(){ 
+         this.addVideosToCourse = !this.addVideosToCourse;
+      }
 
 
    removeDoc(template: TemplateRef<any>,fileId, i) {
@@ -173,6 +187,49 @@ constructor(private courseService: CourseService, private alertService: AlertSer
      })
    }
 
+
+  addFiles(event,file,i){
+    let type=event.target.checked;
+    if(type){
+      file['addNew'] = true;
+      this.fileList.push(file);
+    }else{
+      let index = this.fileList.findIndex(x => x.fileId === file.fileId);
+      this.fileList.splice(index,1);
+    }
+  }
+
+  AssignNewFiles(){
+   
+      let updatedFileList = this.fileList.filter(function (x) {
+          if(x.addNew){
+            return delete x.addNew;
+          }
+      });
+    
+      let fileIds = updatedFileList.map(a => a.fileId);
+
+      updatedFileList.forEach(function(x){ delete x.fileId });
+
+      console.log(updatedFileList, fileIds)
+     let postData = {
+      trainingClassId : this.selectedClass,
+      courseId : this.selectedCourse,
+      fileType :"video",
+      assignedFiles: updatedFileList,
+      filesIds: fileIds,
+    }
+
+    console.log(postData,"PostDATA")
+
+    this.courseService.assignVideosToCourse(postData).subscribe(res=>{
+          if(res.isSuccess){
+            this.alertService.success(res.message);
+            this.openAddVideosToCourse();
+            this.getCourseFileDetails();
+          }
+    })
+  }
 
   pageChanged(e){
     this.page = e;
