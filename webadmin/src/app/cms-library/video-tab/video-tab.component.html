@@ -20,6 +20,7 @@
                         <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}</option>
                     </select>
                     <div class="select_arrow"></div>
+                    <span class="required_color" *ngIf="submitted && !selectedCourse">Course is required.</span>
                 </div>
                 <div class="col-md-6 mb-3 select select-style clearfix">
                     <select name="courseId" class="form-control pl-0" [(ngModel)]="selectedClass" (change)="getEditFileData()">
@@ -27,10 +28,12 @@
                         <option *ngFor="let class of trainingClassList" [value]="class.trainingClassId">{{class.trainingClassName}}</option>
                     </select>
                     <div class="select_arrow"></div>
+                    <span class="required_color"
+                        *ngIf="submitted && !selectedClass">Training Class is required.</span>                 
                 </div>
             </div>
-            <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
-                <p class="course-list  course-list-select" *ngFor="let fileData of fileList;let i = index" dnd-sortable [sortableIndex]="i">
+            <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList" >
+                <p *ngFor="let fileData of fileList;let i = index" [ngClass]="fileData.addNew ? 'course-list course-list-select' : 'course-list'" dnd-sortable [sortableIndex]="i">       
                     {{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img class="close-alg" src="assets/images/close.png"></a>
                 </p>
             </div>
@@ -76,7 +79,7 @@
                     *ngFor="let file of videoListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalVideosCount};let i = index">
                     <td class="text-left">
                         <label class="square-cont float-left mb-0">
-                            <input type="checkbox" name="web" value="fileCheck"  (change)="addFiles($event,file,i)"> {{file.fileName}}
+                            <input type="checkbox" name="web" [checked]="fileCheck"  (change)="addFiles($event,file,i)"> {{file.fileName}}
                             <span class="square-checkmark"></span>
                         </label>
                     </td>
