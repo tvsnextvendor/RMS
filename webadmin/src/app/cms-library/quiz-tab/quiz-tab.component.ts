@@ -66,8 +66,9 @@ export class QuizTabComponent implements OnInit {
     // }
   }
 
-  optionValueUpdate(){
+  optionValueUpdate(data){
     this.optionData = !this.optionData;
+    data.answer =  this.optionData;
   }
   
   editQuizDetails(){
