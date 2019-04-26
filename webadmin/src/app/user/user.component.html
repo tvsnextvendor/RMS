@@ -176,8 +176,8 @@
                     <td class="vat user-desc"><span *ngIf="user.Designation"><label class="mb-0">{{ user.Designation.designationName }}</label></span></td>
                     <td class="vat user-desc"><label class="mb-0">{{ user.email }}</label></td>
                     <td class="vat user-desc"><label class="mb-0">{{ user.phoneNumber }}</label></td>
-                    <td class="vat user-desc"><a (click)="openAddUser(addUserTemp,user,i)"><i class="fa fa-pencil header-icon"></i></a></td>
-                    <td class="vat user-desc"><a (click)="removeUser(deleteUser,user,i)"><i class="fa fa-trash header-icon"></i></a></td> 
+                    <td class="vat user-desc"><a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fa fa-pencil header-icon"></i></a></td>
+                    <td class="vat user-desc"><a (click)="removeUser(deleteUser,user,i)"  title="Trash"><i class="fa fa-trash header-icon"></i></a></td> 
                 </tr>
                 <tr *ngIf="mf.data?.length == 0">
                     <td colspan="10" class="text-center data-design">{{constant.labels.noData}}</td>
