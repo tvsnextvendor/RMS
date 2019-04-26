@@ -203,6 +203,13 @@ constructor(private courseService: CourseService, private alertService: AlertSer
       this.fileList.splice(index,1);
     }
   }
+ 
+  resetAssignForm(){
+    this.selectedClass = "";
+    this.selectedCourse = "";
+    this.fileList =[];
+    this.submitted=false;
+  }
 
   AssignNewFiles(){
       this.submitted=true;
@@ -226,7 +233,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
             if(res.isSuccess){
               this.alertService.success(res.message);
               this.openAddVideosToCourse();
-              this.getCourseFileDetails();
+              this.resetAssignForm();
               this.fileCheck= false;
             }
       })
