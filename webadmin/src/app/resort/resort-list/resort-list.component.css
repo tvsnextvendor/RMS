@@ -21,3 +21,8 @@ p.text-nowrap{
   width: 200px;
   display: block;
 }
+
+th.action-hd {
+  width: 135px;
+  display: block;
+}
