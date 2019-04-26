@@ -217,7 +217,9 @@ th.action-hd {
 .group-section-bx{
     margin-left: 7rem;
 }
-
+.listrole .detail-bottom span{
+    line-height: 30px;
+}
 
 @media (max-width:767px){
     .group-section-bx{

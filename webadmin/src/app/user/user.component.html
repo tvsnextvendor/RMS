@@ -86,9 +86,11 @@
     </tab>
     <tab heading="Hierarchy">  
         <div class="pr-3 pt-3 clearfix">
+            <div class="hd-section clearfix">
             <h5 class="float-left title-hd">Division</h5>
-            <span class="pr-2"><button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Add New</button></span>
-            <div class="hierarchy-tab white-bg pl-4 mt-3">
+            <span class="float-right"><button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Add New</button></span>
+            </div>
+            <div class="hierarchy-tab white-bg p-4 mt-3">
             <div class="detail-bottom row">                
                 <!-- <div class="row depart-dtl col-md-12 p-0">
                     <label class="col-md-12 p-0 label-title">Division1 <a href="#"><i class="fas fa-pencil-alt"></i></a></label>
@@ -96,7 +98,7 @@
                  <span>Department 1<a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span>
                     </div>
                 </div> -->
-                <div class="row depart-dtl col-md-12 p-0" *ngFor="let division of divisionDetails;let i = index;">
+                <div class="row depart-dtl col-md-12 p-0 clearfix" *ngFor="let division of divisionDetails;let i = index;">
                     <label class="col-md-12 p-0 label-title">{{division?.Division?.divisionName}} <a (click)="editDivisionData(division?.Division,editDivision)"><i class="fas fa-pencil-alt"></i></a></label>
                         <div class="dpt-list pl-1 ml-4" >
                             <div>
@@ -104,7 +106,8 @@
                                 <!-- <span>Department 1 <a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span> -->
                             </div>
                         </div>
-                        <a (click)="removeDivision(deleteDivision,division,i)" class="icon-section pt-2 pl-4"><i class="fas fa-trash"></i></a>
+                        <a (click)="removeDivision(deleteDivision,division,i)" class="icon-section pt-2 pl-4 float-right"><i class="fas fa-trash"></i></a>
+
                     </div>
                 </div> 
 
@@ -112,10 +115,12 @@
         </div>    
     </tab>
     <tab heading = "List of Roles">
-        <div class="pr-3 pt-3 clearfix">
+        <div class="pr-3 pt-3 clearfix listrole">
+            <div class="hd-section clearfix">
             <h5 class="float-left title-hd">List of Roles</h5>
-            <span class="pr-2"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Add New</button></span>
-            <div class="hierarchy-tab white-bg pl-4 mt-3">
+            <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Add New</button></span>
+            </div>
+            <div class="hierarchy-tab white-bg p-4 mt-3">
             <div class="detail-bottom row">                
                 <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
                     <label class="col-md-12 p-0 label-title"><span class="col-md-2">{{i+1}}.{{role.designationName}} </span>
@@ -430,9 +435,9 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
-        <span>{{constant.labels.deleteDivisionConfirmation}}</span>
-        <div class="text-center mt-3">
+    <div class="modal-body text-center">
+        <span class="text-cont">{{constant.labels.deleteDivisionConfirmation}}</span>
+        <div class="text-center mt-4">
             <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteDivisionContent()">{{constant.btns.ok}}</button>
             <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
         </div>
@@ -447,7 +452,10 @@
         </button>
     </div>
     <div class="modal-body">
-        <input type="text" class="form-control col-md-11" placeholder="Division Name" [(ngModel)]="editDivisionValue.divisionName" name = "division" aria-label="" aria-describedby="basic-addon1">
+        <div class="row">
+        <label class="col-md-4 pl-0 label-title">Division Name</label>
+        <div class="col-md-8 p-0">
+        <input type="text" class="form-control col-md-11 mb-2 p-0" placeholder="Division Name" [(ngModel)]="editDivisionValue.divisionName" name = "division" aria-label="" aria-describedby="basic-addon1">
         <div class="row col-12 col-md-12 p-0" *ngFor="let data of editDepartmentList; let i = index">
             <div class="col-4 input-group mb-3 col-md-8 group-box">
                 <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
@@ -460,6 +468,8 @@
                     <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
                 </button>
             </div> 
+        </div>
+        </div>
         </div>
         <div class="text-center mt-3">
             <button (click)="updateDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
@@ -475,9 +485,10 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div *ngFor="let dept of roles; let oi = index" class="col-8 col-md-8 p-0">
+        <div *ngFor="let dept of roles; let oi = index" class="col-10 col-md-9 ml-3">
             <!-- <div  [ngClass] = "oi === 0 ? 'col-12 input-group mb-3 col-md-12 group-box cll' : 'col-12 input-group mb-3 col-md-12 group-box group-section-bx'" > -->
             <div class ='row'>
+                <div class="input-group mb-3 col-12 col-md-12 group-box">
                 <input type="text" class="form-control col-md-11" placeholder="Enter the  Role {{oi+1}}" [(ngModel)]="dept.designationName" name = "role{{oi+1}}" aria-label="" aria-describedby="basic-addon1">
                 <div class="input-group-prepend">
                     <button class="btn btn-icon" type="button" *ngIf="oi==0" (click)="addForm('roles','')">
@@ -488,8 +499,9 @@
                     </button>
                 </div>
             </div>
+            </div>
         </div> 
-        <div class="text-center mt-3 mrb-15">
+        <div class="text-center mt-4 mrb-15">
             <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
             <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
         </div>    
@@ -502,10 +514,10 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="col-md-9 p-0">
+        <div class="col-md-9 ml-3">
             <input type="text" class="form-control col-md-11" [(ngModel)]="editRoleValue"  name="designationName" #roleEditName="ngModel" />
         </div>
-        <div class="text-center mt-3 mrb-15">
+        <div class="text-center mt-4 mrb-15">
                 <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
                 <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
             </div>   
