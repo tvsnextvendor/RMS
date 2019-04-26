@@ -107,6 +107,8 @@ export class LoginComponent implements OnInit {
                 const loginData = result.data;
                 this.route.navigateByUrl('/dashboard');
                 this.alertService.success('Login successfully');
+                let resortName = result.data.Resorts[0].resortName;
+                localStorage.setItem("resortName", resortName);
              }
             },error => {
             error.error == "Invalid Password" ? this.passwordError= true : this.emailError = true;

@@ -970,10 +970,7 @@ li {
 ul.pagination {
     margin: 0;
 }
-.pagination-next a{
-  outline: none;
-  -webkit-appearance: none;
-}
+
 span.nsdicon-close {
     display: none;
 }
@@ -1397,7 +1394,10 @@ background-color: #C1E1F3;
   padding:0;
   text-decoration:none
 }
-
+.pagination-next a,.my-pagination a{
+  outline: none;
+  -webkit-appearance: none;
+}
 /* End Pagination */
 .icon-list a{
   float:left;
@@ -1536,6 +1536,9 @@ p.text-nowrap{
 .text-cont{
   font-size:15px;
   color: #73737B;
+}
+.capitalize{
+  text-transform: capitalize;
 }
 /************************************ Responsive Alignment ************************************/
 

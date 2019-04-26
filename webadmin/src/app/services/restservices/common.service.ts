@@ -14,6 +14,9 @@ export class CommonService {
   constructor (private http: HttpService) {
        this.url = API_URL.URLS;
   }
+  getResortName() {
+    return localStorage.getItem("resortName");
+    }
 
  getDivisionList(){
     return this.http.getLocal('local',this.url.divisionList);
