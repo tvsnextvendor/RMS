@@ -252,7 +252,7 @@
   .top-select-bx{
       padding-bottom: 2em;
   }
-  .top-select-bx select:first-child{
+  .top-select-bx select:first-child, .top-select-bx span:first-child{
       margin-right: 5em;
   }
   .quiz-box{

@@ -245,16 +245,7 @@
         filter: alpha(opacity=0);
     }
       
-      .breadcrumb{
-        background: none;
-        padding:0;
-      }
-      .breadcrumb-item+.breadcrumb-item::before {
-         content: ">";
-    }
-    .breadcrumb-item a,.breadcrumb-item{
-        font-size: 14px;
-    }
+     
       @media screen and (max-width: 600px) {
         .filter-search .search-container {
           float: none;

@@ -24,14 +24,27 @@ export class CmsLibraryVar {
         "deleteDoc" : "Delete Document",
         "deleteDocConfirmation": "Are you sure you want to delete this document?",
         "upload" : "Upload",
-        "cancel" : "Cancel"
+        "cancel" : "Cancel",
+        "cmsLibrary" : "CMS Library",
+        "course" : "Course",
+        "trainingClass" : "Training Class",
+        "videos" : "Videos",
+        "documents": "Documents",
+        "notification" : "Notification",
+        "quiz" : "Quiz",
+        "recentlyDelete" : "Recently Deleted",
     }
        
 
      btns = {
         "ok":'Ok',
         "cancel":'Cancel',
-        "save": "Save"
+        "save": "Save",
+        "print": "Print",
+        "workinProgress" : "Work in Progress",
+        "scheduleTraining" : "Schedule a Training",
+        "createNotification" : "Create Notification",
+        "createCourse" : "Create Course"
     }
     fileId;
     modalRef: BsModalRef;
