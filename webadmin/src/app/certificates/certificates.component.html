@@ -15,26 +15,28 @@
             </owl-carousel-o>
             <div class="pr-3" *ngFor="let data of constant.templateAssign; let i = index">
                 <div class="row">
-                    <div class="col-md-6 col-sm-5">
+                    <div class="col-md-6 col-sm-12">
                         <div class="mb-2 row">
                             <label class="col-md-3 col-sm-3 module-batch-title" *ngIf="i==0">{{constant.labels.course}}</label>
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
-                            <div class=" col-md-8 col-sm-8">
+                            <div class=" col-md-8 col-sm-8 select select-style clearfix">
                                 <select id="course" class="form-control" name="Course{{i}}" [(ngModel)]="data.course">
                                     <option *ngFor="let course of constant.courseList" value="{{course.id}}">{{course.value}}</option>
                                 </select>
+                                 <div class="select_arrow"></div>
                             </div>
                         </div>
 
                     </div>
-                    <div class="col-md-6 col-sm-7">
+                    <div class="col-md-6 col-sm-12">
                         <div class="mb-2 row">
                             <label class="col-md-3 col-sm-3 module-batch-title" *ngIf="i==0">{{constant.labels.template}}</label>
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
-                            <div class=" col-md-7 col-sm-7">
+                            <div class=" col-md-7 col-sm-7 select select-style clearfix">
                                 <select id="Template" class="form-control" name="Template{{i}}" [(ngModel)]="data.template">
                                     <option *ngFor="let template of constant.certificateList" value="{{template.templateid}}">{{template.templatename}}</option>
                                 </select>
+                                 <div class="select_arrow"></div>
                             </div>
                             <span><a class="col-md-1 pl-0" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-course-icon"></i></a></span>
                             <span><a class="col-md-1 pl-0" *ngIf="i!=0" (click)="removeForm(i)"><i class="fa fa-times icons_header"></i></a></span>
@@ -61,7 +63,7 @@
                 <!-- <span class="float-right"><a (click)="resetPercentage()"><i class="fa fa-refresh"></i></a></span> -->
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 pt-3">
                     <label class="badge-title"><!-- {{constant.labels.diamond}} -->Platinum</label>
                     <select id="diamond" class="form-control badge-dropdown" name="diamond" [(ngModel)]="constant.diamond"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
@@ -72,7 +74,7 @@
                     <span *ngIf="percentageTakenError.diamond" class="required_color">{{constant.badgepercentageError}}</span>
                     <span *ngIf="constant.badgesRequired" class="required_color">{{constant.badgeRequiredMsg}}</span>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 pt-3">
                     <label class="badge-title">{{constant.labels.gold}}</label>
                     <select id="gold" class="form-control badge-dropdown" name="gold" [(ngModel)]="constant.gold"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
@@ -82,7 +84,7 @@
                     </select>
                     <span *ngIf="percentageTakenError.gold" class="required_color">{{constant.badgepercentageError}}</span>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 pt-3">
                     <label class="badge-title">{{constant.labels.silver}}</label>
                     <select id="silver" class="form-control badge-dropdown" name="silver" [(ngModel)]="constant.silver"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
@@ -92,7 +94,7 @@
                     </select>
                     <span *ngIf="percentageTakenError.silver" class="required_color">{{constant.badgepercentageError}}</span>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 pt-3">
                     <label class="badge-title">{{constant.labels.bronze}}</label>
                     <select id="bronze" class="form-control badge-dropdown" name="bronze" [(ngModel)]="constant.bronze"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
