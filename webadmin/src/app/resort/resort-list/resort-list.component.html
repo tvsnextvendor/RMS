@@ -54,9 +54,10 @@
                             <td class="text-center">{{ resort.status }}</td>                           
                             <td class="text-center last-dt"  *ngIf = "userId === 1">3 days</td>
                             <td class="text-center"><a (click)="resortDetails(resort.resortId)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                <a title="Delete"><i class="fa fa-trash header-icon"></i></a>
-                            <td class="text-center"><a (click)="resortDetails(resort.resortId)"><i class="fas fa-pencil-alt"></i></a>
-                                <a (click)="removeResort(deleteResort,resort.resortId)"><i class="fa fa-trash header-icon"></i></a>
+                                <a title="Delete" (click)="removeResort(deleteResort,resort.resortId)"><i class="fa fa-trash header-icon"></i></a>
+
+
+                        
                                 <a><label class="switch">
                                         <input type="checkbox" [checked]="resort.status === 'Active' ? true : false" (change) = "statusUpdate(i,resort.resortId,resort.status)"> 
                                         <span class="slider round"></span>
@@ -66,7 +67,7 @@
                     <!-- <tr *ngIf="mf.data?.length == 0">
                         <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>
                     </tr> -->
-                    </tbody>
+                    </tbody>    
                 </table>
         </div>
     </div>
