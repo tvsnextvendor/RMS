@@ -51,7 +51,7 @@
                     <td>
                         <a title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
-                        <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Trash"><i class="fa fa-trash header-icon"></i></a>
+                        <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                     </td>
                 </tr>
 
@@ -76,7 +76,7 @@
         </button>
     </div>
     <div class="modal-body text-center">
-        <span class="text-cont">{{constant.labels.deleteDocConfirmation}}</span>
+        <span class="text-content">{{constant.labels.deleteDocConfirmation}}</span>
         <div class="text-center mt-4">
             <button (click)="deleteDoc()" class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
             <button type="button" class="btn btn-default"

@@ -128,18 +128,20 @@ export class UserComponent implements OnInit {
      }
 
     //update user
-    userEdit(data, index) {    
+    userEdit(data, index) {  
+        this.changedivision();  
             this.userid = data.UserRole[0].userId;   
             this.editEnable= true;
             this.userIndex = index;
             this.userName = data.userName;
             this.userId = data.employeeId;
-            this.department = data.DepartMent ? data.DepartMent.departmentId : "";
+            this.department = data.Department ? data.Department.departmentId : "";
             this.division =data.Division ? data.Division.divisionId : "";
             this.designation= data.Designation?data.Designation.designationId : "";
             this.reportingTo=data.reportDetails?data.reportDetails.designationId : "";
             this.emailAddress = data.email;
-            this.phoneNumber = data.phoneNumber;      
+            this.phoneNumber = data.phoneNumber;    
+            this.defaultSetting = data.isDefault === true ? true : false;  
            // this.designationUpdate(data.department, data.designation);
     }
 
@@ -188,6 +190,7 @@ export class UserComponent implements OnInit {
     }
 
     openAddRole(template: TemplateRef<any>, data,  index){
+        
         // if(data){
             this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
         //    }else{
@@ -358,7 +361,7 @@ export class UserComponent implements OnInit {
         if (type === "mobile") {
             let data = value.toString();
             let phoneNum = data.replace("+", "");
-            let phoneNumValid = phoneNum ? (phoneNum.length === 10 ? true : false) : false;
+            let phoneNumValid = phoneNum ? (phoneNum.length === 12 ? true : false) : false;
             return phoneNumValid
         }
     }
@@ -518,8 +521,12 @@ export class UserComponent implements OnInit {
 
      //delete role
      removeRole(template: TemplateRef<any>,data, i) {
+        let modalConfig={
+            class : "modal-dialog-centered"
+
+        }
         this.roleId= data.designationId;
-        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig); 
+        this.constant.modalRef = this.modalService.show(template,modalConfig); 
        }
 
     deleteRoleContent(){
@@ -535,9 +542,13 @@ export class UserComponent implements OnInit {
     }
 
     editRoleData(data,template : TemplateRef<any>){
+        let modalConfig={
+            class : "modal-dialog-centered"
+
+        }
         this.roleId =  data && data.designationId;
         this.editRoleValue = data && data.designationName;
-        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig)
+        this.constant.modalRef = this.modalService.show(template,modalConfig)
     }
 
     updateDivision(){

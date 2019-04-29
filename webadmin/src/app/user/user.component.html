@@ -58,10 +58,10 @@
                             <td class="text-center"><span *ngIf="user.Division"><label class="mb-0">{{ user.Division.divisionName }}</label></span></td>
                             <td class="text-center"><span *ngIf="user.Department"><label class="mb-0">{{ user.Department.departmentName }}</label></span></td>
                             <td class="text-center"><span *ngIf="user.Designation"><label class="mb-0">{{ user.Designation.designationName }}</label></span></td>
-                            <td class="text-center email-td"><label class="mb-0">{{ user.email }}</label></td>
+                            <td class="text-center"><label class="mb-0">{{ user.email }}</label></td>
                             <td class="text-center"><label class="mb-0">{{ user.phoneNumber }}</label></td>
                             <td class="text-center"><a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                <a (click)="removeUser(deleteUser,user,i)" title="Trash"><i class="fa fa-trash header-icon"></i></a>
+                                <a (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                                 <a><label class="switch">
                                     <input type="checkbox" [checked]="user.active" (change)="activeStatus(user)"> 
                                     <span class="slider round"></span>
@@ -106,7 +106,7 @@
                                 <!-- <span>Department 1 <a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span> -->
                             </div>
                         </div>
-                        <a *ngIf="division?.Division?.Departments.length" (click)="removeDivision(deleteDivision,division,i)" class="icon-section pt-2 pl-4 float-right"><i class="fas fa-trash"></i></a>
+                        <a *ngIf="division?.Division?.Departments.length" (click)="removeDivision(deleteDivision,division,i)" class="icon-section pt-2 pl-4 float-right" title="Delete"><i class="fas fa-trash"></i></a>
 
                     </div>
                 </div> 
@@ -125,7 +125,7 @@
                 <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
                     <label class="col-md-12 p-0 label-title"><span class="col-md-2">{{i+1}}.{{role.designationName}} </span>
                         <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4"><i class="fas fa-pencil-alt"></i></a>
-                        <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4"><i class="fas fa-trash"></i></a>
+                        <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
                     </label>
                     </div>
                 </div> 
@@ -196,8 +196,9 @@
                     <td class="vat user-desc"><span *ngIf="user.Designation"><label class="mb-0">{{ user.Designation.designationName }}</label></span></td>
                     <td class="vat user-desc"><label class="mb-0">{{ user.email }}</label></td>
                     <td class="vat user-desc"><label class="mb-0">{{ user.phoneNumber }}</label></td>
-                    <td class="vat user-desc"><a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fa fa-pencil header-icon"></i></a></td>
-                    <td class="vat user-desc"><a (click)="removeUser(deleteUser,user,i)"  title="Trash"><i class="fa fa-trash header-icon"></i></a></td> 
+                    <td class="vat user-desc"><a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fa fa-pen
+                        cil header-icon"></i></a></td>
+                    <td class="vat user-desc"><a (click)="removeUser(deleteUser,user,i)"  title="Delete"><i class="fa fa-trash header-icon"></i></a></td> 
                 </tr>
                 <tr *ngIf="mf.data?.length == 0">
                     <td colspan="10" class="text-center data-design">{{constant.labels.noData}}</td>
@@ -256,6 +257,8 @@
                         <option *ngFor="let obj of divisionArray" [value]="obj.divisionId">{{obj.divisionName}}</option>
                     </select>
                     <div class="select_arrow"></div>
+                    <span class="required_color"
+                        *ngIf="userForm.submitted && !department">{{constant.mandatoryText.division}}</span>
                 </span>
             </div>
             
@@ -269,8 +272,8 @@
                         <option *ngFor="let obj of departmentArray" [value]="obj.departmentId">{{obj.departmentName}}</option>
                     </select>
                     <div class="select_arrow"></div>
-                    <!-- <span class="required_color"
-                        *ngIf="userForm.submitted && !department">{{constant.mandatoryText.dept}}</span>-->
+                    <span class="required_color"
+                        *ngIf="userForm.submitted && !department">{{constant.mandatoryText.dept}}</span>
                 </span> 
             </div>
 
@@ -283,8 +286,8 @@
                         <option *ngFor="let obj of designationArray" [value]="obj.designationId">{{obj.designationName}}</option>
                     </select>
                      <div class="select_arrow"></div>
-                    <!-- <span class="required_color" *ngIf="userForm.submitted && !designation">
-                        {{constant.mandatoryText.designation}}</span> -->
+                    <span class="required_color" *ngIf="userForm.submitted && !designation">
+                        {{constant.mandatoryText.designation}}</span>
                 </span> 
             </div>
 
@@ -338,7 +341,7 @@
             <div class="text-center">
                 <span *ngIf="errMsg">{{errMsg}}</span>
                 <button type="submit" *ngIf="!editEnable" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
-                <button type="button" *ngIf="editEnable" (click)="updateUser(userForm)" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+                <button type="submit" *ngIf="editEnable" (click)="updateUser(userForm)" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
                 <button type="button" class="btn btn-default"
                     (click)="closeAddForm()">{{constant.btns.cancel}}</button>
             </div>
@@ -354,7 +357,7 @@
         </button>
     </div>
     <div class="modal-body text-center">
-         <span class="text-cont">{{constant.labels.deleteConfirmation}}</span>
+         <span class="text-content">{{constant.labels.deleteConfirmation}}</span>
         <div class="text-center mt-4">
             <button (click)="deleteuser()"
                 class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
@@ -436,7 +439,7 @@
         </button>
     </div>
     <div class="modal-body text-center">
-        <span class="text-cont">{{constant.labels.deleteDivisionConfirmation}}</span>
+        <span class="text-content">{{constant.labels.deleteDivisionConfirmation}}</span>
         <div class="text-center mt-4">
             <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteDivisionContent()">{{constant.btns.ok}}</button>
             <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
@@ -530,8 +533,8 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <span>{{constant.labels.deleteRoleConfirmation}}</span>
+        <div class="modal-body text-center">
+            <span class="text-content">{{constant.labels.deleteRoleConfirmation}}</span>
             <div class="text-center mt-3">
                 <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteRoleContent()">{{constant.btns.ok}}</button>
                 <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
