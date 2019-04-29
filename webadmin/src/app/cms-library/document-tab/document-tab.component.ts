@@ -11,6 +11,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 })
 export class DocumentTabComponent implements OnInit {
   @Input() trainingClassId;
+  @Input() uploadPage;
   totalVideosCount = 0;
   videoListValue;
   addVideosToCourse = false;

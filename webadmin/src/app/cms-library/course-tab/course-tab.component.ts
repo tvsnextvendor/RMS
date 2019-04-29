@@ -50,6 +50,7 @@ export class CourseTabComponent implements OnInit {
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
   @Input()  CMSFilterSearchEventSet;
+  @Output() upload= new EventEmitter<Boolean>();
 
   ngOnInit() {
     this.pageSize = 10;
@@ -150,6 +151,10 @@ export class CourseTabComponent implements OnInit {
         this.selectedCourse.splice(index,1);
       }
     this.SelectedcourseList.emit(this.selectedCourse);
+  }
+
+  showCMSLibrary(){
+    this.upload.emit(true);
   }
 
   calculateContentFiles(courses){

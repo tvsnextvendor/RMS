@@ -19,6 +19,7 @@ export class CMSLibraryComponent implements OnInit {
   redirectId;
   selectedCourse =[];
   showWarning=false;
+  hideSection=false;
   trainingClassId;
   courseId;
   CMSFilterSearchEvent;
@@ -35,6 +36,14 @@ export class CMSLibraryComponent implements OnInit {
     this.modalRef = this.modalService.show(template,modalConfig);
     }else{
     this.showWarning =true;
+    }
+  }
+
+  showUploadPage(event){
+    console.log(event);
+    if(event){
+      this.hideSection= true;
+      this.selectedTab = 'training'
     }
   }
 

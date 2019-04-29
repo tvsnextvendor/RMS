@@ -15,6 +15,7 @@ import { CourseService } from '../../services/restservices/course.service';
 export class QuizTabComponent implements OnInit {
   @Input() trainingClassId;
   @Input() courseId;
+  @Input() uploadPage;
   questionForm;
   weightage;
   questionOptions = [];

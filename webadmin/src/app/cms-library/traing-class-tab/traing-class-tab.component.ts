@@ -18,6 +18,7 @@ export class TraingClassTabComponent implements OnInit {
   editTrainingCourseId;
   TrainingList: any;
   @Input() CMSFilterSearchEventSet;
+  @Input() uploadPage;
   constructor(private courseService: CourseService, public cmsLibraryVar: CmsLibraryVar, public alertService: AlertService) { }
 
   ngOnInit() {

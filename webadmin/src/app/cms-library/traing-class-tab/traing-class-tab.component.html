@@ -14,8 +14,8 @@
     </div>
     <div class="select-arbx p-4" *ngFor="let training of course.CourseTrainingClassMaps;let ci = index">
         <label class="square-cont float-left col-md-12" *ngIf="training.enableEdit == false">
-            <input type="checkbox" name="web">{{training?.TrainingClass?.trainingClassName}}
-            <!-- <span class="square-checkmark"></span> -->
+            <input type="checkbox" name="web"><span class="text-over">{{training?.TrainingClass?.trainingClassName}}</span>
+            <span class="square-checkmark" *ngIf="uploadPage"></span> 
             <div class="float-right">
                 <a (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
             </div>
@@ -51,5 +51,9 @@
     </div>
 </div>
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>
+
+<div class="text-center" *ngIf="uploadPage">
+    <button type="button" class="btn btn-primary creat-btn">Add</button>
+</div>
 
 <!-- End Training Tab Content -->
