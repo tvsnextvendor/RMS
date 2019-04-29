@@ -59,6 +59,7 @@ export class UserComponent implements OnInit {
     roleDetails;
     roleId;
     editRoleValue;
+    removeDepartmentIds=[];
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
@@ -488,6 +489,8 @@ export class UserComponent implements OnInit {
         }
         else if(type === 'edit'){
             this.editDepartmentList.splice(i, 1);
+            this.removeDepartmentIds.push(this.editDepartmentList[i].departmentId);
+            
         }
     }
 
@@ -538,8 +541,15 @@ export class UserComponent implements OnInit {
     }
 
     updateDivision(){
-        console.log(this.editDivisionValue)
         if(Object.keys(this.editDivisionValue).length){
+            let params = this.editDivisionValue.Departments.map(item=>{
+                if(!item.departmentId){
+                    item.divisionId  =  this.editDivisionValue.divisionId
+                }
+                return item;
+            })
+            this.editDivisionValue.Departments = params;
+            this.editDivisionValue.removeDepartmentIds = this.removeDepartmentIds;
             this.userService.divisionUpdate(this.editDivisionValue,this.editDivisionValue.divisionId).subscribe(resp=>{
                 if(resp && resp.isSuccess){
                     let userData = this.utilService.getUserData();
