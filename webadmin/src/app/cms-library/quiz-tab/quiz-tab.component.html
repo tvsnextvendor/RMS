@@ -2,19 +2,17 @@
     <div class="white-bg pt-4 pb-4">
         <form>
             <div class="col-md-9 row m-auto top-select-bx">
-                <span class="col-md-5 form-control"> {{courseName}}</span>
-                <span class="col-md-1 form-control" style='border-bottom: none'></span>
-                <span class="col-md-5 form-control"> {{trainingClassName}}</span>
-                <!-- <select class="col-md-5 form-control">
-                    <option>Course Name1</option>
-                    <option>Course Name2</option>
-                    <option>Course Name3</option>
+                <span *ngIf="!directTabEnable" class="col-md-5 form-control"> {{courseName}}</span>
+                <span *ngIf="!directTabEnable" class="col-md-5 form-control"> {{trainingClassName}}</span>
+                <select *ngIf="directTabEnable" name="courseId" class="form-control col-md-5 pl-0" [(ngModel)] = "filterCourse" #course (change)="dropdownUpdate(course.value)">
+                    <option [value]=null>--Select course--</option>
+                    <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}</option>
                 </select>
-                <select class="col-md-5 form-control">
-                    <option>Training Name1</option>
-                    <option>Training Name2</option>
-                    <option>Training Name3</option>
-                </select> -->
+                <select *ngIf="directTabEnable" name="trainingClassId" class="form-control col-md-5 pl-0" [(ngModel)] = "filterTrainingClass" #trainingClass (change)="dropdownClassUpdate()" [disabled]="filterCourse === 'null'" >
+                    <option [value]=null>--Select Training Class--</option>
+                    <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.trainingClassName}}</option>
+                </select>
+                <span class="col-md-1 form-control" style='border-bottom: none'></span>
             </div>
             <div class="quiz-box row p-4" *ngFor="let data of quizQuestionsForm;let i = index;">                   
                     <div class="col-md-11 p-0">

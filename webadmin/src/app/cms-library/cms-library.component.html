@@ -46,7 +46,7 @@
                         <a [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification','')">Notification</a>
                     </li>
                     <li class="nav-item">
-                        <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show' : 'nav-link disabled'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">Quiz</a>
+                        <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show disabled' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">Quiz</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection">
                         <a class="nav-link">Recently Deleted</a>
@@ -71,7 +71,7 @@
                     <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"></app-document-tab>
                 </div>
                 <div  *ngIf = "selectedTab === 'quiz'" id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
-                    <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId" [uploadPage]="hideSection"></app-quiz-tab>
+                    <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId" [directTabEnable] = "quizTabHit" [uploadPage]="hideSection"></app-quiz-tab>
                 </div>
             </div>
         </div>

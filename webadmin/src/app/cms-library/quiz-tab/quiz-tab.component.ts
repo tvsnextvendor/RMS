@@ -16,6 +16,7 @@ export class QuizTabComponent implements OnInit {
   @Input() trainingClassId;
   @Input() courseId;
   @Input() uploadPage;
+  @Input() directTabEnable;
   questionForm;
   weightage;
   questionOptions = [];
@@ -32,46 +33,57 @@ export class QuizTabComponent implements OnInit {
   modalRef;
   modalConfig;
   deleteQueId;
+  courseList;
+  trainingClassList;
+  filterCourse = null;
+  filterTrainingClass = null;
   
-  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,private modalService : BsModalService) {
-    // this.apiUrls = API_URL.URLS;
-  }
+  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,private modalService : BsModalService) {}
   
   ngOnInit() {
-    // this.selectedVideo = this.videoId ? this.videoId : null;
-    // this.selectedCourse = this.courseId ? this.courseId : null;
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
       { name: "True/False", value: "True/False" },
       { name: "Non-MCQ", value: "NON-MCQ" }
     ];
-    this.quizQuestionsForm = [{
-      "questionName": "",
-      "questionType": "MCQ",
-      "options": [
-        { "optionId": 1, "optionName": "" },
-        { "optionId": 2, "optionName": "" },
-        { "optionId": 3, "optionName": "" },
-        { "optionId": 4, "optionName": "" }
-      ],
-      "weightage": '100',
-      "answer" : ''
-    }];
-
-    // if (this.courseId) {
-      //'5c0f73143100002c0924ec31'
+    this.quizQuestionsForm = [];
+    if(this.directTabEnable){
+      this.getDropDownDetails();
+    }
+    else{
       this.editQuizDetails();
-    // }
-    // else {
-      this.weightage = 100;
-    // }
+    }
+    this.weightage = 100;
   }
 
   optionValueUpdate(data){
     this.optionData = !this.optionData;
     data.answer =  this.optionData;
   }
-  
+
+  getDropDownDetails(){
+    this.courseService.getAllCourse().subscribe(result=>{
+      if(result && result.isSuccess){
+        this.courseList = result.data && result.data.rows;
+      }
+    })
+  }
+  dropdownUpdate(courseId){
+    this.filterTrainingClass = 'null';
+    this.courseId = courseId;
+    this.courseService.getTrainingclassesById(courseId).subscribe(result=>{
+      console.log(result);
+      if(result && result.isSuccess){
+        this.trainingClassList = result.data && result.data.length && result.data;
+        console.log(result);
+      }
+    })
+  }
+  dropdownClassUpdate(){
+    this.trainingClassId = this.filterTrainingClass;
+    this.editQuizDetails();
+  }
+
   editQuizDetails(){
     let QuizList ;
     this.courseService.getTrainingClassQuiz(this.trainingClassId,this.courseId).subscribe((resp)=>{
@@ -86,18 +98,7 @@ export class QuizTabComponent implements OnInit {
            return item;
         })
        
-        this.quizQuestionsForm = QuizList && QuizList.length ? QuizList : [{
-          "questionName": "",
-          "questionType": "MCQ",
-          "options": [
-            { "optionId": 1, "optionName": "" },
-            { "optionId": 2, "optionName": "" },
-            { "optionId": 3, "optionName": "" },
-            { "optionId": 4, "optionName": "" }
-          ],
-          "weightage": '100',
-          "answer" : ''
-        }];
+        this.quizQuestionsForm = QuizList && QuizList.length ? QuizList : [];
         this.weightage = QuizList && QuizList  ? (100 / QuizList.length).toFixed(2) : 100;
       }
     });
