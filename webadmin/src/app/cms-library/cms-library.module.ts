@@ -21,6 +21,7 @@ import { FilterTabComponent } from './filter-tab/filter-tab.component';
 import { EmployeesListComponent } from './course-tab/employees-list/employees-list.component';
 import { EmployeeComponent } from './course-tab/employee/employee.component';
 import { ContentFileComponent } from './course-tab/content-file/content-file.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 const routes: Routes = [
@@ -51,7 +52,8 @@ export const MY_MOMENT_FORMATS = {
     NgMultiSelectDropDownModule,
     DndModule,
     ModalModule,
-    BatchModule
+    BatchModule,
+    BsDropdownModule.forRoot()
   ],
   declarations: [
     CMSLibraryComponent, 

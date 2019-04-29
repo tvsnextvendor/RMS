@@ -12,6 +12,7 @@ styleUrls: ['./video-tab.component.css']
 })
 export class VideoTabComponent implements OnInit {
 @Input() trainingClassId;
+@Input() uploadPage;
 totalVideosCount = 0;
 videoListValue;
 addVideosToCourse = false;

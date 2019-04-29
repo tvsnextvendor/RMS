@@ -1,5 +1,5 @@
 <div class="col-md-12 clearfix py-2 px-0">
-    <button class="btn btn-primary creat-btn float-left" type="submit" (click)="openAddVideosToCourse()">Add Video to
+    <button class="btn btn-primary creat-btn float-left" *ngIf="!uploadPage" type="submit" (click)="openAddVideosToCourse()">Add Video to
         Course</button>
     <h6 class="pt-2 float-right">Count:{{totalVideosCount}}</h6>
 </div>
@@ -122,6 +122,10 @@
    
 </div>
 
+<div class="text-center" *ngIf="uploadPage">
+    <button type="button" class="btn btn-primary creat-btn">Add</button>
+</div>
+
 <ng-template #editVideoTemp>
     <div class="modal-header pb-0">
         <p class="hd-alg"><!-- {{constant.btns.editVideo}} -->Edit Video</p>
@@ -216,3 +220,4 @@
 </video>
 </div>
 </ng-template>
+
