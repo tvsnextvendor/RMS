@@ -95,9 +95,9 @@
                             </div>
                     </div>
                     <div class="col-md-1 p-0">
-                        <a *ngIf="data.enableEdit === false" (click)="editQuizEnable(i)"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
-                        <a *ngIf="data.enableEdit === false" (click)="removeQuiz(deleteQuiz,data)"><i class="fa fa-trash header-icon"></i></a>
-                        <a *ngIf="data.enableEdit === true" (click)="quizSubmit(data,i)"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
+                        <a *ngIf="data.enableEdit === false" (click)="editQuizEnable(i)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
+                        <a *ngIf="data.enableEdit === false" (click)="removeQuiz(deleteQuiz,data)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
+                        <a *ngIf="data.enableEdit === true" (click)="quizSubmit(data,i)" class="mr-2"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
                         <a *ngIf="data.enableEdit === true" (click)="cancelQuizSubmit(i)"><img src="assets/images/cancel2.png"></a>
                     </div>
                         

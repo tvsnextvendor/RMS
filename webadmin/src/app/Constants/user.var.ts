@@ -30,7 +30,18 @@ export class UserVar {
         "deleteRoleConfirmation": "Are you sure you want to delete this role?",
         "deleteDivisionConfirmation": "Are you sure you want to delete this division?",
         "select": 'Select',
-        "noData": 'No data'
+        "noData": 'No data',
+        "addDivision": " Add Division",
+        "editDivision": " Edit Division",
+        "addRole" : "Add Role",
+        "editRole" : "Edit Role",
+        "userManagement" : "User Management",
+        "hierarchy" : "Hierarchy",
+        "listofRole" : "List Of Role",
+        "rolesPermission" : "Roles & Permission",
+        "divisionName" : "Division Name",
+        "entertheDepartment" : "Enter the Department"
+        
     }
 
     btns = {
@@ -41,7 +52,8 @@ export class UserVar {
         "cancel" : 'CANCEL',
         "ok":'Ok',
         "Cancel":'Cancel',
-        "next" : "Next"
+        "next" : "Next",
+        "addnew" : "Add New"
     }
 
     mandatoryText = {
@@ -59,6 +71,7 @@ export class UserVar {
         "divisionName" : "Division",
         "department" : "Department",
         "isRequired" : " is Required"
+        
     }
 
     title = 'User Management';

@@ -4,6 +4,7 @@ import { HeaderService, HttpService, AlertService } from '../services';
 import { ToastrService } from 'ngx-toastr';
 // import { TraingClassTabComponent } from './traing-class-tab/traing-class-tab.component'
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { CmsLibraryVar } from '../Constants/cms-library.var';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./cms-library.component.css']
 })
 export class CMSLibraryComponent implements OnInit {
-  constructor(private modalService: BsModalService, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
+  constructor(private modalService: BsModalService,public cmsLibraryVar : CmsLibraryVar, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
   modalRef;
   videoFile;
   selectedTab;
