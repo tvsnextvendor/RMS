@@ -91,9 +91,9 @@
                     <td class="text-left">{{file.filePermissionType}}</td>
                     <td>
                         <a (click)="viewTraningVideo(viewVideo,file.fileUrl)"><i class="fa fa-eye header-icon"
-                            aria-hidden="true"></i></a>
-                        <a (click)="openEditVideo(editVideoTemp,user,i)"><i class="fas fa-pencil-alt header-icon"></i></a>
-                        <a (click)="removeDoc(deleteDocument,file.fileId,i)"><i class="fa fa-trash header-icon"></i></a>
+                            aria-hidden="true" title="View"></i></a>
+                        <a (click)="openEditVideo(editVideoTemp,user,i)"  title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
+                        <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                     </td>
                 </tr>
                 <!-- <tr class="table-desc-color">
@@ -198,7 +198,7 @@
         </button>
     </div>
     <div class="modal-body text-center">
-        <span class="text-cont">{{constant.videoFormLabels.deleteDocConfirmation}}</span>
+        <span class="text-content">{{constant.videoFormLabels.deleteDocConfirmation}}</span>
         <div class="text-center mt-4">
             <button (click)="deleteDoc()" class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
             <button type="button" class="btn btn-default"

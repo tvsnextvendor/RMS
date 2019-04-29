@@ -1533,12 +1533,25 @@ p.text-nowrap{
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
   width: 6px !important;
 }
-.text-cont{
+.text-content{
   font-size:15px;
   color: #73737B;
 }
 .capitalize{
   text-transform: capitalize;
+}
+.table td label{
+  text-transform: inherit;
+}
+.dropdown-menu{
+  padding: 0;
+}
+.dropdown-menu .dropdown-item{
+  font-size: 14px;
+  padding: 8px 0px;
+}
+.dropdown-divider{
+  margin: 0;
 }
 /************************************ Responsive Alignment ************************************/
 
