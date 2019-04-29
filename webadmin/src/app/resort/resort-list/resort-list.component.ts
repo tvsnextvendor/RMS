@@ -21,6 +21,7 @@ export class ResortListComponent implements OnInit {
 
   notificationValue;
   userId;
+  resortId;
 
   constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar, private toastr: ToastrService, private headerService: HeaderService,private utilService : UtilService,private resortService : ResortService) {
     this.resortVar.url = API_URL.URLS;
@@ -41,7 +42,6 @@ export class ResortListComponent implements OnInit {
     this.commonService.getResortList().subscribe((result) => {  
       if(result ){
         this.resortVar.resortList = result.data.rows;
-      
       }
     });
   }
@@ -62,4 +62,25 @@ export class ResortListComponent implements OnInit {
       }
     })
   }
+  deleteResortAPI(){
+    this.resortService.deleteResort(this.resortId).subscribe(resp=>{
+     // if(resp && resp.isSuccess){
+        this.getResortDetails();
+        this.alertService.success(resp.message);
+        this.resortVar.modalRef.hide();
+      //}
+    });
+
+  }
+
+  removeResort(template: TemplateRef<any>,resortId, i) {
+    let modalConfig={
+        class : "modal-dialog-centered"
+
+    }
+    this.resortId= resortId;
+    this.resortVar.modalRef = this.modalService.show(template,modalConfig); 
+  }
+
+
 }

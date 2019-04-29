@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Injectable({ providedIn: 'root' })
 export class ResortVar {
@@ -27,7 +28,17 @@ export class ResortVar {
         "division" : "Division",
         "department" : "Department",
         "isRequired" : " is Required",
+        "deleteResort":"Delete Resort",
+        "deleteResortConfirmation":"Are you sure you want to delete this resort?",
     };
+    btns = {
+       
+        "save" : 'SAVE',
+        "cancel" : 'CANCEL',
+        "ok":'Ok',
+        "Cancel":'Cancel',
+    }
+
     divisionTemplate: any[] = [{
         division: 1,
         divisionName : 'Division1'
@@ -36,4 +47,9 @@ export class ResortVar {
         department: 1,
         departmentName : ''
     }];
+    modalRef: BsModalRef;
+    modalConfig = {
+            backdrop: true,
+            ignoreBackdropClick: true
+        };
 }
