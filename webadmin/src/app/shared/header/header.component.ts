@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   headerData: Header = {} as any;
   filtersLoaded: Promise<boolean>;
 
-  constructor(private commonService:CommonService,public headerVar: HeaderVar,private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { 
+  constructor(public commonService:CommonService,public headerVar: HeaderVar,private headerService: HeaderService,private http: HttpService,public router:Router,public authGuard:AuthGuard) { 
     const currentUrl = this.router.url;
     this.headerVar.splitUrl = currentUrl.split('/');
     this.headerVar.url = API_URL.URLS;
