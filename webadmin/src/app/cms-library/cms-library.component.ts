@@ -23,10 +23,12 @@ export class CMSLibraryComponent implements OnInit {
   trainingClassId;
   courseId;
   CMSFilterSearchEvent;
+  quizTabHit;
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
     this.selectedTab = 'course';
+    this.quizTabHit = false;
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
@@ -48,14 +50,22 @@ export class CMSLibraryComponent implements OnInit {
   }
 
   headerTabChange(title,key){
+    console.log(title)
     this.selectedTab = title;
-    if(key != 'trainingfiles'){
+    if(key != 'trainingfiles' && (title == 'video' || title == 'document')){
       this.trainingClassId = '';
+      this.quizTabHit = false;
+    }
+    else if(key != 'trainingfiles' && title == 'quiz'){
+      this.quizTabHit = true;
+    }
+    else{
+      this.quizTabHit = false; 
     }
   }
 
   redirectTab(value){
-    if(value && (value.tab == 'video' || value.tab == 'document') ){
+    if(value){
       this.trainingClassId = value.id;
     }
     this.courseId = value.courseId;
