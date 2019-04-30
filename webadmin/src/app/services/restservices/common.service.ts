@@ -39,8 +39,8 @@ getResortList(){
     return this.http.getLocal('local',this.url.resortList);
 }
 
-getDesignationList(){
-    return this.http.getLocal('local',this.url.designationList);
+getDesignationList(resortId){
+    return this.http.getLocal('local',this.url.designationList+'?resortId'+resortId);
 }
 
 uploadFiles(file){

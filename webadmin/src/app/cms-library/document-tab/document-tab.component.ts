@@ -108,7 +108,12 @@ export class DocumentTabComponent implements OnInit {
       this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
+        if(resp.data.count === 0)
+        {
+          this.videoListValue = [];
+        }else{
         this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
+        }
       }
     },err =>{
       this.CMSFilterSearchEventSet = '';
