@@ -44,6 +44,7 @@ export class AddModuleComponent implements OnInit {
     filePath = '';
     fileExtensionType;
     fileImageDataPreview;
+    fileDuration;
     // selectedCourseIds:any;
 
    constructor(private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
@@ -125,9 +126,21 @@ export class AddModuleComponent implements OnInit {
 
     fileUpload(e){
         this.showImage = true;
+        let self = this;
         let reader = new FileReader();
+        var duration; 
         if(e.target && e.target.files[0]){
             let file = e.target.files[0];
+            // get video duration
+        var video = document.createElement('video');
+        video.preload = 'metadata';
+        video.onloadedmetadata = function() {
+          window.URL.revokeObjectURL(video.src);
+          duration = video.duration;
+          self.fileDuration = duration;
+        }
+        video.src = URL.createObjectURL(file);
+
             document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
             this.uploadFile = file;
             let type = file.type;
@@ -399,7 +412,7 @@ export class AddModuleComponent implements OnInit {
         this.messageClose();
         let self = this;
        this.videoSubmitted = true;
-       let videoObj = {videoName : self.moduleVar.selectVideoName,description : self.moduleVar.description,url:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:'',filePath:'',fileSize:''}
+       let videoObj = {videoName : self.moduleVar.selectVideoName,description : self.moduleVar.description,url:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:'',filePath:'',fileSize:'',fileLength : this.fileDuration}
         if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
             this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
             // console.log(viewImageFile,'fileeeeee');

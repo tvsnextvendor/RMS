@@ -28,6 +28,7 @@ export class DocumentTabComponent implements OnInit {
   deletedFilePath=[];
   deletedFileId=[];
   fileCheck= false;
+  uploadPath;
 
   @Input() CMSFilterSearchEventSet;
   @Output() selectedVideos  = new EventEmitter<object>();
@@ -49,8 +50,6 @@ export class DocumentTabComponent implements OnInit {
     }
   }
 
-
-
   getCourseAndTrainingClass(){
     this.courseService.getAllCourse().subscribe(result=>{
       if(result && result.isSuccess){
@@ -58,6 +57,13 @@ export class DocumentTabComponent implements OnInit {
       }
     })
   }
+
+  openFileContent(data){
+    let url = this.uploadPath+data.fileUrl;
+      window.open(url, "_blank");
+  }
+
+ 
 
    courseChange(){
      this.selectedClass="";
@@ -112,9 +118,10 @@ export class DocumentTabComponent implements OnInit {
         {
           this.videoListValue = [];
         }else{
-        this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
-        }
+           this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
+        this.uploadPath = resp.data && resp.data.uploadPaths ? resp.data.uploadPaths.uploadPath : '';
       }
+       }
     },err =>{
       this.CMSFilterSearchEventSet = '';
     });
@@ -122,7 +129,6 @@ export class DocumentTabComponent implements OnInit {
   }
 
   formatBytes(bytes, decimals = 2) {
-    console.log(bytes)
     if (bytes === 0 || bytes === null) return '0 Bytes';
 
     const k = 1024;

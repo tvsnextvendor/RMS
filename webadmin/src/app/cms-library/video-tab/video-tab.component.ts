@@ -129,7 +129,6 @@ constructor(private courseService: CourseService, private alertService: AlertSer
         }
         this.uploadPath = resp.data.uploadPaths.uploadPath;
       }
-      console.log(this.videoListValue);
       this.CMSFilterSearchEventSet = '';
     },err =>{
       this.CMSFilterSearchEventSet = '';

@@ -96,7 +96,7 @@
                     <td>{{file.filePermissionType}}</td>
                    
                     <td>
-                        <a title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a title="View" (click)="openFileContent(file)"><i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
                         <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                     </td>

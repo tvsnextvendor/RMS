@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output,TemplateRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { HeaderService,HttpService,CourseService,CommonService,AlertService ,UtilService} from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
@@ -46,8 +47,9 @@ export class CourseTabComponent implements OnInit {
   videoIndex;
   videoList;
   selectedIndex; 
+  fileDuration;
 
-  constructor(private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
+  constructor(private sanitizer: DomSanitizer ,private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
@@ -214,7 +216,7 @@ export class CourseTabComponent implements OnInit {
   submitUpload(){
     let self = this;
     this.videoSubmitted = true;
-    let videoObj = {fileName : self.uploadFileName,fileDescription : self.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.fileExtension,fileImage:'',filePath:'',fileSize:'',trainingClassId:this.selectedEditTrainingClass}
+    let videoObj = {fileName : self.uploadFileName,fileDescription : self.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.fileExtension,fileImage:'',filePath:'',fileSize:'',trainingClassId:this.selectedEditTrainingClass,fileLength : this.fileDuration}
      if(this.uploadFileName && this.description && this.videoFile){
         //  this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
          // console.log(viewImageFile,'fileeeeee');
@@ -308,9 +310,20 @@ export class CourseTabComponent implements OnInit {
 
   fileUpload(e){
     this.showImage = true;
+    let self = this;
     let reader = new FileReader();
     if(e.target && e.target.files[0]){
         let file = e.target.files[0];
+      // get video duration
+        var video = document.createElement('video');
+        video.preload = 'metadata';
+        video.onloadedmetadata = function() {
+          window.URL.revokeObjectURL(video.src);
+          var duration = video.duration;
+          self.fileDuration = duration;
+        }
+        video.src = URL.createObjectURL(file);
+        
         document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
         this.uploadFile = file;
         let type = file.type;
