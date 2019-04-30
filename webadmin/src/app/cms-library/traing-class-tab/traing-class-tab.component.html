@@ -41,9 +41,9 @@
             <div class="clk-sec float-left">
                 <a href="javascript:void(0);"
                     (click)="tabChange('video',training.trainingClassId,'')">{{cmsLibraryVar.labels.video}} :
-                    {{training?.TrainingClass?.videosCount}}</a>
+                    {{training?.TrainingClass?.videosCount ? training?.TrainingClass?.videosCount : 0}}</a>
                 <a href="javascript:void(0);" (click)="tabChange('document',training.trainingClassId,'')"
-                    class="ml-2">{{cmsLibraryVar.labels.document}} : {{training?.TrainingClass?.documentsCount}}</a>
+                    class="ml-2">{{cmsLibraryVar.labels.document}} : {{training?.TrainingClass?.documentsCount ? training?.TrainingClass?.documentsCount : 0}}</a>
             </div>
             <a class="float-right" href="javascript:void(0);"
                 (click)="tabChange('quiz',training.trainingClassId,course.courseId)">{{cmsLibraryVar.labels.viewQuiz}}</a>

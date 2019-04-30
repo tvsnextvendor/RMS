@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output,TemplateRef } from '@angular/core';
-import { HeaderService,HttpService,CourseService,CommonService,AlertService } from '../../services';
+import { HeaderService,HttpService,CourseService,CommonService,AlertService ,UtilService} from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 
@@ -20,6 +20,7 @@ export class CourseTabComponent implements OnInit {
   selectedEditCourseName;
   trainingClassList =[];
   selectedEditTrainingClass;
+  selectedEditTrainingClassName;
   selectedCourse = [];
   pageSize;
   p;
@@ -46,7 +47,7 @@ export class CourseTabComponent implements OnInit {
   videoList;
   selectedIndex; 
 
-  constructor(private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService) { }
+  constructor(private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
@@ -118,6 +119,7 @@ export class CourseTabComponent implements OnInit {
       this.enableView = true;
       this.enableEdit = false;
       this.enableDuplicate = true;
+      this.editCourseData(index,'');
     }
     else if(type === 'trainingClass'){
       let value = {tab : 'training'}
@@ -133,6 +135,7 @@ export class CourseTabComponent implements OnInit {
         this.selectedEditCourseName  = item.courseName;
         this.trainingClassList = item.CourseTrainingClassMaps;
         this.selectedEditTrainingClass = this.trainingClassList[0].trainingClassId;
+        this.selectedEditTrainingClassName = this.trainingClassList[0].TrainingClass.trainingClassName;
       }
     })
     this.getEditFileData(this.selectedEditTrainingClass);
@@ -190,7 +193,8 @@ export class CourseTabComponent implements OnInit {
     return this.formatBytes(i,2);
   }
   formatBytes(bytes,decimals){
-    if(bytes == 0) return '0 Bytes';
+    console.log(bytes,'////')
+    if(bytes == 0 || bytes === null) return '0 Bytes';
       var k = 1024,
         dm = decimals <= 0 ? 0 : decimals || 2,
         sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
@@ -264,7 +268,7 @@ export class CourseTabComponent implements OnInit {
     console.log(this.deletedFilePath)
   }
 
-  updateCourse(){
+  updateCourse(type){
     let self =this;
      this.fileList.filter(function (x) {
           if(x.addNew){
@@ -272,20 +276,31 @@ export class CourseTabComponent implements OnInit {
             return delete x.addNew && delete x.TrainingClass;
           }
       }); 
-    let params = {
+      let params = {
       'trainingClassId' : this.selectedEditTrainingClass,
       'courseName' : this.selectedEditCourseName,
       'fileIds' : this.deletedFileId,
-      'files' : this.fileList
+      'files' : this.fileList,
+      createdBy: this.utilService.getUserData().userId
     }
-    this.courseService.updateCourseList(this.selectedEditCourse,params).subscribe(resp=>{
-      console.log(resp);
-      if(resp && resp.isSuccess){
-        this.enableDropData('closeEdit','');
-        this.getCourseDetails();
-        this.alertService.success('Course updated successfully');
-      }
-    })
+    if(type === 'edit'){
+      this.courseService.updateCourseList(this.selectedEditCourse,params).subscribe(resp=>{
+        if(resp && resp.isSuccess){
+          this.enableDropData('closeEdit','');
+          this.getCourseDetails();
+          this.alertService.success('Course updated successfully');
+        }
+      })
+    }
+    else if(type === 'duplicate'){
+      this.courseService.addCourseDuplicate(params).subscribe(resp=>{
+        if(resp && resp.isSuccess){
+          this.enableDropData('closeEdit','');
+          this.getCourseDetails();
+          this.alertService.success('Course added successfully');
+        }
+      })
+    }
   }
 
   fileUpload(e){

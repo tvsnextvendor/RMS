@@ -70,6 +70,11 @@ export class UserComponent implements OnInit {
         this.pageLimitOptions = [5, 10, 25];
         this.pageLimit = [this.pageLimitOptions[1]];
         this.userList();
+        this.getResortId();
+
+    }
+
+    getResortId(){
         let userData = this.utilService.getUserData();
         let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
         
@@ -187,6 +192,7 @@ export class UserComponent implements OnInit {
          this.resetFields();   
          this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
         }
+        this.getResortId();
     }
 
     openAddRole(template: TemplateRef<any>, data,  index){

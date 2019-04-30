@@ -142,4 +142,7 @@ export class CourseService {
     }
     return query;
   }
+  addCourseDuplicate(params){
+    return this.http.post('local',this.url.addDuplicateCourse,params);
+  }
 }

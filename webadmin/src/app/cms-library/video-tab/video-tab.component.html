@@ -83,11 +83,11 @@
                             <span class="square-checkmark"></span>
                         </label>
                     </td>
-                    <td class="text-left">{{file.fileSize}} MB</td>
-                    <td class="text-left">{{file.fileExtension}}</td>
+                    <td class="text-left">{{formatBytes(file.fileSize)}}</td>
+                    <td class="text-left">{{file.fileExtension ? file.fileExtension : 'mp4'}}</td>
                     <td class="text-left">03:55</td>
                    
-                    <td>100</td>
+                    <td>10</td>
                     <td class="text-left">{{file.filePermissionType}}</td>
                     <td>
                         <a (click)="viewTraningVideo(viewVideo,file.fileUrl)"><i class="fa fa-eye header-icon"

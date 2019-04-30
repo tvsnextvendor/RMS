@@ -70,34 +70,6 @@
                         <span class="col-md-6 text-right">Total No. of Certificate: 30</span>
                     </div>
                 </div>
-                <!-- <div class="row py-3">
-                    <div class="col-md-3 p-3 assigned-perc">20%</div>
-                    <div class="col-md-3 p-3 inprogress-perc">30%</div>
-                    <div class="col-md-6 p-3 completed-perc">50%</div>
-                </div>
-                <div class="row usage-state">
-                    <div class="col-md-3">Assigned</div>
-                    <div class="col-md-3">In Progress</div>
-                    <div class="col-md-6">Completed</div>
-                </div> -->
-                <!-- <div class="progress-section">
-                    <div class="row progress">
-                        <div class="progress-bar p-3 assigned-perc" style="width:20%">
-                            20%
-                          </div>
-                          <div class="progress-bar p-3 inprogress-perc" style="width:30%">
-                            30%
-                          </div>
-                        <div class="progress-bar p-3 completed-perc" style="width:50%">
-                            50%
-                          </div>
-                    </div>
-                    <div class="row usage-state">
-                        <div class="" style="width:20%">Assigned</div>
-                        <div class="" style="width:30%">In Progress</div>
-                        <div class="" style="width:50%">Completed</div>
-                    </div>
-                </div> -->
                 <div class="progress-section pt-3">
                     <div class="row progress">
                         <div class="progress-bar p-3 assigned-perc" style="width:20%">
@@ -118,7 +90,7 @@
                 </div>
 
                 <div class="py-3 clearfix">
-                    <button class="btn btn-primary" type="button" (click)="enableDropData('duplicate')">Duplicate</button>
+                    <button class="btn btn-primary" type="button" (click)="enableDropData('duplicate',i)">Duplicate</button>
                 </div>
             </div>
         </div> 
@@ -139,11 +111,11 @@
                 <div class="btn-group pull-right" dropdown>
                     <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                         aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
-                        Upload <span class="caret ml-4"></span>
+                        {{cmsLibraryVar.labels.upload}} <span class="caret ml-4"></span>
                     </button>
                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu upload-btn" role="menu" aria-labelledby="button-basic">
-                        <li role="menuitem"><a class="dropdown-item pl-2" (click)="showCMSLibrary()">CMS Library</a></li>
-                        <li role="menuitem"><a class="dropdown-item pl-2" (click)="fileUploadPopup(uploadPopup)">Desktop</a></li>
+                        <li role="menuitem"><a class="dropdown-item pl-2" (click)="showCMSLibrary()">{{cmsLibraryVar.labels.showCMSLibrary}}</a></li>
+                        <li role="menuitem"><a class="dropdown-item pl-2" (click)="fileUploadPopup(uploadPopup)">{{cmsLibraryVar.labels.desktop}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -166,9 +138,8 @@
                     <p *ngFor="let fileData of fileList;let i = index" [ngClass]="fileData.addNew ? 'course-list course-list-select' : 'course-list'"  dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="assets/images/close.png"></a></p>
                 </div>
                 <div class="p-3 clearfix">
-                        
-                    <button class="btn btn-primary ml-3" type="button" (click)="updateCourse()">Save</button>
-                    <button class="btn btn-primary" type="button">Save as new version</button>
+                    <button class="btn btn-primary ml-3" type="button" (click)="updateCourse('edit')">{{cmsLibraryVar.labels.save}}</button>
+                    <button class="btn btn-primary" type="button">{{cmsLibraryVar.labels.saveAsNew}}</button>
                 </div>
             </div>    
         </div>
@@ -181,40 +152,42 @@
     <div class="col-md-12 pt-2 clearfix px-0" *ngIf="enableDuplicate && enableIndex === i">
      	<div class="white-bg p-4 clearfix">
      	    <div class="clearfix">
-                <p class="dup-hd">Duplicate</p>
+                <p class="dup-hd">{{cmsLibraryVar.labels.duplicate}}</p>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeDuplicate')"> 
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="col-md-12 p-0 clearfix">
-                <div class="fileUpload btn btn-primary">
-                    <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload<!-- <i class="fa fa-sort-desc ml-2" aria-hidden="true"></i> --></span>
-                    <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
-                </div>                           
-            </div>
-            <div class="px-5 py-3">
-            	<div class="row">
-    	            <div class="col-md-6 mb-3"><input type="text" class="form-control pl-0" placeholder="Copy of Course Name 1" name="course"/></div>
-                    <div class="col-md-6 mb-3"><input type="text" class="form-control pl-0" placeholder="Training class" name="course"/></div>
+            <div class="col-md-11 p-0 clearfix">
+                    <div class="btn-group pull-right" dropdown>
+                        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                            aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
+                            {{cmsLibraryVar.labels.upload}} <span class="caret"></span>
+                        </button>
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                            <li role="menuitem"><a class="dropdown-item" (click)="showCMSLibrary()">{{cmsLibraryVar.labels.cmsLibrary}}</a></li>
+                            <li role="menuitem"><a class="dropdown-item" (click)="fileUploadPopup(uploadPopup)">{{cmsLibraryVar.labels.desktop}}</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-12 pt-3">
-                    <p class="course-list">Video 1<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Video 2<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Video 3<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Document 1<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Document 2<img  class="close-alg" src="assets/images/close.png"></p>
-                </div>
-                <!-- <div class="col-md-12 pt-3">
-                    <p class="course-list">Video 4<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Video 3<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Video 5<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Document 4<img  class="close-alg" src="assets/images/close.png"></p>
-                    <p class="course-list">Document 6<img  class="close-alg" src="assets/images/close.png"></p>
-                </div> -->
-                <div class="p-3 clearfix">
-                    <button class="btn btn-primary" type="button">Save</button>
-                </div>
-            </div>    
+                <div class="px-4 py-3">
+                    <div class="row">
+                        <div class="col-md-6 mb-3 select select-style clearfix">
+                            <input type = "text" class="form-control pl-0" [(ngModel)] = "selectedEditCourseName" name="courseName"/>
+                        </div>
+                        <div class="col-md-6 mb-3 select select-style clearfix">
+                            <select name="Training Class" class="form-control pl-0" [(ngModel)]="selectedEditTrainingClass" (change)="getEditFileData(trainingClass.value)" #trainingClass>
+                                <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.TrainingClass.trainingClassName}}</option>
+                            </select>
+                            <div class="select_arrow"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
+                        <p class="course-list" *ngFor="let fileData of fileList;let i = index" dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="assets/images/close.png"></a></p>
+                    </div>
+                    <div class="p-3 clearfix">
+                        <button class="btn btn-primary ml-3" type="button" (click)="updateCourse('duplicate')">{{cmsLibraryVar.labels.save}}</button>
+                    </div>
+                </div>    
         </div>
     </div>
 </div>    
@@ -231,20 +204,20 @@
                 <div class="row col-12 col-md-12 p-0">
                     <div class="row form-group">
                         <div class="col-md-4 pl-0">
-                            <label class="col-md-12 p-0 label-title upload-label">File name</label>
+                            <label class="col-md-12 p-0 label-title upload-label">{{cmsLibraryVar.labels.fileName}}</label>
                             <input type="text" class="form-control col-md-12 p-0" placeholder="Enter File Name" name="selectVideoName" [(ngModel)]="uploadFileName">
-                            <span class="required_color" *ngIf="videoSubmitted && !selectVideoName">Video name is required</span>
+                            <span class="required_color" *ngIf="videoSubmitted && !selectVideoName">{{cmsLibraryVar.labels.fileName}}{{cmsLibraryVar.labels.isRequired}}</span>
                         </div>
                         <div class="col-md-4 pl-0">
-                            <label class="col-md-12 p-0 label-title upload-label">Description</label>
+                            <label class="col-md-12 p-0 label-title upload-label">{{cmsLibraryVar.labels.description}}</label>
                             <input type="text" class="form-control col-md-12 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="description">
-                            <span class="required_color" *ngIf="videoSubmitted && !description">Description is required</span>
+                            <span class="required_color" *ngIf="videoSubmitted && !description">{{cmsLibraryVar.labels.description}}{{cmsLibraryVar.labels.isRequired}}</span>
                         </div>
                         <div class="col-md-4 p-0 upload-line">
                             <div class="row">
                                 <div class="col-md-6 p-0 mt-4">
                                     <div class="fileUpload btn btn-primary">
-                                        <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>Upload</span>
+                                        <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{cmsLibraryVar.labels.upload}}</span>
                                             <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
                                     </div>      
                                 <div *ngIf='!previewImage'>

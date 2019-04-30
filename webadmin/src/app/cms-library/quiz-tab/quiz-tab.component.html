@@ -2,7 +2,7 @@
     <div class="white-bg pt-4 pb-4">
         <form>
             <div class="col-md-9 row m-auto top-select-bx">
-                <span *ngIf="!directTabEnable" class="col-md-5 form-control"> {{courseName}}</span>
+                <span *ngIf="!directTabEnable" class="col-md-5 form-control" style="margin-right: 40px;"> {{courseName}}</span>
                 <span *ngIf="!directTabEnable" class="col-md-5 form-control"> {{trainingClassName}}</span>
                 <select *ngIf="directTabEnable" name="courseId" class="form-control col-md-5 pl-0" [(ngModel)] = "filterCourse" #course (change)="dropdownUpdate(course.value)">
                     <option [value]=null>--Select course--</option>
