@@ -312,7 +312,7 @@
                         [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (focusout)="validationUpdate('mobile')" /><span
                         class="required_color"
                         *ngIf="userForm.submitted && !phoneNumber">{{constant.mandatoryText.mobNo}}</span><span
-                        class="required_color" *ngIf="phoneNumber && validPhone">
+                        class="required_color" *ngIf="userForm.submitted && phoneNumber && validPhone">
                         {{constant.mandatoryText.invalidMobNo}}</span>
                 </span>
             </div>

@@ -22,7 +22,7 @@ export class CmsLibraryVar {
         "clearFilter" : "Clear Filter",
         "apply" : "Apply",
         "deleteDoc" : "Delete Document",
-        "deleteDocConfirmation": "Are you sure you want to delete this document?",
+        "deleteDocConfirmation": "This file will be deleted from all courses,Do you still want to  continue?",
         "upload" : "Upload",
         "cancel" : "Cancel",
         "cmsLibrary" : "CMS Library",
@@ -33,6 +33,14 @@ export class CmsLibraryVar {
         "notification" : "Notification",
         "quiz" : "Quiz",
         "recentlyDelete" : "Recently Deleted",
+        "duplicate" : "Duplicate",
+        "save" : "Save",
+        "saveAsNew" : "Save As New Version",
+        "desktop" : "Desktop",
+        "fileName" : "File Name",
+        "description" : "Description",
+        "isRequired" : " is Required"
+
     }
        
 

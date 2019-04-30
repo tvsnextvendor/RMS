@@ -16,7 +16,7 @@ export class VideoVar {
         employees        : 'All Employees',
         select           : 'Select',
         deleteVideo      : "Delete Video",
-        deleteDocConfirmation: "Are you sure you want to delete this Video?",
+        deleteDocConfirmation: "This file will be deleted from all courses,Do you still want to  continue?",
 
     };
     btns = {

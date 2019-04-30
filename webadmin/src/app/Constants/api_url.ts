@@ -112,6 +112,7 @@ export class API_URL {
     quizDelete : '8103/trainingClass/quizDelete/',
     getTrainingClassById : '8103/course/getTrainingClasses',
     assignVideoToCourse: '8103/course/assignVideosToCourse',
+    addDuplicateCourse : '8103/course/courseDuplicate',
 
 
     //Resort Services

@@ -97,8 +97,9 @@ export class AddQuizComponent implements OnInit {
     }
   }
 
-  optionValueUpdate(){
+  optionValueUpdate(event,i){
     this.optionData = !this.optionData;
+    this.quizQuestionsForm[i].answer = parseInt(event.target.value) === 0 ? 'false' : 'true';
   }
   
   editQuizDetails(quizData){
@@ -142,7 +143,7 @@ export class AddQuizComponent implements OnInit {
     else if(data === "True/False"){
       quiz[i].options = [];
       quiz[i].option = "True/False";
-      quiz[i].answer = '';
+      quiz[i].answer = 'true';
     }
     else{
       quiz[i].options = [];
@@ -237,7 +238,6 @@ export class AddQuizComponent implements OnInit {
       }
       else{
         // console.log(JSON.stringify(params));
-        debugger;
         this.courseService.addTrainingClass(params).subscribe((result)=>{
           console.log(result)
           if(result && result.isSuccess){
