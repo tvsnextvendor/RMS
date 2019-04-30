@@ -105,8 +105,8 @@ export class CourseService {
     return this.http.post('local',this.url.assignVideoToCourse,data);
   }
 
-  getEditCourseDetails(courseId,classId){
-    return this.http.getLocal('local',this.url.courseEditFileList+'?courseId='+courseId+'&trainingClassId='+classId);
+  getEditCourseDetails(fileType,courseId,classId){
+    return this.http.getLocal('local',this.url.courseEditFileList+'?fileType='+fileType+'&courseId='+courseId+'&trainingClassId='+classId);
   }
 
   updateCourseList(courseId,params){

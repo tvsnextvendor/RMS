@@ -25,6 +25,9 @@ export class DocumentTabComponent implements OnInit {
   submitted=false;
   trainingClassList;
   fileList=[];
+  deletedFilePath=[];
+  deletedFileId=[];
+  fileCheck= false;
 
   @Input() CMSFilterSearchEventSet;
   @Output() selectedVideos  = new EventEmitter<object>();
@@ -66,16 +69,27 @@ export class DocumentTabComponent implements OnInit {
    }
 
 
+  removeVideo(data,i){
+    this.fileList.splice(i,1);
+    this.deletedFilePath.push(data.fileUrl);
+    this.deletedFileId.push(data.fileId);
+    if(data.fileType === 'Video'){
+      this.deletedFilePath.push(data.fileImage);
+    }
+  }
+
 
   getEditFileData(){
-      this.courseService.getEditCourseDetails( this.selectedCourse,this.selectedClass).subscribe(resp => {
+      this.courseService.getEditCourseDetails( 'Document',this.selectedCourse,this.selectedClass).subscribe(resp => {
         if(resp && resp.isSuccess){
           let files = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
+          if(this.fileList){
            files.map(x=>{
-             if(x.fileType=="Document"){
-                this.fileList.push(x);
-              }
+             this.fileList.push(x);
            })
+          }else{
+           this.fileList= files;
+          }
         }
       })
   }
@@ -155,6 +169,45 @@ export class DocumentTabComponent implements OnInit {
          }
      })
    }
+
+
+  AssignNewFiles(){
+      this.submitted=true;
+      let self =this;
+      let updatedFileList = this.fileList.filter(function (x) {
+          if(x.addNew){
+            x.trainingClassId = self.selectedClass;
+            return delete x.addNew && delete x.TrainingClass;
+          }
+      }); 
+      let fileIds = updatedFileList.map(a => a.fileId);
+      updatedFileList.forEach(function(x){ delete x.fileId });
+      let postData = {
+        trainingClassId : this.selectedClass,
+        courseId : this.selectedCourse,
+        fileType :"document",
+        assignedFiles: updatedFileList,
+        filesIds: fileIds,
+     }
+
+    if(this.submitted && this.selectedClass && this.selectedCourse){
+      this.courseService.assignVideosToCourse(postData).subscribe(res=>{
+            if(res.isSuccess){
+              this.alertService.success(res.message);
+              this.openAddVideosToCourse();
+              this.resetAssignForm();
+              this.fileCheck= false;
+            }
+      })
+    }
+  }
+
+  resetAssignForm(){
+    this.selectedClass = "";
+    this.selectedCourse = "";
+    this.fileList =[];
+    this.submitted=false;
+  }
 
 
 }

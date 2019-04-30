@@ -88,7 +88,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
 
 
   getEditFileData(){
-      this.courseService.getEditCourseDetails( this.selectedCourse,this.selectedClass).subscribe(resp => {
+      this.courseService.getEditCourseDetails('Video', this.selectedCourse,this.selectedClass).subscribe(resp => {
         if(resp && resp.isSuccess){
           let files = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
           if(this.fileList){
