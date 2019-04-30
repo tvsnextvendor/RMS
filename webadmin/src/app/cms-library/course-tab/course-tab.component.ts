@@ -143,7 +143,7 @@ export class CourseTabComponent implements OnInit {
 
   getEditFileData(classId){
     this.selectedEditTrainingClass = classId;
-    this.courseService.getEditCourseDetails( this.selectedEditCourse,classId).subscribe(resp => {
+    this.courseService.getEditCourseDetails('',this.selectedEditCourse,classId).subscribe(resp => {
       if(resp && resp.isSuccess){
         this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
         if(this.addedFiles){
