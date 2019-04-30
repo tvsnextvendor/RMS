@@ -115,17 +115,25 @@ constructor(private courseService: CourseService, private alertService: AlertSer
   getCourseFileDetails() {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
     let classId = this.trainingClassId ? this.trainingClassId : '';
+
+ 
+
     this.courseService.getFiles('Video',classId,this.page,this.pageSize,query).subscribe(resp => {
-      this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
-        this.videoListValue = resp.data && resp.data.rows.length && resp.data.rows;
+        if(resp.data.count === 0)
+        {
+          this.videoListValue = [];
+        }else{
+          this.videoListValue = resp.data && resp.data.rows.length && resp.data.rows;
+        }
         this.uploadPath = resp.data.uploadPaths.uploadPath;
       }
+      console.log(this.videoListValue);
+      this.CMSFilterSearchEventSet = '';
     },err =>{
       this.CMSFilterSearchEventSet = '';
     });
-  
   }
   openEditVideo(template: TemplateRef<any>, data, index) {
     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
