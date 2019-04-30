@@ -221,7 +221,7 @@
                                             <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
                                     </div>      
                                 <div *ngIf='!previewImage'>
-                                        <video id="video-element" controls [hidden]="true">
+                                        <video id="video-element" controls [hidden]="true" [attr.src]="videoUrl">
                                         <source type="video/mp4">
                                     </video>
                                     <canvas id="canvas-element" [hidden]="true" ></canvas>
