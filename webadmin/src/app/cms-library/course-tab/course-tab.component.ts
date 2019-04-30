@@ -299,6 +299,9 @@ export class CourseTabComponent implements OnInit {
           this.getCourseDetails();
           this.alertService.success('Course added successfully');
         }
+      },err =>{
+        console.log(err);
+         this.alertService.error(err.error.error);
       })
     }
   }
