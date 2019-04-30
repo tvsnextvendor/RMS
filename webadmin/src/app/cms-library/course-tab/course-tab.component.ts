@@ -81,7 +81,7 @@ export class CourseTabComponent implements OnInit {
         this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
         if(this.addedFiles){
            this.selectedIndex = localStorage.getItem('index');
-           this.enableDropData('edit',parseInt(this.selectedIndex));
+           this.selectedIndex != 'NaN' ? this.enableDropData('edit',parseInt(this.selectedIndex)) : '';
         }
       }
     },err =>{

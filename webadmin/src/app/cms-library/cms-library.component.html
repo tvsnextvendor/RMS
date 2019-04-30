@@ -1,23 +1,20 @@
 <div class="pt-2">   
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/cms-library">{{cmsLibraryVar.labels.cmsLibrary}}</a></li>
-            <!-- <li class="breadcrumb-item"><a href="#">Course</a></li> -->
-            <!-- <li class="breadcrumb-item active">Videos 1</li> -->
-            <!-- <li class="breadcrumb-item"><a href="#">CMS</a></li> -->
-            <!-- <li class="breadcrumb-item"><a href="#">Course</a></li> -->
-            <li *ngIf ="selectedTab === 'course'" class="breadcrumb-item active">{{cmsLibraryVar.labels.course}}</li>
-            <li *ngIf ="selectedTab === 'training'" class="breadcrumb-item active">{{cmsLibraryVar.labels.trainingClass}}</li>
-            <li *ngIf ="selectedTab === 'video'" class="breadcrumb-item active">{{cmsLibraryVar.labels.videos}}</li>
-            <li *ngIf ="selectedTab === 'document'" class="breadcrumb-item active">{{cmsLibraryVar.labels.documents}}</li>
-            <li *ngIf ="selectedTab === 'notification'" class="breadcrumb-item active">{{cmsLibraryVar.labels.notification}}</li>
-            <li *ngIf ="selectedTab === 'quiz'" class="breadcrumb-item active">{{cmsLibraryVar.labels.quiz}}</li>
-            <li *ngIf ="selectedTab === 'recent'" class="breadcrumb-item active">{{cmsLibraryVar.labels.recentlyDelete}}</li>
+            <li class="breadcrumb-item" *ngIf="!showcreatecourse"><a routerLink="/cms-library">{{cmsLibraryVar.labels.cmsLibrary}}</a></li>
+            <li *ngIf ="selectedTab === 'course' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.course}}</li>
+            <li *ngIf ="selectedTab === 'training' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.trainingClass}}</li>
+            <li *ngIf ="selectedTab === 'video' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.videos}}</li>
+            <li *ngIf ="selectedTab === 'document' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.documents}}</li>
+            <li *ngIf ="selectedTab === 'notification' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.notification}}</li>
+            <li *ngIf ="selectedTab === 'quiz' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.quiz}}</li>
+            <li *ngIf ="selectedTab === 'recent' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.recentlyDelete}}</li>
         </ol>
     </nav>
 </div>
 
-<div class="pt-2">    
+<div class="pt-2"> 
+    <app-add-module *ngIf="showcreatecourse" (upload)="showUploadPage($event)" (completed)="completed($event)"  [addedFiles]="selectedVideoList"></app-add-module>   
     <div class="row">
         <div class="col-md-9 pt-2 px-0">
     	    <div class="clearfix" *ngIf="!hideSection">
@@ -25,7 +22,7 @@
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress">{{cmsLibraryVar.btns.workinProgress}}</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">{{cmsLibraryVar.btns.scheduleTraining}}</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification">{{cmsLibraryVar.btns.createNotification}}</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" [routerLink]="['../module']">{{cmsLibraryVar.btns.createCourse}}</button>
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{cmsLibraryVar.btns.createCourse}}</button>
             </div>
             <span class="required_color" *ngIf="showWarning">Select courses to Schedule a training</span>
             <div class="clearfix pt-4 tab-section">
@@ -33,19 +30,19 @@
                     <li class="nav-item"  *ngIf="!hideSection">
                         <a [ngClass] = "selectedTab === 'course' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#course" (click)="headerTabChange('course','')">{{cmsLibraryVar.labels.course}}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="!showcreatecourse">
                         <a [ngClass] = "selectedTab === 'training' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#training" (click)="headerTabChange('training','')">{{cmsLibraryVar.labels.trainingClass}}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="!showcreatecourse">
                         <a [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabChange('video','')">{{cmsLibraryVar.labels.videos}}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="!showcreatecourse">
                         <a [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document','')">{{cmsLibraryVar.labels.documents}}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="!showcreatecourse">
                         <a [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification','')">{{cmsLibraryVar.labels.notification}}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="!showcreatecourse">
                         <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show disabled' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">{{cmsLibraryVar.labels.quiz}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection">
@@ -59,18 +56,18 @@
                         <app-course-tab (SelectedcourseList)="getCourse($event)" (upload)="showUploadPage($event)" (trainingClassRedirect)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"  [addedFiles]="selectedVideoList" ></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
-                <div *ngIf = "selectedTab === 'training'" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
+                <div *ngIf = "selectedTab === 'training' && !showcreatecourse" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
                     <app-traing-class-tab (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"></app-traing-class-tab>
                 </div>
                 <!-- Video Tab Content -->
-                <div *ngIf = "selectedTab === 'video'" id="video" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
+                <div *ngIf = "selectedTab === 'video' && !showcreatecourse" id="video" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
                     <app-video-tab [trainingClassId] = 'trainingClassId' [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" (selectedVideos)="getVideos($event)"></app-video-tab>
                 </div>
                 <!-- Documents Tab Content -->
-                <div  *ngIf = "selectedTab === 'document'" id="document" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
+                <div  *ngIf = "selectedTab === 'document' && !showcreatecourse" id="document" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
                     <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"  (selectedVideos)="getVideos($event)"></app-document-tab>
                 </div>
-                <div  *ngIf = "selectedTab === 'quiz'" id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
+                <div  *ngIf = "selectedTab === 'quiz' && !showcreatecourse " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
                     <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId" [directTabEnable] = "quizTabHit" [uploadPage]="hideSection"></app-quiz-tab>
                 </div>
             </div>

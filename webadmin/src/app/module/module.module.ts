@@ -24,6 +24,7 @@ import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 import { BatchModule } from '../batch/batch.module';
 import {AddQuizComponent} from './add-quiz/add-quiz.component';
 import {AddNotificationComponent} from './add-notofication/add-notification.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ export const MY_MOMENT_FORMATS = {
 @NgModule({
   imports: [
     TagInputModule,
+    BsDropdownModule.forRoot(),
     BrowserModule,
     FormsModule,
     DataTableModule,
@@ -78,6 +80,7 @@ export const MY_MOMENT_FORMATS = {
   providers: [
     {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},
  ],
-  bootstrap: [AddModuleComponent]
+  bootstrap: [AddModuleComponent],
+  exports:[AddModuleComponent]
 })
 export class moduleModule { }

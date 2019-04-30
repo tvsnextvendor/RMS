@@ -60,7 +60,12 @@ export class ModuleVar {
         "contentFiles" : "Content Files",
         "createNotification" : "Create Notification",
         "scheduleTraining" : "Schedule A Training",
-        "createCourse" : "Create Course"
+        "createCourse" : "Create Course",
+        "cmsLibrary" : "CMS Library", 
+        "desktop": "Desktop",
+        "file":"File",
+        "publish" : "Publish",
+        "acceptedFileTypes": "Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI"
 
     };
     courseList = [];
