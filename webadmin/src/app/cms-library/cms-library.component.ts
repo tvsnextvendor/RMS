@@ -25,6 +25,7 @@ export class CMSLibraryComponent implements OnInit {
   courseId;
   CMSFilterSearchEvent;
   quizTabHit;
+  selectedVideoList;
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
@@ -43,7 +44,6 @@ export class CMSLibraryComponent implements OnInit {
   }
 
   showUploadPage(event){
-    console.log(event);
     if(event){
       this.hideSection= true;
       this.selectedTab = 'training'
@@ -51,7 +51,6 @@ export class CMSLibraryComponent implements OnInit {
   }
 
   headerTabChange(title,key){
-    console.log(title)
     this.selectedTab = title;
     if(key != 'trainingfiles' && (title == 'video' || title == 'document')){
       this.trainingClassId = '';
@@ -79,7 +78,6 @@ export class CMSLibraryComponent implements OnInit {
 
   hidePopup(type){
     this.modalRef.hide();
-    console.log(type)
     if(type !== 'cancel'){
       // window.location.reload();
       this.selectedCourse = [];
@@ -87,9 +85,13 @@ export class CMSLibraryComponent implements OnInit {
   }
 
   receivefilterMessage($event) {
-    console.log("CMS Library search options receive");
-    console.log($event);
     this.CMSFilterSearchEvent = $event;
     //this.headerTabChange('course','');
+   }
+
+   getVideos(event){
+     this.selectedVideoList = event;
+     this.hideSection= false;
+     this.selectedTab = 'course';
    }
 }

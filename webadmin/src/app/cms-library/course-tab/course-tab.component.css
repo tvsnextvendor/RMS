@@ -197,6 +197,9 @@
       font-size: 15px;
       color: #576271;
   }
+   .course-list-select{
+    border: 1px solid #ff0000;
+  }
   .close-alg{
       display: block;
       width: 15px;

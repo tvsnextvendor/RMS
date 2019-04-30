@@ -44,34 +44,42 @@ export class CourseTabComponent implements OnInit {
   filePath;
   videoIndex;
   videoList;
+  selectedIndex; 
 
   constructor(private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService) { }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
   @Input()  CMSFilterSearchEventSet;
+  @Input() addedFiles;
   @Output() upload= new EventEmitter<Boolean>();
+  
 
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
     this.getCourseDetails();
+    
   }
   ngDoCheck(){
     if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
       this.getCourseDetails();
     }
+    
   }
 
   getCourseDetails(){
     this.deletedFileId  = [];
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
+    let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '';
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
       this.CMSFilterSearchEventSet = '';
       if(resp && resp.isSuccess){
-        console.log("resp");
         this.totalCourseCount = resp.data.count;
         this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
+        if(this.addedFiles){
+           this.selectedIndex = localStorage.getItem('index');
+           this.enableDropData('edit',parseInt(this.selectedIndex));
+        }
       }
     },err =>{
       this.CMSFilterSearchEventSet = '';
@@ -80,6 +88,8 @@ export class CourseTabComponent implements OnInit {
   }
 
   enableDropData(type,index){
+
+    localStorage.setItem('index', index)
     if(type === "view"){
       this.enableView = this.enableIndex === index ? !this.enableView : true;
       this.enableEdit = false;
@@ -131,9 +141,13 @@ export class CourseTabComponent implements OnInit {
   getEditFileData(classId){
     this.selectedEditTrainingClass = classId;
     this.courseService.getEditCourseDetails( this.selectedEditCourse,classId).subscribe(resp => {
-      console.log(resp);
       if(resp && resp.isSuccess){
         this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
+        if(this.addedFiles){
+          this.addedFiles.forEach(element => {
+               this.fileList.push(element);
+          });
+        }
       }
     })
   }
@@ -251,7 +265,13 @@ export class CourseTabComponent implements OnInit {
   }
 
   updateCourse(){
-    console.log(this.fileList,'file',this.deletedFileId)
+    let self =this;
+     this.fileList.filter(function (x) {
+          if(x.addNew){
+            x.trainingClassId = self.selectedEditTrainingClass ;
+            return delete x.addNew && delete x.TrainingClass;
+          }
+      }); 
     let params = {
       'trainingClassId' : this.selectedEditTrainingClass,
       'courseName' : this.selectedEditCourseName,

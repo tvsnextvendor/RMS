@@ -3,7 +3,54 @@
         to Course</button>
     <h6 class="pt-2 float-right">Count:{{totalVideosCount}}</h6>
 </div>
-<div *ngIf="addVideosToCourse"></div>
+
+<div class="col-md-12 pt-2 clearfix px-0" *ngIf="addVideosToCourse">
+    <div class="white-bg p-4 clearfix">
+        <div class="clearfix">
+            <p class="dup-hd">Assign</p>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="openAddVideosToCourse()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="px-5 py-3">
+            <div class="row">
+                <div class="col-md-6 mb-3 select select-style clearfix">
+                    <select name="courseId" class="form-control pl-0" [(ngModel)]="selectedCourse"
+                        (change)="courseChange()">
+                        <option value="">--Select course--</option>
+                        <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}
+                        </option>
+                    </select>
+                    <div class="select_arrow"></div>
+                    <span class="required_color" *ngIf="submitted && !selectedCourse">Course is required.</span>
+                </div>
+                <div class="col-md-6 mb-3 select select-style clearfix">
+                    <select name="courseId" class="form-control pl-0" [(ngModel)]="selectedClass"
+                        (change)="getEditFileData()">
+                        <option value="">--Select Training Class--</option>
+                        <option *ngFor="let class of trainingClassList" [value]="class.trainingClassId">
+                            {{class.trainingClassName}}</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                    <span class="required_color" *ngIf="submitted && !selectedClass">Training Class is required.</span>
+                </div>
+            </div>
+            <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
+                <p *ngFor="let fileData of fileList;let i = index"
+                    [ngClass]="fileData.addNew ? 'course-list course-list-select' : 'course-list'" dnd-sortable
+                    [sortableIndex]="i">
+                    {{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img class="close-alg"
+                            src="assets/images/close.png"></a>
+                </p>
+            </div>
+            <div class="py-3 clearfix">
+                <button class="btn btn-primary" (click)="AssignNewFiles()" type="submit">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="col-lg-12 col-sm-12 p-0" >
     <div class="table-responsive custom-table2 px-1">
         <table class="table table-striped white-bg mt-1">
@@ -37,7 +84,7 @@
                 <tr class="table-desc-color" *ngFor="let file of videoListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalVideosCount};let i = index">
                     <td class="text-left">
                         <label class="square-cont float-left mb-0">
-                            <input type="checkbox" name="web" value="{{file.fileName}}"> {{file.fileName}}
+                            <input type="checkbox" name="web" value="{{file.fileName}}" [checked]="fileCheck"  (change)="addFiles($event,file,i)"> {{file.fileName}}
                             <span class="square-checkmark"></span>
                         </label>
                     </td>
@@ -62,7 +109,7 @@
 </div>
 
 <div class="text-center" *ngIf="uploadPage">
-    <button type="button" class="btn btn-primary creat-btn">Add</button>
+    <button type="button" class="btn btn-primary creat-btn" (click)="AddFilestoEditCourse()">Add</button>
 </div>
  
 
