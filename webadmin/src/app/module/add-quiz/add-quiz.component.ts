@@ -71,19 +71,7 @@ export class AddQuizComponent implements OnInit {
       "answer" : ''
     }];
 
-    // this.courseOptions = [
-    //   { name: "Uniform and Appearance Policy", value: "1" },
-    //   { name: "Park Smart Safety", value: "2" },
-    //   { name: "Basic Rails", value: "3" },
-    //   { name: "Welcome to 2018/19", value: "4" }
-    // ];
-    // this.videoOptions = [
-    //   { name: "Video name 1", value: "1" },
-    //   { name: "Video name 2", value: "2" },
-    //   { name: "Video name 3", value: "3" },
-    //   { name: "Video name 4", value: "4" }
-    // ];
-
+   
 
     if(this.enableQuiz){
       this.editQuizDetails(this.quizDetails);
@@ -219,10 +207,10 @@ export class AddQuizComponent implements OnInit {
         if(this.videoList.length){
           params.files = this.videoList.map(item=>{
             let obj = {
-              fileName : item.videoName,
-              fileDescription : item.description,
+              fileName : item.fileName,
+              fileDescription : item.fileDescription,
               fileType : item.fileType,
-              fileUrl : item.url,
+              fileUrl : item.fileUrl,
               fileExtension:item.fileExtension,
               fileImage : item.fileImage,
               fileSize : item.fileSize,

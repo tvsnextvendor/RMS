@@ -1,15 +1,11 @@
-import { Component, OnInit,ViewChild,ElementRef} from '@angular/core';
+import { Component,Input,Output, EventEmitter, OnInit,ViewChild,ElementRef} from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute,Params } from '@angular/router';
-import { HttpService,HeaderService,UtilService,AlertService } from '../../services';
-import { CommonService } from '../../services/restservices/common.service';
-// import { HeaderService } from '../../services/header.service';
-import { CourseService } from '../../services/restservices/course.service';
+import { HttpService,HeaderService,UtilService,AlertService,CommonService, CourseService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
 import {AddQuizComponent} from '../add-quiz/add-quiz.component';
 import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
-// import { AlertService } from '../../services/alert.service';
 
 @Component({
     selector: 'app-add-module',
@@ -45,6 +41,9 @@ export class AddModuleComponent implements OnInit {
     fileExtensionType;
     fileImageDataPreview;
     fileDuration;
+    @Output() upload= new EventEmitter<object>();
+    @Output() completed = new EventEmitter<string>();
+    @Input() addedFiles;
     // selectedCourseIds:any;
 
    constructor(private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
@@ -56,6 +55,13 @@ export class AddModuleComponent implements OnInit {
    }
 
    ngOnInit(){
+    if(this.addedFiles){
+        this.addCourse();
+        this.addedFiles.map(element => {
+        this.moduleVar.videoList.push(element)
+        })
+    }
+     console.log(this.addedFiles,"ADDEDFILES");  
     this.headerService.setTitle({title:this.moduleVar.title, hidemodule:false});
     this.moduleVar.api_url = API_URL.URLS;
     this.moduleVar.dropdownSettings = {
@@ -124,6 +130,15 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
+        
+    showCMSLibrary(){
+        let obj = {
+            'value': true,
+            'key': 'course'
+        }
+        this.upload.emit(obj);      
+    }
+    
     fileUpload(e){
         this.showImage = true;
         let self = this;
@@ -227,6 +242,7 @@ export class AddModuleComponent implements OnInit {
               };
               fileReader.readAsArrayBuffer(file);   
     }
+   
     extensionTypeCheck(fileType,extensionType,data){
         switch(fileType){
             case "video":
@@ -261,28 +277,13 @@ export class AddModuleComponent implements OnInit {
 
    updateCourse(data,i){
        this.tabEnable = true;
-       console.log(data,"dataaaaaaaa",i,"indexxxxxx");
        this.courseService.getTrainingClassById(data.id).subscribe(resp=>{
            console.log(resp);
        })
-    //    let courseObj = (this.courseDetailsList.find(item => item.courseId ===  data.id));
-    //    this.moduleVar.videoList = courseObj.videosDetails;
-    //    this.moduleVar.selectCourseName = courseObj.courseName;
-    //    this.moduleVar.courseId = courseObj.courseId;
-    //    this.moduleVar.quizDetails = courseObj.quizDetails;
-    //    this.moduleVar.courseIndex = i;
-    //    if(this.quiz){
-    //         this.quizCheck = false;
-    //        this.quiz.editQuizDetails(this.moduleVar.quizDetails);
-    //    }
-    //    else{
-    //        this.quizCheck = true;
-    //    }
        this.cancelVideoSubmit();
    }
 
    removeVideo(data,i){
-       console.log(data)
         this.messageClose();
         this.moduleVar.videoList.splice(i, 1);
         let dataContent = data.filePath;
@@ -294,6 +295,7 @@ export class AddModuleComponent implements OnInit {
    }
 
    hideTab(data){
+       console.log(data,"DATA")
         this.messageClose();
        this.courseSubmitted = true;
        this.courseData();
@@ -311,6 +313,7 @@ export class AddModuleComponent implements OnInit {
         }
 
         // data.submitCheck ? this.submitForm(true) :this.courseData(); 
+        console.log(this.moduleVar.selectCourseName, "SELECTCOURSE");
         if(this.moduleVar.selectCourseName){
             this.tabEnable = data.courseUpdate ? false : true;
             this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
@@ -325,18 +328,18 @@ export class AddModuleComponent implements OnInit {
 
    updateVideo(data,i){
        this.showImage = true;
-        this.moduleVar.selectVideoName = data.videoName;
-        this.moduleVar.description = data.description;
-        this.moduleVar.videoFile = data.url;
+        this.moduleVar.selectVideoName = data.fileName;
+        this.moduleVar.description = data.fileDescription;
+        this.moduleVar.videoFile = data.fileUrl;
         // this.previewImage = data.url;
         this.moduleVar.videoIndex = i+1;
-        let index =  (this.moduleVar.videoList.findIndex(item => item.videoName ===  data.videoName));
+        let index =  (this.moduleVar.videoList.findIndex(item => item.fileName ===  data.fileName));
         this.moduleVar.videoId = index + 1
         if(this.quiz){
             this.quizCheck = false;
             this.quiz.editQuizDetails(this.moduleVar.quizDetails);
         }
-        let fileExtension = data.url.split('.').pop();
+        let fileExtension = data.fileUrl.split('.').pop();
         this.extensionUpdate(fileExtension);
    }
 
@@ -412,7 +415,7 @@ export class AddModuleComponent implements OnInit {
         this.messageClose();
         let self = this;
        this.videoSubmitted = true;
-       let videoObj = {videoName : self.moduleVar.selectVideoName,description : self.moduleVar.description,url:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:'',filePath:'',fileSize:'',fileLength : this.fileDuration}
+       let videoObj = {fileName : self.moduleVar.selectVideoName,fileDescription : self.moduleVar.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:'',filePath:'',fileSize:'',fileLength : this.fileDuration}
         if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
             this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
             // console.log(viewImageFile,'fileeeeee');
@@ -428,7 +431,7 @@ export class AddModuleComponent implements OnInit {
                     self.filePath = result.path && result.path;
                     self.alertService.success(this.message);    
                     self.videoSubmitted = false;
-                    videoObj.url = result.data && result.data[0].filename;
+                    videoObj.fileUrl = result.data && result.data[0].filename;
                     videoObj.fileSize = result.data.length && result.data[0].size;
                     videoObj.filePath = result.path && result.path;
                     if(self.moduleVar.videoIndex){
@@ -514,7 +517,8 @@ export class AddModuleComponent implements OnInit {
                     if(resp && resp.isSuccess){
                         if(courseSubmitType) {
                             this.moduleCourseId = '';
-                            this.route.navigateByUrl("/cms-library") 
+                            this.completed.emit('completed');
+                            //this.route.navigateByUrl("/cms-library"); 
                         }
                         else{
                             // this.moduleCourseId = resp.data.courseId;
@@ -532,7 +536,8 @@ export class AddModuleComponent implements OnInit {
                     if(resp && resp.isSuccess){
                         if(courseSubmitType) {
                             this.moduleCourseId = '';
-                            this.route.navigateByUrl("/cms-library") 
+                            this.route.navigateByUrl("/cms-library");
+                            this.completed.emit('completed'); 
                         }
                         else{
                             this.moduleCourseId = resp.data.courseId;

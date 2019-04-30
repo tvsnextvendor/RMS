@@ -9,6 +9,13 @@
 .txt-color{
     color: #8D8D8D;
 }
+  .upload-btn{
+      min-width: 8rem;
+      line-height: 24px;
+    }
+   .dropdown-menu .dropdown-item {
+    width: 8rem;
+}
 .upload-label{
     color: #697380;
     font-size: 15px;
