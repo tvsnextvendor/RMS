@@ -322,18 +322,12 @@
       opacity: 0;
       filter: alpha(opacity=0);
   }
-    .upload-dropdown-btn{
-      width: 130px;
-    }
     .upload-btn{
-      width: 130px;
       min-width: 8rem;
     }
-   /*.upload-btn a[_ngcontent-c11]:not([href]):not([tabindex]):hover{
-    color: inherit;
-    text-decoration: none;
-    padding: 4px 31px;
-  }*/
+   .dropdown-menu .dropdown-item {
+    width: 8rem;
+}
     .breadcrumb{
       background: none;
       padding:0;
