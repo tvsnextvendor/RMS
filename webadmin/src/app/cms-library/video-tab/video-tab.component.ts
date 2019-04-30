@@ -36,6 +36,7 @@ submitted=false;
 trainingClassList;
 fileList=[];
 @Input() CMSFilterSearchEventSet;
+@Output() selectedVideos  = new EventEmitter<object>();
 
 
 constructor(private courseService: CourseService, private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService) {
@@ -97,7 +98,6 @@ constructor(private courseService: CourseService, private alertService: AlertSer
     if(data.fileType === 'Video'){
       this.deletedFilePath.push(data.fileImage);
     }
-    console.log(this.deletedFilePath)
   }
 
   getCourseFileDetails() {
@@ -116,7 +116,6 @@ constructor(private courseService: CourseService, private alertService: AlertSer
   
   }
   openEditVideo(template: TemplateRef<any>, data, index) {
-    console.log("Open Pop-up");
     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
     }
     viewTraningVideo(template: TemplateRef<any>, videourl) {
@@ -140,9 +139,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
       
       if (key == 'div') {
       const obj = { 'divisionId': this.constant.divisionId };
-      console.log(obj);
       this.commonService.getDepartmentList(obj).subscribe((result) => {
-      console.log(result);
       if (result.isSuccess) {
       this.constant.departmentList = result.data.rows;
       }
@@ -194,7 +191,6 @@ constructor(private courseService: CourseService, private alertService: AlertSer
 
 
   addFiles(event,file,i){
-    console.log(this.fileList, file);
     let type=event.target.checked;
     if(type){
       file['addNew'] = true;
@@ -203,6 +199,10 @@ constructor(private courseService: CourseService, private alertService: AlertSer
       let index = this.fileList.findIndex(x => x.fileId === file.fileId);
       this.fileList.splice(index,1);
     }
+  }
+
+  AddFilestoEditCourse(){
+    this.selectedVideos.emit(this.fileList);
   }
  
   resetAssignForm(){

@@ -29,6 +29,7 @@ export class FilterTabComponent implements OnInit {
   filterCreatedBy = 'null';
   search = '';
   @Output() FilterSearchEvent = new EventEmitter<string>();
+  
 
   constructor(private utilService : UtilService,private courseService : CourseService,public cmsLibraryVar : CmsLibraryVar) { }
 

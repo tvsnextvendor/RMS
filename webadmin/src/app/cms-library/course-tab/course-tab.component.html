@@ -163,7 +163,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
-                    <p class="course-list" *ngFor="let fileData of fileList;let i = index" dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="assets/images/close.png"></a></p>
+                    <p *ngFor="let fileData of fileList;let i = index" [ngClass]="fileData.addNew ? 'course-list course-list-select' : 'course-list'"  dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="assets/images/close.png"></a></p>
                 </div>
                 <div class="p-3 clearfix">
                         
