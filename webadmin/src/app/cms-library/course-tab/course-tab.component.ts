@@ -81,7 +81,8 @@ export class CourseTabComponent implements OnInit {
         this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
         if(this.addedFiles){
            this.selectedIndex = localStorage.getItem('index');
-           this.selectedIndex != 'NaN' ? this.enableDropData('edit',parseInt(this.selectedIndex)) : '';
+           let type = localStorage.getItem('type');
+           this.selectedIndex && this.selectedIndex != 'NaN' ? this.enableDropData(type,parseInt(this.selectedIndex)) : '';
         }
       }
     },err =>{
@@ -93,6 +94,7 @@ export class CourseTabComponent implements OnInit {
   enableDropData(type,index){
 
     localStorage.setItem('index', index)
+    localStorage.setItem('type', type)
     if(type === "view"){
       this.enableView = this.enableIndex === index ? !this.enableView : true;
       this.enableEdit = false;
@@ -121,6 +123,7 @@ export class CourseTabComponent implements OnInit {
       this.enableView = true;
       this.enableEdit = false;
       this.enableDuplicate = true;
+      this.enableIndex = index;
       this.editCourseData(index,'');
     }
     else if(type === 'trainingClass'){
@@ -283,7 +286,7 @@ export class CourseTabComponent implements OnInit {
       'courseName' : this.selectedEditCourseName,
       'fileIds' : this.deletedFileId,
       'files' : this.fileList,
-      createdBy: this.utilService.getUserData().userId
+      'createdBy': this.utilService.getUserData().userId
     }
     if(type === 'edit'){
       this.courseService.updateCourseList(this.selectedEditCourse,params).subscribe(resp=>{
@@ -314,7 +317,7 @@ export class CourseTabComponent implements OnInit {
     let reader = new FileReader();
     if(e.target && e.target.files[0]){
         let file = e.target.files[0];
-      // get video duration
+        // get video duration
         var video = document.createElement('video');
         video.preload = 'metadata';
         video.onloadedmetadata = function() {
@@ -323,7 +326,6 @@ export class CourseTabComponent implements OnInit {
           self.fileDuration = duration;
         }
         video.src = URL.createObjectURL(file);
-        
         document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
         this.uploadFile = file;
         let type = file.type;

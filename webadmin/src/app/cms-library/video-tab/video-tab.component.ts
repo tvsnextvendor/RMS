@@ -235,9 +235,11 @@ constructor(private courseService: CourseService, private alertService: AlertSer
 
   AssignNewFiles(){
       this.submitted=true;
+      let self =this;
       let updatedFileList = this.fileList.filter(function (x) {
           if(x.addNew){
-            return delete x.addNew;
+             x.trainingClassId = self.selectedClass;
+            return delete x.addNew && delete x.TrainingClass;
           }
       }); 
       let fileIds = updatedFileList.map(a => a.fileId);
