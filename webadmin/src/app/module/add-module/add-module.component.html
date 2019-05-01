@@ -15,13 +15,13 @@
 				<label class="col-md-3 p-0 label-title mb-0">{{labels.courseName}}</label>
 				<span class="col-md-9 pl-0">
 					<input type="text" class="form-control" placeholder="Enter Course Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
-				</span>
-				<span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleName">
+					<span class="required_color mt-2" *ngIf="moduleSubmitted && !moduleName">
 					{{labels.courseName}}{{labels.isRequire}}
 				</span>
 				<span class="required_color" *ngIf="moduleVar.moduleNameCheck">
 					{{labels.moduleNameValidation}}
 				</span>
+				</span>			
 			</div>
 			<div class="row">
 				<label class="col-md-3 p-0 label-title mb-0">{{labels.trainingClass}}</label>
@@ -33,10 +33,11 @@
 					[settings]="moduleVar.dropdownSettings"
 					(onSelect)="onItemSelect($event)"
 					(onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
-				</div>
-				<span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
+					<span class="required_color mt-2" *ngIf="moduleSubmitted && selectedCourses.length === 0">
 						{{labels.courseError}}
 					</span>
+				</div>
+				
 			</div>
 		</div>
 		<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
@@ -100,7 +101,7 @@
 										   <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/> 
 								</div>       -->
 
-								<div class="btn-group pull-right" dropdown>
+								<div class="btn-group align-items-center" dropdown>
 									<button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
 										aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
 										{{labels.upload}} <span class="caret ml-4"></span>

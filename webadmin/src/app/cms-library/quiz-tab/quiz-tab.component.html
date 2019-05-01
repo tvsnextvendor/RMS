@@ -4,13 +4,14 @@
             <div class="col-md-9 row m-auto top-select-bx">
                 <span *ngIf="!directTabEnable" class="col-md-5 form-control" style="margin-right: 40px;"> {{courseName}}</span>
                 <span *ngIf="!directTabEnable" class="col-md-5 form-control"> {{trainingClassName}}</span>
-                <select *ngIf="directTabEnable" name="courseId" class="form-control col-md-5 pl-0" [(ngModel)] = "filterCourse" #course (change)="dropdownUpdate(course.value)">
+                <select *ngIf="directTabEnable" name="courseId" class="form-control col-md-5 pl-0 mr-5 select select-style clearfix" [(ngModel)] = "filterCourse" #course (change)="dropdownUpdate(course.value)">
                     <option [value]=null>{{commonLabels.labels.selectcourse}}</option>
-                    <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}</option>
+                    <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}</option><div class="select_arrow"></div>
                 </select>
-                <select *ngIf="directTabEnable" name="trainingClassId" class="form-control col-md-5 pl-0" [(ngModel)] = "filterTrainingClass" #trainingClass (change)="dropdownClassUpdate()" [disabled]="filterCourse === 'null'" >
+                <select *ngIf="directTabEnable" name="trainingClassId" class="form-control col-md-5 pl-0 select select-style clearfix" [(ngModel)] = "filterTrainingClass" #trainingClass (change)="dropdownClassUpdate()" [disabled]="filterCourse === 'null'" >
                     <option [value]=null>{{commonLabels.labels.selectopt}}</option>
-                    <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.trainingClassName}}</option>
+                    <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.trainingClassName}}</option><div class="select_arrow"></div>
+
                 </select>
                 <span class="col-md-1 form-control" style='border-bottom: none'></span>
             </div>
