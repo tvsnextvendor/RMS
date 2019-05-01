@@ -76,6 +76,11 @@ export class CMSLibraryComponent implements OnInit {
   }
  
   completed(event){
+    let keysToRemove = ["index", "type"];
+     keysToRemove.forEach(element => {
+        localStorage.removeItem(element);
+     });
+    this.selectedVideoList=[];
     this.hideSection=false;
     this.showcreatecourse=false;
     this.selectedTab = 'course';

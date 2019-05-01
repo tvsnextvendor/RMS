@@ -2,7 +2,7 @@
    <div class="pt-2">   
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a routerLink="/cms-library">{{labels.cmsLibrary}}</a></li>
+				<li class="breadcrumb-item"><a (click)="goTocmsLibrary()">{{labels.cmsLibrary}}</a></li>
 				<li class="breadcrumb-item active">{{labels.createCourse}}</li>
 			</ol>
 		</nav>
@@ -96,12 +96,8 @@
 						<div class="col-md-4 p-0 upload-line">
 							<div class="row">
 							<div class="col-md-4 p-0">
-								<!-- <div class="fileUpload btn btn-primary">
-									        <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> 
-										   <input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/> 
-								</div>       -->
-
 								<div class="btn-group align-items-center" dropdown>
+									<div class="btn-group pull-right" dropdown>
 									<button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
 										aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
 										{{labels.upload}} <span class="caret ml-4"></span>
@@ -114,6 +110,8 @@
 												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/></li>
 									</ul>
 								</div>
+								
+
 								<div *ngIf='!previewImage'>
 							     	<video id="video-element" controls [hidden]="true">
 										<source type="video/mp4">

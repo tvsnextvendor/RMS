@@ -56,12 +56,13 @@ export class AddModuleComponent implements OnInit {
 
    ngOnInit(){
     if(this.addedFiles){
+        let courseName = this.moduleVar.selectCourseName;
         this.addCourse();
+        this.moduleVar.selectCourseName = courseName ;
         this.addedFiles.map(element => {
         this.moduleVar.videoList.push(element)
         })
     }
-     console.log(this.addedFiles,"ADDEDFILES");  
     this.headerService.setTitle({title:this.moduleVar.title, hidemodule:false});
     this.moduleVar.api_url = API_URL.URLS;
     this.moduleVar.dropdownSettings = {
@@ -78,7 +79,6 @@ export class AddModuleComponent implements OnInit {
     ele.onclick = this.addCourse.bind(this);
     this.moduleVar.tabKey = 1;
     this.courseData();
-    console.log(this.moduleId)
    }
 
     courseData(){
@@ -99,7 +99,6 @@ export class AddModuleComponent implements OnInit {
     }
     geteditCourseData(){
         this.courseService.getCourseById(this.moduleId).subscribe(resp=>{
-            console.log(resp);
             if(resp && resp.isSuccess){
                 let data = resp.data && resp.data.rows[0];
                 this.moduleName = data.courseName;
@@ -117,7 +116,6 @@ export class AddModuleComponent implements OnInit {
 
     onItemSelect(item: any) {
         this.moduleVar.selectedCourseIds =  this.selectedCourses.map(item=>{return item.id})
-        console.log(this.moduleVar.selectedCourseIds,this.selectedCourses)
     }
     onItemDeselect(item: any) {
         this.moduleVar.selectedCourseIds =  this.selectedCourses.map(item=>{return item.id})
@@ -228,7 +226,6 @@ export class AddModuleComponent implements OnInit {
                 .then(blob => {
                     self.fileImageDataPreview =  new File([blob], "File_name.png");
                     // self.fileImageDataPreview.type = "image/png";
-                    console.log(self.fileImageDataPreview)
                 })  
                 // Load video in Safari / IE11
                 video.muted = true;
@@ -290,7 +287,6 @@ export class AddModuleComponent implements OnInit {
    }
 
    hideTab(data){
-       console.log(data,"DATA")
         this.messageClose();
        this.courseSubmitted = true;
        this.courseData();
@@ -308,7 +304,6 @@ export class AddModuleComponent implements OnInit {
         }
 
         // data.submitCheck ? this.submitForm(true) :this.courseData(); 
-        console.log(this.moduleVar.selectCourseName, "SELECTCOURSE");
         if(this.moduleVar.selectCourseName){
             this.tabEnable = data.courseUpdate ? false : true;
             this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
@@ -486,6 +481,10 @@ export class AddModuleComponent implements OnInit {
         else if(!this.moduleVar.videoList.length){
             this.alertService.error(this.labels.videoError);
         }
+   }
+
+   goTocmsLibrary(){
+     this.completed.emit('completed'); 
    }
 
     submitForm(courseSubmitType){
