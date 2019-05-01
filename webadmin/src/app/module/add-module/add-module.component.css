@@ -160,3 +160,10 @@ background-color: #C1E1F3;
     border-radius: 0;
     padding-left: 10px !important;
 }
+.breadcrumb-item .cms-breadcrumb{
+    color: #468FB9;
+}
+.breadcrumb-item .cms-breadcrumb:hover{
+
+text-decoration: underline;
+}
