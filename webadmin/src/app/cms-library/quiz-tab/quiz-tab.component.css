@@ -1,7 +1,4 @@
-.pb-10{
-    padding-bottom: 15px;
-    padding-right: 0px;
-  } 
+
   .select-style {
    position: relative;
    display: inline-block;
@@ -233,100 +230,9 @@
       border-bottom:none;
       padding-bottom: 0 !important;
   }
-  /* Documents Tab */
-  .doc-table .square-cont{
-      margin-bottom: 0;
+  .top-select-bx select:first-child {
+    margin-right: 5rem;
+}
+.form-control:disabled, .form-control[readonly]{
+  background-color: unset;
   }
-  .doc-table .table th{
-      padding-top: 10px;
-  }
-  .table tr a {
-      margin: 0 5px;
-  }
-  th .square-cont {
-      color: #737373;
-  }
-  td .square-cont {
-      font-weight: 500;
-  }
-  .top-select-bx{
-      padding-bottom: 2em;
-  }
-  .top-select-bx select:first-child, .top-select-bx span:first-child{
-      margin-right: 5em;
-  }
-  .quiz-box{
-      border-top: 1px solid #ccc;
-      
-  }
-  /* .filter-search .search-container {
-      float: right;
-    } */
-    
-    .filter-search input[type=text] {
-      padding: 6px;
-      /* margin-top: 8px; */
-      font-size: 15px;
-      border: none;
-    }
-    
-    .filter-search .search-container button {
-      float: right;
-      padding: 6px 10px;
-      /* margin-top: 8px; */
-      /* margin-right: 16px; */
-      background: none;
-      font-size: 17px;
-      border: none;
-      cursor: pointer;
-    }
-    
-    .filter-search .search-container button:hover {
-      background: #ccc;
-    }
-    .fileUpload {
-      position: relative;
-      overflow: hidden;
-      margin: 10px 62px 10px 10px;
-      float: right;
-  }
-  .fileUpload input.upload {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin: 0;
-      padding: 0;
-      font-size: 20px;
-      cursor: pointer;
-      opacity: 0;
-      filter: alpha(opacity=0);
-  }
-    .form-control:disabled, .form-control[readonly]{
-    background-color: unset;
-  }
-    .breadcrumb{
-      background: none;
-      padding:0;
-    }
-    .breadcrumb-item+.breadcrumb-item::before {
-       content: ">";
-  }
-  .breadcrumb-item a,.breadcrumb-item{
-      font-size: 14px;
-  }
-    @media screen and (max-width: 600px) {
-      .filter-search .search-container {
-        float: none;
-      }
-      .filter-search input[type=text], .filter-search .search-container button {
-        float: none;
-        display: block;
-        text-align: left;
-        width: 100%;
-        margin: 0;
-        padding: 14px;
-      }
-      .filter-search input[type=text] {
-        border: 1px solid #ccc;  
-      }
-    }
