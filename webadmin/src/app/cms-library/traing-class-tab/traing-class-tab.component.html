@@ -1,7 +1,7 @@
 <!-- Training Tab Content -->
 
 <div class="col-md-12 clearfix py-2 px-0">
-    <h6 class="float-right">{{cmsLibraryVar.labels.count}} : {{totalCourseTrainingCount}}</h6>
+    <h6 class="float-right">{{commonLabels.labels.count}}{{totalCourseTrainingCount}}</h6>
 </div>
 <div class="white-bg pt-4 pb-4 mb-3"
     *ngFor="let course of trainingClassCourseList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalCourseTrainingCount};let i = index">
@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-3 pr-0 pl-2">
                         <button type="submit"
-                            class="btn btn-primary creat-btn">{{cmsLibraryVar.btns.save}}</button>
+                            class="btn btn-primary creat-btn">{{commonLabels.btns.save}}</button>
                         </div>
                     </span>
                 </div>
@@ -40,20 +40,20 @@
         <div class="clk-part clearfix pt-1">
             <div class="clk-sec float-left">
                 <a href="javascript:void(0);"
-                    (click)="tabChange('video',training.trainingClassId,'')">{{cmsLibraryVar.labels.video}} :
+                    (click)="tabChange('video',training.trainingClassId,'')">{{commonLabels.labels.video}} :
                     {{training?.TrainingClass?.videosCount ? training?.TrainingClass?.videosCount : 0}}</a>
                 <a href="javascript:void(0);" (click)="tabChange('document',training.trainingClassId,'')"
-                    class="ml-2">{{cmsLibraryVar.labels.document}} : {{training?.TrainingClass?.documentsCount ? training?.TrainingClass?.documentsCount : 0}}</a>
+                    class="ml-2">{{commonLabels.labels.document}} : {{training?.TrainingClass?.documentsCount ? training?.TrainingClass?.documentsCount : 0}}</a>
             </div>
             <a class="float-right" href="javascript:void(0);"
-                (click)="tabChange('quiz',training.trainingClassId,course.courseId)">{{cmsLibraryVar.labels.viewQuiz}}</a>
+                (click)="tabChange('quiz',training.trainingClassId,course.courseId)">{{commonLabels.labels.viewQuiz}}</a>
         </div>
     </div>
 </div>
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>
 
 <div class="text-center" *ngIf="uploadPage">
-    <button type="button" class="btn btn-primary creat-btn">Add</button>
+    <button type="button" class="btn btn-primary creat-btn">{{commonLabels.btns.add}}</button>
 </div>
 
 <!-- End Training Tab Content -->

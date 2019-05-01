@@ -4,7 +4,7 @@ import { HeaderService, HttpService, AlertService } from '../services';
 import { ToastrService } from 'ngx-toastr';
 // import { TraingClassTabComponent } from './traing-class-tab/traing-class-tab.component'
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { CmsLibraryVar } from '../Constants/cms-library.var';
+import { CommonLabels } from '../Constants/common-labels.var';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { CmsLibraryVar } from '../Constants/cms-library.var';
   styleUrls: ['./cms-library.component.css']
 })
 export class CMSLibraryComponent implements OnInit {
-  constructor(private modalService: BsModalService,public cmsLibraryVar : CmsLibraryVar, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
+  constructor(private modalService: BsModalService,private commonLabels : CommonLabels, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
   modalRef;
   videoFile;
   selectedTab;
@@ -29,7 +29,9 @@ export class CMSLibraryComponent implements OnInit {
   showcreatecourse=false;
   findCreateCourse;
 
+
   ngOnInit() {
+    
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
     this.selectedTab = 'course';
     this.quizTabHit = false;

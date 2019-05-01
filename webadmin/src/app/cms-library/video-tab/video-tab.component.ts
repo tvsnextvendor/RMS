@@ -2,6 +2,7 @@ import { Component, TemplateRef, OnInit, Output, Input, EventEmitter } from '@an
 import { HeaderService, HttpService, CourseService } from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { VideoVar } from '../../Constants/video.var';
+import { CommonLabels } from '../../Constants/common-labels.var';
 import { CommonService, UtilService, ResortService, UserService, AlertService } from '../../services';
 
 
@@ -39,11 +40,12 @@ fileList=[];
 @Output() selectedVideos  = new EventEmitter<object>();
 
 
-constructor(private courseService: CourseService, private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService) {
+constructor(private courseService: CourseService, private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService,private commonLabels : CommonLabels) {
    this.labels = constant.videoFormLabels;
 }
 
   ngOnInit(){
+    console.log(this.commonLabels)
     this.pageSize = 10;
     this.page=1;
     this.getCourseFileDetails();

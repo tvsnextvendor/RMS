@@ -1,13 +1,13 @@
 <div class="col-md-12 clearfix py-2 px-0">
     <button class="btn btn-primary creat-btn float-left" *ngIf="!uploadPage" type="submit" (click)="openAddVideosToCourse()">Add Documents
         to Course</button>
-    <h6 class="pt-2 float-right">Count:{{totalVideosCount}}</h6>
+    <h6 class="pt-2 float-right">{{commonLabels.labels.count}}{{totalVideosCount}}</h6>
 </div>
 
 <div class="col-md-12 pt-2 clearfix px-0" *ngIf="addVideosToCourse">
     <div class="white-bg p-4 clearfix">
         <div class="clearfix">
-            <p class="dup-hd">Assign</p>
+            <p class="dup-hd">{{commonLabels.btns.assign}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="openAddVideosToCourse()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -17,22 +17,22 @@
                 <div class="col-md-6 mb-3 select select-style clearfix">
                     <select name="courseId" class="form-control pl-0" [(ngModel)]="selectedCourse"
                         (change)="courseChange()">
-                        <option value="">--Select course--</option>
+                        <option value="">{{commonLabels.labels.selectcourse}}</option>
                         <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}
                         </option>
                     </select>
                     <div class="select_arrow"></div>
-                    <span class="required_color" *ngIf="submitted && !selectedCourse">Course is required.</span>
+                    <span class="required_color" *ngIf="submitted && !selectedCourse">{{commonLabels.mandatoryLabels.courseRequired}}</span>
                 </div>
                 <div class="col-md-6 mb-3 select select-style clearfix">
                     <select name="courseId" class="form-control pl-0" [(ngModel)]="selectedClass"
                         (change)="getEditFileData()">
-                        <option value="">--Select Training Class--</option>
+                        <option value="">{{commonLabels.labels.selectopt}}</option>
                         <option *ngFor="let class of trainingClassList" [value]="class.trainingClassId">
                             {{class.trainingClassName}}</option>
                     </select>
                     <div class="select_arrow"></div>
-                    <span class="required_color" *ngIf="submitted && !selectedClass">Training Class is required.</span>
+                    <span class="required_color" *ngIf="submitted && !selectedClass">{{commonLabels.mandatoryLabels.trainingClassrequired}}</span>
                 </div>
             </div>
             <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
@@ -44,7 +44,7 @@
                 </p>
             </div>
             <div class="py-3 clearfix">
-                <button class="btn btn-primary" (click)="AssignNewFiles()" type="submit">Save</button>
+                <button class="btn btn-primary" (click)="AssignNewFiles()" type="submit">{{commonLabels.btns.save}}</button>
             </div>
         </div>
     </div>
@@ -58,24 +58,24 @@
                 <tr class="th-boxshadow">
                     <th class="text-left">
                         <label class="square-cont float-left col-md-12 mb-0">
-                            <input type="checkbox" name="web"> Files
+                            <input type="checkbox" name="web"> {{commonLabels.labels.file}}
                             <span class="square-checkmark"></span>
                         </label>
                     </th>
-                    <th class="text-left">
-                        File Size
+                    <th class="text-left text-nowrap">
+                            {{commonLabels.labels.fileSize}}
                     </th>
-                    <th class="text-left">
-                        Type
+                    <th class="text-left text-nowrap">
+                            {{commonLabels.labels.type}}
+                    </th>                  
+                    <th class="text-left text-nowrap">
+                            {{commonLabels.labels.noofEmp}}
                     </th>
-                    <th class="text-left">
-                        No.of Emp.
+                    <th class="text-left text-nowrap">
+                            {{commonLabels.labels.permission}}
                     </th>
-                    <th class="text-left">
-                        Permission
-                    </th>
-                    <th class="text-left">
-                        Action
+                    <th class="text-center text-nowrap">
+                            {{commonLabels.labels.action}}
                     </th>
                 </tr>
             </thead>
@@ -117,17 +117,17 @@
 
 <ng-template #deleteDocument>
     <div class="modal-header pb-0">
-        <p class="hd-alg">{{constant.labels.deleteDoc}}</p>
+        <p class="hd-alg">{{commonLabels.labels.deleteDoc}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body text-center">
-        <span class="text-content">{{constant.labels.deleteDocConfirmation}}</span>
+        <span class="text-content">{{commonLabels.labels.coursedeleteConfirmation}}</span>
         <div class="text-center mt-4">
-            <button (click)="deleteDoc()" class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
+            <button (click)="deleteDoc()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
             <button type="button" class="btn btn-default"
-                (click)="constant.modalRef.hide()">{{constant.btns.cancel}}</button>
+                (click)="constant.modalRef.hide()">{{commonLabels.btns.cancel}}</button>
         </div>
     </div>
 </ng-template>

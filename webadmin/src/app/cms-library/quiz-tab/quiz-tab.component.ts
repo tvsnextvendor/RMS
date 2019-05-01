@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { HeaderService,HttpService,AlertService } from '../../services';
 import { QuizVar } from '../../Constants/quiz.var';
+import { CommonLabels } from '../../Constants/common-labels.var';
 import { CourseService } from '../../services/restservices/course.service';
 // import { API_URL } from '../../Constants/api_url';
 
@@ -38,7 +39,7 @@ export class QuizTabComponent implements OnInit {
   filterCourse = null;
   filterTrainingClass = null;
   
-  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,private modalService : BsModalService) {}
+  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, private commonLabels : CommonLabels,public constant: QuizVar,private toastr: ToastrService,private modalService : BsModalService) {}
   
   ngOnInit() {
     this.questionOptions = [

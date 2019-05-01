@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Input, Output,TemplateRef } from '@ang
 import { DomSanitizer } from '@angular/platform-browser';
 import { HeaderService,HttpService,CourseService,CommonService,AlertService ,UtilService} from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { CmsLibraryVar } from '../../Constants/cms-library.var';
+import { CommonLabels } from '../../Constants/common-labels.var';
 
 @Component({
   selector: 'app-course-tab',
@@ -49,7 +49,7 @@ export class CourseTabComponent implements OnInit {
   selectedIndex; 
   fileDuration;
 
-  constructor(private sanitizer: DomSanitizer ,private courseService : CourseService ,public cmsLibraryVar : CmsLibraryVar,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
+  constructor(private sanitizer: DomSanitizer,private courseService : CourseService ,private commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();

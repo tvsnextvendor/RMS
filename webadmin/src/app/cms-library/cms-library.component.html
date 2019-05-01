@@ -1,14 +1,14 @@
 <div class="pt-2">   
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item" *ngIf="!showcreatecourse"><a routerLink="/cms-library">{{cmsLibraryVar.labels.cmsLibrary}}</a></li>
-            <li *ngIf ="selectedTab === 'course' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.course}}</li>
-            <li *ngIf ="selectedTab === 'training' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.trainingClass}}</li>
-            <li *ngIf ="selectedTab === 'video' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.videos}}</li>
-            <li *ngIf ="selectedTab === 'document' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.documents}}</li>
-            <li *ngIf ="selectedTab === 'notification' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.notification}}</li>
-            <li *ngIf ="selectedTab === 'quiz' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.quiz}}</li>
-            <li *ngIf ="selectedTab === 'recent' && !showcreatecourse" class="breadcrumb-item active">{{cmsLibraryVar.labels.recentlyDelete}}</li>
+            <li class="breadcrumb-item"  *ngIf="!showcreatecourse"><a routerLink="/cms-library">{{commonLabels.labels.cmsLibrary}}</a></li>
+            <li *ngIf ="selectedTab === 'course' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.course}}</li>
+            <li *ngIf ="selectedTab === 'training' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.trainingClass}}</li>
+            <li *ngIf ="selectedTab === 'video' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.videos}}</li>
+            <li *ngIf ="selectedTab === 'document' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.documents}}</li>
+            <li *ngIf ="selectedTab === 'notification' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.notification}}</li>
+            <li *ngIf ="selectedTab === 'quiz' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.quiz}}</li>
+            <li *ngIf ="selectedTab === 'recent' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.recentlyDelete}}</li>
         </ol>
     </nav>
 </div>
@@ -18,35 +18,36 @@
     <div class="row">
         <div class="col-md-9 pt-2 px-0">
     	    <div class="clearfix" *ngIf="!hideSection">
-                <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">{{cmsLibraryVar.btns.print}}</button>    
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress">{{cmsLibraryVar.btns.workinProgress}}</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">{{cmsLibraryVar.btns.scheduleTraining}}</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification">{{cmsLibraryVar.btns.createNotification}}</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{cmsLibraryVar.btns.createCourse}}</button>
+
+                <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">{{commonLabels.btns.print}}</button>    
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress">{{commonLabels.btns.workinProgress}}</button>
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification">{{commonLabels.btns.createNotification}}</button>
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{commonLabels.btns.createCourse}}</button>
             </div>
-            <span class="required_color" *ngIf="showWarning">Select courses to Schedule a training</span>
+            <span class="required_color" *ngIf="showWarning">{{commonLabels.labels.selectcoursestoschedule}}</span>
             <div class="clearfix pt-4 tab-section">
                 <ul class="nav nav-tabs">
                     <li class="nav-item"  *ngIf="!hideSection">
-                        <a [ngClass] = "selectedTab === 'course' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#course" (click)="headerTabChange('course','')">{{cmsLibraryVar.labels.course}}</a>
+                        <a [ngClass] = "selectedTab === 'course' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#course" (click)="headerTabChange('course','')">{{commonLabels.labels.course}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse">
-                        <a [ngClass] = "selectedTab === 'training' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#training" (click)="headerTabChange('training','')">{{cmsLibraryVar.labels.trainingClass}}</a>
+                        <a [ngClass] = "selectedTab === 'training' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#training" (click)="headerTabChange('training','')">{{commonLabels.labels.trainingClass}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse">
-                        <a [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabChange('video','')">{{cmsLibraryVar.labels.videos}}</a>
+                        <a [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabChange('video','')">{{commonLabels.labels.videos}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse">
-                        <a [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document','')">{{cmsLibraryVar.labels.documents}}</a>
+                        <a [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document','')">{{commonLabels.labels.documents}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse">
-                        <a [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification','')">{{cmsLibraryVar.labels.notification}}</a>
+                        <a [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification','')">{{commonLabels.labels.notification}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse">
-                        <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show disabled' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">{{cmsLibraryVar.labels.quiz}}</a>
+                        <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show disabled' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">{{commonLabels.labels.quiz}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection">
-                        <a class="nav-link">{{cmsLibraryVar.labels.recentlyDelete}}</a>
+                        <a class="nav-link">{{commonLabels.labels.recentlyDelete}}</a>
                     </li>
                 </ul> 
             </div>
@@ -80,7 +81,7 @@
 
 <ng-template #editBatch>  
     <div class="modal-header"> 
-        <h4 class="modal-title pull-left">Add New Training Schedule</h4>
+        <h4 class="modal-title pull-left">{{commonLabels.modaltitle.addnewtrainingschedule}}</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>

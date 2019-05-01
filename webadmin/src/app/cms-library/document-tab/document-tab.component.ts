@@ -1,6 +1,7 @@
 import { Component, OnInit,Input,TemplateRef , EventEmitter, Output} from '@angular/core';
 import { HeaderService, HttpService, CourseService, AlertService } from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
+import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 
@@ -34,7 +35,7 @@ export class DocumentTabComponent implements OnInit {
   @Output() selectedVideos  = new EventEmitter<object>();
 
 
-  constructor(private courseService: CourseService,private alertService: AlertService,public constant: CmsLibraryVar, private modalService : BsModalService) { 
+  constructor(private courseService: CourseService,private alertService: AlertService,private commonLabels : CommonLabels,public constant: CmsLibraryVar, private modalService : BsModalService) { 
 
   }
 

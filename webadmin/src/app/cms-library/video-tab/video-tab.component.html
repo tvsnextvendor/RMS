@@ -1,13 +1,12 @@
 <div class="col-md-12 clearfix py-2 px-0">
-    <button class="btn btn-primary creat-btn float-left" *ngIf="!uploadPage" type="submit" (click)="openAddVideosToCourse()">Add Video to
-        Course</button>
-    <h6 class="pt-2 float-right">Count:{{totalVideosCount}}</h6>
+    <button class="btn btn-primary creat-btn float-left" *ngIf="!uploadPage" type="submit" (click)="openAddVideosToCourse()">{{commonLabels.btns.addvideocourse}}</button>
+    <h6 class="pt-2 float-right">{{commonLabels.labels.count}}{{totalVideosCount}}</h6>
 </div>
 
 <div class="col-md-12 pt-2 clearfix px-0" *ngIf="addVideosToCourse">
     <div class="white-bg p-4 clearfix">
         <div class="clearfix">
-            <p class="dup-hd">Assign</p>
+            <p class="dup-hd">{{commonLabels.btns.assign}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="openAddVideosToCourse()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -16,20 +15,20 @@
             <div class="row">
                 <div class="col-md-6 mb-3 select select-style clearfix">
                     <select name="courseId" class="form-control pl-0" [(ngModel)]="selectedCourse" (change)="courseChange()" >
-                        <option value="">--Select course--</option>
+                        <option value="">{{commonLabels.labels.selectcourse}}</option>
                         <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}</option>
                     </select>
                     <div class="select_arrow"></div>
-                    <span class="required_color" *ngIf="submitted && !selectedCourse">Course is required.</span>
+                    <span class="required_color" *ngIf="submitted && !selectedCourse">{{commonLabels.mandatoryLabels.courseRequired}}</span>
                 </div>
                 <div class="col-md-6 mb-3 select select-style clearfix">
                     <select name="courseId" class="form-control pl-0" [(ngModel)]="selectedClass" (change)="getEditFileData()">
-                        <option value="">--Select Training Class--</option>
+                        <option value="">{{commonLabels.labels.selectopt}}</option>
                         <option *ngFor="let class of trainingClassList" [value]="class.trainingClassId">{{class.trainingClassName}}</option>
                     </select>
                     <div class="select_arrow"></div>
                     <span class="required_color"
-                        *ngIf="submitted && !selectedClass">Training Class is required.</span>                 
+                        *ngIf="submitted && !selectedClass">{{commonLabels.mandatoryLabels.trainingClassrequired}}</span>                 
                 </div>
             </div>
             <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList" >
@@ -38,7 +37,7 @@
                 </p>
             </div>
             <div class="py-3 clearfix">
-                <button class="btn btn-primary" (click)="AssignNewFiles()" type="submit">Save</button>
+                <button class="btn btn-primary" (click)="AssignNewFiles()" type="submit">{{commonLabels.btns.save}}</button>
             </div>
         </div>
     </div>
@@ -50,27 +49,27 @@
                 <tr class="th-boxshadow">
                     <th class="text-left text-nowrap">
                         <label class="square-cont float-left col-md-12 mb-0">
-                            <input type="checkbox" name="web"> Files
+                            <input type="checkbox" name="web"> {{commonLabels.labels.file}}
                             <span class="square-checkmark"></span>
                         </label>
                     </th>
                     <th class="text-left text-nowrap">
-                        File Size
+                            {{commonLabels.labels.fileSize}}
                     </th>
                     <th class="text-left text-nowrap">
-                        Type
+                            {{commonLabels.labels.type}}
                     </th>
                     <th class="text-left text-nowrap">
-                        Length
+                            {{commonLabels.labels.length}}
                     </th>
                     <th class="text-left text-nowrap">
-                        No.of Emp.
+                            {{commonLabels.labels.noofEmp}}
                     </th>
                     <th class="text-left text-nowrap">
-                        Permission
+                            {{commonLabels.labels.permission}}
                     </th>
                     <th class="text-center text-nowrap">
-                        Action
+                            {{commonLabels.labels.action}}
                     </th>
                 </tr>
             </thead>
@@ -123,12 +122,12 @@
 </div>
 
 <div class="text-center" *ngIf="uploadPage">
-    <button type="button" class="btn btn-primary creat-btn" (click)="AddFilestoEditCourse()">Add</button>
+    <button type="button" class="btn btn-primary creat-btn" (click)="AddFilestoEditCourse()">{{commonLabels.btns.add}}</button>
 </div>
 
 <ng-template #editVideoTemp>
     <div class="modal-header pb-0">
-        <p class="hd-alg"><!-- {{constant.btns.editVideo}} -->Edit Video</p>
+        <p class="hd-alg"><!-- {{constant.btns.editVideo}} -->{{commonLabels.modaltitle.editVideo}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="closeEditVideoForm()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -146,7 +145,7 @@
                                 {{data.resortName}}</option> -->
                         </select>
                         <span class="required_color" *ngIf="submitted && !videoEditForm.selectedResort">
-                            {{constant.mandatoryLabels.selectResort}}
+                            {{commonLabels.mandatoryLabels.selectResort}}
                         </span>
                     </div>
 
@@ -157,7 +156,7 @@
                             (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" required>
                         </ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="submitted && !constant.selectedDepartment.length">
-                            {{constant.mandatoryLabels.selectDept}}
+                            {{commonLabels.mandatoryLabels.selectDept}}
                         </span>
                     </div>
                 </div>
@@ -168,7 +167,7 @@
                             [(ngModel)]="videoEditForm.selectedDivision" [settings]="constant.divisionSettings"
                             #divisionId="ngModel" required></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="submitted && !constant.selectedDivision.length">
-                            {{constant.mandatoryLabels.selectDivision}}
+                            {{commonLabels.mandatoryLabels.selectDivision}}
                         </span>
                     </div>
                     <div class="pl-0 form-group select-Courses">
@@ -177,13 +176,13 @@
                             [data]="constant.employeeList" [(ngModel)]="videoEditForm.selectedEmp"
                             [settings]="constant.empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="submitted && !constant.selectedEmp.length">
-                            {{constant.mandatoryLabels.selectEmp}}
+                            {{commonLabels.mandatoryLabels.selectEmp}}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary creat-btn mr-3">{{constant.btns.set}}</button>
+                <button type="submit" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.set}}</button>
             </div>
         </form>
     </div>
@@ -192,17 +191,17 @@
 
 <ng-template #deleteDocument>
     <div class="modal-header pb-0">
-        <p class="hd-alg">{{constant.videoFormLabels.deleteVideo}}</p>
+        <p class="hd-alg">{{commonLabels.labels.deleteVideo}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body text-center">
-        <span class="text-content">{{constant.videoFormLabels.deleteDocConfirmation}}</span>
+        <span class="text-content">{{commonLabels.labels.coursedeleteConfirmation}}</span>
         <div class="text-center mt-4">
-            <button (click)="deleteDoc()" class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
+            <button (click)="deleteDoc()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
             <button type="button" class="btn btn-default"
-                (click)="constant.modalRef.hide()">{{constant.btns.cancel}}</button>
+                (click)="constant.modalRef.hide()">{{commonLabels.btns.cancel}}</button>
         </div>
     </div>
 </ng-template>
