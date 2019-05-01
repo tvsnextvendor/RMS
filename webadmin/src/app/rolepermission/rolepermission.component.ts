@@ -18,6 +18,9 @@ export class RolepermissionComponent implements OnInit {
 
   ngOnInit() {
     this.constant.modules = RolePermissionVar.defaultModules;
+    this.constant.selectAllView = false;
+    this.constant.selectAllUpload = false;
+    this.constant.selectAllEdit = false;
     // this.headerService.setTitle({title:this.constant.title, hidemodule:false});
     this.commonService.getDivisionList().subscribe((result) => {
       this.constant.divisionList = result.data.rows;
@@ -34,9 +37,7 @@ export class RolepermissionComponent implements OnInit {
   }
 
   getRolePermission() {
-    this.constant.selectAllView = false;
-    this.constant.selectAllUpload = false;
-    this.constant.selectAllEdit = false;
+    
     let data: any = {};
     data.divisionId = this.constant.divisionId;
     data.departmentId = this.constant.departmentId;
@@ -46,16 +47,15 @@ export class RolepermissionComponent implements OnInit {
     data.mobile = this.constant.mobile;
     this.getCheckModules(data);
     this.rolePermissionService.getRolePermission(data).subscribe((result) => {
-     
         if (result.isSuccess) {
           this.constant.modules = result.data.rows[0].userPermission;
-          console.log(this.constant.modules);
         } else {
-          if (result.error) {
-            this.alertService.error(result.error);
-          } else {
             this.alertService.info(result.message);
-          }
+            this.constant.modules.forEach(item=>{
+              item.view = false;
+              item.upload = false;
+              item.edit = false;
+            });
         }
         this.constant.selectAllView = this.constant.modules.every(function (item: any) {
           return item.view == true;
@@ -67,7 +67,10 @@ export class RolepermissionComponent implements OnInit {
           return item.edit == true;
         });
       
-    });
+    },(err) => {
+      console.log(err);
+      this.alertService.error(err.error.error);
+      });
   }
 
   //Role Permission - Checklist Data
@@ -86,6 +89,17 @@ export class RolepermissionComponent implements OnInit {
     const value = event.target.checked;
     for (var i = 0; i < this.constant.modules.length; i++) {
       this.constant.modules[i][name] = value;
+      if (name == 'view') {
+        this.constant.selectAllView = value;
+        } else if (name == 'upload') {
+        this.constant.selectAllUpload = value;
+        } else if (name == 'edit') {
+        this.constant.selectAllEdit = value;
+        } else {
+        this.constant.selectAllView = value;
+        this.constant.selectAllUpload = value;
+        this.constant.selectAllEdit = value;
+        }
     }
   }
 
@@ -119,7 +133,7 @@ export class RolepermissionComponent implements OnInit {
           this.alertService.success(this.constant.messages.successMsg);
           this.clearForm(form);
         }
-      }, (err) => {
+      },(err) => {
         console.log(err);
         this.alertService.error(err.error.error);
         }
@@ -165,9 +179,9 @@ export class RolepermissionComponent implements OnInit {
       item.upload = false;
       item.edit = false;
     });
-    this.constant.selectAllView = [];
-    this.constant.selectAllUpload = [];
-    this.constant.selectAllEdit = [];
+    this.constant.selectAllView = false;
+    this.constant.selectAllUpload = false;
+    this.constant.selectAllEdit = false;
     this.constant.modules = RolePermissionVar.defaultModules;
     this.constant.resortId = "";
     this.constant.divisionId = "";
