@@ -95,12 +95,12 @@
 							
 						<div class="col-md-4 p-0 upload-line">
 							<div class="row">
-							<div class="col-md-4 p-0">
+							<div class="col-md-5 p-0">
 								<div class="btn-group align-items-center" dropdown>
 									<div class="btn-group pull-right" dropdown>
 									<button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
 										aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
-										{{labels.upload}} <span class="caret ml-4"></span>
+										{{labels.upload}} <span class="caret ml-3"></span>
 									</button>
 									<ul id="dropdown-basic" *dropdownMenu class="dropdown-menu upload-btn" role="menu" aria-labelledby="button-basic">
 										<li role="menuitem"><a class="dropdown-item pl-2"
@@ -109,6 +109,7 @@
 												(click)="fileUploadPopup(uploadPopup)">{{labels.desktop}}</a>
 												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/></li>
 									</ul>
+								</div>
 								</div>
 								
 
@@ -124,13 +125,13 @@
 							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-2"></span>
 							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img class="thumbnail_img px-4 img-size"></span>
 							<span *ngIf="showImage && moduleVar.videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img px-4 img-size"></span></div>
-							<span class="col-md-4 p-0">	
+							<span class="col-md-3 p-0">	
 							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
 							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
 							</span>
 							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">{{labels.file}}{{labels.isRequire}}</span>	
 							<span class="file-alg">{{labels.acceptedFileTypes}}</span>		
-						</div>						 
+												 
 					</div>
 						<ul class="list-group col-md-12 pt-2" dnd-sortable-container [sortableData]="moduleVar.videoList">
 							<li  *ngFor="let item of moduleVar.videoList; let i = index" [ngClass]="moduleId ? 'list-group-item drop-and-drag-pdb row edit-bg' : 'list-group-item drop-and-drag-pdb row add-module'" dnd-sortable [sortableIndex]="i">
