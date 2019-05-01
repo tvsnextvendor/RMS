@@ -1,6 +1,6 @@
 import { Component, OnInit, Input,Output, EventEmitter } from '@angular/core';
 import { HeaderService, HttpService, CourseService, AlertService } from '../../services';
-import { CmsLibraryVar } from '../../Constants/cms-library.var';
+import { CommonLabels } from '../../Constants/common-labels.var';
 
 @Component({
   selector: 'app-traing-class-tab',
@@ -19,7 +19,7 @@ export class TraingClassTabComponent implements OnInit {
   TrainingList: any;
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
-  constructor(private courseService: CourseService, public cmsLibraryVar: CmsLibraryVar, public alertService: AlertService) { }
+  constructor(private courseService: CourseService, public commonLabels : CommonLabels, public alertService: AlertService) { }
 
   ngOnInit() {
     this.pageLength = 5;

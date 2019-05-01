@@ -1,7 +1,7 @@
 import { Component, OnInit ,Input, Output, EventEmitter} from '@angular/core';
 import { UtilService } from '../../services/util.service';
 import { CourseService } from '../../services/restservices';
-import { CmsLibraryVar } from '../../Constants/cms-library.var';
+import { CommonLabels } from '../../Constants/common-labels.var';
 
 @Component({
   selector: 'app-filter-tab',
@@ -31,7 +31,7 @@ export class FilterTabComponent implements OnInit {
   @Output() FilterSearchEvent = new EventEmitter<string>();
   
 
-  constructor(private utilService : UtilService,private courseService : CourseService,public cmsLibraryVar : CmsLibraryVar) { }
+  constructor(private utilService : UtilService,private courseService : CourseService,public commonLabels : CommonLabels) { }
 
   ngOnInit() {
     let data = this.utilService.getUserData();
