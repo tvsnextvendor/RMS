@@ -22,7 +22,7 @@ import { EmployeesListComponent } from './course-tab/employees-list/employees-li
 import { EmployeeComponent } from './course-tab/employee/employee.component';
 import { ContentFileComponent } from './course-tab/content-file/content-file.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import {moduleModule} from '../module/module.module';
 
 const routes: Routes = [
     { path: 'cms-library', component:  CMSLibraryComponent ,canActivate : [AuthGuard]},
@@ -53,6 +53,7 @@ export const MY_MOMENT_FORMATS = {
     DndModule,
     ModalModule,
     BatchModule,
+    moduleModule,
     BsDropdownModule.forRoot()
   ],
   declarations: [

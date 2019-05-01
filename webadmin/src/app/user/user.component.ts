@@ -84,7 +84,7 @@ export class UserComponent implements OnInit {
 
         })
 
-        this.commonService.getDesignationList().subscribe((result)=>{
+        this.commonService.getDesignationList(resortId).subscribe((result)=>{
             this.designationArray=result.data.rows;
         })
         this.getDivisionList(resortId);

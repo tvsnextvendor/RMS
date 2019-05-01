@@ -77,7 +77,8 @@ export class CommonLabels{
         "selectchildresort" :   "--Select Child Resort--",
         "selectchilddivi"   :   "--Select Child Division--",
         "selectchilddpmt"   :   "--Select Child Department --",
-        "selectcreateuser"  :   "--Select Create user --"
+        "selectcreateuser"  :   "--Select Create user --",
+        "selectcoursestoschedule" : "Select courses to Schedule a training"
         
 
 

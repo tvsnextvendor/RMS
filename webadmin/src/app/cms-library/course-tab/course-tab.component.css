@@ -327,17 +327,10 @@
     }
    .dropdown-menu .dropdown-item {
     width: 8rem;
+    color: #73737B;
+    font-weight: 500;
 }
-    .breadcrumb{
-      background: none;
-      padding:0;
-    }
-    .breadcrumb-item+.breadcrumb-item::before {
-       content: ">";
-  }
-  .breadcrumb-item a,.breadcrumb-item{
-      font-size: 14px;
-  }
+   
     @media screen and (max-width: 600px) {
       .filter-search .search-container {
         float: none;
