@@ -109,7 +109,8 @@
 										<li role="menuitem"><a class="dropdown-item pl-2"
 												(click)="showCMSLibrary()">{{labels.cmsLibrary}}</a></li>
 										<li role="menuitem"><a class="dropdown-item pl-2"
-												(click)="fileUploadPopup(uploadPopup)">{{labels.desktop}}</a></li>
+												(click)="fileUploadPopup(uploadPopup)">{{labels.desktop}}</a>
+												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/></li>
 									</ul>
 								</div>
 								<div *ngIf='!previewImage'>
