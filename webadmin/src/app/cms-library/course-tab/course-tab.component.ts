@@ -50,7 +50,7 @@ export class CourseTabComponent implements OnInit {
   fileDuration;
   selectedCourseId;
 
-  constructor(private sanitizer: DomSanitizer,private courseService : CourseService ,private commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
+  constructor(private sanitizer: DomSanitizer,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
@@ -181,6 +181,7 @@ export class CourseTabComponent implements OnInit {
   pageChanged(e){
       this.p = e;
       this.getCourseDetails();
+      this.enableDropData('closeEdit','');
   }
 
   selectCourse(courseId,courseName, isChecked){
@@ -216,7 +217,6 @@ export class CourseTabComponent implements OnInit {
     return this.formatBytes(i,2);
   }
   formatBytes(bytes,decimals){
-    console.log(bytes,'////')
     if(bytes == 0 || bytes === null) return '0 Bytes';
       var k = 1024,
         dm = decimals <= 0 ? 0 : decimals || 2,
@@ -281,14 +281,12 @@ export class CourseTabComponent implements OnInit {
   }
 
   removeVideo(data,i){
-    console.log(data,i)
     this.fileList.splice(i,1);
     this.deletedFilePath.push(data.fileUrl);
     this.deletedFileId.push(data.fileId);
     if(data.fileType === 'Video'){
       this.deletedFilePath.push(data.fileImage);
     }
-    console.log(this.deletedFilePath)
   }
 
   updateCourse(type){

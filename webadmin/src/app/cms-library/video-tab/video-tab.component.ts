@@ -40,7 +40,7 @@ fileList=[];
 @Output() selectedVideos  = new EventEmitter<object>();
 
 
-constructor(private courseService: CourseService, private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService,private commonLabels : CommonLabels) {
+constructor(private courseService: CourseService, private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService,public commonLabels : CommonLabels) {
    this.labels = constant.videoFormLabels;
 }
 
@@ -113,6 +113,13 @@ constructor(private courseService: CourseService, private alertService: AlertSer
       this.deletedFilePath.push(data.fileImage);
     }
   }
+
+  timeFormatTransform(value): string {
+    // let secs = (value);
+    const minutes: number = Math.floor(value / 60);
+    return minutes + ':' + (value - minutes * 60).toFixed();
+ }
+
 
   getCourseFileDetails() {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);

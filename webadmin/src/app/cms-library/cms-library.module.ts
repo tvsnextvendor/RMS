@@ -23,12 +23,16 @@ import { EmployeeComponent } from './course-tab/employee/employee.component';
 import { ContentFileComponent } from './course-tab/content-file/content-file.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {moduleModule} from '../module/module.module';
+import { WorkCourseListComponent } from './work-inprogress/work-inprogress-list.component';
+
 
 const routes: Routes = [
     { path: 'cms-library', component:  CMSLibraryComponent ,canActivate : [AuthGuard]},
     { path: 'employeeslist', component:  EmployeesListComponent ,canActivate : [AuthGuard]},
     { path: 'employee', component:  EmployeeComponent ,canActivate : [AuthGuard]},
     { path: 'files/:id', component:  ContentFileComponent ,canActivate : [AuthGuard]},
+    { path: 'contentfile', component:  ContentFileComponent ,canActivate : [AuthGuard]},
+    { path: 'workinprogress', component:  WorkCourseListComponent ,canActivate : [AuthGuard]},
    
 ];
 
@@ -68,7 +72,8 @@ export const MY_MOMENT_FORMATS = {
     FilterTabComponent, 
     EmployeesListComponent, 
     EmployeeComponent,
-    ContentFileComponent
+    ContentFileComponent,
+    WorkCourseListComponent
   ],
   bootstrap: [CMSLibraryComponent]
 })

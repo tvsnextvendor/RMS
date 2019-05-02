@@ -13,7 +13,7 @@ import { CommonLabels } from '../Constants/common-labels.var';
   styleUrls: ['./cms-library.component.css']
 })
 export class CMSLibraryComponent implements OnInit {
-  constructor(private modalService: BsModalService,private commonLabels : CommonLabels, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
+  constructor(private modalService: BsModalService,public commonLabels : CommonLabels, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
   modalRef;
   videoFile;
   selectedTab;

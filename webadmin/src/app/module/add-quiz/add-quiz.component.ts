@@ -25,6 +25,8 @@ export class AddQuizComponent implements OnInit {
   @Input() quizDetails;
   @Input() enableQuiz;
   @Input() moduleName;
+  @Input() moduleId;
+  @Input() removedFileIds;
   @Output() valueChange = new EventEmitter();
   courseUpdate = false;
   videoDetails = [];
@@ -45,11 +47,14 @@ export class AddQuizComponent implements OnInit {
   hidemodule = false;
   optionData = true;
   modalRef;
+  removedQuizIds = [];
+
   constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService) {
     this.apiUrls = API_URL.URLS;
   }
   
   ngOnInit() {
+    console.log(this.removedFileIds)
     this.selectedVideo = this.videoId ? this.videoId : null;
     this.selectedCourse = this.courseId ? this.courseId : null;
     this.questionOptions = [
@@ -70,8 +75,6 @@ export class AddQuizComponent implements OnInit {
       "weightage": '100',
       "answer" : ''
     }];
-
-   
 
     if(this.enableQuiz){
       this.editQuizDetails(this.quizDetails);
@@ -127,16 +130,25 @@ export class AddQuizComponent implements OnInit {
         { "optionId": 3, "OptionName": "" },
         { "optionId": 4, "OptionName": "" }
       ];
+      if(this.courseId){
+        quiz[i].trainingClassId = this.courseId;
+      }
     }
     else if(data === "True/False"){
       quiz[i].options = [];
       quiz[i].option = "True/False";
       quiz[i].answer = 'true';
+      if(this.courseId){
+        quiz[i].trainingClassId = this.courseId;
+      }
     }
     else{
       quiz[i].options = [];
       quiz[i].option = '';
       quiz[i].answer = '';
+      if(this.courseId){
+        quiz[i].trainingClassId = this.courseId;
+      }
     }
   }
 
@@ -148,30 +160,50 @@ export class AddQuizComponent implements OnInit {
 
   // Add Question Box
   addQuestionForm() {
-    let obj = {
-      // "questionId": 1,
-      "questionName": "",
-      "questionType": "MCQ",
-      "options": [
-        { "optionId": 1, "optionName": "" },
-        { "optionId": 2, "optionName": "" },
-        { "optionId": 3, "optionName": "" },
-        { "optionId": 4, "optionName": "" }
-      ],
-      "weightage": '100',
-      "answer" : ''
-    };
-    // obj.questionId = this.quizQuestionsForm.length + 1;
+    let obj;
+    if(this.courseId){
+      obj = {
+        "questionName": "",
+        "questionType": "MCQ",
+        "options": [
+          { "optionId": 1, "optionName": "" },
+          { "optionId": 2, "optionName": "" },
+          { "optionId": 3, "optionName": "" },
+          { "optionId": 4, "optionName": "" }
+        ],
+        "weightage": '100',
+        "answer" : '',
+        "trainingClassId" : this.courseId
+      };
+    }
+    else{
+      obj = {
+        "questionName": "",
+        "questionType": "MCQ",
+        "options": [
+          { "optionId": 1, "optionName": "" },
+          { "optionId": 2, "optionName": "" },
+          { "optionId": 3, "optionName": "" },
+          { "optionId": 4, "optionName": "" }
+        ],
+        "weightage": '100',
+        "answer" : ''
+      };
+    }
+    // obj.trainingClassId = this.courseId;
     this.quizQuestionsForm.push(obj);
     obj.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
     this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
   }
 
   // Remove Question Box
-  removeQuestionForm(index) {
+  removeQuestionForm(index,data) {
     if(this.quizQuestionsForm.length>1){
       this.quizQuestionsForm.splice(index, 1);
       this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
+      if(this.courseId && data.questionId){
+        this.removedQuizIds.push(data.questionId)
+      }
     }
     else{
       this.alertService.warn("Minimum one quiz is mandatory");
@@ -192,6 +224,7 @@ export class AddQuizComponent implements OnInit {
   // Quiz Submission
   quizSubmit(submitType) {
     //Weightage update
+    let params;
     let hideTraining = submitType === 'yes' ? true : false;
     if(this.selectCourseName){
       let data = this.quizQuestionsForm.map(item => {
@@ -199,36 +232,67 @@ export class AddQuizComponent implements OnInit {
           return item;
       })
       //final data for submission
-      let params = {
-        "trainingClassName":this.selectCourseName,
-        "files":[],
-        "quizQuestions":data
+      if(this.courseId){
+        params = {
+          "trainingClass" : {"trainingClassName":this.selectCourseName},
+          "files":[],
+          "quizQuestions":data,
+          "trainingClassId" : this.courseId,
+          "questionIds" : this.removedQuizIds,
+          "fileIds" : this.removedFileIds
         }
+      }
+      else{
+        params = {
+          "trainingClassName":this.selectCourseName,
+          "files":[],
+          "quizQuestions":data
+          }
+      }
         if(this.videoList.length){
           params.files = this.videoList.map(item=>{
-            let obj = {
-              fileName : item.fileName,
-              fileDescription : item.fileDescription,
-              fileType : item.fileType,
-              fileUrl : item.fileUrl,
-              fileExtension:item.fileExtension,
-              fileImage : item.fileImage,
-              fileSize : item.fileSize,
-              fileLength : item.fileLength
+            if(this.courseId){
+              let obj = {
+                fileName : item.fileName,
+                fileDescription : item.fileDescription,
+                fileType : item.fileType,
+                fileUrl : item.fileUrl,
+                fileExtension:item.fileExtension,
+                fileImage : item.fileImage,
+                fileSize : item.fileSize,
+                fileLength : item.fileLength,
+                fileId : item.fileId,
+                trainingClassId : item.trainingClassId
+              }
+              return obj;
             }
-            return obj;
+            else{
+              let obj = {
+                fileName : item.fileName,
+                fileDescription : item.fileDescription,
+                fileType : item.fileType,
+                fileUrl : item.fileUrl,
+                fileExtension:item.fileExtension,
+                fileImage : item.fileImage,
+                fileSize : item.fileSize,
+                fileLength : item.fileLength
+              }
+              return obj;
+            }
+            
           })
         }
       if(this.courseId){
-        // params.courseId = this.courseId;
-        console.log(params);
-        // this.toastr.success("Quiz updated successfully");
-        // this.valueChanged('',hideTraining,true);
+        this.courseService.updateTrainingClass(this.courseId,params).subscribe((result)=>{
+          console.log(result)
+          if(result && result.isSuccess){
+            this.removedQuizIds = [];
+            this.valueChanged(result.data,hideTraining,false);
+          }
+        })
       }
       else{
-        // console.log(JSON.stringify(params));
         this.courseService.addTrainingClass(params).subscribe((result)=>{
-          console.log(result)
           if(result && result.isSuccess){
             this.valueChanged(result.data,hideTraining,false);
           }

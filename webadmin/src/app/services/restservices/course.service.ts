@@ -35,11 +35,18 @@ export class CourseService {
   getTrainingclassesById(courseId){
     return this.http.getLocal('local',this.url.getTrainingClassById+'?courseId='+courseId)
   }
+  getCourseTrainingClassById(classId,courseId){
+    return this.http.getLocal('local',this.url.getCourseTrainingClassById+'?trainingClassId='+classId)
+  }
+
   updateCourse(courseId, userData){
       return this.http.put('local',this.url.courseUpdate+courseId,userData)
   }
   updateTrainingClassName(trainingClassId, trainingClassName) {
     return this.http.put('local', this.url.trainingClassUpdate + trainingClassId, trainingClassName)
+  }
+  updateTrainingClass(trainingClassId,params) {
+    return this.http.put('local', this.url.courseTrainingClassUpdate + trainingClassId,params)
   }
   deleteCourse(courseId){
     return this.http.delete('local',this.url.courseDelete+courseId)
@@ -67,7 +74,12 @@ export class CourseService {
   }
 
   getTrainingClassQuiz(trainingClassId,courseId){
-    return this.http.getLocal('local',this.url.trainingClassQuiz+'?trainingClassId='+trainingClassId+'&courseId='+courseId)
+    if(courseId === ''){
+      return this.http.getLocal('local',this.url.trainingClassQuiz+'?trainingClassId='+trainingClassId)
+    }
+    else{
+      return this.http.getLocal('local',this.url.trainingClassQuiz+'?trainingClassId='+trainingClassId+'&courseId='+courseId)
+    }
   }
 
   scheduleTraining(data){

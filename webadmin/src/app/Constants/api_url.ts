@@ -106,6 +106,7 @@ export class API_URL {
     fileDelete:'8103/trainingClass/fileDelete/',
     getResortDivision:'8103/resort/getresortDivision',
     trainingClassUpdate: '8103/trainingClass/trainingClassUpdateByName/',
+    courseTrainingClassUpdate:'8103/trainingClass/Update/',
     courseEditFileList : '8103/course/getEditdetails',
     courseListUpdate : '8103/course/courseUpdate/',
     quizListUpdate : '8103/trainingClass/quizUpdate/',
@@ -113,7 +114,8 @@ export class API_URL {
     getTrainingClassById : '8103/course/getTrainingClasses',
     assignVideoToCourse: '8103/course/assignVideosToCourse',
     addDuplicateCourse : '8103/course/courseDuplicate',
-
+    getCourseTrainingClassById : '8103/trainingClass/TrainingFileList',
+ 
 
     //Resort Services
     resortAdd : '8102/resort/Add',
