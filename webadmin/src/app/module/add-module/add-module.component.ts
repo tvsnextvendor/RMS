@@ -41,6 +41,7 @@ export class AddModuleComponent implements OnInit {
     fileExtensionType;
     fileImageDataPreview;
     fileDuration;
+    removedFileIds = [];
     @Output() upload= new EventEmitter<object>();
     @Output() completed = new EventEmitter<string>();
     @Input() addedFiles;
@@ -79,6 +80,9 @@ export class AddModuleComponent implements OnInit {
     ele.onclick = this.addCourse.bind(this);
     this.moduleVar.tabKey = 1;
     this.courseData();
+    if(this.moduleId){
+        this.geteditCourseData();
+    }   
    }
 
     courseData(){
@@ -90,20 +94,17 @@ export class AddModuleComponent implements OnInit {
                         value : item.trainingClassName
                     }
                     return obj;
-                })
-                if(this.moduleId){
-                    this.geteditCourseData();
-                }    
+                }) 
             }
         })
     }
     geteditCourseData(){
         this.courseService.getCourseById(this.moduleId).subscribe(resp=>{
             if(resp && resp.isSuccess){
-                let data = resp.data && resp.data.rows[0];
+                let data = resp.data && resp.data.rows.length && resp.data.rows[0];
                 this.moduleName = data.courseName;
-                this.moduleVar.selectedCourseIds = data.CourseTrainingClassMaps.map(item=>{return item.trainingClassId})
-                this.selectedCourses = data.CourseTrainingClassMaps.map(item=>{
+                this.moduleVar.selectedCourseIds = data && data.CourseTrainingClassMaps.map(item=>{return item.trainingClassId})
+                this.selectedCourses = data && data.CourseTrainingClassMaps.map(item=>{
                     let obj = {
                         id : item.trainingClassId,
                         value : item.TrainingClass.trainingClassName
@@ -268,52 +269,109 @@ export class AddModuleComponent implements OnInit {
     }
 
    updateCourse(data,i){
-       this.tabEnable = true;
-       this.courseService.getTrainingClassById(data.id).subscribe(resp=>{
+       if(this.staticTabs) {
+            this.staticTabs.tabs[0].disabled = false;
+            this.staticTabs.tabs[0].active = true;
+       }   
+       this.moduleVar.quizDetails = []; 
+       this.moduleVar.courseId = data.id;
+       this.courseService.getCourseTrainingClassById(data.id,this.moduleId).subscribe(resp=>{
            console.log(resp);
+           if(resp && resp.isSuccess){
+               let classData = resp.data && resp.data.rows.length && resp.data.rows[0];
+               this.moduleVar.selectCourseName = classData.trainingClassName;
+               this.moduleVar.videoList = classData.Files;
+               this.tabEnable = true;
+           }
+           else{
+               this.alertService.error('No Data Found')
+           }
        })
+       this.getEditQuizData(data);
        this.cancelVideoSubmit();
    }
 
+   getEditQuizData(data){
+    this.courseService.getTrainingClassQuiz(data.id,'').subscribe(response=>{
+        console.log(response)
+        if(response && response.isSuccess){
+             this.quizCheck = true;
+             let quizData = response.data && response.data[0];
+             let questions = quizData.CourseTrainingClassMaps[0].TrainingClass.Questions;
+             this.moduleVar.quizDetails = questions; 
+             console.log(questions)
+        }
+     })
+   }
+
    removeVideo(data,i){
+       if(this.moduleVar.courseId && data.fileId){
+           console.log(data)
+           this.removedFileIds.push(data.fileId)
+        //    this.moduleVar.videoList.splice(i, 1);
+       }
+       else{
         this.messageClose();
-        this.moduleVar.videoList.splice(i, 1);
+        // this.moduleVar.videoList.splice(i, 1);
         let dataContent = data.filePath;
         this.commonService.removeFiles(dataContent).subscribe(result=>{
             console.log(result)
+            if(result && result.isSuccess){
+                this.alertService.success('File removed successfully')
+            }
         })
+       }
+       this.moduleVar.videoList.splice(i, 1);
         // this.message = data.videoName + this.labels.removeVideoSuccess;
         // this.alertService.success(this.message);
    }
 
    hideTab(data){
-        this.messageClose();
-       this.courseSubmitted = true;
-       this.courseData();
-       this.moduleVar.quizDetails = [];
-       this.moduleVar.quizDetails = [];
-       let newTrainingClass = {
-            id : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassId : '',
-            value : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassName : ''
-        }
-        
-        if(newTrainingClass.id !== ''){
-            this.selectedCourses.push(newTrainingClass);
-            this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
-            data.courseUpdate ? this.submitForm(true) : this.submitForm(false); 
-        }
-
-        // data.submitCheck ? this.submitForm(true) :this.courseData(); 
-        if(this.moduleVar.selectCourseName){
+       if(this.moduleVar.courseId){
+            this.courseData();
             this.tabEnable = data.courseUpdate ? false : true;
             this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
             this.alertService.success(this.message);
-        }
+            this.messageClose();
+       }
+       else{
+        this.messageClose();
+        this.courseSubmitted = true;
+        this.courseData();
+        this.moduleVar.quizDetails = [];
+        this.moduleVar.quizDetails = [];
+        let newTrainingClass = {
+             id : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassId : '',
+             value : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassName : ''
+         }
+         
+         if(newTrainingClass.id !== ''){
+             this.selectedCourses.push(newTrainingClass);
+             this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
+             data.courseUpdate ? this.submitForm(true) : this.submitForm(false); 
+         }
+ 
+         // data.submitCheck ? this.submitForm(true) :this.courseData(); 
+         if(this.moduleVar.selectCourseName){
+             this.tabEnable = data.courseUpdate ? false : true;
+             this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
+             this.alertService.success(this.message);
+         }
+       }   
+   }
+
+   resetClassWidget(){
+    this.moduleVar.courseList = [];
+    this.moduleVar.selectedCourseIds = [];
+    this.selectedCourses = [];
+
    }
 
     messageClose(){
         this.message = '';
         this.videoMessage = '';
+        this.moduleVar.courseId = '';
+        this.removedFileIds = [];
     } 
 
    updateVideo(data,i){
@@ -404,7 +462,9 @@ export class AddModuleComponent implements OnInit {
         this.messageClose();
         let self = this;
        this.videoSubmitted = true;
-       let videoObj = {fileName : self.moduleVar.selectVideoName,fileDescription : self.moduleVar.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:'',filePath:'',fileSize:'',fileLength : this.fileDuration}
+       let videoObj;
+       this.moduleVar.courseId ? videoObj = {fileName : self.moduleVar.selectVideoName,fileDescription : self.moduleVar.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:'',filePath:'',fileSize:'',fileLength : this.fileDuration,trainingClassId : this.moduleVar.courseId}:
+        videoObj = {fileName : self.moduleVar.selectVideoName,fileDescription : self.moduleVar.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:'',filePath:'',fileSize:'',fileLength : this.fileDuration}
         if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
             this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
             // console.log(viewImageFile,'fileeeeee');
@@ -421,7 +481,7 @@ export class AddModuleComponent implements OnInit {
                     self.videoSubmitted = false;
                     videoObj.fileUrl = result.data && result.data[0].filename;
                     videoObj.fileSize = result.data.length && result.data[0].size;
-                    videoObj.filePath = result.path && result.path;
+                    videoObj.filePath = result.path && result.path; 
                     if(self.moduleVar.videoIndex){
                         let index = self.moduleVar.videoIndex - 1;
                         self.moduleVar.videoList[index] = videoObj;
@@ -471,6 +531,7 @@ export class AddModuleComponent implements OnInit {
 
    tabChange(){
        this.courseSubmitted = true;
+       console.log(this.moduleVar.quizDetails)
         if(this.moduleVar.selectCourseName && this.moduleVar.videoList.length){
             this.staticTabs.tabs[1].disabled = false;
             this.staticTabs.tabs[1].active = true;
@@ -497,21 +558,30 @@ export class AddModuleComponent implements OnInit {
                 "createdBy" : user.userId,
                 "workInProgress" : courseSubmitType ? false : true
             }
-            if(this.moduleCourseId){
-                this.courseService.updateCourse(this.moduleCourseId,params).subscribe((resp)=>{
+            if(this.moduleCourseId || this.moduleId){
+                let id = this.moduleCourseId ? this.moduleCourseId : this.moduleId;
+                this.courseService.updateCourse(id,params).subscribe((resp)=>{
                     if(resp && resp.isSuccess){
-                        if(courseSubmitType) {
-                            this.moduleCourseId = '';
-                            this.completed.emit('completed');
-                            //this.route.navigateByUrl("/cms-library"); 
+                        if(this.moduleId){
+                            this.route.navigateByUrl("/workinprogress"); 
+                            this.moduleId = '';
+                            // this.moduleVar.courseId = '';
                         }
                         else{
-                            this.staticTabs.tabs[0].disabled = false;
-                            this.staticTabs.tabs[0].active = true;
+                            if(courseSubmitType) {
+                                this.moduleCourseId = '';
+                                this.completed.emit('completed');
+                                //this.route.navigateByUrl("/cms-library"); 
+                            }
+                            else{
+                                this.staticTabs.tabs[0].disabled = false;
+                                this.staticTabs.tabs[0].active = true;
+                            }
                         }
 
                         this.alertService.success(this.labels.moduleUpdateMsg);
                         this.moduleSubmitted = false;
+                        
                     }
                 })  
             }

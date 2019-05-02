@@ -20,7 +20,7 @@
     	    <div class="clearfix" *ngIf="!hideSection">
 
                 <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">{{commonLabels.btns.print}}</button>    
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress">{{commonLabels.btns.workinProgress}}</button>
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress" routerLink="/workinprogress">{{commonLabels.btns.workinProgress}}</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification">{{commonLabels.btns.createNotification}}</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{commonLabels.btns.createCourse}}</button>

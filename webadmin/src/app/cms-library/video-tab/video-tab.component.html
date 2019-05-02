@@ -84,7 +84,7 @@
                     </td>
                     <td class="text-left">{{formatBytes(file.fileSize)}}</td>
                     <td class="text-left">{{file.fileExtension ? file.fileExtension : 'mp4'}}</td>
-                    <td class="text-left">03:55</td>
+                    <td class="text-left">{{file.fileLength ? timeFormatTransform(file.fileLength) : '0:00'}}</td>
                    
                     <td>10</td>
                     <td class="text-left">{{file.filePermissionType}}</td>

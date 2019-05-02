@@ -5,9 +5,9 @@
 					
 				</div>
 				<div class="white-bg p-3 mt-2 table-decs" *ngFor="let data of quizQuestionsForm;let i = index;">
-					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i)">
+					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i,data)">
 						<img src="assets/images/Close-1.png" class="close-alg">
-			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></a></span>
+			   			<img src="assets/images/cancel-icon.png" class="cancel-alg"></a></span>
 					<div class="row  form-group">
 						<div class="col-md-6 row p-0"> 
 							<label for="" class="col-sm-4 label-title p-0 m-0">{{constant.quizLabels.questionType}}</label>
@@ -154,8 +154,9 @@
 						<!-- <span><a class="btn btn-link float-right" (click)="removeQuestionForm(i)"><i class="fa fa-times"></i></a></span> -->
 					<!-- </div> -->
 				<!-- </div> -->
-			<div class="col-sm-12 clearfix py-4 text-center">
-				<button type="button" class="btn btn-primary save-btn" (click)="openEditModal(confirm,'batch')" [disabled]="!quizForm.form.valid">{{constant.btns.saveBtn}}</button>
+			<div class="col-sm-12 clearfix py-4 text-center" >
+				<button *ngIf="!moduleId" type="button" class="btn btn-primary save-btn" (click)="openEditModal(confirm,'batch')" [disabled]="!quizForm.form.valid">{{constant.btns.saveBtn}}</button>
+				<button *ngIf="moduleId" type="button" class="btn btn-primary save-btn" (click)="quizSubmit('yes')" [disabled]="!quizForm.form.valid">{{constant.btns.saveBtn}}</button>
 			</div>
 		</form>
 	</div>

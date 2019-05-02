@@ -316,7 +316,6 @@ export class UserComponent implements OnInit {
       }
     }
      
-
     //reset
     resetFields() {
         this.defaultSetting=false;

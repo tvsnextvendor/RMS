@@ -35,7 +35,7 @@ export class DocumentTabComponent implements OnInit {
   @Output() selectedVideos  = new EventEmitter<object>();
 
 
-  constructor(private courseService: CourseService,private alertService: AlertService,private commonLabels : CommonLabels,public constant: CmsLibraryVar, private modalService : BsModalService) { 
+  constructor(private courseService: CourseService,private alertService: AlertService,public commonLabels : CommonLabels,public constant: CmsLibraryVar, private modalService : BsModalService) { 
 
   }
 

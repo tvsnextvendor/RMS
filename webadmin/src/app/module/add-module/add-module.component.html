@@ -3,7 +3,8 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a (click)="goTocmsLibrary()" class="cms-breadcrumb">{{labels.cmsLibrary}}</a></li>
-				<li class="breadcrumb-item active">{{labels.createCourse}}</li>
+				<li class="breadcrumb-item active" *ngIf="!moduleId">{{labels.createCourse}}</li>
+				<li class="breadcrumb-item active" *ngIf="moduleId">Edit Course</li>
 			</ol>
 		</nav>
 	</div>
@@ -154,7 +155,8 @@
 	</div>
    	</tab>
 	<tab heading="Quiz">
-			<add-quiz courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}'></add-quiz>
+		<add-quiz *ngIf="moduleId && moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}' moduleId = {{moduleId}} [removedFileIds]="removedFileIds"></add-quiz>
+		<add-quiz *ngIf="!moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}'  moduleId = {{moduleId}}></add-quiz>
 	</tab>
 </tabset>
 </div>

@@ -39,7 +39,7 @@ export class QuizTabComponent implements OnInit {
   filterCourse = null;
   filterTrainingClass = null;
   
-  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, private commonLabels : CommonLabels,public constant: QuizVar,private toastr: ToastrService,private modalService : BsModalService) {}
+  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels : CommonLabels,public constant: QuizVar,private toastr: ToastrService,private modalService : BsModalService) {}
   
   ngOnInit() {
     this.questionOptions = [
