@@ -263,6 +263,7 @@ export class UserComponent implements OnInit {
 
     //add new user
     addUser(data) {
+        this.errMsg='';
         if(this.userName && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
             let obj = {
                 userName : this.userName,
@@ -281,14 +282,15 @@ export class UserComponent implements OnInit {
                   this.closeAddForm();
                   this.userList();
                   this.alertService.success(this.labels.userAdded);
-                }else{
-                  this.errMsg = result.error;     
-                }
-            });
+                 }
+            },err =>{
+               this.errMsg=err.error.error;
+           });
         }
     }
 
     updateUser(data){
+      this.errMsg='';
       if(this.userName && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
            let obj = {
                 userName : this.userName,
@@ -307,10 +309,10 @@ export class UserComponent implements OnInit {
                      this.closeAddForm();
                      this.userList(); 
                      this.alertService.success(this.labels.userUpdated);
-                }else{
-                     this.errMsg = result.error;
                 }
-            })
+            },err =>{
+               this.errMsg=err.error.error;
+           })
       }
     }
      

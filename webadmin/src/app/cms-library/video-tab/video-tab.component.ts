@@ -117,10 +117,14 @@ constructor(private courseService: CourseService, private alertService: AlertSer
   getCourseFileDetails() {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
     let classId = this.trainingClassId ? this.trainingClassId : '';
-
- 
-
-    this.courseService.getFiles('Video',classId,this.page,this.pageSize,query).subscribe(resp => {
+    let params={
+      type: 'Video',
+      classId: classId,
+      page: this.page,
+      size: this.pageSize,
+      query: query
+    }
+    this.courseService.getFiles(params).subscribe(resp => {
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
         if(resp.data.count === 0)
