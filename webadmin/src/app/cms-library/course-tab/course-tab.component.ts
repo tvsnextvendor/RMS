@@ -48,6 +48,7 @@ export class CourseTabComponent implements OnInit {
   videoList;
   selectedIndex; 
   fileDuration;
+  selectedCourseId;
 
   constructor(private sanitizer: DomSanitizer,private courseService : CourseService ,private commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
 
@@ -92,14 +93,14 @@ export class CourseTabComponent implements OnInit {
   }
 
   enableDropData(type,index){
-
-    localStorage.setItem('index', index)
-    localStorage.setItem('type', type)
+    localStorage.setItem('index', index);
+    localStorage.setItem('type', type);
     if(type === "view"){
       this.enableView = this.enableIndex === index ? !this.enableView : true;
       this.enableEdit = false;
       this.enableDuplicate = false;
       this.enableIndex = index;
+      this.getCourseId(index);
     }
     else if(type === "closeDuplicate"){
       this.enableView = true;
@@ -117,7 +118,6 @@ export class CourseTabComponent implements OnInit {
       this.enableDuplicate = false;
       this.enableIndex = index;
       this.editCourseData(index,'');
-
     }
     else if(type === "duplicate"){
       this.enableView = true;
@@ -130,6 +130,24 @@ export class CourseTabComponent implements OnInit {
       let value = {tab : 'training'}
       this.trainingClassRedirect.emit(value);
     }
+  }
+
+ 
+   deleteConfirmation(template: TemplateRef<any>,courseId) {
+    let modalConfig={
+      class : "modal-dialog-centered"
+    }
+     this.selectedCourseId = courseId;
+     this.modalRef = this.modalService.show(template,modalConfig); 
+    }
+
+
+  getCourseId(index){
+      this.courseListValue.forEach((item,i)=>{
+      if(i===index){
+        this.selectedCourseId = item.courseId;
+       }
+    })
   }
 
   editCourseData(index,id){
@@ -309,6 +327,16 @@ export class CourseTabComponent implements OnInit {
          this.alertService.error(err.error.error);
       })
     }
+  }
+
+  removeCourse(){
+    this.courseService.deleteCourse(this.selectedCourseId).subscribe(res=>{
+      if(res.isSuccess){
+        this.alertService.success(res.message);
+        this.modalRef.hide();
+        this.getCourseDetails();
+      }
+    })
   }
 
   fileUpload(e){

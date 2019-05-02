@@ -337,8 +337,9 @@
                            </label>
             </div>
 
+          <span class="text-center mb-3 mt-0 required_color" *ngIf="errMsg">{{errMsg}}</span>
+
             <div class="text-center">
-                <span *ngIf="errMsg">{{errMsg}}</span>
                 <button type="submit" *ngIf="!editEnable" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
                 <button type="submit" *ngIf="editEnable" (click)="updateUser(userForm)" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
                 <button type="button" class="btn btn-default"

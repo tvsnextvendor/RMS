@@ -1,46 +1,35 @@
+<div class="pt-2">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/cms-library">{{commonLabels.labels.cmsLibrary}}</a></li>
+      <li class="breadcrumb-item active">
+        Content Files</li>
+    </ol>
+  </nav>
+</div>
+
 <div class="row pt-4">
-    <div class="col-sm-12 pb-3 p-0 button-section">
-        <button type = "button" class="btn btn-primary float-right" [routerLink]="['../resorts']">Export to Excel</button>
-    </div>
     <div class="col-lg-12 col-sm-12 p-0">
-    <div class="header-section mb-2 clearfix">
-      <h4 class="float-left">Employee 3</h4>
-      <h6 class="float-right">Count 100</h6>
-    </div>                
         <div class="table-responsive white-bg ">
             <table class="table table-striped">
                     <thead>
                     <tr class="th-boxshadow">
-                        <th class="text-left">
-                          Files
-                        </th>
-                        <th class="text-left">
-                          Files size
-                        </th>
-                        <th class="text-left">
-                          Type
-                        </th>
-                        <th class="text-left">
-                          Length
-                        </th>
-                        <th class="text-left">
-                            No.of Emp.
-                          </th>
-                          <th class="text-center">
-                            Action
-                          </th>
-                        
+                        <th class="text-left">{{commonLabels.labels.file}}</th>
+                        <th class="text-left">{{commonLabels.labels.fileSize}}</th>
+                        <th class="text-left">{{commonLabels.labels.type}}</th>
+                        <th class="text-left">{{commonLabels.labels.length}}</th>
+                          <th class="text-left">{{commonLabels.labels.noofEmp}}</th>
+                          <th class="text-center">{{commonLabels.labels.action}}</th>      
                     </tr>
                     </thead>
                     <tbody>
-                        <tr  class="table-desc-color">
-                            <td class="text-left">Video 1</td>
-                            <td class="text-left">10 Mb</td>
-                            <td class="text-left">.mp4</td>
+                        <tr *ngFor="let file of fileList" class="table-desc-color">
+                            <td class="text-left">{{file.fileName}}</td>
+                            <td class="text-left">{{file.fileSize}}</td>
+                            <td class="text-left">.{{file.fileExtension}}</td>
                             <td class="text-left">03.50</td>
-                            <td class="text-left"><a href="#">100</a></td>                              
-                            <td class="text-center">
-                                <a><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                            <td class="text-left"><a href="#">100</a></td>     
+                            <td class="text-center"><a><i class="fas fa-pencil-alt"aria-hidden="true"></i></a>
                                 <a><i class="fa fa-trash"></i></a>
                                 <a href="#"><i class="far fa-eye"></i></a>
                             </td>                         

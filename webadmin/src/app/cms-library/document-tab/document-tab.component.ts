@@ -111,7 +111,14 @@ export class DocumentTabComponent implements OnInit {
   getCourseFileDetails() {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
     let classId = this.trainingClassId ? this.trainingClassId : '';
-    this.courseService.getFiles('Document',classId,this.page,this.pageSize,query).subscribe(resp => {
+    let params={
+      type: 'Document',
+      classId: classId,
+      page: this.page,
+      size: this.pageSize,
+      query: query
+    }
+    this.courseService.getFiles(params).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;

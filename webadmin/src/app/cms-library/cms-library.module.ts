@@ -28,7 +28,7 @@ const routes: Routes = [
     { path: 'cms-library', component:  CMSLibraryComponent ,canActivate : [AuthGuard]},
     { path: 'employeeslist', component:  EmployeesListComponent ,canActivate : [AuthGuard]},
     { path: 'employee', component:  EmployeeComponent ,canActivate : [AuthGuard]},
-    { path: 'contentfile', component:  ContentFileComponent ,canActivate : [AuthGuard]},
+    { path: 'files/:id', component:  ContentFileComponent ,canActivate : [AuthGuard]},
    
 ];
 
