@@ -152,7 +152,6 @@ background-color: #C1E1F3;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .add-module{
     border: 3px solid rgba(0,0,0,.125);
 }
@@ -164,6 +163,5 @@ background-color: #C1E1F3;
     color: #468FB9;
 }
 .breadcrumb-item .cms-breadcrumb:hover{
-
 text-decoration: underline;
 }

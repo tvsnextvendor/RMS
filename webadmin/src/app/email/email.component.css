@@ -32,7 +32,6 @@
     display: list-item;
     font-size: 25px;
 }
-
 .clr-grey{
  color: grey;
 }
@@ -48,11 +47,9 @@ color: #007bff !important;
 .clr-pink{
 color: pink !important;
 }
-
 ul li{
     list-style-type: none !important;
 }
-
 .font-circle{
     font-size: 12px;
     padding: 0px 5px;
