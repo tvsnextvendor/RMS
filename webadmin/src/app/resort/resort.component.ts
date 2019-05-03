@@ -158,6 +158,8 @@ export class ResortComponent implements OnInit {
                         this.toastr.success("Resort updated successfully");
                         this.router.navigateByUrl('/resortslist');
                     }
+                },(err)=>{
+                    this.alertService.error(err.error.error);
                 });
             }
             else{
@@ -176,7 +178,9 @@ export class ResortComponent implements OnInit {
                         this.toastr.success("Resort added successfully");
                         this.router.navigateByUrl('/resortslist');
                     }
-                })
+                },(err)=>{
+                    this.alertService.error(err.error.error);
+                });
             }   
         }    
         else{

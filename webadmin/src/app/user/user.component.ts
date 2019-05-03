@@ -53,6 +53,7 @@ export class UserComponent implements OnInit {
     divisionDetails;
     divisionError;
     divisionValidationCheck = true;
+    errorValidation = true;
     editDivisionValue;
     editDepartmentList;
     divisionId;
@@ -64,6 +65,7 @@ export class UserComponent implements OnInit {
     removeDepartmentIds=[];
     roleError;
     roleFormSubmitted = false;
+    errorValidate;
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
@@ -84,13 +86,13 @@ export class UserComponent implements OnInit {
         
         //get Resort list
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
-            this.divisionArray=result.data.divisions;
+            this.divisionArray=(result.data)?result.data.divisions:[];
 
-        })
+        });
 
         this.commonService.getDesignationList(resortId).subscribe((result)=>{
             if(result && result.isSuccess){
-                this.designationArray=result.data.length && result.data.rows;
+                this.designationArray=result.data && result.data.rows;
             }
         })
         this.getDivisionList(resortId);
@@ -214,6 +216,7 @@ export class UserComponent implements OnInit {
 
 
     submitRole(){
+        this.errorValidation = true;
         let userData = this.utilService.getUserData();
         let resortId = userData && userData.Resorts && userData.Resorts[0].resortId;
         this.roleFormSubmitted = true;
@@ -232,7 +235,11 @@ export class UserComponent implements OnInit {
                         this.roleComponent.getDropDownDetails();
                         this.alertService.success("Designation updated successfully")
                     }
-                })
+                },err =>{
+                    this.errorValidation = false;
+                    this.errorValidate = err.error.error;
+                    this.alertService.error(err.error.error);
+                });
             }
 
         }else{
@@ -250,6 +257,10 @@ export class UserComponent implements OnInit {
                         this.roleComponent.getDropDownDetails();
                         this.alertService.success("Designation added successfully")
                     }
+                },err =>{
+                    this.errorValidation = false;
+                    this.errorValidate = err.error.error;
+                    this.alertService.error(err.error.error);
                 })
             }
         } 
@@ -397,6 +408,7 @@ export class UserComponent implements OnInit {
     }
 
     submitDivision(){
+        this.errorValidation = true;
         let userData = this.utilService.getUserData();
         let resortId = userData && userData.Resorts && userData.Resorts[0].resortId;
         this.divisionValidationCheck = true;
@@ -419,6 +431,10 @@ export class UserComponent implements OnInit {
                     this.closeAddForm();
                     this.roleComponent.getDropDownDetails();
                 }    
+            },err =>{
+                this.errorValidation = false;
+                this.errorValidate = err.error.error;
+                this.alertService.error(err.error.error);
             })
         }else{
             this.divisionError = 'Department name is mandatory';

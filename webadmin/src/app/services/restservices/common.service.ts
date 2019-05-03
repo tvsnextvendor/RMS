@@ -21,6 +21,9 @@ export class CommonService {
  getDivisionList(){
     return this.http.getLocal('local',this.url.divisionList);
  }
+ getCreatedByDetails(){
+    return this.http.getLocal('local',this.url.getCreatedByDetails);
+  }
 
  getDepartmentList(data){
       let params = data ? data : '';
@@ -40,7 +43,7 @@ getResortList(){
 }
 
 getDesignationList(resortId){
-    return this.http.getLocal('local',this.url.designationList+'?resortId'+resortId);
+    return this.http.getLocal('local',this.url.designationList+'?resortId='+resortId);
 }
 
 uploadFiles(file){
