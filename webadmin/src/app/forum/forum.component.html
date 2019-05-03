@@ -26,14 +26,14 @@
                                 <td class="forumname-width text-left"><a href="#">{{ forum.forumname }}</a></td>
                                 <td class="text-left">{{ forum.departments.length }}</td>
                                 <td class="lt-dt-act text-left"><span>12 May 2019</span></td>
-                                <td class="text-left"><label class="switch">
+                                <td class="text-left"><label class="switch" title="Active/Inactive">
                                         <input type="checkbox" [(ngModel)]="forum.active" (change)= "statusUpdate(forum.forumname,forum.active)" > 
                                         <span class="slider round"></span>
                                     </label></td>
                                     <td class="text-center">
                                         <a (click)="openEditModal(editForum,forum)" title="Edit"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
                                         <a (click)="removeUser(deleteUser,user,i)"  title="Delete"><i class="fa fa-trash"></i></a>
-                                        <a href="#" title="Hook"><i class="fas fa-thumbtack pinned-icon"></i></a>
+                                        <a href="#" title="Pinned"><i class="fas fa-thumbtack pinned-icon"></i></a>
                                     </td> 
                         </tr>
                         <tr *ngIf="mf.data?.length == 0">
