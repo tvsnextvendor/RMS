@@ -13,6 +13,7 @@ export class UserVar {
         "mobile": "Mobile",
         "reportingTo": "Reporting to",
         "defaultSetting": "Default Setting",
+        "accessTo":"Access To",
         "email": "Email",
         "employeeId": "Emp ID",
         "updateRestrictMsg": "Unable to perform update user",
@@ -40,8 +41,8 @@ export class UserVar {
         "listofRole" : "List Of Role",
         "rolesPermission" : "Roles & Permission",
         "divisionName" : "Division Name",
-        "entertheDepartment" : "Enter the Department"
-        
+        "entertheDepartment" : "Enter the Department",
+        "web": "Web",
     }
 
     btns = {
@@ -52,6 +53,7 @@ export class UserVar {
         "cancel" : 'CANCEL',
         "ok":'Ok',
         "Cancel":'Cancel',
+        "update": 'Update',
         "next" : "Next",
         "addnew" : "Add New"
     }
@@ -70,8 +72,8 @@ export class UserVar {
         "division": 'Division is required',
         "divisionName" : "Division",
         "department" : "Department",
-        "isRequired" : " is Required"
-        
+        "isRequired" : " is Required",
+        "accessTo" : "Access To is Required"
     }
 
     title = 'User Management';

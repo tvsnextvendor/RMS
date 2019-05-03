@@ -91,12 +91,6 @@
             </div>
             <div class="hierarchy-tab white-bg p-4 mt-3">
             <div class="detail-bottom row">                
-                <!-- <div class="row depart-dtl col-md-12 p-0">
-                    <label class="col-md-12 p-0 label-title">Division1 <a href="#"><i class="fas fa-pencil-alt"></i></a></label>
-                    <div class="dpt-list pl-1 ml-4"><span>Department 1<a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span>
-                 <span>Department 1<a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span>
-                    </div>
-                </div> -->
                 <div class="row depart-dtl col-md-12 p-0 clearfix" *ngFor="let division of divisionDetails;let i = index;">
                     <label *ngIf="division?.Division?.Departments.length" class="col-md-12 p-0 label-title">{{division?.Division?.divisionName}} <a (click)="editDivisionData(division?.Division,editDivision)" title="Edit"><i class="fas fa-pencil-alt"></i></a></label>
                         <div *ngIf="division?.Division?.Departments.length" class="dpt-list pl-1 ml-4" >
@@ -223,20 +217,6 @@
     </div>
     <div class="modal-body">
          <form #userForm="ngForm"  (ngSubmit)="addUser(userForm)">
-           
-        <!-- <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{labels.employeeId}}</label>
-                <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0">
-                    <input type="text" class="form-control" placeholder="Enter Emp ID" [(ngModel)]="userId"
-                    name="userId" #user="ngModel" (keyup)="validationUpdate(mf.data,'userId')" />
-                    <span class="required_color"
-                        *ngIf="userForm.submitted && !userId">{{constant.mandatoryText.empId}}</span>
-                    <span class="required_color"
-                            *ngIf="userForm.submitted && userId && validUserId">{{constant.mandatoryText.empIdExist}}</span>
-                </span>
-            </div>  -->
-
             <div class="row form-group">
                 <label class="col-md-3 pr-0 label-title mb-0">{{labels.userName}}</label>
                 <span class="col-md-1"></span>
@@ -251,13 +231,13 @@
                 <label class="col-md-3 pr-0 label-title mb-0">{{labels.division}}</label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
-                    <select [(ngModel)]="division" name="division" (ngModelChange)="changedivision()" class="form-control">
+                    <select [(ngModel)]="division" #divisionReq="ngModel" name="division" (ngModelChange)="changedivision()" class="form-control" required>
                         <option value="">{{constant.labels.select}}</option>
                         <option *ngFor="let obj of divisionArray" [value]="obj.divisionId">{{obj.divisionName}}</option>
                     </select>
                     <div class="select_arrow"></div>
                     <span class="required_color"
-                        *ngIf="userForm.submitted && !department">{{constant.mandatoryText.division}}</span>
+                        *ngIf="userForm.submitted && divisionReq.errors?.required">{{constant.mandatoryText.division}}</span>
                 </span>
             </div>
             
@@ -265,14 +245,14 @@
                 <label class="col-md-3 pr-0 label-title mb-0">{{labels.department}}</label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
-                    <select [(ngModel)]="department" (ngModelChange)="designationUpdate($event)" name="department"
-                        class="form-control">
+                    <select [(ngModel)]="department" #departmentReq="ngModel" (ngModelChange)="designationUpdate($event)" name="department"
+                        class="form-control" required>
                         <option value="">{{constant.labels.select}}</option>
                         <option *ngFor="let obj of departmentArray" [value]="obj.departmentId">{{obj.departmentName}}</option>
                     </select>
                     <div class="select_arrow"></div>
                     <span class="required_color"
-                        *ngIf="userForm.submitted && !department">{{constant.mandatoryText.dept}}</span>
+                        *ngIf="userForm.submitted && departmentReq.errors?.required">{{constant.mandatoryText.dept}}</span>
                 </span> 
             </div>
 
@@ -280,12 +260,12 @@
                 <label class="col-md-3 pr-0 label-title mb-0">{{labels.role}}</label>
                  <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
-                    <select [(ngModel)]="designation" name="designation" class="form-control">
+                    <select [(ngModel)]="designation" name="designation"  #designationReq="ngModel" class="form-control" required>
                         <option value="">{{constant.labels.select}}</option>
                         <option *ngFor="let obj of designationArray" [value]="obj.designationId">{{obj.designationName}}</option>
                     </select>
                      <div class="select_arrow"></div>
-                    <span class="required_color" *ngIf="userForm.submitted && !designation">
+                    <span class="required_color" *ngIf="userForm.submitted && designationReq.errors?.required">
                         {{constant.mandatoryText.designation}}</span>
                 </span> 
             </div>
@@ -325,23 +305,28 @@
                         <option *ngFor="let obj of designationArray" [value]="obj.designationId">{{obj.designationName}}</option>
                     </select>
                      <div class="select_arrow"></div>
-                    <!-- <span class="required_color" *ngIf="userForm.submitted && !reportingTo">
-                        {{constant.mandatoryText.reportingTo}}</span>-->
                 </span> 
             </div>
 
-            <div class="row form-group pl-3">
-                <label class="hole-cont default-set">{{labels.defaultSetting}}
-                    <input type="checkbox" [(ngModel)] = "defaultSetting" name="defaultSetting" #setting="ngModel"  checked/>
-                          <span class="checkmark"></span>
-                           </label>
+            <div class="row form-group">                    
+                <label class="col-md-3 pr-0 label-title mb-0">{{labels.accessTo}}</label>
+                <span class="col-md-1"></span>
+                <span class="col-md-8 pl-0 select select-style clearfix">
+                    <select [(ngModel)]="accessTo" name="accessTo" #accessToReq="ngModel" class="form-control" required>
+                        <option value="web">{{constant.labels.web}}</option>
+                        <option value="mobile">{{constant.labels.mobile}}</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                    <span class="required_color"
+                        *ngIf="userForm.submitted && accessToReq.errors?.required">{{constant.mandatoryText.accessTo}}</span>
+                </span>                 
             </div>
 
           <span class="text-center mb-3 mt-0 required_color" *ngIf="errMsg">{{errMsg}}</span>
 
             <div class="text-center">
                 <button type="submit" *ngIf="!editEnable" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
-                <button type="submit" *ngIf="editEnable" (click)="updateUser(userForm)" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
+                <button type="submit" *ngIf="editEnable"  class="btn btn-primary creat-btn mr-3">{{constant.btns.update}}</button>
                 <button type="button" class="btn btn-default"
                     (click)="closeAddForm()">{{constant.btns.cancel}}</button>
             </div>
