@@ -34,7 +34,7 @@
                     </div>
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">{{resortVar.labels.mobile}}</label>
-                        <input class="col-6 col-md-8 form-control" placeholder="mobile" type="text" autocomplete="off" name="mobile" [(ngModel)]="phoneNumber" #resort = "ngModel" (keyup) = "validationValueCheck('mobile')" required>
+                        <input class="col-6 col-md-8 form-control" placeholder="mobile" type="number" autocomplete="off" name="mobile" [(ngModel)]="phoneNumber" #resort = "ngModel" (keyup) = "validationValueCheck('mobile')" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !phoneNumber">{{resortVar.labels.mobile}} number{{resortVar.labels.isRequired}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && phoneNumber && !mobileValidation">Invalid {{resortVar.labels.mobile}} number </span>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
             <div class="row mb-4">
                 <label class="col-6 col-md-4 label-title">{{resortVar.labels.status}}</label>
                 <select class="col-6 col-md-8 form-control" [(ngModel)] = "status" name="status"> 
-                    <option [value]="null">--Select Status--</option>
+                    <option [value]="null" disabled>--Select Status--</option>
                     <option *ngFor="let status of resortVar.statusList" [value]="status.name">{{status.name}}</option>
                 </select>
                 <!-- <input class="col-6 col-md-8 form-control" type="text" name="location" [(ngModel)]="resortVar.location"> -->

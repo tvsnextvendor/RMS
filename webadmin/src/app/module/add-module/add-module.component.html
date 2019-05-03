@@ -155,7 +155,7 @@
 	</div>
    	</tab>
 	<tab heading="Quiz">
-		<add-quiz *ngIf="moduleId && moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}' moduleId = {{moduleId}} [removedFileIds]="removedFileIds"></add-quiz>
+		<add-quiz *ngIf="moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}' moduleId = {{moduleId}} [removedFileIds]="removedFileIds"></add-quiz>
 		<add-quiz *ngIf="!moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}'  moduleId = {{moduleId}}></add-quiz>
 	</tab>
 </tabset>

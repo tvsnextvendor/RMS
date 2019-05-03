@@ -108,7 +108,7 @@ export class QuizTabComponent implements OnInit {
   questionTypeUpdate(data, i) {
     let quiz = this.quizQuestionsForm;
     quiz[i].QuestionType = data;
-    if (data === "1") {
+    if (data === "MCQ") {
       quiz[i].option = '';
       quiz[i].options = [
         { "optionId": 1, "OptionName": "" },
@@ -118,7 +118,7 @@ export class QuizTabComponent implements OnInit {
       ];
       quiz[i].answer = '';
     }
-    else if(data === "2"){
+    else if(data === "True/False"){
       quiz[i].options = [];
       quiz[i].option = "True/False";
       quiz[i].answer = '';

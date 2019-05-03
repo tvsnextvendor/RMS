@@ -12,6 +12,7 @@ import {CommonService} from '../services/restservices/common.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import * as XLSX from 'ts-xlsx';
 import {UserService,ResortService, UtilService} from '../services';
+import {RolepermissionComponent} from '../rolepermission/rolepermission.component'
 
 @Component({
     selector: 'app-users',
@@ -21,6 +22,7 @@ import {UserService,ResortService, UtilService} from '../services';
 
 export class UserComponent implements OnInit {
     @ViewChild('staticTabs') staticTabs: TabsetComponent;
+    @ViewChild(RolepermissionComponent) roleComponent : RolepermissionComponent;
     userName;
     userId;
     userType;
@@ -60,6 +62,8 @@ export class UserComponent implements OnInit {
     roleId;
     editRoleValue;
     removeDepartmentIds=[];
+    roleError;
+    roleFormSubmitted = false;
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
         this.constant.url = API_URL.URLS;
@@ -85,7 +89,9 @@ export class UserComponent implements OnInit {
         })
 
         this.commonService.getDesignationList(resortId).subscribe((result)=>{
-            this.designationArray=result.data.rows;
+            if(result && result.isSuccess){
+                this.designationArray=result.data.length && result.data.rows;
+            }
         })
         this.getDivisionList(resortId);
     }
@@ -198,6 +204,7 @@ export class UserComponent implements OnInit {
     openAddRole(template: TemplateRef<any>, data,  index){
         
         // if(data){
+            this.roleError = false;
             this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
         //    }else{
             // this.resetFields();   
@@ -207,33 +214,60 @@ export class UserComponent implements OnInit {
 
 
     submitRole(){
-        console.log(this.roleId)
         let userData = this.utilService.getUserData();
         let resortId = userData && userData.Resorts && userData.Resorts[0].resortId;
+        this.roleFormSubmitted = true;
+        this.roleNameValidationCheck();
         if(this.roleId){
-            let params = {
-                designationName : this.editRoleValue
-            }
-            this.userService.updateDesignation(this.roleId,params).subscribe(resp=>{
-                if(resp && resp.isSuccess){
-                    this.getDivisionList(resortId);
-                    this.constant.modalRef.hide();
-                    this.resetFields();
-                    this.alertService.success("Designation updated successfully")
+            if(!this.roleError){
+                let params = {
+                    designationName : this.editRoleValue
                 }
-            })
+                this.userService.updateDesignation(this.roleId,params).subscribe(resp=>{
+                    if(resp && resp.isSuccess){
+                        this.getDivisionList(resortId);
+                        this.constant.modalRef.hide();
+                        this.resetFields();
+                        this.roleError = false;
+                        this.roleComponent.getDropDownDetails();
+                        this.alertService.success("Designation updated successfully")
+                    }
+                })
+            }
 
         }else{
             let params = {
                 resortId : resortId,
                 designation : this.roles
             }
-            this.userService.addResortDesignation(params).subscribe(resp=>{
-                if(resp && resp.isSuccess){
-                    this.getDivisionList(resortId);
-                    this.constant.modalRef.hide();
-                    this.resetFields();
-                    this.alertService.success("Designation added successfully")
+            console.log(this.roles, "this.roles");
+            if(!this.roleError){
+                this.userService.addResortDesignation(params).subscribe(resp=>{
+                    if(resp && resp.isSuccess){
+                        this.getDivisionList(resortId);
+                        this.constant.modalRef.hide();
+                        this.resetFields();
+                        this.roleComponent.getDropDownDetails();
+                        this.alertService.success("Designation added successfully")
+                    }
+                })
+            }
+        } 
+    }
+
+    roleNameValidationCheck(){
+        if(this.roleId){
+            if(!this.editRoleValue){
+                this.roleError = true;
+            }
+        }
+        else{
+            this.roles.forEach(item=>{
+                if(item.designationName === ''){
+                    this.roleError = true;
+                }
+                else{
+                    this.roleError = false;
                 }
             })
         }      
@@ -304,6 +338,7 @@ export class UserComponent implements OnInit {
     resetFields() {
         this.editEnable= false;
         this.accessTo="web";
+        this.roleFormSubmitted = false;
         this.userName = '';
         this.userId = '';
         this.roleId = '';
@@ -382,6 +417,7 @@ export class UserComponent implements OnInit {
                     this.triggerNext = false ;
                     this.getDivisionList(resortId);
                     this.closeAddForm();
+                    this.roleComponent.getDropDownDetails();
                 }    
             })
         }else{
@@ -459,6 +495,7 @@ export class UserComponent implements OnInit {
                 designationName : ''
             };
             this.roles.push(obj);
+            this.roleNameValidationCheck();
         }
     }
     
@@ -558,6 +595,7 @@ export class UserComponent implements OnInit {
                     let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
                     this.constant.modalRef.hide();
                     this.getDivisionList(resortId);
+                    this.roleComponent.getDropDownDetails();
                     this.alertService.success('Division updated successfully');
                 }
             })
