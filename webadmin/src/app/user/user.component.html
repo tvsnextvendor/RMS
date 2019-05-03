@@ -61,7 +61,7 @@
                             <td class="text-center"><label class="mb-0">{{ user.phoneNumber }}</label></td>
                             <td class="text-center"><a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                 <a (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
-                                <a><label class="switch">
+                                <a title="Active/Inactive"><label class="switch">
                                     <input type="checkbox" [checked]="user.active" (change)="activeStatus(user)"> 
                                     <span class="slider round"></span>
                                 </label></a>                                
@@ -98,7 +98,7 @@
                     </div>
                 </div> -->
                 <div class="row depart-dtl col-md-12 p-0 clearfix" *ngFor="let division of divisionDetails;let i = index;">
-                    <label *ngIf="division?.Division?.Departments.length" class="col-md-12 p-0 label-title">{{division?.Division?.divisionName}} <a (click)="editDivisionData(division?.Division,editDivision)"><i class="fas fa-pencil-alt"></i></a></label>
+                    <label *ngIf="division?.Division?.Departments.length" class="col-md-12 p-0 label-title">{{division?.Division?.divisionName}} <a (click)="editDivisionData(division?.Division,editDivision)" title="Edit"><i class="fas fa-pencil-alt"></i></a></label>
                         <div *ngIf="division?.Division?.Departments.length" class="dpt-list pl-1 ml-4" >
                             <div>
                                 <span  *ngFor="let dept of division?.Division?.Departments">{{dept.departmentName}}</span>
@@ -123,7 +123,7 @@
             <div class="detail-bottom row">                
                 <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
                     <label class="col-md-12 p-0 label-title"><span class="col-md-2">{{i+1}}.{{role.designationName}} </span>
-                        <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4"><i class="fas fa-pencil-alt"></i></a>
+                        <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                         <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
                     </label>
                     </div>
@@ -391,10 +391,10 @@
                     <div class="input-group mb-3 col-7 col-md-8 group-box">
                         <input type="text" class="form-control col-md-11" placeholder="Enter the Division{{i+1}}" [(ngModel)]="data.divisionName" name = "division{{i+1}}" aria-label="" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
-                            <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('division',i)">
+                            <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('division',i)" title="Add">
                                 <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
                             </button>
-                            <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeForm(i,'division','')">
+                            <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeForm(i,'division','')" title="Delete">
                                 <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
                             </button>
                         </div> 
@@ -412,10 +412,10 @@
                         <div  [ngClass] = "oi === 0 ? 'col-12 input-group mb-3 col-md-12 group-box cll' : 'col-12 input-group mb-3 col-md-12 group-box group-section-bx'" >
                         <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{oi+1}}" [(ngModel)]="dept.departmentName" name = "department{{oi+1}}" aria-label="" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
-                            <button class="btn btn-icon" type="button" *ngIf="oi==0" (click)="addForm('department',i)">
+                            <button class="btn btn-icon" type="button" *ngIf="oi==0" (click)="addForm('department',i)" title="Add">
                                 <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
                             </button>
-                            <button class="btn btn-icon" type="button" *ngIf="oi!=0" (click)="removeForm(i,'department',oi)">
+                            <button class="btn btn-icon" type="button" *ngIf="oi!=0" (click)="removeForm(i,'department',oi)" title="Delete">
                                 <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
                             </button>
                         </div> </div>
@@ -464,10 +464,10 @@
                 <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
             </div>
             <div class="input-group-prepend">
-                <button class="btn btn-icon" type="button" *ngIf="i == 0" (click)="editDivisionForm('add')">
+                <button class="btn btn-icon" type="button" *ngIf="i == 0" (click)="editDivisionForm('add')" title="Add">
                     <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
                 </button>
-                <button class="btn btn-icon" type="button" *ngIf="i != 0" (click)="editDivisionForm('edit',i)">
+                <button class="btn btn-icon" type="button" *ngIf="i != 0" (click)="editDivisionForm('edit',i)" title="Delete">
                     <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
                 </button>
             </div> 
@@ -494,10 +494,10 @@
                 <div class="input-group mb-3 col-12 col-md-12 group-box">
                 <input type="text" class="form-control col-md-11" placeholder="Enter the  Role {{oi+1}}" [(ngModel)]="dept.designationName" name = "role{{oi+1}}" aria-label="" aria-describedby="basic-addon1">
                 <div class="input-group-prepend">
-                    <button class="btn btn-icon" type="button" *ngIf="oi==0" (click)="addForm('roles','')">
+                    <button class="btn btn-icon" type="button" *ngIf="oi==0" (click)="addForm('roles','')" title="Add">
                         <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
                     </button>
-                    <button class="btn btn-icon" type="button" *ngIf="oi!=0" (click)="removeForm('','roles',oi)">
+                    <button class="btn btn-icon" type="button" *ngIf="oi!=0" (click)="removeForm('','roles',oi)" title="Delete">
                         <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
                     </button>
                 </div>
