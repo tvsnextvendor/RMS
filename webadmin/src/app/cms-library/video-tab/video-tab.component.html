@@ -122,8 +122,8 @@
                             [(ngModel)]="constant.selectedResort">
                             <!-- <select class="form-control p-0"> -->
                             <option value="null" disabled >Select</option>
-                            <!-- <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">
-                                {{data.resortName}}</option> -->
+                            <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">
+                                {{data.resortName}}</option>
                         </select>
                         <span class="required_color" *ngIf="submitted && !videoEditForm.selectedResort">
                             {{commonLabels.mandatoryLabels.selectResort}}
