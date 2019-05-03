@@ -12,6 +12,8 @@ import { AlertService } from '../services/alert.service';
   styleUrls: ['./rolepermission.component.css']
 })
 export class RolepermissionComponent implements OnInit {
+  resortId;
+  
 
   constructor(public constant: RolePermissionVar, private alertService: AlertService, private headerService: HeaderService, private commonService: CommonService, private utilService: UtilService, private rolePermissionService: RolePermissionService) {
   }
@@ -21,29 +23,36 @@ export class RolepermissionComponent implements OnInit {
     this.constant.selectAllView = false;
     this.constant.selectAllUpload = false;
     this.constant.selectAllEdit = false;
-    // this.headerService.setTitle({title:this.constant.title, hidemodule:false});
+
+    let userData = this.utilService.getUserData();
+    this.resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
     this.getDropDownDetails();
   }
 
   getDropDownDetails(){
     this.commonService.getDivisionList().subscribe((result) => {
       if(result && result.isSuccess){
-        this.constant.divisionList = result.data.length && result.data.rows;
+        this.constant.divisionList = result.data && result.data.rows;
       }
-    })
+    });
     this.commonService.getDepartmentList('').subscribe((result) => {
       if(result && result.isSuccess){
-        this.constant.departmentList = result.data.length && result.data.rows;
+        this.constant.departmentList = result.data && result.data.rows;
       }
-    })
-    this.commonService.getDesignationList('').subscribe((result) => {
+    });
+    this.commonService.getDesignationList(this.resortId).subscribe((result) => {
       if(result && result.isSuccess){
-        this.constant.roleList = result.data.length && result.data.rows;
+        this.constant.roleList = result.data && result.data.rows;
       }
-    })
+    });
     this.commonService.getResortList().subscribe((result) => {
       if(result && result.isSuccess){
-        this.constant.resortList = result.data.length && result.data.rows;
+        this.constant.resortList = result.data && result.data.rows;
+      }
+    });
+    this.commonService.getCreatedByDetails().subscribe(result=>{
+      if(result && result.isSuccess){
+        this.constant.createdByList = result.data  && result.data;
       }
     })
   }
@@ -61,7 +70,7 @@ export class RolepermissionComponent implements OnInit {
         if (result.isSuccess) {
           this.constant.modules = result.data.rows[0].userPermission;
         } else {
-            this.alertService.info(result.message);
+           // this.alertService.info(result.message);
             this.constant.modules.forEach(item=>{
               item.view = false;
               item.upload = false;
@@ -135,7 +144,8 @@ export class RolepermissionComponent implements OnInit {
       menuMobile: menuMobile,
       web: this.constant.web,
       mobile: this.constant.mobile,
-      userId: this.utilService.getUserData().userId
+      userId : this.constant.userId,
+      createdBy: this.utilService.getUserData().userId
     }
     const data = this.constant;
     if (data.resortId && data.divisionId && data.departmentId && data.roleId) {

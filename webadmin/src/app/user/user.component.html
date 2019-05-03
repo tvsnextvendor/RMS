@@ -1,5 +1,4 @@
-    <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="pt-4 tab-section">    
 <tabset #staticTabs *ngIf="userType === 2">
     <tab heading={{constant.labels.userManagement}}>
@@ -350,7 +349,6 @@
         </div>
     </div>
 </ng-template>
-
 <ng-template #addDivision>
     <div class="modal-header pb-0">
         <p class="hd-alg pl-0">{{constant.labels.addDivision}}</p>
@@ -406,13 +404,17 @@
                         </div> </div>
                     </div>   
                 </div>
+                <div *ngIf="!errorValidation"><span class="required_color text-left">{{errorValidate}}</span></div>         
+
             </div>
         </div>  
+      
         <div class="text-center mt-3 mrb-15">
             <button type="button" *ngIf="!triggerNext" (click)="next()" class="btn btn-primary creat-btn mr-3">{{constant.btns.next}}</button>
             <button type="button" *ngIf="triggerNext" (click)="submitDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
             <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
-        </div>          
+        </div>  
+      
     </div>
 </ng-template>
 
@@ -457,6 +459,7 @@
                 </button>
             </div> 
         </div>
+        <div *ngIf="!errorValidation"><span class="required_color text-left">{{errorValidate}}</span></div>         
         </div>
         </div>
         <div class="text-center mt-3">
@@ -489,12 +492,14 @@
                 </div>
             </div>
             </div>
+            <div *ngIf="!errorValidation"><span class="required_color text-left">{{errorValidate}}</span></div>         
         </div> 
         <span *ngIf="roleFormSubmitted && roleError" class="required_color ml-3">Role name is mandatory</span>
         <div class="text-center mt-4 mrb-15">
             <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
             <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
         </div>    
+       
     </ng-template>
 
     <ng-template #editRole>
@@ -507,6 +512,7 @@
         <div class="col-md-9 ml-3">
             <input type="text" class="form-control col-md-11" [(ngModel)]="editRoleValue"  name="designationName" #roleEditName="ngModel" />
         </div>
+        <div class="row" *ngIf="!errorValidation"><span class="required_color text-left">{{errorValidate}}</span></div>         
         <div class="text-center mt-4 mrb-15">
                 <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
                 <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>

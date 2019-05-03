@@ -2,6 +2,7 @@
 <div class="pt-5">
 	<div class="white-bg pt-3 pl-3 pr-3">
 		<div class="row pb-4">
+			
 			<div class="col-md-4 select select-style clearfix">
 					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0" (change)="getRolePermission()">
 						<option value="">{{constant.labels.selectResort}}</option>
@@ -40,7 +41,16 @@
 					<span class="required_color" *ngIf="rolepermission.submitted && !constant.roleId">
 						{{constant.mandatoryText.roles}}</span>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4 select select-style clearfix">
+					<select [(ngModel)]="constant.userId" name="userId" class="form-control pl-0"  (change)="getRolePermission()">
+						<option value="">{{constant.labels.selectUsers}}</option>
+						<option *ngFor="let obj of constant.createdByList" [value]="obj.userId">{{obj.userName}}</option>
+					</select>
+					<div class="select_arrow"></div>
+						<span class="required_color" *ngIf="rolepermission.submitted && !constant.userId">
+							{{constant.mandatoryText.users}}</span>
+			</div>
+			<div class="col-md-4">
 				<span>
 					<label class="square-cont mr-5">
 						<input type="checkbox" [(ngModel)]="constant.web" (change)="getRolePermission()" name="web"> {{constant.labels.web}}

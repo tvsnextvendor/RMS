@@ -8,6 +8,7 @@ selectAllUpload;
 selectAllEdit;
 departmentList;
 divisionList;
+createdByList;
 web=false;
 mobile=false;
 title= 'Roles & Permissions';
@@ -16,7 +17,7 @@ roleList="";
 divisionId="";
 departmentId="";
 roleId="";
-userId;
+userId="";
 resortId="";
 modules = [];
 messages = {
@@ -26,6 +27,7 @@ labels = {
       selectDepartment : 'Department',
 	  selectDivision : 'Division',
 	  selectRoles:'Roles',
+	  selectUsers:'Users',
 	  selectResort:'Resort',
 	  menu:'Menu',
 	  view:'View',
@@ -40,6 +42,7 @@ mandatoryText = {
    division : 'Division is required',
    department : 'Department is required',
    roles : 'Role is required',
+   users :'User is required'
 };
 
 btns ={

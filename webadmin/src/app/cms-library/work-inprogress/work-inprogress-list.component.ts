@@ -28,7 +28,8 @@ export class WorkCourseListComponent implements OnInit {
   }
 
   getCourseDetails(){
-    this.courseService.getCourse(this.p,this.pageSize,'').subscribe(resp=>{
+    let query = '&status=none';
+    this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
 
       if(resp && resp.isSuccess){
         this.totalCourseCount = resp.data.count;
