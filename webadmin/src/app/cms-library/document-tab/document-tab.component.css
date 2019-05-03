@@ -1,5 +1,12 @@
 
   /* Documents Tab */
+   .dup-hd{
+      color: #1D4960;
+      font-size: 20px;
+      font-weight: 600;
+      float: left;
+      line-height: 18px;
+  }  
   .doc-table .square-cont{
       margin-bottom: 0;
   }

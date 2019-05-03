@@ -11,7 +11,7 @@
                 <span class="float-right">
                     <a title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
                     <a title="Delete"><i class="fa fa-trash header-icon" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
-                    <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header" aria-hidden="true"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header" aria-hidden="true"></i></a>
+                    <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header" aria-hidden="true" title="Open"></i></a>
                 </span>
             </div>
             <div class="row py-3" *ngIf="enableView && enableIndex === i">
@@ -103,7 +103,7 @@
      	<div class="white-bg p-4 clearfix">
             <div class="clearfix">
                 <p class="dup-hd">{{commonLabels.labels.edit}}</p>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeEdit')">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeEdit')" title="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -153,7 +153,7 @@
      	<div class="white-bg p-4 clearfix">
      	    <div class="clearfix">
                 <p class="dup-hd">{{commonLabels.labels.duplicate}}</p>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeDuplicate')"> 
+                <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeDuplicate')" title="Close"> 
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -196,7 +196,7 @@
 <ng-template #uploadPopup>
         <div class="modal-header pb-0 ">
                 <p class="hd-alg">File Upload</p>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -254,7 +254,7 @@
 <ng-template #deleteCourse>
     <div class="modal-header pb-0">
         <p class="hd-alg">{{commonLabels.labels.deleteCourse}}</p>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
