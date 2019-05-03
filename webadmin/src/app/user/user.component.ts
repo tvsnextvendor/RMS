@@ -35,11 +35,11 @@ export class UserComponent implements OnInit {
     pageLimit;
     labels;
     message;
+    accessTo="web";
     editEnable= false;
     validPhone = false;
     validEmail = false;
     validUserId = false;
-    defaultSetting=false;
     triggerNext = false;
     departmentArray = [];
     designationArray = [];
@@ -122,6 +122,7 @@ export class UserComponent implements OnInit {
     }
 
     changedivision(){
+         this.department = "";
          this.departmentArray= [];
             const obj={'divisionId': this.division};
             this.commonService.getDepartmentList(obj).subscribe((result)=>{
@@ -146,8 +147,7 @@ export class UserComponent implements OnInit {
             this.reportingTo=data.reportDetails?data.reportDetails.designationId : "";
             this.emailAddress = data.email;
             this.phoneNumber = data.phoneNumber;    
-            this.defaultSetting = data.isDefault === true ? true : false;  
-           // this.designationUpdate(data.department, data.designation);
+            //this.accessTo = data.accessTo;  
     }
 
     designationUpdate(data, designation) {
@@ -236,8 +236,7 @@ export class UserComponent implements OnInit {
                     this.alertService.success("Designation added successfully")
                 }
             })
-        }
-        
+        }      
     }
    
     //delete user
@@ -249,7 +248,6 @@ export class UserComponent implements OnInit {
      this.userid= data.UserRole[0].userId;
      this.constant.modalRef = this.modalService.show(template,modalConfig); 
     }
-
 
    deleteuser(){
      this.userService.deleteUser(this.userid).subscribe((result)=>{
@@ -263,9 +261,8 @@ export class UserComponent implements OnInit {
 
     //add new user
     addUser(data) {
-        this.errMsg='';
-        if(this.userName && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
-            let obj = {
+         this.errMsg='';
+          let obj = {
                 userName : this.userName,
                 password: "123456",
                 email : this.emailAddress,
@@ -274,52 +271,39 @@ export class UserComponent implements OnInit {
                 divisionId:this.division,
                 departmentId:this.department,
                 reportingTo:this.reportingTo,
-                isDefault:this.defaultSetting,
-                createdBy: this.utilService.getUserData().userId
-                }
-            this.userService.addUser(obj).subscribe(result => {
-                if(result.isSuccess){
-                  this.closeAddForm();
-                  this.userList();
-                  this.alertService.success(this.labels.userAdded);
-                 }
-            },err =>{
-               this.errMsg=err.error.error;
-           });
-        }
-    }
+                accessTo: this.accessTo,
+                };
 
-    updateUser(data){
-      this.errMsg='';
-      if(this.userName && this.emailAddress && this.phoneNumber && !this.validEmail && !this.validPhone){
-           let obj = {
-                userName : this.userName,
-                password: "123456",
-                email : this.emailAddress,
-                phoneNumber : this.phoneNumber,
-                //roleId:this.utilService.getRole(),
-                designationId:this.designation,
-                divisionId:this.division,
-                departmentId:this.department,
-                reportingTo:this.reportingTo,
-                isDefault:this.defaultSetting,
-                }
-          this.userService.updateUser(this.userid,obj).subscribe((result)=>{
-                if(result.isSuccess){
-                     this.closeAddForm();
-                     this.userList(); 
-                     this.alertService.success(this.labels.userUpdated);
-                }
-            },err =>{
-               this.errMsg=err.error.error;
-           })
+        if(this.userName && this.emailAddress && this.phoneNumber && this.division && this.department && this.designation && !this.validEmail && !this.validPhone){         
+            if(this.editEnable){
+                this.userService.updateUser(this.userid,obj).subscribe((result)=>{
+                    if(result.isSuccess){
+                        this.closeAddForm();
+                        this.userList(); 
+                        this.alertService.success(this.labels.userUpdated);
+                    }
+                },err =>{
+                this.errMsg=err.error.error;
+            })
+            }else{
+                obj['createdBy'] = this.utilService.getUserData().userId;
+                this.userService.addUser(obj).subscribe(result => {
+                    if(result.isSuccess){
+                    this.closeAddForm();
+                    this.userList();
+                    this.alertService.success(this.labels.userAdded);
+                    }
+                },err =>{
+                this.errMsg=err.error.error;
+            });
+            }}
       }
-    }
-     
+
+
     //reset
     resetFields() {
-        this.defaultSetting=false;
         this.editEnable= false;
+        this.accessTo="web";
         this.userName = '';
         this.userId = '';
         this.roleId = '';
