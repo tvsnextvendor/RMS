@@ -13,7 +13,7 @@ export class ContentFileComponent implements OnInit {
   courseId;
   fileList;
   
-  constructor(private activatedRoute: ActivatedRoute, private commonLabels: CommonLabels, private courseService: CourseService) {
+  constructor(private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, private courseService: CourseService) {
       this.activatedRoute.params.subscribe((params: Params) => {
       this.courseId = params['id']; 
      });

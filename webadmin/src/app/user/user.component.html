@@ -477,7 +477,8 @@
             <!-- <div  [ngClass] = "oi === 0 ? 'col-12 input-group mb-3 col-md-12 group-box cll' : 'col-12 input-group mb-3 col-md-12 group-box group-section-bx'" > -->
             <div class ='row'>
                 <div class="input-group mb-3 col-12 col-md-12 group-box">
-                <input type="text" class="form-control col-md-11" placeholder="Enter the  Role {{oi+1}}" [(ngModel)]="dept.designationName" name = "role{{oi+1}}" aria-label="" aria-describedby="basic-addon1">
+                <input *ngIf="!roleId" type="text" class="form-control col-md-11" placeholder="Enter the  Role {{oi+1}}" [(ngModel)]="dept.designationName" name = "role{{oi+1}}" aria-label="" aria-describedby="basic-addon1" (keyup)="roleNameValidationCheck()">
+                <input *ngIf="roleId" type="text" class="form-control col-md-11" placeholder="Enter the  Role" [(ngModel)]="editRoleValue" name = "role" aria-label="" aria-describedby="basic-addon1" (keyup)="roleNameValidationCheck()">
                 <div class="input-group-prepend">
                     <button class="btn btn-icon" type="button" *ngIf="oi==0" (click)="addForm('roles','')" title="Add">
                         <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
@@ -489,6 +490,7 @@
             </div>
             </div>
         </div> 
+        <span *ngIf="roleFormSubmitted && roleError" class="required_color ml-3">Role name is mandatory</span>
         <div class="text-center mt-4 mrb-15">
             <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
             <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>

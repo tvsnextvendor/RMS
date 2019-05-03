@@ -199,10 +199,10 @@ export class ResortComponent implements OnInit {
         if(type === "email"){
             this.emailValidation = this.validationCheck(type,this.email) == "invalidEmail" ? false :true;
         }
-        else if(type === "mobile"){
+        else if(type === "mobile" && this.phoneNumber){
             let data = this.phoneNumber.toString();
             let phoneNum = data.replace("+", "");
-            this.mobileValidation = phoneNum ? (phoneNum.length === 10 ? true : false) : false; 
+            this.mobileValidation = phoneNum ? (phoneNum.length === 12 ? true : false) : false; 
         } 
     }
 

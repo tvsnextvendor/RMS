@@ -22,22 +22,33 @@ export class RolepermissionComponent implements OnInit {
     this.constant.selectAllUpload = false;
     this.constant.selectAllEdit = false;
     // this.headerService.setTitle({title:this.constant.title, hidemodule:false});
+    this.getDropDownDetails();
+  }
+
+  getDropDownDetails(){
     this.commonService.getDivisionList().subscribe((result) => {
-      this.constant.divisionList = result.data.rows;
+      if(result && result.isSuccess){
+        this.constant.divisionList = result.data.length && result.data.rows;
+      }
     })
     this.commonService.getDepartmentList('').subscribe((result) => {
-      this.constant.departmentList = result.data.rows;
+      if(result && result.isSuccess){
+        this.constant.departmentList = result.data.length && result.data.rows;
+      }
     })
     this.commonService.getDesignationList('').subscribe((result) => {
-      this.constant.roleList = result.data.rows;
+      if(result && result.isSuccess){
+        this.constant.roleList = result.data.length && result.data.rows;
+      }
     })
     this.commonService.getResortList().subscribe((result) => {
-      this.constant.resortList = result.data.rows;
+      if(result && result.isSuccess){
+        this.constant.resortList = result.data.length && result.data.rows;
+      }
     })
   }
 
   getRolePermission() {
-    
     let data: any = {};
     data.divisionId = this.constant.divisionId;
     data.departmentId = this.constant.departmentId;
