@@ -5,19 +5,19 @@
                         <thead>
                         <tr class="th-boxshadow"  class="">                         
                             <th class="forumname-width text-left">
-                                <mfDefaultSorter by="forumName">{{forumVar.ForumFormLabels.forumName}}</mfDefaultSorter>
+                                <mfDefaultSorter by="forumName">{{commonLabels.labels.forumName}}</mfDefaultSorter>
                             </th>
                             <th class="text-left">
-                                <span><mfDefaultSorter by="employeeId">{{forumVar.ForumFormLabels.empCount}}</mfDefaultSorter></span>
+                                <span><mfDefaultSorter by="employeeId">{{commonLabels.labels.empCount}}</mfDefaultSorter></span>
                             </th>
                             <th class="text-left lt-dt-act">
-                                <span><mfDefaultSorter>{{forumVar.ForumFormLabels.lastactivedate}}</mfDefaultSorter></span>
+                                <span><mfDefaultSorter>{{commonLabels.labels.lastactivedate}}</mfDefaultSorter></span>
                             </th>
                             <th class="text-left">
-                                <span><mfDefaultSorter by="activeStatus">{{forumVar.ForumFormLabels.activeInActive}}</mfDefaultSorter></span>
+                                <span><mfDefaultSorter by="activeStatus">{{commonLabels.labels.activeInActive}}</mfDefaultSorter></span>
                             </th>
                             <th class="text-center action-hd">
-                                <mfDefaultSorter>{{forumVar.ForumFormLabels.action}}</mfDefaultSorter>
+                                <mfDefaultSorter>{{commonLabels.labels.action}}</mfDefaultSorter>
                             </th>
                         </tr>
                         </thead>
@@ -37,7 +37,7 @@
                                     </td> 
                         </tr>
                         <tr *ngIf="mf.data?.length == 0">
-                            <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>
+                            <td colspan="5" class="text-center data-design">{{commonLabels.labels.noData}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -54,7 +54,7 @@
 
   <ng-template #editForum>
         <div class="modal-header"> 
-                <h4 class="modal-title pull-left">{{forumVar.createForum.editForum}}</h4>
+                <h4 class="modal-title pull-left">{{commonLabels.labels.editForum}}</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="forumVar.modalRef.hide()">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -62,13 +62,13 @@
         <div class="modal-body">
                 <form #formDir="ngForm" (ngSubmit)="onSave(formDir)">
                 <div class="form-group">
-                        <label class="forum-title">{{forumVar.createForum.forumName}}</label>
+                        <label class="forum-title">{{commonLabels.labels.forumName}}</label>
                         <input type="text" class="form-control" [(ngModel)]="forumVar.forumName" #ForumName="ngModel" (ngModelChange)="checkNameUniqueness(forumVar.forumName)" name = "forumName" id="forumName" placeholder="Enter Forum Name" required autocomplete="off"> 
                         <span class="required_color" *ngIf="ForumName && ForumName.invalid && (formDir.submitted || ForumName.touched)">
-                                {{forumVar.mandatoryLabels.forumName}}
+                                {{commonLabels.mandatoryLabels.forumRequired}}
                         </span> 
                         <span class="required_color" *ngIf="forumVar.editNameValidate">
-                                {{forumVar.nameUniqueErr}}
+                                {{commonLabels.msgs.nameUniqueErr}}
                           </span>     
                     </div>
                     <!-- <div class="form-group">
@@ -79,7 +79,7 @@
                         </span> 
                     </div>  -->
                     <div class="form-group">
-                            <label>{{forumVar.createForum.admin}}</label> 
+                            <label>{{commonLabels.labels.admin}}</label> 
                                 <tag-input [ngModel]="forumVar.adminItems" 
                                 name="admin"
                                 #adminName="ngModel"
@@ -98,11 +98,11 @@
                             </tag-input-dropdown>
                         </tag-input>
                         <span class="required_color" *ngIf="adminName && adminName.invalid && (formDir.submitted || adminName.touched)">
-                                {{forumVar.mandatoryLabels.admin}}
+                                {{commonLabels.mandatoryLabels.adminRequired}}
                         </span>    
                     </div>
                     <div class="form-group">
-                        <label class="forum-title">{{forumVar.createForum.empName}}</label> 
+                        <label class="forum-title">{{commonLabels.labels.empName}}</label> 
                         <tag-input [ngModel]="forumVar.employeeItems" #empName="ngModel"
                         name="empItems"
                         [onlyFromAutocomplete]="true"
@@ -119,12 +119,12 @@
                        </tag-input-dropdown>
                         </tag-input>
                         <span class="required_color" *ngIf="empName && empName.invalid && (formDir.submitted || empName.touched)">
-                                {{forumVar.mandatoryLabels.empName}}
+                                {{commonLabels.mandatoryLabels.empName}}
                         </span>    
                   </div> 
                    <div class="text-center pt-5">
-            <button type = "submit" class="btn btn-primary mr-3 btn-save">{{forumVar.btns.save}}</button>
-            <button type="button" class="btn btn-default" (click)="forumVar.modalRef.hide()">{{forumVar.btns.cancel}}</button>
+            <button type = "submit" class="btn btn-primary mr-3 btn-save">{{commonLabels.btns.save}}</button>
+            <button type="button" class="btn btn-default" (click)="forumVar.modalRef.hide()">{{commonLabels.btns.cancel}}</button>
         </div>
         </form>
         </div>

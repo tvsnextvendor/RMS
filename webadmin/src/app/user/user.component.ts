@@ -13,6 +13,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import * as XLSX from 'ts-xlsx';
 import {UserService,ResortService, UtilService} from '../services';
 import {RolepermissionComponent} from '../rolepermission/rolepermission.component'
+import { CommonLabels } from '../Constants/common-labels.var'
 
 @Component({
     selector: 'app-users',
@@ -67,12 +68,13 @@ export class UserComponent implements OnInit {
     roleFormSubmitted = false;
     errorValidate;
 
-    constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router) {
+    constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
+        private commonLabels : CommonLabels) {
         this.constant.url = API_URL.URLS;
-        this.labels = constant.labels;
+        // this.labels =this.constant.labels;
     }
     ngOnInit() {
-        this.headerService.setTitle({ title: 'User Management', hidemodule: false });
+        this.headerService.setTitle({ title: this.commonLabels.titles.userManagement, hidemodule: false });
         this.pageLimitOptions = [5, 10, 25];
         this.pageLimit = [this.pageLimitOptions[1]];
         this.userList();

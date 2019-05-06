@@ -21,8 +21,7 @@ export class VideoVar {
     };
     
      modalLabels ={
-       title      : 'Add New Course Name',
-       courseName : 'Course Name'
+      
      };
      
     courses:any=[];

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonLabels } from '../../Constants/common-labels.var'
+import {HeaderService} from '../../services/header.service';
 
 @Component({
   selector: 'app-forum-detail',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForumDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(public commonLabels:CommonLabels,private headerService:HeaderService,) { }
 
   ngOnInit() {
+    this.headerService.setTitle({title:this.commonLabels.titles.forumtitle, hidemodule:false});
   }
 
 }
