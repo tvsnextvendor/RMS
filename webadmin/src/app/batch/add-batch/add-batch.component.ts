@@ -7,6 +7,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import {CommonService,AlertService,HttpService,UtilService,HeaderService,UserService,CourseService,ResortService} from '../../services';
 import * as moment from 'moment';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
     selector: 'app-add-batch',
@@ -33,7 +34,7 @@ export class AddBatchComponent implements OnInit {
     allEmployees = {};
     employeesInBatch = [];
 
-    constructor(private alertService: AlertService,private courseService: CourseService,private utilService:UtilService,private resortService:ResortService,private userService: UserService,private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService:CommonService) {
+    constructor(private alertService: AlertService,private courseService: CourseService,private utilService:UtilService,private resortService:ResortService,private userService: UserService,private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService:CommonService,public commonLabels : CommonLabels) {
         this.batchVar.url = API_URL.URLS;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.batchVar.batchId = params['batchId'];
@@ -43,7 +44,7 @@ export class AddBatchComponent implements OnInit {
 
 
     ngOnInit() {
-      this.batchVar.batchId ? this.headerService.setTitle({ title: this.batchVar.editTitle, hidemodule: false }) : '';
+      this.batchVar.batchId ? this.headerService.setTitle({ title: this.commonLabels.titles.editTitle, hidemodule: false }) : '';
         this.batchVar.moduleForm=[];
         this.courseForm();
 
@@ -115,11 +116,11 @@ export class AddBatchComponent implements OnInit {
     countErrorCheck() {
         if (this.durationValue === '1' && this.reminder > 60) {
             this.countCheck = true;
-            this.countError = this.batchVar.mandatoryLabels.minCountError;
+            this.countError = this.commonLabels.mandatoryLabels.minCountError;
         }
         else if (this.durationValue === '2' && this.reminder > 24) {
             this.countCheck = true;
-            this.countError = this.batchVar.mandatoryLabels.hourCountError;
+            this.countError = this.commonLabels.mandatoryLabels.hourCountError;
         }
         else {
             this.countCheck = false;

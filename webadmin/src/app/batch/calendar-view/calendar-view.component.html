@@ -1,7 +1,7 @@
 <div class="pt-5">
   <div class="white-bg">
     <div class="clearfix p-3 row calender-header">
-      <span class="calender-text col-md-4">{{batchVar.calendarView}}</span>
+      <span class="calender-text col-md-4">{{commonLabels.labels.calendarView}}</span>
       <span class="month-text col-md-4">
         <div class="float-left cp" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
           <i class="fa fa-chevron-left" aria-hidden="true"></i>
@@ -66,7 +66,7 @@
 
     <ng-template #editBatch>
       <div class="modal-header"> 
-          <h4 class="modal-title pull-left">{{batchVar.title}}</h4>
+          <h4 class="modal-title pull-left">{{commonLabels.modaltitle.addnewtrainingschedule}}</h4>
           <button type="button" class="close pull-right" aria-label="Close" (click)="batchVar.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
           </button>

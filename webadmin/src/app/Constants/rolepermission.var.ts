@@ -11,7 +11,7 @@ divisionList;
 createdByList;
 web=false;
 mobile=false;
-title= 'Roles & Permissions';
+title= '';
 resortList="";
 roleList="";
 divisionId="";
@@ -21,33 +21,32 @@ userId="";
 resortId="";
 modules = [];
 messages = {
-	successMsg : 'Roles & Permissions Saved Successfully'
+	// successMsg : 'Roles & Permissions Saved Successfully'
 }
 labels = {
-      selectDepartment : 'Department',
-	  selectDivision : 'Division',
-	  selectRoles:'Roles',
-	  selectUsers:'Users',
-	  selectResort:'Resort',
-	  menu:'Menu',
-	  view:'View',
-	  upload:'Upload',
-	  edit:'Edit / Delete',
-	  web: 'Web',
-	  mobile: 'Mobile'
+    //   selectDepartment : 'Department',
+	//   selectDivision : 'Division',
+	//   selectRoles:'Roles',
+	//   selectUsers:'Users',
+	//   selectResort:'Resort',
+	//   menu:'Menu',
+	//   view:'View',
+	//   upload:'Upload',
+	//   edit:'Edit / Delete',
+	//   web: 'Web',
+	//   mobile: 'Mobile'
 	};
 
 mandatoryText = {
-   resort : 'Resort is required',
-   division : 'Division is required',
-   department : 'Department is required',
-   roles : 'Role is required',
+//    resort : 'Resort is required',
+//    division : 'Division is required',
+//    department : 'Department is required',
+//    roles : 'Role is required',
    users :'User is required'
 };
 
 btns ={
-	save : 'Save',
-	cancel: 'Cancel'
+	
 }
 
 static readonly defaultModules = [{
