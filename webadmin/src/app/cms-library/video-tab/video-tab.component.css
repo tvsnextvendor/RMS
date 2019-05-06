@@ -60,5 +60,31 @@
      -webkit-transform: rotate(45deg);
      transform: rotate(45deg);
   }
+  .course-list{
+      border: 1px solid #ccc;
+      padding: 5px 25px;
+      margin-right: 8px;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: #576271;
+  }
+  .course-list-select{
+    border: 1px solid #ff0000;
+  }
+  .close-alg{
+  display: block;
+    width: 15px;
+    /* border: 1px solid #989898; */
+    /* border-radius: 10px; */
+    /* padding: 3px; */
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 10px;
+}
   
   
