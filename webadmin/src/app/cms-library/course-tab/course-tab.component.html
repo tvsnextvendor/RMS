@@ -9,9 +9,9 @@
                     <span class="square-checkmark"></span>
                 </label>
                 <span class="float-right">
-                    <a title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
-                    <a title="Delete"><i class="fa fa-trash header-icon" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
-                    <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header" aria-hidden="true" title="Open"></i></a>
+                    <a title="Edit"><i class="fas fa-pencil-alt icons_header pr-4" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
+                    <a title="Delete"><i class="fa fa-trash header-icon pr-4" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
+                    <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header p-0" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header p-0" aria-hidden="true" title="Open"></i></a>
                 </span>
             </div>
             <div class="row py-3" *ngIf="enableView && enableIndex === i">
@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="py-3 clearfix">
+                <div class="pt-3 clearfix">
                     <button class="btn btn-primary" type="button" (click)="enableDropData('duplicate',i)">Duplicate</button>
                 </div>
             </div>
@@ -100,14 +100,14 @@
 <!-- Edit -->
 
     <div class="col-md-12 pt-2 clearfix px-0" *ngIf="enableEdit && enableIndex === i">
-     	<div class="white-bg p-4 clearfix">
+     	<div class="white-bg p-3 clearfix">
             <div class="clearfix">
                 <p class="dup-hd">{{commonLabels.labels.edit}}</p>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeEdit')" title="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="col-md-11 p-0 clearfix">
+            <div class="col-md-12 pr-4 clearfix">
                 <div class="btn-group pull-right" dropdown>
                     <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                         aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
@@ -119,7 +119,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="px-4 py-3">
+            <div class="px-4 pt-3">
     	        <div class="row">
     	            <div class="col-md-6 mb-3 select select-style clearfix">
     		            <!-- <select name="Course" class="form-control pl-0" [(ngModel)]="selectedEditCourse" (change)="editCourseData('',course.value)" #course>
@@ -137,8 +137,8 @@
                 <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
                     <p *ngFor="let fileData of fileList;let i = index" [ngClass]="fileData.addNew ? 'course-list course-list-select' : 'course-list'"  dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="{{commonLabels.imgs.close}}"></a></p>
                 </div>
-                <div class="p-3 clearfix">
-                    <button class="btn btn-primary ml-3" type="button" (click)="updateCourse('edit')">{{commonLabels.btns.save}}</button>
+                <div class="pt-3 clearfix">
+                    <button class="btn btn-primary ml-2" type="button" (click)="updateCourse('edit')">{{commonLabels.btns.save}}</button>
                     <button class="btn btn-primary" type="button">{{commonLabels.labels.saveAsNew}}</button>
                 </div>
             </div>    
@@ -157,7 +157,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="col-md-11 p-0 clearfix">
+            <div class="col-md-12 pr-4 clearfix">
                     <div class="btn-group pull-right" dropdown>
                         <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                             aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
@@ -169,12 +169,12 @@
                         </ul>
                     </div>
                 </div>
-                <div class="px-4 py-3">
+                <div class="px-4 pt-3">     
                     <div class="row">
                         <div class="col-md-6 mb-3 select select-style clearfix">
                             <input type = "text" class="form-control pl-0" [(ngModel)] = "selectedEditCourseName" name="courseName"/>
                         </div>
-                        <div class="col-md-6 mb-3 select select-style clearfix">
+                        <div class="col-md-6 mb-3 select select-style clearfix pr-0">
                             <select name="Training Class" class="form-control pl-0" [(ngModel)]="selectedEditTrainingClass" (change)="getEditFileData(trainingClass.value)" #trainingClass>
                                 <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.TrainingClass.trainingClassName}}</option>
                             </select>
@@ -184,7 +184,7 @@
                     <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
                         <p [ngClass]="fileData.addNew ? 'course-list course-list-select' : 'course-list'" *ngFor="let fileData of fileList;let i = index" dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="assets/images/close.png"></a></p>
                     </div>
-                    <div class="p-3 clearfix">
+                    <div class="pt-3 clearfix">
                         <button class="btn btn-primary ml-3" type="button" (click)="updateCourse('duplicate')">{{commonLabels.btns.save}}</button>
                     </div>
                 </div>    

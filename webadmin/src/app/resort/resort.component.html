@@ -16,24 +16,24 @@
             <div class="row mb-2">
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4 ">
-                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.resortName}}</label>
+                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.resortName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                         <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Resort Name" [(ngModel)]="resortName" #resort = "ngModel" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortName">{{commonLabels.mandatoryLabels.resortRequired}} </span>
                     </div>
                     <div class="row mb-4">
-                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.email}}</label>
+                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.email}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                         <input class="col-6 col-md-8 form-control" type="email" placeholder="Email" name="email" [(ngModel)]="email" (keyup) = "validationValueCheck('email')" #resort = "ngModel" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !email">{{commonLabels.mandatoryLabels.emailId}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && email && !emailValidation"> {{commonLabels.mandatoryLabels.emailInvalid}} </span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4">
-                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.location}}</label>
+                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.location}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                         <input class="col-6 col-md-8 form-control" placeholder="Location" type="text" name="location" [(ngModel)]="locationName" #resort = "ngModel" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !locationName">{{commonLabels.mandatoryLabels.locationRequired}} </span>
                     </div>
                     <div class="row mb-4">
-                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.mobile}}</label>
+                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.mobile}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                         <input class="col-6 col-md-8 form-control" placeholder="mobile" type="text" autocomplete="off" name="mobile" [(ngModel)]="phoneNumber" #resort = "ngModel" (keyup) = "validationValueCheck('mobile')" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !phoneNumber">{{commonLabels.mandatoryLabels.mobNo}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && phoneNumber && !mobileValidation"> {{commonLabels.mandatoryLabels.invalidMobNo}}  </span>
                     </div>
@@ -119,7 +119,7 @@
         </div> 
         <div class="col-12 col-md-6 pl-0">
             <div class="row mb-4">
-                <label class="col-6 col-md-4 label-title">{{commonLabels.labels.status}}</label>
+                <label class="col-6 col-md-4 label-title">{{commonLabels.labels.status}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <select class="col-6 col-md-8 form-control" [(ngModel)] = "status" name="status"> 
                     <option [value]="null" disabled>--Select Status--</option>
                     <option *ngFor="let status of resortVar.statusList" [value]="status.name">{{status.name}}</option>

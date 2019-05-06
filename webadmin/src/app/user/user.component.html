@@ -217,7 +217,7 @@
     <div class="modal-body">
          <form #userForm="ngForm"  (ngSubmit)="addUser(userForm)">
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.userName}}{{commonLabels.labels.star}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.userName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="text" class="form-control" placeholder="Enter User Name" [(ngModel)]="userName"
@@ -227,7 +227,7 @@
                 </span>
             </div>
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.division}}{{commonLabels.labels.star}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.division}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="division" #divisionReq="ngModel" name="division" (ngModelChange)="changedivision()" class="form-control" required>
@@ -241,7 +241,7 @@
             </div>
             
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.department}}{{commonLabels.labels.star}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.department}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="department" #departmentReq="ngModel" (ngModelChange)="designationUpdate($event)" name="department"
@@ -256,7 +256,7 @@
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.role}}{{commonLabels.labels.star}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.role}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                  <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="designation" name="designation"  #designationReq="ngModel" class="form-control" required>
@@ -270,7 +270,7 @@
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.email}}{{commonLabels.labels.star}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.email}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                  <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="emailAddress"
@@ -283,7 +283,7 @@
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.mobile}}{{commonLabels.labels.star}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.mobile}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Mobile Number"
