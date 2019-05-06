@@ -251,7 +251,7 @@
                     </select>
                     <div class="select_arrow"></div>
                     <span class="required_color"
-                        *ngIf="userForm.submitted && departmentReq.errors?.required">{{commonLabels.commonLabels.dept}}</span>
+                        *ngIf="userForm.submitted && departmentReq.errors?.required">{{commonLabels.labels.dept}}</span>
                 </span> 
             </div>
 
@@ -274,7 +274,7 @@
                  <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="emailAddress"
-                        name="emailAddress" #email="ngModel" (focusout)="validationUpdate('email')" />
+                        name="emailAddress" #email="ngModel" (keyup)="validationUpdate('email')" />
                         <span class="required_color"
                             *ngIf="userForm.submitted && !emailAddress">{{commonLabels.mandatoryLabels.emailId}}</span>
                         <span class="required_color"
@@ -287,7 +287,7 @@
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Mobile Number"
-                        [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (focusout)="validationUpdate('mobile')" /><span
+                        [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate('mobile')" /><span
                         class="required_color"
                         *ngIf="userForm.submitted && !phoneNumber">{{commonLabels.mandatoryLabels.mobNo}}</span><span
                         class="required_color" *ngIf="userForm.submitted && phoneNumber && validPhone">
@@ -308,7 +308,7 @@
             </div>
 
             <div class="row form-group">                    
-                <label class="col-md-3 pr-0 label-title mb-0">{{labels.accessTo}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.accessTo}}</label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="accessTo" name="accessTo" #accessToReq="ngModel" class="form-control" required>

@@ -31,7 +31,7 @@
                     <li class="nav-item"  *ngIf="!hideSection">
                         <a [ngClass] = "selectedTab === 'course' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#course" (click)="headerTabChange('course','')">{{commonLabels.labels.course}}</a>
                     </li>
-                    <li class="nav-item" *ngIf="!showcreatecourse">
+                    <li class="nav-item" *ngIf="!hideSection">
                         <a [ngClass] = "selectedTab === 'training' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#training" (click)="headerTabChange('training','')">{{commonLabels.labels.trainingClass}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse">
@@ -57,7 +57,7 @@
                         <app-course-tab (SelectedcourseList)="getCourse($event)" (upload)="showUploadPage($event)" (trainingClassRedirect)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"  [addedFiles]="selectedVideoList" ></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
-                <div *ngIf = "selectedTab === 'training' && !showcreatecourse" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
+                <div *ngIf = "selectedTab === 'training' && !hideSection" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
                     <app-traing-class-tab (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"></app-traing-class-tab>
                 </div>
                 <!-- Video Tab Content -->

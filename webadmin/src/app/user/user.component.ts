@@ -108,7 +108,6 @@ export class UserComponent implements OnInit {
         })
 
         this.userService.getResortDesignation(resortId).subscribe(resp=>{
-            console.log(resp);
             if(resp && resp.isSuccess){
                 this.roleDetails = resp.data.rows.length && resp.data.rows;
             }
@@ -249,7 +248,6 @@ export class UserComponent implements OnInit {
                 resortId : resortId,
                 designation : this.roles
             }
-            console.log(this.roles, "this.roles");
             if(!this.roleError){
                 this.userService.addResortDesignation(params).subscribe(resp=>{
                     if(resp && resp.isSuccess){
@@ -381,11 +379,11 @@ export class UserComponent implements OnInit {
             this.validEmail = this.emailAddress && this.validationCheck("email", this.emailAddress) === 'invalidEmail' ? true : false;
         }
         else if (type === "mobile") {
-            this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber) ? false : true;
+            this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber) === 'invalidMobile' ? true : false;
         }
         else {
             this.validEmail = this.emailAddress && this.validationCheck("email", this.emailAddress) === 'invalidEmail' ? true : false;
-            this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber) ? false : true;
+            this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber)  === 'invalidMobile' ? true : false;
         }
     }
     
@@ -400,8 +398,10 @@ export class UserComponent implements OnInit {
         if (type === "mobile") {
             let data = value.toString();
             let phoneNum = data.replace("+", "");
-            let phoneNumValid = phoneNum ? (phoneNum.length === 12 ? true : false) : false;
-            return phoneNumValid
+            let mobileRegex = /^(\d{10}|\d{11}|\d{12})$/;         
+             if (!(value.match(mobileRegex))) {
+                return "invalidMobile"
+            }
         }
     }
 
@@ -547,7 +547,6 @@ export class UserComponent implements OnInit {
      removeDivision(template: TemplateRef<any>,data, i) {
         let modalConfig={
             class : "modal-dialog-centered"
-
         }
         this.divisionId= data.Division.divisionId;
         this.constant.modalRef = this.modalService.show(template,modalConfig); 
@@ -569,7 +568,6 @@ export class UserComponent implements OnInit {
      removeRole(template: TemplateRef<any>,data, i) {
         let modalConfig={
             class : "modal-dialog-centered"
-
         }
         this.roleId= data.designationId;
         this.constant.modalRef = this.modalService.show(template,modalConfig); 

@@ -154,7 +154,6 @@ export class ResortComponent implements OnInit {
                     "User" : this.userObj
                 };
                 this.resortService.updateResort(this.resortId,postData).subscribe((result)=>{
-                    console.log(result)
                     if(result && result.isSuccess){
                         this.clearData();
                         this.toastr.success("Resort updated successfully");
@@ -174,7 +173,6 @@ export class ResortComponent implements OnInit {
                     "roleId" : this.userType
                 }
                 this.resortService.addResort(postData).subscribe((result)=>{
-                    console.log(result)
                     if(result && result.isSuccess){
                         this.clearData();
                         this.toastr.success("Resort added successfully");
@@ -208,7 +206,7 @@ export class ResortComponent implements OnInit {
         else if(type === "mobile" && this.phoneNumber){
             let data = this.phoneNumber.toString();
             let phoneNum = data.replace("+", "");
-            this.mobileValidation = phoneNum ? (phoneNum.length === 12 ? true : false) : false; 
+            this.mobileValidation = this.validationCheck(type, this.phoneNumber) == "invalidMobile" ? false : true; 
         } 
     }
 
@@ -222,8 +220,10 @@ export class ResortComponent implements OnInit {
         if (type === "mobile") {
             let data = value.toString();
             let phoneNum = data.replace("+", "");
-            let phoneNumValid = phoneNum ? (phoneNum.length === 10 ? true : false) : false;
-            return phoneNumValid
+             let mobileRegex = /^(\d{10}|\d{11}|\d{12})$/;         
+             if (!(value.match(mobileRegex))) {
+                return "invalidMobile"
+            }
         }
     }
 

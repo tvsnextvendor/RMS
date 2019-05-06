@@ -18,7 +18,7 @@
                     <div class="row mb-4 ">
                         <label class="col-6 col-md-4 label-title">{{commonLabels.labels.resortName}}</label>
                         <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Resort Name" [(ngModel)]="resortName" #resort = "ngModel" required>
-                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortName">{{resortVar.mandatoryLabels.resortRequired}} </span>
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortName">{{commonLabels.mandatoryLabels.resortRequired}} </span>
                     </div>
                     <div class="row mb-4">
                         <label class="col-6 col-md-4 label-title">{{commonLabels.labels.email}}</label>
