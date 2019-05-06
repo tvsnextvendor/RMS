@@ -94,9 +94,9 @@
 							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.description">{{commonLabels.mandatoryLabels.description}}</span>
 						</div>
 							
-						<div class="col-md-4 p-0 upload-line">
+						<div class="col-md-4 p-0">
 							<div class="row">
-							<div class="col-md-5 p-0">
+							<div class="col-md-5 p-0 upload-line">
 								<div class="btn-group align-items-center" dropdown>
 									<div class="btn-group pull-right" dropdown>
 									<button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
@@ -124,13 +124,13 @@
 							</div>
                         <div class="col-md-4 p-0">
 							<span *ngIf="!moduleVar.videoFile"><img src="{{commonLabels.imgs.profile}}" class="px-2"></span>
-							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img class="thumbnail_img px-4 img-size"></span>
-							<span *ngIf="showImage && moduleVar.videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img px-4 img-size"></span></div>
-							<span class="col-md-4 p-0">	
+							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img class="thumbnail_img img-size"></span>
+							<span *ngIf="showImage && moduleVar.videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img img-size"></span></div>
+							<span class="col-md-3 p-0 upload-line">	
 							   <a (click)="videoSubmit()"><img src="{{commonLabels.imgs.ok}}" class="upload-crt-icon"></a>
 							   <a (click)="cancelVideoSubmit()"><img src="{{commonLabels.imgs.cancel}}"></a>
 							</span>
-							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">{{commonLabels.labels.file}}{{commonLabels.labels.isRequire}}</span>	
+							<span class="required_color mt-0" *ngIf="videoSubmitted && !moduleVar.videoFile">{{commonLabels.labels.file}}{{commonLabels.labels.isRequire}}</span>	
 							<span class="file-alg">{{commonLabels.labels.acceptedFileTypes}}</span>		
 						</div>						 
 					</div>

@@ -59,7 +59,7 @@ background-color: #C1E1F3;
 }
 .img-size{
     height: 90px;
-    width : 135px;
+    max-width: 100%;
 }
 .drop-and-drag-pdr{
     padding-right: 110px;
@@ -72,7 +72,7 @@ background-color: #C1E1F3;
     line-height: 55px;
 }
 .upload-line{
-    line-height: 90px;
+    line-height: 82px;
 }
 .fileUpload {
     position: relative;
