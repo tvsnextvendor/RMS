@@ -428,6 +428,9 @@ h5{
 .bg-color{
     background-color: #F5F6FA;
 }
+.mandatory-color{
+  color: #f10606;
+}
 .notification-alg{
   color: #7a8996;
   max-width: 83%;
@@ -1191,13 +1194,13 @@ a {
   display: block;
   padding: .8rem 1.2rem;
   border: none;
-  color:#697380;
-  font-weight: 600;
+  color:#73737B;
+  /*font-weight: 600;*/
   font-size: 15px;
 }
 .tab-section .nav-tabs .nav-link.active{
   border:none;
-  font-weight: 600;
+  /*font-weight: 600;*/
   color:#468FB9;
   border-bottom: 3px solid #468FB9;
 }

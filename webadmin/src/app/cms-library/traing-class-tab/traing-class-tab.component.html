@@ -3,16 +3,16 @@
 <div class="col-md-12 clearfix py-2 px-0">
     <h6 class="float-right">{{commonLabels.labels.count}}{{totalCourseTrainingCount}}</h6>
 </div>
-<div class="white-bg pt-4 pb-4 mb-3"
+<div class="white-bg py-4 mb-3"
     *ngFor="let course of trainingClassCourseList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalCourseTrainingCount};let i = index">
     <!-- <div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList"> -->
-    <div class="head-part clearfix pr-3">
+    <div class="head-part clearfix px-3">
         <h6 class="float-left">{{course.courseName}}</h6>
         <!-- <div class="float-right">
             <a href="#"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
         </div> -->
     </div>
-    <div class="select-arbx p-4" *ngFor="let training of course.CourseTrainingClassMaps;let ci = index">
+    <div class="select-arbx px-4" *ngFor="let training of course.CourseTrainingClassMaps;let ci = index">
         <label class="square-cont float-left col-md-12" *ngIf="training.enableEdit == false">
             <input type="checkbox" name="web"><span class="text-over">{{training?.TrainingClass?.trainingClassName}}</span>
             <span class="square-checkmark" *ngIf="uploadPage"></span> 
@@ -38,7 +38,7 @@
             </form>
         </div>
         <div class="clk-part clearfix pt-1">
-            <div class="clk-sec float-left">
+            <div class="clk-sec float-left pl-0">
                 <a href="javascript:void(0);"
                     (click)="tabChange('video',training.trainingClassId,'')">{{commonLabels.labels.video}} :
                     {{training?.TrainingClass?.videosCount ? training?.TrainingClass?.videosCount : 0}}</a>
