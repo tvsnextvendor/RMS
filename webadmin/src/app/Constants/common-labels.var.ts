@@ -130,6 +130,7 @@ export class CommonLabels{
         "addModule"         :   "Add Program",
         "editModule"        :   "Edit Program",
         "editCourse"        :   "Edit Course",
+        "accessTo"          :   "Access To",
         // "topics"            :   "Topic",
         "coursesAdded"      :   "Training Class Added",
         "addCourseTitle"    :   "Add New Training Class",
