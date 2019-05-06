@@ -1,3 +1,9 @@
+.division-title{
+    color: #697380;
+    line-height: 0; 
+    font-size: 15px;
+    margin-top: 9px;
+}
 .upload-crt-icon{
     /* padding: 0 25px; */
     color: #28a745;
