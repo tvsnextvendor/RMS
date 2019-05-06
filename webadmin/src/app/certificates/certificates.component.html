@@ -2,8 +2,8 @@
     <form #assignTemplate="ngForm" (ngSubmit)="assignBatchTemplate(assignTemplate)">
         <div class="white-bg p-3">
             <div class="clearfix py-3 certificate-respon">
-                <h5 class="float-left certificate-respon">{{constant.formTitle}}</h5>
-                <button type="button" class="btn btn-primary mr-3 certificate-respon" (click)="openAddtemplate(addTemplate)">{{constant.btns.add}}</button>
+                <h5 class="float-left certificate-respon">{{commonLabels.titles.certiTempl}}</h5>
+                <button type="button" class="btn btn-primary mr-3 certificate-respon" (click)="openAddtemplate(addTemplate)">{{commonLabels.btns.add}}</button>
             </div>
             <owl-carousel-o [options]="customOptions" class="certificate-list">
                 <ng-container *ngFor="let template of constant.certificateList">
@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="mb-2 row">
-                            <label class="col-md-3 col-sm-3 module-batch-title" *ngIf="i==0">{{constant.labels.course}}</label>
+                            <label class="col-md-3 col-sm-3 module-batch-title" *ngIf="i==0">{{commonLabels.labels.course}}</label>
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
                             <div class=" col-md-8 col-sm-8 select select-style clearfix">
                                 <select id="course" class="form-control" name="Course{{i}}" [(ngModel)]="data.course">
@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="mb-2 row">
-                            <label class="col-md-3 col-sm-3 module-batch-title" *ngIf="i==0">{{constant.labels.template}}</label>
+                            <label class="col-md-3 col-sm-3 module-batch-title" *ngIf="i==0">{{commonLabels.labels.template}}</label>
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
                             <div class=" col-md-7 col-sm-7 select select-style clearfix">
                                 <select id="Template" class="form-control" name="Template{{i}}" [(ngModel)]="data.template">
@@ -46,8 +46,8 @@
             </div>
             <div class="clearfix pt-4">
                 <div class="float-right">
-            <button type="button" class="btn btn-default mr-3" (click)="clearMessage()">{{constant.btns.cancel}}</button>
-            <button type="submit" class="btn btn-primary">{{constant.btns.save}}</button>
+            <button type="button" class="btn btn-default mr-3" (click)="clearMessage()">{{commonLabels.btns.cancel}}</button>
+            <button type="submit" class="btn btn-primary">{{commonLabels.btns.save}}</button>
         </div>
     </div>
         </div>
@@ -59,57 +59,57 @@
     <form #BadgeSelection="ngForm" (ngSubmit)="batchSelection(BadgeSelection)">
         <div class="white-bg p-4 mt-3">
             <div class="clearfix pl-3 pb-3">
-                <h5 class="float-left certificate-respon">{{constant.labels.badge}}</h5>
+                <h5 class="float-left certificate-respon">{{commonLabels.labels.badge}}</h5>
                 <!-- <span class="float-right"><a (click)="resetPercentage()"><i class="fa fa-refresh"></i></a></span> -->
             </div>
             <div class="row">
                 <div class="col-md-3 col-sm-6 pt-3">
-                    <label class="badge-title"><!-- {{constant.labels.diamond}} -->Platinum</label>
+                    <label class="badge-title"><!-- {{constant.labels.diamond}} -->{{commonLabels.labels.platinum}}</label>
                     <select id="diamond" class="form-control badge-dropdown" name="diamond" [(ngModel)]="constant.diamond"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
                         <option value="null">Select percentage</option>
                         <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}"
                             [disabled]="percentage.disable">{{percentage.value}}</option>
                     </select>
-                    <span *ngIf="percentageTakenError.diamond" class="required_color">{{constant.badgepercentageError}}</span>
-                    <span *ngIf="constant.badgesRequired" class="required_color">{{constant.badgeRequiredMsg}}</span>
+                    <span *ngIf="percentageTakenError.diamond" class="required_color">{{commonLabels.mandatoryLabels.badgepercentageError}}</span>
+                    <span *ngIf="constant.badgesRequired" class="required_color">{{commonLabels.mandatoryLabels.badgeRequiredMsg}}</span>
                 </div>
                 <div class="col-md-3 col-sm-6 pt-3">
-                    <label class="badge-title">{{constant.labels.gold}}</label>
+                    <label class="badge-title">{{commonLabels.labels.gold}}</label>
                     <select id="gold" class="form-control badge-dropdown" name="gold" [(ngModel)]="constant.gold"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
                         <option value="null">Select percentage</option>
                         <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}"
                             [disabled]="percentage.disable">{{percentage.value}}</option>
                     </select>
-                    <span *ngIf="percentageTakenError.gold" class="required_color">{{constant.badgepercentageError}}</span>
+                    <span *ngIf="percentageTakenError.gold" class="required_color">{{commonLabels.mandatoryLabels.badgepercentageError}}</span>
                 </div>
                 <div class="col-md-3 col-sm-6 pt-3">
-                    <label class="badge-title">{{constant.labels.silver}}</label>
+                    <label class="badge-title">{{commonLabels.labels.silver}}</label>
                     <select id="silver" class="form-control badge-dropdown" name="silver" [(ngModel)]="constant.silver"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
                         <option value="null">Select percentage</option>
                         <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}"
                             [disabled]="percentage.disable">{{percentage.value}}</option>
                     </select>
-                    <span *ngIf="percentageTakenError.silver" class="required_color">{{constant.badgepercentageError}}</span>
+                    <span *ngIf="percentageTakenError.silver" class="required_color">{{commonLabels.mandatoryLabels.badgepercentageError}}</span>
                 </div>
                 <div class="col-md-3 col-sm-6 pt-3">
-                    <label class="badge-title">{{constant.labels.bronze}}</label>
+                    <label class="badge-title">{{commonLabels.labels.bronze}}</label>
                     <select id="bronze" class="form-control badge-dropdown" name="bronze" [(ngModel)]="constant.bronze"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
                         <option value="null">Select percentage</option>
                         <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}"
                             [disabled]="percentage.disable">{{percentage.value}}</option>
                     </select>
-                    <span *ngIf="percentageTakenError.bronze" class="required_color">{{constant.badgepercentageError}}</span>
+                    <span *ngIf="percentageTakenError.bronze" class="required_color">{{commonLabels.mandatoryLabels.badgepercentageError}}</span>
                 </div>
             </div>
         
         <div class="clearfix pt-4">
             <div class="float-right">
-            <button type="button" class="btn btn-default mr-3" (click)="clearbatchSelection()">{{constant.btns.cancel}}</button>
-            <button type="submit" class="btn btn-primary">{{constant.btns.save}}</button>
+            <button type="button" class="btn btn-default mr-3" (click)="clearbatchSelection()">{{commonLabels.btns.cancel}}</button>
+            <button type="submit" class="btn btn-primary">{{commonLabels.btns.save}}</button>
         </div>
     </div>
 </div>        
@@ -120,7 +120,7 @@
 
 <ng-template #addTemplate>
     <div class="modal-header">
-        <p class="modal-title add-certificate">{{constant.modalHeader}}</p>
+        <p class="modal-title add-certificate">{{commonLabels.modaltitle.addcertTemplate}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -128,23 +128,23 @@
     <div class="modal-body">
         <form #uploadTemplate="ngForm" (ngSubmit)="onSave(uploadTemplate)">
             <div class="form-group">
-                <label class="uploadTemplate-title">{{constant.labels.tempName}}</label>
+                <label class="uploadTemplate-title">{{commonLabels.labels.tempName}}</label>
                 <input type="text" class="form-control pl-0" [(ngModel)]="constant.tempName" #TempName="ngModel" name="tempName"
                     id="tempName" placeholder="Enter Template Name" required>
                 <span class="required_color" *ngIf="TempName && TempName.invalid && (uploadTemplate.submitted || TempName.touched)">
-                    {{constant.labels.tempNameMandatory}}
+                    {{commonLabels.mandatoryLabels.tempNameMandatory}}
                 </span>
             </div>
             <div class="form-group">
-                <label class="col-md-12 pl-0 uploadTemplate-title">{{constant.labels.fileUpload}}</label>
+                <label class="col-md-12 pl-0 uploadTemplate-title">{{commonLabels.labels.fileUpload}}</label>
                 <div class="choose-file-btn fileUpload ">
-                    <span>{{constant.labels.chooseFile}}</span>
+                    <span>{{commonLabels.labels.chooseFile}}</span>
                     <input type="file" id="file" accept="text/html" (change)="handleFileInput($event.target.files)"
                         class="upload"></div><span>{{constant.fileToUpload?.name}}</span>
             </div>
             <div class="text-center pt-4">
-                <button type="submit" class="btn btn-default  mr-3">{{constant.btns.upload}}</button>
-                <button type="button" class="btn btn-primary creat-btn mr-3" (click)="clearAddForm()">{{constant.btns.cancel}}</button>
+                <button type="submit" class="btn btn-default  mr-3">{{commonLabels.labels.upload}}</button>
+                <button type="button" class="btn btn-primary creat-btn mr-3" (click)="clearAddForm()">{{commonLabels.btns.cancel}}</button>
             </div>
         </form>
     </div>

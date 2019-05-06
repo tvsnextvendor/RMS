@@ -7,6 +7,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { CertificateVar } from '../Constants/certificate.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
+import { CommonLabels } from "../Constants/common-labels.var"
 
 @Component({
     selector: 'app-certificates',
@@ -24,11 +25,11 @@ export class CertificatesComponent implements OnInit {
         silver: false,
         bronze: false
     };
-    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService) {
+    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels) {
         this.constant.url = API_URL.URLS;
     }
     ngOnInit() {
-        this.headerService.setTitle({ title: this.constant.title, hidemodule: false });
+        this.headerService.setTitle({ title: this.commonLabels.titles.certificate, hidemodule: false });
 
         //get Template list
         this.http.get(this.constant.url.getTemplateList).subscribe((data) => {
@@ -165,11 +166,11 @@ export class CertificatesComponent implements OnInit {
         if (batchId.length > 1) {
             for (let i = 1; i < batchId.length; i++) {
                 if (batchId[i] == last) {
-                    this.alertService.error(this.constant.assignErrMsg);
+                    this.alertService.error(this.commonLabels.mandatoryLabels.assignErrMsg);
                     // this.toastr.error(this.constant.assignErrMsg);
                 } else {
                     let postData = this.constant.templateAssign;
-                    this.alertService.success(this.constant.assignSuccessMsg);
+                    this.alertService.success(this.commonLabels.msgs.assignSuccessMsg);
                     //this.toastr.success(this.constant.assignSuccessMsg);
                     this.clearAssignTemplate();
                 }
@@ -177,7 +178,7 @@ export class CertificatesComponent implements OnInit {
             }
         } else {
             let postData = this.constant.templateAssign;
-            this.alertService.success(this.constant.assignSuccessMsg);
+            this.alertService.success(this.commonLabels.msgs.assignSuccessMsg);
             //this.toastr.success(this.constant.assignSuccessMsg);
         }
     }
@@ -187,7 +188,7 @@ export class CertificatesComponent implements OnInit {
         const badges = form.value;
         if (badges.gold != null && badges.diamond != null && badges.silver != null && badges.bronze != null) {
             window.scrollTo(0, 0);
-            this.alertService.success(this.constant.badgeSuccessMsg);
+            this.alertService.success(this.commonLabels.msgs.badgeSuccessMsg);
             this.clearbatchSelection();
         } else {
             this.constant.badgesRequired = true;
@@ -232,12 +233,12 @@ export class CertificatesComponent implements OnInit {
                     templatename: form.templateName,
                     htmlfile: this.constant.fileToUpload
                 }
-                this.alertService.success(this.constant.uploadSuccessMsg);
+                this.alertService.success(this.commonLabels.msgs.uploadSuccessMsg);
                 // this.toastr.success(this.constant.uploadSuccessMsg);
                 this.clearAddForm();
             } else {
                 //  this.toastr.error(this.constant.uploadErrMsg);
-                this.alertService.error(this.constant.uploadErrMsg);
+                this.alertService.error(this.commonLabels.mandatoryLabels.uploadErrMsg);
             }
         }
 

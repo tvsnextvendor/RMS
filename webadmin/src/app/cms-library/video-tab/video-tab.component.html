@@ -137,7 +137,7 @@
                             (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" required>
                         </ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="submitted && !constant.selectedDepartment.length">
-                            {{commonLabels.mandatoryLabels.selectDept}}
+                            {{commonLabels.mandatoryLabels.dept}}
                         </span>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                             [(ngModel)]="videoEditForm.selectedDivision" [settings]="constant.divisionSettings"
                             #divisionId="ngModel" required></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="submitted && !constant.selectedDivision.length">
-                            {{commonLabels.mandatoryLabels.selectDivision}}
+                            {{commonLabels.mandatoryLabels.division}}
                         </span>
                     </div>
                     <div class="pl-0 form-group select-Courses">

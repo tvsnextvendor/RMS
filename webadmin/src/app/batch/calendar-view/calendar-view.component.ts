@@ -10,6 +10,7 @@ import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,Calenda
 import { HttpService } from 'src/app/services/http.service';
 import { API_URL } from '../../Constants/api_url';
 import { DatePipe } from '@angular/common';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 
 @Component({
@@ -26,12 +27,13 @@ export class CalendarViewComponent implements OnInit {
   events: CalendarEvent[] = [];
 
   
-   constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router,private modalService:BsModalService){
+   constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router,private modalService:BsModalService,
+    public commonLabels:CommonLabels){
     this.batchVar.url = API_URL.URLS; 
    }
 
     ngOnInit(){
-        this.headerService.setTitle({title:this.batchVar.calendarTitle, hidemodule: false});
+        this.headerService.setTitle({title:this.commonLabels.titles.calendarTitle, hidemodule: false});
         this.http.get(this.batchVar.url.getNewBatchList).subscribe(data=>{
             this.batchVar.batchList = data.batchDetails;
             let tempArray = [];

@@ -5,15 +5,15 @@ import { Injectable } from '@angular/core';
 export class SubscriptionVar {
 
     labels = {
-      name : 'Subscription Name',
-      storageSpace : 'Total Storage Space',
-      allocatedSpace : 'Allocated Space',
-      availableSpace : 'Available Space',
-      course : 'Max no of Courses',
-      license : 'No of Licenses',
-      tenure : 'Tenure',
-      year : 'Years',
-      month : 'Months'
+      // name : 'Subscription Name',
+      // storageSpace : 'Total Storage Space',
+      // allocatedSpace : 'Allocated Space',
+      // availableSpace : 'Available Space',
+      // course : 'Max no of Courses',
+      // license : 'No of Licenses',
+      // tenure : 'Tenure',
+      // year : 'Years',
+      // month : 'Months'
     };
     
     mandatoryText = {
