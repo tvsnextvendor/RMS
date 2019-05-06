@@ -5,6 +5,8 @@ import { RolePermissionService } from '../services/restservices/rolepermission.s
 import { UtilService } from '../services/util.service';
 import { HeaderService } from '../services/header.service';
 import { AlertService } from '../services/alert.service';
+import { CommonLabels } from '../Constants/common-labels.var';
+
 
 @Component({
   selector: 'app-rolepermission',
@@ -15,7 +17,7 @@ export class RolepermissionComponent implements OnInit {
   resortId;
   
 
-  constructor(public constant: RolePermissionVar, private alertService: AlertService, private headerService: HeaderService, private commonService: CommonService, private utilService: UtilService, private rolePermissionService: RolePermissionService) {
+  constructor(public constant: RolePermissionVar, private alertService: AlertService, private headerService: HeaderService, private commonService: CommonService, private utilService: UtilService, private rolePermissionService: RolePermissionService,public commonLabels : CommonLabels) {
   }
 
   ngOnInit() {
@@ -151,7 +153,7 @@ export class RolepermissionComponent implements OnInit {
     if (data.resortId && data.divisionId && data.departmentId && data.roleId) {
       this.rolePermissionService.addRolePermission(obj).subscribe((result) => {
         if (result.isSuccess) {
-          this.alertService.success(this.constant.messages.successMsg);
+          this.alertService.success(this.commonLabels.msgs.rolesuccessMsg);
           this.clearForm(form);
         }
       },(err) => {

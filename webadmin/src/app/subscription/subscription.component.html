@@ -1,6 +1,6 @@
 <div class="pt-4">
     <div class="col-sm-12 pb-3 p-0 clearfix">
-        <button type = "button" class="btn btn-primary float-right" >Available Plan</button>
+        <button type = "button" class="btn btn-primary float-right" >{{commonLabels.btns.availPlan}}</button>
     </div>
   <div class="col-12 col-md-12 white-bg ptb-4"> 
     <!-- Subscription Form page -->
@@ -9,40 +9,40 @@
           <div class="row mb-2">
               
                   <div class="row col-md-6 mb-4">
-                      <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.name}}</label>
+                      <label class="col-6 col-md-4 label-title pl-0">{{commonLabels.labels.subName}}</label>
                       <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Subscription Name">
                       <!-- <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.resortName">{{resortVar.labels.resortName}}{{resortVar.labels.isRequired}} </span> -->
                   </div>
                   <div class="row col-md-6 mb-4">
-                      <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.storageSpace}}</label>
+                      <label class="col-6 col-md-4 label-title pl-0">{{commonLabels.labels.totalStorage}}</label>
                       <input class="col-6 col-md-8 form-control" type="email" name="email"  placeholder="Storage Space">
                       <!-- <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.email"> </span> -->
                   </div>
               
              
                 <div class="row mb-4 col-md-6">
-                    <label class="col-6 col-md-4 label-title  pl-0">{{constant.labels.allocatedSpace}}</label>
+                    <label class="col-6 col-md-4 label-title  pl-0">{{commonLabels.labels.allocatedSpace}}</label>
                     <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Allocated Space">
                     <!-- <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.resortName">{{resortVar.labels.resortName}}{{resortVar.labels.isRequired}} </span> -->
               </div>
                 <div class="row mb-4 col-md-6 ">
-                    <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.availableSpace}}</label>
+                    <label class="col-6 col-md-4 label-title pl-0">{{commonLabels.labels.availableSpace}}</label>
                     <input class="col-6 col-md-8 form-control" type="email" name="email" placeholder="Available Space">
                     <!-- <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.email"> </span> -->
                 </div>
             
              
                   <div class="row mb-4 col-md-6">
-                      <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.course}}</label>
+                      <label class="col-6 col-md-4 label-title pl-0">{{commonLabels.labels.maxcourse}}</label>
                       <input class="col-6 col-md-8 form-control" type="text" name="location" placeholder="No of Course">
                       <!-- <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.location"> </span> -->
                   </div>
                   <div class="row mb-4 col-md-6">
-                      <label class="col-6 col-md-4 label-title pl-0">{{constant.labels.tenure}}</label>   
+                      <label class="col-6 col-md-4 label-title pl-0">{{commonLabels.labels.tenure}}</label>   
                       <span class="col-md-4 pl-0"><input class="form-control" type="text" name="location" placeholder="No of Days"></span>
                       <span class="col-md-4 pr-0"> <select class="pl-1 select-form form-control">
-                        <option>{{constant.labels.month}}</option>
-                        <option>{{constant.labels.year}}</option>
+                        <option>{{commonLabels.labels.month}}</option>
+                        <option>{{commonLabels.labels.year}}</option>
                     </select>
                     </span>
                   </div>
@@ -52,8 +52,8 @@
       </div>  
 
       
-      <div _ngcontent-c16="" class="text-center pt-5 mb-4"><button _ngcontent-c16="" class="btn btn-default mr-3" type="button">Cancel</button>
-        <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">save</button>
+      <div _ngcontent-c16="" class="text-center pt-5 mb-4"><button _ngcontent-c16="" class="btn btn-default mr-3" type="button">{{commonLabels.btns.cancel}}</button>
+        <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">{{commonLabels.btns.save}}</button>
     </div> 
   
       </form> 
@@ -66,32 +66,32 @@
         <form>
         <div class="row col-md-6">
           <div class="col-md-6 form-group">
-            <label class="label-title">Subscription Name</label>
+            <label class="label-title">{{commonLabels.labels.subName}}</label>
             <span>Green</span>
           </div>
           <div class="col-md-6 form-group">
-            <label class="label-title">Total Storage Space</label>
+            <label class="label-title">{{commonLabels.labels.totalStorage}}</label>
             <span>100 MB</span>
           </div>
           <div class="col-md-6 form-group">
-            <label class="label-title">Allocated Space</label>
+            <label class="label-title">{{commonLabels.labels.allocatedSpace}}</label>
             <span>50 MB</span>
           </div>
           <div class="col-md-6 form-group">
-            <label class="label-title">Available Space</label>
+            <label class="label-title">{{commonLabels.labels.availableSpace}}</label>
             <span>50 MB</span>
           </div>
           <div class="col-md-6 form-group">
-            <label class="label-title">Active From</label>
+            <label class="label-title">{{commonLabels.labels.actFrom}}</label>
             <span>31 Dec 2018</span>
           </div>
           <div class="col-md-6 form-group">
-            <label class="label-title">Expire On</label>
+            <label class="label-title">{{commonLabels.labels.expOn}}</label>
             <span>30 May 2019</span>
           </div>
         </div>
         <div _ngcontent-c16="" class="text-center pt-5 mb-4">
-          <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">RENEW PLAN</button>
+          <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">{{commonLabels.btns.renewPlan}}</button>
       </div> 
       </form>
       </div>

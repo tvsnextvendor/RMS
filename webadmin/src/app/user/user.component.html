@@ -1,18 +1,18 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="pt-4 tab-section">    
 <tabset #staticTabs *ngIf="userType === 2">
-    <tab heading={{constant.labels.userManagement}}>
+    <tab heading={{commonLabels.labels.userManagement}}>
         <div class="pt-3" id="contentToConvert">
         <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
             <div class="float-right row pb-3 adduser-respon">
                 <span class="pr-2 upload-line">
                     <button class="fileUpload btn btn-primary addUser-upload">
-                        <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{constant.btns.uploadEmp}}</span>
+                        <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
                         <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
                             accept=".xlsx" />
                     </button>
                 </span>
-                <span class="pr-2"><button class="btn btn-primary" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{constant.btns.addUser}}</button></span>
+                <span class="pr-2"><button class="btn btn-primary" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
                 <!-- <span class="pagenation-btn">
                     <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
                         class="pagenation-dropdown"></ngx-select-dropdown>
@@ -23,25 +23,25 @@
                     <thead>
                         <tr class="th-boxshadow text-center">
                             <th>
-                                <mfDefaultSorter by="employeeId">{{labels.employeeId}}</mfDefaultSorter>
+                                <mfDefaultSorter by="employeeId">{{commonLabels.labels.employeeId}}</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="userName">{{labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                <mfDefaultSorter by="userName">{{labels.userName}}{{commonLabels.labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Division">{{labels.division}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                <mfDefaultSorter by="Division">{{commonLabels.labels.division}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Department">{{labels.department}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                <mfDefaultSorter by="Department">{{commonLabels.labels.department}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Designation">{{labels.role}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                <mfDefaultSorter by="Designation">{{commonLabels.labels.role}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="emailId">{{labels.email}}</mfDefaultSorter>
+                                <mfDefaultSorter by="emailId">{{commonLabels.labels.email}}</mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="mobile">{{labels.mobile}}</mfDefaultSorter>
+                                <mfDefaultSorter by="mobile">{{commonLabels.labels.mobile}}</mfDefaultSorter>
                             </th>
                             <th class="text-center action-hd">
                                <!-- Action -->
@@ -68,7 +68,7 @@
                                 
                         </tr>
                         <tr *ngIf="mf.data?.length == 0">
-                            <td colspan="10" class="text-center data-design">{{constant.labels.noData}}</td>
+                            <td colspan="10" class="text-center data-design">{{commonLabels.labels.noData}}</td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -82,11 +82,11 @@
             </form>
         </div>
     </tab>
-    <tab heading={{constant.labels.hierarchy}}>  
+    <tab heading={{commonLabels.labels.hierarchy}}>  
         <div class="pt-3 clearfix">
             <div class="hd-section clearfix">
-            <h5 class="float-left title-hd">{{constant.mandatoryText.divisionName}}</h5>
-            <span class="float-right"><button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{constant.btns.addnew}}</button></span>
+            <h5 class="float-left title-hd">{{commonLabels.labels.division}}</h5>
+            <span class="float-right"><button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
             </div>
             <div class="hierarchy-tab white-bg p-4 mt-3">
             <div class="detail-bottom row">                
@@ -106,11 +106,11 @@
             </div>
         </div>    
     </tab>
-    <tab heading = {{constant.labels.listofRole}}>
+    <tab heading = {{commonLabels.labels.listofRole}}>
         <div class="pr-3 pt-3 clearfix listrole">
             <div class="hd-section clearfix">
             <h5 class="float-left title-hd">List of Roles</h5>
-            <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{constant.btns.addnew}}</button></span>
+            <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
             </div>
             <div class="hierarchy-tab white-bg p-4 mt-3">
             <div class="detail-bottom row">                
@@ -124,7 +124,7 @@
             </div>
         </div> 
     </tab>
-    <tab heading={{constant.labels.rolesPermission}}>
+    <tab heading={{commonLabels.labels.rolesPermission}}>
        <app-rolepermission></app-rolepermission>
     </tab>
 </tabset>  
@@ -134,12 +134,12 @@
     <div class="float-right row pb-3 adduser-respon">
         <span class="pr-2 upload-line">
             <div class="fileUpload btn btn-primary addUser-upload">
-                <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{constant.btns.uploadEmp}}</span>
+                <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
                 <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
                     accept=".xlsx" />
             </div>
         </span>
-        <span class="pr-2"><a class="btn btn-primary br-btn" (click)="openAddUser(addUserTemp,'','')">{{constant.btns.addUser}}</a></span>
+        <span class="pr-2"><a class="btn btn-primary br-btn" (click)="openAddUser(addUserTemp,'','')">{{commonLabels.btns.addUser}}</a></span>
         <span class="pagenation-btn">
             <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
                 class="pagenation-dropdown"></ngx-select-dropdown>
@@ -150,26 +150,26 @@
             <thead>
                 <tr class="th-boxshadow text-center">
                     <th>
-                        <mfDefaultSorter by="employeeId">{{labels.employeeId}}</mfDefaultSorter>
+                        <mfDefaultSorter by="employeeId">{{commonLabels.labels.employeeId}}</mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="employeeName">{{labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"
+                        <mfDefaultSorter by="employeeName">{{commonLabels.labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"
                                     class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="division">{{labels.division}}</mfDefaultSorter>
+                        <mfDefaultSorter by="division">{{commonLabels.labels.division}}</mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="department">{{labels.department}}</mfDefaultSorter>
+                        <mfDefaultSorter by="department">{{commonLabels.labels.department}}</mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="role">{{labels.role}}</mfDefaultSorter>
+                        <mfDefaultSorter by="role">{{commonLabels.labels.role}}</mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="emailId">{{labels.email}}</mfDefaultSorter>
+                        <mfDefaultSorter by="emailId">{{commonLabels.labels.email}}</mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="mobile">{{labels.mobile}}</mfDefaultSorter>
+                        <mfDefaultSorter by="mobile">{{commonLabels.labels.mobile}}</mfDefaultSorter>
                     </th>
                     <th>
                         <mfDefaultSorter></mfDefaultSorter>
@@ -193,7 +193,7 @@
                     <td class="vat user-desc"><a (click)="removeUser(deleteUser,user,i)"  title="Delete"><i class="fa fa-trash header-icon"></i></a></td> 
                 </tr>
                 <tr *ngIf="mf.data?.length == 0">
-                    <td colspan="10" class="text-center data-design">{{constant.labels.noData}}</td>
+                    <td colspan="10" class="text-center data-design">{{commonLabels.labels.noData}}</td>
                 </tr>
             </tbody>
             <tfoot>
@@ -208,8 +208,8 @@
 </div>  
 <ng-template #addUserTemp>
     <div class="modal-header pb-0">
-        <p class="hd-alg" *ngIf="!editEnable">{{constant.btns.addUser}}</p>
-        <p class="hd-alg" *ngIf="editEnable">{{constant.btns.editUser}}</p>
+        <p class="hd-alg" *ngIf="!editEnable">{{commonLabels.btns.addUser}}</p>
+        <p class="hd-alg" *ngIf="editEnable">{{commonLabels.btns.editUser}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="closeAddForm()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -217,90 +217,90 @@
     <div class="modal-body">
          <form #userForm="ngForm"  (ngSubmit)="addUser(userForm)">
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{labels.userName}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.userName}}{{commonLabels.labels.star}}</label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="text" class="form-control" placeholder="Enter User Name" [(ngModel)]="userName"
                         name="userName" #user="ngModel" />
                     <span class="required_color"
-                        *ngIf="userForm.submitted && !userName">{{constant.mandatoryText.empName}}</span>                 
+                        *ngIf="userForm.submitted && !userName">{{commonLabels.mandatoryLabels.empName}}</span>                 
                 </span>
             </div>
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{labels.division}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.division}}{{commonLabels.labels.star}}</label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="division" #divisionReq="ngModel" name="division" (ngModelChange)="changedivision()" class="form-control" required>
-                        <option value="">{{constant.labels.select}}</option>
+                        <option value="">{{commonLabels.labels.select}}</option>
                         <option *ngFor="let obj of divisionArray" [value]="obj.divisionId">{{obj.divisionName}}</option>
                     </select>
                     <div class="select_arrow"></div>
                     <span class="required_color"
-                        *ngIf="userForm.submitted && divisionReq.errors?.required">{{constant.mandatoryText.division}}</span>
+                        *ngIf="userForm.submitted && divisionReq.errors?.required">{{commonLabels.mandatoryLabels.division}}</span>
                 </span>
             </div>
             
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{labels.department}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.department}}{{commonLabels.labels.star}}</label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="department" #departmentReq="ngModel" (ngModelChange)="designationUpdate($event)" name="department"
                         class="form-control" required>
-                        <option value="">{{constant.labels.select}}</option>
+                        <option value="">{{commonLabels.labels.select}}</option>
                         <option *ngFor="let obj of departmentArray" [value]="obj.departmentId">{{obj.departmentName}}</option>
                     </select>
                     <div class="select_arrow"></div>
                     <span class="required_color"
-                        *ngIf="userForm.submitted && departmentReq.errors?.required">{{constant.mandatoryText.dept}}</span>
+                        *ngIf="userForm.submitted && departmentReq.errors?.required">{{commonLabels.commonLabels.dept}}</span>
                 </span> 
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{labels.role}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.role}}{{commonLabels.labels.star}}</label>
                  <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="designation" name="designation"  #designationReq="ngModel" class="form-control" required>
-                        <option value="">{{constant.labels.select}}</option>
+                        <option value="">{{commonLabels.labels.select}}</option>
                         <option *ngFor="let obj of designationArray" [value]="obj.designationId">{{obj.designationName}}</option>
                     </select>
                      <div class="select_arrow"></div>
                     <span class="required_color" *ngIf="userForm.submitted && designationReq.errors?.required">
-                        {{constant.mandatoryText.designation}}</span>
+                        {{commonLabels.mandatoryLabels.designation}}</span>
                 </span> 
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{labels.email}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.email}}{{commonLabels.labels.star}}</label>
                  <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="emailAddress"
                         name="emailAddress" #email="ngModel" (focusout)="validationUpdate('email')" />
                         <span class="required_color"
-                            *ngIf="userForm.submitted && !emailAddress">{{constant.mandatoryText.emailId}}</span>
+                            *ngIf="userForm.submitted && !emailAddress">{{commonLabels.mandatoryLabels.emailId}}</span>
                         <span class="required_color"
-                            *ngIf="emailAddress && validEmail">{{constant.mandatoryText.emailInvalid}}</span>
+                            *ngIf="emailAddress && validEmail">{{commonLabels.mandatoryLabels.emailInvalid}}</span>
                 </span>
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{labels.mobile}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.mobile}}{{commonLabels.labels.star}}</label>
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Mobile Number"
                         [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (focusout)="validationUpdate('mobile')" /><span
                         class="required_color"
-                        *ngIf="userForm.submitted && !phoneNumber">{{constant.mandatoryText.mobNo}}</span><span
+                        *ngIf="userForm.submitted && !phoneNumber">{{commonLabels.mandatoryLabels.mobNo}}</span><span
                         class="required_color" *ngIf="userForm.submitted && phoneNumber && validPhone">
-                        {{constant.mandatoryText.invalidMobNo}}</span>
+                        {{commonLabels.mandatoryLabels.invalidMobNo}}</span>
                 </span>
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{labels.reportingTo}}</label>
+                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.reportingTo}}</label>
                  <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="reportingTo" name="reportingTo" class="form-control">
-                        <option value="">{{constant.labels.select}}</option>
+                        <option value="">{{commonLabels.labels.select}}</option>
                         <option *ngFor="let obj of designationArray" [value]="obj.designationId">{{obj.designationName}}</option>
                     </select>
                      <div class="select_arrow"></div>
@@ -312,22 +312,22 @@
                 <span class="col-md-1"></span>
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="accessTo" name="accessTo" #accessToReq="ngModel" class="form-control" required>
-                        <option value="web">{{constant.labels.web}}</option>
-                        <option value="mobile">{{constant.labels.mobile}}</option>
+                        <option value="web">{{commonLabels.labels.web}}</option>
+                        <option value="mobile">{{commonLabels.labels.mobile}}</option>
                     </select>
                     <div class="select_arrow"></div>
                     <span class="required_color"
-                        *ngIf="userForm.submitted && accessToReq.errors?.required">{{constant.mandatoryText.accessTo}}</span>
+                        *ngIf="userForm.submitted && accessToReq.errors?.required">{{commonLabels.mandatoryLabels.accessTo}}</span>
                 </span>                 
             </div>
 
           <span class="text-center mb-3 mt-0 required_color" *ngIf="errMsg">{{errMsg}}</span>
 
             <div class="text-center">
-                <button type="submit" *ngIf="!editEnable" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
-                <button type="submit" *ngIf="editEnable"  class="btn btn-primary creat-btn mr-3">{{constant.btns.update}}</button>
+                <button type="submit" *ngIf="!editEnable" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
+                <button type="submit" *ngIf="editEnable"  class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.update}}</button>
                 <button type="button" class="btn btn-default"
-                    (click)="closeAddForm()">{{constant.btns.cancel}}</button>
+                    (click)="closeAddForm()">{{commonLabels.btns.cancel}}</button>
             </div>
         </form> 
     </div>
@@ -335,23 +335,23 @@
 
 <ng-template #deleteUser>
     <div class="modal-header pb-0">
-        <p class="hd-alg">{{constant.labels.deleteUser}}</p>
+        <p class="hd-alg">{{commonLabels.labels.deleteUser}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body text-center">
-         <span class="text-content">{{constant.labels.deleteConfirmation}}</span>
+         <span class="text-content">{{commonLabels.labels.deleteConfirmuser}}</span>
         <div class="text-center mt-4">
             <button (click)="deleteuser()"
-                class="btn btn-primary creat-btn mr-3">{{constant.btns.ok}}</button>
-            <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
+                class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
+            <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{commonLabels.btns.cancel}}</button>
         </div>
     </div>
 </ng-template>
 <ng-template #addDivision>
     <div class="modal-header pb-0">
-        <p class="hd-alg pl-0">{{constant.labels.addDivision}}</p>
+        <p class="hd-alg pl-0">{{commonLabels.labels.addDivision}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -359,17 +359,17 @@
     <div class="col-md-12 tab-section" >           
         <ul class="nav nav-tabs" (click)="tabchange($event)">
             <li class="nav-item">
-                <a [ngClass] = "!triggerNext ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#home" name="division">{{constant.labels.division}}</a>
+                <a [ngClass] = "!triggerNext ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#home" name="division">{{commonLabels.labels.division}}</a>
             </li>
             <li class="nav-item">
-                <a [ngClass] = "triggerNext ? 'nav-link active show' : 'nav-link disabled'" data-toggle="tab" href="#menu1" name="department">{{constant.labels.department}}</a>
+                <a [ngClass] = "triggerNext ? 'nav-link active show' : 'nav-link disabled'" data-toggle="tab" href="#menu1" name="department">{{commonLabels.labels.department}}</a>
             </li>
         </ul>   
         <div *ngIf="!divisionValidationCheck"><span class="required_color text-left">{{divisionError}}</span></div> 
         <div class="tab-content" *ngIf="userType === 2">
             <div id="home" [ngClass] = "!triggerNext ? 'container tab-pane col-md-12 pl-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
                 <div class="row col-12 col-md-12 pl-0" *ngFor="let data of constant.divisionTemplate; let i = index">
-                    <label class="col-5 col-md-4 label-title pl-0" *ngIf="i==0">{{constant.labels.division}}</label>
+                    <label class="col-5 col-md-4 label-title pl-0" *ngIf="i==0">{{commonLabels.labels.division}}</label>
                     <label class="col-5 col-md-4 label-title pl-0" *ngIf="i!=0"></label>
                     <div class="input-group mb-3 col-7 col-md-8 group-box">
                         <input type="text" class="form-control col-md-11" placeholder="Enter the Division{{i+1}}" [(ngModel)]="data.divisionName" name = "division{{i+1}}" aria-label="" aria-describedby="basic-addon1">
@@ -410,9 +410,9 @@
         </div>  
       
         <div class="text-center mt-3 mrb-15">
-            <button type="button" *ngIf="!triggerNext" (click)="next()" class="btn btn-primary creat-btn mr-3">{{constant.btns.next}}</button>
-            <button type="button" *ngIf="triggerNext" (click)="submitDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
-            <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
+            <button type="button" *ngIf="!triggerNext" (click)="next()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.next}}</button>
+            <button type="button" *ngIf="triggerNext" (click)="submitDivision()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
+            <button type="button" class="btn btn-default" (click)="closeAddForm()">{{commonLabels.btns.cancel}}</button>
         </div>  
       
     </div>
@@ -420,30 +420,30 @@
 
 <ng-template #deleteDivision>
     <div class="modal-header pb-0">
-        <p class="hd-alg">{{constant.labels.deleteDivision}}</p>
+        <p class="hd-alg">{{commonLabels.labels.deleteDivision}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body text-center">
-        <span class="text-content">{{constant.labels.deleteDivisionConfirmation}}</span>
+        <span class="text-content">{{commonLabels.labels.deleteDivisionConfirmation}}</span>
         <div class="text-center mt-4">
-            <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteDivisionContent()">{{constant.btns.ok}}</button>
-            <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
+            <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteDivisionContent()">{{commonLabels.btns.ok}}</button>
+            <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{commonLabels.btns.cancel}}</button>
         </div>
     </div>
 </ng-template>
 
 <ng-template #editDivision>
     <div class="modal-header pb-0">
-        <p class="hd-alg">{{constant.labels.editDivision}}</p>
+        <p class="hd-alg">{{commonLabels.labels.editDivision}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
         <div class="row">
-        <label class="col-md-4 pl-0 label-title">{{constant.labels.divisionName}}</label>
+        <label class="col-md-4 pl-0 label-title">{{commonLabels.labels.divisionName}}</label>
         <div class="col-md-8 p-0">
         <input type="text" class="form-control col-md-11 mb-2 p-0" placeholder="Division Name" [(ngModel)]="editDivisionValue.divisionName" name = "division" aria-label="" aria-describedby="basic-addon1">
         <div class="row col-12 col-md-12 p-0" *ngFor="let data of editDepartmentList; let i = index">
@@ -463,15 +463,15 @@
         </div>
         </div>
         <div class="text-center mt-3">
-            <button (click)="updateDivision()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
-            <button type="button" class="btn btn-default" (click)="cancelUpdate()">{{constant.btns.Cancel}}</button>
+            <button (click)="updateDivision()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
+            <button type="button" class="btn btn-default" (click)="cancelUpdate()">{{commonLabels.btns.cancel}}</button>
         </div>
     </div>
 </ng-template>
 
     <ng-template #addRole>
         <div class="modal-header pb-0">
-            <p class="hd-alg pl-0">{{constant.labels.addRole}}</p>
+            <p class="hd-alg pl-0">{{commonLabels.labels.addRole}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -496,15 +496,15 @@
         </div> 
         <span *ngIf="roleFormSubmitted && roleError" class="required_color ml-3">Role name is mandatory</span>
         <div class="text-center mt-4 mrb-15">
-            <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
-            <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
+            <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
+            <button type="button" class="btn btn-default" (click)="closeAddForm()">{{commonLabels.btns.cancel}}</button>
         </div>    
        
     </ng-template>
 
     <ng-template #editRole>
         <div class="modal-header pb-0">
-            <p class="hd-alg pl-0">{{constant.labels.editRole}}</p>
+            <p class="hd-alg pl-0">{{commonLabels.labels.editRole}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -514,23 +514,23 @@
         </div>
         <div class="row" *ngIf="!errorValidation"><span class="required_color text-left">{{errorValidate}}</span></div>         
         <div class="text-center mt-4 mrb-15">
-                <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{constant.btns.save}}</button>
-                <button type="button" class="btn btn-default" (click)="closeAddForm()">{{constant.btns.cancel}}</button>
+                <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
+                <button type="button" class="btn btn-default" (click)="closeAddForm()">{{commonLabels.btns.cancel}}</button>
             </div>   
     </ng-template>
     
     <ng-template #deleteRole>
         <div class="modal-header pb-0">
-            <p class="hd-alg">{{constant.labels.deleteRole}}</p>
+            <p class="hd-alg">{{commonLabels.labels.deleteRole}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body text-center">
-            <span class="text-content">{{constant.labels.deleteRoleConfirmation}}</span>
+            <span class="text-content">{{commonLabels.labels.deleteRoleConfirmation}}</span>
             <div class="text-center mt-3">
-                <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteRoleContent()">{{constant.btns.ok}}</button>
-                <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{constant.btns.Cancel}}</button>
+                <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteRoleContent()">{{commonLabels.btns.ok}}</button>
+                <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{commonLabels.btns.cancel}}</button>
             </div>
         </div>
     </ng-template>

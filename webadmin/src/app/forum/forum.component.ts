@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
+import { CommonLabels } from '../Constants/common-labels.var'
 
 @Component({
     selector: 'app-forum',
@@ -16,13 +17,13 @@ import { AlertService } from '../services/alert.service';
 export class ForumComponent implements OnInit {
    
 
-    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,public forumVar:ForumVar,private http: HttpService,private alertService:AlertService){
+    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,public forumVar:ForumVar,private http: HttpService,private alertService:AlertService,public commonLabels:CommonLabels){
        this.forumVar.url = API_URL.URLS;
     }
     filteredNames=[];
 
    ngOnInit(){
-    this.headerService.setTitle({title:this.forumVar.title, hidemodule:false});
+    this.headerService.setTitle({title:this.commonLabels.titles.forumtitle, hidemodule:false});
     this.getForumList();
    // this.getEmployeeList();
     this.getDepartmentList();
@@ -92,7 +93,7 @@ export class ForumComponent implements OnInit {
           adminlist  : form.value.admin
         }
        // this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
-        this.alertService.success(this.forumVar.updateSuccessMsg);
+        this.alertService.success(this.commonLabels.msgs.updateSuccessMsg);
         this.forumVar.modalRef.hide();
      }
     }

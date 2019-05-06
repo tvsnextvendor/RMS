@@ -1,14 +1,14 @@
 <div class="pt-2">   
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Resort</a></li>                
-                <li class="breadcrumb-item active">Edit</li>
+                <li class="breadcrumb-item"><a href="#">{{commonLabels.labels.resort}}</a></li>                
+                <li class="breadcrumb-item active">{{commonLabels.labels.edit}}</li>
             </ol>
         </nav>
     </div>
 
 <div class="pt-3">
-<span *ngIf="!enableEdit" class="pr-2"><button class="btn btn-primary" (click)="editDetails()">Edit</button></span>
+<span *ngIf="!enableEdit" class="pr-2"><button class="btn btn-primary" (click)="editDetails()">{{commonLabels.labels.edit}}</button></span>
 <div class="pt-4">
     <div class="col-12 col-md-12 white-bg p-3"> 
         <form (ngSubmit)="submitResortData()" *ngIf="enableEdit" #resortForm = "ngForm">
@@ -16,26 +16,26 @@
             <div class="row mb-2">
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4 ">
-                        <label class="col-6 col-md-4 label-title">{{resortVar.labels.resortName}}</label>
+                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.resortName}}</label>
                         <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Resort Name" [(ngModel)]="resortName" #resort = "ngModel" required>
-                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortName">{{resortVar.labels.resortName}}{{resortVar.labels.isRequired}} </span>
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortName">{{resortVar.mandatoryLabels.resortRequired}} </span>
                     </div>
                     <div class="row mb-4">
-                        <label class="col-6 col-md-4 label-title">{{resortVar.labels.email}}</label>
+                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.email}}</label>
                         <input class="col-6 col-md-8 form-control" type="email" placeholder="Email" name="email" [(ngModel)]="email" (keyup) = "validationValueCheck('email')" #resort = "ngModel" required>
-                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !email">{{resortVar.labels.email}}{{resortVar.labels.isRequired}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && email && !emailValidation">Invalid {{resortVar.labels.email}} </span>
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !email">{{commonLabels.mandatoryLabels.emailId}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && email && !emailValidation"> {{commonLabels.mandatoryLabels.emailInvalid}} </span>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4">
-                        <label class="col-6 col-md-4 label-title">{{resortVar.labels.location}}</label>
+                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.location}}</label>
                         <input class="col-6 col-md-8 form-control" placeholder="Location" type="text" name="location" [(ngModel)]="locationName" #resort = "ngModel" required>
-                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !locationName">{{resortVar.labels.location}}{{resortVar.labels.isRequired}} </span>
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !locationName">{{commonLabels.mandatoryLabels.locationRequired}} </span>
                     </div>
                     <div class="row mb-4">
-                        <label class="col-6 col-md-4 label-title">{{resortVar.labels.mobile}}</label>
-                        <input class="col-6 col-md-8 form-control" placeholder="mobile" type="number" autocomplete="off" name="mobile" [(ngModel)]="phoneNumber" #resort = "ngModel" (keyup) = "validationValueCheck('mobile')" required>
-                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !phoneNumber">{{resortVar.labels.mobile}} number{{resortVar.labels.isRequired}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && phoneNumber && !mobileValidation">Invalid {{resortVar.labels.mobile}} number </span>
+                        <label class="col-6 col-md-4 label-title">{{commonLabels.labels.mobile}}</label>
+                        <input class="col-6 col-md-8 form-control" placeholder="mobile" type="text" autocomplete="off" name="mobile" [(ngModel)]="phoneNumber" #resort = "ngModel" (keyup) = "validationValueCheck('mobile')" required>
+                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !phoneNumber">{{commonLabels.mandatoryLabels.mobNo}} </span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && phoneNumber && !mobileValidation"> {{commonLabels.mandatoryLabels.invalidMobNo}}  </span>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
         <div class="col-sm-12 p-0 subscription-section" *ngIf="userType === 1">
             <div class="row">
                 <div class="row col-12 col-md-6 form-group ">
-                    <label class="col-6 col-sm-8 col-md-4 label-title pl-0">subscription type</label>
+                    <label class="col-6 col-sm-8 col-md-4 label-title pl-0">{{commonLabels.labels.subscribTyp}}</label>
                     <select class="col-md-8 select-form form-control">
                         <option>Type</option>
                         <option>Economy</option>
@@ -99,7 +99,7 @@
                     </select> 
                 </div>
                 <div class="row col-12 col-md-6 form-group ">
-                    <label class="col-6 col-sm-8 col-md-4 label-title pl-0">total Storage space</label>
+                    <label class="col-6 col-sm-8 col-md-4 label-title pl-0">{{commonLabels.labels.totalStorage}}</label>
                     <input class="col-6 col-sm-8 col-md-4 form-control" type="text" name="storageSpace" [(ngModel)]="resortVar.storageSpace">
                     <!-- <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.storageSpace">{{resortVar.labels.storageSpace}}{{resortVar.labels.isRequired}} </span> -->
                 </div>
@@ -119,17 +119,17 @@
         </div> 
         <div class="col-12 col-md-6 pl-0">
             <div class="row mb-4">
-                <label class="col-6 col-md-4 label-title">{{resortVar.labels.status}}</label>
+                <label class="col-6 col-md-4 label-title">{{commonLabels.labels.status}}</label>
                 <select class="col-6 col-md-8 form-control" [(ngModel)] = "status" name="status"> 
                     <option [value]="null" disabled>--Select Status--</option>
                     <option *ngFor="let status of resortVar.statusList" [value]="status.name">{{status.name}}</option>
                 </select>
                 <!-- <input class="col-6 col-md-8 form-control" type="text" name="location" [(ngModel)]="resortVar.location"> -->
-                <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !status">{{resortVar.labels.status}}{{resortVar.labels.isRequired}} </span>
+                <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !status">{{commonLabels.mandatoryLabels.statusRequired}} </span>
             </div>
         </div>
-        <div _ngcontent-c16="" class="text-center pt-5 mb-4"><button _ngcontent-c16="" class="btn btn-default mr-3" type="button" (click)="back()">Cancel</button>
-            <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">save</button>
+        <div _ngcontent-c16="" class="text-center pt-5 mb-4"><button _ngcontent-c16="" class="btn btn-default mr-3" type="button" (click)="back()">{{commonLabels.btns.cancel}}</button>
+            <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">{{commonLabels.btns.save}}</button>
         </div> 
         </form> 
 
@@ -137,23 +137,23 @@
 <form class="detail-pg" *ngIf="!enableEdit">
     <div class="row">
             <div class="col-md-3 form-group">
-                <label class="label-title">{{resortVar.labels.resortName}}</label>
+                <label class="label-title">{{commonLabels.labels.resortName}}</label>
                 <span>{{resortVar.resortName}}</span>
             </div>
             <div class="col-md-3 form-group">
-                <label class="label-title">{{resortVar.labels.location}}</label>
+                <label class="label-title">{{commonLabels.labels.location}}</label>
                 <span>{{resortVar.location}}</span>
             </div>
             <div class="col-md-3 form-group">
-                <label class="label-title">{{resortVar.labels.email}}</label>
+                <label class="label-title">{{commonLabels.labels.email}}</label>
                 <span>{{resortVar.email}}</span>
             </div>
             <div class="col-md-3 form-group">
-                <label class="label-title">{{resortVar.labels.mobile}}</label>
+                <label class="label-title">{{commonLabels.labels.mobile}}</label>
                 <span>{{resortVar.phoneNumber}}</span>
             </div>
             <div class="col-md-3 form-group">
-                <label class="label-title">{{resortVar.labels.status}}</label>
+                <label class="label-title">{{commonLabels.labels.status}}</label>
                 <span>{{resortVar.status}}</span>
             </div>
             <!-- <div class="col-md-3 form-group">

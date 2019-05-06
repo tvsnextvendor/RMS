@@ -1,6 +1,6 @@
 <div class="row pt-4">
     <div class="col-sm-12 pb-3 p-0">
-        <button type = "button" class="btn btn-primary float-right" [routerLink]="['../resorts']"><i class="fa fa-plus pr-2"></i>{{resortVar.labels.createResort}}</button>
+        <button type = "button" class="btn btn-primary float-right" [routerLink]="['../resorts']"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addNew}}</button>
     </div>
     <div class="col-lg-12 col-sm-12 p-0">                
         <div class="table-responsive white-bg custom-table2">
@@ -8,36 +8,36 @@
                     <thead>
                     <tr class="th-boxshadow">
                         <th class="text-left name-txt">
-                            <mfDefaultSorter>{{resortVar.labels.resortName}}</mfDefaultSorter>
+                            <mfDefaultSorter>{{commonLabels.labels.resortName}}</mfDefaultSorter>
                         </th>
                         <th class="text-left">
-                            <mfDefaultSorter>{{resortVar.labels.location}}</mfDefaultSorter>
+                            <mfDefaultSorter>{{commonLabels.labels.location}}</mfDefaultSorter>
                         </th>
                         <th class="text-left">
-                            <mfDefaultSorter>{{resortVar.labels.email}}</mfDefaultSorter>
+                            <mfDefaultSorter>{{commonLabels.labels.email}}</mfDefaultSorter>
                         </th>
                         <th class="text-left">
-                            <mfDefaultSorter>{{resortVar.labels.mobile}}</mfDefaultSorter>
+                            <mfDefaultSorter>{{commonLabels.labels.mobile}}</mfDefaultSorter>
                         </th>
                         <th class="text-center" *ngIf = "userId === 1">
-                                <p class="text-nowrap">Subscription Type</p>
+                                <p class="text-nowrap">{{commonLabels.labels.subscribTyp}}</p>
                         </th>
                         <th class="text-center" *ngIf = "userId === 1">
-                                <p class="text-nowrap">Total Storage Space</p>
+                                <p class="text-nowrap">{{commonLabels.labels.totalStorage}}</p>
                         </th>
                        
                         <th class="text-center">
-                            <mfDefaultSorter>{{resortVar.labels.numberOfUser}}</mfDefaultSorter>
+                            <mfDefaultSorter>{{commonLabels.labels.numberOfUser}}</mfDefaultSorter>
                         </th>
                         <th class="text-center">
-                            <mfDefaultSorter>{{resortVar.labels.status}}</mfDefaultSorter>
+                            <mfDefaultSorter>{{commonLabels.labels.status}}</mfDefaultSorter>
                         </th>
                         
                         <th class="text-center" *ngIf = "userId === 1">
                             <p class="text-nowrap">Expiry due in</p>
                         </th>
                         <th class="text-left">
-                                <mfDefaultSorter>{{resortVar.labels.utilizedSpace}}</mfDefaultSorter>
+                                <mfDefaultSorter>{{commonLabels.labels.utilizedSpace}}</mfDefaultSorter>
                             </th>
                         <th class="text-center action-hd"></th>
                     </tr>
@@ -73,16 +73,16 @@
 </div>
 <ng-template #deleteResort>
     <div class="modal-header pb-0">
-        <p class="hd-alg">{{resortVar.labels.deleteResort}}</p>
+        <p class="hd-alg">{{commonLabels.labels.deleteResort}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="resortVar.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body text-center">
-        <span class="text-cont">{{resortVar.labels.deleteResortConfirmation}}</span>
+        <span class="text-content">{{commonLabels.labels.deleteResortConfirmation}}</span>
         <div class="text-center mt-4">
-            <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteResortAPI()">{{resortVar.btns.ok}}</button>
-            <button type="button" class="btn btn-default" (click)="resortVar.modalRef.hide()">{{resortVar.btns.Cancel}}</button>
+            <button type="button" class="btn btn-primary creat-btn mr-3" (click)="deleteResortAPI()">{{commonLabels.btns.ok}}</button>
+            <button type="button" class="btn btn-default" (click)="resortVar.modalRef.hide()">{{commonLabels.btns.cancel}}</button>
         </div>
     </div>
 </ng-template>

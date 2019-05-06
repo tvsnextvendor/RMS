@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import {AddQuizComponent} from '../add-quiz/add-quiz.component';
 import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
     selector: 'app-add-module',
@@ -47,12 +48,12 @@ export class AddModuleComponent implements OnInit {
     @Input() addedFiles;
     // selectedCourseIds:any;
 
-   constructor(private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService){
+   constructor(private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
         });
         this.labels = moduleVar.labels;
-        this.moduleVar.title = this.moduleId ? this.labels.editCourse : this.labels.createCourse;
+        this.moduleVar.title = this.moduleId ? this.commonLabels.labels.editCourse : this.commonLabels.labels.createCourse;
    }
 
    ngOnInit(){
@@ -334,7 +335,7 @@ export class AddModuleComponent implements OnInit {
        if(this.moduleVar.courseId){
             this.courseData(this.moduleVar.courseId);
             this.tabEnable = data.courseUpdate ? false : true;
-            this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
+            this.message = data.type ? this.commonLabels.labels.updateCourseSuccess : this.commonLabels.labels.addCourseSuccess;
             this.alertService.success(this.message);
             this.messageClose();
        }

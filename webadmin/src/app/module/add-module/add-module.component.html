@@ -2,8 +2,8 @@
    <div>   
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a (click)="goTocmsLibrary()" class="cms-breadcrumb">{{labels.cmsLibrary}}</a></li>
-				<li class="breadcrumb-item active" *ngIf="!moduleId">{{labels.createCourse}}</li>
+				<li class="breadcrumb-item"><a (click)="goTocmsLibrary()" class="cms-breadcrumb">{{commonLabels.labels.cmsLibrary}}</a></li>
+				<li class="breadcrumb-item active" *ngIf="!moduleId">{{commonLabels.labels.createCourse}}</li>
 				<li class="breadcrumb-item active" *ngIf="moduleId">Edit Course</li>
 			</ol>
 		</nav>
@@ -13,19 +13,19 @@
 	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm('true')" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
 			<div class="row form-group">
-				<label class="col-md-3 p-0 label-title mb-0">{{labels.courseName}}</label>
+				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.courseName}}</label>
 				<span class="col-md-9 pl-0">
 					<input type="text" class="form-control" placeholder="Enter Course Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
 					<span class="required_color mt-2" *ngIf="moduleSubmitted && !moduleName">
 					{{labels.courseName}}{{labels.isRequire}}
 				</span>
 				<span class="required_color" *ngIf="moduleVar.moduleNameCheck">
-					{{labels.moduleNameValidation}}
+					{{commonLabels.labels.moduleNameValidation}}
 				</span>
 				</span>			
 			</div>
 			<div class="row">
-				<label class="col-md-3 p-0 label-title mb-0">{{labels.trainingClass}}</label>
+				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.trainingClass}}</label>
 				<div class="col-md-9 pl-0 select-Courses">
 					<ng-multiselect-dropdown
 					[placeholder]="'Select Training Class'"
@@ -35,19 +35,19 @@
 					(onSelect)="onItemSelect($event)"
 					(onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
 					<span class="required_color mt-2" *ngIf="moduleSubmitted && selectedCourses.length === 0">
-						{{labels.courseError}}
+						{{commonLabels.labels.courseError}}
 					</span>
 				</div>
 				
 			</div>
 		</div>
 		<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
-			<button type="button" class="btn btn-primary btn-save" (click)="submitForm('true')">{{labels.publish}}</button>
+			<button type="button" class="btn btn-primary btn-save" (click)="submitForm('true')">{{commonLabels.btns.publish}}</button>
 		</div>
 	</form>
 	<div class="col-md-4 p-0 ltside-sec">
 		<div class="white-bg pl-4 py-4">
-			<h5 class="mb-4">{{labels.coursesAdded}}</h5>
+			<h5 class="mb-4">{{commonLabels.labels.coursesAdded}}</h5>
 			<div *ngIf = "selectedCourses.length" class="addedcourse-scroll">
 				<div *ngFor="let course of selectedCourses,index as i">
 					<p>{{course.value}}<span class="float-right">
@@ -57,14 +57,14 @@
 				</div>
 			</div>
 			<div class="text-center" *ngIf = "selectedCourses.length === 0">
-				<label class="nodata">{{labels.noData}}</label>
+				<label class="nodata">{{commonLabels.labels.noData}}</label>
 			</div>
 		</div>
 	</div>
 </div>
 <div *ngIf="tabEnable">
 <div class="clearfix pt-4">
-	<h4 class="add-course">{{moduleVar.courseId === "" ? labels.addCourseTitle : labels.editCourseTitle}}</h4>
+	<h4 class="add-course">{{moduleVar.courseId === "" ? commonLabels.labels.addCourseTitle : commonLabels.labels.editCourseTitle}}</h4>
 </div>
 
 <tabset #staticTabs   class="add-video-header">
@@ -72,26 +72,26 @@
     	<div class="row pt-2">
 			<div class="col-md-12 pl-0">
 			   <span  (click)="tabEnable = false" class="videopage">
-			   	<img src="assets/images/Close-1.png" class="close-alg">
-			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></span>
+			   	<img src="{{commonLabels.imgs.close1}}" class="close-alg">
+			   	<img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></span>
 				<div class="white-bg p-4">
 					<div class="row form-group">
-						<label class="col-md-2 p-0 label-title">{{labels.trainingClassName}}</label>
+						<label class="col-md-2 p-0 label-title">{{commonLabels.labels.trainingClassName}}</label>
 						<span class="col-md-9 p-0">
 							<input type="text" class="form-control" placeholder="Enter Training Class Name" name="selectCourseName" [(ngModel)]="moduleVar.selectCourseName">
-							<span class="required_color" *ngIf="courseSubmitted && !moduleVar.selectCourseName">{{labels.trainingClassName}}{{labels.isRequire}}</span>
+							<span class="required_color" *ngIf="courseSubmitted && !moduleVar.selectCourseName">{{commonLabels.mandatoryLabels.courseNameError}}</span>
 						</span>
 					</div>
 					<div class="row form-group">
 						<div class="col-md-4 pl-0">
-							<label class="col-md-12 p-0 upload-label">{{labels.videoName}}</label>
+							<label class="col-md-12 p-0 upload-label">{{commonLabels.labels.fileName}}</label>
 							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter File Name" name="selectVideoName" [(ngModel)]="moduleVar.selectVideoName">
-							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.selectVideoName">{{labels.videoName}}{{labels.isRequire}}</span>
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.selectVideoName">{{commonLabels.mandatoryLabels.videoName}}</span>
 						</div>
 						<div class="col-md-4 pl-0">
-							<label class="col-md-12 p-0 upload-label">{{labels.description}}</label>
+							<label class="col-md-12 p-0 upload-label">{{commonLabels.labels.description}}</label>
 							<input type="text" class="form-control col-md-12 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="moduleVar.description">
-							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.description">{{labels.description}}{{labels.isRequire}}</span>
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.description">{{commonLabels.mandatoryLabels.description}}</span>
 						</div>
 							
 						<div class="col-md-4 p-0 upload-line">
@@ -101,13 +101,13 @@
 									<div class="btn-group pull-right" dropdown>
 									<button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
 										aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
-										{{labels.upload}} <span class="caret ml-3"></span>
+										{{commonLabels.labels.upload}} <span class="caret ml-4"></span>
 									</button>
 									<ul id="dropdown-basic" *dropdownMenu class="dropdown-menu upload-btn" role="menu" aria-labelledby="button-basic">
 										<li role="menuitem"><a class="dropdown-item pl-2"
-												(click)="showCMSLibrary()">{{labels.cmsLibrary}}</a></li>
+												(click)="showCMSLibrary()">{{commonLabels.labels.cmsLibrary}}</a></li>
 										<li role="menuitem"><a class="dropdown-item pl-2"
-												(click)="fileUploadPopup(uploadPopup)">{{labels.desktop}}</a>
+												(click)="fileUploadPopup(uploadPopup)">{{commonLabels.labels.desktop}}</a>
 												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/></li>
 									</ul>
 								</div>
@@ -123,17 +123,16 @@
 									
 							</div>
                         <div class="col-md-4 p-0">
-							<span *ngIf="!moduleVar.videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-2"></span>
+							<span *ngIf="!moduleVar.videoFile"><img src="{{commonLabels.imgs.profile}}" class="px-2"></span>
 							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img class="thumbnail_img px-4 img-size"></span>
 							<span *ngIf="showImage && moduleVar.videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img px-4 img-size"></span></div>
-							<span class="col-md-3 p-0">	
-							   <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
-							   <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
+							<span class="col-md-4 p-0">	
+							   <a (click)="videoSubmit()"><img src="{{commonLabels.imgs.ok}}" class="upload-crt-icon"></a>
+							   <a (click)="cancelVideoSubmit()"><img src="{{commonLabels.imgs.cancel}}"></a>
 							</span>
-							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">{{labels.file}}{{labels.isRequire}}</span>	
-							<span class="file-alg">{{labels.acceptedFileTypes}}</span>		
-												 
-					</div>						
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.videoFile">{{commonLabels.labels.file}}{{commonLabels.labels.isRequire}}</span>	
+							<span class="file-alg">{{commonLabels.labels.acceptedFileTypes}}</span>		
+						</div>						 
 					</div>
 					<ul class="list-group col-md-12 pt-2" dnd-sortable-container [sortableData]="moduleVar.videoList">
 							<li  *ngFor="let item of moduleVar.videoList; let i = index" [ngClass]="moduleId ? 'list-group-item drop-and-drag-pdb row edit-bg' : 'list-group-item drop-and-drag-pdb row add-module'" dnd-sortable [sortableIndex]="i">
@@ -147,7 +146,7 @@
 							</li>
 						</ul>
 						<div class="col-md-12">
-							<button type="button" (click)="tabChange()" class="btn btn-primary">{{labels.next}}</button>
+							<button type="button" (click)="tabChange()" class="btn btn-primary">{{commonLabels.btns.next}}</button>
 						</div>
 				</div>
 			</div>

@@ -11,6 +11,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 // import { AddBatchComponent} from '../../batch/add-batch/add-batch.component';
+import { CommonLabels } from  '../../Constants/common-labels.var';
 
 @Component({
   selector: 'app-resort-list',
@@ -23,13 +24,13 @@ export class ResortListComponent implements OnInit {
   userId;
   resortId;
 
-  constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar, private toastr: ToastrService, private headerService: HeaderService,private utilService : UtilService,private resortService : ResortService) {
+  constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar, private toastr: ToastrService, private headerService: HeaderService,private utilService : UtilService,private resortService : ResortService,private commonLabels : CommonLabels) {
     this.resortVar.url = API_URL.URLS;
   }
 
   ngOnInit() {
-    this.resortVar.title = "Resort Management";
-    this.headerService.setTitle({ title: this.resortVar.title, hidemodule: false });
+    
+    this.headerService.setTitle({ title: this.commonLabels.titles.resortmanagement, hidemodule: false });
     this.getResortDetails();
     let data = this.utilService.getUserData();
         if(data && data.UserRole && data.UserRole[0] &&  data.UserRole[0].roleId){

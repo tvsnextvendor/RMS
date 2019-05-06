@@ -4,6 +4,7 @@ import {ForumVar} from '../../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { API_URL } from '../../Constants/api_url';
 import { AlertService } from 'src/app/services/alert.service';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
     selector: 'app-createForum',
@@ -24,7 +25,7 @@ export class CreateForumComponent implements OnInit {
     topics;
     successMessage;
    
-   constructor(private toastr:ToastrService,public forumVar:ForumVar,private http: HttpService,private alertService:AlertService){
+   constructor(private toastr:ToastrService,public forumVar:ForumVar,private http: HttpService,private alertService:AlertService,public commonLabels:CommonLabels){
     this.forumVar.url = API_URL.URLS;
    }
 
@@ -104,7 +105,7 @@ export class CreateForumComponent implements OnInit {
           adminlist  : form.value.admin
           //topic   : this.topics
         };
-        this.alertService.success(this.forumVar.addSuccessMsg);
+        this.alertService.success(this.commonLabels.msgs.addSuccessMsg);
          // this.toastr.success(this.forumVar.addSuccessMsg);
           this.clearForm(form);
           this.forumVar.uniqueValidate=false;

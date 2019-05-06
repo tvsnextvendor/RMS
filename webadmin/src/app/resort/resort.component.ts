@@ -10,6 +10,7 @@ import { ResortVar } from '../Constants/resort.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
 import { UtilService } from '../services/util.service';
+import { CommonLabels } from '../Constants/common-labels.var'
 
 @Component({
     selector: 'app-resort',
@@ -35,7 +36,8 @@ export class ResortComponent implements OnInit {
     userObj;
     divisionDetails;
 
-   constructor(private alertService: AlertService,private activeRoute:ActivatedRoute,private resortService : ResortService,private commonService:CommonService,private http:HttpService,private location:Location,private resortVar : ResortVar,private utilsService:UtilService,private headerService:HeaderService,private toastr:ToastrService,private router:Router){
+   constructor(private alertService: AlertService,private activeRoute:ActivatedRoute,private resortService : ResortService,private commonService:CommonService,private http:HttpService,private location:Location,private resortVar : ResortVar,private utilsService:UtilService,private headerService:HeaderService,private toastr:ToastrService,private router:Router,
+    private commonLabels:CommonLabels){
     this.activeRoute.params.subscribe((params:Params)=>{
         this.resortId = params['id'];
     })
@@ -49,9 +51,9 @@ export class ResortComponent implements OnInit {
             this.userType  = data.UserRole[0].roleId;
         }
         if(!this.resortId || this.resortId === undefined || this.resortId === null) {
-            this.resortVar.title = "Add New Resort";
+           
             this.enableEdit = true;
-            this.headerService.setTitle({title:this.resortVar.title, hidemodule:false});
+            this.headerService.setTitle({title:this.commonLabels.titles.addresortmagnt, hidemodule:false});
             this.clearData();
         }
         this.selectedDivision = this.resortVar.divisionTemplate[0].division;
