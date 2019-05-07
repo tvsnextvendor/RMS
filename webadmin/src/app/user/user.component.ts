@@ -268,9 +268,7 @@ export class UserComponent implements OnInit {
 
     roleNameValidationCheck(){
         if(this.roleId){
-            if(!this.editRoleValue){
-                this.roleError = true;
-            }
+            this.roleError = this.editRoleValue ? false : true;
         }
         else{
             this.roles.forEach(item=>{
@@ -586,6 +584,7 @@ export class UserComponent implements OnInit {
     }
 
     editRoleData(data,template : TemplateRef<any>){
+        this.roleError = false;
         let modalConfig={
             class : "modal-dialog-centered"
 

@@ -43,7 +43,7 @@
 			</div>
 			<div class="col-md-4 select select-style clearfix">
 					<select [(ngModel)]="constant.userId" name="userId" class="form-control pl-0"  (change)="getRolePermission()">
-						<option value="">{{constant.labels.selectUsers}}</option>
+						<option value="">{{commonLabels.labels.selectUsers}}</option>
 						<option *ngFor="let obj of constant.createdByList" [value]="obj.userId">{{obj.userName}}</option>
 					</select>
 					<div class="select_arrow"></div>

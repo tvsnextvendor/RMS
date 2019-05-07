@@ -35,6 +35,10 @@ export class BatchVar{
     }
 
    labels = {
+       "from" : "From",
+       "to" : "To",
+       "clear" : "Clear",
+       "save" : "Save"
         
     };
     calLabels = {

@@ -3,7 +3,7 @@
     <div id="coss" class="col-md-12 pt-2 clearfix px-0">
         <!-- {{CMSFilterSearchEventSet}} -->
         <div class="white-bg p-3 clearfix">
-            <div class="clearfix">
+            <div class="clearfix" *ngIf="!enableEdit || enableEdit && enableIndex !== i">
                 <label class="square-cont float-left">
                     <input type="checkbox" name="courseId{{i}}" (change)="selectCourse(courses.courseId, courses.courseName, $event.target.checked)"><span class="text-over">{{courses.courseName}}</span>
                     <span class="square-checkmark"></span>

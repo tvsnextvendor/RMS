@@ -91,7 +91,7 @@
                     <td>
                         <a (click)="viewTraningVideo(viewVideo,file.fileUrl)"><i class="fa fa-eye header-icon"
                             aria-hidden="true" title="View"></i></a>
-                        <a (click)="openEditVideo(editVideoTemp,user,i)"  title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
+                        <a (click)="openEditVideo(editVideoTemp,file,i)"  title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
                         <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                     </td>
                 </tr>
@@ -114,12 +114,12 @@
         </button>
     </div>
     <div class="modal-body">
-        <form #videoEditForm="ngForm" (ngSubmit)="editVideos(videoEditForm)">
+        <form #videoEditForm="ngForm" (ngSubmit)="permissionSetSubmit(videoEditForm)">
             <div class="row form-group">
                 <div class="col-md-5 p-0 float-left">
                     <div class="pl-0 form-group select-Courses">
                         <select id="resort" class="form-control p-0" name="resortId"
-                            [(ngModel)]="constant.selectedResort">
+                            [(ngModel)]="constant.selectedResort" disabled >
                             <!-- <select class="form-control p-0"> -->
                             <option value="null" disabled >Select</option>
                             <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">

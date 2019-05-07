@@ -227,6 +227,10 @@ th.action-hd {
     line-height: 30px;
 }
 
+.ml-10{
+    margin-left: 10px;
+}
+
 @media (max-width:767px){
     .group-section-bx{
         margin-left: 50%;

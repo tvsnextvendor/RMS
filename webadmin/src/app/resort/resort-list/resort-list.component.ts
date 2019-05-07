@@ -24,7 +24,7 @@ export class ResortListComponent implements OnInit {
   userId;
   resortId;
 
-  constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar, private toastr: ToastrService, private headerService: HeaderService,private utilService : UtilService,private resortService : ResortService,private commonLabels : CommonLabels) {
+  constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar, private toastr: ToastrService, private headerService: HeaderService,private utilService : UtilService,private resortService : ResortService,public commonLabels : CommonLabels) {
     this.resortVar.url = API_URL.URLS;
   }
 
@@ -35,7 +35,6 @@ export class ResortListComponent implements OnInit {
     let data = this.utilService.getUserData();
         if(data && data.UserRole && data.UserRole[0] &&  data.UserRole[0].roleId){
             this.userId  = data.UserRole[0].roleId;
-            console.log(this.userId)
         }
   }
 

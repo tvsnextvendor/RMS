@@ -28,7 +28,7 @@ export class WorkCourseListComponent implements OnInit {
   }
 
   getCourseDetails(){
-    let query = '&status=none';
+    let query = '&status=workInprogress';
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
 
       if(resp && resp.isSuccess){

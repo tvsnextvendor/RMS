@@ -1,11 +1,11 @@
 <div class="pt-2">   
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">{{commonLabels.labels.resort}}</a></li>                
-                <li class="breadcrumb-item active">{{commonLabels.labels.edit}}</li>
-            </ol>
-        </nav>
-    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a>{{commonLabels.labels.resort}}</a></li>                
+            <li class="breadcrumb-item active">{{commonLabels.btns.add}}</li>
+        </ol>
+    </nav>
+</div>
 
 <div class="pt-3">
 <span *ngIf="!enableEdit" class="pr-2"><button class="btn btn-primary" (click)="editDetails()">{{commonLabels.labels.edit}}</button></span>
@@ -40,54 +40,6 @@
                 </div>
             </div>
         </div>  
-        <!-- <div class="col-md-12 tab-section" >           
-            <ul class="nav nav-tabs" *ngIf="userType === 2">
-                <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#division">{{resortVar.labels.division}}</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#department">{{resortVar.labels.department}}</a>
-                </li>
-            </ul>    
-            <div class="tab-content" *ngIf="userType === 2">
-                <div id="division" class="container tab-pane col-md-12 pl-0 active"><br>
-                   <div class="row col-12 col-md-6 pl-0" *ngFor="let data of resortVar.divisionTemplate; let i = index">
-                        <label class="col-5 col-md-4 label-title pl-0" *ngIf="i==0">{{resortVar.labels.division}}</label>
-                        <label class="col-5 col-md-4 label-title pl-0" *ngIf="i!=0"></label>
-                        <div class="input-group mb-3 col-7 col-md-8 group-box">
-                            <input type="text" class="form-control col-md-11" placeholder="Division{{i+1}}" [(ngModel)]="data.divisionName" name = "division{{i+1}}" aria-label="" aria-describedby="basic-addon1">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('division')">
-                                    <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
-                                </button>
-                                <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeForm(i,'division')">
-                                    <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
-                                </button>
-                            </div> 
-                        </div>                       
-                    </div>
-                </div>
-                <div id="department" class="container tab-pane fade col-md-12 p-0 "><br>
-                    <div class="row col-12 col-md-6 p-0" *ngFor="let data of resortVar.departmentTemplate; let i = index">
-                        <select class="col-5 col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
-                            <option *ngFor="let name of resortVar.divisionTemplate">{{name.divisionName}}</option>
-                        </select>
-                        <label class="col-md-3 select-form form-control pl-0" *ngIf="i!=0"></label>
-                        <div class="col-7 input-group mb-3 col-md-8 group-box">
-                            <input type="text" class="form-control col-md-11" placeholder="Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addForm('department')">
-                                    <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
-                                </button>
-                                <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeForm(i,'department')">
-                                    <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
-                                </button>
-                            </div> 
-                        </div>   
-                    </div>
-                </div>
-            </div>            
-        </div>     -->
         <div class="col-sm-12 p-0 subscription-section" *ngIf="userType === 1">
             <div class="row">
                 <div class="row col-12 col-md-6 form-group ">
@@ -101,20 +53,7 @@
                 <div class="row col-12 col-md-6 form-group ">
                     <label class="col-6 col-sm-8 col-md-4 label-title pl-0">{{commonLabels.labels.totalStorage}}</label>
                     <input class="col-6 col-sm-8 col-md-4 form-control" type="text" name="storageSpace" [(ngModel)]="resortVar.storageSpace">
-                    <!-- <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.storageSpace">{{resortVar.labels.storageSpace}}{{resortVar.labels.isRequired}} </span> -->
                 </div>
-                <!-- <div class="col-12 col-md-6 pl-0">
-                    <div class="row mb-4">
-                        <label class="col-6 col-sm-4 label-title">Allocated Space</label>
-                        <input class="col-6 col-sm-8 form-control" type="text" name="allocatedSpace" [(ngModel)]="resortVar.allocatedSpace">
-                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.allocatedSpace">{{resortVar.labels.allocatedSpace}}{{resortVar.labels.isRequired}} </span>
-                    </div>
-                    <div class="row mb-4">
-                        <label class="col-6 col-md-4 label-title">Status</label>
-                        <input class="col-6 col-md-8 form-control" type="text" name="status" [(ngModel)]="resortVar.status">
-                        <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortVar.status">{{resortVar.labels.status}}{{resortVar.labels.isRequired}} </span>
-                    </div>
-                </div> -->
             </div>
         </div> 
         <div class="col-12 col-md-6 pl-0">
@@ -124,7 +63,6 @@
                     <option [value]="null" disabled>--Select Status--</option>
                     <option *ngFor="let status of resortVar.statusList" [value]="status.name">{{status.name}}</option>
                 </select>
-                <!-- <input class="col-6 col-md-8 form-control" type="text" name="location" [(ngModel)]="resortVar.location"> -->
                 <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !status">{{commonLabels.mandatoryLabels.statusRequired}} </span>
             </div>
         </div>
@@ -156,31 +94,7 @@
                 <label class="label-title">{{commonLabels.labels.status}}</label>
                 <span>{{resortVar.status}}</span>
             </div>
-            <!-- <div class="col-md-3 form-group">
-                <label class="label-title">{{resortVar.labels.utilizedSpace}}</label>
-                <span>40 GB</span>
-            </div>  -->
-
     </div>
-    <!-- <div class="detail-bottom row">
-        <h5 class="pb-2">Division</h5>
-        <div class="row depart-dtl col-md-12 pr-0">
-            <label class="col-md-12 p-0 label-title">Division1</label>
-            <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
-        </div>
-        <div class="row depart-dtl col-md-12 pr-0">
-            <label class="col-md-12 p-0 label-title">Division1</label>
-            <div class="dpt-list pl-1 ml-4"><span>Department 1</span><span>Department 1</span></div>
-        </div>
-        <div class="row depart-dtl col-md-12 p-0" *ngFor="let division of divisionDetails">
-            <label class="col-md-12 p-0 label-title">{{division?.Division?.divisionName}}</label>
-            <div class="dpt-list pl-1 ml-4" >
-                <div>
-                    <span  *ngFor="let dept of division?.Division?.Departments">{{dept.departmentName}}</span>
-                </div>
-            </div>
-        </div>
-    </div>  -->
 </form>
 
 
