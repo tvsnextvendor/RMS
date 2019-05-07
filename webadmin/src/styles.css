@@ -411,6 +411,9 @@ li.search-block {
   font-size: 14px;
   line-height: 30px;
 }
+.bg-color{
+      min-height: 77px;
+}
 /*************************End  Header ***********************/
 /************************ Common colors ***********************/
 
