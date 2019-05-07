@@ -6,7 +6,7 @@
 	display: block;
     border: none;
     color: #697380;
-    font-weight: 600;
+   /* font-weight: 600;*/
 }
 .tab-section .nav-tabs{
 	background-color: #fff;

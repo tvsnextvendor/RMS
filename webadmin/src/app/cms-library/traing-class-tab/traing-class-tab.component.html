@@ -3,7 +3,7 @@
 <div class="col-md-12 clearfix py-2 px-0">
     <h6 class="float-right">{{commonLabels.labels.count}}{{totalCourseTrainingCount}}</h6>
 </div>
-<div class="white-bg py-4 mb-3"
+<div class="white-bg py-3 mb-3"
     *ngFor="let course of trainingClassCourseList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalCourseTrainingCount};let i = index">
     <!-- <div class="white-bg pt-4 pb-4 mb-3" *ngFor="let course of trainingClassCourseList"> -->
     <div class="head-part clearfix px-3">
@@ -12,7 +12,7 @@
             <a href="#"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
         </div> -->
     </div>
-    <div class="select-arbx px-4" *ngFor="let training of course.CourseTrainingClassMaps;let ci = index">
+    <div class="select-arbx px-3" *ngFor="let training of course.CourseTrainingClassMaps;let ci = index">
         <label class="square-cont float-left col-md-12" *ngIf="training.enableEdit == false">
             <input type="checkbox" name="web"><span class="text-over">{{training?.TrainingClass?.trainingClassName}}</span>
             <span class="square-checkmark" *ngIf="uploadPage"></span> 
