@@ -61,11 +61,11 @@
                     <app-traing-class-tab (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"></app-traing-class-tab>
                 </div>
                 <!-- Video Tab Content -->
-                <div *ngIf = "selectedTab === 'video' && !showcreatecourse" id="video" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
+                <div *ngIf = "selectedTab === 'video' && !showcreatecourse" id="video" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
                     <app-video-tab [trainingClassId] = 'trainingClassId' [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" (selectedVideos)="getVideos($event)"></app-video-tab>
                 </div>
                 <!-- Documents Tab Content -->
-                <div  *ngIf = "selectedTab === 'document' && !showcreatecourse" id="document" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
+                <div  *ngIf = "selectedTab === 'document' && !showcreatecourse" id="document" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
                     <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"  (selectedVideos)="getVideos($event)"></app-document-tab>
                 </div>
                 <div  *ngIf = "selectedTab === 'quiz' && !showcreatecourse " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">

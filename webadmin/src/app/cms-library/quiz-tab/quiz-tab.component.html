@@ -109,6 +109,8 @@
     </div>
 
     <ng-template #deleteQuiz>
+
+
         <div class="modal-header pb-0">
             <p class="hd-alg">{{commonLabels.labels.deleteQuiz}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -117,10 +119,13 @@
         </div>
         <div class="modal-body text-center">
             <span class="text-content">{{commonLabels.labels.deleteConfirmation}}</span>
-            <div class="text-center">
+            <div class="text-center pt-3">
                 <button type="button" (click)="deleteQuizQuestion()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
                 <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
             </div>
+
+
+
         </div>
     </ng-template>
 
