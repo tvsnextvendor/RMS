@@ -3,16 +3,16 @@
   <div class="row">
     <div class="col-md-12 p-0">
       <div class="row my-4">
-        <div class="col-md-1 p-0 pt-2 snow-img"><img src="assets/images/cool@2x.png">
-          <p class="cloudy pt-2">{{dashboardVar.temp}} <sup>{{dashboardVar.degree}}</sup>{{dashboardVar.celcius}}</p>
-          <h6>{{dashboardVar.cloudy}}</h6>
+        <div class="col-md-1 p-0 pt-2 snow-img"><img src="{{commonLabels.imgs.cool}}">
+          <p class="cloudy pt-2">{{commonLabels.labels.temp}} <sup>{{commonLabels.labels.degree}}</sup>{{commonLabels.labels.celcius}}</p>
+          <h6>{{commonLabels.labels.cloudy}}</h6>
         </div>
         <div class="dashboard-header col-md-11">
           <div class="clearfix">
-            <h4 class="float-left fnt-size">Good Morning, Resort!</h4>
+            <h4 class="float-left fnt-size">{{commonLabels.labels.gudmrng}} {{commonLabels.labels.resort}}{{commonLabels.symbols.apostrophe}}</h4>
           </div>
           <div class="clearfix">
-            <p class="notification-alg">{{dashboardVar.employeeTabText.notification}}
+            <p class="notification-alg">{{commonLabels.labels.notificationdash}}
             </p>
             <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
           </div>
@@ -23,19 +23,19 @@
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-4">
             <div class="resort-list">10</div>
-            <p class="resort-title">Total Division</p>
+            <p class="resort-title">{{commonLabels.labels.totalDivision}}</p>
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-4">
             <div class="resort-list">15</div>
-            <p class="resort-title">Total Department</p>
+            <p class="resort-title">{{commonLabels.labels.totalDept}}</p>
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-4">
             <div class="resort-list">150</div>
-            <p class="resort-title">Total Employee</p>
+            <p class="resort-title">{{commonLabels.labels.totEmp}}</p>
           </div>
         </div>
       </div>
@@ -45,22 +45,22 @@
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-                Total Storage Space</h6>
+              {{commonLabels.labels.totalStorage}}</h6>
                       
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-               Top 5 Resort</h6>
+              {{commonLabels.labels.topResorts}}</h6>
               
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-                Total Courses</h6>
-                <span class="totalcourses">Total Courses
+              {{commonLabels.labels.totalCourses}}</h6>
+                <span class="totalcourses">{{commonLabels.labels.totalCourses}}
                 <span class="percent-alg">{{dashboardVar.empProgress?.totalEmployee}}</span></span>  
           </div>
         </div>
@@ -70,14 +70,14 @@
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-                Top Rated Training Classes</h6>
+              {{commonLabels.labels.topCourses}}</h6>
               
           </div>
         </div>
         <div class="col-md-8 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-              Course Trend
+              {{commonLabels.labels.videosTrend}}
               <select class="vdo-btn mr-3 select select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
                 <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">{{year}}</option>
                 <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
@@ -94,14 +94,14 @@
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-                Badges</h6>
+              {{commonLabels.labels.badges}}</h6>
              
           </div>
         </div>
         <div class="col-md-8 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">            
               <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-              Employee Certificate Trend
+                {{commonLabels.labels.certificationTrend}}
               <select class="select-btn select select-style clearfix"><option value="Total">2019</option>
               <!-- <i class="fa fa-chevron-down" aria-hidden="true"></i> --><div class="select_arrow"></div>
             </select>
@@ -126,15 +126,15 @@
       <div class="col-md-12 p-0">
          <div class="row my-4">
         <div class="col-md-1 p-0 pt-2 snow-img"><img src="assets/images/cool@2x.png">
-          <p class="cloudy pt-2">{{dashboardVar.temp}} <sup>{{dashboardVar.degree}}</sup>{{dashboardVar.celcius}}</p>
-          <h6>{{dashboardVar.cloudy}}</h6>
+          <p class="cloudy pt-2">{{commonLabels.labels.temp}} <sup>{{commonLabels.labels.degree}}</sup>{{commonLabels.labels.celcius}}</p>
+          <h6>{{commonLabels.labels.cloudy}}</h6>
         </div>
         <div class="dashboard-header col-md-11">
           <div class="clearfix">
-            <h4 class="float-left fnt-size">Good Morning, 1Risk!</h4>
+            <h4 class="float-left fnt-size">{{commonLabels.labels.gudmrng}} 1Risk!</h4>
           </div>
           <div class="clearfix">
-            <p class="notification-alg">{{dashboardVar.employeeTabText.notification}}
+            <p class="notification-alg">{{commonLabels.labels.notificationdash}}
             </p>
             <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
           </div>
@@ -145,14 +145,14 @@
         <div class="col-md-8 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-                Subscription Status</h6>
+              {{commonLabels.labels.subStatus}}</h6>
              
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">            
               <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-               Total Storage Space</h6>
+                {{commonLabels.labels.totalStorage}}</h6>
             
         </div>
       </div>
@@ -162,9 +162,9 @@
         <div class="col-md-8 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-                Storage Utilisation
+                {{commonLabels.labels.strgUtili}}
               <select class="vdo-btn mr-3 select select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
-                <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">All Resort</option>
+                <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">{{commonLabels.labels.allresort}}</option>
                 <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> --> 
                 <div class="select_arrow"></div>
               </select></h6>
@@ -174,7 +174,7 @@
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">            
               <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-               Top 5 Resort</h6>
+                {{commonLabels.labels.topResorts}}</h6>
              
         </div>
       </div>
