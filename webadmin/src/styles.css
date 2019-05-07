@@ -412,7 +412,7 @@ li.search-block {
   line-height: 30px;
 }
 .bg-color{
-      min-height: 77px;
+      padding-bottom: 40px;
 }
 /*************************End  Header ***********************/
 /************************ Common colors ***********************/
@@ -451,7 +451,7 @@ h5{
 	display: inline-block;
     box-shadow: 0px 0px 8px 0px #ccc;
     padding: 0;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     margin-bottom: 45px;
 }
 .snow-img img{width: 100%;}
@@ -1237,9 +1237,9 @@ a {
   border-bottom: 1px solid #ccc;
   padding: 0;
 }
-label{
+/*label{
   text-transform: capitalize;
-}
+}*/
 .detail-pg span {
   display: block;
   font-weight: 600;
@@ -1249,7 +1249,7 @@ label{
 .detail-pg label{
   font-size: 15px;
   margin-bottom: 10px;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 .detail-pg .form-group {
   margin-bottom: 1.6rem;
@@ -1507,9 +1507,9 @@ p.text-nowrap{
   font-size:15px;
   color: #73737B;
 }
-.capitalize{
+/*.capitalize{
   text-transform: capitalize;
-}
+}*/
 .table td label{
   text-transform: inherit;
 }

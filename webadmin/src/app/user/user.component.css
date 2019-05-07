@@ -2,7 +2,7 @@
     color: #697380;
     line-height: 0; 
     font-size: 15px;
-    margin-top: 9px;
+  /*  margin-top: 9px;*/
 }
 .upload-crt-icon{
     /* padding: 0 25px; */
@@ -188,7 +188,7 @@
     color: #576271;
     float: left;
     margin-right: 5px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 .detail-bottom span a{
     margin-left:5px;
