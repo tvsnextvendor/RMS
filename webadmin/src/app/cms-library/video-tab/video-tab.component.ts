@@ -24,7 +24,6 @@ editEnable = false;
 labels;
 trainingVideoUrl;
 uploadPath;
-fileCheck = false;
 resortArray = [];
 deletedFileId=[];
 deletedFilePath=[];
@@ -46,7 +45,6 @@ constructor(private courseService: CourseService, private alertService: AlertSer
 }
 
   ngOnInit(){
-    console.log(this.commonLabels)
     this.pageSize = 10;
     this.page=1;
     this.getCourseFileDetails();
@@ -112,6 +110,12 @@ constructor(private courseService: CourseService, private alertService: AlertSer
 
 
   removeVideo(data,i){
+    console.log(data);
+    this.videoListValue.filter(function (x) {
+           if(x.fileId == data.fileId){
+             return x.selected = false;
+           }    
+    }); 
     this.fileList.splice(i,1);
     this.deletedFilePath.push(data.fileUrl);
     this.deletedFileId.push(data.fileId);
@@ -280,7 +284,9 @@ constructor(private courseService: CourseService, private alertService: AlertSer
               this.alertService.success(res.message);
               this.openAddVideosToCourse();
               this.resetAssignForm();
-              this.fileCheck= false;
+              this.videoListValue.map(function (x) {
+                return x.selected = false;     
+              }); 
             }
       })
     }

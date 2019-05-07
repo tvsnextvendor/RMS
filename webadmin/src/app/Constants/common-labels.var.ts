@@ -31,6 +31,7 @@ export class CommonLabels{
         "documents"         :   "Documents",
         "notification"      :   "Notification",
         "quiz"              :   "Quiz",
+        "selectUsers"       :   "User",
         "recentlyDelete"    :   "Recently Deleted",
         "duplicate"         :   "Duplicate",        
         "saveAsNew"         :   "Save As New Version",
@@ -201,14 +202,12 @@ export class CommonLabels{
         "year"              :   "Years",
         "month"             :   "Months",
         "actFrom"           :   "Active From",
-        "expOn"             :   "Expire On",
-        "selectUsers"       :   "Select User"   
-        
-              
+        "expOn"             :   "Expire On",              
     };
 
     btns = {
         "ok"                :   "Ok",
+        "update"            :   "Update",
         "cancel"            :   "Cancel",
         "save"              :   "Save",
         "print"             :   "Print",
@@ -326,8 +325,8 @@ export class CommonLabels{
         "tenureYear"        :  "Year is required",
         "tenureMonth"       :  "Month is required",
         "accessTo"          :  "Access To is Required",
-        "roleName"          :   "Role Name is Required"
-
+        "roleName"          :   "Role Name is Required",
+        "users"             :  "User is required"
      };
 
      modaltitle ={

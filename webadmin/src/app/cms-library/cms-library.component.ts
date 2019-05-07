@@ -44,6 +44,10 @@ export class CMSLibraryComponent implements OnInit {
     this.modalRef = this.modalService.show(template,modalConfig);
     }else{
     this.showWarning =true;
+    let self = this;
+    setTimeout(function(){ 
+     self.showWarning = false;
+     }, 5000);
     }
   }
 
@@ -51,7 +55,7 @@ export class CMSLibraryComponent implements OnInit {
      this.findCreateCourse = event.key ? true : false;
     if(event){
       this.hideSection= true;
-      this.selectedTab = 'training';
+      this.selectedTab = 'video';
       this.showcreatecourse = false;
     }
   }
