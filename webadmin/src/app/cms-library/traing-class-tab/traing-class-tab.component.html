@@ -50,6 +50,7 @@
         </div>
     </div>
 </div>
+<span *ngIf="!trainingClassCourseList.length">No Data </span>
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>
 
 <div class="text-center" *ngIf="uploadPage">

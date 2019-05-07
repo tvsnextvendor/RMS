@@ -51,7 +51,7 @@ export class UserComponent implements OnInit {
     fileUploadValue;
     userid;
     arrayBuffer: any;
-    divisionDetails;
+    divisionDetails = [];
     divisionError;
     divisionValidationCheck = true;
     errorValidation = true;
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
     divisionId;
     errMsg;
     roles;
-    roleDetails;
+    roleDetails = [];
     roleId;
     editRoleValue;
     removeDepartmentIds=[];

@@ -57,5 +57,6 @@
             </div>
         </div> 
     </div>
+    <span *ngIf="!courseListValue.length">No Data </span>
 
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  

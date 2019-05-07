@@ -103,6 +103,7 @@
                 </tr>
 
             </tbody>
+            <span *ngIf="!videoListValue.length">No Data </span>
         </table>        
     </div>
     <pagination-controls *ngIf="videoListValue && videoListValue.length" class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
