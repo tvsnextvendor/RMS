@@ -1,9 +1,9 @@
-<div class="pt-5">
+<div class="">
     <form #assignTemplate="ngForm" (ngSubmit)="assignBatchTemplate(assignTemplate)">
         <div class="white-bg p-3">
-            <div class="clearfix py-3 certificate-respon">
+            <div class="clearfix pb-3 certificate-respon">
                 <h5 class="float-left certificate-respon">{{commonLabels.titles.certiTempl}}</h5>
-                <button type="button" class="btn btn-primary mr-3 certificate-respon" (click)="openAddtemplate(addTemplate)">{{commonLabels.btns.add}}</button>
+                <button type="button" class="btn btn-primary certificate-respon" (click)="openAddtemplate(addTemplate)">{{commonLabels.btns.add}}</button>
             </div>
             <owl-carousel-o [options]="customOptions" class="certificate-list">
                 <ng-container *ngFor="let template of constant.certificateList">
