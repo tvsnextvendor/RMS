@@ -327,6 +327,7 @@ export class UserComponent implements OnInit {
                     }
                 },err =>{
                 this.errMsg=err.error.error;
+                this.alertService.success(this.errMsg);
             })
             }else{
                 obj['createdBy'] = this.utilService.getUserData().userId;
@@ -338,6 +339,7 @@ export class UserComponent implements OnInit {
                     }
                 },err =>{
                 this.errMsg=err.error.error;
+                this.alertService.success(this.errMsg);
             });
             }}
       }
@@ -596,24 +598,33 @@ export class UserComponent implements OnInit {
 
     updateDivision(){
         if(Object.keys(this.editDivisionValue).length){
+            let validationCheck = true;
             let params = this.editDivisionValue.Departments.map(item=>{
                 if(!item.departmentId){
                     item.divisionId  =  this.editDivisionValue.divisionId
                 }
+                if(item.departmentName === ''){
+                    validationCheck = false;
+                }
                 return item;
             })
-            this.editDivisionValue.Departments = params;
-            this.editDivisionValue.removeDepartmentIds = this.removeDepartmentIds;
-            this.userService.divisionUpdate(this.editDivisionValue,this.editDivisionValue.divisionId).subscribe(resp=>{
-                if(resp && resp.isSuccess){
-                    let userData = this.utilService.getUserData();
-                    let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
-                    this.constant.modalRef.hide();
-                    this.getDivisionList(resortId);
-                    this.roleComponent.getDropDownDetails();
-                    this.alertService.success('Division updated successfully');
-                }
-            })
+            if(validationCheck){
+                this.editDivisionValue.Departments = params;
+                this.editDivisionValue.removeDepartmentIds = this.removeDepartmentIds;
+                this.userService.divisionUpdate(this.editDivisionValue,this.editDivisionValue.divisionId).subscribe(resp=>{
+                    if(resp && resp.isSuccess){
+                        let userData = this.utilService.getUserData();
+                        let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+                        this.constant.modalRef.hide();
+                        this.getDivisionList(resortId);
+                        this.roleComponent.getDropDownDetails();
+                        this.alertService.success('Division updated successfully');
+                    }
+                })
+            }
+            else{
+                this.alertService.error('Department name is mandatory');
+            }   
         }
     }
 

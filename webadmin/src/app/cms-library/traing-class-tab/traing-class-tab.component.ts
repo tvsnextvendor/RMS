@@ -62,10 +62,11 @@ export class TraingClassTabComponent implements OnInit {
     this.getTrainingClassDetails();
   }
 
-  tabChange(tabName, id, courseId) {
-
-    let data = {tab : tabName,id:id,courseId : courseId,isInnerTab:true}
-    this.videoList.next(data);
+  tabChange(tabName, id, courseId,count) {
+    if(count != 0 ){
+      let data = {tab : tabName,id:id,courseId : courseId,isInnerTab:true}
+      this.videoList.next(data);
+    }
   }
   editTrainingClassName(trainingCourseId, index, ci) {
     this.trainingClassCourseList[index].CourseTrainingClassMaps[ci].enableEdit = true;

@@ -40,13 +40,13 @@
         <div class="clk-part clearfix pt-1">
             <div class="clk-sec float-left pl-0">
                 <a href="javascript:void(0);"
-                    (click)="tabChange('video',training.trainingClassId,'')">{{commonLabels.labels.video}} :
+                    (click)="tabChange('video',training.trainingClassId,'',training.TrainingClass.videosCount)">{{commonLabels.labels.video}} :
                     {{training?.TrainingClass?.videosCount ? training?.TrainingClass?.videosCount : 0}}</a>
-                <a href="javascript:void(0);" (click)="tabChange('document',training.trainingClassId,'')"
+                <a href="javascript:void(0);" (click)="tabChange('document',training.trainingClassId,'',training.TrainingClass.documentsCount)"
                     class="ml-2">{{commonLabels.labels.document}} : {{training?.TrainingClass?.documentsCount ? training?.TrainingClass?.documentsCount : 0}}</a>
             </div>
             <a class="float-right" href="javascript:void(0);"
-                (click)="tabChange('quiz',training.trainingClassId,course.courseId)" title="viewQuiz">{{commonLabels.labels.viewQuiz}}</a>
+                (click)="tabChange('quiz',training.trainingClassId,course.courseId,'')" title="viewQuiz">{{commonLabels.labels.viewQuiz}}</a>
         </div>
     </div>
 </div>
