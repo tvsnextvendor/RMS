@@ -333,7 +333,14 @@ export class CourseTabComponent implements OnInit {
         this.alertService.success(res.message);
         this.modalRef.hide();
         this.getCourseDetails();
+      }else{
+        this.modalRef.hide();
+        this.alertService.error(res.message);
       }
+    },err =>{
+      console.log(err);
+      this.modalRef.hide();
+       this.alertService.error(err.error.error);
     })
   }
 
