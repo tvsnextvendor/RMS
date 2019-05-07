@@ -202,6 +202,7 @@ export class CommonLabels{
         "month"             :   "Months",
         "actFrom"           :   "Active From",
         "expOn"             :   "Expire On",
+        "selectUsers"       :   "Select User"   
         
               
     };
@@ -324,7 +325,8 @@ export class CommonLabels{
         "licenseRequired"   :  "No of Licenses is required",
         "tenureYear"        :  "Year is required",
         "tenureMonth"       :  "Month is required",
-        "accessTo"          :  "Access To is Required"
+        "accessTo"          :  "Access To is Required",
+        "roleName"          :   "Role Name is Required"
 
      };
 

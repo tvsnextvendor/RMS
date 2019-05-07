@@ -37,7 +37,7 @@ export class ResortComponent implements OnInit {
     divisionDetails;
 
    constructor(private alertService: AlertService,private activeRoute:ActivatedRoute,private resortService : ResortService,private commonService:CommonService,private http:HttpService,private location:Location,private resortVar : ResortVar,private utilsService:UtilService,private headerService:HeaderService,private toastr:ToastrService,private router:Router,
-    private commonLabels:CommonLabels){
+    public commonLabels:CommonLabels){
     this.activeRoute.params.subscribe((params:Params)=>{
         this.resortId = params['id'];
     })

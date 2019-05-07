@@ -1,5 +1,6 @@
 import { Component, TemplateRef, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { HeaderService, HttpService, CourseService } from '../../services';
+import { NgForm } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { VideoVar } from '../../Constants/video.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
@@ -94,8 +95,6 @@ constructor(private courseService: CourseService, private alertService: AlertSer
     })
    }
 
-
-
   getEditFileData(){
       this.courseService.getEditCourseDetails('Video', this.selectedCourse,this.selectedClass).subscribe(resp => {
         if(resp && resp.isSuccess){
@@ -155,8 +154,13 @@ constructor(private courseService: CourseService, private alertService: AlertSer
     });
   }
   openEditVideo(template: TemplateRef<any>, data, index) {
+    let user = this.utilService.getUserData();
+    let roleId = user.Resort.length && user.Resorts[0].resortId;
+    console.log(data)
+    this.constant.selectedResort = roleId;
     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
-    }
+  }
+
     viewTraningVideo(template: TemplateRef<any>, videourl) {
       let modalConfig={
         class:"modal-lg video-box"
@@ -285,5 +289,9 @@ constructor(private courseService: CourseService, private alertService: AlertSer
   pageChanged(e){
     this.page = e;
     this.getCourseFileDetails();
+  }
+
+  permissionSetSubmit(form: NgForm){
+    console.log(form.value);
   }
 }
