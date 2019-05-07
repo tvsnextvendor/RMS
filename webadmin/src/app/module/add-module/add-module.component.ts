@@ -591,13 +591,10 @@ export class AddModuleComponent implements OnInit {
             }
         }
         else if(!this.moduleName){
-            this.alertService.error(this.labels.moduleName+this.labels.isRequire)
-        }
-        else if(!this.topics){
-            this.alertService.error(this.labels.topics+this.labels.isRequire)
+            this.alertService.error(this.commonLabels.labels.courseName+this.labels.isRequire)
         }
         else if(!this.selectedCourses.length){
-            this.alertService.error(this.labels.moduleNameValidation)
+            this.alertService.error(this.commonLabels.labels.courseError)
         }
     }
 
