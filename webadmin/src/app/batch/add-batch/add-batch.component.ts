@@ -33,6 +33,7 @@ export class AddBatchComponent implements OnInit {
     submitted = false;
     allEmployees = {};
     employeesInBatch = [];
+    userData;
 
     constructor(private alertService: AlertService,private courseService: CourseService,private utilService:UtilService,private resortService:ResortService,private userService: UserService,private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService:CommonService,public commonLabels : CommonLabels) {
         this.batchVar.url = API_URL.URLS;
@@ -47,9 +48,9 @@ export class AddBatchComponent implements OnInit {
       this.batchVar.batchId ? this.headerService.setTitle({ title: this.commonLabels.titles.editTitle, hidemodule: false }) : '';
         this.batchVar.moduleForm=[];
         this.courseForm();
-
+        this.userData =this.utilService.getUserData();
         //get Resort list
-        const resortId = this.utilService.getUserData().Resorts[0].resortId; 
+        const resortId = this.userData.Resorts[0].resortId; 
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
             this.batchVar.resortList=result.data.Resort;
             this.batchVar.divisionList=result.data.divisions;
@@ -235,8 +236,9 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) > Date.parse(this.batchVar.batchTo) ? true : false;
         this.status = ( this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') == this.datePipe.transform(new Date(), 'yyyy-MM-dd') ) ? 'assigned' : 'unassigned';
         if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.employeeId && this.batchVar.moduleForm && this.durationValue && this.reminder) {
-            this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
+          //  this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
             let postData = {
+                createdBy : this.userData.userId,
                 assignedDate: this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd'),
                 dueDate: this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd'),
                 name: this.batchVar.batchName,
