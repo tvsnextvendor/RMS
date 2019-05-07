@@ -10,6 +10,7 @@ import { CommonLabels } from '../../Constants/common-labels.var';
   styleUrls: ['./course-tab.component.css']
 })
 export class CourseTabComponent implements OnInit {
+  @Output() trainingClassListTab =  new EventEmitter();
   enableEdit = false;
   enableIndex;
   enableDuplicate = false;
@@ -141,6 +142,11 @@ export class CourseTabComponent implements OnInit {
      this.modalRef = this.modalService.show(template,modalConfig); 
     }
 
+    tabChange(tabName,id,courseId,count) {
+        let data = {tab : tabName,id:'',courseId : id}
+        this.trainingClassListTab.next(data);
+    }
+
 
   getCourseId(index){
       this.courseListValue.forEach((item,i)=>{
@@ -211,7 +217,7 @@ export class CourseTabComponent implements OnInit {
     let i = 0;
     courses.forEach(function(value,key){
       value.TrainingClass.Files.forEach(function(val,key){
-        i = i + val.fileSize;
+        i = i + parseInt(val.fileSize);
       });
     });
     return this.formatBytes(i,2);

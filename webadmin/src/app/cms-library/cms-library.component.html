@@ -53,7 +53,7 @@
             <div class="tab-content">
                 <!-- Course Tab Content -->
                 <div *ngIf = "selectedTab === 'course' && !hideSection" id="course" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'course' ? 'active show' : 'nav-link')">
-                        <app-course-tab (SelectedcourseList)="getCourse($event)" (upload)="showUploadPage($event)" (trainingClassRedirect)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"  [addedFiles]="selectedVideoList" ></app-course-tab>
+                        <app-course-tab (SelectedcourseList)="getCourse($event)" (trainingClassListTab) = "redirectTab($event)" (upload)="showUploadPage($event)" (trainingClassRedirect)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"  [addedFiles]="selectedVideoList" ></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
                 <div *ngIf = "selectedTab === 'training' && !hideSection" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
