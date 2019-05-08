@@ -39,6 +39,10 @@
     cursor: pointer;
     color: #73737B;    
 }
+.select-Courses .dropdown-list {
+    width: 267px !important;
+    right: -14px !important;
+}
 .group-box i{
     font-size: 20px;
     line-height: 36px;
