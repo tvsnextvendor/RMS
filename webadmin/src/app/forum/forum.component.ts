@@ -1,12 +1,12 @@
-import { Component, OnInit,TemplateRef} from '@angular/core';
-import {HeaderService} from '../services/header.service';
-import {HttpService} from '../services/http.service';
+import { Component, OnInit, TemplateRef} from '@angular/core';
+import {HeaderService, ForumService} from '../services';
 import {ForumVar} from '../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
-import { CommonLabels } from '../Constants/common-labels.var'
+import { CommonLabels } from '../Constants/common-labels.var';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-forum',
@@ -15,87 +15,110 @@ import { CommonLabels } from '../Constants/common-labels.var'
 })
 
 export class ForumComponent implements OnInit {
-   
-
-    constructor(private toastr:ToastrService,private modalService:BsModalService,private headerService:HeaderService,public forumVar:ForumVar,private http: HttpService,private alertService:AlertService,public commonLabels:CommonLabels){
+  pageSize;
+  totalCount = 0;
+  currentPage = 1;
+  topicsArray = [{
+    topics: ''
+  }];
+    constructor(private toastr: ToastrService,
+      private modalService: BsModalService,
+      private headerService: HeaderService,
+      public forumVar: ForumVar,
+      private forumService: ForumService,
+      private router: Router,
+      public commonLabels: CommonLabels) {
        this.forumVar.url = API_URL.URLS;
     }
-    filteredNames=[];
+    filteredNames = [];
 
-   ngOnInit(){
-    this.headerService.setTitle({title:this.commonLabels.titles.forumtitle, hidemodule:false});
+   ngOnInit() {
+    this.pageSize = 10;
+    this.headerService.setTitle({title: this.forumVar.title, hidemodule: false});
     this.getForumList();
-   // this.getEmployeeList();
-    this.getDepartmentList();
-    this.getAdminList();
+    this.forumService.listPage.subscribe(result => {
+      if (result) {
+        this.getForumList();
+      }
+    });
    }
 
-    getForumList(){
-          this.http.get(this.forumVar.url.getForumList).subscribe((data) => {
-          this.forumVar.forumList= data.Message;
-        });
-    }
-    // getEmployeeList(){
-    //     this.http.get(this.forumVar.url.getEmployeeList).subscribe((resp) => {
-    //        this.forumVar.autocompleteItemsAsEmpObjects = resp.employeeList.map(item=>{
-    //          return item.name;
-    //        });
-    //      });
-    // }
-    getDepartmentList(){
-        this.http.get(this.forumVar.url.getDepartments).subscribe((resp) => {
-            this.forumVar.autocompleteItemsAsEmpObjects = resp.DepartmentList.map(item=>{
-              return item.department;
-            });
-          });
-    }
-    getAdminList(){
-      this.http.get(this.forumVar.url.getAdminList).subscribe((resp) => {
-        this.forumVar.adminList = resp.adminList.map(item=>{
-          return item.name;
-        });
-      });
+    getForumList() {
+      const pageDetails = {
+        currentPage: this.currentPage,
+        pageSize: this.pageSize
+      };
+      this.forumService.getForumList(pageDetails).subscribe((result) => {
+      this.forumVar.forumList = result.data.rows;
+      this.totalCount = result.data.count;
+     });
     }
 
-    statusUpdate(forumName,status){
-        let statusName = status ? " is Activated" : " is Deativated"
-       // this.toastr.success(forumName + statusName);
-        this.alertService.success(forumName + statusName);
+    pageChanged(page) {
+      this.currentPage = page;
+      this.getForumList();
+    }
+
+    isPinned(forumId) {
+      this.forumVar.isPinned = !this.forumVar.isPinned;
+      let pinnedObj ;
+      if (this.forumVar.isPinned) {
+         pinnedObj = {
+          isPinned: true
+        };
+      } else {
+        pinnedObj = {
+          isPinned: false
+        };
+      }
+
+      this.forumService.forumUpdate(forumId, {forum: pinnedObj}).subscribe(result => {
+        if (result && result.isSuccess) {
+          this.toastr.success(this.forumVar.updateSuccessMsg);
+        }
+      });
       }
 
     openEditModal(template: TemplateRef<any>, forum) {
-        this.forumVar.modalRef = this.modalService.show(template,this.forumVar.modalConfig);
-        this.forumVar.forumName= forum.forumname;
-        this.forumVar.forumId = forum.forumid;
-        // this.forumVar.topics=forum.topic;
-        this.forumVar.employeeItems=forum.departments;
-        this.forumVar.adminItems=forum.admins;
-        this.filteredNames = this.forumVar.forumNameList.filter(item => item !== this.forumVar.forumName);
+        this.forumService.editPage({editPage: true, forumId: forum.forumId});
+        this.forumVar.modalRef = this.modalService.show(template, this.forumVar.modalConfig);
+        // this.forumVar.forumName = forum.forumName;
+        // this.forumVar.forumId = forum.forumId;
+        // this.topicsArray = forum.Topics;
+        // // this.forumVar.topics=forum.topic;
+        // // this.forumVar. = forum.departments;
+        // this.forumVar.adminItems = forum.admins;
+        // // this.filteredNames = this.forumVar.forumNameList.filter(item => item !== this.forumVar.forumName);
     }
-   
-    checkNameUniqueness(forumName){  
-        for (let i = 0; i <  this.filteredNames.length; i++) {    
-          if(forumName && this.filteredNames[i]===forumName){
-            this.forumVar.editNameValidate=true;
+
+    checkNameUniqueness(forumName) {
+        for (let i = 0; i <  this.filteredNames.length; i++) {
+          if (forumName && this.filteredNames[i] === forumName) {
+            this.forumVar.editNameValidate = true;
             break;
-          }else{
-            this.forumVar.editNameValidate=false;
+          } else {
+            this.forumVar.editNameValidate = false;
           }
         }
       }
-     
-    onSave(form){
-      if(form.valid && !this.forumVar.editNameValidate){
-        let postData= {
-          forumid : this.forumVar.forumId,
-          forumname : form.value.forumName,
-          employeelist : form.value.empItems,
-          adminlist  : form.value.admin
-        }
-       // this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
-        this.alertService.success(this.commonLabels.msgs.updateSuccessMsg);
-        this.forumVar.modalRef.hide();
-     }
+
+    // onSave(form) {
+    //   if (form.valid && !this.forumVar.editNameValidate) {
+    //     const postData = {
+    //       forumid : this.forumVar.forumId,
+    //       forumname : form.value.forumName,
+    //       employeelist : form.value.empItems,
+    //       adminlist  : form.value.admin
+    //     };
+    //    // this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
+    //     this.alertService.success(this.forumVar.updateSuccessMsg);
+    //     this.forumVar.modalRef.hide();
+    //  }
+    // }]
+
+    detailsPage(forumId) {
+      this.forumService.editPage({forumId: forumId});
+      this.router.navigateByUrl('/forumdetail');
     }
 
 

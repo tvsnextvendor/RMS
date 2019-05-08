@@ -1,10 +1,15 @@
-import { Component, OnInit} from '@angular/core';
-import {HttpService} from '../../services/http.service';
+import { Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
+import {HttpService, AlertService, ForumService, UtilService} from '../../services';
 import {ForumVar} from '../../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { API_URL } from '../../Constants/api_url';
-import { AlertService } from 'src/app/services/alert.service';
-import { CommonLabels } from '../../Constants/common-labels.var'
+import { CommonLabels } from '../../Constants/common-labels.var';
+import { DatePipe } from '@angular/common';
+import * as _ from 'lodash';
+import {Router} from '@angular/router';
+
+
+
 
 @Component({
     selector: 'app-createForum',
@@ -13,110 +18,218 @@ import { CommonLabels } from '../../Constants/common-labels.var'
 })
 
 export class CreateForumComponent implements OnInit {
-   
-    employeeItems;
+
     forumName;
-    adminItems;
-    autocompleteItemsAsEmpObjects;
-    adminList;
-    topicsArray = [{
-      topicName:''
+    forumEditPage;
+    topicsArray: Array<any> =  [{
+      topics: '',
+      forumTopicId: ''
     }];
     topics;
     successMessage;
-   
-   constructor(private toastr:ToastrService,public forumVar:ForumVar,private http: HttpService,private alertService:AlertService,public commonLabels:CommonLabels){
+    dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'value',
+      enableCheckAll : false,
+      itemsShowLimit: 8,
+      // allowSearchFilter: true
+    };
+    admin = {};
+    division = {};
+    department = {};
+    @Input() closeModal;
+
+   constructor(
+     private toastr: ToastrService,
+    public forumVar: ForumVar,
+    private forumService: ForumService,
+    private datePipe: DatePipe,
+    private router: Router,
+    public commonLabels: CommonLabels,
+    private utilService: UtilService) {
     this.forumVar.url = API_URL.URLS;
    }
 
-   ngOnInit(){
-   // this.getEmployeeList();
-    this.getForumList();
-    this.getDepartmentList();
+   ngOnInit() {
+     this.forumService.editForum.subscribe(result => {
+      this.forumEditPage = result;
+     });
+
     this.getAdminList();
+    this.getDivisionList();
+    if (this.forumEditPage.editPage) {
+      this.getForumData();
+     }
    }
 
-   getForumList(){
-      this.http.get(this.forumVar.url.getForumList).subscribe((data) => {
-      this.forumVar.forumList= data.Message;
-      this.forumVar.forumNameList=this.forumVar.forumList.map(item=>{
-        return item.forumname;
-      });
-     });   
+   getForumData() {
+      this.forumService.getForumById(this.forumEditPage.forumId).subscribe((result) => {
+        const forumData = result.data.rows[0];
+        this.division['divisionList'] = _.uniqBy(forumData['Divisions'].map(item => {
+            const obj = {
+              id: item['Division']['divisionId'] ,
+              value: item['Division']['divisionName']
+            };
+            return obj;
+        }), 'id');
+        if (this.division['divisionList']) {
+          this.getDepartmentList();
+        }
+        const selectedDepartment = forumData['Divisions'].map(item => {
+          if (item['Department']) {
+            const departObj =  {
+              id: item['Department']['departmentId'] ,
+              value: item['Department']['departmentName']
+            };
+            return _.omit(departObj, _.isUndefined);
+          }
+        });
+        this.department['departmentList'] = selectedDepartment.filter(item => item);
+        this.forumVar.forumName = forumData.forumName;
+        this.topicsArray = forumData.Topics;
+        this.forumVar.forumAdmin = forumData.forumAdmin;
+        this.forumVar.startDate = new Date(forumData.startDate);
+        this.forumVar.endDate = new Date(forumData.endDate);
+     });
    }
 
-   getAdminList(){
-    this.http.get(this.forumVar.url.getAdminList).subscribe((resp) => {
-      this.adminList = resp.adminList.map(item=>{
-        return item.name;
+   getAdminList() {
+    this.forumService.getAdmin().subscribe((resp) => {
+      this.admin['adminData'] = resp.data['rows'].map(item => {
+        const admin = {
+            id: item.userId,
+            value : item.userName
+        };
+        return admin;
       });
     });
   }
 
-   getDepartmentList(){
-    this.http.get(this.forumVar.url.getDepartments).subscribe((resp) => {
-        this.autocompleteItemsAsEmpObjects = resp.DepartmentList.map(item=>{
-          return item.department;
+   getDepartmentList() {
+     const selectedDivision = {
+       divisionId: this.division['divisionList'] && this.division['divisionList'].map(item => item.id)
+      };
+
+    this.forumService.getDepartment(selectedDivision).subscribe((resp) => {
+      this.department['departments'] = resp.data && resp.data['rows'];
+        this.department['departData'] = this.department && this.department['departments'] && this.department['departments'].map(item => {
+          const department = {
+              id: item.departmentId,
+              value : item.departmentName
+          };
+          return department;
         });
       });
  }
 
-   getEmployeeList(){
-     this.http.get(this.forumVar.url.getEmployeeList).subscribe((resp) => {
-        this.employeeItems=resp.employeeList;
-        this.autocompleteItemsAsEmpObjects = resp.employeeList.map(item=>{
-          return item.name;
+   getDivisionList() {
+    this.forumService.getDivision().subscribe((resp) => {
+        this.division['divisionData'] = resp.data['rows'].map(item => {
+          const division = {
+              id: item.divisionId,
+              value : item.divisionName
+          };
+          return division;
         });
+        if (this.division['divisionList']) {
+          this.getDepartmentList();
+        }
       });
     }
-    
-    // addTopic(){
-    //   let obj={
-    //     topicName:''
-    //   };
-    //   this.topicsArray.push(obj);
-    // }
 
-    // removeTopic(i){
-    //   this.topicsArray.splice(i, 1);   
-    // }
+    addTopic(i, topic) {
+      this.topicsArray.push({topics: topic});
+    }
 
-    checkNameUniqueness(forumName){
-      for (let i = 0; i <  this.forumVar.forumNameList.length; i++) {    
-        if(forumName && this.forumVar.forumNameList[i]===forumName){
-          this.forumVar.uniqueValidate=true;
+    removeTopic(i) {
+      this.topicsArray.splice(i, 1);
+    }
+
+    onItemSelect(event, type) {
+      if  (type === 'division') {
+        this.getDepartmentList();
+      }
+    }
+
+    onItemDeselect(event) {
+
+    }
+
+    checkNameUniqueness(forumName) {
+      for (let i = 0; i <  this.forumVar.forumNameList.length; i++) {
+        if (forumName && this.forumVar.forumNameList[i] === forumName) {
+          this.forumVar.uniqueValidate = true;
           break;
-        }else{
-          this.forumVar.uniqueValidate=false;
+        } else {
+          this.forumVar.uniqueValidate = false;
         }
       }
     }
 
-    onSubmitForm(form){
-      // if(this.topicsArray){
-      //   this.topics = this.topicsArray.map(item=>{
-      //      return item.topicName;
-      //   });
-      // }
-      if(form.valid && !this.forumVar.uniqueValidate ){
-        let postData={
-          forumname : form.value.forumName,
-          employeelist : form.value.empItems,
-          adminlist  : form.value.admin
-          //topic   : this.topics
+    onSubmitForm(form) {
+      this.division['divisions'] = this.division['divisionList'].map(item => item.id);
+      const selectedDepartments = this.department['departmentList'];
+      this.department['departments'] = this.department['departments'].filter(function(obj1) {
+        return selectedDepartments.some(function(obj2) {
+             return obj1.departmentId === obj2.id;
+          });
+        });
+      if (form.valid && !this.forumVar.uniqueValidate ) {
+        const postData = {
+          forum: {
+            forumName : this.forumVar.forumName,
+            forumAdmin: this.forumVar.forumAdmin,
+            startDate: this.datePipe.transform(this.forumVar.startDate, 'yyyy-MM-dd'),
+            endDate:  this.datePipe.transform(this.forumVar.endDate, 'yyyy-MM-dd')
+          },
+          // createdBy: this.utilService.getUserData().userId
+          // topics: this.topicsArray.map(item => item.topics),
+          // divisions: this.division['divisions'],
+          // departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']))
         };
-        this.alertService.success(this.commonLabels.msgs.addSuccessMsg);
-         // this.toastr.success(this.forumVar.addSuccessMsg);
+        if (this.forumEditPage.forumId) {
+          const array = this.topicsArray.map(item => {
+            const obj =  {
+              topics: item.topics,
+              forumTopicId: item.forumTopicId
+            };
+            return obj;
+          });
+          Object.assign(postData, {topics: array,
+            Divisions: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId'])) });
+          this.forumService.forumUpdate(this.forumEditPage.forumId, postData).subscribe(result => {
+            if (result && result.isSuccess) {
+                this.closeModal.hide();
+                this.toastr.success(this.commonLabels.msgs.updateSuccessMsg);
+                this.forumService.goToList(true);
+            }
+          });
+        } else {
+          Object.assign(postData, {topics: this.topicsArray.map(item => item.topics),
+            divisions: this.division['divisions'],
+             departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']))});
+          this.forumService.addForum(postData).subscribe(result => {
+            if (result && result.isSuccess) {
+              this.toastr.success(this.commonLabels.msgs.addSuccessMsg);
+              this.forumService.goToList(true);
+            }
+          });
+      }
           this.clearForm(form);
-          this.forumVar.uniqueValidate=false;
+          this.forumVar.uniqueValidate = false;
       }
     }
 
-    clearForm(formDir){
-       this.forumName="";
+    clearForm(formDir) {
+      this.closeModal.hide();
+       this.forumName = '';
        this.topicsArray = [{
-        topicName:''
+        topics: '',
+        forumTopicId: ''
       }];
+      this.department['departmentList'] = [];
+      this.division['divisionList'] = [];
       formDir.reset();
       formDir.submitted  = false;
     }

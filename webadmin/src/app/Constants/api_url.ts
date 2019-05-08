@@ -140,9 +140,15 @@ export class API_URL {
     divisionUpdate : '8102/division/userHierarchyUpdate/',
     addDesignation : '8102/designation/Add',
     updateDesignation : '8102/designation/Update/',
-    deleteDesignation : '8102/designation/Delete/'
+    deleteDesignation : '8102/designation/Delete/',
 
+
+    //Forum Services
+    forum: '8104/forum',
+    departmentListWithResort: '8102/department/List?resortId=',
+    forumPost: '8104/post'
   }
+  
 
 }
 
