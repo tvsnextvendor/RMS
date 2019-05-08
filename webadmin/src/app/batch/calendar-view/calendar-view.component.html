@@ -40,15 +40,15 @@
     </span> -->
     <div [ngSwitch]="view" class="px-3 pb-3 calender-view">
       <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-        [cellTemplate]="customCellTemplate" [refresh]="refresh" (dayClicked)="goToBatch($event.day.date,editBatch)">
+        [cellTemplate]="customCellTemplate" [refresh]="refresh" (dayClicked)="goToBatch($event.day.date,$event.day.events,editBatch)">
       </mwl-calendar-month-view>
     </div>
 
 
     <ng-template #customCellTemplate let-day="day" let-locale="locale">
       <div class="cal-cell-top">
-        <!--       <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
- --> <span class="calender-number">{{
+        <!--       <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>--> 
+        <span class="calender-number">{{
           day.date | calendarDate:'monthViewDayNumber':locale }}</span>
       </div>
       <span class="calender-batch row py-2" *ngFor="let event of day.events">
@@ -56,8 +56,8 @@
         <span class="col-md-10 p-0">
           <p class="m-0">{{event.batchName}}</p>
           <p class="m-0 clearfix pt-1 pr-2"><i class="fas fa-pencil-alt float-right"></i></p>
-          <p class="m-0">Course 1</p>
-          <p class="m-0">8:00 AM-6:30 PM</p>
+          <p class="m-0" *ngFor="let course of event.courseList;">{{course?.Course?.courseName}}</p>
+          <!-- <p class="m-0">8:00 AM-6:30 PM</p> -->
           <!-- <p class="m-0">{{event.timings}}</p> -->
         </span>
         <!-- <span class="col-md-1 p-0"> <i class="fa fa-pencil" routerLink="/addBatch/{{event.id}}" aria-hidden="true"></i></span> -->

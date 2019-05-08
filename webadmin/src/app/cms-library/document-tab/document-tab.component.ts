@@ -14,7 +14,7 @@ export class DocumentTabComponent implements OnInit {
   @Input() trainingClassId;
   @Input() uploadPage;
   totalVideosCount = 0;
-  videoListValue;
+  videoListValue = [];
   addVideosToCourse = false;
   page;
   pageSize;

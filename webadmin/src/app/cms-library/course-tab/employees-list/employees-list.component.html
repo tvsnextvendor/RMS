@@ -1,41 +1,58 @@
+
+<div class="pt-2">   
+  <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/cms-library">CMS Library</a></li>
+          <li class="breadcrumb-item active">Employees List</li>
+      </ol>
+  </nav>
+</div>
 <div class="row pt-4">
     <div class="col-sm-12 pb-3 p-0 button-section">
-        <button type = "button" class="btn btn-primary float-right" [routerLink]="['../resorts']">Export to Excel</button>
+        <button *ngIf = "listDetails.length" type = "button" class="btn btn-primary float-right" (click)="exportAsXLSX()">Export to Excel</button>
     </div>
     <div class="col-lg-12 col-sm-12 p-0">
     <div class="header-section mb-2 clearfix">
-      <h4 class="float-left">Course Name1</h4>
-      <h6 class="float-right">Count 0</h6>
+      <h4 class="float-left">{{listDetails.length ? listDetails[0]?.Course?.courseName : ''}}</h4>
+      <h6 class="float-right">Count : {{count}}</h6>
     </div>                
         <div class="table-responsive white-bg ">
-            <table class="table table-striped">
-                    <thead>
-                    <tr class="th-boxshadow">
-                        <th class="text-left">
-                          Employee Name
+            <table class="table table-striped white-bg mt-1" [mfData]="listDetails" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
+                <thead>
+                    <tr class="th-boxshadow text-center">
+                        <th>
+                            <mfDefaultSorter by="User.userName">Employee Name<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
-                        <th class="text-left">
-                          Status
+                        <th class="text-center">
+                            <mfDefaultSorter by="status">Status<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
-                        <th class="text-left">
-                          Assigned Date
+                        <th class="text-center">
+                            <mfDefaultSorter by="created">Assigned Date<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
-                        <th class="text-left">
-                          Completed Date
-                        </th>
-                        
+                        <th class="text-center">
+                            <mfDefaultSorter by="completedDate">Completed Date<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                        </th>                       
                     </tr>
-                    </thead>
-                    <tbody>
-                        <tr  class="table-desc-color">
-                            <td class="text-left">Employee 1</td>
-                            <td class="text-left"><a href="#">In progress</a></td>
-                            <td class="text-left">12 Feb 2019</td>
-                            <td class="text-left">01 May 2019</td>                          
-                        </tr>
-                   
-                    </tbody>
-                </table>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let emp of mf.data,index as i" class="table-desc-color">
+                        <td class="text-center">{{emp?.User?.userName}}</td>
+                        <td class="text-center"><a routerLink="/employee/{{emp.userId}}">{{emp.status | titlecase}}</a></td>
+                        <td class="text-center">{{emp.created | date:medium}}</td>
+                        <td class="text-center">{{emp.completedDate ? emp.completedDate : ''}}</td>                          
+                    </tr>
+                    <tr *ngIf="mf.data?.length == 0">
+                        <td colspan="10" class="text-center data-design">No data</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr data-html2canvas-ignore="true">
+                        <td colspan="10">
+                            <mfBootstrapPaginator></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 </div>
