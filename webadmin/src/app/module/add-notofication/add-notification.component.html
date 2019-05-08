@@ -15,7 +15,7 @@
                             (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
-                            {{labels.courseError}}
+                            {{commonLabels.labels.courseError}}
                         </span>
                     </div>
                     <div class="row form-group">
@@ -30,7 +30,7 @@
                             (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
-                            {{labels.courseError}}
+                            {{commonLabels.labels.courseError}}
                         </span>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                     </div>
                     <span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
-                        {{labels.courseError}}
+                        {{commonLabels.labels.courseError}}
                     </span>
                     </div>
                     <div class="row form-group">
@@ -62,28 +62,28 @@
                             (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && selectedCourses.length === 0">
-                            {{labels.courseError}}
+                            {{commonLabels.labels.courseError}}
                         </span>
                     </div>
                 </div>
                 <div class="col-md-12 mt-20">
                     <div class="row form-group">
-                        <label class="col-md-3 pr-0 label-title mb-0">Upload File</label>
+                        <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.uploadtxt}}</label>
                         <span class="col-md-9 pl-0">
                             <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
                             <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" id="customFile"  (change)="getFileDetails($event)"  required>
                             <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}</label>
-                            <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">Upload File</label>
+                            <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">{{commonLabels.labels.uploadtxt}}</label>
                         </span>
                     </div>
                     <div class="row form-group">
-                        <label class="col-md-3 pr-0 label-title mb-0">File Name</label>
+                        <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.fileName}}</label>
                         <span class="col-md-9 pl-0">
                             <input type="text" class="form-control" placeholder="Enter File Name" [(ngModel)]="fileName" name="fileName" #fileNameValue = "ngModel" required>
                         </span>
                     </div>
                     <div class="row form-group">
-                        <label class="col-md-3 pr-0 label-title mb-0">Description</label>
+                        <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.description}}</label>
                         <span class="col-md-9 pl-0">
                             <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description" name="description" #descriptionData = "ngModel" required>
                         </span>
@@ -92,37 +92,37 @@
                 <div class="row">
                         <div class="col-md-6 pr-0">
                             <div class="row">
-                                <label class="col-md-5 p-0 label-title">{{batchVar.labels.from}}</label>
+                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.from}}</label>
                                 <div class="col-md-7 pr-0">
-                                    <span> <img src="assets/images/cal.png" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"
+                                    <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"
                                             class="batch-icon">
                                         <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
                                             name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel"
                                             [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
                                         <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
-                                            {{batchVar.mandatoryLabels.from}}
+                                            {{commonLabels.mandatoryLabels.from}}
                                         </span>
                                         <div *ngIf="batchVar.dategreater" class="required_color">
-                                            <span>{{batchVar.mandatoryLabels.dateValidate}} </span>
+                                            <span>{{commonLabels.mandatoryLabels.dateValidate}} </span>
                                         </div>
                                     </span>
                                 </div>
                                 <span class="required_color" *ngIf="batchVar.batchFrom && batchVar.batchTo && dateError">
-                                    {{batchVar.mandatoryLabels.dateLimitError}}
+                                    {{commonLabels.mandatoryLabels.dateLimitError}}
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-6 pr-0">
                             <div class="row">
-                                <label class="col-md-5 p-0 label-title">{{batchVar.labels.to}}</label>
+                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.to}}</label>
                                 <div class="col-md-7 p-0 batch-input">
-                                    <span> <img src="assets/images/cal.png" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
+                                    <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
                                             class="batch-icon">
                                         <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo"
                                             bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
                                             required>
                                         <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
-                                            {{batchVar.mandatoryLabels.to}}
+                                            {{commonLabels.mandatoryLabels.to}}
                                         </span>
                                     </span>
                                 </div>
@@ -131,8 +131,8 @@
                 </div>
             </div>
                 <div class="text-center col-md-12 p-4">
-                    <button type="button" class="btn btn-default creat-btn mr-4" (click)="hidePopup()">{{batchVar.labels.clear}}</button>
-                    <button type="submit" class="btn btn-primary module-createbtn">{{batchVar.labels.save}}</button>
+                    <button type="button" class="btn btn-default creat-btn mr-4" (click)="hidePopup()">{{commonLabels.btns.clear}}</button>
+                    <button type="submit" class="btn btn-primary module-createbtn">{{commonLabels.btns.save}}</button>
                 </div>
 
             </div>
