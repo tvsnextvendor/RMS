@@ -8,6 +8,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
 import { AlertService } from '../../services/alert.service';
+import { CommonLabels } from '../../Constants/common-labels.var';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ModuleDetailsComponent implements OnInit {
     videoIndex;
 
 
-    constructor(public videoVar: VideoVar, public moduleVar: ModuleVar, private activatedRoute: ActivatedRoute, private modalService: BsModalService, public http: HttpService, private headerService: HeaderService, private alertService: AlertService) {
+    constructor(public videoVar: VideoVar, public moduleVar: ModuleVar, private activatedRoute: ActivatedRoute, private modalService: BsModalService, public http: HttpService, private headerService: HeaderService, private alertService: AlertService,public commonLabels : CommonLabels) {
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleVar.moduleId = params['moduleId'];
             this.moduleVar.courseId = params['courseId'];

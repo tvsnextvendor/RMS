@@ -11,7 +11,7 @@
                         <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
                             accept=".xlsx" />
                     </button>
-                </span>
+                </span> 
                 <span class="pr-2"><button class="btn btn-primary" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
                 <!-- <span class="pagenation-btn">
                     <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
@@ -107,7 +107,7 @@
     <tab heading = {{commonLabels.labels.listofRole}}>
         <div class="pr-3 pt-3 clearfix listrole">
             <div class="hd-section clearfix">
-            <h5 class="float-left title-hd">List of Roles</h5>
+            <h5 class="float-left title-hd">{{commonLabels.labels.listofRole}}</h5>
             <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
             </div>
             <div class="hierarchy-tab white-bg p-4 mt-3">

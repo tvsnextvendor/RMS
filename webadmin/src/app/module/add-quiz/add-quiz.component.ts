@@ -9,6 +9,7 @@ import { API_URL } from '../../Constants/api_url';
 import { AlertService } from '../../services/alert.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModuleDetailsComponent } from '../module-details/module-details.component';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
   selector: 'add-quiz',
@@ -49,7 +50,8 @@ export class AddQuizComponent implements OnInit {
   modalRef;
   removedQuizIds = [];
 
-  constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService) {
+  constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
+    public commonLabels:CommonLabels) {
     this.apiUrls = API_URL.URLS;
   }
   

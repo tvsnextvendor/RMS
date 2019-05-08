@@ -10,6 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AlertService } from '../../services/alert.service';
 import * as moment from 'moment';
+import{ CommonLabels }  from '../../Constants/common-labels.var'
 
 @Component({
     selector: 'app-add-notification',
@@ -34,7 +35,8 @@ export class AddNotificationComponent implements OnInit {
     fileName;
     description;
     uploadFileName;
-    constructor(private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router) {
+    constructor(private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
+        public commonLabels:CommonLabels) {
         this.batchVar.url = API_URL.URLS;
         this.labels = moduleVar.labels;
     }

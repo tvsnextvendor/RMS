@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HeaderService} from '../services/header.service';
+import { CommonLabels} from '../Constants/common-labels.var'
 
 @Component({
   selector: 'app-feedback',
@@ -8,7 +9,7 @@ import {HeaderService} from '../services/header.service';
 })
 export class FeedbackComponent implements OnInit {
 
-  constructor(private headerService:HeaderService) { }
+  constructor(private headerService:HeaderService,public commonLabels : CommonLabels) { }
 
   ngOnInit() {
     this.headerService.setTitle({title:'FeedBack', hidemodule:false});

@@ -1,6 +1,6 @@
 <span *ngIf="moduleVar.hideAllVideos">
     <div class="clearfix pt-4">
-        <h6 class="float-left module-hd-color">{{moduleVar.divisionName}}</h6>
+        <h6 class="float-left module-hd-color">{{commonLabels.labels.divisionName}}</h6>
     </div>
     <div class="clearfix mt-5 mr-3 white-bg p-3">
         <div class="clearfix" *ngFor="let program of moduleVar.moduleList">
@@ -34,9 +34,9 @@
                                             <a><i class="fa fa-pencil px-2" aria-hidden="true" (click)="openModal(editVideo,file,'edit',i)"></i></a>
                                         </span>
                                         <div class="row">
-                                            <img *ngIf="file.fileType === 'txt'" class="icon-ht" src="assets/images/txt-icon.png">
-                                            <img *ngIf="file.fileType === 'ppt'" class="icon-ht" src="assets/images/ppt-icon.png">
-                                            <img *ngIf="file.fileType === 'pdf'" class="icon-ht" src="assets/images/pdf-icon.png">
+                                            <img *ngIf="file.fileType === 'txt'" class="icon-ht" src="{{commonLabels.imgs.text}}">
+                                            <img *ngIf="file.fileType === 'ppt'" class="icon-ht" src="{{commonLabels.imgs.ppt}}">
+                                            <img *ngIf="file.fileType === 'pdf'" class="icon-ht" src="{{commonLabels.imgs.pdf}}">
                                         </div>
                                     </div>
                                     <div class="px-2">
@@ -129,26 +129,26 @@
 <ng-template #editVideo>
     <div class="p-4">
         <div class="clearfix">
-            <h5 class="float-left">Edit File</h5><span class="float-right"><a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a></span>
+            <h5 class="float-left">{{commonLabels.labels.editFile}}</h5><span class="float-right"><a (click)="cancelVideoSubmit()"><img src="{{commonLabels.imgs.cancel}}"></a></span>
         </div>
         <div class="form-group">
             <div class="row pl-0 pdb20">
-                <label class="col-md-4 p-0 label-title">File Name</label>
+                <label class="col-md-4 p-0 label-title">{{commonLabels.labels.fileName}}</label>
                 <input type="text" class="form-control col-md-8 p-0" placeholder="Enter File Name" name="selectVideoName"
                     [(ngModel)]="videoName">
-                <span class="required_color" *ngIf="videoSubmitted && !videoName">File name is required</span>
+                <span class="required_color" *ngIf="videoSubmitted && !videoName">{{commonLabels.mandatoryLabels.filenameRequired}}</span>
             </div>
             <div class="row pl-0 pdb20">
-                <label class="col-md-4 p-0 label-title">Description</label>
+                <label class="col-md-4 p-0 label-title">{{commonLabels.labels.description}}</label>
                 <textarea class="form-control col-md-8 p-0 decs-overflow" placeholder="Enter Description" name="description"
                     [(ngModel)]="description"></textarea>
-                <span class="required_color" *ngIf="videoSubmitted && !description">Description is required</span>
+                <span class="required_color" *ngIf="videoSubmitted && !description">{{commonLabels.mandatoryLabels.description}}</span>
             </div>
             <div class="row pl-0 pdb20">
-                <label class="col-md-4 p-0 label-title">File</label>
+                <label class="col-md-4 p-0 label-title">{{commonLabels.labels.file}}</label>
                 <div class="col-md-4">
                     <div class="fileUpload btn btn-primary m-0 mt-4">
-                        <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>UPLOAD</span>
+                        <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{commonLabels.labels.upload}}</span>
                         <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" accept="" (change)="fileUpload($event)" />
                     </div>
                 </div>
@@ -157,11 +157,11 @@
                             class="px-4 img-size"></span>
                 </div>
                 <!-- <span *ngIf="!videoFile"><img src="assets/images/Add_Profile_Picture.png" class="px-4"></span> -->
-                <span class="required_color" *ngIf="videoSubmitted && !videoFile">File is required</span>
+                <span class="required_color" *ngIf="videoSubmitted && !videoFile">{{commonLabels.labels.fileisRequired}}</span>
             </div>
             <div class="text-center pt-3">
-                <button class="btn btn-default mr10" (click)="cancelVideoSubmit()">CANCEL</button>
-                <button class="btn btn-primary save-btn" (click)="videoSubmit()">SAVE</button>
+                <button class="btn btn-default mr10" (click)="cancelVideoSubmit()">{{commonLabels.btns.cancel}}</button>
+                <button class="btn btn-primary save-btn" (click)="videoSubmit()">{{commonLabels.btns.save}}</button>
             </div>
         </div>
     </div>

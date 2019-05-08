@@ -202,7 +202,65 @@ export class CommonLabels{
         "year"              :   "Years",
         "month"             :   "Months",
         "actFrom"           :   "Active From",
-        "expOn"             :   "Expire On",              
+        "expOn"             :   "Expire On",
+        // "selectUsers"       :   "Select User",        
+        "application"       :   "Application",
+        "query"             :   "Query",
+        "complaint"         :   "Complaint",
+        "compliment"        :   "Compliment",
+        "task"              :   "Task",
+        // select = 'Program';
+        "avgWeekly"         :   "Average weekly",
+        "avgQualification"  :   "Average Qualification",
+        "totEmp"            :   "Total Employee",
+        "emp"               :   "Employees",
+        "selectResort"      :   "Select Resort",
+        "weeklyGrowth"      :   "Weekly Growth",
+        "cloudy"            :   "CLOUDY",
+        "temp"              :   "-4",
+        "degree"            :   "o",
+        "celcius"           :   "C",
+        "monthDropdown"     :   "This Month",
+        "employeeTabLabel"  :   "Employee",        
+        "recentComment"     :   "Recent Comment",
+        "wishes"            :   "Good Morning",        
+        "notificationdash"  :   "You have 5 important tasks today, Some messages and notifications.",
+        "totalCourses"      :   'Total Courses',
+        "availableCourses"  :   'Assigned Courses',
+        "completedCourses"  :   'Completed Courses',
+        "inProgress"        :   'In Progress',
+        "videosTrend"       :   'Course Trend',
+        "employeeProgress"  :   "Employee Progress",
+        "totalNoOfBadges"   :   "Total No. of Badges",
+        "certificationTrend":   "Employee Certification Trend",
+        "topEmployees"      :   "Top 5 Employees",
+        "topCourses"        :   "Top Rated Training Courses",
+        "keyStats"          :   "Key Stats",
+        "name"              :   "Name",    
+        "score"             :   "Score",
+        "visitors"          :   "Visitors",
+        "staff"             :   "Staff",
+        "feedbackRating"    :   "Feedback & Rating",
+        "visitorsByResort"  :   "Visitors By Resort",
+        "reservationByResort":  "Reservation By Resort",
+        "topResorts"        :   "Top 10 Resorts",
+        "badges"            :   "Badges",
+        "certification"     :   "Certification",
+        "totalDivision"     :   "Total Division",
+        "totalDept"         :   "Total Department",
+        "allresort"         :   "All Resort",
+        "strgUtili"         :   "Storage Utilisation",
+        "gudmrng"           :   "Good Morning,",
+        "subStatus"         :   "Subscription Status",
+        "resortCertif"      :   "Resort Certificate Trend",
+        "peakResort"        :   "Peak Resort!",
+        "dashdatamsg"       :   "Please select the parent resort to view the data",
+        "parentresort"      :   "Parent Resort",
+        "summary"           :   "Summary",
+        "uploadtxt"         :   "File Upload",
+        "editFile"          :   "Edit File",      
+        "videotext"         :   "Video",
+                    
     };
 
     btns = {
@@ -238,7 +296,12 @@ export class CommonLabels{
         "day"               :   "Day",
         "back"              :   "Back",
         "renewPlan"         :   "Renew Plan",
-        "availPlan"         :   "Available Plan"
+        "availPlan"         :   "Available Plan",
+        "go"                :   "Go",
+        "editTasks"         :   'Edit Tasks',
+        "quickTasks"        :   'Quick Tasks',
+        "openCalendar"      :   'Open Calendar',
+        "clear"             :   "clear"
     };
 
     titles = {
@@ -252,7 +315,8 @@ export class CommonLabels{
         "forumtitle"        :  "Forum",
         "certificate"       :  "Certificates",
         "certiTempl"        :  "Certificates Templates",
-        "subscription"      :  "Subscription Model"   
+        "subscription"      :  "Subscription Model" ,
+        "dashboard"         :  "Dashboard"  
     };
 
     imgs = {
@@ -264,7 +328,14 @@ export class CommonLabels{
         "cancel1" : "assets/images/cancel-icon.png",
         "calendar": "assets/images/cal.png",
         "user1"   : "assets/images/user-icon1.png",
-        "user2"   : "assets/images/user-icon2.png"
+        "user2"   : "assets/images/user-icon2.png",
+        "good"    : "assets/images/good_selicn.png",
+        "average" : "assets/images/avg_selicn.png",
+        "poor"    : "assets/images/poor_selicn.png",
+        "cool"    : "assets/images/cool@2x.png", 
+        "text"    : "assets/images/txt-icon.png",
+        "ppt"     : "assets/images/ppt-icon.png",
+        "pdf"     : "assets/images/pdf-icon.png"
 
 
     };
@@ -325,14 +396,17 @@ export class CommonLabels{
         "tenureYear"        :  "Year is required",
         "tenureMonth"       :  "Month is required",
         "accessTo"          :  "Access To is Required",
-        "roleName"          :   "Role Name is Required",
-        "users"             :  "User is required"
-     };
+        "roleName"          :  "Role Name is Required",
+        "users"             :  "User is required",
+        "filenameRequired"  :   "File name is required"
+    
+    };
 
      modaltitle ={
         "addnewtrainingschedule" : "Add New Training Schedule",
         "editVideo"              : "Edit Video",
-        "addcertTemplate"        : "Add Certificate Template" 
+        "addcertTemplate"        : "Add Certificate Template",
+        "notifiUpload"           :  "Notification Upload", 
      }
      msgs = {
         "rolesuccessMsg"    :   "Roles & Permissions Saved Successfully",
@@ -342,7 +416,15 @@ export class CommonLabels{
         "uploadSuccessMsg"  :   "Certificate Template uploaded successfully",
         "assignSuccessMsg"  :   "Template Assigned Successfully",
         "badgeSuccessMsg"   :   "Badges Selected Successfully",
+        "generalNotifi"     :   "Is this a general notification?",
+        "publishmsg"        :   "Do you want to publish this content in the CMS Library?"
 
     }
+    symbols = {
+        "comma": ',',
+        "apostrophe": '!',
+        "percentage": '%'
+  
+     };
 
 }

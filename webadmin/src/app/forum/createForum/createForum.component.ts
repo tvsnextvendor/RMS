@@ -8,9 +8,6 @@ import { DatePipe } from '@angular/common';
 import * as _ from 'lodash';
 import {Router} from '@angular/router';
 
-
-
-
 @Component({
     selector: 'app-createForum',
     templateUrl: './createForum.component.html',
@@ -39,11 +36,18 @@ export class CreateForumComponent implements OnInit {
     division = {};
     department = {};
     @Input() closeModal;
+    departData;
+    departmentList;
+    adminData;
+   
+    
+    
 
    constructor(
      private toastr: ToastrService,
     public forumVar: ForumVar,
     private forumService: ForumService,
+    public alertService:AlertService,
     private datePipe: DatePipe,
     private router: Router,
     public commonLabels: CommonLabels,
@@ -52,6 +56,10 @@ export class CreateForumComponent implements OnInit {
    }
 
    ngOnInit() {
+    // this.department['departData'] = [];
+    // this.department['departmentList'] =[];
+    // this.admin['adminData'] =[];
+
      this.forumService.editForum.subscribe(result => {
       this.forumEditPage = result;
      });
@@ -61,6 +69,7 @@ export class CreateForumComponent implements OnInit {
     if (this.forumEditPage.editPage) {
       this.getForumData();
      }
+     
    }
 
    getForumData() {
@@ -85,7 +94,7 @@ export class CreateForumComponent implements OnInit {
             return _.omit(departObj, _.isUndefined);
           }
         });
-        this.department['departmentList'] = selectedDepartment.filter(item => item);
+        this.departmentList = selectedDepartment.filter(item => item);
         this.forumVar.forumName = forumData.forumName;
         this.topicsArray = forumData.Topics;
         this.forumVar.forumAdmin = forumData.forumAdmin;
@@ -96,7 +105,7 @@ export class CreateForumComponent implements OnInit {
 
    getAdminList() {
     this.forumService.getAdmin().subscribe((resp) => {
-      this.admin['adminData'] = resp.data['rows'].map(item => {
+      this.adminData = resp.data['rows'].map(item => {
         const admin = {
             id: item.userId,
             value : item.userName
@@ -110,10 +119,11 @@ export class CreateForumComponent implements OnInit {
      const selectedDivision = {
        divisionId: this.division['divisionList'] && this.division['divisionList'].map(item => item.id)
       };
+   
 
     this.forumService.getDepartment(selectedDivision).subscribe((resp) => {
       this.department['departments'] = resp.data && resp.data['rows'];
-        this.department['departData'] = this.department && this.department['departments'] && this.department['departments'].map(item => {
+        this.departData = this.department && this.department['departments'] && this.department['departments'].map(item => {
           const department = {
               id: item.departmentId,
               value : item.departmentName
@@ -169,7 +179,7 @@ export class CreateForumComponent implements OnInit {
 
     onSubmitForm(form) {
       this.division['divisions'] = this.division['divisionList'].map(item => item.id);
-      const selectedDepartments = this.department['departmentList'];
+      const selectedDepartments = this.departmentList;
       this.department['departments'] = this.department['departments'].filter(function(obj1) {
         return selectedDepartments.some(function(obj2) {
              return obj1.departmentId === obj2.id;
@@ -201,7 +211,7 @@ export class CreateForumComponent implements OnInit {
           this.forumService.forumUpdate(this.forumEditPage.forumId, postData).subscribe(result => {
             if (result && result.isSuccess) {
                 this.closeModal.hide();
-                this.toastr.success(this.forumVar.updateSuccessMsg);
+                this.alertService.success(this.forumVar.updateSuccessMsg);
                 this.forumService.goToList(true);
             }
           });
@@ -211,7 +221,7 @@ export class CreateForumComponent implements OnInit {
              departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']))});
           this.forumService.addForum(postData).subscribe(result => {
             if (result && result.isSuccess) {
-              this.toastr.success(this.forumVar.addSuccessMsg);
+              this.alertService.success(this.forumVar.addSuccessMsg);
               this.forumService.goToList(true);
             }
           });
@@ -219,10 +229,10 @@ export class CreateForumComponent implements OnInit {
           this.clearForm(form);
           this.forumVar.uniqueValidate = false;
       }
-    }
+    } 
 
     clearForm(formDir) {
-      if (this.forumEditPage.forumId) {
+      if (this.forumEditPage.forumId) { 
         this.closeModal.hide();
       }
        this.forumName = '';
@@ -230,7 +240,7 @@ export class CreateForumComponent implements OnInit {
         topics: '',
         forumTopicId: ''
       }];
-      this.department['departmentList'] = [];
+      this.departmentList = [];
       this.division['divisionList'] = [];
       formDir.reset();
       formDir.submitted  = false;

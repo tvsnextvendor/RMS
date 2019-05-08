@@ -6,6 +6,7 @@ const Highcharts = require('highcharts');
 import Chart from 'chart.js';
 import { API_URL } from 'src/app/Constants/api_url';
 import { Router } from '@angular/router';
+import {CommonLabels} from '../../Constants/common-labels.var'
 
 @Component({
     selector: 'app-resort-charts',
@@ -19,7 +20,7 @@ export class ResortChartsComponent implements OnInit {
     BadgesCertificate = [];
     todayDate;
 
-    constructor(public dashboardVar: DashboardVar, private http: HttpService, private route: Router) {
+    constructor(public dashboardVar: DashboardVar, private http: HttpService, private route: Router,public commonLabels:CommonLabels) {
         this.dashboardVar.url = API_URL.URLS;
     }
 
