@@ -191,12 +191,15 @@
         </div>
     </div>
 </div>  
-<span *ngIf="!courseListValue.length">No Data </span>
+
+<div class="white-bg text-center p-4">
+<span *ngIf="!courseListValue.length" class="data-design">No Data </span>
+</div>
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
 
 <ng-template #uploadPopup>
         <div class="modal-header pb-0 ">
-                <p class="hd-alg">File Upload</p>
+                <p class="hd-alg">{{commonLabels.labels.fileUpload}}</p>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

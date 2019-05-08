@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService } from '../../services/header.service';
 import { HttpService } from '../../services/http.service';
 import { ToastrService } from 'ngx-toastr';
-import { API_URL } from '../../Constants/api_url'
+import { API_URL } from '../../Constants/api_url';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
   selector: 'app-approvalrequestsdetails',
@@ -12,7 +13,7 @@ import { API_URL } from '../../Constants/api_url'
 })
 export class ApprovalrequestsdetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor( public commonLabels:CommonLabels) { }
 
   ngOnInit() {
   }
