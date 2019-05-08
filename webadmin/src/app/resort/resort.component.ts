@@ -160,6 +160,9 @@ export class ResortComponent implements OnInit {
                         this.router.navigateByUrl('/resortslist');
                     }
                 },(err)=>{
+                    if(err.error.error === 'userName must be unique'){
+                        err.error.error = 'Email address must be unique';
+                    }
                     this.alertService.error(err.error.error);
                 });
             }
@@ -179,6 +182,10 @@ export class ResortComponent implements OnInit {
                         this.router.navigateByUrl('/resortslist');
                     }
                 },(err)=>{
+                    console.log(err.error.error);
+                    if(err.error.error === 'userName must be unique'){
+                        err.error.error = 'Email address must be unique';
+                    }
                     this.alertService.error(err.error.error);
                 });
             }   
