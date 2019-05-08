@@ -98,25 +98,48 @@
                                 <!-- <span>Department 1 <a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span> -->
                             </div>
                         </div>
+<<<<<<< HEAD
+                        <!-- <span *ngIf="!division.length">NO DATA</span> -->
+                </div>
+            </div> 
+                        <!-- <a *ngIf="division?.Division?.Departments.length" (click)="removeDivision(deleteDivision,division,i)" class="icon-section pt-2 pl-4 float-right" title="Delete"><i class="fas fa-trash"></i></a> -->
+                        
+                    </div>
+                </div> 
+
+            
+=======
                     </div>
                 </div> 
                 <span *ngIf="!divisionDetails.length">No data</span>
             </div>
         </div>    
+>>>>>>> 69be7063f869d6155063183d6d4f38a710304841
     </tab>
     <tab heading = {{commonLabels.labels.listofRole}}>
         <div class="pr-3 pt-3 clearfix listrole">
             <div class="hd-section clearfix">
-            <h5 class="float-left title-hd">List of Roles</h5>
+            <h5 class="float-left title-hd">{{commonLabels.labels.listofRole}}</h5>
             <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
             </div>
             <div class="hierarchy-tab white-bg p-4 mt-3">
+<<<<<<< HEAD
+            <div class="detail-bottom row">                
+                <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
+                    <label  *ngIf="roleDetails.length" class="col-md-12 p-0 label-title"><span class="col-md-2">{{i+1}}.{{role.designationName}} </span>
+                        <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                        <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
+
+                    </label>
+                    <!-- <label *ngIf="!roleDetails.length">{{commonLabels.labels.noData}}</label> -->
+=======
                 <div class="detail-bottom row">                
                     <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
                         <label  *ngIf="roleDetails.length" class="col-md-12 p-0 label-title"><span class="col-md-2">{{i+1}}.{{role.designationName}} </span>
                             <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                             <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
                         </label>
+>>>>>>> 69be7063f869d6155063183d6d4f38a710304841
                     </div>
                     <span *ngIf="!roleDetails.length">No data</span>
                 </div> 

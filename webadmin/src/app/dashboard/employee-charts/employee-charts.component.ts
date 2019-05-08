@@ -6,6 +6,7 @@ import { HttpService } from '../../services/http.service';
 import { API_URL } from 'src/app/Constants/api_url';
 import { Router } from '@angular/router';
 import {UtilService} from '../../services/util.service';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
   selector: 'app-employee-charts',
@@ -23,7 +24,7 @@ export class EmployeeChartsComponent implements OnInit {
   topCourses;
   hideCharts = true;
 
-  constructor(public dashboardVar: DashboardVar,private utilService:UtilService ,private http: HttpService, private route: Router) {
+  constructor(public dashboardVar: DashboardVar,private utilService:UtilService ,private http: HttpService, private route: Router,public commonLabels : CommonLabels) {
     this.dashboardVar.url = API_URL.URLS;
     this.dashboardVar.userName = this.utilService.getUserData().username
     this.hideCharts = this.utilService.getRole() == 2 ? false : true;
