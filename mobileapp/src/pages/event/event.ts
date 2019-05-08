@@ -3,23 +3,38 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
-import {LoaderService} from '../../service/loaderService';
+import { Storage } from '@ionic/storage';
+import {LoaderService, SocketService} from '../../service';
 @IonicPage({
   name: 'event-page'
 })
 @Component({
   selector: 'page-event',
   templateUrl: 'event.html',
+  providers:[SocketService]
 })
 export class EventPage implements OnInit {
  tag: boolean = false;
   batches: any = [];
   batchconfigList:any=[];
+  notificationCount;
+  currentUser;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {
+  constructor(public navCtrl: NavController,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {
   }
   ngOnInit(){
     
+  }
+
+  ngAfterViewInit() {
+            let self = this;
+            this.storage.get('currentUser').then((user: any) => {
+            if (user) {
+             self.currentUser = user;
+              this.getNotification();
+             console.log(self.currentUser, "HEHEHEHE");             
+            }
+        });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventPage');
@@ -62,6 +77,17 @@ export class EventPage implements OnInit {
       });
       this.loader.hideLoader();
     });
+  }
+
+
+    getNotification(){
+    let userId = this.currentUser.userId;
+    let socketObj = {
+      userId : userId
+    };
+   this.socketService.getNotification(socketObj).subscribe((data)=>{
+      this.notificationCount = data.notifications.count;
+   });
   }
 
 }

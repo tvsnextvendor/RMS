@@ -58,11 +58,11 @@ export class HttpProvider {
     let body = JSON.stringify(data);
     return this.http.post(this.API_ENDPOINT + params, body, this.httpOptions);
   }
-  put(mockyStatus, data) {
+  put(mockyStatus, params, data) {
     this.getHeaders();
     this.API_ENDPOINT = (mockyStatus) ? API['API_URL'] : API['API_LINK'];
     let body = JSON.stringify(data);
-    return this.http.put(this.API_ENDPOINT + data.id, body, this.httpOptions);
+    return this.http.put(this.API_ENDPOINT + params, body, this.httpOptions);
   }
   delete(mockyStatus, data) {
     this.getHeaders();

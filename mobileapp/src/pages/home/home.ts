@@ -4,7 +4,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
 import { API_URL } from '../../constants/API_URLS.var';
-import { LoaderService } from '../../service/loaderService';
+import { LoaderService, SocketService} from '../../service';
 //import * as _ from 'lodash';
 
 @IonicPage({
@@ -13,7 +13,7 @@ import { LoaderService } from '../../service/loaderService';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [Constant]
+  providers: [Constant, SocketService]
 })
 export class HomePage {
   dataDashboard: any = [];
@@ -29,8 +29,10 @@ export class HomePage {
   coursePercentage;
   moduleId;
   allModulesSet ;
+  notificationCount;
+  currentUser;
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
+  constructor(public navCtrl: NavController,public socketService: SocketService, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
     this.currentdate = this.getCurrentTime();
     this.selectedModule = constant.pages.dashboardLabels.selectModules;
   }
@@ -38,6 +40,18 @@ export class HomePage {
   ionViewDidLoad() {
 
   }
+
+  
+  ngAfterViewInit() {
+            let self = this;
+            this.storage.get('currentUser').then((user: any) => {
+            if (user) {
+             self.currentUser = user;
+              this.getNotification();
+            }
+        });
+  }
+
   ionViewDidEnter() {
     this.getDashboardInfo();
     this.getModules();
@@ -89,4 +103,16 @@ export class HomePage {
   goToNotification(){
     this.navCtrl.setRoot('notification-page');
   }
+
+    getNotification(){
+    let userId = this.currentUser.userId;
+    let socketObj = {
+      userId : userId
+    };
+   this.socketService.getNotification(socketObj).subscribe((data)=>{
+      this.notificationCount = data.notifications.count;
+      console.log(data.notifications,"count")
+   });
+  }
+
 }

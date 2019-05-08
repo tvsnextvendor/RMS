@@ -37,6 +37,7 @@ export class API_URL {
         // 'quizAPI':'3003/trainingClass/QuizList'
         'loginAPI':'8101/login',
        'trainingCourseAPI':'8103/course/courseByStatus',
+       'updateTrainingStatus':'8103/updateUserTrainingStatus',
        'trainingCourseFilesAPI':'8103/trainingClass/TrainingFileList',
        'quizAPI':'8103/trainingClass/QuizList'
     };

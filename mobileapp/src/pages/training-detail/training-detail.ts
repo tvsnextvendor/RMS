@@ -231,7 +231,7 @@ export class TrainingDetailPage {
     viewContent(docFile) {
         // allowed files PPT, .TXT, MP4, .JPG, .DOC, MPEG, AVI
         // Doc Viewed Files PPT,TXT,DOC
-        if (this.agree) {
+        //if (this.agree) {
             const options: DocumentViewerOptions = {
                 title: this.trainingClassName
             };
@@ -294,9 +294,9 @@ export class TrainingDetailPage {
                 // this.document.viewDocument(url,docType , {});
                 // });
             //console.log(baseUrl + docFile,  docType)
-        } else {
-            this.toastr.error("Please agree acknowledgement to view content"); return false;
-        }
+        // } else {
+        //     this.toastr.error("Please agree acknowledgement to view content"); return false;
+        // }
     }
 
 
