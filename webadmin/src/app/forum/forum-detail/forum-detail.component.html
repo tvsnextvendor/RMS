@@ -1,6 +1,6 @@
 <div class="forum-detail pt-3">
   <div class="row">
-  <div class="col-md-6">
+  <!-- <div class="col-md-6">
        <div class="topic-box-section">
          <div class="topic-wrap white-bg">
             <div class="topic-wrap-top clearfix p-3">
@@ -81,10 +81,10 @@
             </div>
           </div>
        </div> 
-  </div>
+  </div> -->
 
   <div class="col-md-6">
-      <div class="topic-box-section">
+      <div class="topic-box-section" *ngFor="let posts of postList">
           <div class="topic-wrap white-bg">
              <div class="topic-wrap-top clearfix p-3">
                  <a class="topic-img-wrap">
@@ -94,11 +94,11 @@
                    </a>
                    <div class="topic-wrap-rt pl-3">
                        <div class="topic-into clearfix">
-                         <h5 class="hd-tit float-left">David James</h5>
+                         <h5 class="hd-tit float-left">James</h5>
                          <span class="float-right"><a href="#"><i class="fas fa-times"></i></a></span>
                        </div>
-                       <small class="topic-time">1 day ago , 36 Replies</small> 
-                       <h6 class="topic-name mt-3"><a href="#">What are the safety instruction ?</a></h6>
+                       <small class="topic-time">{{posts.createdDate | date}}</small> 
+                       <h6 class="topic-name mt-3"><a href="#">{{posts.description}}</a></h6>
                    </div>              
              </div>
              <div class="topic-foot clearfix p-3">
@@ -108,7 +108,7 @@
                  </span>
                  <span class="topic-ans float-right">
                    <strong>630</strong>
-                   <a href="#"> {{commonLabels.labels.answer}}</a>
+                   <a > Answers</a>
                  </span>
              </div>
            </div>

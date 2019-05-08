@@ -1,10 +1,10 @@
 <div class="forum-create-form">
-<h6 class="mb-3">{{commonLabels.labels.createForum}}</h6>
+<h6 class="mb-3" *ngIf="!forumEditPage.forumId">{{forumVar.createForum.createForum}}</h6>
 <div>
     <form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)">
         <div class="form-group">
-            <label class="createforum-hd">{{commonLabels.labels.forumName}}</label>
-            <input type="text" class="form-control" [(ngModel)]="forumName" autocomplete="off" #ForumName="ngModel" (ngModelChange)="checkNameUniqueness(forumName)"  name = "forumName" id="forumName" placeholder="Enter Forum Name" required autocomplete="off">  
+            <label class="createforum-hd">{{forumVar.createForum.forumName}}</label>
+            <input type="text" class="form-control" [(ngModel)]="forumVar.forumName" autocomplete="off" #ForumName="ngModel"  name = "forumName" id="forumName" placeholder="Enter Forum Name" required autocomplete="off">  
             <span class="required_color" *ngIf="ForumName && ForumName.invalid && (formDir.submitted || ForumName.touched)">
                     {{commonLabels.mandatoryLabels.forumRequired}}
             </span> 
@@ -13,117 +13,75 @@
             </span>  
         </div>
         <div class="form-group group-box">
-            <label class="createforum-hd">Topic</label>
+            <label class="createforum-hd">{{forumVar.createForum.topics}}</label>
             <div class="input-group">
-                <input class="form-control" placeholder="Add Topic">
-                <a href="#" title="Add"><i class="fa fa-plus icons_header"></i></a>
+                <div class="row col-12 col-md-12 pl-0" *ngFor="let items of topicsArray; let i = index">
+                        <input type="text" class="form-control col-md-11" placeholder="Add Topic{{i+1}}" [(ngModel)]="items.topics" [ngModelOptions]="{standalone: true}"  aria-label="" aria-describedby="basic-addon1">
+                    <button class="btn btn-icon" type="button" *ngIf="i==0" (click)="addTopic(items.topics, i)">
+                            <i _ngcontent-c10="" aria-hidden="true" class="fa fa-plus icons_header"></i>
+                        </button>
+                        <button class="btn btn-icon" type="button" *ngIf="i!=0" (click)="removeTopic(i)">
+                            <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i>
+                        </button>
+                </div>
             </div>
+            
         </div>
-        <!-- <div class="form-group">
-            <label>{{forumVar.createForum.topics}}</label>           
-            <div *ngFor="let topic of topicsArray; let i = index" class="form-group close-icon">
-                <span *ngIf="i==0"><a><i class="fa fa-plus createForum-addicon" (click)=addTopic()></i></a></span>
-                <span *ngIf="i!=0"><img src="assets/images/close.png" class="close-img" (click)="removeTopic(i)"></span>
-            <input type="text" class="form-control" [(ngModel)]="topic.topicName" #Topics="ngModel" name = "topics{{i}}" id="topics" placeholder="Add Topic" required autocomplete="off">             
-            <span class="required_color" *ngIf="Topics && Topics.invalid && (formDir.submitted || Topics.touched)">
-                    {{forumVar.mandatoryLabels.topic}}
-            </span>  
-            </div>  
-        </div> -->
-        
+       
         <div class="form-group">
-                <!-- <label class="createforum-hd">{{forumVar.createForum.empName}}</label>  -->
-                    <tag-input [ngModel]="employeeItems" 
-                    name="empItems"
-                    #empName="ngModel"
-                    [onlyFromAutocomplete]="true"
-                    [placeholder]="'Add Division'"      [displayBy]="'Division'"
-                    [identifyBy]="'userId'" [secondaryPlaceholder]="'Division'" class="multi-input"
-                    required
-                    >
-                    <tag-input-dropdown [showDropdownIfEmpty]="true"
-                    [dynamicUpdate]="false"
-                    [focusFirstElement]="true"             
-                    [autocompleteItems]="autocompleteItemsAsEmpObjects">
-                    <ng-template let-item="item" let-index="index">
-                        {{ item.display }}
-                    </ng-template>
-                </tag-input-dropdown>
-                <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-            </tag-input>
-            <span class="required_color" *ngIf="empName && empName.invalid && (formDir.submitted || empName.touched)">
-                    {{commonLabels.mandatoryLabels.dept}}
-            </span>    
-      </div>
-        <div class="form-group">
-                <!-- <label class="createforum-hd">{{forumVar.createForum.empName}}</label>  -->
-                    <tag-input [ngModel]="employeeItems" 
-                    name="empItems"
-                    #empName="ngModel"
-                    [onlyFromAutocomplete]="true"
-                    [placeholder]="'Add Department'"      [displayBy]="'department'"
-                    [identifyBy]="'userId'" [secondaryPlaceholder]="'Department'" class="multi-input"
-                    required
-                    >
-                    <tag-input-dropdown [showDropdownIfEmpty]="true"
-                    [dynamicUpdate]="false"
-                    [focusFirstElement]="true"             
-                    [autocompleteItems]="autocompleteItemsAsEmpObjects">
-                    <ng-template let-item="item" let-index="index">
-                        {{ item.display }}
-                    </ng-template>
-                </tag-input-dropdown>
-                <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-            </tag-input>
-            <span class="required_color" *ngIf="empName && empName.invalid && (formDir.submitted || empName.touched)">
-                    {{commonLabels.mandatoryLabels.dept}}
-            </span>    
-      </div>
-      <div class="form-group">
-        <!-- <label class="createforum-hd">{{forumVar.createForum.admin}}</label>                   -->
-            <tag-input [ngModel]="adminItems" 
-            name="admin"
-            #adminName="ngModel"
-            [onlyFromAutocomplete]="true"
-            [placeholder]="'Select Admin'"      [displayBy]="'id'"
-            [identifyBy]="'id'" [secondaryPlaceholder]="'Select Admin'" class="multi-input"
-            required
-            >
-            <tag-input-dropdown [showDropdownIfEmpty]="true"
-            [dynamicUpdate]="false"
-            [focusFirstElement]="true"             
-            [autocompleteItems]="adminList">
-            <ng-template let-item="item" let-index="index">
-                {{ item.display }}
-            </ng-template>
-        </tag-input-dropdown>  
-        <span class="multi-dropdown"><i class="fa fa-caret-down" aria-hidden="true"></i></span>              
-            </tag-input>
-            <span class="required_color" *ngIf="adminName && adminName.invalid && (formDir.submitted || adminName.touched)">
-                    {{commonLabels.mandatoryLabels.adminRequired}}
-            </span>    
-        </div>
+            <ng-multiselect-dropdown *ngIf="division"
+                    [placeholder]="'Select Division'"
+                    name="divisionData"
+					[data]="division.divisionData"
+					[(ngModel)]="division.divisionList"
+					[settings]="dropdownSettings"
+					(onSelect)="onItemSelect($event, 'division')"
+                    (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}">
+                </ng-multiselect-dropdown>
+                </div>
+                <div class="form-group">
+                    <ng-multiselect-dropdown
+					[placeholder]="'Select Department'"
+					[data]="department.departData"
+					[(ngModel)]="department.departmentList"
+					[settings]="dropdownSettings"
+					(onSelect)="onItemSelect($event)"
+                    (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 mb-3 select select-style clearfix">
+                        <select name="Admin" class="form-control pl-0" [(ngModel)]="forumVar.forumAdmin" placeholder="Select Admin">
+                            <option *ngFor="let admin of admin.adminData" [value]="admin.id">{{admin.value}}</option>
+                        </select>
+                    </div>
+                </div>
         <div class="date-section">
             <div class="form-group group-box">
                 <div class="input-group date" data-provide="datepicker">
-                    <input type="text" class="form-control" placeholder="Start Date">
-                    <div class="input-group-addon" title="Calendar">
+                    <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="startDate" placeholder="Start Date"
+                    bsDatepicker [(ngModel)]="forumVar.startDate" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                    required>
+                    <div class="input-group-addon">
                         <i class="far fa-calendar-alt icons_header"></i>                        
                     </div>
                 </div>
             </div>
             <div class="form-group group-box">
                     <div class="input-group date" data-provide="datepicker">
-                        <input type="text" class="form-control" placeholder="End Date">
-                        <div class="input-group-addon" title="Calendar">
+                        <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="endDate" placeholder="End Date"
+                        bsDatepicker [(ngModel)]="forumVar.endDate" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                        required>
+                        <div class="input-group-addon">
                             <i class="far fa-calendar-alt icons_header"></i>                        
                         </div>
                     </div>
                 </div>
         </div>
         <div class="text-center pt-5 mb-4">
-            <button type="button" class="btn btn-default mr-3" (click)="clearForm(formDir)">{{commonLabels.btns.cancel}}</button>
-            <button type = "submit" class="btn btn-primary creat-btn">{{commonLabels.btns.create}}</button>
+                <!-- *ngIf="forumEditPage.forumId?closeFunction():false" -->
+            <button type="button" class="btn btn-default mr-3" (click)="clearForm(formDir)" >{{forumVar.btns.cancel}}</button>
+
+            <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.create}}</button>
         </div>
     </form>
 </div> 

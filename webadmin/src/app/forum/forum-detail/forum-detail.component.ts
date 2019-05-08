@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonLabels } from '../../Constants/common-labels.var'
-import {HeaderService} from '../../services/header.service';
+import { ForumService } from '../../services';
+import { CommonLabels } from '../../Constants/common-labels.var';
 
 @Component({
   selector: 'app-forum-detail',
@@ -8,11 +8,20 @@ import {HeaderService} from '../../services/header.service';
   styleUrls: ['./forum-detail.component.css']
 })
 export class ForumDetailComponent implements OnInit {
-
-  constructor(public commonLabels:CommonLabels,private headerService:HeaderService,) { }
+  forumId;
+  postList: Array<any> = [];
+  constructor(private forumService: ForumService,
+              public commonLabels: CommonLabels) { }
 
   ngOnInit() {
-    this.headerService.setTitle({title:this.commonLabels.titles.forumtitle, hidemodule:false});
+    this.forumService.editForum.subscribe(result => {
+      this.forumId = result['forumId'];
+    });
+    this.forumService.postList(this.forumId).subscribe(result => {
+      this.postList = result.data;
+    });
+
   }
+
 
 }
