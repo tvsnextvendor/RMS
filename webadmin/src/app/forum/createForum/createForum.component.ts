@@ -39,8 +39,6 @@ export class CreateForumComponent implements OnInit {
     departData;
     departmentList;
     adminData;
-   
-    
     
 
    constructor(
@@ -234,7 +232,7 @@ export class CreateForumComponent implements OnInit {
     } 
 
     clearForm(formDir) {
-      if (this.forumEditPage.forumId) { 
+      if (this.forumEditPage.forumId && this.closeModal) { 
         this.closeModal.hide();
       }
        this.forumName = '';

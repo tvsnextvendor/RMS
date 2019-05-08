@@ -21,13 +21,16 @@ export class ForumComponent implements OnInit {
   topicsArray = [{
     topics: ''
   }];
+  selectedForumId;
+  modalRef;
     constructor(private toastr: ToastrService,
       private modalService: BsModalService,
       private headerService: HeaderService,
       public forumVar: ForumVar,
       private forumService: ForumService,
       private router: Router,
-      public commonLabels: CommonLabels) {
+      public commonLabels: CommonLabels,
+      private alertService: AlertService) {
        this.forumVar.url = API_URL.URLS;
     }
     filteredNames = [];
@@ -59,28 +62,29 @@ export class ForumComponent implements OnInit {
       this.getForumList();
     }
 
-    isPinned(forumId) {
-      this.forumVar.isPinned = !this.forumVar.isPinned;
-      const pinnedObj = this.forumVar.isPinned ? { isPinned: true } : { isPinned: false };
+    isPinned(forumId, isPinned) {
+      isPinned = !isPinned;
+      const pinnedObj = isPinned ? { isPinned: true } : { isPinned: false };
       this. forumUpdate(forumId, pinnedObj);
     }
 
     forumUpdate(forumId, pinnedObj) {
       this.forumService.forumUpdate(forumId, {forum: pinnedObj}).subscribe(result => {
         if (result && result.isSuccess) {
-          this.toastr.success(this.forumVar.updateSuccessMsg);
+          this.alertService.success(result.data);
+          this.getForumList();
         } else {
-          this.toastr.error(result.error);
+          this.alertService.error(result.error);
         }
       }, err => {
-        this.toastr.error(err.error.error);
+        this.alertService.error(err.error.error);
         return;
     });
     }
 
-      isActive(forumId) {
-        this.forumVar.isActive = !this.forumVar.isActive;
-        const activebj = this.forumVar.isActive ?    { isActive: true } : { isActive: false };
+      isActive(forumId, isActive) {
+        isActive = !isActive;
+        const activebj = isActive ?    { isActive: true } : { isActive: false };
         this.forumUpdate(forumId, activebj);
       }
 
@@ -96,20 +100,29 @@ export class ForumComponent implements OnInit {
         // // this.filteredNames = this.forumVar.forumNameList.filter(item => item !== this.forumVar.forumName);
     }
 
-    removeForum(forumId) {
-      this.forumService.deleteForum(forumId).subscribe(result => {
+    removeForum() {
+      this.forumService.deleteForum(this.selectedForumId).subscribe(result => {
         console.log(result, 'ressss');
         if (result && result.isSuccess) {
-          this.toastr.success(this.forumVar.deleteSuccessMsg);
+          this.alertService.success(result.data);
           this.getForumList();
         } else {
-          this.toastr.error(result.error);
+          this.alertService.error(result.error);
         }
       }, err => {
-        this.toastr.error(err.error.error);
+        this.alertService.error(err.error.error);
         return;
     });
+    this.forumVar.modalRef.hide();
     }
+
+    deleteConfirmation(template: TemplateRef<any>, forumId) {
+      const modalConfig = {
+        class : "modal-dialog-centered"
+      }
+       this.selectedForumId = forumId;
+       this.forumVar.modalRef = this.modalService.show(template, modalConfig); 
+      }
 
     checkNameUniqueness(forumName) {
         for (let i = 0; i <  this.filteredNames.length; i++) {
