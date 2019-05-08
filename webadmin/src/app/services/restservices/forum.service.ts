@@ -65,4 +65,8 @@ export class ForumService {
     return this.http.getLocal('local', this.url.forumPost + '?forumId=' + forumId);
   }
 
+  deleteForum(forumId) {
+    return this.http.delete('local', this.url.forum + '/' + forumId);
+  }
+
 }

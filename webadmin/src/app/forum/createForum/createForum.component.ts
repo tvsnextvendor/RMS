@@ -222,7 +222,9 @@ export class CreateForumComponent implements OnInit {
     }
 
     clearForm(formDir) {
-      this.closeModal.hide();
+      if (this.forumEditPage) {
+        this.closeModal.hide();
+      }
        this.forumName = '';
        this.topicsArray = [{
         topics: '',
