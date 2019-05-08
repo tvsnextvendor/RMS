@@ -23,7 +23,7 @@
                         </thead>
                         <tbody>
                             
-                        <tr *ngFor="let forum of forumVar.forumList | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCount};let i = index" class="table-desc-color">
+                        <tr *ngFor="let forum of forumVar.forumList | paginate: {itemsPerPage: pageSize,currentPage: currentPage,totalItems : totalCount};let i = index" class="table-desc-color">
                                 <td class="forumname-width text-left"><a (click)="detailsPage(forum.forumId)">{{ forum.forumName }}</a></td>
                                 <td class="text-left">{{ forum.employeesCount }}</td>
                                 <td class="lt-dt-act text-left"><span>{{forum.lastActiveDate |date}}</span></td>
