@@ -84,7 +84,7 @@
                 <tr class="table-desc-color" *ngFor="let file of videoListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalVideosCount};let i = index">
                     <td class="text-left">
                         <label class="square-cont float-left mb-0">
-                            <input type="checkbox" name="web" value="{{file.fileName}}" [checked]="fileCheck"  (change)="addFiles($event,file,i)"> {{file.fileName}}
+                            <input type="checkbox" name="web" value="{{file.fileId}}" [checked]="file.selected"  (change)="addFiles($event,file,i)"> {{file.fileName}}
                             <span class="square-checkmark"></span>
                         </label>
                     </td>
@@ -103,6 +103,7 @@
                 </tr>
 
             </tbody>
+            <span *ngIf="!videoListValue.length">No Data </span>
         </table>        
     </div>
     <pagination-controls *ngIf="videoListValue && videoListValue.length" class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  

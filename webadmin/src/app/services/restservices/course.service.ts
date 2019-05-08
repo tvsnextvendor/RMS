@@ -104,7 +104,6 @@ export class CourseService {
   }
 
   getFiles(params){
-    console.log(params);
     if(params.classId){
       return this.http.getLocal('local',this.url.fileList+'?fileType='+params.type+'&trainingClassId='+params.classId+'&page='+params.page+'&size='+params.size+params.query);
     }else if(params.courseId){

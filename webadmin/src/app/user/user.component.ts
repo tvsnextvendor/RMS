@@ -51,7 +51,7 @@ export class UserComponent implements OnInit {
     fileUploadValue;
     userid;
     arrayBuffer: any;
-    divisionDetails;
+    divisionDetails = [];
     divisionError;
     divisionValidationCheck = true;
     errorValidation = true;
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
     divisionId;
     errMsg;
     roles;
-    roleDetails;
+    roleDetails = [];
     roleId;
     editRoleValue;
     removeDepartmentIds=[];
@@ -71,7 +71,6 @@ export class UserComponent implements OnInit {
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
         private commonLabels : CommonLabels) {
         this.constant.url = API_URL.URLS;
-        // this.labels =this.constant.labels;
     }
     ngOnInit() {
         this.headerService.setTitle({ title: this.commonLabels.titles.userManagement, hidemodule: false });
@@ -323,7 +322,7 @@ export class UserComponent implements OnInit {
                     if(result.isSuccess){
                         this.closeAddForm();
                         this.userList(); 
-                        this.alertService.success(this.labels.userUpdated);
+                        this.alertService.success(this.commonLabels.labels.userUpdated);
                     }
                 },err =>{
                 this.errMsg=err.error.error;
@@ -335,7 +334,7 @@ export class UserComponent implements OnInit {
                     if(result.isSuccess){
                     this.closeAddForm();
                     this.userList();
-                    this.alertService.success(this.labels.userAdded);
+                    this.alertService.success(this.commonLabels.labels.userAdded);
                     }
                 },err =>{
                 this.errMsg=err.error.error;

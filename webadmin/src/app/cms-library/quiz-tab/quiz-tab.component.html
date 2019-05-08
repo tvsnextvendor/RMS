@@ -102,6 +102,7 @@
                         <a *ngIf="data.enableEdit === true" (click)="cancelQuizSubmit(i)"><img src="{{commonLabels.imgs.cancel}}"></a>
                     </div>          
             </div>
+            <span *ngIf="!quizQuestionsForm.length">No Data </span>
         </form>
     </div> 
     <div class="text-center pt-4" *ngIf="uploadPage">

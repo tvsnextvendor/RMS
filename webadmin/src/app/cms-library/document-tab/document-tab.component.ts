@@ -28,7 +28,6 @@ export class DocumentTabComponent implements OnInit {
   fileList=[];
   deletedFilePath=[];
   deletedFileId=[];
-  fileCheck= false;
   uploadPath;
 
   @Input() CMSFilterSearchEventSet;
@@ -77,6 +76,11 @@ export class DocumentTabComponent implements OnInit {
 
 
   removeVideo(data,i){
+     this.videoListValue.filter(function (x) {
+           if(x.fileId == data.fileId){
+             return x.selected = false; 
+           }    
+    }); 
     this.fileList.splice(i,1);
     this.deletedFilePath.push(data.fileUrl);
     this.deletedFileId.push(data.fileId);
@@ -215,7 +219,9 @@ export class DocumentTabComponent implements OnInit {
               this.alertService.success(res.message);
               this.openAddVideosToCourse();
               this.resetAssignForm();
-              this.fileCheck= false;
+              this.videoListValue.map(function (x) {
+                return x.selected = false;     
+              }); 
             }
       })
     }

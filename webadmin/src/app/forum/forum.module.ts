@@ -11,7 +11,9 @@ import { FormsModule} from '@angular/forms';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForumDetailComponent } from './forum-detail/forum-detail.component'; 
-
+import { NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import { BsDatepickerModule } from 'ngx-bootstrap';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 const routes: Routes = [
@@ -28,7 +30,10 @@ const routes: Routes = [
     FormsModule,
     TagInputModule,
     NgHttpLoaderModule.forRoot(),
-    SelectDropDownModule
+    SelectDropDownModule,
+    NgMultiSelectDropDownModule,
+    BsDatepickerModule.forRoot(),
+    NgxPaginationModule
     ],
   declarations: [
     ForumComponent,CreateForumComponent, ForumDetailComponent

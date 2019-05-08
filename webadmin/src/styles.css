@@ -119,7 +119,15 @@ table td.td-pd {
   }
   .theme-green .bs-datepicker-head{background-color: #468FB9 !important;}
   .theme-green .bs-datepicker-body table td span.selected{background-color: #468FB9 !important;}
-
+ 
+   .btn-primary:hover{
+    color: #fff;
+    background-color: #468FB9 !important; 
+    border-color: #468FB9 !important; 
+  }
+  .btn{
+    box-shadow: none !important;
+  }
 /******** check box ***************/
 .hole-cont {
    position: relative;
@@ -968,6 +976,7 @@ a {
 }
 .creat-btn{
 	float: none;
+  /*box-shadow: none !important;*/
 }
 .video-play{
   width:100%;
