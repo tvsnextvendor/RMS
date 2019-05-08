@@ -59,12 +59,12 @@ export class API_URL {
     //*getModuleDetails     : "5c1a2a833200006c0064afa0",
     getModuleDetails: '5c35c79d300000790021b503',
     getEmployeeStatus: '5c2debd22f0000ba47175307',
-    getEmployeeDetails: '5c3330f72e00002b00121f06',
+    // getEmployeeDetails: '5c3330f72e00002b00121f06',
     getTaskResortChart: '5c3847ee3100003600a98f24',
     getCourseTrendChart: '5c2dbe012f000017331751f2',
     getYearList: '5c1355633400007500ecdf6f',
     //*needed - moduleCourseList     : '5c24973f30000077007a6042',
-    getEmployeeList: '5c0928d52f0000c21f637cd0',
+    // getEmployeeList: '5c0928d52f0000c21f637cd0',
     getUsers: '5c35ea0a300000600021b667',
     getUsersList: '5ca1b9af370000640089938c',
     //*getUsersList      : '5c260d313000007f0067f6ba', 
@@ -115,7 +115,9 @@ export class API_URL {
     assignVideoToCourse: '8103/course/assignVideosToCourse',
     addDuplicateCourse : '8103/course/courseDuplicate',
     getCourseTrainingClassById : '8103/trainingClass/TrainingFileList',
- 
+    getEmployeeList : '8103/courseEmployeestatusList',
+    getEmployeeDetails : '8103/employeeFilestatusList',
+    getScheduleTraining : '8103/schedule',
 
     //Resort Services
     resortAdd : '8102/resort/Add',

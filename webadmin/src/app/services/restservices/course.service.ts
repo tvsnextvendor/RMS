@@ -158,4 +158,16 @@ export class CourseService {
   addCourseDuplicate(params){
     return this.http.post('local',this.url.addDuplicateCourse,params);
   }
+
+  getEmployeeListDetails(resortId,courseId){
+    return this.http.getLocal('local',this.url.getEmployeeList+'?resortId='+resortId+'&courseId='+courseId);
+  }
+
+  getEmployeeDetails(resortId,userId){
+    return this.http.getLocal('local',this.url.getEmployeeDetails+'?resortId='+resortId+'&userId='+userId);
+  }
+
+  getCalendarSchedule(resortId){
+    return this.http.getLocal('local',this.url.getScheduleTraining+'?resortId='+resortId);
+  }
 }

@@ -102,13 +102,13 @@ export class UserComponent implements OnInit {
     getDivisionList(resortId){
         this.commonService.getResortDivision(resortId).subscribe(resp=>{
             if(resp && resp.isSuccess){
-                this.divisionDetails = resp.data.length && resp.data[0].resortMapping && resp.data[0].resortMapping;
+                this.divisionDetails = resp.data.length && resp.data[0].resortMapping ?  resp.data[0].resortMapping : [];
             }  
         })
 
         this.userService.getResortDesignation(resortId).subscribe(resp=>{
             if(resp && resp.isSuccess){
-                this.roleDetails = resp.data.rows.length && resp.data.rows;
+                this.roleDetails = resp.data.rows.length ? resp.data.rows : [];
             }
         })
         this.roles = [{
@@ -120,7 +120,7 @@ export class UserComponent implements OnInit {
      const userId = this.utilService.getUserData().userId;
       this.userService.getUser(userId).subscribe((resp)=>{
           if(resp.isSuccess){
-              this.constant.userList = resp.data.rows;
+              this.constant.userList = resp.data.rows.length ? resp.data.rows : [];
           }
         });
         let data = this.utilService.getUserData();

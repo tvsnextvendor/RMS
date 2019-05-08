@@ -8,6 +8,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {DndModule} from 'ng2-dnd';
+import { DataTableModule } from "angular-6-datatable";
 import { ModalModule } from 'ngx-bootstrap';
 import { BatchModule } from '../batch/batch.module';
 import { CourseTabComponent } from './course-tab/course-tab.component';
@@ -28,8 +29,8 @@ import { WorkCourseListComponent } from './work-inprogress/work-inprogress-list.
 
 const routes: Routes = [
     { path: 'cms-library', component:  CMSLibraryComponent ,canActivate : [AuthGuard]},
-    { path: 'employeelist', component:  EmployeesListComponent ,canActivate : [AuthGuard]},
-    { path: 'employee', component:  EmployeeComponent ,canActivate : [AuthGuard]},
+    { path: 'employeelist/:courseId', component:  EmployeesListComponent ,canActivate : [AuthGuard]},
+    { path: 'employee/:userId', component:  EmployeeComponent ,canActivate : [AuthGuard]},
     { path: 'files/:id', component:  ContentFileComponent ,canActivate : [AuthGuard]},
     { path: 'contentfile', component:  ContentFileComponent ,canActivate : [AuthGuard]},
     { path: 'workinprogress', component:  WorkCourseListComponent ,canActivate : [AuthGuard]}
@@ -57,7 +58,8 @@ export const MY_MOMENT_FORMATS = {
     ModalModule,
     BatchModule,
     moduleModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    DataTableModule
   ],
   declarations: [
     CMSLibraryComponent, 
