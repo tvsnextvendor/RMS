@@ -128,7 +128,8 @@
     <div class="modal-body">
         <form #uploadTemplate="ngForm" (ngSubmit)="onSave(uploadTemplate)">
             <div class="form-group">
-                <label class="uploadTemplate-title">{{commonLabels.labels.tempName}}</label>
+                <label class="uploadTemplate-title">{{commonLabels.labels.tempName}}
+                <span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <input type="text" class="form-control pl-0" [(ngModel)]="constant.tempName" #TempName="ngModel" name="tempName"
                     id="tempName" placeholder="Enter Template Name" required>
                 <span class="required_color" *ngIf="TempName && TempName.invalid && (uploadTemplate.submitted || TempName.touched)">

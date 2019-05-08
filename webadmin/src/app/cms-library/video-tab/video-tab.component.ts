@@ -159,7 +159,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
   }
   openEditVideo(template: TemplateRef<any>, data, index) {
     let user = this.utilService.getUserData();
-    let roleId = user.Resort.length && user.Resorts[0].resortId;
+    let roleId = user.Resorts.length && user.Resorts[0].resortId;
     console.log(data)
     this.constant.selectedResort = roleId;
     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
