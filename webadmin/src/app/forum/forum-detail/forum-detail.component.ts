@@ -10,6 +10,7 @@ import { CommonLabels } from '../../Constants/common-labels.var';
 export class ForumDetailComponent implements OnInit {
   forumId;
   postList: Array<any> = [];
+  viewComment = false;
   constructor(private forumService: ForumService,
               public commonLabels: CommonLabels) { }
 

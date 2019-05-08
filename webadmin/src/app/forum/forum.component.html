@@ -28,12 +28,12 @@
                                 <td class="text-left">{{ forum.employeesCount }}</td>
                                 <td class="lt-dt-act text-left"><span>{{forum.lastActiveDate |date}}</span></td>
                                 <td class="text-left"><label class="switch">
-                                        <input type="checkbox" [(ngModel)]="forum.active" (change)= "isPinned(forum.forumId)" > 
+                                        <input type="checkbox" [(ngModel)]="forum.active" (change)= "isActive(forum.forumId)" > 
                                         <span class="slider round"></span>
                                     </label></td>
                                     <td class="text-center">
                                         <a (click)="openEditModal(editForum,forum)" title="Edit"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
-                                        <a (click)="removeUser(deleteUser,user,i)"  title="Delete"><i class="fa fa-trash"></i></a>
+                                        <a (click)="removeForum(forum.forumId)"  title="Delete"><i class="fa fa-trash"></i></a>
                                         <a (click)="isPinned(forum.forumId)" title="Hook"><i class="fas fa-thumbtack pinned-icon"></i></a>
                                     </td> 
                         </tr>

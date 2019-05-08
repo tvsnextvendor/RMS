@@ -201,7 +201,7 @@ export class CreateForumComponent implements OnInit {
           this.forumService.forumUpdate(this.forumEditPage.forumId, postData).subscribe(result => {
             if (result && result.isSuccess) {
                 this.closeModal.hide();
-                this.toastr.success(this.commonLabels.msgs.updateSuccessMsg);
+                this.toastr.success(this.forumVar.updateSuccessMsg);
                 this.forumService.goToList(true);
             }
           });
@@ -211,7 +211,7 @@ export class CreateForumComponent implements OnInit {
              departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']))});
           this.forumService.addForum(postData).subscribe(result => {
             if (result && result.isSuccess) {
-              this.toastr.success(this.commonLabels.msgs.addSuccessMsg);
+              this.toastr.success(this.forumVar.addSuccessMsg);
               this.forumService.goToList(true);
             }
           });

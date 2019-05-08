@@ -61,22 +61,27 @@ export class ForumComponent implements OnInit {
 
     isPinned(forumId) {
       this.forumVar.isPinned = !this.forumVar.isPinned;
-      let pinnedObj ;
-      if (this.forumVar.isPinned) {
-         pinnedObj = {
-          isPinned: true
-        };
-      } else {
-        pinnedObj = {
-          isPinned: false
-        };
-      }
+      const pinnedObj = this.forumVar.isPinned ? { isPinned: true } : { isPinned: false };
+      this. forumUpdate(forumId, pinnedObj);
+    }
 
+    forumUpdate(forumId, pinnedObj) {
       this.forumService.forumUpdate(forumId, {forum: pinnedObj}).subscribe(result => {
         if (result && result.isSuccess) {
           this.toastr.success(this.forumVar.updateSuccessMsg);
+        } else {
+          this.toastr.error(result.error);
         }
-      });
+      }, err => {
+        this.toastr.error(err.error.error);
+        return;
+    });
+    }
+
+      isActive(forumId) {
+        this.forumVar.isActive = !this.forumVar.isActive;
+        const activebj = this.forumVar.isActive ?    { isActive: true } : { isActive: false };
+        this.forumUpdate(forumId, activebj);
       }
 
     openEditModal(template: TemplateRef<any>, forum) {
@@ -89,6 +94,21 @@ export class ForumComponent implements OnInit {
         // // this.forumVar. = forum.departments;
         // this.forumVar.adminItems = forum.admins;
         // // this.filteredNames = this.forumVar.forumNameList.filter(item => item !== this.forumVar.forumName);
+    }
+
+    removeForum(forumId) {
+      this.forumService.deleteForum(forumId).subscribe(result => {
+        console.log(result, 'ressss');
+        if (result && result.isSuccess) {
+          this.toastr.success(this.forumVar.deleteSuccessMsg);
+          this.getForumList();
+        } else {
+          this.toastr.error(result.error);
+        }
+      }, err => {
+        this.toastr.error(err.error.error);
+        return;
+    });
     }
 
     checkNameUniqueness(forumName) {

@@ -38,7 +38,8 @@ export class ForumVar {
     };
     title = 'Forum';
     addSuccessMsg = 'Forum created Successfully';
-    updateSuccessMsg = 'Forum updated successfully';
+    updateSuccessMsg = 'Forum updated Successfully';
+    deleteSuccessMsg = 'Forum deleted Successfully';
     nameUniqueErr = 'Forum Name is already exist.';
     employeeItems;
     forumName;
@@ -53,6 +54,7 @@ export class ForumVar {
     startDate;
     endDate;
     isPinned = false;
+    isActive = false;
     uniqueValidate = false;
     editNameValidate = false;
     modalRef:BsModalRef;
