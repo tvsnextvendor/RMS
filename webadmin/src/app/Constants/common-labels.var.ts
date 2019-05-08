@@ -153,9 +153,9 @@ export class CommonLabels{
         // "removeVideoSuccess" : " removed from the file list",
         "topicName"         :   "Topic Name",        
         "contentFiles"      :   "Content Files",
-        "createNotification":   "Create Notification",
-        "scheduleTraining"  :   "Schedule A Training",
-        "createCourse"      :   "Create Course",        
+        // "createNotification":   "Create Notification",
+        // "scheduleTraining"  :   "Schedule A Training",
+        // "createCourse"      :   "Create Course",        
         "acceptedFileTypes" :   "Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI",
         "from"              :   "Assigned Date",
         "to"                :   "Due Date",
@@ -257,8 +257,10 @@ export class CommonLabels{
         "dashdatamsg"       :   "Please select the parent resort to view the data",
         "parentresort"      :   "Parent Resort",
         "summary"           :   "Summary",
-       
-              
+        "uploadtxt"         :   "File Upload",
+        "editFile"          :   "Edit File",      
+        "videotext"         :   "Video",
+                    
     };
 
     btns = {
@@ -298,7 +300,8 @@ export class CommonLabels{
         "go"                :   "Go",
         "editTasks"         :   'Edit Tasks',
         "quickTasks"        :   'Quick Tasks',
-        "openCalendar"      :   'Open Calendar'
+        "openCalendar"      :   'Open Calendar',
+        "clear"             :   "clear"
     };
 
     titles = {
@@ -329,7 +332,10 @@ export class CommonLabels{
         "good"    : "assets/images/good_selicn.png",
         "average" : "assets/images/avg_selicn.png",
         "poor"    : "assets/images/poor_selicn.png",
-        "cool"    : "assets/images/cool@2x.png"
+        "cool"    : "assets/images/cool@2x.png", 
+        "text"    : "assets/images/txt-icon.png",
+        "ppt"     : "assets/images/ppt-icon.png",
+        "pdf"     : "assets/images/pdf-icon.png"
 
 
     };
@@ -390,14 +396,17 @@ export class CommonLabels{
         "tenureYear"        :  "Year is required",
         "tenureMonth"       :  "Month is required",
         "accessTo"          :  "Access To is Required",
-        "roleName"          :   "Role Name is Required",
-        "users"             :  "User is required"
-     };
+        "roleName"          :  "Role Name is Required",
+        "users"             :  "User is required",
+        "filenameRequired"  :   "File name is required"
+    
+    };
 
      modaltitle ={
         "addnewtrainingschedule" : "Add New Training Schedule",
         "editVideo"              : "Edit Video",
-        "addcertTemplate"        : "Add Certificate Template" 
+        "addcertTemplate"        : "Add Certificate Template",
+        "notifiUpload"           :  "Notification Upload", 
      }
      msgs = {
         "rolesuccessMsg"    :   "Roles & Permissions Saved Successfully",
@@ -407,6 +416,8 @@ export class CommonLabels{
         "uploadSuccessMsg"  :   "Certificate Template uploaded successfully",
         "assignSuccessMsg"  :   "Template Assigned Successfully",
         "badgeSuccessMsg"   :   "Badges Selected Successfully",
+        "generalNotifi"     :   "Is this a general notification?",
+        "publishmsg"        :   "Do you want to publish this content in the CMS Library?"
 
     }
     symbols = {

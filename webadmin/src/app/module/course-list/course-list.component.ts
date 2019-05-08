@@ -8,6 +8,7 @@ import { API_URL } from '../../Constants/api_url';
 import { AlertService } from 'src/app/services/alert.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { CommonLabels } from '../../Constants/common-labels.var'
 // import { AddBatchComponent} from '../../batch/add-batch/add-batch.component';
 
 @Component({
@@ -19,7 +20,8 @@ export class CourseListComponent implements OnInit {
 
   notificationValue;
 
-  constructor(private modalService: BsModalService, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public moduleVar: ModuleVar, private toastr: ToastrService, private headerService: HeaderService) {
+  constructor(private modalService: BsModalService, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public moduleVar: ModuleVar, private toastr: ToastrService, private headerService: HeaderService,
+    public commonLabels : CommonLabels) {
     this.moduleVar.url = API_URL.URLS;
   }
 
