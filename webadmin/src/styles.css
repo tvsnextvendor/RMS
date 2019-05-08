@@ -46,12 +46,17 @@ body {
 cursor: pointer;
 }
 .nodata{
-    padding: 0 20px;
-    background-color: #6973801a;
+   padding: 0 20px;
+    /* background-color: #6973801a; */
     font-weight: 600;
     color: #697380;
     line-height: 47px;
+    border-radius: 7px;
     font-size: 15px;
+    display: block;
+    /* width: 109%; */
+    /* text-align: center; */
+    /* margin: 0 auto; */
 }
 .btn-save{
     float: none !important;
@@ -1114,7 +1119,7 @@ a {
 }
 .select-Courses .dropdown-list {
     width: 267px !important;
-    right: 15px;
+    right: -14px;
 }
 .addcourse{
     color: #468FB9;

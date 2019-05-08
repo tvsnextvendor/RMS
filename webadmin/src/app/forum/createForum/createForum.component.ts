@@ -53,6 +53,8 @@ export class CreateForumComponent implements OnInit {
     public commonLabels: CommonLabels,
     private utilService: UtilService) {
     this.forumVar.url = API_URL.URLS;
+    this.forumVar.forumAdmin = '';
+
    }
 
    ngOnInit() {
