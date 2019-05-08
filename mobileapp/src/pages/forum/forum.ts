@@ -4,23 +4,28 @@ import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 //import { ForumDetailPage } from '../forum-detail/forum-detail';
-import { LoaderService } from '../../service/loaderService';
+import { Storage } from '@ionic/storage';
+import { LoaderService, SocketService} from '../../service';
+
 @IonicPage({
   name: 'forum-page'
 })
 @Component({
   selector: 'page-forum',
   templateUrl: 'forum.html',
-  providers: [Constant]
+  providers: [Constant, SocketService]
 })
 export class ForumPage implements OnInit {
   forumData: any = [];
   paramsData: any = { 'setData': [], 'selectedIndex': '' };
   search;
   showSearchBar: boolean = false;
+  notificationCount;
+  currentUser;
+
   @ViewChild(Content) content: Content;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL, private loader: LoaderService) {
+  constructor(public navCtrl: NavController,public storage: Storage,public socketService: SocketService,public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL, private loader: LoaderService) {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForumPage');
@@ -30,6 +35,16 @@ export class ForumPage implements OnInit {
   }
   ngOnInit(){
 
+  }
+
+   ngAfterViewInit() {
+            let self = this;
+            this.storage.get('currentUser').then((user: any) => {
+            if (user) {
+             self.currentUser = user;
+              this.getNotification();
+            }
+        });
   }
   goToForumDetail(detailObj, selectedIndex) {
     this.paramsData['setData'] = detailObj;
@@ -67,4 +82,16 @@ export class ForumPage implements OnInit {
     this.getForumDatas();
     console.log($e);
   }
+
+   getNotification(){
+    let userId = this.currentUser.userId;
+    let socketObj = {
+      userId : userId
+    };
+   this.socketService.getNotification(socketObj).subscribe((data)=>{
+      this.notificationCount = data.notifications.count;
+      console.log(data.notifications,"count")
+   });
+  }
+
 }

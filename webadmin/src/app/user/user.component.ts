@@ -306,7 +306,6 @@ export class UserComponent implements OnInit {
          this.errMsg='';
           let obj = {
                 userName : this.userName,
-                password: "123456",
                 email : this.emailAddress,
                 phoneNumber : this.phoneNumber,
                 designationId:this.designation,
@@ -330,6 +329,7 @@ export class UserComponent implements OnInit {
             })
             }else{
                 obj['createdBy'] = this.utilService.getUserData().userId;
+                obj['password'] = "123456";
                 this.userService.addUser(obj).subscribe(result => {
                     if(result.isSuccess){
                     this.closeAddForm();

@@ -39,7 +39,7 @@
         (click)="viewContent(filePath)">View Content </a>
     </span></h6>
 
-    <div class="checkbox-item clearfix" *ngIf="imageType">
+    <!-- <div class="checkbox-item clearfix" *ngIf="imageType">
         <label class="hole-cont mr-2">
             <input type="checkbox" [(ngModel)]="agree"  name="options" > 
             {{constant.pages.trainingLabels.ackText}}<a href="">{{constant.pages.trainingLabels.document}}</a>
@@ -47,7 +47,7 @@
         </label>
 
 
-    </div>
+    </div> -->
     <div *ngIf="text" class="quiz-text">
         <div *ngIf="text.length <= 400">{{text}}</div>
         <div *ngIf="truncating && text.length > 400">

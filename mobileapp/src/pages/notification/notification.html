@@ -13,13 +13,13 @@
   <ion-list>
     <ion-card class="forum-card" *ngFor="let notify of notificationList;let i=index;">
       <ion-grid>
-        <ion-row>
+        <ion-row (click)="redirect(notify)">
           <ion-col col-2 col-sm-1>
             <img src="assets/imgs/profile_circle.png" class="forum-img">
           </ion-col>
           <ion-col col-8 col-sm-8>
-            <h4 class="notify-title">{{notify.notification}}</h4>
-            <p class="notify-txt">{{notify.description}}</p>
+            <h4 class="notify-title"  [innerHTML]="notify.notification"></h4>
+            <!-- <p class="notify-txt">{{notify.description}}</p> -->
           </ion-col>
           <ion-col col-2 col-sm-3 class="arrow-icon">
             <div class="align-right">

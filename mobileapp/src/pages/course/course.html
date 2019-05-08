@@ -9,8 +9,8 @@
         <div class="header-icon">
             <ion-icon name="ios-chatboxes" class="chat-icon"></ion-icon>
             <span (click)="goToNotification()">
-          <img src="assets/imgs/notification.png" />
-          <span class="dot-circle">4</span>
+          <img src="assets/imgs/notification.png"/>
+          <span class="dot-circle">{{notificationCount}}</span>
           </span>
         </div>
       </ion-title>
@@ -37,35 +37,6 @@
 
 
   <div class="tab-content clearfix" [hidden]="showAssigned">
-
-    <!-- <ion-row>
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of assignedCoursesList;let i=index;"
-        (click)="openTrainingClass()" class="main-forum">
-        <ion-card class="training-list">
-          <ion-grid>
-            <ion-row>
-              <ion-col col-2 col-sm-1 class="align-self-center">
-                <img src="assets/imgs/profile_circle.png" class="forum-img">
-              </ion-col>
-              <ion-col col-4 col-sm-8 class="course-det">
-                <h4 class="notify-title">{{task.courseName}}</h4>
-                <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
-              </ion-col>
-              <ion-col col-5 col-sm-3 class="arrow-icon">
-                <div class="align-right" *ngIf="task.dueDate">
-                  <span class="hour-status batch-date">{{task.dueDate | date:'dd MMM yyyy'}}</span>
-                  <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}</p>
-                </div>
-              </ion-col>
-              <ion-col col-1 col-sm-1 class="middle-arw">
-                <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card>
-      </ion-col>
-    </ion-row> -->
-
     <ion-row *ngIf="assignedCount > 0">
       <ion-col col-12 col-sm-12 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
@@ -107,38 +78,11 @@
       </ion-row>
   </div>
   <div class="tab-content" [hidden]="showProgress">
-    <!-- <ion-row>
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of progressCoursesList;let i=index;"
-        (click)="openTrainingClass()" class="main-forum">
-        <ion-card class="training-list">
-            <ion-grid>
-              <ion-row>
-                <ion-col col-2 col-sm-1 class="align-self-center">
-                  <img src="assets/imgs/profile_circle.png" class="forum-img">
-                </ion-col>
-                <ion-col col-4 col-sm-8 class="course-det">
-                  <h4 class="notify-title">{{task.courseName}}</h4>
-                  <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
-                </ion-col>
-                <ion-col col-5 col-sm-3 class="arrow-icon">
-                  <div class="align-right" *ngIf="task.dueDate">
-                  <span class="hour-status batch-date">{{task.dueDate | date:'dd MMM yyyy'}}</span>
-                <p  class="red-color alert-txt-style"> {{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}  </p>              
-                </div>
-                </ion-col>
-                <ion-col col-1 col-sm-1 class="middle-arw">
-                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card>
-      </ion-col>
-    </ion-row> -->
     <ion-row *ngIf="assignedCount > 0">
       <ion-col col-12 col-sm-12 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
-            <ion-row>
+            <ion-row (click)="openTrainingClass(task.Course.courseId)">
               <ion-col col-2 col-sm-1 col-md-2 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
@@ -151,7 +95,7 @@
                 <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
                   <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
-                    {{task.TrainingSchedule.dueDate}}</p>
+                    {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
                 </div>
               </ion-col>
               <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openTrainingClass()">
@@ -175,35 +119,6 @@
       </ion-row>
   </div>
   <div class="tab-content" [hidden]="showSignRequire">
-    <!-- <ion-row>
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of assignedCoursesList;let i=index;"
-        (click)="openTrainingClass()" class="main-forum">
-        <ion-card class="training-list">
-          <ion-grid>
-            <ion-row>
-              <ion-col col-2 col-sm-1 class="align-self-center">
-                <img src="assets/imgs/profile_circle.png" class="forum-img">
-              </ion-col>
-              <ion-col col-4 col-sm-8 class="course-det">
-                <h4 class="notify-title">{{task.courseName}}</h4>
-                <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
-              </ion-col>
-              <ion-col col-5 col-sm-3 class="arrow-icon">
-                <div class="align-right" *ngIf="task.dueDate">
-                  <span class="hour-status batch-date">{{task.dueDate | date:'dd MMM yyyy'}}</span>
-                  <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}} {{task.expireDate}}</p>
-                 
-                </div>
-              </ion-col>
-              <ion-col col-1 col-sm-1 class="middle-arw">
-                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card>
-      </ion-col>
-    </ion-row> -->
-   
     <ion-row *ngIf="assignedCount > 0">
       <ion-col col-12 col-sm-12 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
@@ -221,7 +136,7 @@
                 <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
                   <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
-                    {{task.TrainingSchedule.dueDate}}</p>
+                  {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
                 </div>
               </ion-col>
               <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openTrainingClass()">
@@ -247,25 +162,6 @@
       </ion-row>
   </div>
   <div class="tab-content" [hidden]="showCompleted">
-    <!-- <ion-row>
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of completeCoursesList;let i=index;"
-        (click)="openTrainingClass()" class="main-forum">
-        <ion-card class="training-list">
-            <ion-grid>
-              <ion-row>
-                <ion-col col-2 col-sm-1 class="align-self-center" >
-                  <img src="assets/imgs/profile_circle.png" class="forum-img">
-                </ion-col>
-                <ion-col col-8 col-sm-9 class="course-det">
-                  <h4 class="notify-title">{{task.courseName}}</h4>
-                  <p class="notify-txt">{{task.trainingClasses}} {{constant.pages.trainingLabels.trainingClass}}</p>
-                </ion-col>
-               
-              </ion-row>
-            </ion-grid>
-          </ion-card>
-      </ion-col>
-    </ion-row> -->
     <ion-row *ngIf="assignedCount > 0">
       <ion-col col-12 col-sm-12 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
@@ -283,7 +179,7 @@
                 <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
                   <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
-                    {{task.TrainingSchedule.dueDate}}</p>
+                  {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
                 </div>
               </ion-col>
               <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openTrainingClass()">
