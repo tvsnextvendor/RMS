@@ -139,7 +139,7 @@ export class CreateForumComponent implements OnInit {
     }
 
     addTopic(i, topic) {
-      this.topicsArray.push({topics: topic});
+      this.topicsArray.push({topics: ''});
     }
 
     removeTopic(i) {
@@ -222,7 +222,7 @@ export class CreateForumComponent implements OnInit {
     }
 
     clearForm(formDir) {
-      if (this.forumEditPage) {
+      if (this.forumEditPage.forumId) {
         this.closeModal.hide();
       }
        this.forumName = '';

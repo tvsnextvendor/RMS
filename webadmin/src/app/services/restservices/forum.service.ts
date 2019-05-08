@@ -7,7 +7,7 @@ import { UtilService } from '../../services/util.service';
 
 @Injectable({
     providedIn: 'root'
-})
+}) 
 export class ForumService {
   url;
   public editForum = new BehaviorSubject('');
@@ -49,6 +49,10 @@ export class ForumService {
     this.editForum.next(forumStatus);
   }
 
+  deleteForum(forumId) {
+    return this.http.delete('local', this.url.forum + '/' + forumId);
+  }
+
   getForumById(forumId) {
     return this.http.getLocal('local', this.url.forum + '?forumId=' + forumId);
   }
@@ -63,10 +67,6 @@ export class ForumService {
 
   postList(forumId) {
     return this.http.getLocal('local', this.url.forumPost + '?forumId=' + forumId);
-  }
-
-  deleteForum(forumId) {
-    return this.http.delete('local', this.url.forum + '/' + forumId);
   }
 
 }
