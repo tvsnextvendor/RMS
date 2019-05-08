@@ -34,6 +34,15 @@ tbody > tr:last-child > td {
 .table th a{
   padding: 0;
 }
+.txt-unline a{
+  text-decoration: underline;
+  color: #468FB9;
+}
 .pinned-icon{
   transform: rotate(-40deg);
+  color: #468FB9;
+}
+.unpinned-icon{
+  transform: rotate(-40deg);
+  color: #CCCCCC;
 }

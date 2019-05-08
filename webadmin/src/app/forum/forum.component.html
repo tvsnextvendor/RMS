@@ -24,7 +24,7 @@
                         <tbody>
                             
                         <tr *ngFor="let forum of forumVar.forumList | paginate: {itemsPerPage: pageSize,currentPage: currentPage,totalItems : totalCount};let i = index" class="table-desc-color">
-                                <td class="forumname-width text-left"><a (click)="detailsPage(forum.forumId)">{{ forum.forumName }}</a></td>
+                                <td class="forumname-width text-left txt-unline"><a (click)="detailsPage(forum.forumId)">{{ forum.forumName }}</a></td>
                                 <td class="text-left">{{ forum.employeesCount }}</td>
                                 <td class="lt-dt-act text-left"><span>{{forum.lastActiveDate |date}}</span></td>
                                 <td class="text-left"><label class="switch">
@@ -34,7 +34,7 @@
                                     <td class="text-center">
                                         <a (click)="openEditModal(editForum,forum)" title="Edit"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
                                         <a (click)="removeForum(forum.forumId)"  title="Delete"><i class="fa fa-trash"></i></a>
-                                        <a (click)="isPinned(forum.forumId)" title="Hook"><i class="fas fa-thumbtack pinned-icon"></i></a>
+                                        <a (click)="isPinned(forum.forumId)" title="Hook"><i class="fas fa-thumbtack pinned-icon unpinned-icon"></i></a>
                                     </td> 
                         </tr>
                         <tr *ngIf="forumVar.forumList?.length == 0">
