@@ -39,10 +39,10 @@ tbody > tr:last-child > td {
   color: #468FB9;
 }
 .pinned-icon{
-  transform: rotate(-40deg);
-  color: #468FB9;
+  transform: rotate(-40deg) !important;
+  color: #468FB9 !important;
 }
 .unpinned-icon{
-  transform: rotate(-40deg);
-  color: #CCCCCC;
+  transform: rotate(-40deg) !important;
+  color: #CCCCCC !important;
 }
