@@ -42,16 +42,16 @@
                 <div class="form-group">
                     <ng-multiselect-dropdown
 					[placeholder]="'Select Department'"
-					[data]="department.departData"
-					[(ngModel)]="department.departmentList"
+					[data]="departData"
+					[(ngModel)]="departmentList"
 					[settings]="dropdownSettings"
-					(onSelect)="onItemSelect($event)"
+					(onSelect)="onItemSelect($event,'')"
                     (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                 </div>
                 <div class="form-group">
                     <div class="col-md-6 mb-3 select select-style clearfix">
                         <select name="Admin" class="form-control pl-0" [(ngModel)]="forumVar.forumAdmin" placeholder="Select Admin">
-                            <option *ngFor="let admin of admin.adminData" [value]="admin.id">{{admin.value}}</option>
+                            <option *ngFor="let admin of adminData" [value]="admin.id">{{admin.value}}</option>
                         </select>
                     </div>
                 </div>
