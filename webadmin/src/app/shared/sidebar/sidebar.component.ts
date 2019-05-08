@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UtilService  } from '../../services/util.service';
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 
 @Component({
@@ -10,7 +11,7 @@ import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 })
 export class SideBarComponent implements OnInit {
 
-  constructor(public router: Router, private utilservice: UtilService, private mScrollbarService: MalihuScrollbarService,) { }
+  constructor(public router: Router, private utilservice: UtilService, private mScrollbarService: MalihuScrollbarService,public commonLabels:CommonLabels) { }
    
    role;
    peerAdmin;

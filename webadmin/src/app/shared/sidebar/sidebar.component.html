@@ -3,19 +3,19 @@
     <ul class="sidebar-nav" >
         <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')"
             class="mt75">
-            <a routerLink="/dashboard"><img src="assets/images/menu1.png"class="pr-3">Dashboard</a>
+            <a routerLink="/dashboard"><img src="{{commonLabels.imgs.dashboard}}"class="pr-3">{{commonLabels.titles.dashboard}}</a>
         </li>
         <li [class.active]="router.isActive('/subscriptionlist') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
-            <a routerLink="/subscriptionlist"><img src="assets/images/Subscription.png"class="pr-3">Subscription Model</a>
+            <a routerLink="/subscriptionlist"><img src="{{commonLabels.imgs.subscription}}"class="pr-3">{{commonLabels.titles.subscription}}</a>
         </li>
         <li [class.active]="router.isActive('/resortslist') || router.isActive('/resorts') || router.isActive('/resorts/:id')">
-            <a routerLink="/resortslist"><img src="assets/images/Resort.png"class="pr-3">Resort Management</a>
+            <a routerLink="/resortslist"><img src="{{commonLabels.imgs.resort}}"class="pr-3">{{commonLabels.titles.resortmanagement}}</a>
         </li>
         <li [class.active]="router.isActive('/forum')">
-            <a routerLink=""><img src="assets/images/CMS.png"class="pr-3">CMS Library</a>
+            <a routerLink=""><img src="{{commonLabels.imgs.cms}}"class="pr-3">{{commonLabels.labels.cmsLibrary}}</a>
         </li>
         <li [class.active]="router.isActive('/archivalsetting')">
-            <a routerLink="/archivalsetting"><img src="assets/images/Approval.png"class="pr-3">Archival Settings</a>
+            <a routerLink="/archivalsetting"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.archivalSettings}}</a>
         </li>
     </ul>
 </div>
@@ -25,42 +25,42 @@
     <ul class="sidebar-nav" id="scroll-bx">
         <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')"
             class="mt75">
-            <a routerLink="/dashboard"><img src="assets/images/menu1.png"class="pr-3">Dashboard</a>
+            <a routerLink="/dashboard"><img src="{{commonLabels.imgs.dashboard}}"class="pr-3">{{commonLabels.titles.dashboard}}</a>
         </li>
         <li [class.active]="router.isActive('/cms-library') || router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
-            <a routerLink="/cms-library"><img src="assets/images/CMS.png" class="pr-3">CMS Library</a>
+            <a routerLink="/cms-library"><img src="{{commonLabels.imgs.cms}}" class="pr-3">{{commonLabels.labels.cmsLibrary}}</a>
         </li>
         <li [class.active]="router.isActive('/users')">
-            <a routerLink="/users"><img src="assets/images/UserManagement.png" class="pr-3">User Management</a>
+            <a routerLink="/users"><img src="{{commonLabels.imgs.user}}" class="pr-3">{{commonLabels.titles.userManagement}}</a>
         </li>
         <li [class.active]="router.isActive('/resortslist') || router.isActive('/resorts') || router.isActive('/resorts/:id')">
-            <a routerLink="/resortslist"><img src="assets/images/Resort.png" class="pr-3">Resort Management</a>
+            <a routerLink="/resortslist"><img src="{{commonLabels.imgs.resort}}" class="pr-3">{{commonLabels.titles.resortmanagement}}</a>
         </li> 
         <li [class.active]="router.isActive('/approvalrequests')">
-            <a routerLink="/approvalrequests"><img src="assets/images/Approval.png"class="pr-3">Approval Requests</a>
+            <a routerLink="/approvalrequests"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.approvalRequests}}</a>
         </li>
         <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
-            <a routerLink="/calendar"><img src="assets/images/Calendar.png" class="pr-3">Calendar</a>
+            <a routerLink="/calendar"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.titles.calendar}}</a>
         </li>
         <!-- <li
             [class.active]="router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
             <a routerLink="/courselist"><img src="assets/images/Modules.png"class="pr-3">Courses</a>
         </li> -->
         <li [class.active]="router.isActive('/forum')">
-            <a routerLink="/forum"><img src="assets/images/Forum.png"class="pr-3">Forum</a>
+            <a routerLink="/forum"><img src="{{commonLabels.imgs.forum}}"class="pr-3">{{commonLabels.labels.forum}}</a>
         </li>
        
         <li [class.active]="router.isActive('/certificates')">
-            <a routerLink="/certificates"><img src="assets/images/Certificates.png"class="pr-3">Certificates</a>
+            <a routerLink="/certificates"><img src="assets/images/Certificates.png"class="pr-3">{{commonLabels.titles.certificate}}</a>
         </li>
         <!-- <li [class.active]="router.isActive('/rolepermission')">
             <a routerLink="/rolepermission"><img src="assets/images/menu4.png"class="pr-3">Roles & Permissions</a>
         </li> -->
         <li>
-            <a routerLink="/subscriptionlist"><img src="assets/images/Subscription.png" class="pr-3">Subscription Model</a>
+            <a routerLink="/subscriptionlist"><img src="{{commonLabels.imgs.subscription}}" class="pr-3">{{commonLabels.titles.subscription}}</a>
         </li>
         <li>
-            <a routerLink="/feedback"><img src="assets/images/feedback.png" class="pr-3">Feedback</a>
+            <a routerLink="/feedback"><img src="assets/images/feedback.png" class="pr-3">{{commonLabels.titles.feedback}}</a>
         </li>
     </ul>
 </div>

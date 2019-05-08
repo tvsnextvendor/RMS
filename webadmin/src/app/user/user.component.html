@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 </div> 
-                <span *ngIf="!divisionDetails.length">No data</span>
+                <span *ngIf="!divisionDetails.length">{{commonLabels.labels.noData}}</span>
             </div>
         </div>    
     </tab>
@@ -118,7 +118,7 @@
                             <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
                         </label>
                     </div>
-                    <span *ngIf="!roleDetails.length">No data</span>
+                    <span *ngIf="!roleDetails.length">>{{commonLabels.labels.noData}}</span>
                 </div> 
             </div>
         </div> 

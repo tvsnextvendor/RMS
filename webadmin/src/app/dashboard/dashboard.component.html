@@ -2,7 +2,7 @@
 <div>      
 <ul class="btn-alg dashboard-btn" role="tablist">
     <button *ngFor="let title of tabTitle; let first = first;" [ngClass]="{firstItem: first}" role="presentation" class="accounts_li hd-button" [class.active]="selectedtab===title">
-        <a (click)="selectedtab = title" aria-controls="one" role="tab" data-toggle="tab">{{commonLabels.titles.dashboard}}</a>
+        <a (click)="selectedtab = title" aria-controls="one" role="tab" data-toggle="tab">{{title}}</a>
     </button>
 </ul>
 </div>

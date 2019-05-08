@@ -260,6 +260,16 @@ export class CommonLabels{
         "uploadtxt"         :   "File Upload",
         "editFile"          :   "Edit File",      
         "videotext"         :   "Video",
+        "pending"           :   "Pending",
+        "approved"          :   "Approved",
+        "rejected"          :   "Rejected",
+        "approvalSetting"   :   "Approval Setting",
+        "requestor"         :   "Requestor",
+        "receivedOn"        :   "Received On",
+        "employeeContent"   :   "Employee Content Upload",
+        "deleteTraining"    :   "Delete Training Files",
+        "archiveData"       :   "Archive Data After",
+        "delData"           :   "Delete Data After",
                     
     };
 
@@ -301,7 +311,9 @@ export class CommonLabels{
         "editTasks"         :   'Edit Tasks',
         "quickTasks"        :   'Quick Tasks',
         "openCalendar"      :   'Open Calendar',
-        "clear"             :   "clear"
+        "clear"             :   "clear",
+        "reject"            :   "Reject",
+        "approve"           :   "Approve",
     };
 
     titles = {
@@ -316,26 +328,42 @@ export class CommonLabels{
         "certificate"       :  "Certificates",
         "certiTempl"        :  "Certificates Templates",
         "subscription"      :  "Subscription Model" ,
-        "dashboard"         :  "Dashboard"  
+        "dashboard"         :  "Dashboard",
+        "archivalSettings"  :  "Archival Settings",
+        "approvalRequests" :  "Approval Requests",  
+        "calendar"          :  "Calendar",
+        "feedback"          :  "Feedback"  
     };
 
     imgs = {
-        "profile" : "assets/images/Add_Profile_Picture.png",
-        "close"   : "assets/images/close.png",
-        "close1"  : "assets/images/Close-1.png",
-        "ok"      : "assets/images/Done.png",
-        "cancel"  : "assets/images/cancel2.png",
-        "cancel1" : "assets/images/cancel-icon.png",
-        "calendar": "assets/images/cal.png",
-        "user1"   : "assets/images/user-icon1.png",
-        "user2"   : "assets/images/user-icon2.png",
-        "good"    : "assets/images/good_selicn.png",
-        "average" : "assets/images/avg_selicn.png",
-        "poor"    : "assets/images/poor_selicn.png",
-        "cool"    : "assets/images/cool@2x.png", 
-        "text"    : "assets/images/txt-icon.png",
-        "ppt"     : "assets/images/ppt-icon.png",
-        "pdf"     : "assets/images/pdf-icon.png"
+        "profile"       :   "assets/images/Add_Profile_Picture.png",
+        "close"         :   "assets/images/close.png",
+        "close1"        :   "assets/images/Close-1.png",
+        "ok"            :   "assets/images/Done.png",
+        "cancel"        :   "assets/images/cancel2.png",
+        "cancel1"       :   "assets/images/cancel-icon.png",
+        "calendar"      :   "assets/images/cal.png",
+        "user1"         :   "assets/images/user-icon1.png",
+        "user2"         :   "assets/images/user-icon2.png",
+        "good"          :   "assets/images/good_selicn.png",
+        "average"       :   "assets/images/avg_selicn.png",
+        "poor"          :   "assets/images/poor_selicn.png",
+        "cool"          :   "assets/images/cool@2x.png", 
+        "text"          :   "assets/images/txt-icon.png",
+        "ppt"           :   "assets/images/ppt-icon.png",
+        "pdf"           :   "assets/images/pdf-icon.png",
+        "dashboard"     :   "assets/images/menu1.png",
+        "subscription"  :   "assets/images/Subscription.png",
+        "resort"        :   "assets/images/Resort.png",
+        "cms"           :   "assets/images/CMS.png",
+        "archival"      :   "assets/images/Approval.png",
+        "user"          :   "assets/images/UserManagement.png",
+        "calMenu"       :   "assets/images/Calendar.png",
+        "forum"         :   "assets/images/Forum.png",
+        "certificates"  :   "assets/images/Certificates.png",
+        "feedback"      :   "assets/images/feedback.png"
+
+
 
 
     };

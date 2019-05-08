@@ -2,7 +2,7 @@
 	<form class="col-md-8 pl-0" >
 		<div class="white-bg p-4">
 			<div class="row form-group">
-				<label class="col-md-3 p-0 label-title mb-0">Course Name</label>
+				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.courseName}}</label>
 				<span class="col-md-9 pl-0">
 					<input type="text" class="form-control" placeholder="Enter Course Name"  name="moduleName"  required>
 				</span>
@@ -11,7 +11,7 @@
 				</span>				
 			</div>
 			<div class="row form-group">
-				<label class="col-md-3 p-0 label-title mb-0">Topic</label>
+				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.topics}}</label>
 				<span class="col-md-9 pl-0">
 					<input type="text" class="form-control" placeholder="Enter Topic Name" name="topics" required>
 				</span>
@@ -19,7 +19,7 @@
 				</span>
 			</div>
 			<div class="row form-group">
-				<label class="col-md-3 p-0 label-title mb-0">Training Class</label>
+				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.trainingClass}}</label>
 				<span class="col-md-9 pl-0">
 					<input type="text" class="form-control" placeholder="Training Class" name="topics" required>
 				</span>
@@ -30,7 +30,7 @@
 	</form>
 	<div class="col-md-4 p-0 ltside-sec">
 		<div class="white-bg pl-4 py-4">
-			<h5 class="mb-4"> Training Class</h5>
+			<h5 class="mb-4"> {{commonLabels.labels.trainingClass}}</h5>
 			<div class="addedcourse-scroll">
 				<div>
 					<p> Training Class 1<span class="float-right">
@@ -54,18 +54,18 @@
 <div class="clearfix tab-section">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#">Files</a>
+                <a class="nav-link active" data-toggle="tab" href="#">{{commonLabels.labels.file}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#">Quiz</a>
+                    <a class="nav-link" data-toggle="tab" href="#">{{commonLabels.labels.quiz}}</a>
                 </li>                           
             </ul> 
         </div>
         <div class="pt-2">
     <div class="col-md-12 pl-0">
     	<span class="videopage">
-			   	<img src="assets/images/Close-1.png" class="close-alg">
-			   	<img src="assets/images/cancel-icon.png" class="cancel-alg"></span>
+			   	<img src="{{commonLabels.imgs.close1}}" class="close-alg">
+			   	<img src="{{commonLabels.imgs.cancel}}" class="cancel-alg"></span>
         <div class="white-bg p-4">
         <ul class="list-group col-md-12 pt-5">
 							<li class="list-group-item row add-module">
@@ -78,13 +78,13 @@
 							</li>
 						</ul>
 						<div class="col-md-12 clearfix pt-4">
-							<button type="button" class="btn btn-primary">Next</button>
+							<button type="button" class="btn btn-primary">{{commonLabels.btns.next}}</button>
 						</div>
 					</div>
 					</div>
 
 					<div class="text-center pt-5 mb-4">
-						<button class="btn btn-default mr-3" type="button">Back</button>
-						<button class="btn btn-default mr-3" type="button">Reject</button>
-						<button class="btn btn-primary creat-btn" type="submit">Approve</button></div>
+						<button class="btn btn-default mr-3" type="button">{{commonLabels.btns.back}}</button>
+						<button class="btn btn-default mr-3" type="button">{{commonLabels.btns.reject}}</button>
+						<button class="btn btn-primary creat-btn" type="submit">{{commonLabels.btns.approve}}</button></div>
 				</div>
