@@ -41,6 +41,8 @@ export class ForumVar {
     updateSuccessMsg = 'Forum updated Successfully';
     deleteSuccessMsg = 'Forum deleted Successfully';
     nameUniqueErr = 'Forum Name is already exist.';
+    deleteForum = 'Delete Forum';
+    forumDelConfirmation = 'Are you sure you want to delete this Forum?';
     slctAdmin = 'Select Admin';
     employeeItems;
     forumName;
