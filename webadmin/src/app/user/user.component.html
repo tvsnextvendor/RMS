@@ -118,7 +118,8 @@
             <div class="hierarchy-tab white-bg p-4 mt-3">
                 <div class="detail-bottom row">                
                     <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
-                        <label  *ngIf="roleDetails.length" class="col-md-12 p-0 label-title"><span class="col-md-2">{{i+1}}.{{role.designationName}} </span>
+                        <label  *ngIf="roleDetails.length" class="col-md-12 p-0 label-title">
+                            <span class="col-md-2 mr-0 word-wrap">{{i+1}}.{{role.designationName}} </span>
                             <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                             <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
                         </label>
