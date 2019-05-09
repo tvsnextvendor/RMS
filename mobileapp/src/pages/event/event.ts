@@ -32,13 +32,10 @@ export class EventPage implements OnInit {
             if (user) {
              self.currentUser = user;
               this.getNotification();
-             console.log(self.currentUser, "HEHEHEHE");             
             }
         });
   }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EventPage');
-  }
+  
   ionViewDidEnter(){
     this.getBatch();
   }
@@ -86,7 +83,7 @@ export class EventPage implements OnInit {
       userId : userId
     };
    this.socketService.getNotification(socketObj).subscribe((data)=>{
-      this.notificationCount = data.notifications.count;
+      this.notificationCount = data['unReadCount'];
    });
   }
 

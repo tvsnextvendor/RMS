@@ -49,7 +49,7 @@ export class NotificationPage implements OnInit {
     };
    this.socketService.getNotification(socketObj).subscribe((data)=>{
      console.log(data,"dcjhdsbchjdcjbdhjcbdschdsb")
-      this.notificationList = data.notifications.rows;
+      this.notificationList = data['rows'];
    });
   }
 
@@ -68,6 +68,15 @@ export class NotificationPage implements OnInit {
     }else{
      this.navCtrl.setRoot('forum-page');
     }
+
+    let data={
+    "status":"Read"
+    }
+
+    this.http.put(false,API_URL.URLS.readNotification+'/'+notification.notificationId,data).subscribe((res) => {      
+    },(err) => {
+
+    });
   }
 
   // getNotification() {

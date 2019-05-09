@@ -23,10 +23,6 @@ export class HttpProvider {
     return new Promise(resolve => {
       this.storage.get('currentUser').then(
         (val) => {
-
-          console.log(val);
-          console.log("storage val",val);
-
           self.httpOptions = {
             headers: new HttpHeaders({
               'Content-Type': 'application/json',

@@ -68,7 +68,6 @@ export class HomePage {
     this.http.getData(API_URL.URLS.getDashboard).subscribe((data) => {
       this.loader.hideLoader();
       this.storage.set('userDashboardInfo', data['dashboardList']).then(() => {
-        console.log('Data has been set');
       });
       if(data['isSuccess']){
         this.dashboardInfo = data['dashboardList'];
@@ -94,7 +93,6 @@ export class HomePage {
     return days[d.getDay()] + ',' + months[d.getMonth()] + ' ' + d.getDate();
   }
   changeModule(list){
-     console.log(this.modules);
  //  _.remove(this.allModulesSet, list);
     this.selectedModule = list.name;
     this.moduleId = list.id;
@@ -110,8 +108,7 @@ export class HomePage {
       userId : userId
     };
    this.socketService.getNotification(socketObj).subscribe((data)=>{
-      this.notificationCount = data.notifications.count;
-      console.log(data.notifications,"count")
+       this.notificationCount = data['unReadCount'];
    });
   }
 
