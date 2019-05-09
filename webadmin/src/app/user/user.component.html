@@ -68,7 +68,7 @@
                                 
                         </tr>
                         <tr *ngIf="mf.data?.length == 0">
-                            <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></p></td>
+                            <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -103,7 +103,7 @@
                 <!-- <span *ngIf="!divisionDetails.length">{{commonLabels.labels.noData}}</span> -->
             <div class="col-md-12 p-0">
               <div class="text-center p-4"  *ngIf="!divisionDetails.length">
-                <p class="data-design"><span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></p>
+                <p class="data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
               </div>
             </div>
             </div>
@@ -127,7 +127,7 @@
                     <!-- <span *ngIf="!roleDetails.length">>{{commonLabels.labels.noData}}</span> -->
                     <div class="col-md-12 p-0">
               <div class="text-center p-4"  *ngIf="!roleDetails.length">
-                <p class="data-design"><span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></p>
+                <p class="data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
               </div>
             </div>
                 </div> 
@@ -203,7 +203,7 @@
                     <td class="vat user-desc"><a (click)="removeUser(deleteUser,user,i)"  title="Delete"><i class="fa fa-trash header-icon"></i></a></td> 
                 </tr>
                 <tr *ngIf="mf.data?.length == 0">
-                    <td colspan="10" class="text-center data-design"><span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></td>
+                    <td colspan="10" class="text-center data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></td>
                 </tr>
             </tbody>
             <tfoot>
