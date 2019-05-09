@@ -133,9 +133,14 @@
         </div> 
   </div>
 </div>
-<div class="col-md-12 p-0" *ngIf="postList?.length == 0">
+<!-- <div class="col-md-12 p-0" *ngIf="postList?.length == 0">
   <div class="white-bg p-4"><label class="text-center mb-0 nodata">{{forumVar.createForum.noData}}</label></div>
-</div>
+</div> -->
+<div class="col-md-12 p-0">
+              <div class="text-center p-4"  *ngIf="postList?.length == 0">
+                <p class="data-design"><span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></p>
+              </div>
+            </div>
 <div class="text-center pt-5 mb-4">    
     <button type="submit" class="btn btn-primary creat-btn" routerLink="/forum">{{commonLabels.btns.back}}</button>
 </div>

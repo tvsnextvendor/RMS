@@ -103,7 +103,7 @@ export class CommonLabels{
         "deleteRole"        :   "Delete Role",
         "deleteRoleConfirmation": "Are you sure you want to delete this role?",
         "deleteDivisionConfirmation": "Are you sure you want to delete this division?",       
-        "noData"            :   "No data",
+        "noData"            :   "No Data",
         "addDivision"       :   "Add Division",
         "editDivision"      :   "Edit Division",
         "addRole"           :   "Add Role",

@@ -71,3 +71,9 @@
 .depart-dtl{
     margin-bottom: 20px;
 }
+.breadcrumb-item .resort-breadcrumb{
+    color: #468FB9;
+}
+.breadcrumb-item .resort-breadcrumb:hover{
+text-decoration: underline;
+}

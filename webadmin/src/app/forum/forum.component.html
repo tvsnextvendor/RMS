@@ -38,7 +38,7 @@
                                     </td> 
                         </tr>
                         <tr *ngIf="forumVar.forumList?.length == 0">
-                            <td colspan="5" class="text-center data-design">{{forumVar.createForum.noData}}</td>
+                            <td colspan="5"> <p class="text-center data-design p-5"><span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></p></td>
                         </tr>
                         </tbody>
                     </table>
