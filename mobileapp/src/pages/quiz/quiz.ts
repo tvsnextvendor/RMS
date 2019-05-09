@@ -82,7 +82,8 @@ export class QuizPage {
         let data={
         'courseId' : this.courseId,
         'userId'   : userId,
-        'status'   : "completed"
+        'status'   : "completed",
+        'completedDate' : new Date()
         }
         this.http.put(false,API_URL.URLS.updateTrainingStatus, data).subscribe((res) => {
         

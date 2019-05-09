@@ -65,22 +65,17 @@ export class ForumPage implements OnInit {
     this.showSearchBar = !this.showSearchBar;
   }
   onInput($e) {
-    console.log("On input");
-    console.log($e);
-    console.log(this.search);
+  
     if (this.search) {
       this.forumData = this.forumData.filter(val => val.forumName === this.search);
     } else {
       this.showSearchBar = false;
       this.getForumDatas();
     }
-    console.log(this.forumData);
   }
   onCancel($e) {
-    console.log("On Cancel");
     this.showSearchBar = false;
     this.getForumDatas();
-    console.log($e);
   }
 
    getNotification(){
@@ -89,8 +84,7 @@ export class ForumPage implements OnInit {
       userId : userId
     };
    this.socketService.getNotification(socketObj).subscribe((data)=>{
-      this.notificationCount = data.notifications.count;
-      console.log(data.notifications,"count")
+       this.notificationCount = data['unReadCount'];
    });
   }
 

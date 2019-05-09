@@ -8,6 +8,7 @@ import {FileTransfer} from '@ionic-native/file-transfer/ngx';
 import {File} from '@ionic-native/file/ngx';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
+import { Storage } from '@ionic/storage';
 declare var cordova:any;
 
 @IonicPage({
@@ -40,6 +41,7 @@ export class TrainingDetailPage {
     quizBtn: boolean = false;
     quizData;
     imageType;
+    fileId;
     filePath;
     fileType;
     fileImage;
@@ -56,8 +58,9 @@ export class TrainingDetailPage {
     trainingClassName;
     trainingClassId;
     uploadPath;
+    currentUser;
 
-    constructor(public navCtrl: NavController,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
+    constructor(public navCtrl: NavController,public storage: Storage,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.trainingClassName = this.detailObject['setData'].trainingClassName;
@@ -71,6 +74,18 @@ export class TrainingDetailPage {
         this.loadingBarWidth = (100 / parseInt(this.trainingDatas.length, 10));
         this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
     }
+
+      ngAfterViewInit() {
+            let self = this;
+            this.storage.get('currentUser').then((user: any) => {
+            if (user) {
+             self.currentUser = user;
+             console.log(self.currentUser, "HEHEHEHE");             
+            }
+        });
+      }
+
+
     // go to particular index
     goToSlideIndex() {
         this.slides.slideTo(this.selectedIndexs, 500);
@@ -125,6 +140,27 @@ export class TrainingDetailPage {
          }
      });
     }
+   
+    videoEnded(){
+        let userId = this.currentUser ? this.currentUser.userId : 8;
+        let data={
+        'courseId' :this.courseId,
+        'trainingClassId' :  this.trainingClassId,
+        'fileId' : this.fileId,
+        'userId' : userId,
+        'status': "completed"
+        }
+        this.http.put(false,API_URL.URLS.fileTrainingStatus, data).subscribe((res) => {
+        
+        },(err) => {
+
+        });
+    }
+
+    videoFailed(event){
+        console.log(event, "failed");        
+    }
+
     // go back
     goBackToDetailPage() {
         this.paramsToSend['status'] = this.trainingStatus;
@@ -158,6 +194,7 @@ export class TrainingDetailPage {
         const htmlVideoTag = this.videotag.nativeElement;
         htmlVideoTag.load();
         }
+        this.fileId = this.setTraining.fileId;
         this.text = this.setTraining.fileDescription;
         this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
     }
@@ -167,6 +204,7 @@ export class TrainingDetailPage {
         } else {
             this.initial = this.initial - 1;
             this.setTraining = this.trainingDatas[this.initial];
+            this.fileId = this.setTraining.fileId;
             this.text = this.setTraining.fileDescription;
             this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
             let ext = this.setTraining.fileUrl.split('.').pop();

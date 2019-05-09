@@ -19,7 +19,7 @@ getNotification(userId){
   const subject = new Observable(subject => {
     this.socket.emit('userId', userId);
     this.socket.once("getNotifications", function(data) {
-      subject.next(data);
+      subject.next(data.notifications);
     });
    });
    return subject;

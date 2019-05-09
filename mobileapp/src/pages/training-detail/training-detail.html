@@ -17,7 +17,7 @@
         </div>
 
         <div class="video-tag" *ngIf="!imageType">
-            <video #videoTag id="video-width" class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
+            <video #videoTag id="video-width" autoplay (ended)="videoEnded()" (error)="videoFailed(event)" class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
             playsinline class="videoPlayer" poster="{{uploadPath}}{{setTraining.fileImage}}">
             <source src="{{showPreView}}" type="video/mp4" />
         </video>

@@ -60,7 +60,6 @@ export class CoursePage implements OnInit {
              self.currentUser = user;
              this.getCourseStatus('assigned');
               this.getNotification();
-             console.log(self.currentUser, "HEHEHEHE");             
             }
         });
   }
@@ -81,17 +80,15 @@ export class CoursePage implements OnInit {
   openTrainingClass(courseId) 
   {
     let userId = this.currentUser ? this.currentUser.userId : 8;
-    let data={
-      'courseId' : courseId,
-      'userId' : userId,
-      'status': "inProgress"
-    }
-    this.http.put(false,API_URL.URLS.updateTrainingStatus, data).subscribe((res) => {
-    
-    },(err) => {
+        let data={
+        'courseId' :courseId,
+        'userId' : userId,
+        'status': "inProgress"
+        }
+        this.http.put(false,API_URL.URLS.updateTrainingStatus, data).subscribe((res) => {      
+        },(err) => {
 
-    });
-
+        });
     this.paramsData['courseId'] = courseId;
     this.navCtrl.setRoot('training-page',this.paramsData);
   }
@@ -130,8 +127,7 @@ export class CoursePage implements OnInit {
       userId : userId
     };
    this.socketService.getNotification(socketObj).subscribe((data)=>{
-      this.notificationCount = data.notifications.count;
-      console.log(data.notifications,"count")
+      this.notificationCount = data['unReadCount'];
    });
   }
 
