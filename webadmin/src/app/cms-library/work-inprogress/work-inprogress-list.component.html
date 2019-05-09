@@ -12,12 +12,12 @@
     <div id="coss" class="col-md-12 pt-2 clearfix px-0">
         <div class="white-bg p-3 clearfix">
             <div class="clearfix">
-                    <label class="square-cont float-left">
+                    <label class="square-cont float-left p-0">
                         <span class="text-over">{{courses.courseName}}</span>
                     </label>
                 <span class="float-right">
                     <a title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
-                    <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header" aria-hidden="true"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header" aria-hidden="true"></i></a>
+                    <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header" aria-hidden="true" title="open"></i></a>
                 </span>
             </div>
             <div class="row py-3" *ngIf="enableView && enableIndex === i">

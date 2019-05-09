@@ -46,7 +46,7 @@
 		</div>
 	</form>
 	<div class="col-md-4 p-0 ltside-sec">
-		<div class="white-bg pl-4 py-4">
+		<div class="white-bg p-4">
 			<h5 class="mb-4">{{commonLabels.labels.coursesAdded}}</h5>
 			<div *ngIf = "selectedCourses.length" class="addedcourse-scroll">
 				<div *ngFor="let course of selectedCourses,index as i">
@@ -57,8 +57,8 @@
 				</div>
 			</div>
 			<div class="text-center" *ngIf = "selectedCourses.length === 0">
-				<label class="nodata">{{commonLabels.labels.noData}}</label>
-			</div>
+				<p class="data-design"><span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></p>
+			</div>			
 		</div>
 	</div>
 </div>
