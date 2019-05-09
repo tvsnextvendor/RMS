@@ -194,7 +194,7 @@
 
 <div class="white-bg text-center p-4">
 <p *ngIf="!courseListValue.length" class="data-design">
-    <span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></p>
+    <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
 </div>
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
 

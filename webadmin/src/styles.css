@@ -49,11 +49,12 @@ span.nodata {
     background-color: unset !important; 
     padding: 10px 20px !important;
     border-radius: 7px !important;
-    font-size: 34px !important;
+    font-size: 25px !important;
     float: unset !important;
     margin-right: 0 !important;
     font-weight: 600 !important;
     color: #697380 !important;
+    display: block;
 }
 .data-design{
   margin: 20px 0;
@@ -61,9 +62,10 @@ span.nodata {
   padding: 50px 20px;
 }
 .nodata-img{
-  padding: 0 12px;
-  font-size: 32px;
+  padding: 0 0;
+  font-size: 40px;
   color: #468FB9;
+  display: block;
 }
 .btn-save{
     float: none !important;
@@ -98,6 +100,7 @@ button:focus {
   background-color: #468FB9;
   float: right;
   text-transform:capitalize;  
+  border: 2px solid #468FB9;
 }
 .btn-default{
     border: 2px solid #468FB9;
