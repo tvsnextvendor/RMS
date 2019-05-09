@@ -100,12 +100,17 @@
                         </div>
                     </div>
                 </div> 
-                <span *ngIf="!divisionDetails.length">{{commonLabels.labels.noData}}</span>
+                <!-- <span *ngIf="!divisionDetails.length">{{commonLabels.labels.noData}}</span> -->
+            <div class="col-md-12 p-0">
+              <div class="p-4"  *ngIf="!divisionDetails.length">
+                <label class="text-center mb-0 nodata">{{commonLabels.labels.noData}}</label>
+              </div>
+            </div>
             </div>
         </div>    
     </tab>
     <tab heading = {{commonLabels.labels.listofRole}}>
-        <div class="pr-3 pt-3 clearfix listrole">
+        <div class="pt-3 clearfix listrole">
             <div class="hd-section clearfix">
             <h5 class="float-left title-hd">{{commonLabels.labels.listofRole}}</h5>
             <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
@@ -118,7 +123,12 @@
                             <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
                         </label>
                     </div>
-                    <span *ngIf="!roleDetails.length">>{{commonLabels.labels.noData}}</span>
+                    <!-- <span *ngIf="!roleDetails.length">>{{commonLabels.labels.noData}}</span> -->
+                    <div class="col-md-12 p-0">
+              <div class="p-4"  *ngIf="!roleDetails.length">
+                <label class="text-center mb-0 nodata">{{commonLabels.labels.noData}}</label>
+              </div>
+            </div>
                 </div> 
             </div>
         </div> 

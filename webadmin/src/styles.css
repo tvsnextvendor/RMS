@@ -58,6 +58,9 @@ cursor: pointer;
     /* text-align: center; */
     /* margin: 0 auto; */
 }
+.data-design{
+  color: #697380;
+}
 .btn-save{
     float: none !important;
  } 
@@ -1211,8 +1214,8 @@ a {
   display: block;
   padding: .8rem 1.2rem;
   border: none;
-  color:#73737B;
-  /*font-weight: 600;*/
+  color: #aeaeb4;
+  font-weight: 600;
   font-size: 15px;
 }
 .tab-section .nav-tabs .nav-link.active{

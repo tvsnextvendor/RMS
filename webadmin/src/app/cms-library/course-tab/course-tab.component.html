@@ -193,7 +193,7 @@
 </div>  
 
 <div class="white-bg text-center p-4">
-<span *ngIf="!courseListValue.length" class="data-design">No Data </span>
+<span *ngIf="!courseListValue.length" class="data-design nodata ">{{commonLabels.labels.noData}}</span>
 </div>
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
 
