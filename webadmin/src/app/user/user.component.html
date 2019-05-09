@@ -68,7 +68,7 @@
                                 
                         </tr>
                         <tr *ngIf="mf.data?.length == 0">
-                            <td colspan="10" class="text-center data-design">{{commonLabels.labels.noData}}</td>
+                            <td colspan="10" class="text-center data-design p-5"><span class="nodata">{{commonLabels.labels.noData}}</span></td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -88,7 +88,7 @@
             <h5 class="float-left title-hd">{{commonLabels.labels.division}}</h5>
             <span class="float-right"><button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
             </div>
-            <div class="hierarchy-tab white-bg p-3 mt-3">
+            <div class="hierarchy-tab white-bg p-4 mt-3">
             <div class="detail-bottom row">                
                 <div class="row depart-dtl col-md-12 p-0 mb-3 clearfix" *ngFor="let division of divisionDetails;let i = index;">
                     <label *ngIf="division?.Division?.Departments.length" class="col-md-12 p-0 division-title">{{division?.Division?.divisionName}} <a (click)="editDivisionData(division?.Division,editDivision)" title="Edit"><i class="fas fa-pencil-alt ml-10"></i></a><a (click)="removeDivision(deleteDivision,division,i)" class="ml-10" title="Delete"><i class="fas fa-trash"></i></a></label>
@@ -102,8 +102,8 @@
                 </div> 
                 <!-- <span *ngIf="!divisionDetails.length">{{commonLabels.labels.noData}}</span> -->
             <div class="col-md-12 p-0">
-              <div class="p-4"  *ngIf="!divisionDetails.length">
-                <label class="text-center mb-0 nodata">{{commonLabels.labels.noData}}</label>
+              <div class="text-center p-4"  *ngIf="!divisionDetails.length">
+                <p class="data-design"><span class="nodata">{{commonLabels.labels.noData}}</span></p>
               </div>
             </div>
             </div>
@@ -125,8 +125,8 @@
                     </div>
                     <!-- <span *ngIf="!roleDetails.length">>{{commonLabels.labels.noData}}</span> -->
                     <div class="col-md-12 p-0">
-              <div class="p-4"  *ngIf="!roleDetails.length">
-                <label class="text-center mb-0 nodata">{{commonLabels.labels.noData}}</label>
+              <div class="text-center p-4"  *ngIf="!roleDetails.length">
+                <p class="data-design"><span class="nodata">{{commonLabels.labels.noData}}</span></p>
               </div>
             </div>
                 </div> 
@@ -202,7 +202,7 @@
                     <td class="vat user-desc"><a (click)="removeUser(deleteUser,user,i)"  title="Delete"><i class="fa fa-trash header-icon"></i></a></td> 
                 </tr>
                 <tr *ngIf="mf.data?.length == 0">
-                    <td colspan="10" class="text-center data-design">{{commonLabels.labels.noData}}</td>
+                    <td colspan="10" class="text-center data-design"><span class="nodata">{{commonLabels.labels.noData}}</span></td>
                 </tr>
             </tbody>
             <tfoot>

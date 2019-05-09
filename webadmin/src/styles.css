@@ -46,20 +46,20 @@ body {
 cursor: pointer;
 }
 .nodata{
-   padding: 0 20px;
-    /* background-color: #6973801a; */
-    font-weight: 600;
-    color: #697380;
-    line-height: 47px;
-    border-radius: 7px;
-    font-size: 15px;
-    display: block;
-    /* width: 109%; */
-    /* text-align: center; */
-    /* margin: 0 auto; */
+  background-color: #cccccc4a !important;
+    padding: 10px 20px !important;
+    border-radius: 7px !important;
+    font-size: 18px !important;
+    float: unset !important;
+    margin-right: 0 !important;
+    font-weight: 600 !important;
 }
 .data-design{
-  color: #697380;
+    padding: 0;
+    color: #697380;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 20px 0;
 }
 .btn-save{
     float: none !important;
