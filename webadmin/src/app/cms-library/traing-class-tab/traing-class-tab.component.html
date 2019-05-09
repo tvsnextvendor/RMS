@@ -52,7 +52,8 @@
 </div>
 <!-- <span *ngIf="!trainingClassCourseList.length">No Data </span> -->
 <div class="col-md-12 p-0">
-  <div class="white-bg p-4" *ngIf="!trainingClassCourseList.length"><label class="text-center mb-0 nodata">{{commonLabels.labels.noData}}</label></div>
+  <div class="white-bg text-center p-4" *ngIf="!trainingClassCourseList.length"><p class="data-design">
+    <span class="nodata">{{commonLabels.labels.noData}}</span></p></div>
 </div>
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>
 
