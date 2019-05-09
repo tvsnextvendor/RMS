@@ -53,13 +53,10 @@ cursor: pointer;
     float: unset !important;
     margin-right: 0 !important;
     font-weight: 600 !important;
+    color: #697380 !important;
 }
 .data-design{
-    padding: 0;
-    color: #697380;
-    font-size: 18px;
-    font-weight: 600;
-    margin: 20px 0;
+  margin: 20px 0;
 }
 .btn-save{
     float: none !important;
