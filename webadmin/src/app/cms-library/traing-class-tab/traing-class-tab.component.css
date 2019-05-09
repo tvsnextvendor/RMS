@@ -30,7 +30,7 @@
   .select-arbx:last-child{
       margin-bottom:0;
       border-bottom:none;
-      padding-bottom: 0 !important;
+      /* padding-bottom: 0 !important; */
   }
 .square-cont {
     display: block;
@@ -38,6 +38,7 @@
 .select-arbx .square-cont{
     font-size: 14px;
     padding-left: 24px;
+    line-height: 20px;
 }
  /* Training */
 
