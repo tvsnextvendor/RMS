@@ -91,18 +91,10 @@ export class ForumComponent implements OnInit {
     openEditModal(template: TemplateRef<any>, forum) {
         this.forumService.editPage({editPage: true, forumId: forum.forumId});
         this.forumVar.modalRef = this.modalService.show(template, this.forumVar.modalConfig);
-        // this.forumVar.forumName = forum.forumName;
-        // this.forumVar.forumId = forum.forumId;
-        // this.topicsArray = forum.Topics;
-        // // this.forumVar.topics=forum.topic;
-        // // this.forumVar. = forum.departments;
-        // this.forumVar.adminItems = forum.admins;
-        // // this.filteredNames = this.forumVar.forumNameList.filter(item => item !== this.forumVar.forumName);
     }
 
     removeForum() {
       this.forumService.deleteForum(this.selectedForumId).subscribe(result => {
-        console.log(result, 'ressss');
         if (result && result.isSuccess) {
           this.alertService.success(result.data);
           this.getForumList();
@@ -118,10 +110,10 @@ export class ForumComponent implements OnInit {
 
     deleteConfirmation(template: TemplateRef<any>, forumId) {
       const modalConfig = {
-        class : "modal-dialog-centered"
-      }
+        class : 'modal-dialog-centered'
+      };
        this.selectedForumId = forumId;
-       this.forumVar.modalRef = this.modalService.show(template, modalConfig); 
+       this.forumVar.modalRef = this.modalService.show(template, modalConfig);
       }
 
     checkNameUniqueness(forumName) {
@@ -134,25 +126,5 @@ export class ForumComponent implements OnInit {
           }
         }
       }
-
-    // onSave(form) {
-    //   if (form.valid && !this.forumVar.editNameValidate) {
-    //     const postData = {
-    //       forumid : this.forumVar.forumId,
-    //       forumname : form.value.forumName,
-    //       employeelist : form.value.empItems,
-    //       adminlist  : form.value.admin
-    //     };
-    //    // this.toastr.success(form.value.forumName + this.forumVar.updateSuccessMsg);
-    //     this.alertService.success(this.forumVar.updateSuccessMsg);
-    //     this.forumVar.modalRef.hide();
-    //  }
-    // }]
-
-    detailsPage(forumId) {
-      this.forumService.editPage({forumId: forumId});
-      this.router.navigateByUrl('/forumdetail');
-    }
-
 
 }

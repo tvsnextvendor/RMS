@@ -24,7 +24,7 @@
                         <tbody>
                             
                         <tr *ngFor="let forum of forumVar.forumList | paginate: {itemsPerPage: pageSize,currentPage: currentPage,totalItems : totalCount};let i = index" class="table-desc-color">
-                                <td class="forumname-width text-left txt-unline"><a (click)="detailsPage(forum.forumId)">{{ forum.forumName }}</a></td>
+                                <td class="forumname-width text-left txt-unline"><a routerLink="/forumdetail/{{forum.forumId}}">{{ forum.forumName }}</a></td>
                                 <td class="text-left">{{ forum.employeesCount }}</td>
                                 <td class="lt-dt-act text-left"><span>{{forum.lastActiveDate |date}}</span></td>
                                 <td class="text-left"><label class="switch">
@@ -69,13 +69,13 @@
 
 <ng-template #deleteForum>
         <div class="modal-header pb-0">
-            <p class="hd-alg">{{commonLabels.labels.deleteCourse}}</p>
+            <p class="hd-alg">{{forumVar.deleteForum}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="forumVar.modalRef.hide()" title="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body text-center">
-            <span class="text-content">{{commonLabels.labels.courseDelConfirmation}}</span>
+            <span class="text-content">{{forumVar.forumDelConfirmation}}</span>
             <div class="text-center mt-4">
                 <button (click)="removeForum()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
                 <button type="button" class="btn btn-default"
