@@ -34,7 +34,10 @@ export class ForumVar {
         topic       :  'Topic is required',
         empName     :  'Department is required',
         admin       :  'Admin is required',
-        division    :  'Division is required'
+        division    :  'Division is required',
+        department  :   'Department is required',
+        startDate   :   'Start Date is required',
+        endDate     :   'End Date is required'
     };
     title = 'Forum';
     addSuccessMsg = 'Forum created Successfully';

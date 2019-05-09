@@ -5,7 +5,7 @@
         <div class="form-group">
             <label class="createforum-hd">{{forumVar.createForum.forumName}}</label>
             <input type="text" class="form-control" [(ngModel)]="forumVar.forumName" autocomplete="off" #ForumName="ngModel"  name = "forumName" id="forumName" placeholder="Enter Forum Name" required autocomplete="off">  
-            <span class="required_color" *ngIf="ForumName && ForumName.invalid && (formDir.submitted || ForumName.touched)">
+            <span class="required_color" *ngIf="ForumName && ForumName.invalid && (submitted || ForumName.touched)">
                     {{commonLabels.mandatoryLabels.forumRequired}}
             </span> 
             <span class="required_color" *ngIf="forumVar.uniqueValidate">
@@ -43,9 +43,10 @@
                     <a title="Delete" *ngIf="i!=0" (click)="removeTopic(i)"> 
                         <i _ngcontent-c10="" aria-hidden="true" class="fa fa-times icons_header"></i></a>
             </div>
+            <span class="required_color" *ngIf="submitted && topicsArray[0] && !topicsArray[0].topics">{{forumVar.mandatoryLabels.topic}}</span>
         </div>
        
-        <div class="form-group select-Courses">
+        <div class="form-group select-Courses"> 
             <ng-multiselect-dropdown *ngIf="division"
                     [placeholder]="'Select Division'"
                     name="divisionData"
@@ -53,8 +54,9 @@
 					[(ngModel)]="division.divisionList"
 					[settings]="dropdownSettings"
 					(onSelect)="onItemSelect($event, 'division')"
-                    (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}">
+                    (onDeSelect) = "onItemDeselect($event, 'division')" [ngModelOptions]="{standalone: true}">
                 </ng-multiselect-dropdown>
+                <span class="required_color" *ngIf="submitted && division.divisionList?.length === 0">{{forumVar.mandatoryLabels.division}}</span>
                 </div>
                 <div class="form-group select-Courses">
                     <ng-multiselect-dropdown
@@ -64,6 +66,7 @@
 					[settings]="dropdownSettings"
 					(onSelect)="onItemSelect($event)"
                     (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                    <span class="required_color" *ngIf="submitted && departmentList?.length === 0">{{forumVar.mandatoryLabels.department}}</span>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12 select select-style clearfix p-0">
@@ -72,6 +75,7 @@
                             <option *ngFor="let admin of adminData" [value]="admin.id">{{admin.value}}</option>
                         </select>
                     </div>
+                    <span class="required_color" *ngIf="submitted && !forumVar.forumAdmin">{{forumVar.mandatoryLabels.admin}}</span>
                 </div>
         <div class="date-section">
             <div class="form-group group-box">
@@ -83,6 +87,7 @@
                         <i class="far fa-calendar-alt icons_header"></i>                        
                     </div>
                 </div>
+                <!-- <span class="required_color" *ngIf="submitted && !forumVar.startDate">{{forumVar.mandatoryLabels.startDate}}</span> -->
             </div>
             <div class="form-group group-box">
                     <div class="input-group date" data-provide="datepicker">
@@ -93,6 +98,7 @@
                             <i class="far fa-calendar-alt icons_header"></i>                        
                         </div>
                     </div>
+                    <!-- <span class="required_color" *ngIf="submitted && !forumVar.endDate">{{forumVar.mandatoryLabels.endDate}}</span> -->
                 </div>
         </div>
         <div class="text-center pt-5 mb-4">
