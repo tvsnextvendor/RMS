@@ -72,8 +72,8 @@
 .tab-section a{
 	display: block;
     border: none;
-    color: #73737B;
-    /*font-weight: 600;*/
+    color: #aeaeb4;
+    font-weight: 600;
 }
 .tab-section .nav-tabs{
 	background-color: #fff;
