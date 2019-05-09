@@ -13,7 +13,7 @@
         </div> -->
     </div>
     <div class="select-arbx px-3" *ngFor="let training of course.CourseTrainingClassMaps;let ci = index">
-        <label class="square-cont float-left col-md-12" *ngIf="training.enableEdit == false">
+        <label class="square-cont float-left col-md-12 pr-0" *ngIf="training.enableEdit == false">
             <input type="checkbox" name="web"><span class="text-over">{{training?.TrainingClass?.trainingClassName}}</span>
             <span class="square-checkmark" *ngIf="uploadPage"></span> 
             <div class="float-right">
@@ -38,7 +38,7 @@
             </form>
         </div>
         <div class="clk-part clearfix pt-1">
-            <div class="clk-sec float-left pl-0">
+            <div class="clk-sec float-left px-4">
                 <a href="javascript:void(0);"
                     (click)="tabChange('video',training.trainingClassId,'',training.TrainingClass.videosCount)">{{commonLabels.labels.video}} :
                     {{training?.TrainingClass?.videosCount ? training?.TrainingClass?.videosCount : 0}}</a>
