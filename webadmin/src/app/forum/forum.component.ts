@@ -92,6 +92,11 @@ export class ForumComponent implements OnInit {
         this.forumService.editPage({editPage: true, forumId: forum.forumId});
         this.forumVar.modalRef = this.modalService.show(template, this.forumVar.modalConfig);
     }
+    closeModel() {
+      this.getForumList();
+      this.forumVar.modalRef.hide();
+      // this.forumService.hittingcloseBtn(true);
+    }
 
     removeForum() {
       this.forumService.deleteForum(this.selectedForumId).subscribe(result => {
