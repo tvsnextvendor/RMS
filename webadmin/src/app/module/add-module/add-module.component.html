@@ -8,8 +8,10 @@
 			</ol>
 		</nav>
 	</div>
-	
-<div class="row pt-5">
+	<div class="clearfix pt-4">
+	<h4 class="add-course">Create Course</h4>
+</div>
+<div class="row pt-3">
 	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm('true')" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
 			<div class="row form-group">
@@ -57,7 +59,7 @@
 				</div>
 			</div>
 			<div class="text-center" *ngIf = "selectedCourses.length === 0">
-				<p class="data-design"><span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></p>
+				<p class="data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
 			</div>			
 		</div>
 	</div>
