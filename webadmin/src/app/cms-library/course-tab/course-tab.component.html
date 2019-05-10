@@ -1,4 +1,4 @@
-<div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">{{commonLabels.labels.count}}{{totalCourseCount}}</h6></div>
+<div class="col-md-12 clearfix py-2 px-0"><h6 class="count-alg">{{commonLabels.labels.count}}{{totalCourseCount}}</h6></div>
 <div  *ngFor="let courses of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCourseCount};let i = index">
     <div id="coss" class="col-md-12 pt-2 clearfix px-0">
         <!-- {{CMSFilterSearchEventSet}} -->
@@ -192,8 +192,8 @@
     </div>
 </div>  
 
-<div class="white-bg text-center p-4">
-<p *ngIf="!courseListValue.length" class="data-design">
+<div class="white-bg text-center p-4" *ngIf="!courseListValue.length" >
+<p class="data-design">
     <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
 </div>
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  

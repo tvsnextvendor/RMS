@@ -1,5 +1,9 @@
 
   /* Training */
+  .count-alg{
+  float: right;
+  font-weight: 600;
+}
   .head-part{
       padding-left: 30px;
   }

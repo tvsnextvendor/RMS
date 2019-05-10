@@ -1,6 +1,6 @@
 <div class="col-md-12 clearfix py-3 px-0">
     <button class="btn btn-primary creat-btn float-left" *ngIf="!uploadPage" type="submit" (click)="openAddVideosToCourse()">{{commonLabels.btns.addvideocourse}}</button>
-    <h6 class="pt-2 float-right">{{commonLabels.labels.count}}{{totalVideosCount}}</h6>
+    <h6 class="pt-2 count-alg">{{commonLabels.labels.count}}{{totalVideosCount}}</h6>
 </div>
 
 <div class="col-md-12 pt-2 clearfix px-0" *ngIf="addVideosToCourse">

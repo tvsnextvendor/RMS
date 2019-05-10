@@ -52,7 +52,7 @@
 			<h5 class="mb-4">{{commonLabels.labels.coursesAdded}}</h5>
 			<div *ngIf = "selectedCourses.length" class="addedcourse-scroll">
 				<div *ngFor="let course of selectedCourses,index as i">
-					<p>{{course.value}}<span class="float-right">
+					<p class="training-items">{{course.value}}<span class="float-right">
 							<a (click)= "updateCourse(course,i)" title="Edit"><i class="fas fa-pencil-alt icons_header px-3" aria-hidden="true"></i></a>
 						</span>
 					</p>
