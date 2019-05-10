@@ -15,7 +15,7 @@ export class EmployeeComponent implements OnInit {
   pageLimit;
   listDetails = [];
   count = 0;
-  constructor(private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,private location : Location) { 
+  constructor(private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location) { 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.userId = params['userId']; 
       console.log(this.userId)

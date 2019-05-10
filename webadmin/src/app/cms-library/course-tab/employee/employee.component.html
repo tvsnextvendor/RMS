@@ -22,25 +22,25 @@
                 <thead>
                     <tr class="th-boxshadow text-center">
                         <th>
-                            <mfDefaultSorter by="User.userName">Training Class<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                            <mfDefaultSorter by="TrainingClass.trainingClassName">Training Class<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-center">
-                            <mfDefaultSorter by="status">Content Files<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                            <mfDefaultSorter by="File.fileName">Content Files<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-center">
-                            <mfDefaultSorter by="created">File Type</mfDefaultSorter>
+                            <mfDefaultSorter>File Type</mfDefaultSorter>
                         </th>
                         <th class="text-center">
-                            <mfDefaultSorter by="completedDate">Status</mfDefaultSorter>
+                            <mfDefaultSorter by="status">Status<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>                       
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let emp of mf.data,index as i" class="table-desc-color">
-                        <td class="text-center">{{emp?.User?.userName}}</td>
-                        <td class="text-center"><a routerLink="/employee/{{emp.userId}}">{{emp.status | titlecase}}</a></td>
-                        <td class="text-center">{{emp.created | date:medium}}</td>
-                        <td class="text-center">{{emp.completedDate ? emp.completedDate : ''}}</td>                          
+                        <td class="text-center">{{emp?.TrainingClass?.trainingClassName}}</td>
+                        <td class="text-center">{{emp.File.fileName}}</td>
+                        <td class="text-center">{{emp.File.fileExtension}}</td>
+                        <td class="text-center">{{emp.status}}</td>                          
                     </tr>
                     <tr *ngIf="mf.data?.length == 0">
                         <td colspan="10" class="text-center data-design">No data</td>

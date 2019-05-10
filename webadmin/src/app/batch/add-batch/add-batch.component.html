@@ -1,3 +1,4 @@
+<span *ngIf="submitted && errorValidate" class="required_color">{{errorValidate}}</span>
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
     <div class="Schedule-box">       
             <div class="row">  
@@ -113,17 +114,24 @@
                             <div class="row">
                                 <div class="row col-md-6 p-0 prgm-select">
                                     <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
-                                    <input type="text" class="form-control p-0 col-md-5 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
+                                    <input *ngIf = "!scheduleId" type="text" class="form-control p-0 col-md-5 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
+                                    <select *ngIf = "scheduleId" id="courseListValue" class="col-md-5 form-control p-0 ml-4" name="course{{i}}"
+                                        [(ngModel)]="data.courseId" #courses="ngModel" (change)="courseUpdate(courses.value,i)" placeholder="Course Name" required >
+                                        <option value="null" disabled>{{commonLabels.labels.courseName}}</option>
+                                        <option *ngFor="let courses of courseDataList" value="{{courses.courseId}}">{{courses.courseName}}</option>
+                                    </select>
+                                    <span *ngIf="data.duplicateCourse" class="required_color" >{{commonLabels.mandatoryLabels.courseScheduleError}}</span>
                                     <!-- <select id="program" class="col-md-5 form-control p-0" name="program{{i}}" [(ngModel)]="data.program">
                                         <option value="null">{{batchVar.select}}</option>
                                         <option *ngFor="let program of batchVar.programList" value="{{program.id}}">{{program.name}}</option>
                                     </select> -->
 
-                                    <select id="percentageList" class="col-md-5 form-control p-0 ml-4" name="passPercentage{{i}}"
-                                        [(ngModel)]="data.passPercentage" #passpercentage="ngModel" required>
+                                    <select id="percentageList" class="col-md-4 form-control p-0 ml-4" name="passPercentage{{i}}"
+                                        [(ngModel)]="data.passPercentage" #passpercentage="ngModel" required placeholder="Pass percentage %">
                                         <option value="null">{{commonLabels.labels.percentage}}</option>
                                         <option *ngFor="let percentage of batchVar.percentageList" value="{{percentage.percentage}}">{{percentage.percentage}}</option>
                                     </select>
+                                    <span *ngIf="submitted && passPerError && data.passPercentage === 'null'" class="required_color" >{{commonLabels.mandatoryLabels.passPercentageError}}</span>
                                 </div>
                                 <div class="col-md-6 module-radiobtn pl-0">
                                     <label class="module-title-mand"><input class="mr-2 module-btn-alg" type="radio"
@@ -135,7 +143,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-1 col-md-1 p-0">
+                        <div class="col-1 col-md-1 p-0" *ngIf="scheduleId">
                             <span><a class="float-right" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span>
                             <span><a class="float-right" *ngIf="i!=0" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon"></i></a></span>
                         </div>

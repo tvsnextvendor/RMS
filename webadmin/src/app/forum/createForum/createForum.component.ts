@@ -33,12 +33,13 @@ export class CreateForumComponent implements OnInit {
       // allowSearchFilter: true
     };
     admin = {};
-    division = {};
+    division = {'divisionList': []};
     department = {};
     @Input() closeModal;
     departData;
-    departmentList;
+    departmentList = [];
     adminData;
+    submitted = false;
     
 
    constructor(
@@ -178,6 +179,7 @@ export class CreateForumComponent implements OnInit {
     }
 
     onSubmitForm(form) {
+      this.submitted = true;
       this.division['divisions'] = this.division['divisionList'].map(item => item.id);
       const selectedDepartments = this.departmentList;
       this.department['departments'] = this.department['departments'].filter(function(obj1) {
@@ -211,6 +213,7 @@ export class CreateForumComponent implements OnInit {
           this.forumService.forumUpdate(this.forumEditPage.forumId, postData).subscribe(result => {
             if (result && result.isSuccess) {
                 this.closeModal.hide();
+                this.submitted = false;
                 this.alertService.success(this.forumVar.updateSuccessMsg);
                 this.forumService.goToList(true);
             }
@@ -221,6 +224,7 @@ export class CreateForumComponent implements OnInit {
              departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']))});
           this.forumService.addForum(postData).subscribe(result => {
             if (result && result.isSuccess) {
+              this.submitted = false;
               this.alertService.success(this.forumVar.addSuccessMsg);
               this.forumService.goToList(true);
             }
@@ -243,7 +247,8 @@ export class CreateForumComponent implements OnInit {
       this.departmentList = [];
       this.division['divisionList'] = [];
       formDir.reset();
-      formDir.submitted  = false;
+      this.forumVar.forumAdmin = '';
+      this.submitted  = false;
     }
 
 }

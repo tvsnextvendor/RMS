@@ -13,7 +13,7 @@ export class WorkCourseListComponent implements OnInit {
   pageSize;
   p;
   totalCourseCount;
-  courseListValue;
+  courseListValue = [];
   enableView;
   enableIndex;
 

@@ -64,7 +64,7 @@
 					[data]="departData"
 					[(ngModel)]="departmentList"
 					[settings]="dropdownSettings"
-					(onSelect)="onItemSelect($event)"
+					(onSelect)="onItemSelect($event,'department')"
                     (onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                     <span class="required_color" *ngIf="submitted && departmentList?.length === 0">{{forumVar.mandatoryLabels.department}}</span>
                 </div>
