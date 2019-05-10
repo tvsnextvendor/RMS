@@ -208,7 +208,7 @@ export class AddQuizComponent implements OnInit {
       }
     }
     else{
-      this.alertService.warn("Minimum one quiz is mandatory");
+      this.alertService.warn(this.commonLabels.mandatoryLabels.minimumQuiz);
     }
   }
 
@@ -305,7 +305,7 @@ export class AddQuizComponent implements OnInit {
     }
     else{
       //this.toastr.error("Course name is mandatory");
-      this.alertService.error("Training Class is mandatory");
+      this.alertService.error(this.commonLabels.mandatoryLabels.courseNameError);
       this.courseId ? 
         this.valueChanged('',hideTraining,true)
         :
@@ -327,7 +327,7 @@ export class AddQuizComponent implements OnInit {
       this.modalRef = this.modalService.show(template,modalConfig);
     }
     else{
-      this.alertService.error('Please add the Course name');
+      this.alertService.error(this.commonLabels.labels.pleaseaddCourse);
     }
   }
 }

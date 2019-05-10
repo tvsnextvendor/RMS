@@ -85,7 +85,7 @@ export class TraingClassTabComponent implements OnInit {
       });
       this.trainingClassCourseList[index].CourseTrainingClassMaps[ci].enableEdit = false;
     } else {
-      this.alertService.error("TrainingClass Name Mandatory");
+      this.alertService.error(this.commonLabels.mandatoryLabels.courseNameError);
     }
 
   }

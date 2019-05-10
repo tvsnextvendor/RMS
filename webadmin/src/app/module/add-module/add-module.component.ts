@@ -172,7 +172,7 @@ export class AddModuleComponent implements OnInit {
             let extensionType = typeValue[1].split('.').pop();
            
             if( typeValue[0].split('.').pop() === 'image' && extensionType === 'gif'){
-                this.alertService.error('Please add the valid file format')
+                this.alertService.error(this.commonLabels.mandatoryLabels.fileformate)
                 this.moduleVar.videoFile = '';
             }
             else{
@@ -258,23 +258,23 @@ export class AddModuleComponent implements OnInit {
                 this.previewImage = data;
                 break;
             case "text":
-                this.previewImage =  "assets/images/txt-icon.png";   
+                this.previewImage =  this.commonLabels.imgs.text;   
                 break;
             case "application":
                 if(extensionType === "ms-powerpoint"){
-                    this.previewImage =  "assets/images/ppt-icon.png";  
+                    this.previewImage =  this.commonLabels.imgs.ppt;  
                 } 
                 else if(extensionType === "pdf"){
-                    this.previewImage =  "assets/images/pdf-icon.png";  
+                    this.previewImage =  this.commonLabels.imgs.pdf;  
                 }   
                 else if(extensionType === "sheet" || extensionType === 'ms-excel'){
-                    this.previewImage = "assets/images/excel-icon.png";
+                    this.previewImage = this.commonLabels.imgs.excel;
                 }  
                 else if(extensionType === "document" || extensionType === 'msword'){
-                    this.previewImage = "assets/images/doc-icon.png";
+                    this.previewImage = this.commonLabels.imgs.doc;
                 }  
                 else if(extensionType === "zip"){
-                    this.previewImage = "assets/images/file-zip-icon.png";
+                    this.previewImage = this.commonLabels.imgs.filezip;
                 }  
                 break;    
         }
@@ -297,7 +297,7 @@ export class AddModuleComponent implements OnInit {
                this.tabEnable = true;
            }
            else{
-               this.alertService.error('No Data Found')
+               this.alertService.error(this.commonLabels.labels.nodataFound)
            }
        })
        this.getEditQuizData(data);
@@ -324,7 +324,7 @@ export class AddModuleComponent implements OnInit {
         let dataContent = data.filePath;
         this.commonService.removeFiles(dataContent).subscribe(result=>{
             if(result && result.isSuccess){
-                this.alertService.success('File removed successfully')
+                this.alertService.success(this.commonLabels.msgs.fileRemoved)
             }
         })
        }
@@ -398,28 +398,28 @@ export class AddModuleComponent implements OnInit {
    extensionUpdate(type){
        switch(type){
         case "ppt":
-            this.previewImage =  "assets/images/ppt-icon.png";  
+            this.previewImage =  this.commonLabels.imgs.ppt;  
             break;
         case "pdf":
-            this.previewImage =  "assets/images/pdf-icon.png";
+            this.previewImage =  this.commonLabels.imgs.pdf;
             break;
         case "txt":
-            this.previewImage =  "assets/images/txt-icon.png"; 
+            this.previewImage =  this.commonLabels.imgs.text; 
             break;
         case "docx":
-            this.previewImage =  "assets/images/doc-icon.png"; 
+            this.previewImage =  this.commonLabels.imgs.doc; 
             break;
         case "doc":
-            this.previewImage =  "assets/images/doc-icon.png"; 
+            this.previewImage =  this.commonLabels.imgs.doc; 
             break;
         case "xlsx":
-            this.previewImage =  "assets/images/excel-icon.png";
+            this.previewImage =  this.commonLabels.imgs.excel;
             break;
         case "xls":
-            this.previewImage =  "assets/images/excel-icon.png";
+            this.previewImage =  this.commonLabels.imgs.excel;
             break;     
         case "zip" :
-            this.previewImage =  "assets/images/file-zip-icon.png";
+            this.previewImage =  this.commonLabels.imgs.filezip;
             break;
        }
    }
@@ -457,7 +457,7 @@ export class AddModuleComponent implements OnInit {
        this.moduleVar.courseId ? videoObj = {fileName : self.moduleVar.selectVideoName,fileDescription : self.moduleVar.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:'',filePath:'',fileSize:'',fileLength : this.fileDuration,trainingClassId : this.moduleVar.courseId}:
         videoObj = {fileName : self.moduleVar.selectVideoName,fileDescription : self.moduleVar.description,fileUrl:'',fileType:this.fileExtensionType,fileExtension:this.moduleVar.fileExtension,fileImage:'',filePath:'',fileSize:'',fileLength : this.fileDuration}
         if(this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile){
-            this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
+            this.message = this.moduleVar.courseId !== '' ? (this.commonLabels.labels.videoUpdatedToast) : (this.commonLabels.labels.videoAddedToast);
             this.commonService.uploadFiles(this.uploadFile).subscribe((result)=>{
                 if(result && result.isSuccess){
                     if(videoObj.fileType === 'Video'){
@@ -485,7 +485,7 @@ export class AddModuleComponent implements OnInit {
             this.clearData();
         }
        else{
-           this.alertService.error(this.labels.mandatoryFields);
+           this.alertService.error(this.commonLabels.labels.mandatoryFields);
        }
    }
 
@@ -525,10 +525,10 @@ export class AddModuleComponent implements OnInit {
             this.staticTabs.tabs[1].active = true;
         }
         else if(!this.moduleVar.selectCourseName){
-            this.alertService.error(this.labels.courseNameError);
+            this.alertService.error(this.commonLabels.mandatoryLabels.courseNameError);
         }
         else if(!this.moduleVar.videoList.length){
-            this.alertService.error(this.labels.videoError);
+            this.alertService.error(this.commonLabels.mandatoryLabels.videoError);
         }
    }
 
@@ -565,7 +565,7 @@ export class AddModuleComponent implements OnInit {
                             }
                         }
 
-                        this.alertService.success(this.labels.moduleUpdateMsg);
+                        this.alertService.success(this.commonLabels.labels.moduleUpdateMsg);
                         this.moduleSubmitted = false;
                         
                     }
@@ -584,14 +584,14 @@ export class AddModuleComponent implements OnInit {
                             this.staticTabs.tabs[0].disabled = false;
                             this.staticTabs.tabs[0].active = true;
                         }
-                        this.alertService.success(this.labels.moduleCreateMsg);
+                        this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
                         this.moduleSubmitted = false;
                     }
                 })
             }
         }
         else if(!this.moduleName){
-            this.alertService.error(this.commonLabels.labels.courseName+this.labels.isRequire)
+            this.alertService.error(this.commonLabels.labels.courseName+this.commonLabels.labels.isRequired)
         }
         else if(!this.selectedCourses.length){
             this.alertService.error(this.commonLabels.labels.courseError)

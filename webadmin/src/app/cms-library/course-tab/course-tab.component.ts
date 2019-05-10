@@ -315,7 +315,7 @@ export class CourseTabComponent implements OnInit {
         if(resp && resp.isSuccess){
           this.enableDropData('closeEdit','');
           this.getCourseDetails();
-          this.alertService.success('Course updated successfully');
+          this.alertService.success(this.commonLabels.labels.moduleUpdateMsg);
         }
       })
     }
@@ -324,7 +324,7 @@ export class CourseTabComponent implements OnInit {
         if(resp && resp.isSuccess){
           this.enableDropData('closeEdit','');
           this.getCourseDetails();
-          this.alertService.success('Course added successfully');
+          this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
         }
       },err =>{
         console.log(err);
