@@ -169,7 +169,7 @@ export class CommonLabels{
         "invalidModule"     :   "Invalid Program Selection",
         "calendarView"      :   "Calendar View",
         "forumName"         :   "Forum Name",
-        "empCount"          :   "Employee count",
+        "empCount"          :   "Emp count",
         "activeInActive"    :   "Active / Inactive",
         "lastactivedate"    :   "Last Active Date",
         "editForum"         :   "Edit Forum",
@@ -444,7 +444,10 @@ export class CommonLabels{
         "courseScheduleError" : "Course Already added for this schedule",
         "fileformate"       :  "Please add the valid file format" ,
         "minimumQuiz"       :  "Minimum one quiz is mandatory",
+        "deptName"          :  "Department name is mandatory",
+        "diviName"          :  "Division name is mandatory" 
         "lower(forumName::text) must be unique": 'Forum Name should be unique'
+
      
     };
 
@@ -452,7 +455,7 @@ export class CommonLabels{
         "addnewtrainingschedule" : "Add New Training Schedule",
         "editVideo"              : "Edit Video",
         "addcertTemplate"        : "Add Certificate Template",
-        "notifiUpload"           :  "Notification Upload", 
+        "notifiUpload"           : "Notification Upload", 
      }
      msgs = {
         "rolesuccessMsg"    :   "Roles & Permissions Saved Successfully",
@@ -465,7 +468,12 @@ export class CommonLabels{
         "generalNotifi"     :   "Is this a general notification?",
         "publishmsg"        :   "Do you want to publish this content in the CMS Library?",
         "fileRemoved"       :   "File removed successfully",
-        "videoUpdate"       :   "Video updated successfully"
+        "videoUpdate"       :   "Video updated successfully",
+        "designation"       :   "Designation updated successfully",
+        "designationAdd"    :   "Designation added successfully",
+        "diviDeleted"       :   "Division deleted successfully",
+        "designDelete"      :   "Designation deleted successfully",
+        "diviUpdate"        :   "Division updated successfully",
 
     }
     symbols = {
