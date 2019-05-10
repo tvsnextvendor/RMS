@@ -12,6 +12,7 @@ export class ForumService {
   url;
   public editForum = new BehaviorSubject('');
   public listPage = new BehaviorSubject('');
+  public closeModel = new BehaviorSubject('');
 //   userData;
   constructor (private http: HttpService,
     private utilService: UtilService) {
@@ -38,7 +39,7 @@ export class ForumService {
   }
 
   getDivision() {
-      return this.http.getLocal('local', this.url.divisionList + '?resortId=' + this.utilService.getUserData().Resorts[0].resortId);
+      return this.http.getLocal('local', this.url.getResortDivision + '?Resort=' + this.utilService.getUserData().Resorts[0].resortId + '&type=division');
   }
 
   getDepartment(divisonIds) {
@@ -67,5 +68,9 @@ export class ForumService {
 
   postList(forumId) {
     return this.http.getLocal('local', this.url.forumPost + '?forumId=' + forumId);
+  }
+
+  hittingcloseBtn(status) {
+    this.closeModel.next(status);
   }
 }

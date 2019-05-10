@@ -84,7 +84,7 @@
                     bsDatepicker [(ngModel)]="forumVar.startDate" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
                     required>
                     <div class="input-group-addon">
-                        <i class="far fa-calendar-alt icons_header"></i>                        
+                        <i class="far fa-calendar-alt icons_header" (click)="dp.toggle()"></i>                        
                     </div>
                 </div>
                 <!-- <span class="required_color" *ngIf="submitted && !forumVar.startDate">{{forumVar.mandatoryLabels.startDate}}</span> -->
@@ -95,7 +95,7 @@
                         bsDatepicker [(ngModel)]="forumVar.endDate" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
                         required>
                         <div class="input-group-addon">
-                            <i class="far fa-calendar-alt icons_header"></i>                        
+                        <i class="far fa-calendar-alt icons_header" (click)="dp.toggle()"></i>                        
                         </div>
                     </div>
                     <!-- <span class="required_color" *ngIf="submitted && !forumVar.endDate">{{forumVar.mandatoryLabels.endDate}}</span> -->

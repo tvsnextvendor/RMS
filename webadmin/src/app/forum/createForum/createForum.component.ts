@@ -39,8 +39,8 @@ export class CreateForumComponent implements OnInit {
     departData;
     departmentList = [];
     adminData;
+    Divisions;
     submitted = false;
-    
 
    constructor(
      private toastr: ToastrService,
@@ -53,6 +53,7 @@ export class CreateForumComponent implements OnInit {
     private utilService: UtilService) {
     this.forumVar.url = API_URL.URLS;
     this.forumVar.forumAdmin = '';
+    this.forumVar.forumName = '';
 
    }
 
@@ -67,25 +68,28 @@ export class CreateForumComponent implements OnInit {
 
     this.getAdminList();
     this.getDivisionList();
-    if (this.forumEditPage.editPage) {
+    if (this.forumEditPage.forumId) {
       this.getForumData();
      }
-     
+
    }
 
    getForumData() {
       this.forumService.getForumById(this.forumEditPage.forumId).subscribe((result) => {
         const forumData = result.data.rows[0];
         this.division['divisionList'] = _.uniqBy(forumData['Divisions'].map(item => {
+          if (item['Division']['divisionId']) {
             const obj = {
               id: item['Division']['divisionId'] ,
               value: item['Division']['divisionName']
             };
             return obj;
+          }
         }), 'id');
         if (this.division['divisionList']) {
           this.getDepartmentList();
         }
+        this.Divisions = forumData['Divisions'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']));
         const selectedDepartment = forumData['Divisions'].map(item => {
           if (item['Department']) {
             const departObj =  {
@@ -120,7 +124,6 @@ export class CreateForumComponent implements OnInit {
      const selectedDivision = {
        divisionId: this.division['divisionList'] && this.division['divisionList'].map(item => item.id)
       };
-   
 
     this.forumService.getDepartment(selectedDivision).subscribe((resp) => {
       this.department['departments'] = resp.data && resp.data['rows'];
@@ -136,7 +139,7 @@ export class CreateForumComponent implements OnInit {
 
    getDivisionList() {
     this.forumService.getDivision().subscribe((resp) => {
-        this.division['divisionData'] = resp.data['rows'].map(item => {
+        this.division['divisionData'] = resp.data['divisions'].map(item => {
           const division = {
               id: item.divisionId,
               value : item.divisionName
@@ -163,8 +166,18 @@ export class CreateForumComponent implements OnInit {
       }
     }
 
-    onItemDeselect(event) {
-
+    onItemDeselect(event, type) {
+      if (type === 'division') {
+        this.forumService.getDepartment({divisionId: [event.id]}).subscribe((resp) => {
+          console.log(this.departmentList, 'ressss');
+          const result = this.departmentList.filter(function( obj ) {
+             return resp.data.rows.map( item => {
+              return obj.id !== item.departmentId;
+            });
+          });
+          console.log(result, 'resultant data after romving obj');
+        });
+      }
     }
 
     checkNameUniqueness(forumName) {
@@ -180,13 +193,16 @@ export class CreateForumComponent implements OnInit {
 
     onSubmitForm(form) {
       this.submitted = true;
-      this.division['divisions'] = this.division['divisionList'].map(item => item.id);
+      this.division['divisions'] = this.division && this.division['divisionList'] && this.division['divisionList'].map(item => item.id);
+
       const selectedDepartments = this.departmentList;
-      this.department['departments'] = this.department['departments'].filter(function(obj1) {
+      console.log(this.department['departments'], 'departmentData before filter');
+      this.department['departments'] = this.department && this.department['departments'] && this.department['departments'].filter(function(obj1) {
         return selectedDepartments.some(function(obj2) {
              return obj1.departmentId === obj2.id;
           });
         });
+
       if (form.valid && !this.forumVar.uniqueValidate ) {
         const postData = {
           forum: {
@@ -200,16 +216,26 @@ export class CreateForumComponent implements OnInit {
           // divisions: this.division['divisions'],
           // departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']))
         };
+        console.log(this.department['departments'], 'departmentData');
         if (this.forumEditPage.forumId) {
+          const self = this;
+          // const department = this.department['departments'];
+          const newSelectedDiv = self.division['divisions'].filter(o => !self.Divisions.find(x => x.divisionId === o));
+          const selectedNdPresentDivi = _.map(_.unionBy(this.Divisions, this.department['departments'], 'departmentId'));
+          _.forEach(selectedNdPresentDivi, function(value) {
+            value['forumId'] = self.forumEditPage.forumId;
+          });
           const array = this.topicsArray.map(item => {
             const obj =  {
               topics: item.topics,
-              forumTopicId: item.forumTopicId
+              forumTopicId: item.forumTopicId ? item.forumTopicId : '',
+              forumId: this.forumEditPage.forumId
             };
-            return obj;
-          });
-          Object.assign(postData, {topics: array,
-            Divisions: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId'])) });
+              return obj;
+            });
+          Object.assign(postData, {topics: array.map(item => {if (!item.forumTopicId) { delete item.forumTopicId; } return item; }),
+            divisions: newSelectedDiv,
+            Divisions: selectedNdPresentDivi.map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId', 'forumId']) )});
           this.forumService.forumUpdate(this.forumEditPage.forumId, postData).subscribe(result => {
             if (result && result.isSuccess) {
                 this.closeModal.hide();
@@ -221,7 +247,7 @@ export class CreateForumComponent implements OnInit {
         } else {
           Object.assign(postData, {topics: this.topicsArray.map(item => item.topics),
             divisions: this.division['divisions'],
-             departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']))});
+             departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId']))});
           this.forumService.addForum(postData).subscribe(result => {
             if (result && result.isSuccess) {
               this.submitted = false;
@@ -233,10 +259,10 @@ export class CreateForumComponent implements OnInit {
           this.clearForm(form);
           this.forumVar.uniqueValidate = false;
       }
-    } 
+    }
 
     clearForm(formDir) {
-      if (this.forumEditPage.forumId && this.closeModal) { 
+      if (this.forumEditPage.forumId && this.closeModal) {
         this.closeModal.hide();
       }
        this.forumName = '';
@@ -244,6 +270,7 @@ export class CreateForumComponent implements OnInit {
         topics: '',
         forumTopicId: ''
       }];
+      this.forumVar.forumAdmin = '';
       this.departmentList = [];
       this.division['divisionList'] = [];
       formDir.reset();
