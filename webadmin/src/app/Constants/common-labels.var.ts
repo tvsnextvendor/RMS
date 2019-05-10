@@ -446,6 +446,8 @@ export class CommonLabels{
         "minimumQuiz"       :  "Minimum one quiz is mandatory",
         "deptName"          :  "Department name is mandatory",
         "diviName"          :  "Division name is mandatory" 
+        "lower(forumName::text) must be unique": 'Forum Name should be unique'
+
      
     };
 
