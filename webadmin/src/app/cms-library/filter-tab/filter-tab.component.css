@@ -78,7 +78,9 @@
     background: none;
     color: #73737B;
   }
-  
+  .filter-search .search-container button:hover{
+    background: unset;
+  }
   
     @media screen and (max-width: 600px) {
       .filter-search .search-container {

@@ -174,7 +174,7 @@ text-decoration: underline;
 span.nodata {
      font-size: 17px !important;
 }
-.nodata-img[_ngcontent-c11] {
+.nodata-img{
     padding: 0 0;
     font-size: 25px;
     color: #468FB9;

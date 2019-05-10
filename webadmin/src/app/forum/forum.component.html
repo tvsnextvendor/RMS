@@ -4,7 +4,7 @@
                 <table class="table" [mfData]="forumVar.forumList" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
                         <tr class="th-boxshadow"  class="">                         
-                            <th class="forumname-width text-left">
+                            <th class="text-left">
                                 <mfDefaultSorter by="forumName">{{commonLabels.labels.forumName}}</mfDefaultSorter>
                             </th>
                             <th class="text-left">
@@ -24,7 +24,7 @@
                         <tbody>
                             
                         <tr *ngFor="let forum of forumVar.forumList | paginate: {itemsPerPage: pageSize,currentPage: currentPage,totalItems : totalCount};let i = index" class="table-desc-color">
-                                <td class="forumname-width text-left txt-unline"><a routerLink="/forumdetail/{{forum.forumId}}">{{ forum.forumName }}</a></td>
+                                <td class="text-left txt-unline"><a routerLink="/forumdetail/{{forum.forumId}}" class="forumname-width">{{ forum.forumName }}</a></td>
                                 <td class="text-left">{{ forum.employeesCount }}</td>
                                 <td class="lt-dt-act text-left"><span>{{forum.lastActiveDate |date}}</span></td>
                                 <td class="text-left"><label class="switch">
