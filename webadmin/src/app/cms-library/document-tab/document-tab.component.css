@@ -1,5 +1,9 @@
 
   /* Documents Tab */
+  .count-alg{
+  float: right;
+  font-weight: 600;
+}
    .dup-hd{
       color: #1D4960;
       font-size: 20px;

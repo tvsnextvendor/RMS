@@ -174,11 +174,15 @@ text-decoration: underline;
 span.nodata {
      font-size: 17px !important;
 }
-.nodata-img[_ngcontent-c11] {
+.nodata-img{
     padding: 0 0;
     font-size: 25px;
     color: #468FB9;
      display: unset;
     margin-right: 7px;
     vertical-align: -4px;
+}
+.training-items{
+    color: #73737B;
+    font-size: 16px;
 }
