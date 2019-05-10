@@ -544,7 +544,7 @@ export class AddModuleComponent implements OnInit {
                 "courseName":this.moduleName,
                 "courseTrainingClasses":this.moduleVar.selectedCourseIds,
                 "createdBy" : user.userId,
-                "status" : courseSubmitType ? 'workInprogress' : 'none'
+                "status" : courseSubmitType ? 'none' : 'workInprogress'
             }
             if(this.moduleCourseId || this.moduleId){
                 let id = this.moduleCourseId ? this.moduleCourseId : this.moduleId;

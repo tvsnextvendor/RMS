@@ -324,6 +324,7 @@ export class CommonLabels{
         "rolepermission"    :  "Roles & Permissions",
         "calendarTitle"     :  "Training Schedule Calendar",
         "editTitle"         :  "Edit New Training Schedule",
+        "addTitle"          :  "Add New Training Schedule",
         "forumtitle"        :  "Forum",
         "certificate"       :  "Certificates",
         "certiTempl"        :  "Certificates Templates",
@@ -426,8 +427,10 @@ export class CommonLabels{
         "accessTo"          :  "Access To is Required",
         "roleName"          :  "Role Name is Required",
         "users"             :  "User is required",
-        "filenameRequired"  :   "File name is required"
-    
+        "filenameRequired"  :   "File name is required",
+        "passPercentageError" : "Pass Percentage is Required",
+        "courseScheduleError" : "Course Already added for this schedule"
+     
     };
 
      modaltitle ={

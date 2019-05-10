@@ -118,6 +118,8 @@ export class API_URL {
     getEmployeeList : '8103/courseEmployeestatusList',
     getEmployeeDetails : '8103/employeeFilestatusList',
     getScheduleTraining : '8103/schedule',
+    getPopupScheduleData : '8103/schedule/getDetailsById',
+    updateScheduleTraining : '8103/updateScheduleTraining/',
 
     //Resort Services
     resortAdd : '8102/resort/Add',
