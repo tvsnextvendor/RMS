@@ -167,10 +167,13 @@ export class CourseTabComponent implements OnInit {
         this.selectedEditTrainingClassName = this.trainingClassList[0].TrainingClass.trainingClassName;
       }
     })
-    this.getEditFileData(this.selectedEditTrainingClass);
+    this.getEditFileData(this.selectedEditTrainingClass, index);
   }
 
-  getEditFileData(classId){
+  getEditFileData(classId, index){
+    if(this.selectedIndex != index){
+      this.addedFiles=[];
+    }
     this.selectedEditTrainingClass = classId;
     this.courseService.getEditCourseDetails('',this.selectedEditCourse,classId).subscribe(resp => {
       if(resp && resp.isSuccess){
@@ -315,6 +318,7 @@ export class CourseTabComponent implements OnInit {
         if(resp && resp.isSuccess){
           this.enableDropData('closeEdit','');
           this.getCourseDetails();
+          this.addedFiles=[];
           this.alertService.success(this.commonLabels.labels.moduleUpdateMsg);
         }
       })
@@ -324,6 +328,7 @@ export class CourseTabComponent implements OnInit {
         if(resp && resp.isSuccess){
           this.enableDropData('closeEdit','');
           this.getCourseDetails();
+          this.addedFiles=[];
           this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
         }
       },err =>{
