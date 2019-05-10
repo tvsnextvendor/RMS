@@ -1,12 +1,13 @@
 <ion-content padding class="headerFull-bg default-header">
   <ion-header class="static-header main-header my-component" color="primary">
-    <ion-navbar>
+    <ion-navbar  *ngIf="!showSearchBar"> 
       <button ion-button menuToggle>
         <img src="assets/imgs/menu.png" />
       </button>
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.training}}</span>
         <div class="header-icon">
+            <ion-icon name="ios-search" (click)="toggleSearchBox()" class="chat-icon"></ion-icon>
             <ion-icon name="ios-chatboxes" class="chat-icon"></ion-icon>
             <span (click)="goToNotification()">
           <img src="assets/imgs/notification.png"/>
@@ -15,6 +16,11 @@
         </div>
       </ion-title>
     </ion-navbar>
+    <ion-toolbar *ngIf="showSearchBar">
+      <ion-icon name="md-arrow-back" class="search-backarrow" (click)="toggleSearchBox()"></ion-icon>
+      <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" class="search-bar">
+      </ion-searchbar>
+    </ion-toolbar>
   </ion-header>
 
 

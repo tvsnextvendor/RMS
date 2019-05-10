@@ -1,9 +1,9 @@
 <div class="pt-2">   
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/cms-library">CMS Library</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0);" (click)="location.back()">Employee List</a></li>
-            <li class="breadcrumb-item active">Employee</li>
+            <li class="breadcrumb-item"><a routerLink="/cms-library">{{commonLabels.labels.cmsLibrary}}</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0);" (click)="location.back()">{{commonLabels.labels.empList}}</a></li>
+            <li class="breadcrumb-item active">{{commonLabels.labels.employeeTabLabel}}</li>
         </ol>
     </nav>
   </div>
@@ -15,23 +15,23 @@
     <div class="col-lg-12 col-sm-12 p-0">
     <div class="header-section mb-2 clearfix">
       <h4 class="float-left">Employee 3</h4>
-      <h6 class="float-right">Count : {{count}}</h6>
+      <h6 class="float-right">{{commonLabels.labels.count}}{{count}}</h6>
     </div>                
         <div class="table-responsive white-bg ">
             <table class="table table-striped white-bg mt-1" [mfData]="listDetails" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
                 <thead>
                     <tr class="th-boxshadow text-center">
                         <th>
-                            <mfDefaultSorter by="TrainingClass.trainingClassName">Training Class<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                            <mfDefaultSorter by="TrainingClass.trainingClassName">{{commonLabels.labels.trainingClass}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-center">
-                            <mfDefaultSorter by="File.fileName">Content Files<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                            <mfDefaultSorter by="File.fileName">{{commonLabels.labels.contentFiles}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-center">
-                            <mfDefaultSorter>File Type</mfDefaultSorter>
+                            <mfDefaultSorter>{{commonLabels.labels.fileType}}</mfDefaultSorter>
                         </th>
                         <th class="text-center">
-                            <mfDefaultSorter by="status">Status<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                            <mfDefaultSorter by="status">{{commonLabels.labels.status}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>                       
                     </tr>
                 </thead>
@@ -42,8 +42,9 @@
                         <td class="text-center">{{emp.File.fileExtension}}</td>
                         <td class="text-center">{{emp.status}}</td>                          
                     </tr>
-                    <tr *ngIf="mf.data?.length == 0">
-                        <td colspan="10" class="text-center data-design">No data</td>
+                    <tr *ngIf="videoListValue && !videoListValue.length">
+                        <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata">
+                            <i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
                     </tr>
                 </tbody>
                 <tfoot>

@@ -1,7 +1,7 @@
 <div class="">   
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"  *ngIf="!showcreatecourse"><a routerLink="/cms-library">{{commonLabels.labels.cmsLibrary}}</a></li>
+            <li class="breadcrumb-item" (click)="goTocmsLibrary()"  *ngIf="!showcreatecourse"><a routerLink="/cms-library">{{commonLabels.labels.cmsLibrary}}</a></li>
             <li *ngIf ="selectedTab === 'course' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.course}}</li>
             <li *ngIf ="selectedTab === 'training' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.trainingClass}}</li>
             <li *ngIf ="selectedTab === 'video' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.videos}}</li>

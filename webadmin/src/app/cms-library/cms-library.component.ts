@@ -60,6 +60,11 @@ export class CMSLibraryComponent implements OnInit {
     }
   }
 
+  goTocmsLibrary(){
+    this.hideSection = false;
+     this.selectedTab = 'course';
+  }
+
   showCreateCourse(){
     this.showcreatecourse = true;
     this.hideSection= true;
