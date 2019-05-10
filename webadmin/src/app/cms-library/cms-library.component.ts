@@ -25,7 +25,7 @@ export class CMSLibraryComponent implements OnInit {
   courseId;
   CMSFilterSearchEvent;
   quizTabHit;
-  selectedVideoList;
+  selectedVideoList=[];
   showcreatecourse=false;
   findCreateCourse;
 
@@ -121,7 +121,11 @@ export class CMSLibraryComponent implements OnInit {
    }
 
    getVideos(event){
-    this.selectedVideoList = event;
+    //this.selectedVideoList = event;
+    event.forEach(element => {
+      console.log(element);
+      this.selectedVideoList.push(element)
+    });
      if(this.findCreateCourse){
        this.showCreateCourse();
      }else{
