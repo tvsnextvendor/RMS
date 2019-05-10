@@ -43,7 +43,10 @@ export class CoursePage implements OnInit {
   noRecordsFoundMessage;
   paramsData ={};
   currentUser;
+  status;
   notificationCount;
+  showSearchBar: boolean = false;
+  search;
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
@@ -58,7 +61,8 @@ export class CoursePage implements OnInit {
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-             this.getCourseStatus('assigned');
+             this.getCourseStatus('assigned','');
+              this.status = 'assigned';
               this.getNotification();
             }
         });
@@ -100,12 +104,12 @@ export class CoursePage implements OnInit {
     this.loader.hideLoader();
   }
   
-  getCourseStatus(status) {
+  getCourseStatus(status, search) {
     let self = this;
     this.courseList = [];
     return new Promise(resolve => {
       let userId = this.currentUser ? this.currentUser.userId : 8;
-      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId).subscribe((res) => {
+      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId + '&search=' +search).subscribe((res) => {
         if(res['data']['rows']){
           self.courseList    = res['data']['rows'];
           self.assignedCount = res['data']['count'];
@@ -120,6 +124,24 @@ export class CoursePage implements OnInit {
     });
    
   }
+
+   toggleSearchBox() {
+    this.showSearchBar = !this.showSearchBar;
+   }
+
+   onInput($e) {
+    if (this.search) {
+      this.getCourseStatus(this.status, this.search)
+    } else {
+      this.showSearchBar = false;
+      this.getCourseStatus(this.status, '');
+    }
+  }
+  onCancel($e) {
+    this.showSearchBar = false;
+    this.getCourseStatus(this.status, '');
+  }
+
 
     getNotification(){
     let userId = this.currentUser.userId;
@@ -164,6 +186,7 @@ export class CoursePage implements OnInit {
 
   // show tabs
   showData(show) {
+    this.status = show;
     switch (show) {
       case 'assigned':
         this.showAssigned = false;
@@ -197,7 +220,7 @@ export class CoursePage implements OnInit {
         this.showSignRequire = true;
     }
 
-    this.getCourseStatus(show);
+    this.getCourseStatus(show,'');
 
   }
 
