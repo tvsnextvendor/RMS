@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute,Params } from '@angular/router';
 import {Location} from '@angular/common';
 import { HeaderService,UtilService,AlertService,ExcelService, CourseService } from '../../../services';
+import { CommonLabels } from '../../../Constants/common-labels.var'
 
 @Component({
   selector: 'app-employee',
@@ -15,7 +16,7 @@ export class EmployeeComponent implements OnInit {
   pageLimit;
   listDetails = [];
   count = 0;
-  constructor(private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location) { 
+  constructor(private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location,public commonLabels:CommonLabels) { 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.userId = params['userId']; 
       console.log(this.userId)
