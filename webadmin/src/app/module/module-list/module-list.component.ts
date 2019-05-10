@@ -140,7 +140,7 @@ export class ModuleListComponent implements OnInit {
       // this.moduleVar.selectedCourse.videos[i].videoLink = this.videoFile;
       // this.moduleVar.selectedCourse.videos[i].videoDescription = this.description;
       this.modalRef.hide();
-      this.message = "Video updated successfully"
+      this.message = this.commonLabels.msgs.videoUpdate
       this.alertService.success(this.message);
     }
     else {
@@ -158,7 +158,7 @@ export class ModuleListComponent implements OnInit {
       this.fileUrl = reader.result;
     }
     reader.readAsDataURL(file)
-    this.previewImage = "assets/videos/images/bunny.png";
+    this.previewImage = this.commonLabels.imgs.bunny;
   }
 
 

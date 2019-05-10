@@ -270,6 +270,8 @@ export class CommonLabels{
         "deleteTraining"    :   "Delete Training Files",
         "archiveData"       :   "Archive Data After",
         "delData"           :   "Delete Data After",
+        "nodataFound"       :   "No Data Found",
+        "pleaseaddCourse"   :   "Please add the Course name"
                     
     };
 
@@ -314,6 +316,7 @@ export class CommonLabels{
         "clear"             :   "clear",
         "reject"            :   "Reject",
         "approve"           :   "Approve",
+       
     };
 
     titles = {
@@ -362,7 +365,11 @@ export class CommonLabels{
         "calMenu"       :   "assets/images/Calendar.png",
         "forum"         :   "assets/images/Forum.png",
         "certificates"  :   "assets/images/Certificates.png",
-        "feedback"      :   "assets/images/feedback.png"
+        "feedback"      :   "assets/images/feedback.png",
+        "filezip"       :   "assets/images/file-zip-icon.png",
+        "excel"         :   "assets/images/excel-icon.png",
+        "doc"           :   "assets/images/doc-icon.png",
+        "bunny"         :   "assets/videos/images/bunny.png"
 
 
 
@@ -429,7 +436,9 @@ export class CommonLabels{
         "users"             :  "User is required",
         "filenameRequired"  :   "File name is required",
         "passPercentageError" : "Pass Percentage is Required",
-        "courseScheduleError" : "Course Already added for this schedule"
+        "courseScheduleError" : "Course Already added for this schedule",
+        "fileformate"       :  "Please add the valid file format" ,
+        "minimumQuiz"       :  "Minimum one quiz is mandatory"
      
     };
 
@@ -448,7 +457,9 @@ export class CommonLabels{
         "assignSuccessMsg"  :   "Template Assigned Successfully",
         "badgeSuccessMsg"   :   "Badges Selected Successfully",
         "generalNotifi"     :   "Is this a general notification?",
-        "publishmsg"        :   "Do you want to publish this content in the CMS Library?"
+        "publishmsg"        :   "Do you want to publish this content in the CMS Library?",
+        "fileRemoved"       :   "File removed successfully",
+        "videoUpdate"       :   "Video updated successfully"
 
     }
     symbols = {

@@ -164,7 +164,7 @@ export class QuizTabComponent implements OnInit {
       this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
     }
     else{
-      this.alertService.warn("Minimum one quiz is mandatory");
+      this.alertService.warn(this.commonLabels.mandatoryLabels.minimumQuiz);
     }
   }
 
