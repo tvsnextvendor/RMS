@@ -57,7 +57,7 @@
                             <td class="text-left">{{ resort.utilizedSpace }}</td>
                             <td class="text-center"><a (click)="resortDetails(resort.resortId)" title="Edit"><i class="fas fa-eye"></i></a>
                                 <a title="Delete" (click)="removeResort(deleteResort,resort.resortId)"><i class="fa fa-trash header-icon"></i></a>
-                                <a title="Active/Inactive"><label class="switch">
+                                <a title="Active/Inactive" class="mr-4"><label class="switch">
                                         <input type="checkbox" [checked]="resort.status === 'Active' ? true : false" (change) = "statusUpdate(i,resort.resortId,resort.status)"> 
                                         <span class="slider round"></span>
                                     </label></a>
