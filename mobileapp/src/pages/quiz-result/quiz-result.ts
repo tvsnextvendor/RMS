@@ -22,6 +22,7 @@ export class QuizResultPage implements OnInit {
     feedbackform: FormGroup;
     errorMessage;
     currentUser: any;
+    msgToUser;
     constructor(public navCtrl: NavController, public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
         this.Math = Math;
         this.resultData = navParams.data;
@@ -35,6 +36,12 @@ export class QuizResultPage implements OnInit {
           //  'description': new FormControl('', [Validators.required])
             'description': new FormControl('')
         });
+        if(this.resultData['correctAnswers'] >= ( this.resultData['totalQuestions'] / 2 ) ) {
+           this.msgToUser = "Congratulations";
+        }else{
+            this.msgToUser = "Better luck next time";
+        }
+     
         this.getUser();
 
     }

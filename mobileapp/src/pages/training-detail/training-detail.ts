@@ -58,6 +58,7 @@ export class TrainingDetailPage {
     trainingClassName;
     trainingClassId;
     uploadPath;
+    status;
     currentUser;
 
     constructor(public navCtrl: NavController,public storage: Storage,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
@@ -68,6 +69,7 @@ export class TrainingDetailPage {
         this.courseId = this.detailObject['setData'].CourseTrainingClassMaps[0].courseId;
         this.trainingDatas = this.detailObject['setData'].Files;
         this.uploadPath = this.detailObject['uploadPath'];
+        this.status= this.detailObject['status'];
         this.lastIndexs = this.trainingDatas.length - 1;
         this.selectedIndexs = this.detailObject['selectedIndex'];
         this.trainingStatus = this.detailObject.status;

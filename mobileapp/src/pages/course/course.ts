@@ -83,6 +83,7 @@ export class CoursePage implements OnInit {
   
   openTrainingClass(courseId) 
   {
+    if(this.status == 'assigned'){
     let userId = this.currentUser ? this.currentUser.userId : 8;
         let data={
         'courseId' :courseId,
@@ -93,7 +94,9 @@ export class CoursePage implements OnInit {
         },(err) => {
 
         });
+      }
     this.paramsData['courseId'] = courseId;
+    this.paramsData['status'] = this.status;
     this.navCtrl.setRoot('training-page',this.paramsData);
   }
 

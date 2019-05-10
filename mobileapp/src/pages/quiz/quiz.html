@@ -19,17 +19,17 @@
                             <span class="quizOption">
                                 <ion-row>
                                 <ion-col col-1 class="quiz-radio">
-                                    <label for="True"></label>
+                                    <label for="true"></label>
                                     <ion-icon name="radio-button-off" class="quizOption-icon"
-                                        *ngIf="'True' != quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        *ngIf="'true' != quizData[quizStep]['selectedAnswer']"></ion-icon>
                                     <ion-icon name="checkmark-circle" class="quizOption-icon"
-                                        *ngIf="'True' == quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        *ngIf="'true' == quizData[quizStep]['selectedAnswer']"></ion-icon>
                                 </ion-col> 
  
                                 <ion-col col-11>
-                                    <input hidden id="True" type="radio" class="with-font" name="TorF"
-                                        [value]="True" (change)="changeSelectedValue('True')"
-                                        [checked]="'True' == quizData[quizStep]['selectedAnswer']" />
+                                    <input hidden id="true" type="radio" class="with-font" name="TorF"
+                                        [value]="true" (change)="changeSelectedValue('true')"
+                                        [checked]="'true' == quizData[quizStep]['selectedAnswer']" />
                                     <p>True</p>
                                 </ion-col>
 
@@ -39,16 +39,16 @@
                             <span class="quizOption">
                                 <ion-row>
                                 <ion-col col-1 class="quiz-radio">
-                                <label for="False"></label>
+                                <label for="false"></label>
                                     <ion-icon name="radio-button-off" class="quizOption-icon"
-                                        *ngIf="'False' != quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        *ngIf="'false' != quizData[quizStep]['selectedAnswer']"></ion-icon>
                                     <ion-icon name="checkmark-circle" class="quizOption-icon"
-                                        *ngIf="'False' == quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        *ngIf="'false' == quizData[quizStep]['selectedAnswer']"></ion-icon>
                                 </ion-col>
 
                                 <ion-col col-11>
-                                    <input hidden id="False" type="radio" class="with-font" name="TorF" [value]="False" (change)="changeSelectedValue('False')"
-                                        [checked]="'False' == quizData[quizStep]['selectedAnswer']" />
+                                    <input hidden id="false" type="radio" class="with-font" name="TorF" [value]="false" (change)="changeSelectedValue('false')"
+                                        [checked]="'false' == quizData[quizStep]['selectedAnswer']" />
                                     <p>False</p>
                                 </ion-col>
                             </ion-row>
@@ -94,7 +94,7 @@
                             <span class="quizOption">
                                 <ion-row>
                                     <ion-item>
-                                        <ion-input type="text" [(ngModel)]="nonMcq" (ngModelChange)="changeSelectedValue($event)"></ion-input>
+                                        <ion-input type="text" [(ngModel)]="nonMcq" (change)="changeSelectedValue(nonMcq)"></ion-input>
                                     </ion-item>
                                 </ion-row>
                             </span>
