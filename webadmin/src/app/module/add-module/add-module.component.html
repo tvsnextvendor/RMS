@@ -9,7 +9,8 @@
 		</nav>
 	</div>
 	<div class="clearfix pt-4">
-	<h4 class="add-course">Create Course</h4>
+	<h4 class="add-course" *ngIf="!moduleId">Create Course</h4>
+	<h4 class="add-course" *ngIf="moduleId">Edit Course</h4>
 </div>
 <div class="row pt-3">
 	<form class="col-md-8 pl-0" (ngSubmit) = "submitForm('true')" #moduleForm = "ngForm">

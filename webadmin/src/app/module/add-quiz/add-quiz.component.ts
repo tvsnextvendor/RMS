@@ -228,7 +228,7 @@ export class AddQuizComponent implements OnInit {
     //Weightage update
     let params;
     let hideTraining = submitType === 'yes' ? true : false;
-    if(this.selectCourseName){
+    if(this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length){
       let data = this.quizQuestionsForm.map(item => {
           item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
           return item;
@@ -303,15 +303,21 @@ export class AddQuizComponent implements OnInit {
         })
       }
     }
-    else{
+    else if(!this.selectCourseName){
+      this.modalRef.hide();
       //this.toastr.error("Course name is mandatory");
       this.alertService.error(this.commonLabels.mandatoryLabels.courseNameError);
-      this.courseId ? 
-        this.valueChanged('',hideTraining,true)
-        :
-        this.valueChanged('',hideTraining,false);
+      // this.courseId ? 
+      //   this.valueChanged('',hideTraining,true)
+      //   :
+      //   this.valueChanged('',hideTraining,false);
         // this.redirectCourseList();
     }
+    else if(!this.videoList.length){
+      this.modalRef.hide();
+      this.alertService.error(this.commonLabels.mandatoryLabels.videoError);
+    }
+
   }
 
   redirectCourseList(){

@@ -67,6 +67,7 @@ export class UserComponent implements OnInit {
     roleError;
     roleFormSubmitted = false;
     errorValidate;
+    validationDivisionCheck = true;
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
         private commonLabels : CommonLabels) {
@@ -143,18 +144,18 @@ export class UserComponent implements OnInit {
 
     //update user
     userEdit(data, index) {  
-        this.changedivision();  
             this.userid = data.UserRole[0].userId;   
             this.editEnable= true;
             this.userIndex = index;
             this.userName = data.userName;
             this.userId = data.employeeId;
-            this.department = data.Department ? data.Department.departmentId : "";
             this.division =data.Division ? data.Division.divisionId : "";
             this.designation= data.Designation?data.Designation.designationId : "";
             this.reportingTo=data.reportDetails?data.reportDetails.designationId : "";
             this.emailAddress = data.email;
-            this.phoneNumber = data.phoneNumber;    
+            this.phoneNumber = data.phoneNumber;  
+            this.changedivision();    
+            this.department = data.Department ? data.Department.departmentId : "";
             //this.accessTo = data.accessTo;  
     }
 
@@ -193,6 +194,7 @@ export class UserComponent implements OnInit {
          });
     }
     openAddUser(template: TemplateRef<any>, data,  index) {
+        this.divisionValidationCheck = true;
         if(data){
          this.userEdit(data,index);
          this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
@@ -232,7 +234,7 @@ export class UserComponent implements OnInit {
                         this.constant.modalRef.hide();
                         this.resetFields();
                         this.roleError = false;
-                        this.roleComponent.getDropDownDetails();
+                        this.roleComponent.getDropDownDetails('','');
                         this.alertService.success(this.commonLabels.msgs.designation)
                     }
                 },err =>{
@@ -253,7 +255,7 @@ export class UserComponent implements OnInit {
                         this.getDivisionList(resortId);
                         this.constant.modalRef.hide();
                         this.resetFields();
-                        this.roleComponent.getDropDownDetails();
+                        this.roleComponent.getDropDownDetails('','');
                         this.alertService.success(this.commonLabels.msgs.designationAdd)
                     }
                 },err =>{
@@ -325,7 +327,7 @@ export class UserComponent implements OnInit {
                     }
                 },err =>{
                 this.errMsg=err.error.error;
-                this.alertService.success(this.errMsg);
+                this.alertService.error(this.errMsg);
             })
             }else{
                 obj['createdBy'] = this.utilService.getUserData().userId;
@@ -338,7 +340,7 @@ export class UserComponent implements OnInit {
                     }
                 },err =>{
                 this.errMsg=err.error.error;
-                this.alertService.success(this.errMsg);
+                this.alertService.error(this.errMsg);
             });
             }}
       }
@@ -430,7 +432,7 @@ export class UserComponent implements OnInit {
                     this.triggerNext = false ;
                     this.getDivisionList(resortId);
                     this.closeAddForm();
-                    this.roleComponent.getDropDownDetails();
+                    this.roleComponent.getDropDownDetails('','');
                 }    
             },err =>{
                 this.errorValidation = false;
@@ -439,6 +441,12 @@ export class UserComponent implements OnInit {
             })
         }else{
             this.divisionError = this.commonLabels.mandatoryLabels.deptName;
+        }
+    }
+
+    departmentEditCheck(value){
+        if(value !== '' && !this.validationDivisionCheck){
+            this.validationDivisionCheck = true;
         }
     }
 
@@ -536,8 +544,10 @@ export class UserComponent implements OnInit {
             this.editDepartmentList.push(obj);
         }
         else if(type === 'edit'){
-            this.editDepartmentList.splice(i, 1);
             this.removeDepartmentIds.push(this.editDepartmentList[i].departmentId);
+            this.editDepartmentList.splice(i, 1);
+            this.validationDivisionCheck = true;
+            
             
         }
     }
@@ -596,18 +606,19 @@ export class UserComponent implements OnInit {
     }
 
     updateDivision(){
+        this.errorValidation = true;
         if(Object.keys(this.editDivisionValue).length){
-            let validationCheck = true;
+            this.validationDivisionCheck = true;
             let params = this.editDivisionValue.Departments.map(item=>{
                 if(!item.departmentId){
                     item.divisionId  =  this.editDivisionValue.divisionId
                 }
                 if(item.departmentName === ''){
-                    validationCheck = false;
+                    this.validationDivisionCheck = false;
                 }
                 return item;
             })
-            if(validationCheck){
+            if(this.validationDivisionCheck){
                 this.editDivisionValue.Departments = params;
                 this.editDivisionValue.removeDepartmentIds = this.removeDepartmentIds;
                 this.userService.divisionUpdate(this.editDivisionValue,this.editDivisionValue.divisionId).subscribe(resp=>{
@@ -616,10 +627,14 @@ export class UserComponent implements OnInit {
                         let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
                         this.constant.modalRef.hide();
                         this.getDivisionList(resortId);
-                        this.roleComponent.getDropDownDetails();
+                        this.roleComponent.getDropDownDetails('','');
                         this.alertService.success(this.commonLabels.msgs.diviUpdate);
                     }
-                })
+                },err =>{
+                    this.errorValidation = false;
+                    this.errorValidate = err.error.error;
+                    this.alertService.error(err.error.error);
+                });
             }
             else{
                 this.alertService.error(this.commonLabels.mandatoryLabels.deptName);

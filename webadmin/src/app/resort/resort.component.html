@@ -2,7 +2,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a routerLink="/resortslist" class="resort-breadcrumb">{{commonLabels.labels.resort}}</a></li>                
-            <li class="breadcrumb-item active">{{commonLabels.btns.add}}</li>
+            <li class="breadcrumb-item active" *ngIf="!resortId">{{commonLabels.btns.add}}</li>
+            <li class="breadcrumb-item active" *ngIf="resortId">{{commonLabels.labels.edit}}</li>
         </ol>
     </nav>
 </div>

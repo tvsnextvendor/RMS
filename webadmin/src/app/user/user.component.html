@@ -359,6 +359,8 @@
         </div>
     </div>
 </ng-template>
+
+
 <ng-template #addDivision>
     <div class="modal-header pb-0">
         <p class="hd-alg pl-0">{{commonLabels.labels.addDivision}}</p>
@@ -458,7 +460,7 @@
         <input type="text" class="form-control col-md-11 mb-2 p-0" placeholder="Division Name" [(ngModel)]="editDivisionValue.divisionName" name = "division" aria-label="" aria-describedby="basic-addon1">
         <div class="row col-12 col-md-12 p-0" *ngFor="let data of editDepartmentList; let i = index">
             <div class="col-4 input-group mb-3 col-md-8 group-box">
-                <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1">
+                <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1" (keyup)="departmentEditCheck(data.departmentName)">
             </div>
             <div class="input-group-prepend">
                 <button class="btn btn-icon" type="button" *ngIf="i == 0" (click)="editDivisionForm('add')" title="Add">
@@ -470,6 +472,7 @@
             </div> 
         </div>
         <div *ngIf="!errorValidation"><span class="required_color text-left">{{errorValidate}}</span></div>         
+        <div *ngIf="!validationDivisionCheck"><span class="required_color text-left">{{commonLabels.mandatoryLabels.deptName}}</span></div>         
         </div>
         </div>
         <div class="text-center mt-3">
