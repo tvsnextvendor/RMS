@@ -243,7 +243,14 @@ export class CreateForumComponent implements OnInit {
                 this.alertService.success(this.forumVar.updateSuccessMsg);
                 this.forumService.goToList(true);
             }
-          });
+          }, err => {
+            if (this.commonLabels.mandatoryLabels[err.error.error]) {
+              this.alertService.error(this.commonLabels.mandatoryLabels[err.error.error]);
+            } else {
+              this.alertService.error(err.error.error);
+            }
+            return;
+        });
         } else {
           Object.assign(postData, {topics: this.topicsArray.map(item => item.topics),
             divisions: this.division['divisions'],
@@ -254,7 +261,14 @@ export class CreateForumComponent implements OnInit {
               this.alertService.success(this.forumVar.addSuccessMsg);
               this.forumService.goToList(true);
             }
-          });
+          }, err => {
+            if (this.commonLabels.mandatoryLabels[err.error.error]) {
+              this.alertService.error(this.commonLabels.mandatoryLabels[err.error.error]);
+            } else {
+              this.alertService.error(err.error.error);
+            }
+            return;
+        });
       }
           this.clearForm(form);
           this.forumVar.uniqueValidate = false;
