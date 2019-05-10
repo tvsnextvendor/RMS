@@ -233,7 +233,7 @@ export class UserComponent implements OnInit {
                         this.resetFields();
                         this.roleError = false;
                         this.roleComponent.getDropDownDetails();
-                        this.alertService.success("Designation updated successfully")
+                        this.alertService.success(this.commonLabels.msgs.designation)
                     }
                 },err =>{
                     this.errorValidation = false;
@@ -254,7 +254,7 @@ export class UserComponent implements OnInit {
                         this.constant.modalRef.hide();
                         this.resetFields();
                         this.roleComponent.getDropDownDetails();
-                        this.alertService.success("Designation added successfully")
+                        this.alertService.success(this.commonLabels.msgs.designationAdd)
                     }
                 },err =>{
                     this.errorValidation = false;
@@ -438,7 +438,7 @@ export class UserComponent implements OnInit {
                 this.alertService.error(err.error.error);
             })
         }else{
-            this.divisionError = 'Department name is mandatory';
+            this.divisionError = this.commonLabels.mandatoryLabels.deptName;
         }
     }
 
@@ -449,7 +449,7 @@ export class UserComponent implements OnInit {
                 this.divisionValidationCheck = false;
             }
         })
-        this.divisionValidationCheck ?  this.triggerNext = true : this.divisionError = 'Division name is mandatory';
+        this.divisionValidationCheck ?  this.triggerNext = true : this.divisionError = this.commonLabels.mandatoryLabels.diviName;
     }
 
     tabchange(event){
@@ -558,7 +558,7 @@ export class UserComponent implements OnInit {
                 let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
                 this.constant.modalRef.hide();
                 this.getDivisionList(resortId);
-                this.alertService.success('Division deleted successfully');
+                this.alertService.success(this.commonLabels.msgs.diviDeleted);
             }
         })
     }
@@ -579,7 +579,7 @@ export class UserComponent implements OnInit {
                 let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
                 this.constant.modalRef.hide();
                 this.getDivisionList(resortId);
-                this.alertService.success('Designation deleted successfully');
+                this.alertService.success(this.commonLabels.msgs.designDelete);
             }
         })
     }
@@ -617,12 +617,12 @@ export class UserComponent implements OnInit {
                         this.constant.modalRef.hide();
                         this.getDivisionList(resortId);
                         this.roleComponent.getDropDownDetails();
-                        this.alertService.success('Division updated successfully');
+                        this.alertService.success(this.commonLabels.msgs.diviUpdate);
                     }
                 })
             }
             else{
-                this.alertService.error('Department name is mandatory');
+                this.alertService.error(this.commonLabels.mandatoryLabels.deptName);
             }   
         }
     }
