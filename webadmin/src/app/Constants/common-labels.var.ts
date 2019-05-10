@@ -443,7 +443,8 @@ export class CommonLabels{
         "passPercentageError" : "Pass Percentage is Required",
         "courseScheduleError" : "Course Already added for this schedule",
         "fileformate"       :  "Please add the valid file format" ,
-        "minimumQuiz"       :  "Minimum one quiz is mandatory"
+        "minimumQuiz"       :  "Minimum one quiz is mandatory",
+        "lower(forumName::text) must be unique": 'Forum Name should be unique'
      
     };
 
