@@ -44,7 +44,7 @@
                         <label class="col-md-4 p-0 label-title">{{commonLabels.labels.batchName}}</label>
                         <div class="col-md-8 p-0">
                             <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName"
-                                #BatchName="ngModel" type="text" placeholder="Enter Training Schedule Name" required>
+                                #BatchName="ngModel" type="text" placeholder="Enter Training Schedule Name" maxlength="30" required>
                             <span class="required_color" *ngIf="BatchName && BatchName.invalid && (formDir.submitted || BatchName.touched)">
                                 {{commonLabels.mandatoryLabels.batchName}}
                             </span>
@@ -60,7 +60,7 @@
                             <!-- <ng-multiselect-dropdown [placeholder]="'Resort'" name="resortId" [data]="batchVar.resortList"
                                 [(ngModel)]="batchVar.selectedResort" [settings]="batchVar.resortSettings" (onSelect)="onEmpSelect($event)"
                                 (onDeSelect)="onEmpSelect($event)" #resortId="ngModel" required></ng-multiselect-dropdown> -->
-                            <select id="resort" class="form-control p-0" name="resortId" [(ngModel)]="batchVar.selectedResort">
+                            <select id="resort" class="form-control p-0" name="resortId" [(ngModel)]="batchVar.selectedResort" [disabled]="scheduleId ? true : false">
                                 <option value="null">{{commonLabels.labels.resort}}</option>
 
                                 <option *ngFor="let data of batchVar.resortList" value="{{data.resortId}}">{{data.resortName}}</option>
@@ -72,7 +72,7 @@
                     
                         <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                         <div class="pl-0 form-group select-Courses">
-                            <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId" [data]="batchVar.departmentList"
+                            <ng-multiselect-dropdown [disabled]="scheduleId ? true : false"  [placeholder]="'Department'" name="departmentId" [data]="batchVar.departmentList"
                                 [(ngModel)]="batchVar.selectedDepartment" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
                                 (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" required></ng-multiselect-dropdown>
                             <span class="required_color" *ngIf="submitted && !batchVar.selectedDepartment.length">
@@ -83,7 +83,7 @@
                     <div class="col-md-5 p-0 ml-auto">
                             <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                             <div class="pl-0 form-group select-Courses">
-                                <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event,'div')" [data]="batchVar.divisionList"
+                                <ng-multiselect-dropdown [disabled]="scheduleId ? true : false" [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event,'div')" [data]="batchVar.divisionList"
                                     [(ngModel)]="batchVar.selectedDivision" [settings]="batchVar.divisionSettings"  #divisionId="ngModel" required></ng-multiselect-dropdown>
                                 <span class="required_color" *ngIf="submitted && !batchVar.selectedDivision.length">
                                     {{commonLabels.mandatoryLabels.division}}
@@ -114,8 +114,8 @@
                             <div class="row">
                                 <div class="row col-md-6 p-0 prgm-select">
                                     <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
-                                    <input *ngIf = "!scheduleId" type="text" class="form-control p-0 col-md-5 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
-                                    <select *ngIf = "scheduleId" id="courseListValue" class="col-md-5 form-control p-0 ml-4" name="course{{i}}"
+                                    <input *ngIf = "!scheduleId" disabled type="text" class="form-control p-0 col-md-5 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
+                                    <select [disabled]="data.trainingScheduleCourseId ? true : false" *ngIf = "scheduleId" id="courseListValue" class="col-md-5 form-control p-0 ml-4" name="course{{i}}"
                                         [(ngModel)]="data.courseId" #courses="ngModel" (change)="courseUpdate(courses.value,i)" placeholder="Course Name" required >
                                         <option value="null" disabled>{{commonLabels.labels.courseName}}</option>
                                         <option *ngFor="let courses of courseDataList" value="{{courses.courseId}}">{{courses.courseName}}</option>

@@ -72,6 +72,22 @@ export class CreateForumComponent implements OnInit {
       this.getForumData();
      }
 
+     this.forumService.closeModel.subscribe(result => {
+      if (result) {
+        this.forumVar.forumName = '';
+        this.topicsArray = [{
+        topics: '',
+        forumTopicId: ''
+        }];
+        this.forumVar.forumAdmin = '';
+        this.departmentList = [];
+        this.division['divisionList'] = [];
+        this.forumVar.startDate = '';
+        this.forumVar.endDate = '';
+        // this.forumService.editPage({});
+      }
+      });
+
    }
 
    getForumData() {
@@ -242,6 +258,7 @@ export class CreateForumComponent implements OnInit {
                 this.submitted = false;
                 this.alertService.success(this.forumVar.updateSuccessMsg);
                 this.forumService.goToList(true);
+                this.forumService.editPage({});
             }
           }, err => {
             if (this.commonLabels.mandatoryLabels[err.error.error]) {
@@ -290,6 +307,7 @@ export class CreateForumComponent implements OnInit {
       formDir.reset();
       this.forumVar.forumAdmin = '';
       this.submitted  = false;
+      this.forumService.editPage({});
     }
 
 }

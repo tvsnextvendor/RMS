@@ -53,9 +53,8 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.moduleForm=[];
         this.clearBatchVar();
         this.getResortData();
-        console.log("scheduleId",this.scheduleId)
+        
         if(this.scheduleId){
-            this.updateScheduleTraining();
             this.getCourseData();
         }
         else{
@@ -71,7 +70,6 @@ export class AddBatchComponent implements OnInit {
 
     getCourseData(){
         this.courseService.getAllCourse().subscribe(resp=>{
-            console.log(resp)
             if(resp && resp.isSuccess){
                 this.courseDataList = resp.data.rows.length && resp.data.rows.map(item=>{
                     let obj = {
@@ -80,6 +78,7 @@ export class AddBatchComponent implements OnInit {
                     }
                     return obj;
                 })
+                this.updateScheduleTraining();
             }
         });
     }
@@ -106,7 +105,7 @@ export class AddBatchComponent implements OnInit {
     }
 
     updateScheduleTraining(){
-        console.log("scheduleData",this.scheduleData);
+        
         this.batchVar.batchFrom = new Date(this.scheduleData.assignedDate);
         this.batchVar.batchTo = new Date(this.scheduleData.dueDate);
         this.batchVar.batchName = this.scheduleData.name;
@@ -124,6 +123,7 @@ export class AddBatchComponent implements OnInit {
                return obj;
                
         });
+
         this.reminder=this.scheduleData.notificationDays;
         this.employeesInBatch = this.scheduleData.Resorts.map(item=>{
             let obj = {
@@ -166,12 +166,12 @@ export class AddBatchComponent implements OnInit {
     }
 
     courseUpdate(data,i){
-        console.log(data)
+        
         let valueArr = this.batchVar.moduleForm.map(function(item){ return parseInt(item.courseId) });
         let isDuplicate = valueArr.some(function(item, idx){ 
             return valueArr.indexOf(item) != idx 
         });
-        console.log(isDuplicate)
+        
         if(isDuplicate){
             this.batchVar.moduleForm[i] = {
                 'courseId': "",
@@ -196,7 +196,7 @@ export class AddBatchComponent implements OnInit {
             })
                 
         }
-        console.log(this.batchVar.moduleForm)
+        
     }
 
     courseForm(){
@@ -306,15 +306,15 @@ export class AddBatchComponent implements OnInit {
     }
 
     onEmpDeSelect(event) {
-        console.log(event,"Deselected EVENT");
+        
 
         if(event.userId){
             const newArray = this.employeesInBatch.filter(item => item.userId != event.userId);
-            console.log("newArray", newArray);
+            
             this.employeesInBatch = newArray;
 
         }
-       console.log("this.employeesInBatch", this.employeesInBatch);
+       
     }
 
     
@@ -387,7 +387,7 @@ export class AddBatchComponent implements OnInit {
                     this.hidePopup('submit');
                 },err =>{
                     // this.errorValidation = false;
-                    this.errorValidate = err.error.error;
+                    this.errorValidate = 'Training schedule name must be unique';
                     this.alertService.error(err.error.error);
                 });
             }
@@ -403,7 +403,7 @@ export class AddBatchComponent implements OnInit {
                     }
                 },err =>{
                     // this.errorValidation = false;
-                    this.errorValidate = err.error.error;
+                    this.errorValidate = 'Training schedule name must be unique';
                     this.alertService.error(err.error.error);
                 });
             }    
@@ -412,7 +412,7 @@ export class AddBatchComponent implements OnInit {
 
     hidePopup(data){
         this.clearBatchForm();
-        console.log(data)
+        
         this.someEvent.next(data);
     }
 

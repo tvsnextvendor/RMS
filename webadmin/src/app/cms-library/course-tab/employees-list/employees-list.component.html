@@ -41,7 +41,7 @@
                         <td class="text-center">{{emp.created | date:medium}}</td>
                         <td class="text-center">{{emp.completedDate ? emp.completedDate : ''}}</td>                          
                     </tr>
-                    <tr *ngIf="videoListValue && !videoListValue.length">
+                    <tr *ngIf="listDetails && !listDetails.length">
                         <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata">
                             <i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
                     </tr>

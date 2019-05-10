@@ -569,6 +569,8 @@ export class AddModuleComponent implements OnInit {
                         this.moduleSubmitted = false;
                         
                     }
+                },err=>{
+                    this.alertService.error(err.error.error);
                 })  
             }
             else{
@@ -587,11 +589,13 @@ export class AddModuleComponent implements OnInit {
                         this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
                         this.moduleSubmitted = false;
                     }
-                })
+                },err=>{
+                    this.alertService.error(err.error.error);
+                });
             }
         }
         else if(!this.moduleName){
-            this.alertService.error(this.commonLabels.labels.courseName+this.commonLabels.labels.isRequired)
+            this.alertService.error(this.commonLabels.mandatoryLabels.courseName)
         }
         else if(!this.selectedCourses.length){
             this.alertService.error(this.commonLabels.labels.courseError)
@@ -600,6 +604,6 @@ export class AddModuleComponent implements OnInit {
 
     redirectCourseList(){
         this.route.navigateByUrl('/cms-library');
-      }
+    }
    
 }

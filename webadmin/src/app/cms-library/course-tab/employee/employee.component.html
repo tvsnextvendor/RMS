@@ -42,7 +42,7 @@
                         <td class="text-center">{{emp.File.fileExtension}}</td>
                         <td class="text-center">{{emp.status}}</td>                          
                     </tr>
-                    <tr *ngIf="videoListValue && !videoListValue.length">
+                    <tr *ngIf="listDetails && !listDetails.length">
                         <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata">
                             <i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
                     </tr>

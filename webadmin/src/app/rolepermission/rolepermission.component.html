@@ -4,8 +4,8 @@
 		<div class="row pb-4">
 			
 			<div class="col-md-4 select select-style clearfix">
-					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0" (change)="getRolePermission()">
-						<option value="">{{commonLabels.labels.resort}}</option>
+					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0" (change)="getDropDownDetails('division','')">
+						<option value="" disabled>{{commonLabels.labels.resort}}</option>
 						<option *ngFor="let obj of constant.resortList" [value]="obj.resortId">{{obj.resortName}}</option>
 					</select>
 					<div class="select_arrow"></div>
@@ -13,9 +13,9 @@
 						{{commonLabels.mandatoryLabels.resortRequired}}</span>
 			</div>
 			<div class="col-md-4 select select-style clearfix">
-						<select [(ngModel)]="constant.divisionId" name="divisionId" class="form-control pl-0"  (change)="getRolePermission()">
-							<option value="">{{commonLabels.labels.division}}</option>
-							<option *ngFor="let obj of constant.divisionList" [value]="obj.divisionId">{{obj.divisionName}}</option>
+						<select [(ngModel)]="constant.divisionId" name="divisionId" class="form-control pl-0"  (change)="getDropDownDetails('department',constant.divisionId)">
+							<option value="" disabled>{{commonLabels.labels.division}}</option>
+							<option *ngFor="let obj of constant.divisionList" [value]="obj.Division.divisionId">{{obj.Division.divisionName}}</option>
 						</select>
 						<div class="select_arrow"></div>
 							<span class="required_color" *ngIf="rolepermission.submitted && !constant.divisionId">
@@ -23,7 +23,7 @@
 			</div>
 			<div class="col-md-4 select select-style clearfix">
 					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0"  (change)="getRolePermission()">
-						<option value="">{{commonLabels.labels.department}}</option>
+						<option value="" disabled>{{commonLabels.labels.department}}</option>
 						<option *ngFor="let obj of constant.departmentList" [value]="obj.departmentId">{{obj.departmentName}}</option>
 					</select>		
 					<div class="select_arrow"></div>
@@ -34,7 +34,7 @@
 		<div class="row pb-3">
 			<div class="col-md-4 select select-style clearfix">
 				<select [(ngModel)]="constant.roleId" name="roleId" class="form-control pl-0"  (change)="getRolePermission()">
-					<option value="">{{commonLabels.labels.roles}}</option>
+					<option value="" disabled>{{commonLabels.labels.roles}}</option>
 					<option *ngFor="let obj of constant.roleList" [value]="obj.designationId">{{obj.designationName}}</option>
 				</select>
 				<div class="select_arrow"></div>
@@ -43,7 +43,7 @@
 			</div>
 			<div class="col-md-4 select select-style clearfix">
 					<select [(ngModel)]="constant.userId" name="userId" class="form-control pl-0"  (change)="getRolePermission()">
-						<option value="">{{commonLabels.labels.selectUsers}}</option>
+						<option value="" disabled>{{commonLabels.labels.selectUsers}}</option>
 						<option *ngFor="let obj of constant.createdByList" [value]="obj.userId">{{obj.userName}}</option>
 					</select>
 					<div class="select_arrow"></div>

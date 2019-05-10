@@ -58,7 +58,7 @@ export class ResortComponent implements OnInit {
         }
         this.selectedDivision = this.resortVar.divisionTemplate[0].division;
         if(this.resortId !== ''){
-           this.getResortDetails("add");
+           this.editDetails();
         }
    }
 
@@ -95,7 +95,7 @@ export class ResortComponent implements OnInit {
         });
         this.commonService.getResortDivision(this.resortId).subscribe(resp=>{
             if(resp && resp.isSuccess){
-                this.divisionDetails = resp.data && resp.data[0].resortMapping && resp.data[0].resortMapping;
+                this.divisionDetails = resp.data.length && resp.data[0].resortMapping && resp.data[0].resortMapping;
             }
         })
    }

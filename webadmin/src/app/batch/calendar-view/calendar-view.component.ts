@@ -94,6 +94,7 @@ export class CalendarViewComponent implements OnInit {
                 scheduleData.map(item => {
                     let obj = {
                         start       : new Date(item.assignedDate),
+                        dueDate : new Date(item.dueDate),
                         // end         : new Date(item.dueDate),
                         batchName   : item.name,
                         moduleCount : resp.data.length,

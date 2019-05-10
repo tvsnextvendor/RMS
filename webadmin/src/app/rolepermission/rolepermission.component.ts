@@ -28,35 +28,52 @@ export class RolepermissionComponent implements OnInit {
 
     let userData = this.utilService.getUserData();
     this.resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
-    this.getDropDownDetails();
+    this.getDropDownDetails('','');
+    this.constant.resortList = [];
+    this.getresortDetails();
   }
-
-  getDropDownDetails(){
-    this.commonService.getDivisionList().subscribe((result) => {
-      if(result && result.isSuccess){
-        this.constant.divisionList = result.data && result.data.rows;
-      }
-    });
-    this.commonService.getDepartmentList('').subscribe((result) => {
-      if(result && result.isSuccess){
-        this.constant.departmentList = result.data && result.data.rows;
-      }
-    });
-    this.commonService.getDesignationList(this.resortId).subscribe((result) => {
-      if(result && result.isSuccess){
-        this.constant.roleList = result.data && result.data.rows;
-      }
-    });
+  getresortDetails(){
     this.commonService.getResortList().subscribe((result) => {
       if(result && result.isSuccess){
-        this.constant.resortList = result.data && result.data.rows;
+        result.data && result.data.rows.forEach(item=>{
+          if(item.resortId === this.resortId){
+            this.constant.resortList.push(item)
+          }
+        });
       }
     });
-    this.commonService.getCreatedByDetails().subscribe(result=>{
-      if(result && result.isSuccess){
-        this.constant.createdByList = result.data  && result.data;
-      }
-    })
+  }
+
+  getDropDownDetails(key,value){
+    if(key === 'division'){
+      this.commonService.getResortDivision(this.resortId).subscribe((result) => {
+        if(result && result.isSuccess){
+          this.constant.divisionList = result.data.length ? result.data[0].resortMapping.length && result.data[0].resortMapping : [];
+          this.getRolePermission();
+        }
+      });
+    }
+    if(key === 'department'){
+      let params = {"divisionId": value}
+      this.commonService.getDepartmentList(params).subscribe((result) => {
+        if(result && result.isSuccess){
+          this.constant.departmentList = result.data && result.data.rows;
+          this.getRolePermission();
+        }
+      });
+    }
+    else{
+      this.commonService.getDesignationList(this.resortId).subscribe((result) => {
+        if(result && result.isSuccess){
+          this.constant.roleList = result.data && result.data.rows;
+        }
+      });
+      this.commonService.getCreatedByDetails().subscribe(result=>{
+        if(result && result.isSuccess){
+          this.constant.createdByList = result.data  && result.data;
+        }
+      })
+    }
   }
 
   getRolePermission() {
