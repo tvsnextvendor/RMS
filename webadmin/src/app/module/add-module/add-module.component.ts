@@ -57,7 +57,7 @@ export class AddModuleComponent implements OnInit {
    }
 
    ngOnInit(){
-    if(this.addedFiles){
+    if(this.addedFiles && this.addedFiles.length > 0){
         let courseName = this.moduleVar.selectCourseName;
         this.addCourse();
         this.moduleVar.selectCourseName = courseName ;
