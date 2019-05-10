@@ -7,7 +7,7 @@
         </nav>
     </div>
     
-<div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">{{commonLabels.labels.count}}:{{totalCourseCount}}</h6></div>
+<div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">{{commonLabels.labels.count}}{{totalCourseCount}}</h6></div>
 <div  *ngFor="let courses of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCourseCount};let i = index">
     <div id="coss" class="col-md-12 pt-2 clearfix px-0">
         <div class="white-bg p-3 clearfix">
@@ -17,7 +17,7 @@
                     </label>
                 <span class="float-right">
                     <a title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
-                    <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header" aria-hidden="true" title="open"></i></a>
+                    <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header pr-0" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header pr-0" aria-hidden="true" title="open"></i></a>
                 </span>
             </div>
             <div class="row py-3" *ngIf="enableView && enableIndex === i">
@@ -57,6 +57,10 @@
             </div>
         </div> 
     </div>
-    <span *ngIf="courseListValue && !courseListValue.length">No Data </span>
+   <!--  <span *ngIf="courseListValue && !courseListValue.length">No Data </span> -->
+    <div class="col-md-12 p-0">
+  <div class="white-bg text-center p-4"  *ngIf="courseListValue && !courseListValue.length"><p class="data-design">
+    <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></div>
+</div>
 
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  

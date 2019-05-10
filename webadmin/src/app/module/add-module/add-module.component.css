@@ -146,6 +146,7 @@ background-color: #C1E1F3;
 }
 .add-course{
     font-size: 18px;
+    font-weight: 600;
 }
 .word-wrap{
     white-space: nowrap;
@@ -164,4 +165,20 @@ background-color: #C1E1F3;
 }
 .breadcrumb-item .cms-breadcrumb:hover{
 text-decoration: underline;
+}
+.data-design {
+    margin: 20px 0;
+    background: #cccccc4a;
+    padding: 0;
+}
+span.nodata {
+     font-size: 17px !important;
+}
+.nodata-img[_ngcontent-c11] {
+    padding: 0 0;
+    font-size: 25px;
+    color: #468FB9;
+     display: unset;
+    margin-right: 7px;
+    vertical-align: -4px;
 }
