@@ -76,7 +76,7 @@ export class TraingClassTabComponent implements OnInit {
 
   saveTrainingClassName(courseName, index, ci) {
     if (courseName.form.value.trainingClassName != "") {
-      console.log(courseName.form.value, "New Course Name");
+    
       let trainingClassnamObj = {
         "trainingClassName": courseName.form.value.trainingClassName
       }

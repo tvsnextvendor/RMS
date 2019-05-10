@@ -271,7 +271,11 @@ export class CommonLabels{
         "archiveData"       :   "Archive Data After",
         "delData"           :   "Delete Data After",
         "nodataFound"       :   "No Data Found",
-        "pleaseaddCourse"   :   "Please add the Course name"
+        "pleaseaddCourse"   :   "Please add the Course name",
+        "empList"           :   "Employees List",
+        "employeeName"      :   "Employee Name",
+        "completeDate"      :   "Completed Date",
+        "fileType"          :   "File Type"
                     
     };
 
@@ -316,6 +320,7 @@ export class CommonLabels{
         "clear"             :   "clear",
         "reject"            :   "Reject",
         "approve"           :   "Approve",
+        "exporttoExcel"     :   "Export to Excel"
        
     };
 
