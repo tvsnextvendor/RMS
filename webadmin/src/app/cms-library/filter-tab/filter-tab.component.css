@@ -71,9 +71,9 @@
    clear: both;
    padding-bottom: 0px;
   }
-  .form-control:disabled, .form-control[readonly]{
+ /* .form-control:disabled, .form-control[readonly]{
     background-color: unset;
-  }
+  }*/
   .select-style select:hover, .select-style select:focus{
     background: none;
     color: #73737B;

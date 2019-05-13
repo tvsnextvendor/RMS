@@ -690,6 +690,9 @@ li {
 .snow-img {
   text-align: center;
 }
+ .form-control:disabled, .form-control[readonly]{
+    background-color: unset;
+  }
 /*********************** table css*********************/
 .table{
   margin-bottom: 0;
