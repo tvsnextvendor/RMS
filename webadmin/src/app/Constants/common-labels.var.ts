@@ -275,7 +275,15 @@ export class CommonLabels{
         "empList"           :   "Employees List",
         "employeeName"      :   "Employee Name",
         "completeDate"      :   "Completed Date",
-        "fileType"          :   "File Type"
+        "fileType"          :   "File Type",
+        "empId"             :   "Employee ID",
+        "designation"       :   "Designation",
+        "dob"               :   "DOB",
+        "oldPassword"       :   "Old Password",
+        "newPassword"       :   "New Password",
+        "confirmPassword"   :   "Confirm Password",
+        
+       
                     
     };
 
@@ -320,7 +328,9 @@ export class CommonLabels{
         "clear"             :   "clear",
         "reject"            :   "Reject",
         "approve"           :   "Approve",
-        "exporttoExcel"     :   "Export to Excel"
+        "exporttoExcel"     :   "Export to Excel",
+        "editProfile"       :   "Edit Profile",
+        
        
     };
 
@@ -341,7 +351,8 @@ export class CommonLabels{
         "archivalSettings"  :  "Archival Settings",
         "approvalRequests" :  "Approval Requests",  
         "calendar"          :  "Calendar",
-        "feedback"          :  "Feedback"  
+        "feedback"          :  "Feedback",
+        "profile"           :  "Profile"  
     };
 
     imgs = {
@@ -446,7 +457,12 @@ export class CommonLabels{
         "minimumQuiz"       :  "Minimum one quiz is mandatory",
         "deptName"          :  "Department name is mandatory",
         "diviName"          :  "Division name is mandatory", 
-        "lower(forumName::text) must be unique": 'Forum Name should be unique'
+        "lower(forumName::text) must be unique": 'Forum Name should be unique',
+        "minlength"         :  "Minimum length is 8",
+        "maxlength"         :  "Maximum length is 12",
+        "oldPasswordReq"    :  "Old password is required",
+        "newPasswordReq"    :  "New password is required",
+        "confirmPasswordReq":  "Confirm Password is required"
 
      
     };
@@ -474,6 +490,7 @@ export class CommonLabels{
         "diviDeleted"       :   "Division deleted successfully",
         "designDelete"      :   "Designation deleted successfully",
         "diviUpdate"        :   "Division updated successfully",
+        "profilesuccess"    :   "Profile saved Successfully"
 
     }
     symbols = {
