@@ -4,49 +4,49 @@
     <div class="setting-alg">
         <form #formDir="ngForm" (ngSubmit)="updatePwd(formDir)" class="p-4" autocomplete="off">
             <div class="form-group row">
-                <label for="oldPassword" class="col-sm-5 custm-label col-form-label pr-0">{{constant.settingFormLabels.oldPassword}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label for="oldPassword" class="col-sm-5 custm-label col-form-label pr-0">{{commonLabels.labels.oldPassword}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <div class="col-sm-7 pl-0">
                     <input type="password" class="form-control" id="oldPwd" name="oldPwd" [(ngModel)]="constant.settings.oldPwd"
                         #oldPwd="ngModel" required placeholder="Old Password" minlength="8" maxlength="12" autocomplete="off">
                     <div class="required_color" *ngIf="oldPwd?.touched && oldPwd.invalid || (oldPwd.pristine && oldPwd.submitted)">
-                        <span [hidden]="!oldPwd.hasError('required')"> {{constant.mandatoryLabels.oldPasswordReq}} </span>
-                        <span [hidden]="!oldPwd.hasError('minlength')"> {{constant.mandatoryLabels.minlength}}  </span>
-                        <span [hidden]="!oldPwd.hasError('maxlength')">  {{constant.mandatoryLabels.maxlength}}
+                        <span [hidden]="!oldPwd.hasError('required')"> {{commonLabels.labels.oldPasswordReq}} </span>
+                        <span [hidden]="!oldPwd.hasError('minlength')"> {{commonLabels.mandatoryLabels.minlength}}  </span>
+                        <span [hidden]="!oldPwd.hasError('maxlength')">  {{commonLabels.mandatoryLabels.maxlength}}
                         </span>
 
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="newPassword" class="col-sm-5 custm-label col-form-label pr-0">{{constant.settingFormLabels.newPassword}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label for="newPassword" class="col-sm-5 custm-label col-form-label pr-0">{{commonLabels.labels.newPassword}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <div class="col-sm-7 pl-0">
                     <input type="password" class="form-control" id="newPwd" name="newPwd" [(ngModel)]="constant.settings.newPwd"
                         #newPwd="ngModel" required placeholder="New Password" minlength="8" maxlength="12" autocomplete="off">
                     <div class="required_color" *ngIf="newPwd?.touched && newPwd.invalid || (newPwd.pristine && newPwd.submitted)">
-                        <span [hidden]="!newPwd.hasError('required')"> {{constant.mandatoryLabels.newPasswordReq}}</span>
-                        <span [hidden]="!newPwd.hasError('minlength')"> {{constant.mandatoryLabels.minlength}}  </span>
-                        <span [hidden]="!newPwd.hasError('maxlength')">  {{constant.mandatoryLabels.minlength}}
+                        <span [hidden]="!newPwd.hasError('required')"> {{commonLabels.mandatoryLabels.newPasswordReq}}</span>
+                        <span [hidden]="!newPwd.hasError('minlength')"> {{commonLabels.mandatoryLabels.minlength}}  </span>
+                        <span [hidden]="!newPwd.hasError('maxlength')">  {{commonLabels.mandatoryLabels.minlength}}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="confirmPassword" class="col-sm-5 custm-label col-form-label pr-0">{{constant.settingFormLabels.confirmPassword}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label for="confirmPassword" class="col-sm-5 custm-label col-form-label pr-0">{{commonLabels.labels.confirmPassword}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <div class="col-sm-7 pl-0">
                     <input type="password" class="form-control" id="confirmPwd" name="confirmPwd" [(ngModel)]="constant.settings.confirmPwd"
                         #confirmPwd="ngModel" required placeholder="Confirm Password" minlength="8" maxlength="12" autocomplete="off">
                     <div class="required_color" *ngIf="confirmPwd?.touched && confirmPwd.invalid || (confirmPwd.pristine && confirmPwd.submitted)">
-                        <span [hidden]="!confirmPwd.hasError('required')"> {{constant.mandatoryLabels.confirmPasswordReq}}</span>
-                        <span [hidden]="!confirmPwd.hasError('minlength')"> {{constant.mandatoryLabels.minlength}}  </span>
-                        <span [hidden]="!confirmPwd.hasError('maxlength')">  {{constant.mandatoryLabels.minlength}}
+                        <span [hidden]="!confirmPwd.hasError('required')"> {{commonLabels.mandatoryLabels.confirmPasswordReq}}</span>
+                        <span [hidden]="!confirmPwd.hasError('minlength')"> {{commonLabels.mandatoryLabels.minlength}}  </span>
+                        <span [hidden]="!confirmPwd.hasError('maxlength')">  {{commonLabels.mandatoryLabels.minlength}}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 pt-5 pb-3 text-center">
-                    <button type="submit" [disabled]=formDir.invalid class="btn btn-primary setting-btn mr-3">{{constant.btns.update}}</button>
-                    <a routerLink="/dashboard"><button type="button" (click)="location.back()" class="btn btn-default setting-btn">{{constant.btns.cancel}}</button></a>
+                    <button type="submit" [disabled]=formDir.invalid class="btn btn-primary setting-btn mr-3">{{commonLabels.btns.update}}</button>
+                    <a routerLink="/dashboard"><button type="button" (click)="location.back()" class="btn btn-default setting-btn">{{commonLabels.btns.cancel}}</button></a>
                 </div>
             </div>
         </form>

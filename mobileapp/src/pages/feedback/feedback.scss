@@ -25,4 +25,10 @@ page-feedback {
     .smiley-icon img {
         width: 80px;
     }
+    .active .select-img{
+        display: block;
+    }
+    .unselect-img{
+        display: none;
+    }
 }

@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
    }
     
    ngOnInit(){
-    this.headerService.setTitle({title:this.profVar.title, hidemodule:false});
+    this.headerService.setTitle({title:this.commonLabels.titles.profile, hidemodule:false});
     this.getProfile();
    }
   
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
            let updatedValue = Object.assign({},this.userDetails,postData);
            localStorage.setItem('userData',JSON.stringify(updatedValue));
           // this.toastr.success(this.profVar.successMsg);
-           this.alertService.success(this.profVar.successMsg);
+           this.alertService.success(this.commonLabels.msgs.profilesuccess);
           this.router.navigateByUrl('/profile');
 
            
