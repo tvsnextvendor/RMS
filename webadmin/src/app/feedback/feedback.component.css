@@ -1,13 +1,21 @@
 .topic-img-wrap{
     float: left;
-    width:10%;
+    width:7%;
+}
+.apl-img{
+    float: left;
+    width: 10%;
 }
 .topic-wrap{
     margin-bottom: 20px;
 }
 .topic-wrap-rt{
     float: left;
-    width: 89%;
+    width: 93%;
+}
+.apl-txt-rt{
+    float: left;
+    width: 90%;
 }
 .topic-thumb{
     width:100%;    
@@ -15,8 +23,19 @@
     display: block;
     text-align: center;
 }
+.apl-img-alg{
+    width:100%;    
+    border-radius: 68px;
+    display: block;
+    text-align: center;
+}
 .topic-thumb img{
     width:100%;
+    height: auto;
+    border-radius: 60px;
+}
+.apl-img-alg img{
+    width: 70%;
     height: auto;
     border-radius: 60px;
 }
@@ -80,6 +99,11 @@ select.form-control{
     background: none;
 }
 .topic-thumb span {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+}
+.apl-img-alg span{
     display: block;
     font-size: 13px;
     font-weight: 600;
