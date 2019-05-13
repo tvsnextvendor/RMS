@@ -5,6 +5,7 @@ import {DatePipe} from '@angular/common';
 import {ProfileVar} from '../Constants/profile.var';
 import {ToastrService } from 'ngx-toastr';
 import { AlertService } from '../services/alert.service';
+import { CommonLabels } from '../Constants/common-labels.var';
 
 @Component({
     selector: 'app-profile',
@@ -14,7 +15,7 @@ import { AlertService } from '../services/alert.service';
 
 export class ProfileComponent implements OnInit {
     userDetails:any;
-   constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,public profVar: ProfileVar,private router:Router, private datepipe: DatePipe){
+   constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,public profVar: ProfileVar,private router:Router, private datepipe: DatePipe,public commonLabels:CommonLabels){
    
     const currentUrl = this.router.url;
     this.profVar.split_url= currentUrl.split('/');
