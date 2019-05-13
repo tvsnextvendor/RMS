@@ -91,7 +91,7 @@
                   </div>
 
                   <div class="row">  		
-                      <label class="col-lg-3 label-title">{{profVar.profileLabels.name}}</label>  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.name}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>  		
                       <div class="col-lg-6">
                          <input class="form-control" name="username" [(ngModel)]="profVar.userName" #UserName="ngModel" type="text" required>
                          <span class="required_color" *ngIf="UserName && UserName.invalid && (formDir.submitted || UserName.touched)">
@@ -106,7 +106,7 @@
                         </div>
                   </div>
                   <div class="row">  		
-                      <label class="col-lg-3 label-title">{{profVar.profileLabels.email}}</label>  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.email}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>  		
                     <div class="col-lg-6">
                        
                            <input class="form-control" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="emailAddress" [(ngModel)]="profVar.email" #Email="ngModel" type="text" required>
@@ -122,7 +122,7 @@
                     </div>
                   </div>
                   <div class="row">  		
-                      <label class="col-lg-3 label-title">{{profVar.profileLabels.mobile}}</label>  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.mobile}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>  		
                     <div class="col-lg-6">
                      
                         <input class="form-control" pattern="^((\\+91-?)|0)?[0-9]{10}$" name="phoneNumber" [(ngModel)]="profVar.mobile" #PhNumber="ngModel"  type="text" required> 
@@ -137,7 +137,7 @@
                     </div>
                   </div>
                   <div class="row">  		
-                      <label class="col-lg-3 label-title">{{profVar.profileLabels.dept}}</label>  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.dept}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>  		
                     <div class="col-lg-6">
                         <input class="form-control" name="department" [(ngModel)]="profVar.dept"  #Dept="ngModel"  type="text" required>
                         <span class="required_color" *ngIf="Dept && Dept.invalid && (formDir.submitted || Dept.touched)">
@@ -146,7 +146,7 @@
                     </div>
                   </div>
                   <div class="row">  		
-                      <label class="col-lg-3 label-title">{{profVar.profileLabels.designation}}</label>  		
+                      <label class="col-lg-3 label-title">{{profVar.profileLabels.designation}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>  		
                     <div class="col-lg-6">
                         <input class="form-control" name="designation" [(ngModel)]="profVar.designation" #Designation="ngModel"  type="text" required>
                         <span class="required_color" *ngIf="Designation && Designation.invalid && (formDir.submitted || Designation.touched)">

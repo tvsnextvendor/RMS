@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import {SettingVar} from '../Constants/setting.var';
 import { Location } from '@angular/common';
 import { AlertService } from '../services/alert.service';
+import { CommonLabels } from '../constants/common-labels.var';
+
 
 @Component({
     selector: 'app-settings',
@@ -16,7 +18,7 @@ export class SettingsComponent implements OnInit {
 
     
 
-   constructor(private alertService:AlertService,public location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,public constant:SettingVar,private utilService : UtilService,private commonService : CommonService){}
+   constructor(private alertService:AlertService,public location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,public constant:SettingVar,private utilService : UtilService,private commonService : CommonService,public commonLabels:CommonLabels){}
 
    ngOnInit(){
     this.headerService.setTitle({ title:this.constant.title, hidemodule: false});
