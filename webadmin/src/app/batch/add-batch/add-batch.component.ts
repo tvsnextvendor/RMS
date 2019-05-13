@@ -21,7 +21,7 @@ export class AddBatchComponent implements OnInit {
     @Input() scheduleId;
     @Input() scheduleData;
     courseIds=[];
-    durationValue = '1';
+    durationValue = '3';
     maxdurationCount;
     countCheck = false;
     countError;

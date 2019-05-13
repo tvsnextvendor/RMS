@@ -68,6 +68,7 @@ export class UserComponent implements OnInit {
     roleFormSubmitted = false;
     errorValidate;
     validationDivisionCheck = true;
+    bulkUploadData ;
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
         private commonLabels : CommonLabels) {
@@ -471,6 +472,8 @@ export class UserComponent implements OnInit {
 
     editDivisionData(data,template : TemplateRef<any>){
         this.editDepartmentList = [];
+        this.validationDivisionCheck = true;
+        this.errorValidation = true;
         this.editDivisionValue = data;
         let dataValue = data && data.Departments;
         this.editDepartmentList = dataValue;
@@ -478,23 +481,38 @@ export class UserComponent implements OnInit {
     }
 
     fileUpload(event) {
+        const userId = this.utilService.getUserData().userId;
         let fileUploadValue = event.target.files[0];
-        let fileReader = new FileReader();
-        fileReader.onload = (e) => {
-            this.arrayBuffer = fileReader.result;
-            var data = new Uint8Array(this.arrayBuffer);
-            var arr = new Array();
-            for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-            var bstr = arr.join("");
-            var workbook = XLSX.read(bstr, { type: "binary" });
-            var first_sheet_name = workbook.SheetNames[0];
-            var worksheet = workbook.Sheets[first_sheet_name];
-            let finalData = XLSX.utils.sheet_to_json(worksheet, { raw: true })
-            finalData && finalData.forEach(item => {
-                this.constant.userList.push(item)
+        let params = {'file' : fileUploadValue}
+        console.log(fileUploadValue , 'fileUploadValue')
+        if(fileUploadValue){
+            this.userService.bulkUpload(fileUploadValue,userId).subscribe(resp=>{
+                if(resp && resp.isSuccess){
+                    this.userList();
+                    this.alertService.success(resp.message)
+                }
+            },err=>{
+                console.log(err.error.error)
             })
         }
-        fileReader.readAsArrayBuffer(fileUploadValue);
+        
+        // let fileReader = new FileReader();
+        // fileReader.onload = (e) => {
+        //     this.arrayBuffer = fileReader.result;
+        //     var data = new Uint8Array(this.arrayBuffer);
+        //     var arr = new Array();
+        //     for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        //     var bstr = arr.join("");
+        //     var workbook = XLSX.read(bstr, { type: "binary" });
+        //     var first_sheet_name = workbook.SheetNames[0];
+        //     var worksheet = workbook.Sheets[first_sheet_name];
+        //     let finalData = XLSX.utils.sheet_to_json(worksheet, { raw: true })
+        //     console.log(finalData , 'finalData')
+            // finalData && finalData.forEach(item => {
+            //     this.constant.userList.push(item)
+            // })
+        // }
+        // fileReader.readAsArrayBuffer(fileUploadValue);
     }
 
     addForm(type,i) {

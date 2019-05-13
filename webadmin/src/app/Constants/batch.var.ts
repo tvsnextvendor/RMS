@@ -87,8 +87,8 @@ export class BatchVar{
      batchList;
      batchId;
      regDuration=[
-         {"id":1,"name":"minutes"},
-         {"id":2,"name":"hours"},
+        //  {"id":1,"name":"minutes"},
+        //  {"id":2,"name":"hours"},
          {"id":3,"name":"days"}
      ];
      modalRef;

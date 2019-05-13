@@ -9,7 +9,7 @@
                     <button class="fileUpload btn btn-primary addUser-upload">
                         <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
                         <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
-                            accept=".xlsx" />
+                            accept=".xlsx,.csv" />
                     </button>
                 </span> 
                 <span class="pr-2"><button class="btn btn-primary" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
@@ -29,13 +29,13 @@
                                 <mfDefaultSorter by="userName">{{commonLabels.labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Division">{{commonLabels.labels.division}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                <mfDefaultSorter by="Division.divisionName">{{commonLabels.labels.division}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Department">{{commonLabels.labels.department}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                <mfDefaultSorter by="Department.departmentName">{{commonLabels.labels.department}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                             </th>
                             <th class="text-center">
-                                <mfDefaultSorter by="Designation">{{commonLabels.labels.role}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                <mfDefaultSorter by="Designation.designationName">{{commonLabels.labels.role}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                             </th>
                             <th class="text-center">
                                 <mfDefaultSorter by="emailId">{{commonLabels.labels.email}}</mfDefaultSorter>
@@ -449,7 +449,7 @@
 <ng-template #editDivision>
     <div class="modal-header pb-0">
         <p class="hd-alg">{{commonLabels.labels.editDivision}}</p>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelUpdate()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
