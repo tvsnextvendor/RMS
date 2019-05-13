@@ -145,6 +145,8 @@ export class API_URL {
     addDesignation : '8102/designation/Add',
     updateDesignation : '8102/designation/Update/',
     deleteDesignation : '8102/designation/Delete/',
+    bulkUploadUrl : '8101/bulkCreate',
+    userSettings : '8101/user/settings',
 
 
     //Forum Services

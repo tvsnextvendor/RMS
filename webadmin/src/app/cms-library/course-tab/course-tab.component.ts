@@ -63,6 +63,7 @@ export class CourseTabComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
+    this.enableDropData('closeEdit','')
     this.getCourseDetails();
     
   }

@@ -60,4 +60,8 @@ getResortDivision(id){
     return this.http.getLocal('local',this.url.resortDivisionList+id);
 }
 
+passwordUpdate(params){
+  return this.http.put('local',this.url.userSettings,params);
+}
+
 }

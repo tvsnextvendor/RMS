@@ -159,7 +159,7 @@
                                 <span class="col-md-6 pl-0">
                                     <select id="notificationTime" class="form-control" name="notificationTime" [(ngModel)]="durationValue"
                                         (change)="durationUpdate()" required>
-                                        <option value="null">{{commonLabels.labels.select}}</option>
+                                        <option value="null" disabled>{{commonLabels.labels.select}}</option>
                                         <option *ngFor="let program of batchVar.regDuration" value="{{program.id}}">{{program.name}}</option>
                                     </select>
                                 </span>

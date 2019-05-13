@@ -23,6 +23,7 @@ export class SettingVar {
     title= 'Settings';
     pwdUpdateSuccessMsg = 'Password updated successfully';
     pwdMissmatchMsg  = 'Password Mismatch';
+    oldPwdRequired = 'Old Password is Mandatory';
     userId;
     settings: any = {
         oldPwd: '',
