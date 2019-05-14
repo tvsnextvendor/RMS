@@ -113,6 +113,9 @@ button:focus {
     padding-left: 0;
     font-size: 15px;
 }
+select:focus, .filter-search input[type=text] {
+  outline: 0;
+}
 .fs-12{
 font-size: 12px;
 }
@@ -475,7 +478,7 @@ h5{
     box-shadow: 0px 0px 8px 0px #ccc;
     padding: 0;
     /*margin-top: 30px;*/
-    margin-bottom: 45px;
+    /*margin-bottom: 45px; */
 }
 .snow-img img{width: 100%;}
 .cloudy{
@@ -499,7 +502,9 @@ h5{
   height: 46px;
   border: 2px solid #fff;
   cursor: pointer;
-  color: #697380;
+  /* color: #697380; */
+  color: #aeaeb4;
+  font-weight: 600;
 }
 .hd-button.accounts_li.active {
   border-bottom: 3px solid #468FB9;
