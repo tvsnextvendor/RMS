@@ -6,6 +6,7 @@ import { HttpService } from '../services/http.service';
 import { EmailVar } from '../Constants/email.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
+import { CommonLabels } from '../Constants/common-labels.var';
 
 @Component({
     selector: 'app-email',
@@ -15,7 +16,7 @@ import { AlertService } from '../services/alert.service';
 
 export class EmailComponent implements OnInit {
     email: any = {};
-    emailForm: any = { 'to': '', 'cc': '', 'subject': '' };
+    emailForm: any = { 'this.commonLabels.labels.totext' : '', 'this.commonLabels.labels.cc': '', 'this.commonLabels.labels.subject': '' };
     departments: any = [];
     sendClicked = false;
     validEmail = false;
@@ -25,7 +26,7 @@ export class EmailComponent implements OnInit {
     dataModel;
     editorConfig ={};
     setSignatureStatus: boolean = true;
-    constructor(private toastr: ToastrService, private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService) {
+    constructor(private toastr: ToastrService, private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService,public commonLabels:CommonLabels) {
         this.email.url = API_URL.URLS;
     }
 
@@ -69,16 +70,16 @@ export class EmailComponent implements OnInit {
         // console.log(this.dataModel)
         this.sendClicked = true;
         if (this.emailForm.to && this.emailForm.subject) {
-            let toAddress = this.selectedDepartment ? this.selectedDepartment + " Department" : this.emailForm.to;
-            this.alertService.success("Mail sent successfully to " + toAddress);
+            let toAddress = this.selectedDepartment ? this.selectedDepartment +' '+ this.commonLabels.labels.department : this.emailForm.to;
+            this.alertService.success(this.commonLabels.msgs.mailSuccess + toAddress);
             this.sendClicked = false;
             this.resetFields();
         }
         else if (!this.emailForm.to) {
-            this.alertService.error("To address is mandatory");
+            this.alertService.error(this.commonLabels.mandatoryLabels.addressMand);
         }
         else if (!this.emailForm.subject) {
-            this.alertService.error("Subject data is mandatory");
+            this.alertService.error(this.commonLabels.mandatoryLabels.subRequired);
         }
     }
 
@@ -105,7 +106,7 @@ export class EmailComponent implements OnInit {
     }
 
     resetFields() {
-        this.emailForm = { 'to': '', 'cc': '', 'subject': '' };
+        this.emailForm = { 'this.commonLabels.labels.totext' : '', 'this.commonLabels.labels.cc': '', 'this.commonLabels.labels.subject': '' };
         this.selectedDepartment = '';
     }
 
@@ -135,7 +136,7 @@ export class EmailComponent implements OnInit {
         }
         else {
             this.emailForm.to = '';
-            this.alertService.warn("No members available in selected department");
+            this.alertService.warn(this.commonLabels.msgs.warnMsg);
         }
     }
 }

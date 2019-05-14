@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit {
    constructor(private alertService:AlertService,public location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,public constant:SettingVar,private utilService : UtilService,private commonService : CommonService,public commonLabels:CommonLabels){}
 
    ngOnInit(){
-    this.headerService.setTitle({ title:this.constant.title, hidemodule: false});
+    this.headerService.setTitle({ title:this.commonLabels.titles.settings, hidemodule: false});
     let userDetails = this.utilService.getUserData();
     this.constant.userId =userDetails.userId; 
     }
@@ -30,9 +30,9 @@ export class SettingsComponent implements OnInit {
        const formData = form.value;
 
         if(this.constant.settings.newPwd !== this.constant.settings.confirmPwd){
-            this.alertService.error(this.constant.pwdMissmatchMsg);
+            this.alertService.error(this.commonLabels.labels.pwdMissmatchMsg);
         }else if(!formData.oldPwd ){
-            this.alertService.error(this.constant.oldPwdRequired);
+            this.alertService.error(this.commonLabels.mandatoryLabels.oldPwdRequired);
         }
         else if(formData.oldPwd && formData.newPwd){
             let postData = {
@@ -44,7 +44,7 @@ export class SettingsComponent implements OnInit {
             this.commonService.passwordUpdate(postData).subscribe(resp=>{
                 if(resp && resp.isSuccess){
                     this.resetData();
-                    this.alertService.success(this.constant.pwdUpdateSuccessMsg);
+                    this.alertService.success(this.commonLabels.msgs.pwdUpdateSuccess);
                     this.router.navigateByUrl('/dashboard');
                 }
             },err=>{

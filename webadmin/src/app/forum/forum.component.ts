@@ -37,7 +37,7 @@ export class ForumComponent implements OnInit {
 
    ngOnInit() {
     this.pageSize = 10;
-    this.headerService.setTitle({title: this.forumVar.title, hidemodule: false});
+    this.headerService.setTitle({title:this.commonLabels.titles.forumtitle, hidemodule: false});
     this.getForumList();
     this.forumService.listPage.subscribe(result => {
       if (result) {

@@ -284,7 +284,15 @@ export class CommonLabels{
         "confirmPassword"   :   "Confirm Password",        
         "quizSelection"     :   "How do you want to add Quiz?",
         "fromCMSLibrary"    :   "Upload from CMS Library",
-        "addNew"            :   "Add new Quiz"
+        "addNew"            :   "Add new Quiz",
+        "pwdMissmatchMsg"   :   "Password Mismatch",
+        "subject"           :   "subject",
+        "totxt"             :   "to",
+        "cc"                :   "cc",
+        "takeTour"          :   "Take a Tour",
+        "contentFile"       :   "Content Files"
+
+
     };
 
     btns = {
@@ -330,6 +338,11 @@ export class CommonLabels{
         "approve"           :   "Approve",
         "exporttoExcel"     :   "Export to Excel",
         "editProfile"       :   "Edit Profile",
+        "addSign"           :   "Add Signature",
+        "send"              :   "Send",
+        "login"             :   "Log in",   
+        "submit"            :   "Submit",
+        "forgetPassword"    :   "Forgot Password?"
         
        
     };
@@ -349,10 +362,13 @@ export class CommonLabels{
         "subscription"      :  "Subscription Model" ,
         "dashboard"         :  "Dashboard",
         "archivalSettings"  :  "Archival Settings",
-        "approvalRequests" :  "Approval Requests",  
+        "approvalRequests"  :   "Approval Requests",  
         "calendar"          :  "Calendar",
         "feedback"          :  "Feedback",
-        "profile"           :  "Profile"  
+        "profile"           :  "Profile",
+        "settings"          :  "Settings",
+        "logintitle"        :  "Login",
+
     };
 
     imgs = {
@@ -385,7 +401,9 @@ export class CommonLabels{
         "filezip"       :   "assets/images/file-zip-icon.png",
         "excel"         :   "assets/images/excel-icon.png",
         "doc"           :   "assets/images/doc-icon.png",
-        "bunny"         :   "assets/videos/images/bunny.png"
+        "bunny"         :   "assets/videos/images/bunny.png",
+        "email"         :   "assets/images/email.png",
+        "pwd"           :   "assets/images/password.png",
 
 
 
@@ -462,8 +480,16 @@ export class CommonLabels{
         "maxlength"         :  "Maximum length is 12",
         "oldPasswordReq"    :  "Old password is required",
         "newPasswordReq"    :  "New password is required",
-        "confirmPasswordReq":  "Confirm Password is required"
-
+        "confirmPasswordReq":  "Confirm Password is required",
+        "oldPwdRequired"    :  "Old Password is Mandatory",
+        "subRequired"       :  "Subject data is required",
+        "addressMand"       :  "To address is mandatory", 
+        "forgetPasswordTitle" : "Forgot password",
+        "forgetPasswordMsg" :  "Please enter your email ID to reset your password",   
+        "passwordError"     :  "Password is Required",
+        "rememberMe"        :  "Keep me logged in",
+        "invalidPassword"   :  "Invalid Password",
+    
      
     };
 
@@ -490,7 +516,13 @@ export class CommonLabels{
         "diviDeleted"       :   "Division deleted successfully",
         "designDelete"      :   "Designation deleted successfully",
         "diviUpdate"        :   "Division updated successfully",
-        "profilesuccess"    :   "Profile saved Successfully"
+        "profilesuccess"    :   "Profile saved Successfully",
+        "pwdUpdateSuccess"  :   "Password updated successfully",
+        "mailSuccess"       :   "Mail sent successfully to",
+        "warnMsg"           :   "No members available in selected department",
+        "pwdUpdate"         :   "Password update link sent to your mail id",
+        "regisEmail"        :   "Please enter registered email id",
+        "loginSuccess"      :   "Login successfully"
 
     }
     symbols = {

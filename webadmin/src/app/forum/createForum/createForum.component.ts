@@ -201,6 +201,7 @@ export class CreateForumComponent implements OnInit {
       // this.itemDeselected = true;
       
     }
+  }
 
     checkNameUniqueness(forumName) {
       for (let i = 0; i <  this.forumVar.forumNameList.length; i++) {
