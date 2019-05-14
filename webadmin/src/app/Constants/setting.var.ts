@@ -10,8 +10,8 @@ export class SettingVar {
         // active: 'Active'
     };
     btns = {
-        update: 'UPDATE',
-        cancel: 'CANCEL'
+        // update: 'UPDATE',
+        // cancel: 'CANCEL'
     };
     mandatoryLabels = {
         // minlength: 'Minimum length is 8',
@@ -21,9 +21,9 @@ export class SettingVar {
         // confirmPasswordReq: 'Confirm Password is required'
     };
     title= 'Settings';
-    pwdUpdateSuccessMsg = 'Password updated successfully';
-    pwdMissmatchMsg  = 'Password Mismatch';
-    oldPwdRequired = 'Old Password is Mandatory';
+    // pwdUpdateSuccessMsg = 'Password updated successfully';
+    // pwdMissmatchMsg  = 'Password Mismatch';
+    // oldPwdRequired = 'Old Password is Mandatory';
     userId;
     settings: any = {
         oldPwd: '',

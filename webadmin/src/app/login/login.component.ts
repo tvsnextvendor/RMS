@@ -6,6 +6,7 @@ import {HttpService} from '../services/http.service';
 import { API_URL } from '../Constants/api_url';
 import {AuthService} from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
+import { CommonLabels } from '../Constants/common-labels.var';
 
 @Component({
     selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
     emailError = false;
     btns;
     constructor(private route: Router, public loginvar: loginVar, private toastr: ToastrService,
-            private http: HttpService,private authService: AuthService,private API_URL:API_URL,private alertService:AlertService) { }
+            private http: HttpService,private authService: AuthService,private API_URL:API_URL,private alertService:AlertService,public commonLabels:CommonLabels) { }
 
     ngOnInit() {
       // get user details '5c0fbeda3100003b1324ee75'
@@ -78,18 +79,18 @@ export class LoginComponent implements OnInit {
           })
             if(Object.keys(user).length){
               this.forgetPasswordStatus = false;
-              this.toastr.success("Password update link sent to your mail id");
+              this.toastr.success(this.commonLabels.msgs.pwdUpdate);
               let encIndex = btoa(userIndex)
               if(encIndex){
                 this.route.navigateByUrl('/resetpassword/'+encIndex)
               }
             }
             else{
-              this.toastr.error("Please enter registered email id")
+              this.toastr.error(this.commonLabels.msgs.regisEmail)
             }
         }
         else{
-          this.toastr.error("Please enter the registered email id")
+          this.toastr.error(this.commonLabels.msgs.regisEmail)
         }
 
       }
@@ -106,7 +107,7 @@ export class LoginComponent implements OnInit {
              if(result.isSuccess){
                 const loginData = result.data;
                 this.route.navigateByUrl('/dashboard');
-                this.alertService.success('Login successfully');
+                this.alertService.success(this.commonLabels.msgs.loginSuccess);
                 let resortName = result.data.Resorts[0].resortName;
                 localStorage.setItem("resortName", resortName);
              }

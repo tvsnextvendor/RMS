@@ -7,6 +7,7 @@ import {PDFService} from '../../services/pdf.service';
 import {HeaderService} from '../../services/header.service';
 import {EmployeeVar} from '../../Constants/employee.var';
 import { API_URL } from '../../Constants/api_url';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
   selector: 'app-employeedetails',
@@ -19,7 +20,7 @@ export class EmployeedetailsComponent implements OnInit {
   labels;
   hidemodule = true;
   apiUrls;
-  constructor(private route: Router, private toastr: ToastrService,private http: HttpService,private excelService:ExcelService,private employeeVar : EmployeeVar,private pdfService:PDFService,private headerService: HeaderService,private apiUrl:API_URL) {this.apiUrls=API_URL.URLS; }
+  constructor(private route: Router, private toastr: ToastrService,private http: HttpService,private excelService:ExcelService,private employeeVar : EmployeeVar,private pdfService:PDFService,private headerService: HeaderService,private apiUrl:API_URL,public commonLabels:CommonLabels) {this.apiUrls=API_URL.URLS; }
 
   ngOnInit(){
     // get employee status

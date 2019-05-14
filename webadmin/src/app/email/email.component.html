@@ -2,7 +2,7 @@
 <div class="white-bg">
     <div class="row">
         <div class="col-3 dep-border">
-            <label class="dep-title">Department</label>
+            <label class="dep-title">{{commonLabels.labels.department}}</label>
             <ul>
                 <li *ngFor="let depart of departments;let i=index;">
                    <span class="dep-list"> <a (click)="groupMail(depart)"><span [ngClass] = "i===0 ? 'clr-grey' : i===1 ? 'clr-red' : i===2 ? 'clr-green' : i===3 ? 'clr-blue' : 'clr-pink'"><i class="fa fa-circle font-circle"></i></span>{{depart.department}}</a></span>
@@ -15,7 +15,7 @@
 
             <div class="form-group">
                 <input type="text-box" name="to" [(ngModel)]="emailForm.to" class="mail-input" placeholder="To" (keyup)="emailValidation()">
-                <span class="required_color" *ngIf="sendClicked && !emailForm.to" >Email Id is required</span><span class="required_color" *ngIf="sendClicked && emailForm.to && validEmail">Invalid Email</span>
+                <span class="required_color" *ngIf="sendClicked && !emailForm.to" >{{commonLabels.mandatoryLabels.emailId}}</span><span class="required_color" *ngIf="sendClicked && emailForm.to && validEmail">{{commonLabels.mandatoryLabels.emailInvalid}}</span>
             </div>
 
             <div class="form-group">
@@ -24,15 +24,15 @@
 
             <div class="form-group">
                 <input type="text-box" name="subject" [(ngModel)]="emailForm.subject" class="mail-input" placeholder="Subject">
-                <span class="required_color" *ngIf="sendClicked && !emailForm.subject" >Subject data is required</span>
+                <span class="required_color" *ngIf="sendClicked && !emailForm.subject" >{{commonLabels.mandatoryLabels.subRequired}}</span>
             </div>
             <div class="form-group">
                 <div class="msg-box">
                 <app-ngx-editor [config]="editorConfig" [(ngModel)]="dataModel"></app-ngx-editor>
                 <!-- <editor [(ngModel)]="dataModel"></editor> -->
-                <button class="btn btn-primary Signature-btn" type="button" (click)="addSign()" [disabled]="!setSignatureStatus">Add Signature</button>
+                <button class="btn btn-primary Signature-btn" type="button" (click)="addSign()" [disabled]="!setSignatureStatus">{{commonLabels.btns.addSign}}</button>
             </div>
-             <div class="py-4 clearfix"><button class="btn btn-primary" type="button" (click)="sendMail()">SEND</button></div>
+             <div class="py-4 clearfix"><button class="btn btn-primary" type="button" (click)="sendMail()">{{commonLabels.btns.send}}</button></div>
         </div>
     </div>   
 </div>

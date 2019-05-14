@@ -7,21 +7,21 @@ export class loginVar {
   public password;
   
   labels = {
-    "title" : "Login",
-    "forgetPasswordTitle" : "Forgot password",
-    "forgetPasswordMsg" : "Please enter your email ID to reset your password",
-    "emailError" : "Email is Required",
-    "passwordError" : "Password is Required",
-    "rememberMe" : "Keep me logged in",
-    "invalidPassword": "Invalid Password",
-    "invalidEmail":"Invalid Email"
+    // "title" : "Login",
+    // "forgetPasswordTitle" : "Forgot password",
+    // "forgetPasswordMsg" : "Please enter your email ID to reset your password",
+    // "emailError" : "Email is Required",
+    // "passwordError" : "Password is Required",
+    // "rememberMe" : "Keep me logged in",
+    // "invalidPassword": "Invalid Password",
+    // "invalidEmail":"Invalid Email"
     
   };
   btns = {
-    "login" : "Log in",
-    "back" : "Back",
-    "send" : "Send",
-    "submit":"Submit",
-    "forgetPassword" : "Forgot Password?"
+    // "login" : "Log in",
+    // "back" : "Back",
+    // "send" : "Send",
+    // "submit":"Submit",
+    // "forgetPassword" : "Forgot Password?"
   };
 }
