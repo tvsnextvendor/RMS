@@ -3,6 +3,9 @@ import { HeaderService, HttpService, CourseService, AlertService, FileService } 
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import * as _ from 'lodash';
+
+
 
 
 @Component({

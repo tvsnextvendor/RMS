@@ -156,23 +156,23 @@
     border-radius: 0;
   }
   .progress-bar{
-      font-size:17px;
-      font-weight: 700;
+      font-size:16px;
+      font-weight: 600;
       color: #000;
   }
   .assigned-perc{
       background-color: #A6F795;
       text-align: center;
-      font-weight: 700;
+      font-weight: 600;
   }
   .inprogress-perc{
       text-align: center;
       background-color: #95CDFA;
-      font-weight: 700;
+      font-weight: 600;
   }
   .completed-perc{
       text-align: center;
-      font-weight: 700;
+      font-weight: 600;
       background-color: #EBEBED;
   }
   .usage-state{

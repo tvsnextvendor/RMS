@@ -146,6 +146,19 @@ table td.td-pd {
   .btn{
     box-shadow: none !important;
   }
+  .btn:hover{
+    color: none;
+  }
+  .dropdown-list li.no-data{
+    font-size: 9px;
+      text-align: center;
+      width: 100%;
+  }
+  .dropdown-list h5{
+    font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+  }
 /******** check box ***************/
 .hole-cont {
    position: relative;

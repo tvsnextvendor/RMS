@@ -16,9 +16,9 @@
               <i class="fa fa-bell icons_header" aria-hidden="true"></i>
               <span class="badge badge-danger noti-pop">{{headerVar.notificationList?.count}}</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right header-noti-dropdown"  aria-labelledby="alertsDropdown">
-              <div class="dropdown-item p-0" href="#" *ngFor="let notification of headerVar.notificationList?.notifications">
-                <div class="row pb-2">
+            <div class="dropdown-menu dropdown-menu-right header-noti-dropdown pb-2"  aria-labelledby="alertsDropdown">
+              <div class="dropdown-item pt-2 pb-0" href="#" *ngFor="let notification of headerVar.notificationList?.notifications">
+                <div class="row">
                 <span class="col-md-2 pr-0"><img src={{notification?.imgUrl}}></span>
                 <span class="noti-desc col-md-8 p-0">{{notification?.data}}</span>
                 <span class="noti-timer col-md-2 pr-0">{{notification?.time}}</span></div></div>
