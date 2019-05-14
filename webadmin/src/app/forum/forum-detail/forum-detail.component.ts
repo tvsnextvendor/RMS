@@ -12,7 +12,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class ForumDetailComponent implements OnInit {
   forumId;
   postList: Array<any> = [];
-  viewComment = false;
+  viewComment = [false];
   constructor(private forumService: ForumService,
               public commonLabels: CommonLabels,
               private activatedRoute: ActivatedRoute,

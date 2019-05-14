@@ -83,7 +83,7 @@
        </div> 
   </div> -->
   <div class="col-md-6">
-      <div class="topic-box-section pb-4" *ngFor="let posts of postList">
+      <div class="topic-box-section pb-4" *ngFor="let posts of postList; let i=index">
           <div class="topic-wrap white-bg">
              <div class="topic-wrap-top clearfix p-3">
                  <a class="topic-img-wrap">
@@ -102,16 +102,17 @@
              </div>
              <div class="topic-foot clearfix p-3">
                  <span class="topic-votes float-left">
-                   <strong>560</strong>
+                   <strong>{{posts.votesCount}}</strong>
                    <small>{{commonLabels.labels.votes}}</small>
                  </span>
                  <span class="topic-ans float-right">
-                   <strong>630</strong>
-                   <a (click)="(posts.Comments && posts.Comments.length > 0) ? viewComment = true : viewComment = false"> Answers</a>
+                   <strong>{{posts.Comments.length}}</strong>
+                   <a (click)="viewComment[i] = !viewComment[i]"> Answers</a>
                  </span>
              </div>
            </div>
-           <div class="tp-ry-section grey-bg" *ngIf="viewComment">
+           <div class="tp-ry-section grey-bg" *ngIf="viewComment[i]">
+             <div *ngIf="posts.Comments?.length == 0">No data found</div>
               <div class="topic-wrap-top clearfix p-3" *ngFor="let comments of posts.Comments">
                   <a class="topic-img-wrap">
                     <span class="small-topic-thumb">

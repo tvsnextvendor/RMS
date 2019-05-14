@@ -41,6 +41,7 @@ export class CreateForumComponent implements OnInit {
     adminData;
     Divisions;
     submitted = false;
+    itemDeselected = false;
 
    constructor(
      private toastr: ToastrService,
@@ -84,7 +85,7 @@ export class CreateForumComponent implements OnInit {
         this.division['divisionList'] = [];
         this.forumVar.startDate = '';
         this.forumVar.endDate = '';
-        // this.forumService.editPage({});
+        this.forumService.editPage({});
       }
       });
 
@@ -184,16 +185,21 @@ export class CreateForumComponent implements OnInit {
 
     onItemDeselect(event, type) {
       if (type === 'division') {
-        this.forumService.getDepartment({divisionId: [event.id]}).subscribe((resp) => {
-          console.log(this.departmentList, 'ressss');
-          const result = this.departmentList.filter(function( obj ) {
-             return resp.data.rows.map( item => {
-              return obj.id !== item.departmentId;
-            });
-          });
-          console.log(result, 'resultant data after romving obj');
-        });
-      }
+        // this.division['divisionList'].map(item => {
+        //   item.id = event.id;
+        // })
+      //   this.forumService.getDepartment({divisionId: [event.id]}).subscribe((resp) => {
+      //     const wholeDivision = resp.data.rows;
+      //     console.log(wholeDivision);
+      //     if(wholeDivision) {
+      //       this.departmentList = this.departmentList.filter(o => !wholeDivision.find(x => x.departmentId === o.id));
+      //       this.Divisions = this.Divisions.filter(o => !this.departmentList.find(x => x.id === o.departmentId));
+      //     } else {
+      //       this.Divisions = this.Divisions.filter(o => !this.division['divisionList'].find(x => x.id === o.divisionId));
+      //     }
+      //   });
+      // this.itemDeselected = true;
+      
     }
 
     checkNameUniqueness(forumName) {
@@ -232,7 +238,7 @@ export class CreateForumComponent implements OnInit {
           // divisions: this.division['divisions'],
           // departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']))
         };
-        console.log(this.department['departments'], 'departmentData');
+        console.log(this.Divisions, 'departmentData');
         if (this.forumEditPage.forumId) {
           const self = this;
           // const department = this.department['departments'];
@@ -256,6 +262,7 @@ export class CreateForumComponent implements OnInit {
             if (result && result.isSuccess) {
                 this.closeModal.hide();
                 this.submitted = false;
+                this.clearForm(form);
                 this.alertService.success(this.forumVar.updateSuccessMsg);
                 this.forumService.goToList(true);
                 this.forumService.editPage({});
@@ -266,7 +273,7 @@ export class CreateForumComponent implements OnInit {
             } else {
               this.alertService.error(err.error.error);
             }
-            return;
+            return false;
         });
         } else {
           Object.assign(postData, {topics: this.topicsArray.map(item => item.topics),
@@ -275,6 +282,7 @@ export class CreateForumComponent implements OnInit {
           this.forumService.addForum(postData).subscribe(result => {
             if (result && result.isSuccess) {
               this.submitted = false;
+              this.clearForm(form);
               this.alertService.success(this.forumVar.addSuccessMsg);
               this.forumService.goToList(true);
             }
@@ -287,8 +295,8 @@ export class CreateForumComponent implements OnInit {
             return;
         });
       }
-          this.clearForm(form);
-          this.forumVar.uniqueValidate = false;
+          // this.clearForm(form);
+          // this.forumVar.uniqueValidate = false;
       }
     }
 
