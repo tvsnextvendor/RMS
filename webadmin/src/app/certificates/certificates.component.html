@@ -20,7 +20,7 @@
                             <label class="col-md-3 col-sm-3 module-batch-title p-0" *ngIf="i==0">{{commonLabels.labels.course}}</label>
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
                             <div class=" col-md-8 col-sm-8 select select-style clearfix p-0">
-                                <select id="course" class="form-control" name="Course{{i}}" [(ngModel)]="data.course">
+                                <select id="course" class="form-control p-0" name="Course{{i}}" [(ngModel)]="data.course">
                                     <option *ngFor="let course of constant.courseList" value="{{course.id}}">{{course.value}}</option>
                                 </select>
                                  <div class="select_arrow"></div>
@@ -33,7 +33,7 @@
                             <label class="col-md-3 col-sm-3 module-batch-title p-0" *ngIf="i==0">{{commonLabels.labels.template}}</label>
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
                             <div class=" col-md-7 col-sm-7 select select-style clearfix p-0">
-                                <select id="Template" class="form-control" name="Template{{i}}" [(ngModel)]="data.template">
+                                <select id="Template" class="form-control p-0" name="Template{{i}}" [(ngModel)]="data.template">
                                     <option *ngFor="let template of constant.certificateList" value="{{template.templateid}}">{{template.templatename}}</option>
                                 </select>
                                  <div class="select_arrow"></div>
