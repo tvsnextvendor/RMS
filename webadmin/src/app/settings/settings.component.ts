@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import {SettingVar} from '../Constants/setting.var';
 import { Location } from '@angular/common';
 import { AlertService } from '../services/alert.service';
-import { CommonLabels } from '../constants/common-labels.var';
+import { CommonLabels } from '../Constants/common-labels.var';
 
 
 @Component({

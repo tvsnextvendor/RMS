@@ -42,7 +42,7 @@
                     <li class="nav-item" *ngIf="!showcreatecourse">
                         <a [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification','')">{{commonLabels.labels.notification}}</a>
                     </li>
-                    <li class="nav-item" *ngIf="!showcreatecourse">
+                    <li class="nav-item" *ngIf="!hideSection">
                         <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show disabled' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">{{commonLabels.labels.quiz}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection">
@@ -61,16 +61,22 @@
                 </div>
                 <!-- Video Tab Content -->
                 <div *ngIf = "selectedTab === 'video' && !showcreatecourse" id="video" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
-                    <app-video-tab [trainingClassId] = 'trainingClassId' [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" (selectedVideos)="getVideos($event)"></app-video-tab>
+                    <app-video-tab [trainingClassId] = 'trainingClassId' [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"></app-video-tab>
                 </div>
                 <!-- Documents Tab Content -->
                 <div  *ngIf = "selectedTab === 'document' && !showcreatecourse" id="document" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
-                    <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"  (selectedVideos)="getVideos($event)"></app-document-tab>
+                    <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"></app-document-tab>
                 </div>
-                <div  *ngIf = "selectedTab === 'quiz' && !showcreatecourse " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
+                <!-- Quiz Tab Content --> 
+                <div  *ngIf = "selectedTab === 'quiz' && !hideSection " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
                     <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId" [directTabEnable] = "quizTabHit" [uploadPage]="hideSection"></app-quiz-tab>
                 </div>
             </div>
+
+                <div class="text-center pt-4" *ngIf="hideSection && !showcreatecourse">
+                    <button type="button" class="btn btn-primary creat-btn"
+                        (click)="sendFilesToCourse()">{{commonLabels.btns.add}}</button>
+                </div>
         </div>
         <div class="col-md-3 pr-0 pt-2"  *ngIf="!hideSection">
             <app-filter-tab  (FilterSearchEvent)="receivefilterMessage($event)"></app-filter-tab>

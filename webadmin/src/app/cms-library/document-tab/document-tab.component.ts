@@ -1,5 +1,5 @@
 import { Component, OnInit,Input,TemplateRef , EventEmitter, Output} from '@angular/core';
-import { HeaderService, HttpService, CourseService, AlertService } from '../../services';
+import { HeaderService, HttpService, CourseService, AlertService, FileService } from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -34,7 +34,7 @@ export class DocumentTabComponent implements OnInit {
   @Output() selectedVideos  = new EventEmitter<object>();
 
 
-  constructor(private courseService: CourseService,private alertService: AlertService,public commonLabels : CommonLabels,public constant: CmsLibraryVar, private modalService : BsModalService) { 
+  constructor(private courseService: CourseService, private fileService: FileService,private alertService: AlertService,public commonLabels : CommonLabels,public constant: CmsLibraryVar, private modalService : BsModalService) { 
 
   }
 
@@ -74,7 +74,7 @@ export class DocumentTabComponent implements OnInit {
     })
    }
 
-
+//Remove selected video from form
   removeVideo(data,i){
      this.videoListValue.filter(function (x) {
            if(x.fileId == data.fileId){
@@ -90,6 +90,7 @@ export class DocumentTabComponent implements OnInit {
   }
 
 
+  //Get document list for selected course and training class.
   getEditFileData(){
       this.courseService.getEditCourseDetails( 'Document',this.selectedCourse,this.selectedClass).subscribe(resp => {
         if(resp && resp.isSuccess){
@@ -105,13 +106,13 @@ export class DocumentTabComponent implements OnInit {
       })
   }
 
-
+ //Send selected files to cms library component.
   AddFilestoEditCourse(){
     this.selectedVideos.emit(this.fileList);
   }
 
 
-
+ //Get document list 
   getCourseFileDetails() {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
     let classId = this.trainingClassId ? this.trainingClassId : '';
@@ -122,6 +123,7 @@ export class DocumentTabComponent implements OnInit {
       size: this.pageSize,
       query: query
     }
+    let selectedDocuments = this.fileService.getSelectedList('Document');
     this.courseService.getFiles(params).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
@@ -131,6 +133,7 @@ export class DocumentTabComponent implements OnInit {
           this.videoListValue = [];
         }else{
            this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
+            console.log(_.merge(this.videoListValue, selectedDocuments));
         this.uploadPath = resp.data && resp.data.uploadPaths ? resp.data.uploadPaths.uploadPath : '';
       }
        }
@@ -152,28 +155,36 @@ export class DocumentTabComponent implements OnInit {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
+  //Hide and show Assign form popup 
   openAddVideosToCourse(){
-   
     this.addVideosToCourse = !this.addVideosToCourse;
   }
+
   pageChanged(e){
     this.page = e;
     this.getCourseFileDetails();
   }
 
+ //Add or remove files from list
    addFiles(event,file,i){
     let type=event.target.checked;
     if(type){
       file['addNew'] = true;
+      file['selected'] = true;
       this.fileList.push(file);
+      this.fileService.saveFileList('add',file);
+
     }else{
       let index = this.fileList.findIndex(x => x.fileId === file.fileId);
+      file['selected'] = false;
       this.fileList.splice(index,1);
+      this.fileService.saveFileList('remove',file);
+
     }
   }
 
 
-
+  //Open delete warning modal
    removeDoc(template: TemplateRef<any>,fileId, i) {
     let modalConfig={
       class : "modal-dialog-centered"
@@ -183,17 +194,18 @@ export class DocumentTabComponent implements OnInit {
      this.constant.modalRef = this.modalService.show(template,modalConfig); 
     }
 
-     deleteDoc(){
-     this.courseService.deleteDocument(this.constant.fileId).subscribe((result)=>{
-         if(result.isSuccess){
-             this.constant.modalRef.hide();
-             this.getCourseFileDetails();
-             this.alertService.success(result.message);
-         }
-     })
-   }
+  //Delete document
+  deleteDoc(){
+  this.courseService.deleteDocument(this.constant.fileId).subscribe((result)=>{
+      if(result.isSuccess){
+          this.constant.modalRef.hide();
+          this.getCourseFileDetails();
+          this.alertService.success(result.message);
+      }
+  })
+  }
 
-
+ //Assign document files to selected course and training class
   AssignNewFiles(){
       this.submitted=true;
       let self =this;
@@ -227,6 +239,7 @@ export class DocumentTabComponent implements OnInit {
     }
   }
 
+  //To reset form.
   resetAssignForm(){
     this.selectedClass = "";
     this.selectedCourse = "";
