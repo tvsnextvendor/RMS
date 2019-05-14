@@ -7,4 +7,5 @@ export * from './http.service';
 export * from './pdf.service';
 export * from './util.service';
 export * from './http.service';
+export * from './file.service';
 

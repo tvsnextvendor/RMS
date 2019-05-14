@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef,Input, Output, EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService, HttpService, AlertService } from '../services';
+import { HeaderService, HttpService, AlertService, FileService } from '../services';
 import { ToastrService } from 'ngx-toastr';
 // import { TraingClassTabComponent } from './traing-class-tab/traing-class-tab.component'
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -13,7 +13,7 @@ import { CommonLabels } from '../Constants/common-labels.var';
   styleUrls: ['./cms-library.component.css']
 })
 export class CMSLibraryComponent implements OnInit {
-  constructor(private modalService: BsModalService,public commonLabels : CommonLabels, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
+  constructor(private modalService: BsModalService,public fileService: FileService,public commonLabels : CommonLabels, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
   modalRef;
   videoFile;
   selectedTab;
@@ -119,19 +119,16 @@ export class CMSLibraryComponent implements OnInit {
     this.CMSFilterSearchEvent = $event;
     //this.headerTabChange('course','');
    }
-
-   getVideos(event){
-    //this.selectedVideoList = event;
-    event.forEach(element => {
-      console.log(element);
-      this.selectedVideoList.push(element)
-    });
-     if(this.findCreateCourse){
+  
+  sendFilesToCourse(){
+    this.selectedVideoList = this.fileService.selectedFiles();
+    if(this.findCreateCourse){
        this.showCreateCourse();
-     }else{
-     this.hideSection= false;
-     this.selectedTab = 'course';
+    }else{
+      this.hideSection= false;
+      this.selectedTab = 'course';
      }
-     
-   }
+  }
+
+   
 }

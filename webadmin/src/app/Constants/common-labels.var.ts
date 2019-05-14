@@ -281,10 +281,10 @@ export class CommonLabels{
         "dob"               :   "DOB",
         "oldPassword"       :   "Old Password",
         "newPassword"       :   "New Password",
-        "confirmPassword"   :   "Confirm Password",
-        
-       
-                    
+        "confirmPassword"   :   "Confirm Password",        
+        "quizSelection"     :   "How do you want to add Quiz?",
+        "fromCMSLibrary"    :   "Upload from CMS Library",
+        "addNew"            :   "Add new Quiz"
     };
 
     btns = {

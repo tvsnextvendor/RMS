@@ -4,7 +4,8 @@ import { NgForm } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { VideoVar } from '../../Constants/video.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
-import { CommonService, UtilService, ResortService, UserService, AlertService } from '../../services';
+import { CommonService, UtilService, ResortService, UserService, AlertService, FileService } from '../../services';
+import * as _ from 'lodash';
 
 
 @Component({
@@ -40,7 +41,7 @@ fileList=[];
 @Output() selectedVideos  = new EventEmitter<object>();
 
 
-constructor(private courseService: CourseService, private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService,public commonLabels : CommonLabels) {
+constructor(private courseService: CourseService,private fileService:FileService,private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService,public commonLabels : CommonLabels) {
    this.labels = constant.videoFormLabels;
 }
 
@@ -93,6 +94,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
     })
    }
 
+  //Get document list for selected course and training class.
   getEditFileData(){
       this.courseService.getEditCourseDetails('Video', this.selectedCourse,this.selectedClass).subscribe(resp => {
         if(resp && resp.isSuccess){
@@ -108,9 +110,8 @@ constructor(private courseService: CourseService, private alertService: AlertSer
       })
   }
 
-
+ //Remove selected video from form
   removeVideo(data,i){
-    console.log(data);
     this.videoListValue.filter(function (x) {
            if(x.fileId == data.fileId){
              return x.selected = false;
@@ -131,6 +132,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
  }
 
 
+  //Get File list.
   getCourseFileDetails() {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
     let classId = this.trainingClassId ? this.trainingClassId : '';
@@ -141,6 +143,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
       size: this.pageSize,
       query: query
     }
+    let selectedVideos = this.fileService.getSelectedList('Video');
     this.courseService.getFiles(params).subscribe(resp => {
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
@@ -149,6 +152,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
           this.videoListValue = [];
         }else{
           this.videoListValue = resp.data && resp.data.rows.length && resp.data.rows;
+          console.log(_.merge(this.videoListValue, selectedVideos));
         }
         this.uploadPath = resp.data.uploadPaths.uploadPath;
       }
@@ -156,7 +160,11 @@ constructor(private courseService: CourseService, private alertService: AlertSer
     },err =>{
       this.CMSFilterSearchEventSet = '';
     });
+
+   
+     
   }
+
   openEditVideo(template: TemplateRef<any>, data, index) {
     let user = this.utilService.getUserData();
     let roleId = user.Resorts.length && user.Resorts[0].resortId;
@@ -209,15 +217,16 @@ constructor(private courseService: CourseService, private alertService: AlertSer
       this.constant.empValidate = false;
       }
       
-      closeEditVideoForm() {
-      this.constant.modalRef.hide();
-      }
+    closeEditVideoForm() {
+    this.constant.modalRef.hide();
+    }
   
-      openAddVideosToCourse(){ 
-         this.addVideosToCourse = !this.addVideosToCourse;
-      }
+    //Hide and show Assign form popup 
+    openAddVideosToCourse(){ 
+        this.addVideosToCourse = !this.addVideosToCourse;
+    }
 
-
+   //Open delete warning modal
    removeDoc(template: TemplateRef<any>,fileId, i) {
     let modalConfig={
       class : "modal-dialog-centered"
@@ -226,32 +235,40 @@ constructor(private courseService: CourseService, private alertService: AlertSer
      this.constant.modalRef = this.modalService.show(template,modalConfig); 
     }
 
-     deleteDoc(){
-     this.courseService.deleteDocument(this.constant.fileId).subscribe((result)=>{
-         if(result.isSuccess){
-             this.constant.modalRef.hide();
-             this.getCourseFileDetails();
-             this.alertService.success(result.message);
-         }
-     })
+  //Delete file 
+    deleteDoc(){
+    this.courseService.deleteDocument(this.constant.fileId).subscribe((result)=>{
+        if(result.isSuccess){
+            this.constant.modalRef.hide();
+            this.getCourseFileDetails();
+            this.alertService.success(result.message);
+        }
+    })
    }
 
 
+  //Add or remove files from list
   addFiles(event,file,i){
     let type=event.target.checked;
     if(type){
       file['addNew'] = true;
+      file['selected'] = true;
       this.fileList.push(file);
+      this.fileService.saveFileList('add',file);
     }else{
       let index = this.fileList.findIndex(x => x.fileId === file.fileId);
+      file['selected'] = false;
       this.fileList.splice(index,1);
+     this.fileService.saveFileList('remove',file);
     }
   }
 
+ //Send selected files to cms library component.
   AddFilestoEditCourse(){
     this.selectedVideos.emit(this.fileList);
   }
  
+ //To reset form.
   resetAssignForm(){
     this.selectedClass = "";
     this.selectedCourse = "";
@@ -259,6 +276,7 @@ constructor(private courseService: CourseService, private alertService: AlertSer
     this.submitted=false;
   }
 
+  //Assign video files to selected course and training class
   AssignNewFiles(){
       this.submitted=true;
       let self =this;
