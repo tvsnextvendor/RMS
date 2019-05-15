@@ -66,7 +66,7 @@ export class TrainingDetailPage {
         this.detailObject = this.navParams.data;
         this.trainingClassName = this.detailObject['setData'].trainingClassName;
         this.trainingClassId = this.detailObject['setData'].trainingClassId;
-        this.courseId = this.detailObject['setData'].CourseTrainingClassMaps[0].courseId;
+        this.courseId = this.detailObject['setData'].CourseTrainingClassMaps[0].Course.courseId;
         this.trainingDatas = this.detailObject['setData'].Files;
         this.uploadPath = this.detailObject['uploadPath'];
         this.status= this.detailObject['status'];

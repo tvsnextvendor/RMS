@@ -41,6 +41,10 @@ export class API_URL {
        'updateTrainingStatus':'8103/updateUserTrainingStatus',
        'trainingCourseFilesAPI':'8103/trainingClass/TrainingFileList',
        'quizAPI':'8103/trainingClass/QuizList',
-       'readNotification':'8103/user/readNotification'
+       'readNotification':'8103/user/readNotification',
+       'updateSettings' : '8101/user/settings',
+       'completeTrainingClass':'8103/updateTrainingClassCompletedStatus',
+       'postFeedBack':'8103/courseFeedback',
+       'getAllSchedule': '8103/schedule/getAllSchedules'
     };
 }
