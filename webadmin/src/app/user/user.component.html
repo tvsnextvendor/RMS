@@ -379,8 +379,8 @@
         </ul>   
         <div *ngIf="!divisionValidationCheck"><span class="required_color text-left">{{divisionError}}</span></div> 
         <div class="tab-content" *ngIf="userType === 2">
-            <div id="home" [ngClass] = "!triggerNext ? 'container tab-pane col-md-12 pl-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
-                <div class="row col-12 col-md-12 pl-0" *ngFor="let data of constant.divisionTemplate; let i = index">
+            <div id="home" [ngClass] = "!triggerNext ? 'container tab-pane col-md-12 p-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
+                <div class="row col-12 col-md-12 p-0" *ngFor="let data of constant.divisionTemplate; let i = index">
                     <label class="col-5 col-md-4 label-title pl-0" *ngIf="i==0">{{commonLabels.labels.division}}</label>
                     <label class="col-5 col-md-4 label-title pl-0" *ngIf="i!=0"></label>
                     <div class="input-group mb-3 col-7 col-md-8 group-box">
@@ -396,14 +396,14 @@
                     </div>                       
                 </div>
             </div>
-            <div id="menu1" [ngClass] = "triggerNext ? 'container tab-pane col-md-12 pl-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
+            <div id="menu1" [ngClass] = "triggerNext ? 'container tab-pane col-md-12 p-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
                 <div class="row col-12 col-md-12 p-0" *ngFor="let data of constant.divisionTemplate; let i = index">
                     <!-- <select class="col-4 col-md-3 select-form form-control pl-0" *ngIf="i==0"> 
                         <option *ngFor="let name of constant.divisionTemplate">{{name.divisionName}}</option>
                     </select> -->
                     <label class="col-4 col-md-3  label-title pl-0">{{data.divisionName}}</label>
                     <!-- <label class="col-md-3 select-form form-control pl-0" *ngIf="i!=0"></label> -->
-                    <div *ngFor="let dept of data.departments; let oi = index" class="col-8 col-md-8 p-0">
+                    <div *ngFor="let dept of data.departments; let oi = index" class="col-8 col-md-9 p-0">
                         <div  [ngClass] = "oi === 0 ? 'col-12 input-group mb-3 col-md-12 group-box cll' : 'col-12 input-group mb-3 col-md-12 group-box group-section-bx'" >
                         <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{oi+1}}" [(ngModel)]="dept.departmentName" name = "department{{oi+1}}" aria-label="" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
@@ -457,10 +457,10 @@
         <div class="row">
         <label class="col-md-4 pl-0 label-title">{{commonLabels.labels.divisionName}}</label>
         <div class="col-md-8 p-0">
-        <input type="text" class="form-control col-md-11 mb-2 p-0" placeholder="Division Name" [(ngModel)]="editDivisionValue.divisionName" name = "division" aria-label="" aria-describedby="basic-addon1">
+        <input type="text" class="form-control col-md-12 mb-2 p-0" placeholder="Division Name" [(ngModel)]="editDivisionValue.divisionName" name = "division" aria-label="" aria-describedby="basic-addon1">
         <div class="row col-12 col-md-12 p-0" *ngFor="let data of editDepartmentList; let i = index">
-            <div class="col-4 input-group mb-3 col-md-8 group-box">
-                <input type="text" class="form-control col-md-11" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1" (keyup)="departmentEditCheck(data.departmentName)">
+            <div class="col-4 input-group mb-3 col-md-10 group-box">
+                <input type="text" class="form-control col-md-12" placeholder="Enter the  Department{{i+1}}" [(ngModel)]="data.departmentName" name = "department{{i+1}}" aria-label="" aria-describedby="basic-addon1" (keyup)="departmentEditCheck(data.departmentName)">
             </div>
             <div class="input-group-prepend">
                 <button class="btn btn-icon" type="button" *ngIf="i == 0" (click)="editDivisionForm('add')" title="Add">
