@@ -25,7 +25,7 @@
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{commonLabels.btns.createCourse}}</button>
             </div>
             <span class="required_color" *ngIf="showWarning && !showcreatecourse">{{commonLabels.labels.selectcoursestoschedule}}</span> 
-            <div class="clearfix pt-4 tab-section">
+            <div class="clearfix pt-3 tab-section">
                 <ul class="nav nav-tabs">
                     <li class="nav-item"  *ngIf="!hideSection">
                         <a [ngClass] = "selectedTab === 'course' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#course" (click)="headerTabChange('course','')">{{commonLabels.labels.course}}</a>
