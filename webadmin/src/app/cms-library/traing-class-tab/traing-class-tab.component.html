@@ -13,13 +13,18 @@
         </div> -->
     </div>
     <div class="select-arbx p-3" *ngFor="let training of course.CourseTrainingClassMaps;let ci = index">
-        <label class="square-cont float-left col-md-12" *ngIf="training.enableEdit == false">
-            <input type="checkbox" name="web"><span class="text-over">{{training?.TrainingClass?.trainingClassName}}</span>
+        <div class="clearfix">
+            <div class="float-left">
+        <label class="square-cont col-md-12" *ngIf="training.enableEdit == false">
+            <!-- <input type="checkbox" name="web"> -->
+            <span class="text-over">{{training?.TrainingClass?.trainingClassName}}</span>
             <span class="square-checkmark" *ngIf="uploadPage"></span> 
-            <div class="float-right">
+        </label>
+    </div>    
+            <div class="float-right pr-3">
                 <a (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
             </div>
-        </label>
+        </div>
         <div class="float-left" *ngIf="training.enableEdit == true">
             <form #trainingClassNameForm="ngForm" (ngSubmit)="saveTrainingClassName(trainingClassNameForm,i,ci)">
                 <div class="row form-group">
