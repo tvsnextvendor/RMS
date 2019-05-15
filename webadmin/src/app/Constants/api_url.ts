@@ -152,7 +152,10 @@ export class API_URL {
     //Forum Services
     forum: '8104/forum',
     departmentListWithResort: '8102/department/List?resortId=',
-    forumPost: '8104/post'
+    forumPost: '8104/post',
+
+    //Badges
+    badge : '8104/badge'
   }
   
 

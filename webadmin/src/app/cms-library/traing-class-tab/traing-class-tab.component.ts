@@ -19,6 +19,7 @@ export class TraingClassTabComponent implements OnInit {
   TrainingList: any;
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
+  @Input() courseId;
   constructor(private courseService: CourseService, public commonLabels : CommonLabels, public alertService: AlertService) { }
 
   ngOnInit() {
@@ -35,7 +36,8 @@ export class TraingClassTabComponent implements OnInit {
 
   getTrainingClassDetails() {
 
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId : '';
+    console.log(query)
     let newList;
     let trainList;
   this.courseService.getCourseTrainingClass(this.currentPage, this.pageLength,query).subscribe((resp) => {

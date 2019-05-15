@@ -1,6 +1,6 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderService } from '../services/header.service';
+import { HeaderService,CommonService ,UtilService} from '../services';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -20,12 +20,15 @@ export class CertificatesComponent implements OnInit {
 
     percentageArray = [];
     percentageTakenError = {
-        diamond: false,
+        platinum: false,
         gold: false,
         silver: false,
         bronze: false
     };
-    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels) {
+    resortId;
+    batchDetails = [];
+    editFieldEnable = false;
+    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService) {
         this.constant.url = API_URL.URLS;
     }
     ngOnInit() {
@@ -42,18 +45,38 @@ export class CertificatesComponent implements OnInit {
         this.http.get(this.constant.url.getCoursesList).subscribe((data) => {
             this.constant.courseList = data.courseDetails;
         });
+        this.resortId = this.utilService.getUserData() && this.utilService.getUserData().Resorts[0].resortId;
     }
 
     getbadgepercentage() {
         this.http.get(this.constant.url.getBadgePercentage).subscribe((data) => {
             this.constant.badgePercentage = data.badgePercentage;
+            this.getBadgeDetails();
         });
+    }
+
+    getBadgeDetails(){
+        this.commonService.getBadge(this.resortId).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+                this.batchDetails = resp.data.length ? resp.data : [];
+                this.editFieldEnable = true;
+                this.batchDetails.forEach(item=>{
+                    this.constant[item.badgeName] = item.percentage;
+                })
+            }
+        },err=>{
+            console.log(err.error)
+            if(err.error.error == 'No Data Found'){
+                this.alertService.info(this.commonLabels.mandatoryLabels.badgeDataFound);
+            }
+        })
+
     }
 
     resetPercentage() {
         this.getbadgepercentage();
         this.constant.gold = null;
-        this.constant.diamond = null;
+        this.constant.platinum = null;
         this.constant.silver = null;
         this.constant.bronze = null;
     }
@@ -64,30 +87,30 @@ export class CertificatesComponent implements OnInit {
             let index = this.percentageArray.find(x => x.value === value);
             if (index) {
                 switch (name) {
-                    case "diamond":
-                        this.constant.diamond = "null";
-                        this.percentageTakenError.diamond = true;
+                    case "platinum":
+                        this.constant.platinum = "null";
+                        this.percentageTakenError.platinum = true;
                         this.percentageTakenError.gold = false;
                         this.percentageTakenError.silver = false;
                         this.percentageTakenError.bronze = false;
                         break;
                     case "gold":
                         this.constant.gold = "null";
-                        this.percentageTakenError.diamond = false;
+                        this.percentageTakenError.platinum = false;
                         this.percentageTakenError.gold = true;
                         this.percentageTakenError.silver = false;
                         this.percentageTakenError.bronze = false;
                         break;
                     case "silver":
                         this.constant.silver = "null";
-                        this.percentageTakenError.diamond = false;
+                        this.percentageTakenError.platinum = false;
                         this.percentageTakenError.gold = false;
                         this.percentageTakenError.silver = true;
                         this.percentageTakenError.bronze = false;
                         break;
                     case "bronze":
                         this.constant.bronze = "null";
-                        this.percentageTakenError.diamond = false;
+                        this.percentageTakenError.platinum = false;
                         this.percentageTakenError.gold = false;
                         this.percentageTakenError.silver = false;
                         this.percentageTakenError.bronze = true;
@@ -102,7 +125,7 @@ export class CertificatesComponent implements OnInit {
                 let index = this.percentageArray.findIndex(x => x.name === name);
                 index >= 0 ? this.percentageArray.splice(index, 1) : '';
                 value !== "null" ? this.percentageArray.push({ "name": name, "value": value }) : '';
-                this.percentageTakenError.diamond = false;
+                this.percentageTakenError.platinum = false;
                 this.percentageTakenError.gold = false;
                 this.percentageTakenError.silver = false;
                 this.percentageTakenError.bronze = false;
@@ -186,10 +209,54 @@ export class CertificatesComponent implements OnInit {
     //Batch percentage selection
     batchSelection(form) {
         const badges = form.value;
-        if (badges.gold != null && badges.diamond != null && badges.silver != null && badges.bronze != null) {
-            window.scrollTo(0, 0);
+        if (badges.gold != null && badges.platinum != null && badges.silver != null && badges.bronze != null) {
+           if(this.batchDetails.length){
+                let data = this.batchDetails.map((item,i)=>{
+                    delete item.created;
+                    delete item.updated;
+                    if(item.badgeName == 'platinum'){
+                        item.percentage = this.constant.platinum;
+                    }
+                    if(item.badgeName == 'gold'){
+                        item.percentage = this.constant.gold;
+                    }
+                    if(item.badgeName == 'silver'){
+                        item.percentage = this.constant.silver;
+                    }
+                    if(item.badgeName == 'bronze'){
+                        item.percentage = this.constant.bronze;
+                    }
+                    return item;
+                })
+                let obj = {"badges" : data}
+                this.commonService.addBadges(obj).subscribe(resp=>{
+                    console.log(resp);
+                })
+           }
+           else{
+            let obj = 
+            {"badges" :
+                [
+                    {"badgeName" : "platinum","percentage" : form.value.platinum,"resortId" : this.resortId},
+                    {"badgeName" : "gold","percentage" : form.value.gold,"resortId" : this.resortId},
+                    {"badgeName" : "silver","percentage" : form.value.silver,"resortId" : this.resortId},
+                    {"badgeName" : "bronze","percentage" : form.value.bronze,"resortId" : this.resortId}
+                ]   
+            }
+            this.commonService.addBadges(obj).subscribe(resp=>{
+                if(resp && resp.isSuccess){
+                    this.getBadgeDetails();
+                }
+                else{
+                    console.log(resp.message)
+                }
+            },err=>[
+                this.alertService.error(err.message)
+            ])
+           }
+            // window.scrollTo(0, 0);
             this.alertService.success(this.commonLabels.msgs.badgeSuccessMsg);
-            this.clearbatchSelection();
+            // this.clearbatchSelection();
         } else {
             this.constant.badgesRequired = true;
         }
@@ -197,13 +264,14 @@ export class CertificatesComponent implements OnInit {
 
     //Reset Badge Form
     clearbatchSelection() {
-        this.constant.diamond = null;
+        this.editFieldEnable = false;
+        this.constant.platinum = null;
         this.constant.gold = null;
         this.constant.silver = null;
         this.constant.bronze = null;
         this.percentageArray = [];
         this.constant.badgesRequired = false;
-        this.percentageTakenError.diamond = false;
+        this.percentageTakenError.platinum = false;
         this.percentageTakenError.gold = false;
         this.percentageTakenError.silver = false;
         this.percentageTakenError.bronze = false;

@@ -196,6 +196,7 @@ export class UserComponent implements OnInit {
     }
     openAddUser(template: TemplateRef<any>, data,  index) {
         this.divisionValidationCheck = true;
+        this.errorValidation = true;
         if(data){
          this.userEdit(data,index);
          this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
@@ -474,9 +475,9 @@ export class UserComponent implements OnInit {
         this.editDepartmentList = [];
         this.validationDivisionCheck = true;
         this.errorValidation = true;
-        this.editDivisionValue = data;
+        this.editDivisionValue =  _.cloneDeep(data);
         let dataValue = data && data.Departments;
-        this.editDepartmentList = dataValue;
+        this.editDepartmentList = _.cloneDeep(dataValue);
         this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig)
     }
 
@@ -664,6 +665,6 @@ export class UserComponent implements OnInit {
         let userData = this.utilService.getUserData();
         let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
         this.constant.modalRef.hide();
-        this.getDivisionList(resortId);
+        // this.getDivisionList(resortId);
     }
 }

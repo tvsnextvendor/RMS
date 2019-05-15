@@ -79,6 +79,9 @@ export class CMSLibraryComponent implements OnInit {
     else if(key != 'trainingfiles' && title == 'quiz'){
       this.quizTabHit = true;
     }
+    else if (key != 'trainingfiles'){
+      this.courseId = '';
+    }
     else{
       this.quizTabHit = false; 
     }
@@ -96,6 +99,8 @@ export class CMSLibraryComponent implements OnInit {
   }
 
   redirectTab(value){
+    this.trainingClassId = '';
+    this.courseId = '';
     if(value){
       this.trainingClassId = value.id;
     }

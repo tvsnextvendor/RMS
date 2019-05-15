@@ -64,4 +64,15 @@ passwordUpdate(params){
   return this.http.put('local',this.url.userSettings,params);
 }
 
+addBadges(params){
+  return this.http.post('local',this.url.badge,params);
+}
+
+updateBadge(params){
+  return this.http.put('local',this.url.badge,params);
+}
+
+getBadge(id){
+  return this.http.getLocal('local',this.url.badge+'?resortId='+id);
+}
 }
