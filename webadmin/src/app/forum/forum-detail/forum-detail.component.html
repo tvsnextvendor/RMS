@@ -122,9 +122,17 @@
                     <div class="topic-wrap-rt pl-3">
                         <div class="topic-into clearfix">
                           <h5 class="hd-tit float-left">{{comments.User.userName}}</h5>
-                          <span class="float-right">
-                            <a href="#"><i class="fas fa-trash header-icon"></i></a>
-                            <a href="#"><i class="fas fa-ellipsis-v header-icon"></i></a></span>
+                          <ul class="float-right">
+                            <li><a href="#"><i class="fas fa-trash header-icon"></i></a></li>
+                            <li class="nav-item dropdown no-arrow">
+                              <a  class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-v header-icon notif-color"></i></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Report Abuse</a>
+                                    <a class="dropdown-item" href="#">Mark as Inappropriate</a>
+                                </div>
+                              </li>
+                            </ul>
                         </div>
                         <small class="topic-time">{{comments.created | date}}</small> 
                         <p class="reply-content">{{comments.description}}</p>

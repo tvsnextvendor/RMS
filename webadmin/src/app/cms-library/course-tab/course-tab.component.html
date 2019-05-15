@@ -1,6 +1,6 @@
 <div class="col-md-12 clearfix py-2 px-0"><h6 class="count-alg">{{commonLabels.labels.count}}{{totalCourseCount}}</h6></div>
 <div  *ngFor="let courses of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCourseCount};let i = index">
-    <div id="coss" class="col-md-12 pt-2 clearfix px-0">
+    <div id="coss" class="col-md-12 mb-3 clearfix px-0">
         <!-- {{CMSFilterSearchEventSet}} -->
         <div class="white-bg p-3 clearfix" *ngIf="!enableEdit || enableEdit && enableIndex !== i">
             <div class="clearfix">
@@ -99,7 +99,7 @@
 
 <!-- Edit -->
 
-    <div class="col-md-12 pt-2 clearfix px-0" *ngIf="enableEdit && enableIndex === i">
+    <div class="col-md-12 mb-3 clearfix px-0" *ngIf="enableEdit && enableIndex === i">
      	<div class="white-bg p-3 clearfix">
             <div class="clearfix">
                 <p class="dup-hd">{{commonLabels.labels.edit}}</p>
@@ -149,7 +149,7 @@
 
 <!-- Duplicate -->
 
-    <div class="col-md-12 pt-2 clearfix px-0" *ngIf="enableDuplicate && enableIndex === i">
+    <div class="col-md-12 mb-3 clearfix px-0" *ngIf="enableDuplicate && enableIndex === i">
      	<div class="white-bg p-3 clearfix">
      	    <div class="clearfix">
                 <p class="dup-hd">{{commonLabels.labels.duplicate}}</p>
