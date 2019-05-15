@@ -95,3 +95,18 @@ strong{
     height: 100%;
     border-radius: 70px;
 } */
+.dropdown-toggle::after{
+    display: none;
+}
+.dropdown-menu.show{
+    display: block;
+    top: -3px !important;
+    left: -147px !important;
+    /* padding: 0 12px; */
+}
+.notif-color{
+    color: #73737b !important;
+}
+.dropdown-menu .dropdown-item{
+    padding: 8px 9px;
+}
