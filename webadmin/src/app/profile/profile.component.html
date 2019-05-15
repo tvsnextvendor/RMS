@@ -86,7 +86,7 @@
                   <div class="row">  		
                       <label class="col-lg-3 label-title">{{commonLabels.labels.empId}}</label>  		
                       <div class="col-lg-6">
-                         <input class="form-control" name="empId" [(ngModel)]="profVar.empId" #EmpId="ngModel" type="text" readonly>  
+                         <input disabled class="form-control" name="empId" [(ngModel)]="profVar.empId" #EmpId="ngModel" type="text" readonly>  
                     </div>
                   </div>
 
@@ -125,30 +125,30 @@
                       <label class="col-lg-3 label-title">{{commonLabels.labels.mobile}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>  		
                     <div class="col-lg-6">
                      
-                        <input class="form-control" pattern="^((\\+91-?)|0)?[0-9]{10}$" name="phoneNumber" [(ngModel)]="profVar.mobile" #PhNumber="ngModel"  type="text" required> 
+                        <input class="form-control"  name="phoneNumber" [(ngModel)]="profVar.mobile" #PhNumber="ngModel"  type="text" (keyup)="validationUpdate('mobile')" required> 
                         <div *ngIf="PhNumber?.touched && PhNumber.invalid || (PhNumber.pristine && formDir.submitted)">
-                                <div class="required_color" *ngIf="PhNumber.errors?.required">
-                                        {{commonLabels.mandatoryLabels.mobNo}}
-                                </div>
-                                <div  class="required_color" [hidden]="!PhNumber.hasError('pattern')">
-                                       {{commonLabels.mandatoryLabels.invalidMobNo}}
-                                </div>
-                            </div>  
+                          <div class="required_color" *ngIf="PhNumber.errors?.required">
+                                  {{commonLabels.mandatoryLabels.mobNo}}
+                          </div>
+                        </div>  
+                        <div  class="required_color" *ngIf="profVar.mobile && validPhone">
+                          {{commonLabels.mandatoryLabels.invalidMobNo}}
+                        </div>
                     </div>
                   </div>
                   <div class="row">  		
-                      <label class="col-lg-3 label-title">{{commonLabels.labels.department}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>  		
+                      <label class="col-lg-3 label-title">{{commonLabels.labels.department}}</label>  		
                     <div class="col-lg-6">
-                        <input class="form-control" name="department" [(ngModel)]="profVar.dept"  #Dept="ngModel"  type="text" required>
+                        <input disabled class="form-control" name="department" [(ngModel)]="profVar.dept"  #Dept="ngModel"  type="text" required>
                         <span class="required_color" *ngIf="Dept && Dept.invalid && (formDir.submitted || Dept.touched)">
                           {{profVar.mandatoryLabels.dept}}        
                         </span> 
                     </div>
                   </div>
                   <div class="row">  		
-                      <label class="col-lg-3 label-title">{{commonLabels.labels.designation}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>  		
+                      <label class="col-lg-3 label-title">{{commonLabels.labels.designation}}</label>  		
                     <div class="col-lg-6">
-                        <input class="form-control" name="designation" [(ngModel)]="profVar.designation" #Designation="ngModel"  type="text" required>
+                        <input disabled class="form-control" name="designation" [(ngModel)]="profVar.designation" #Designation="ngModel"  type="text" required>
                         <span class="required_color" *ngIf="Designation && Designation.invalid && (formDir.submitted || Designation.touched)">
                               {{commonLabels.mandatoryLabels.designation}}
                            </span> 

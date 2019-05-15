@@ -64,42 +64,42 @@
             </div>
             <div class="row">
                 <div class="col-md-3 col-sm-6 pt-3 pl-0">
-                    <label class="badge-title"><!-- {{constant.labels.diamond}} -->{{commonLabels.labels.platinum}}</label>
-                    <select id="diamond" class="form-control badge-dropdown" name="diamond" [(ngModel)]="constant.diamond"
+                    <label class="badge-title"><!-- {{constant.labels.platinum}} -->{{commonLabels.labels.platinum}}</label>
+                    <select [disabled] = "editFieldEnable" id="platinum" class="form-control badge-dropdown" name="platinum" [(ngModel)]="constant.platinum"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
                         <option value="null">Select percentage</option>
-                        <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}"
+                        <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.value}}"
                             [disabled]="percentage.disable">{{percentage.value}}</option>
                     </select>
-                    <span *ngIf="percentageTakenError.diamond" class="required_color">{{commonLabels.mandatoryLabels.badgepercentageError}}</span>
+                    <span *ngIf="percentageTakenError.platinum" class="required_color">{{commonLabels.mandatoryLabels.badgepercentageError}}</span>
                     <span *ngIf="constant.badgesRequired" class="required_color">{{commonLabels.mandatoryLabels.badgeRequiredMsg}}</span>
                 </div>
                 <div class="col-md-3 col-sm-6 pt-3 pl-0">
                     <label class="badge-title">{{commonLabels.labels.gold}}</label>
-                    <select id="gold" class="form-control badge-dropdown" name="gold" [(ngModel)]="constant.gold"
+                    <select [disabled] = "editFieldEnable" id="gold" class="form-control badge-dropdown" name="gold" [(ngModel)]="constant.gold"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
                         <option value="null">Select percentage</option>
-                        <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}"
+                        <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.value}}"
                             [disabled]="percentage.disable">{{percentage.value}}</option>
                     </select>
                     <span *ngIf="percentageTakenError.gold" class="required_color">{{commonLabels.mandatoryLabels.badgepercentageError}}</span>
                 </div>
                 <div class="col-md-3 col-sm-6 pt-3 pl-0">
                     <label class="badge-title">{{commonLabels.labels.silver}}</label>
-                    <select id="silver" class="form-control badge-dropdown" name="silver" [(ngModel)]="constant.silver"
+                    <select  [disabled] = "editFieldEnable" id="silver" class="form-control badge-dropdown" name="silver" [(ngModel)]="constant.silver"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
                         <option value="null">Select percentage</option>
-                        <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}"
+                        <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.value}}"
                             [disabled]="percentage.disable">{{percentage.value}}</option>
                     </select>
                     <span *ngIf="percentageTakenError.silver" class="required_color">{{commonLabels.mandatoryLabels.badgepercentageError}}</span>
                 </div>
                 <div class="col-md-3 col-sm-6 pt-3 pl-0">
                     <label class="badge-title">{{commonLabels.labels.bronze}}</label>
-                    <select id="bronze" class="form-control badge-dropdown" name="bronze" [(ngModel)]="constant.bronze"
+                    <select [disabled] = "editFieldEnable" id="bronze" class="form-control badge-dropdown" name="bronze" [(ngModel)]="constant.bronze"
                         (change)="badgePercentageUPdate($event.target.name,$event.target.value)">
                         <option value="null">Select percentage</option>
-                        <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.id}}"
+                        <option *ngFor="let percentage of constant.badgePercentage" value="{{percentage.value}}"
                             [disabled]="percentage.disable">{{percentage.value}}</option>
                     </select>
                     <span *ngIf="percentageTakenError.bronze" class="required_color">{{commonLabels.mandatoryLabels.badgepercentageError}}</span>
@@ -108,7 +108,7 @@
         
         <div class="clearfix pt-4">
             <div class="float-right">
-            <button type="button" class="btn btn-default mr-3" (click)="clearbatchSelection()">{{commonLabels.btns.cancel}}</button>
+            <button type="button" class="btn btn-default mr-3" (click)="clearbatchSelection()">{{commonLabels.btns.clear}}</button>
             <button type="submit" class="btn btn-primary">{{commonLabels.btns.save}}</button>
         </div>
     </div>

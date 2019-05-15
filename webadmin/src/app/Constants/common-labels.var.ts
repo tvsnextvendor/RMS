@@ -489,7 +489,9 @@ export class CommonLabels{
         "passwordError"     :  "Password is Required",
         "rememberMe"        :  "Keep me logged in",
         "invalidPassword"   :  "Invalid Password",
-    
+        "profileMandatory"  :  "Please fill the mandatory fields",
+        "badgeDataFound"    :  "No badge data found"
+
      
     };
 

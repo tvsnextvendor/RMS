@@ -68,11 +68,11 @@
 									<div class="pt-2" *ngIf="data.questionType === 'True/False'">
 										<span class="col-sm-3 pl-0">
 											<label class="hole-cont mr-2">
-												<input type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate($event,i)"> {{commonLabels.labels.true}}
+												<input type="checkbox" [checked]="data.answer === 'true' ? true : false" name="options{{i}}" [value]="1" (change)="optionValueUpdate($event,i)"> {{commonLabels.labels.true}}
 												<span class="checkmark"></span>
 											</label>
 											<label class="hole-cont mr-2">
-												<input type="checkbox" [checked]="!optionData"  name="options" [value]="0" (change)="optionValueUpdate($event,i)"> {{commonLabels.labels.false}}
+												<input type="checkbox" [checked]="data.answer === 'true' ? false : true"  name="options{{i}}" [value]="0" (change)="optionValueUpdate($event,i)"> {{commonLabels.labels.false}}
 												<span class="checkmark"></span>
 											</label>
 										</span>

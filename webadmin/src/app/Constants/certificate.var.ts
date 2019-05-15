@@ -46,7 +46,7 @@ export class CertificateVar {
     badgesRequired = false;
     tempName;
     fileToUpload: File = null;
-    diamond = null;
+    platinum = null;
     gold = null;
     silver = null;
     bronze = null;

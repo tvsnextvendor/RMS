@@ -37,6 +37,7 @@ courseList;
 submitted=false;
 trainingClassList;
 fileList=[];
+fileId;
 @Input() CMSFilterSearchEventSet;
 @Output() selectedVideos  = new EventEmitter<object>();
 
@@ -152,7 +153,7 @@ constructor(private courseService: CourseService,private fileService:FileService
           this.videoListValue = [];
         }else{
           this.videoListValue = resp.data && resp.data.rows.length && resp.data.rows;
-          console.log(_.merge(this.videoListValue, selectedVideos));
+          // console.log(_.merge(this.videoListValue, selectedVideos));
         }
         this.uploadPath = resp.data.uploadPaths.uploadPath;
       }
@@ -169,6 +170,7 @@ constructor(private courseService: CourseService,private fileService:FileService
     let user = this.utilService.getUserData();
     let roleId = user.Resorts.length && user.Resorts[0].resortId;
     console.log(data)
+    this.fileId = data && data.fileId;
     this.constant.selectedResort = roleId;
     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
   }
@@ -196,7 +198,7 @@ constructor(private courseService: CourseService,private fileService:FileService
       const obj = { 'divisionId': this.constant.divisionId };
       this.commonService.getDepartmentList(obj).subscribe((result) => {
       if (result.isSuccess) {
-      this.constant.departmentList = result.data.rows;
+      this.constant.departmentList.push(result.data.rows);
       }
       })
       }
@@ -204,7 +206,7 @@ constructor(private courseService: CourseService,private fileService:FileService
       const data = { 'divisionId': this.constant.divisionId, 'departmentId': this.constant.departmentId, 'createdBy': this.utilService.getUserData().userId }
       this.userService.getUserByDivDept(data).subscribe(result => {
       if (result && result.data) {
-      this.constant.employeeList = result.data;
+      this.constant.employeeList.push(result.data);
       this.allEmployees = result.data.reduce((obj, item) => (obj[item.userId] = item, obj), {});
       }
       })
