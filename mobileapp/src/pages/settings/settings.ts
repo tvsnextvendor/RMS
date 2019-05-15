@@ -5,6 +5,7 @@ import { Constant } from '../../constants/Constant.var';
 import { ToastrService } from '../../service/toastrService';
 import { AuthProvider } from '../../providers/auth/auth';
 import { HttpProvider } from '../../providers/http/http';
+import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
 
 @IonicPage({
@@ -47,42 +48,27 @@ export class SettingsPage implements OnInit {
     this.getUser();
   }
   submit() {
-    let self=this;
     this.errorMessage = '';
     if (this.setting.newpassword !== this.setting.confirmpassword) {
      // this.toastr.error("Password Mismatch"); return false;
       this.errorMessage = "Password Mismatch";
-    } else if (this.currentUser.password !== this.setting.oldpassword) {
-     // this.toastr.error("Old password is wrong"); return false;
-      this.errorMessage = "Old password is wrong";
-
-    } else {
-      this.errorMessage = '';
-
-      const alert = this.alertCtrl.create({
-        title: 'Password changed successfully.',
-        buttons: [
-        //   {
-        //     text: 'No',
-        //     role: 'no',
-        //     handler: () => {
-        //         // console.log('Later clicked');
-        //     }
-        // },
-        {
-            text: 'Ok',
-            handler: () => {
-                self.navCtrl.setRoot('home-page');
-            }
-        }]
-    });
-    alert.present();
-
-
-
-
-      //this.toastr.success('Password changed successfully');
-     // this.navCtrl.setRoot('home-page');
+    }else {
+      let postData={
+        "userId": this.currentUser.userId,
+        "oldPassword":this.setting.oldpassword,
+        "newPassword": this.setting.newpassword,
+        "sms":this.setting.sms,
+        "email":this.setting.email,
+        "whatsapp":this.setting.whatsapp
+      }
+      this.http.put(false, API_URL.URLS.updateSettings, postData).subscribe(res=>{
+        if(res['isSuccess']){
+          this.toastr.success(res['message']);
+           this.navCtrl.setRoot('home-page');
+        }
+      },(err)=>{
+        this.toastr.error(err.error.error);
+      }) 
     }
   }
   goToPrevious() {
@@ -91,22 +77,7 @@ export class SettingsPage implements OnInit {
   toggleSection() {
     this.showPasswordChange = !this.showPasswordChange;
   }
-  notificationAPI() {
-    let sms = this.setting.sms;
-    let email = this.setting.email;
-
-    let json_notify = {
-      "Notification_SettingDetails":
-      {
-        "sms": sms,
-        "email": email
-      }
-    };
-   // this.toastr.success('Notification setting updated');
-    this.http.post(true,'postNotification', json_notify).subscribe((data) => {
-     // this.toastr.success('Notification setting updated');
-    });
-  }
+  
 
    logOut() {
     this.auth.logout();

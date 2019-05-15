@@ -18,42 +18,56 @@
 </ion-header>
 <div class="main-content">
   <ion-list>
-    <ion-card *ngFor="let batch of batchconfigList;let i=index;" class="forum-card">
+    <ion-card *ngFor="let schedule of scheduleList;let i=index;" class="forum-card">
       <ion-grid>
-        <ion-row (click)="openSubEvent(batchconfigList,i)">
-          <ion-col col-4 class="batch-name">{{batch.BatchName}}</ion-col>
-          <ion-col col-7 class="batch-date">{{batch.BatchStart | date:'d MMM y'}}<span class="to-txt"> To </span>{{batch.BatchEnd
+        <ion-row (click)="openSubEvent(i)">
+          <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
+          <ion-col col-7 class="batch-date">{{schedule.assignedDate | date:'d MMM y'}}<span class="to-txt"> To </span>{{schedule.dueDate
             | date:'d MMM y'}}
           </ion-col>
           <ion-col col-1 class="batch-icon">
-            <ion-icon name="ios-arrow-forward" *ngIf="!batch.tag"></ion-icon>
-            <ion-icon *ngIf="batch.tag" name="ios-arrow-down"></ion-icon>
+            <ion-icon *ngIf="!enableView || enableIndex !== i" name="ios-arrow-forward" ></ion-icon>
+            <ion-icon *ngIf="enableView && enableIndex === i" name="ios-arrow-down"></ion-icon>
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="batch.tag">
+        <ion-row *ngIf="enableView && enableIndex === i">
           <ion-col col-6 class="course-count">
-            <p>{{batch.ModuleName}}</p>
-            <p>{{batch.Courses}} Courses</p>
+            <div *ngFor="let course of schedule.Courses">            
+              <p *ngIf="course.Course">{{course.Course.courseName}}</p>
+              <p *ngIf="course.Course">{{course.Course.CourseTrainingClassMaps.length}} Training Classes</p>
+            </div>
           </ion-col>
-          <ion-col col-6>
+            <ion-col>
+              <div class="align-right">
+                <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
+                  {{calculateExpireDays(schedule.dueDate)}}</p>
+              </div>
+            </ion-col>
+          <!-- <ion-col col-6>
             <div class="expires red-color" *ngIf="batch.expireTwoDays"><span class="aligtxt">Will expire in 2 days</span></div>
             <div class="average orange-color" *ngIf="batch.retakeCourse"><span class="aligtxt"> Avg Score
                 {{batch.Score}}% <br>
                 <ion-icon name="md-refresh"></ion-icon>Retake Course
               </span></div>
             <div class="completed green-color" *ngIf="batch.activeCompleteStatus"><span class="aligtxt"><img src="assets/imgs/completed.png" class="completed-img" />{{batch.CourseStatus}}</span></div>
-          </ion-col>
+          </ion-col> -->
         </ion-row>
       </ion-grid>
     </ion-card>
   </ion-list>
 </div>
-<div class="fixed-btn">
+<!-- <div class="fixed-btn">
   <button ion-button round class="add-question">
    Training Schedule
   </button>
   <button ion-button round class="calendar-btn">
     Calendar
    </button>
-</div>
+</div> -->
 </ion-content>
+
+<div class="fixed-btn">
+  <button ion-button round class="add-question" (click)="goToCalendar()">
+   Calendar
+  </button>
+</div>

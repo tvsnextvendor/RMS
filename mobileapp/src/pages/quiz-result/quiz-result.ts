@@ -5,6 +5,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from '../../service/toastrService';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
+import { API_URL } from '../../constants/API_URLS.var';
+import { HttpProvider } from '../../providers/http/http';
 
 @IonicPage()
 @Component({
@@ -23,7 +25,7 @@ export class QuizResultPage implements OnInit {
     errorMessage;
     currentUser: any;
     msgToUser;
-    constructor(public navCtrl: NavController, public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
+    constructor(public navCtrl: NavController,public http: HttpProvider,public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
         this.Math = Math;
         this.resultData = navParams.data;
         this.resultData['percentage'] = Math.round((this.resultData['correctAnswers'] / this.resultData['totalQuestions']) * 100);
@@ -56,8 +58,8 @@ export class QuizResultPage implements OnInit {
         } else {
             this.errorMessage  = '';
             let percentages = [{ 1: 20, 2: 40, 3: 60, 4: 80, 5: 100 }];
-            let postFeedback = {
-                "courseId": this.resultData['trainingClassId'],
+            let postData = {
+                "courseId": this.resultData['courseId'],
                 "ratingStar": this.feedback.rating,
                 "ratingPercent": percentages[0][this.feedback.rating],
                 "feedback": this.feedback.description,
@@ -65,9 +67,13 @@ export class QuizResultPage implements OnInit {
                 "scoreOutof": this.resultData['totalQuestions'],
                 "userId": this.currentUser.userId
             }
-            console.log(postFeedback);
-           // this.toastr.success('Feedback saved successfully');
-            this.closeToStart();
+            console.log(postData);
+            this.http.post(false,API_URL.URLS.postFeedBack,postData).subscribe(res=>{
+                if(res['isSuccess']){
+                    this.toastr.success(res['message']);
+                    this.closeToStart();
+                }
+            })
         }
     }
     getUser() {

@@ -51,7 +51,9 @@ export class QuizPage {
 
     // Change selected question
     changeSelectedValue(option) {
+        console.log(option)
         this.selectedQuizContent['selectedAnswer'] = option;
+        
     }
 
     // Select previous question
@@ -78,30 +80,49 @@ export class QuizPage {
 
     // Final Congrats
     calcualteAndGoToCongartulations() {
-        let userId = this.currentUser.userId;
-        let data={
-        'courseId' : this.courseId,
-        'userId'   : userId,
-        'status'   : "completed",
-        'completedDate' : new Date()
-        }
-        this.http.put(false,API_URL.URLS.updateTrainingStatus, data).subscribe((res) => {
+        // let userId = this.currentUser.userId;
+        // let data={
+        // 'courseId' : this.courseId,
+        // 'userId'   : userId,
+        // 'status'   : "completed",
+        // 'completedDate' : new Date()
+        // }
+        // this.http.put(false,API_URL.URLS.updateTrainingStatus, data).subscribe((res) => {
         
-        },(err) => {
+        // },(err) => {
 
-        });
+        // });
+        this.completeTrainingClass();
 
         let correctAnswersCount  =   0;
         this.quizData.forEach(quizValues => {
+            console.log(quizValues['selectedAnswer'], quizValues['answer'] , quizValues ,"values")
             if (quizValues['selectedAnswer'] == quizValues['answer']) {
                 correctAnswersCount ++;
             }
         });
         const resultData = {
+            "courseId"          : this.courseId,
             "totalQuestions"    : this.quizData.length,
             "correctAnswers"    : correctAnswersCount,
             "trainingClassId"   : this.trainingClassId 
         };
         this.navCtrl.push(QuizResultPage, resultData);
+    }
+
+    completeTrainingClass(){
+        let postData={
+            "courseId":this.courseId,
+            "trainingClassId": this.trainingClassId,
+            "userId":this.currentUser.userId,
+            "status":"Completed"
+        }
+
+        this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{
+            if(res['isSuccess']){
+                this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{
+                })
+            }
+        })
     }
 }
