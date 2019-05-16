@@ -1319,6 +1319,9 @@ a {
 .custom-modal{
   max-width: 680px;
 }
+.notification-modal{
+  max-width: 560px;
+}
 .option-btn{
 	border: 1px solid #468FB9;
     border-radius: 40px;
