@@ -119,6 +119,7 @@
         </button>
     </div>
     <div class="modal-body">
+        <span class="required_color" *ngIf="errorValidate">{{errorValidation}}</span>
         <form #videoEditForm="ngForm" (ngSubmit)="permissionSetSubmit(videoEditForm)">
             <div class="row form-group">
                 <div class="col-md-5 p-0 float-left">
@@ -130,16 +131,16 @@
                             <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">
                                 {{data.resortName}}</option>
                         </select>
-                        <span class="required_color" *ngIf="submitted && !videoEditForm.selectedResort">
+                        <span class="required_color" *ngIf="submitted && !constant.selectedResort">
                             {{commonLabels.mandatoryLabels.selectResort}}
                         </span>
                     </div>
 
                     <div class="pl-0 form-group select-Courses">
                         <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId"
-                            [data]="constant.departmentList" [(ngModel)]="videoEditForm.selectedDepartment"
-                            [settings]="constant.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
-                            (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" required>
+                            [data]="constant.departmentList" [(ngModel)]="constant.selectedDepartment"
+                            [settings]="constant.departmentSettings" (onSelect)="onEmpSelect($event,'dept','select')"
+                            (onDeSelect)="onEmpSelect($event,'dept','deselect')" #departmentId="ngModel" required>
                         </ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="submitted && !constant.selectedDepartment.length">
                             {{commonLabels.mandatoryLabels.dept}}
@@ -149,17 +150,17 @@
                 <div class="col-md-5 p-0 ml-auto">
                     <div class="pl-0 form-group select-Courses">
                         <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId"
-                            (onSelect)="onEmpSelect($event,'div')" [data]="constant.divisionList"
-                            [(ngModel)]="videoEditForm.selectedDivision" [settings]="constant.divisionSettings"
-                            #divisionId="ngModel" required></ng-multiselect-dropdown>
+                            (onSelect)="onEmpSelect($event,'div','select')" [data]="constant.divisionList"
+                            [(ngModel)]="constant.selectedDivision" [settings]="constant.divisionSettings"
+                            (onDeSelect)="onEmpSelect($event,'div','deselect')" #divisionId="ngModel" required></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="submitted && !constant.selectedDivision.length">
                             {{commonLabels.mandatoryLabels.division}}
                         </span>
                     </div>
                     <div class="pl-0 form-group select-Courses">
                         <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"
-                            (onSelect)="onEmpSelect($event,'emp')" (onDeSelect)="onEmpDeSelect($event)"
-                            [data]="constant.employeeList" [(ngModel)]="videoEditForm.selectedEmp"
+                            (onSelect)="onEmpSelect($event,'emp','select')" (onDeSelect)="onEmpSelect($event,'emp','deselect')"
+                            [data]="constant.employeeList" [(ngModel)]="constant.selectedEmp"
                             [settings]="constant.empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="submitted && !constant.selectedEmp.length">
                             {{commonLabels.mandatoryLabels.selectEmp}}

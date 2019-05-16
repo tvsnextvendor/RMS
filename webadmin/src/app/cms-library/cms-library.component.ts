@@ -28,6 +28,9 @@ export class CMSLibraryComponent implements OnInit {
   selectedVideoList=[];
   showcreatecourse=false;
   findCreateCourse;
+  notificationValue;
+  notifyType;
+  enableNotify = false;
 
 
   ngOnInit() {
@@ -35,6 +38,7 @@ export class CMSLibraryComponent implements OnInit {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
     this.selectedTab = 'course';
     this.quizTabHit = false;
+    this.notifyType = 'assignedToCourse';
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
@@ -134,6 +138,35 @@ export class CMSLibraryComponent implements OnInit {
       this.selectedTab = 'course';
      }
   }
+
+  openCreateModal(template: TemplateRef<any>,modelValue) {
+    this.notifyType = 'assignedToCourse';
+    let modalConfig=  {
+      class : "modal-xl"
+    }
+    this.modalRef = this.modalService.show(template,modalConfig);
+  }
+
+  closeModal(){
+    this.enableNotify = false;
+    this.modalRef.hide();
+  }
+
+  notificationType(template: TemplateRef<any>){
+    
+    let modalConfig={
+      class : "custom-modal"
+    }
+    console.log(this.notifyType)
+  this.enableNotify = true;
+  this.notificationValue = this.notifyType;
+  this.modalRef.hide();
+  this.modalRef = this.modalService.show(template,modalConfig);
+}
+
+notificationTypeUpdate(type){
+  this.notifyType = type;
+}
 
    
 }

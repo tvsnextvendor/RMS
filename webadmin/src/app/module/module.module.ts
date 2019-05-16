@@ -81,6 +81,6 @@ export const MY_MOMENT_FORMATS = {
     {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},
  ],
   bootstrap: [AddModuleComponent],
-  exports:[AddModuleComponent]
+  exports:[AddModuleComponent,AddNotificationComponent]
 })
 export class moduleModule { }

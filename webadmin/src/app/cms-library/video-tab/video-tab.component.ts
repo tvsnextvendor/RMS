@@ -3,6 +3,7 @@ import { HeaderService, HttpService, CourseService } from '../../services';
 import { NgForm } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { VideoVar } from '../../Constants/video.var';
+import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { CommonService, UtilService, ResortService, UserService, AlertService, FileService } from '../../services';
 import * as _ from 'lodash';
@@ -38,6 +39,8 @@ submitted=false;
 trainingClassList;
 fileList=[];
 fileId;
+errorValidation;
+errorValidate = false;
 @Input() CMSFilterSearchEventSet;
 @Output() selectedVideos  = new EventEmitter<object>();
 
@@ -168,11 +171,20 @@ constructor(private courseService: CourseService,private fileService:FileService
 
   openEditVideo(template: TemplateRef<any>, data, index) {
     let user = this.utilService.getUserData();
+    this.popUpReset();
     let roleId = user.Resorts.length && user.Resorts[0].resortId;
-    console.log(data)
     this.fileId = data && data.fileId;
     this.constant.selectedResort = roleId;
     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+  }
+
+  popUpReset(){
+    this.errorValidate = false;
+    this.constant.departmentList = [];
+    this.constant.employeeList = [];
+    this.constant.selectedDepartment = [];
+    this.constant.selectedEmp = [];
+    this.constant.selectedDivision = [];
   }
 
     viewTraningVideo(template: TemplateRef<any>, videourl) {
@@ -181,46 +193,92 @@ constructor(private courseService: CourseService,private fileService:FileService
       }
       this.constant.modalRef = this.modalService.show(template, modalConfig);
       this.trainingVideoUrl = videourl;
-      }
+    }
 
-    onEmpSelect(event, key) {
+    onEmpSelect(event, key,checkType) {
 
       if (event.divisionId) {
-      this.constant.divisionId = event.divisionId;
+        this.constant.divisionId = event.divisionId;
       } else if (event.departmentId) {
-      this.constant.departmentId = event.departmentId;
+        this.constant.departmentId = event.departmentId;
       } else {
-      this.constant.divisionId = '';
-      this.constant.departmentId = '';
+        this.constant.divisionId = '';
+        this.constant.departmentId = '';
       }
       
       if (key == 'div') {
-      const obj = { 'divisionId': this.constant.divisionId };
-      this.commonService.getDepartmentList(obj).subscribe((result) => {
-      if (result.isSuccess) {
-      this.constant.departmentList.push(result.data.rows);
-      }
-      })
+        const obj = { 'divisionId': this.constant.divisionId };
+        this.commonService.getDepartmentList(obj).subscribe((result) => {
+          if (result.isSuccess) {
+            let listData =_.cloneDeep(this.constant.departmentList);
+            this.constant.departmentList = [];
+            if(checkType == 'select'){
+              listData && listData.length ? 
+              result.data.rows.forEach(item=>{listData.push(item)}) : 
+              listData = result.data.rows;
+              // this.constant.departmentList = listData.map(item=>{return item});
+            }
+            else{
+              result.data.rows.length && 
+                result.data.rows.forEach(resp=>{
+                  listData.forEach((item,i)=>{
+                    if(resp.departmentId == item.departmentId){
+                      listData.splice(i,1)
+                    }
+                  }) 
+                })
+                this.constant.selectedDepartment = [];
+                this.constant.selectedEmp = [];
+            }
+            this.constant.departmentList = listData.map(item=>{return item});
+          }
+        })
       }
       if (key == 'dept') {
-      const data = { 'divisionId': this.constant.divisionId, 'departmentId': this.constant.departmentId, 'createdBy': this.utilService.getUserData().userId }
-      this.userService.getUserByDivDept(data).subscribe(result => {
-      if (result && result.data) {
-      this.constant.employeeList.push(result.data);
-      this.allEmployees = result.data.reduce((obj, item) => (obj[item.userId] = item, obj), {});
-      }
-      })
+        const data = { 'departmentId': this.constant.departmentId, 'createdBy': this.utilService.getUserData().userId }
+        this.userService.getUserByDivDept(data).subscribe(result => {
+          if (result && result.data) {
+            // this.constant.employeeList && this.constant.employeeList.length ? result.data.forEach(item=>{this.constant.employeeList.push(item)}) : 
+            // this.constant.employeeList = result.data;
+
+            let listData =_.cloneDeep(this.constant.employeeList);
+            this.constant.employeeList = [];
+            if(checkType == 'select'){
+              listData && listData.length ? 
+              result.data.forEach(item=>{listData.push(item)}) : 
+              listData = result.data;
+            }
+            else{
+              result.data.length && 
+              result.data.forEach(resp=>{
+                listData.forEach((item,i)=>{
+                  if(resp.userId == item.userId){
+                    listData.splice(i,1)
+                  }
+                }) 
+              })
+              this.constant.selectedEmp = [];
+            }
+          
+            this.constant.employeeList = listData.map(item=>{return item});
+
+            this.allEmployees = result.data.reduce((obj, item) => (obj[item.userId] = item, obj), {});
+          }
+        })
       }
       if (key == 'emp') {
-      if (event.userId && this.allEmployees[event.userId]) {
-      this.employeesInBatch.push(this.allEmployees[event.userId]);
+        if (event.userId && this.allEmployees[event.userId]) {
+          this.employeesInBatch.push(this.allEmployees[event.userId]);
+        }
       }
+      if(this.constant.selectedDivision.length && this.constant.selectedDepartment.length && this.constant.selectedEmp.length ){
+        this.errorValidate = false
       }
       this.constant.empValidate = false;
       }
       
     closeEditVideoForm() {
-    this.constant.modalRef.hide();
+      this.constant.modalRef.hide();
     }
   
     //Hide and show Assign form popup 
@@ -318,6 +376,28 @@ constructor(private courseService: CourseService,private fileService:FileService
   }
 
   permissionSetSubmit(form: NgForm){
-    console.log(form.value);
+    let user = this.utilService.getUserData();
+    let resortId = user.Resorts.length && user.Resorts[0].resortId;
+    // console.log(form.value);
+    // console.log(this.constant.selectedDepartment,this.constant.selectedEmp,this.constant.selectedDivision,this.allEmployees,this.fileId)
+    if(this.constant.selectedDivision.length && this.constant.selectedDepartment.length && this.constant.selectedEmp.length ){
+      let params = {
+        "divisionId": this.constant.selectedDivision.map(item=>{return item.divisionId}),
+        "departmentId" :this.constant.selectedDepartment.map(item=>{return item.departmentId}),
+        "resortId" : resortId,
+        "employeeId" : this.constant.selectedEmp.map(item=>{return item.userId}),
+        "fileId" :  this.fileId
+      }
+      this.courseService.setPermission(params).subscribe(resp=>{
+        if(resp && resp.isSuccess){
+          this.closeEditVideoForm();
+          this.alertService.success(resp.message)
+        }
+      })
+    }
+    else{
+      this.errorValidation = 'Please select data for all the fields';
+      this.errorValidate = true;
+    }
   }
 }

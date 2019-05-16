@@ -21,7 +21,7 @@
                 <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">{{commonLabels.btns.print}}</button>    
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress" routerLink="/workinprogress">{{commonLabels.btns.workinProgress}}</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification">{{commonLabels.btns.createNotification}}</button>
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification" (click)="openCreateModal(notification,'notification')">{{commonLabels.btns.createNotification}}</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{commonLabels.btns.createCourse}}</button>
             </div>
             <span class="required_color" *ngIf="showWarning && !showcreatecourse">{{commonLabels.labels.selectcoursestoschedule}}</span> 
@@ -95,3 +95,35 @@
         <app-add-batch [courseList]="this.selectedCourse" (someEvent)="hidePopup($event)"></app-add-batch>
     </div>
 </ng-template> 
+<ng-template #notification>  
+        <div class="modal-header"> 
+            <h4 class="modal-title pull-left">{{commonLabels.btns.createNotification}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        <div>
+            <p class="text-center">{{commonLabels.msgs.generalNotifi}}</p>
+        </div>
+        <div class="text-center col-md-12 p-4">
+            <label class="hole-cont mr-2"><input type="radio" name="assignedToCourse" [value]= '1' [checked]="notifyType == 'assignedToCourse' ? true : false"   (change)="notificationTypeUpdate('assignedToCourse')"/>{{this.commonLabels.labels.assignToCourse}}<span class="checkmark"></span></label>
+            <label class="hole-cont mr-2"><input type="radio" name="signature" [value]= '2' [checked]="notifyType == 'signature' ? true : false"  (change)="notificationTypeUpdate('signature')"/>{{this.commonLabels.labels.signature}}<span class="checkmark"></span></label>
+            <label class="hole-cont mr-2"><input type="radio" name="nonSignature" [value]= '3' [checked]="notifyType == 'nonSignature' ? true : false" (change)="notificationTypeUpdate('nonSignature')"/> {{this.commonLabels.labels.nonSignature}}<span class="checkmark"></span></label>
+        </div>
+        <div class="text-center col-md-12 p-4">
+            <button type="button" class="btn btn-primary"  (click)="notificationType(createNotification)">{{commonLabels.btns.yes}}</button>
+            <!-- <button type="button" class="btn btn-default" (click)="notificationType(createNotification,'no')">{{commonLabels.btns.no}}</button>               -->
+        </div> 
+    </div>
+    </ng-template> 
+
+<ng-template #createNotification> 
+    <div class="modal-header"> 
+        <h4 class="modal-title pull-left">{{commonLabels.modaltitle.notifiUpload}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <app-add-notification *ngIf="enableNotify" notificationType="{{notificationValue}}" (someEvent)="closeModal()"></app-add-notification>
+</ng-template>

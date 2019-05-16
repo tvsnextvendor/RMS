@@ -290,7 +290,12 @@ export class CommonLabels{
         "totxt"             :   "to",
         "cc"                :   "cc",
         "takeTour"          :   "Take a Tour",
-        "contentFile"       :   "Content Files"
+        "contentFile"       :   "Content Files",
+        "assignToCourse"    :   "Assigned to a course",
+        "signature"         :   "Signature required by employee",
+        "nonSignature"      :   "No signature required" ,
+        "coursePlaceholder" :   "Course",
+        "trainingClassPlaceholder" :   "Training Class"
 
 
     };
@@ -490,7 +495,8 @@ export class CommonLabels{
         "rememberMe"        :  "Keep me logged in",
         "invalidPassword"   :  "Invalid Password",
         "profileMandatory"  :  "Please fill the mandatory fields",
-        "badgeDataFound"    :  "No badge data found"
+        "badgeDataFound"    :  "No badge data found",
+        "permissionError"   :  "Please select data for all the fields"
 
      
     };
@@ -500,6 +506,7 @@ export class CommonLabels{
         "editVideo"              : "Edit Video",
         "addcertTemplate"        : "Add Certificate Template",
         "notifiUpload"           : "Notification Upload", 
+        "editDoc"                : "Edit Document"   
      }
      msgs = {
         "rolesuccessMsg"    :   "Roles & Permissions Saved Successfully",
@@ -509,7 +516,7 @@ export class CommonLabels{
         "uploadSuccessMsg"  :   "Certificate Template uploaded successfully",
         "assignSuccessMsg"  :   "Template Assigned Successfully",
         "badgeSuccessMsg"   :   "Badges Selected Successfully",
-        "generalNotifi"     :   "Is this a general notification?",
+        "generalNotifi"     :   "This notification needs to be",
         "publishmsg"        :   "Do you want to publish this content in the CMS Library?",
         "fileRemoved"       :   "File removed successfully",
         "videoUpdate"       :   "Video updated successfully",

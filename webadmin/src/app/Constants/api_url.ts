@@ -120,6 +120,7 @@ export class API_URL {
     getScheduleTraining : '8103/schedule',
     getPopupScheduleData : '8103/schedule/getDetailsById',
     updateScheduleTraining : '8103/updateScheduleTraining/',
+    setPermissions : '8103/trainingClass/filePermissionAdd',
 
     //Resort Services
     resortAdd : '8102/resort/Add',

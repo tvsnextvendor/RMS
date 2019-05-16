@@ -1,5 +1,5 @@
 import { Component, OnInit ,Input,Output, EventEmitter} from '@angular/core';
-import { HeaderService } from '../../services/header.service';
+import { HeaderService,UtilService,ResortService ,CourseService} from '../../services';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BatchVar } from '../../Constants/batch.var';
@@ -27,16 +27,13 @@ export class AddNotificationComponent implements OnInit {
     showFromDate = false;
     dateError = false;
     labels;
-    selectedCourses;
-    selectedTrainingClass;
-    selectedTopics;
-    selectedEmployee;
     file;
     fileName;
     description;
+    moduleSubmitted;
     uploadFileName;
     constructor(private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
-        public commonLabels:CommonLabels) {
+        public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService) {
         this.batchVar.url = API_URL.URLS;
         this.labels = moduleVar.labels;
     }
@@ -44,6 +41,22 @@ export class AddNotificationComponent implements OnInit {
     ngOnInit() {
         let startDate = localStorage.getItem('BatchStartDate');
         this.batchVar.batchFrom = new Date(startDate);
+        this.batchVar.batchTo = '';
+        this.getDropdownDetails();
+    }
+
+    getDropdownDetails(){
+        const resortId = this.utilService.getUserData().Resorts[0].resortId; 
+        this.resortService.getResortByParentId(resortId).subscribe((result)=>{
+            this.moduleVar.resortList=result.data.Resort;
+            this.moduleVar.divisionList=result.data.divisions;
+
+        })
+        this.courseService.getAllCourse().subscribe(result=>{
+            if(result && result.isSuccess){
+              this.moduleVar.courseList = result.data && result.data.rows;
+            }
+          })
     }
 
     selectFilter(data) {
@@ -64,6 +77,13 @@ export class AddNotificationComponent implements OnInit {
         }
     }
 
+    onItemSelect(event){
+
+    }
+
+    onItemDeselect(event){
+
+    }
 
     splitDate(date) {
         const newDate = new Date(date);
@@ -142,7 +162,23 @@ export class AddNotificationComponent implements OnInit {
         this.batchVar.batchTo = '';
         this.batchVar.selectedEmp = [];
         this.batchVar.batchName = '';
+        this.moduleVar.selectedCourses = null;
+        this.moduleVar.selectedTrainingClass = null;
         // this.router.navigateByUrl('/calendar');
+    }
+
+    courseSelect(event){
+        console.log(event.target.value,this.moduleVar.selectedCourses)
+        if(event.target.value){
+            let courseId = event.target.value;
+            this.courseService.getTrainingclassesById(courseId).subscribe(result=>{
+                console.log(result);
+                if(result && result.isSuccess){
+                  this.moduleVar.trainingClassList = result.data && result.data.length && result.data;
+                  console.log(result);
+                }
+              })
+        }
     }
 
     //dynamic add module fields 

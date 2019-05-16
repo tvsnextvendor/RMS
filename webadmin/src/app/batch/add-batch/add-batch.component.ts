@@ -271,6 +271,28 @@ export class AddBatchComponent implements OnInit {
     }
     
 
+    onEmpAllSelect(event,key){
+        if(key == 'div'){
+            this.batchVar.selectedDivision = event; 
+            this.onEmpSelect('','div');
+            if(!event.length){
+                this.batchVar.departmentList = [];
+                this.batchVar.employeeList  = [];
+            }
+        }
+        if(key == 'dept'){
+            this.batchVar.selectedDepartment = event; 
+            this.onEmpSelect('','dept');
+            if(!event.length){
+                this.batchVar.employeeList  = [];
+            }
+        }
+        if(key == 'emp'){
+            this.batchVar.selectedEmp = event; 
+            this.onEmpSelect(event,'emp')
+        }
+    }
+
     onEmpSelect(event,key) {
         this.batchVar.employeeId = this.batchVar.selectedEmp.map(item => { return item.userId });
         this.batchVar.departmentId = this.batchVar.selectedDepartment.map(item => { return item.departmentId });
@@ -286,7 +308,7 @@ export class AddBatchComponent implements OnInit {
         }
        
         if(key == 'dept'){
-        const data={'divisionId': this.batchVar.divisionId, 'departmentId':  this.batchVar.departmentId, 'createdBy':this.utilService.getUserData().userId}
+        const data={ 'departmentId':  this.batchVar.departmentId, 'createdBy':this.utilService.getUserData().userId}
          this.userService.getUserByDivDept(data).subscribe(result=>{
                 if(result && result.data){
                 this.batchVar.employeeList = result.data;        
@@ -300,6 +322,13 @@ export class AddBatchComponent implements OnInit {
             if(event.userId && this.allEmployees[event.userId] ){
                 this.employeesInBatch.push(this.allEmployees[event.userId]);
             } 
+            else if(event.length){
+                event.forEach(item=>{
+                    if(item.userId && this.allEmployees[item.userId] ){
+                        this.employeesInBatch.push(this.allEmployees[item.userId]);
+                    } 
+                })
+            }
         }
 
         this.batchVar.empValidate = false;
@@ -387,7 +416,7 @@ export class AddBatchComponent implements OnInit {
                     this.hidePopup('submit');
                 },err =>{
                     // this.errorValidation = false;
-                    this.errorValidate = 'Training schedule name must be unique';
+                    this.errorValidate = err.error.error== 'Training scheduled assigned for the same course & user combination'?'Training scheduled assigned for the same course & user combination':'Training schedule name must be unique';
                     this.alertService.error(err.error.error);
                 });
             }
@@ -403,7 +432,7 @@ export class AddBatchComponent implements OnInit {
                     }
                 },err =>{
                     // this.errorValidation = false;
-                    this.errorValidate = 'Training schedule name must be unique';
+                    this.errorValidate = err.error.error== 'Training scheduled assigned for the same course & user combination'?'Training scheduled assigned for the same course & user combination':'Training schedule name must be unique';
                     this.alertService.error(err.error.error);
                 });
             }    

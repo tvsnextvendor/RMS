@@ -74,7 +74,7 @@
                         <div class="pl-0 form-group select-Courses">
                             <ng-multiselect-dropdown [disabled]="scheduleId ? true : false"  [placeholder]="'Department'" name="departmentId" [data]="batchVar.departmentList"
                                 [(ngModel)]="batchVar.selectedDepartment" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
-                                (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" required></ng-multiselect-dropdown>
+                                (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" (onSelectAll)="onEmpAllSelect($event,'dept')" (onDeSelectAll)="onEmpAllSelect($event,'dept')" required></ng-multiselect-dropdown>
                             <span class="required_color" *ngIf="submitted && !batchVar.selectedDepartment.length">
                                 {{commonLabels.mandatoryLabels.dept}}
                             </span>
@@ -84,14 +84,14 @@
                             <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                             <div class="pl-0 form-group select-Courses">
                                 <ng-multiselect-dropdown [disabled]="scheduleId ? true : false" [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event,'div')" [data]="batchVar.divisionList"
-                                    [(ngModel)]="batchVar.selectedDivision" [settings]="batchVar.divisionSettings"  #divisionId="ngModel" required></ng-multiselect-dropdown>
+                                    [(ngModel)]="batchVar.selectedDivision" [settings]="batchVar.divisionSettings"  #divisionId="ngModel" (onSelectAll)="onEmpAllSelect($event,'div')" (onDeSelectAll)="onEmpAllSelect($event,'div')" required></ng-multiselect-dropdown>
                                 <span class="required_color" *ngIf="submitted && !batchVar.selectedDivision.length">
                                     {{commonLabels.mandatoryLabels.division}}
                                 </span>
                             </div>
                             <div class="pl-0 form-group select-Courses">
                                 <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"  (onSelect)="onEmpSelect($event,'emp')"  (onDeSelect)="onEmpDeSelect($event)" [data]="batchVar.employeeList"
-                                    [(ngModel)]="batchVar.selectedEmp" [settings]="batchVar.empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
+                                    [(ngModel)]="batchVar.selectedEmp" [settings]="batchVar.empSettings" #empId="ngModel" (onSelectAll)="onEmpAllSelect($event,'emp')" (onDeSelectAll)="onEmpAllSelect($event,'emp')"  required></ng-multiselect-dropdown>
                                 <span class="required_color" *ngIf="submitted && !batchVar.selectedEmp.length">
                                     {{commonLabels.mandatoryLabels.selectEmp}}
                                 </span>
