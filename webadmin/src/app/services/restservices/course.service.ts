@@ -178,4 +178,8 @@ export class CourseService {
     return this.http.put('local',this.url.updateScheduleTraining+scheduleId,params)
   }
 
+  setPermission(params){
+    return this.http.post('local',this.url.setPermissions,params);
+  }
+
 }

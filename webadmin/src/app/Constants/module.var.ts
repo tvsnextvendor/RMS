@@ -20,55 +20,20 @@ export class ModuleVar {
     selectedVideo=[];
     selectedCourse;
     courseVideos=[];
-    labels = {
-        // "addModule" : "Add Program",
-        // "editModule" : "Edit Program",
-        // "editCourse" : "Edit Course",
-        // "courseName" : "Course Name",
-        // "isRequire" : " is Required*",
-        // "course" : "Training Class",
-        // "topics" : "Topic",
-        // "coursesAdded" : "Training Class Added",
-        // "addCourseTitle" : "Add New Training Class",
-        // "editCourseTitle" : "Edit Training Class",
-        // "trainingClassName" : "Training Class Name",
-        // "videoName" : "File Name",
-        // "description" : "Description",
-        // "upload" : "Upload",
-        // "next": "NEXT",
-        // "save" : "SAVE",
-        // "addNewCourse" : "ADD NEW TRAINING CLASS",
-        // "showAll" : 'Show All',
-        // "videoAddedToast" : "Course files added successfully",
-        // "videoUpdatedToast" : "Course files updated successfully",
-        // "mandatoryFields" : "mandatory fields missing",
-        // "courseNameError" : "Training Class name is mandatory",
-        // "videoError" : "Minimum one file data required",
-        // "moduleCreateMsg" : "Course Created Successfully",
-        // "moduleUpdateMsg" : "Course Updated Successfully",
-        // "moduleCreateError" : "Unable to create course",
-        // "courseError":"Minimum one training class is required*",
-        // "noData" : "No Training Classes Created Yet",
-        // "activeMsg"   : ' is Activated',
-        // "deactiveMsg" : ' is Deativated',
-        // "moduleNameValidation": "Program Name already taken",
-        // "addCourseSuccess" : "Training Class added successfully",
-        // "updateCourseSuccess" : "Training Class updated successfully",
-        // "removeVideoSuccess" : " removed from the file list",
-        // "topicName" : "Topic Name",
-        // "trainingClass" : "Training Class",
-        // "contentFiles" : "Content Files",
-        // "createNotification" : "Create Notification",
-        // "scheduleTraining" : "Schedule A Training",
-        // "createCourse" : "Create Course",
-        // "cmsLibrary" : "CMS Library", 
-        // "desktop": "Desktop",
-        // "file":"File",
-        // "publish" : "Publish",
-        // "acceptedFileTypes": "Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI"
-
-    };
+    selectedCourses = null;
+    selectedTrainingClass = null;
+    selectedEmployee = [];
+    labels = {};
     courseList = [];
+    resortList = [];
+    departmentList = [];
+    trainingClassList = [];
+    divisionList = [];
+    employeeList = [];
+    selectedDepartment=[];
+    selectedResort = [];
+    selectedDivision = [];
+
     courseListPage = [];
     courseItems = [];
     dropdownSettings;
@@ -78,7 +43,6 @@ export class ModuleVar {
     videoId;
     videoFile;
     moduleObj;
-    selectedCourses = [];
     moduleName;
     sortableList;
     videoList = [];
@@ -98,4 +62,50 @@ export class ModuleVar {
     modalRef;
     modalConfig;
     fileExtension;
+
+    departmentSettings = {
+        singleSelection: false,
+        idField: 'departmentId',
+        textField: 'departmentName',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+    resortSettings = {
+        singleSelection: false,
+        idField: 'resortId',
+        textField: 'resortName',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+    empSettings = {
+        singleSelection: false,
+        idField: 'userId',
+        textField: 'userName',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+    divisionSettings = {
+        singleSelection: false,
+        idField: 'divisionId',
+        textField: 'divisionName',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
+    courseSettings = {
+        singleSelection: false,
+        idField: 'courseId',
+        textField: 'courseName',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
 }

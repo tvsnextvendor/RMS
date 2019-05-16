@@ -1,5 +1,5 @@
 import { Component, OnInit,Input,TemplateRef , EventEmitter, Output} from '@angular/core';
-import { HeaderService, HttpService, CourseService, AlertService, FileService } from '../../services';
+import { HeaderService, HttpService, CourseService, AlertService, FileService, ResortService,UtilService,CommonService,UserService} from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -33,11 +33,13 @@ export class DocumentTabComponent implements OnInit {
   deletedFileId=[];
   uploadPath;
 
+ 
+
   @Input() CMSFilterSearchEventSet;
   @Output() selectedVideos  = new EventEmitter<object>();
 
 
-  constructor(private courseService: CourseService, private fileService: FileService,private alertService: AlertService,public commonLabels : CommonLabels,public constant: CmsLibraryVar, private modalService : BsModalService) { 
+  constructor(private courseService: CourseService, private fileService: FileService,private alertService: AlertService,public commonLabels : CommonLabels,public constant: CmsLibraryVar, private modalService : BsModalService,private utilService :UtilService,private commonService : CommonService,private userService : UserService,private resortService : ResortService ) { 
 
   }
 
@@ -46,6 +48,13 @@ export class DocumentTabComponent implements OnInit {
     this.page=1;
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
+
+    const resortId = this.utilService.getUserData().Resorts[0].resortId; 
+        this.resortService.getResortByParentId(resortId).subscribe((result)=>{
+            this.constant.resortList=result.data.Resort;
+            this.constant.divisionList=result.data.divisions;
+
+        })
   }
   ngDoCheck(){
     if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
@@ -250,5 +259,127 @@ export class DocumentTabComponent implements OnInit {
     this.submitted=false;
   }
 
+  openEditVideo(template: TemplateRef<any>, data, index) {
+    let user = this.utilService.getUserData();
+    this.popUpReset();
+    let roleId = user.Resorts.length && user.Resorts[0].resortId;
+    this.constant.fileId = data && data.fileId;
+    this.constant.selectedResort = roleId;
+    this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+  }
+
+  popUpReset(){
+    this.constant.errorValidate = false;
+    this.constant.departmentList = [];
+    this.constant.employeeList = [];
+    this.constant.selectedDepartment = [];
+    this.constant.selectedEmp = [];
+    this.constant.selectedDivision = [];
+    this.constant.fileId = '';
+  }
+
+  closeEditVideoForm() {
+    this.constant.modalRef.hide();
+  }
+
+  onEmpSelect(event, key,checkType) {
+
+    if (event.divisionId) {
+      this.constant.divisionId = event.divisionId;
+    } else if (event.departmentId) {
+      this.constant.departmentId = event.departmentId;
+    } else {
+      this.constant.divisionId = '';
+      this.constant.departmentId = '';
+    }
+    
+    if (key == 'div') {
+      const obj = { 'divisionId': this.constant.divisionId };
+      this.commonService.getDepartmentList(obj).subscribe((result) => {
+        if (result.isSuccess) {
+          let listData =_.cloneDeep(this.constant.departmentList);
+          this.constant.departmentList = [];
+          if(checkType == 'select'){
+            listData && listData.length ? 
+            result.data.rows.forEach(item=>{listData.push(item)}) : 
+            listData = result.data.rows;
+            // this.constant.departmentList = listData.map(item=>{return item});
+          }
+          else{
+            result.data.rows.length && 
+              result.data.rows.forEach(resp=>{
+                listData.forEach((item,i)=>{
+                  if(resp.departmentId == item.departmentId){
+                    listData.splice(i,1)
+                  }
+                }) 
+              })
+              this.constant.selectedDepartment = [];
+              this.constant.selectedEmp = [];
+          }
+          this.constant.departmentList = listData.map(item=>{return item});
+        }
+      })
+    }
+    if (key == 'dept') {
+      const data = { 'departmentId': this.constant.departmentId, 'createdBy': this.utilService.getUserData().userId }
+      this.userService.getUserByDivDept(data).subscribe(result => {
+        if (result && result.data) {
+          // this.constant.employeeList && this.constant.employeeList.length ? result.data.forEach(item=>{this.constant.employeeList.push(item)}) : 
+          // this.constant.employeeList = result.data;
+
+          let listData =_.cloneDeep(this.constant.employeeList);
+          this.constant.employeeList = [];
+          if(checkType == 'select'){
+            listData && listData.length ? 
+            result.data.forEach(item=>{listData.push(item)}) : 
+            listData = result.data;
+          }
+          else{
+            result.data.length && 
+            result.data.forEach(resp=>{
+              listData.forEach((item,i)=>{
+                if(resp.userId == item.userId){
+                  listData.splice(i,1)
+                }
+              }) 
+            })
+            this.constant.selectedEmp = [];
+          }
+        
+          this.constant.employeeList = listData.map(item=>{return item});
+
+          // this.allEmployees = result.data.reduce((obj, item) => (obj[item.userId] = item, obj), {});
+        }
+      })
+    }
+    if(this.constant.selectedDivision.length && this.constant.selectedDepartment.length && this.constant.selectedEmp.length ){
+      this.constant.errorValidate = false
+    }
+    }
+    permissionSetSubmit(){
+      let user = this.utilService.getUserData();
+      let resortId = user.Resorts.length && user.Resorts[0].resortId;
+      
+      if(this.constant.selectedDivision.length && this.constant.selectedDepartment.length && this.constant.selectedEmp.length ){
+        let params = {
+          "divisionId": this.constant.selectedDivision.map(item=>{return item.divisionId}),
+          "departmentId" :this.constant.selectedDepartment.map(item=>{return item.departmentId}),
+          "resortId" : resortId,
+          "employeeId" : this.constant.selectedEmp.map(item=>{return item.userId}),
+          "fileId" :  this.constant.fileId
+        }
+        this.courseService.setPermission(params).subscribe(resp=>{
+          if(resp && resp.isSuccess){
+            this.closeEditVideoForm();
+            this.alertService.success(resp.message)
+          }
+        })
+      }
+      else{
+        this.constant.errorValidation = this.commonLabels.mandatoryLabels.permissionError;
+        this.constant.errorValidate = true;
+      }
+    }
 
 }

@@ -9,28 +9,36 @@ export class BatchVar{
         singleSelection: false,
         idField: 'departmentId',
         textField: 'departmentName',
-        enableCheckAll: false,
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: true,
         itemsShowLimit: 8,
     }
     resortSettings = {
         singleSelection: false,
         idField: 'resortId',
         textField: 'resortName',
-        enableCheckAll: false,
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: true,
         itemsShowLimit: 8,
     }
     empSettings = {
         singleSelection: false,
         idField: 'userId',
         textField: 'userName',
-        enableCheckAll: false,
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: true,
         itemsShowLimit: 8,
     }
     divisionSettings = {
         singleSelection: false,
         idField: 'divisionId',
         textField: 'divisionName',
-        enableCheckAll: false,
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: true,
         itemsShowLimit: 8,
     }
 
