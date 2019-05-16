@@ -67,8 +67,9 @@
                 <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !status">{{commonLabels.mandatoryLabels.statusRequired}} </span>
             </div>
         </div>
-        <div _ngcontent-c16="" class="text-center mb-2"><button _ngcontent-c16="" class="btn btn-default mr-3" type="button" (click)="back()">{{commonLabels.btns.cancel}}</button>
-            <button _ngcontent-c16="" class="btn btn-primary creat-btn" type="submit">{{commonLabels.btns.save}}</button>
+        <div _ngcontent-c16="" class="text-center mb-2">
+            <button _ngcontent-c16="" class="btn btn-primary creat-btn  mr-3" type="submit">{{commonLabels.btns.save}}</button>
+            <button _ngcontent-c16="" class="btn btn-default" type="button" (click)="back()">{{commonLabels.btns.cancel}}</button>            
         </div> 
         </form> 
 

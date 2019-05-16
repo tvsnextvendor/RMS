@@ -103,9 +103,8 @@
         </div>
         <div class="text-center" [ngClass]="!forumEditPage.editPage ? 'pt-4' : 'pb-1'"> 
                 <!-- *ngIf="forumEditPage.forumId?closeFunction():false" -->
-            <button type="button" class="btn btn-default mr-3" (click)="clearForm(formDir)" >{{forumVar.btns.cancel}}</button>
-
-            <button type = "submit" class="btn btn-primary creat-btn">{{forumVar.btns.create}}</button>
+                <button type = "submit" class="btn btn-primary creat-btn  mr-3">{{forumVar.btns.create}}</button>
+                <button type="button" class="btn btn-default" (click)="clearForm(formDir)" >{{forumVar.btns.cancel}}</button>            
         </div>
     </form>
 </div> 
