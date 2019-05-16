@@ -9,7 +9,7 @@
     
 <div class="col-md-12 clearfix py-2 px-0"><h6 class="float-right">{{commonLabels.labels.count}}{{totalCourseCount}}</h6></div>
 <div  *ngFor="let courses of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCourseCount};let i = index">
-    <div id="coss" class="col-md-12 pt-2 clearfix px-0">
+    <div id="coss" class="col-md-12 mb-3 clearfix px-0">
         <div class="white-bg p-3 clearfix">
             <div class="clearfix">
                     <label class="square-cont float-left p-0">
@@ -40,15 +40,15 @@
                     </div>              		
                   </div>
             </div> 
-            <div class="row py-3" *ngIf="enableView && enableIndex === i">
+            <div class="row pt-3 pb-2" *ngIf="enableView && enableIndex === i">
                 <div class="col-md-3 p-0">
-                    <div class="form-group pl-0">
+                    <div class="form-group pl-0 mb-0">
                         <label class="course-header">{{commonLabels.labels.noOfTrainingClass}}</label>
                         <span class="course-count">{{courses?.CourseTrainingClassMaps.length}}</span>
                     </div>              		
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group">
+                    <div class="form-group mb-0">
                         <label class="course-header">{{commonLabels.labels.noOfContentFiles}}</label>
                         <span class="course-count">{{calculateContentFiles(courses.CourseTrainingClassMaps)}}</span> 
                     </div>              		
