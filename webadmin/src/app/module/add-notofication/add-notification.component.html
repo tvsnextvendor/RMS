@@ -1,7 +1,7 @@
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
     <div class="notification-box">
         
-            <div class="row p-1">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="row form-group" *ngIf="notificationType === 'assignedToCourse'">
                         <select class="form-control p-0 select-Courses" name="course" [(ngModel)]="moduleVar.selectedCourses" (change)="courseSelect($event)">
@@ -13,7 +13,7 @@
                         </span>
                     </div>
                     <div class="row form-group">
-                        <div class="col-md-12 pl-0 select-Courses">
+                        <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown
                             [placeholder]="'Resort'"
                             [data]="moduleVar.resortList"
@@ -27,7 +27,7 @@
                         </span>
                     </div>
                     <div class="row form-group">
-                        <div class="col-md-12 pl-0 select-Courses">
+                        <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown
                             [placeholder]="'Departments'"
                             [data]="moduleVar.departmentList"
@@ -61,7 +61,7 @@
                         </span>
                     </div>
                     <div class="row form-group">
-                        <div class="col-md-12 pl-0 select-Courses">
+                        <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown
                             [placeholder]="'Division'"
                             [data]="moduleVar.divisionList"
@@ -75,7 +75,7 @@
                         </span>
                     </div>
                     <div class="row form-group">
-                        <div class="col-md-12 pl-0 select-Courses">
+                        <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown
                             [placeholder]="'All Employees'"
                             [data]="moduleVar.employeeList"
@@ -92,22 +92,22 @@
                 <div class="col-md-12 mt-20">
                     <div class="row form-group">
                         <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.uploadtxt}}</label>
-                        <span class="col-md-9 pl-0">
+                        <span class="col-md-9 p-0">
                             <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
                             <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" id="customFile"  (change)="getFileDetails($event)"  required>
                             <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}</label>
-                            <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">{{commonLabels.labels.uploadtxt}}</label>
+                            <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">{{commonLabels.labels.uploadtxt}}<span><i class="fas fa-upload float-right"></i></span></label>
                         </span>
                     </div>
                     <div class="row form-group">
                         <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.fileName}}</label>
-                        <span class="col-md-9 pl-0">
+                        <span class="col-md-9 p-0">
                             <input type="text" class="form-control" placeholder="Enter File Name" [(ngModel)]="fileName" name="fileName" #fileNameValue = "ngModel" required>
                         </span>
                     </div>
                     <div class="row form-group">
                         <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.description}}</label>
-                        <span class="col-md-9 pl-0">
+                        <span class="col-md-9 p-0">
                             <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description" name="description" #descriptionData = "ngModel" required>
                         </span>
                     </div>
@@ -153,9 +153,9 @@
                         </div>
                 </div>
             </div>
-                <div class="text-center col-md-12 p-4">
-                    <button type="button" class="btn btn-default creat-btn mr-4" (click)="hidePopup()">{{commonLabels.btns.clear}}</button>
-                    <button type="submit" class="btn btn-primary module-createbtn">{{commonLabels.btns.save}}</button>
+                <div class="text-center col-md-12 pt-3 pb-4">
+                    <button type="submit" class="btn btn-primary module-createbtn mr-4">{{commonLabels.btns.save}}</button>
+                    <button type="button" class="btn btn-default creat-btn" (click)="hidePopup()">{{commonLabels.btns.cancel}}</button>                   
                 </div>
 
             </div>

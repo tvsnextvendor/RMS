@@ -142,7 +142,7 @@ export class CMSLibraryComponent implements OnInit {
   openCreateModal(template: TemplateRef<any>,modelValue) {
     this.notifyType = 'assignedToCourse';
     let modalConfig=  {
-      class : "modal-xl"
+      class : "modal-lg modal-dialog-centered"
     }
     this.modalRef = this.modalService.show(template,modalConfig);
   }
@@ -155,7 +155,7 @@ export class CMSLibraryComponent implements OnInit {
   notificationType(template: TemplateRef<any>){
     
     let modalConfig={
-      class : "custom-modal"
+      class : "notification-modal"
     }
     console.log(this.notifyType)
   this.enableNotify = true;

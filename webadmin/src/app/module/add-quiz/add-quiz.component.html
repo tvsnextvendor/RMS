@@ -154,9 +154,9 @@
 						<!-- <span><a class="btn btn-link float-right" (click)="removeQuestionForm(i)"><i class="fa fa-times"></i></a></span> -->
 					<!-- </div> -->
 				<!-- </div> -->
-			<div class="col-sm-12 clearfix py-4 text-center" >
-				<button *ngIf="!moduleId" type="button" class="btn btn-primary save-btn" (click)="openEditModal(confirm,'batch')" [disabled]="!quizForm.form.valid">{{commonLabels.btns.save}}</button>
-				<button *ngIf="moduleId" type="button" class="btn btn-primary save-btn" (click)="quizSubmit('yes')" [disabled]="!quizForm.form.valid">{{commonLabels.btns.save}}</button>
+			<div class="col-sm-12 clearfix py-4 px-0" >
+				<button *ngIf="!moduleId" type="button" class="btn btn-primary" (click)="openEditModal(confirm,'batch')" [disabled]="!quizForm.form.valid">{{commonLabels.btns.save}}</button>
+				<button *ngIf="moduleId" type="button" class="btn btn-primary" (click)="quizSubmit('yes')" [disabled]="!quizForm.form.valid">{{commonLabels.btns.save}}</button>
 			</div>
 		</form>
 	</div>

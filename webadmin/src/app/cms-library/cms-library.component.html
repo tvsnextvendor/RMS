@@ -86,7 +86,7 @@
 
 <ng-template #editBatch>  
     <div class="modal-header"> 
-        <h4 class="modal-title pull-left">{{commonLabels.modaltitle.addnewtrainingschedule}}</h4>
+        <h4 class="hd-alg">{{commonLabels.modaltitle.addnewtrainingschedule}}</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -97,22 +97,25 @@
 </ng-template> 
 <ng-template #notification>  
         <div class="modal-header"> 
-            <h4 class="modal-title pull-left">{{commonLabels.btns.createNotification}}</h4>
+            <h4 class="hd-alg">{{commonLabels.btns.createNotification}}</h4>
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body pt-0">
         <div>
-            <p class="text-center">{{commonLabels.msgs.generalNotifi}}</p>
+            <p class="text-center table-desc-color">{{commonLabels.msgs.generalNotifi}}</p>
         </div>
-        <div class="text-center col-md-12 p-4">
-            <label class="hole-cont mr-2"><input type="radio" name="assignedToCourse" [value]= '1' [checked]="notifyType == 'assignedToCourse' ? true : false"   (change)="notificationTypeUpdate('assignedToCourse')"/>{{this.commonLabels.labels.assignToCourse}}<span class="checkmark"></span></label>
-            <label class="hole-cont mr-2"><input type="radio" name="signature" [value]= '2' [checked]="notifyType == 'signature' ? true : false"  (change)="notificationTypeUpdate('signature')"/>{{this.commonLabels.labels.signature}}<span class="checkmark"></span></label>
-            <label class="hole-cont mr-2"><input type="radio" name="nonSignature" [value]= '3' [checked]="notifyType == 'nonSignature' ? true : false" (change)="notificationTypeUpdate('nonSignature')"/> {{this.commonLabels.labels.nonSignature}}<span class="checkmark"></span></label>
+        <div class="col-md-12 clearfix pt-2">
+            <label class="hole-cont mr-5">
+                <input type="radio" name="assignedToCourse" [value]= '1' [checked]="notifyType == 'assignedToCourse' ? true : false"   (change)="notificationTypeUpdate('assignedToCourse')"/>{{this.commonLabels.labels.assignToCourse}}<span class="checkmark"></span></label>
+            <label class="hole-cont mr-5">
+                <input type="radio" name="signature" [value]= '2' [checked]="notifyType == 'signature' ? true : false"  (change)="notificationTypeUpdate('signature')"/>{{this.commonLabels.labels.signature}}<span class="checkmark"></span></label>
+            <label class="hole-cont">
+                <input type="radio" name="nonSignature" [value]= '3' [checked]="notifyType == 'nonSignature' ? true : false" (change)="notificationTypeUpdate('nonSignature')"/> {{this.commonLabels.labels.nonSignature}}<span class="checkmark"></span></label>
         </div>
-        <div class="text-center col-md-12 p-4">
-            <button type="button" class="btn btn-primary"  (click)="notificationType(createNotification)">{{commonLabels.btns.yes}}</button>
+        <div class="col-md-12 clearfix text-center py-3">
+            <button type="button" class="btn btn-primary creat-btn"  (click)="notificationType(createNotification)">{{commonLabels.btns.yes}}</button>
             <!-- <button type="button" class="btn btn-default" (click)="notificationType(createNotification,'no')">{{commonLabels.btns.no}}</button>               -->
         </div> 
     </div>
@@ -120,7 +123,7 @@
 
 <ng-template #createNotification> 
     <div class="modal-header"> 
-        <h4 class="modal-title pull-left">{{commonLabels.modaltitle.notifiUpload}}</h4>
+        <h4 class="hd-alg">{{commonLabels.modaltitle.notifiUpload}}</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
         </button>
