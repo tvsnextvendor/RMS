@@ -75,4 +75,8 @@ updateBadge(params){
 getBadge(id){
   return this.http.getLocal('local',this.url.badge+'?resortId='+id);
 }
+
+addCertificate(certificateData) {
+  return this.http.post('local', this.url.addCertificate, certificateData);
+}
 }

@@ -59,6 +59,7 @@ export class CommonLabels{
         "courseDelConfirmation": "Are you sure you want to delete this course?", 
         "selectopt"         :   "--Select Training Class--",
         "selectcourse"      :   "--Select course--",
+        "selectTemplate"    :   "--Select Certificate--",
         // "video"           : "Video",
         "assignTo"          :   "Assign To",
         "questionType"      :   "Question Type",
@@ -497,7 +498,12 @@ export class CommonLabels{
         "passwordError"     :  "Password is Required",
         "rememberMe"        :  "Keep me logged in",
         "invalidPassword"   :  "Invalid Password",
-    
+        "profileMandatory"  :  "Please fill the mandatory fields",
+        "badgeDataFound"    :  "No badge data found",
+        "permissionError"   :  "Please select data for all the fields",
+        "courseUnique"      :  "Certificate already assigned for selected course",
+        "selectCourse"      :  "Please select the course"
+
      
     };
 
@@ -530,7 +536,9 @@ export class CommonLabels{
         "warnMsg"           :   "No members available in selected department",
         "pwdUpdate"         :   "Password update link sent to your mail id",
         "regisEmail"        :   "Please enter registered email id",
-        "loginSuccess"      :   "Login successfully"
+        "loginSuccess"      :   "Login successfully",
+        "tokenExpStatusText":   "Forbidden",
+        "tokenExpErrorMsg"  :   "Session expired, Please Sign out and Continue."
 
     }
     symbols = {

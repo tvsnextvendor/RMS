@@ -185,21 +185,16 @@ export class CreateForumComponent implements OnInit {
 
     onItemDeselect(event, type) {
       if (type === 'division') {
-        // this.division['divisionList'].map(item => {
-        //   item.id = event.id;
-        // })
-      //   this.forumService.getDepartment({divisionId: [event.id]}).subscribe((resp) => {
-      //     const wholeDivision = resp.data.rows;
-      //     console.log(wholeDivision);
-      //     if(wholeDivision) {
-      //       this.departmentList = this.departmentList.filter(o => !wholeDivision.find(x => x.departmentId === o.id));
-      //       this.Divisions = this.Divisions.filter(o => !this.departmentList.find(x => x.id === o.departmentId));
-      //     } else {
-      //       this.Divisions = this.Divisions.filter(o => !this.division['divisionList'].find(x => x.id === o.divisionId));
-      //     }
-      //   });
-      // this.itemDeselected = true;
-      
+        this.forumService.getDepartment({divisionId: [event.id]}).subscribe((resp) => {
+          const wholeDivision = resp.data.rows;
+          if (wholeDivision) {
+            this.departmentList = this.departmentList.filter(o => !wholeDivision.find(x => x.departmentId === o.id));
+            this.departData  =  this.departmentList;
+          } else {
+            // const divisionNull = this.Divisions.filter(o => !this.division['divisionList'].find(x => x.id === o.divisionId));
+          }
+        });
+      this.itemDeselected = true;
     }
   }
 
@@ -216,8 +211,19 @@ export class CreateForumComponent implements OnInit {
 
     onSubmitForm(form) {
       this.submitted = true;
+      const departmentList = this.departmentList;
+      if (this.itemDeselected && this.forumEditPage.forumId) {
+       _.forEach(this.Divisions, function(totalValue, key) {
+         _.forEach(departmentList, function(deparId, departKey) {
+           if (totalValue.departmentId !==  deparId.id) {
+             totalValue.divisionId = null;
+             totalValue.departmentId = null;
+           }
+         });
+       });
+      }
+      // return false;
       this.division['divisions'] = this.division && this.division['divisionList'] && this.division['divisionList'].map(item => item.id);
-
       const selectedDepartments = this.departmentList;
       console.log(this.department['departments'], 'departmentData before filter');
       this.department['departments'] = this.department && this.department['departments'] && this.department['departments'].filter(function(obj1) {
@@ -234,12 +240,11 @@ export class CreateForumComponent implements OnInit {
             startDate: this.datePipe.transform(this.forumVar.startDate, 'yyyy-MM-dd'),
             endDate:  this.datePipe.transform(this.forumVar.endDate, 'yyyy-MM-dd')
           },
-          // createdBy: this.utilService.getUserData().userId
+          createdBy: this.utilService.getUserData().userId
           // topics: this.topicsArray.map(item => item.topics),
           // divisions: this.division['divisions'],
           // departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId', 'forumMappingId']))
         };
-        console.log(this.Divisions, 'departmentData');
         if (this.forumEditPage.forumId) {
           const self = this;
           // const department = this.department['departments'];

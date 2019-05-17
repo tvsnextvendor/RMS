@@ -39,7 +39,7 @@ export class ForumService {
   }
 
   getDivision() {
-      return this.http.getLocal('local', this.url.getResortDivision + '?Resort=' + this.utilService.getUserData().Resorts[0].resortId + '&type=division');
+      return this.http.getLocal('local', this.url.getResortDivision + '?Resort=' + this.utilService.getUserData().ResortUserMappings[0].resortId + '&type=division');
   }
 
   getDepartment(divisonIds) {

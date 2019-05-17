@@ -156,7 +156,10 @@ export class API_URL {
     forumPost: '8104/post',
 
     //Badges
-    badge : '8104/badge'
+    badge : '8104/badge',
+
+    //Certificates
+    addCertificate: '8104/addCertificate'
   }
   
 

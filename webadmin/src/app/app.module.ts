@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { AppComponent } from './app.component';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -23,6 +23,7 @@ import { BatchModule } from './batch/batch.module';
 import { CertificatesModule } from './certificates/certificates.module';
 import { UserModule } from './user/user.module';
 import { AlertService } from './services/alert.service';
+import { ErrorInterceptor } from './services/error.interceptor';
 import { AlertComponent } from './alert.component';
 import { EmailModule } from './email/email.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -86,7 +87,7 @@ const routes: Routes = [
     MalihuScrollbarModule.forRoot(),
     
   ],
-  providers: [AuthGuard, AlertService],
+  providers: [AuthGuard, AlertService, {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
