@@ -7,7 +7,10 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { CertificateVar } from '../Constants/certificate.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
-import { CommonLabels } from "../Constants/common-labels.var"
+import { CommonLabels } from "../Constants/common-labels.var";
+import * as htmltoimage from 'html-to-image';
+import {API} from '../../app/Constants/api';
+import * as html2canvas from 'html2canvas';
 
 @Component({
     selector: 'app-certificates',
@@ -26,8 +29,13 @@ export class CertificatesComponent implements OnInit {
         bronze: false
     };
     resortId;
+    imgSrc;
     batchDetails = [];
     editFieldEnable = false;
+    htmlToAdd;
+    uploadedFile;
+    htmlPath;
+    htmlName;
     constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService) {
         this.constant.url = API_URL.URLS;
     }
@@ -166,9 +174,30 @@ export class CertificatesComponent implements OnInit {
         this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
     }
 
-    //Template File Upload
+
+     htmlFileUpload(htmlFile) {
+        this.commonService.uploadFiles(htmlFile).subscribe(result => {
+            if (result && result.isSuccess) {
+                this.htmlPath = result.path;
+                this.htmlName = result.data[0].filename;
+            } else {
+                this.alertService.error(result.error);
+            }
+        }, err => {
+              this.alertService.error(err.error.error);
+              return;
+        });
+     }
+
+    // Template File Upload
     handleFileInput(files: FileList) {
         this.constant.fileToUpload = files.item(0);
+        this.uploadedFile = this.htmlFileUpload(this.constant.fileToUpload);
+    }
+
+
+    uploadTemplate() {
+
     }
 
     //dynamic add form
@@ -293,16 +322,27 @@ export class CertificatesComponent implements OnInit {
         this.constant.templateAssign.splice(i, 1);
     }
 
-    //Add Certificate Template
+    // Add Certificate Template
     onSave(form) {
         if (form.valid) {
             if (this.constant.fileToUpload) {
-                let postData = {
-                    templatename: form.templateName,
-                    htmlfile: this.constant.fileToUpload
-                }
+                const postData = {
+                    certificateName: this.constant.tempName,
+                    certificateHtml: this.htmlName,
+                    certificateHtmlPath: this.htmlPath,
+                    resortId: this.utilService.getUserData().ResortUserMappings[0].resortId
+                };
+                this.commonService.addCertificate(postData).subscribe(result => {
+                    if (result && result.isSuccess) {
+                        this.alertService.success(result.data);
+                    } else {
+                        this.alertService.error(result.error.error);
+                    }
+                 } , err => {
+                      this.alertService.error(err.error.error);
+                      return;
+                });
                 this.alertService.success(this.commonLabels.msgs.uploadSuccessMsg);
-                // this.toastr.success(this.constant.uploadSuccessMsg);
                 this.clearAddForm();
             } else {
                 //  this.toastr.error(this.constant.uploadErrMsg);

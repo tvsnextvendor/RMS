@@ -141,7 +141,8 @@
                 <div class="choose-file-btn fileUpload ">
                     <span class="pl-2">{{commonLabels.labels.chooseFile}}</span>
                     <input type="file" id="file" accept="text/html" (change)="handleFileInput($event.target.files)"
-                        class="upload"></div><span>{{constant.fileToUpload?.name}}</span>
+                        class="upload"></div><span >{{constant.fileToUpload?.name}}
+                        </span>
             </div>
             <div class="text-center pt-4">
                 <button type="submit" class="btn btn-default  mr-3">{{commonLabels.labels.upload}}</button>
