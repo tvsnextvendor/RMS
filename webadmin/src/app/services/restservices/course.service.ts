@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http.service';
+import {UtilService} from '../util.service';
 import { map } from 'rxjs/operators';
 import { API_URL } from '../../Constants/api_url';
 
@@ -11,7 +12,7 @@ export class CourseService {
   
   url;
 
-  constructor (private http: HttpService) {
+  constructor (private http: HttpService,private utilService : UtilService) {
      this.url = API_URL.URLS;
   }
 
@@ -25,7 +26,8 @@ export class CourseService {
   }
 
   getAllCourse(){
-    return this.http.getLocal('local',this.url.courseList);
+    let userId = this.utilService.getUserData().userId;
+    return this.http.getLocal('local',this.url.courseList+'?created='+userId);
   }
 
   getCourseById(courseId){

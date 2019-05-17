@@ -155,6 +155,9 @@ export class API_URL {
     departmentListWithResort: '8102/department/List?resortId=',
     forumPost: '8104/post',
 
+    //certificate
+    getCertificate : '8104/getCertificate',
+
     //Badges
     badge : '8104/badge',
 

@@ -51,8 +51,8 @@ export class CertificateVar {
     silver = null;
     bronze = null;
     templateAssign: any[] = [{
-        course: 1,
-        template: 1
+        course: null,
+        template: null
     }
     ]
     modalRef: BsModalRef;

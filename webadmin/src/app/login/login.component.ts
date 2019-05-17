@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit {
                 const loginData = result.data;
                 this.route.navigateByUrl('/dashboard');
                 this.alertService.success(this.commonLabels.msgs.loginSuccess);
-                let resortName = result.data.Resorts[0].resortName;
+                let resortName = result.data.ResortUserMappings.length && result.data.ResortUserMappings[0].Resort.resortName;
                 localStorage.setItem("resortName", resortName);
              }
             },error => {

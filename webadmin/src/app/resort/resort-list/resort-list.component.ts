@@ -31,16 +31,17 @@ export class ResortListComponent implements OnInit {
   ngOnInit() {
     
     this.headerService.setTitle({ title: this.commonLabels.titles.resortmanagement, hidemodule: false });
-    this.getResortDetails();
     let data = this.utilService.getUserData();
+    this.getResortDetails();
         if(data && data.UserRole && data.UserRole[0] &&  data.UserRole[0].roleId){
             this.userId  = data.UserRole[0].roleId;
         }
   }
 
   getResortDetails(){
-    this.commonService.getResortList().subscribe((result) => {  
-      if(result ){
+    let data = this.utilService.getUserData();
+    this.commonService.getResortList(data.userId).subscribe((result) => {  
+      if(result && result.isSuccess){
         this.resortVar.resortList = result.data.rows;
       }
     });

@@ -1,8 +1,9 @@
-import { Component,Input,Output, EventEmitter, OnInit,ViewChild,ElementRef} from '@angular/core';
+import { Component,Input,Output, EventEmitter, OnInit,ViewChild,ElementRef,TemplateRef} from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute,Params } from '@angular/router';
 import { HttpService,HeaderService,UtilService,AlertService,CommonService, CourseService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import {AddQuizComponent} from '../add-quiz/add-quiz.component';
 import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
@@ -43,12 +44,13 @@ export class AddModuleComponent implements OnInit {
     fileImageDataPreview;
     fileDuration;
     removedFileIds = [];
+    modalRef;
     @Output() upload= new EventEmitter<object>();
     @Output() completed = new EventEmitter<string>();
     @Input() addedFiles;
     // selectedCourseIds:any;
 
-   constructor(private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
+   constructor( private modalService: BsModalService,private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
         });
@@ -551,9 +553,11 @@ export class AddModuleComponent implements OnInit {
                 let id = this.moduleCourseId ? this.moduleCourseId : this.moduleId;
                 this.courseService.updateCourse(id,params).subscribe((resp)=>{
                     if(resp && resp.isSuccess){
+                        this.modalRef.hide();
                         if(this.moduleId){
                             this.route.navigateByUrl("/workinprogress"); 
                             this.moduleId = '';
+                            
                         }
                         else{
                             if(courseSubmitType) {
@@ -577,6 +581,7 @@ export class AddModuleComponent implements OnInit {
             else{
                 this.courseService.addCourse(params).subscribe((resp)=>{
                     if(resp && resp.isSuccess){
+                        this.modalRef.hide();
                         if(courseSubmitType) {
                             this.moduleCourseId = '';
                             this.route.navigateByUrl("/cms-library");
@@ -584,8 +589,11 @@ export class AddModuleComponent implements OnInit {
                         }
                         else{
                             this.moduleCourseId = resp.data.courseId;
-                            this.staticTabs.tabs[0].disabled = false;
-                            this.staticTabs.tabs[0].active = true;
+                            if(this.staticTabs.tabs) 
+                            {
+                                this.staticTabs.tabs[0].disabled = false;
+                                this.staticTabs.tabs[0].active = true;
+                            }
                         }
                         this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
                         this.moduleSubmitted = false;
@@ -606,5 +614,18 @@ export class AddModuleComponent implements OnInit {
     redirectCourseList(){
         this.route.navigateByUrl('/cms-library');
     }
+
+    openEditModal(template: TemplateRef<any>,modelValue) {
+        console.log(this.moduleName)
+        if(this.moduleName){
+          let modalConfig= {
+            class : "modal-dialog-centered"
+          }
+          this.modalRef = this.modalService.show(template,modalConfig);
+        }
+        else{
+          this.alertService.error(this.commonLabels.labels.pleaseaddCourse);
+        }
+      }
    
 }

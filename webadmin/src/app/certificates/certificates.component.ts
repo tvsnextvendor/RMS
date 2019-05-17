@@ -1,6 +1,6 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderService,CommonService ,UtilService} from '../services';
+import { HeaderService,CommonService ,UtilService,CourseService} from '../services';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -8,9 +8,6 @@ import { CertificateVar } from '../Constants/certificate.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
 import { CommonLabels } from "../Constants/common-labels.var";
-import * as htmltoimage from 'html-to-image';
-import {API} from '../../app/Constants/api';
-import * as html2canvas from 'html2canvas';
 
 @Component({
     selector: 'app-certificates',
@@ -19,7 +16,7 @@ import * as html2canvas from 'html2canvas';
 })
 
 export class CertificatesComponent implements OnInit {
-
+//getCourse
 
     percentageArray = [];
     percentageTakenError = {
@@ -36,24 +33,41 @@ export class CertificatesComponent implements OnInit {
     uploadedFile;
     htmlPath;
     htmlName;
-    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService) {
+    filePath;
+
+
+    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService) {
         this.constant.url = API_URL.URLS;
     }
     ngOnInit() {
         this.headerService.setTitle({ title: this.commonLabels.titles.certificate, hidemodule: false });
+        this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
+        //get certificate
+        this.commonService.getCertificate(this.resortId).subscribe(resp=>{
+            
+            if(resp && resp.isSuccess){
+                this.filePath = resp.data && resp.data.path.uploadPath;
+                this.constant.certificateList = resp.data && resp.data.certificates.length && resp.data.certificates.map(item=>{
+                    if(this.filePath){
+                        
+                        item.imageFile = this.filePath+item.certificateHtml;
+                        console.log(item.imageFile, 'imagessss')
+                    }
+                    return item;
+                });
+                console.log(this.constant.certificateList )
+                
+            }
+        })
 
-        //get Template list
-        this.http.get(this.constant.url.getTemplateList).subscribe((data) => {
-            this.constant.certificateList = data.templatedetails;
-        });
-
+        //get course
+        this.courseService.getAllCourse().subscribe(resp=>{
+            
+            if(resp && resp.isSuccess){
+                this.constant.courseList = resp.data.rows.length && resp.data.rows
+            }
+        })
         this.getbadgepercentage();
-
-        // //get course list
-        this.http.get(this.constant.url.getCoursesList).subscribe((data) => {
-            this.constant.courseList = data.courseDetails;
-        });
-        this.resortId = this.utilService.getUserData() && this.utilService.getUserData().Resorts[0].resortId;
     }
 
     getbadgepercentage() {
@@ -202,37 +216,45 @@ export class CertificatesComponent implements OnInit {
 
     //dynamic add form
     addForm() {
-        let obj = {
-            course: 1,
-            template: 1
-        };
-        this.constant.templateAssign.push(obj);
+        let checkEmpty = {};
+        checkEmpty = this.constant.templateAssign.length ? this.constant.templateAssign.find(x=>{ return x.course == null}) : {};
+        if(checkEmpty){
+            this.alertService.error(this.commonLabels.mandatoryLabels.selectCourse)
+        }else{
+            let obj = {
+                course: null,
+                template: null
+            };
+            this.constant.templateAssign.push(obj);
+        }
+    }
+
+    checkCourse(id){
+        let valueArr = this.constant.templateAssign.map(function(item){ return parseInt(item.course) });
+        let isDuplicate = valueArr.some(function(item, idx){ 
+            return (valueArr.indexOf(item) != idx)
+        });
+        if(isDuplicate){
+            let idx =  this.constant.templateAssign.length -1;
+            console.log(idx)
+            this.constant.templateAssign[idx] = {
+                course: null,
+                template: null
+            };
+            this.alertService.error(this.commonLabels.mandatoryLabels.courseUnique);
+        }
     }
 
     //Assign template to batch
     assignBatchTemplate(form) {
-        let batchId = this.constant.templateAssign.map(function (item) { return item.program });
-        batchId.sort();
-        let last = batchId[0];
-        window.scrollTo(0, 0);
-        if (batchId.length > 1) {
-            for (let i = 1; i < batchId.length; i++) {
-                if (batchId[i] == last) {
-                    this.alertService.error(this.commonLabels.mandatoryLabels.assignErrMsg);
-                    // this.toastr.error(this.constant.assignErrMsg);
-                } else {
-                    let postData = this.constant.templateAssign;
-                    this.alertService.success(this.commonLabels.msgs.assignSuccessMsg);
-                    //this.toastr.success(this.constant.assignSuccessMsg);
-                    this.clearAssignTemplate();
-                }
-                last = batchId[i];
-            }
-        } else {
-            let postData = this.constant.templateAssign;
-            this.alertService.success(this.commonLabels.msgs.assignSuccessMsg);
-            //this.toastr.success(this.constant.assignSuccessMsg);
+        let checkEmpty = [];
+        checkEmpty = this.constant.templateAssign.length ? this.constant.templateAssign.filter(x=>{ return (x.course == null || x.template == null)}) : [];
+        if(checkEmpty.length){
+            this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory);
         }
+        else{
+            console.log(checkEmpty ,"checkEmpty",this.constant.templateAssign)
+        }     
     }
 
     //Batch percentage selection
@@ -309,8 +331,8 @@ export class CertificatesComponent implements OnInit {
     //Reset Form
     clearAssignTemplate() {
         this.constant.templateAssign = [{
-            course: 1,
-            template: 2
+            course: null,
+            template: null
         }];
     }
 
@@ -358,9 +380,4 @@ export class CertificatesComponent implements OnInit {
         this.constant.tempName = "";
         this.constant.fileToUpload = null;
     }
-
-
-
-
-
 }
