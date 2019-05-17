@@ -24,27 +24,25 @@ export class API_URL {
         //'getModules': '5c28a6de3300006300a58b77',
        //----------------    'getModules': '5c2de3ee2f00001c3d1752bb',
         'getModules':'5c3842663100007800a98f0d',
-      
         //'getCourses':'5c40a2050f0000d318e7b5d1', *needed
         'getCourses': '5caebe043400009620ab6dc7',
         'getQuiz': '5c2e1c4f2f0000fd54175475',
         // 'getCourses':'5c28b3923300004e00a58b88'
 
-
-        // 'loginAPI':'3000/login',
-        // 'trainingCourseAPI':'3003/course/courseByStatus',
-        // 'trainingCourseFilesAPI':'3003/trainingClass/TrainingFileList',
-        // 'quizAPI':'3003/trainingClass/QuizList'
+      
        'loginAPI':'8101/login',
        'trainingCourseAPI':'8103/course/courseByStatus',
        'fileTrainingStatus': '8103/updateFileTrainingStatus',
        'updateTrainingStatus':'8103/updateUserTrainingStatus',
+       'getProfile' : '8101/user/List',
+       'updateProfile': '8101/user/Update/',
        'trainingCourseFilesAPI':'8103/trainingClass/TrainingFileList',
        'quizAPI':'8103/trainingClass/QuizList',
        'readNotification':'8103/user/readNotification',
        'updateSettings' : '8101/user/settings',
        'completeTrainingClass':'8103/updateTrainingClassCompletedStatus',
        'postFeedBack':'8103/courseFeedback',
-       'getAllSchedule': '8103/schedule/getAllSchedules'
+       'getAllSchedule': '8103/schedule/getAllSchedules',
+       
     };
 }

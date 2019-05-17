@@ -58,6 +58,7 @@ export class QuizResultPage implements OnInit {
         } else {
             this.errorMessage  = '';
             let percentages = [{ 1: 20, 2: 40, 3: 60, 4: 80, 5: 100 }];
+            const resortId = this.currentUser.ResortUserMappings[0].resortId;
             let postData = {
                 "courseId": this.resultData['courseId'],
                 "ratingStar": this.feedback.rating,
@@ -65,7 +66,9 @@ export class QuizResultPage implements OnInit {
                 "feedback": this.feedback.description,
                 "score": this.resultData['correctAnswers'],
                 "scoreOutof": this.resultData['totalQuestions'],
-                "userId": this.currentUser.userId
+                "userId": this.currentUser.userId,
+                "resortId":resortId,
+                "trainingClassId" : this.resultData['trainingClassId']
             }
             console.log(postData);
             this.http.post(false,API_URL.URLS.postFeedBack,postData).subscribe(res=>{

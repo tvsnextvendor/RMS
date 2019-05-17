@@ -93,6 +93,10 @@ calculateExpireDays(dueDate) {
       }
     );
   }
+  
+  goToNotification() {
+    this.navCtrl.setRoot('notification-page');
+  }
 
   goToCalendar(){
     this.createCalendar();
