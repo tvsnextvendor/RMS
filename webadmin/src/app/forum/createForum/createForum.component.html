@@ -74,6 +74,7 @@
                             <option value="">{{forumVar.slctAdmin}}</option>
                             <option *ngFor="let admin of adminData" [value]="admin.id">{{admin.value}}</option>
                         </select>
+                        <div class="select_arrow"></div>
                     </div>
                     <span class="required_color" *ngIf="submitted && !forumVar.forumAdmin">{{forumVar.mandatoryLabels.admin}}</span>
                 </div>

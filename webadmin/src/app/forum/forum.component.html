@@ -59,12 +59,12 @@
 
   <ng-template #editForum>
         <div class="modal-header"> 
-                <h4 class="modal-title pull-left">{{commonLabels.labels.editForum}}</h4>
+                <h4 class="hd-alg mb-0">{{commonLabels.labels.editForum}}</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="closeModel()" >
                   <span aria-hidden="true">&times;</span>
                 </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body pt-0">
         <app-createForum [closeModal]="forumVar.modalRef"></app-createForum>
         </div>
 </ng-template> 
