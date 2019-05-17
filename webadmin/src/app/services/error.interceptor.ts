@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CommonLabels } from '../Constants/common-labels.var';
-import { AuthService, AlertService } from '../services';
+import { AuthService } from './auth.service';
+import { AlertService } from './alert.service';
 
 
 @Injectable()

@@ -45,18 +45,19 @@ export class ProfileComponent implements OnInit {
   
    getProfile(){
     this.userDetails = this.utilService.getUserData();
+    debugger
     this.profVar.userName=this.userDetails.userName;
+    this.userId = this.userDetails.userId;
     this.profVar.email=this.userDetails.email;
     this.profVar.empId= this.userDetails.employeeId;
     // this.profVar.dob= this.datepipe.transform( this.userDetails.dob , 'dd MMM yyyy');
-    this.profVar.designation=this.userDetails.Designation.designationName;
-    this.profVar.dept=this.userDetails.Department.departmentName;
+    this.profVar.designation=this.userDetails.Designation && this.userDetails.Designation.designationName;
+    this.profVar.dept= this.userDetails.Department && this.userDetails.Department.departmentName;
     this.profVar.mobile=this.userDetails.phoneNumber;
     this.departmentId = this.userDetails.departmentId;
     this.divisionId = this.userDetails.divisionId;
     this.designationId = this.userDetails.designationId;
     this.reportingTo = this.userDetails.reportingTo;
-    this.userId = this.userDetails.userId;
    }
 
    onSubmitForm(form){
@@ -74,15 +75,16 @@ export class ProfileComponent implements OnInit {
                 accessTo: 'web',
             };
            if(this.profVar.userName && this.profVar.mobile && this.profVar.email && !this.validPhone){
+               debugger;
                 this.userService.updateUser(this.userId,obj).subscribe(resp=>{
                     if(resp && resp.isSuccess){
-                        this.alertService.success(this.commonLabels.msgs.profilesuccess);
                         this.router.navigateByUrl('/profile');
                         this.userDetails.userName = this.profVar.userName;
                         this.userDetails.email = this.profVar.email;
                         this.userDetails.phoneNumber =  this.profVar.mobile;
                         localStorage.removeItem("userData");
                         localStorage.setItem('userData',btoa(JSON.stringify(this.userDetails)));
+                        this.alertService.success(this.commonLabels.msgs.profilesuccess);
                     }
                 })
            }

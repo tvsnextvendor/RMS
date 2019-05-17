@@ -27,13 +27,14 @@ export class RolepermissionComponent implements OnInit {
     this.constant.selectAllEdit = false;
 
     let userData = this.utilService.getUserData();
-    this.resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+    this.resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
     this.getDropDownDetails('','');
     this.constant.resortList = [];
     this.getresortDetails();
   }
   getresortDetails(){
-    this.commonService.getResortList().subscribe((result) => {
+    let data = this.utilService.getUserData();
+    this.commonService.getResortList(data.userId).subscribe((result) => {
       if(result && result.isSuccess){
         result.data && result.data.rows.forEach(item=>{
           if(item.resortId === this.resortId){

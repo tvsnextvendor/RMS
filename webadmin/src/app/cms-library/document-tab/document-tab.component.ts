@@ -49,7 +49,7 @@ export class DocumentTabComponent implements OnInit {
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
 
-    const resortId = this.utilService.getUserData().Resorts[0].resortId; 
+    const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
             this.constant.resortList=result.data.Resort;
             this.constant.divisionList=result.data.divisions;
@@ -359,7 +359,7 @@ export class DocumentTabComponent implements OnInit {
     }
     permissionSetSubmit(){
       let user = this.utilService.getUserData();
-      let resortId = user.Resorts.length && user.Resorts[0].resortId;
+      let resortId = user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
       
       if(this.constant.selectedDivision.length && this.constant.selectedDepartment.length && this.constant.selectedEmp.length ){
         let params = {

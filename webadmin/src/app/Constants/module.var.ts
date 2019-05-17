@@ -33,7 +33,7 @@ export class ModuleVar {
     selectedDepartment=[];
     selectedResort = [];
     selectedDivision = [];
-
+    errorValidate = true;
     courseListPage = [];
     courseItems = [];
     dropdownSettings;
@@ -62,6 +62,8 @@ export class ModuleVar {
     modalRef;
     modalConfig;
     fileExtension;
+    divisionId;
+    departmentId;
 
     departmentSettings = {
         singleSelection: false,

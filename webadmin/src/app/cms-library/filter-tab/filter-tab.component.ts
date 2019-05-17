@@ -35,10 +35,10 @@ export class FilterTabComponent implements OnInit {
 
   ngOnInit() {
     let data = this.utilService.getUserData();
-    if(data.Resorts.length){
-      let resortDetails = data.Resorts;
-      this.parentResort = resortDetails[0].resortName;
-      this.parentResortId = resortDetails[0].resortId;
+    if(data.ResortUserMappings.length){
+      let resortDetails = data.ResortUserMappings;
+      this.parentResort = resortDetails[0].Resort.resortName;
+      this.parentResortId = resortDetails[0].Resort.resortId;
       this.getFilterData();
     }
   }

@@ -70,8 +70,8 @@ export class ResortComponent implements OnInit {
                     this.headerService.setTitle({title:this.resortDetails.resortName, hidemodule:false});
                     this.resortVar.resortName = this.resortDetails.resortName;
                     this.resortVar.location = this.resortDetails.location;
-                    this.resortVar.phoneNumber = this.resortDetails.User.phoneNumber;
-                    this.resortVar.email = this.resortDetails.User.email;
+                    this.resortVar.phoneNumber = this.resortDetails.ResortUserMappings[0].User.phoneNumber;
+                    this.resortVar.email = this.resortDetails.ResortUserMappings[0].User.email;
                     this.resortVar.status = this.resortDetails.status;
                     if(this.userType === 1){
                         this.resortVar.storageSpace = this.resortDetails.utilizedSpace;
@@ -83,13 +83,13 @@ export class ResortComponent implements OnInit {
                     this.headerService.setTitle({title:this.resortDetails.resortName, hidemodule:false});
                     this.resortName = this.resortDetails.resortName;
                     this.locationName = this.resortDetails.location;
-                    this.phoneNumber = this.resortDetails.User.phoneNumber;
-                    this.email = this.resortDetails.User.email;
+                    this.phoneNumber = this.resortDetails.ResortUserMappings[0].User.phoneNumber;
+                    this.email = this.resortDetails.ResortUserMappings[0].User.email;
                     this.status = this.resortDetails.status; 
                     this.emailValidation =true;
                     this.mobileValidation = true;
                     this.userId = this.resortDetails.userId;
-                    this.userObj = this.resortDetails.User;
+                    this.userObj = this.resortDetails.ResortUserMappings[0].User;
                 }
             }
         });
@@ -139,7 +139,6 @@ export class ResortComponent implements OnInit {
     submitResortData(){
         this.submitted = true;
         if(this.resortName && this.locationName && this.email && this.phoneNumber && this.status && this.mobileValidation && this.emailValidation){
-           
             if(this.resortId){
                 this.userObj.email = this.email;
                 this.userObj.phoneNumber = this.phoneNumber;
@@ -167,14 +166,23 @@ export class ResortComponent implements OnInit {
                 });
             }
             else{
+                let data = this.utilsService.getUserData();
+                let parentId = data.ResortUserMappings.length &&  data.ResortUserMappings[0].Resort.resortId;
                 let postData = {
                     "resortName" : this.resortName,
                     "email" : this.email,
                     "location" : this.locationName,
                     "phoneNumber":this.phoneNumber,
                     "status":this.status,
-                    "roleId" : this.userType
+                    "roleId" : this.userType,
+                    "parentId" : parentId,
+                    "createdBy" : data.userId
                 }
+                if(this.userType == 1){
+                    delete postData.parentId;
+                }
+                console.log(postData)
+                debugger;
                 this.resortService.addResort(postData).subscribe((result)=>{
                     if(result && result.isSuccess){
                         this.clearData();

@@ -91,7 +91,7 @@ export class AddBatchComponent implements OnInit {
     getResortData(){
         this.userData =this.utilService.getUserData();
         //get Resort list
-        const resortId = this.userData.Resorts[0].resortId; 
+        const resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId; 
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
             this.batchVar.resortList=result.data.Resort;
             this.batchVar.divisionList=result.data.divisions;

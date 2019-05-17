@@ -1,6 +1,6 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="tab-section">    
-<tabset #staticTabs *ngIf="userType === 2">
+<tabset #staticTabs *ngIf="userType !== 1">
     <tab heading={{commonLabels.labels.userManagement}}>
         <div class="pt-3" id="contentToConvert">
         <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
@@ -139,7 +139,7 @@
     </tab>
 </tabset>  
 </div>
-<div class="pr-3 pt-3" id="contentToConvert" *ngIf="userType !== 2">
+<div class="pr-3 pt-3" id="contentToConvert" *ngIf="userType === 1">
 <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
     <div class="float-right row pb-3 adduser-respon">
         <span class="pr-2 upload-line">

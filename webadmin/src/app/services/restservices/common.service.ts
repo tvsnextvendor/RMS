@@ -38,8 +38,8 @@ export class CommonService {
      return this.http.getLocal('local',this.url.roleList);
  }
 
-getResortList(){
-    return this.http.getLocal('local',this.url.resortList);
+getResortList(id){
+    return this.http.getLocal('local',this.url.resortList+'?createdBy='+id);
 }
 
 getDesignationList(resortId){
@@ -78,5 +78,8 @@ getBadge(id){
 
 addCertificate(certificateData) {
   return this.http.post('local', this.url.addCertificate, certificateData);
+}
+getCertificate(id){
+  return this.http.getLocal('local',this.url.getCertificate+'?resortId='+id);
 }
 }

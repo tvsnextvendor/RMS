@@ -56,7 +56,7 @@ export class UserComponent implements OnInit {
     divisionValidationCheck = true;
     errorValidation = true;
     editDivisionValue;
-    editDepartmentList;
+    editDepartmentList = [];
     divisionId;
     errMsg;
     roles;
@@ -85,7 +85,7 @@ export class UserComponent implements OnInit {
 
     getResortId(){
         let userData = this.utilService.getUserData();
-        let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
         
         //get Resort list
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
@@ -222,7 +222,7 @@ export class UserComponent implements OnInit {
     submitRole(){
         this.errorValidation = true;
         let userData = this.utilService.getUserData();
-        let resortId = userData && userData.Resorts && userData.Resorts[0].resortId;
+        let resortId = userData && userData.ResortUserMappings && userData.ResortUserMappings[0].Resort.resortId;
         this.roleFormSubmitted = true;
         this.roleNameValidationCheck();
         if(this.roleId){
@@ -308,6 +308,7 @@ export class UserComponent implements OnInit {
     //add new user
     addUser(data) {
          this.errMsg='';
+         let resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
           let obj = {
                 userName : this.userName,
                 email : this.emailAddress,
@@ -317,6 +318,7 @@ export class UserComponent implements OnInit {
                 departmentId:this.department,
                 reportingTo:this.reportingTo,
                 accessTo: this.accessTo,
+                resortId : resortId
                 };
 
         if(this.userName && this.emailAddress && this.phoneNumber && this.division && this.department && this.designation && !this.validEmail && !this.validPhone){         
@@ -415,7 +417,7 @@ export class UserComponent implements OnInit {
     submitDivision(){
         this.errorValidation = true;
         let userData = this.utilService.getUserData();
-        let resortId = userData && userData.Resorts && userData.Resorts[0].resortId;
+        let resortId = userData && userData.ResortUserMappings && userData.ResortUserMappings[0].Resort.resortId;
         this.divisionValidationCheck = true;
         this.constant.divisionTemplate.forEach(item=>{
             item.departments.forEach(value=>{
@@ -533,6 +535,7 @@ export class UserComponent implements OnInit {
                 departmentName : ''
             };
             this.constant.divisionTemplate[i].departments.push(obj);
+            this.editDepartmentList.push(obj);
         }
         else if (type === 'roles'){
             let obj = {
@@ -584,7 +587,7 @@ export class UserComponent implements OnInit {
         this.userService.deleteDivision(this.divisionId).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 let userData = this.utilService.getUserData();
-                let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+                let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
                 this.constant.modalRef.hide();
                 this.getDivisionList(resortId);
                 this.alertService.success(this.commonLabels.msgs.diviDeleted);
@@ -605,7 +608,7 @@ export class UserComponent implements OnInit {
         this.userService.deleteDesignation(this.roleId).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 let userData = this.utilService.getUserData();
-                let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+                let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
                 this.constant.modalRef.hide();
                 this.getDivisionList(resortId);
                 this.alertService.success(this.commonLabels.msgs.designDelete);
@@ -628,7 +631,7 @@ export class UserComponent implements OnInit {
         this.errorValidation = true;
         if(Object.keys(this.editDivisionValue).length){
             this.validationDivisionCheck = true;
-            let params = this.editDivisionValue.Departments.map(item=>{
+            let params = this.editDepartmentList.map(item=>{
                 if(!item.departmentId){
                     item.divisionId  =  this.editDivisionValue.divisionId
                 }
@@ -643,7 +646,7 @@ export class UserComponent implements OnInit {
                 this.userService.divisionUpdate(this.editDivisionValue,this.editDivisionValue.divisionId).subscribe(resp=>{
                     if(resp && resp.isSuccess){
                         let userData = this.utilService.getUserData();
-                        let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+                        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
                         this.constant.modalRef.hide();
                         this.getDivisionList(resortId);
                         this.roleComponent.getDropDownDetails('','');
@@ -663,7 +666,7 @@ export class UserComponent implements OnInit {
 
     cancelUpdate(){
         let userData = this.utilService.getUserData();
-        let resortId = userData.Resorts ? userData.Resorts[0].resortId : '';
+        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
         this.constant.modalRef.hide();
         // this.getDivisionList(resortId);
     }

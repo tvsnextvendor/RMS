@@ -7,9 +7,9 @@
             </div>
             <owl-carousel-o [options]="customOptions" class="certificate-list">
                 <ng-container *ngFor="let template of constant.certificateList">
-                    <ng-template carouselSlide [id]="template.templateid">
-                        <img class="img" src={{template.htmldetails}}>
-                        <p class="pt-3 certificate-name">{{template.templatename}} </p>
+                    <ng-template carouselSlide [id]="template.certificateId">
+                        <iframe [src]="template.imageFile | sanitizeHtml" width="100%" height="300" ></iframe>
+                        <p class="pt-3 certificate-name">{{template.certificateName}} </p>
                     </ng-template>
                 </ng-container>
             </owl-carousel-o>
@@ -20,8 +20,9 @@
                             <label class="col-md-3 col-sm-3 module-batch-title p-0" *ngIf="i==0">{{commonLabels.labels.course}}</label>
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
                             <div class=" col-md-8 col-sm-8 select select-style clearfix p-0 m-0">
-                                <select id="course" class="form-control p-0" name="Course{{i}}" [(ngModel)]="data.course">
-                                    <option *ngFor="let course of constant.courseList" value="{{course.id}}">{{course.value}}</option>
+                                <select id="course" class="form-control p-0" name="Course{{i}}" [(ngModel)]="data.course" #course (change)="checkCourse(course.value)">
+                                    <option value = "null" disabled>{{this.commonLabels.labels.selectcourse}}</option>
+                                    <option *ngFor="let course of constant.courseList" [value]="course.courseId">{{course.courseName}}</option>
                                 </select>
                                  <div class="select_arrow"></div>
                             </div>
@@ -34,7 +35,8 @@
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
                             <div class=" col-md-7 col-sm-7 select select-style clearfix p-0 m-0">
                                 <select id="Template" class="form-control p-0" name="Template{{i}}" [(ngModel)]="data.template">
-                                    <option *ngFor="let template of constant.certificateList" value="{{template.templateid}}">{{template.templatename}}</option>
+                                    <option value = "null" disabled>{{this.commonLabels.labels.selectTemplate}}</option>
+                                    <option *ngFor="let template of constant.certificateList" value="{{template.certificateId}}">{{template.certificateName}}</option>
                                 </select>
                                  <div class="select_arrow"></div>
                             </div>
@@ -141,8 +143,8 @@
                 <div class="choose-file-btn fileUpload ">
                     <span class="pl-2">{{commonLabels.labels.chooseFile}}</span>
                     <input type="file" id="file" accept="text/html" (change)="handleFileInput($event.target.files)"
-                        class="upload"></div><span >{{constant.fileToUpload?.name}}
-                        </span>
+                        class="upload"></div><span>{{constant.fileToUpload?.name}}</span>
+                        <iframe id = 'newFile' *ngIf="constant.fileToUpload" src="constant.fileToUpload"></iframe>
             </div>
             <div class="text-center pt-4">
                 <button type="submit" class="btn btn-default  mr-3">{{commonLabels.labels.upload}}</button>

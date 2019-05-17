@@ -41,7 +41,7 @@ export class CalendarViewComponent implements OnInit {
     ngOnInit(){
         this.headerService.setTitle({title:this.commonLabels.titles.calendarTitle, hidemodule: false});
         let user = this.utilService.getUserData();
-        this.resortId = user.Resorts && user.Resorts[0].resortId;
+        this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
         this.getCalendarDetails();
 
         // this.http.get(this.batchVar.url.getNewBatchList).subscribe(data=>{

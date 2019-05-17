@@ -25,7 +25,7 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit() {
     let user = this.utilService.getUserData();
-    this.resortId = user.Resorts && user.Resorts[0].resortId;
+    this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[1]];
