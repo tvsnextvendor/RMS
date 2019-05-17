@@ -37,6 +37,11 @@ export class ForumPage implements OnInit {
 
   }
 
+
+  goToNotification() {
+    this.navCtrl.setRoot('notification-page');
+  }
+
    ngAfterViewInit() {
             let self = this;
             this.storage.get('currentUser').then((user: any) => {
