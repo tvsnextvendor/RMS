@@ -52,3 +52,16 @@ tbody > tr:last-child > td {
   transform: rotate(-40deg) !important;
   color: #CCCCCC !important;
 }
+.export-btn .dropdown-menu.show{
+    min-width: 107px !important;
+}
+.export-btn .dropdown-menu .dropdown-item:active{
+  background-color: #a1c6db38 !important;
+}
+.export-btn .dropdown-toggle::after{
+  margin-left: 10px !important;
+}
+.export-btn .dropdown .show>.btn-primary.dropdown-toggle{
+    background-color: #468FB9 !important; 
+    border-color: #468FB9 !important;
+}
