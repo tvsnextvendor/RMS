@@ -66,8 +66,8 @@
                 <div class="clearfix">
                     <h5>Usage Stats</h5>
                     <div class="total-count row pt-2">
-                        <span class="col-md-6 p-0">Total No. of Employees enrolled:150</span>
-                        <span class="col-md-6 text-right">Total No. of Certificate: 30</span>
+                        <span class="col-md-6 p-0">{{commonLabels.labels.totalNoEmp}} 150</span>
+                        <span class="col-md-6 text-right">{{commonLabels.labels.totalNoCert}} 30</span>
                     </div>
                 </div>
                 <div class="progress-section pt-3">
@@ -83,14 +83,14 @@
                           </div>
                     </div>
                     <div class="row usage-state pt-2">
-                        <div class="" style="width:20%">Assigned</div>
-                        <div class="" style="width:30%">In Progress</div>
-                        <div class="" style="width:50%">Completed</div>
+                        <div class="" style="width:20%">{{commonLabels.labels.assigned}}</div>
+                        <div class="" style="width:30%">{{commonLabels.labels.inprogress}}</div>
+                        <div class="" style="width:50%">{{commonLabels.labels.completed}}</div>
                     </div>
                 </div>
 
                 <div class="pt-3 clearfix">
-                    <button class="btn btn-primary" type="button" (click)="enableDropData('duplicate',i)">Duplicate</button>
+                    <button class="btn btn-primary" type="button" (click)="enableDropData('duplicate',i)">{{commonLabels.labels.duplicate}}</button>
                 </div>
             </div>
         </div> 
@@ -242,7 +242,7 @@
                                 <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
                             </span> -->
                             <span class="required_color" *ngIf="videoSubmitted && !videoFile">{{commonLabels.labels.fileisRequired}}</span>	
-                            <span class="file-alg">Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI</span>	 	
+                            <span class="file-alg">{{commonLabels.labels.acceptedFileTypes}}</span>	 	
                             </div>						
                         </div>
                     </div>
