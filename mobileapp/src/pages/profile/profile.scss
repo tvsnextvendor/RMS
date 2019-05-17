@@ -13,7 +13,7 @@ page-profile {
 		.scroll-content{
 			background-color: transparent;
 		}
-		.item.item-block,{
+		.item.item-block{
 			background: transparent ;
 			border: none;
 		}
@@ -57,4 +57,102 @@ page-profile {
 }
 
 
+.text-input::-moz-placeholder {
+	color: rgba(255, 255, 255, 0.4);
 }
+
+.text-input:-ms-input-placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.text-input::-webkit-input-placeholder {
+	text-indent: 0;
+	color: rgba(255, 255, 255, 0.4);
+}
+.pwd-grid,.pwd-inner {
+	border-bottom: 1px solid rgba(241, 249, 255, 0.24);
+}
+.pwd-setting ion-icon {
+	color: #fff;
+/*		transform: rotate(-80deg);
+*/		line-height: 50px;
+}
+.pwd-grid{
+	ion-label {
+		margin: 0;
+	}
+	input.text-input {
+		margin: 5px 8px 5px 0;
+	}
+}
+.blue-btn.button-ios, .blue-btn.button-md {
+	margin-top: 70px;
+}
+.pwd-setting {
+	color: #fff;
+	    padding-top: 0px;
+/*display: table-cell;
+padding-top: 60%; 
+width: calc(100vw - 10px);
+vertical-align: bottom;
+height: calc(100vh - 140px);*/
+}
+
+.content-md .pwd-setting {
+    padding-top: 0;
+}
+.checkbox-item{
+	display: block;
+	width: 100%;
+}
+.checkmark {
+	right: 0;
+	left: auto;
+}
+.hole-cont{	
+	width: 100%;
+	color: #fff;
+	margin-bottom: 15px;
+	padding-left: 0px;
+}
+.checkmark {
+	background-color: transparent;
+	border-radius: 3pt;
+	border: 2px solid #ccc;
+}
+.hole-cont input:checked ~ .checkmark {
+	background-color: transparent;
+	border: 2px solid #fff;
+}
+.hole-cont .checkmark:after {
+	left: 3.4px;
+	width: 5px;
+	height: 8px;
+}
+.notify-img,.key-img {
+    padding: 3px;
+    align-items: center;
+    display: flex;
+}
+.error-block {
+    width: 100%;
+}
+.title-md .header-icon {
+    margin-right: 0px;
+    margin-top: 0;
+}
+.profile-info {
+    color: #fff;
+}
+.profile-name a{
+	color: #fff;
+}
+}
+$checkbox-md-icon-background-color-on: #fff;
+$checkbox-md-icon-border-color-on: #00ff00;
+$checkbox-md-icon-border-color-off: #cecece;
+$checkbox-md-icon-checkmark-color: #ff0000;
+$checkbox-md-icon-checkmark-width: 2px;
+$checkbox-md-icon-size: 40px;
+$checkbox-md-icon-border-radius: 0%;
+$checkbox-md-icon-border-width: 1px;

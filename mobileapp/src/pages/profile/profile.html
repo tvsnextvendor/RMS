@@ -24,37 +24,35 @@
 	<div class="max-wth main-content" *ngIf="currentUser">
 		<div class="profile-img">
 			<img src="assets/images/images1.jpeg" class="profile-image">
-			<h4>{{currentUser.username}}</h4>
+			<h4 class="profile-name"><a href="#">John Deo</a></h4>
 		</div>
-		<ion-list class="profile-details">
-			<ion-item>
-				<ion-grid>
+		<form class="profile-details">
+			<ion-row>
+				<ion-grid class="pwd-grid">
 					<ion-row>
 						<ion-col col-1 align-self-center>
 							<img src="assets/imgs/phone.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<p>{{currentUser.phoneNumber}}</p>
+							<!-- <p>{{currentUser.phoneNumber}}</p> -->
+							<ion-input type="text" formControlName="" placeholder="+9190123456"></ion-input>
 							<small>{{constant.pages.profileLabels.mobile}}</small>
 						</ion-col>
 					</ion-row>
-				</ion-grid>
-			</ion-item>
-			<ion-item>
-				<ion-grid>
+				</ion-grid>		
+				<ion-grid class="pwd-grid">
 					<ion-row>
 						<ion-col col-1 align-self-center>
 							<img src="assets/imgs/email.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<p>{{currentUser.emailAddress}}</p>
+							<!-- <p>{{currentUser.emailAddress}}</p> -->
+							<ion-input type="email" formControlName="" placeholder="enter email id"></ion-input>
 							<small>{{constant.pages.profileLabels.email}}</small>
 						</ion-col>
 					</ion-row>
-				</ion-grid>
-			</ion-item>
-			<ion-item>
-				<ion-grid>
+				</ion-grid>	
+				<ion-grid class="pwd-grid">
 					<ion-row>
 						<ion-col col-1 align-self-center>
 							<img src="assets/imgs/Department.png">
@@ -64,10 +62,8 @@
 							<small>{{constant.pages.profileLabels.department}}</small>
 						</ion-col>
 					</ion-row>
-				</ion-grid>
-			</ion-item>
-			<ion-item>
-				<ion-grid>
+				</ion-grid>		
+				<ion-grid class="pwd-grid">
 					<ion-row>
 						<ion-col col-1 align-self-center>
 							<img src="assets/imgs/Designation.png">
@@ -78,7 +74,10 @@
 						</ion-col>
 					</ion-row>
 				</ion-grid>
-			</ion-item>
-		</ion-list>
+			</ion-row>
+			<button type="submit" class="login-btn blue-btn" ion-button round>
+				{{constant.buttons.save}}</button>
+			</form>
 	</div>
+	
 </ion-content>
