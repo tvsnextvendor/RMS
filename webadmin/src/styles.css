@@ -146,6 +146,9 @@ table td.td-pd {
   .btn{
     box-shadow: none !important;
   }
+  .multiselect-dropdown .disabled > span{
+    background-color: unset !important;
+  }
   .btn:hover{
     color: none;
   }
@@ -1144,7 +1147,7 @@ a {
     border-top: none !important;
     border-right: none !important;
     border-left: none !important;
-    color: #495057 !important;
+    color: #73737B !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
@@ -1320,7 +1323,7 @@ a {
   max-width: 680px;
 }
 .notification-modal{
-  max-width: 560px;
+  max-width: 590px;
 }
 .option-btn{
 	border: 1px solid #468FB9;

@@ -95,7 +95,7 @@ export class CreateForumComponent implements OnInit {
       this.forumService.getForumById(this.forumEditPage.forumId).subscribe((result) => {
         const forumData = result.data.rows[0];
         this.division['divisionList'] = _.uniqBy(forumData['Divisions'].map(item => {
-          if (item['Division']['divisionId']) {
+          if (item['Division'] && item['Division']['divisionId']) {
             const obj = {
               id: item['Division']['divisionId'] ,
               value: item['Division']['divisionName']
