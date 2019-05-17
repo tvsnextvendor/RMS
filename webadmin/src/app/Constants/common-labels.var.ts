@@ -347,7 +347,10 @@ export class CommonLabels{
         "send"              :   "Send",
         "login"             :   "Log in",   
         "submit"            :   "Submit",
-        "forgetPassword"    :   "Forgot Password?"
+        "forgetPassword"    :   "Forgot Password?",
+        "exportTo"          :   "Export To",
+        "excel"             :   "Excel",
+        "pdf"               :   "PDF"
         
        
     };
