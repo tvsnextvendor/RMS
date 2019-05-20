@@ -3,7 +3,7 @@
 <div>
     <form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)">
         <div class="form-group">
-            <label class="createforum-hd">{{commonLabels.labels.forumName}}</label>
+            <label class="createforum-hd">{{commonLabels.labels.forumName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
             <input type="text" class="form-control" [(ngModel)]="forumVar.forumName" autocomplete="off" #ForumName="ngModel"  name = "forumName" id="forumName" placeholder="Enter Forum Name" required autocomplete="off">  
             <span class="required_color" *ngIf="ForumName && ForumName.invalid && (submitted || ForumName.touched)">
                     {{commonLabels.mandatoryLabels.forumRequired}}
@@ -35,7 +35,7 @@
         </div> -->
 
         <div _ngcontent-c11="" class="form-group">
-            <label _ngcontent-c11="" class="createforum-hd">{{commonLabels.labels.topics}}</label>
+            <label _ngcontent-c11="" class="createforum-hd">{{commonLabels.labels.topics}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
             <div _ngcontent-c11="" class="input-group group-box form-group" *ngFor="let items of topicsArray; let i = index">
                 <input _ngcontent-c11="" class="form-control col-md-11" placeholder="Add Topic{{i+1}}" [(ngModel)]="items.topics" [ngModelOptions]="{standalone: true}"  aria-label="" aria-describedby="basic-addon1">
                 <a title="Add" *ngIf="i==0" (click)="addTopic(items.topics, i)">
@@ -102,7 +102,7 @@
                     <!-- <span class="required_color" *ngIf="submitted && !forumVar.endDate">{{forumVar.mandatoryLabels.endDate}}</span> -->
                 </div>
         </div>
-        <div class="text-center" [ngClass]="!forumEditPage.editPage ? 'pt-4' : 'pb-1'"> 
+        <div class="text-center" [ngClass]="!forumEditPage.editPage ? 'pt-1' : 'pb-1'"> 
                 <!-- *ngIf="forumEditPage.forumId?closeFunction():false" -->
                 <button type = "submit" class="btn btn-primary creat-btn  mr-3">{{forumVar.btns.create}}</button>
                 <button type="button" class="btn btn-default" (click)="clearForm(formDir)" >{{forumVar.btns.cancel}}</button>            
