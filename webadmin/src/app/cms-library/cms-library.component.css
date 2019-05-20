@@ -60,6 +60,10 @@
 .tab-section .label-title{
   margin-top: 5px;
 }
+.hole-cont{
+    color: #73737B;
+    font-size: 15px;
+}
 .select-form{
     border: none;
     margin-right: 30px;
