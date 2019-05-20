@@ -78,7 +78,7 @@ input{
  .select_arrow {
      position: absolute;
      top: 16px;
-     right: 7px;
+     right: 3px;
      pointer-events: none;
      border-style: solid;
      border-width: 6px 5px 0px 5px;
