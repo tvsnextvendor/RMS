@@ -137,7 +137,10 @@ table td.td-pd {
   }
   .theme-green .bs-datepicker-head{background-color: #468FB9 !important;}
   .theme-green .bs-datepicker-body table td span.selected{background-color: #468FB9 !important;}
- 
+  .show>.btn-primary.dropdown-toggle{
+    background-color: #468FB9;
+    border-color: #468FB9;
+  }
    .btn-primary:hover{
     color: #fff;
     background-color: #468FB9 !important; 
