@@ -297,6 +297,10 @@ export class CommonLabels{
         "assigned"          :   "Assigned",
         "inprogress"        :   "In Progress",
         "completed"         :   "Completed",
+        "answers"           :   "Answers",
+        "assignToCourse"    :   "Assigned to a course",
+        "signature"         :   "Signature required by employee",
+        "nonSignature"      :   "No Signature required"
 
 
     };
