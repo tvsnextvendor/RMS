@@ -1,5 +1,5 @@
-<div class="forum-create-form">
-<h6 class="mb-3" *ngIf="!forumEditPage.editPage">{{forumVar.createForum.createForum}}</h6>
+<div class="col-md-12 white-bg py-4 forum-create-form">
+<h6 class="mb-3" *ngIf="!forumEditPage.editPage">{{commonLabels.labels.createForum}}</h6>
 <div>
     <form #formDir="ngForm" (ngSubmit)="onSubmitForm(formDir)">
         <div class="form-group">
@@ -76,7 +76,7 @@
                         </select>
                         <div class="select_arrow"></div>
                     </div>
-                    <span class="required_color" *ngIf="submitted && !forumVar.forumAdmin">{{forumVar.mandatoryLabels.admin}}</span>
+                    <span class="required_color" *ngIf="submitted && !forumVar.forumAdmin">{{commonLabels.mandatoryLabels.adminRequired}}</span>
                 </div>
         <div class="date-section pb-1">
             <div class="form-group group-box">
@@ -104,8 +104,8 @@
         </div>
         <div class="text-center" [ngClass]="!forumEditPage.editPage ? 'pt-1' : 'pb-1'"> 
                 <!-- *ngIf="forumEditPage.forumId?closeFunction():false" -->
-                <button type = "submit" class="btn btn-primary creat-btn  mr-3">{{forumVar.btns.create}}</button>
-                <button type="button" class="btn btn-default" (click)="clearForm(formDir)" >{{forumVar.btns.cancel}}</button>            
+                <button type = "submit" class="btn btn-primary creat-btn  mr-3">{{commonLabels.btns.create}}</button>
+                <button type="button" class="btn btn-default" (click)="clearForm(formDir)" >{{commonLabels.btns.cancel}}</button>            
         </div>
     </form>
 </div> 
