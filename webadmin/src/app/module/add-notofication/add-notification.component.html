@@ -3,9 +3,9 @@
         
             <div class="row">
                 <div class="col-md-6">
-                    <div class="row form-group" *ngIf="notificationType === 'assignedToCourse'">
+                    <div class="row form-group select select-style clearfix" *ngIf="notificationType === 'assignedToCourse'">
                         <select class="form-control p-0 select-Courses" name="course" [(ngModel)]="moduleVar.selectedCourses" (change)="courseSelect($event)">
-                            <option value='null' disabled>{{commonLabels.labels.coursePlaceholder}}</option>
+                            <option value='null' disabled>{{commonLabels.labels.course}}</option>
                             <option  *ngFor="let course of moduleVar.courseList" [value]="course.courseId">{{course.courseName}}</option>
                         </select><div class="select_arrow"></div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && !selectedCourses">
@@ -42,9 +42,9 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="row form-group" *ngIf="notificationType === 'assignedToCourse'">
+                    <div class="row form-group select select-style clearfix" *ngIf="notificationType === 'assignedToCourse'">
                         <select class="form-control p-0 select-Courses" name="trainingClass" [(ngModel)]="moduleVar.selectedTrainingClass">
-                                <option value='null' disabled>{{commonLabels.labels.trainingClassPlaceholder}}</option>
+                                <option value='null' disabled>{{commonLabels.labels.trainingClass}}</option>
                                 <option  *ngFor="let course of moduleVar.trainingClassList" value="course.trainingClassId">{{course.trainingClassName}}</option>
                             </select><div class="select_arrow"></div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && !selectedTrainingClass">
@@ -86,7 +86,7 @@
                         <span class="col-md-9 p-0">
                             <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
                             <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" id="customFile"  (change)="getFileDetails($event)"  required>
-                            <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}</label>
+                            <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}<span><i class="fas fa-upload float-right"></i></span></label>
                             <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">{{commonLabels.labels.uploadtxt}}<span><i class="fas fa-upload float-right"></i></span></label>
                         </span>
                     </div>
