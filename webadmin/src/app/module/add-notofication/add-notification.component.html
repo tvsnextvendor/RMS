@@ -1,3 +1,14 @@
+<div>   
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a (click)="goTocmsLibrary()" class="cms-breadcrumb" href="javascript:void(0);">{{commonLabels.labels.cmsLibrary}}</a></li>
+            <li class="breadcrumb-item active">{{commonLabels.btns.createNotification}}</li>
+        </ol>
+    </nav>
+</div>
+<div class="clearfix pt-4">
+    <h4 class="add-notify">{{commonLabels.btns.createNotification}}</h4>
+</div>
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
     <div class="notification-box">
         
@@ -146,7 +157,7 @@
             </div>
                 <div class="text-center col-md-12 pt-3 pb-4">
                     <button type="submit" class="btn btn-primary module-createbtn mr-4">{{commonLabels.btns.save}}</button>
-                    <button type="button" class="btn btn-default creat-btn" (click)="hidePopup()">{{commonLabels.btns.cancel}}</button>                   
+                    <button type="button" class="btn btn-default creat-btn" (click)="goTocmsLibrary()">{{commonLabels.btns.cancel}}</button>                   
                 </div>
 
             </div>

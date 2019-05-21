@@ -66,6 +66,7 @@ export class CMSLibraryComponent implements OnInit {
 
   goTocmsLibrary(){
     this.hideSection = false;
+    this.enableNotify = false;
      this.selectedTab = 'course';
   }
 
@@ -99,6 +100,7 @@ export class CMSLibraryComponent implements OnInit {
     this.selectedVideoList=[];
     this.hideSection=false;
     this.showcreatecourse=false;
+    this.enableNotify = false;
     this.selectedTab = 'course';
   }
 
@@ -152,16 +154,16 @@ export class CMSLibraryComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  notificationType(template: TemplateRef<any>){
+  notificationType(){
     
-    let modalConfig={
-      class : "notification-modal"
-    }
-    console.log(this.notifyType)
+    // let modalConfig={
+    //   class : "notification-modal"
+    // }
+    // console.log(this.notifyType)
   this.enableNotify = true;
   this.notificationValue = this.notifyType;
   this.modalRef.hide();
-  this.modalRef = this.modalService.show(template,modalConfig);
+  // this.modalRef = this.modalService.show(template,modalConfig);
 }
 
 notificationTypeUpdate(type){
