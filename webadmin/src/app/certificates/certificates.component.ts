@@ -33,6 +33,7 @@ export class CertificatesComponent implements OnInit {
     uploadedFile;
     htmlPath;
     htmlName;
+    removeCertificateIds = [];
     filePath;
 
 
@@ -51,12 +52,10 @@ export class CertificatesComponent implements OnInit {
                     if(this.filePath){
                         
                         item.imageFile = this.filePath+item.certificateHtml;
-                        console.log(item.imageFile, 'imagessss')
+                        // console.log(item.imageFile, 'imagessss')
                     }
                     return item;
                 });
-                console.log(this.constant.certificateList )
-                
             }
         })
 
@@ -68,6 +67,22 @@ export class CertificatesComponent implements OnInit {
             }
         })
         this.getbadgepercentage();
+        this.getAssignCertificateDetails();
+    }
+
+    getAssignCertificateDetails(){
+        this.commonService.getAssignCertificate(this.resortId).subscribe(resp=>{
+            if(resp && resp.isSuccess && resp.data.length){
+                this.constant.templateAssign = resp.data.map(item=>{
+                    let obj = {
+                        course : item.courseId,
+                        template : item.certificateId,
+                        mappingId : item.certificateMappingId
+                    }
+                    return obj
+                })
+            }
+        })
     }
 
     getbadgepercentage() {
@@ -236,7 +251,6 @@ export class CertificatesComponent implements OnInit {
         });
         if(isDuplicate){
             let idx =  this.constant.templateAssign.length -1;
-            console.log(idx)
             this.constant.templateAssign[idx] = {
                 course: null,
                 template: null
@@ -253,7 +267,23 @@ export class CertificatesComponent implements OnInit {
             this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory);
         }
         else{
-            console.log(checkEmpty ,"checkEmpty",this.constant.templateAssign)
+            let data = this.constant.templateAssign.map(item=>{
+                let obj = {
+                    courseId : item.course,
+                    certificateId : item.template,
+                    certificateMappingId : ''
+                }
+                item.mappingId ? obj.certificateMappingId = item.mappingId : delete obj.certificateMappingId;
+                return obj
+            })
+            let params = {"certificateCourses":data,removeCertificateIds : []};
+            this.removeCertificateIds.length ? params.removeCertificateIds = this.removeCertificateIds : delete params.removeCertificateIds;
+            // console.log(params ,"checkEmpty",this.constant.templateAssign)
+            this.commonService.assignCertificate(params).subscribe(resp=>{
+                if(resp && resp.isSuccess){
+                    this.getAssignCertificateDetails();
+                }  
+            })
         }     
     }
 
@@ -281,7 +311,7 @@ export class CertificatesComponent implements OnInit {
                 })
                 let obj = {"badges" : data}
                 this.commonService.addBadges(obj).subscribe(resp=>{
-                    console.log(resp);
+                    // console.log(resp);
                 })
            }
            else{
@@ -341,6 +371,7 @@ export class CertificatesComponent implements OnInit {
     }
 
     removeForm(i) {
+        this.constant.templateAssign[i].mappingId ? this.removeCertificateIds.push(this.constant.templateAssign[i].mappingId) : '';
         this.constant.templateAssign.splice(i, 1);
     }
 

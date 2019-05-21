@@ -41,6 +41,15 @@ export class BatchVar{
         enableCheckAll: true,
         itemsShowLimit: 8,
     }
+    designationSettings = {
+        singleSelection: false,
+        idField: 'designationId',
+        textField: 'designationName',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: false,
+        itemsShowLimit: 8,
+    }
 
    labels = {
        "from" : "From",

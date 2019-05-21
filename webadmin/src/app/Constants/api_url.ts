@@ -162,7 +162,9 @@ export class API_URL {
     badge : '8104/badge',
 
     //Certificates
-    addCertificate: '8104/addCertificate'
+    addCertificate: '8104/addCertificate',
+    assignCertificate : '8104/courseCertificateAssign',
+    getAssignCertificate : '8104/courseAssign'
   }
   
 
