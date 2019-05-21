@@ -79,8 +79,27 @@ getBadge(id){
 addCertificate(certificateData) {
   return this.http.post('local', this.url.addCertificate, certificateData);
 }
-getCertificate(id){
-  return this.http.getLocal('local',this.url.getCertificate+'?resortId='+id);
+
+getCertificate(id) {
+  return this.http.getLocal('local', this.url.getCertificate + '?resortId=' + id);
+}
+
+getParticularCertificate(certificateId, resortId) {
+  return this.http.getLocal('local', this.url.getCertificate + '?certificateId=' + certificateId + '&resortId' + resortId);
+}
+
+updateCertificate(certificateId, updationData) {
+  return this.http.put('local', this.url.certificate + certificateId, updationData);
+}
+
+getFeedbackList(feedbackObj) {
+  let feedback;
+  if (feedbackObj.feedbackType === 'app') {
+    feedback = '?resortId=' + feedbackObj.resortId + '&feedbackType=' + feedbackObj.feedbackType;
+  } else {
+    feedback = '?resortId=' + feedbackObj.resortId + '&courseId=' + feedbackObj.courseId + '&trainingClassId=' + feedbackObj.trainingClassId + '&feedbackType=' + feedbackObj.feedbackType;
+  }
+  return this.http.getLocal('local', this.url.feedbackList + feedback);
 }
 assignCertificate(params){
   return this.http.post('local', this.url.assignCertificate, params);

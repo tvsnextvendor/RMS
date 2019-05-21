@@ -29,12 +29,12 @@ export class CertificatesComponent implements OnInit {
     imgSrc;
     batchDetails = [];
     editFieldEnable = false;
-    htmlToAdd;
-    uploadedFile;
     htmlPath;
     htmlName;
     removeCertificateIds = [];
     filePath;
+    certificateId;
+    htmlView;
 
 
     constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService) {
@@ -44,20 +44,8 @@ export class CertificatesComponent implements OnInit {
         this.headerService.setTitle({ title: this.commonLabels.titles.certificate, hidemodule: false });
         this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
         //get certificate
-        this.commonService.getCertificate(this.resortId).subscribe(resp=>{
-            
-            if(resp && resp.isSuccess){
-                this.filePath = resp.data && resp.data.path.uploadPath;
-                this.constant.certificateList = resp.data && resp.data.certificates.length && resp.data.certificates.map(item=>{
-                    if(this.filePath){
-                        
-                        item.imageFile = this.filePath+item.certificateHtml;
-                        // console.log(item.imageFile, 'imagessss')
-                    }
-                    return item;
-                });
-            }
-        })
+
+        this.getCertificate();
 
         //get course
         this.courseService.getAllCourse().subscribe(resp=>{
@@ -83,6 +71,20 @@ export class CertificatesComponent implements OnInit {
                 })
             }
         })
+    }
+
+    getCertificate() {
+        this.commonService.getCertificate(this.resortId).subscribe(resp => {
+            if (resp && resp.isSuccess) {
+                this.filePath = resp.data && resp.data.path.uploadPath;
+                this.constant.certificateList = resp.data && resp.data.certificates.length && resp.data.certificates.map(item => {
+                    if (this.filePath) {
+                        item.imageFile = this.filePath + item.certificateHtml;
+                    }
+                    return item;
+                });
+            }
+        });
     }
 
     getbadgepercentage() {
@@ -199,8 +201,20 @@ export class CertificatesComponent implements OnInit {
     }
 
 
-    openAddtemplate(template: TemplateRef<any>) {
+    openAddtemplate(template: TemplateRef<any>, certificateId) {
         this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+        if (certificateId) {
+            this.certificateId = certificateId;
+            this.commonService.getParticularCertificate(this.certificateId, this.resortId).subscribe(result => {
+                const certificateValues = result.data.certificates[0];
+                this.constant.tempName = certificateValues.certificateName;
+                this.constant.fileToUpload = certificateValues.certificateHtml;
+                this.filePath = result.data.path.uploadPath;
+                this.htmlView = this.filePath + certificateValues.certificateHtml;
+            });
+        } else {
+            this.certificateId = '';
+        }
     }
 
 
@@ -209,6 +223,7 @@ export class CertificatesComponent implements OnInit {
             if (result && result.isSuccess) {
                 this.htmlPath = result.path;
                 this.htmlName = result.data[0].filename;
+                this.htmlView = this.certificateId ? this.filePath + this.htmlName : '';
             } else {
                 this.alertService.error(result.error);
             }
@@ -221,7 +236,7 @@ export class CertificatesComponent implements OnInit {
     // Template File Upload
     handleFileInput(files: FileList) {
         this.constant.fileToUpload = files.item(0);
-        this.uploadedFile = this.htmlFileUpload(this.constant.fileToUpload);
+        this.htmlFileUpload(this.constant.fileToUpload);
     }
 
 
@@ -378,16 +393,23 @@ export class CertificatesComponent implements OnInit {
     // Add Certificate Template
     onSave(form) {
         if (form.valid) {
-            if (this.constant.fileToUpload) {
+            let apiService;
+            // if (this.constant.fileToUpload) {
                 const postData = {
                     certificateName: this.constant.tempName,
                     certificateHtml: this.htmlName,
                     certificateHtmlPath: this.htmlPath,
                     resortId: this.utilService.getUserData().ResortUserMappings[0].resortId
                 };
-                this.commonService.addCertificate(postData).subscribe(result => {
+                if (!this.certificateId) {
+                    apiService =  this.commonService.addCertificate(postData);
+                } else {
+                    apiService = this.commonService.updateCertificate(this.certificateId, postData);
+                }
+                apiService.subscribe(result => {
                     if (result && result.isSuccess) {
                         this.alertService.success(result.data);
+                        this.getCertificate();
                     } else {
                         this.alertService.error(result.error.error);
                     }
@@ -397,10 +419,10 @@ export class CertificatesComponent implements OnInit {
                 });
                 this.alertService.success(this.commonLabels.msgs.uploadSuccessMsg);
                 this.clearAddForm();
-            } else {
-                //  this.toastr.error(this.constant.uploadErrMsg);
-                this.alertService.error(this.commonLabels.mandatoryLabels.uploadErrMsg);
-            }
+            // } else {
+            //     //  this.toastr.error(this.constant.uploadErrMsg);
+            //     this.alertService.error(this.commonLabels.mandatoryLabels.uploadErrMsg);
+            // }
         }
 
     }
