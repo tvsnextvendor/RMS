@@ -159,3 +159,40 @@ $checkbox-md-icon-border-width: 1px;
 .pwd-grid{
 	border-bottom: 1px solid rgba(241, 249, 255, 0.24);
 }
+.profile-img-sec{
+	position: relative;
+}
+.upload-icon{
+	width: 100px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: rgba(138, 133, 133, 0.6);
+    border-radius: 62px;
+    margin: 0 auto;
+}
+.pro-icon{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+}
+page-profile .profile-details .pro-icon ion-icon{
+font-size: 40px;
+}
+.profile-img-sec .upload-icon{
+	display: none;
+	visibility: hidden;
+} 
+.profile-img-sec:hover .upload-icon{
+	display: block;
+	visibility: visible;
+	cursor: pointer;
+} 
+.profile-img-sec{
+	width:100px;
+	margin:0 auto; 
+}

@@ -47,6 +47,14 @@
     font-style: normal;
 
 }
+@font-face {
+    font-family:'sf_ui_text_semibold';
+    src: url('../assets/fonts/sf-ui-text-semibold.woff2') format('woff2'),
+    url('../assets/fonts/sf-ui-text-semibold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 .list-md .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child, .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child{
        border-bottom: none;
     box-shadow: none !important;
@@ -591,6 +599,68 @@ padding-top: 8px;
     position: relative;
     top: 3px;
 }
+body{
+    font-family: 'sf_pro_displayregular';
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'sf_pro_displaysemibold';
+}
+page-training-detail .image-tag.img-box {
+    padding: 0;
+    background-color: #468FB9;
+  }
+  
+  page-training-detail .img-box .inner-image {
+    width: 100%;
+    height: auto;
+  }
+  page-home .batch-name{
+    font-family: 'sf_pro_displaysemibold';
+    font-size:16px;
+  }
+  page-home .expires{
+    font-size: 15px;
+    font-family: 'sf_pro_displayregular';  
+  }
+  .org-color{
+    color:#FF5722;
+  }
+  page-home .course-sec{
+    font-family: 'sf_pro_displayregular';
+    font-size: 15px !important;
+  }
+  page-home .batch-date{
+    font-family: 'sf_pro_displaysemibold';
+    font-size: 13px !important;
+    color:#656565 !important;
+  }
+page-home .circle-style .status-title,
+page-home .tab-footer .tab-foot-bg ul li span{
+    
+    font-family: 'sf_pro_displaysemibold';
+}
+.card-md p,p{
+    color:#656565;
+}
+page-home .course-count p {
+    font-size: 14px;
+    font-family: 'sf_pro_displayregular';
+}
+.forum-title.ovr-txt,.forum-title {
+    font-size: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @media (min-width: 1200px) { } 
 @media (min-width: 980px) and (max-width: 1199px) { } 
 @media (min-width: 768px) and (max-width: 979px) { } 
