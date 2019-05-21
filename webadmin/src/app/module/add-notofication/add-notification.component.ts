@@ -22,6 +22,7 @@ import{ CommonLabels }  from '../../Constants/common-labels.var'
 export class AddNotificationComponent implements OnInit {
     @Output() someEvent = new EventEmitter<string>();
     @Input() notificationType;
+    @Output() completed = new EventEmitter<string>();
     durationValue = '1';
     reminder;
     showToDate = false;
@@ -266,6 +267,10 @@ export class AddNotificationComponent implements OnInit {
             })
         }
          
+    }
+
+    goTocmsLibrary(){
+      this.completed.emit('completed'); 
     }
 
 }

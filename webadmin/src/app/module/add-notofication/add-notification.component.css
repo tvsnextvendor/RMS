@@ -123,4 +123,10 @@
    .select select-style:disabled ~ .select_arrow {
     border-top-color: #cccccc;
    }
+
+   .add-notify{
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 15px;
+    }
    
