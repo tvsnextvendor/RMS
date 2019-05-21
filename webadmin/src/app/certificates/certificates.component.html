@@ -3,13 +3,15 @@
         <div class="white-bg p-3">
             <div class="clearfix pb-3 certificate-respon">
                 <h5 class="float-left certificate-respon">{{commonLabels.titles.certiTempl}}</h5>
-                <button type="button" class="btn btn-primary certificate-respon" (click)="openAddtemplate(addTemplate)">{{commonLabels.btns.add}}</button>
+                <button type="button" class="btn btn-primary certificate-respon" (click)="openAddtemplate(addTemplate, '')">{{commonLabels.btns.add}}</button>
             </div>
             <owl-carousel-o [options]="customOptions" class="certificate-list">
                 <ng-container *ngFor="let template of constant.certificateList">
                     <ng-template carouselSlide [id]="template.certificateId">
-                        <iframe [src]="template.imageFile | sanitizeHtml" width="100%" height="165" ></iframe>
-                        <div><p class="pt-2 certificate-name">{{template.certificateName}}<span><a title="Edit" class="ml-2"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a></span></p></div>
+                        <iframe [src]="template.imageFile | sanitizeHtml" width="100%" height="300" ></iframe>
+                        <p class="pt-2 certificate-name">{{template.certificateName}} 
+                            <span><a title="Edit" (click)="openAddtemplate(addTemplate, template.certificateId)" class="ml-2"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"></i></a></span>
+                        </p>
                     </ng-template>
                 </ng-container>
             </owl-carousel-o>
@@ -122,7 +124,8 @@
 
 <ng-template #addTemplate>
     <div class="modal-header">
-        <p class="modal-title add-certificate">{{commonLabels.modaltitle.addcertTemplate}}</p>
+        <p class="modal-title add-certificate" *ngIf="!certificateId">{{commonLabels.modaltitle.addcertTemplate}}</p>
+        <p class="modal-title add-certificate" *ngIf="certificateId">{{commonLabels.modaltitle.editcertTemplate}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -144,7 +147,7 @@
                     <span class="pl-2">{{commonLabels.labels.chooseFile}}</span>
                     <input type="file" id="file" accept="text/html" (change)="handleFileInput($event.target.files)"
                         class="upload"></div><span>{{constant.fileToUpload?.name}}</span>
-                        <iframe id = 'newFile' *ngIf="constant.fileToUpload" src="constant.fileToUpload"></iframe>
+                        <iframe *ngIf="constant.fileToUpload && certificateId" [src]="htmlView | sanitizeHtml"></iframe>
             </div>
             <div class="text-center pt-4">
                 <button type="submit" class="btn btn-default  mr-3">{{commonLabels.labels.upload}}</button>

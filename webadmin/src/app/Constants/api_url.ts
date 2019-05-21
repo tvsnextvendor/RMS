@@ -157,14 +157,16 @@ export class API_URL {
 
     //certificate
     getCertificate : '8104/getCertificate',
+    certificate: '8104/certificate/',
+    addCertificate: '8104/addCertificate',
+    assignCertificate : '8104/courseCertificateAssign',
+    getAssignCertificate : '8104/courseAssign',
 
     //Badges
     badge : '8104/badge',
-
-    //Certificates
-    addCertificate: '8104/addCertificate',
-    assignCertificate : '8104/courseCertificateAssign',
-    getAssignCertificate : '8104/courseAssign'
+    
+    // Feedback
+    feedbackList : '8103/feedbackList'
   }
   
 

@@ -1,42 +1,32 @@
-<div class="">
-  <div class="clearfix tab-section">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#course">{{commonLabels.labels.courses}}</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#application">{{commonLabels.labels.application}}</a>
-        </li>
-       
-    </ul> 
-</div>
+<div class="tab-section">
+<tabset>
 <div class="tab-content mt-5">
-    <div id="course" class="container tab-pane active p-0">
-      <div class="row col-md-10 text-center m-auto">
+   <tab heading={{commonLabels.labels.courses}} class="container tab-pane active p-0">      
+     <div class="row col-md-10 text-center m-auto">
           <div class="col-md-3 ml-5">              
-              <select class="form-control">
-                  <option value="null">{{commonLabels.labels.resort}}</option>
-                  <option>Course1</option>
+              <select class="form-control" [(ngModel)]="resortSelected">
+                  <option value="">{{commonLabels.labels.resort}}</option>
+                  <option *ngFor="let resorts of resortData" [value]=resorts.resortId>{{resorts.resortName}}</option>
               </select>             
           </div>
           <div class="col-md-3">              
-              <select class="form-control">
-                  <option value="null">{{commonLabels.labels.courses}}</option>
-                  <option>Course1</option>
+              <select class="form-control" [(ngModel)]="courseSelected">
+                  <option value="">{{commonLabels.labels.courses}}</option>
+                  <option *ngFor="let courses of courseData" [value]=courses.courseId>{{courses.courseName}}</option>
               </select>             
           </div>
           <div class="col-md-3">              
-              <select class="form-control">
-                  <option value="null">{{commonLabels.labels.trainingClass}}</option>
-                  <option>Course1</option>
+              <select class="form-control" [(ngModel)]="trainingClassSelected">
+                  <option value="">{{commonLabels.labels.trainingClass}}</option>
+                  <option *ngFor="let trainingClass of trainingClassData" [value]=trainingClass.trainingClassId>{{trainingClass.trainingClassName}}</option>
               </select>             
           </div>
           <div class="col-md-2">
-          <button class="btn btn-primary">{{commonLabels.btns.go}}</button>
+          <button class="btn btn-primary" (click)="searchFilter()">{{commonLabels.btns.go}}</button>
         </div>
       </div>
       <div class="row mt-4">
-          <div class="topic-wrap white-bg col-md-12">
+          <div class="topic-wrap white-bg col-md-12" *ngFor="let feedbacks of feedbackList">
               <div class="topic-wrap-top clearfix p-3">
                   <div class="topic-img-wrap mt-4">
                     <span class="topic-thumb">
@@ -45,9 +35,9 @@
                   </div>
                     <div class="topic-wrap-rt pl-4">
                         <div class="topic-into">
-                          <h5 class="hd-tit">David James</h5>
+                          <h5 class="hd-tit">{{feedbacks.feedbackMap[0].User.userName}}</h5>
                           <div class="clearfix mt-2">
-                            <small class="topic-time float-left">25 Feb 2019 , 03.15 pm</small> 
+                            <small class="topic-time float-left">{{feedbacks.created |date}}</small> 
                             <span class="float-right rating">
                               <a href="#"><i class="fas fa-star y-color"></i></a>
                               <a href="#"><i class="fas fa-star y-color"></i></a>
@@ -60,9 +50,7 @@
                         </div>
                         <div class="desc-section mt-2">
                           <p>
-                              Lorem ipsum dolor sit amet, 
-                              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                              {{feedbacks.feedback}}
                           </p>
                         </div>
                         <div class="link-sec">
@@ -74,152 +62,55 @@
                     </div>              
               </div>              
             </div>
-            <div class="topic-wrap white-bg col-md-12">
-                <div class="topic-wrap-top clearfix p-3">
-                    <div class="topic-img-wrap mt-4">
-                      <span class="topic-thumb">
-                          <img src="{{commonLabels.imgs.user1}}">
-                      </span>
-                    </div>
-                      <div class="topic-wrap-rt pl-4">
-                          <div class="topic-into">
-                            <h5 class="hd-tit">David James</h5>
-                            <div class="clearfix mt-2">
-                              <small class="topic-time float-left">25 Feb 2019 , 03.15 pm</small> 
-                              <span class="float-right rating">
-                                <a href="#"><i class="fas fa-star y-color"></i></a>
-                                <a href="#"><i class="fas fa-star y-color"></i></a>
-                                <a href="#"><i class="fas fa-star y-color"></i></a>
-                                <a href="#"><i class="fas fa-star gy-color"></i></a>
-                                <a href="#"><i class="fas fa-star gy-color"></i></a>
-                              </span>
-                            </div>
-                            
-                          </div>
-                          <div class="desc-section mt-2">
-                            <p>
-                                Lorem ipsum dolor sit amet, 
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                            </p>
-                          </div>
-                          <div class="link-sec">
-                              <a href="#">{{commonLabels.labels.resort}}</a>
-                              <a href="#">{{commonLabels.labels.courseName}}</a>
-                              <a href="#">{{commonLabels.labels.trainingClass}}</a>
-                          </div>
-                         
-                      </div>              
-                </div>              
-              </div>
       </div>
-    </div>
-    <div id="application" class="container tab-pane p-0">
+    </tab>
+    <tab heading={{commonLabels.labels.application}} class="container tab-pane p-0">
       <div class="row col-md-5 text-center mx-auto">
         <div class="col-md-9 app-select">              
-            <select class="form-control">
-                <option value="null">{{commonLabels.labels.resort}}</option>
-                <option>Course1</option>
+            <select class="form-control" [(ngModel)]="selectedResortApp">
+                <option value="" >{{commonLabels.labels.resort}}</option>
+                <option *ngFor="let resorts of resortData" [value]="resorts.resortId">{{resorts.resortName}}</option>
             </select>             
         </div>         
-        <button class="btn btn-primary">{{commonLabels.btns.go}}</button>
+        <button class="btn btn-primary" (click)="applicationList()">{{commonLabels.btns.go}}</button>
     </div>
     <div class="row mt-4">
-      <div class="topic-wrap white-bg col-md-12 p-0">
+      <div class="topic-wrap white-bg col-md-12 p-0" *ngFor="let apps of applicationData">
         <div class="topic-wrap-top clearfix p-3">
             <div class="apl-img mt-4">
               <span class="apl-img-alg">
-                <img src="{{commonLabels.imgs.good}}">
-                <span>{{commonLabels.labels.compliment}}</span>
+                <img [src]="apps.feedbackType == 'Compliment' ? commonLabels.imgs.good : apps.feedbackType === 'complaint' ? commonLabels.imgs.poor : commonLabels.imgs.average">
+                <span>{{apps.feedbackType}}</span>
               </span>
             </div>
               <div class="apl-txt-rt pl-3">
                   <div class="topic-into">
-                    <h5 class="hd-tit">David James</h5>
+                    <h5 class="hd-tit">{{apps.feedbackMap[0].User.userName}}</h5>
                     <div class="clearfix mt-2">
-                      <small class="topic-time float-left">25 Feb 2019 , 03.15 pm</small> 
-                     
+                      <small class="topic-time float-left">{{apps.created |date}}</small> 
+                      <span class="float-right rating">
+                          <a href="#"><i class="fas fa-star y-color"></i></a>
+                          <a href="#"><i class="fas fa-star y-color"></i></a>
+                          <a href="#"><i class="fas fa-star y-color"></i></a>
+                          <a href="#"><i class="fas fa-star gy-color"></i></a>
+                          <a href="#"><i class="fas fa-star gy-color"></i></a>
+                          </span>
                     </div>
                     
                   </div>
                   <div class="desc-section mt-2">
                     <p>
-                        Lorem ipsum dolor sit amet, 
-                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                        {{apps.feedback}}
                     </p>
                   </div>
                   <div class="link-sec">
                       <a href="#">{{commonLabels.labels.resort}}</a>
-                      
                   </div>
-                 
-              </div>              
-        </div>              
-      </div>
-      <div class="topic-wrap white-bg col-md-12 p-0">
-        <div class="topic-wrap-top clearfix p-3">
-            <div class="apl-img mt-4">
-              <span class="apl-img-alg">
-                <img src="{{commonLabels.imgs.average}}">
-                <span>{{commonLabels.labels.complaint}}</span>
-              </span>
-            </div>
-              <div class="apl-txt-rt pl-3">
-                  <div class="topic-into">
-                    <h5 class="hd-tit">David James</h5>
-                    <div class="clearfix mt-2">
-                      <small class="topic-time float-left">25 Feb 2019 , 03.15 pm</small> 
-                     
-                    </div>
-                    
-                  </div>
-                  <div class="desc-section mt-2">
-                    <p>
-                        Lorem ipsum dolor sit amet, 
-                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                    </p>
-                  </div>
-                  <div class="link-sec">
-                      <a href="#">{{commonLabels.labels.resort}}</a>
-                    
-                  </div>
-                 
-              </div>              
-        </div>              
-      </div>
-      <div class="topic-wrap white-bg col-md-12 p-0">
-        <div class="topic-wrap-top clearfix p-3">
-            <div class="apl-img mt-4">
-              <span class="apl-img-alg">
-                <img src="{{commonLabels.imgs.poor}}">
-                <span>{{commonLabels.labels.query}}</span>
-              </span>
-            </div>
-              <div class="apl-txt-rt pl-3">
-                  <div class="topic-into">
-                    <h5 class="hd-tit">David James</h5>
-                    <div class="clearfix mt-2">
-                      <small class="topic-time float-left">25 Feb 2019 , 03.15 pm</small> 
-                     
-                    </div>
-                    
-                  </div>
-                  <div class="desc-section mt-2">
-                    <p>
-                        Lorem ipsum dolor sit amet
-                    </p>
-                  </div>
-                  <div class="link-sec">
-                      <a href="#">{{commonLabels.labels.resort}}</a>
-                     
-                  </div>
-                 
               </div>              
         </div>              
       </div>
     </div>
-    </div>
+  </tab>
 </div>
+</tabset>
 </div>

@@ -283,7 +283,7 @@ export class CreateForumComponent implements OnInit {
         });
         } else {
           Object.assign(postData, {topics: this.topicsArray.map(item => item.topics),
-            divisions: this.division['divisions'],
+            // divisions: this.division['divisions'],
              departments: this.department['departments'].map(item => _.pick(item, ['divisionId', 'departmentId']))});
           this.forumService.addForum(postData).subscribe(result => {
             if (result && result.isSuccess) {

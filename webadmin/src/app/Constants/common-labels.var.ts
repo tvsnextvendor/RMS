@@ -516,6 +516,7 @@ export class CommonLabels{
         "addnewtrainingschedule" : "Add New Training Schedule",
         "editVideo"              : "Edit Video",
         "addcertTemplate"        : "Add Certificate Template",
+        "editcertTemplate"       : "Edit Certificate Template",
         "notifiUpload"           : "Notification Upload", 
      }
      msgs = {

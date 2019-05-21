@@ -24,7 +24,11 @@ export class ForumDetailComponent implements OnInit {
 
   ngOnInit() {
     this.forumService.postList(this.forumId).subscribe(result => {
-      this.postList = result.data;
+      if (result && result.isSuccess) {
+        this.postList = result.data;
+      } else {
+
+      }
     });
 
   }
