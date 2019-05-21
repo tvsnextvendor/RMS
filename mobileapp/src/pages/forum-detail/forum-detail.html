@@ -23,7 +23,7 @@
 <div class="main-content">
   <div [ngSwitch]="forumTopics">
     <ion-list *ngSwitchCase="'mostRecent'">
-      <ion-row>
+      <ion-row *ngIf="recentList">
         <ion-col col-12 col-md-6 col-sm-6 class="main-forum" *ngFor="let list of recentList;let j=index;">
           <ion-card class="forum-card">
             <ion-grid>
@@ -38,8 +38,8 @@
                     {{constant.pages.forumLabels.replays}} </p>
                 </ion-col>
                 <ion-col col-3 class="heart-icon">
-                  <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="list.isFavorite == false" (click)="likeUnlikeQuestion(list,true)"></ion-icon>
-                  <ion-icon name="md-heart" *ngIf="list.isFavorite == true" (click)="likeUnlikeQuestion(list,false)"></ion-icon>
+                  <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="list.isFavorite == false" (click)="likeUnlikeQuestion(list,1)"></ion-icon>
+                  <ion-icon name="md-heart" *ngIf="list.isFavorite == true" (click)="likeUnlikeQuestion(list,2)"></ion-icon>
                   <p></p>
                   <p class="forum-txt date-det">{{list.modifiedDate | date:'dd MMM yyyy'}}</p>
                 </ion-col>
@@ -53,7 +53,7 @@
               <ion-row class="review-block" *ngIf="list.isActive">
                 <ion-col col-4>
                   <p class="vote-count"><small class="vt-count">{{list.votesCount}}</small> <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
-                  <img src="../../assets/imgs/likeblue.png" /></p>
+                  <img src="assets/imgs/likeblue.png" /></p>
                 </ion-col>
                 <ion-col col-4>
                   <p class="vote-count" *ngIf="list.Comments"><small class="vt-count">{{list.Comments.length}}</small> <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
@@ -110,7 +110,7 @@
     </ion-list>
     
      <ion-list *ngSwitchCase="'featuredFav'">
-      <ion-row>
+      <ion-row *ngIf="recentList">
         <ion-col col-12 col-md-6 col-sm-6 class="main-forum" *ngFor="let list of recentList;let j=index;">
           <ion-card class="forum-card">
             <ion-grid>
@@ -126,8 +126,8 @@
                 </ion-col>
                 <ion-col col-3 class="heart-icon">
                     <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="list.isFavorite == false"
-                      (click)="likeUnlikeQuestion(list,true)"></ion-icon>
-                    <ion-icon name="md-heart" *ngIf="list.isFavorite == true" (click)="likeUnlikeQuestion(list,false)"></ion-icon>
+                      (click)="likeUnlikeQuestion(list,1)"></ion-icon>
+                    <ion-icon name="md-heart" *ngIf="list.isFavorite == true" (click)="likeUnlikeQuestion(list,2)"></ion-icon>
                   <p></p>
                   <p class="forum-txt date-det">{{list.modifiedDate | date:'dd MMM yyyy'}}</p>
                 </ion-col>

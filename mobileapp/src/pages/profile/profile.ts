@@ -37,7 +37,7 @@ export class ProfilePage implements OnInit {
     let EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
      this.profileForm = new FormGroup({
       userName: new FormControl('', [Validators.required]),
-      mobile: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(12)]),
+      mobile: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10), Validators.maxLength(12)]),
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
     });
     this.getDetails();
