@@ -13,7 +13,14 @@
 	<div class="max-wth main-content">
 	<form novalidate (ngSubmit)="updateProfile()" [formGroup]="profileForm" class="profile-details">
 		<div class="profile-img">
+			<div class="profile-img-sec">
 			<img src="assets/images/images1.jpeg" class="profile-image">
+			<div class="upload-icon">
+					<a href="#" class="pro-icon">
+							<ion-icon name="camera"></ion-icon>
+					</a>
+					</div>
+			</div>
 			<h4 class="profile-name">
 				<a data-toggle="collapse" href="#collapseExample" role="button">{{profile.userName}}</a></h4>
 				<div class="collapse pwd-grid" id="collapseExample">
