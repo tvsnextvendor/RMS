@@ -54,13 +54,14 @@
                 </ion-col>
               </ion-row>
               <ion-row class="review-block" *ngIf="emp.isActive">
-                <ion-col col-3>
-                  <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
+                <ion-col col-4>
+                  <p class="vote-count"><small class="vt-count">{{emp.votes}}</small> <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
+                  <img src="../../assets/imgs/likeblue.png" /></p>
                 </ion-col>
                 <ion-col col-4>
-                  <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+                  <p class="vote-count"><small class="vt-count">{{emp.answers}}</small> <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
                 </ion-col>
-                <ion-col col-5 class="cmd-btn">
+                <ion-col col-4 class="cmd-btn">
                   <button ion-button round small class="blue-btn" (click)="showCommentSet(recentList,j)">
                     {{constant.buttons.comment}}
                   </button>
@@ -72,10 +73,11 @@
                     <ion-col col-2>
                       <img src="assets/images/images1.jpeg" class="comment-image">
                     </ion-col>
-                    <ion-col col-10>
+                    <ion-col col-10 class="input-grp-box">
                       <ion-item class="comment-item">
                         <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..." class="comment-input"></ion-input>
                       </ion-item>
+                      <ion-icon name="md-send" class="input-icon"></ion-icon>
                     </ion-col>
                     <!-- <ion-col col-2>
                     <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
@@ -198,10 +200,11 @@
                     <ion-col col-2>
                       <img src="assets/images/images1.jpeg" class="comment-image">
                     </ion-col>
-                    <ion-col col-10>
+                    <ion-col col-10 class="input-grp-box">
                       <ion-item class="comment-item">
                         <ion-input name="comment" [(ngModel)]="comment" class="comment-input" placeholder="Add a comment ..."></ion-input>
-                      </ion-item>
+                       </ion-item>
+                      <ion-icon name="md-send" class="input-icon"></ion-icon>
                     </ion-col>
                     <!-- <ion-col col-2>
                     <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>

@@ -233,3 +233,49 @@ ion-item.textarea-item {
 	font-size: 48px;
     color: #ccc;
 }
+.segment-md .segment-button.segment-activated{
+	color: #329CD6;
+    background-color: #fff;
+}
+.vote-count{
+	small{
+		float: left;
+    font-weight: 800;
+    margin-right: 5px;
+    font-size: 12px;
+	}
+	.forum-txt{
+		margin: 0 5px 0 0px;
+		float: left;
+	}
+	img{
+		width: 15px;
+		height: auto;
+		margin-left: 0px;
+	}
+}
+.input-grp-box{
+	position: relative;
+}
+.input-grp-box .comment-input {
+    padding-right: 18px;
+}
+.input-icon {
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    /* -webkit-box-align: end; */
+    /* -webkit-align-items: flex-end; */
+    -ms-flex-align: end;
+    /* align-items: flex-end; */
+    position: absolute;
+    padding-right: 10px;
+    bottom: 0;
+    font-size: 18px;
+    min-width: 0 !important;
+    text-align: left !important;
+    color: #329CD6;
+    right: 10px;
+    top: 20px;
+}
