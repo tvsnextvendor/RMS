@@ -6,6 +6,7 @@ import { API_URL } from '../../constants/API_URLS.var';
 //import { ForumDetailPage } from '../forum-detail/forum-detail';
 import { Storage } from '@ionic/storage';
 import { LoaderService, SocketService} from '../../service';
+import * as moment from 'moment';
 
 @IonicPage({
   name: 'forum-page'
@@ -57,15 +58,24 @@ export class ForumPage implements OnInit {
 
     this.navCtrl.setRoot('forumdetail-page', this.paramsData);
   }
+
   getForumDatas() {
     this.loader.showLoader();
-    this.http.getData(API_URL.URLS.getForum).subscribe((data) => {
-      if (data['isSuccess']) {
-        this.forumData = data['ForumList'];
+    this.http.get(API_URL.URLS.getForum).subscribe((res) => {
+      if (res['isSuccess']) {
+        this.forumData = res['data']['rows'];
       }
       this.loader.hideLoader();
     });
   }
+
+
+  calculateExpireDays(dueDate) {
+    const a = moment(new Date());
+    const b = moment(new Date(dueDate));
+    return b.to(a, true);
+  }
+  
   toggleSearchBox() {
     this.showSearchBar = !this.showSearchBar;
   }

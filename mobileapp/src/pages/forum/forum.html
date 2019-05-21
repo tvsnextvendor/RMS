@@ -35,11 +35,11 @@
               </ion-col>
               <ion-col col-6 class="forum-content">
                 <h4 class="forum-title ovr-txt">{{forum.forumName}}</h4>
-                <p class="forum-hours">6 {{constant.pages.forumLabels.hoursAgo}},{{forum.totalTopics}}
+                <p class="forum-hours" *ngIf="forum.Topics">{{calculateExpireDays(forum.created)}},{{forum.Topics.length}}
                   {{constant.pages.forumLabels.topics}}</p>
               </ion-col>
               <ion-col col-4>
-                <p class="forum-date">{{forum.forumCreated | date:'dd MMM yyyy'}}</p>
+                <p class="forum-date">{{forum.created | date:'dd MMM yyyy'}}</p>
               </ion-col>
             </ion-row>
           </ion-card-content>
