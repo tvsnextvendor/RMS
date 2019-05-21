@@ -12,7 +12,7 @@ export class API_URL {
         'getUsers': '5c35fdb43000005b0021b70b',
         'doSignup': 'signup',
         //'getForum': '5c2de1e62f000085351752a0',
-        'getForum': '5c31fa44350000d203ca9fd8',
+        //*needed// 'getForum': '5c31fa44350000d203ca9fd8',
         'getNotification': '5c2dddc32f0000a23017528f',
         'getCertificates': '5c40410e3500006f2eec3bf7',
         'getCalendars': '5c2475ea3000005b007a5fc4',
@@ -43,6 +43,9 @@ export class API_URL {
        'completeTrainingClass':'8103/updateTrainingClassCompletedStatus',
        'postFeedBack':'8103/courseFeedback',
        'getAllSchedule': '8103/schedule/getAllSchedules',
+       'getForum' : '8104/forum',
+       'post' : '8104/post',
+       'comment': '8104/comment'
        
     };
 }

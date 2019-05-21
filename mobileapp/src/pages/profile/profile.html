@@ -23,13 +23,11 @@
 						<div *ngIf="(profileForm.get('userName').hasError('required') ) && profileForm.get('mobile').touched"
 							class="error-block">
 							<div class="error" *ngIf="profileForm.get('userName').hasError('required') && profileForm.get('userName').touched">
-								User Name is required.
+								{{constant.pages.profileLabels.userRequired}}
 							</div>
 						</div>
 				</div>
-			
 		
-			
 		</div>
 			<ion-row>
 				<ion-grid class="pwd-grid">
@@ -47,10 +45,10 @@
 				<div *ngIf="(profileForm.get('mobile').hasError('required') || profileForm.get('mobile').hasError('minlength') || profileForm.get('mobile').hasError('maxlength')  ) && profileForm.get('mobile').touched"
 					class="error-block">
 					<div class="error" *ngIf="profileForm.get('mobile').hasError('required') && profileForm.get('mobile').touched">
-						Mobile Number is required.
+					  {{constant.pages.profileLabels.validations.mobileRequired}}
 					</div>
 					<div class="error" *ngIf="( profileForm.get('mobile').hasError('minlength') || profileForm.get('mobile').hasError('maxlength')) && profileForm.get('mobile').touched">
-						Invalid Mobile Number.
+						{{constant.pages.profileLabels.validations.invalidMobile}}
 					</div>
 				</div>
 			
@@ -68,10 +66,10 @@
 				<div *ngIf="(profileForm.get('email').hasError('pattern') || profileForm.get('email').hasError('required') ) && profileForm.get('email').touched"
 					class="error-block">
 					<div class="error"  *ngIf="profileForm.get('email').hasError('required') && profileForm.get('email').touched">
-						Email is required.
+						 {{constant.pages.profileLabels.validations.emailRequired}}
 					</div>
 					<div class="error" *ngIf="profileForm.get('email').hasError('pattern') && profileForm.get('email').touched">
-						Invalid Email address.
+						{{constant.pages.profileLabels.validations.invalidEmail}}
 					</div>
 				</div>
 				<ion-grid class="pwd-grid">

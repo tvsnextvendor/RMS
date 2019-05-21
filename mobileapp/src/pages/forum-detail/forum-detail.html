@@ -11,13 +11,10 @@
  </ion-navbar>
   <div class="segment-block">
     <ion-segment [(ngModel)]="forumTopics">
-      <ion-segment-button value="mostRecent">
+      <ion-segment-button value="mostRecent" (click)="changeStatus('recent')">
         {{constant.pages.forumLabels.mostRecent}}
       </ion-segment-button>
-      <!-- <ion-segment-button value="featuredTopics">
-        {{constant.pages.forumLabels.featuredTopics}}
-      </ion-segment-button> -->
-      <ion-segment-button value="featuredFav">
+      <ion-segment-button value="featuredFav"  (click)="changeStatus('isFavorite')">
         {{constant.pages.forumLabels.featuredFav}}
       </ion-segment-button>
     </ion-segment>
@@ -27,7 +24,7 @@
   <div [ngSwitch]="forumTopics">
     <ion-list *ngSwitchCase="'mostRecent'">
       <ion-row>
-        <ion-col col-12 col-md-6 col-sm-6 class="main-forum" *ngFor="let emp of recentList;let j=index;">
+        <ion-col col-12 col-md-6 col-sm-6 class="main-forum" *ngFor="let list of recentList;let j=index;">
           <ion-card class="forum-card">
             <ion-grid>
               <ion-row (click)="hideShowDesc(recentList,j)">
@@ -35,31 +32,39 @@
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
                 <ion-col col-7>
-                  <h4 class="forum-title">{{emp.username}}</h4>
-                  <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}}, {{emp.totalReplies}}
+                  <h4 class="forum-title">{{list.User.userName}}</h4>
+                  <p class="forum-txt">{{calculateExpireDays(list.modifiedDate)}} ago</p>
+                  <p class="forum-txt">{{list.totalReplies}}
                     {{constant.pages.forumLabels.replays}} </p>
-                  <p class="forum-txt">{{emp.totalReplies}}
-                    {{constant.pages.forumLabels.replies}} </p>
                 </ion-col>
                 <ion-col col-3 class="heart-icon">
-                  <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
-                  <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(recentList,j)"></ion-icon>
+                  <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="list.isFavorite == false" (click)="likeUnlikeQuestion(list,true)"></ion-icon>
+                  <ion-icon name="md-heart" *ngIf="list.isFavorite == true" (click)="likeUnlikeQuestion(list,false)"></ion-icon>
                   <p></p>
-                  <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
+                  <p class="forum-txt date-det">{{list.modifiedDate | date:'dd MMM yyyy'}}</p>
                 </ion-col>
               </ion-row>
-              <ion-row *ngIf="emp.isActive">
+              <ion-row *ngIf="list.isActive">
                 <ion-col>
-                  <p class="forum-desc">{{emp.description}}</p>
+                  <p class="forum-desc">{{list.description}}</p>
                 </ion-col>
               </ion-row>
-              <ion-row class="review-block" *ngIf="emp.isActive">
+              
+              <ion-row class="review-block" *ngIf="list.isActive">
                 <ion-col col-4>
-                  <p class="vote-count"><small class="vt-count">{{emp.votes}}</small> <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
+                  <p class="vote-count"><small class="vt-count">{{list.votesCount}}</small> <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
                   <img src="../../assets/imgs/likeblue.png" /></p>
                 </ion-col>
                 <ion-col col-4>
-                  <p class="vote-count"><small class="vt-count">{{emp.answers}}</small> <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+                  <p class="vote-count" *ngIf="list.Comments"><small class="vt-count">{{list.Comments.length}}</small> <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+              
+                  <!-- <ion-row class="review-block" *ngIf="list.isActive">
+                <ion-col col-3>
+                  <p class="vote-count">{{list.votesCount}}<span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
+                </ion-col>
+                <ion-col col-4>
+                  <p class="vote-count" *ngIf="list.Comments">{{list.Comments.length}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p> -->
+                
                 </ion-col>
                 <ion-col col-4 class="cmd-btn">
                   <button ion-button round small class="blue-btn" (click)="showCommentSet(recentList,j)">
@@ -67,8 +72,8 @@
                   </button>
                 </ion-col>
               </ion-row>
-              <div *ngIf="emp.isComment" class="reply-comment">
-                <form (ngSubmit)="saveComment(emp)" novalidate>
+              <div *ngIf="list.isComment" class="reply-comment">
+                <form (ngSubmit)="saveComment(list.postId)" novalidate>
                   <ion-row>
                     <ion-col col-2>
                       <img src="assets/images/images1.jpeg" class="comment-image">
@@ -79,24 +84,22 @@
                       </ion-item>
                       <ion-icon name="md-send" class="input-icon"></ion-icon>
                     </ion-col>
-                    <!-- <ion-col col-2>
-                    <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
-                  </ion-col> -->
+                    <!-- <ion-col col-1>
+                      <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
+                     </ion-col> -->
                   </ion-row>
                 </form>
-                <ion-row *ngFor="let comment of commentList;let i=index;" class="comment-row">
+                <ion-row *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
 
                   <ion-col col-2 class="comment-img">
-                    
-                    <img *ngIf="comment.user.userImage" src="{{comment.user.userImage}}" class="comment-image">
+                    <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
+                    <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
                     <span class="left-border"></span>
                   </ion-col>
                   <ion-col col-10 class="comment-box">
-                    <h6 class="user-name">{{comment.user.username}}</h6>
-                    <span class="comment-time">{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replies</span>
-                    <p class="comment-content">{{comment.comment}}</p>
-                    <div class="reply-optn"><a href="javascript:void(0)">Reply</a><img src="assets/imgs/likeblack.png" class="like-icon"><span class="reply-cnt">{{comment.commentLike}}</span></div>
-                    <!-- (click)="presentModal(comment)" -->
+                    <h6 class="user-name">{{comment.User.userName}}</h6>
+                    <p class="comment-content">{{comment.description}}</p>
+                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span><span class="reply-cnt"> Edit</span><span class="reply-cnt"> Delete</span>
                   </ion-col>
                 </ion-row>
               </div>
@@ -105,97 +108,52 @@
         </ion-col>
       </ion-row>
     </ion-list>
-    <ion-list *ngSwitchCase="'featuredTopics'">
+    
+     <ion-list *ngSwitchCase="'featuredFav'">
       <ion-row>
-        {{topics}}
-        <ion-col col-12 col-md-4 col-sm-6 class="main-forum" *ngFor="let emp of topics;let j=index;">
+        <ion-col col-12 col-md-6 col-sm-6 class="main-forum" *ngFor="let list of recentList;let j=index;">
           <ion-card class="forum-card">
             <ion-grid>
-              <ion-row>
-                <ion-col col-2 class="img-block">
-                  <img src="assets/imgs/profile_circle.png" class="forum-img">
-                </ion-col>
-                <ion-col col-10>
-                  <h4 class="forum-title">{{emp.topicName}}</h4>
-                  <!-- <h4 class="forum-title">{{emp.username}}</h4>
-                  <p class="forum-txt">{{emp.hoursAgo}} {{constant.pages.forumLabels.hoursAgo}}, {{emp.totalReplies}}
-                  {{constant.pages.forumLabels.replays}}</p>
-                  <p class="forum-txt" (click)="hideShowDesc(featureList,j)">{{emp.totalReplies}}
-                  {{constant.pages.forumLabels.replies}} </p> -->
-                </ion-col>
-                <!-- <ion-col col-3 class="heart-icon">
-                  <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
-                  <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(featureList,j)"></ion-icon>
-                  <p></p>
-                  <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
-                </ion-col> -->
-              </ion-row>
-              <!-- <ion-row *ngIf="emp.isActive">
-                <ion-col>
-                  <p class="forum-desc">{{emp.description}}</p>
-                </ion-col>
-              </ion-row>
-              <ion-row class="review-block" *ngIf="emp.isActive">
-                <ion-col col-3>
-                  <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
-                </ion-col>
-                <ion-col col-4>
-                  <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
-                </ion-col>
-                <ion-col col-5 class="cmd-btn">
-                  <button ion-button round small class="blue-btn">
-                    {{constant.buttons.comment}}
-                  </button>
-                </ion-col>
-              </ion-row> -->
-            </ion-grid>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-list>
-    <ion-list *ngSwitchCase="'featuredFav'">
-      <ion-row>
-        <ion-col col-12 col-md-6 col-sm-6 class="main-forum" *ngFor="let emp of favoriteList;let j=index;">
-          <ion-card class="forum-card">
-            <ion-grid>
-              <ion-row (click)="hideShowDesc(favoriteList,j)">
+              <ion-row (click)="hideShowDesc(recentList,j)">
                 <ion-col col-2 class="img-block">
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
                 <ion-col col-7>
-                  <h4 class="forum-title">{{emp.username}}</h4>
-                  <p class="forum-txt">{{emp.hoursAgo}}{{constant.pages.forumLabels.hoursAgo}}, {{emp.totalReplies}}
-                    {{constant.pages.forumLabels.replays}}</p>
-                  <p class="forum-txt" >{{emp.totalReplies}}
-                    {{constant.pages.forumLabels.replies}} </p>
+                  <h4 class="forum-title">{{list.User.userName}}</h4>
+                  <p class="forum-txt">{{calculateExpireDays(list.modifiedDate)}} ago</p>
+                  <p class="forum-txt">{{list.totalReplies}}
+                    {{constant.pages.forumLabels.replays}} </p>
                 </ion-col>
                 <ion-col col-3 class="heart-icon">
-                  <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="!emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
-                  <ion-icon name="md-heart" *ngIf="emp.like" (click)="likeUnlikeQuestion(favoriteList,j)"></ion-icon>
+                    <ion-icon name="md-heart-outline" md="md-heart-outline" *ngIf="list.isFavorite == false"
+                      (click)="likeUnlikeQuestion(list,true)"></ion-icon>
+                    <ion-icon name="md-heart" *ngIf="list.isFavorite == true" (click)="likeUnlikeQuestion(list,false)"></ion-icon>
                   <p></p>
-                  <p class="forum-txt date-det">{{emp.dateUpdated | date:'dd MMM yyyy'}}</p>
+                  <p class="forum-txt date-det">{{list.modifiedDate | date:'dd MMM yyyy'}}</p>
                 </ion-col>
               </ion-row>
-              <ion-row *ngIf="emp.isActive">
+              <ion-row *ngIf="list.isActive">
                 <ion-col>
-                  <p class="forum-desc">{{emp.description}}</p>
+                  <p class="forum-desc">{{list.description}}</p>
                 </ion-col>
               </ion-row>
-              <ion-row class="review-block" *ngIf="emp.isActive">
+              <ion-row class="review-block" *ngIf="list.isActive">
                 <ion-col col-3>
-                  <p class="vote-count">{{emp.votes}} <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
+                  <p class="vote-count">{{list.votesCount}}<span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
+                  </p>
                 </ion-col>
                 <ion-col col-4>
-                  <p class="vote-count">{{emp.answers}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+                  <p class="vote-count" *ngIf="list.Comments">{{list.Comments.length}} <span
+                      class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
                 </ion-col>
                 <ion-col col-5 class="cmd-btn">
-                  <button ion-button round small class="blue-btn" (click)="showCommentSet(favoriteList,j)">
+                  <button ion-button round small class="blue-btn" (click)="showCommentSet(recentList,j)">
                     {{constant.buttons.comment}}
                   </button>
                 </ion-col>
               </ion-row>
-              <div *ngIf="emp.isComment">
-                <form (ngSubmit)="saveComment(emp)" novalidate>
+              <div *ngIf="list.isComment" class="reply-comment">
+                <form (ngSubmit)="saveComment(list.postId)" novalidate>
                   <ion-row>
                     <ion-col col-2>
                       <img src="assets/images/images1.jpeg" class="comment-image">
@@ -206,45 +164,31 @@
                        </ion-item>
                       <ion-icon name="md-send" class="input-icon"></ion-icon>
                     </ion-col>
-                    <!-- <ion-col col-2>
-                    <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
-                  </ion-col> -->
+                    <!-- <ion-col col-1>
+                            <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
+                           </ion-col> -->
                   </ion-row>
                 </form>
-                <!-- <ion-row *ngFor="let comment of commentList;let i=index;">
-                  <ion-col col-2>
-                    <img *ngIf="comment.user.userImage" src="{{comment.user.userImage}}" class="comment-image">
+                <ion-row *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
+      
+                  <ion-col col-2 class="comment-img">
+                    <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
+                    <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
+                    <span class="left-border"></span>
                   </ion-col>
-                  <ion-col col-10>
-                    <h6>{{comment.user.username}}</h6>
-                    <span>{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replays</span>
-                    <p>{{comment.comment}}</p>
-                    <span><a >Reply</a><i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                      {{comment.commentLike}}</span>
+                  <ion-col col-10 class="comment-box">
+                    <h6 class="user-name">{{comment.User.userName}}</h6>
+                    <p class="comment-content">{{comment.description}}</p>
+                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span><span class="reply-cnt">
+                      Edit</span><span class="reply-cnt"> Delete</span>
                   </ion-col>
-                </ion-row> -->
-
-                <ion-row *ngFor="let comment of commentList;let i=index;" class="comment-row">
-
-                    <ion-col col-2 class="comment-img">
-                      
-                      <img *ngIf="comment.user.userImage" src="{{comment.user.userImage}}" class="comment-image">
-                      <span class="left-border"></span>
-                    </ion-col>
-                    <ion-col col-10 class="comment-box">
-                      <h6 class="user-name">{{comment.user.username}}</h6>
-                      <span class="comment-time">{{comment.commentOn | timeAgo}},{{comment.replies.length}} Replies</span>
-                      <p class="comment-content">{{comment.comment}}</p>
-                      <div class="reply-optn"><a href="javascript:void(0)">Reply</a><img src="assets/imgs/likeblack.png" class="like-icon"><span class="reply-cnt">{{comment.commentLike}}</span></div>
-                      <!-- (click)="presentModal(comment)" -->
-                    </ion-col>
-                  </ion-row>
+                </ion-row>
               </div>
             </ion-grid>
           </ion-card>
         </ion-col>
       </ion-row>
-    </ion-list>
+    </ion-list> 
   </div>
   <ng-template #template>
     <div class="modal-header question-header">
@@ -253,7 +197,7 @@
         <span aria-hidden="true">&times;</span>
       </button> -->
     </div>
-    <form novalidate (ngSubmit)="questionSubmit(QuestionForm)" [formGroup]="QuestionForm">
+    <form novalidate (ngSubmit)="questionSubmit()" [formGroup]="QuestionForm">
       <div class="modal-body">
         <ion-item class="textarea-item">
           <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty"

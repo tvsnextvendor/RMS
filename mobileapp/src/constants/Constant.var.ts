@@ -150,7 +150,15 @@ export class Constant {
             email: 'Email',
             mobile: 'Mobile',
             department: 'Department',
-            designation: 'Designation'
+            designation: 'Designation',
+            validations:{
+                emailRequired:'Email is required',
+                invalidEmail:'Invalid Email address',
+                userRequired: 'User Name is required',
+                mobileRequired:'Mobile Number is required',
+                invalidMobile:'Invalid Mobile Number'
+
+            }
         },
         forumLabels: {
             topics: 'Topics',
