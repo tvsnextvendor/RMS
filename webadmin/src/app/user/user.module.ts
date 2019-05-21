@@ -5,6 +5,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { AuthGuard } from '../guard/auth.guard.component';
 import { UserComponent } from './user.component';
 import { FormsModule } from '@angular/forms';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DataTableModule } from "angular-6-datatable";
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ExcelService, PDFService } from '../services';
@@ -24,7 +25,8 @@ const routes: Routes = [
     SelectDropDownModule,
     DataTableModule,
     RolepermissionModule,
-    TabsModule
+    TabsModule,
+    NgMultiSelectDropDownModule
   ],
   declarations: [
     UserComponent

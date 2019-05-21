@@ -6,6 +6,7 @@ import { TabsetComponent } from 'ngx-bootstrap';
 import { HeaderService } from '../services/header.service';
 import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
+import { BatchVar } from '../Constants/batch.var';
 import { API_URL } from '../Constants/api_url';
 import { AlertService } from '../services/alert.service';
 import {CommonService} from '../services/restservices/common.service';
@@ -27,9 +28,9 @@ export class UserComponent implements OnInit {
     userName;
     userId;
     userType;
-    department = "";
-    designation = "";
-    division = "";
+    department = [];
+    designation = [];
+    division = [];
     reportingTo = "";
     emailAddress;
     phoneNumber;
@@ -69,9 +70,15 @@ export class UserComponent implements OnInit {
     errorValidate;
     validationDivisionCheck = true;
     bulkUploadData ;
+    selectedDivisionId = [];
+    selectedDepartmentId = [];
+    selectedDesignationId = [];
+    empId;
+    editData;
+    removedMappingId = [];
 
     constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
-        private commonLabels : CommonLabels) {
+        private commonLabels : CommonLabels,public batchVar : BatchVar) {
         this.constant.url = API_URL.URLS;
     }
     ngOnInit() {
@@ -132,15 +139,14 @@ export class UserComponent implements OnInit {
     }
 
     changedivision(){
-         this.department = "";
+         this.department = [];
          this.departmentArray= [];
-            const obj={'divisionId': this.division};
-            this.commonService.getDepartmentList(obj).subscribe((result)=>{
+        const obj={'divisionId': this.division};
+        this.commonService.getDepartmentList(obj).subscribe((result)=>{
             if(result.isSuccess){
                 this.departmentArray = result.data.rows;
-                }
-            })
-        
+            }
+        }) 
      }
 
     //update user
@@ -150,13 +156,15 @@ export class UserComponent implements OnInit {
             this.userIndex = index;
             this.userName = data.userName;
             this.userId = data.employeeId;
-            this.division =data.Division ? data.Division.divisionId : "";
-            this.designation= data.Designation?data.Designation.designationId : "";
+            this.division = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings,'div') : [];
+            this.division.length && this.onEmpSelect('','div');
+            this.designation= data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings,'design') : [];
             this.reportingTo=data.reportDetails?data.reportDetails.designationId : "";
             this.emailAddress = data.email;
             this.phoneNumber = data.phoneNumber;  
-            this.changedivision();    
-            this.department = data.Department ? data.Department.departmentId : "";
+            this.empId = data.employeeId;
+            this.changedivision();  
+            this.department= data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings,'dept') : [];  
             //this.accessTo = data.accessTo;  
     }
 
@@ -164,7 +172,7 @@ export class UserComponent implements OnInit {
         if (data == "") {
             this.designationData = [];
         }
-        this.designation = '';
+        this.designation = [];
         this.department = data !== "null" ? data : '';
         this.designationArray.forEach(item => {
             if (parseInt(data) === item.id) {
@@ -198,11 +206,12 @@ export class UserComponent implements OnInit {
         this.divisionValidationCheck = true;
         this.errorValidation = true;
         if(data){
-         this.userEdit(data,index);
-         this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+            this.editData = _.cloneDeep(data)
+            this.userEdit(data,index);
+            this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
         }else{
-         this.resetFields();   
-         this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+            this.resetFields();   
+            this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
         }
         this.getResortId();
     }
@@ -313,16 +322,19 @@ export class UserComponent implements OnInit {
                 userName : this.userName,
                 email : this.emailAddress,
                 phoneNumber : this.phoneNumber,
-                designationId:this.designation,
-                divisionId:this.division,
-                departmentId:this.department,
+                designationId:this.designation.length ? this.designation.map(item=>{return item.designationId}) : [] ,
+                divisionId:this.division.length ? this.division.map(item=>{return item.divisionId}) : [],
+                departmentId:this.department.length ? this.department.map(item=>{return item.departmentId}) : [],
                 reportingTo:this.reportingTo,
                 accessTo: this.accessTo,
-                resortId : resortId
-                };
-
-        if(this.userName && this.emailAddress && this.phoneNumber && this.division && this.department && this.designation && !this.validEmail && !this.validPhone){         
+                resortId : resortId,
+                employeeNo: this.empId,
+                resortUserMappingId : []
+            };
+            debugger;
+        if(this.userName && this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone){         
             if(this.editEnable){
+                this.removedMappingId.length ? obj.resortUserMappingId = this.removedMappingId : delete obj.resortUserMappingId;
                 this.userService.updateUser(this.userid,obj).subscribe((result)=>{
                     if(result.isSuccess){
                         this.closeAddForm();
@@ -335,7 +347,8 @@ export class UserComponent implements OnInit {
             })
             }else{
                 obj['createdBy'] = this.utilService.getUserData().userId;
-                obj['password'] = "123456";
+                obj['password'] = "12345678";
+                delete obj.resortUserMappingId;
                 this.userService.addUser(obj).subscribe(result => {
                     if(result.isSuccess){
                     this.closeAddForm();
@@ -358,9 +371,9 @@ export class UserComponent implements OnInit {
         this.userName = '';
         this.userId = '';
         this.roleId = '';
-        this.department = '';
-        this.designation = '';
-        this.division = '';
+        this.department = [];
+        this.designation = [];
+        this.division = [];
         this.reportingTo = '';
         this.emailAddress = '';
         this.phoneNumber = '';
@@ -487,7 +500,7 @@ export class UserComponent implements OnInit {
         const userId = this.utilService.getUserData().userId;
         let fileUploadValue = event.target.files[0];
         let params = {'file' : fileUploadValue}
-        console.log(fileUploadValue , 'fileUploadValue')
+        // console.log(fileUploadValue , 'fileUploadValue')
         if(fileUploadValue){
             this.userService.bulkUpload(fileUploadValue,userId).subscribe(resp=>{
                 if(resp && resp.isSuccess){
@@ -669,5 +682,105 @@ export class UserComponent implements OnInit {
         let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
         this.constant.modalRef.hide();
         // this.getDivisionList(resortId);
+    }
+
+    onEmpSelect(event,key){
+        // console.log(event,'key',key,this.department,this.division)
+        this.selectedDivisionId =  this.division.length && this.division.map(item=>{return item.divisionId});
+        this.selectedDepartmentId = this.department.length && this.department.map(item=>{return item.departmentId});
+        this.selectedDesignationId = this.designation.length && this.designation.map(item=>{return item.designationId})
+        if(key == 'div'){
+            const obj={'divisionId': this.selectedDivisionId};
+            this.commonService.getDepartmentList(obj).subscribe((result)=>{
+            if(result.isSuccess){
+                this.departmentArray = result.data.rows;
+                }
+            })
+        }
+    }
+
+    onDeselect(event,key){
+        if(key == 'div'){
+            let id = event.divisionId;
+            this.editData.ResortUserMappings.forEach(item=>{
+                if(item.Division && item.Division.divisionId == id){
+                    let arr = [];
+                    arr.push(item.resortUserMappingId);
+                    this.removedMappingId = _.sortedUniq(arr);
+                    this.department = this.department.filter(x=>x.departmentId != item.departmentId);
+                    this.onEmpSelect('','div');
+                }
+            })
+        }
+        if(key == 'dept'){
+            let id = event.departmentId;
+            let obj = this.editData.ResortUserMappings.forEach(item=>{
+                if(item.Division && item.Department.departmentId == id){
+                    let arr = [];
+                    arr.push(item.resortUserMappingId);
+                    this.removedMappingId = _.sortedUniq(arr);
+                }
+            })
+        }
+        if(key == 'design'){
+            let id = event.designationId;
+            let obj = this.editData.ResortUserMappings.forEach(item=>{
+                if(item.Division && item.Designation.designationId == id){
+                    this.removedMappingId.push(item.resortUserMappingId);
+                }
+            })
+        }
+    }
+
+    getDivisionArray(data,type){
+        let arr = [];
+        if(type == 'div'){
+            data.forEach(item=>{item.Division?arr.push(item.Division.divisionName):''});
+        }
+        if(type == 'dept'){
+            data.forEach(item=>{item.Department?arr.push(item.Department.departmentName):''});
+        }
+        if(type == 'design'){
+            data.forEach(item=>{item.Designation?arr.push(item.Designation.designationName):''});
+        }
+        return arr;
+    }
+
+    getEditSelectedArray(data,type){
+        let arr = [];
+        if(type == 'div'){
+            data.forEach(item=>{
+                if(item.Division){
+                    let obj  = {
+                        divisionId : item.Division.divisionId,
+                        divisionName : item.Division.divisionName
+                    }
+                    arr.push(obj);
+                }
+            });
+        }
+        if(type == 'dept'){
+            data.forEach(item=>{
+                if(item.Department){
+                    let obj  = {
+                        departmentId : item.Department.departmentId,
+                        departmentName : item.Department.departmentName
+                    }
+                    arr.push(obj)
+                }
+            });
+        }
+        if(type == 'design'){
+            data.forEach(item=>{
+                if(item.Designation){
+                    let obj  = {
+                        designationId : item.Designation.designationId,
+                        designationName : item.Designation.designationName
+                    }
+                    arr.push(obj)
+                }
+            });
+        }
+        return arr;
     }
 }

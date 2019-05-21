@@ -82,4 +82,11 @@ addCertificate(certificateData) {
 getCertificate(id){
   return this.http.getLocal('local',this.url.getCertificate+'?resortId='+id);
 }
+assignCertificate(params){
+  return this.http.post('local', this.url.assignCertificate, params);
+}
+getAssignCertificate(id){
+  //getAssignCertificate
+  return this.http.getLocal('local',this.url.getAssignCertificate+'?resortId='+id);
+}
 }

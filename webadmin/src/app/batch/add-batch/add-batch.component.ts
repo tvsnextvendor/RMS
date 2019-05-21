@@ -39,6 +39,7 @@ export class AddBatchComponent implements OnInit {
     courseDataList = [];
     passPerError; 
     errorValidate;
+    resortId;
 
     constructor(private alertService: AlertService,private courseService: CourseService,private utilService:UtilService,private resortService:ResortService,private userService: UserService,private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService:CommonService,public commonLabels : CommonLabels) {
         this.batchVar.url = API_URL.URLS;
@@ -52,7 +53,10 @@ export class AddBatchComponent implements OnInit {
     //   this.scheduleId ? this.headerService.setTitle({ title: this.commonLabels.titles.editTitle, hidemodule: false }) : this.headerService.setTitle({ title: this.commonLabels.titles.addTitle, hidemodule: false });
         this.batchVar.moduleForm=[];
         this.clearBatchVar();
-        this.getResortData();
+        this.userData =this.utilService.getUserData();
+        //get Resort list
+        this.resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId;
+        this.getResortData(this.resortId);
         
         if(this.scheduleId){
             this.getCourseData();
@@ -88,14 +92,12 @@ export class AddBatchComponent implements OnInit {
         return data.value >= new Date(startDate);
     }
 
-    getResortData(){
-        this.userData =this.utilService.getUserData();
-        //get Resort list
-        const resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId; 
+    getResortData(resortId){
+         
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
-            this.batchVar.resortList=result.data.Resort;
+            (this.resortId == parseInt(resortId)) ? this.batchVar.resortList = result.data.Resort : '';
             this.batchVar.divisionList=result.data.divisions;
-
+            this.batchVar.selectedResort = resortId;
         })
 
         //get percentage list
@@ -463,6 +465,9 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.selectedResort=null;
         this.batchVar.selectedDivision =[];
         this.batchVar.selectedDepartment=[];
+        this.batchVar.employeeList = [];
+        this.batchVar.divisionList = [];
+        this.batchVar.departmentList = [];
     }
 
   
