@@ -9,6 +9,7 @@ import { API_URL } from '../../constants/API_URLS.var';
 import { HttpProvider } from '../../providers/http/http';
 import { Storage } from '@ionic/storage';
 import { ModalPage } from '../modal/modal';
+import { LoaderService} from '../../service';
 import * as moment from 'moment';
 
 
@@ -40,12 +41,13 @@ export class ForumDetailPage implements OnInit {
   favoriteList: any = [];
   featureList: any = [];
   commentList: any = [];
+  like: boolean = false;
   currentUser;
   userId;
   comment;
   status;
   hideQuestionBtn:boolean = true;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController,public loader: LoaderService,public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage, public modalCtrl: ModalController) {
     this.forumDetailObject = this.navParams.data;
     this.employees = this.forumDetailObject['setData']['employees'];
     this.topics = this.forumDetailObject['setData']['topics'];
@@ -78,12 +80,14 @@ export class ForumDetailPage implements OnInit {
   }
   getTopicsRelated() {
 
-    //this.loader.showLoader();
+    this.loader.showLoader();
     this.http.get(API_URL.URLS.post+'?forumId='+this.forumId+'&status='+this.status).subscribe((res) => {
       if (res['isSuccess']) {
         this.recentList = res['data'];
+      }else{
+        this.recentList=[];
       }
-      //this.loader.hideLoader();
+      this.loader.hideLoader();
     });
   }
   modalRef: BsModalRef;
@@ -99,12 +103,15 @@ export class ForumDetailPage implements OnInit {
       "createdBy": this.currentUser.userId,
       "votesCount": 0
     }
+    this.loader.showLoader();
     this.http.post(false,API_URL.URLS.post,postData).subscribe(res=>{
        if(res['isSuccess']){
          this.toastr.success(res['data']);
+          this.getTopicsRelated();
           this.forum.question = '';
           this.modalRef.hide();
        }
+     this.loader.hideLoader();  
     })
     
   }
@@ -115,14 +122,17 @@ export class ForumDetailPage implements OnInit {
   }
 
   likeUnlikeQuestion(list, status) {
+    list['like'] = !(list['like']);
     let postData={
       'isFavorite': status
     }
+    this.loader.showLoader();
     this.http.put(false,API_URL.URLS.post+'/'+list.postId,postData).subscribe((res) => {
       if (res['isSuccess']) {
-        this.recentList = res['data'];
+        this.toastr.success(res['data']);
+        this.getTopicsRelated();
       }
-      //this.loader.hideLoader();
+      this.loader.hideLoader();
     });
   }
   hideShowDesc(list, j) {

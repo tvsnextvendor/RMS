@@ -10,7 +10,7 @@
 			</ion-navbar>
 </ion-header>
 
-	<div class="max-wth main-content" *ngIf="profileDetail">
+	<div class="max-wth main-content">
 	<form novalidate (ngSubmit)="updateProfile()" [formGroup]="profileForm" class="profile-details">
 		<div class="profile-img">
 			<img src="assets/images/images1.jpeg" class="profile-image">
@@ -37,7 +37,7 @@
 						</ion-col>
 						<ion-col col-11 class="profile-info">
 							<!-- <p>{{currentUser.phoneNumber}}</p> -->
-							<ion-input type="text"  name="mobile" [(ngModel)]="profile.mobile" formControlName="mobile" [class.error1]="!profileForm.controls.mobile.valid && profileForm.controls.mobile.dirty" placeholder="+9190123456"></ion-input>
+							<ion-input type="text"  name="mobile" [(ngModel)]="profile.mobile" formControlName="mobile" [class.error1]="!profileForm.controls.mobile.valid && profileForm.controls.mobile.dirty" placeholder="enter mobile number"></ion-input>
 							<small>{{constant.pages.profileLabels.mobile}}</small>
 						</ion-col>
 					</ion-row>
@@ -47,7 +47,7 @@
 					<div class="error" *ngIf="profileForm.get('mobile').hasError('required') && profileForm.get('mobile').touched">
 					  {{constant.pages.profileLabels.validations.mobileRequired}}
 					</div>
-					<div class="error" *ngIf="( profileForm.get('mobile').hasError('minlength') || profileForm.get('mobile').hasError('maxlength')) && profileForm.get('mobile').touched">
+					<div class="error" *ngIf="(profileForm.get('mobile').hasError('pattern') || profileForm.get('mobile').hasError('minlength') || profileForm.get('mobile').hasError('maxlength')) && profileForm.get('mobile').touched">
 						{{constant.pages.profileLabels.validations.invalidMobile}}
 					</div>
 				</div>
@@ -78,7 +78,7 @@
 							<img src="assets/imgs/Department.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<p>{{profileDetail.Department.departmentName}}</p>
+							<p *ngIf="profileDetail">{{profileDetail.Department.departmentName}}</p>
 							<small>{{constant.pages.profileLabels.department}}</small>
 						</ion-col>
 					</ion-row>
@@ -89,7 +89,7 @@
 							<img src="assets/imgs/Designation.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<p>{{profileDetail.Designation.designationName}}</p>
+							<p *ngIf="profileDetail">{{profileDetail.Designation.designationName}}</p>
 							<small>{{constant.pages.profileLabels.designation}}</small>
 						</ion-col>
 					</ion-row>
