@@ -6,14 +6,15 @@
         </ol>
     </nav>
 </div>
-<div class="clearfix pt-4">
+<div class="white-bg p-4">
+<div class="clearfix">
     <h4 class="add-notify">{{commonLabels.btns.createNotification}}</h4>
 </div>
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
     <div class="notification-box">
         
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 pl-0">
                     <div class="row form-group select select-style clearfix" *ngIf="notificationType === 'assignedToCourse'">
                         <select class="form-control p-0 select-Courses" name="course" [(ngModel)]="moduleVar.selectedCourses" (change)="courseSelect($event)">
                             <option value='null' disabled>{{commonLabels.labels.course}}</option>
@@ -52,11 +53,11 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 pr-0">
                     <div class="row form-group select select-style clearfix" *ngIf="notificationType === 'assignedToCourse'">
                         <select class="form-control p-0 select-Courses" name="trainingClass" [(ngModel)]="moduleVar.selectedTrainingClass">
                                 <option value='null' disabled>{{commonLabels.labels.trainingClass}}</option>
-                                <option  *ngFor="let course of moduleVar.trainingClassList" value="course.trainingClassId">{{course.trainingClassName}}</option>
+                                <!-- <option  *ngFor="let course of moduleVar.trainingClassList" value="course.trainingClassId">{{course.trainingClassName}}</option> -->
                             </select><div class="select_arrow"></div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && !selectedTrainingClass">
                             {{commonLabels.labels.courseError}}
@@ -93,7 +94,7 @@
                 </div>
                 <div class="col-md-12 mt-20">
                     <div class="row form-group">
-                        <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.uploadtxt}}</label>
+                        <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.uploadtxt}}</label>
                         <span class="col-md-9 p-0">
                             <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
                             <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" id="customFile"  (change)="getFileDetails($event)"  required>
@@ -102,23 +103,23 @@
                         </span>
                     </div>
                     <div class="row form-group">
-                        <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.fileName}}</label>
+                        <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.fileName}}</label>
                         <span class="col-md-9 p-0">
                             <input type="text" class="form-control" placeholder="Enter File Name" [(ngModel)]="fileName" name="fileName" #fileNameValue = "ngModel" required>
                         </span>
                     </div>
                     <div class="row form-group">
-                        <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.description}}</label>
+                        <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.description}}</label>
                         <span class="col-md-9 p-0">
                             <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description" name="description" #descriptionData = "ngModel" required>
                         </span>
                     </div>
                
                 <div class="row">
-                        <div class="col-md-6 pr-0">
+                        <div class="col-md-6 pl-0">
                             <div class="row">
                                 <label class="col-md-5 p-0 label-title">{{commonLabels.labels.from}}</label>
-                                <div class="col-md-7 pr-0">
+                                <div class="col-md-7 pr-0 pl-5">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"
                                             class="batch-icon">
                                         <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
@@ -155,7 +156,7 @@
                         </div>
                 </div>
             </div>
-                <div class="text-center col-md-12 pt-3 pb-4">
+                <div class="text-center col-md-12 pt-3">
                     <button type="submit" class="btn btn-primary module-createbtn mr-4">{{commonLabels.btns.save}}</button>
                     <button type="button" class="btn btn-default creat-btn" (click)="goTocmsLibrary()">{{commonLabels.btns.cancel}}</button>                   
                 </div>
@@ -164,3 +165,4 @@
        
     </div>
 </form>
+</div>
