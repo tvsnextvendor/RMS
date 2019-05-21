@@ -60,7 +60,11 @@
  }
  .badge-dropdown{
     width: 200px;
-    padding-left: 0;
+    padding-left: 0;    
+ }
+ .badge-dropdown:disabled{
+    opacity: 0.5;
+    pointer-events: none;
  }
  .certificate-name{
     font-size: 15px;
@@ -119,5 +123,8 @@ iframe{
     border-style: solid;
     border: 1px solid #ccc;
     box-shadow: inset 2px 0px 12px 1px #ccc;
+}
+.add-icon{
+    line-height: 35px;
 }
  
