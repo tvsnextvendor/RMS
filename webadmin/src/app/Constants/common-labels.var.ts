@@ -300,7 +300,8 @@ export class CommonLabels{
         "answers"           :   "Answers",
         "assignToCourse"    :   "Assigned to a course",
         "signature"         :   "Signature required by employee",
-        "nonSignature"      :   "No Signature required"
+        "nonSignature"      :   "No Signature required",
+        "selectfile"        :    "Select File"
 
 
     };

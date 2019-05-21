@@ -103,7 +103,7 @@
 								<div class="btn-group align-items-center" dropdown>
 									<div class="btn-group pull-right" dropdown>
 									<button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-										aria-controls="dropdown-basic">{{commonLabels.labels.upload}} <span class="caret ml-4"></span>
+										aria-controls="dropdown-basic">{{commonLabels.labels.selectfile}} <span class="caret ml-4"></span>
 									</button>
 									<ul id="dropdown-basic" *dropdownMenu class="dropdown-menu upload-btn" role="menu" aria-labelledby="button-basic">
 										<li role="menuitem"><a class="dropdown-item pl-2"
@@ -125,7 +125,7 @@
 									
 							</div>
                         <div class="col-md-4 p-0">
-							<span *ngIf="!moduleVar.videoFile"><img src="{{commonLabels.imgs.profile}}" class="px-2"></span>
+							<span *ngIf="!moduleVar.videoFile"><img src="{{commonLabels.imgs.profile}}" class="pl-3"></span>
 							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img class="thumbnail_img img-size"></span>
 							<span *ngIf="showImage && moduleVar.videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img img-size"></span></div>
 							<span class="col-md-3 p-0 upload-line">	

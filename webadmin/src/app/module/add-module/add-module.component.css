@@ -190,3 +190,6 @@ span.nodata {
 .button-section .btn-primary{
     float: inherit;
 }
+.dropdown-item.active, .dropdown-item:active{
+    background-color: #f8f9fa;
+}
