@@ -112,7 +112,10 @@
              </div>
            </div>
            <div class="tp-ry-section grey-bg" *ngIf="viewComment[i]">
-             <div *ngIf="posts.Comments?.length == 0">No data found</div>
+              <div class="text-center" *ngIf="posts.Comments?.length == 0">
+                  <p class="data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
+                </div>
+             <!-- <div *ngIf="posts.Comments?.length == 0">No data found</div> -->
               <div class="topic-wrap-top clearfix p-3" *ngFor="let comments of posts.Comments">
                   <a class="topic-img-wrap">
                     <span class="small-topic-thumb">
