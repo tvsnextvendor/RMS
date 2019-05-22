@@ -57,14 +57,6 @@
                 </ion-col>
                 <ion-col col-4>
                   <p class="vote-count" *ngIf="list.Comments"><small class="vt-count">{{list.Comments.length}}</small> <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
-              
-                  <!-- <ion-row class="review-block" *ngIf="list.isActive">
-                <ion-col col-3>
-                  <p class="vote-count">{{list.votesCount}}<span class="forum-txt">{{constant.pages.forumLabels.votes}}</span></p>
-                </ion-col>
-                <ion-col col-4>
-                  <p class="vote-count" *ngIf="list.Comments">{{list.Comments.length}} <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p> -->
-                
                 </ion-col>
                 <ion-col col-4 class="cmd-btn">
                   <button ion-button round small class="blue-btn" (click)="showCommentSet(recentList,j)">
@@ -82,11 +74,8 @@
                       <ion-item class="comment-item">
                         <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..." class="comment-input"></ion-input>
                       </ion-item>
-                      <ion-icon name="md-send" class="input-icon"></ion-icon>
+                      <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId)"></ion-icon>
                     </ion-col>
-                    <!-- <ion-col col-1>
-                      <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
-                     </ion-col> -->
                   </ion-row>
                 </form>
                 <ion-row *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
@@ -162,15 +151,11 @@
                       <ion-item class="comment-item">
                         <ion-input name="comment" [(ngModel)]="comment" class="comment-input" placeholder="Add a comment ..."></ion-input>
                        </ion-item>
-                      <ion-icon name="md-send" class="input-icon"></ion-icon>
+                      <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId)"></ion-icon>
                     </ion-col>
-                    <!-- <ion-col col-1>
-                            <ion-icon class="save-icon" name="md-arrow-dropright-circle" (click)="saveComment(emp)"></ion-icon>
-                           </ion-col> -->
                   </ion-row>
                 </form>
                 <ion-row *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
-      
                   <ion-col col-2 class="comment-img">
                     <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
                     <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
