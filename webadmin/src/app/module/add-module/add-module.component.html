@@ -108,8 +108,7 @@
 									<ul id="dropdown-basic" *dropdownMenu class="dropdown-menu upload-btn" role="menu" aria-labelledby="button-basic">
 										<li role="menuitem"><a class="dropdown-item pl-2"
 												(click)="showCMSLibrary()">{{commonLabels.labels.cmsLibrary}}</a></li>
-										<li role="menuitem"><a class="dropdown-item pl-2"
-												(click)="fileUploadPopup(uploadPopup)">{{commonLabels.labels.desktop}}
+										<li role="menuitem"><a class="dropdown-item pl-2">{{commonLabels.labels.desktop}}
 												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/></a></li>
 									</ul>
 								</div>

@@ -56,9 +56,9 @@
                 <div class="col-md-6 pr-0">
                     <div class="row form-group select select-style clearfix" *ngIf="notificationType === 'assignedToCourse'">
                         <select class="form-control p-0 select-Courses" name="trainingClass" [(ngModel)]="moduleVar.selectedTrainingClass">
-                                <option value='null' disabled>{{commonLabels.labels.trainingClass}}</option>
-                                <!-- <option  *ngFor="let course of moduleVar.trainingClassList" value="course.trainingClassId">{{course.trainingClassName}}</option> -->
-                            </select><div class="select_arrow"></div>
+                            <option value='null' disabled>{{commonLabels.labels.trainingClass}}</option>
+                            <option *ngFor="let course of moduleVar.trainingClassList" [value]="course.trainingClassId">{{course.trainingClassName}}</option>
+                        </select><div class="select_arrow"></div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && !selectedTrainingClass">
                             {{commonLabels.labels.courseError}}
                         </span>
@@ -80,7 +80,7 @@
                     <div class="row form-group">
                         <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown
-                            [placeholder]="'All Employees'"
+                            [placeholder]="'Employees'"
                             [data]="moduleVar.employeeList"
                             [(ngModel)]="moduleVar.selectedEmployee"
                             [settings]="moduleVar.empSettings"

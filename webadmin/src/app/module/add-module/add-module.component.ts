@@ -553,7 +553,7 @@ export class AddModuleComponent implements OnInit {
                 let id = this.moduleCourseId ? this.moduleCourseId : this.moduleId;
                 this.courseService.updateCourse(id,params).subscribe((resp)=>{
                     if(resp && resp.isSuccess){
-                        this.modalRef.hide();
+                        this.modalRef &&  this.modalRef.hide();
                         if(this.moduleId){
                             this.route.navigateByUrl("/workinprogress"); 
                             this.moduleId = '';
@@ -581,10 +581,9 @@ export class AddModuleComponent implements OnInit {
             else{
                 this.courseService.addCourse(params).subscribe((resp)=>{
                     if(resp && resp.isSuccess){
-                        this.modalRef.hide();
                         if(courseSubmitType) {
                             this.moduleCourseId = '';
-                            this.route.navigateByUrl("/cms-library");
+                            // this.route.navigateByUrl("/cms-library");
                             this.completed.emit('completed'); 
                         }
                         else{
@@ -595,6 +594,10 @@ export class AddModuleComponent implements OnInit {
                                 this.staticTabs.tabs[0].active = true;
                             }
                         }
+                        if(!this.tabEnable){
+                            this.modalRef && this.modalRef.hide();
+                        }
+                        
                         this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
                         this.moduleSubmitted = false;
                     }

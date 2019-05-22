@@ -184,4 +184,12 @@ export class CourseService {
     return this.http.post('local',this.url.setPermissions,params);
   }
 
+  addTypeOneNotification(params){
+    return this.http.post('local',this.url.addTypeOneNotification,params);
+  }
+
+  addTypeTwoNotification(params){
+    return this.http.post('local',this.url.addTypeTwoNotification,params);
+  }
+
 }

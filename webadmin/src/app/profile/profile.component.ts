@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit {
   
    getProfile(){
     this.userDetails = this.utilService.getUserData();
-    debugger
     this.profVar.userName=this.userDetails.userName;
     this.userId = this.userDetails.userId;
     this.profVar.email=this.userDetails.email;
@@ -75,7 +74,6 @@ export class ProfileComponent implements OnInit {
                 accessTo: 'web',
             };
            if(this.profVar.userName && this.profVar.mobile && this.profVar.email && !this.validPhone){
-               debugger;
                 this.userService.updateUser(this.userId,obj).subscribe(resp=>{
                     if(resp && resp.isSuccess){
                         this.router.navigateByUrl('/profile');

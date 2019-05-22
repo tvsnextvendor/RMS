@@ -291,6 +291,7 @@ export class AddQuizComponent implements OnInit {
             this.removedQuizIds = [];
             this.valueChanged(result.data,hideTraining,false);
           }
+          this.modalRef.hide();
         })
       }
       else{

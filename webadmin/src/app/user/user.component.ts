@@ -212,8 +212,9 @@ export class UserComponent implements OnInit {
         }else{
             this.resetFields();   
             this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+            this.getResortId();
         }
-        this.getResortId();
+        
     }
 
     openAddRole(template: TemplateRef<any>, data,  index){
@@ -331,7 +332,6 @@ export class UserComponent implements OnInit {
                 employeeNo: this.empId,
                 resortUserMappingId : []
             };
-            debugger;
         if(this.userName && this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone){         
             if(this.editEnable){
                 this.removedMappingId.length ? obj.resortUserMappingId = this.removedMappingId : delete obj.resortUserMappingId;
@@ -379,6 +379,7 @@ export class UserComponent implements OnInit {
         this.phoneNumber = '';
         this.triggerNext = false;
         this.editRoleValue = '';
+        this.empId = '';
         this.roles = [{
             designationName : ''
         }]

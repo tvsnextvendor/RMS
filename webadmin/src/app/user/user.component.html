@@ -111,10 +111,10 @@
     </tab>
     <tab heading = {{commonLabels.labels.listofRole}}>
         <div class="pt-4 clearfix listrole">
-            <!-- <div class="hd-section clearfix">
+            <div class="hd-section clearfix">
             <h5 class="float-left title-hd">{{commonLabels.labels.listofRole}}</h5>
             <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
-            </div> -->
+            </div>
             <div class="hierarchy-tab white-bg pt-4 px-4 mt-3">
                 <div class="detail-bottom row">                
                     <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
@@ -543,7 +543,7 @@
             </div>
             <div *ngIf="!errorValidation"><span class="required_color text-left">{{errorValidate}}</span></div>         
         </div> 
-        <span *ngIf="roleFormSubmitted && roleError" class="required_color ml-3">{{commonLabels.mandatoryLabels.roleName}}</span>
+        <span *ngIf="roleFormSubmitted && roleError && errorValidation" class="required_color ml-3">{{commonLabels.mandatoryLabels.roleName}}</span>
         <div class="text-center mt-4 mrb-15">
             <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
             <button type="button" class="btn btn-default" (click)="closeAddForm()">{{commonLabels.btns.cancel}}</button>
