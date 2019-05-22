@@ -44,6 +44,9 @@ export class ResortListComponent implements OnInit {
       if(result && result.isSuccess){
         this.resortVar.resortList = result.data.rows;
       }
+      else{
+        this.resortVar.resortList  = []
+      }
     });
   }
 

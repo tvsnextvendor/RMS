@@ -145,7 +145,7 @@
                         </div>
                         <div class="col-1 col-md-1 p-0" *ngIf="scheduleId">
                             <span><a class="float-right" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon"></i></a></span>
-                            <span><a class="float-right" *ngIf="i!=0" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon"></i></a></span>
+                            <span *ngIf="!data.trainingScheduleCourseId"><a class="float-right" *ngIf="i!=0" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon"></i></a></span>
                         </div>
                     </div>
                     <div class="row form-group">

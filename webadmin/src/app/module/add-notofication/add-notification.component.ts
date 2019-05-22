@@ -35,6 +35,11 @@ export class AddNotificationComponent implements OnInit {
     moduleSubmitted;
     uploadFileName;
     notificationFileName;
+    fileDuration;
+    fileExtensionType;
+    fileExtension;
+    fileSize;
+
     constructor(private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
         this.batchVar.url = API_URL.URLS;
@@ -42,6 +47,7 @@ export class AddNotificationComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.clearBatchForm();
         let startDate = localStorage.getItem('BatchStartDate');
         this.batchVar.batchFrom = new Date(startDate);
         this.batchVar.batchTo = '';
@@ -193,16 +199,56 @@ export class AddNotificationComponent implements OnInit {
     }
     //submit batch
     addBatch(form) {
-
+      //addTypeOneNotification
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
-        let data = {}
-        console.log(
-            this.file,
-            this.fileName,
-            this.description,
-            this.batchVar.batchFrom,
-            this.batchVar.batchTo)
-            //this.hidePopup();
+        let data = {
+          "courseId":'',
+          "trainingClassId":'',
+          "signatureStatus" : true,
+          "assignedDate":this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd'),
+          "dueDate":this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd'),
+          "fileName":this.fileName,
+          "fileDescription":this.description,
+          "fileSize":this.fileSize,
+          "fileExtension":this.fileExtensionType,
+          "fileImage":this.notificationFileName,
+          "fileType":this.fileExtension,
+          "fileUrl":this.notificationFileName,
+          "fileLength":this.fileDuration,
+          "resortId":this.moduleVar.selectedResort.map(x=>{return x.resortId}),
+          "divisionId":this.moduleVar.selectedDivision.map(x=>{return x.divisionId}),
+          "departmentId":this.moduleVar.selectedDepartment.map(x=>{return x.departmentId}),
+          "userId":this.moduleVar.selectedEmployee.map(x=>{return x.userId})
+        }
+        // if(!this.fileDuration){
+        //   delete data.fileLength
+        // }
+        console.log(data ,"data");
+        if(this.notificationType == 'assignedToCourse'){
+          data.courseId = this.moduleVar.selectedCourses;
+          data.trainingClassId = this.moduleVar.selectedTrainingClass;    
+          delete data.signatureStatus;      
+          this.courseService.addTypeOneNotification(data).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+              this.goTocmsLibrary();
+              this.alertService.success(resp.message);
+            }
+            console.log(resp)
+          })
+        }
+        else{
+          delete data.courseId;
+          delete  data.trainingClassId;
+          data.signatureStatus = this.notificationType == 'signature' ? true : false;
+          this.courseService.addTypeTwoNotification(data).subscribe(resp=>{
+            console.log(resp)
+            if(resp && resp.isSuccess){
+              this.goTocmsLibrary();
+              this.alertService.success(resp.message);
+            }
+          })
+
+        }
     }
 
     hidePopup(){
@@ -255,10 +301,30 @@ export class AddNotificationComponent implements OnInit {
     }
 
     getFileDetails(event){
+      let self = this;
         if(event.target.files){
+            var duration; 
             this.uploadFileName = event.target.files[0] && event.target.files[0].name;
             let file = event.target.files[0];
-            console.log(file)
+            this.fileSize = file.size;
+            // find video duration
+            var video = document.createElement('video');
+            video.preload = 'metadata';
+            video.onloadedmetadata = function() {
+            window.URL.revokeObjectURL(video.src);
+            duration = video.duration;
+            self.fileDuration = duration;
+            }
+            video.src = URL.createObjectURL(file);
+
+            // document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
+            // find file extension
+            // this.uploadFile = file;
+            let type = file.type;
+            let typeValue = type.split('/');
+            let extensionType = typeValue[1].split('.').pop();
+            this.fileExtension = extensionType;
+            this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
             this.commonService.uploadFiles(file).subscribe(resp=>{
                 console.log(resp);
                 if(resp && resp.isSuccess){

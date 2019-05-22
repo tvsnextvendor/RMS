@@ -23,6 +23,7 @@ export class EmployeeChartsComponent implements OnInit {
   viewText;
   topCourses;
   hideCharts = true;
+  userRole;
 
   constructor(public dashboardVar: DashboardVar,private utilService:UtilService ,private http: HttpService, private route: Router,public commonLabels : CommonLabels) {
     this.dashboardVar.url = API_URL.URLS;
@@ -34,6 +35,8 @@ export class EmployeeChartsComponent implements OnInit {
     this.viewText = "View more";
     this.getData();
     this.getKeyStat();
+    this.userRole = this.utilService.getRole();
+    console.log(this.userRole)
 
     setTimeout(() => {
       this.totalCoursesLine();

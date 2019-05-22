@@ -37,9 +37,9 @@ export class RolepermissionComponent implements OnInit {
     this.commonService.getResortList(data.userId).subscribe((result) => {
       if(result && result.isSuccess){
         result.data && result.data.rows.forEach(item=>{
-          if(item.resortId === this.resortId){
+          // if(item.resortId === this.resortId){
             this.constant.resortList.push(item)
-          }
+          // }
         });
       }
     });
@@ -106,7 +106,6 @@ export class RolepermissionComponent implements OnInit {
         this.constant.selectAllEdit = this.constant.modules.every(function (item: any) {
           return item.edit == true;
         });
-      
     },(err) => {
       console.log(err);
       this.alertService.error(err.error.error);
@@ -131,20 +130,20 @@ export class RolepermissionComponent implements OnInit {
       this.constant.modules[i][name] = value;
       if (name == 'view') {
         this.constant.selectAllView = value;
-        } else if (name == 'upload') {
+      } else if (name == 'upload') {
         this.constant.selectAllUpload = value;
-        } else if (name == 'edit') {
+      } else if (name == 'edit') {
         this.constant.selectAllEdit = value;
-        } else {
+      } else {
         this.constant.selectAllView = value;
         this.constant.selectAllUpload = value;
         this.constant.selectAllEdit = value;
-        }
+      }
     }
   }
 
   saveRolePermission(form) {
-    console.log(form);
+    // console.log(form);
     let menu = [];
     let menuMobile = [];
     this.constant.modules.forEach(value => {
@@ -164,8 +163,8 @@ export class RolepermissionComponent implements OnInit {
       menuMobile: menuMobile,
       web: this.constant.web,
       mobile: this.constant.mobile,
-      userId : this.constant.userId,
-      createdBy: this.utilService.getUserData().userId
+      userId :  this.utilService.getUserData().userId
+      // createdBy: this.utilService.getUserData().userId
     }
     const data = this.constant;
     if (data.resortId && data.divisionId && data.departmentId && data.roleId) {
@@ -215,11 +214,6 @@ export class RolepermissionComponent implements OnInit {
   clearForm(formDir) {
     formDir.submitted = false;
     formDir.reset(formDir);
-    RolePermissionVar.defaultModules.forEach(item=>{
-      item.view = false;
-      item.upload = false;
-      item.edit = false;
-    });
     this.constant.selectAllView = false;
     this.constant.selectAllUpload = false;
     this.constant.selectAllEdit = false;
@@ -230,6 +224,11 @@ export class RolepermissionComponent implements OnInit {
     this.constant.roleId = "";
     this.constant.web = false;
     this.constant.mobile = false;  
+    RolePermissionVar.defaultModules.forEach(item=>{
+      item.view = false;
+      item.upload = false;
+      item.edit = false;
+    });
   }
 
 }

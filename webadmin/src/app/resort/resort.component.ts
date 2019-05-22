@@ -182,7 +182,6 @@ export class ResortComponent implements OnInit {
                     delete postData.parentId;
                 }
                 console.log(postData)
-                debugger;
                 this.resortService.addResort(postData).subscribe((result)=>{
                     if(result && result.isSuccess){
                         this.clearData();

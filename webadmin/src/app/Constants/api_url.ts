@@ -166,7 +166,11 @@ export class API_URL {
     badge : '8104/badge',
     
     // Feedback
-    feedbackList : '8103/feedbackList'
+    feedbackList : '8103/feedbackList',
+
+    //notification
+    addTypeOneNotification : '8103/createNotification',
+    addTypeTwoNotification : '8103/signatureNotification'
   }
   
 

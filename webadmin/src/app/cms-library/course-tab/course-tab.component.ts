@@ -307,36 +307,44 @@ export class CourseTabComponent implements OnInit {
             return delete x.addNew && delete x.TrainingClass;
           }
       }); 
-      let params = {
-      'trainingClassId' : this.selectedEditTrainingClass,
-      'courseName' : this.selectedEditCourseName,
-      'fileIds' : this.deletedFileId,
-      'files' : this.fileList,
-      'createdBy': this.utilService.getUserData().userId
-    }
-    if(type === 'edit'){
-      this.courseService.updateCourseList(this.selectedEditCourse,params).subscribe(resp=>{
-        if(resp && resp.isSuccess){
-          this.enableDropData('closeEdit','');
-          this.getCourseDetails();
-          this.addedFiles=[];
-          this.alertService.success(this.commonLabels.labels.moduleUpdateMsg);
+      if(this.selectedEditCourseName && this.fileList.length){
+          let params = {
+          'trainingClassId' : this.selectedEditTrainingClass,
+          'courseName' : this.selectedEditCourseName,
+          'fileIds' : this.deletedFileId,
+          'files' : this.fileList,
+          'createdBy': this.utilService.getUserData().userId
         }
-      })
-    }
-    else if(type === 'duplicate'){
-      this.courseService.addCourseDuplicate(params).subscribe(resp=>{
-        if(resp && resp.isSuccess){
-          this.enableDropData('closeEdit','');
-          this.getCourseDetails();
-          this.addedFiles=[];
-          this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
+        if(type === 'edit'){
+          this.courseService.updateCourseList(this.selectedEditCourse,params).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+              this.enableDropData('closeEdit','');
+              this.getCourseDetails();
+              this.addedFiles=[];
+              this.alertService.success(this.commonLabels.labels.moduleUpdateMsg);
+            }
+          })
         }
-      },err =>{
-        console.log(err);
-         this.alertService.error(err.error.error);
-      })
-    }
+        else if(type === 'duplicate'){
+          this.courseService.addCourseDuplicate(params).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+              this.enableDropData('closeEdit','');
+              this.getCourseDetails();
+              this.addedFiles=[];
+              this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
+            }
+          },err =>{
+            console.log(err);
+            this.alertService.error(err.error.error);
+          })
+        }
+      } 
+      else if(!this.selectedEditCourseName){
+        this.alertService.error(this.commonLabels.mandatoryLabels.courseName);
+      }
+      else if(!this.fileList.length){
+        this.alertService.error(this.commonLabels.mandatoryLabels.videoError);
+      }
   }
 
   removeCourse(){

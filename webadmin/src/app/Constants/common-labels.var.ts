@@ -301,7 +301,8 @@ export class CommonLabels{
         "assignToCourse"    :   "Assigned to a course",
         "signature"         :   "Signature required by employee",
         "nonSignature"      :   "No Signature required",
-        "selectfile"        :    "Select File"
+        "selectfile"        :    "Select File",
+        "allRoles"          :    "All Roles"
 
 
     };

@@ -35,13 +35,14 @@
 			<div class="col-md-4 select select-style clearfix">
 				<select [(ngModel)]="constant.roleId" name="roleId" class="form-control pl-0"  (change)="getRolePermission()">
 					<option value="" disabled>{{commonLabels.labels.roles}}</option>
+					<option value="allRoles">{{commonLabels.labels.allRoles}}</option>
 					<option *ngFor="let obj of constant.roleList" [value]="obj.designationId">{{obj.designationName}}</option>
 				</select>
 				<div class="select_arrow"></div>
 					<span class="required_color" *ngIf="rolepermission.submitted && !constant.roleId">
 						{{commonLabels.mandatoryLabels.roles}}</span>
 			</div>
-			<div class="col-md-4 select select-style clearfix">
+			<!-- <div class="col-md-4 select select-style clearfix">
 					<select [(ngModel)]="constant.userId" name="userId" class="form-control pl-0"  (change)="getRolePermission()">
 						<option value="" disabled>{{commonLabels.labels.selectUsers}}</option>
 						<option *ngFor="let obj of constant.createdByList" [value]="obj.userId">{{obj.userName}}</option>
@@ -49,7 +50,7 @@
 					<div class="select_arrow"></div>
 						<span class="required_color" *ngIf="rolepermission.submitted && !constant.userId">
 							{{commonLabels.mandatoryLabels.users}}</span>
-			</div>
+			</div> -->
 			<div class="col-md-4">
 				<span>
 					<label class="square-cont mr-5">
@@ -72,15 +73,15 @@
  		<tr class="th-boxshadow">
     <th class="pl-5">{{commonLabels.labels.menu}}</th>
     <th class="text-center"><label class="table-checkbox-cont mb-0">
-						<input type="checkbox"  [checked] = 'constant.selectAllView && constant.selectAllView.length ? true : false'  name="view" (change)="selectAll($event)"> {{commonLabels.labels.view}}
+						<input type="checkbox"  [checked] = 'constant.selectAllView ? true : false'  name="view" (change)="selectAll($event)"> {{commonLabels.labels.view}}
 						<span class="table-checkmark"></span>
 					</label></th>
     <th class="text-center"><label class="table-checkbox-cont mb-0">
-						<input type="checkbox"  [checked] = 'constant.selectAllUpload && constant.selectAllUpload.length ? true : false' name="upload"  (change)="selectAll($event)"> {{commonLabels.labels.upload}}
+						<input type="checkbox"  [checked] = 'constant.selectAllUpload ? true : false' name="upload"  (change)="selectAll($event)"> {{commonLabels.labels.upload}}
 						<span class="table-checkmark"></span>
 					</label></th>
     <th class="text-center"><label class="table-checkbox-cont mb-0">
-						<input type="checkbox"  [checked] = 'constant.selectAllEdit && constant.selectAllEdit.length ? true : false'  name="edit"  (change)="selectAll($event)"> {{commonLabels.labels.editdele}}
+						<input type="checkbox"  [checked] = 'constant.selectAllEdit ? true : false'  name="edit"  (change)="selectAll($event)"> {{commonLabels.labels.editdele}}
 						<span class="table-checkmark"></span>
 					</label></th>
   </tr>
