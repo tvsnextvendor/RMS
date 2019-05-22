@@ -63,6 +63,11 @@
               </div>              
             </div>
       </div>
+      <div class="col-md-12 p-0" *ngIf="feedbackList?.length == 0">
+          <div class="white-bg text-center p-4">
+            <p class="data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
+          </div>
+        </div>
     </tab>
     <tab heading={{commonLabels.labels.application}} class="container tab-pane p-0">
       <div class="row col-md-5 text-center mx-auto">
@@ -77,7 +82,7 @@
     <div class="row mt-4">
       <div class="topic-wrap white-bg col-md-12 p-0" *ngFor="let apps of applicationData">
         <div class="topic-wrap-top clearfix p-3">
-            <div class="apl-img mt-4">
+            <div class="apl-img mt-2">
               <span class="apl-img-alg">
                 <img [src]="apps.feedbackType == 'Compliment' ? commonLabels.imgs.good : apps.feedbackType === 'complaint' ? commonLabels.imgs.poor : commonLabels.imgs.average">
                 <span>{{apps.feedbackType}}</span>
@@ -110,6 +115,11 @@
         </div>              
       </div>
     </div>
+    <div class="col-md-12 p-0" *ngIf="applicationData?.length == 0">
+        <div class="white-bg text-center p-4">
+          <p class="data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
+        </div>
+      </div>
   </tab>
 </div>
 </tabset>

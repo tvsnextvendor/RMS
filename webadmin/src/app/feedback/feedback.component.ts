@@ -15,9 +15,9 @@ export class FeedbackComponent implements OnInit {
   userId;
   courseData;
   trainingClassData;
-  feedbackList;
+  feedbackList = [];
   selectedResortApp = '';
-  applicationData;
+  applicationData = []; 
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
     private commonService: CommonService,
