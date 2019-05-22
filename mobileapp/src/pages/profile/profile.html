@@ -87,11 +87,11 @@
 							<img src="assets/imgs/Department.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<span *ngIf="profileDetail.ResortUserMappings">
-								<span *ngFor="let dept of profileDetail.ResortUserMappings">
+							<div *ngIf="profileDetail.ResortUserMappings">
+								<span *ngFor="let dept of profileDetail.ResortUserMappings" class="list-dt">
 									<p class="profile-info" *ngIf="dept.Department">{{dept.Department.departmentName}},</p>
 								</span>
-							</span>
+							</div>
 							<small>{{constant.pages.profileLabels.department}}</small>
 						</ion-col>
 					</ion-row>
@@ -102,11 +102,11 @@
 							<img src="assets/imgs/Designation.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<span *ngIf="profileDetail.ResortUserMappings">
-								<span *ngFor="let desig of profileDetail.ResortUserMappings">
+							<div *ngIf="profileDetail.ResortUserMappings">
+								<span *ngFor="let desig of profileDetail.ResortUserMappings" class="list-dt">
 									<p class="profile-info" *ngIf="desig.Designation">{{desig.Designation.designationName}},</p>
 								</span>
-							</span>
+							</div>
 							<small>{{constant.pages.profileLabels.designation}}</small>
 						</ion-col>
 					</ion-row>
