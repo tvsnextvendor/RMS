@@ -10,13 +10,16 @@
 			</ion-navbar>
 </ion-header>
 
-	<div class="max-wth main-content">
+	<div class="max-wth main-content" *ngIf="profileDetail">
 	<form novalidate (ngSubmit)="updateProfile()" [formGroup]="profileForm" class="profile-details">
 		<div class="profile-img">
 			<div class="profile-img-sec">
-			<img src="assets/images/images1.jpeg" class="profile-image">
+			<input type="file" id="fileLoader" #fileLoader name="files" title="Load File" hidden />
+			<!-- <span *ngIf="uploadImage != null"> -->
+		   <img src="assets/images/images1.jpeg" class="profile-image">
+			<!-- </span> -->
 			<div class="upload-icon">
-					<a href="#" class="pro-icon">
+					<a class="pro-icon" (click)="uploadImg(fileLoader)">
 							<ion-icon name="camera"></ion-icon>
 					</a>
 					</div>
@@ -34,7 +37,6 @@
 							</div>
 						</div>
 				</div>
-		
 		</div>
 			<ion-row>
 				<ion-grid class="pwd-grid">
@@ -85,7 +87,11 @@
 							<img src="assets/imgs/Department.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<p *ngIf="profileDetail">{{profileDetail.Department.departmentName}}</p>
+							<span *ngIf="profileDetail.ResortUserMappings">
+								<span *ngFor="let dept of profileDetail.ResortUserMappings">
+									<p class="profile-info" *ngIf="dept.Department">{{dept.Department.departmentName}},</p>
+								</span>
+							</span>
 							<small>{{constant.pages.profileLabels.department}}</small>
 						</ion-col>
 					</ion-row>
@@ -96,7 +102,11 @@
 							<img src="assets/imgs/Designation.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<p *ngIf="profileDetail">{{profileDetail.Designation.designationName}}</p>
+							<span *ngIf="profileDetail.ResortUserMappings">
+								<span *ngFor="let desig of profileDetail.ResortUserMappings">
+									<p class="profile-info" *ngIf="desig.Designation">{{desig.Designation.designationName}},</p>
+								</span>
+							</span>
 							<small>{{constant.pages.profileLabels.designation}}</small>
 						</ion-col>
 					</ion-row>
