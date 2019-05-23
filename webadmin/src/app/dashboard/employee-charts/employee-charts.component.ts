@@ -38,69 +38,61 @@ export class EmployeeChartsComponent implements OnInit {
     public commonLabels: CommonLabels,
     private commonService: CommonService) {
     this.dashboardVar.url = API_URL.URLS;
-    this.dashboardVar.userName = this.utilService.getUserData().username
-    this.hideCharts = this.utilService.getRole() == 2 ? false : true;
+    this.dashboardVar.userName = this.utilService.getUserData().username;
+    this.hideCharts = this.utilService.getRole() === 2 ? false : true;
     this.resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
   }
 
   ngOnInit() {
     this.viewText = "View more";
-    // this.getData();
+    this.getData();
     this.getKeyStat();
     this.userRole = this.utilService.getRole();
-
     this.commonService.getTotalCourse(this.resortId).subscribe(result => {
       const totalCourses = result.data.training;
       this.dashboardVar.totalCoursesCount = result.data.totalCoursesCount;
       this.dashboardVar.totalCourses = totalCourses.map(item => {
         return {name: item.status, y: parseInt(item.totalcount, 10)};
       });
-      console.log(this.dashboardVar.totalCourses, 'totalllllcccccc');
     });
     setTimeout(() => {
-      this.topRatedCourses();
-      this.getcourseTrend();
       this.totalCoursesLine();
       this.totalStorageSpace();
       this.courseTrend();
-      
-     
-      // this.employeeProgressPie();
-      // this.assignedCourses();
-      // this.completedCourses();
-      // this.inProgress();
-    },2000);
+    }, 2000);
     this.commonService.getTotalCount(this.resortId).subscribe(result => {
       const data = result.data;
       this.TtlDivision = data.divisionCount;
       this.TtlDepartment = data.departmentCount;
       this.TtlEmployee = data.employeeCount;
     });
-    
   }
 
   getData() {
-    this.http.get(this.dashboardVar.url.getCourses).subscribe((data) => {
-      this.dashboardVar.courses = data;
-    });
-    //get Module list
-    this.http.get(this.dashboardVar.url.getProgramList).subscribe((data) => {
-      this.dashboardVar.moduleList = data.programList;
-    });
-    //get Year List
+    // this.http.get(this.dashboardVar.url.getCourses).subscribe((data) => {
+    //   this.dashboardVar.courses = data;
+    // });
+    // //get Module list
+    // this.http.get(this.dashboardVar.url.getProgramList).subscribe((data) => {
+    //   this.dashboardVar.moduleList = data.programList;
+    // });
+    // //get Year List
 
-    //get Course Trend list   
-    this.http.get(this.dashboardVar.url.getCourseTrendChart).subscribe((data) => {
-      this.dashboardVar.courseTrendData = data;
-    })
+    // //get Course Trend list
+    // this.http.get(this.dashboardVar.url.getCourseTrendChart).subscribe((data) => {
+    //   this.dashboardVar.courseTrendData = data;
+    // })
 
-    this.http.get(this.dashboardVar.url.getEmployeeProgress).subscribe((data) => {
-      this.dashboardVar.empProgress = data;
-    });
+    // this.http.get(this.dashboardVar.url.getEmployeeProgress).subscribe((data) => {
+    //   this.dashboardVar.empProgress = data;
+    // });
 
-    this.http.get(this.dashboardVar.url.getCertificationTrend).subscribe((data) => {
-      this.dashboardVar.certificationTrend = data;
-    });
+    // this.http.get(this.dashboardVar.url.getCertificationTrend).subscribe((data) => {
+    //   this.dashboardVar.certificationTrend = data;
+    // });
+
+    this.topRatedCourses();
+    this.getcourseTrend();
   }
 
   enableView() {
@@ -134,7 +126,11 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
   getcourseTrend() {
-    this.commonService.getCourseTrend(this.resortId, this.dashboardVar.years).subscribe(result => {
+    const courseTrendObj = {
+      resortId : this.resortId,
+      years : this.dashboardVar.years
+    };
+    this.commonService.getCourseTrend(courseTrendObj).subscribe(result => {
       if (result && result.isSuccess) {
         this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
         console.log(this.dashboardVar.courseTrendData, 'data');
@@ -249,15 +245,12 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
   courseTrend() {
-    Highcharts.chart('videosTrend', {
+    Highcharts.chart('trend', {
       chart: {
           type: 'column'
       },
       title: {
-          text: 'Monthly Average Rainfall'
-      },
-      subtitle: {
-          text: 'Source: WorldClimate.com'
+          text: ''
       },
       xAxis: {
           categories: [
@@ -279,7 +272,7 @@ export class EmployeeChartsComponent implements OnInit {
       yAxis: {
           min: 0,
           title: {
-              text: 'Rainfall (mm)'
+              text: ''
           }
       },
       tooltip: {
@@ -297,7 +290,7 @@ export class EmployeeChartsComponent implements OnInit {
           }
       },
       series: [{
-        name: 'Tokyo',
+        name: 'Total no. of Courses',
         data: this.dashboardVar.courseTrendData
     }]
   });

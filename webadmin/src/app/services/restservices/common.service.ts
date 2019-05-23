@@ -125,7 +125,7 @@ getTopRatedTrainingClasses(resortId) {
   return this.http.getLocal('local', this.url.ratedTrainingClasses + '?resortId=' + resortId);
 }
 
-getCourseTrend(resortId, selectedYears) {
-  return this.http.getLocal('local', this.url.getCourseTrend + '?year=' + selectedYears + '&resortId=' +resortId);
+getCourseTrend(courseTrendObj) {
+  return this.http.getLocal('local', this.url.getCourseTrend + '?year=' + courseTrendObj.years + '&resortId=' + courseTrendObj.resortId + '&month=' + courseTrendObj.month);
 }
 }
