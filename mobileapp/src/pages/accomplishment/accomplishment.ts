@@ -5,7 +5,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
-import { LoaderService } from '../../service/loaderService';
+import { Storage } from '@ionic/storage';
+import { LoaderService, SocketService } from '../../service';
 
 @IonicPage({
   name: 'accomplishment-page'
@@ -19,7 +20,7 @@ export class AccomplishmentPage implements OnInit {
 
   @ViewChild('sliderOne') sliderOne: Slides;
   @ViewChild('sliderTwo') sliderTwo: Slides;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, private modalService: BsModalService, private http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {
+  constructor(public navCtrl: NavController,public storage:Storage,public socketService: SocketService,public navParams: NavParams, public constant: Constant, private modalService: BsModalService, private http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {
 
   }
   modalRef: BsModalRef;
@@ -34,14 +35,27 @@ export class AccomplishmentPage implements OnInit {
   badgeLftBtn: boolean = true;
   badgeRigBtn: boolean = true;
   badgeDetails;
+  notificationCount;
   showSearchBar: boolean = false;
   search;
+  currentUser;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccomplishmentPage');
   }
   ngOnInit() {
   }
+
+  ngAfterViewInit() {
+            let self = this;
+            this.storage.get('currentUser').then((user: any) => {
+            if (user) {
+             self.currentUser = user;
+              this.getNotification();
+            }
+        });
+  }
+
   ionViewDidEnter() {
     this.getCertificates();
   }
@@ -82,6 +96,17 @@ export class AccomplishmentPage implements OnInit {
       this.badgeRigBtn = true;
     }
   }
+
+   getNotification(){
+    let userId = this.currentUser.userId;
+    let socketObj = {
+      userId : userId
+    };
+   this.socketService.getNotification(socketObj).subscribe((data)=>{
+       this.notificationCount = data['unReadCount'];
+   });
+  }
+
   openModal(certificatetemplate: TemplateRef<any>, item) {
     this.modalRef = this.modalService.show(certificatetemplate);
     this.certificateDetail = item;
@@ -103,30 +128,12 @@ export class AccomplishmentPage implements OnInit {
       }
     });
   }
-  toggleSearchBox() {
-    this.showSearchBar = !this.showSearchBar;
+  
+  goToNotification() {
+    this.navCtrl.setRoot('notification-page');
   }
-  onInput($e) {
-    console.log("On input");
-    console.log($e);
-    console.log(this.search);
-    if (this.search != '') {
 
-      console.log("On input if");
-      this.certificateList = [];
-      this.badgeList = [];
-      /*this.certificateList = this.certificateList.filter(val => val.forumName === this.search);*/
-    } else {
-      console.log("On input else");
-      this.showSearchBar = false;
-      this.getCertificates();
-    }
-    console.log(this.certificateList);
-  }
-  onCancel($e) {
-    console.log("On Cancel");
-    this.showSearchBar = false;
-    this.getCertificates();
-    console.log($e);
+   goToForum(){
+     this.navCtrl.setRoot('forum-page');
   }
 }

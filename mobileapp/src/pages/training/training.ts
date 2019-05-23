@@ -109,6 +109,11 @@ export class TrainingPage {
     });
 
   }
+
+  goToForum(){
+     this.navCtrl.setRoot('forum-page');
+  }
+  
   getCoursesSeparate() {
     return new Promise(resolve => {
       this.http.getData(API_URL.URLS.getCourses).subscribe((data) => {

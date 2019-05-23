@@ -101,6 +101,10 @@ export class HomePage {
   goToNotification(){
     this.navCtrl.setRoot('notification-page');
   }
+  
+  goToForum(){
+     this.navCtrl.setRoot('forum-page');
+  }
 
     getNotification(){
     let userId = this.currentUser.userId;

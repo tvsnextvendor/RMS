@@ -34,6 +34,9 @@ export class ForumDetailPage implements OnInit {
   employees;
   topics;
   forumId;
+  editComment;
+  commentId;
+  editDisable=true;
   forumFavor: any = [];
   forumRecent: any = [];
   forumFeature: any = [];
@@ -45,6 +48,9 @@ export class ForumDetailPage implements OnInit {
   currentUser;
   userId;
   comment;
+  createdBy;
+  description;
+  postId;
   status;
   hideQuestionBtn:boolean = true;
   constructor(public navCtrl: NavController,public loader: LoaderService,public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage, public modalCtrl: ModalController) {
@@ -93,6 +99,34 @@ export class ForumDetailPage implements OnInit {
   modalRef: BsModalRef;
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  openEditModal(template: TemplateRef<any>, comment){
+       this.editComment = comment.description;
+       this.commentId = comment.commentId;
+       this.postId= comment.postId;
+       this.description = comment.description;
+       this.createdBy =comment.createdBy;
+       this.modalRef = this.modalService.show(template);
+  }
+
+  changeEditInput(){
+    this.editDisable = false;
+  }
+
+  updateComment(){
+    let postData = {
+       'description' : this.editComment,
+       'postId': this.postId,
+       'createdBy':this.createdBy
+    }
+    this.http.put(false,API_URL.URLS.comment+'/'+ this.commentId,postData).subscribe(res=>{
+      if(res['isSuccess']){
+        this.toastr.success(res['data']);
+        this.modalRef.hide();
+        this.getTopicsRelated();
+      }
+    })
   }
   
   questionSubmit() {
@@ -171,7 +205,6 @@ export class ForumDetailPage implements OnInit {
     if (!this.comment) {
       this.toastr.error("Comment is required");
     } else {
-      console.log(API_URL.URLS.comment)
       this.http.post(false,API_URL.URLS.comment,postData).subscribe(res=>{
         if(res['isSuccess']){
           this.toastr.success(res['data']);
@@ -180,6 +213,16 @@ export class ForumDetailPage implements OnInit {
         }
       })  
     }
+  }
+
+  deleteComment(){
+    this.http.delete(API_URL.URLS.comment+'/'+this.commentId).subscribe(res=>{
+      if(res['isSuccess']){
+        this.toastr.success(res['data']);
+        this.modalRef.hide();
+        this.getTopicsRelated();
+      }
+    })
   }
 
   async presentModal(repliesObj) {

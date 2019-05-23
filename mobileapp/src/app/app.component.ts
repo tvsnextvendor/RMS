@@ -43,9 +43,9 @@ export class MyApp {
       else if (activeView.name === 'ForumPage') {
         this.nav.setRoot('training-page');
       }
-      else if (activeView.name === 'AccomplishmentPage') {
-        this.nav.setRoot('home-page');
-      }
+      // else if (activeView.name === 'AccomplishmentPage') {
+      //   this.nav.setRoot('accomplishment-page');
+      // }
       else if (activeView.name === 'EventPage') {
         this.nav.setRoot('forum-page');
       }
@@ -75,7 +75,7 @@ export class MyApp {
       { title: 'Dashboard', component: HomePage },
       { title: 'Training', component: CoursePage },
       { title: 'Forum', component: ForumPage },
-      { title:'Accomplishments', component: HomePage},
+      { title:'Accomplishments', component: AccomplishmentPage},
       //{ title: 'Calendar', component: CalendarPage },
       { title: 'Training Schedule', component: EventPage },
       // { title: 'Library', component: LibraryPage },

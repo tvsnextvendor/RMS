@@ -32,7 +32,7 @@
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
                 <ion-col col-7>
-                  <h4 class="forum-title">{{list.User.userName}}</h4>
+                  <h4 class="forum-title" *ngIf="list.User">{{list.User.userName}}</h4>
                   <p class="forum-txt">{{calculateExpireDays(list.modifiedDate)}} ago</p>
                   <p class="forum-txt">{{list.totalReplies}}
                     {{constant.pages.forumLabels.replays}} </p>
@@ -88,7 +88,7 @@
                   <ion-col col-10 class="comment-box">
                     <h6 class="user-name">{{comment.User.userName}}</h6>
                     <p class="comment-content">{{comment.description}}</p>
-                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span><span class="reply-cnt"> Edit</span><span class="reply-cnt"> Delete</span>
+                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span><span class="reply-cnt" (click)="openEditModal(edit, comment)"> Edit</span><span class="reply-cnt" (click)="openEditModal(delete, comment)"> Delete</span>
                   </ion-col>
                 </ion-row>
               </div>
@@ -164,8 +164,8 @@
                   <ion-col col-10 class="comment-box">
                     <h6 class="user-name">{{comment.User.userName}}</h6>
                     <p class="comment-content">{{comment.description}}</p>
-                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span><span class="reply-cnt">
-                      Edit</span><span class="reply-cnt"> Delete</span>
+                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span><span class="reply-cnt" (click)="openEditModal(edit, comment)">
+                      Edit</span><span class="reply-cnt" (click)="openEditModal(delete, comment)"> Delete</span>
                   </ion-col>
                 </ion-row>
               </div>
@@ -200,6 +200,45 @@
       </div>
     </form>
   </ng-template>
+
+  <ng-template #edit>
+    <div class="modal-header question-header">
+    </div>
+    <form novalidate (ngSubmit)="updateComment()">
+      <div class="modal-body">
+        <ion-row>
+          <ion-col col-2>
+            <img src="assets/images/images1.jpeg" class="comment-image">
+          </ion-col>
+          <ion-col col-10 class="input-grp-box">
+            <ion-item class="comment-item">
+              <ion-input name="comment" [(ngModel)]="editComment" (input)="changeEditInput()"  class="comment-input" placeholder="Add a comment ..."></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div class="model-footer">
+        <button ion-button small clear type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
+        <button ion-button small clear type="submit" [disabled]="editDisable">Update</button>
+      </div>
+    </form>
+  </ng-template>
+   
+
+  <ng-template #delete>
+    <div class="modal-header question-header"> 
+    </div>
+      <div class="modal-body">
+        <ion-row>
+          <p>Are you sure you want to delete this comment?</p>
+        </ion-row>
+      </div>
+      <div class="model-footer">
+        <button ion-button small clear type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
+        <button ion-button small clear type="submit" (click)="deleteComment()">Delete</button>
+      </div>
+  </ng-template>
+
 </div>
 </ion-content>
 <div class="fixed-btn" *ngIf="hideQuestionBtn">

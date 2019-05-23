@@ -80,6 +80,10 @@ export class CoursePage implements OnInit {
   goToNotification() {
     this.navCtrl.setRoot('notification-page');
   }
+
+   goToForum(){
+     this.navCtrl.setRoot('forum-page');
+  }
   
   openTrainingClass(courseId) 
   {
