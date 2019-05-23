@@ -39,6 +39,9 @@ export class CmsLibraryVar {
       textField: 'departmentName',
       enableCheckAll: false,
       itemsShowLimit: 8,
+      allowSearchFilter : true,
+      searchPlaceholderText : "Search",
+      clearSearchFilter : true
       }
       resortSettings = {
       singleSelection: false,
@@ -53,6 +56,9 @@ export class CmsLibraryVar {
       textField: 'userName',
       enableCheckAll: false,
       itemsShowLimit: 8,
+      allowSearchFilter : true,
+      searchPlaceholderText : "Search",
+      clearSearchFilter : true
       }
       divisionSettings = {
       singleSelection: false,
@@ -60,6 +66,9 @@ export class CmsLibraryVar {
       textField: 'divisionName',
       enableCheckAll: false,
       itemsShowLimit: 8,
+      allowSearchFilter : true,
+      searchPlaceholderText : "Search",
+      clearSearchFilter : true
       }
 
 

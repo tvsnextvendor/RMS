@@ -55,7 +55,7 @@ constructor(private courseService: CourseService,private fileService:FileService
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
     //get Resort list
-        const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
+        const resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
             this.constant.resortList=result.data.Resort;
             this.constant.divisionList=result.data.divisions;
@@ -138,7 +138,9 @@ constructor(private courseService: CourseService,private fileService:FileService
 
   //Get File list.
   getCourseFileDetails() {
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
+    let userId = this.utilService.getUserData().userId;
+    // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&createdBy='+userId;
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ;
     let classId = this.trainingClassId ? this.trainingClassId : '';
     let params={
       type: 'Video',
@@ -155,7 +157,7 @@ constructor(private courseService: CourseService,private fileService:FileService
         {
           this.videoListValue = [];
         }else{
-          this.videoListValue = resp.data && resp.data.rows.length && resp.data.rows;
+          this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
           // console.log(_.merge(this.videoListValue, selectedVideos));
         }
         this.uploadPath = resp.data.uploadPaths.uploadPath;

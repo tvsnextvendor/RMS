@@ -49,7 +49,7 @@ export class DocumentTabComponent implements OnInit {
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
 
-    const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
+    const resortId = this.utilService.getUserData().ResortUserMappings.length &&  this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
             this.constant.resortList=result.data.Resort;
             this.constant.divisionList=result.data.divisions;
@@ -126,7 +126,9 @@ export class DocumentTabComponent implements OnInit {
 
  //Get document list 
   getCourseFileDetails() {
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet);
+    let userId = this.utilService.getUserData().userId;
+    // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&createdBy='+userId;
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '';
     let classId = this.trainingClassId ? this.trainingClassId : '';
     let params={
       type: 'Document',
@@ -145,7 +147,7 @@ export class DocumentTabComponent implements OnInit {
           this.videoListValue = [];
         }else{
            this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
-            console.log(_.merge(this.videoListValue, selectedDocuments));
+            // console.log(_.merge(this.videoListValue, selectedDocuments));
         this.uploadPath = resp.data && resp.data.uploadPaths ? resp.data.uploadPaths.uploadPath : '';
       }
        }
@@ -262,7 +264,7 @@ export class DocumentTabComponent implements OnInit {
   openEditVideo(template: TemplateRef<any>, data, index) {
     let user = this.utilService.getUserData();
     this.popUpReset();
-    let roleId = user.Resorts.length && user.Resorts[0].resortId;
+    let roleId = user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
     this.constant.fileId = data && data.fileId;
     this.constant.selectedResort = roleId;
     this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);

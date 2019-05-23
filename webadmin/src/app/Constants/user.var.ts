@@ -80,7 +80,7 @@ export class UserVar {
 
     title = 'User Management';
     url;
-    userList;
+    userList = [];
     modalRef: BsModalRef;
     modalConfig = {
             backdrop: true,

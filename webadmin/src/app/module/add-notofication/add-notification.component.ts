@@ -39,6 +39,8 @@ export class AddNotificationComponent implements OnInit {
     fileExtensionType;
     fileExtension;
     fileSize;
+    fileImageDataPreview;
+    notificationFileImage;
 
     constructor(private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
@@ -48,24 +50,30 @@ export class AddNotificationComponent implements OnInit {
 
     ngOnInit() {
       this.clearBatchForm();
-        let startDate = localStorage.getItem('BatchStartDate');
-        this.batchVar.batchFrom = new Date(startDate);
+        // let startDate = localStorage.getItem('BatchStartDate');
+        this.batchVar.batchFrom = new Date();
         this.batchVar.batchTo = '';
-        this.getDropdownDetails();
+        const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
+        this.moduleVar.selectedResort = resortId;
+        this.getDropdownDetails(resortId,'init');
+        this.getCourses();
     }
 
-    getDropdownDetails(){
-        const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
+    getDropdownDetails(resortId,key){
+        
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
-            this.moduleVar.resortList=result.data.Resort;
+            if(key == 'init'){this.moduleVar.resortList=result.data.Resort;}
             this.moduleVar.divisionList=result.data.divisions;
 
         })
-        this.courseService.getAllCourse().subscribe(result=>{
-            if(result && result.isSuccess){
-              this.moduleVar.courseList = result.data && result.data.rows;
-            }
-          })
+    }
+
+    getCourses(){
+      this.courseService.getAllCourse().subscribe(result=>{
+        if(result && result.isSuccess){
+          this.moduleVar.courseList = result.data && result.data.rows;
+        }
+      })
     }
 
     selectFilter(data) {
@@ -91,10 +99,12 @@ export class AddNotificationComponent implements OnInit {
             this.moduleVar.divisionId = event.divisionId;
           } else if (event.departmentId) {
             this.moduleVar.departmentId = event.departmentId;
-          } else {
+          }
+          else {
             this.moduleVar.divisionId = '';
             this.moduleVar.departmentId = '';
           }
+
           
           if (key == 'division') {
             const obj = { 'divisionId': this.moduleVar.divisionId };
@@ -201,6 +211,20 @@ export class AddNotificationComponent implements OnInit {
     addBatch(form) {
       //addTypeOneNotification
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
+        if(this.fileExtensionType === 'Video'){
+          this.commonService.uploadFiles(this.fileImageDataPreview ).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+                this.notificationFileImage = resp.data.length && resp.data[0].filename;
+                this.submitNotification();
+            }
+          })
+        }else{
+          this.submitNotification();
+        }
+    }
+
+    submitNotification(){
+      if(this.fileName && this.notificationFileName && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchTo){
         let data = {
           "courseId":'',
           "trainingClassId":'',
@@ -211,11 +235,11 @@ export class AddNotificationComponent implements OnInit {
           "fileDescription":this.description,
           "fileSize":this.fileSize,
           "fileExtension":this.fileExtensionType,
-          "fileImage":this.notificationFileName,
+          "fileImage":this.notificationFileImage ? this.notificationFileImage : '',
           "fileType":this.fileExtension,
           "fileUrl":this.notificationFileName,
           "fileLength":this.fileDuration,
-          "resortId":this.moduleVar.selectedResort.map(x=>{return x.resortId}),
+          "resortId":this.moduleVar.selectedResort,
           "divisionId":this.moduleVar.selectedDivision.map(x=>{return x.divisionId}),
           "departmentId":this.moduleVar.selectedDepartment.map(x=>{return x.departmentId}),
           "userId":this.moduleVar.selectedEmployee.map(x=>{return x.userId})
@@ -233,7 +257,6 @@ export class AddNotificationComponent implements OnInit {
               this.goTocmsLibrary();
               this.alertService.success(resp.message);
             }
-            console.log(resp)
           })
         }
         else{
@@ -247,8 +270,11 @@ export class AddNotificationComponent implements OnInit {
               this.alertService.success(resp.message);
             }
           })
-
         }
+      }
+      else{
+        this.alertService.error(this.commonLabels.mandatoryLabels.permissionError)
+      }
     }
 
     hidePopup(){
@@ -257,12 +283,7 @@ export class AddNotificationComponent implements OnInit {
     }
 
     clearBatchForm() {
-        // this.batchVar.moduleForm = [{
-        //     moduleId: 1,
-        //     program: "null",
-        //     passpercentage: "null",
-        //     mandatory: "true",
-        // }];
+   
         this.batchVar.batchFrom = '';
         this.batchVar.batchTo = '';
         this.batchVar.selectedEmp = [];
@@ -270,34 +291,24 @@ export class AddNotificationComponent implements OnInit {
         this.moduleVar.selectedCourses = null;
         this.moduleVar.selectedTrainingClass = null;
         this.moduleVar.trainingClassList = [];
-        // this.router.navigateByUrl('/calendar');
+        this.moduleVar.selectedResort = [];
+        this.moduleVar.selectedDepartment = [];
+        this.moduleVar.selectedDivision = []
+        this.moduleVar.selectedEmployee = [];
+        this.moduleVar.employeeList = [];
+        this.moduleVar.departmentList = [];
     }
 
     courseSelect(event){
+      console.log(event.target.name);
         if(event.target.value){
-            let courseId = event.target.value;
-            this.courseService.getTrainingclassesById(courseId).subscribe(result=>{
-                if(result && result.isSuccess){
-                  this.moduleVar.trainingClassList = result.data && result.data.length && result.data;
-                }
-            })
+          let courseId = event.target.value;
+          this.courseService.getTrainingclassesById(courseId).subscribe(result=>{
+              if(result && result.isSuccess){
+                this.moduleVar.trainingClassList = result.data && result.data.length && result.data;
+              }
+          })
         }
-    }
-
-    //dynamic add module fields 
-    addForm() {
-        // let obj = {
-        //     moduleId: 1,
-        //     program: "null",
-        //     passpercentage: "null",
-        //     mandatory: "true",
-        // };
-        // this.batchVar.moduleForm.push(obj);
-    }
-
-    //dynamic remove module fields
-    removeForm(i) {
-     //   this.batchVar.moduleForm.splice(i, 1);
     }
 
     getFileDetails(event){
@@ -306,6 +317,7 @@ export class AddNotificationComponent implements OnInit {
             var duration; 
             this.uploadFileName = event.target.files[0] && event.target.files[0].name;
             let file = event.target.files[0];
+            // this.filePreviewImage(file);
             this.fileSize = file.size;
             // find video duration
             var video = document.createElement('video');
@@ -325,15 +337,67 @@ export class AddNotificationComponent implements OnInit {
             let extensionType = typeValue[1].split('.').pop();
             this.fileExtension = extensionType;
             this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+            if(this.fileExtensionType === 'Video'){
+              this.filePreviewImage(file);
+          }
             this.commonService.uploadFiles(file).subscribe(resp=>{
                 console.log(resp);
                 if(resp && resp.isSuccess){
                     this.notificationFileName = resp.data.length && resp.data[0].filename;
                 }
             })
-        }
-         
+        }    
     }
+
+    filePreviewImage(file){
+      let self = this;
+          var fileReader = new FileReader(); 
+            fileReader.onload = function() {
+              var blob = new Blob([fileReader.result], {type: file.type});
+              var url = URL.createObjectURL(blob);
+              var video = document.createElement('video');
+              var timeupdate = function() {
+                if (snapImage()) {
+                  video.removeEventListener('timeupdate', timeupdate);
+                  video.pause();
+                }
+              };
+              video.addEventListener('loadeddata', function() {
+                if (snapImage()) {
+                  video.removeEventListener('timeupdate', timeupdate);
+                }
+              });
+              var snapImage = function() {
+                var canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                var image = canvas.toDataURL();
+                var success = image.length > 100000;
+                // if (success) {
+                //   var img = document.querySelector('.thumbnail_img');
+                //   img.setAttribute('src', image);
+                //   URL.revokeObjectURL(url);
+                // }
+                return success;
+              };
+              video.addEventListener('timeupdate', timeupdate);
+              video.preload = 'metadata';
+              video.src = url; 
+              // url = video.src; 
+              fetch(url)
+              .then(res => res.blob())
+              .then(blob => {
+                  self.fileImageDataPreview =  new File([blob], "File_name.png");
+                  // self.fileImageDataPreview.type = "image/png";
+              })  
+              // Load video in Safari / IE11
+              video.muted = true;
+              //video.playsInline = true;
+              video.play();
+            };
+            fileReader.readAsArrayBuffer(file);
+  }
 
     goTocmsLibrary(){
       this.completed.emit('completed'); 

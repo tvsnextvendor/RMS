@@ -8,8 +8,7 @@ import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { BatchVar } from '../Constants/batch.var';
 import { API_URL } from '../Constants/api_url';
-import { AlertService } from '../services/alert.service';
-import {CommonService} from '../services/restservices/common.service';
+import { AlertService,PDFService,ExcelService,CommonService } from '../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import * as XLSX from 'ts-xlsx';
 import {UserService,ResortService, UtilService} from '../services';
@@ -77,7 +76,7 @@ export class UserComponent implements OnInit {
     editData;
     removedMappingId = [];
 
-    constructor(private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
+    constructor(private pdfService : PDFService ,private excelService :ExcelService,private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
         private commonLabels : CommonLabels,public batchVar : BatchVar) {
         this.constant.url = API_URL.URLS;
     }
@@ -205,6 +204,7 @@ export class UserComponent implements OnInit {
     openAddUser(template: TemplateRef<any>, data,  index) {
         this.divisionValidationCheck = true;
         this.errorValidation = true;
+        this.errMsg = '';
         if(data){
             this.editData = _.cloneDeep(data)
             this.userEdit(data,index);
@@ -736,7 +736,15 @@ export class UserComponent implements OnInit {
     getDivisionArray(data,type){
         let arr = [];
         if(type == 'div'){
-            data.forEach(item=>{item.Division?arr.push(item.Division.divisionName):''});
+            let details = [];
+            data.forEach(item=>{
+                if(item.Division){
+                    details.push(item.Division.divisionName)
+                }
+            });
+            arr = Array.from(details.reduce((m, t) => m.set(t, t), new Map()).values());
+            // console.log(arr,'resilut')
+            // arr = _.sortedUniq(details);
         }
         if(type == 'dept'){
             data.forEach(item=>{item.Department?arr.push(item.Department.departmentName):''});
@@ -784,4 +792,25 @@ export class UserComponent implements OnInit {
         }
         return arr;
     }
+
+     // Create PDF
+ exportAsPDF(){ 
+    // this.labels.btns.select =  this.labels.btns.pdf;
+    var data = document.getElementById('userForm'); 
+    this.pdfService.htmlPDFFormat(data,this.commonLabels.titles.userManagement);  
+  } 
+  // Create Excel sheet
+  exportAsXLSX():void {
+    // this.labels.btns.select =  this.labels.btns.excel;
+    let arr = this.constant.userList.map(item=>
+        _.pick(item,['userId','userName','email','employeeId','phoneNumber','active'])
+    )
+    this.constant.userList.forEach((item,i)=>{
+        arr[i].role = String(this.getDivisionArray(item.ResortUserMappings,'design'));
+        arr[i].division = String(this.getDivisionArray(item.ResortUserMappings,'div')) ;
+        arr[i].department = String(this.getDivisionArray(item.ResortUserMappings,'dept'));
+    })
+    console.log(arr)
+    this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.userManagement);
+  }
 }

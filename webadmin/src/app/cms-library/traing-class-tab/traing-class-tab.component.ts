@@ -1,5 +1,5 @@
 import { Component, OnInit, Input,Output, EventEmitter } from '@angular/core';
-import { HeaderService, HttpService, CourseService, AlertService } from '../../services';
+import { HeaderService, HttpService, CourseService, AlertService,UtilService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
 @Component({
@@ -20,7 +20,7 @@ export class TraingClassTabComponent implements OnInit {
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
   @Input() courseId;
-  constructor(private courseService: CourseService, public commonLabels : CommonLabels, public alertService: AlertService) { }
+  constructor(private courseService: CourseService, public commonLabels : CommonLabels, public alertService: AlertService,private utilService :UtilService) { }
 
   ngOnInit() {
     this.pageLength = 5;
@@ -35,9 +35,10 @@ export class TraingClassTabComponent implements OnInit {
   }
 
   getTrainingClassDetails() {
-
+    let userId = this.utilService.getUserData().userId;
+    // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId+'&createdBy='+userId : '&createdBy='+userId;
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId : '';
-    console.log(query)
+    // console.log(query)
     let newList;
     let trainList;
   this.courseService.getCourseTrainingClass(this.currentPage, this.pageLength,query).subscribe((resp) => {

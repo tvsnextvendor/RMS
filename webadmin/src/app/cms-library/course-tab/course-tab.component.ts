@@ -76,6 +76,8 @@ export class CourseTabComponent implements OnInit {
 
   getCourseDetails(){
     this.deletedFileId  = [];
+    let userId = this.utilService.getUserData().userId;
+    // let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none&createdBy='+userId;
     let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none';
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
       this.CMSFilterSearchEventSet = '';
