@@ -123,6 +123,11 @@ iframe{
     border-style: solid;
     border: 1px solid #ccc;
     box-shadow: inset 2px 0px 12px 1px #ccc;
+    /* width: 100%;
+    text-align: center;
+    height: 279px;
+    overflow-x: hidden;
+    overflow-y: hidden; */
 }
 .add-icon{
     line-height: 35px;
