@@ -200,6 +200,22 @@ export class CertificatesComponent implements OnInit {
         navText: ['<', '>']
     }
 
+  
+   openDeleteTemplate(template: TemplateRef<any>,certificateId){
+     this.constant.modalRef = this.modalService.show(template);
+      this.certificateId = certificateId;
+   }
+
+   deleteCertificate(){
+       this.commonService.deleteCertificate(this.certificateId).subscribe(res=>{
+          if(res.isSuccess){
+            this.constant.modalRef.hide();
+            this.alertService.success(this.commonLabels.msgs.badgeSuccessMsg);
+            this.getCertificate();
+          }
+       })
+   }
+
 
     openAddtemplate(template: TemplateRef<any>, certificateId) {
         this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
