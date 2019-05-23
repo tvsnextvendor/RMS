@@ -13,6 +13,9 @@ export class BatchVar{
         unSelectAllText: 'UnSelect All',
         enableCheckAll: true,
         itemsShowLimit: 8,
+        allowSearchFilter : true,
+        searchPlaceholderText : "Search",
+        clearSearchFilter : true
     }
     resortSettings = {
         singleSelection: false,
@@ -31,6 +34,9 @@ export class BatchVar{
         unSelectAllText: 'UnSelect All',
         enableCheckAll: true,
         itemsShowLimit: 8,
+        allowSearchFilter : true,
+        searchPlaceholderText : "Search",
+        clearSearchFilter : true
     }
     divisionSettings = {
         singleSelection: false,
@@ -40,6 +46,9 @@ export class BatchVar{
         unSelectAllText: 'UnSelect All',
         enableCheckAll: true,
         itemsShowLimit: 8,
+        allowSearchFilter : true,
+        searchPlaceholderText : "Search",
+        clearSearchFilter : true
     }
     designationSettings = {
         singleSelection: false,
@@ -49,6 +58,9 @@ export class BatchVar{
         unSelectAllText: 'UnSelect All',
         enableCheckAll: false,
         itemsShowLimit: 8,
+        allowSearchFilter : true,
+        searchPlaceholderText : "Search",
+        clearSearchFilter : true
     }
 
    labels = {

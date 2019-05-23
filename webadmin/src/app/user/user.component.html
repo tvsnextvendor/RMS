@@ -12,13 +12,13 @@
                             accept=".xlsx,.csv" />
                     </button>
                 </span> 
-                <div class="dropdown btn-group pull-right export-btn mr-2">
+                <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="constant.userList.length">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                             {{commonLabels.btns.exportTo}}
                         </button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item pl-3">{{commonLabels.btns.excel}}</a>
-                          <a class="dropdown-item pl-3">{{commonLabels.btns.pdf}}</a>
+                          <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
+                          <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
                         </div>
                       </div>
                 <span class="pr-2"><button class="btn btn-primary" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
@@ -28,7 +28,7 @@
                 </span> -->
                 
             </div>
-            <form class="table-responsive custom-table2 px-1" #userForm="ngForm">
+            <form class="table-responsive custom-table2 px-1" #userForm="ngForm" id="userForm">
                 <table class="table table-striped white-bg mt-1" [mfData]="constant.userList" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
                     <thead>
                         <tr class="th-boxshadow text-center">

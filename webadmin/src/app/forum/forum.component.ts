@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef} from '@angular/core';
-import {HeaderService, ForumService} from '../services';
+import {HeaderService, ForumService,PDFService,ExcelService} from '../services';
 import {ForumVar} from '../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -30,7 +30,10 @@ export class ForumComponent implements OnInit {
       private forumService: ForumService,
       private router: Router,
       public commonLabels: CommonLabels,
-      private alertService: AlertService) {
+      private alertService: AlertService,
+      private pdfService : PDFService,
+      private excelService : ExcelService
+      ) {
        this.forumVar.url = API_URL.URLS;
     }
     filteredNames = [];
@@ -131,5 +134,17 @@ export class ForumComponent implements OnInit {
           }
         }
       }
+
+            // Create PDF
+ exportAsPDF(){ 
+  // this.labels.btns.select =  this.labels.btns.pdf;
+  var data = document.getElementById('forumList'); 
+  this.pdfService.htmlPDFFormat(data,this.commonLabels.titles.forumtitle);  
+} 
+// Create Excel sheet
+exportAsXLSX():void {
+  // this.labels.btns.select =  this.labels.btns.excel;
+  this.excelService.exportAsExcelFile(this.forumVar.forumList, this.commonLabels.titles.resortmanagement);
+}
 
 }

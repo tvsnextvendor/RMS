@@ -14,8 +14,8 @@
         {{commonLabels.btns.exportTo}}
     </button>
     <div class="dropdown-menu">
-      <a class="dropdown-item pl-3">{{commonLabels.btns.excel}}</a>
-      <a class="dropdown-item pl-3">{{commonLabels.btns.pdf}}</a>
+      <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
+      <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
     </div>
   </div>
 </div>
@@ -29,7 +29,7 @@
 
 <div class="row pt-3">
         <div class="col-lg-9 col-sm-12 pl-0">                
-            <div class="table-responsive white-bg px-2">
+            <div class="table-responsive white-bg px-2" id="forumList">
                 <table class="table" [mfData]="forumVar.forumList" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
                         <tr class="th-boxshadow"  class="">                         

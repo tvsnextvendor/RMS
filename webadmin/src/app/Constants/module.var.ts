@@ -31,7 +31,7 @@ export class ModuleVar {
     divisionList = [];
     employeeList = [];
     selectedDepartment=[];
-    selectedResort = [];
+    selectedResort = null;
     selectedDivision = [];
     errorValidate = true;
     courseListPage = [];
@@ -64,6 +64,7 @@ export class ModuleVar {
     fileExtension;
     divisionId;
     departmentId;
+    resortId = [];
 
     departmentSettings = {
         singleSelection: false,
@@ -73,6 +74,9 @@ export class ModuleVar {
         unSelectAllText: 'UnSelect All',
         enableCheckAll: false,
         itemsShowLimit: 8,
+        allowSearchFilter : true,
+        searchPlaceholderText : "Search",
+        clearSearchFilter : true
     }
     resortSettings = {
         singleSelection: false,
@@ -91,6 +95,9 @@ export class ModuleVar {
         unSelectAllText: 'UnSelect All',
         enableCheckAll: false,
         itemsShowLimit: 8,
+        allowSearchFilter : true,
+        searchPlaceholderText : "Search",
+        clearSearchFilter : true
     }
     divisionSettings = {
         singleSelection: false,
@@ -100,6 +107,9 @@ export class ModuleVar {
         unSelectAllText: 'UnSelect All',
         enableCheckAll: false,
         itemsShowLimit: 8,
+        allowSearchFilter : true,
+        searchPlaceholderText : "Search",
+        clearSearchFilter : true
     }
     courseSettings = {
         singleSelection: false,

@@ -620,14 +620,17 @@ export class AddModuleComponent implements OnInit {
 
     openEditModal(template: TemplateRef<any>,modelValue) {
         console.log(this.moduleName)
-        if(this.moduleName){
+        if(this.moduleName && this.moduleVar.selectedCourseIds.length){
           let modalConfig= {
             class : "modal-dialog-centered"
           }
           this.modalRef = this.modalService.show(template,modalConfig);
         }
-        else{
+        else if(!this.moduleName){
           this.alertService.error(this.commonLabels.labels.pleaseaddCourse);
+        }
+        else if(!this.moduleVar.selectedCourseIds.length){
+            this.alertService.error(this.commonLabels.mandatoryLabels.trainingClassrequired);
         }
       }
    

@@ -20,11 +20,11 @@
                             <option value='null' disabled>{{commonLabels.labels.course}}</option>
                             <option  *ngFor="let course of moduleVar.courseList" [value]="course.courseId">{{course.courseName}}</option>
                         </select><div class="select_arrow"></div>
-                        <span class="required_color mt-0" *ngIf="moduleSubmitted && !selectedCourses">
+                        <span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleVar.selectedCourses">
                             {{commonLabels.labels.courseError}}
                         </span>
                     </div>
-                    <div class="row form-group">
+                    <!-- <div class="row form-group">
                         <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown
                             [placeholder]="'Resort'"
@@ -35,6 +35,15 @@
                             (onDeSelect) = "onItemSelect($event,'resort','deselect')" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedResort.length === 0">
+                            {{commonLabels.labels.courseError}}
+                        </span>
+                    </div> -->
+                    <div class="row form-group select select-style clearfix">
+                        <select class="form-control p-0 select-Courses" name="resort" [(ngModel)]="moduleVar.selectedResort" #resort  (change)="getDropdownDetails(resort.value,'')">
+                            <option value='null' disabled>{{commonLabels.labels.resort}}</option>
+                            <option  *ngFor="let course of moduleVar.resortList" [value]="course.resortId">{{course.resortName}}</option>
+                        </select><div class="select_arrow"></div>
+                        <span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleVar.selectedResort">
                             {{commonLabels.labels.courseError}}
                         </span>
                     </div>

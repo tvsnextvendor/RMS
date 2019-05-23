@@ -1,17 +1,13 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService,HttpService,CommonService,UserService,UtilService,ResortService } from '../../services';
-// import { HttpService } from '../../services/http.service';
-// import { CommonService } from '../../services/restservices/common.service';
-// import { UserService } from '../../services/restservices/user.service';
-import { ToastrService } from 'ngx-toastr';
+import { HeaderService,HttpService,CommonService,UserService,UtilService,ResortService,PDFService,ExcelService } from '../../services';
 import { ResortVar } from '../../Constants/resort.var';
 import { API_URL } from '../../Constants/api_url';
 import { AlertService } from 'src/app/services/alert.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-// import { AddBatchComponent} from '../../batch/add-batch/add-batch.component';
 import { CommonLabels } from  '../../Constants/common-labels.var';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-resort-list',
@@ -24,7 +20,9 @@ export class ResortListComponent implements OnInit {
   userId;
   resortId;
 
-  constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar, private toastr: ToastrService, private headerService: HeaderService,private utilService : UtilService,private resortService : ResortService,public commonLabels : CommonLabels) {
+  constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, 
+    private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar,
+     private headerService: HeaderService,private utilService : UtilService,private resortService : ResortService,public commonLabels : CommonLabels,private pdfService:PDFService,private excelService:ExcelService) {
     this.resortVar.url = API_URL.URLS;
   }
 
@@ -86,5 +84,20 @@ export class ResortListComponent implements OnInit {
     this.resortVar.modalRef = this.modalService.show(template,modalConfig); 
   }
 
-
+  // Create PDF
+ exportAsPDF(){ 
+  // this.labels.btns.select =  this.labels.btns.pdf;
+  var data = document.getElementById('resortList'); 
+  this.pdfService.htmlPDFFormat(data,this.commonLabels.titles.resortmanagement);  
+} 
+// Create Excel sheet
+exportAsXLSX():void {
+  // this.labels.btns.select =  this.labels.btns.excel;
+  let arr = this.resortVar.resortList.map(item=>_.pick(item,['resortId','resortName','location','status','totalNoOfUsers','totalStorage','allocatedSpace']));
+  this.resortVar.resortList.forEach((data,i)=>{
+    arr[i].email = data.ResortUserMappings.length && data.ResortUserMappings[0].User.email;
+    arr[i].phoneNumber = data.ResortUserMappings.length && data.ResortUserMappings[0].User.phoneNumber;
+  })
+  this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.resortmanagement);
+}
 }

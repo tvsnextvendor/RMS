@@ -5,7 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 export class ResortVar {
     url;
     title = "Add New Resort";
-    resortList;
+    resortList = [];
     resortName;
     location;
     email;
