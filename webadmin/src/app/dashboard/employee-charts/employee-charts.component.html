@@ -111,7 +111,7 @@
                 <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
                 <div class="select_arrow"></div>
               </select>
-              <!-- <div *ngIf="dashboardVar.courseTrendData" id="videosTrend" style="height: 195px; margin: 0 auto; padding-left: 12px;" ></div> -->
+              <div *ngIf="dashboardVar.courseTrendData" id="trend" style="height: 195px; margin: 0 auto; padding-left: 12px;" (click)="goToVideosTrend()" ></div>
             </h6>
             
           </div>
