@@ -14,8 +14,8 @@ export class DashboardVar {
    weekGrowth;
    moduleList;
    moduleType = null;
-   yearList;
-   years = "2018";
+   yearList = [{'year': '2017'}, {'year': '2018'}, {'year': '2019'}];
+   years = '2019';
    taskChart;
    courseTrendData;
    certificationTrend;
@@ -26,6 +26,8 @@ export class DashboardVar {
    empDropdown = 1;
    visitorsData;
    staffData;
+   totalCourses;
+   totalCoursesCount;
    // total = 'total';
    // title = 'Dashboard';
    // task = 'Task';

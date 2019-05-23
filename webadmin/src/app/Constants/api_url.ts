@@ -168,9 +168,15 @@ export class API_URL {
     // Feedback
     feedbackList : '8103/feedbackList',
 
-    //notification
+    // notification
     addTypeOneNotification : '8103/createNotification',
-    addTypeTwoNotification : '8103/signatureNotification'
+    addTypeTwoNotification : '8103/signatureNotification',
+
+    // Dashboard
+    totalCount : '8103/getTotalCount',
+    totalCourse : '8103/getTotalCourse',
+    ratedTrainingClasses : '8103/topRatedTrainingClasses',
+    getCourseTrend : '8103/getCourseByMonth'
   }
   
 
