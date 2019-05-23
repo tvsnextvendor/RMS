@@ -1,6 +1,16 @@
 <div class="row">
     <div class="col-sm-12 pb-3 p-0">
-        <button type = "button" class="btn btn-primary float-right" [routerLink]="['../resorts']"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addNew}}</button>
+            <button type = "button" class="btn btn-primary float-right" [routerLink]="['../resorts']"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addNew}}</button>
+            <div class="dropdown btn-group pull-right export-btn mr-2">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        {{commonLabels.btns.exportTo}}
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item pl-3">{{commonLabels.btns.excel}}</a>
+                      <a class="dropdown-item pl-3">{{commonLabels.btns.pdf}}</a>
+                    </div>
+                  </div>
+       
     </div> 
     <div class="col-lg-12 col-sm-12 p-0">                
         <div class="table-responsive white-bg custom-table2">
