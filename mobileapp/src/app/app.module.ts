@@ -10,14 +10,13 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
 import { Calendar } from '@ionic-native/calendar';
 import { DocumentViewer } from '@ionic-native/document-viewer';
-import { AccomplishmentPageModule, CalendarPageModule, EventPageModule, ForgetPageModule, ForumPageModule, HomePageModule, LandingPageModule, LoginPageModule, ProfilePageModule, QuizPageModule, QuizResultModule, SettingsPageModule, SignupPageModule, TrainingPageModule, TrainingDetailPageModule, NotificationPageModule, ForumDetailPageModule ,ModalPageModule,LibraryPageModule, CoursePageModule, FeedbackPageModule} from '../pages';
+import { AccomplishmentPageModule, CalendarPageModule,TopicPageModule,EventPageModule, ForgetPageModule, ForumPageModule, HomePageModule, LandingPageModule, LoginPageModule, ProfilePageModule, QuizPageModule, QuizResultModule, SettingsPageModule, SignupPageModule, TrainingPageModule, TrainingDetailPageModule, NotificationPageModule, ForumDetailPageModule ,ModalPageModule,LibraryPageModule, CoursePageModule, FeedbackPageModule} from '../pages';
 import { API } from '../constants/API.var';
 import { API_URL } from '../constants/API_URLS.var';
 import { MyApp } from './app.component';
 import { HttpProvider } from '../providers/http/http';
 import { AuthProvider } from '../providers/auth/auth';
-import { LoaderService } from '../service/loaderService';
-import { ToastrService } from '../service/toastrService';
+import { LoaderService, ToastrService, SocketService } from '../service';
 
 
 @NgModule({
@@ -34,6 +33,7 @@ import { ToastrService } from '../service/toastrService';
     SignupPageModule,
     LoginPageModule,
     ForgetPageModule,
+    TopicPageModule,
     HomePageModule,
     TrainingPageModule,
     TrainingDetailPageModule,
@@ -68,6 +68,7 @@ import { ToastrService } from '../service/toastrService';
     AuthProvider,
     LoaderService,
     ToastrService,
+    SocketService,
     GooglePlus,
     LinkedIn,
     Calendar,

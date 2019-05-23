@@ -28,7 +28,7 @@
     <ion-row *ngIf="forumData.length > 0">
       <ion-col *ngFor="let forum of forumData; let i =index;" col-12 col-sm-6 col-md-4 class="main-forum">
         <ion-card class="forum-card">
-          <ion-card-content (click)="goToForumDetail(forum,i)" class="forum-card">
+          <ion-card-content (click)="goToTopic(forum)" class="forum-card">
             <ion-row>
               <ion-col col-2 class="img-block">
                 <img src="assets/imgs/sms@3x.png" class="forum-image">

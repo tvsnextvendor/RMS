@@ -18,3 +18,4 @@ export * from './notification/notification';
 export * from './forum-detail/forum-detail';
 export * from './course/course';
 export * from './feedback/feedback';
+export * from './topic/topic';

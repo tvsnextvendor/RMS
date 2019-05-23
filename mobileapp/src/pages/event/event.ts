@@ -80,7 +80,10 @@ calculateExpireDays(dueDate) {
    });
   }
 
-
+  goToForum(){
+     this.navCtrl.setRoot('forum-page');
+  }
+  
   openCalendar() {
     this.calendar.openCalendar(new Date()).then(
       (msg) => {

@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Constant } from '../../constants/Constant.var';
-//import {ToastrService} from '../../service/toastrService';
 import { Storage } from '@ionic/storage';
 
 @IonicPage({
@@ -31,10 +30,10 @@ export class LoginPage implements OnInit {
                 if (val) {
                     this.user = val
                 }
-                console.log(val);
             }, (err) => {
                 console.log('userInput not received', err);
             });
+            
     }
     doLogin() {
 
@@ -44,15 +43,11 @@ export class LoginPage implements OnInit {
         }
         if (this.user.keepmelogin) {
             this.storage.set('userInput', this.user).then(() => {
-                console.log('Data has been set');
             });
         }
         this.authService.login(this.user.name, this.user.pw, this.user.keepmelogin).then(success => {
 
-            console.log(status);
             if (success) {
-                console.log('success',success);
-              
                 this.navCtrl.setRoot('home-page');
                // this.toastr.success('Login Successful');
             }else{
@@ -80,4 +75,6 @@ export class LoginPage implements OnInit {
     goBackLogin(){
         this.navCtrl.setRoot('login-page');
       }
+
+  
 }

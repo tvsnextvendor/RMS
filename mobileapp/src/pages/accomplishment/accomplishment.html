@@ -7,16 +7,15 @@
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.accomplishment}}</span>
         <div class="header-icon">
-          <ion-icon name="search" (click)="toggleSearchBox()"></ion-icon>
+          <ion-icon name="ios-chatboxes" (click)="goToForum()" class="chat-icon"></ion-icon>
+          <span (click)="goToNotification()">
+            <img src="assets/imgs/notification.png" />
+            <span class="dot-circle">{{notificationCount}}</span>
+          </span>
         </div>
       </ion-title>
     </ion-navbar>
-    <ion-navbar *ngIf="showSearchBar">
-      <ion-icon name="md-arrow-back" class="search-backarrow" (click)="toggleSearchBox()"></ion-icon>
-      <ion-searchbar [(ngModel)]="search" ion-searchbar (ionInput)="onInput($event)" (ionCancel)="onCancel($event)"
-        class="search-bar">
-      </ion-searchbar>
-    </ion-navbar>
+    
   </ion-header>
   <div class="main-content">
     <div class="certificate-block" *ngIf="certificateList.length > 0">

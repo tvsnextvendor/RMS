@@ -18,8 +18,8 @@ import * as moment from 'moment';
 })
 export class ForumPage implements OnInit {
   forumData: any = [];
-  paramsData: any = { 'setData': [], 'selectedIndex': '' };
-  search;
+  paramsData: any = { 'setData': [] };
+  search='';
   showSearchBar: boolean = false;
   notificationCount;
   currentUser;
@@ -38,6 +38,11 @@ export class ForumPage implements OnInit {
 
   }
 
+  goToTopic(detailObj){
+     this.paramsData['setData'] = detailObj;
+    this.navCtrl.setRoot('topic-page',this.paramsData);
+  }
+
 
   goToNotification() {
     this.navCtrl.setRoot('notification-page');
@@ -52,20 +57,13 @@ export class ForumPage implements OnInit {
             }
         });
   }
-  goToForumDetail(detailObj, selectedIndex) {
-    this.paramsData['setData'] = detailObj;
-    this.paramsData['selectedIndex'] = selectedIndex;
-
-    this.navCtrl.setRoot('forumdetail-page', this.paramsData);
-  }
+ 
 
   getForumDatas() {
-    this.loader.showLoader();
-    this.http.get(API_URL.URLS.getForum).subscribe((res) => {
+    this.http.get(API_URL.URLS.getForum +'?search='+this.search).subscribe((res) => {
       if (res['isSuccess']) {
         this.forumData = res['data']['rows'];
       }
-      this.loader.hideLoader();
     });
   }
 
@@ -78,18 +76,22 @@ export class ForumPage implements OnInit {
   
   toggleSearchBox() {
     this.showSearchBar = !this.showSearchBar;
+    this.getForumDatas();
   }
+
   onInput($e) {
   
     if (this.search) {
-      this.forumData = this.forumData.filter(val => val.forumName === this.search);
+      this.getForumDatas();
     } else {
       this.showSearchBar = false;
+      this.search='';
       this.getForumDatas();
     }
   }
   onCancel($e) {
     this.showSearchBar = false;
+    this.search='';
     this.getForumDatas();
   }
 

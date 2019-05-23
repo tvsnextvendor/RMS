@@ -19,3 +19,4 @@ export * from './modal/modal.module';
 export * from './library/library.module';
 export * from './course/course.module';
 export * from './feedback/feedback.module';
+export * from './topic/topic.module';

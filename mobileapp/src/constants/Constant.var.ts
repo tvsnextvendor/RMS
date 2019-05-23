@@ -11,6 +11,7 @@ export class Constant {
         event: 'Training Schedule',
         profile: 'Profile',
         forum: 'Forum',
+        topic: 'Topic',
         menu: 'Menu',
         logOut: 'Logout',
         notification: 'Notification',
@@ -175,6 +176,7 @@ export class Constant {
                 questionRequired: 'Question is required'
             }
         },
+
         accomplishmentLabels: {
             certificates: 'Certificates',
             badges: 'Badges',
