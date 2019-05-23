@@ -5,7 +5,7 @@
                 <h5 class="float-left certificate-respon">{{commonLabels.titles.certiTempl}}</h5>
                 <button type="button" class="btn btn-primary certificate-respon" (click)="openAddtemplate(addTemplate, '')">{{commonLabels.btns.add}}</button>
             </div>
-            <owl-carousel-o [options]="customOptions" class="certificate-list">
+            <owl-carousel-o [options]="customOptions" class="certificate-list" *ngIf="constant.certificateList?.length > 0;else noData">
                 <ng-container *ngFor="let template of constant.certificateList">
                     <ng-template carouselSlide [id]="template.certificateId">
                         <iframe [src]="template.imageFile | sanitizeHtml" width="100%" height="165" ></iframe>
@@ -15,6 +15,12 @@
                     </ng-template>
                 </ng-container>
             </owl-carousel-o>
+            <ng-template #noData>
+                <div class="col-md-12">
+                    <div class="text-center p-4">
+                    <p class="data-design"><span class="nodata">{{commonLabels.labels.noData}}<i class="far fa-frown nodata-img"></i></span></p>
+                    </div>
+                    </div></ng-template>
             <div class="pr-3 pb-2" *ngFor="let data of constant.templateAssign; let i = index">
                 <div class="row">
                     <div class="col-md-6 col-sm-12 p-0">
