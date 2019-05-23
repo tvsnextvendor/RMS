@@ -80,6 +80,10 @@ addCertificate(certificateData) {
   return this.http.post('local', this.url.addCertificate, certificateData);
 }
 
+deleteCertificate(id){
+    return this.http.delete('local',this.url.deleteCertificate+'/'+id)
+  }
+
 getCertificate(id) {
   return this.http.getLocal('local', this.url.getCertificate + '?resortId=' + id);
 }

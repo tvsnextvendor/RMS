@@ -70,6 +70,8 @@ export class CommonLabels{
         "false"             :   "False",
         "weightage"         :   "Weightage",
         "totalNoOfQuestions":   "Total No of Question(s)",
+        "deleteCertificate" :   "Delete Certificate",
+        "delConfirmCertificate" : "Are you sure you want to delete this template?",
         "deleteQuiz"        :   "Delete Quiz",
         "deleteConfirmation":   "Are you sure you want to delete this quiz question?",
         "a"                 :   "A",
