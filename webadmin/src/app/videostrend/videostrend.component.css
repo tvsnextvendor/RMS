@@ -46,3 +46,26 @@
     color: #468FB9;
     cursor: pointer;
    } */
+   .vdo-btn{
+     width:130px;
+     background: #fff;
+     border-radius: 3px;
+     border:1px solid #dcdcdc;    
+     padding: 3px;
+   }
+   .video-trend-desc {
+    color: #73737B;
+    font-size: 15px;
+}
+.vdo-desc-height {
+ line-height: inherit;
+}
+.table td.vdo-desc-height {
+  border-bottom: none
+}
+.und-txt a{
+  text-decoration: underline;
+}
+.creat-btn{
+  float: none;
+}
