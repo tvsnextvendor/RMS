@@ -21,6 +21,7 @@ import * as moment from 'moment';
 export class NotificationPage implements OnInit {
   notificationList;
   currentUser;
+  count;
   constructor(public navCtrl: NavController,public storage:Storage, public navParams: NavParams,public socketService: SocketService, public http: HttpProvider, public API_URL: API_URL,public constant:Constant, private loader: LoaderService) {
   }
   ionViewDidEnter() {       
@@ -49,7 +50,13 @@ export class NotificationPage implements OnInit {
     };
    this.socketService.getNotification(socketObj).subscribe((data)=>{
      console.log(data,"dcjhdsbchjdcjbdhjcbdschdsb")
+     if(data['rows']){
       this.notificationList = data['rows'];
+      this.count = data['count'];
+     }else{
+       this.count = 0;
+     }
+      console.log(this.notificationList);
    });
   }
 
