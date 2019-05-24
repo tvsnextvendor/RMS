@@ -52,8 +52,11 @@
               
               <ion-row class="review-block" *ngIf="list.isActive">
                 <ion-col col-4>
-                  <p class="vote-count"><small class="vt-count">{{list.votesCount}}</small> <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
-                  <img src="assets/imgs/likeblue.png" /></p>
+                  <p class="vote-count"><small class="vt-count">{{list.votesCount}}</small> 
+                  <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
+                  <img src="assets/imgs/likeblue.png" *ngIf="list.like" />
+                  <img src="assets/imgs/likeblack.png" *ngIf="!list.like" (click)="likePost(list,'like')" />
+                </p>
                 </ion-col>
                 <ion-col col-4>
                   <p class="vote-count" *ngIf="list.Comments"><small class="vt-count">{{list.Comments.length}}</small> <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
@@ -65,7 +68,7 @@
                 </ion-col>
               </ion-row>
               <div *ngIf="list.isComment" class="reply-comment">
-                <div *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
+                <div *ngFor="let comment of commentList;let i=index;" class="comment-row">
                     <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1' : 'user-2'">
                   <ion-col col-2 class="comment-img">
                     <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
@@ -82,7 +85,7 @@
                   </ion-col>
                     </ion-row>
                 </div>
-                <form (ngSubmit)="saveComment(list.postId)" novalidate>
+                <form (ngSubmit)="saveComment(list.postId,j)" novalidate>
                   <ion-row>
                     <ion-col col-2>
                       <img src="assets/images/images1.jpeg" class="comment-image">
@@ -92,7 +95,7 @@
                         <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..." class="comment-input">
                         </ion-input>
                       </ion-item>
-                      <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId)"></ion-icon>
+                      <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId, j)"></ion-icon>
                     </ion-col>
                   </ion-row>
                 </form>
@@ -101,6 +104,9 @@
           </ion-card>
         </ion-col>
       </ion-row>
+        <ion-row *ngIf="recentList.length == 0">
+          <img src="assets/imgs/norecordsfound.png" class="no-records" />
+        </ion-row>
     </ion-list>
     
      <ion-list *ngSwitchCase="'featuredFav'">
@@ -135,7 +141,9 @@
               
                 <ion-col col-4>
                     <p class="vote-count"><small class="vt-count">{{list.votesCount}}</small> <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
-                    <img src="assets/imgs/likeblue.png" /></p>
+                    <img src="assets/imgs/likeblue.png" *ngIf="list.like" />
+                    <img src="assets/imgs/likeblack.png" *ngIf="!list.like" (click)="likePost(list,'like')" />
+                  </p>
                   </ion-col>
                 <ion-col col-4>
                   <p class="vote-count" *ngIf="list.Comments">{{list.Comments.length}} <span
@@ -148,7 +156,7 @@
                 </ion-col>
               </ion-row>
               <div *ngIf="list.isComment" class="reply-comment">
-                <div *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
+                <div *ngFor="let comment of commentList;let i=index;" class="comment-row">
                    <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1 col-md-12' : 'user-2 col-md-12'">
                   <ion-col col-2 class="comment-img">
                     <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
@@ -166,7 +174,7 @@
                   </ion-col>
                 </ion-row>
                 </div>
-                <form (ngSubmit)="saveComment(list.postId)" novalidate>
+                <form (ngSubmit)="saveComment(list.postId, j)" novalidate>
                   <ion-row>
                     <ion-col col-2>
                       <img src="assets/images/images1.jpeg" class="comment-image">
@@ -176,7 +184,7 @@
                         <ion-input name="comment" [(ngModel)]="comment" class="comment-input" placeholder="Add a comment ...">
                         </ion-input>
                       </ion-item>
-                      <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId)"></ion-icon>
+                      <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId,j)"></ion-icon>
                     </ion-col>
                   </ion-row>
                 </form>
@@ -184,6 +192,9 @@
             </ion-grid>
           </ion-card>
         </ion-col>
+      </ion-row>
+      <ion-row *ngIf="recentList.length == 0">
+        <img src="assets/imgs/norecordsfound.png" class="no-records" />
       </ion-row>
     </ion-list> 
   </div>

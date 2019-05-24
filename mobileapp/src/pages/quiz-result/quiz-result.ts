@@ -54,7 +54,8 @@ export class QuizResultPage implements OnInit {
     feedbackForm() {
         if (this.feedback && !this.feedback.rating) {
             this.errorMessage =  "Rating is required"; return false;
-           // this.toastr.error("Rating is required"); return false;
+        }else if(!this.feedback.description){
+            this.errorMessage =  "Suggestions / Feedback is required"; return false;
         } else {
             this.errorMessage  = '';
             let percentages = [{ 1: 20, 2: 40, 3: 60, 4: 80, 5: 100 }];
@@ -70,7 +71,6 @@ export class QuizResultPage implements OnInit {
                 "resortId":resortId,
                 "trainingClassId" : this.resultData['trainingClassId']
             }
-            console.log(postData);
             this.http.post(false,API_URL.URLS.postFeedBack,postData).subscribe(res=>{
                 if(res['isSuccess']){
                     this.toastr.success(res['message']);

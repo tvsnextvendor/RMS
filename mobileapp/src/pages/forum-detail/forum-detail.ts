@@ -62,7 +62,6 @@ export class ForumDetailPage implements OnInit {
   }
   ionViewDidLoad() {
     this.forumTopics = 'mostRecent';
-    console.log('ionViewDidLoad ForumPage');
   }
   ionViewDidEnter() {
     this.status='recent';
@@ -129,8 +128,8 @@ export class ForumDetailPage implements OnInit {
     })
   }
   
+  //Add post
   questionSubmit() {
-    console.log(this.forum);
     let postData={
       "description" : this.forum.question,
       "forumId": this.forumId,
@@ -150,11 +149,13 @@ export class ForumDetailPage implements OnInit {
     
   }
 
+ //change status between recent and fav.
   changeStatus(status){
     this.status = status;
     this.getTopicsRelated();
   }
 
+  //Make a post fav/unfav
   likeUnlikeQuestion(list, status) {
     list['like'] = !(list['like']);
     let postData={
@@ -169,17 +170,26 @@ export class ForumDetailPage implements OnInit {
       this.loader.hideLoader();
     });
   }
+
+ //hide and show description part
   hideShowDesc(list, j) {
+    this.hideQuestionBtn = true;
     list[j]['isActive'] = !(list[j]['isActive']);
+    list[j]['isComment'] = list[j]['isComment'] ? false :'';
   }
+
+  //hide and show comment part
   showCommentSet(list, j) {
+    this.getComments(list[j]['postId']);
     list[j]['isComment'] = !(list[j]['isComment']);
-    this.hideQuestionBtn = !this.hideQuestionBtn ;
+    this.hideQuestionBtn = false ;
   }
-  getComments() {
-    this.http.getData(API_URL.URLS.getComments).subscribe((data) => {
-      if (data['isSuccess']) {
-        this.commentList = data['commentList'];
+  
+  //Get comments by postId
+  getComments(id) {
+    this.http.get(API_URL.URLS.comment+'/'+id).subscribe((res) => {
+      if (res['isSuccess']) {
+        this.commentList = res['data']['rows'];
       }
     });
   }
@@ -196,23 +206,39 @@ export class ForumDetailPage implements OnInit {
       });
   }
 
-  saveComment(id) {  
+  saveComment(id,i) {  
    let postData ={
      "description": this.comment,
      "createdBy" : this.currentUser.userId,
      "postId": id
    }
-    if (!this.comment) {
+     if (!this.comment) {
       this.toastr.error("Comment is required");
     } else {
       this.http.post(false,API_URL.URLS.comment,postData).subscribe(res=>{
         if(res['isSuccess']){
+          this.recentList[i]['isComment'] = true;
+          this.getComments(id);
           this.toastr.success(res['data']);
-           this.getTopicsRelated();
            this.comment = '';
         }
       })  
     }
+  }
+
+  likePost(list,status){
+    let postData={};
+    
+    if(status == 'like'){
+      list['like'] = true;
+      postData['votesCount'] = list.votesCount + 1;
+    }
+
+    this.http.put(false,API_URL.URLS.post+'/'+list.postId, postData).subscribe(res=>{
+      if(res['isSuccess']){
+        this.getTopicsRelated();
+      }
+    })
   }
 
   deleteComment(){
