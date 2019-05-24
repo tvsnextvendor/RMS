@@ -117,7 +117,7 @@ page-forum-detail{
 		padding-left: 5px;
 	}
 	.forum-desc,.comment-content  {
-        font-size: 13px;
+        font-size: 14px;
     color: #656565;
 }
 .fixed-btn {
@@ -146,11 +146,11 @@ page-forum-detail{
     margin-top: 3px !important;
 }
 .comment-time {
-    font-size: 12px;
-            color: #656565;
+    font-size: 11px;
+    color: #a0a0a0;
     font-weight: 100;
     font-family: 'sf_pro_displayregular';
-    margin: 5px 0 15px 0;
+    margin: 5px 0 5px 0;
     display: inline-block;
 }
 .reply-comment {
@@ -332,19 +332,22 @@ button.btn-can{
 .comment-btn{
 	float: right;
 }
-.user-1 {.comment-img{
+.user-1 {
+	.comment-img{
     position: absolute;
     right: 4px;
     display: block;
     float: right;
 }
-.comment-box .user-name,.comment-content{
-	text-align: right;
+
 }
-.comment-btn{
-	float: left;
+.user-1 .comment-box{
+    background: #f2f2f2;
+    text-align: left;
+    border-radius: 9px 0px 9px 9px;
 }
-.comment-time{
-	float: right;
-}
+.user-2 .comment-box{
+	background: rgba(215, 226, 232, .7);
+	border-radius: 0px 9px 9px 9px;
+	text-align: left;
 }
