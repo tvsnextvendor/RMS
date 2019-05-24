@@ -1,7 +1,7 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="pr-3 pt-5">
     <div class="white-bg" id="contentToConvert">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-9 row">
                 <div class="col-md-5">
                     <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.courseName}}
@@ -11,7 +11,6 @@
                             date:'MM/dd/yyyy'}}</span> </div>
                 </div>
                 <div class="col-md-5">
-                    <!-- <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.videoName}} : </span><span class="trend-cont">{{filterEmployeeList[0]?.videoName}}</span></div> -->
                     <div class="emp-details my-3"><span class="trend-title">{{trendsVar.videosTrendDetailsLabels.totalEmployees}}
                             :</span> <span class="trend-cont">{{trendsVar.filterEmployeeList[0]?.totalEmployees}}</span></div>
                 </div>
@@ -28,7 +27,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="table-responsive custom-table2 px-1">
             <table class="table table-striped mt-3" [mfData]="trendsVar.filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable"
                 [mfRowsOnPage]="10">
@@ -39,12 +38,16 @@
                                         src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th colspan="1" class="text-center">
+                                <mfDefaultSorter by="resortName">{{trendsVar.empTableTitle.resortName}}<span class="ml-2"><img src="assets/images/sortby.png"
+                                            class="s-width"></span></mfDefaultSorter>
+                            </th>
+                        <th colspan="1" class="text-center">
                             <mfDefaultSorter by="status">{{trendsVar.empTableTitle.status}}<span class="ml-2"><img src="assets/images/sortby.png"
                                         class="s-width"></span></mfDefaultSorter>
                         </th>
 
                         <th colspan="1" class="text-center">
-                            <mfDefaultSorter by="viewDate">{{trendsVar.empTableTitle.viewDate}}<span class="ml-2"><img
+                            <mfDefaultSorter by="assignedDate">{{trendsVar.empTableTitle.assignedDate}}<span class="ml-2"><img
                                         src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th colspan="1" class="text-center">
@@ -54,11 +57,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let emp of mf.data" class="table-desc-color">
-                        <td class="vat pl-4 employeeName-width">{{ emp.employeeName }}</td>
-                        <td class="vat text-center" [ngClass]="emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">{{
-                            emp.status }}</td>
-                        <td class="vat text-center">{{ emp.viewDate | date :'MM/dd/yyyy' }}</td>
+                    <tr *ngFor="let emp of trendsVar.employeeList" class="table-desc-color">
+                        <td class="vat pl-4 employeeName-width" *ngIf="emp.User && emp.User.userName">{{emp.User.userName}}</td>
+                        <td class="vat pl-4 employeeName-width">{{emp.Resort.resortName}}</td>
+                        <td class="vat text-center" [ngClass]="emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">
+                            {{emp.status}}</td>
+                        <td class="vat text-center">{{emp.TrainingSchedule.assignedDate | date :'MM/dd/yyyy'}}</td>
                         <td class="vat text-center">{{emp.completedDate | date :'MM/dd/yyyy'}}</td>
                     </tr>
                     <!-- <tr *ngIf="mf.data?.length == 0">
@@ -74,5 +78,8 @@
               </tfoot> -->
             </table>
         </div>
+        <div class="text-center">
+                <button class="btn btn-primary creat-btn" routerLink="/videostrend">{{trendsVar.backBtn}}</button>
+            </div>
     </div>
 </div>

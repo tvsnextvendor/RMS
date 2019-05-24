@@ -128,7 +128,7 @@ export class EmployeeChartsComponent implements OnInit {
   getcourseTrend() {
     const courseTrendObj = {
       resortId : this.resortId,
-      years : this.dashboardVar.years
+      year : this.dashboardVar.years
     };
     this.commonService.getCourseTrend(courseTrendObj).subscribe(result => {
       if (result && result.isSuccess) {
