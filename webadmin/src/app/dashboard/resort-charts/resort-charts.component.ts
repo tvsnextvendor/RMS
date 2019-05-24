@@ -648,6 +648,9 @@ export class ResortChartsComponent implements OnInit {
           chart: {
               type: 'column'
           },
+          credits: {
+            enabled: false
+          },
           title: {
               text: ''
           },
