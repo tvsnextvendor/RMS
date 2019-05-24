@@ -65,6 +65,23 @@
                 </ion-col>
               </ion-row>
               <div *ngIf="list.isComment" class="reply-comment">
+                <div *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
+                    <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1' : 'user-2'">
+                  <ion-col col-2 class="comment-img">
+                    <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
+                    <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
+                  </ion-col>
+                  <ion-col col-10 class="comment-box">
+                    <h6 class="user-name">{{comment.User.userName}}</h6>
+                    <p class="comment-content">{{comment.description}}</p>
+                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
+                    <div class="comment-btn">
+                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(edit, comment)"> Edit</button>
+                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(delete, comment)"> Delete</button>
+                    </div>
+                  </ion-col>
+                    </ion-row>
+                </div>
                 <form (ngSubmit)="saveComment(list.postId)" novalidate>
                   <ion-row>
                     <ion-col col-2>
@@ -72,30 +89,13 @@
                     </ion-col>
                     <ion-col col-10 class="input-grp-box">
                       <ion-item class="comment-item">
-                        <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..." class="comment-input"></ion-input>
+                        <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..." class="comment-input">
+                        </ion-input>
                       </ion-item>
                       <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId)"></ion-icon>
                     </ion-col>
                   </ion-row>
                 </form>
-                <div *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
-                    <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1' : 'user-2'">
-                  <ion-col col-2 class="comment-img">
-                    <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
-                    <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
-                    <!-- <span class="left-border"></span> -->
-                  </ion-col>
-                  <ion-col col-10 class="comment-box">
-                    <h6 class="user-name">{{comment.User.userName}}</h6>
-                    <p class="comment-content">{{comment.description}}</p>
-                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
-                    <div class="comment-btn">
-                      <button class="btn reply-cnt" (click)="openEditModal(edit, comment)"> Edit</button>
-                      <button class="btn reply-cnt" (click)="openEditModal(delete, comment)"> Delete</button>
-                    </div>
-                  </ion-col>
-                    </ion-row>
-                </div>
               </div>
             </ion-grid>
           </ion-card>
@@ -148,6 +148,24 @@
                 </ion-col>
               </ion-row>
               <div *ngIf="list.isComment" class="reply-comment">
+                <div *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
+                   <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1 col-md-12' : 'user-2 col-md-12'">
+                  <ion-col col-2 class="comment-img">
+                    <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
+                    <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
+                  </ion-col>
+                  <ion-col col-10 class="comment-box">
+                    <h6 class="user-name">{{comment.User.userName}}</h6>
+                    <p class="comment-content">{{comment.description}}</p>
+                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
+                    <div class="comment-btn">
+                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(edit, comment)">
+                      Edit</button>
+                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(delete, comment)"> Delete</button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                </div>
                 <form (ngSubmit)="saveComment(list.postId)" novalidate>
                   <ion-row>
                     <ion-col col-2>
@@ -155,31 +173,13 @@
                     </ion-col>
                     <ion-col col-10 class="input-grp-box">
                       <ion-item class="comment-item">
-                        <ion-input name="comment" [(ngModel)]="comment" class="comment-input" placeholder="Add a comment ..."></ion-input>
-                       </ion-item>
+                        <ion-input name="comment" [(ngModel)]="comment" class="comment-input" placeholder="Add a comment ...">
+                        </ion-input>
+                      </ion-item>
                       <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId)"></ion-icon>
                     </ion-col>
                   </ion-row>
                 </form>
-                <div *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
-                   <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1 col-md-12' : 'user-2 col-md-12'">
-                  <ion-col col-2 class="comment-img">
-                    <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
-                    <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
-                    <!-- <span class="left-border"></span> -->
-                  </ion-col>
-                  <ion-col col-10 class="comment-box">
-                    <h6 class="user-name">{{comment.User.userName}}</h6>
-                    <p class="comment-content">{{comment.description}}</p>
-                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
-                    <div class="comment-btn">
-                      <button class="btn reply-cnt" (click)="openEditModal(edit, comment)">
-                      Edit</button>
-                      <button class="btn reply-cnt" (click)="openEditModal(delete, comment)"> Delete</button>
-                    </div>
-                  </ion-col>
-                </ion-row>
-                </div>
               </div>
             </ion-grid>
           </ion-card>
