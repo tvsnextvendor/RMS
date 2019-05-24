@@ -70,7 +70,7 @@
                             <td class="text-center"><label class="mb-0">{{ user.phoneNumber }}</label></td>
                             <td class="text-center"><a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                 <a (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
-                                <a title="Active/Inactive" class="mr-4"><label class="switch">
+                                <a title="{{user.active?'To InActive':'To Active'}}" class="mr-4"><label class="switch">
                                     <input type="checkbox" [checked]="user.active" (change)="activeStatus(user)"> 
                                     <span class="slider round"></span>
                                 </label></a>                                
