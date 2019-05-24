@@ -49,12 +49,13 @@
     text-align: center;
 }
 .totalcourses{
-    position: absolute;
-    bottom: 20px;
-    font-size: 15px;
-    color: #454545;
-    font-weight: 600;
-    left: 80px;
+  position: absolute;
+  font-size: 15px;
+  color: #454545;
+  font-weight: 600;
+  top: 45px;
+  left: 90px;
+  z-index: 1000;
 }
 .top-employee-height, .topratedcourse{  
   font-size: 14px;
@@ -62,12 +63,17 @@
   color: #454545;
 }
 .top-employee-height{
-height: 145px !important;
+height: 155px !important;
+padding: 0 11px;
+}
+.custom-table {
+  padding: 14px 20px;
 }
 .percent-alg{
   color: #1D4960;
   font-size: 20px;
   font-weight: 600;
+  padding-left: 6px;
 }
 .resort-list{
   font-size: 60px;
@@ -135,4 +141,34 @@ height: 145px !important;
  float: right;
  clear: both;
  padding-bottom: 0px;
+}
+.word-wrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%;
+  display: block;
+}
+.start-spacing{
+  letter-spacing: 4px;
+    padding: 0 0 11px 0 !important;
+}
+.sub-rest{
+  padding: 0 8px;
+}
+.total-course{
+  text-align: right;
+  padding: 0 11px 8px 12px;
+}
+.resort tr td {
+  padding: 4px 0;
+}
+.course-count{
+  text-align: right;
+  color: #948f8f;
+}
+.view-alg{
+  font-size: 14px;
+    color: #468FB9 !important;
+    text-decoration: underline !important;
 }

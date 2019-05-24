@@ -46,23 +46,72 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
               {{commonLabels.labels.totalStorage}}</h6>
-              <div id="totalStorageSpace" style="min-width: 300px; height: 300px; max-width: 600px; margin: 0 auto"></div>
+              <!-- <div id="totalStorageSpace" style="min-width: 300px; height: 300px; max-width: 600px; margin: 0 auto"></div> -->
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-              {{commonLabels.labels.topResorts}}</h6>
-              
+              {{commonLabels.labels.topResorts}}<span class="float-right"><a class="view-alg">View All</a></span></h6>
+              <div class="custom-table resort">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="sub-rest">Sub-Resort</th>
+                  <th class="total-course">Total no of course</th>
+                </tr>
+              </thead>
+              <tbody class="top-employee-height">
+                <tr>
+                  <td>Resort 1</td>
+                  <td class="course-count">100</td>
+                  <td>Resort 2</td>
+                  <td class="course-count">50</td>
+                  <td>Resort 3</td>
+                  <td class="course-count">40</td>
+                  <td>Resort 4</td>
+                  <td class="course-count">30</td>
+                  <td>Resort 5</td>
+                  <td class="course-count">20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           </div>
         </div>
+        <!-- <div class="chart-bg" style="height: 335px">
+          <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i>
+            {{dashboardVar.employeeGridsTitle.topEmployees}}
+            <select class="select-btn" [(ngModel)]="dashboardVar.empDropdown">
+              <option *ngFor="let data of dashboardVar.topEmployeeDropdown" value={{data.id}}>{{data.value}}</option><i
+                class="fa fa-chevron-down" aria-hidden="true"></i>
+            </select></h6>
+          <div class="custom-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>{{dashboardVar.employeeGridsTitle.name}}</th>
+                  <th>{{dashboardVar.employeeGridsTitle.module}}</th>
+                  <th>{{dashboardVar.employeeGridsTitle.score}}</th>
+                </tr>
+              </thead>
+              <tbody class="top-employee-height">
+                <tr *ngFor="let item of dashboardVar.topEmployees">
+                  <td>{{item.id}}.{{item.name}}</td>
+                  <td>{{item.module}}</td>
+                  <td>{{item.score}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> -->
         <div class="col-md-4 p-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
               {{commonLabels.labels.totalCourses}}</h6>
                 <span class="totalcourses">{{commonLabels.labels.totalCourses}}
                     <span class="percent-alg">{{dashboardVar.totalCoursesCount}}</span></span>  
-                    <div *ngIf="dashboardVar.totalCourses" id="totalCourses" style="min-width: 150px; height: 150px; max-width: 600px; margin: 0 auto"></div>
+                    <div *ngIf="dashboardVar.totalCourses" id="totalCourses" style="min-width: 150px; height: 220px; max-width: 600px; margin: 0 auto"></div>
           </div><div class="col-sm-3 pl-0 course-style">
               <div class=" chart-bg">
                 
@@ -77,17 +126,17 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
               {{commonLabels.labels.topCourses}}</h6>
-              <div class="col-sm-3 pl-0">
-                  <div class=" chart-bg">
+              <div class="col-sm-12 pl-0">
+                  <div class="">
                     <!-- <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i> -->
                       <!-- {{dashboardVar.employeeGridsTitle.topCourses}}</h6> -->
                     <table class="table">
                       <tbody class="topratedcourse">
                         <tr *ngFor="let item of topCourses">
-                          <td>
+                          <td class="word-wrap">
                             {{item.courseName}}
                           </td>
-                          <td>
+                          <td class="start-spacing">
                             <ng-template #t let-fill="fill">
                               <span class="star" [class.full]="fill === 100">
                                 <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
@@ -111,7 +160,7 @@
                 <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
                 <div class="select_arrow"></div>
               </select>
-              <div *ngIf="dashboardVar.courseTrendData" id="trend" style="height: 195px; margin: 0 auto; padding-left: 12px;" (click)="goToVideosTrend()" ></div>
+              <div *ngIf="dashboardVar.courseTrendData" id="trend" style="height: 200px; margin: 0 auto; padding-top: 50px;" (click)="goToVideosTrend()" ></div>
             </h6>
             
           </div>
