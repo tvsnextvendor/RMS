@@ -135,7 +135,7 @@ export class ForumComponent implements OnInit {
         }
       }
 
-            // Create PDF
+ // Create PDF
  exportAsPDF(){ 
   // this.labels.btns.select =  this.labels.btns.pdf;
   var data = document.getElementById('forumList'); 

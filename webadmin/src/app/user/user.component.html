@@ -425,7 +425,7 @@
             </li>
         </ul>   
         <div *ngIf="!divisionValidationCheck"><span class="required_color text-left">{{divisionError}}</span></div> 
-        <div class="tab-content" *ngIf="userType === 2">
+        <div class="tab-content" *ngIf="userType !== 1">
             <div id="home" [ngClass] = "!triggerNext ? 'container tab-pane col-md-12 p-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
                 <div class="row col-12 col-md-12 p-0" *ngFor="let data of constant.divisionTemplate; let i = index">
                     <label class="col-5 col-md-4 label-title pl-0" *ngIf="i==0">{{commonLabels.labels.division}}</label>

@@ -385,6 +385,8 @@ export class CommonLabels{
         "profile"           :  "Profile",
         "settings"          :  "Settings",
         "logintitle"        :  "Login",
+        "videoTitle"        :  "Video List",
+        "docTitle"          :  "Document List",
 
     };
 

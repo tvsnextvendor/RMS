@@ -220,6 +220,7 @@ export class UserComponent implements OnInit {
     openAddRole(template: TemplateRef<any>, data,  index){
         
         // if(data){
+            this.errorValidation = true;
             this.roleError = false;
             this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
         //    }else{
@@ -632,6 +633,7 @@ export class UserComponent implements OnInit {
 
     editRoleData(data,template : TemplateRef<any>){
         this.roleError = false;
+        this.errorValidation = true;
         let modalConfig={
             class : "modal-dialog-centered"
 

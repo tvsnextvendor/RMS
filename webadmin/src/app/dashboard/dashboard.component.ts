@@ -20,13 +20,13 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   this.headerService.setTitle({title:this.commonLabels.titles.dashboard, hidemodule:false});
   const roleId = this.utilService.getRole();
-    this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
-    // if(roleId === 1){
-    //     this.tabTitle= ['Summary','Resort'];
-    // }
-    // else if(roleId === 2){
-    //   this.tabTitle= ['Summary'];
-    // }
+    // this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
+    if(roleId !== 1){
+        this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
+    }
+    else if(roleId === 1){
+      this.tabTitle= [this.commonLabels.labels.summary];
+    }
     this.selectedtab = this.tabTitle[0];
   
   // console.log(data,user.roleId)
