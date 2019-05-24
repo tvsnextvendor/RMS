@@ -656,6 +656,19 @@ page-home .course-count p {
     font-family: 'sf_pro_displayregular';
   }
 
+.common-btn{ 
+    max-width: 300px;
+    width: 100%;
+    border-radius: 39px;
+    background-image: -webkit-gradient(linear, left top, right top, from(#1582BE), to(#329CD6));
+    background-image: linear-gradient(to right, #1582BE, #329CD6);
+    color: #fff;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 20px;
+    margin: 20px auto 20px auto;      
+}
+
 
 
 
