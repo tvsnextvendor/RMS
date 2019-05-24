@@ -1,6 +1,6 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class="pr-3 pt-5">
-    <div class="white-bg" id="contentToConvert">
+<div class=" pt-5">
+    <div class="" id="contentToConvert">
         <!-- <div class="row">
             <div class="col-md-9 row">
                 <div class="col-md-5">
@@ -28,8 +28,8 @@
                 </div>
             </div>
         </div> -->
-        <div class="table-responsive custom-table2 px-1">
-            <table class="table table-striped mt-3" [mfData]="trendsVar.filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable"
+        <div class="table-responsive custom-table2 px-2">
+            <table class="table white-bg table-striped mt-3" [mfData]="trendsVar.filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable"
                 [mfRowsOnPage]="10">
                 <thead>
                     <tr class="th-boxshadow">
@@ -37,20 +37,20 @@
                             <mfDefaultSorter by="employeeName">{{trendsVar.empTableTitle.empName}}<span class="ml-2"><img
                                         src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
-                        <th colspan="1" class="text-center">
+                        <th colspan="1" class="text-left">
                                 <mfDefaultSorter by="resortName">{{trendsVar.empTableTitle.resortName}}<span class="ml-2"><img src="assets/images/sortby.png"
                                             class="s-width"></span></mfDefaultSorter>
                             </th>
-                        <th colspan="1" class="text-center">
+                        <th colspan="1" class="text-left">
                             <mfDefaultSorter by="status">{{trendsVar.empTableTitle.status}}<span class="ml-2"><img src="assets/images/sortby.png"
                                         class="s-width"></span></mfDefaultSorter>
                         </th>
 
-                        <th colspan="1" class="text-center">
+                        <th colspan="1" class="text-left">
                             <mfDefaultSorter by="assignedDate">{{trendsVar.empTableTitle.assignedDate}}<span class="ml-2"><img
                                         src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
-                        <th colspan="1" class="text-center">
+                        <th colspan="1" class="text-left">
                             <mfDefaultSorter by="completedDate">{{trendsVar.empTableTitle.completedDate}}<span class="ml-2"><img
                                         src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
@@ -60,10 +60,10 @@
                     <tr *ngFor="let emp of trendsVar.employeeList" class="table-desc-color">
                         <td class="vat pl-4 employeeName-width" *ngIf="emp.User && emp.User.userName">{{emp.User.userName}}</td>
                         <td class="vat pl-4 employeeName-width">{{emp.Resort.resortName}}</td>
-                        <td class="vat text-center" [ngClass]="emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">
+                        <td class="vat text-left" [ngClass]="emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">
                             {{emp.status}}</td>
-                        <td class="vat text-center">{{emp.TrainingSchedule.assignedDate | date :'MM/dd/yyyy'}}</td>
-                        <td class="vat text-center">{{emp.completedDate | date :'MM/dd/yyyy'}}</td>
+                        <td class="vat text-left">{{emp.TrainingSchedule.assignedDate | date :'MM/dd/yyyy'}}</td>
+                        <td class="vat text-left">{{emp.completedDate | date :'MM/dd/yyyy'}}</td>
                     </tr>
                     <!-- <tr *ngIf="mf.data?.length == 0">
                   <td colspan="10" class="text-center data-design">{{labels.noData}}</td>
@@ -78,7 +78,7 @@
               </tfoot> -->
             </table>
         </div>
-        <div class="text-center">
+        <div class="text-center mt-3">
                 <button class="btn btn-primary creat-btn" routerLink="/videostrend">{{trendsVar.backBtn}}</button>
             </div>
     </div>

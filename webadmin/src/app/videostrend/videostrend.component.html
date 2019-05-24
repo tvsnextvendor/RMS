@@ -1,6 +1,7 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class="row pr-3 pt-4">
-    <select class="vdo-btn mr-3 select select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="trendsVar.years">
+<div class="row pt-4">
+    <div class="col-md-12 p-0">
+    <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="trendsVar.years">
             <option *ngFor="let years of trendsVar.yearsList" [value]="years.year">{{years.year}}</option>
             <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
             <div class="select_arrow"></div>
@@ -10,10 +11,11 @@
                 <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
                 <div class="select_arrow"></div>
               </select>
-    <div class="table-responsive white-bg px-3">
-        <table class="table" [mfData]="trendsVar.videosTrend" #mf="mfDataTable" [mfRowsOnPage]="(trendsVar.pageLimit.length ? trendsVar.pageLimit : 5)">
+    </div>
+    <div class="table-responsive custom-table2 mt-3 px-2">
+        <table class="table white-bg table-striped" [mfData]="trendsVar.videosTrend" #mf="mfDataTable" [mfRowsOnPage]="(trendsVar.pageLimit.length ? trendsVar.pageLimit : 5)">
             <thead>
-                <tr>
+                    <tr class="th-boxshadow">
 
                     <th>
                         <mfDefaultSorter by="courseName">{{trendsVar.videosTrendLabels.courseTitle}}<span class="ml-2"><img
@@ -45,8 +47,8 @@
                     </td>
                     <td class="vdo-desc-height">{{list.created | date}}</td>
                     <td class="vdo-desc-height">{{list.updated | date: 'MM/dd/yyyy'}}</td>
-                    <td class="vdo-desc-height text-center"><a href="javaScript:void">{{list.resortsCount}}</a></td>
-                    <td class="vdo-desc-height text-center"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}">{{list.employeesCount}}</a></td>
+                    <td class="vdo-desc-height text-center">{{list.resortsCount}}</td>
+                    <td class="vdo-desc-height text-center und-txt"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}">{{list.employeesCount}}</a></td>
                 </tr>
                 <tr *ngIf="trendsVar.moduleList?.length == 0">
                     <td colspan="5" class="text-center data-design">{{trendsVar.noData}}</td>
@@ -54,14 +56,15 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="5">
+                    <!-- <td colspan="5">
                         <mfBootstrapPaginator></mfBootstrapPaginator>
-                    </td>
+                    </td> -->
                 </tr>
             </tfoot>
         </table>
-        <div>
-            <button class="btn btn-primary" routerLink="/dashboard">{{trendsVar.backBtn}}</button>
-        </div>
     </div>
+        <div class="col-md-12 p-0 text-center mt-3">
+            <button class="btn btn-primary creat-btn" routerLink="/dashboard">{{trendsVar.backBtn}}</button>
+        </div>
+    
 </div>
