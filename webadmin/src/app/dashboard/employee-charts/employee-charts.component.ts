@@ -57,7 +57,7 @@ export class EmployeeChartsComponent implements OnInit {
     });
     setTimeout(() => {
       this.totalCoursesLine();
-      this.totalStorageSpace();
+      // this.totalStorageSpace();
       this.courseTrend();
     }, 2000);
     this.commonService.getTotalCount(this.resortId).subscribe(result => {
@@ -249,7 +249,10 @@ export class EmployeeChartsComponent implements OnInit {
       chart: {
           type: 'column'
       },
-      title: {
+      credits: {
+        enabled: false
+      },
+            title: {
           text: ''
       },
       xAxis: {
