@@ -639,8 +639,9 @@ page-home .tab-footer .tab-foot-bg ul li span{
     
     font-family: 'sf_pro_displaysemibold';
 }
-.card-md p,p{
+.card-md p{
     color:#656565;
+    font-family: 'sf_pro_displayregular';
 }
 page-home .course-count p {
     font-size: 14px;
@@ -650,6 +651,10 @@ page-home .course-count p {
     font-size: 15px;
 }
 
+.org-color,p.org-color {
+    color: #FF5722;
+    font-family: 'sf_pro_displayregular';
+  }
 
 
 

@@ -78,19 +78,24 @@
                     </ion-col>
                   </ion-row>
                 </form>
-                <ion-row *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
-
+                <div *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
+                    <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1' : 'user-2'">
                   <ion-col col-2 class="comment-img">
                     <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
                     <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
-                    <span class="left-border"></span>
+                    <!-- <span class="left-border"></span> -->
                   </ion-col>
                   <ion-col col-10 class="comment-box">
                     <h6 class="user-name">{{comment.User.userName}}</h6>
                     <p class="comment-content">{{comment.description}}</p>
-                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span><span class="reply-cnt" (click)="openEditModal(edit, comment)"> Edit</span><span class="reply-cnt" (click)="openEditModal(delete, comment)"> Delete</span>
+                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
+                    <div class="comment-btn">
+                      <button class="btn reply-cnt" (click)="openEditModal(edit, comment)"> Edit</button>
+                      <button class="btn reply-cnt" (click)="openEditModal(delete, comment)"> Delete</button>
+                    </div>
                   </ion-col>
-                </ion-row>
+                    </ion-row>
+                </div>
               </div>
             </ion-grid>
           </ion-card>
@@ -127,15 +132,16 @@
                 </ion-col>
               </ion-row>
               <ion-row class="review-block" *ngIf="list.isActive">
-                <ion-col col-3>
-                  <p class="vote-count">{{list.votesCount}}<span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
-                  </p>
-                </ion-col>
+              
+                <ion-col col-4>
+                    <p class="vote-count"><small class="vt-count">{{list.votesCount}}</small> <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
+                    <img src="assets/imgs/likeblue.png" /></p>
+                  </ion-col>
                 <ion-col col-4>
                   <p class="vote-count" *ngIf="list.Comments">{{list.Comments.length}} <span
                       class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
                 </ion-col>
-                <ion-col col-5 class="cmd-btn">
+                <ion-col col-4 class="cmd-btn">
                   <button ion-button round small class="blue-btn" (click)="showCommentSet(recentList,j)">
                     {{constant.buttons.comment}}
                   </button>
@@ -155,19 +161,25 @@
                     </ion-col>
                   </ion-row>
                 </form>
-                <ion-row *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
+                <div *ngFor="let comment of list.Comments;let i=index;" class="comment-row">
+                   <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1 col-md-12' : 'user-2 col-md-12'">
                   <ion-col col-2 class="comment-img">
                     <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
                     <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
-                    <span class="left-border"></span>
+                    <!-- <span class="left-border"></span> -->
                   </ion-col>
                   <ion-col col-10 class="comment-box">
                     <h6 class="user-name">{{comment.User.userName}}</h6>
                     <p class="comment-content">{{comment.description}}</p>
-                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span><span class="reply-cnt" (click)="openEditModal(edit, comment)">
-                      Edit</span><span class="reply-cnt" (click)="openEditModal(delete, comment)"> Delete</span>
+                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
+                    <div class="comment-btn">
+                      <button class="btn reply-cnt" (click)="openEditModal(edit, comment)">
+                      Edit</button>
+                      <button class="btn reply-cnt" (click)="openEditModal(delete, comment)"> Delete</button>
+                    </div>
                   </ion-col>
                 </ion-row>
+                </div>
               </div>
             </ion-grid>
           </ion-card>
@@ -204,13 +216,13 @@
   <ng-template #edit>
     <div class="modal-header question-header">
     </div>
-    <form novalidate (ngSubmit)="updateComment()">
+    <form novalidate (ngSubmit)="updateComment()" class="popup-box">
       <div class="modal-body">
         <ion-row>
-          <ion-col col-2>
+          <ion-col col-3>
             <img src="assets/images/images1.jpeg" class="comment-image">
           </ion-col>
-          <ion-col col-10 class="input-grp-box">
+          <ion-col col-9 class="input-grp-box">
             <ion-item class="comment-item">
               <ion-input name="comment" [(ngModel)]="editComment" (input)="changeEditInput()"  class="comment-input" placeholder="Add a comment ..."></ion-input>
             </ion-item>
@@ -218,14 +230,15 @@
         </ion-row>
       </div>
       <div class="model-footer">
-        <button ion-button small clear type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
-        <button ion-button small clear type="submit" [disabled]="editDisable">Update</button>
+        <button ion-button small clear type="button" class="btn btn-can" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
+        <button ion-button small clear type="submit" class="btn btn-primary" [disabled]="editDisable">UPDATE</button>
       </div>
     </form>
   </ng-template>
    
 
   <ng-template #delete>
+    <div class="popup-box">
     <div class="modal-header question-header"> 
     </div>
       <div class="modal-body">
@@ -234,9 +247,10 @@
         </ion-row>
       </div>
       <div class="model-footer">
-        <button ion-button small clear type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
-        <button ion-button small clear type="submit" (click)="deleteComment()">Delete</button>
+        <button ion-button small clear type="button" class="btn btn-can" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
+        <button ion-button small clear type="submit" class="btn btn-primary" (click)="deleteComment()">DELETE</button>
       </div>
+    </div>
   </ng-template>
 
 </div>
