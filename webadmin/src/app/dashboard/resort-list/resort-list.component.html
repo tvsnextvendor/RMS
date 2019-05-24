@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-sm-12 pb-3 p-0">
+        <button type = "button" class="btn btn-primary float-right" [routerLink]="['../resorts']"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addNew}}</button>
+        <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="resortVar.resortList.length">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                {{commonLabels.btns.exportTo}}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
+                <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
+            </div>
+        </div>
+    </div> 
+
+    <div class="col-lg-12 col-sm-12 p-0">                
+        <div class="table-responsive white-bg custom-table2" id="resortList">
+            <table class="table table-striped" [mfData]="resortList" #mf="mfDataTable" [mfRowsOnPage]="10">
+                <thead>
+                    <tr class="th-boxshadow">
+                        <th class="text-left name-txt">
+                            <mfDefaultSorter>{{commonLabels.labels.childResort}}</mfDefaultSorter>
+                        </th>
+                        <th class="text-left">
+                            <mfDefaultSorter>{{commonLabels.labels.totalNoOfCourses}}</mfDefaultSorter>
+                        </th>   
+                        <th class="text-left">
+                            <mfDefaultSorter>{{commonLabels.labels.utilizedSpace}}</mfDefaultSorter>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let resort of mf.data;let i = index" class="table-desc-color">
+                        <td class="text-left txt-unline">{{ resort.resortName }}</td>
+                        <td class="text-left">{{resort.totalCourses}}</td>
+                        <td class="text-left">{{resort.utilizedSpace}}</td>
+                    </tr>
+                    <tr *ngIf="mf.data?.length == 0">
+                        <td colspan="10"><p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
+                    </tr>
+                </tbody>    
+            </table>
+        </div>
+    </div>
+</div>

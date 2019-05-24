@@ -162,7 +162,7 @@ export class UserComponent implements OnInit {
             this.emailAddress = data.email;
             this.phoneNumber = data.phoneNumber;  
             this.empId = data.employeeId;
-            this.changedivision();  
+            // this.changedivision();  
             this.department= data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings,'dept') : [];  
             //this.accessTo = data.accessTo;  
     }
@@ -760,15 +760,20 @@ export class UserComponent implements OnInit {
     getEditSelectedArray(data,type){
         let arr = [];
         if(type == 'div'){
+            let details = []
             data.forEach(item=>{
                 if(item.Division){
                     let obj  = {
                         divisionId : item.Division.divisionId,
                         divisionName : item.Division.divisionName
                     }
-                    arr.push(obj);
+                    details.push(obj);
+
                 }
             });
+            // arr = Array.from(details.reduce((m, t) => m.set(t, t.divisionId,t.divisionName), new Map()).values());
+            arr = _.sortedUniq(details)
+            console.log(arr,'arr')
         }
         if(type == 'dept'){
             data.forEach(item=>{

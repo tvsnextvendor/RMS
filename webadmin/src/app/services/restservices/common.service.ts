@@ -136,4 +136,9 @@ getCourseTrendList(courseTrendObj) {
 getCourseEmployeeList(resortId, courseId) {
   return this.http.getLocal('local', this.url.getCourseEmployeeList + '?resortId=' + resortId + '&courseId=' + courseId);
 }
+
+getTopFiveResort(query){
+  // topFiveResort
+  return this.http.getLocal('local', this.url.topFiveResort +query);
+}
 }

@@ -52,7 +52,7 @@
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-              {{commonLabels.labels.topResorts}}<span class="float-right"><a class="view-alg">View All</a></span></h6>
+              {{commonLabels.labels.topResorts}}<span class="float-right"><a class="view-alg" routerLink="/resortList">View All</a></span></h6>
               <div class="custom-table resort">
             <table class="table">
               <thead>
@@ -62,17 +62,17 @@
                 </tr>
               </thead>
               <tbody class="top-employee-height">
-                <tr>
-                  <td>Resort 1</td>
-                  <td class="course-count">100</td>
-                  <td>Resort 2</td>
+                <tr *ngFor ="let resort of resortDetails">
+                  <td>{{resort.resortName}}</td>
+                  <td class="course-count">{{resort.totalCourses}}</td>
+                  <!-- <td>Resort 2</td>
                   <td class="course-count">50</td>
                   <td>Resort 3</td>
                   <td class="course-count">40</td>
                   <td>Resort 4</td>
                   <td class="course-count">30</td>
                   <td>Resort 5</td>
-                  <td class="course-count">20</td>
+                  <td class="course-count">20</td> -->
                 </tr>
               </tbody>
             </table>
