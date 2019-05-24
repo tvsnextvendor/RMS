@@ -1,22 +1,15 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="row pr-3 pt-4">
-    <div class="video-hd">
-            <span class="float-right mb-2">
-            <ngx-select-dropdown (change)="onLimitChange()" [options]="trendsVar.pageLimitOptions" [(value)]="trendsVar.pageLimit"
-                [config]="{placeholder : 'Select limit'}" class="pagenation-dropdown"></ngx-select-dropdown>
-            </span>
-          
-
-
-
-        <!-- <span class="float-right mb-2">
-            
-                <select [(ngModel)]="trendsVar.pageLimit"  class="pagenation-dropdown">               
-                    <option *ngFor="let item of trendsVar.pageLimitOptions" [value]="item">{{item}}</option>
-                </select>
-                 <span class="btn-down"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-            </span> -->
-    </div>
+    <select class="vdo-btn mr-3 select select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="trendsVar.years">
+            <option *ngFor="let years of trendsVar.yearsList" [value]="years.year">{{years.year}}</option>
+            <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
+            <div class="select_arrow"></div>
+          </select>
+          <select class="vdo-btn mr-3 select select-style clearfix" id="month" name="month" (change)="onChangeMonth()" [(ngModel)]="trendsVar.months">
+                <option *ngFor="let months of trendsVar.monthsList" [value]="months">{{months}}</option>
+                <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
+                <div class="select_arrow"></div>
+              </select>
     <div class="table-responsive white-bg px-3">
         <table class="table" [mfData]="trendsVar.videosTrend" #mf="mfDataTable" [mfRowsOnPage]="(trendsVar.pageLimit.length ? trendsVar.pageLimit : 5)">
             <thead>
@@ -27,30 +20,35 @@
                                     src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="duration">{{trendsVar.videosTrendLabels.duration}}<span class="ml-2"><img
-                                    src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-                    </th>
-                    <th>
                         <mfDefaultSorter by="uploadedDate">{{trendsVar.videosTrendLabels.uploadedDate}}<span class="ml-2"><img
                                     src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                     </th>
-                    <th class="text-center">
-                        <mfDefaultSorter by="totalEmployees">{{trendsVar.videosTrendLabels.totalEmployees}}<span class="ml-2"><img
+                    <th>
+                        <mfDefaultSorter by="modifiedDate">{{trendsVar.videosTrendLabels.modifiedDate}}<span class="ml-2"><img
                                     src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                    </th>
+                    <th class="text-center">
+                        <mfDefaultSorter by="noOfResorts">{{trendsVar.videosTrendLabels.noOfResorts}}<span class="ml-2"><img
+                                    src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="noOfEmployees">{{trendsVar.videosTrendLabels.noOfEmployees}}<span class="ml-2"><img
+                                        src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="video-trend-desc" *ngFor="let list of mf.data">
+                <tr class="video-trend-desc" *ngFor="let list of trendsVar.moduleList">
                     <!-- <td><img class="table-img" src="assets/videos/images/bunny.png"></td> -->
                     <td class="vdo-desc-height">{{list.courseName}}
                         <!-- <p>{{list.videoName}}</p> -->
                     </td>
-                    <td class="vdo-desc-height">{{list.duration}}</td>
-                    <td class="vdo-desc-height">{{list.uploadedDate | date: 'MM/dd/yyyy'}}</td>
-                    <td class="vdo-desc-height text-center"><a href="javaScript:void" routerLink="/videostrend/{{list.videoId}}">{{list.totalEmployees}}</a></td>
+                    <td class="vdo-desc-height">{{list.created | date}}</td>
+                    <td class="vdo-desc-height">{{list.updated | date: 'MM/dd/yyyy'}}</td>
+                    <td class="vdo-desc-height text-center"><a href="javaScript:void">{{list.resortsCount}}</a></td>
+                    <td class="vdo-desc-height text-center"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}">{{list.employeesCount}}</a></td>
                 </tr>
-                <tr *ngIf="mf.data?.length == 0">
+                <tr *ngIf="trendsVar.moduleList?.length == 0">
                     <td colspan="5" class="text-center data-design">{{trendsVar.noData}}</td>
                 </tr>
             </tbody>
@@ -62,5 +60,8 @@
                 </tr>
             </tfoot>
         </table>
+        <div>
+            <button class="btn btn-primary" routerLink="/dashboard">{{trendsVar.backBtn}}</button>
+        </div>
     </div>
 </div>

@@ -165,7 +165,7 @@ export class API_URL {
 
     //Badges
     badge : '8104/badge',
-    
+
     // Feedback
     feedbackList : '8103/feedbackList',
 
@@ -177,7 +177,9 @@ export class API_URL {
     totalCount : '8103/getTotalCount',
     totalCourse : '8103/getTotalCourse',
     ratedTrainingClasses : '8103/topRatedTrainingClasses',
-    getCourseTrend : '8103/getCourseByMonth'
+    getCourseTrend : '8103/getCourseByMonth',
+    getCourseTrendList : '8103/getAllCoursesByMonth',
+    getCourseEmployeeList : '8103/courseEmployeestatusList'
   }
   
 

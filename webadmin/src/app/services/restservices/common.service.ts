@@ -126,6 +126,14 @@ getTopRatedTrainingClasses(resortId) {
 }
 
 getCourseTrend(courseTrendObj) {
-  return this.http.getLocal('local', this.url.getCourseTrend + '?year=' + courseTrendObj.years + '&resortId=' + courseTrendObj.resortId + '&month=' + courseTrendObj.month);
+  return this.http.getLocal('local', this.url.getCourseTrend + '?year=' + courseTrendObj.year + '&resortId=' + courseTrendObj.resortId);
+}
+
+getCourseTrendList(courseTrendObj) {
+  return this.http.getLocal('local', this.url.getCourseTrendList + '?year=' + courseTrendObj.year + '&resortId=' + courseTrendObj.resortId + '&month=' + courseTrendObj.month);
+}
+
+getCourseEmployeeList(resortId, courseId) {
+  return this.http.getLocal('local', this.url.getCourseEmployeeList + '?resortId=' + resortId + '&courseId=' + courseId);
 }
 }
