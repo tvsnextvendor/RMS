@@ -304,7 +304,9 @@ export class CommonLabels{
         "signature"         :   "Signature required by employee",
         "nonSignature"      :   "No Signature required",
         "selectfile"        :    "Select File",
-        "allRoles"          :    "All Roles"
+        "allRoles"          :    "All Roles",
+        "totalNoOfCourses"  :   "Total No. of courses",
+        "childResort"       :   "Child Resort"    
 
 
     };

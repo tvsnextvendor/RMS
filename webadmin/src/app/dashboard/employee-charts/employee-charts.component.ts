@@ -30,6 +30,7 @@ export class EmployeeChartsComponent implements OnInit {
   TtlEmployee;
   resortId;
   totalCourse;
+  resortDetails = [];
 
   constructor(public dashboardVar: DashboardVar,
     private utilService: UtilService,
@@ -46,6 +47,7 @@ export class EmployeeChartsComponent implements OnInit {
   ngOnInit() {
     this.viewText = "View more";
     this.getData();
+    this.getTopResort();
     this.getKeyStat();
     this.userRole = this.utilService.getRole();
     this.commonService.getTotalCourse(this.resortId).subscribe(result => {
@@ -95,6 +97,15 @@ export class EmployeeChartsComponent implements OnInit {
     this.getcourseTrend();
   }
 
+  getTopResort(){
+    let query = '?limit=5';
+    this.commonService.getTopFiveResort(query).subscribe(resp=>{
+      if(resp && resp.isSuccess){
+        console.log(resp)
+        this.resortDetails = resp.data.rows.length ? resp.data.rows : [];
+      }
+    })
+  }
   enableView() {
     this.viewEnable = !this.viewEnable;
     if (this.viewEnable) {
