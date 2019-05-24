@@ -55,7 +55,7 @@ export class ForumDetailPage implements OnInit {
   hideQuestionBtn:boolean = true;
   constructor(public navCtrl: NavController,public loader: LoaderService,public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage, public modalCtrl: ModalController) {
     this.forumDetailObject = this.navParams.data;
-    this.employees = this.forumDetailObject['setData']['employees'];
+    //this.employees = this.forumDetailObject['setData']['employees'];
     this.topics = this.forumDetailObject['setData']['topics'];
     this.forumId = this.forumDetailObject['setData']['forumId'];
     this.indexs = this.forumDetailObject['selectedIndex'];
