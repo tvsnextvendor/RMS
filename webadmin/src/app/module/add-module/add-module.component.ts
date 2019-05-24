@@ -588,7 +588,7 @@ export class AddModuleComponent implements OnInit {
                         }
                         else{
                             this.moduleCourseId = resp.data.courseId;
-                            if(this.staticTabs.tabs) 
+                            if(this.staticTabs && this.staticTabs.tabs && this.staticTabs.tabs.length) 
                             {
                                 this.staticTabs.tabs[0].disabled = false;
                                 this.staticTabs.tabs[0].active = true;

@@ -17,6 +17,68 @@
 	color: #ccc;
     font-size: 25px;
 }
+
+.totalcourses{
+  position: absolute;
+  bottom: 20px;
+  font-size: 15px;
+  color: #454545;
+  font-weight: 600;
+  left: 80px;
+}
+.top-employee-height, .topratedcourse{  
+  font-size: 14px;
+  font-weight: 600;
+  color: #454545;
+}
+.top-employee-height{
+height: 145px !important;
+}
+
+
+
+.percent-alg{
+  color: #1D4960;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.select-style {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+  width: 160px;
+ }   
+  .select-style select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+  }
+      .select-style select::-ms-expand {
+          display: none;
+      }
+     /* .select-style select:hover,
+      .select-style select:focus {
+          color: #000000;
+          background: #cccccc;
+      } */
+      .select-style select:disabled {
+          opacity: 0.5;
+          pointer-events: none;
+      }
+
+.select select-style:hover ~ .select_arrow,
+.select select-style:focus ~ .select_arrow {
+ border-top-color: #000000;
+}
+.select select-style:disabled ~ .select_arrow {
+ border-top-color: #cccccc;
+}
+.select-style{
+ float: right;
+ clear: both;
+ padding-bottom: 0px;
+}
 .resort-num-alg{
     font-size: 32px;
     color: #1D4960;
@@ -47,9 +109,9 @@
     float: left;
     font-weight: 600;
 }
-.d-inline-flex{
+/* .d-inline-flex{
   display: block !important;
-}
+} */
 .user-img{
     width: 12px;
     padding-right: 4px;

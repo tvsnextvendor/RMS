@@ -1,5 +1,5 @@
 import { Component, OnInit,Input,TemplateRef , EventEmitter, Output} from '@angular/core';
-import { HeaderService, HttpService, CourseService, AlertService, FileService, ResortService,UtilService,CommonService,UserService} from '../../services';
+import { HeaderService, HttpService, CourseService, AlertService, FileService, ResortService,UtilService,CommonService,UserService,PDFService,ExcelService} from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -39,7 +39,18 @@ export class DocumentTabComponent implements OnInit {
   @Output() selectedVideos  = new EventEmitter<object>();
 
 
-  constructor(private courseService: CourseService, private fileService: FileService,private alertService: AlertService,public commonLabels : CommonLabels,public constant: CmsLibraryVar, private modalService : BsModalService,private utilService :UtilService,private commonService : CommonService,private userService : UserService,private resortService : ResortService ) { 
+  constructor(private courseService: CourseService,
+     private fileService: FileService,
+     private alertService: AlertService,
+     public commonLabels : CommonLabels,
+     public constant: CmsLibraryVar,
+      private modalService : BsModalService,
+      private utilService :UtilService,
+      private commonService : CommonService,
+      private userService : UserService,
+      private resortService : ResortService,
+      private pdfService :PDFService,
+      private excelService :ExcelService ) { 
 
   }
 
@@ -383,5 +394,17 @@ export class DocumentTabComponent implements OnInit {
         this.constant.errorValidate = true;
       }
     }
+
+                  // Create PDF
+ exportAsPDF(){ 
+  // this.labels.btns.select =  this.labels.btns.pdf;
+  var data = document.getElementById('docList'); 
+  this.pdfService.htmlPDFFormat(data,this.commonLabels.titles.docTitle);  
+} 
+// Create Excel sheet
+exportAsXLSX():void {
+  // this.labels.btns.select =  this.labels.btns.excel;
+  this.excelService.exportAsExcelFile(this.videoListValue, this.commonLabels.titles.docTitle);
+}
 
 }

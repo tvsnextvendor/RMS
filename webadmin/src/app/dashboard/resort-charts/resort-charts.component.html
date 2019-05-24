@@ -17,7 +17,9 @@
           <div class="clearfix pt-3">
             <p class="parent-data">{{commonLabels.labels.dashdatamsg}}</p>
              <span><button type="button" class="btn btn-primary parent-resortbtn">{{commonLabels.btns.go}}</button></span>
-            <select class="select-btn"><option value="Total">{{commonLabels.labels.parentresort}}</option>
+            <select class="select-btn" [(ngModel)]='selectedResort' #resort (change)="getCountDetails(resort.value)">
+              <option value="null" disabled>{{commonLabels.labels.parentresort}}</option>
+              <option *ngFor="let resort of resortList" [value]='resort.resortId'>{{resort.resortName}}</option>
               <i class="fa fa-chevron-down" aria-hidden="true"></i></select>
             <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
           </div>
@@ -27,19 +29,19 @@
        <div class="row mb-3">
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-4">
-            <div class="resort-list">10</div>
+            <div class="resort-list">{{TtlDivision}}</div>
             <p class="resort-title">{{commonLabels.labels.totalDivision}}</p>
           </div>
         </div>
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-4">
-            <div class="resort-list">15</div>
+            <div class="resort-list">{{TtlDepartment}}</div>
             <p class="resort-title">{{commonLabels.labels.totalDept}}</p>
           </div>
         </div>
         <div class="col-md-4 p-0">
           <div class=" chart-bg p-4">
-            <div class="resort-list">150</div>
+            <div class="resort-list">{{TtlEmployee}}</div>
             <p class="resort-title">{{commonLabels.labels.totEmp}}</p>
           </div>
         </div>
@@ -47,36 +49,75 @@
       
 
       <div class="row mb-3">
-        <div class="col-md-4 pl-0">
+        <!-- <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                 {{commonLabels.labels.totalCourses}}</h6>
              
           </div>
-        </div>
-        <div class="col-md-8 p-0">
+        </div> -->
+        
+        <!-- Total courses -->
+        <div class="col-md-4 p-0">
           <div class=" chart-bg p-2" style=" height: 275px">
-            <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-              {{commonLabels.labels.videosTrend}}
-              <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
-                <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">{{year}}</option>
-                <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
-              </select>
-            </h6>
-            
+            <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>{{commonLabels.labels.totalCourses}}</h6>
+            <span class="totalcourses">{{commonLabels.labels.totalCourses}}-
+              <span class="percent-alg">{{dashboardVar.totalCoursesCount}}</span>
+            </span>  
+            <div *ngIf="dashboardVar.totalCourses" id="totalCourses" style="min-width: 150px; height: 150px; max-width: 600px; margin: 0 auto"></div>
+          </div>
+          <div class="col-sm-3 pl-0 course-style">
+            <div class=" chart-bg"></div>
           </div>
         </div>
+
+        <div class="col-md-8 p-0">
+          <div class=" chart-bg p-2" style=" height: 275px">
+              <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
+                {{commonLabels.labels.videosTrend}}
+                <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
+                  <option *ngFor="let year of dashboardVar.yearList" value="{{year}}">{{year}}</option>
+                  <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
+                </select>
+                <div *ngIf="dashboardVar.courseTrendData" id="trend" style="height: 195px; margin: 0 auto; padding-left: 12px;" (click)="goToVideosTrend()" ></div>
+              </h6>  
+              
+            </div>
+          </div>
       </div>
      
 
-            <div class="row mb-3">
-        <div class="col-md-4 pl-0">
-          <div class=" chart-bg p-2" style=" height: 275px">
-            <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-              {{commonLabels.labels.topCourses}}</h6>
-               
-          </div>
-        </div>
+        <div class="row mb-3">
+          <div class="col-md-4 pl-0">
+              <div class=" chart-bg p-2" style=" height: 275px">
+                <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
+                  {{commonLabels.labels.topCourses}}</h6>
+                  <div class="col-sm-3 pl-0">
+                      <div class=" chart-bg">
+                        <!-- <h6 class="chart-mr"><i class="fa fa-circle-o circle-fnt" aria-hidden="true"></i> -->
+                          <!-- {{dashboardVar.employeeGridsTitle.topCourses}}</h6> -->
+                        <table class="table">
+                          <tbody class="topratedcourse">
+                            <tr *ngFor="let item of topCourses">
+                              <td>
+                                {{item.courseName}}
+                              </td>
+                              <td>
+                                <ng-template #t let-fill="fill">
+                                  <span class="star" [class.full]="fill === 100">
+                                    <span class="half" [style.width.%]="fill">&#x2605;</span>&#x2605;
+                                  </span>
+                                </ng-template>
+                                <ngb-rating [(rate)]='+item.rating' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+              </div>
+            </div>
+
         <div class="col-md-4 pl-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>

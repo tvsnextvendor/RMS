@@ -50,7 +50,7 @@ export class EmployeeChartsComponent implements OnInit {
     this.userRole = this.utilService.getRole();
     this.commonService.getTotalCourse(this.resortId).subscribe(result => {
       const totalCourses = result.data.training;
-      this.dashboardVar.totalCoursesCount = result.data.totalCoursesCount;
+      this.dashboardVar.totalCoursesCount = result.data.courseTotalCount;
       this.dashboardVar.totalCourses = totalCourses.map(item => {
         return {name: item.status, y: parseInt(item.totalcount, 10)};
       });

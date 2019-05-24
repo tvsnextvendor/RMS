@@ -5,7 +5,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { VideoVar } from '../../Constants/video.var';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import { CommonLabels } from '../../Constants/common-labels.var';
-import { CommonService, UtilService, ResortService, UserService, AlertService, FileService } from '../../services';
+import { CommonService, UtilService, ResortService, UserService, AlertService, FileService,PDFService,ExcelService } from '../../services';
 import * as _ from 'lodash';
 
 
@@ -45,7 +45,18 @@ errorValidate = false;
 @Output() selectedVideos  = new EventEmitter<object>();
 
 
-constructor(private courseService: CourseService,private fileService:FileService,private alertService: AlertService ,private modalService: BsModalService, private constant: VideoVar, private commonService: CommonService, private utilService: UtilService, private resortService: ResortService, private userService: UserService,public commonLabels : CommonLabels) {
+constructor(private courseService: CourseService,
+  private fileService:FileService,
+  private alertService: AlertService ,
+  private modalService: BsModalService, 
+  private constant: VideoVar,
+   private commonService: CommonService, 
+   private utilService: UtilService,
+    private resortService: ResortService, 
+    private userService: UserService,
+    public commonLabels : CommonLabels,
+    private pdfService : PDFService,
+    private excelService : ExcelService ) {
    this.labels = constant.videoFormLabels;
 }
 
@@ -402,4 +413,16 @@ constructor(private courseService: CourseService,private fileService:FileService
       this.errorValidate = true;
     }
   }
+
+              // Create PDF
+ exportAsPDF(){ 
+  // this.labels.btns.select =  this.labels.btns.pdf;
+  var data = document.getElementById('videoList'); 
+  this.pdfService.htmlPDFFormat(data,this.commonLabels.titles.videoTitle);  
+} 
+// Create Excel sheet
+exportAsXLSX():void {
+  // this.labels.btns.select =  this.labels.btns.excel;
+  this.excelService.exportAsExcelFile(this.videoListValue, this.commonLabels.titles.videoTitle);
+}
 }
