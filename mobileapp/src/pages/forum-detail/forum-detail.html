@@ -76,8 +76,8 @@
                     <p class="comment-content">{{comment.description}}</p>
                     <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
                     <div class="comment-btn">
-                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(edit, comment)"> Edit</button>
-                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(delete, comment)"> Delete</button>
+                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(edit, comment)"> <i class="fas fa-pencil-alt"></i></button>
+                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(delete, comment)"> <i class="fas fa-trash"></i></button>
                     </div>
                   </ion-col>
                     </ion-row>
@@ -160,8 +160,8 @@
                     <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
                     <div class="comment-btn">
                       <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(edit, comment)">
-                      Edit</button>
-                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(delete, comment)"> Delete</button>
+                          <i class="fas fa-pencil-alt"></i></button>
+                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(delete, comment)"> <i class="fas fa-trash"></i></button>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -257,6 +257,6 @@
 </ion-content>
 <div class="fixed-btn" *ngIf="hideQuestionBtn">
   <button ion-button round class="add-question" (click)="openModal(template)">
-    {{constant.buttons.addQuestion}}
+    <div class="common-btn">{{constant.buttons.addQuestion}}</div> 
   </button>
 </div>
