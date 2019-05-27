@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {loginVar} from '../Constants/login.var';
-import {HttpService} from '../services/http.service';
+import {HttpService,CommonService} from '../services';
 import { API_URL } from '../Constants/api_url';
 import {AuthService} from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
@@ -24,8 +24,15 @@ export class LoginComponent implements OnInit {
     passwordError = false;
     emailError = false;
     btns;
-    constructor(private route: Router, public loginvar: loginVar, private toastr: ToastrService,
-            private http: HttpService,private authService: AuthService,private API_URL:API_URL,private alertService:AlertService,public commonLabels:CommonLabels) { }
+    constructor(private route: Router, 
+      public loginvar: loginVar,
+      private toastr: ToastrService,
+      private http: HttpService,
+      private authService: AuthService,
+      private API_URL:API_URL,
+      private alertService:AlertService,
+      public commonLabels:CommonLabels,
+      private commonService :CommonService) { }
 
     ngOnInit() {
       // get user details '5c0fbeda3100003b1324ee75'
@@ -69,28 +76,20 @@ export class LoginComponent implements OnInit {
       if(forgetStatus){
         // forgetpassword
         if(data.email){
-          let user = {};
-          let userIndex;
-          this.userArray.map((item,index)=>{
-            if (item.emailAddress === data.email){
-              user =  item;
-              userIndex = index;
+          let params = {
+            "emailAddress": data.email
             }
-          })
-            if(Object.keys(user).length){
+          this.commonService.forgetPassword(params).subscribe(resp=>{
+            if(resp && resp.isSuccess){
               this.forgetPasswordStatus = false;
-              this.toastr.success(this.commonLabels.msgs.pwdUpdate);
-              let encIndex = btoa(userIndex)
-              if(encIndex){
-                this.route.navigateByUrl('/resetpassword/'+encIndex)
-              }
+              this.alertService.success(resp.message);
             }
-            else{
-              this.toastr.error(this.commonLabels.msgs.regisEmail)
-            }
+          },err=>{
+            this.alertService.error(err.error.error)
+          })
         }
         else{
-          this.toastr.error(this.commonLabels.msgs.regisEmail)
+          this.alertService.error(this.commonLabels.msgs.regisEmail)
         }
 
       }

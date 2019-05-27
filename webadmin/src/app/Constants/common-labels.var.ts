@@ -306,8 +306,8 @@ export class CommonLabels{
         "selectfile"        :    "Select File",
         "allRoles"          :    "All Roles",
         "totalNoOfCourses"  :   "Total No. of courses",
-        "childResort"       :   "Child Resort"    
-
+        "childResort"       :   "Child Resort"  ,
+        "resetPassword"     :   "Reset password",  
 
     };
 
@@ -515,7 +515,8 @@ export class CommonLabels{
         "permissionError"   :  "Please select data for all the fields",
         "courseUnique"      :  "Certificate already assigned for selected course",
         "selectCourse"      :  "Please select the course",
-        "employeeId"        :   "Employee Id is required"
+        "employeeId"        :   "Employee Id is required",
+        "confirmPasswordError"     :  "Confirm password is Required",
 
      
     };
