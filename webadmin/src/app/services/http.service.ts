@@ -113,6 +113,16 @@ export class HttpService {
     return this.http.request('delete',API_ENDPOINT+url, {headers:httpOptions.headers,body:paramData}).pipe(
       map(this.extractData));
   }
+
+  reset(api,url,params):Observable<any> {
+    this.headerAssign();
+    const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
+    return this.http.post(API_ENDPOINT+url,params).pipe(
+      map(this.extractData),
+      catchError((error: HttpErrorResponse) => {
+         return Observable.throw(error);
+        }));
+  }
   
 
 }

@@ -141,4 +141,11 @@ getTopFiveResort(query){
   // topFiveResort
   return this.http.getLocal('local', this.url.topFiveResort +query);
 }
+
+forgetPassword(params){
+  return this.http.post('local', this.url.forgetPassword, params);
+}
+resetPassword(params){
+  return this.http.reset('local', this.url.resetPassword, params);
+}
 }

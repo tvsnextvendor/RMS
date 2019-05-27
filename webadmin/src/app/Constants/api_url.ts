@@ -180,7 +180,11 @@ export class API_URL {
     getCourseTrend : '8103/getCourseByMonth',
     getCourseTrendList : '8103/getAllCoursesByMonth',
     getCourseEmployeeList : '8103/courseEmployeestatusList',
-    topFiveResort : '8103/getTopFiveResorts'
+    topFiveResort : '8103/getTopFiveResorts',
+
+    //password update
+    forgetPassword : '8101/forgetPassword',
+    resetPassword  : '8101/resetpassword' 
   }
   
 
