@@ -31,6 +31,7 @@ export class CalendarViewComponent implements OnInit {
     resortId;
     trainingScheduleId;
     scheduleEditDetails = {};
+    enableBatch = false;
 
   
    constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router,private modalService:BsModalService,
@@ -70,7 +71,7 @@ export class CalendarViewComponent implements OnInit {
         console.log(event,scheduleId)
         if(Object.keys(scheduleId)){
             this.getScheduleData(scheduleId.id);
-            this.openEditModal(addBatch,event)
+            // this.openEditModal(addBatch,event)
         }
         // this.router.navigateByUrl('/addBatch');
     }
@@ -80,6 +81,7 @@ export class CalendarViewComponent implements OnInit {
             if(resp && resp.isSuccess){
                 this.trainingScheduleId = resp.data.length ? resp.data[0].trainingScheduleId : '';
                 this.scheduleEditDetails = resp.data.length ? resp.data[0] : {};
+                this.enableBatch =true
             }
             console.log(resp)
         })
@@ -118,7 +120,8 @@ export class CalendarViewComponent implements OnInit {
     }
 
     closeModel(){
-        this.batchVar.modalRef.hide();
+        // this.batchVar.modalRef.hide();
+        this.enableBatch = false;
         this.trainingScheduleId = '';
         this.scheduleEditDetails = {};
         this.getCalendarDetails();
