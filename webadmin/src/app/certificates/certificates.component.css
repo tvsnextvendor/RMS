@@ -74,7 +74,9 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    /* width: 175px; */
+    float: left;
+    margin: 0;
+    width: 70%;
  }
  .select-style {
  position: relative;

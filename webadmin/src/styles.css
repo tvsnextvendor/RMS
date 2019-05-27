@@ -332,10 +332,10 @@ table td.td-pd {
 }
 .sidebar-nav li a {
   display: block;
-  text-decoration: none;
+  text-decoration: none !important;
   /*margin-left: 15px;*/
-  padding: 0 0 0 25px;
-  color: #73737B;
+  padding: 0 0 0 25px !important;
+  color: #73737B !important;
 }
 .sidebar-nav li a:hover {
     background-color: #E4EFF5;
@@ -371,6 +371,37 @@ table td.td-pd {
 ul li{
   display: inline-block;
 }
+.sub-menu {
+  padding: 0;
+  line-height: 40px;
+}
+.sub-menu li {
+  line-height: 40px;
+  font-size: 14px;
+}
+.sub-menu li.active a {
+  color: #468FB9;
+}
+.sub-menu li a:hover {
+  color: #468FB9;
+}
+.pl104{
+  padding-left: 104px !important;
+}
+.show-btn{
+  font-size: 16px;
+    color: #468FB9;
+    font-weight: 500;
+    text-decoration: underline;
+}
+/* .select-tab .active{
+  display: inline-block;
+}
+.select-tab{display: none;}
+.unselect-tab .active{
+  display: none;
+}
+.unselect-tab{display: none;} */
 /***************** end sidebar **************************/
 /************************* Header ***********************/
 .form-searchbox {
@@ -1018,6 +1049,9 @@ a {
     z-index: 9999 !important;
     height: 150px !important;
     width: 250px !important;
+}
+.export-btn .dropdown-menu.show {
+  min-width: 102px;
 }
 .creat-btn{
 	float: none;
