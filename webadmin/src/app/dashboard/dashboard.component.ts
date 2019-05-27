@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   tabs = [];
   
   tabTitle = [];
-  selectedtab ;
+  selectedtab;
 
   constructor(private dashboardVar: DashboardVar,private utilService: UtilService ,private headerService: HeaderService,public commonLabels:CommonLabels) { }
 
