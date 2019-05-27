@@ -17,6 +17,7 @@ import { CommonLabels } from '../../Constants/common-labels.var'
 
 export class AddBatchComponent implements OnInit {
     @Output() someEvent = new EventEmitter<string>();
+    @Output() completed = new EventEmitter<string>();
     @Input() courseList: any = [];
     @Input() scheduleId;
     @Input() scheduleData;
@@ -134,19 +135,26 @@ export class AddBatchComponent implements OnInit {
                 departmentId : item.departmentId
             }
             // Set dropdown data
+            debugger;
             if(this.batchVar.selectedDivision.length){this.batchVar.selectedDivision.forEach(x=>{
                 if(x.divisionId != item.divisionId){
                     this.batchVar.selectedDivision.push(item.Division);
-                    this.onEmpSelect('','div');
+                    // this.onEmpSelect('','div');
                 }
-            }) }else{ this.batchVar.selectedDivision.push(item.Division) ;this.onEmpSelect('','div');}
+            }) }else if(item.Division){ 
+                this.batchVar.selectedDivision.push(item.Division) ;
+                // this.onEmpSelect('','div');
+            }
 
             if(this.batchVar.selectedDepartment.length) { this.batchVar.selectedDepartment.forEach(x=>{
                 if(x.departmentId != item.departmentId){
                     this.batchVar.selectedDepartment.push(item.Department);
-                    this.onEmpSelect('','dept');
+                    // this.onEmpSelect('','dept');
                 }
-            }) }else{ this.batchVar.selectedDepartment.push(item.Department);this.onEmpSelect('','dept');}
+            }) }else if(item.Department){ 
+                this.batchVar.selectedDepartment.push(item.Department);
+                // this.onEmpSelect('','dept');
+            }
 
             if(this.batchVar.selectedEmp.length){ 
                 this.batchVar.selectedEmp.push(item.User);
@@ -160,7 +168,7 @@ export class AddBatchComponent implements OnInit {
                 });
                 isDuplicate && this.batchVar.selectedEmp.splice(index,1);
             
-            }else{
+            }else if(item.User){
                 this.batchVar.selectedEmp.push(item.User);
             }
             return obj;
@@ -443,8 +451,8 @@ export class AddBatchComponent implements OnInit {
 
     hidePopup(data){
         this.clearBatchForm();
-        
-        this.someEvent.next(data);
+        this.goTocmsLibrary();
+        // this.someEvent.next(data);
     }
 
     clearBatchForm() {
@@ -488,7 +496,9 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.moduleForm.push(obj);
     }
     
-
+    goTocmsLibrary(){
+        this.completed.emit('completed'); 
+      }
 
 
 }

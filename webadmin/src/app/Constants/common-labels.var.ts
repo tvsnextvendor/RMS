@@ -522,6 +522,7 @@ export class CommonLabels{
 
      modaltitle ={
         "addnewtrainingschedule" : "Add New Training Schedule",
+        "editTrainingschedule"   : "Update Training Schedule",
         "editVideo"              : "Edit Video",
         "addcertTemplate"        : "Add Certificate Template",
         "editcertTemplate"       : "Edit Certificate Template",

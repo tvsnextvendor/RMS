@@ -1,6 +1,6 @@
 <div class="">
   <div class="white-bg">
-    <div class="clearfix p-3 row calender-header">
+    <div class="clearfix p-3 row calender-header" *ngIf="!enableBatch">
       <span class="calender-text col-md-4 p-0">{{commonLabels.labels.calendarView}}</span>
       <span class="month-text col-md-4">
         <div class="float-left cp" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
@@ -38,12 +38,14 @@
         </div>
       </span>
     </span> -->
-    <div [ngSwitch]="view" class="px-3 pb-3 calender-view">
+    <div [ngSwitch]="view" class="px-3 pb-3 calender-view" *ngIf="!enableBatch">
       <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
         [cellTemplate]="customCellTemplate" [refresh]="refresh">
       </mwl-calendar-month-view>
     </div>
 
+    <!-- <app-add-batch *ngIf="!trainingScheduleId && enableBatch" (someEvent)="closeModel()" [scheduleId] = "trainingScheduleId" [scheduleData]="scheduleEditDetails"></app-add-batch> -->
+      <app-add-batch *ngIf="trainingScheduleId && enableBatch" (completed)="closeModel()"  [scheduleId] = "trainingScheduleId" [scheduleData]="scheduleEditDetails"></app-add-batch>
 
     <ng-template #customCellTemplate let-day="day" let-locale="locale">
       <div class="cal-cell-top">
@@ -64,7 +66,7 @@
       </span>
     </ng-template>
 
-    <ng-template #editBatch>
+    <!-- <ng-template #editBatch>
       <div class="modal-header"> 
           <h4 class="modal-title pull-left">{{trainingScheduleId ? this.commonLabels.titles.editTitle : this.commonLabels.titles.addTitle}}</h4>
           <button type="button" class="close pull-right" aria-label="Close" (click)="closeModel()">
@@ -73,6 +75,6 @@
       </div>
       <app-add-batch *ngIf="!trainingScheduleId" (someEvent)="closeModel()" [scheduleId] = "trainingScheduleId" [scheduleData]="scheduleEditDetails"></app-add-batch>
       <app-add-batch *ngIf="trainingScheduleId" (someEvent)="closeModel()" [scheduleId] = "trainingScheduleId" [scheduleData]="scheduleEditDetails"></app-add-batch>
-    </ng-template> 
+    </ng-template>  -->
   </div>
 </div>

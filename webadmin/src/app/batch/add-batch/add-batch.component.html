@@ -1,3 +1,16 @@
+<div>   
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a (click)="goTocmsLibrary()" class="cms-breadcrumb" href="javascript:void(0);">{{scheduleId ? commonLabels.labels.calendarView : commonLabels.labels.cmsLibrary}}</a></li>
+            <li class="breadcrumb-item active">{{commonLabels.btns.scheduleTraining}}</li>
+        </ol>
+    </nav>
+</div>
+<div class="white-bg p-4">
+<div class="clearfix">
+    <h4 class="add-notify" *ngIf="!scheduleId">{{commonLabels.modaltitle.addnewtrainingschedule}}</h4>
+    <h4 class="add-notify" *ngIf="scheduleId">{{commonLabels.modaltitle.editTrainingschedule}}</h4>
+</div>
 <span *ngIf="submitted && errorValidate" class="required_color">{{errorValidate}}</span>
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
     <div class="Schedule-box">       
@@ -175,7 +188,7 @@
                 </div>
                 <div class="text-center col-md-12 p-4">
                     <button type="submit" class="btn btn-primary module-createbtn mr-4">{{commonLabels.btns.create}}</button>
-                    <button type="button" class="btn btn-default creat-btn" (click)="hidePopup('cancel')">{{commonLabels.btns.cancel}}</button>
+                    <button type="button" class="btn btn-default creat-btn" (click)="goTocmsLibrary()">{{commonLabels.btns.cancel}}</button>
                 </div>
 
             </div>

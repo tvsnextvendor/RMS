@@ -1,26 +1,27 @@
-<div class="" *ngIf="!enableNotify">   
+<div class="" *ngIf="!enableNotify && !enableBatch && !showcreatecourse">   
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item" (click)="goTocmsLibrary()"  *ngIf="!showcreatecourse"><a routerLink="/cms-library">{{commonLabels.labels.cmsLibrary}}</a></li>
-            <li *ngIf ="selectedTab === 'course' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.course}}</li>
-            <li *ngIf ="selectedTab === 'training' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.trainingClass}}</li>
-            <li *ngIf ="selectedTab === 'video' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.videos}}</li>
-            <li *ngIf ="selectedTab === 'document' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.documents}}</li>
-            <li *ngIf ="selectedTab === 'notification' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.notification}}</li>
-            <li *ngIf ="selectedTab === 'quiz' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.quiz}}</li>
-            <li *ngIf ="selectedTab === 'recent' && !showcreatecourse" class="breadcrumb-item active">{{commonLabels.labels.recentlyDelete}}</li>
+            <li class="breadcrumb-item" (click)="goTocmsLibrary()"><a routerLink="/cms-library">{{commonLabels.labels.cmsLibrary}}</a></li>
+            <li *ngIf ="selectedTab === 'course'" class="breadcrumb-item active">{{commonLabels.labels.course}}</li>
+            <li *ngIf ="selectedTab === 'training'" class="breadcrumb-item active">{{commonLabels.labels.trainingClass}}</li>
+            <li *ngIf ="selectedTab === 'video'" class="breadcrumb-item active">{{commonLabels.labels.videos}}</li>
+            <li *ngIf ="selectedTab === 'document'" class="breadcrumb-item active">{{commonLabels.labels.documents}}</li>
+            <li *ngIf ="selectedTab === 'notification'" class="breadcrumb-item active">{{commonLabels.labels.notification}}</li>
+            <li *ngIf ="selectedTab === 'quiz'" class="breadcrumb-item active">{{commonLabels.labels.quiz}}</li>
+            <li *ngIf ="selectedTab === 'recent'" class="breadcrumb-item active">{{commonLabels.labels.recentlyDelete}}</li>
         </ol>
     </nav>
 </div>
-<app-add-notification *ngIf="enableNotify && !showcreatecourse" notificationType="{{notificationValue}}" (someEvent)="closeModal()" (completed)="completed($event)"></app-add-notification>
-<div class="pt-2" *ngIf="!enableNotify"> 
+<app-add-notification *ngIf="enableNotify && !enableBatch &&!showcreatecourse" notificationType="{{notificationValue}}" (someEvent)="closeModal()" (completed)="completed($event)"></app-add-notification>
+<app-add-batch *ngIf="enableBatch && !enableNotify && !showcreatecourse" [courseList]="this.selectedCourse" (someEvent)="hidePopup($event)" (completed)="completed($event)"></app-add-batch>
+<div class="pt-2" *ngIf="!enableNotify && !enableBatch"> 
     <app-add-module *ngIf="showcreatecourse" (upload)="showUploadPage($event)" (completed)="completed($event)"  [addedFiles]="selectedVideoList"></app-add-module>   
     <div class="row">
         <div class="col-md-9 pt-2 px-0">
     	    <div class="clearfix" *ngIf="!hideSection">
                 <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">{{commonLabels.btns.print}}</button>    
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress" routerLink="/workinprogress">{{commonLabels.btns.workinProgress}}</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="openEditModal(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
+                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification" (click)="openCreateModal(notification,'notification')">{{commonLabels.btns.createNotification}}</button>
                 <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{commonLabels.btns.createCourse}}</button>
             </div>
@@ -84,7 +85,7 @@
     </div>
 </div>
 
-<ng-template #editBatch>  
+<!-- <ng-template #editBatch>  
     <div class="modal-header"> 
         <h4 class="hd-alg">{{commonLabels.modaltitle.addnewtrainingschedule}}</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -94,7 +95,7 @@
     <div class="modal-body">
         <app-add-batch [courseList]="this.selectedCourse" (someEvent)="hidePopup($event)"></app-add-batch>
     </div>
-</ng-template> 
+</ng-template>  -->
 <ng-template #notification>  
         <div class="modal-header"> 
             <h4 class="hd-alg">{{commonLabels.btns.createNotification}}</h4>

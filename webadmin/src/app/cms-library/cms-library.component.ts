@@ -31,6 +31,7 @@ export class CMSLibraryComponent implements OnInit {
   notificationValue;
   notifyType;
   enableNotify = false;
+  enableBatch = false;
 
 
   ngOnInit() {
@@ -67,6 +68,7 @@ export class CMSLibraryComponent implements OnInit {
   goTocmsLibrary(){
     this.hideSection = false;
     this.enableNotify = false;
+    this.enableBatch = false;
      this.selectedTab = 'course';
   }
 
@@ -101,7 +103,9 @@ export class CMSLibraryComponent implements OnInit {
     this.hideSection=false;
     this.showcreatecourse=false;
     this.enableNotify = false;
+    this.enableBatch = false;
     this.selectedTab = 'course';
+    this.selectedCourse = [];
   }
 
   redirectTab(value){
@@ -168,6 +172,19 @@ export class CMSLibraryComponent implements OnInit {
 
 notificationTypeUpdate(type){
   this.notifyType = type;
+}
+
+enableData(data,type){
+  // console.log(data)  
+  if(this.selectedCourse.length > 0){
+    this.enableBatch = true;
+  }else{
+  this.showWarning =true;
+  let self = this;
+  setTimeout(function(){ 
+    self.showWarning = false;
+    }, 5000);
+  }
 }
 
    
