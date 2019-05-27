@@ -9,11 +9,13 @@
                 <ng-container *ngFor="let template of constant.certificateList">
                     <ng-template carouselSlide [id]="template.certificateId">
                         <iframe [src]="template.imageFile | sanitizeHtml" width="100%" height="200"></iframe>
-                        <p class="pt-2 certificate-name">{{template.certificateName}} 
-                            <span><a title="Edit" (click)="openAddtemplate(addTemplate, template.certificateId)" class="ml-2"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"></i></a>
+                        <div class="p-2 clearfix">
+                        <p class="certificate-name">{{template.certificateName}} </p>
+                            <span class="float-right">
+                            <a title="Edit" (click)="openAddtemplate(addTemplate, template.certificateId)" class="ml-2"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"></i></a>
                             <a (click)="openDeleteTemplate(deleteTemplate,template.certificateId)" title="Delete" class="ml-2"><i class="fa fa-trash header-icon"></i></a>
-                            </span>
-                        </p>
+                            </span>    
+                        </div>                    
                     </ng-template>
                 </ng-container>
             </owl-carousel-o>

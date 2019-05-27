@@ -24,7 +24,8 @@ import { EmployeeComponent } from './course-tab/employee/employee.component';
 import { ContentFileComponent } from './course-tab/content-file/content-file.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {moduleModule} from '../module/module.module';
-import { WorkCourseListComponent } from './work-inprogress/work-inprogress-list.component'
+import { WorkCourseListComponent } from './work-inprogress/work-inprogress-list.component';
+import { CmsPageComponent } from './cms-page/cms-page.component'
 
 
 const routes: Routes = [
@@ -33,7 +34,8 @@ const routes: Routes = [
     { path: 'employee/:userId', component:  EmployeeComponent ,canActivate : [AuthGuard]},
     { path: 'files/:id', component:  ContentFileComponent ,canActivate : [AuthGuard]},
     { path: 'contentfile', component:  ContentFileComponent ,canActivate : [AuthGuard]},
-    { path: 'workinprogress', component:  WorkCourseListComponent ,canActivate : [AuthGuard]}
+    { path: 'workinprogress', component:  WorkCourseListComponent ,canActivate : [AuthGuard]},
+    { path: 'cmspage', component:  CmsPageComponent ,canActivate : [AuthGuard]}
 ];
 
 export const MY_MOMENT_FORMATS = {
@@ -74,7 +76,8 @@ export const MY_MOMENT_FORMATS = {
     EmployeesListComponent, 
     EmployeeComponent,
     ContentFileComponent,
-    WorkCourseListComponent
+    WorkCourseListComponent,
+    CmsPageComponent
   ],
   bootstrap: [CMSLibraryComponent]
 })

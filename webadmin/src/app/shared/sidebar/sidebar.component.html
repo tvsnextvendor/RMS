@@ -28,7 +28,58 @@
             <a routerLink="/dashboard"><img src="{{commonLabels.imgs.dashboard}}"class="pr-3">{{commonLabels.titles.dashboard}}</a>
         </li>
         <li [class.active]="router.isActive('/cms-library') || router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
-            <a routerLink="/cms-library"><img src="{{commonLabels.imgs.cms}}" class="pr-3">{{commonLabels.labels.cmsLibrary}}</a>
+            <a routerLink="/cms-library"><img src="{{commonLabels.imgs.cms}}" class="pr-3">{{commonLabels.labels.cmsLibrary}}<i aria-hidden="true" class="fa fa-angle-down icons_header pl-5" title="Open"></i></a>
+            <ul class="sub-menu">
+                    <li class="">
+                            <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Create Classes</a>
+                        </li>
+                        <li class="">
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Create Quiz</a>
+                        </li>
+                        <li class="">
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Create Course</a>
+                        </li>
+                        <li class="">
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Create Notification</a>
+                        </li>
+                    </ul>
+                </li> 
+                <li>
+            <a><img src="assets/images/edit_icon.png"class="pr-3">Edit<i aria-hidden="true" class="fa fa-angle-down icons_header pl104" title="Open"></i></a>       
+            <ul class="sub-menu">
+                    <li class="">
+                            <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Edit Classes</a>
+                        </li>
+                        <li class="">
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Edit Quiz</a>
+                        </li>
+                        <li class="">
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Edit Course</a>
+                        </li>
+                        <li class="">
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Edit Notification</a>
+                        </li>
+                    </ul>        
+        </li>
+        <li>
+            <a><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">Training Schedule</a>
+        </li>
+        <li>
+            <a><img class="pr-2" src="assets/images/sel_reports.png">Performance Report<i aria-hidden="true" class="fa fa-angle-down icons_header pl-2" title="Open"></i></a>
+            <ul class="sub-menu">
+                    <li class="">
+                            <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Course Trend</a>
+                        </li>
+                        <li class="">
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Resort Details</a>
+                        </li>
+                        <li class="">
+                                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Certification Trend</a>
+                        </li>
+            </ul>  
         </li>
         <li [class.active]="router.isActive('/users')">
             <a routerLink="/users"><img src="{{commonLabels.imgs.user}}" class="pr-3">{{commonLabels.titles.userManagement}}</a>
@@ -62,6 +113,9 @@
         <li>
             <a routerLink="/feedback"><img src="assets/images/feedback.png" class="pr-3">{{commonLabels.titles.feedback}}</a>
         </li>
+        <li>
+                <a><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">Show more</span></a>
+            </li>
     </ul>
 </div>
 </div>
