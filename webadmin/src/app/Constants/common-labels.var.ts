@@ -514,7 +514,8 @@ export class CommonLabels{
         "badgeDataFound"    :  "No badge data found",
         "permissionError"   :  "Please select data for all the fields",
         "courseUnique"      :  "Certificate already assigned for selected course",
-        "selectCourse"      :  "Please select the course"
+        "selectCourse"      :  "Please select the course",
+        "employeeId"        :   "Employee Id is required"
 
      
     };

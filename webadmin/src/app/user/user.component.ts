@@ -360,7 +360,8 @@ export class UserComponent implements OnInit {
                 this.errMsg=err.error.error;
                 this.alertService.error(this.errMsg);
             });
-            }}
+            }
+        }
       }
 
 

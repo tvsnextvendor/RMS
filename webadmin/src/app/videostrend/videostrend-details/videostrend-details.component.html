@@ -59,7 +59,7 @@
                 <tbody>
                     <tr *ngFor="let emp of trendsVar.employeeList" class="table-desc-color">
                         <td class="vat pl-4 employeeName-width" *ngIf="emp.User && emp.User.userName">{{emp.User.userName}}</td>
-                        <td class="vat pl-4 employeeName-width">{{emp.Resort.resortName}}</td>
+                        <td class="vat employeeName-width">{{emp.Resort.resortName}}</td>
                         <td class="vat text-left" [ngClass]="emp.status !== 'In progress' ? (emp.status === 'Failed'?'text-danger':(emp.status === 'Completed'?'text-success':'text-primary')):''">
                             {{emp.status}}</td>
                         <td class="vat text-left">{{emp.TrainingSchedule.assignedDate | date :'MM/dd/yyyy'}}</td>
