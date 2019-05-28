@@ -177,3 +177,7 @@ padding: 0 11px;
     color: #468FB9 !important;
     text-decoration: underline !important;
 }
+.trend-sec{
+  height: 200px; margin: 0 auto; padding-top: 50px;
+  cursor: pointer;
+}

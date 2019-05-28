@@ -30,7 +30,7 @@ export class ResortChartsComponent implements OnInit {
     selectedResort = null;
 
     constructor(public dashboardVar: DashboardVar,
-         private http: HttpService, 
+         private http: HttpService,
          private route: Router,
          public commonLabels:CommonLabels,
          private commonService : CommonService,
@@ -124,7 +124,6 @@ export class ResortChartsComponent implements OnInit {
         //     this.reservationByResort();
         // }, 1000);
       }
-    
 
     getKeyStat() {
         this.http.get(this.dashboardVar.url.getKeyStat).subscribe((data) => {
@@ -559,7 +558,7 @@ export class ResortChartsComponent implements OnInit {
         };
         this.commonService.getCourseTrend(courseTrendObj).subscribe(result => {
           if (result && result.isSuccess) {
-            this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
+            this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item.totalcount, 10));
             console.log(this.dashboardVar.courseTrendData, 'data');
             this.courseTrend();
           }

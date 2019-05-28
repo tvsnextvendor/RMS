@@ -98,6 +98,7 @@ export class ForumComponent implements OnInit {
     closeModel() {
       this.getForumList();
       this.forumVar.modalRef.hide();
+      this.forumService.editPage({});
       this.forumService.hittingcloseBtn(true);
     }
 
