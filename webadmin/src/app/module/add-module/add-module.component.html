@@ -89,7 +89,7 @@
 						<div class="col-md-4 pl-0">
 							<label class="col-md-12 p-0 upload-label">{{commonLabels.labels.fileName}}</label>
 							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter File Name" name="selectVideoName" [(ngModel)]="moduleVar.selectVideoName">
-							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.selectVideoName">{{commonLabels.mandatoryLabels.videoName}}</span>
+							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.selectVideoName">{{commonLabels.mandatoryLabels.filenameRequired}}</span>
 						</div>
 						<div class="col-md-4 pl-0">
 							<label class="col-md-12 p-0 upload-label">{{commonLabels.labels.description}}</label>
@@ -131,7 +131,7 @@
 							   <a (click)="videoSubmit()"><i aria-hidden="true" class="fa fa-upload mr-1 upload-crt-icon"></i></a>
 							   <a (click)="cancelVideoSubmit()"><i aria-hidden="true" class="fa fa-trash icons_header"></i></a>
 							</span>
-							<span class="required_color mt-0" *ngIf="videoSubmitted && !moduleVar.videoFile">{{commonLabels.labels.file}}{{commonLabels.labels.isRequire}}</span>	
+							<span class="required_color mt-0" *ngIf="videoSubmitted && !moduleVar.videoFile">{{commonLabels.labels.fileisRequired}}</span>	
 							<span class="file-alg">{{commonLabels.labels.acceptedFileTypes}}</span>		
 						</div>						 
 					</div>
