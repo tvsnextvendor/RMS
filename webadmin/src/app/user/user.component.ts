@@ -501,17 +501,20 @@ export class UserComponent implements OnInit {
 
     fileUpload(event) {
         const userId = this.utilService.getUserData().userId;
+        let userData = this.utilService.getUserData();
+        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
         let fileUploadValue = event.target.files[0];
         let params = {'file' : fileUploadValue}
         // console.log(fileUploadValue , 'fileUploadValue')
         if(fileUploadValue){
-            this.userService.bulkUpload(fileUploadValue,userId).subscribe(resp=>{
+            this.userService.bulkUpload(fileUploadValue,userId,resortId).subscribe(resp=>{
                 if(resp && resp.isSuccess){
                     this.userList();
                     this.alertService.success(resp.message)
                 }
             },err=>{
                 console.log(err.error.error)
+                this.alertService.error(err.error.error)
             })
         }
         

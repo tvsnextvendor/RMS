@@ -70,10 +70,10 @@ export class UserService {
     return this.http.delete('local',this.url.deleteDesignation+id)
   }
 
-  bulkUpload(params,userId){
+  bulkUpload(params,userId,resortId){
     const formData = new FormData();
     formData.append("file",params)
-    return this.http.upload('local',this.url.bulkUploadUrl+'?createdBy='+userId, formData);
+    return this.http.upload('local',this.url.bulkUploadUrl+'?createdBy='+userId+'&resortId='+resortId, formData);
   }
 
 }
