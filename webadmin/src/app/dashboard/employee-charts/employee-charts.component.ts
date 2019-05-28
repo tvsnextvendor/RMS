@@ -92,9 +92,8 @@ export class EmployeeChartsComponent implements OnInit {
     // this.http.get(this.dashboardVar.url.getCertificationTrend).subscribe((data) => {
     //   this.dashboardVar.certificationTrend = data;
     // });
-
-    this.topRatedCourses();
     this.getcourseTrend();
+    this.topRatedCourses();
   }
 
   getTopResort(){
@@ -143,7 +142,7 @@ export class EmployeeChartsComponent implements OnInit {
     };
     this.commonService.getCourseTrend(courseTrendObj).subscribe(result => {
       if (result && result.isSuccess) {
-        this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
+        this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item.totalcount, 10));
         console.log(this.dashboardVar.courseTrendData, 'data');
       }
     });

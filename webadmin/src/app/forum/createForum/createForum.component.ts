@@ -73,6 +73,7 @@ export class CreateForumComponent implements OnInit {
       this.getForumData();
      }
 
+
      this.forumService.closeModel.subscribe(result => {
       if (result) {
         this.forumVar.forumName = '';
@@ -85,7 +86,6 @@ export class CreateForumComponent implements OnInit {
         this.division['divisionList'] = [];
         this.forumVar.startDate = '';
         this.forumVar.endDate = '';
-        this.forumService.editPage({});
       }
       });
 
