@@ -1500,7 +1500,7 @@ th.action-hd {
   color:#468FB9;
 }
 .breadcrumb-item a,.breadcrumb-item{
-  font-size: 14px;
+  font-size: 13px;
 }
 /* Breadcrumb */
 
@@ -1617,6 +1617,10 @@ p.text-nowrap{
 .center-btn button.btn {
   float: none;
   }
+ .common-pg-hd h4{
+   font-size: 16px;
+   font-weight: 600;
+ }
 /************************************ Responsive Alignment ************************************/
 
 

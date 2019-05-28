@@ -6,19 +6,19 @@
         </ol>
     </nav>
 </div>
-<div class="white-bg p-4">
-<div class="clearfix">
+<div class="common-pg-hd clearfix">
     <h4 class="add-notify" *ngIf="!scheduleId">{{commonLabels.modaltitle.addnewtrainingschedule}}</h4>
     <h4 class="add-notify" *ngIf="scheduleId">{{commonLabels.modaltitle.editTrainingschedule}}</h4>
 </div>
+<div class="white-bg p-4">
 <span *ngIf="submitted && errorValidate" class="required_color">{{errorValidate}}</span>
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)">
     <div class="Schedule-box">       
             <div class="row">  
                     <span class="required_color" *ngIf="errStatus">{{errMsg}}</span>              
-                        <div class="col-md-6 row form-group">
-                                <label class="col-md-4 p-0 label-title">{{commonLabels.labels.from}}</label>
-                                <div class="col-md-8 p-0">
+                        <div class="col-md-6 row form-group pl-0">
+                                <label class="col-md-5 pl-0 label-title">{{commonLabels.labels.from}}</label>
+                                <div class="col-md-7 p-0">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"
                                             class="batch-icon">
                                         <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
@@ -36,9 +36,9 @@
                                     {{commonLabels.mandatoryLabels.dateLimitError}}
                                 </span>
                             </div>
-                            <div class="col-md-6 row form-group">
-                                    <label class="col-md-4 p-0 label-title">{{commonLabels.labels.to}}</label>
-                                    <div class="col-md-8 p-0 batch-input">
+                            <div class="col-md-6 row form-group pr-0">
+                                    <label class="col-md-5 pl-0 label-title">{{commonLabels.labels.to}}</label>
+                                    <div class="col-md-7 p-0 batch-input">
                                         <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
                                                 class="batch-icon">
                                             <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo"
@@ -51,11 +51,11 @@
                                     </div>
                                 </div>
                 
-                <div class="col-md-6">
+                <div class="col-md-6 pl-0">
                     
                     <div class="row form-group">
-                        <label class="col-md-4 p-0 label-title">{{commonLabels.labels.batchName}}</label>
-                        <div class="col-md-8 p-0">
+                        <label class="col-md-5 pl-0 label-title">{{commonLabels.labels.batchName}}</label>
+                        <div class="col-md-7 p-0">
                             <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName"
                                 #BatchName="ngModel" type="text" placeholder="Enter Training Schedule Name" maxlength="30" required>
                             <span class="required_color" *ngIf="BatchName && BatchName.invalid && (formDir.submitted || BatchName.touched)">
@@ -123,7 +123,7 @@
                     
                     <div class="row form-group" *ngFor="let data of batchVar.moduleForm; let i = index">
                         <!-- <label class="col-md-2 p-0 label-title">{{batchVar.labels.module}}</label> -->
-                        <div class="col-11 col-md-11 p-0">
+                        <div  [ngClass]="scheduleId ? 'col-11 col-md-11 p-0' : 'col-12 col-md-12 p-0'">
                             <div class="row">
                                 <div class="row col-md-6 p-0 prgm-select">
                                     <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
@@ -146,7 +146,7 @@
                                     </select>
                                     <span *ngIf="submitted && passPerError && data.passPercentage === 'null'" class="required_color" >{{commonLabels.mandatoryLabels.passPercentageError}}</span>
                                 </div>
-                                <div class="col-md-6 module-radiobtn pl-0">
+                                <div class="col-md-6 module-radiobtn p-0">
                                     <label class="module-title-mand"><input class="mr-2 module-btn-alg" type="radio"
                                             name="mandatory{{i}}" value="true" [(ngModel)]="data.mandatory"><label
                                             class="">{{commonLabels.labels.mandatory}}</label></label>
@@ -162,14 +162,14 @@
                         </div>
                     </div>
                     <div class="row form-group">
-                            <label class="col-md-4 p-0 label-title">{{commonLabels.labels.regNote}}</label>
-                            <div class="row col-md-8 p-0">
+                            <label class="col-md-5 p-0 label-title">{{commonLabels.labels.regNote}}</label>
+                            <div class="row col-md-7 p-0">
                                 <span class="col-md-6 pl-0">
                                     <input class="form-control  p-0" name="reminder" [(ngModel)]="reminder" #reminderValue="ngModel"
                                         type="number" placeholder="Select" min="1" max="{{maxdurationCount}}" (keyup)="countErrorCheck()"
                                         required>
                                 </span>
-                                <span class="col-md-6 pl-0">
+                                <span class="col-md-6 pr-0">
                                     <select id="notificationTime" class="form-control" name="notificationTime" [(ngModel)]="durationValue"
                                         (change)="durationUpdate()" required>
                                         <option value="null" disabled>{{commonLabels.labels.select}}</option>

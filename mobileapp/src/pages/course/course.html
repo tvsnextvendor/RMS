@@ -44,14 +44,14 @@
 
   <div class="tab-content clearfix" [hidden]="showAssigned">
     <ion-row *ngIf="assignedCount > 0">
-      <ion-col col-12 col-sm-12 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
+      <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
             <ion-row (click)="openTrainingClass(task.Course.courseId)">
-              <ion-col col-2 col-sm-1 col-md-2 class="align-self-center">
+              <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
-              <ion-col col-4 col-sm-5 col-md-5 class="course-det">
+              <ion-col col-4 col-sm-5 col-md-6 class="course-det">
                 <h4 class="notify-title" (click)="openTrainingClass(task.Course.courseId)"> {{task.Course.courseName}}</h4>
                 <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                   {{constant.pages.trainingLabels.trainingClass}}</p>
@@ -85,14 +85,14 @@
   </div>
   <div class="tab-content" [hidden]="showProgress">
     <ion-row *ngIf="assignedCount > 0">
-      <ion-col col-12 col-sm-12 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
+      <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
             <ion-row (click)="openTrainingClass(task.Course.courseId)">
-              <ion-col col-2 col-sm-1 col-md-2 class="align-self-center">
+              <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
-              <ion-col col-4 col-sm-5 col-md-5 class="course-det">
+              <ion-col col-4 col-sm-5 col-md-6 class="course-det">
                 <h4 class="notify-title" (click)="openTrainingClass(task.Course.courseId)"> {{task.Course.courseName}}</h4>
                 <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                   {{constant.pages.trainingLabels.trainingClass}}</p>
@@ -126,14 +126,14 @@
   </div>
   <div class="tab-content" [hidden]="showSignRequire">
     <ion-row *ngIf="assignedCount > 0">
-      <ion-col col-12 col-sm-12 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
+      <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
             <ion-row (click)="openTrainingClass(task.Course.courseId)">
-              <ion-col col-2 col-sm-1 col-md-2 class="align-self-center">
+              <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
-              <ion-col col-4 col-sm-5 col-md-5 class="course-det">
+              <ion-col col-4 col-sm-5 col-md-6 class="course-det">
                 <h4 class="notify-title" (click)="openTrainingClass()"> {{task.Course.courseName}}</h4>
                 <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                   {{constant.pages.trainingLabels.trainingClass}}</p>
@@ -169,14 +169,14 @@
   </div>
   <div class="tab-content" [hidden]="showCompleted">
     <ion-row *ngIf="assignedCount > 0">
-      <ion-col col-12 col-sm-12 col-md-6 *ngFor="let task of courseList;let i=index;" class="main-forum">
+      <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
             <ion-row (click)="openTrainingClass(task.Course.courseId)">
-              <ion-col col-2 col-sm-1 col-md-2 class="align-self-center">
+              <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
-              <ion-col col-4 col-sm-5 col-md-5 class="course-det">
+              <ion-col col-4 col-sm-5 col-md-6 class="course-det">
                 <h4 class="notify-title" (click)="openTrainingClass(task.Course.courseId)"> {{task.Course.courseName}}</h4>
                 <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                   {{constant.pages.trainingLabels.trainingClass}}</p>
