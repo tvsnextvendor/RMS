@@ -211,12 +211,12 @@
                         <div class="col-md-4 pl-0">
                             <label class="col-md-12 p-0 label-title upload-label">{{commonLabels.labels.fileName}}</label>
                             <input type="text" class="form-control col-md-12 p-0" placeholder="Enter File Name" name="selectVideoName" [(ngModel)]="uploadFileName">
-                            <span class="required_color" *ngIf="videoSubmitted && !selectVideoName">{{commonLabels.labels.fileName}}{{commonLabels.labels.isRequired}}</span>
+                            <span class="required_color" *ngIf="videoSubmitted && !selectVideoName">{{commonLabels.labels.fileName}} {{commonLabels.labels.isRequired}}</span>
                         </div>
                         <div class="col-md-4 pl-0">
                             <label class="col-md-12 p-0 label-title upload-label">{{commonLabels.labels.description}}</label>
                             <input type="text" class="form-control col-md-12 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="description">
-                            <span class="required_color" *ngIf="videoSubmitted && !description">{{commonLabels.labels.description}}{{commonLabels.labels.isRequired}}</span>
+                            <span class="required_color" *ngIf="videoSubmitted && !description">{{commonLabels.labels.description}} {{commonLabels.labels.isRequired}}</span>
                         </div>
                         <div class="col-md-4 p-0 upload-line">
                             <div class="row">
@@ -241,7 +241,7 @@
                                 <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
                                 <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
                             </span> -->
-                            <span class="required_color" *ngIf="videoSubmitted && !videoFile">{{commonLabels.labels.fileisRequired}}</span>	
+                            <span class="required_color mt-1" *ngIf="videoSubmitted && !videoFile">{{commonLabels.labels.fileisRequired}}</span>	
                             <span class="file-alg">{{commonLabels.labels.acceptedFileTypes}}</span>	 	
                             </div>						
                         </div>

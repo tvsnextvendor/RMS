@@ -636,7 +636,7 @@ export class UserComponent implements OnInit {
         this.roleError = false;
         this.errorValidation = true;
         let modalConfig={
-            class : "modal-dialog-centered"
+            class : ""
 
         }
         this.roleId =  data && data.designationId;

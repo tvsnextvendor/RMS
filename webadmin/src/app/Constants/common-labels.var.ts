@@ -39,7 +39,7 @@ export class CommonLabels{
         "fileName"          :   "File Name",
         "description"       :   "Description",
         "isRequired"        :   "is Required",
-        "fileisRequired"    :   "File is Required",         
+        "fileisRequired"    :   "File is required",         
         "type"              :   "Type",
         "length"            :   "Length",
         "noofEmp"           :   "No.of Emp.",

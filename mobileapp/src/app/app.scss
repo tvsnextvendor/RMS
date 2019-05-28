@@ -671,8 +671,49 @@ page-home .course-count p {
     width:250px;    
 }
 
-
-
+.notify-box.alert{
+    background: #fff;   
+    margin: 12px;
+    padding: 10px;
+    p{      
+        margin-bottom: 0;
+        font-size: 15px;
+        color: #1f1e1e;
+        font-weight: 600;      
+    }
+    h6{
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+}
+.notify-box.alert-primary {   
+    /* background-color: #cce5ff; */
+    border-color: #55e26d;
+    box-shadow: inset 0px 0px 5px #4fcc64;
+    h6{
+        color: #1b8809;       
+    }
+   
+}
+.notify-box.alert-secodary {   
+    /* background-color: #cce5ff; */
+    border-color: #ea2929;
+    box-shadow: inset 0px 0px 5px #ea2929;
+    h6{
+        color: #ea2929;       
+    }
+   
+}
+.notify-box.alert-warning {   
+    /* background-color: #cce5ff; */
+    border-color: #ea9e29;
+    box-shadow: inset 0px 0px 5px #ea9e29;
+    h6{
+        color: #ea9e29;       
+    }
+   
+}
 
 
 
