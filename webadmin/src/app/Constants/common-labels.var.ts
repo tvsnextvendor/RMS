@@ -464,7 +464,7 @@ export class CommonLabels{
         "courseNameError"   :  "Training Class name is required",
         "videoError"        :  "Minimum one file data required", 
         "from"              :  "From date is required.",
-        "to"                :  "To date is required.",
+        "to"                :  "Due date is required.",
         "batchName"         :  "Training Schedule is required.",     
         "dateValidate"      :  "From date should be less than To Date.",
         "passpercentage"    :  "Pass Percentage is required.",

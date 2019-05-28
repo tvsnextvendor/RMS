@@ -1,5 +1,6 @@
 <div class="">
-  <div class="white-bg">
+  <div class="calendar-box">
+    <div class="white-bg">
     <div class="clearfix p-3 row calender-header" *ngIf="!enableBatch">
       <span class="calender-text col-md-4 p-0">{{commonLabels.labels.calendarView}}</span>
       <span class="month-text col-md-4">
@@ -12,6 +13,7 @@
         </div>
       </span>
     </div>
+   
     <!-- <span class="col-md-4">
        <span class="btn-group">
         <div
@@ -43,7 +45,7 @@
         [cellTemplate]="customCellTemplate" [refresh]="refresh">
       </mwl-calendar-month-view>
     </div>
-
+  </div>
     <!-- <app-add-batch *ngIf="!trainingScheduleId && enableBatch" (someEvent)="closeModel()" [scheduleId] = "trainingScheduleId" [scheduleData]="scheduleEditDetails"></app-add-batch> -->
       <app-add-batch *ngIf="trainingScheduleId && enableBatch" (completed)="closeModel()"  [scheduleId] = "trainingScheduleId" [scheduleData]="scheduleEditDetails"></app-add-batch>
 
