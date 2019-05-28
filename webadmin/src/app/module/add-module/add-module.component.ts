@@ -67,7 +67,7 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.videoList.push(element)
         })
     }
-    this.headerService.setTitle({title:this.moduleVar.title, hidemodule:false});
+    // this.headerService.setTitle({title:this.moduleVar.title, hidemodule:false});
     this.moduleVar.api_url = API_URL.URLS;
     this.moduleVar.dropdownSettings = {
         singleSelection: false,

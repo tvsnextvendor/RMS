@@ -13,7 +13,16 @@ import { CommonLabels } from '../Constants/common-labels.var';
   styleUrls: ['./cms-library.component.css']
 })
 export class CMSLibraryComponent implements OnInit {
-  constructor(private modalService: BsModalService,public fileService: FileService,public commonLabels : CommonLabels, private http: HttpService, private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private headerService: HeaderService) { }
+  constructor(
+    private modalService: BsModalService,
+    public fileService: FileService,
+    public commonLabels : CommonLabels, 
+    private http: HttpService,
+    private alertService: AlertService,
+    private route: Router, 
+    private activatedRoute: ActivatedRoute,
+    private headerService: HeaderService) { }
+
   modalRef;
   videoFile;
   selectedTab;
@@ -35,9 +44,52 @@ export class CMSLibraryComponent implements OnInit {
 
 
   ngOnInit() {
-    
-    this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
     this.selectedTab = 'course';
+  this.activatedRoute.queryParams.subscribe(params=>{
+    console.log(params)
+    if(params.type && params.type == 'create'){
+      switch(params.tab){
+        case 'course':
+          this.showcreatecourse = true;
+          this.enableNotify = false;
+          break;
+        case 'class':
+          this.showcreatecourse = true;
+          this.enableNotify = false;
+          break;  
+        case 'quiz':
+        break;
+        case 'notification':
+        this.showcreatecourse = false;
+        this.enableNotify = true;
+        break;  
+      }
+    }
+    else if(params.type && params.type == 'edit'){
+      switch(params.tab){
+        case 'class':
+        this.selectedTab = 'training';
+        break;
+        case 'course':
+        this.selectedTab = 'course';
+        break;
+        case 'quiz':
+        this.selectedTab = 'quiz';
+        this.quizTabHit = true;
+        break;
+        case 'notification':
+        this.selectedTab = 'notification';
+        break;
+      }
+    }
+    else if(!Object.keys(params).length){
+      this.selectedTab = 'course';
+      this.showcreatecourse = false;
+      this.enableNotify = false;
+    }
+  })
+    this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
+    
     this.quizTabHit = false;
     this.notifyType = 'assignedToCourse';
   }

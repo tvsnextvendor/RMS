@@ -189,6 +189,7 @@ export class CommonLabels{
         "template"          :   "Template",
         "tempName"          :   "Template Name",      
         "fileUpload"        :   "Upload your HTML File",
+        "fileUploadPop"     :   "Upload your File",
         "chooseFile"        :   "Choose File",
         "badge"             :   "Badge",
         "gold"              :   "Gold",

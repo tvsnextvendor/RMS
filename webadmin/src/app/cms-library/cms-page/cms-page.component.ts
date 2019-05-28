@@ -13,4 +13,10 @@ export class CmsPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  pageRedirection(type,data){
+    // this.activeType = type+data;
+    // console.log(this.activeType)
+    this.route.navigate(['/cms-library'],{queryParams:{type : type,tab : data}})
+  }
+
 }
