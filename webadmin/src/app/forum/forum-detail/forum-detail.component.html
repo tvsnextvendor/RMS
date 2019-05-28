@@ -82,8 +82,8 @@
           </div>
        </div> 
   </div> -->
-  <div class="col-md-6">
-      <div class="topic-box-section pb-4" *ngFor="let posts of postList; let i=index">
+  <div class="col-md-6" *ngFor="let posts of postList; let i=index">
+      <div class="topic-box-section pb-4">
           <div class="topic-wrap white-bg">
              <div class="topic-wrap-top clearfix p-3">
                  <a class="topic-img-wrap">
@@ -97,7 +97,7 @@
                          <span class="float-right"><a href="#"><i class="fas fa-times"></i></a></span>
                        </div>
                        <small class="topic-time">{{posts.createdDate | date}}</small> 
-                       <h6 class="topic-name mt-3"><a href="#">{{posts.description}}</a></h6>
+                       <h6 class="topic-name pt-2"><p class="qnt-alg">{{posts.description}}</p></h6>
                    </div>              
              </div>
              <div class="topic-foot clearfix p-3">
@@ -125,7 +125,7 @@
                     <div class="topic-wrap-rt pl-3">
                         <div class="topic-into clearfix">
                           <h5 class="hd-tit float-left">{{comments.User.userName}}</h5>
-                          <ul class="float-right">
+                          <ul class="float-right m-0">
                             <li><a href="#"><i class="fas fa-trash header-icon"></i></a></li>
                             <li class="nav-item dropdown no-arrow">
                               <a  class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown">
