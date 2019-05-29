@@ -22,12 +22,11 @@
     	    <div class="clearfix" *ngIf="!hideSection">
                 <!-- <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">{{commonLabels.btns.print}}</button>     -->
                 <!-- <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress" routerLink="/workinprogress">{{commonLabels.btns.workinProgress}}</button> -->
-                <button *ngIf="disableTabs" type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
+                <!-- <button *ngIf="disableTabs" type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button> -->
                 <!-- <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification" (click)="openCreateModal(notification,'notification')">{{commonLabels.btns.createNotification}}</button> -->
                 <!-- <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{commonLabels.btns.createCourse}}</button> -->
             </div>
-            <span class="required_color" *ngIf="showWarning && !showcreatecourse">{{commonLabels.labels.selectcoursestoschedule}}</span> 
-            <div class="clearfix pt-3 tab-section">
+            <div class="clearfix tab-section">
                 <ul class="nav nav-tabs">
                     <li class="nav-item"  *ngIf="!hideSection">
                         <a [ngClass] = "selectedTab === 'course' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#course" (click)="headerTabChange('course','')">{{commonLabels.labels.course}}</a>
@@ -51,7 +50,10 @@
                         <a *ngIf="!disableTabs" class="nav-link" routerLink="/workinprogress">{{commonLabels.btns.workinProgress}}</a>
                     </li>
                 </ul> 
+                <button *ngIf="disableTabs" type = "button" class="btn btn-primary p-2" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
             </div>
+            <span class="required_color" *ngIf="showWarning && !showcreatecourse">{{commonLabels.labels.selectcoursestoschedule}}</span> 
+
             <div class="tab-content">
                 <!-- Course Tab Content -->
                 <div *ngIf = "selectedTab === 'course' && !hideSection" id="course" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'course' ? 'active show' : 'nav-link')">
