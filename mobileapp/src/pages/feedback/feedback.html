@@ -5,45 +5,59 @@
       <img src="assets/imgs/menu.png" />
     </button>
     <ion-title class="text-left">
-      <span class="header-title">Feedback</span>
+      <span class="header-title">{{constant.title.feedback}}</span>
       <div class="header-icon" (click)="goToNotification()">
         <img src="assets/imgs/notification.png" />
-        <span class="dot-circle">4</span>
+        <span class="dot-circle">{{notificationCount}}</span>
       </div>
     </ion-title>
   </ion-navbar>
 </ion-header>
+<div class={{className}} *ngIf="showToastr">
+  <div class="notify-inset">
+    <h6>{{msgTitle}}</h6>
+    <p>{{msgDes}}</p>
+  </div>
+</div>
 <div class="main-content">
-  <h4 class="feedback-tit">Select Type Of Feedback</h4>
+  <h4 class="feedback-tit">{{constant.pages.feedbackLabels.feedbackType}}</h4>
   <div class="feedback-action">
       <ion-row>
           <ion-col col-4 col-sm-4>
-              <span class="smiley-icon  clearfix">
-                  <img class="unselect-img" src="assets/imgs/good_unselicn.png" />
-                  <img class="select-img" src="assets/imgs/good_selicn.png" />
-                <p>Compliment</p>
+              <span class="smiley-icon clearfix">
+                <!-- [ngClass]="goodActive ? 'color' : ''" -->
+                  <img src="assets/imgs/good_unselicn.png" *ngIf="!goodActive" (click)="selectSmiley('Compliment', !goodActive)" />
+                  <img src="assets/imgs/good_selicn.png"   *ngIf="goodActive" (click)="selectSmiley('Compliment', goodActive)" />
+                <p>{{constant.pages.feedbackLabels.compliment}}</p>
               </span>
           </ion-col>
           <ion-col col-4 col-sm-4>
               <span class="smiley-icon clearfix">
-                  <img src="assets/imgs/avg_unselicn.png" />
-                <p>Query or Suggestion</p>
+                  <img src="assets/imgs/avg_unselicn.png" *ngIf="!avgActive"  (click)="selectSmiley('Suggestion', !avgActive)" />
+                  <img src="assets/imgs/avg_selicn.png" *ngIf="avgActive" (click)="selectSmiley('Suggestion', avgActive)" />
+                <p>{{constant.pages.feedbackLabels.suggestion}}</p>
               </span>
           </ion-col>
           <ion-col col-4 col-sm-4>
               <span class="smiley-icon clearfix">
-                  <img src="assets/imgs/poor_unselicn.png" />
-                <p>Complaint</p>
+                  <img src="assets/imgs/poor_unselicn.png" *ngIf="!poorActive" (click)="selectSmiley('Complaint', !poorActive)"/>
+                  <img src="assets/imgs/poor_selicn.png" *ngIf="poorActive" (click)="selectSmiley('Complaint', poorActive)" />
+                <p>{{constant.pages.feedbackLabels.complaint}}</p>
               </span>
           </ion-col>
           </ion-row>
   </div>
-  <h4>Tell us more</h4>
-   <ion-textarea rows="1" cols="20" placeholder="What's you Feedback" class="your-feedback"></ion-textarea>
+  <h4>{{constant.pages.feedbackLabels.tellUs}}</h4>
+   <ion-textarea rows="1" cols="20" [(ngModel)]="feedBack" placeholder={{constant.pages.feedbackLabels.feedback}} class="your-feedback"></ion-textarea>
+</div>
+<div *ngIf="errorMessage" class="error-block">
+  <div class="error">
+    {{errorMessage}}
+  </div>
 </div>
 </ion-content>
 <div class="fixed-btn">
-    <button ion-button round class="add-question common-btn">
-     Submit Feedback
-    </button>
-  </div>
+  <button ion-button (click)="saveFeedback()" round class="add-question common-btn">
+    {{constant.pages.feedbackLabels.submit}}
+  </button>
+</div>

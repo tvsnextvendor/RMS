@@ -6,7 +6,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
 import { Constant } from '../constants/Constant.var';
 import { AuthProvider } from '../providers/auth/auth';
-import { LandingPage, HomePage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage, LibraryPage, CoursePage,AccomplishmentPage,FeedbackPage } from '../pages/indexComponent';
+import { LandingPage, HomePage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage, CoursePage,AccomplishmentPage,FeedbackPage } from '../pages/indexComponent';
 import { Calendar } from '@ionic-native/calendar';
 import { API_URL } from '../constants/API_URLS.var';
 import { HttpProvider } from '../providers/http/http';

@@ -45,7 +45,10 @@ export class API_URL {
        'getAllSchedule': '8103/schedule/getAllSchedules',
        'getForum' : '8104/forum',
        'post' : '8104/post',
-       'comment': '8104/comment'
+       'comment': '8104/comment',
+       'appFeedback' : '8103/applicationFeedback',
+       'dashboardSchedules':'8103/getScheduleExpireList',
+       'dashboardCount':'8103/getDashboardCount'
        
     };
 }

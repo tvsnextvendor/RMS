@@ -21,6 +21,7 @@ export class QuizPage {
     videoMenuTitle;
     trainingClassId;
     courseId;
+    courseName;
     currentUser;
 
     constructor(public navCtrl: NavController,public storage: Storage ,private http: HttpProvider,private navParams:NavParams) {
@@ -28,6 +29,7 @@ export class QuizPage {
         this.videoMenuTitle = this.trainingObj.menu;
         this.trainingClassId = this.trainingObj.trainingClassId;
         this.courseId = this.trainingObj.courseId;
+        this.courseName = this.trainingObj.courseName;
         this.quizData = this.trainingObj.quizData;
     }
 
@@ -115,6 +117,9 @@ export class QuizPage {
             "courseId":this.courseId,
             "trainingClassId": this.trainingClassId,
             "userId":this.currentUser.userId,
+            "courseName": this.courseName,
+            "userName": this.currentUser.userName,
+            "resortId": this.currentUser.ResortUserMappings[0].resortId,
             "status":"Completed"
         }
 

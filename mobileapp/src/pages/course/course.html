@@ -182,11 +182,11 @@
                   {{constant.pages.trainingLabels.trainingClass}}</p>
               </ion-col>
               <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
-                <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
+                <!-- <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
                   <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="org-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
                   {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
-                </div>
+                </div> -->
               </ion-col>
               <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openTrainingClass(task.Course.courseId)">
                 <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
