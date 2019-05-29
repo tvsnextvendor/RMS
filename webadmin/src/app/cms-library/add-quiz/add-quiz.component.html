@@ -1,0 +1,113 @@
+<div>   
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href= "javascript:void(0)" (click)="goTocmsLibrary('cms')" class="cms-breadcrumb">{{commonLabels.labels.cmsLibrary}}</a></li>
+			<li class="breadcrumb-item active" *ngIf="!moduleId">{{commonLabels.labels.createQuiz}}</li>
+			<!-- <li class="breadcrumb-item active" *ngIf="moduleId">Edit Course</li> -->
+		</ol>
+	</nav>
+</div>
+<div class="pr-3">
+	<div class=""> 
+			<form #quizForm="ngForm" ngNativeValidate>
+				<div class="white-bg p-3 mt-2 table-decs">
+					<div class="col-md-6 row p-0">
+						<label class="col-md-4 p-0 label-title">{{commonLabels.labels.quizName}}</label>
+						<div class="col-md-8 p-0">
+							<span>
+								<input type="text" class="form-control" placeholder="Enter Quiz Name" name="name"
+								#quizname="ngModel" [(ngModel)]="quizName" required>
+							</span>
+							<span class="required_color" *ngIf="!quizName && (quizForm.submitted || quizname.touched)">
+								{{commonLabels.labels.quizName}} {{commonLabels.mandatoryLabels.isRequired}}
+							</span>
+						</div>
+					</div>
+					<div *ngFor="let data of quizQuestionsForm;let i = index;">
+						<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i,data)">
+							<img src="{{commonLabels.imgs.close1}}" class="close-alg">
+							<img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>
+						<div class="row  form-group">
+							<div class="col-md-6 row p-0"> 
+								<label for="" class="col-sm-4 label-title p-0 m-0">{{commonLabels.labels.questionType}}</label>
+								<div class="col-md-8">
+									<select class="form-control" placeholder="Select" name="questionType{{i}}" [(ngModel)]="data.questionType" (change)="questionTypeUpdate(data.questionType,i)"
+									#QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
+										<option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
+									</select>
+									<span class="required_color" *ngIf="QuestionTypeVal && QuestionTypeVal.invalid && (quizForm.submitted || QuestionTypeVal.touched)">
+										{{commonLabels.labels.questionType}} {{i+1}} {{commonLabels.mandatoryLabels.isRequired}}
+									</span>
+								</div>
+							</div> 
+							<div class="col-md-6 row p-0">
+								<label class="col-md-4 p-0 label-title">{{commonLabels.labels.weightage}}</label>
+								<div class="col-md-8">
+									<span>
+										<input type="text" class="form-control" placeholder="Enter Weightage" name="Weightage" value="{{weightage}}%"
+										#WeightageVal="ngModel" [(ngModel)]="data.weightage" required>
+									</span>
+									<span class="required_color" *ngIf="WeightageVal && WeightageVal.invalid && (quizForm.submitted || WeightageVal.touched)">
+										{{commonLabels.labels.weightage}} {{i+1}} {{commonLabels.mandatoryLabels.isRequired}}
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="row  form-group">
+							<label class="col-md-2 pl-0 label-title m-0">{{commonLabels.labels.question}} {{i+1}}</label>
+							<div class="col-md-10 pl-0">
+								<input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.questionName"
+								#QuestionVal="ngModel" required>
+								<span class="required_color" *ngIf="QuestionVal && QuestionVal.invalid && (quizForm.submitted || QuestionVal.touched)">
+									{{commonLabels.labels.question}} {{i+1}} {{commonLabels.mandatoryLabels.isRequired}}
+								</span>
+							</div>                		
+						</div>
+						<div class="row form-group mb-0">
+							<label *ngIf="data.questionType !== 'NON-MCQ'" class="col-md-2 pl-0 label-title">{{commonLabels.labels.options}}</label>
+							<label *ngIf="data.questionType === 'NON-MCQ'" class="col-md-2 pl-0 label-title">{{commonLabels.labels.answer}}</label>
+							<div class="col-md-10 pl-0">
+								<div class="row">
+									<div class="col-md-12 p-0 form-group mb-0">
+										<div class="row" *ngIf="data.questionType === 'MCQ' && data.options && data.options.length">
+											<span class="col-sm-12 p-0" *ngFor=" let optionValue of data.options; let oi = index;">
+												<span class="option-btn" *ngIf="oi===0">{{commonLabels.labels.a}}</span>
+												<span class="option-btn" *ngIf="oi===1">{{commonLabels.labels.b}}</span>
+												<span class="option-btn" *ngIf="oi===2">{{commonLabels.labels.c}}</span>
+												<span class="option-btn" *ngIf="oi===3">{{commonLabels.labels.d}}</span>
+												<input type="text" class="form-control pdl27" placeholder="" [name]="optionValue.value" [(ngModel)]="optionValue.optionName" [ngModelOptions]="{ standalone : true }" required>
+											</span>
+											<input type="text" class="form-control mt-2 mb-3" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
+										</div>
+										<div class="pt-2" *ngIf="data.questionType === 'True/False'">
+											<span class="col-sm-3 pl-0">
+												<label class="hole-cont mr-2">
+													<input type="checkbox" [checked]="data.answer === 'true' ? true : false" name="options{{i}}" [value]="1" (change)="optionValueUpdate($event,i)"> {{commonLabels.labels.true}}
+													<span class="checkmark"></span>
+												</label>
+												<label class="hole-cont mr-2">
+													<input type="checkbox" [checked]="data.answer === 'true' ? false : true"  name="options{{i}}" [value]="0" (change)="optionValueUpdate($event,i)"> {{commonLabels.labels.false}}
+													<span class="checkmark"></span>
+												</label>
+											</span>
+											<!-- <input type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }"> -->
+										</div>
+										<div class="row" *ngIf="data.questionType === 'NON-MCQ'">
+											<span class="col-sm-12 pl-0">
+												<!-- <span class="option-btn">{{oi + 1}}</span> -->
+												<input type="text" class="form-control mb-3" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>  
+						</div>
+						<div class="clearfix"><a><i class="fa fa-plus float-right icon-design" *ngIf="i==(quizQuestionsForm.length - 1)" aria-hidden="true" (click)="addQuestionForm()"></i></a></div>
+					</div> 
+				</div>  
+			<div class="col-sm-12 clearfix py-4 px-0" >
+				<button type="button" class="btn btn-primary ml10" (click)="goTocmsLibrary('')">{{commonLabels.btns.cancel}}</button>
+				<button type="button" class="btn btn-primary" (click)="quizSubmit('yes')" [disabled]="!quizForm.form.valid">{{commonLabels.btns.save}}</button>
+			</div>
+		</form>
+	</div>

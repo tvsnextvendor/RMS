@@ -25,7 +25,8 @@ import { ContentFileComponent } from './course-tab/content-file/content-file.com
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {moduleModule} from '../module/module.module';
 import { WorkCourseListComponent } from './work-inprogress/work-inprogress-list.component';
-import { CmsPageComponent } from './cms-page/cms-page.component'
+import { CmsPageComponent } from './cms-page/cms-page.component';
+import {CreateQuizComponent} from './add-quiz/add-quiz.component';
 
 
 const routes: Routes = [
@@ -35,7 +36,8 @@ const routes: Routes = [
     { path: 'files/:id', component:  ContentFileComponent ,canActivate : [AuthGuard]},
     { path: 'contentfile', component:  ContentFileComponent ,canActivate : [AuthGuard]},
     { path: 'workinprogress', component:  WorkCourseListComponent ,canActivate : [AuthGuard]},
-    { path: 'cmspage', component:  CmsPageComponent ,canActivate : [AuthGuard]}
+    { path: 'cmspage', component:  CmsPageComponent ,canActivate : [AuthGuard]},
+    { path: 'createQuiz' , component : CreateQuizComponent,canActivate : [AuthGuard]}
 ];
 
 export const MY_MOMENT_FORMATS = {
@@ -77,7 +79,8 @@ export const MY_MOMENT_FORMATS = {
     EmployeeComponent,
     ContentFileComponent,
     WorkCourseListComponent,
-    CmsPageComponent
+    CmsPageComponent,
+    CreateQuizComponent
   ],
   bootstrap: [CMSLibraryComponent]
 })

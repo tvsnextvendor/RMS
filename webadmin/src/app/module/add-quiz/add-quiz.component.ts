@@ -56,7 +56,6 @@ export class AddQuizComponent implements OnInit {
   }
   
   ngOnInit() {
-    console.log(this.removedFileIds)
     this.selectedVideo = this.videoId ? this.videoId : null;
     this.selectedCourse = this.courseId ? this.courseId : null;
     this.questionOptions = [
