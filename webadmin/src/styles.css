@@ -1621,6 +1621,9 @@ p.text-nowrap{
    font-size: 16px;
    font-weight: 600;
  }
+ span.drop-icon {
+  float: right;
+}
 /************************************ Responsive Alignment ************************************/
 
 

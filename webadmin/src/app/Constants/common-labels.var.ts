@@ -308,8 +308,18 @@ export class CommonLabels{
         "allRoles"          :    "All Roles",
         "totalNoOfCourses"  :   "Total No. of courses",
         "childResort"       :   "Child Resort"  ,
-        "resetPassword"     :   "Reset password",  
-
+        "resetPassword"     :   "Reset password",
+        "createClasses"     :   "Create Classes",  
+        "createQuiz"        :   "Create Quiz",
+        "editClasses"       :   "Edit Classes",
+        "editQuiz"          :   "Edit Quiz",
+        "editNotification"  :   "Edit Notification",
+        "trainingSchedule"  :   "Training Schedule",
+        "performanceReport" :   "Performance Report",
+        "resortDetails"     :   "Resort Details",
+        "certifiTrend"      :   "Certification Trend",
+        "resourceLibrary"   :   "Resource Library",
+        "showMore"          :   "Show more"
     };
 
     btns = {
