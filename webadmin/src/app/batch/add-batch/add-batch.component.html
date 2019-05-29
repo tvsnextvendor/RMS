@@ -125,7 +125,7 @@
                         <!-- <label class="col-md-2 p-0 label-title">{{batchVar.labels.module}}</label> -->
                         <div  [ngClass]="scheduleId ? 'col-11 col-md-11 p-0' : 'col-12 col-md-12 p-0'">
                             <div class="row">
-                                <div class="row col-md-6 p-0 prgm-select">
+                                <div [ngClass]="scheduleId ? 'row col-md-5 p-0 prgm-select' : 'row col-md-6 p-0 prgm-select'">
                                     <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
                                     <input *ngIf = "!scheduleId" disabled type="text" class="form-control p-0 col-md-5 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
                                     <select [disabled]="data.trainingScheduleCourseId ? true : false" *ngIf = "scheduleId" id="courseListValue" class="col-md-5 form-control p-0 ml-0" name="course{{i}}"
@@ -146,7 +146,7 @@
                                     </select>
                                     <span *ngIf="submitted && passPerError && data.passPercentage === 'null'" class="required_color" >{{commonLabels.mandatoryLabels.passPercentageError}}</span>
                                 </div>
-                                <div class="col-md-6 module-radiobtn p-0">
+                                <div class="" [ngClass]="scheduleId ? 'col-md-7 module-radiobtn p-0' : 'col-md-6 module-radiobtn p-0'">
                                     <label class="module-title-mand"><input class="mr-2 module-btn-alg" type="radio"
                                             name="mandatory{{i}}" value="true" [(ngModel)]="data.mandatory"><label
                                             class="">{{commonLabels.labels.mandatory}}</label></label>

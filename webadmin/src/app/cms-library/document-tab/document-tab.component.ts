@@ -16,6 +16,7 @@ import * as _ from 'lodash';
 export class DocumentTabComponent implements OnInit {
   @Input() trainingClassId;
   @Input() uploadPage;
+  @Input() disableEdit;
   totalVideosCount = 0;
   videoListValue = [];
   addVideosToCourse = false;

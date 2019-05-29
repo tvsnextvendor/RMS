@@ -17,7 +17,7 @@ export class CMSLibraryComponent implements OnInit {
     private modalService: BsModalService,
     public fileService: FileService,
     public commonLabels : CommonLabels, 
-    private http: HttpService,
+    // private http: HttpService,
     private alertService: AlertService,
     private route: Router, 
     private activatedRoute: ActivatedRoute,
@@ -41,13 +41,16 @@ export class CMSLibraryComponent implements OnInit {
   notifyType;
   enableNotify = false;
   enableBatch = false;
+  disableEdit = false;
+  disableTabs = false;
 
 
   ngOnInit() {
-    this.selectedTab = 'course';
+  this.selectedTab = 'course';
   this.activatedRoute.queryParams.subscribe(params=>{
-    console.log(params)
     if(params.type && params.type == 'create'){
+      this.disableEdit = false;
+      this.disableTabs = false;
       switch(params.tab){
         case 'course':
           this.showcreatecourse = true;
@@ -63,9 +66,18 @@ export class CMSLibraryComponent implements OnInit {
         this.showcreatecourse = false;
         this.enableNotify = true;
         break;  
+        case 'schedule':
+        this.disableTabs = true;
+        this.disableEdit = true;
+        break;
       }
     }
     else if(params.type && params.type == 'edit'){
+      this.disableEdit = false;
+      this.showcreatecourse = false;
+      this.enableNotify = false;
+      this.enableBatch = false;
+      this.disableTabs = false;
       switch(params.tab){
         case 'class':
         this.selectedTab = 'training';
@@ -86,6 +98,9 @@ export class CMSLibraryComponent implements OnInit {
       this.selectedTab = 'course';
       this.showcreatecourse = false;
       this.enableNotify = false;
+      this.enableBatch = false;
+      this.disableEdit = true;
+      this.disableTabs = false;
     }
   })
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
@@ -147,17 +162,22 @@ export class CMSLibraryComponent implements OnInit {
   }
  
   completed(event){
-    let keysToRemove = ["index", "type"];
-     keysToRemove.forEach(element => {
-        localStorage.removeItem(element);
-     });
-    this.selectedVideoList=[];
-    this.hideSection=false;
-    this.showcreatecourse=false;
-    this.enableNotify = false;
-    this.enableBatch = false;
-    this.selectedTab = 'course';
-    this.selectedCourse = [];
+    console.log(event)
+    if(event == 'back'){
+      this.route.navigate(['/cmspage']);
+    }else{
+      let keysToRemove = ["index", "type"];
+      keysToRemove.forEach(element => {
+          localStorage.removeItem(element);
+      });
+      this.selectedVideoList=[];
+      this.hideSection=false;
+      this.showcreatecourse=false;
+      this.enableNotify = false;
+      this.enableBatch = false;
+      this.selectedTab = 'course';
+      this.selectedCourse = [];
+    }
   }
 
   redirectTab(value){

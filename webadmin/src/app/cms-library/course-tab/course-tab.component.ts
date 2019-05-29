@@ -11,6 +11,7 @@ import { CommonLabels } from '../../Constants/common-labels.var';
 })
 export class CourseTabComponent implements OnInit {
   @Output() trainingClassListTab =  new EventEmitter();
+  @Input() disableEdit;
   enableEdit = false;
   enableIndex;
   enableDuplicate = false;

@@ -79,5 +79,10 @@ export class WorkCourseListComponent implements OnInit {
     });
     return i;
   }
+
+  goTocmsLibrary(){
+    // this.completed.emit('completed'); 
+    this.route.navigateByUrl('/cms-library');
+  }
 }
 

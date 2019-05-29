@@ -18,6 +18,7 @@ export class QuizTabComponent implements OnInit {
   @Input() courseId;
   @Input() uploadPage;
   @Input() directTabEnable;
+  @Input() disableEdit;
   questionForm;
   weightage;
   questionOptions = [];

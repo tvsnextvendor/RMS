@@ -536,7 +536,12 @@ export class AddModuleComponent implements OnInit {
    }
 
    goTocmsLibrary(){
-     this.completed.emit('completed'); 
+        if(this.moduleId){
+            this.route.navigate(['/cms-library'],{queryParams:{type : 'edit',tab : 'course'}})
+        }
+        else{
+            this.completed.emit('back'); 
+        }
    }
 
     submitForm(courseSubmitType){
