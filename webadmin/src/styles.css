@@ -378,12 +378,32 @@ ul li{
 .sub-menu li {
   line-height: 40px;
   font-size: 14px;
+  background-image: url(assets/images/unsel_arrow.png);
+  background-repeat: no-repeat;
+  background-position: 24px 7px;
+}
+.sub-menu li a {
+  padding: 0 0 0 40px !important;
+  margin-left: 20px;
+}
+.sub-menu li.active ,.sub-menu li:hover {
+  background-color: #E4EFF5;
+  background-image:  url(assets/images/sel_arrow.png);
+  background-repeat: no-repeat;
+}
+.sub-menu li:hover a ,.sub-menu li.active a {
+  color: #468FB9;
+  background-color: unset;
+}
+.sub-menu li.active {
+  background-color: unset;
 }
 .sub-menu li.active a {
-  color: #468FB9;
+  color: #468FB9 !important;
 }
-.sub-menu li a:hover {
-  color: #468FB9;
+.sub-menu li a:hover{
+  background-color: unset;
+  color: #468FB9 !important;
 }
 .pl104{
   padding-left: 104px !important;
@@ -394,14 +414,6 @@ ul li{
     font-weight: 500;
     text-decoration: underline;
 }
-/* .select-tab .active{
-  display: inline-block;
-}
-.select-tab{display: none;}
-.unselect-tab .active{
-  display: none;
-}
-.unselect-tab{display: none;} */
 /***************** end sidebar **************************/
 /************************* Header ***********************/
 .form-searchbox {
