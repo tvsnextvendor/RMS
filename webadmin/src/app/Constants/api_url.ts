@@ -181,6 +181,7 @@ export class API_URL {
     getCourseTrendList : '8103/getAllCoursesByMonth',
     getCourseEmployeeList : '8103/courseEmployeestatusList',
     topFiveResort : '8103/getTopFiveResorts',
+    badgesData: '8103/getBadges',
 
     //password update
     forgetPassword : '8101/forgetPassword',
