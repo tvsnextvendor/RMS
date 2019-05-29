@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import {Nav, IonicPage, NavController, NavParams, AlertController,Content } from 'ionic-angular';
+import {Nav, IonicPage, NavController, NavParams,Content } from 'ionic-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Constant } from '../../constants/Constant.var';
 import { ToastrService } from '../../service/toastrService';
@@ -31,7 +31,7 @@ export class SettingsPage implements OnInit {
   showPasswordChange: boolean = true;
   errorMessage = '';
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public toastr: ToastrService, public auth: AuthProvider, private http: HttpProvider, private storage: Storage,private alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public toastr: ToastrService, public auth: AuthProvider, private http: HttpProvider, private storage: Storage) {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');

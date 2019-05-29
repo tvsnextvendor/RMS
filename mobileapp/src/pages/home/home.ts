@@ -13,9 +13,10 @@ import { LoaderService, SocketService} from '../../service';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [Constant, SocketService]
+  providers: [Constant]
 })
 export class HomePage {
+  
   dataDashboard: any = [];
   currentdate;
   paramsData = {};

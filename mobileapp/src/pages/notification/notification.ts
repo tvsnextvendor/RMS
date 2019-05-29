@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Constant } from '../../constants/Constant.var';
-import { LoaderService } from '../../service/loaderService';
 import {SocketService} from '../../service';
 import {Storage} from '@ionic/storage';
 import * as moment from 'moment';
@@ -15,14 +14,13 @@ import * as moment from 'moment';
 @Component({
   selector: 'page-notification',
   templateUrl: 'notification.html',
-  providers:[SocketService]
 
 })
 export class NotificationPage implements OnInit {
   notificationList;
   currentUser;
   count;
-  constructor(public navCtrl: NavController,public storage:Storage, public navParams: NavParams,public socketService: SocketService, public http: HttpProvider, public API_URL: API_URL,public constant:Constant, private loader: LoaderService) {
+  constructor(public navCtrl: NavController,public storage:Storage, public navParams: NavParams,public socketService: SocketService, public http: HttpProvider, public API_URL: API_URL,public constant:Constant) {
   }
   ionViewDidEnter() {       
   }
