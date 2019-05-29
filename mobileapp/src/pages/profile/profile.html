@@ -9,7 +9,12 @@
 			</ion-title>
 			</ion-navbar>
 </ion-header>
-
+<div class={{className}} *ngIf="showToastr">
+	<div class="notify-inset">
+		<h6>{{msgTitle}}</h6>
+		<p>{{msgDes}}</p>
+	</div>
+</div>
 	<div class="max-wth main-content" *ngIf="profileDetail">
 	<form novalidate (ngSubmit)="updateProfile()" [formGroup]="profileForm" class="profile-details">
 		<div class="profile-img">

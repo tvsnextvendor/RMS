@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { HttpProvider } from '../../providers/http/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from '../../service/toastrService';
+import { ToastrService} from '../../service';
 
 
 @IonicPage({
@@ -17,6 +17,7 @@ import { ToastrService } from '../../service/toastrService';
   providers: [Constant]
 })
 export class ProfilePage implements OnInit {
+  @ViewChild(Content) content: Content;
   currentUser;
   profileDetail;
   profileForm: FormGroup;
@@ -25,12 +26,16 @@ export class ProfilePage implements OnInit {
     'mobile':'',
     'email':''
   }
-  designation=[];
+  designation;
    processing:boolean;
   uploadImage: string;
+  className;
+  showToastr=false;
+  msgTitle;
+  msgDes;
 
   constructor(public navCtrl: NavController,public http: HttpProvider
-  ,public navParams: NavParams, public toastr: ToastrService,public storage: Storage, public constant: Constant) {
+  ,public navParams: NavParams ,public toastr: ToastrService,public storage: Storage, public constant: Constant) {
   }
 
   ionViewDidLoad() {  
@@ -68,19 +73,21 @@ export class ProfilePage implements OnInit {
          this.profile.userName = this.profileDetail.userName;
          this.profile.mobile = this.profileDetail.phoneNumber;
          this.profile.email = this.profileDetail.email;
-         this.profileDetail.ResortUserMappings.map(key =>{
-            if(key.Designation){
-              this.designation.push(key.Designation.designationName+',');
-            }
-            console.log(this.designation)
-         })
+        //  this.profileDetail.ResortUserMappings.map(key =>{
+        //     if(key.Designation){
+        //       this.designation= key.Designation.designationName+',';
+        //     }
+        //     console.log(this.designation)
+        //     this.designation = this.removeComma(this.designation)
+        //     console.log(this.designation)
+        //  })
        }
     })
   }
 
-  removeComma(str){
-   return str.replace(/,\s*$/, "");
-  }
+  // removeComma(str){
+  //  return str.replace(/,\s*$/, "");
+  // }
 
   updateProfile(){
     let userId = this.currentUser.userId;
@@ -91,8 +98,15 @@ export class ProfilePage implements OnInit {
     }
     this.http.put(false,API_URL.URLS.updateProfile+userId, postData).subscribe((res)=>{
       if(res['isSuccess']){
-        this.toastr.success(res['result']);
-        this.navCtrl.setRoot('home-page');
+        this.content.scrollToTop();
+        this.showToastr=true;
+        this.className = "notify-box alert alert-success";
+        this.msgTitle = "Success";
+        this.msgDes=res['result'];
+        let self = this;
+          setTimeout(function(){ 
+          self.navCtrl.setRoot('home-page');
+          }, 3000);     
       }
     })
   }

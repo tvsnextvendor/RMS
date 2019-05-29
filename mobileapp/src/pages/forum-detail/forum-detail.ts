@@ -52,6 +52,9 @@ export class ForumDetailPage implements OnInit {
   description;
   postId;
   status;
+  isComment=false;
+  isAnswer=false;
+  isActive=false;
   hideQuestionBtn:boolean = true;
   constructor(public navCtrl: NavController,public loader: LoaderService,public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage, public modalCtrl: ModalController) {
     this.forumDetailObject = this.navParams.data;
@@ -84,7 +87,6 @@ export class ForumDetailPage implements OnInit {
     //this.getComments();
   }
   getTopicsRelated() {
-
     this.loader.showLoader();
     this.http.get(API_URL.URLS.post+'?forumId='+this.forumId+'&status='+this.status).subscribe((res) => {
       if (res['isSuccess']) {
@@ -95,7 +97,9 @@ export class ForumDetailPage implements OnInit {
       this.loader.hideLoader();
     });
   }
+  
   modalRef: BsModalRef;
+ 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -157,7 +161,6 @@ export class ForumDetailPage implements OnInit {
 
   //Make a post fav/unfav
   likeUnlikeQuestion(list, status) {
-    list['like'] = !(list['like']);
     let postData={
       'isFavorite': status
     }
@@ -174,14 +177,23 @@ export class ForumDetailPage implements OnInit {
  //hide and show description part
   hideShowDesc(list, j) {
     this.hideQuestionBtn = true;
-    list[j]['isActive'] = !(list[j]['isActive']);
-    list[j]['isComment'] = list[j]['isComment'] ? false :'';
+    list['isActive'] = !(list['isActive']);
+    list['isComment'] = list['isComment'] ? false :'';
+    list['isAnswer'] = list['isAnswer'] ? false :'';
+  }
+
+
+  showAnswers(list){
+    this.getComments(list['postId']);
+    list['isAnswer'] = !list['isAnswer'];
+    list['isComment'] = list['isComment'] ? false :'';
+
   }
 
   //hide and show comment part
   showCommentSet(list, j) {
-    this.getComments(list[j]['postId']);
-    list[j]['isComment'] = !(list[j]['isComment']);
+    list['isComment'] = !(list['isComment']);
+    list['isAnswer'] = list['isAnswer'] ? false :'';
     this.hideQuestionBtn = false ;
   }
   
@@ -217,7 +229,7 @@ export class ForumDetailPage implements OnInit {
     } else {
       this.http.post(false,API_URL.URLS.comment,postData).subscribe(res=>{
         if(res['isSuccess']){
-          this.recentList[i]['isComment'] = true;
+          this.getTopicsRelated();
           this.getComments(id);
           this.toastr.success(res['data']);
            this.comment = '';

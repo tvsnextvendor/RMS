@@ -10,6 +10,7 @@ export class Constant {
         changePassword: 'Change Password',
         event: 'Training Schedule',
         profile: 'Profile',
+        feedback:'Feedback',
         forum: 'Forum',
         topic: 'Topic',
         menu: 'Menu',
@@ -134,6 +135,15 @@ export class Constant {
             }
 
         },
+        feedbackLabels:{
+           feedbackType: 'Select Type Of Feedback',
+           compliment:'Compliment',
+           suggestion:'Query or Suggestion',
+           complaint:'Complaint',
+           tellUs:'Tell us more',
+           submit :'Submit Feedback',
+           feedback:"What's your Feedback?"
+        },
         settingLabels: {
             oldPassword: 'Old Password',
             newPassword: 'New Password',
@@ -165,7 +175,7 @@ export class Constant {
             topics: 'Topics',
             mostRecent: 'Most Recent',
             featuredTopics: 'Featured Topics',
-            featuredFav: 'Featured Most Favorite',
+            featuredFav: 'Most Favorite',
             votes: 'Votes',
             answers: 'Answers',
             hoursAgo: 'hours ago',
