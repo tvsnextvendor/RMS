@@ -319,7 +319,8 @@ export class CommonLabels{
         "resortDetails"     :   "Resort Details",
         "certifiTrend"      :   "Certification Trend",
         "resourceLibrary"   :   "Resource Library",
-        "showMore"          :   "Show more"
+        "showMore"          :   "Show more",
+        "quizName"          :   "Quiz Name"
     };
 
     btns = {

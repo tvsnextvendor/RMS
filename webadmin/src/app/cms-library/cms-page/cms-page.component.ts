@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute,Params } from '@angular/router';
+import {HeaderService} from '../../services/header.service';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
   selector: 'app-cms-page',
@@ -8,15 +10,21 @@ import { Router, ActivatedRoute,Params } from '@angular/router';
 })
 export class CmsPageComponent implements OnInit {
 
-  constructor(private route: Router,private activatedRoute: ActivatedRoute) { }
+  constructor(private route: Router,private activatedRoute: ActivatedRoute,private headerService :HeaderService,public commonLabels : CommonLabels) { }
 
   ngOnInit() {
+    this.headerService.setTitle({title:this.commonLabels.titles.cmsLibrary, hidemodule:false});
   }
 
   pageRedirection(type,data){
     // this.activeType = type+data;
     // console.log(this.activeType)
-    this.route.navigate(['/cms-library'],{queryParams:{type : type,tab : data}})
+    if(data == 'quiz'){
+      this.route.navigate(['/createQuiz'])
+    }
+    else{
+      this.route.navigate(['/cms-library'],{queryParams:{type : type,tab : data}})
+    }
   }
 
 }

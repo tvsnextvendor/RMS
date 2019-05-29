@@ -110,6 +110,11 @@ export class SideBarComponent implements OnInit {
   }
 
   pageRedirection(type,data){
-    this.router.navigate(['/cms-library'],{queryParams:{type : type,tab : data}})
+    if(data == 'quiz'){
+      this.router.navigate(['/createQuiz'])
+    }
+    else{
+      this.router.navigate(['/cms-library'],{queryParams:{type : type,tab : data}})
+    } 
   }
 }
