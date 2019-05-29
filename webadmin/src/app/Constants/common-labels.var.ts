@@ -320,7 +320,18 @@ export class CommonLabels{
         "certifiTrend"      :   "Certification Trend",
         "resourceLibrary"   :   "Resource Library",
         "showMore"          :   "Show more",
-        "quizName"          :   "Quiz Name"
+        "quizName"          :   "Quiz Name",
+        "uploadedDate"      :   "Uploaded Date",
+        "modifiedDate"      :   "Modified Date",
+        "noOfResorts"       :   "No. of Resorts",           
+        "createNewClass"    :   "Create New Class",
+        "createNewNotif"    :   "Create New Notification",
+        "createNewCourse"   :   "Create New Course",
+        "createNewQuiz"     :   "Create New Quiz",
+        "usageStats"        :   "Usage Stats"
+       
+       
+      
     };
 
     btns = {
@@ -373,7 +384,8 @@ export class CommonLabels{
         "forgetPassword"    :   "Forgot Password?",
         "exportTo"          :   "Export To",
         "excel"             :   "Excel",
-        "pdf"               :   "PDF"
+        "pdf"               :   "PDF",
+        "start"             :   "Start"
         
        
     };
@@ -401,6 +413,7 @@ export class CommonLabels{
         "logintitle"        :  "Login",
         "videoTitle"        :  "Video List",
         "docTitle"          :  "Document List",
+        "courseTrend"       :  "Course Trend"
 
     };
 

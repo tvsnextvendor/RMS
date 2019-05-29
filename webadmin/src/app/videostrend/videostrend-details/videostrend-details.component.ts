@@ -4,6 +4,7 @@ import { VideosTrendVar } from '../../Constants/videostrend.var';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ExcelService, PDFService, CommonService, UtilService } from '../../services';
 import { API_URL } from 'src/app/Constants/api_url';
+import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
     selector: 'app-videostrend-details',
@@ -20,6 +21,7 @@ export class VideosTrendDetailsComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         public trendsVar: VideosTrendVar,
         private utilService: UtilService,
+        public commonLabels:CommonLabels,
         private commonService: CommonService) {
         this.resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
         this.activatedRoute.params.subscribe((params: Params) => {
@@ -29,7 +31,7 @@ export class VideosTrendDetailsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.headerService.setTitle({ title: this.trendsVar.title, hidemodule: false });
+        this.headerService.setTitle({ title: this.commonLabels.titles.courseTrend, hidemodule: false });
         this.commonService.getCourseEmployeeList(this.resortId, this.trendsVar.videoId).subscribe((result) => {
             if  (result && result.isSuccess) {
                 this.trendsVar.employeeList = result.data.rows;
