@@ -529,7 +529,7 @@ export class EmployeeChartsComponent implements OnInit {
           enabled: false
         },
         title : {
-           text: 'Total 100',
+           text: '',
            verticalAlign: 'middle',
            align: 'center',
            y: 40,
