@@ -33,17 +33,16 @@
         </li>
         <ul class="sub-menu" *ngIf="enableCreate">
             <li [ngClass]="(activeType == 'createclass') ? 'active' : ''">
-                    <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
-                <a (click)="pageRedirection('create','class')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.createClasses}}</a>
+                <a (click)="pageRedirection('create','class')">{{commonLabels.labels.createClasses}}</a>
             </li>
             <li [ngClass]="(activeType == 'createquiz') ? 'active' : ''">
-                <a (click)="pageRedirection('create','quiz')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.createQuiz}}</a>
+                <a (click)="pageRedirection('create','quiz')">{{commonLabels.labels.createQuiz}}</a>
             </li>
             <li [ngClass]="(activeType == 'createcourse') ? 'active' : ''">
-                <a (click)="pageRedirection('create','course')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.btns.createCourse}}</a>
+                <a (click)="pageRedirection('create','course')">{{commonLabels.btns.createCourse}}</a>
             </li>
             <li [ngClass]="(activeType == 'createnotification') ? 'active' : ''">
-                <a (click)="pageRedirection('create','notification')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.createNotification}}</a>
+                <a (click)="pageRedirection('create','notification')">{{commonLabels.labels.createNotification}}</a>
             </li>
         </ul>
        
@@ -52,17 +51,16 @@
         </li>
         <ul class="sub-menu" *ngIf="enableEdit">
             <li [ngClass]="(activeType == 'editclass') ? 'active' : ''">
-                <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
-                <a (click)="pageRedirection('edit','class')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.editClasses}}</a>
+                <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editClasses}}</a>
             </li>
             <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''">
-                <a (click)="pageRedirection('edit','quiz')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.editQuiz}}</a>
+                <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editQuiz}}</a>
             </li>
             <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''">
-                <a (click)="pageRedirection('edit','course')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.editCourse}}</a>
+                <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editCourse}}</a>
             </li>
             <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''">
-                <a (click)="pageRedirection('edit','notification')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.editNotification}}</a>
+                <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editNotification}}</a>
             </li>
         </ul>        
         <li [class.active]="router.isActive('/calendar')">
@@ -73,14 +71,13 @@
         </li>
         <ul class="sub-menu" *ngIf="enableReport">
             <li class="">
-                <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
-                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.videosTrend}}</a>
+                <a>{{commonLabels.labels.videosTrend}}</a>
             </li>
             <li class="">
-                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.resortDetails}}</a>
+                <a>{{commonLabels.labels.resortDetails}}</a>
             </li>
             <li class="">
-                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.certifiTrend}}</a>
+                <a>{{commonLabels.labels.certifiTrend}}</a>
             </li>
         </ul>  
         <li [ngClass]="(tabType == 'cms') ? 'active' : ''" >

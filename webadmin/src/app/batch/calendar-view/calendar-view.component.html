@@ -55,7 +55,7 @@
         <span class="calender-number">{{
           day.date | calendarDate:'monthViewDayNumber':locale }}</span>
       </div>
-      <span class="calender-batch row py-2" *ngFor="let event of day.events;let i = index;">
+      <span class="calender-batch row py-2 mb-1" *ngFor="let event of day.events;let i = index;">
         <span class="col-md-2 p-0"><i class="fa fa-file-text px-2" aria-hidden="true"></i></span>
         <span class="col-md-10 p-0">
           <p class="m-0">{{event.batchName}}</p>
