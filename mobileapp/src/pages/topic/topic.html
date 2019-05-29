@@ -24,7 +24,7 @@
         <div *ngFor="let forum of forumDetails; let i =index;" class="main-forum">
             <ion-row>
              <ion-col col-12 col-sm-12 col-md-6 *ngFor="let topic of forum.Topics">
-          <ion-card  class="forum-card">
+          <ion-card  class="forum-card m-0">
             <ion-card-content (click)="goToForumDetail(forum)" class="forum-card">
               <ion-row>
                 <ion-col col-2 class="img-block">

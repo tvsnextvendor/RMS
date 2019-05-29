@@ -128,7 +128,7 @@
                                 <div class="row col-md-6 p-0 prgm-select">
                                     <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
                                     <input *ngIf = "!scheduleId" disabled type="text" class="form-control p-0 col-md-5 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
-                                    <select [disabled]="data.trainingScheduleCourseId ? true : false" *ngIf = "scheduleId" id="courseListValue" class="col-md-5 form-control p-0 ml-4" name="course{{i}}"
+                                    <select [disabled]="data.trainingScheduleCourseId ? true : false" *ngIf = "scheduleId" id="courseListValue" class="col-md-5 form-control p-0 ml-0" name="course{{i}}"
                                         [(ngModel)]="data.courseId" #courses="ngModel" (change)="courseUpdate(courses.value,i)" placeholder="Course Name" required >
                                         <option value="null" disabled>{{commonLabels.labels.courseName}}</option>
                                         <option *ngFor="let courses of courseDataList" value="{{courses.courseId}}">{{courses.courseName}}</option>

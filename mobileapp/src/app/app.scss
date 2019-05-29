@@ -668,7 +668,8 @@ page-home .course-count p {
     // font-size: 20px;
     margin: 20px auto 20px auto; 
     font:500 20px 'sf_pro_displayregular'; 
-    width:250px;    
+    width:250px; 
+    text-transform: capitalize;   
 }
 
 .notify-box.alert{

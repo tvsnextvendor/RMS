@@ -29,62 +29,62 @@
         </li>
         <!-- <li [class.active]="router.isActive('/cms-library') || router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')"> -->
         <li [ngClass]="(tabType == 'create') ? 'active' : ''">
-            <a   (click)="dropDownEnable('create')"><img src="{{commonLabels.imgs.cms}}" class="pr-3">Create<i *ngIf="enableCreate" aria-hidden="true" class="fa fa-angle-down icons_header pl-5" title="Open"></i><i *ngIf="!enableCreate" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></a>
+            <a   (click)="dropDownEnable('create')"><img src="{{commonLabels.imgs.cms}}" class="pr-3">{{commonLabels.btns.create}}<span class="drop-icon"><i *ngIf="enableCreate" aria-hidden="true" class="fa fa-angle-down icons_header pl-5" title="Open"></i><i *ngIf="!enableCreate" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>
         </li>
         <ul class="sub-menu" *ngIf="enableCreate">
             <li [ngClass]="(activeType == 'createclass') ? 'active' : ''">
                     <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
-                <a (click)="pageRedirection('create','class')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Create Classes</a>
+                <a (click)="pageRedirection('create','class')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.createClasses}}</a>
             </li>
             <li [ngClass]="(activeType == 'createquiz') ? 'active' : ''">
-                <a (click)="pageRedirection('create','quiz')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Create Quiz</a>
+                <a (click)="pageRedirection('create','quiz')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.createQuiz}}</a>
             </li>
             <li [ngClass]="(activeType == 'createcourse') ? 'active' : ''">
-                <a (click)="pageRedirection('create','course')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Create Course</a>
+                <a (click)="pageRedirection('create','course')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.btns.createCourse}}</a>
             </li>
             <li [ngClass]="(activeType == 'createnotification') ? 'active' : ''">
-                <a (click)="pageRedirection('create','notification')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Create Notification</a>
+                <a (click)="pageRedirection('create','notification')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.createNotification}}</a>
             </li>
         </ul>
        
         <li [ngClass]="(tabType == 'edit') ? 'active' : ''">
-            <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3">Edit<i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header pl-5" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></a>       
+            <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3">{{commonLabels.labels.edit}}<span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header pl-5" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
         </li>
         <ul class="sub-menu" *ngIf="enableEdit">
             <li [ngClass]="(activeType == 'editclass') ? 'active' : ''">
                 <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
-                <a (click)="pageRedirection('edit','class')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Edit Classes</a>
+                <a (click)="pageRedirection('edit','class')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.editClasses}}</a>
             </li>
             <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''">
-                <a (click)="pageRedirection('edit','quiz')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Edit Quiz</a>
+                <a (click)="pageRedirection('edit','quiz')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.editQuiz}}</a>
             </li>
             <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''">
-                <a (click)="pageRedirection('edit','course')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Edit Course</a>
+                <a (click)="pageRedirection('edit','course')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.editCourse}}</a>
             </li>
             <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''">
-                <a (click)="pageRedirection('edit','notification')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Edit Notification</a>
+                <a (click)="pageRedirection('edit','notification')"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.editNotification}}</a>
             </li>
         </ul>        
         <li [class.active]="router.isActive('/calendar')">
-            <a (click)="dropDownEnable('calendar')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">Training Schedule</a>
+            <a (click)="dropDownEnable('calendar')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.trainingSchedule}}</a>
         </li>
         <li [ngClass]="(tabType == 'report') ? 'active' : ''">
-            <a (click)="dropDownEnable('report')"><img class="pr-2" src="assets/images/sel_reports.png">Performance Report<i *ngIf="enableReport" aria-hidden="true" class="fa fa-angle-down icons_header pl-2" title="Open"></i><i *ngIf="!enableReport" class="fa fa-angle-right icons_header  pl-2" aria-hidden="true" title="Open"></i></a>
+            <a (click)="dropDownEnable('report')"><img class="pr-2" src="assets/images/sel_reports.png">{{commonLabels.labels.performanceReport}}<span class="drop-icon"><i *ngIf="enableReport" aria-hidden="true" class="fa fa-angle-down icons_header pl-2" title="Open"></i><i *ngIf="!enableReport" class="fa fa-angle-right icons_header  pl-2" aria-hidden="true" title="Open"></i></span></a>
         </li>
         <ul class="sub-menu" *ngIf="enableReport">
             <li class="">
                 <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
-                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Course Trend</a>
+                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.videosTrend}}</a>
             </li>
             <li class="">
-                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Resort Details</a>
+                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.resortDetails}}</a>
             </li>
             <li class="">
-                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">Certification Trend</a>
+                <a><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.certifiTrend}}</a>
             </li>
         </ul>  
         <li [ngClass]="(tabType == 'cms') ? 'active' : ''" >
-            <a (click)="dropDownEnable('cms')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">Resource Library</a>
+            <a (click)="dropDownEnable('cms')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
         </li>
         <!-- <li [class.active]="router.isActive('/calendar') || router.isActive('/addBatch')">
             <a routerLink="/calendar"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.titles.calendar}}</a>
@@ -99,9 +99,9 @@
         </li> -->
         
         <li [ngClass]="(tabType == 'show') ? 'active' : ''" >
-            <a (click)="dropDownEnable('show')"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">Show more</span></a>
+            <a (click)="dropDownEnable('show')"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showMore}}</span></a>
         </li>
-        <ul class="sub-menu" *ngIf="enableShow">
+        <ul class="p-0" *ngIf="enableShow">
             <li [class.active]="router.isActive('/users')">
                 <a routerLink="/users"><img src="{{commonLabels.imgs.user}}" class="pr-3">{{commonLabels.titles.userManagement}}</a>
             </li>
