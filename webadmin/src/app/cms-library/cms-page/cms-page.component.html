@@ -11,7 +11,8 @@
             </div>
           </div>
           <div class="col-md-12 text-center px-5">
-              <button class="btn btn-primary start-btn" (click)="pageRedirection('create','course')">Start</button>
+              <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn" (click)="pageRedirection('create','class')">Start</button>
+              <button *ngIf="urlType == 'edit'"  class="btn btn-primary start-btn" (click)="pageRedirection('edit','class')">Start</button>
           </div>
         </div>
       </div>
@@ -26,7 +27,8 @@
               </div>
             </div>
             <div class="col-md-12 text-center px-5">
-                <button class="btn btn-primary start-btn" (click)="pageRedirection('create','quiz')">Start</button>
+                <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn" (click)="pageRedirection('create','quiz')">Start</button>
+                <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn" (click)="pageRedirection('edit','quiz')">Start</button>
             </div>
           </div>
         </div>
@@ -44,7 +46,8 @@
         </div>
       </div>
       <div class="col-md-12 text-center px-5">
-          <button class="btn btn-primary start-btn" (click)="pageRedirection('create','course')">Start</button>
+          <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn" (click)="pageRedirection('create','course')">Start</button>
+          <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn" (click)="pageRedirection('edit','course')">Start</button>
       </div>
     </div>
   </div>
@@ -59,7 +62,8 @@
           </div>
       </div>
       <div class="col-md-12 text-center px-5">
-          <button class="btn btn-primary start-btn" (click)="pageRedirection('create','notification')">Start</button>
+          <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn" (click)="pageRedirection('create','notification')">Start</button>
+          <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn" (click)="pageRedirection('edit','notification')">Start</button>
       </div>
     </div>
   </div>
