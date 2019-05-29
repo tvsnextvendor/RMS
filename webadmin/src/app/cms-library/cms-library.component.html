@@ -20,11 +20,11 @@
     <div class="row">
         <div class="col-md-9 pt-2 px-0">
     	    <div class="clearfix" *ngIf="!hideSection">
-                <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">{{commonLabels.btns.print}}</button>    
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress" routerLink="/workinprogress">{{commonLabels.btns.workinProgress}}</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification" (click)="openCreateModal(notification,'notification')">{{commonLabels.btns.createNotification}}</button>
-                <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{commonLabels.btns.createCourse}}</button>
+                <!-- <button type = "button" class="btn btn-primary " placement="top" tooltip="Print">{{commonLabels.btns.print}}</button>     -->
+                <!-- <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Work in Progress" routerLink="/workinprogress">{{commonLabels.btns.workinProgress}}</button> -->
+                <button *ngIf="disableTabs" type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
+                <!-- <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Notification" (click)="openCreateModal(notification,'notification')">{{commonLabels.btns.createNotification}}</button> -->
+                <!-- <button type = "button" class="btn btn-primary mr-3" placement="top" tooltip="Create Course" (click)="showCreateCourse()">{{commonLabels.btns.createCourse}}</button> -->
             </div>
             <span class="required_color" *ngIf="showWarning && !showcreatecourse">{{commonLabels.labels.selectcoursestoschedule}}</span> 
             <div class="clearfix pt-3 tab-section">
@@ -36,42 +36,42 @@
                         <a [ngClass] = "selectedTab === 'training' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#training" (click)="headerTabChange('training','')">{{commonLabels.labels.trainingClass}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse">
-                        <a [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabChange('video','')">{{commonLabels.labels.videos}}</a>
+                        <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabChange('video','')">{{commonLabels.labels.videos}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse">
-                        <a [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document','')">{{commonLabels.labels.documents}}</a>
+                        <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document','')">{{commonLabels.labels.documents}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse">
-                        <a [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification','')">{{commonLabels.labels.notification}}</a>
+                        <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification','')">{{commonLabels.labels.notification}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection">
-                        <a [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show disabled' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">{{commonLabels.labels.quiz}}</a>
+                        <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show disabled' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">{{commonLabels.labels.quiz}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection">
-                        <a class="nav-link">{{commonLabels.labels.recentlyDelete}}</a>
+                        <a *ngIf="!disableTabs" class="nav-link" routerLink="/workinprogress">{{commonLabels.btns.workinProgress}}</a>
                     </li>
                 </ul> 
             </div>
             <div class="tab-content">
                 <!-- Course Tab Content -->
                 <div *ngIf = "selectedTab === 'course' && !hideSection" id="course" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'course' ? 'active show' : 'nav-link')">
-                        <app-course-tab (SelectedcourseList)="getCourse($event)" (trainingClassListTab) = "redirectTab($event)" (upload)="showUploadPage($event)" (trainingClassRedirect)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"  [addedFiles]="selectedVideoList" ></app-course-tab>
+                        <app-course-tab (SelectedcourseList)="getCourse($event)" (trainingClassListTab) = "redirectTab($event)" (upload)="showUploadPage($event)" (trainingClassRedirect)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"  [addedFiles]="selectedVideoList" [disableEdit]="disableEdit"></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
                 <div *ngIf = "selectedTab === 'training' && !hideSection" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
-                    <app-traing-class-tab (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [courseId]="courseId"></app-traing-class-tab>
+                    <app-traing-class-tab (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [courseId]="courseId" [disableEdit]="disableEdit" [disableTabs]= 'disableTabs'></app-traing-class-tab>
                 </div>
                 <!-- Video Tab Content -->
                 <div *ngIf = "selectedTab === 'video' && !showcreatecourse" id="video" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
-                    <app-video-tab [trainingClassId] = 'trainingClassId' [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"></app-video-tab>
+                    <app-video-tab [trainingClassId] = 'trainingClassId' [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-video-tab>
                 </div>
                 <!-- Documents Tab Content -->
                 <div  *ngIf = "selectedTab === 'document' && !showcreatecourse" id="document" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
-                    <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection"></app-document-tab>
+                    <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-document-tab>
                 </div>
                 <!-- Quiz Tab Content --> 
                 <div  *ngIf = "selectedTab === 'quiz' && !hideSection " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
-                    <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId" [directTabEnable] = "quizTabHit" [uploadPage]="hideSection"></app-quiz-tab>
+                    <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId" [directTabEnable] = "quizTabHit" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-quiz-tab>
                 </div>
             </div>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit ,Input,Output, EventEmitter} from '@angular/core';
 import { HeaderService,UtilService,ResortService ,CourseService,CommonService,UserService} from '../../services';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 import { BatchVar } from '../../Constants/batch.var';
@@ -42,7 +43,7 @@ export class AddNotificationComponent implements OnInit {
     fileImageDataPreview;
     notificationFileImage;
 
-    constructor(private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
+    constructor(public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
         this.batchVar.url = API_URL.URLS;
         this.labels = moduleVar.labels;

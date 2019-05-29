@@ -34,8 +34,14 @@ export class CalendarViewComponent implements OnInit {
     enableBatch = false;
 
   
-   constructor(private headerService:HeaderService,private datePipe:DatePipe,private http:HttpService,public batchVar: BatchVar,private toastr:ToastrService,private router:Router,private modalService:BsModalService,
-    public commonLabels:CommonLabels,private utilService : UtilService,private courseService : CourseService){
+   constructor(
+    private headerService:HeaderService,
+    public batchVar: BatchVar,
+    private router:Router,
+    private modalService:BsModalService,
+    public commonLabels:CommonLabels,
+    private utilService : UtilService,
+    private courseService : CourseService){
     this.batchVar.url = API_URL.URLS; 
    }
 
@@ -83,14 +89,14 @@ export class CalendarViewComponent implements OnInit {
                 this.scheduleEditDetails = resp.data.length ? resp.data[0] : {};
                 this.enableBatch =true
             }
-            console.log(resp)
+            // console.log(resp)
         })
     }
 
     getCalendarDetails(){
         this.courseService.getCalendarSchedule(this.resortId).subscribe(resp=>{
             if(resp && resp.isSuccess){
-                console.log(resp);
+                // console.log(resp);
                 let scheduleData = resp.data.length && resp.data;
                 let tempArray = [];
                 scheduleData.map(item => {
@@ -125,6 +131,10 @@ export class CalendarViewComponent implements OnInit {
         this.trainingScheduleId = '';
         this.scheduleEditDetails = {};
         this.getCalendarDetails();
+    }
+
+    goToCMSLibrary(){
+        this.router.navigate(['/cms-library'],{queryParams:{type : 'create',tab : 'schedule'}})
     }
  
 }

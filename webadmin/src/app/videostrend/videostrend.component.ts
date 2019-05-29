@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Location } from '@angular/common'; 
 import {HttpService, HeaderService, UtilService, CommonService} from '../services';
 import {VideosTrendVar} from '../Constants/videostrend.var';
 import { API_URL } from '../Constants/api_url';
@@ -16,10 +17,12 @@ export class VideosTrendComponent implements OnInit {
     public trendsVar: VideosTrendVar ,
     private http: HttpService,
     private commonService: CommonService,
-    private utilsService: UtilService) {
+    private utilsService: UtilService,
+    public location :Location
+    ) {
     this.trendsVar.url = API_URL.URLS;
     this.resortId = this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId;
-    console.log(this.resortId, 'reeee');
+    // console.log(this.resortId, 'reeee');
    }
 
    selectedModule;
@@ -66,8 +69,8 @@ export class VideosTrendComponent implements OnInit {
       }
 
     getModuleList() {
-        console.log(this.trendsVar.years, 'yeeeaa');
-        console.log(this.trendsVar.months);
+        // console.log(this.trendsVar.years, 'yeeeaa');
+        // console.log(this.trendsVar.months);
         const courseTrendObj = {
             year : this.trendsVar.years,
             month : this.trendsVar.months,

@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService,HttpService,CommonService,UserService,UtilService,ResortService,PDFService,ExcelService } from '../../services';
 import { ResortVar } from '../../Constants/resort.var';
@@ -21,9 +22,16 @@ export class ResortListComponent implements OnInit {
   resortId;
   resortList;
 
-  constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, 
-    private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar,
-     private headerService: HeaderService,private utilService : UtilService,private resortService : ResortService,public commonLabels : CommonLabels,private pdfService:PDFService,private excelService:ExcelService) {
+  constructor( private commonService : CommonService ,
+    private alertService: AlertService, 
+    private route: Router,
+    private activatedRoute: ActivatedRoute,
+    public resortVar: ResortVar,
+    private headerService: HeaderService,
+    public commonLabels : CommonLabels,
+    private pdfService:PDFService,
+    private excelService:ExcelService,
+    public location :Location) {
     this.resortVar.url = API_URL.URLS;
   }
 

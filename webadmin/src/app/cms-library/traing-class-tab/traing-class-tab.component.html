@@ -22,7 +22,7 @@
         </label>
     </div>    
             <div class="float-right pr-3">
-                <a (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
+                <a *ngIf="!disableEdit" (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
             </div>
         </div>
         <div class="float-left" *ngIf="training.enableEdit == true">
@@ -42,7 +42,7 @@
                 </div>
             </form>
         </div>
-        <div class="clk-part clearfix pt-1 pr-4">
+        <div class="clk-part clearfix pt-1 pr-4" *ngIf="!disableTabs">
             <div class="clk-sec float-left px-4">
                 <a href="javascript:void(0);"
                     (click)="tabChange('video',training.trainingClassId,'',training.TrainingClass.videosCount)">{{commonLabels.labels.video}} :
@@ -52,6 +52,15 @@
             </div>
             <a class="float-right" href="javascript:void(0);"
                 (click)="tabChange('quiz',training.trainingClassId,course.courseId,1)" title="viewQuiz">{{commonLabels.labels.viewQuiz}}</a>
+        </div>
+        <div class="clk-part clearfix pt-1 pr-4" *ngIf="disableTabs">
+            <div class="clk-sec float-left px-4">
+                <button [disabled]="disableTabs" class="btn btn-link"
+                    (click)="tabChange('video',training.trainingClassId,'',training.TrainingClass.videosCount)">{{commonLabels.labels.video}} :
+                    {{training?.TrainingClass?.videosCount ? training?.TrainingClass?.videosCount : 0}}</button>
+                <button [disabled]='disableTabs'  (click)="tabChange('document',training.trainingClassId,'',training.TrainingClass.documentsCount)"
+                    class="ml-2 btn btn-link">{{commonLabels.labels.document}} : {{training?.TrainingClass?.documentsCount ? training?.TrainingClass?.documentsCount : 0}}</button>
+            </div>
         </div>
     </div>
 </div>

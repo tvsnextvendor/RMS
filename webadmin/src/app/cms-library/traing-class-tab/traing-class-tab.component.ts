@@ -9,6 +9,8 @@ import { CommonLabels } from '../../Constants/common-labels.var';
 })
 export class TraingClassTabComponent implements OnInit {
   @Output() videoList = new EventEmitter();
+  @Input() disableEdit;
+  @Input() disableTabs;
   totalCourseTrainingCount = 0;
   trainingClassCourseList = [];
   pageLength;

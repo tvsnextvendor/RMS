@@ -11,7 +11,8 @@ import { CommonLabels } from '../../Constants/common-labels.var'
 })
 export class SideBarComponent implements OnInit {
 
-  constructor(public router: Router,
+  constructor(
+    public router: Router,
     private utilservice: UtilService,
     private mScrollbarService: MalihuScrollbarService,
     public commonLabels:CommonLabels,
@@ -26,6 +27,7 @@ export class SideBarComponent implements OnInit {
    enableShow = false;
    activeType ;
    tabType;
+   currentUrl;
 
   ngOnInit() {
        let role = this.utilservice.getRole();
@@ -37,11 +39,13 @@ export class SideBarComponent implements OnInit {
          this.networkAdmin =  false;
        }
        this.activatedRoute.queryParams.subscribe(params=>{
-         console.log(params,this.activatedRoute)
          this.activeType = params.type+params.tab;
        })
-       
   }
+  ngDoCheck(){
+    this.currentUrl = this.router.url;
+  }
+
   ngAfterViewInit() {
     this.mScrollbarService.initScrollbar('#sidebar-wrapper', { axis: 'y', theme: 'minimal-dark' });
   }
@@ -65,12 +69,12 @@ export class SideBarComponent implements OnInit {
         this.tabType = 'create';
         break;
       case 'edit':
-        this.router.navigate(['/cms-library']);
         this.enableCreate = false;
         this.enableEdit = !this.enableEdit;
         this.enableReport = false;
         this.enableShow = false;
         this.tabType = 'edit';
+        this.pageRedirection('edit','course');
         break;
       case 'calendar':
         this.router.navigate(['/calendar']);

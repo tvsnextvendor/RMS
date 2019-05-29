@@ -23,8 +23,8 @@
 <div  *ngIf="peerAdmin">
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav" id="scroll-bx">
-        <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')"
-            class="mt75">
+        <!-- <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')" -->
+        <li  [ngClass]="(tabType == 'dashboard') ? 'active mt75' : 'mt75'">
             <a (click)="dropDownEnable('dashboard')"><img src="{{commonLabels.imgs.dashboard}}"class="pr-3">{{commonLabels.titles.dashboard}}</a>
         </li>
         <!-- <li [class.active]="router.isActive('/cms-library') || router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')"> -->
@@ -70,11 +70,12 @@
             <a (click)="dropDownEnable('report')"><img class="pr-2" src="assets/images/sel_reports.png">{{commonLabels.labels.performanceReport}}<span class="drop-icon"><i *ngIf="enableReport" aria-hidden="true" class="fa fa-angle-down icons_header pl-2" title="Open"></i><i *ngIf="!enableReport" class="fa fa-angle-right icons_header  pl-2" aria-hidden="true" title="Open"></i></span></a>
         </li>
         <ul class="sub-menu" *ngIf="enableReport">
-            <li class="">
-                <a>{{commonLabels.labels.videosTrend}}</a>
+            <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''">
+                <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
+                <a routerLink="/videostrend"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.videosTrend}}</a>
             </li>
-            <li class="">
-                <a>{{commonLabels.labels.resortDetails}}</a>
+            <li [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
+                <a routerLink="/resortList"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.resortDetails}}</a>
             </li>
             <li class="">
                 <a>{{commonLabels.labels.certifiTrend}}</a>

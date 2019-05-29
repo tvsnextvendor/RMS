@@ -20,11 +20,16 @@
   .clk-part{
       clear: both;
   }
-  .clk-part a{
+  .clk-part button{
       color: #000;
       font-size: 13px;
       text-decoration: underline;
   }
+  .clk-part a{
+    color: #000;
+    font-size: 13px;
+    text-decoration: underline;
+}
   .clk-sec{
       padding-left: 12px;
   }
