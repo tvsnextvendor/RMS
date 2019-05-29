@@ -45,6 +45,7 @@ export class ResortChartsComponent implements OnInit {
         // this.getData();
         this.getKeyStat();
         this.getResortDetails();
+        this.totalNoOfBadges();
         this.userRole = this.utilService.getRole();
         this.getCountDetails(this.resortId);
     }
@@ -61,6 +62,7 @@ export class ResortChartsComponent implements OnInit {
           console.log(this.dashboardVar.totalCoursesCount,"this.dashboardVar.totalCoursesCount")
           setTimeout(() => {
             this.totalCoursesLine();
+            this.chartContainer();
             this.totalStorageSpace();
           }, 2000);
           this.commonService.getTotalCount(resortId).subscribe(result => {
@@ -140,6 +142,66 @@ export class ResortChartsComponent implements OnInit {
         this.http.get(this.dashboardVar.url.getTopResorts).subscribe((data) => {
             this.dashboardVar.topResorts = data.resortCharts.TopResorts;
         });
+    }
+
+    totalNoOfBadges() {
+      this.commonService.getBadges(this.resortId).subscribe((resp) => {
+        console.log(resp, 'daaaa');
+        const donutChartData = resp.data.badges;
+        this.dashboardVar.totalNoOfBadges = donutChartData.map(item =>
+            [item.Badge.badgeName , parseInt(item.totalcount, 10)]
+        );
+        });
+    }
+
+    chartContainer() {
+      Highcharts.chart('chartContainer', {
+        chart : {
+           plotBorderWidth: null,
+           plotShadow: false,
+           type: 'pie'
+        },
+        credits: {
+          enabled: false
+        },
+        title : {
+           text: 'Total 100',
+           verticalAlign: 'middle',
+           align: 'center',
+           y: 40,
+           style: {
+          color: '#333333',
+          fontSize: '19px',
+          fill: '#333333'
+           }
+        },
+        tooltip : {
+           pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions : {
+           pie: {
+              shadow: false,
+              center: ['50%', '50%'],
+              size: '45%',
+              innerSize: '70%'
+           },
+        //    series: {
+        //     dataLabels: {
+        //         enabled: true,
+        //         formatter: function() {
+        //             return Math.round(this.percentage * 100) / 100 + ' %';
+        //         },
+        //         distance: -30,
+        //         color: 'white'
+        //     }
+        // }
+        },
+        series : [{
+           data:
+            this.dashboardVar.totalNoOfBadges
+        }]
+    }
+      );
     }
 
     // badgesCertification() {
@@ -558,7 +620,7 @@ export class ResortChartsComponent implements OnInit {
         };
         this.commonService.getCourseTrend(courseTrendObj).subscribe(result => {
           if (result && result.isSuccess) {
-            this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item.totalcount, 10));
+            this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
             console.log(this.dashboardVar.courseTrendData, 'data');
             this.courseTrend();
           }
@@ -589,7 +651,17 @@ export class ResortChartsComponent implements OnInit {
                 enabled: false
               },
               showInLegend: true
-            }
+            },
+            series: {
+              dataLabels: {
+                  enabled: true,
+                  formatter: function() {
+                      return Math.round(this.percentage * 100) / 100 + ' %';
+                  },
+                  distance: -30,
+                  color: 'white'
+              }
+          }
           },
           series: [{
             name: 'Brands',

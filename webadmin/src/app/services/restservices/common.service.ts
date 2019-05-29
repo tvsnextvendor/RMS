@@ -148,4 +148,10 @@ forgetPassword(params){
 resetPassword(params){
   return this.http.reset('local', this.url.resetPassword, params);
 }
+
+getBadges(resortId) {
+  return this.http.getLocal('local', this.url.badgesData + '?resortId=' + resortId);
+}
+
+
 }
