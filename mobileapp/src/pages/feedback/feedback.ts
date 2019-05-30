@@ -101,7 +101,7 @@ saveFeedback(){
       resortId: this.currentUser.ResortUserMappings[0].resortId
     }
   this.http.post(false,API_URL.URLS.appFeedback,postData).subscribe(res=>{
-      if(res.isSuccess){
+      if(res['isSuccess']){
        this.content.scrollToTop();
        this.resetForm();
         this.showToastr=true;
