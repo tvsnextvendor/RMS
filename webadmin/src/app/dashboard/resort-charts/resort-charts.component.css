@@ -167,4 +167,18 @@ height: 145px !important;
     display: inline-block;
     text-align: right;
 }
-
+.badge-alg{
+  position: absolute;
+    z-index: 1;
+    top: 143px;
+    left: 140px;
+    font-size: 13px;
+    font-weight: 700;
+    width: 30px;
+    color: #65A1C5;
+}
+.total-count{
+  margin: 0;
+    color: #1D4960;
+    font-size: 14px;
+}
