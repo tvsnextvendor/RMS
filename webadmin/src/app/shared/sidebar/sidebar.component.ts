@@ -65,7 +65,7 @@ export class SideBarComponent implements OnInit {
         this.enableEdit = false;
         this.enableReport = false;
         this.enableShow = false;
-        this.router.navigate(['/cmspage']);
+        this.router.navigate(['/cmspage'],{queryParams : {type : 'create'}});
         this.tabType = 'create';
         break;
       case 'edit':
@@ -74,7 +74,7 @@ export class SideBarComponent implements OnInit {
         this.enableReport = false;
         this.enableShow = false;
         this.tabType = 'edit';
-        this.pageRedirection('edit','course');
+        this.router.navigate(['/cmspage'],{queryParams : {type : 'edit'}});
         break;
       case 'calendar':
         this.router.navigate(['/calendar']);
@@ -110,7 +110,7 @@ export class SideBarComponent implements OnInit {
   }
 
   pageRedirection(type,data){
-    if(data == 'quiz'){
+    if(type == 'create' && data == 'quiz'){
       this.router.navigate(['/createQuiz'])
     }
     else{

@@ -90,10 +90,12 @@ strong{
     font-size: 18px;
     margin-left: 5px;
 }
-.link-sec a {
+.link-sec p {
     float: left;
     font-size: 14px;
-    margin-right: 25px;
+    margin-right: 20px;
+    margin-bottom: 0;
+    color: #468FB9;
 }
 select.form-control{
     background: none;

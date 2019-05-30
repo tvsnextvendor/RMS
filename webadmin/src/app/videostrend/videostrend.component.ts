@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import {HttpService, HeaderService, UtilService, CommonService} from '../services';
 import {VideosTrendVar} from '../Constants/videostrend.var';
 import { API_URL } from '../Constants/api_url';
+import { CommonLabels } from '../Constants/common-labels.var'
+
 
 
 @Component({
@@ -18,7 +20,8 @@ export class VideosTrendComponent implements OnInit {
     private http: HttpService,
     private commonService: CommonService,
     private utilsService: UtilService,
-    public location :Location
+    public location :Location,
+    public commonLabels:CommonLabels,
     ) {
     this.trendsVar.url = API_URL.URLS;
     this.resortId = this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId;
@@ -29,7 +32,7 @@ export class VideosTrendComponent implements OnInit {
    resortId;
 
    ngOnInit() {
-    this.headerService.setTitle({title: this.trendsVar.title, hidemodule: false});
+    this.headerService.setTitle({title: this.commonLabels.titles.courseTrend, hidemodule: false});
     this.getVideosTrend('');
     this.getModuleList();
     this.trendsVar.pageLimitOptions = [5, 10, 25];

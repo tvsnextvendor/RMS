@@ -71,11 +71,10 @@
         </li>
         <ul class="sub-menu" *ngIf="enableReport">
             <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''">
-                <!-- <a><img class="pr-3 select-tab" src="assets/images/sel_arrow.png"> -->
-                <a routerLink="/videostrend"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.videosTrend}}</a>
+                <a routerLink="/videostrend">{{commonLabels.labels.videosTrend}}</a>
             </li>
             <li [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
-                <a routerLink="/resortList"><img class="pr-3 unselect-tab" src="assets/images/unsel_arrow.png">{{commonLabels.labels.resortDetails}}</a>
+                <a routerLink="/resortList">{{commonLabels.labels.resortDetails}}</a>
             </li>
             <li class="">
                 <a>{{commonLabels.labels.certifiTrend}}</a>

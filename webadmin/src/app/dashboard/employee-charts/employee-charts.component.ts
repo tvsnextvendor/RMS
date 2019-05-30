@@ -59,6 +59,7 @@ export class EmployeeChartsComponent implements OnInit {
     });
     setTimeout(() => {
       this.totalCoursesLine();
+      this.chartContainer();
       // this.totalStorageSpace();
       this.courseTrend();
     }, 2000);
@@ -71,29 +72,9 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
   getData() {
-    // this.http.get(this.dashboardVar.url.getCourses).subscribe((data) => {
-    //   this.dashboardVar.courses = data;
-    // });
-    // //get Module list
-    // this.http.get(this.dashboardVar.url.getProgramList).subscribe((data) => {
-    //   this.dashboardVar.moduleList = data.programList;
-    // });
-    // //get Year List
-
-    // //get Course Trend list
-    // this.http.get(this.dashboardVar.url.getCourseTrendChart).subscribe((data) => {
-    //   this.dashboardVar.courseTrendData = data;
-    // })
-
-    // this.http.get(this.dashboardVar.url.getEmployeeProgress).subscribe((data) => {
-    //   this.dashboardVar.empProgress = data;
-    // });
-
-    // this.http.get(this.dashboardVar.url.getCertificationTrend).subscribe((data) => {
-    //   this.dashboardVar.certificationTrend = data;
-    // });
     this.getcourseTrend();
     this.topRatedCourses();
+    this.totalNoOfBadges();
   }
 
   getTopResort(){
@@ -142,8 +123,7 @@ export class EmployeeChartsComponent implements OnInit {
     };
     this.commonService.getCourseTrend(courseTrendObj).subscribe(result => {
       if (result && result.isSuccess) {
-        this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item.totalcount, 10));
-        console.log(this.dashboardVar.courseTrendData, 'data');
+        this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
       }
     });
   }
@@ -201,7 +181,17 @@ export class EmployeeChartsComponent implements OnInit {
             enabled: false
           },
           showInLegend: true
-        }
+        },
+        series: {
+          dataLabels: {
+              enabled: true,
+              formatter: function() {
+                  return Math.round(this.percentage * 100) / 100 + ' %';
+              },
+              distance: -30,
+              color: 'white'
+          }
+      }
       },
       series: [{
         name: 'Brands',
@@ -400,7 +390,7 @@ export class EmployeeChartsComponent implements OnInit {
         verticalAlign: 'bottom'
     },
     series:   this.dashboardVar.certificationTrend.data,
-    colors:['#7DB5EC','#CCCCCC'],
+    colors: ['#7DB5EC', '#CCCCCC'],
     // stroke:'grey',
   });
   }
@@ -414,117 +404,170 @@ export class EmployeeChartsComponent implements OnInit {
   // get total number of badges and display in chart
   totalNoOfBadges() {
 
-    this.http.get(this.dashboardVar.url.getTotalNoOfBadges).subscribe((resp) => {
-      const donutChartData = resp.NoOfBadgesDonut;
-      this.donutEnable = true;
+    this.commonService.getBadges(this.resortId).subscribe((resp) => {
+      console.log(resp, 'daaaa');
+      const donutChartData = resp.data.badges;
+      this.dashboardVar.totalNoOfBadges = donutChartData.map(item =>
+          [item.Badge.badgeName , parseInt(item.totalcount, 10)]
+      );
+      // this.donutEnable = true;
       // console.log(donutChartData);
-      const labels = donutChartData.labels;
-      const data_values = donutChartData.data_values;
+      // const labels = donutChartData.labels;
+      // const data_values = donutChartData.data_values;
 
-      const data = data_values.map(function (value, index) {
-        return { name: labels[index], y: value };
-      }, []);
+      // const data = data_values.map(function (value, index) {
+      //   return { name: labels[index], y: value };
+      // }, []);
 
+      // Highcharts.chart('chartContainer', {
+      //   chart: {
+      //     plotBackgroundColor: null,
+      //     plotBorderWidth: null,
+      //     plotShadow: false,
+      //     type: 'pie'
+      //   },
+      //   title: {
+      //     text: 'Total',
+      //     verticalAlign: 'middle',
+      //     align: 'top',
+      //     x: 120,
+      //     y: -10,
+      //     floating: true,
+      //     style: {
+      //       color: '#468FB9',
+      //       fontWeight: 'normal',
+      //       fontSize: '14px'
+      //     }
+      //   },
+      //   subtitle: {
+      //     text: '100',
+      //     verticalAlign: 'middle',
+      //     align: 'middle',
+      //     x: 120,
+      //     floating: true,
+      //     style: {
+      //       color: '#468FB9',
+      //       fontWeight: 'normal',
+      //       fontSize: '20px'
+      //     }
+      //   },
+      //   tooltip: {
+      //     pointFormat: '<b>{point.percentage:.1f}%</b>'
+      //   },
+
+      //   plotOptions: {
+      //     pie: {
+      //       colors: ['#B9F2FF', '#FFD700', '#C0C0C0', '#CD7F32'],
+      //       allowPointSelect: true,
+      //       innerSize: '60%',
+      //       cursor: 'pointer',
+      //       indexLabelFontSize: 12,
+      //       dataLabels: {
+      //         enabled: true,
+      //         format: '{point.name}',
+      //         connectorColor: 'black',
+      //         style: {
+      //           fontWeight: 'normal',
+      //           fontSize: '8px',
+      //         }
+      //     },
+      //       tooltip: {
+      //           pointFormat: '<b>{point.percentage:.1f}%</b>'
+      //       },
+
+      //       plotOptions: {
+      //           pie: {
+      //               allowPointSelect: true,
+      //               innerSize: '60%',
+      //                cursor: 'pointer',
+      //                indexLabelFontSize: 12,
+      //                colors: ['#7DB5EC', '#CCCCCC', '#90ED7C', '#F7A25C'],
+      //               dataLabels: {
+      //                   enabled: true,
+      //                   format: '{point.name}',
+      //                 connectorColor: 'black',
+      //                 style: {
+      //                   fontWeight: 'normal',
+      //                   fontSize: '8px',
+      //               }
+      //             }
+      //           }
+      //       },
+      //       // xAxis: {
+      //       //     categories: labels
+      //       // },
+      //       series: [{
+      //           name: '',
+      //           data: this.dashboardVar.totalNoOfBadges
+      //       }],
+      //       credits: {
+      //         enabled: false
+      //       }
+      //     },
+      //   },
+      //   // xAxis: {
+      //   //   categories: labels
+      //   // },
+      //   series: [{
+      //     name: '',
+      //     data: this.dashboardVar.totalNoOfBadges
+      //   }],
+      //   credits: {
+      //     enabled: false
+      //   }
+      // }
+    });
+    }
+    chartContainer() {
       Highcharts.chart('chartContainer', {
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false,
-          type: 'pie'
+        chart : {
+           plotBorderWidth: null,
+           plotShadow: false,
+           type: 'pie'
         },
-        title: {
-          text: 'Total',
-          verticalAlign: 'middle',
-          align: 'top',
-          x: 120,
-          y: -10,
-          floating: true,
-          style: {
-            color: '#468FB9',
-            fontWeight: 'normal',
-            fontSize: '14px'
-          }
-        },
-        subtitle: {
-          text: '100',
-          verticalAlign: 'middle',
-          align: 'middle',
-          x: 120,
-          floating: true,
-          style: {
-            color: '#468FB9',
-            fontWeight: 'normal',
-            fontSize: '20px'
-          }
-        },
-        tooltip: {
-          pointFormat: '<b>{point.percentage:.1f}%</b>'
-        },
-
-        plotOptions: {
-          pie: {
-            colors: ['#B9F2FF', '#FFD700', '#C0C0C0', '#CD7F32'],
-            allowPointSelect: true,
-            innerSize: '60%',
-            cursor: 'pointer',
-            indexLabelFontSize: 12,
-            dataLabels: {
-              enabled: true,
-              format: '{point.name}',
-              connectorColor: 'black',
-              style: {
-                fontWeight: 'normal',
-                fontSize: '8px',
-              }
-          },
-            tooltip: {
-                pointFormat: '<b>{point.percentage:.1f}%</b>'
-            },
-
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    innerSize: '60%',
-                     cursor: 'pointer',
-                     indexLabelFontSize: 12,
-                     colors:['#7DB5EC','#CCCCCC','#90ED7C','#F7A25C'],
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}',
-                      connectorColor: 'black',
-                      style: {
-                        fontWeight: 'normal',
-                        fontSize: '8px',
-                    }
-                  }
-                }
-            },
-            xAxis: {
-                categories: labels
-            },
-            series: [{
-                name: '',
-                data: data
-            }],
-            credits: {
-              enabled: false
-            }
-          },
-        },
-        xAxis: {
-          categories: labels
-        },
-        series: [{
-          name: '',
-          data: data
-        }],
         credits: {
           enabled: false
-        }
-      }
+        },
+        title : {
+           text: '',
+           verticalAlign: 'middle',
+           align: 'center',
+           y: 40,
+           style: {
+          color: '#333333',
+          fontSize: '19px',
+          fill: '#333333'
+           }
+        },
+        tooltip : {
+           pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions : {
+           pie: {
+              shadow: false,
+              center: ['50%', '50%'],
+              size: '45%',
+              innerSize: '70%'
+           },
+        //    series: {
+        //     dataLabels: {
+        //         enabled: true,
+        //         formatter: function() {
+        //             return Math.round(this.percentage * 100) / 100 + ' %';
+        //         },
+        //         distance: -30,
+        //         color: 'white'
+        //     }
+        // }
+        },
+        series : [{
+           data:
+            this.dashboardVar.totalNoOfBadges
+        }]
+    }
       );
-    });
-  }
+    }
+
   addQuickTasks() {
     this.todayDate = new Date();
     localStorage.setItem('BatchStartDate', this.todayDate);

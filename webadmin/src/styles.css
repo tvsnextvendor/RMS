@@ -354,7 +354,7 @@ table td.td-pd {
   text-decoration: none;
 }
 .sidebar-nav li.active a {
-    color: #468FB9;
+    color: #468FB9 !important;
 }
 .sidebar-nav>.sidebar-brand {
   height: 65px;

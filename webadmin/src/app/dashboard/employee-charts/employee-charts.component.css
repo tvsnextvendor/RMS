@@ -181,3 +181,18 @@ padding: 0 11px;
   height: 200px; margin: 0 auto; padding-top: 50px;
   cursor: pointer;
 }
+.badge-alg{
+  position: absolute;
+    z-index: 1;
+    top: 143px;
+    left: 159px;
+    font-size: 13px;
+    font-weight: 700;
+    width: 30px;
+    color: #65A1C5;
+}
+.total-count{
+  margin: 0;
+    color: #1D4960;
+    font-size: 14px;
+}

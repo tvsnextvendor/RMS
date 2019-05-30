@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class VideosTrendVar {
    videosTrendLabels = {
-       courseTitle    : 'Course Name',
-       uploadedDate   : 'Uploaded Date',
-       modifiedDate   : 'Modified Date',
-       noOfResorts    : 'No. of Resorts',
-       noOfEmployees  : 'No. of Employees'
+    //    courseTitle    : 'Course Name',
+    //    uploadedDate   : 'Uploaded Date',
+    //    modifiedDate   : 'Modified Date',
+    //    noOfResorts    : 'No. of Resorts',
+    //    noOfEmployees  : 'No. of Employees'
    };
 
    videosTrendDetailsLabels = {
@@ -17,11 +17,11 @@ export class VideosTrendVar {
        totalEmployees : 'Total No of Employees'
    };
    empTableTitle = {
-       empName       : 'Employee Name',
-       resortName    : 'Resort Name',
-       status        : 'Status',
-       assignedDate  : 'Assigned Date',
-       completedDate : 'Completed Date'
+    //    empName       : 'Employee Name',
+    //    resortName    : 'Resort Name',
+    //    status        : 'Status',
+    //    assignedDate  : 'Assigned Date',
+    //    completedDate : 'Completed Date'
    };
 
    exportTo   = 'Export To';
@@ -29,7 +29,7 @@ export class VideosTrendVar {
    select     = 'Select';
    pdf        = 'PDF';
    noData     = 'No Data';
-   title      = 'Course Trend';
+//    title      = 'Course Trend';
    pdfExcelTitle = 'Course Trend';
    yearsList = [{'year': '2017'}, {'year': '2018'}, {'year': '2019'}];
    monthsList = [{'id': '1', 'month': 'JAN'}, {'id': '2', 'month': 'FEB'}, {'id': '3', 'month': 'MAR'}, {'id': '4', 'month': 'APR'},

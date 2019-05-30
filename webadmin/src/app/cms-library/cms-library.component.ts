@@ -47,6 +47,8 @@ export class CMSLibraryComponent implements OnInit {
 
   ngOnInit() {
   this.selectedTab = 'course';
+  this.quizTabHit = false;
+  this.notifyType = 'assignedToCourse';
   this.activatedRoute.queryParams.subscribe(params=>{
     if(params.type && params.type == 'create'){
       this.disableEdit = false;
@@ -104,9 +106,6 @@ export class CMSLibraryComponent implements OnInit {
     }
   })
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
-    
-    this.quizTabHit = false;
-    this.notifyType = 'assignedToCourse';
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {

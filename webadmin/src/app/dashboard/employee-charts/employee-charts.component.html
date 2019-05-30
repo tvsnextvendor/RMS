@@ -148,7 +148,13 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
               {{commonLabels.labels.badges}}</h6>
-             
+              <div class="badge-alg">
+                <p class="total-count">Total</p>
+                <p class="mb-0 ml-1">100</p>
+              </div>
+              <div class="donutchat-style">
+                <div *ngIf="dashboardVar.totalNoOfBadges" id="chartContainer" style="height: 200px; width: 335px"></div>
+              </div>
           </div>
         </div>
         <div class="col-md-8 p-0">

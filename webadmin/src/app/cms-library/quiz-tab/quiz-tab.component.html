@@ -3,7 +3,7 @@
         <form>
             <div class="col-md-9 row m-auto top-select-bx">
                 <span *ngIf="!directTabEnable" class="col-md-5 form-control" style="margin-right: 40px;"> {{courseName}}</span>
-                <span *ngIf="!directTabEnable" class="col-md-5 form-control"> {{trainingClassName}}</span>
+                <span *ngIf="!directTabEnable" class="col-md-5 form-control word-wrap"> {{trainingClassName}}</span>
                 <select *ngIf="directTabEnable" name="courseId" class="form-control col-md-5 pl-0 mr-5 select select-style clearfix" [(ngModel)] = "filterCourse" #course (change)="dropdownUpdate(course.value)">
                     <option [value]=null>{{commonLabels.labels.selectcourse}}</option>
                     <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}</option><div class="select_arrow"></div>
