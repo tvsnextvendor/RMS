@@ -35,7 +35,7 @@
             <li [ngClass]="(activeType == 'createclass') ? 'active' : ''">
                 <a (click)="pageRedirection('create','class')">{{commonLabels.labels.createClasses}}</a>
             </li>
-            <li [ngClass]="(activeType == 'createquiz') ? 'active' : ''">
+            <li [ngClass]="(activeType == 'createquiz') ? 'active' : ((activeType == '/createQuiz') ? 'active' : '')">
                 <a (click)="pageRedirection('create','quiz')">{{commonLabels.labels.createQuiz}}</a>
             </li>
             <li [ngClass]="(activeType == 'createcourse') ? 'active' : ''">

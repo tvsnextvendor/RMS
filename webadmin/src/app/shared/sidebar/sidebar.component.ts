@@ -30,17 +30,22 @@ export class SideBarComponent implements OnInit {
    currentUrl;
 
   ngOnInit() {
-       let role = this.utilservice.getRole();
-       if(role == 1){
-         this.networkAdmin = true;
-         this.peerAdmin = false;
-       }else{
-         this.peerAdmin = true;
-         this.networkAdmin =  false;
-       }
-       this.activatedRoute.queryParams.subscribe(params=>{
-         this.activeType = params.type+params.tab;
-       })
+    let role = this.utilservice.getRole();
+    if(role == 1){
+      this.networkAdmin = true;
+      this.peerAdmin = false;
+    }else{
+      this.peerAdmin = true;
+      this.networkAdmin =  false;
+    }
+    this.activatedRoute.queryParams.subscribe(params=>{
+      if(!Object.keys(params).length){
+        this.activeType = this.router.url;
+      } 
+      else{
+        this.activeType = params.type+params.tab;
+      }
+    })
   }
   ngDoCheck(){
     this.currentUrl = this.router.url;
