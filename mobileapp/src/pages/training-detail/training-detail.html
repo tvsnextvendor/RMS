@@ -34,10 +34,23 @@
             <p>{{Math.round(loadingBarWidth * (initial+1))}}<span>%</span></p>
         </span>
     </div>
-    <h6>{{setTraining.fileName}} <span class="view-button" *ngIf="imageType">
-        <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
-        (click)="viewContent(filePath)">View Content </a>
-    </span></h6>
+    
+    <ion-card-title ><ion-grid no-padding class="">
+
+            <ion-row>
+                <ion-col col-8>
+                    <h6>{{setTraining.fileName}} </h6>
+                </ion-col>
+                <ion-col col-4>
+                        <span class="view-button" *ngIf="imageType">
+                                <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
+                                (click)="viewContent(filePath)">View Content </a>
+                            </span>
+                </ion-col>
+            </ion-row>  
+        </ion-grid>
+    </ion-card-title>
+    
 
     <!-- <div class="checkbox-item clearfix" *ngIf="imageType">
         <label class="hole-cont mr-2">

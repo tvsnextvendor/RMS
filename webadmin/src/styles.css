@@ -1167,8 +1167,8 @@ a {
 /***********************End Module style***************/
 /*******************certificate*************/
 .certificate-list .owl-item {
-    width: 333px !important;
-    margin: 0 7px;
+    /* width: 333px !important; */
+    /* margin: 0 7px; */
     margin-bottom: 30px !important;
 }
 .certificate-list .owl-nav {

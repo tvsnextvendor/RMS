@@ -176,12 +176,16 @@ export class CertificatesComponent implements OnInit {
     }
 
     customOptions: any = {
-        loop: false,
+        loop: true,
         mouseDrag: true,
         touchDrag: true,
         pullDrag: false,
         dots: false,
         navSpeed: 700,
+        margin: 10,
+        width: 333,
+        item:3,
+        height:200,
         responsive: {
             0: {
                 items: 1
@@ -193,7 +197,7 @@ export class CertificatesComponent implements OnInit {
                 items: 3
             },
             921: {
-                items: 4
+                items: 3
             }
         },
         nav: true,

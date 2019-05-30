@@ -94,16 +94,19 @@ page-training {
 	line-height: 18px;
 	font-family: 'sf_pro_displayregular';
 }
-.card-title p.training-name {
+.card-title .training-name {
 	font-size: 15px;
-	color: #000;
+	color: #1d1d1d;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	font-family: 'sf_pro_displayregular';
+	font-weight: 600;
 }
 .card-content .training-desc {
-	color: #000;
+	color: #1d1d1d;
 	font-size: 12px;
+	font-family: 'sf_pro_displayregular';
 
 }
 .card-title p.training-name, .card-content .training-desc
