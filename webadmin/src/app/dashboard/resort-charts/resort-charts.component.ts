@@ -165,7 +165,7 @@ export class ResortChartsComponent implements OnInit {
           enabled: false
         },
         title : {
-           text: 'Total 100',
+           text: '',
            verticalAlign: 'middle',
            align: 'center',
            y: 40,
