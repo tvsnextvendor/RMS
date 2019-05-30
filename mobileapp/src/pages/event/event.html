@@ -21,8 +21,8 @@
     <ion-card *ngFor="let schedule of scheduleList;let i=index;" class="forum-card">
       <ion-grid>
         <ion-row (click)="openSubEvent(i)">
-          <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
-          <ion-col col-7 class="batch-date">{{schedule.assignedDate | date:'d MMM y'}}<span class="to-txt"> To </span>{{schedule.dueDate
+          <ion-col col-5 class="batch-name"><h4>{{schedule.name}}</h4></ion-col>
+          <ion-col col-6 class="batch-date">{{schedule.assignedDate | date:'d MMM y'}}<span class="to-txt"> To </span>{{schedule.dueDate
             | date:'d MMM y'}}
           </ion-col>
           <ion-col col-1 class="batch-icon">
