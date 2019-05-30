@@ -5,7 +5,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 //import { ForumDetailPage } from '../forum-detail/forum-detail';
 import { Storage } from '@ionic/storage';
-import { LoaderService, SocketService} from '../../service';
+import { SocketService} from '../../service';
 import * as moment from 'moment';
 
 @IonicPage({
@@ -14,7 +14,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'page-forum',
   templateUrl: 'forum.html',
-  providers: [Constant, SocketService]
+  providers: [Constant]
 })
 export class ForumPage implements OnInit {
   forumData: any = [];
@@ -26,7 +26,7 @@ export class ForumPage implements OnInit {
 
   @ViewChild(Content) content: Content;
 
-  constructor(public navCtrl: NavController,public storage: Storage,public socketService: SocketService,public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL, private loader: LoaderService) {
+  constructor(public navCtrl: NavController,public storage: Storage,public socketService: SocketService,public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL) {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForumPage');

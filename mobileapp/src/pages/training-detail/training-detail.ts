@@ -1,15 +1,12 @@
 import { Component, ViewChild, Input ,ElementRef} from '@angular/core';
-import { IonicPage,Platform, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
 import { Constant } from '../../constants/Constant.var';
 import {DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 import {ToastrService} from '../../service/toastrService';
-import {FileTransfer} from '@ionic-native/file-transfer/ngx';
-import {File} from '@ionic-native/file/ngx';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
-declare var cordova:any;
 
 @IonicPage({
     name: 'trainingdetail-page'

@@ -15,7 +15,6 @@ import { Calendar } from '@ionic-native/calendar';
 @Component({
   selector: 'page-event',
   templateUrl: 'event.html',
-  providers:[SocketService]
 })
 export class EventPage implements OnInit {
  tag: boolean = false;

@@ -21,7 +21,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'page-course',
   templateUrl: 'course.html',
-  providers: [Constant, SocketService]
+  providers: [Constant]
 
 })
 export class CoursePage implements OnInit {
