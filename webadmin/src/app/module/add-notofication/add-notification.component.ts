@@ -22,7 +22,7 @@ import{ CommonLabels }  from '../../Constants/common-labels.var'
 
 export class AddNotificationComponent implements OnInit {
     @Output() someEvent = new EventEmitter<string>();
-    @Input() notificationType;
+    // @Input() notificationType;
     @Output() completed = new EventEmitter<string>();
     durationValue = '1';
     reminder;
@@ -42,6 +42,8 @@ export class AddNotificationComponent implements OnInit {
     fileSize;
     fileImageDataPreview;
     notificationFileImage;
+    notificationType;
+    notifyType;
 
     constructor(public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
@@ -54,6 +56,7 @@ export class AddNotificationComponent implements OnInit {
         // let startDate = localStorage.getItem('BatchStartDate');
         this.batchVar.batchFrom = new Date();
         this.batchVar.batchTo = '';
+        this.batchVar.dategreater = true;
         const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
         this.moduleVar.selectedResort = resortId;
         this.getDropdownDetails(resortId,'init');
@@ -225,7 +228,8 @@ export class AddNotificationComponent implements OnInit {
     }
 
     submitNotification(){
-      if(this.fileName && this.notificationFileName && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchTo){
+      this.batchVar.dategreater = Date.parse(this.batchVar.batchTo) > Date.parse(this.batchVar.batchFrom) ? true : false;
+      if(this.fileName && this.notificationFileName && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchTo && this.batchVar.dategreater){ 
         let data = {
           "courseId":'',
           "trainingClassId":'',
@@ -273,6 +277,9 @@ export class AddNotificationComponent implements OnInit {
           })
         }
       }
+      else if(!this.batchVar.dategreater){
+        this.alertService.error(this.commonLabels.mandatoryLabels.dateLimitError)
+      }
       else{
         this.alertService.error(this.commonLabels.mandatoryLabels.permissionError)
       }
@@ -298,6 +305,7 @@ export class AddNotificationComponent implements OnInit {
         this.moduleVar.selectedEmployee = [];
         this.moduleVar.employeeList = [];
         this.moduleVar.departmentList = [];
+        this.notificationType = '';
     }
 
     courseSelect(event){
@@ -402,6 +410,19 @@ export class AddNotificationComponent implements OnInit {
 
     goTocmsLibrary(){
       this.completed.emit('completed'); 
+    }
+    notificationTypeUpdate(type){
+      this.notifyType = type;
+    }
+    notificationTypeSubmit(){
+      if(!this.notifyType){
+        this.alertService.error('Please select the notification type')
+      }
+      this.notificationType = this.notifyType;
+    }
+
+    back(){
+      this.router.navigate(['/cmspage'],{queryParams:{type:'create'}})
     }
 
 }

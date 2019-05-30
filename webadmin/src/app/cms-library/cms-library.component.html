@@ -12,7 +12,7 @@
         </ol>
     </nav>
 </div>
-<app-add-notification *ngIf="enableNotify && !enableBatch &&!showcreatecourse" notificationType="{{notificationValue}}" (someEvent)="closeModal()" (completed)="completed($event)"></app-add-notification>
+<app-add-notification *ngIf="enableNotify && !enableBatch &&!showcreatecourse" (someEvent)="closeModal()" (completed)="completed($event)"></app-add-notification>
 <app-add-batch *ngIf="enableBatch && !enableNotify && !showcreatecourse" [courseList]="this.selectedCourse" (someEvent)="hidePopup($event)" (completed)="completed($event)"></app-add-batch>
 <app-add-module *ngIf="showcreatecourse && !enableBatch && !enableNotify" (upload)="showUploadPage($event)" (completed)="completed($event)"  [addedFiles]="selectedVideoList"></app-add-module>   
 <div class="pt-2" *ngIf="!showcreatecourse && !enableNotify && !enableBatch"> 
@@ -107,22 +107,22 @@
             </button>
         </div>
         <div class="modal-body pt-0">
-        <div>
-            <p class="text-center table-desc-color">{{commonLabels.msgs.generalNotifi}}</p>
+            <div>
+                <p class="text-center table-desc-color">{{commonLabels.msgs.generalNotifi}}</p>
+            </div>
+            <div class="col-md-12 clearfix pt-2">
+                <label class="hole-cont mr-5">
+                    <input type="radio" name="assignedToCourse" [value]= '1' [checked]="notifyType == 'assignedToCourse' ? true : false"   (change)="notificationTypeUpdate('assignedToCourse')"/>{{this.commonLabels.labels.assignToCourse}}<span class="checkmark"></span></label>
+                <label class="hole-cont mr-5">
+                    <input type="radio" name="signature" [value]= '2' [checked]="notifyType == 'signature' ? true : false"  (change)="notificationTypeUpdate('signature')"/>{{this.commonLabels.labels.signature}}<span class="checkmark"></span></label>
+                <label class="hole-cont">
+                    <input type="radio" name="nonSignature" [value]= '3' [checked]="notifyType == 'nonSignature' ? true : false" (change)="notificationTypeUpdate('nonSignature')"/> {{this.commonLabels.labels.nonSignature}}<span class="checkmark"></span></label>
+            </div>
+            <div class="col-md-12 clearfix text-center py-3">
+                <button type="button" class="btn btn-primary creat-btn"  (click)="notificationType(createNotification)">{{commonLabels.btns.yes}}</button>
+                <!-- <button type="button" class="btn btn-default" (click)="notificationType(createNotification,'no')">{{commonLabels.btns.no}}</button>               -->
+            </div> 
         </div>
-        <div class="col-md-12 clearfix pt-2">
-            <label class="hole-cont mr-5">
-                <input type="radio" name="assignedToCourse" [value]= '1' [checked]="notifyType == 'assignedToCourse' ? true : false"   (change)="notificationTypeUpdate('assignedToCourse')"/>{{this.commonLabels.labels.assignToCourse}}<span class="checkmark"></span></label>
-            <label class="hole-cont mr-5">
-                <input type="radio" name="signature" [value]= '2' [checked]="notifyType == 'signature' ? true : false"  (change)="notificationTypeUpdate('signature')"/>{{this.commonLabels.labels.signature}}<span class="checkmark"></span></label>
-            <label class="hole-cont">
-                <input type="radio" name="nonSignature" [value]= '3' [checked]="notifyType == 'nonSignature' ? true : false" (change)="notificationTypeUpdate('nonSignature')"/> {{this.commonLabels.labels.nonSignature}}<span class="checkmark"></span></label>
-        </div>
-        <div class="col-md-12 clearfix text-center py-3">
-            <button type="button" class="btn btn-primary creat-btn"  (click)="notificationType(createNotification)">{{commonLabels.btns.yes}}</button>
-            <!-- <button type="button" class="btn btn-default" (click)="notificationType(createNotification,'no')">{{commonLabels.btns.no}}</button>               -->
-        </div> 
-    </div>
     </ng-template> 
 
 <ng-template #createNotification> 
