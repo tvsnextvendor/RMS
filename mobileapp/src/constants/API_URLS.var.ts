@@ -48,7 +48,8 @@ export class API_URL {
        'comment': '8104/comment',
        'appFeedback' : '8103/applicationFeedback',
        'dashboardSchedules':'8103/getScheduleExpireList',
-       'dashboardCount':'8103/getDashboardCount'
+       'dashboardCount':'8103/getDashboardCount',
+       'certificates' : '8104/getUserCertificates'
        
     };
 }

@@ -6,7 +6,7 @@ import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
-import { LoaderService, SocketService } from '../../service';
+import { LoaderService, SocketService, SanitizeHtmlPipe } from '../../service';
 
 @IonicPage({
   name: 'accomplishment-page'
@@ -52,12 +52,13 @@ export class AccomplishmentPage implements OnInit {
             if (user) {
              self.currentUser = user;
               this.getNotification();
+              this.userCertificates();
             }
         });
   }
 
   ionViewDidEnter() {
-    this.getCertificates();
+    //this.getCertificates();
   }
   onSlideCertChanged() {
     this.certNavigationButton();
@@ -111,22 +112,29 @@ export class AccomplishmentPage implements OnInit {
     this.modalRef = this.modalService.show(certificatetemplate);
     this.certificateDetail = item;
     this.modalRef.setClass('certificate-popup');
-
   }
   openBadgeModal(badgetemplate: TemplateRef<any>, item) {
     this.modalRef = this.modalService.show(badgetemplate);
     this.badgeDetails = item;
     this.modalRef.setClass('badge-popup');
   }
-  getCertificates() {
-    this.loader.showLoader();
-    this.http.getData(API_URL.URLS.getCertificates).subscribe((data) => {
-      this.loader.hideLoader();
-      if (data['isSuccess']) {
-        this.certificateList = data['certificateList'];
-        this.badgeList = data['badgeList'];
+  // getCertificates() {
+  //   this.loader.showLoader();
+  //   this.http.getData(API_URL.URLS.getCertificates).subscribe((data) => {
+  //     this.loader.hideLoader();
+  //     if (data['isSuccess']) {
+  //       this.certificateList = data['certificateList'];
+  //       this.badgeList = data['badgeList'];
+  //     }
+  //   });
+  // }
+
+  userCertificates(){
+    this.http.get(API_URL.URLS.certificates+'?userId='+this.currentUser.userId).subscribe((res)=>{
+      if(res['isSuccess']){
+         this.certificateList = res['data'];
       }
-    });
+    })
   }
   
   goToNotification() {

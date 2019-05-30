@@ -18,11 +18,8 @@
   </ion-header>
   <div class="main-content">
     <div class="current-day">
-      <h3> {{constant.pages.dashboardLabels.goodMrng}}, Vernon</h3>
-      <!-- <p class="day-detail">
-              {{currentdate}}
-            </p> -->
-      <p class="m-0"><span class="day-detail">Thursday, Jan 10 </span></p>
+      <h3 *ngIf="currentUser">{{constant.pages.dashboardLabels.goodMrng}}, {{currentUser.userName}}</h3>
+      <p class="m-0"><span class="day-detail">{{todayDate | date :'E, MMM dd'}} </span></p>
       <p class="weather-status"><img class="weather-img" src="assets/imgs/cool.png" />
         <span class="weather-sts">-4<sup>&#8728;</sup> C</span></p> 
     </div>
@@ -31,137 +28,83 @@
         <ion-col col-4 col-md-4>
           <div class="status-block">
             <div class="expire-circle circle-style">
-              <h4 class="status-title">4</h4>
+              <h4 class="status-title">{{dashboardCount.courseExpire}}</h4>
             </div>
 
-            <p class="course-sec">Courses Expiring</p>
+            <p class="course-sec">{{constant.pages.dashboardLabels.courseExpiring}}</p>
 
           </div>
         </ion-col>
         <ion-col col-4 col-md-4>
           <div class="assign-box sts-style">
             <div class="blue-circle  circle-style">
-              <h4 class="status-title">5</h4>
+              <h4 class="status-title">{{dashboardCount.signatureReq}}</h4>
             </div>
 
-            <p class="course-sec">Signature Required</p>
+            <p class="course-sec">{{constant.pages.dashboardLabels.signatureRequired}}</p>
 
           </div>
         </ion-col>
         <ion-col col-4 col-md-4>
           <div class="assign-box sts-style">
             <div class="green-circle  circle-style">
-              <h4 class="status-title">3</h4>
+              <h4 class="status-title">{{dashboardCount.generalNotification}}</h4>
             </div>
 
-            <p class="course-sec">General Notifications</p>
+            <p class="course-sec">{{constant.pages.dashboardLabels.generalNotifications}}</p>
 
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-
-      <ion-list>
-        <ion-card class="forum-card">
+      <ion-list *ngIf="dashboardInfo">
+        <ion-card class="forum-card" *ngFor="let schedule of dashboardInfo">
           <ion-grid>
-            <ion-row>
-              <ion-col col-4 class="batch-name">Schedule 1</ion-col>
+            <ion-row (click)="hideShowDesc(schedule)">
+              <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
               <ion-col col-7 class="batch-date">
-                28 Dec 2018
-                <!-- {{batch.BatchStart | date:'d MMM y'}} -->
+                {{schedule.assignedDate | date:'dd MMM yyyy'}}
                 <span class="to-txt"> To </span>
-                11 Jan 2019
-                <!-- {{batch.BatchEnd| date:'d MMM y'}} -->
+                 {{schedule.dueDate | date:'dd MMM yyyy'}}
               </ion-col>
               <ion-col col-1 class="batch-icon">
-                <!-- <ion-icon name="ios-arrow-forward" ></ion-icon> -->
                 <ion-icon name="ios-arrow-down"></ion-icon>
               </ion-col>
             </ion-row>
-            <ion-row>
+            <div *ngIf="schedule.isActive">
+            <ion-row *ngFor="let data of schedule.Resorts">
               <ion-col col-6 class="course-count">
-                <p>Course 1</p>
-                <p>4 Training Classes</p>
+                <p>{{data.Course.courseName}}</p>
+                <p>{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}} </p>
               </ion-col>
               <ion-col col-6>
-                <div class="expires org-color"><span class="aligtxt">Will expire in 1 day</span></div>
-                <!-- <div class="average orange-color" *ngIf="batch.retakeCourse"><span class="aligtxt"> Avg Score
-                          {{batch.Score}}% <br>
-                          <ion-icon name="md-refresh"></ion-icon>Retake Course
-                        </span></div>
-                      <div class="completed green-color" *ngIf="batch.activeCompleteStatus"><span class="aligtxt"><img src="../assets/imgs/completed.png" class="completed-img" />{{batch.CourseStatus}}</span></div> -->
+                <div class="expires org-color"><span class="aligtxt">{{constant.pages.dashboardLabels.expire}}  {{calculateExpireDays(schedule.dueDate)}}</span></div>
               </ion-col>
             </ion-row>
-          </ion-grid>
-        </ion-card>
-
-
-
-        <ion-card class="forum-card">
-          <ion-grid>
-            <ion-row>
-              <ion-col col-4 class="batch-name">Schedule 1</ion-col>
-              <ion-col col-7 class="batch-date">
-                1 Dec 2018
-
-                <span class="to-txt"> To </span>
-                12 Dec 2018
-
-              </ion-col>
-              <ion-col col-1 class="batch-icon">
-                <!-- <ion-icon name="ios-arrow-forward" ></ion-icon> -->
-                <ion-icon name="ios-arrow-down"></ion-icon>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col col-6 class="course-count">
-                <p>Course 1</p>
-                <p>4 Training Classes</p>
-              </ion-col>
-              <ion-col col-6>
-                <div class="expires org-color"><span class="aligtxt">Will expire in 2 days</span></div>
-
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card>
-        <ion-card class="forum-card">
-          <ion-grid>
-            <ion-row>
-              <ion-col col-4 class="batch-name">Schedule 1</ion-col>
-              <ion-col col-7 class="batch-date">
-                1 Apr 2019
-
-                <span class="to-txt"> To </span>
-                12 Apr 2019
-
-              </ion-col>
-              <ion-col col-1 class="batch-icon">
-                <!-- <ion-icon name="ios-arrow-forward" ></ion-icon> -->
-                <ion-icon name="ios-arrow-down"></ion-icon>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col col-6 class="course-count">
-                <p>Course 1</p>
-                <p>4 Training Classes</p>
-              </ion-col>
-              <ion-col col-6>
-                <div class="expires org-color"><span class="aligtxt">Will expire in 12 days</span></div>
-              </ion-col>
-            </ion-row>
+            </div>
           </ion-grid>
         </ion-card>
       </ion-list>
+      <ion-row *ngIf=" dashboardInfo.length == 0">
+      <ion-col class="main-forum">
+        <ion-card class="forum-card">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>{{constant.pages.dashboardLabels.noData}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+      </ion-row>
   </div>
 </ion-content>
 <section class="tab-footer">
 <div class="tab-foot-bg">
 <ul class="clearfix">
-    <li ><span class="active-color">Assigned</span></li>
+    <li ><span (click)="changeStatus('assigned')"  [ngClass]="status == 'assigned' ? 'active-color' : ''" >{{constant.pages.dashboardLabels.assignedLabel}}</span></li>
     <li><span>|</span></li>
-    <li><span>In Progress</span></li>
+    <li><span (click)="changeStatus('inProgress')" [ngClass]="status == 'inProgress' ? 'active-color' : ''">{{constant.pages.dashboardLabels.progressLabel}}</span></li>
 </ul>
 </div>
 </section>

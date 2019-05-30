@@ -101,7 +101,13 @@ export class Constant {
             accomplishments: 'Accomplishments',
             certificatesObtained: 'Certificates Obtained',
             badgesObtained: 'Badges Obtained',
-            complete: 'Complete'
+            complete: 'Complete',
+            courseExpiring:'Courses Expiring',
+            signatureRequired: 'Signature Required',
+            generalNotifications: 'General Notifications',
+            trainingClasses :'Training Classes',
+            expire: 'Will expire in',
+            noData:'No Expiring Training Schedules Found'
 
         },
         trainingLabels: {
