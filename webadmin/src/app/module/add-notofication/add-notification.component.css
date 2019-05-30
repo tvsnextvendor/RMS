@@ -132,4 +132,6 @@
     .select-style select:hover, .select-style select:focus{
         background: unset;
     }
-   
+   .arrow-align{
+       line-height: 30px;
+   }

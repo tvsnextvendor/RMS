@@ -6,26 +6,29 @@
         </ol>
     </nav>
 </div>
-<div class="white-bg p-4">
+<div class="pt-3">
 <div class="clearfix">
     <h4 class="add-notify">{{commonLabels.btns.createNotification}}</h4>
 </div>
-<div class="modal-body pt-0" *ngIf="!notificationType">
-        <div>
+<div class="modal-body p-0" *ngIf="!notificationType">
+        <!-- <div>
             <p class="text-center table-desc-color">{{commonLabels.msgs.generalNotifi}}</p>
+        </div> -->
+        <div class="row">
+            <div class="white-bg col-md-12 mb-3 p-3 cp"><label class="hole-cont mb-0">
+                <input type="radio" name="assignedToCourse" [value]= '1' [checked]="notifyType == 'assignedToCourse' ? true : false"   (change)="notificationTypeUpdate('assignedToCourse')"/>{{this.commonLabels.labels.assignToCourse}}<span class="checkmark"></span>
+            </label><span class="float-right"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></span></div>
+            <div class="white-bg col-md-12 mb-3 p-3 cp"><label class="hole-cont mb-0">
+                <input type="radio" name="signature" [value]= '2' [checked]="notifyType == 'signature' ? true : false"  (change)="notificationTypeUpdate('signature')"/>{{this.commonLabels.labels.signature}}<span class="checkmark"></span>
+            </label><span class="float-right"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></span></div>
+                <div class="white-bg col-md-12 mb-3 p-3 cp"><label class="hole-cont mb-0">
+                <input type="radio" name="nonSignature" [value]= '3' [checked]="notifyType == 'nonSignature' ? true : false" (change)="notificationTypeUpdate('nonSignature')"/> {{this.commonLabels.labels.nonSignature}}<span class="checkmark"></span>
+            </label><span class="float-right"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></span></div>
         </div>
-        <div class="col-md-12 clearfix pt-2">
-            <label class="hole-cont mr-5">
-                <input type="radio" name="assignedToCourse" [value]= '1' [checked]="notifyType == 'assignedToCourse' ? true : false"   (change)="notificationTypeUpdate('assignedToCourse')"/>{{this.commonLabels.labels.assignToCourse}}<span class="checkmark"></span></label>
-            <label class="hole-cont mr-5">
-                <input type="radio" name="signature" [value]= '2' [checked]="notifyType == 'signature' ? true : false"  (change)="notificationTypeUpdate('signature')"/>{{this.commonLabels.labels.signature}}<span class="checkmark"></span></label>
-            <label class="hole-cont">
-                <input type="radio" name="nonSignature" [value]= '3' [checked]="notifyType == 'nonSignature' ? true : false" (change)="notificationTypeUpdate('nonSignature')"/> {{this.commonLabels.labels.nonSignature}}<span class="checkmark"></span></label>
-        </div>
-        <div class="col-md-12 clearfix text-center py-3">
+        <!-- <div class="col-md-12 clearfix text-center py-3">
             <button type="button" class="btn btn-primary creat-btn"  (click)="notificationTypeSubmit()">{{commonLabels.btns.yes}}</button>
-            <!-- <button type="button" class="btn btn-default" (click)="notificationType(createNotification,'no')">{{commonLabels.btns.no}}</button>               -->
-        </div> 
+            <button type="button" class="btn btn-default" (click)="notificationType(createNotification,'no')">{{commonLabels.btns.no}}</button>              
+        </div>  -->
     </div>
 <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)" *ngIf="notificationType">
     <div class="notification-box">
