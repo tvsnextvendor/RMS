@@ -17,13 +17,13 @@
         <div class="row">
             <div class="white-bg col-md-12 mb-3 p-3 cp"><label class="hole-cont mb-0">
                 <input type="radio" name="assignedToCourse" [value]= '1' [checked]="notifyType == 'assignedToCourse' ? true : false"   (change)="notificationTypeUpdate('assignedToCourse')"/>{{this.commonLabels.labels.assignToCourse}}<span class="checkmark"></span>
-            </label><span class="float-right"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></span></div>
+            </label><button [disabled] = "notifyType != 'assignedToCourse'" class="float-right btn btn-link" (click)="notificationTypeSubmit()"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></button></div>
             <div class="white-bg col-md-12 mb-3 p-3 cp"><label class="hole-cont mb-0">
                 <input type="radio" name="signature" [value]= '2' [checked]="notifyType == 'signature' ? true : false"  (change)="notificationTypeUpdate('signature')"/>{{this.commonLabels.labels.signature}}<span class="checkmark"></span>
-            </label><span class="float-right"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></span></div>
+            </label><button [disabled] = "notifyType != 'signature'" class="float-right btn btn-link"  (click)="notificationTypeSubmit()"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></button></div>
                 <div class="white-bg col-md-12 mb-3 p-3 cp"><label class="hole-cont mb-0">
                 <input type="radio" name="nonSignature" [value]= '3' [checked]="notifyType == 'nonSignature' ? true : false" (change)="notificationTypeUpdate('nonSignature')"/> {{this.commonLabels.labels.nonSignature}}<span class="checkmark"></span>
-            </label><span class="float-right"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></span></div>
+            </label><button [disabled] = "notifyType != 'nonSignature'" class="float-right btn btn-link"  (click)="notificationTypeSubmit()"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></button></div>
         </div>
         <!-- <div class="col-md-12 clearfix text-center py-3">
             <button type="button" class="btn btn-primary creat-btn"  (click)="notificationTypeSubmit()">{{commonLabels.btns.yes}}</button>
