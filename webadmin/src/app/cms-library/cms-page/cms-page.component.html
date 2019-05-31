@@ -1,5 +1,5 @@
 <div class="row px-5">
-    <div class="col-md-6">
+    <div class="col-md-6 pb-1">
         <div class="white-bg py-3">
           <h5 class="text-center">{{commonLabels.labels.createNewClass}}</h5>
           <div class="row py-3">
@@ -11,15 +11,12 @@
             </div>
           </div>
           <div class="col-md-12 text-center px-5">
-
               <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn" (click)="pageRedirection('create','class')">{{commonLabels.btns.start}}</button>
-              <button *ngIf="urlType == 'edit'"  class="btn btn-primary start-btn" (click)="pageRedirection('edit','class')">{{commonLabels.btns.start}}</button>
-
-             
+              <button *ngIf="urlType == 'edit'"  class="btn btn-primary start-btn" (click)="pageRedirection('edit','class')">{{commonLabels.btns.start}}</button>            
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 pb-1">
           <div class="white-bg py-3">
             <h5 class="text-center">{{commonLabels.labels.createNewQuiz}}</h5>
             <div class="row py-3">
@@ -30,17 +27,13 @@
               </div>
             </div>
             <div class="col-md-12 text-center px-5">
-
                 <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn" (click)="pageRedirection('create','quiz')">{{commonLabels.btns.start}}</button>
-                <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn" (click)="pageRedirection('edit','quiz')">{{commonLabels.btns.start}}</button>
-
-                
+                <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn" (click)="pageRedirection('edit','quiz')">{{commonLabels.btns.start}}</button>         
             </div>
           </div>
         </div>
-      </div>
-<div class="row px-5 pt-4">
-  <div class="col-md-6">
+    
+  <div class="col-md-6 pt-4">
     <div class="white-bg py-3">
       <h5 class="text-center">{{commonLabels.labels.createNewCourse}}</h5>
       <div class="row py-3">
@@ -52,14 +45,11 @@
         </div>
       </div>
       <div class="col-md-12 text-center px-5">
-
           <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn" (click)="pageRedirection('create','course')">{{commonLabels.btns.start}}</button>
-          <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn" (click)="pageRedirection('edit','course')">{{commonLabels.btns.start}}</button>
-
-      </div>
+          <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn" (click)="pageRedirection('edit','course')">{{commonLabels.btns.start}}</button>     </div>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 pt-4">
     <div class="white-bg py-3">
       <h5 class="text-center">{{commonLabels.labels.createNewNotif}}</h5>
       <div class="row py-3">
@@ -70,14 +60,10 @@
           </div>
       </div>
       <div class="col-md-12 text-center px-5">
-
           <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn" (click)="pageRedirection('create','notification')">{{commonLabels.btns.start}}</button>
-          <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn" (click)="pageRedirection('edit','notification')">{{commonLabels.btns.start}}</button>
-
-    
-
-      </div>
+          <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn" (click)="pageRedirection('edit','notification')">{{commonLabels.btns.start}}</button>        </div>
     </div>
   </div>
-  </div>
+</div>
+  
   
