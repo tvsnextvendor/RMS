@@ -31,6 +31,11 @@ export class SettingsPage implements OnInit {
   showPasswordChange: boolean = true;
   errorMessage = '';
   @ViewChild(Content) content: Content;
+  showToastr: boolean = false;
+  className;
+  msgTitle;
+  msgDes;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public toastr: ToastrService, public auth: AuthProvider, private http: HttpProvider, private storage: Storage) {
   }
   ionViewDidLoad() {
@@ -47,10 +52,20 @@ export class SettingsPage implements OnInit {
     });
     this.getUser();
   }
+  successMessage(msg){
+    this.showToastr = true;
+    this.className = "notify-box alert alert-success";
+    this.msgTitle = "Success";
+    this.msgDes = msg ;
+    let self = this;
+    setTimeout(function(){ 
+      self.showToastr = false;
+      self.navCtrl.setRoot('home-page');
+      }, 3000); 
+  }
   submit() {
     this.errorMessage = '';
     if (this.setting.newpassword !== this.setting.confirmpassword) {
-     // this.toastr.error("Password Mismatch"); return false;
       this.errorMessage = "Password Mismatch";
     }else {
       let postData={
@@ -63,8 +78,9 @@ export class SettingsPage implements OnInit {
       }
       this.http.put(false, API_URL.URLS.updateSettings, postData).subscribe(res=>{
         if(res['isSuccess']){
-          this.toastr.success(res['message']);
-           this.navCtrl.setRoot('home-page');
+          this.successMessage(res['message']);
+        //  this.toastr.success(res['message']);
+           
         }
       },(err)=>{
         this.toastr.error(err.error.error);
