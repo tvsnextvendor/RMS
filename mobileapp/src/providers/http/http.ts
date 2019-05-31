@@ -41,7 +41,7 @@ export class HttpProvider {
 
  private formatErrors(error: any) {   
    if(error.status === 403 || error.status === 401){
-			    this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
+			   // this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
           this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
 			}else{
 			 return  throwError(error.error);

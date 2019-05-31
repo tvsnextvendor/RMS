@@ -20,7 +20,7 @@ export class AccomplishmentPage implements OnInit {
 
   @ViewChild('sliderOne') sliderOne: Slides;
   @ViewChild('sliderTwo') sliderTwo: Slides;
-  constructor(public navCtrl: NavController,public storage:Storage,public socketService: SocketService,public navParams: NavParams, public constant: Constant, private modalService: BsModalService, private http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {
+  constructor(public navCtrl: NavController, public storage: Storage, public socketService: SocketService, public navParams: NavParams, public constant: Constant, private modalService: BsModalService, private http: HttpProvider, public API_URL: API_URL, public loader: LoaderService, public sanitizeHtml: SanitizeHtmlPipe) {
 
   }
   modalRef: BsModalRef;
@@ -47,14 +47,14 @@ export class AccomplishmentPage implements OnInit {
   }
 
   ngAfterViewInit() {
-            let self = this;
-            this.storage.get('currentUser').then((user: any) => {
-            if (user) {
-             self.currentUser = user;
-              this.getNotification();
-              this.userCertificates();
-            }
-        });
+    let self = this;
+    this.storage.get('currentUser').then((user: any) => {
+      if (user) {
+        self.currentUser = user;
+        this.getNotification();
+        this.userCertificates();
+      }
+    });
   }
 
   ionViewDidEnter() {
@@ -98,14 +98,14 @@ export class AccomplishmentPage implements OnInit {
     }
   }
 
-   getNotification(){
+  getNotification() {
     let userId = this.currentUser.userId;
     let socketObj = {
-      userId : userId
+      userId: userId
     };
-   this.socketService.getNotification(socketObj).subscribe((data)=>{
-       this.notificationCount = data['unReadCount'];
-   });
+    this.socketService.getNotification(socketObj).subscribe((data) => {
+      this.notificationCount = data['unReadCount'];
+    });
   }
 
   openModal(certificatetemplate: TemplateRef<any>, item) {
@@ -128,20 +128,19 @@ export class AccomplishmentPage implements OnInit {
   //     }
   //   });
   // }
-
-  userCertificates(){
-    this.http.get(API_URL.URLS.certificates+'?userId='+this.currentUser.userId).subscribe((res)=>{
-      if(res['isSuccess']){
-         this.certificateList = res['data'];
+  userCertificates() {
+    this.http.get(API_URL.URLS.certificates + '?userId=' + this.currentUser.userId).subscribe((res) => {
+      if (res['isSuccess']) {
+        this.certificateList = res['data'];
+        console.log(this.certificateList);
+       
       }
     })
   }
-  
   goToNotification() {
     this.navCtrl.setRoot('notification-page');
   }
-
-   goToForum(){
-     this.navCtrl.setRoot('forum-page');
+  goToForum() {
+    this.navCtrl.setRoot('forum-page');
   }
 }

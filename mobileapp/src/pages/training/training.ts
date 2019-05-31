@@ -68,9 +68,8 @@ export class TrainingPage {
     this.allProgramsProgressCourses = [];
     this.allProgramsCompletedCourses = [];
     this.selectedModule = this.constant.pages.dashboardLabels.selectModules;
-
     this.showData(this.statusKey);
-    this.getCousesList();
+    //this.getCousesList();
     this.getModules();
     this.getCourseTrainingClasses();
   }
@@ -84,16 +83,16 @@ export class TrainingPage {
           this.userCompleted = this.userInformation.completedCourses;
           resolve('resolved');
         }, (err) => {
-          console.log('error occured', err);
+          console.log('error occured userDashboardInfo empty', err);
           resolve('rejected');
         });
     });
   }
-  getCourseTrainingClasses(){
-    let courseId = this.courseIdParams;
+  getCourseTrainingClasses() {
+   // let courseId = this.courseIdParams;
     let self = this;
     return new Promise(resolve => {
-      this.http.get(API_URL.URLS.trainingCourseFilesAPI+'?courseId='+courseId).subscribe((res) => {
+      this.http.get(API_URL.URLS.trainingCourseFilesAPI + '?courseId=' + self.courseIdParams).subscribe((res) => {
         self.allTrainingClasses = res['data']['rows'];
         self.allTrainingClassesCount = res['data']['count'];
         self.uploadPath = res['data']['uploadPaths']['uploadPath'];
@@ -110,10 +109,10 @@ export class TrainingPage {
 
   }
 
-  goToForum(){
-     this.navCtrl.setRoot('forum-page');
+  goToForum() {
+    this.navCtrl.setRoot('forum-page');
   }
-  
+
   getCoursesSeparate() {
     return new Promise(resolve => {
       this.http.getData(API_URL.URLS.getCourses).subscribe((data) => {
@@ -185,7 +184,7 @@ export class TrainingPage {
     });
   }
   //open  page
-  openTrainingDetail(detailObj, selectedIndex, status,uploadPath) {
+  openTrainingDetail(detailObj, selectedIndex, status, uploadPath) {
     //alert(uploadPath);
     this.paramsData['status'] = status;
     this.paramsData['setData'] = detailObj;
@@ -197,8 +196,8 @@ export class TrainingPage {
   //getcourse 
   async getCousesList() {
     this.loader.showLoader();
-    await this.getLocalStorageInfo();
-    await this.getCoursesSeparate();
+    // await this.getLocalStorageInfo();
+    //await this.getCoursesSeparate();
     this.loader.hideLoader();
   }
   changeModule(list) {

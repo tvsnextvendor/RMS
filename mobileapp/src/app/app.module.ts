@@ -16,7 +16,7 @@ import { API_URL } from '../constants/API_URLS.var';
 import { MyApp } from './app.component';
 import { HttpProvider } from '../providers/http/http';
 import { AuthProvider } from '../providers/auth/auth';
-import { LoaderService, ToastrService, SocketService, CommonService } from '../service';
+import { LoaderService, ToastrService, SocketService, CommonService,SanitizeHtmlPipe } from '../service';
 
 
 @NgModule({
@@ -73,7 +73,8 @@ import { LoaderService, ToastrService, SocketService, CommonService } from '../s
     GooglePlus,
     LinkedIn,
     Calendar,
-    DocumentViewer
+    DocumentViewer,
+    SanitizeHtmlPipe
   ]
 })
 export class AppModule { }
