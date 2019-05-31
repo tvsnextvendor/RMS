@@ -77,9 +77,9 @@ export class VideosTrendComponent implements OnInit {
         const courseTrendObj = {
             year : this.trendsVar.years,
             month : this.trendsVar.months,
-            resortId : this.resortId
         };
-        this.commonService.getCourseTrendList(courseTrendObj).subscribe((result) => {
+        let query = this.resortId ? '&resortId='+this.resortId : '';
+        this.commonService.getCourseTrendList(courseTrendObj,query).subscribe((result) => {
           this.trendsVar.moduleList = result.data.rows;
         });
     }
