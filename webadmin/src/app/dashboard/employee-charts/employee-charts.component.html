@@ -230,13 +230,35 @@
               
           </div>
         </div>
-        <div class="col-md-4 p-0">
-          <div class=" chart-bg p-2" style=" height: 275px">            
+        <div class="col-md-4 pl-0">
+            <div class=" chart-bg p-2" style=" height: 275px">
+              <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
+                {{commonLabels.labels.topResorts}}<span class="float-right"><a class="view-alg" routerLink="/resortList">View All</a></span></h6>
+                <div class="custom-table resort">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="sub-rest">Sub-Resort</th>
+                    <th class="total-course">Total no of course</th>
+                  </tr>
+                </thead>
+                <tbody class="top-employee-height">
+                  <tr *ngFor ="let resort of resortDetails">
+                    <td>{{resort.resortName}}</td>
+                    <td class="course-count">{{resort.totalCourses}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            </div>
+          </div>
+        <!-- <div class="col-md-4 p-0"> -->
+          <!-- <div class=" chart-bg p-2" style=" height: 275px">            
               <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                 {{commonLabels.labels.topResorts}}</h6>
              
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
     </div>     
 
       </div>

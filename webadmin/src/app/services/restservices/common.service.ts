@@ -15,7 +15,10 @@ export class CommonService {
        this.url = API_URL.URLS;
   }
   getResortName() {
-    return localStorage.getItem("resortName");
+    
+    let resortName = localStorage.getItem("resortName") != '0' ? localStorage.getItem("resortName") : 'Network Admin';
+  // console.log(localStorage.getItem("resortName"))
+    return resortName;
     }
 
  getDivisionList(){
@@ -113,28 +116,28 @@ getAssignCertificate(id){
   return this.http.getLocal('local',this.url.getAssignCertificate+'?resortId='+id);
 }
 
-getTotalCount(resortId) {
-  return this.http.getLocal('local', this.url.totalCount + '?resortId=' + resortId);
+getTotalCount(query) {
+  return this.http.getLocal('local', this.url.totalCount + query);
 }
 
-getTotalCourse(resortId) {
-  return this.http.getLocal('local', this.url.totalCourse + '?resortId=' + resortId);
+getTotalCourse(query) {
+  return this.http.getLocal('local', this.url.totalCourse + query);
 }
 
-getTopRatedTrainingClasses(resortId) {
-  return this.http.getLocal('local', this.url.ratedTrainingClasses + '?resortId=' + resortId);
+getTopRatedTrainingClasses(query) {
+  return this.http.getLocal('local', this.url.ratedTrainingClasses + query);
 }
 
-getCourseTrend(courseTrendObj) {
-  return this.http.getLocal('local', this.url.getCourseTrend + '?year=' + courseTrendObj.year + '&resortId=' + courseTrendObj.resortId);
+getCourseTrend(courseTrendObj,query) {
+  return this.http.getLocal('local', this.url.getCourseTrend + '?year=' + courseTrendObj.year + query);
 }
 
-getCourseTrendList(courseTrendObj) {
-  return this.http.getLocal('local', this.url.getCourseTrendList + '?year=' + courseTrendObj.year + '&resortId=' + courseTrendObj.resortId + '&month=' + courseTrendObj.month);
+getCourseTrendList(courseTrendObj,query) {
+  return this.http.getLocal('local', this.url.getCourseTrendList + '?year=' + courseTrendObj.year + query + '&month=' + courseTrendObj.month);
 }
 
-getCourseEmployeeList(resortId, courseId) {
-  return this.http.getLocal('local', this.url.getCourseEmployeeList + '?resortId=' + resortId + '&courseId=' + courseId);
+getCourseEmployeeList(query, courseId) {
+  return this.http.getLocal('local', this.url.getCourseEmployeeList + query + '&courseId=' + courseId);
 }
 
 getTopFiveResort(query){
@@ -149,8 +152,8 @@ resetPassword(params){
   return this.http.reset('local', this.url.resetPassword, params);
 }
 
-getBadges(resortId) {
-  return this.http.getLocal('local', this.url.badgesData + '?resortId=' + resortId);
+getBadges(query) {
+  return this.http.getLocal('local', this.url.badgesData + query);
 }
 
 

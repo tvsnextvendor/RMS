@@ -247,7 +247,7 @@ export class CommonLabels{
         "feedbackRating"    :   "Feedback & Rating",
         "visitorsByResort"  :   "Visitors By Resort",
         "reservationByResort":  "Reservation By Resort",
-        "topResorts"        :   "Top 10 Resorts",
+        "topResorts"        :   "Top 5 Resorts",
         "badges"            :   "Badges",
         "certification"     :   "Certification",
         "totalDivision"     :   "Total Division",

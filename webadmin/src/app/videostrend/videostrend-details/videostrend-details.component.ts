@@ -32,7 +32,8 @@ export class VideosTrendDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.headerService.setTitle({ title: this.commonLabels.titles.courseTrend, hidemodule: false });
-        this.commonService.getCourseEmployeeList(this.resortId, this.trendsVar.videoId).subscribe((result) => {
+        let query =  this.resortId  ? '?resortId='+this.resortId : '';
+        this.commonService.getCourseEmployeeList(query, this.trendsVar.videoId).subscribe((result) => {
             if  (result && result.isSuccess) {
                 this.trendsVar.employeeList = result.data.rows;
             }
