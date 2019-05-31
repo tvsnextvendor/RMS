@@ -524,6 +524,7 @@ h5{
 }
 .mandatory-color{
   color: #f10606;
+  padding-left: 2px;
 }
 .notification-alg{
   color: #7a8996;
