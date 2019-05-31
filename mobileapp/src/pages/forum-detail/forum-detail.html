@@ -20,6 +20,12 @@
     </ion-segment>
   </div>
 </ion-header>
+<div class={{className}} *ngIf="showToastr">
+    <div class="notify-inset">
+    <h6>{{msgTitle}}</h6>
+    <p>{{msgDes}}</p>
+    </div>
+    </div>
 <div class="main-content">
   <div [ngSwitch]="forumTopics">
     <ion-list *ngSwitchCase="'mostRecent'">
@@ -29,7 +35,7 @@
             <ion-grid>
               <ion-row>
                 <ion-col col-2 class="img-block"  (click)="hideShowDesc(list,j)">
-                  <img src="assets/imgs/profile_circle.png" class="forum-img">
+                  <img src="assets/imgs/quest-mark.png" class="forum-img">
                 </ion-col>
                 <ion-col col-7  (click)="hideShowDesc(list,j)">
                   <h4 class="forum-title">{{list.description}}</h4>
