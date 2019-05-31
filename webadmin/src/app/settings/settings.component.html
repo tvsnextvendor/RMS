@@ -5,7 +5,7 @@
         <form #formDir="ngForm" (ngSubmit)="updatePwd(formDir)" class="p-4" autocomplete="off">
             <div class="form-group row">
                 <label for="oldPassword" class="col-sm-5 custm-label col-form-label pr-0">{{commonLabels.labels.oldPassword}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
-                <div class="col-sm-7 pl-0">
+                <div class="col-sm-7">
                     <input type="password" class="form-control" id="oldPwd" name="oldPwd" [(ngModel)]="constant.settings.oldPwd"
                         #oldPwd="ngModel" required placeholder="Old Password" minlength="8" maxlength="12" autocomplete="off">
                     <div class="required_color" *ngIf="oldPwd?.touched && oldPwd.invalid || (oldPwd.pristine && oldPwd.submitted)">
@@ -19,7 +19,7 @@
             </div>
             <div class="form-group row">
                 <label for="newPassword" class="col-sm-5 custm-label col-form-label pr-0">{{commonLabels.labels.newPassword}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
-                <div class="col-sm-7 pl-0">
+                <div class="col-sm-7">
                     <input type="password" class="form-control" id="newPwd" name="newPwd" [(ngModel)]="constant.settings.newPwd"
                         #newPwd="ngModel" required placeholder="New Password" minlength="8" maxlength="12" autocomplete="off">
                     <div class="required_color" *ngIf="newPwd?.touched && newPwd.invalid || (newPwd.pristine && newPwd.submitted)">
@@ -32,7 +32,7 @@
             </div>
             <div class="form-group row">
                 <label for="confirmPassword" class="col-sm-5 custm-label col-form-label pr-0">{{commonLabels.labels.confirmPassword}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
-                <div class="col-sm-7 pl-0">
+                <div class="col-sm-7">
                     <input type="password" class="form-control" id="confirmPwd" name="confirmPwd" [(ngModel)]="constant.settings.confirmPwd"
                         #confirmPwd="ngModel" required placeholder="Confirm Password" minlength="8" maxlength="12" autocomplete="off">
                     <div class="required_color" *ngIf="confirmPwd?.touched && confirmPwd.invalid || (confirmPwd.pristine && confirmPwd.submitted)">
