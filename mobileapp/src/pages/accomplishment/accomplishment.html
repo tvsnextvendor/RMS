@@ -22,7 +22,9 @@
       <ion-slides #sliderOne [pager]="true" [slidesPerView]="2" class="certificate-slide" spaceBetween="1"
         (ionSlideDidChange)="onSlideCertChanged()">
         <ion-slide *ngFor="let item of certificateList;let i=index;" class="cert-indv-slide">
-          <iframe [src]="item.certificateGenerated | sanitizeHtml" width="100%" height="200" (click)="openModal(item,item)"></iframe>
+          <div [innerHTML]="item.certificateGenerated | sanitizeHtml:'html'"></div>
+          <!-- [innerHTML]="unsafeString | safe:'html'" -->
+          <!-- <iframe [src]="item.certificateGenerated | sanitizeHtml" width="100%" height="200" (click)="openModal(item,item)"></iframe> -->
           <!-- <img class="certificate-image" src="{{item.certificateImage}}" alt="Certificate Image" > -->
         </ion-slide>
       </ion-slides>
@@ -33,28 +35,28 @@
         <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon disabledSliderIcon" *ngIf="!rightButton"></ion-icon>
       </span>
     </div>
-    
-    <div class="badge-block" *ngIf="certificateList.length > 0" >
-        <h4 class="popup-tit badge-tit">{{constant.pages.accomplishmentLabels.badges}}</h4>
-        <ion-card class="forum-card">
+
+    <div class="badge-block" *ngIf="certificateList.length > 0">
+      <h4 class="popup-tit badge-tit">{{constant.pages.accomplishmentLabels.badges}}</h4>
+      <ion-card class="forum-card">
         <ion-grid>
-        <ion-row *ngFor="let item of certificateList;let i=index;">
-        <ion-col col-3 class="img-section">
-        <div class="badge-img"><img src="assets/imgs/b2.png" class="forum-img"></div>
-        <span class="badge-name">{{item.Badge.badgeName}}</span>
-        </ion-col>
-        <ion-col col-7 class="mt-4">
-        <h4 class="forum-title">{{item.Course.courseName}}</h4>
-        <!-- <p class="forum-txt">Training Class Name</p> -->
-        </ion-col>
-        <ion-col col-2 class="badge-scr mt-4">
-        <span>{{item.Badge.percentage}} %</span>
-        <p class="forum-txt date-det">Score</p>
-        </ion-col>
-        </ion-row>
+          <ion-row *ngFor="let item of certificateList;let i=index;">
+            <ion-col col-3 class="img-section">
+              <div class="badge-img"><img src="assets/imgs/b2.png" class="forum-img"></div>
+              <span class="badge-name">{{item.Badge.badgeName}}</span>
+            </ion-col>
+            <ion-col col-7 class="mt-4">
+              <h4 class="forum-title">{{item.Course.courseName}}</h4>
+              <!-- <p class="forum-txt">Training Class Name</p> -->
+            </ion-col>
+            <ion-col col-2 class="badge-scr mt-4">
+              <span>{{item.Badge.percentage}} %</span>
+              <p class="forum-txt date-det">Score</p>
+            </ion-col>
+          </ion-row>
         </ion-grid>
-        </ion-card>
-        </div>
+      </ion-card>
+    </div>
 
     <!-- <ion-slides #sliderTwo [pager]="true" [slidesPerView]="3" class="badge-slide" spaceBetween="1"
         (ionSlideDidChange)="onSlideBadgeChanged()">
