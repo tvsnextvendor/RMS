@@ -18,6 +18,7 @@ import { Storage } from '@ionic/storage';
 })
 export class SettingsPage implements OnInit {
   @ViewChild(Nav) nav; Nav;
+  
   settingsForm: FormGroup;
   setting = {
     'oldpassword': '',
@@ -53,6 +54,7 @@ export class SettingsPage implements OnInit {
     this.getUser();
   }
   successMessage(msg){
+    this.content.scrollToTop();
     this.showToastr = true;
     this.className = "notify-box alert alert-success";
     this.msgTitle = "Success";
