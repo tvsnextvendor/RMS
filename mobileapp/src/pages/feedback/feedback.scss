@@ -37,5 +37,11 @@ page-feedback {
     .active .unselect-img{
         display: none;
     }
+    .word-count{
+        float: right;
+        display: block;
+        color: #656565;
+        font: 15px 'sf_pro_displayregular';
+    }
     
 }

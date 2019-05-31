@@ -49,6 +49,7 @@
   </div>
   <h4>{{constant.pages.feedbackLabels.tellUs}}</h4>
    <ion-textarea rows="1" cols="20" [(ngModel)]="feedBack" placeholder={{constant.pages.feedbackLabels.feedback}} class="your-feedback"></ion-textarea>
+   <span class="word-count">0/120</span>
 </div>
 <div *ngIf="errorMessage" class="error-block">
   <div class="error">
