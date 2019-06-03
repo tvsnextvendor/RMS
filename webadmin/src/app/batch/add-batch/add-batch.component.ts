@@ -54,6 +54,7 @@ export class AddBatchComponent implements OnInit {
     //   this.scheduleId ? this.headerService.setTitle({ title: this.commonLabels.titles.editTitle, hidemodule: false }) : this.headerService.setTitle({ title: this.commonLabels.titles.addTitle, hidemodule: false });
         this.batchVar.moduleForm=[];
         this.clearBatchVar();
+        this.batchVar.dategreater = false;
         this.userData =this.utilService.getUserData();
         //get Resort list
         this.resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId;
@@ -135,7 +136,6 @@ export class AddBatchComponent implements OnInit {
                 departmentId : item.departmentId
             }
             // Set dropdown data
-            debugger;
             if(this.batchVar.selectedDivision.length){this.batchVar.selectedDivision.forEach(x=>{
                 if(x.divisionId != item.divisionId){
                     this.batchVar.selectedDivision.push(item.Division);

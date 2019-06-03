@@ -46,6 +46,7 @@ export class ResortChartsComponent implements OnInit {
         this.getKeyStat();
         this.getResortDetails();
         this.totalNoOfBadges();
+        this.dashboardVar.years = '2019';
         this.userRole = this.utilService.getRole();
         this.getCountDetails(this.resortId);
     }
@@ -57,7 +58,7 @@ export class ResortChartsComponent implements OnInit {
             const totalCourses = result.data.training;
             this.dashboardVar.totalCoursesCount = result.data.courseTotalCount;
             this.dashboardVar.totalCourses = totalCourses.map(item => {
-              return {name: item.status, y: parseInt(item.totalcount, 10)};
+              return {name: item.status[0].toUpperCase() + item.status.substr(1).toLowerCase(), y: parseInt(item.totalcount, 10)};
             });
           });
           console.log(this.dashboardVar.totalCoursesCount,"this.dashboardVar.totalCoursesCount")
@@ -199,6 +200,7 @@ export class ResortChartsComponent implements OnInit {
         // }
         },
         series : [{
+          name: 'Badges',
            data:
             this.dashboardVar.totalNoOfBadges
         }]
@@ -602,7 +604,8 @@ export class ResortChartsComponent implements OnInit {
         this.route.navigateByUrl('/addBatch');
     }
     onChangeYear(){
-        
+      console.log(this.dashboardVar.years)
+      this.getcourseTrend()
     }
 
     topRatedCourses() {
@@ -618,7 +621,7 @@ export class ResortChartsComponent implements OnInit {
     
       getcourseTrend() {
         const courseTrendObj = {
-          years : this.dashboardVar.years
+          year : this.dashboardVar.years
         };
         let query = this.resortId ? '&resortId='+this.resortId : '';
         this.commonService.getCourseTrend(courseTrendObj,query).subscribe(result => {
@@ -644,7 +647,7 @@ export class ResortChartsComponent implements OnInit {
             enabled: false
           },
           tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            pointFormat: '{series.name}: <b>{point.y}</b>'
           },
           plotOptions: {
             pie: {
@@ -659,7 +662,7 @@ export class ResortChartsComponent implements OnInit {
               dataLabels: {
                   enabled: true,
                   formatter: function() {
-                      return Math.round(this.percentage * 100) / 100 + ' %';
+                      return (this.y);
                   },
                   distance: -30,
                   color: 'white'
@@ -667,7 +670,7 @@ export class ResortChartsComponent implements OnInit {
           }
           },
           series: [{
-            name: 'Brands',
+            name: 'Courses',
             colorByPoint: true,
             data: this.dashboardVar.totalCourses
           }]

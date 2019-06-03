@@ -67,7 +67,6 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.videoList.push(element)
         })
     }
-    // this.headerService.setTitle({title:this.moduleVar.title, hidemodule:false});
     this.moduleVar.api_url = API_URL.URLS;
     this.moduleVar.dropdownSettings = {
         singleSelection: false,
@@ -580,6 +579,7 @@ export class AddModuleComponent implements OnInit {
                         
                     }
                 },err=>{
+                    this.modalRef &&  this.modalRef.hide();
                     this.alertService.error(err.error.error);
                 })  
             }
@@ -607,6 +607,7 @@ export class AddModuleComponent implements OnInit {
                         this.moduleSubmitted = false;
                     }
                 },err=>{
+                    this.modalRef &&  this.modalRef.hide();
                     this.alertService.error(err.error.error);
                 });
             }
