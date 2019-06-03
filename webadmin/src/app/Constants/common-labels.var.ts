@@ -329,8 +329,11 @@ export class CommonLabels{
         "createNewNotif"    :   "Create New Notification",
         "createNewCourse"   :   "Create New Course",
         "createNewQuiz"     :   "Create New Quiz",
-        "usageStats"        :   "Usage Stats"
-       
+        "usageStats"        :   "Usage Stats",
+        "availablecourse"   :    "Available Course:",
+        "availabletrainingclass" : "Available Training Class:",
+        "avaliablevideos"   :    "Avaliable Videos:",
+        "avaliabledocument" :    "Available Document:",
        
       
     };
