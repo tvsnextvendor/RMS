@@ -225,9 +225,9 @@
           </div>
         </div>
       </div>
-      <div class="model-footer">
-        <button ion-button small clear type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
-        <button ion-button small clear type="submit" [disabled]="QuestionForm.invalid">{{constant.buttons.add}}</button>
+      <div class="quest-foot model-footer">
+        <button ion-button small clear class="text-can" type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
+        <button ion-button small clear  class="text-add" type="submit" [disabled]="QuestionForm.invalid">{{constant.buttons.add}}</button>
       </div>
     </form>
   </ng-template>
@@ -267,7 +267,7 @@
       </div>
       <div class="model-footer">
         <button ion-button small clear type="button" class="btn btn-can" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
-        <button ion-button small clear type="submit" class="btn btn-primary" (click)="deleteComment()">DELETE</button>
+        <button ion-button small clear type="submit" class="btn btn-primary btn-dele" (click)="deleteComment()">DELETE</button>
       </div>
     </div>
   </ng-template>
