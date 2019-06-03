@@ -208,8 +208,28 @@ page-forum-detail{
     border: none;
     padding: 0 20px 0 25px;
 }
-.type-ques textarea {
-    font-size: 16px;
+.question-header .modal-title{
+	font-family: 'sf_pro_displaysemibold';
+	font-size: 20px;
+}
+.quest-foot.model-footer{
+	text-align: right;
+}
+.text-can{
+	color:#656565;
+	font-size: 15px;
+	font-family: 'sf_pro_displayregular';
+}
+.text-add{
+	color: #329CD6;
+	font-size: 15px;
+	font-family: 'sf_pro_displayregular';
+}
+.type-ques textarea,.type-ques textarea::placeholder
+ {
+	font-size: 16px;
+	color: #656565;
+	font-family: 'sf_pro_displayregular';
 }
 .text-input::-moz-placeholder {
   color: rgba(255, 255, 255, 0.4);
@@ -308,6 +328,12 @@ button.btn-can{
     color: #fff;
     font-size: 14px;
     text-transform: capitalize;
+}
+button.btn-can:hover:not(.disable-hover){
+	background-color: #9E9E9E;
+}
+button.btn-dele:hover:not(.disable-hover){
+	background-color: #488aff;
 }
 .model-footer button.btn-primary{
     background: #329CD6;
