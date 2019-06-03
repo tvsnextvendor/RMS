@@ -2,7 +2,7 @@
    <div>   
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a (click)="goTocmsLibrary()" class="cms-breadcrumb">{{commonLabels.labels.cmsLibrary}}</a></li>
+				<li class="breadcrumb-item"><a routerLink="/cms-library" class="cms-breadcrumb">{{commonLabels.labels.cmsLibrary}}</a></li>
 				<li class="breadcrumb-item active" *ngIf="!moduleId">{{commonLabels.labels.createCourse}}</li>
 				<li class="breadcrumb-item active" *ngIf="moduleId">Edit Course</li>
 			</ol>

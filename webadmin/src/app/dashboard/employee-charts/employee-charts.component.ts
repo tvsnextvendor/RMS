@@ -412,8 +412,12 @@ export class EmployeeChartsComponent implements OnInit {
   totalNoOfBadges() {
     let query = this.resortId ? '?resortId='+this.resortId : '';
     this.commonService.getBadges(query).subscribe((resp) => {
-      console.log(resp, 'daaaa');
       const donutChartData = resp.data.badges;
+      // let donutChartData = [
+      //   {Badge : {badgeName : 'silver'},totalcount : '4'},
+      //   {Badge : {badgeName : 'bronze'},totalcount : '4'},
+      //   {Badge : {badgeName : 'gold'},totalcount : '4'},
+      //   {Badge : {badgeName : 'platinum'},totalcount : '4'}]
       this.dashboardVar.totalNoOfBadges = donutChartData.map(item =>
           [item.Badge.badgeName , parseInt(item.totalcount, 10)]
       );
@@ -553,7 +557,7 @@ export class EmployeeChartsComponent implements OnInit {
            pie: {
               shadow: false,
               center: ['50%', '50%'],
-              size: '45%',
+              size: '100%',
               innerSize: '70%'
            },
         //    series: {
