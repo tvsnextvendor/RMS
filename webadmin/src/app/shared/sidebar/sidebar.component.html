@@ -96,7 +96,8 @@
         </li> -->
         
         <li [ngClass]="(tabType == 'show') ? 'active' : ''" >
-            <a (click)="dropDownEnable('show')"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showMore}}</span></a>
+            <a (click)="dropDownEnable('show')" *ngIf="!enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showMore}}</span></a>
+            <a (click)="dropDownEnable('show')" *ngIf="enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showLess}}</span></a>
         </li>
         <ul class="p-0" *ngIf="enableShow">
             <li [class.active]="router.isActive('/users')">

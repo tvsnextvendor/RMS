@@ -413,11 +413,13 @@ export class AddNotificationComponent implements OnInit {
     }
     notificationTypeUpdate(type){
       this.notifyType = type;
+      this.notificationTypeSubmit();
     }
     notificationTypeSubmit(){
       if(!this.notifyType){
         this.alertService.error('Please select the notification type')
       }
+      console.log(this.notifyType)
       this.notificationType = this.notifyType;
     }
 

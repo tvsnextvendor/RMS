@@ -320,6 +320,7 @@ export class CommonLabels{
         "certifiTrend"      :   "Certification Trend",
         "resourceLibrary"   :   "Resource Library",
         "showMore"          :   "Show more",
+        "showLess"          :   "Show less",
         "quizName"          :   "Quiz Name",
         "uploadedDate"      :   "Uploaded Date",
         "modifiedDate"      :   "Modified Date",
@@ -385,7 +386,8 @@ export class CommonLabels{
         "exportTo"          :   "Export To",
         "excel"             :   "Excel",
         "pdf"               :   "PDF",
-        "start"             :   "Start"
+        "start"             :   "Start",
+        "addSchedule"       :   "Add Schedule"
         
        
     };

@@ -101,7 +101,7 @@ export class CMSLibraryComponent implements OnInit {
       this.showcreatecourse = false;
       this.enableNotify = false;
       this.enableBatch = false;
-      this.disableEdit = true;
+      this.disableEdit = false;
       this.disableTabs = false;
     }
   })
