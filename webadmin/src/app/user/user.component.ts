@@ -75,6 +75,7 @@ export class UserComponent implements OnInit {
     empId;
     editData;
     removedMappingId = [];
+    enableRolePermission = false;
 
     constructor(private pdfService : PDFService ,private excelService :ExcelService,private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
         private commonLabels : CommonLabels,public batchVar : BatchVar) {
@@ -98,12 +99,6 @@ export class UserComponent implements OnInit {
             this.divisionArray=(result.data)?result.data.divisions:[];
 
         });
-
-        this.commonService.getDesignationList(resortId).subscribe((result)=>{
-            if(result && result.isSuccess){
-                this.designationArray=result.data && result.data.rows;
-            }
-        })
         this.getDivisionList(resortId);
     }
 
@@ -117,6 +112,11 @@ export class UserComponent implements OnInit {
         this.userService.getResortDesignation(resortId).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 this.roleDetails = resp.data.rows.length ? resp.data.rows : [];
+            }
+        })
+        this.commonService.getDesignationList(resortId).subscribe((result)=>{
+            if(result && result.isSuccess){
+                this.designationArray=result.data && result.data.rows;
             }
         })
         this.roles = [{
@@ -247,7 +247,7 @@ export class UserComponent implements OnInit {
                         this.constant.modalRef.hide();
                         this.resetFields();
                         this.roleError = false;
-                        this.roleComponent.getDropDownDetails('','');
+                        // this.roleComponent.getDropDownDetails('','');
                         this.alertService.success(this.commonLabels.msgs.designation)
                     }
                 },err =>{
@@ -268,7 +268,7 @@ export class UserComponent implements OnInit {
                         this.getDivisionList(resortId);
                         this.constant.modalRef.hide();
                         this.resetFields();
-                        this.roleComponent.getDropDownDetails('','');
+                        // this.roleComponent.getDropDownDetails('','');
                         this.alertService.success(this.commonLabels.msgs.designationAdd)
                     }
                 },err =>{
@@ -452,7 +452,7 @@ export class UserComponent implements OnInit {
                     this.triggerNext = false ;
                     this.getDivisionList(resortId);
                     this.closeAddForm();
-                    this.roleComponent.getDropDownDetails('','');
+                    // this.roleComponent.getDropDownDetails('','');
                 }    
             },err =>{
                 this.errorValidation = false;
@@ -609,6 +609,7 @@ export class UserComponent implements OnInit {
                 let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
                 this.constant.modalRef.hide();
                 this.getDivisionList(resortId);
+                this.userList();
                 this.alertService.success(this.commonLabels.msgs.diviDeleted);
             }
         })
@@ -630,6 +631,7 @@ export class UserComponent implements OnInit {
                 let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
                 this.constant.modalRef.hide();
                 this.getDivisionList(resortId);
+                this.userList();
                 this.alertService.success(this.commonLabels.msgs.designDelete);
             }
         })
@@ -669,7 +671,7 @@ export class UserComponent implements OnInit {
                         let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
                         this.constant.modalRef.hide();
                         this.getDivisionList(resortId);
-                        this.roleComponent.getDropDownDetails('','');
+                        // this.roleComponent.getDropDownDetails('','');
                         this.alertService.success(this.commonLabels.msgs.diviUpdate);
                     }
                 },err =>{
@@ -823,5 +825,15 @@ export class UserComponent implements OnInit {
     })
     console.log(arr)
     this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.userManagement);
+  }
+
+  roleTabSelect(type){
+      if(type == 'rolesPermission'){
+        this.enableRolePermission = true;
+      }
+      else{
+        this.enableRolePermission = false;
+      }
+    
   }
 }

@@ -21,6 +21,7 @@ export class RolepermissionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.constant.resortId='';
     this.constant.modules = RolePermissionVar.defaultModules;
     this.constant.selectAllView = false;
     this.constant.selectAllUpload = false;
