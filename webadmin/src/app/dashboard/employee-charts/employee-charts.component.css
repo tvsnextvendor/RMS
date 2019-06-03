@@ -54,7 +54,7 @@
   color: #454545;
   font-weight: 600;
   top: 38px;
-  left: 111px;
+  left: 105px;
   z-index: 1000;
 }
 .top-employee-height, .topratedcourse{  
@@ -184,8 +184,8 @@ padding: 0 11px;
 .badge-alg{
   position: absolute;
     z-index: 1;
-    top: 143px;
-    left: 140px;
+    top: 133px;
+    left: 135px;
     font-size: 13px;
     font-weight: 700;
     width: 30px;
@@ -194,5 +194,8 @@ padding: 0 11px;
 .total-count{
   margin: 0;
     color: #1D4960;
-    font-size: 14px;
+    font-size: 20px;
+}
+.percent-size{
+  font-size: 18px;
 }

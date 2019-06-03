@@ -340,6 +340,7 @@ table td.td-pd {
 .sidebar-nav li a:hover {
     background-color: #E4EFF5;
     width: 100%;
+    color: #468FB9 !important;
 }
 .sidebar-nav li.active{
   background-color: #E4EFF5;
@@ -842,7 +843,7 @@ li {
   color: #468FB9;
 }
 .donutchat-style {
-    padding: 10px 0 30px 0px;
+    padding: 0 0 30px 0px;
 }
 .badge-li:nth-child(1) .badge-color {
     background: #B9F2FF;   
