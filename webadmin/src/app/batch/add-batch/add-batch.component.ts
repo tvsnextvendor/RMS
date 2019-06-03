@@ -422,11 +422,11 @@ export class AddBatchComponent implements OnInit {
                 "resort":{
                     "resortId": this.batchVar.selectedResort,
                     "courses":  this.courseIds,
-                    // "users": this.employeesInBatch
+                    "users": this.employeesInBatch
                  },
-                 "departmentId": this.batchVar.departmentId,
-                "divisionId": this.batchVar.divisionId,
-                "userId":this.batchVar.employeeId,
+                //  "departmentId": this.batchVar.departmentId,
+                // "divisionId": this.batchVar.divisionId,
+                // "userId":this.batchVar.employeeId,
                 "courses": this.batchVar.moduleForm,
             }
             if(this.scheduleId){
