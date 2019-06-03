@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common'; 
-import {HttpService, HeaderService, UtilService, CommonService} from '../services';
+import {HttpService, HeaderService, UtilService, CommonService,BreadCrumbService} from '../services';
 import {VideosTrendVar} from '../Constants/videostrend.var';
 import { API_URL } from '../Constants/api_url';
 import { CommonLabels } from '../Constants/common-labels.var'
@@ -22,6 +22,7 @@ export class VideosTrendComponent implements OnInit {
     private utilsService: UtilService,
     public location :Location,
     public commonLabels:CommonLabels,
+    private breadCrumbService :BreadCrumbService
     ) {
     this.trendsVar.url = API_URL.URLS;
     this.resortId = this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId;
@@ -33,6 +34,7 @@ export class VideosTrendComponent implements OnInit {
 
    ngOnInit() {
     this.headerService.setTitle({title: this.commonLabels.titles.courseTrend, hidemodule: false});
+    this.breadCrumbService.setTitle([]);
     this.getVideosTrend('');
     this.getModuleList();
     this.trendsVar.pageLimitOptions = [5, 10, 25];

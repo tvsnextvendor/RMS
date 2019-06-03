@@ -158,7 +158,7 @@ export class CommonLabels{
         "contentFiles"      :   "Content Files",
         "createNotification":   "Create Notification",
         "scheduleTraining"  :   "Schedule A Training",
-        "createCourse"      :   "Create Course",        
+        "createCourse"      :   "Create Course",      
         "acceptedFileTypes" :   "Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI",
         "from"              :   "Assigned Date",
         "to"                :   "Due Date",
@@ -390,7 +390,8 @@ export class CommonLabels{
         "excel"             :   "Excel",
         "pdf"               :   "PDF",
         "start"             :   "Start",
-        "addSchedule"       :   "Add Schedule"
+        "addSchedule"       :   "Add Schedule",
+        "recentDelete"      :   "Recently Deleted"
         
        
     };

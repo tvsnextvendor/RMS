@@ -1,5 +1,5 @@
 import { Component, OnInit ,Input,Output, EventEmitter} from '@angular/core';
-import { HeaderService,UtilService,ResortService ,CourseService,CommonService,UserService} from '../../services';
+import { HeaderService,UtilService,ResortService ,CourseService,CommonService,UserService,BreadCrumbService} from '../../services';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -45,7 +45,7 @@ export class AddNotificationComponent implements OnInit {
     notificationType;
     notifyType;
 
-    constructor(public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
+    constructor(private breadCrumbService :BreadCrumbService,public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
         this.batchVar.url = API_URL.URLS;
         this.labels = moduleVar.labels;
@@ -53,6 +53,8 @@ export class AddNotificationComponent implements OnInit {
 
     ngOnInit() {
       this.clearBatchForm();
+      let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.btns.createNotification,url:''}]
+      this.breadCrumbService.setTitle(data)
         // let startDate = localStorage.getItem('BatchStartDate');
         this.batchVar.batchFrom = new Date();
         this.batchVar.batchTo = '';

@@ -22,7 +22,7 @@
         </label>
     </div>    
             <div class="float-right pr-3">
-                <a *ngIf="!disableEdit" (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
+                <a  (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
             </div>
         </div>
         <div class="float-left" *ngIf="training.enableEdit == true">

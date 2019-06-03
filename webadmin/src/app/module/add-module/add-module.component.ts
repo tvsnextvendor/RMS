@@ -1,7 +1,7 @@
 import { Component,Input,Output, EventEmitter, OnInit,ViewChild,ElementRef,TemplateRef} from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute,Params } from '@angular/router';
-import { HttpService,HeaderService,UtilService,AlertService,CommonService, CourseService } from '../../services';
+import { HttpService,HeaderService,UtilService,AlertService,CommonService, CourseService,BreadCrumbService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import {AddQuizComponent} from '../add-quiz/add-quiz.component';
@@ -50,7 +50,7 @@ export class AddModuleComponent implements OnInit {
     @Input() addedFiles;
     // selectedCourseIds:any;
 
-   constructor( private modalService: BsModalService,private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
+   constructor(private breadCrumbService : BreadCrumbService, private modalService: BsModalService,private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
         });
@@ -67,6 +67,8 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.videoList.push(element)
         })
     }
+    let data = this.moduleId ? [{title:this.commonLabels.labels.cmsLibrary, url:'/cms-library'},{title:this.commonLabels.labels.editCourse, url:''}] : [{title:this.commonLabels.labels.cmsLibrary, url:'/cms-library'},{title:this.commonLabels.labels.createCourse, url:''}];
+    this.breadCrumbService.setTitle(data);
     this.moduleVar.api_url = API_URL.URLS;
     this.moduleVar.dropdownSettings = {
         singleSelection: false,

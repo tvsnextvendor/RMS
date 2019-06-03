@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService } from '../../services/header.service';
+import { HeaderService,BreadCrumbService } from '../../services';
 
 @Component({
   selector: 'app-subscription-list',
@@ -9,13 +9,14 @@ import { HeaderService } from '../../services/header.service';
 })
 export class SubscriptionListComponent implements OnInit {
 
-  constructor(private headerService: HeaderService) { 
+  constructor(private headerService: HeaderService,private breadCrumbService :BreadCrumbService) { 
     // this.subscriptionVar.url = API_URL.URLS;
   }
 
   ngOnInit() {
     // this.subscriptionVar.title = "Resort Management";
     this.headerService.setTitle({ title: 'Subscription List', hidemodule: false });
+    this.breadCrumbService.setTitle([]);
   }
 
 }

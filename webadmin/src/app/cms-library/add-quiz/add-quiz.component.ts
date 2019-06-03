@@ -2,7 +2,7 @@ import { Component, OnInit ,Input,Output,EventEmitter,TemplateRef } from '@angul
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderService } from '../../services/header.service';
+import { HeaderService,BreadCrumbService } from '../../services';
 import { HttpService } from '../../services/http.service';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CourseService } from '../../services/restservices/course.service';
@@ -41,12 +41,14 @@ export class CreateQuizComponent implements OnInit {
   quizName;
 
   constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
-    public commonLabels:CommonLabels,public location : Location) {
+    public commonLabels:CommonLabels,public location : Location,private breadCrumbService : BreadCrumbService) {
     this.apiUrls = API_URL.URLS;
   }
   
   ngOnInit() {
     this.headerService.setTitle({title:this.commonLabels.titles.cmsLibrary, hidemodule:false});
+    let data = [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.labels.createQuiz,url:''}]
+    this.breadCrumbService.setTitle(data)
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
       { name: "True/False", value: "True/False" },

@@ -1,6 +1,6 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderService,CommonService ,UtilService,CourseService} from '../services';
+import { HeaderService,CommonService ,UtilService,CourseService,BreadCrumbService} from '../services';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -37,11 +37,12 @@ export class CertificatesComponent implements OnInit {
     htmlView;
 
 
-    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService) {
+    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService,private breadCrumbService : BreadCrumbService) {
         this.constant.url = API_URL.URLS;
     }
     ngOnInit() {
         this.headerService.setTitle({ title: this.commonLabels.titles.certificate, hidemodule: false });
+        this.breadCrumbService.setTitle([])
         this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
         //get certificate
 

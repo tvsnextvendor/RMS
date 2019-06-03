@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {BreadCrumbService } from '../../services';
+import { CommonLabels } from '../../Constants/common-labels.var';
 
 @Component({
   selector: 'app-notification-tab',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationTabComponent implements OnInit {
 
-  constructor() { }
+  constructor(private breadCrumbService : BreadCrumbService,public commonLabels :CommonLabels ) { }
 
   ngOnInit() {
+    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.notification,url:''}]
+    this.breadCrumbService.setTitle(data)
   }
 
 }

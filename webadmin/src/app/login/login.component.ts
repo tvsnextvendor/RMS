@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {loginVar} from '../Constants/login.var';
-import {HttpService,CommonService} from '../services';
+import {HttpService,CommonService,BreadCrumbService} from '../services';
 import { API_URL } from '../Constants/api_url';
 import {AuthService} from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
@@ -32,14 +32,15 @@ export class LoginComponent implements OnInit {
       private API_URL:API_URL,
       private alertService:AlertService,
       public commonLabels:CommonLabels,
-      private commonService :CommonService) { }
+      private commonService :CommonService,
+      private breadCrumbService :BreadCrumbService) { }
 
     ngOnInit() {
       // get user details '5c0fbeda3100003b1324ee75'
       // this.http.get(API_URL.URLS.getUsers).subscribe((resp) => {
       //   this.userArray = resp.UserList;
       // });
-      
+      this.breadCrumbService.setTitle([])
       //labels
       this.labels = this.loginvar.labels;
       this.btns = this.loginvar.btns;

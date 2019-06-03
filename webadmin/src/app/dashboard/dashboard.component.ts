@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DashboardVar} from '../Constants/dashboard.var';
-import {HeaderService} from '../services/header.service';
+import {HeaderService,BreadCrumbService} from '../services';
 import {UtilService} from '../services/util.service';
 import { CommonLabels } from '../Constants/common-labels.var'
 
@@ -15,10 +15,11 @@ export class DashboardComponent implements OnInit {
   tabTitle = [];
   selectedtab;
 
-  constructor(private dashboardVar: DashboardVar,private utilService: UtilService ,private headerService: HeaderService,public commonLabels:CommonLabels) { }
+  constructor(private dashboardVar: DashboardVar,private utilService: UtilService ,private headerService: HeaderService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService) { }
 
   ngOnInit() {
   this.headerService.setTitle({title:this.commonLabels.titles.dashboard, hidemodule:false});
+  this.breadCrumbService.setTitle([])
   const roleId = this.utilService.getRole();
     // this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
     // if(roleId !== 1){

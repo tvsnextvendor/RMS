@@ -1,4 +1,4 @@
-<div class="" *ngIf="!enableNotify && !enableBatch && !showcreatecourse">   
+<!-- <div class="" *ngIf="!enableNotify && !enableBatch && !showcreatecourse">   
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item" (click)="goTocmsLibrary()"><a routerLink="/cms-library">{{commonLabels.labels.cmsLibrary}}</a></li>
@@ -11,7 +11,7 @@
             <li *ngIf ="selectedTab === 'recent'" class="breadcrumb-item active">{{commonLabels.labels.recentlyDelete}}</li>
         </ol>
     </nav>
-</div>
+</div> -->
 <app-add-notification *ngIf="enableNotify && !enableBatch &&!showcreatecourse" (someEvent)="closeModal()" (completed)="completed($event)"></app-add-notification>
 <app-add-batch *ngIf="enableBatch && !enableNotify && !showcreatecourse" [courseList]="this.selectedCourse" (someEvent)="hidePopup($event)" (completed)="completed($event)"></app-add-batch>
 <app-add-module *ngIf="showcreatecourse && !enableBatch && !enableNotify" (upload)="showUploadPage($event)" (completed)="completed($event)"  [addedFiles]="selectedVideoList"></app-add-module>   
@@ -47,7 +47,10 @@
                         <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'quiz' ? 'nav-link active show disabled' : 'nav-link'" data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">{{commonLabels.labels.quiz}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection">
-                        <a *ngIf="!disableTabs" class="nav-link" routerLink="/workinprogress">{{commonLabels.btns.workinProgress}}</a>
+                        <a *ngIf="!disableTabs && !disableEdit" [ngClass] = "selectedTab === 'workInprogress' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#workInprogress" (click)="headerTabChange('workInprogress','')">{{commonLabels.btns.workinProgress}}</a>
+                    </li>
+                    <li class="nav-item" *ngIf="!hideSection">
+                        <a *ngIf="!disableTabs && disableEdit" [ngClass] = "selectedTab === 'recentDelete' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#recentDelete" (click)="headerTabChange('recentDelete','')">{{commonLabels.btns.recentDelete}}</a>
                     </li>
                 </ul> 
                 <button *ngIf="disableTabs" type = "button" class="btn btn-primary p-2" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
@@ -71,9 +74,19 @@
                 <div  *ngIf = "selectedTab === 'document' && !showcreatecourse" id="document" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
                     <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-document-tab>
                 </div>
+                 <!-- app-notification-tab -->
+                 <div  *ngIf = "selectedTab === 'notification' && !hideSection " id="notification" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'notification' ? 'active show' : 'nav-link')">
+                    <app-notification-tab></app-notification-tab>
+                </div>
                 <!-- Quiz Tab Content --> 
                 <div  *ngIf = "selectedTab === 'quiz' && !hideSection " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
                     <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId" [directTabEnable] = "quizTabHit" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-quiz-tab>
+                </div>
+                <div  *ngIf = "selectedTab === 'workInprogress' && !hideSection " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'workInprogress' ? 'active show' : 'nav-link')">
+                    <app-work-inprogress-tab></app-work-inprogress-tab>
+                </div>
+                <div  *ngIf = "selectedTab === 'recentDelete' && !hideSection " id="recentDelete" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'recentDelete' ? 'active show' : 'nav-link')">
+                    <app-notification-tab></app-notification-tab>
                 </div>
             </div>
 

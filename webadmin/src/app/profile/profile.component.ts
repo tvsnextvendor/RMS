@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {HeaderService,UtilService,UserService} from '../services';
+import {HeaderService,UtilService,UserService,BreadCrumbService} from '../services';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {ProfileVar} from '../Constants/profile.var';
@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
     divisionId;
     userId;
 
-   constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,public profVar: ProfileVar,private router:Router, private datepipe: DatePipe,public commonLabels:CommonLabels,private utilService : UtilService,private userService : UserService){
+   constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,public profVar: ProfileVar,private router:Router, private datepipe: DatePipe,public commonLabels:CommonLabels,private utilService : UtilService,private userService : UserService,private breadCrumbService :BreadCrumbService){
    
     const currentUrl = this.router.url;
     this.profVar.split_url= currentUrl.split('/');
@@ -40,6 +40,7 @@ export class ProfileComponent implements OnInit {
     
    ngOnInit(){
     this.headerService.setTitle({title:this.commonLabels.titles.profile, hidemodule:false});
+    this.breadCrumbService.setTitle([]);
     this.getProfile();
    }
   

@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderService } from '../services/header.service';
+import { HeaderService,BreadCrumbService } from '../services';
 import { HttpService } from '../services/http.service';
 import { EmailVar } from '../Constants/email.var';
 import { API_URL } from '../Constants/api_url';
@@ -26,12 +26,13 @@ export class EmailComponent implements OnInit {
     dataModel;
     editorConfig ={};
     setSignatureStatus: boolean = true;
-    constructor(private toastr: ToastrService, private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService,public commonLabels:CommonLabels) {
+    constructor(private toastr: ToastrService, private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService) {
         this.email.url = API_URL.URLS;
     }
 
     ngOnInit() {
         this.headerService.setTitle({ title: this.emailVar.title, hidemodule: false });
+        this.breadCrumbService.setTitle([]);
         this.departmentList();
 
        this.editorConfig= {

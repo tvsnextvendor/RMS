@@ -1,5 +1,5 @@
 import { Component, OnInit, Input,Output, EventEmitter } from '@angular/core';
-import { HeaderService, HttpService, CourseService, AlertService,UtilService } from '../../services';
+import { HeaderService, HttpService, CourseService, AlertService,UtilService,BreadCrumbService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
 @Component({
@@ -22,11 +22,13 @@ export class TraingClassTabComponent implements OnInit {
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
   @Input() courseId;
-  constructor(private courseService: CourseService, public commonLabels : CommonLabels, public alertService: AlertService,private utilService :UtilService) { }
+  constructor(private courseService: CourseService, public commonLabels : CommonLabels, public alertService: AlertService,private utilService :UtilService,private breadCrumbService :BreadCrumbService) { }
 
   ngOnInit() {
     this.pageLength = 5;
     this.currentPage = 1;
+    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.trainingClass,url:''}]
+    this.breadCrumbService.setTitle(data);
     this.getTrainingClassDetails();
   }
 
