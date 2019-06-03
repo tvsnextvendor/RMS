@@ -50,12 +50,13 @@ export class EmployeeChartsComponent implements OnInit {
     this.getData();
     this.getTopResort();
     this.getKeyStat();
+    this.dashboardVar.years = '2019';
     let query = this.resortId ? '?resortId='+this.resortId : '';
     this.commonService.getTotalCourse(query).subscribe(result => {
       const totalCourses = result.data.training;
       this.dashboardVar.totalCoursesCount = result.data.courseTotalCount;
       this.dashboardVar.totalCourses = totalCourses.map(item => {
-        return {name: item.status, y: parseInt(item.totalcount, 10)};
+        return {name: item.status[0].toUpperCase() + item.status.substr(1).toLowerCase(), y: parseInt(item.totalcount, 10)};
       });
     });
     setTimeout(() => {
@@ -126,6 +127,9 @@ export class EmployeeChartsComponent implements OnInit {
     this.commonService.getCourseTrend(courseTrendObj,query).subscribe(result => {
       if (result && result.isSuccess) {
         this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
+        setTimeout(()=>{
+          this.courseTrend();
+        },100) 
       }
     });
   }
@@ -144,7 +148,8 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
   onChangeYear() {
-    //console.log(this.dashboardVar.years);
+    // console.log(this.dashboardVar.years);
+    this.getcourseTrend() 
   }
 
 
@@ -173,7 +178,7 @@ export class EmployeeChartsComponent implements OnInit {
         enabled: false
       },
       tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       plotOptions: {
         pie: {
@@ -188,7 +193,7 @@ export class EmployeeChartsComponent implements OnInit {
           dataLabels: {
               enabled: true,
               formatter: function() {
-                  return Math.round(this.percentage * 100) / 100 + ' %';
+                  return (this.y);
               },
               distance: -30,
               color: 'white'
@@ -563,6 +568,7 @@ export class EmployeeChartsComponent implements OnInit {
         // }
         },
         series : [{
+          name: 'Badges',
            data:
             this.dashboardVar.totalNoOfBadges
         }]
