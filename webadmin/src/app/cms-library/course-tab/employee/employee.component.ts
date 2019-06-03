@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute,Params } from '@angular/router';
 import {Location} from '@angular/common';
-import { HeaderService,UtilService,AlertService,ExcelService, CourseService } from '../../../services';
+import { HeaderService,UtilService,AlertService,ExcelService, CourseService,BreadCrumbService } from '../../../services';
 import { CommonLabels } from '../../../Constants/common-labels.var'
 
 @Component({
@@ -16,7 +16,7 @@ export class EmployeeComponent implements OnInit {
   pageLimit;
   listDetails = [];
   count = 0;
-  constructor(private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location,public commonLabels:CommonLabels) { 
+  constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location,public commonLabels:CommonLabels) { 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.userId = params['userId']; 
       console.log(this.userId)
@@ -27,6 +27,8 @@ export class EmployeeComponent implements OnInit {
     let user = this.utilService.getUserData();
     this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
+    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.employeeTabLabel,url:''}]
+    this.breadCrumbService.setTitle(data);
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[1]];
     this.getEmployeeDetails();

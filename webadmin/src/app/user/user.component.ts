@@ -8,7 +8,7 @@ import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { BatchVar } from '../Constants/batch.var';
 import { API_URL } from '../Constants/api_url';
-import { AlertService,PDFService,ExcelService,CommonService } from '../services';
+import { AlertService,PDFService,ExcelService,CommonService,BreadCrumbService } from '../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import * as XLSX from 'ts-xlsx';
 import {UserService,ResortService, UtilService} from '../services';
@@ -78,11 +78,12 @@ export class UserComponent implements OnInit {
     enableRolePermission = false;
 
     constructor(private pdfService : PDFService ,private excelService :ExcelService,private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
-        private commonLabels : CommonLabels,public batchVar : BatchVar) {
+        private commonLabels : CommonLabels,public batchVar : BatchVar,private breadCrumbService :BreadCrumbService) {
         this.constant.url = API_URL.URLS;
     }
     ngOnInit() {
         this.headerService.setTitle({ title: this.commonLabels.titles.userManagement, hidemodule: false });
+        this.breadCrumbService.setTitle([]);
         this.pageLimitOptions = [5, 10, 25];
         this.pageLimit = [this.pageLimitOptions[1]];
         this.userList();
@@ -510,11 +511,13 @@ export class UserComponent implements OnInit {
             this.userService.bulkUpload(fileUploadValue,userId,resortId).subscribe(resp=>{
                 if(resp && resp.isSuccess){
                     this.userList();
+                    this.fileUploadValue = '';
                     this.alertService.success(resp.message)
                 }
             },err=>{
-                console.log(err.error.error)
-                this.alertService.error(err.error.error)
+                console.log(err.error.error);
+                this.fileUploadValue = '';
+                this.alertService.error(err.error.error);
             })
         }
         

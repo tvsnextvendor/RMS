@@ -5,7 +5,7 @@ import { BatchVar } from '../../Constants/batch.var';
 import { API_URL } from '../../Constants/api_url';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import {CommonService,AlertService,HttpService,UtilService,HeaderService,UserService,CourseService,ResortService} from '../../services';
+import {CommonService,AlertService,HttpService,UtilService,HeaderService,UserService,CourseService,ResortService,BreadCrumbService} from '../../services';
 import * as moment from 'moment';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
@@ -41,12 +41,16 @@ export class AddBatchComponent implements OnInit {
     passPerError; 
     errorValidate;
     resortId;
+    paramsType;
 
-    constructor(private alertService: AlertService,private courseService: CourseService,private utilService:UtilService,private resortService:ResortService,private userService: UserService,private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService:CommonService,public commonLabels : CommonLabels) {
+    constructor(private breadCrumbService :BreadCrumbService,private alertService: AlertService,private courseService: CourseService,private utilService:UtilService,private resortService:ResortService,private userService: UserService,private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService:CommonService,public commonLabels : CommonLabels) {
         this.batchVar.url = API_URL.URLS;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.batchVar.batchId = params['batchId'];
         });
+        this.activatedRoute.queryParams.subscribe(items=>{
+            this.paramsType = items.type;  
+        })
     }
 
 
@@ -55,6 +59,8 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.moduleForm=[];
         this.clearBatchVar();
         this.batchVar.dategreater = false;
+        let data = this.scheduleId ? [{title : this.commonLabels.labels.calendarView,url:'/calendar'},{title : this.commonLabels.btns.scheduleTraining,url:''}] : [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.btns.scheduleTraining,url:''}]
+        this.breadCrumbService.setTitle(data)
         this.userData =this.utilService.getUserData();
         //get Resort list
         this.resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId;
@@ -407,18 +413,21 @@ export class AddBatchComponent implements OnInit {
         if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.employeesInBatch.length && this.batchVar.moduleForm && this.durationValue && this.reminder && !this.passPerError) {
           //  this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
             let postData = {
-                createdBy : this.userData.userId,
-                assignedDate: this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd'),
-                dueDate: this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd'),
-                name: this.batchVar.batchName,
-                status: this.status,
-                notificationDays: this.reminder,
-                resort:{
+                "createdBy" : this.userData.userId,
+                "assignedDate": this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd'),
+                "dueDate": this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd'),
+                "name": this.batchVar.batchName,
+                "status": this.status,
+                "notificationDays": this.reminder,
+                "resort":{
                     "resortId": this.batchVar.selectedResort,
                     "courses":  this.courseIds,
-                    "users": this.employeesInBatch
+                    // "users": this.employeesInBatch
                  },
-                courses: this.batchVar.moduleForm,
+                 "departmentId": this.batchVar.departmentId,
+                "divisionId": this.batchVar.divisionId,
+                "userId":this.batchVar.employeeId,
+                "courses": this.batchVar.moduleForm,
             }
             if(this.scheduleId){
                 delete postData.status;

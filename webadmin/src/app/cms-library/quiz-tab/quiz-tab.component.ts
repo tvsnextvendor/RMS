@@ -2,7 +2,7 @@ import { Component, OnInit,Input,TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { HeaderService,HttpService,AlertService } from '../../services';
+import { HeaderService,HttpService,AlertService,BreadCrumbService } from '../../services';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { CourseService } from '../../services/restservices/course.service';
@@ -40,7 +40,7 @@ export class QuizTabComponent implements OnInit {
   filterCourse = null;
   filterTrainingClass = null;
   
-  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels : CommonLabels,public constant: QuizVar,private toastr: ToastrService,private modalService : BsModalService) {}
+  constructor(private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels : CommonLabels,public constant: QuizVar,private toastr: ToastrService,private modalService : BsModalService,private breadCrumbService : BreadCrumbService) {}
   
   ngOnInit() {
     this.questionOptions = [
@@ -49,6 +49,9 @@ export class QuizTabComponent implements OnInit {
       { name: "Non-MCQ", value: "NON-MCQ" }
     ];
     this.quizQuestionsForm = [];
+    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.quiz,url:''}]
+    this.breadCrumbService.setTitle(data);
+    
     if(this.directTabEnable){
       this.getDropDownDetails();
     }

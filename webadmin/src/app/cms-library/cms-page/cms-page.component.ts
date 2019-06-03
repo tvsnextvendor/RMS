@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute,Params } from '@angular/router';
-import {HeaderService} from '../../services/header.service';
+import {HeaderService,BreadCrumbService} from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
@@ -10,13 +10,14 @@ import { CommonLabels } from '../../Constants/common-labels.var'
 })
 export class CmsPageComponent implements OnInit {
   urlType;
-  constructor(private route: Router,private activatedRoute: ActivatedRoute,private headerService :HeaderService,public commonLabels : CommonLabels) { }
+  constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private headerService :HeaderService,public commonLabels : CommonLabels) { }
 
   ngOnInit() {
     this.headerService.setTitle({title:this.commonLabels.titles.cmsLibrary, hidemodule:false});
+    this.breadCrumbService.setTitle([]);
     this.activatedRoute.queryParams.subscribe(params=>{
       console.log(params)
-      this.urlType = params.type;
+      this.urlType = params.type ? params.type  : 'create';
     })
   }
 

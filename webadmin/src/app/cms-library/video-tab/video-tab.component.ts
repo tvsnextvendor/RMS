@@ -1,5 +1,5 @@
 import { Component, TemplateRef, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { HeaderService, HttpService, CourseService } from '../../services';
+import { HeaderService, HttpService, CourseService,BreadCrumbService } from '../../services';
 import { NgForm } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { VideoVar } from '../../Constants/video.var';
@@ -57,13 +57,18 @@ constructor(private courseService: CourseService,
     private userService: UserService,
     public commonLabels : CommonLabels,
     private pdfService : PDFService,
-    private excelService : ExcelService ) {
+    private excelService : ExcelService,
+    private breadCrumbService :BreadCrumbService ) {
    this.labels = constant.videoFormLabels;
 }
 
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
+
+    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.videos,url:''}]
+    this.breadCrumbService.setTitle(data);
+
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
     //get Resort list

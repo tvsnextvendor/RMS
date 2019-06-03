@@ -44,4 +44,12 @@
       </div>
     </div>
   </div>
+  <div *ngIf="breadCrumbData && breadCrumbData.length">   
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" *ngFor="let path of breadCrumbData" ><a *ngIf="path.url" href="javascript : void(0)" routerLink="{{path.url}}" class="cms-breadcrumb">{{path.title}}</a><a *ngIf="!path.url" class="cms-breadcrumb">{{path.title}}</a></li>
+        <!-- <li class="breadcrumb-item active" *ngIf="!moduleId"></li> -->
+      </ol>
+    </nav>
+  </div>
 </header>

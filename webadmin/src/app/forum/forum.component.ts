@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef} from '@angular/core';
-import {HeaderService, ForumService,PDFService,ExcelService} from '../services';
+import {HeaderService, ForumService,PDFService,ExcelService,BreadCrumbService} from '../services';
 import {ForumVar} from '../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -32,15 +32,18 @@ export class ForumComponent implements OnInit {
       public commonLabels: CommonLabels,
       private alertService: AlertService,
       private pdfService : PDFService,
-      private excelService : ExcelService
+      private excelService : ExcelService,
+      private breadCrumbService :BreadCrumbService
       ) {
        this.forumVar.url = API_URL.URLS;
     }
     filteredNames = [];
+    hideStatus = true;
 
    ngOnInit() {
     this.pageSize = 10;
     this.headerService.setTitle({title:this.commonLabels.titles.forumtitle, hidemodule: false});
+    this.breadCrumbService.setTitle([]);
     this.getForumList();
     this.forumService.listPage.subscribe(result => {
       if (result) {
@@ -138,14 +141,20 @@ export class ForumComponent implements OnInit {
 
  // Create PDF
  exportAsPDF(){ 
-  // this.labels.btns.select =  this.labels.btns.pdf;
-  var data = document.getElementById('forumList'); 
-  this.pdfService.htmlPDFFormat(data,this.commonLabels.titles.forumtitle);  
+   this.hideStatus = false;
+  setTimeout(() => {
+    this.enablePdf();
+  },1);
 } 
+enablePdf(){
+  var data = document.getElementById('forumList'); 
+  this.pdfService.htmlPDFFormat(data,this.commonLabels.titles.forumtitle);
+  this.hideStatus = true;
+}
 // Create Excel sheet
 exportAsXLSX():void {
   // this.labels.btns.select =  this.labels.btns.excel;
-  this.excelService.exportAsExcelFile(this.forumVar.forumList, this.commonLabels.titles.resortmanagement);
+  this.excelService.exportAsExcelFile(this.forumVar.forumList, this.commonLabels.titles.forumtitle);
 }
 
 }

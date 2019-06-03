@@ -1,14 +1,11 @@
 import { Component, OnInit,TemplateRef,ViewChild} from '@angular/core';
 import { DatePipe } from '@angular/common';
-import {Router} from '@angular/router';
+import {Router,ActivatedRoute} from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import {HeaderService,UtilService,CourseService} from '../../services';
-import {ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
+import {HeaderService,UtilService,CourseService,BreadCrumbService} from '../../services';
 import {BatchVar} from '../../Constants/batch.var';
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
-import { HttpService } from 'src/app/services/http.service';
 import { API_URL } from '../../Constants/api_url';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { AddBatchComponent } from '../add-batch/add-batch.component'
@@ -32,6 +29,7 @@ export class CalendarViewComponent implements OnInit {
     trainingScheduleId;
     scheduleEditDetails = {};
     enableBatch = false;
+    currentUrl ;
 
   
    constructor(
@@ -41,38 +39,36 @@ export class CalendarViewComponent implements OnInit {
     private modalService:BsModalService,
     public commonLabels:CommonLabels,
     private utilService : UtilService,
-    private courseService : CourseService){
+    private courseService : CourseService,
+    private breadCrumbService : BreadCrumbService,
+    private activatedRoute :ActivatedRoute){
     this.batchVar.url = API_URL.URLS; 
+    this.activatedRoute.queryParams.forEach(items=>{
+        this.currentUrl = items.type
+    })
    }
 
     ngOnInit(){
         this.headerService.setTitle({title:this.commonLabels.titles.calendarTitle, hidemodule: false});
+        this.breadCrumbService.setTitle([]);
         let user = this.utilService.getUserData();
         this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
         this.getCalendarDetails();
+    }
 
-        // this.http.get(this.batchVar.url.getNewBatchList).subscribe(data=>{
-        //     this.batchVar.batchList = data.batchDetails;
-        //     let tempArray = [];
-        //     this.batchVar.batchList.map(item => {
-        //         const fromTime= this.datePipe.transform(item.fromDate, 'hh:mm a');
-        //         const toTime= this.datePipe.transform(item.toDate, 'hh:mm a');
-        //         let obj = {
-        //             start       : new Date(item.fromDate),
-        //             end         : new Date(item.toDate),
-        //             batchName   : item.batchName,
-        //             moduleCount : item.moduleDetails.length,
-        //             courseCount : item.courses,
-        //             timings     : fromTime +'-' + toTime ,
-        //             id          : item.batchId, 
-        //         }
-        //         tempArray.push(obj);
-        //     });
-        //     this.events=tempArray;
-        // });
+    ngDoCheck(){
+        if(!this.currentUrl){
+            this.enableBatch = false;
+        }
     }
 
     goToBatch(event,scheduleId,i,addBatch){
+        this.pageUpdate(event,scheduleId,i,addBatch);
+        this.router.navigate(['/calendar'],{queryParams : {type:'edit'}})
+ 
+    }
+
+    pageUpdate(event,scheduleId,i,addBatch){
         localStorage.setItem('BatchStartDate',event);
         console.log(event,scheduleId)
         if(Object.keys(scheduleId)){
@@ -81,6 +77,7 @@ export class CalendarViewComponent implements OnInit {
         }
         // this.router.navigateByUrl('/addBatch');
     }
+
 
     getScheduleData(id){
         this.courseService.getPopupSchedule(id).subscribe(resp=>{
@@ -128,6 +125,7 @@ export class CalendarViewComponent implements OnInit {
     closeModel(){
         // this.batchVar.modalRef.hide();
         this.enableBatch = false;
+        this.breadCrumbService.setTitle([]);
         this.trainingScheduleId = '';
         this.scheduleEditDetails = {};
         this.getCalendarDetails();

@@ -62,6 +62,9 @@
             <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''">
                 <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editNotification}}</a>
             </li>
+            <li [ngClass]="(activeType == 'editworkInprogress') ? 'active' : ''">
+                <a (click)="pageRedirection('edit','workInprogress')">{{commonLabels.btns.workinProgress}}</a>
+            </li>
         </ul>        
         <li [class.active]="router.isActive('/calendar')">
             <a (click)="dropDownEnable('calendar')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.trainingSchedule}}</a>

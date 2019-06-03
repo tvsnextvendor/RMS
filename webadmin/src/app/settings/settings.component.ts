@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {HeaderService,UtilService,CommonService} from '../services';
+import {HeaderService,UtilService,CommonService,BreadCrumbService} from '../services';
 import { ToastrService } from 'ngx-toastr';
 import {SettingVar} from '../Constants/setting.var';
 import { Location } from '@angular/common';
@@ -18,10 +18,11 @@ export class SettingsComponent implements OnInit {
 
     
 
-   constructor(private alertService:AlertService,public location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,public constant:SettingVar,private utilService : UtilService,private commonService : CommonService,public commonLabels:CommonLabels){}
+   constructor(private alertService:AlertService,public location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,public constant:SettingVar,private utilService : UtilService,private commonService : CommonService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService){}
 
    ngOnInit(){
     this.headerService.setTitle({ title:this.commonLabels.titles.settings, hidemodule: false});
+    this.breadCrumbService.setTitle([]);
     let userDetails = this.utilService.getUserData();
     this.constant.userId =userDetails.userId; 
     }

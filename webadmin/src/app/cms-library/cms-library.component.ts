@@ -94,6 +94,9 @@ export class CMSLibraryComponent implements OnInit {
         case 'notification':
         this.selectedTab = 'notification';
         break;
+        case 'workInprogress':
+        this.selectedTab = 'workInprogress';
+        break;
       }
     }
     else if(!Object.keys(params).length){
@@ -101,7 +104,7 @@ export class CMSLibraryComponent implements OnInit {
       this.showcreatecourse = false;
       this.enableNotify = false;
       this.enableBatch = false;
-      this.disableEdit = false;
+      this.disableEdit = true;
       this.disableTabs = false;
     }
   })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../services/header.service';
 import { VideosTrendVar } from '../../Constants/videostrend.var';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ExcelService, PDFService, CommonService, UtilService } from '../../services';
+import { ExcelService, PDFService, CommonService, UtilService,BreadCrumbService } from '../../services';
 import { API_URL } from 'src/app/Constants/api_url';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
@@ -22,7 +22,8 @@ export class VideosTrendDetailsComponent implements OnInit {
         public trendsVar: VideosTrendVar,
         private utilService: UtilService,
         public commonLabels:CommonLabels,
-        private commonService: CommonService) {
+        private commonService: CommonService,
+        private breadCrumbService :BreadCrumbService) {
         this.resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.trendsVar.videoId = params['id'];
@@ -32,6 +33,7 @@ export class VideosTrendDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.headerService.setTitle({ title: this.commonLabels.titles.courseTrend, hidemodule: false });
+        this.breadCrumbService.setTitle([]);
         let query =  this.resortId  ? '?resortId='+this.resortId : '';
         this.commonService.getCourseEmployeeList(query, this.trendsVar.videoId).subscribe((result) => {
             if  (result && result.isSuccess) {

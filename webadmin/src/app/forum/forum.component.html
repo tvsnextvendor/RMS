@@ -56,10 +56,12 @@
                                 <td class="text-left txt-unline"><a routerLink="/forumdetail/{{forum.forumId}}" class="forumname-width">{{ forum.forumName }}</a></td>
                                 <td class="text-left">{{ forum.employeesCount }}</td>
                                 <td class="lt-dt-act text-left"><span>{{forum.lastActiveDate |date}}</span></td>
-                                <td class="text-left"><label class="switch">
+                                <td class="text-left" ><label class="switch" *ngIf="hideStatus">
                                         <input type="checkbox" [checked]="forum.isActive" (change)= "isActive(forum.forumId, forum.isActive)" > 
                                         <span class="slider round"></span>
-                                    </label></td>
+                                    </label>
+                                    <label *ngIf="!hideStatus">{{forum.isActive ? 'Active' : 'Inactive'}}</label>
+                                </td>
                                     <td class="text-center">
                                         <a (click)="openEditModal(editForum,forum)" title="Edit"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
                                         <a (click)="deleteConfirmation(deleteForum, forum.forumId)"  title="Delete"><i class="fa fa-trash"></i></a>

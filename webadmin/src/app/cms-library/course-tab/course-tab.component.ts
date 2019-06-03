@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output,TemplateRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { HeaderService,HttpService,CourseService,CommonService,AlertService ,UtilService} from '../../services';
+import { HeaderService,HttpService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService} from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
@@ -52,7 +52,7 @@ export class CourseTabComponent implements OnInit {
   fileDuration;
   selectedCourseId;
 
-  constructor(private sanitizer: DomSanitizer,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
+  constructor(private breadCrumbService: BreadCrumbService,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
@@ -64,6 +64,8 @@ export class CourseTabComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
+    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.course,url:''}]
+    this.breadCrumbService.setTitle(data)
     this.enableDropData('closeEdit','')
     this.getCourseDetails();
     

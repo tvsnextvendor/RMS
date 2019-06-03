@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService,CourseService,CommonService,AlertService ,UtilService} from '../../services';
+import { HeaderService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService} from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
@@ -17,11 +17,13 @@ export class WorkCourseListComponent implements OnInit {
   enableView;
   enableIndex;
 
-  constructor(private courseService : CourseService ,public commonLabels : CommonLabels,private route: Router,public cmsLibraryVar : CmsLibraryVar,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private headerService : HeaderService) { }
+  constructor(private courseService : CourseService ,public commonLabels : CommonLabels,private route: Router,public cmsLibraryVar : CmsLibraryVar,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private headerService : HeaderService,private breadCrumbService :BreadCrumbService) { }
   
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
+    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.btns.workinProgress,url:''}]
+    this.breadCrumbService.setTitle(data);
     this.pageSize = 10;
     this.p=1;
     this.getCourseDetails(); 

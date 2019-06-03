@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HeaderService, CommonService, UtilService, CourseService} from '../services';
+import {HeaderService, CommonService, UtilService, CourseService,BreadCrumbService} from '../services';
 import { CommonLabels} from '../Constants/common-labels.var';
 
 @Component({
@@ -22,12 +22,14 @@ export class FeedbackComponent implements OnInit {
     public commonLabels: CommonLabels,
     private commonService: CommonService,
     private utilService: UtilService,
-    private courseService: CourseService) {
+    private courseService: CourseService,
+    private breadCrumbService :BreadCrumbService) {
       this.userId = this.utilService.getUserData().userId;
     }
 
   ngOnInit() {
     this.headerService.setTitle({title: 'FeedBack', hidemodule: false});
+    this.breadCrumbService.setTitle([]);
     this.commonService.getResortList(this.userId).subscribe(result => {
       if  (result && result.isSuccess) {
         this.resortData = result.data.rows;

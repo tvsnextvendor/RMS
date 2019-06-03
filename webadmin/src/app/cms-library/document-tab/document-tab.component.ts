@@ -1,5 +1,5 @@
 import { Component, OnInit,Input,TemplateRef , EventEmitter, Output} from '@angular/core';
-import { HeaderService, HttpService, CourseService, AlertService, FileService, ResortService,UtilService,CommonService,UserService,PDFService,ExcelService} from '../../services';
+import { HeaderService, HttpService,BreadCrumbService, CourseService, AlertService, FileService, ResortService,UtilService,CommonService,UserService,PDFService,ExcelService} from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -51,13 +51,16 @@ export class DocumentTabComponent implements OnInit {
       private userService : UserService,
       private resortService : ResortService,
       private pdfService :PDFService,
-      private excelService :ExcelService ) { 
+      private excelService :ExcelService ,
+      private breadCrumbService : BreadCrumbService) { 
 
   }
 
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
+    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.documents,url:''}]
+    this.breadCrumbService.setTitle(data)
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
 

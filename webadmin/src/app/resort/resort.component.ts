@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
-import {HeaderService} from '../services/header.service';
+import {HeaderService,BreadCrumbService} from '../services';
 import { HttpService } from '../services/http.service';
 import { ResortService } from '../services/restservices/resort.service';
 import { CommonService } from '../services/restservices/common.service';
@@ -37,7 +37,7 @@ export class ResortComponent implements OnInit {
     divisionDetails;
 
    constructor(private alertService: AlertService,private activeRoute:ActivatedRoute,private resortService : ResortService,private commonService:CommonService,private http:HttpService,private location:Location,private resortVar : ResortVar,private utilsService:UtilService,private headerService:HeaderService,private toastr:ToastrService,private router:Router,
-    public commonLabels:CommonLabels){
+    public commonLabels:CommonLabels,private breadCrumbService : BreadCrumbService){
     this.activeRoute.params.subscribe((params:Params)=>{
         this.resortId = params['id'];
     })
@@ -45,6 +45,8 @@ export class ResortComponent implements OnInit {
    }
     
    ngOnInit(){
+        let databreadcrumb = this.resortId ? [{title : this.commonLabels.labels.resort,url:'/resortslist'},{title : this.commonLabels.labels.edit,url:''}] : [{title : this.commonLabels.labels.resort,url:'/resortslist'},{title : this.commonLabels.btns.add,url:''}];
+        this.breadCrumbService.setTitle(databreadcrumb);
         let data = this.utilsService.getUserData();
         this.status = null;
         if(data && data.UserRole && data.UserRole[0] &&  data.UserRole[0].roleId){
