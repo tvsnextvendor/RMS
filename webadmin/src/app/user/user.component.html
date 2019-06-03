@@ -1,7 +1,7 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="tab-section">    
 <tabset #staticTabs *ngIf="userType !== 1">
-    <tab heading={{commonLabels.labels.userManagement}}>
+    <tab heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
         <div class="pt-3" id="contentToConvert">
         <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
             <div class="float-right row pb-3 adduser-respon">
@@ -92,7 +92,7 @@
             </form>
         </div>
     </tab>
-    <tab heading={{commonLabels.labels.hierarchy}}>  
+    <tab heading={{commonLabels.labels.hierarchy}} (select)="roleTabSelect('div')">  
         <div class="pt-3 clearfix">
             <div class="hd-section clearfix">
             <h5 class="float-left title-hd">{{commonLabels.labels.division}}</h5>
@@ -119,7 +119,7 @@
             </div>
         </div>    
     </tab>
-    <tab heading = {{commonLabels.labels.listofRole}}>
+    <tab heading = {{commonLabels.labels.listofRole}} (select)="roleTabSelect('roles')">
         <div class="pt-4 clearfix listrole">
             <div class="hd-section clearfix">
             <h5 class="float-left title-hd">{{commonLabels.labels.listofRole}}</h5>
@@ -144,8 +144,8 @@
             </div>
         </div> 
     </tab>
-    <tab heading={{commonLabels.labels.rolesPermission}}>
-       <app-rolepermission></app-rolepermission>
+    <tab heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
+       <app-rolepermission *ngIf="enableRolePermission"></app-rolepermission>
     </tab>
 </tabset>  
 </div>
@@ -335,7 +335,7 @@
                         <span class="required_color"
                             *ngIf="userForm.submitted && !emailAddress">{{commonLabels.mandatoryLabels.emailId}}</span>
                         <span class="required_color"
-                            *ngIf="emailAddress && validEmail">{{commonLabels.mandatoryLabels.emailInvalid}}</span>
+                            *ngIf="userForm.submitted && emailAddress && validEmail">{{commonLabels.mandatoryLabels.emailInvalid}}</span>
                 </span>
             </div>
 
