@@ -132,6 +132,8 @@
     .select-style select:hover, .select-style select:focus{
         background: unset;
     }
-   .arrow-align{
-       line-height: 30px;
+   .notification-title{
+    color: #656565;
+    font-size: 14px;
+    font-weight: 600;
    }

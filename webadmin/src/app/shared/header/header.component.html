@@ -1,9 +1,9 @@
 <header>
-  <div class="pb-5">
+  <div class="pb-4">
     <div>
       <div class="col-md-12 clearfix p-0">
         <span class="header-border"></span>
-          <h4 class="hd-alg">{{headerVar.title}} - <span class="capitalize">{{this.commonService.getResortName()}}</span></h4>
+          <h4 class="hd-alg m-0">{{headerVar.title}} - <span class="capitalize">{{this.commonService.getResortName()}}</span></h4>
         <span *ngIf="headerVar.hideModule">
           <module-dropdown></module-dropdown>
         </span>
@@ -43,13 +43,16 @@
         </ul>
       </div>
     </div>
+    <div *ngIf="breadCrumbData && breadCrumbData.length" class="pt-2">   
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" *ngFor="let path of breadCrumbData" >
+            <a *ngIf="path.url" href="javascript : void(0)" routerLink="{{path.url}}" class="cms-breadcrumb">{{path.title}}</a>
+            <a *ngIf="!path.url" class="breadcrumb-current">{{path.title}}</a>
+          </li>
+          <!-- <li class="breadcrumb-item active" *ngIf="!moduleId"></li> -->
+        </ol>
+      </nav>
+    </div>
   </div>
-  <div *ngIf="breadCrumbData && breadCrumbData.length">   
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item" *ngFor="let path of breadCrumbData" ><a *ngIf="path.url" href="javascript : void(0)" routerLink="{{path.url}}" class="cms-breadcrumb">{{path.title}}</a><a *ngIf="!path.url" class="cms-breadcrumb">{{path.title}}</a></li>
-        <!-- <li class="breadcrumb-item active" *ngIf="!moduleId"></li> -->
-      </ol>
-    </nav>
-  </div>
-</header>
+  </header>
