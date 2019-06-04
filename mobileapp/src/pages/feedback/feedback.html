@@ -20,7 +20,7 @@
   </div>
 </div>
 <div class="main-content">
-  <h4 class="feedback-tit">{{constant.pages.feedbackLabels.feedbackType}}</h4>
+  <h4 class="feedback-tit mt-4 mb-5">{{constant.pages.feedbackLabels.feedbackType}}</h4>
   <div class="feedback-action">
       <ion-row>
           <ion-col col-4 col-sm-4>
@@ -47,7 +47,7 @@
           </ion-col>
           </ion-row>
   </div>
-  <h4>{{constant.pages.feedbackLabels.tellUs}}</h4>
+  <h4 class="pb-5">{{constant.pages.feedbackLabels.tellUs}}</h4>
    <ion-textarea rows="1" cols="20" [(ngModel)]="feedBack" placeholder={{constant.pages.feedbackLabels.feedback}} class="your-feedback" #Description maxlength="1200"></ion-textarea>
    <span class="word-count">{{Description.value.length}}/1200</span>
 </div>

@@ -50,8 +50,12 @@
                     <td class="vdo-desc-height text-center">{{list.resortsCount}}</td>
                     <td class="vdo-desc-height text-center und-txt"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}">{{list.employeesCount}}</a></td>
                 </tr>
-                <tr *ngIf="trendsVar.moduleList?.length == 0">
+                <!-- <tr *ngIf="trendsVar.moduleList?.length == 0">
                     <td colspan="5" class="text-center data-design">{{trendsVar.noData}}</td>
+                </tr> -->
+                <tr *ngIf="trendsVar.moduleList?.length == 0">
+                    <td colspan="10"><p class="text-center data-design p-5">
+                    <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
                 </tr>
             </tbody>
             <tfoot>
