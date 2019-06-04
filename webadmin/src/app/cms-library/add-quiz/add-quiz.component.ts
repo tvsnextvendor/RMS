@@ -99,7 +99,6 @@ export class CreateQuizComponent implements OnInit {
    // Select options toggle
   questionTypeUpdate(data, i) {
     let quiz = this.quizQuestionsForm;
-    quiz[i].QuestionType = data;
     if (data === "MCQ") {
       quiz[i].option = '';
       quiz[i].answer = '';
@@ -111,22 +110,15 @@ export class CreateQuizComponent implements OnInit {
       ];
     }
     else if(data === "True/False"){
-      quiz[i].options = [];
-      quiz[i].option = "True/False";
+      delete quiz[i].options;
       quiz[i].answer = 'true';
     }
     else{
-      quiz[i].options = [];
-      quiz[i].option = '';
+      delete quiz[i].options;
       quiz[i].answer = '';
     }
   }
 
-
-  courseChange(){
-    // // this.selectedCourse = 1;
-    // console.log(this.selectedCourse);
-  }
 
   // Add Question Box
   addQuestionForm() {
@@ -175,7 +167,17 @@ export class CreateQuizComponent implements OnInit {
           item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
           return item;
       })
-      console.log(data,this.quizName)
+   
+     let postData= {
+       quizName : this.quizName,
+       quizQuestions : this.quizQuestionsForm
+     }
+      this.courseService.addQuiz(postData).subscribe(res=>{
+        if(res.isSuccess){
+          this.alertService.success(res.message);
+          this.route.navigate(['/cmspage'],{queryParams : {type : 'create'}});
+        } 
+      })
   }
 
   goTocmsLibrary(data){

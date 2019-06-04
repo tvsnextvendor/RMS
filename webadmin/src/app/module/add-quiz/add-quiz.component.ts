@@ -43,6 +43,7 @@ export class AddQuizComponent implements OnInit {
   selectedVideo;
   selectedCourse;
   quizQuestionsForm = [];
+  quizName;
   title;
   apiUrls;
   hidemodule = false;
@@ -238,6 +239,7 @@ export class AddQuizComponent implements OnInit {
           "trainingClass" : {"trainingClassName":this.selectCourseName},
           "files":[],
           "quizQuestions":data,
+          "quizName": this.quizName,
           "trainingClassId" : this.courseId,
           "questionIds" : this.removedQuizIds,
           "fileIds" : this.removedFileIds
@@ -247,6 +249,7 @@ export class AddQuizComponent implements OnInit {
         params = {
           "trainingClassName":this.selectCourseName,
           "files":[],
+          "quizName": this.quizName,
           "quizQuestions":data
           }
       }

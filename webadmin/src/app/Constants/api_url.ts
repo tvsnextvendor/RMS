@@ -109,6 +109,7 @@ export class API_URL {
     courseTrainingClassUpdate:'8103/trainingClass/Update/',
     courseEditFileList : '8103/course/getEditdetails',
     courseListUpdate : '8103/course/courseUpdate/',
+    quizAdd:'8103/trainingClass/quizAdd',
     quizListUpdate : '8103/trainingClass/quizUpdate/',
     quizDelete : '8103/trainingClass/quizDelete/',
     getTrainingClassById : '8103/course/getTrainingClasses',
