@@ -4,6 +4,9 @@ import { API } from '../../constants/API.var';
 import { Storage } from '@ionic/storage';
 import { _throw as throwError } from 'rxjs/observable/throw';
 import { catchError } from 'rxjs/operators';
+import {of} from 'rxjs/observable/of';
+
+
 
 @Injectable()
 export class HttpProvider {
@@ -40,11 +43,12 @@ export class HttpProvider {
   }
 
  private formatErrors(error: any) {   
+   let self =this;
    if(error.status === 403 || error.status === 401){
-			   // this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
+          console.log("Please log out and login again");
           this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
 			}else{
-			 return  throwError(error.error);
+        return of(error.error);
 			}  
   }
 

@@ -69,7 +69,8 @@ export class Constant {
             validations: {
                 emailRequired: 'Email is required',
                 emailInvalid: 'Email address invalid',
-                mobileNoRequired: 'Mobile No is required'
+                mobileNoRequired: 'Mobile No is required',
+                mobileInvalid: 'Mobile  No invalid'
             }
         },
         dashboardLabels: {
@@ -158,7 +159,7 @@ export class Constant {
                 oldPasswordRequired: 'Old password is required',
                 newPasswordRequired: 'New password is required',
                 confirmPasswordRequired: 'Confirm password is required',
-                minLength: 'Minimum 8 characters',
+                minLength: 'Minimum 6 characters',
                 maxLength: 'Maximum 12 characters',
                 pattern: 'Just use alphabet character',
             }
