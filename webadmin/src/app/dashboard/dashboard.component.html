@@ -1,5 +1,5 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div>      
+<div class="pt-3">      
 <ul class="btn-alg dashboard-btn" role="tablist">
     <button *ngFor="let title of tabTitle; let first = first;" [ngClass]="{firstItem: first}" role="presentation" class="accounts_li hd-button" [class.active]="selectedtab===title">
         <a (click)="selectedtab = title" aria-controls="one" role="tab" data-toggle="tab">{{title}}</a>
