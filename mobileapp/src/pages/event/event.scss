@@ -5,10 +5,11 @@ page-event {
 ion-header.header {
 		padding: 0;
 	}
-	.batch-name {
+	.batch-name h4{
     font-weight: 800;
     padding-top: 6px;
     padding-bottom: 0;
+    // font-family: 'sf_pro_displaysemibold';
 }
 .batch-date {
         font-size: 12px;
@@ -16,6 +17,7 @@ ion-header.header {
     font-weight: 500;
         color: #7D7D7D;
             padding-top: 8px;
+            font-family: 'sf_pro_displaysemibold';
 }
 .expires,.average,.completed
 {
