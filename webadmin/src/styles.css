@@ -168,6 +168,9 @@ table td.td-pd {
   .modal-content .forum-create-form {
     padding: 0 !important;
 }
+.breadcrumb-current{
+  color: #656565 !important;
+}
 /******** check box ***************/
 .hole-cont {
    position: relative;

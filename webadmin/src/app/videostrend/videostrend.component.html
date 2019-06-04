@@ -1,5 +1,5 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class="row pt-4">
+<div class="row">
     <div class="col-md-12 p-0">
     <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="trendsVar.years">
             <option *ngFor="let years of trendsVar.yearsList" [value]="years.year">{{years.year}}</option>
@@ -12,7 +12,7 @@
                 <div class="select_arrow"></div>
               </select>
     </div>
-    <div class="table-responsive custom-table2 mt-3 px-2">
+    <div class="table-responsive custom-table2 mt-3">
         <table class="table white-bg table-striped" [mfData]="trendsVar.videosTrend" #mf="mfDataTable" [mfRowsOnPage]="(trendsVar.pageLimit.length ? trendsVar.pageLimit : 5)">
             <thead>
                     <tr class="th-boxshadow">

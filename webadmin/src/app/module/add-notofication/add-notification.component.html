@@ -6,7 +6,7 @@
         </ol>
     </nav>
 </div> -->
-<div class="pt-3">
+<div>
 <div class="clearfix">
     <h4 class="add-notify">{{commonLabels.btns.createNotification}}</h4>
 </div>
@@ -15,15 +15,15 @@
             <p class="text-center table-desc-color">{{commonLabels.msgs.generalNotifi}}</p>
         </div> -->
         <div class="row">
-            <div class="white-bg col-md-12 mb-3 p-3 cp"><label class="hole-cont mb-0">
-                <span>{{this.commonLabels.labels.assignToCourse}}</span>
-            </label><button class="float-right btn btn-link" (click)="notificationTypeUpdate('assignedToCourse')"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></button></div>
-            <div class="white-bg col-md-12 mb-3 p-3 cp"><label class="hole-cont mb-0">
-                <span>{{this.commonLabels.labels.signature}}</span>
-            </label><button class="float-right btn btn-link"  (click)="notificationTypeUpdate('signature')"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></button></div>
-                <div class="white-bg col-md-12 mb-3 p-3 cp"><label class="hole-cont mb-0">
-                <span> {{this.commonLabels.labels.nonSignature}}</span>
-            </label><button class="float-right btn btn-link" (click)="notificationTypeUpdate('nonSignature')"><i class="fa fa-angle-right icons_header arrow-align" aria-hidden="true" title="Next"></i></button></div>
+            <div class="white-bg col-md-12 mb-3 p-3 cp">
+            <span class="notification-title">{{this.commonLabels.labels.assignToCourse}}</span>
+            <button class="float-right btn btn-link" (click)="notificationTypeUpdate('assignedToCourse')"><i class="fa fa-angle-right icons_header" aria-hidden="true" title="Next"></i></button></div>
+            <div class="white-bg col-md-12 mb-3 p-3 cp">
+            <span class="notification-title">{{this.commonLabels.labels.signature}}</span>
+            <button class="float-right btn btn-link"  (click)="notificationTypeUpdate('signature')"><i class="fa fa-angle-right icons_header" aria-hidden="true" title="Next"></i></button></div>
+                <div class="white-bg col-md-12 mb-3 p-3 cp">
+            <span class="notification-title">{{this.commonLabels.labels.nonSignature}}</span>
+            <button class="float-right btn btn-link" (click)="notificationTypeUpdate('nonSignature')"><i class="fa fa-angle-right icons_header" aria-hidden="true" title="Next"></i></button></div>
         </div>
         <!-- <div class="col-md-12 clearfix text-center py-3">
             <button type="button" class="btn btn-primary creat-btn"  (click)="notificationTypeSubmit()">{{commonLabels.btns.yes}}</button>
@@ -186,8 +186,8 @@
                 </div>
             </div>
                 <div class="text-center col-md-12 pt-3">
-                    <button type="submit" class="btn btn-primary module-createbtn mr-4">{{commonLabels.btns.save}}</button>
-                    <button type="button" class="btn btn-default creat-btn" (click)="back()">{{commonLabels.btns.cancel}}</button>                   
+                    <button type="button" class="btn btn-default float-right" (click)="back()">{{commonLabels.btns.cancel}}</button>                   
+                    <button type="submit" class="btn btn-primary float-right mr-4">{{commonLabels.btns.save}}</button>
                 </div>
 
             </div>
