@@ -16,7 +16,7 @@ export class API_URL {
 
     //Certificate Templates//
     getTemplateList: '5c34b04e2e0000490037902a',
-    getBadgePercentage: '5c3436f52e00006d00378c9a',
+    getBadgePercentage: '5cf6006832000015298ccf59',
     getCoursesList: "5c34596a2e00007d00378d8d",
 
 
@@ -146,6 +146,9 @@ export class API_URL {
     addDesignation : '8102/designation/Add',
     updateDesignation : '8102/designation/Update/',
     deleteDesignation : '8102/designation/Delete/',
+    checkDivision : "8102/division/checkDivision",
+    checkDept : "8102/department/checkDepartment",
+    checkRole : "8102/designation/checkDesignation",
     bulkUploadUrl : '8101/bulkCreate',
     userSettings : '8101/user/settings',
 
