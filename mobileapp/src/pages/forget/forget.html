@@ -1,4 +1,12 @@
 <ion-content padding class="login-bg" no-bounce overflow-scroll="false">
+
+	<div class={{className}} *ngIf="showToastr">
+		<div class="notify-inset">
+			<h6>{{msgTitle}}</h6>
+			<p>{{msgDes}}</p>
+		</div>
+	</div>
+
 	<div class="signin-process">
 		<div class="max-wth height-align">
 			<p class="sign-title"><ion-icon name="md-arrow-back" class="go-back" (click)="goBackLogin()"></ion-icon> {{constant.pages.forgetPasswordLabels.forgetPassword}}</p>
@@ -27,6 +35,9 @@
 						<div *ngIf="( forgetform.get('phone').hasError('minlength') || forgetform.get('phone').hasError('pattern') ||forgetform.get('phone').hasError('required') ) && forgetform.get('phone').touched">
 							<div class="error" *ngIf="forgetform.get('phone').hasError('required') && forgetform.get('phone').touched">
 								{{constant.pages.forgetPasswordLabels.validations.mobileNoRequired}}
+							</div>
+							<div class="error" *ngIf="forgetform.get('phone').hasError('pattern') && forgetform.get('phone').touched">
+								{{constant.pages.forgetPasswordLabels.validations.mobileInvalid}}
 							</div>
 						</div>
 					</ion-list>

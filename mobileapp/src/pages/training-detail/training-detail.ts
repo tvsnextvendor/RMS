@@ -6,13 +6,16 @@ import {DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-vie
 import {ToastrService} from '../../service/toastrService';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
+import { API } from '../../constants/API.var';
 import { Storage } from '@ionic/storage';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 
 @IonicPage({
     name: 'trainingdetail-page'
 })
 
-@Component({ selector: 'page-training-detail', templateUrl: 'training-detail.html', providers: [Constant] })
+@Component({ selector: 'page-training-detail', templateUrl: 'training-detail.html', providers: [Constant, InAppBrowser] })
 export class TrainingDetailPage {
 
     @ViewChild(Slides) slides: Slides;
@@ -58,7 +61,7 @@ export class TrainingDetailPage {
     status;
     currentUser;
 
-    constructor(public navCtrl: NavController,public storage: Storage,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
+    constructor(public navCtrl: NavController,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.trainingClassName = this.detailObject['setData'].trainingClassName;
@@ -297,7 +300,7 @@ export class TrainingDetailPage {
                 default:
                     docType = 'application/pdf';
             }
-               let baseUrl = 'http://demo.greatinnovus.com:8103/uploads/';
+               let baseUrl = API['API_LINK'];
                   
                 // const url = 'http://demo.greatinnovus.com:8103/uploads/';
                 // const transfer = this.transfer.create();
@@ -308,11 +311,16 @@ export class TrainingDetailPage {
                 //     // handle error
                 // });
              console.log(baseUrl + docFile)
-             this.document.viewDocument(baseUrl + docFile, docType , options)
-
-
-
-
+             let target = '_blank';
+             window.open(baseUrl + docFile, target);	
+             //this.document.viewDocument(baseUrl + docFile, docType , options)
+             //this.webView.convertFileSrc(baseUrl + docFile)
+             
+            // let pdfUrl = baseUrl + docFile;
+            // let url = "http://docs.google.com/gview?embedded=true&url=" + pdfUrl;
+            // this.webView.getSettings().setJavaScriptEnabled(true);
+            // this.webView.loadUrl(url);
+                        
 
             //For IOS platform 
             //let baseUrl = location.href.replace("/index.html", ""); 
