@@ -4,10 +4,26 @@
 				<div class="row">
 					
 				</div>
-				<div class="white-bg p-3 mt-2 table-decs" *ngFor="let data of quizQuestionsForm;let i = index;">
+				<!-- <div class="fileUpload btn btn-primary">
+					<span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{commonLabels.labels.upload}}</span>
+					<input type="file" name="quiz" class="upload" [(ngModel)]="quizAdded" />
+				</div> -->
+				<div class="white-bg p-3 mt-2 table-decs"  *ngFor="let data of quizQuestionsForm;let i = index;">
 					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i,data)">
 						<img src="{{commonLabels.imgs.close1}}" class="close-alg">
-			   			<img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>
+						   <img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>
+						   <div class="row form-group">
+							<label class="col-md-4 p-0 label-title">{{commonLabels.labels.quizName}}</label>
+							<div class="col-md-8 p-0">
+								<span>
+									<input type="text" class="form-control" placeholder="Enter Quiz Name" name="name" #quizname="ngModel"
+										[(ngModel)]="quizName" required>
+								</span>
+								<span class="required_color" *ngIf="!quizName && (quizForm.submitted || quizname.touched)">
+									{{commonLabels.labels.quizName}} {{commonLabels.mandatoryLabels.isRequired}}
+								</span>
+							</div>
+						   </div>
 					<div class="row  form-group">
 						<div class="col-md-6 row p-0"> 
 							<label for="" class="col-sm-4 label-title p-0 m-0">{{commonLabels.labels.questionType}}</label>

@@ -322,6 +322,7 @@ export class CommonLabels{
         "showMore"          :   "Show more",
         "showLess"          :   "Show less",
         "quizName"          :   "Quiz Name",
+        "selectQuiz"        :   "Select Quiz",
         "uploadedDate"      :   "Uploaded Date",
         "modifiedDate"      :   "Modified Date",
         "noOfResorts"       :   "No. of Resorts",           

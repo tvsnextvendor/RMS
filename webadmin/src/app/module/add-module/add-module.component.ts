@@ -23,6 +23,7 @@ export class AddModuleComponent implements OnInit {
     moduleId;
     moduleCourseId;
     selectedCourses = [];
+    selectedQuiz=null;
     courseDetailsList = [];
     moduleName;
     topics;
@@ -45,6 +46,7 @@ export class AddModuleComponent implements OnInit {
     fileDuration;
     removedFileIds = [];
     modalRef;
+    quizList=[];
     @Output() upload= new EventEmitter<object>();
     @Output() completed = new EventEmitter<string>();
     @Input() addedFiles;
@@ -59,6 +61,7 @@ export class AddModuleComponent implements OnInit {
    }
 
    ngOnInit(){
+    this.getquizList();
     if(this.addedFiles && this.addedFiles.length > 0){
         let courseName = this.moduleVar.selectCourseName;
         this.addCourse();
@@ -292,7 +295,6 @@ export class AddModuleComponent implements OnInit {
        this.moduleVar.quizDetails = []; 
        this.moduleVar.courseId = data.id;
        this.courseService.getCourseTrainingClassById(data.id,this.moduleId).subscribe(resp=>{
-           console.log(resp);
            if(resp && resp.isSuccess){
                let classData = resp.data && resp.data.rows.length && resp.data.rows[0];
                this.moduleVar.selectCourseName = classData.trainingClassName;
@@ -352,6 +354,8 @@ export class AddModuleComponent implements OnInit {
              id : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassId : '',
              value : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassName : ''
          }
+
+         this.moduleVar.selectedCourseIds=[];
          
          if(newTrainingClass.id !== ''){
              this.selectedCourses.push(newTrainingClass);
@@ -545,12 +549,22 @@ export class AddModuleComponent implements OnInit {
         }
    }
 
+   getquizList(){
+       let user = this.utilService.getUserData();
+       this.courseService.getQuizList(user.userId).subscribe(res=>{
+           if(res.isSuccess){
+               this.quizList = res.data;
+           }
+       })
+   }
+
     submitForm(courseSubmitType){
         this.moduleSubmitted = true;
         let user = this.utilService.getUserData();
         if(this.moduleName && this.selectedCourses.length ){
             let params = {
                 "courseName":this.moduleName,
+                "quizId": this.selectedQuiz, 
                 "courseTrainingClasses":this.moduleVar.selectedCourseIds,
                 "createdBy" : user.userId,
                 "status" : courseSubmitType ? 'none' : 'workInprogress'
@@ -594,7 +608,7 @@ export class AddModuleComponent implements OnInit {
                             this.completed.emit('completed'); 
                         }
                         else{
-                            this.moduleCourseId = resp.data.courseId;
+                            this.moduleCourseId = resp.data[0].courseId;
                             if(this.staticTabs && this.staticTabs.tabs && this.staticTabs.tabs.length) 
                             {
                                 this.staticTabs.tabs[0].disabled = false;
@@ -627,7 +641,6 @@ export class AddModuleComponent implements OnInit {
     }
 
     openEditModal(template: TemplateRef<any>,modelValue) {
-        console.log(this.moduleName)
         if(this.moduleName && this.moduleVar.selectedCourseIds.length){
           let modalConfig= {
             class : "modal-dialog-centered"
@@ -641,5 +654,6 @@ export class AddModuleComponent implements OnInit {
             this.alertService.error(this.commonLabels.mandatoryLabels.trainingClassrequired);
         }
       }
+
    
 }
