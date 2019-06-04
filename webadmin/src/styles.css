@@ -418,6 +418,14 @@ ul li{
     font-weight: 500;
     text-decoration: underline;
 }
+.sidebar-title{
+   text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+}
 /***************** end sidebar **************************/
 /************************* Header ***********************/
 .form-searchbox {

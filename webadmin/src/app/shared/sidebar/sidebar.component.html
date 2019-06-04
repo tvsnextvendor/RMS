@@ -29,7 +29,7 @@
         </li>
         <!-- <li [class.active]="router.isActive('/cms-library') || router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')"> -->
         <li [ngClass]="(tabType == 'create') ? 'active' : ''">
-            <a   (click)="dropDownEnable('create')"><img src="{{commonLabels.imgs.cms}}" class="pr-3">{{commonLabels.btns.create}}<span class="drop-icon"><i *ngIf="enableCreate" aria-hidden="true" class="fa fa-angle-down icons_header pl-5" title="Open"></i><i *ngIf="!enableCreate" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>
+            <a   (click)="dropDownEnable('create')"><img src="{{commonLabels.imgs.cms}}" class="pr-3"><span class="sidebar-title">{{commonLabels.btns.create}}</span><span class="drop-icon"><i *ngIf="enableCreate" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableCreate" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>
         </li>
         <ul class="sub-menu" *ngIf="enableCreate">
             <li [ngClass]="(activeType == 'createclass') ? 'active' : ''">
@@ -47,7 +47,7 @@
         </ul>
        
         <li [ngClass]="(tabType == 'edit') ? 'active' : ''">
-            <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3">{{commonLabels.labels.edit}}<span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header pl-5" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
+            <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3"><span class="sidebar-title">{{commonLabels.labels.edit}}</span><span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
         </li>
         <ul class="sub-menu" *ngIf="enableEdit">
             <li [ngClass]="(activeType == 'editclass') ? 'active' : ''">
@@ -113,7 +113,7 @@
                 <a routerLink="/approvalrequests"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.approvalRequests}}</a>
             </li>
             <li [class.active]="router.isActive('/forum')">
-                <a routerLink="/forum"><img src="{{commonLabels.imgs.forum}}"class="pr-3">{{commonLabels.labels.forum}}</a>
+                <a routerLink="/forum"><img src="{{commonLabels.imgs.forum}}"class="pr-3"><span class="sidebar-title">{{commonLabels.labels.forum}}</span></a>
             </li>
             <li [class.active]="router.isActive('/certificates')">
                 <a routerLink="/certificates"><img src="assets/images/Certificates.png"class="pr-3">{{commonLabels.titles.certificate}}</a>
@@ -122,7 +122,7 @@
                 <a routerLink="/subscriptionlist"><img src="{{commonLabels.imgs.subscription}}" class="pr-3">{{commonLabels.titles.subscription}}</a>
             </li>
             <li [class.active]="router.isActive('/feedback')">
-                <a routerLink="/feedback"><img src="assets/images/feedback.png" class="pr-3">{{commonLabels.titles.feedback}}</a>
+                <a routerLink="/feedback"><img src="assets/images/feedback.png" class="pr-3"><span class="sidebar-title">{{commonLabels.titles.feedback}}</span></a>
             </li>
         </ul>
     </ul>
