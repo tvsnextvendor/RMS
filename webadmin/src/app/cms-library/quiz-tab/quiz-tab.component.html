@@ -21,7 +21,7 @@
                             <div class="col-md-6 row p-0"> 
                                 <label for="" class="col-sm-4 label-title p-0 m-0">{{commonLabels.labels.questionType}}</label>
                                 <div class="col-md-8 pl-0">
-                                    <select class="form-control" placeholder="Select" name="questionType{{i}}" [(ngModel)]="data.questionType" (change)="questionTypeUpdate(data.questionType,i)"
+                                    <select class="form-control" placeholder="Select" name="questionType{{i}}" [(ngModel)]="data.Question.questionType" (change)="questionTypeUpdate(data.Question.questionType,i)"
                                     #QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required [disabled] = "data.enableEdit === false ? 'true' : false">
                                         <option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
                                     </select>
@@ -35,7 +35,7 @@
                                 <div class="col-md-8 pl-0">
                                     <span>
                                         <input type="text" class="form-control" placeholder="Enter Weightage" name="Weightage" value="{{weightage}}%"
-                                        #WeightageVal="ngModel" [(ngModel)]="data.weightage" required [disabled] = "data.enableEdit === false ? 'true' : false">
+                                        #WeightageVal="ngModel" [(ngModel)]="data.Question.weightage" required [disabled] = "data.enableEdit === false ? 'true' : false">
                                     </span>
                                     <!-- <span class="required_color" *ngIf="WeightageVal && WeightageVal.invalid && (quizForm.submitted || WeightageVal.touched)">
                                         {{constant.quizLabels.weightage}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
@@ -47,7 +47,7 @@
                         <div class="row  form-group">
                             <label class="col-md-2 pl-0 label-title m-0">{{commonLabels.labels.question}}{{i+1}}</label>
                             <div class="col-md-10 pl-0">
-                                <input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.questionName"
+                                <input type="text" class="form-control" placeholder="Enter Question" name="question{{i}}" [(ngModel)]="data.Question.questionName"
                                 #QuestionVal="ngModel" required [disabled] = "data.enableEdit === false ? 'true' : false">
                                 <!-- <span class="required_color" *ngIf="QuestionVal && QuestionVal.invalid && (quizForm.submitted || QuestionVal.touched)">
                                     {{constant.quizLabels.question}} {{i+1}} {{constant.mandatoryLabels.isRequired}}
@@ -55,13 +55,13 @@
                             </div>                		
                         </div>
                         <div class="row form-group">
-                                <label *ngIf="data.questionType !== 'NON-MCQ'" class="col-md-2 pl-0 label-title">{{commonLabels.labels.options}}</label>
-                                <label *ngIf="data.questionType === 'NON-MCQ'" class="col-md-2 pl-0 label-title">{{commonLabels.labels.answer}}</label>
+                                <label *ngIf="data.Question.questionType !== 'NON-MCQ'" class="col-md-2 pl-0 label-title">{{commonLabels.labels.options}}</label>
+                                <label *ngIf="data.Question.questionType === 'NON-MCQ'" class="col-md-2 pl-0 label-title">{{commonLabels.labels.answer}}</label>
                                 <div class="col-md-10 pl-0">
                                     <div class="row">
                                         <div class="col-md-12 p-0 form-group">
-                                            <div class="row" *ngIf="data.questionType === 'MCQ' && data.options && data.options.length">
-                                                <span class="col-sm-12 p-0" *ngFor=" let optionValue of data.options; let oi = index;">
+                                            <div class="row" *ngIf="data.Question.questionType === 'MCQ' && data.Question.options && data.Question.options.length">
+                                                <span class="col-sm-12 p-0" *ngFor=" let optionValue of data.Question.options; let oi = index;">
                                                     <span class="option-btn" *ngIf="oi===0">{{commonLabels.labels.a}}</span>
                                                     <span class="option-btn" *ngIf="oi===1">{{commonLabels.labels.b}}</span>
                                                     <span class="option-btn" *ngIf="oi===2">{{commonLabels.labels.c}}</span>
@@ -70,7 +70,7 @@
                                                 </span>
                                                 <input [disabled] = "data.enableEdit === false ? 'true' : false"  type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
                                             </div>
-                                            <div class="pt-2" *ngIf="data.questionType === 'True/False'">
+                                            <div class="pt-2" *ngIf="data.Question.questionType === 'True/False'">
                                                 <span class="col-sm-3 pl-0">
                                                     <label class="hole-cont mr-2">
                                                         <input [disabled] = "data.enableEdit === false ? 'true' : false" type="checkbox" [checked]="optionData" name="options" [value]="1" (change)="optionValueUpdate(data)"> {{commonLabels.labels.true}}
@@ -81,12 +81,12 @@
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </span>
-                                                <input hidden [disabled] = "data.enableEdit === false ? 'true' : false"  type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
+                                                <input hidden [disabled] = "data.enableEdit === false ? 'true' : false"  type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.Question.answer" [ngModelOptions]="{ standalone : true }">
                                             </div>
-                                            <div class="row" *ngIf="data.questionType === 'NON-MCQ'">
+                                            <div class="row" *ngIf="data.Question.questionType === 'NON-MCQ'">
                                                 <span class="col-sm-12 pl-0">
                                                     <!-- <span class="option-btn">{{oi + 1}}</span> -->
-                                                    <input  [disabled] = "data.enableEdit === false ? 'true' : false" type="text" class="form-control" placeholder="Enter Your Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
+                                                    <input  [disabled] = "data.enableEdit === false ? 'true' : false" type="text" class="form-control" placeholder="Enter Your Answer" [name]="data.answer" [(ngModel)]="data.Question.answer" [ngModelOptions]="{ standalone : true }">
                                                 </span>
                                                 <!-- <input [disabled] = "data.enableEdit === false ? 'true' : false"  type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }"> -->
                                             </div>

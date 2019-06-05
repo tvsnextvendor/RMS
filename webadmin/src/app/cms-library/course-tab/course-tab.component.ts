@@ -183,7 +183,10 @@ export class CourseTabComponent implements OnInit {
     this.selectedEditTrainingClass = classId;
     this.courseService.getEditCourseDetails('',this.selectedEditCourse,classId).subscribe(resp => {
       if(resp && resp.isSuccess){
-        this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
+
+        console.log(resp);
+        this.fileList = resp.data.length && resp.data;
+       // this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
         if(this.addedFiles){
           this.addedFiles.forEach(element => {
                this.fileList.push(element);
@@ -216,7 +219,7 @@ export class CourseTabComponent implements OnInit {
   calculateContentFiles(courses){
     let i =0;
     courses.forEach(function(value,key){
-      i = i + parseInt(value.TrainingClass.Files.length);
+      i = i + parseInt(value.TrainingClass.FileMappings.length);
     });
     return i;
   }
@@ -225,8 +228,8 @@ export class CourseTabComponent implements OnInit {
   calculateFileMbSize(courses){
     let i = 0;
     courses.forEach(function(value,key){
-      value.TrainingClass.Files.forEach(function(val,key){
-        i = i + parseInt(val.fileSize);
+      value.TrainingClass.FileMappings.forEach(function(val,key){
+        i = i + parseInt(val.File.fileSize);
       });
     });
     return this.formatBytes(i,2);

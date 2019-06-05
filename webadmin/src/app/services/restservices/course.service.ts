@@ -139,6 +139,9 @@ export class CourseService {
   updateQuizList(quizId,params){
     return this.http.put('local',this.url.quizListUpdate+quizId,params)
   }
+  updateQuestion(questionId,params){
+    return this.http.put('local',this.url.questionUpdate+questionId,params)
+  }
   deleteQuizList(queId){
     return this.http.delete('local',this.url.quizDelete+queId)
   }
