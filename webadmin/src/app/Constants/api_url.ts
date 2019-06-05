@@ -111,6 +111,7 @@ export class API_URL {
     courseListUpdate : '8103/course/courseUpdate/',
     quizAdd:'8103/trainingClass/quizAdd',
     quizListUpdate : '8103/trainingClass/quizUpdate/',
+    questionUpdate:'8103/trainingClass/questionUpdate/',
     quizDelete : '8103/trainingClass/quizDelete/',
     getTrainingClassById : '8103/course/getTrainingClasses',
     assignVideoToCourse: '8103/course/assignVideosToCourse',
