@@ -77,7 +77,7 @@ export class WorkCourseListComponent implements OnInit {
   calculateContentFiles(courses){
     let i =0;
     courses.forEach(function(value,key){
-      i = i + parseInt(value.TrainingClass.Files.length);
+      i = i + parseInt(value.TrainingClass.FileMappings.length);
     });
     return i;
   }
