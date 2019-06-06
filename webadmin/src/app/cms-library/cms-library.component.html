@@ -13,8 +13,8 @@
     </nav>
 </div> -->
 <app-add-notification *ngIf="enableNotify && !enableBatch &&!showcreatecourse" (someEvent)="closeModal()" (completed)="completed($event)"></app-add-notification>
-<app-add-batch *ngIf="enableBatch && !enableNotify && !showcreatecourse" [courseList]="this.selectedCourse" (someEvent)="hidePopup($event)" (completed)="completed($event)"></app-add-batch>
-<app-add-module *ngIf="showcreatecourse && !enableBatch && !enableNotify" (upload)="showUploadPage($event)" (completed)="completed($event)"  [addedFiles]="selectedVideoList"></app-add-module>   
+<app-add-batch *ngIf="enableBatch && !enableNotify && !showcreatecourse" [courseList]="this.selectedCourse"  (someEvent)="hidePopup($event)" (completed)="completed($event)"></app-add-batch>
+<app-add-module *ngIf="showcreatecourse && !enableBatch && !enableNotify" (upload)="showUploadPage($event)" [selectedTab]="tabName" (completed)="completed($event)"  [addedFiles]="selectedVideoList"></app-add-module>   
 <div class="" *ngIf="!showcreatecourse && !enableNotify && !enableBatch"> 
     
     <div class="row">
@@ -104,7 +104,7 @@
 <!-- <ng-template #editBatch>  
     <div class="modal-header"> 
         <h4 class="hd-alg">{{commonLabels.modaltitle.addnewtrainingschedule}}</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hidePopup('cancel')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
