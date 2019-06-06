@@ -18,7 +18,7 @@
 			<div class="row form-group">
 				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.courseName}}</label>
 				<span class="col-md-9 p-0">
-					<input type="text" class="form-control" placeholder="Enter Course Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
+					<input type="text" class="form-control pl-0" placeholder="Enter Course Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
 					<span class="required_color mt-2" *ngIf="moduleSubmitted && !moduleName">
 					{{commonLabels.mandatoryLabels.courseName}}
 				</span>

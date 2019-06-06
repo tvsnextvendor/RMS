@@ -1257,6 +1257,9 @@ a {
     background-color: #EAEAEA !important;
     color: #576271 !important;
     margin: 2px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .select-Courses span.selected-item:hover{
 	background-color: #ccc;
