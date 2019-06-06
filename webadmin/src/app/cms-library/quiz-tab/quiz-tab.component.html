@@ -11,14 +11,29 @@
                 <select *ngIf="directTabEnable" name="trainingClassId" class="form-control col-md-5 pl-0 select select-style clearfix" [(ngModel)] = "filterTrainingClass" #trainingClass (change)="dropdownClassUpdate()" [disabled]="filterCourse === 'null'" >
                     <option [value]=null>{{commonLabels.labels.selectopt}}</option>
                     <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.trainingClassName}}</option><div class="select_arrow"></div>
-
                 </select>
                 <span class="col-md-1 form-control" style='border-bottom: none'></span>
             </div>
             <div class="quiz-box row p-4" *ngFor="let data of quizQuestionsForm;let i = index;">                   
                     <div class="col-md-11 p-0">
+                        <div class="row form-group">
+                            <label class="col-md-4 p-0 label-title">{{commonLabels.labels.quizName}}</label>
+                            <div class="col-md-8 p-0">
+                                <span>
+                                    <input type="text" class="form-control" placeholder="Enter Quiz Name" name="name" #quizname="ngModel"
+                                        [(ngModel)]="quizName" required [disabled] = "data.enableEdit === false ? 'true' : false">
+                                </span>
+                                <!-- <span class="required_color" *ngIf="!quizName && (quizForm.submitted || quizname.touched)">
+                                    {{commonLabels.labels.quizName}} {{commonLabels.mandatoryLabels.isRequired}}
+                                </span> -->
+                            </div>
+                        </div>
                         <div class="row" >
                             <div class="col-md-6 row p-0"> 
+                                <label class="square-cont float-left mb-0" *ngIf="uploadPage">
+                                    <input type="checkbox" name="web"> 
+                                    <span class="square-checkmark"></span>
+                                </label>
                                 <label for="" class="col-sm-4 label-title p-0 m-0">{{commonLabels.labels.questionType}}</label>
                                 <div class="col-md-8 pl-0">
                                     <select class="form-control" placeholder="Select" name="questionType{{i}}" [(ngModel)]="data.Question.questionType" (change)="questionTypeUpdate(data.Question.questionType,i)"
@@ -98,7 +113,7 @@
                     <div class="col-md-1 p-0">
                         <a *ngIf="data.enableEdit === false" (click)="editQuizEnable(i)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
                         <a *ngIf="data.enableEdit === false" (click)="removeQuiz(deleteQuiz,data)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
-                        <a *ngIf="data.enableEdit === true" (click)="quizSubmit(data,i)" class="mr-2"><img src="{{commonLabels.imgs.ok}}" class="upload-crt-icon"></a>
+                        <a *ngIf="data.enableEdit === true" (click)="quizSubmit(data.Question,i)" class="mr-2"><img src="{{commonLabels.imgs.ok}}" class="upload-crt-icon"></a>
                         <a *ngIf="data.enableEdit === true" (click)="cancelQuizSubmit(i)"><img src="{{commonLabels.imgs.cancel}}"></a>
                     </div>          
             </div>

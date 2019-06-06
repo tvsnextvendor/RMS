@@ -34,11 +34,13 @@ export class CMSLibraryComponent implements OnInit {
   courseId;
   CMSFilterSearchEvent;
   quizTabHit;
+  deselectAll= false;
   selectedVideoList=[];
   showcreatecourse=false;
   findCreateCourse;
   notificationValue;
   notifyType;
+  tabName;
   enableNotify = false;
   enableBatch = false;
   disableEdit = false;
@@ -53,14 +55,17 @@ export class CMSLibraryComponent implements OnInit {
     if(params.type && params.type == 'create'){
       this.disableEdit = false;
       this.disableTabs = false;
+              console.log(params.tab,"Params")
       switch(params.tab){
         case 'course':
           this.showcreatecourse = true;
           this.enableNotify = false;
+          this.tabName=params.tab;
           break;
         case 'class':
           this.showcreatecourse = true;
           this.enableNotify = false;
+          this.tabName=params.tab;
           break;  
         case 'quiz':
         break;
@@ -164,7 +169,6 @@ export class CMSLibraryComponent implements OnInit {
   }
  
   completed(event){
-    console.log(event)
     if(event == 'back'){
       this.route.navigate(['/cmspage']);
     }else{
@@ -193,15 +197,16 @@ export class CMSLibraryComponent implements OnInit {
   }
   
   getCourse(event){
+    console.log(event);
     this.selectedCourse=event;
   }
 
   hidePopup(type){
+    this.deselectAll = true;
     this.modalRef.hide();
-    if(type !== 'cancel'){
-      // window.location.reload();
+    //if(type !== 'cancel'){
       this.selectedCourse = [];
-    } 
+    //} 
   }
 
   receivefilterMessage($event) {

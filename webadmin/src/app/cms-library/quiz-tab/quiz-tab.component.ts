@@ -34,6 +34,7 @@ export class QuizTabComponent implements OnInit {
   optionData = true;
   modalRef;
   modalConfig;
+  quizName;
   deleteQueId;
   courseList;
   trainingClassList;
@@ -98,6 +99,7 @@ export class QuizTabComponent implements OnInit {
         this.courseName = resp.data && resp.data.length && resp.data[0].QuizMappings[0].Course && resp.data[0].QuizMappings[0].Course.courseName;
         this.trainingClassName = resp.data && resp.data.length && resp.data[0].QuizMappings[0].TrainingClass && resp.data[0].QuizMappings[0].TrainingClass.trainingClassName;
         let responseList = resp.data && resp.data.length && resp.data[0].QuizMappings;
+        this.quizName= resp.data && resp.data[0].quizName;
         QuizList = responseList.map(item => {
           item.enableEdit = false;
           return item;
@@ -195,8 +197,8 @@ export class QuizTabComponent implements OnInit {
   }
 
   quizSubmit(data, i) {
-    console.log(data)
     let params = {
+      "quizName": this.quizName,
       "questionName": data.questionName,
       "questionType": data.questionType,
       "weightage": data.weightage,
@@ -205,7 +207,6 @@ export class QuizTabComponent implements OnInit {
       "trainingClassId": data.trainingClassId
     }
     this.courseService.updateQuestion(data.questionId, params).subscribe(resp => {
-      console.log(resp);
       if (resp && resp.isSuccess) {
         this.alertService.success(resp.message);
         this.cancelQuizSubmit(i);
