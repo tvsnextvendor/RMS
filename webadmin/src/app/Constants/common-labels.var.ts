@@ -348,6 +348,7 @@ export class CommonLabels{
         "workinProgress"    :   "Work in Progress",
         "scheduleTraining"  :   "Schedule a Training",
         "createNotification":   "Create Notification",
+        "editNotification"  :   "Edit Notification",
         "createCourse"      :   "Create Course",
         "add"               :   "Add",
         "addNew"            :   "Add New",
