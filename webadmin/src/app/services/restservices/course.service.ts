@@ -203,4 +203,13 @@ export class CourseService {
     return this.http.post('local',this.url.addTypeTwoNotification,params);
   }
 
+  getNotification(query){
+    return this.http.getLocal('local',this.url.getNotification+query);
+  }
+
+  updateNotification(notifyId,params){
+    // updateNotification
+    return this.http.put('local',this.url.updateNotification+notifyId,params)
+  }
+
 }

@@ -177,6 +177,8 @@ export class API_URL {
     // notification
     addTypeOneNotification : '8103/createNotification',
     addTypeTwoNotification : '8103/signatureNotification',
+    getNotification         : '8103/getNotification',
+    updateNotification      : '8103/updateNotification/',
 
     // Dashboard
     totalCount : '8103/getTotalCount',
@@ -187,6 +189,7 @@ export class API_URL {
     getCourseEmployeeList : '8103/courseEmployeestatusList',
     topFiveResort : '8103/getTopFiveResorts',
     badgesData: '8103/getBadges',
+
 
     //password update
     forgetPassword : '8101/forgetPassword',

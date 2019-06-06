@@ -8,7 +8,7 @@
 </div> -->
 <div>
 <div class="clearfix">
-    <h4 class="add-notify">{{commonLabels.btns.createNotification}}</h4>
+    <h4 class="add-notify">{{notifyId ? commonLabels.btns.editNotification : commonLabels.btns.createNotification}}</h4>
 </div>
 <div class="modal-body p-0" *ngIf="!notificationType">
         <!-- <div>
@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-md-6 pl-0">
                     <div class="row form-group select select-style clearfix" *ngIf="notificationType === 'assignedToCourse'">
-                        <select class="form-control p-0 select-Courses" name="course" [(ngModel)]="moduleVar.selectedCourses" (change)="courseSelect($event)">
+                        <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="course" [(ngModel)]="moduleVar.selectedCourses" (change)="courseSelect($event)">
                             <option value='null' disabled>{{commonLabels.labels.course}}</option>
                             <option  *ngFor="let course of moduleVar.courseList" [value]="course.courseId">{{course.courseName}}</option>
                         </select><div class="select_arrow"></div>
@@ -59,7 +59,7 @@
                         </span>
                     </div> -->
                     <div class="row form-group select select-style clearfix">
-                        <select class="form-control p-0 select-Courses" name="resort" [(ngModel)]="moduleVar.selectedResort" #resort  (change)="getDropdownDetails(resort.value,'')">
+                        <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="resort" [(ngModel)]="moduleVar.selectedResort" #resort  (change)="getDropdownDetails(resort.value,'')">
                             <option value='null' disabled>{{commonLabels.labels.resort}}</option>
                             <option  *ngFor="let course of moduleVar.resortList" [value]="course.resortId">{{course.resortName}}</option>
                         </select><div class="select_arrow"></div>
@@ -70,6 +70,7 @@
                     <div class="row form-group">
                         <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown
+                            [disabled]="notifyId ? true : false"
                             [placeholder]="'Departments'"
                             [data]="moduleVar.departmentList"
                             [(ngModel)]="moduleVar.selectedDepartment"
@@ -84,7 +85,7 @@
                 </div>
                 <div class="col-md-6 pr-0">
                     <div class="row form-group select select-style clearfix" *ngIf="notificationType === 'assignedToCourse'">
-                        <select class="form-control p-0 select-Courses" name="trainingClass" [(ngModel)]="moduleVar.selectedTrainingClass">
+                        <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="trainingClass" [(ngModel)]="moduleVar.selectedTrainingClass">
                             <option value='null' disabled>{{commonLabels.labels.trainingClass}}</option>
                             <option *ngFor="let course of moduleVar.trainingClassList" [value]="course.trainingClassId">{{course.trainingClassName}}</option>
                         </select><div class="select_arrow"></div>
@@ -95,6 +96,7 @@
                     <div class="row form-group">
                         <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown
+                            [disabled]="notifyId ? true : false"
                             [placeholder]="'Division'"
                             [data]="moduleVar.divisionList"
                             [(ngModel)]="moduleVar.selectedDivision"
