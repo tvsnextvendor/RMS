@@ -416,7 +416,7 @@
 <ng-template #addDivision>
     <div class="modal-header pb-0">
         <p class="hd-alg pl-0">{{commonLabels.labels.addDivision}}</p>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeAddForm()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -430,6 +430,7 @@
             </li>
         </ul>   
         <div *ngIf="!divisionValidationCheck"><span class="required_color text-left">{{divisionError}}</span></div> 
+        <div *ngIf="duplicateError"><span class="required_color text-left">{{duplicateError}}</span></div> 
         <div class="tab-content" *ngIf="userType !== 1">
             <div id="home" [ngClass] = "!triggerNext ? 'container tab-pane col-md-12 p-0 active' : 'container tab-pane col-md-12 pl-0'"><br>
                 <div class="row col-12 col-md-12 p-0" *ngFor="let data of constant.divisionTemplate; let i = index">
@@ -505,6 +506,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+    <div *ngIf="duplicateError"><span class="required_color text-left">{{duplicateError}}</span></div> 
     <div class="modal-body">
         <div class="row">
         <label class="col-md-4 pl-0 label-title">{{commonLabels.labels.divisionName}}</label>
@@ -541,6 +543,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        <div *ngIf="duplicateError"><span class="required_color text-left">{{duplicateError}}</span></div> 
         <div *ngFor="let dept of roles; let oi = index" class="col-md-12">
             <!-- <div  [ngClass] = "oi === 0 ? 'col-12 input-group mb-3 col-md-12 group-box cll' : 'col-12 input-group mb-3 col-md-12 group-box group-section-bx'" > -->
             <div class ='row'>
@@ -573,6 +576,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        <div *ngIf="duplicateError"><span class="required_color text-left">{{duplicateError}}</span></div> 
         <div class="col-md-12">
             <input type="text" class="form-control col-md-12 p-0" placeholder="Enter the  Role" [(ngModel)]="editRoleValue"  name="designationName" #roleEditName="ngModel" (keyup)="roleNameValidationCheck()"/>
         </div>

@@ -76,4 +76,16 @@ export class UserService {
     return this.http.upload('local',this.url.bulkUploadUrl+'?createdBy='+userId+'&resortId='+resortId, formData);
   }
 
+  checkDuplicate(type,params){
+    let checkUrl;
+    if(type == 'division'){
+      checkUrl = this.url.checkDivision;
+    }else if(type == 'dept'){
+      checkUrl = this.url.checkDept;
+    }else if(type == "role"){
+      checkUrl = this.url.checkRole;
+    }
+    return this.http.post('local',checkUrl, params);
+  }
+
 }

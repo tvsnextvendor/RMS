@@ -76,6 +76,7 @@ export class UserComponent implements OnInit {
     editData;
     removedMappingId = [];
     enableRolePermission = false;
+    duplicateError;
 
     constructor(private pdfService : PDFService ,private excelService :ExcelService,private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
         private commonLabels : CommonLabels,public batchVar : BatchVar,private breadCrumbService :BreadCrumbService) {
@@ -223,6 +224,7 @@ export class UserComponent implements OnInit {
         // if(data){
             this.errorValidation = true;
             this.roleError = false;
+            this.duplicateError = '';
             this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
         //    }else{
             // this.resetFields();   
@@ -233,6 +235,7 @@ export class UserComponent implements OnInit {
 
     submitRole(){
         this.errorValidation = true;
+        let checkData = [];
         let userData = this.utilService.getUserData();
         let resortId = userData && userData.ResortUserMappings && userData.ResortUserMappings[0].Resort.resortId;
         this.roleFormSubmitted = true;
@@ -242,20 +245,30 @@ export class UserComponent implements OnInit {
                 let params = {
                     designationName : this.editRoleValue
                 }
-                this.userService.updateDesignation(this.roleId,params).subscribe(resp=>{
+                checkData.push(this.editRoleValue)
+                let designCheck = {designationName : checkData}
+                this.userService.checkDuplicate('role',designCheck).subscribe(resp=>{
                     if(resp && resp.isSuccess){
-                        this.getDivisionList(resortId);
-                        this.constant.modalRef.hide();
-                        this.resetFields();
-                        this.roleError = false;
-                        // this.roleComponent.getDropDownDetails('','');
-                        this.alertService.success(this.commonLabels.msgs.designation)
+                        this.duplicateError = '';
+                        this.userService.updateDesignation(this.roleId,params).subscribe(resp=>{
+                            if(resp && resp.isSuccess){
+                                this.getDivisionList(resortId);
+                                this.constant.modalRef.hide();
+                                this.resetFields();
+                                this.roleError = false;
+                                // this.roleComponent.getDropDownDetails('','');
+                                this.alertService.success(this.commonLabels.msgs.designation)
+                            }
+                        },err =>{
+                            this.errorValidation = false;
+                            this.errorValidate = err.error.error;
+                            this.alertService.error(err.error.error);
+                        });
                     }
-                },err =>{
-                    this.errorValidation = false;
-                    this.errorValidate = err.error.error;
-                    this.alertService.error(err.error.error);
-                });
+                    else{
+                        this.duplicateError = resp.message;
+                    }
+                })
             }
 
         }else{
@@ -264,19 +277,30 @@ export class UserComponent implements OnInit {
                 designation : this.roles
             }
             if(!this.roleError){
-                this.userService.addResortDesignation(params).subscribe(resp=>{
+                checkData= this.roles.map(items=>{return items.designationName});
+                let designCheck = {designationName : checkData}
+                this.userService.checkDuplicate('role',designCheck).subscribe(resp=>{
                     if(resp && resp.isSuccess){
-                        this.getDivisionList(resortId);
-                        this.constant.modalRef.hide();
-                        this.resetFields();
-                        // this.roleComponent.getDropDownDetails('','');
-                        this.alertService.success(this.commonLabels.msgs.designationAdd)
+                        this.duplicateError = '';
+                         this.userService.addResortDesignation(params).subscribe(resp=>{
+                            if(resp && resp.isSuccess){
+                                this.getDivisionList(resortId);
+                                this.constant.modalRef.hide();
+                                this.resetFields();
+                                // this.roleComponent.getDropDownDetails('','');
+                                this.alertService.success(this.commonLabels.msgs.designationAdd)
+                            }
+                        },err =>{
+                            this.errorValidation = false;
+                            this.errorValidate = err.error.error;
+                            this.alertService.error(err.error.error);
+                        })
                     }
-                },err =>{
-                    this.errorValidation = false;
-                    this.errorValidate = err.error.error;
-                    this.alertService.error(err.error.error);
+                    else{
+                        this.duplicateError = resp.message;
+                    }
                 })
+                
             }
         } 
     }
@@ -370,6 +394,7 @@ export class UserComponent implements OnInit {
     resetFields() {
         this.editEnable= false;
         this.accessTo="web";
+        this.duplicateError = '';
         this.roleFormSubmitted = false;
         this.userName = '';
         this.userId = '';
@@ -436,33 +461,58 @@ export class UserComponent implements OnInit {
         let userData = this.utilService.getUserData();
         let resortId = userData && userData.ResortUserMappings && userData.ResortUserMappings[0].Resort.resortId;
         this.divisionValidationCheck = true;
+        let divName = this.constant.divisionTemplate.map(item=>{return item.divisionName});
+        let deptName = [];
         this.constant.divisionTemplate.forEach(item=>{
             item.departments.forEach(value=>{
                 if(value.departmentName === ''){
                     this.divisionValidationCheck = false;
                 }
+                deptName.push(value.departmentName);
             })
         })
         if(this.divisionValidationCheck) {
-            let params = {
-                "resortId" : resortId,
-                "division" : this.constant.divisionTemplate
-            }
-            this.userService.addDivision(params).subscribe(resp=>{
+            let params = {divisionName : divName};
+            this.userService.checkDuplicate('division',params).subscribe(resp=>{
                 if(resp && resp.isSuccess){
-                    this.triggerNext = false ;
-                    this.getDivisionList(resortId);
-                    this.closeAddForm();
-                    // this.roleComponent.getDropDownDetails('','');
-                }    
-            },err =>{
-                this.errorValidation = false;
-                this.errorValidate = err.error.error;
-                this.alertService.error(err.error.error);
-            })
+                    let value = {departmentName : deptName}
+                    this.userService.checkDuplicate('dept',value).subscribe(response=>{
+                        if(response && response.isSuccess){
+                            this.duplicateError = '';
+                            this.addDivision(resortId);
+                        }
+                        else{
+                            this.duplicateError =response.message;
+                        }
+                    })
+                }
+                else{
+                    this.duplicateError =resp.message;
+                }
+            });
+            
         }else{
             this.divisionError = this.commonLabels.mandatoryLabels.deptName;
         }
+    }
+
+    addDivision(resortId){
+        let params = {
+            "resortId" : resortId,
+            "division" : this.constant.divisionTemplate
+        }
+        this.userService.addDivision(params).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+                this.triggerNext = false ;
+                this.getDivisionList(resortId);
+                this.closeAddForm();
+                // this.roleComponent.getDropDownDetails('','');
+            }    
+        },err =>{
+            this.errorValidation = false;
+            this.errorValidate = err.error.error;
+            this.alertService.error(err.error.error);
+        })
     }
 
     departmentEditCheck(value){
@@ -654,6 +704,8 @@ export class UserComponent implements OnInit {
 
     updateDivision(){
         this.errorValidation = true;
+        let divName= [];
+        let deptName = [];
         if(Object.keys(this.editDivisionValue).length){
             this.validationDivisionCheck = true;
             let params = this.editDepartmentList.map(item=>{
@@ -663,25 +715,34 @@ export class UserComponent implements OnInit {
                 if(item.departmentName === ''){
                     this.validationDivisionCheck = false;
                 }
+                deptName.push(item.departmentName);
                 return item;
             })
+            divName.push(this.editDivisionValue.divisionName)
+            console.log(this.editDivisionValue,divName,deptName)
             if(this.validationDivisionCheck){
                 this.editDivisionValue.Departments = params;
                 this.editDivisionValue.removeDepartmentIds = this.removeDepartmentIds;
-                this.userService.divisionUpdate(this.editDivisionValue,this.editDivisionValue.divisionId).subscribe(resp=>{
+
+                let param = {divisionName : divName};
+                this.userService.checkDuplicate('division',param).subscribe(resp=>{
                     if(resp && resp.isSuccess){
-                        let userData = this.utilService.getUserData();
-                        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
-                        this.constant.modalRef.hide();
-                        this.getDivisionList(resortId);
-                        // this.roleComponent.getDropDownDetails('','');
-                        this.alertService.success(this.commonLabels.msgs.diviUpdate);
+                        let value = {departmentName : deptName}
+                        this.userService.checkDuplicate('dept',value).subscribe(response=>{
+                            if(response && response.isSuccess){
+                                this.duplicateError = '';
+                                this.updateDivsionSubmit();
+                            }
+                            else{
+                                this.duplicateError =response.message;
+                            }
+                        })
                     }
-                },err =>{
-                    this.errorValidation = false;
-                    this.errorValidate = err.error.error;
-                    this.alertService.error(err.error.error);
+                    else{
+                        this.duplicateError =resp.message;
+                    }
                 });
+                
             }
             else{
                 this.alertService.error(this.commonLabels.mandatoryLabels.deptName);
@@ -689,10 +750,28 @@ export class UserComponent implements OnInit {
         }
     }
 
+    updateDivsionSubmit(){
+        this.userService.divisionUpdate(this.editDivisionValue,this.editDivisionValue.divisionId).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+                let userData = this.utilService.getUserData();
+                let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
+                this.constant.modalRef.hide();
+                this.getDivisionList(resortId);
+                // this.roleComponent.getDropDownDetails('','');
+                this.alertService.success(this.commonLabels.msgs.diviUpdate);
+            }
+        },err =>{
+            this.errorValidation = false;
+            this.errorValidate = err.error.error;
+            this.alertService.error(err.error.error);
+        });
+    }
+
     cancelUpdate(){
         let userData = this.utilService.getUserData();
         let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
-        this.constant.modalRef.hide();
+        // this.constant.modalRef.hide();
+        this.closeAddForm();
         // this.getDivisionList(resortId);
     }
 
