@@ -14,7 +14,7 @@
 </div> -->
 <app-add-notification *ngIf="enableNotify && !enableBatch &&!showcreatecourse" (someEvent)="closeModal()" (completed)="completed($event)"></app-add-notification>
 <app-add-batch *ngIf="enableBatch && !enableNotify && !showcreatecourse" [courseList]="this.selectedCourse"  (someEvent)="hidePopup($event)" (completed)="completed($event)"></app-add-batch>
-<app-add-module *ngIf="showcreatecourse && !enableBatch && !enableNotify" (upload)="showUploadPage($event)" [selectedTab]="tabName" (completed)="completed($event)"  [addedFiles]="selectedVideoList"></app-add-module>   
+<app-add-module *ngIf="showcreatecourse && !enableBatch && !enableNotify" [selectedTab]="tabName" (upload)="showUploadPage($event)" (completed)="completed($event)"  [addedFiles]="selectedVideoList"></app-add-module>   
 <div class="" *ngIf="!showcreatecourse && !enableNotify && !enableBatch"> 
     
     <div class="row">

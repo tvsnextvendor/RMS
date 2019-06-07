@@ -46,10 +46,12 @@ export class AddModuleComponent implements OnInit {
     fileDuration;
     removedFileIds = [];
     modalRef;
+    addButton;
     quizList=[];
     @Output() upload= new EventEmitter<object>();
     @Output() completed = new EventEmitter<string>();
     @Input() addedFiles;
+    @Input() selectedTab;
     // selectedCourseIds:any;
 
    constructor(private breadCrumbService : BreadCrumbService, private modalService: BsModalService,private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
@@ -81,13 +83,22 @@ export class AddModuleComponent implements OnInit {
         itemsShowLimit: 8,
         // allowSearchFilter: true
       }; 
-    var myEl = document.querySelector('ul.item1');
-    myEl.innerHTML = ' <span class="newCourseId addcourse" (click)="addCourse()" id="newCourseId"><i class="fa fa-plus pr-2"></i> <span class="addnewcourse-title">Add New Training Class</span></span>';
-    let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
-    ele.onclick = this.addCourse.bind(this);
+   this.addButton = setInterval(() => {
+    this.includeDropdwnButton(); 
+     }, 2000);   
     this.moduleVar.tabKey = 1;
     this.courseData('');
    }
+
+    includeDropdwnButton(){
+        if(this.selectedTab == 'course'){
+        var myEl = document.querySelector('ul.item1');
+        myEl.innerHTML = ' <span class="newCourseId addcourse" (click)="addCourse()" id="newCourseId"><i class="fa fa-plus pr-2"></i> <span class="addnewcourse-title">Add New Training Class</span></span>';
+        let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
+        ele.onclick = this.addCourse.bind(this);
+        }
+    }
+    
 
     courseData(classId){
         this.courseService.getTrainingClass().subscribe((resp) => {
@@ -641,7 +652,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     openEditModal(template: TemplateRef<any>,modelValue) {
-        if(this.moduleName && this.moduleVar.selectedCourseIds.length){
+        if(this.moduleName && this.moduleVar.selectedCourseIds.length && this.selectedQuiz){
           let modalConfig= {
             class : "modal-dialog-centered"
           }
@@ -649,11 +660,18 @@ export class AddModuleComponent implements OnInit {
         }
         else if(!this.moduleName){
           this.alertService.error(this.commonLabels.labels.pleaseaddCourse);
-        }
-        else if(!this.moduleVar.selectedCourseIds.length){
+        }else if(!this.moduleVar.selectedCourseIds.length){
             this.alertService.error(this.commonLabels.mandatoryLabels.trainingClassrequired);
+        } else if(!this.selectedQuiz){
+            this.alertService.error(this.commonLabels.mandatoryLabels.quizNameRequired);
         }
+
       }
 
+  ngOnDestroy() {
+    if (this.addButton) {
+        clearInterval(this.addButton);
+    }
+  } 
    
 }

@@ -8,11 +8,11 @@
 			</ol>
 		</nav>
 	</div> -->
-	<div class="clearfix">
+	<div class="clearfix" *ngIf="selectedTab == 'course'">
 		<h4 class="add-course" *ngIf="!moduleId">Create Course</h4>
 		<h4 class="add-course" *ngIf="moduleId">Edit Course</h4>
 	</div>
-<div class="row pt-3">
+<div class="row pt-3" *ngIf="selectedTab == 'course'">
 	<form class="col-md-8 pl-0" (ngSubmit) = "openEditModal(confirm,'batch')" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
 			<div class="row form-group">
@@ -42,7 +42,7 @@
 					</span>
 				</div>	
 			</div>
-			<div class="row form-group">
+			<div class="row form-group" *ngIf="!tabEnable">
 				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.quizName}}</label>
 				<div class=" col-md-9 pl-0 select select-style clearfix p-0 m-0">
 				<select class="form-control p-0" name="quiz" [(ngModel)]="selectedQuiz">
@@ -51,6 +51,9 @@
 				</select>
 				<div class="select_arrow"></div>
 			</div>
+				<span class="required_color mt-2" *ngIf="moduleSubmitted && !selectedQuiz">
+					{{commonLabels.mandatoryLabels.quizName}}
+				</span>
 			</div>
 		</div>
 		<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
@@ -74,9 +77,9 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="tabEnable">
+<div *ngIf="tabEnable || selectedTab == 'class'">
 <div class="clearfix pt-4">
-	<h4 class="add-course">{{moduleVar.courseId === "" ? commonLabels.labels.addCourseTitle : commonLabels.labels.editCourseTitle}}</h4>
+	<h4 class="add-course">{{moduleVar.courseId ? commonLabels.labels.editCourseTitle : commonLabels.labels.addCourseTitle }}</h4>
 </div>
 
 <tabset #staticTabs   class="add-video-header">
@@ -164,8 +167,8 @@
 	</div>
    	</tab>
 	<tab heading="Quiz">
-		<add-quiz *ngIf="moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}' moduleId = {{moduleId}} [removedFileIds]="removedFileIds"></add-quiz>
-		<add-quiz *ngIf="!moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}'  moduleId = {{moduleId}}></add-quiz>
+		<add-quiz *ngIf="moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}' moduleId = {{moduleId}}  [tabName]="selectedTab" [removedFileIds]="removedFileIds"></add-quiz>
+		<add-quiz *ngIf="!moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}'  moduleId = {{moduleId}} [tabName]="selectedTab"></add-quiz>
 	</tab>
 </tabset>
 </div>
