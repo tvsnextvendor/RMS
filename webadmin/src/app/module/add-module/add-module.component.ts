@@ -58,6 +58,9 @@ export class AddModuleComponent implements OnInit {
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
         });
+        if(window.location.pathname.indexOf("module")){
+           this.selectedTab = 'course';
+        }
         this.labels = moduleVar.labels;
         this.moduleVar.title = this.moduleId ? this.commonLabels.labels.editCourse : this.commonLabels.labels.createCourse;
    }
