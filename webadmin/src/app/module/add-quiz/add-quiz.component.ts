@@ -28,6 +28,7 @@ export class AddQuizComponent implements OnInit {
   @Input() moduleName;
   @Input() moduleId;
   @Input() removedFileIds;
+  @Input() tabName;
   @Output() valueChange = new EventEmitter();
   courseUpdate = false;
   videoDetails = [];
@@ -288,7 +289,6 @@ export class AddQuizComponent implements OnInit {
         }
       if(this.courseId){
         this.courseService.updateTrainingClass(this.courseId,params).subscribe((result)=>{
-          console.log(result)
           if(result && result.isSuccess){
             this.removedQuizIds = [];
             this.valueChanged(result.data,hideTraining,false);
@@ -306,7 +306,7 @@ export class AddQuizComponent implements OnInit {
         })
       }
     }
-    else if(!this.selectCourseName){
+    else if(!this.selectCourseName && this.tabName == 'course' ){
       this.modalRef.hide();
       //this.toastr.error("Course name is mandatory");
       this.alertService.error(this.commonLabels.mandatoryLabels.courseNameError);
@@ -328,15 +328,56 @@ export class AddQuizComponent implements OnInit {
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
-    console.log(this.moduleName)
     if(this.moduleName){
       let modalConfig= {
         class : "modal-dialog-centered"
       }
       this.modalRef = this.modalService.show(template,modalConfig);
-    }
-    else{
+    }else if(this.tabName == 'course') {
       this.alertService.error(this.commonLabels.labels.pleaseaddCourse);
+    } else{
+      this.addTrainingClass();
+    }
+
+  }
+
+  addTrainingClass(){
+  let params;
+  if(this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length){
+      let data = this.quizQuestionsForm.map(item => {
+          item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+          return item;
+      })
+      //final data for submission
+       params = {
+          "trainingClassName":this.selectCourseName,
+          "files":[],
+          "quizName": this.quizName,
+          "quizQuestions":data
+          }
+        if(this.videoList.length){
+          params.files = this.videoList.map(item=>{
+              let obj = {
+                fileName : item.fileName,
+                fileDescription : item.fileDescription,
+                fileType : item.fileType,
+                fileUrl : item.fileUrl,
+                fileExtension:item.fileExtension,
+                fileImage : item.fileImage,
+                fileSize : item.fileSize,
+                fileLength : item.fileLength
+              }
+              return obj;
+            }       
+          )
+        }
+        this.courseService.addTrainingClass(params).subscribe((result)=>{
+          if(result && result.isSuccess){
+             this.route.navigate(['/cmspage'],{queryParams:{type : 'create'}})
+             this.alertService.success(result.message);
+          }
+        })
     }
   }
+
 }
