@@ -123,7 +123,7 @@ export class EmailComponent implements OnInit {
     }
 
     groupMail(group) {
-        console.log(group)
+        // console.log(group)
         let data = [];
         this.selectedDepartment = group.department;
         this.userList.forEach(items => {
@@ -131,7 +131,7 @@ export class EmailComponent implements OnInit {
                 data.push(items.emailAddress);
             }
         })
-        console.log(data)
+        // console.log(data)
         if (data.length) {
             this.emailForm.to = data;
         }

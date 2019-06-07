@@ -48,6 +48,7 @@ export class AddModuleComponent implements OnInit {
     modalRef;
     addButton;
     quizList=[];
+    quizName;
     @Output() upload= new EventEmitter<object>();
     @Output() completed = new EventEmitter<string>();
     @Input() addedFiles;
@@ -306,13 +307,15 @@ export class AddModuleComponent implements OnInit {
             this.staticTabs.tabs[0].disabled = false;
             this.staticTabs.tabs[0].active = true;
        }   
-       this.moduleVar.quizDetails = []; 
+       this.moduleVar.quizDetails = [];
+       this.quizName = ''; 
        this.moduleVar.courseId = data.id;
+    //    this.selectedQuiz = ;
        this.courseService.getCourseTrainingClassById(data.id,this.moduleId).subscribe(resp=>{
            if(resp && resp.isSuccess){
                let classData = resp.data && resp.data.rows.length && resp.data.rows[0];
                this.moduleVar.selectCourseName = classData.trainingClassName;
-               this.moduleVar.videoList = classData.Files;
+               this.moduleVar.videoList = classData.FileMappings && classData.FileMappings.length && classData.FileMappings.map(items=>{return items.File});
                this.tabEnable = true;
            }
            else{
@@ -328,7 +331,8 @@ export class AddModuleComponent implements OnInit {
         if(response && response.isSuccess){
             this.quizCheck = true;
             let quizData = response.data && response.data[0];
-            let questions = quizData.CourseTrainingClassMaps[0].TrainingClass.Questions;
+            let questions = quizData.QuizMappings && quizData.QuizMappings.length && quizData.QuizMappings.map(items=>{return items.Question});
+            this.quizName  = quizData.quizName;
             this.moduleVar.quizDetails = questions;
         }
      })

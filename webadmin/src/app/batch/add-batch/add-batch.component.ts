@@ -1,6 +1,7 @@
 import { Component, OnInit ,Output, Input, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import * as _ from 'lodash';
 import { BatchVar } from '../../Constants/batch.var';
 import { API_URL } from '../../Constants/api_url';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -62,14 +63,14 @@ export class AddBatchComponent implements OnInit {
         let data = this.scheduleId ? [{title : this.commonLabels.labels.calendarView,url:'/calendar'},{title : this.commonLabels.btns.scheduleTraining,url:''}] : [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.btns.scheduleTraining,url:''}]
         this.breadCrumbService.setTitle(data)
         this.userData =this.utilService.getUserData();
-        //get Resort list
-        this.resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId;
-        this.getResortData(this.resortId);
         
         if(this.scheduleId){
+            this.clearBatchForm();
             this.getCourseData();
         }
         else{
+            this.resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId;
+            this.getResortData(this.resortId);
             this.batchVar.batchFrom = new Date();
             this.courseForm();
         }
@@ -90,7 +91,8 @@ export class AddBatchComponent implements OnInit {
                     }
                     return obj;
                 })
-                this.updateScheduleTraining();
+                this.resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId;
+                this.getResortData(this.resortId);
             }
         });
     }
@@ -101,13 +103,15 @@ export class AddBatchComponent implements OnInit {
     }
 
     getResortData(resortId){
-         
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
             (this.resortId == parseInt(resortId)) ? this.batchVar.resortList = result.data.Resort : '';
             this.batchVar.divisionList=result.data.divisions;
             this.batchVar.selectedResort = resortId;
+            if(this.scheduleId){
+                this.updateScheduleTraining();
+            }
         })
-
+        
         //get percentage list
         this.http.get(this.batchVar.url.getPercentageList).subscribe((data) => {
             this.batchVar.percentageList = data.passPercentage;
@@ -115,7 +119,6 @@ export class AddBatchComponent implements OnInit {
     }
 
     updateScheduleTraining(){
-        
         this.batchVar.batchFrom = new Date(this.scheduleData.assignedDate);
         this.batchVar.batchTo = new Date(this.scheduleData.dueDate);
         this.batchVar.batchName = this.scheduleData.name;
@@ -135,50 +138,59 @@ export class AddBatchComponent implements OnInit {
         });
 
         this.reminder=this.scheduleData.notificationDays;
-        this.employeesInBatch = this.scheduleData.Resorts.map(item=>{
-            let obj = {
-                userId : item.userId,
-                divisionId : item.divisionId,
-                departmentId : item.departmentId
-            }
-            // Set dropdown data
-            if(this.batchVar.selectedDivision.length){this.batchVar.selectedDivision.forEach(x=>{
-                if(x.divisionId != item.divisionId){
-                    this.batchVar.selectedDivision.push(item.Division);
-                    // this.onEmpSelect('','div');
-                }
-            }) }else if(item.Division){ 
-                this.batchVar.selectedDivision.push(item.Division) ;
-                // this.onEmpSelect('','div');
-            }
+        let resort = _.uniqBy(this.scheduleData.Resorts, 'userId');
+        let div = _.cloneDeep(this.batchVar.divisionList)
+        this.batchVar.divisionId = resort[0].divisionId;
+        this.getDropDownValues('','div');
+        this.batchVar.departmentId = resort[0].departmentId;
+        this.getDropDownValues('','dept');
+        this.batchVar.employeeId = resort.map(item=>{return item.userId});
+        this.batchVar.selectedEmp = resort.map(item=>{return item.User});
+        this.batchVar.selectedDivision = div.filter(item => this.batchVar.divisionId.some(other => item.divisionId === other)); 
+        // this.scheduleData.Resorts.forEach(item=>{
+            // let obj = {
+            //     userId : item.userId,
+            //     divisionId : item.divisionId,
+            //     departmentId : item.departmentId
+            // }
+            // // Set dropdown data
+            // if(this.batchVar.selectedDivision.length){this.batchVar.selectedDivision.forEach(x=>{
+            //     if(x.divisionId != item.divisionId){
+            //         this.batchVar.selectedDivision.push(item.Division);
+            //         // this.onEmpSelect('','div');
+            //     }
+            // }) }else if(item.Division){ 
+            //     this.batchVar.selectedDivision.push(item.Division) ;
+            //     // this.onEmpSelect('','div');
+            // }
 
-            if(this.batchVar.selectedDepartment.length) { this.batchVar.selectedDepartment.forEach(x=>{
-                if(x.departmentId != item.departmentId){
-                    this.batchVar.selectedDepartment.push(item.Department);
-                    // this.onEmpSelect('','dept');
-                }
-            }) }else if(item.Department){ 
-                this.batchVar.selectedDepartment.push(item.Department);
-                // this.onEmpSelect('','dept');
-            }
+            // if(this.batchVar.selectedDepartment.length) { this.batchVar.selectedDepartment.forEach(x=>{
+            //     if(x.departmentId != item.departmentId){
+            //         this.batchVar.selectedDepartment.push(item.Department);
+            //         // this.onEmpSelect('','dept');
+            //     }
+            // }) }else if(item.Department){ 
+            //     this.batchVar.selectedDepartment.push(item.Department);
+            //     // this.onEmpSelect('','dept');
+            // }
 
-            if(this.batchVar.selectedEmp.length){ 
-                this.batchVar.selectedEmp.push(item.User);
-                let index;
-                let valueArr = this.batchVar.selectedEmp.map(function(item){ return parseInt(item.userId) });
-                let isDuplicate = valueArr.some(function(item, idx){
-                    if(valueArr.indexOf(item) != idx){
-                        index = idx;
-                    } 
-                    return valueArr.indexOf(item) != idx 
-                });
-                isDuplicate && this.batchVar.selectedEmp.splice(index,1);
+            // if(this.batchVar.selectedEmp.length){ 
+            //     this.batchVar.selectedEmp.push(item.User);
+            //     let index;
+            //     let valueArr = this.batchVar.selectedEmp.map(function(item){ return parseInt(item.userId) });
+            //     let isDuplicate = valueArr.some(function(item, idx){
+            //         if(valueArr.indexOf(item) != idx){
+            //             index = idx;
+            //         } 
+            //         return valueArr.indexOf(item) != idx 
+            //     });
+            //     isDuplicate && this.batchVar.selectedEmp.splice(index,1);
             
-            }else if(item.User){
-                this.batchVar.selectedEmp.push(item.User);
-            }
-            return obj;
-        })
+            // }else if(item.User){
+            //     this.batchVar.selectedEmp.push(item.User);
+            // }
+            // return obj;
+        // })
     }
 
     courseUpdate(data,i){
@@ -209,21 +221,19 @@ export class AddBatchComponent implements OnInit {
                 if(x.courseId===parseInt(data)){
                     this.batchVar.moduleForm[i].courseName = x.courseName;
                 }
-            })
-                
-        }
-        
+            })       
+        } 
     }
 
     courseForm(){
       this.courseIds = this.courseList.map(a => a.courseId);
       this.courseList.forEach((item,key) => {
         let obj = {
-                 'courseId': item.courseId,
-                 'courseName': item.courseName,
-                 'passPercentage':"null",
-                 'mandatory' :"true"
-                }
+                'courseId': item.courseId,
+                'courseName': item.courseName,
+                'passPercentage':"null",
+                'mandatory' :"true"
+            }
          this.batchVar.moduleForm.push(obj);
      });
     }
@@ -313,12 +323,20 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.employeeId = this.batchVar.selectedEmp.map(item => { return item.userId });
         this.batchVar.departmentId = this.batchVar.selectedDepartment.map(item => { return item.departmentId });
         this.batchVar.divisionId = this.batchVar.selectedDivision.map(item => { return item.divisionId });
+        this.getDropDownValues(event,key);
+        this.batchVar.empValidate = false;
+    }
 
+    getDropDownValues(event,key){
         if(key == 'div'){
             const obj={'divisionId': this.batchVar.divisionId};
             this.commonService.getDepartmentList(obj).subscribe((result)=>{
-            if(result.isSuccess){
-                this.batchVar.departmentList = result.data.rows;
+                if(result.isSuccess){
+                    this.batchVar.departmentList = result.data.rows;
+                    if(this.scheduleId){
+                        let dept = _.cloneDeep(this.batchVar.departmentList);
+                        this.batchVar.selectedDepartment = dept.filter(item => this.batchVar.departmentId.some(other => item.departmentId === other)); 
+                    }
                 }
             })
         }
@@ -346,8 +364,6 @@ export class AddBatchComponent implements OnInit {
                 })
             }
         }
-
-        this.batchVar.empValidate = false;
     }
 
     onEmpDeSelect(event) {
@@ -410,7 +426,7 @@ export class AddBatchComponent implements OnInit {
                 this.passPerError = true;
             }
         })
-        if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.employeesInBatch.length && this.batchVar.moduleForm && this.durationValue && this.reminder && !this.passPerError) {
+        if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.divisionId.length && this.batchVar.departmentId.length && this.batchVar.employeeId.length && this.batchVar.moduleForm && this.durationValue && this.reminder && !this.passPerError) {
           //  this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
             let postData = {
                 "createdBy" : this.userData.userId,
@@ -422,11 +438,11 @@ export class AddBatchComponent implements OnInit {
                 "resort":{
                     "resortId": this.batchVar.selectedResort,
                     "courses":  this.courseIds,
-                    "users": this.employeesInBatch
+                    // "users": this.employeesInBatch
                  },
-                //  "departmentId": this.batchVar.departmentId,
-                // "divisionId": this.batchVar.divisionId,
-                // "userId":this.batchVar.employeeId,
+                 "departmentId": this.batchVar.departmentId,
+                "divisionId": this.batchVar.divisionId,
+                "userId":this.batchVar.employeeId,
                 "courses": this.batchVar.moduleForm,
             }
             if(this.scheduleId){
@@ -455,6 +471,9 @@ export class AddBatchComponent implements OnInit {
                     this.alertService.error(err.error.error);
                 });
             }    
+        }
+        else{
+            this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory)
         }
     }
 
@@ -485,6 +504,9 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.employeeList = [];
         this.batchVar.divisionList = [];
         this.batchVar.departmentList = [];
+        this.batchVar.divisionId = [];
+        this.batchVar.departmentId = [];
+        this.batchVar.employeeId = [];
     }
 
   

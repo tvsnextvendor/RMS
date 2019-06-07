@@ -224,13 +224,13 @@ export class CreateForumComponent implements OnInit {
       }
       this.division['divisions'] = this.division && this.division['divisionList'] && this.division['divisionList'].map(item => item.id);
       const selectedDepartments = this.departmentList;
-      console.log(this.department['departments'], 'departmentData before filter');
+      // console.log(this.department['departments'], 'departmentData before filter');
       this.department['departments'] = this.department && this.department['departments'] && this.department['departments'].filter(function(obj1) {
         return selectedDepartments.some(function(obj2) {
              return obj1.departmentId === obj2.id;
           });
         });
-        console.log(this.department['departments'], 'departmentlistSelected');
+        // console.log(this.department['departments'], 'departmentlistSelected');
 
       if (form.valid && !this.forumVar.uniqueValidate ) {
         const postData = {
@@ -247,7 +247,7 @@ export class CreateForumComponent implements OnInit {
           // const department = this.department['departments'];
           const newSelectedDiv = self.division['divisions'].filter(o => !self.Divisions.find(x => x.divisionId === o));
           const selectedNdPresentDivi = _.map(_.unionBy(this.Divisions, this.department['departments'], 'departmentId'));
-          console.log(selectedNdPresentDivi, 'dddddddvvvvv');
+          // console.log(selectedNdPresentDivi, 'dddddddvvvvv');
           _.forEach(selectedNdPresentDivi, function(value) {
             value['forumId'] = self.forumEditPage.forumId;
           });
