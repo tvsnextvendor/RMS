@@ -83,7 +83,7 @@ export class EmployeeChartsComponent implements OnInit {
     let query = '?limit=5';
     this.commonService.getTopFiveResort(query).subscribe(resp=>{
       if(resp && resp.isSuccess){
-        console.log(resp)
+        // console.log(resp)
         this.resortDetails = resp.data.rows.length ? resp.data.rows : [];
       }
     })

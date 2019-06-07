@@ -185,7 +185,6 @@ export class UserComponent implements OnInit {
         }
     }
 
-
     closeAddForm() {
         this.resetFields();
         this.constant.modalRef.hide();
@@ -719,7 +718,7 @@ export class UserComponent implements OnInit {
                 return item;
             })
             divName.push(this.editDivisionValue.divisionName)
-            console.log(this.editDivisionValue,divName,deptName)
+            // console.log(this.editDivisionValue,divName,deptName)
             if(this.validationDivisionCheck){
                 this.editDivisionValue.Departments = params;
                 this.editDivisionValue.removeDepartmentIds = this.removeDepartmentIds;
@@ -861,7 +860,7 @@ export class UserComponent implements OnInit {
             });
             // arr = Array.from(details.reduce((m, t) => m.set(t, t.divisionId,t.divisionName), new Map()).values());
             arr = _.sortedUniq(details)
-            console.log(arr,'arr')
+            // console.log(arr,'arr')
         }
         if(type == 'dept'){
             data.forEach(item=>{
@@ -905,7 +904,7 @@ export class UserComponent implements OnInit {
         arr[i].division = String(this.getDivisionArray(item.ResortUserMappings,'div')) ;
         arr[i].department = String(this.getDivisionArray(item.ResortUserMappings,'dept'));
     })
-    console.log(arr)
+    // console.log(arr)
     this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.userManagement);
   }
 

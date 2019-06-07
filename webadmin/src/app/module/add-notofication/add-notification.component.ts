@@ -80,7 +80,7 @@ export class AddNotificationComponent implements OnInit {
     getNotificationDetails(){
       let query = '?notificationFileId='+this.notifyId
         this.courseService.getNotification(query).subscribe(resp=>{
-          console.log(resp)
+          // console.log(resp)
           if(resp && resp.isSuccess){
             let respData = resp.data.rows.length && resp.data.rows[0];
             this.notificationType = respData.status == 'signRequired' ? 'signature' : (respData.courseId ? 'assignedToCourse' : 'nonSignature');
@@ -259,7 +259,7 @@ export class AddNotificationComponent implements OnInit {
               this.removedUserIds.push(event.userId);
             }
             // this.employeeId
-            console.log(event,this.moduleVar.employeeList)
+            // console.log(event,this.moduleVar.employeeList)
           }
           if(this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length ){
             this.moduleVar.errorValidate = false
@@ -345,7 +345,7 @@ export class AddNotificationComponent implements OnInit {
         // if(!this.fileDuration){
         //   delete data.fileLength
         // }
-        console.log(data ,"data");
+        // console.log(data ,"data");
         if(this.notificationType == 'assignedToCourse'){
           data.courseId = this.moduleVar.selectedCourses;
           data.trainingClassId = this.moduleVar.selectedTrainingClass;    
@@ -374,7 +374,7 @@ export class AddNotificationComponent implements OnInit {
             delete data.removeUserIds;
             data.signatureStatus = this.notificationType == 'signature' ? true : false;
             this.courseService.addTypeTwoNotification(data).subscribe(resp=>{
-              console.log(resp)
+              // console.log(resp)
               if(resp && resp.isSuccess){
                 // this.goTocmsLibrary();
                 this.router.navigate(['/cms-library'],{queryParams : {type:"edit",tab:"notification"}});
@@ -400,10 +400,10 @@ export class AddNotificationComponent implements OnInit {
       this.updatedUserIds.departmentId.length ? data.departmentId = this.updatedUserIds.departmentId : delete data.departmentId;
       this.updatedUserIds.userId.length ? data.userId = this.updatedUserIds.userId : delete data.userId;
       this.removedUserIds.length ? data.removeUserIds = this.removedUserIds : delete data.removeUserIds;
-      console.log(data,"final data")
+      // console.log(data,"final data")
       // updateNotification
       this.courseService.updateNotification(this.notifyId,data).subscribe(resp=>{
-        console.log(resp,"response")
+        // console.log(resp,"response")
         if(resp && resp.isSuccess){
           this.router.navigate(['/cms-library'],{queryParams: {type:"edit",tab:"notification"}})
         }
@@ -436,7 +436,7 @@ export class AddNotificationComponent implements OnInit {
     }
 
     courseSelect(event){
-      console.log(event.target.name);
+      // console.log(event.target.name);
         if(event.target.value){
           let courseId = event.target.value;
           this.getTraingClassList(courseId);
@@ -481,7 +481,7 @@ export class AddNotificationComponent implements OnInit {
               this.filePreviewImage(file);
           }
             this.commonService.uploadFiles(file).subscribe(resp=>{
-                console.log(resp);
+                // console.log(resp);
                 if(resp && resp.isSuccess){
                     this.notificationFileName = resp.data.length && resp.data[0].filename;
                 }
@@ -550,7 +550,7 @@ export class AddNotificationComponent implements OnInit {
       if(!this.notifyType){
         this.alertService.error('Please select the notification type')
       }
-      console.log(this.notifyType)
+      // console.log(this.notifyType)
       this.notificationType = this.notifyType;
     }
 

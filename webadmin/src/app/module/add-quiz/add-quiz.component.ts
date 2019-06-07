@@ -29,6 +29,7 @@ export class AddQuizComponent implements OnInit {
   @Input() moduleId;
   @Input() removedFileIds;
   @Input() tabName;
+  @Input() quizNames;
   @Output() valueChange = new EventEmitter();
   courseUpdate = false;
   videoDetails = [];
@@ -60,6 +61,7 @@ export class AddQuizComponent implements OnInit {
   ngOnInit() {
     this.selectedVideo = this.videoId ? this.videoId : null;
     this.selectedCourse = this.courseId ? this.courseId : null;
+    this.quizName = this.quizNames ? this.quizNames : '';
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
       { name: "True/False", value: "True/False" },
@@ -293,7 +295,7 @@ export class AddQuizComponent implements OnInit {
             this.removedQuizIds = [];
             this.valueChanged(result.data,hideTraining,false);
           }
-          this.modalRef.hide();
+          this.modalRef && this.modalRef.hide();
         })
       }
       else{
