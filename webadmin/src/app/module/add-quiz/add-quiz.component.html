@@ -13,8 +13,8 @@
 						<img src="{{commonLabels.imgs.close1}}" class="close-alg">
 						   <img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>
 						   <div class="row form-group">
-							<label class="col-md-4 p-0 label-title">{{commonLabels.labels.quizName}}</label>
-							<div class="col-md-8 p-0">
+							<label class="col-md-2 p-0 label-title">{{commonLabels.labels.quizName}}</label>
+							<div class="col-md-10 pl-3">
 								<span>
 									<input type="text" class="form-control" placeholder="Enter Quiz Name" name="name" #quizname="ngModel"
 										[(ngModel)]="quizName" required>
@@ -27,7 +27,7 @@
 					<div class="row  form-group">
 						<div class="col-md-6 row p-0"> 
 							<label for="" class="col-sm-4 label-title p-0 m-0">{{commonLabels.labels.questionType}}</label>
-							<div class="col-md-8">
+							<div class="col-md-8 pl-0">
 								<select class="form-control" placeholder="Select" name="questionType{{i}}" [(ngModel)]="data.questionType" (change)="questionTypeUpdate(data.questionType,i)"
 								#QuestionTypeVal="ngModel" [ngModelOptions]="{ standalone : true }" required>
 									<option *ngFor="let option of questionOptions" [ngValue]="option.value">{{option.name}}</option>
