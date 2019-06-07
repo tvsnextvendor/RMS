@@ -35,6 +35,7 @@ export class CertificatesComponent implements OnInit {
     filePath;
     certificateId;
     htmlView;
+    assignTo="course";
 
 
     constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService,private breadCrumbService : BreadCrumbService) {
@@ -52,9 +53,16 @@ export class CertificatesComponent implements OnInit {
         this.courseService.getAllCourse().subscribe(resp=>{
             
             if(resp && resp.isSuccess){
-                this.constant.courseList = resp.data.rows.length && resp.data.rows
+                this.constant.courseList = resp.data.rows.length && resp.data.rows;
             }
         })
+      
+     this.courseService.getTrainingClass().subscribe((resp) => {
+            if(resp && resp.isSuccess){
+                this.constant.trainingClassList = resp.data; 
+                }
+        })
+
         this.getbadgepercentage();
         this.getAssignCertificateDetails();
     }
@@ -280,6 +288,15 @@ export class CertificatesComponent implements OnInit {
         }
     }
 
+    changeAssigning(){
+         this.constant.templateAssign=[];
+          let obj = {
+                course: null,
+                template: null
+            };
+            this.constant.templateAssign.push(obj);
+    }
+
     checkCourse(id){
         let valueArr = this.constant.templateAssign.map(function(item){ return parseInt(item.course) });
         let isDuplicate = valueArr.some(function(item, idx){ 
@@ -305,13 +322,18 @@ export class CertificatesComponent implements OnInit {
         else{
             let data = this.constant.templateAssign.map(item=>{
                 let obj = {
-                    courseId : item.course,
                     certificateId : item.template,
                     certificateMappingId : ''
                 }
+                if(this.assignTo == 'course'){
+                     obj['courseId'] = item.course;
+                }else{
+                    obj['trainingClassId'] = item.course;
+                }
                 item.mappingId ? obj.certificateMappingId = item.mappingId : delete obj.certificateMappingId;
-                return obj
+                return obj;
             })
+     
             let params = {"certificateCourses":data,removeCertificateIds : []};
             this.removeCertificateIds.length ? params.removeCertificateIds = this.removeCertificateIds : delete params.removeCertificateIds;
             // console.log(params ,"checkEmpty",this.constant.templateAssign)
