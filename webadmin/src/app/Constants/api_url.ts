@@ -123,6 +123,7 @@ export class API_URL {
     getPopupScheduleData : '8103/schedule/getDetailsById',
     updateScheduleTraining : '8103/updateScheduleTraining/',
     setPermissions : '8103/trainingClass/filePermissionAdd',
+    getCourseById : '8103/course/getIndividualCourses',
 
     //Resort Services
     resortAdd : '8102/resort/Add',
@@ -153,7 +154,6 @@ export class API_URL {
     checkRole : "8102/designation/checkDesignation",
     bulkUploadUrl : '8101/bulkCreate',
     userSettings : '8101/user/settings',
-
 
     //Forum Services
     forum: '8104/forum',
@@ -189,7 +189,6 @@ export class API_URL {
     getCourseEmployeeList : '8103/courseEmployeestatusList',
     topFiveResort : '8103/getTopFiveResorts',
     badgesData: '8103/getBadges',
-
 
     //password update
     forgetPassword : '8101/forgetPassword',

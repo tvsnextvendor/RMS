@@ -41,6 +41,7 @@ export class CertificateVar {
     url;
     certificateList;
     courseList;
+    trainingClassList;
     badgePercentage;
     showUploadErrMsg = false;
     badgesRequired = false;

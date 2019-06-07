@@ -25,10 +25,24 @@
                     <p class="data-design m-0"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
                     </div>
                     </div></ng-template>
+        <div class="pr-3 pb-2">
+            <div class="row">
+                <label class="col-md-3 col-sm-3 module-batch-title p-0">Assign To</label>
+                <div class=" col-md-3 col-sm-8 select select-style clearfix p-0 m-0">
+                    <select id="course" class="form-control p-0" name="assignTo" [(ngModel)]="assignTo" (change)="changeAssigning()">
+                        <option value="course">Course</option>
+                        <option value="tranClass">Training Class</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                </div>
+            </div>
+            </div>
+
             <div class="pr-3 pb-2" *ngFor="let data of constant.templateAssign; let i = index">
                 <div class="row">
+                  
                     <div class="col-md-6 col-sm-12 p-0">
-                        <div class="row">
+                        <div class="row" *ngIf="assignTo == 'course'">
                             <label class="col-md-3 col-sm-3 module-batch-title p-0" *ngIf="i==0">{{commonLabels.labels.course}}</label>
                             <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
                             <div class=" col-md-8 col-sm-8 select select-style clearfix p-0 m-0">
@@ -39,7 +53,17 @@
                                  <div class="select_arrow"></div>
                             </div>
                         </div>
-
+                        <div class="row" *ngIf="assignTo == 'tranClass'">
+                            <label class="col-md-3 col-sm-3 module-batch-title p-0" *ngIf="i==0">{{commonLabels.labels.trainingClass}}</label>
+                            <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label>
+                            <div class=" col-md-8 col-sm-8 select select-style clearfix p-0 m-0">
+                                <select id="class" class="form-control p-0" name="Course{{i}}"  [(ngModel)]="data.course" (change)="checkCourse(class.value)" #class>
+                                    <option value="null" disabled>{{this.commonLabels.labels.selectopt}}</option>
+                                    <option *ngFor="let class of constant.trainingClassList" [value]="class.trainingClassId">{{class.trainingClassName}}</option>
+                                </select>
+                                <div class="select_arrow"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6 col-sm-12 p-0">
                         <div class="row">
