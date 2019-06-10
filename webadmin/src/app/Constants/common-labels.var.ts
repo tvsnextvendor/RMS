@@ -471,6 +471,7 @@ export class CommonLabels{
         // "selectDept"     :  "Department is required.",
         "selectResort"      :  "Resort is required.",
         "selectEmp"         :  "Employee is required.",
+        "selectAssignTo"    :  "Select Assign To",
         // "selectDivision" :  "Division is required." ,
         "courseRequired"    :  "Course is required." ,
         "trainingClassrequired" : "Training Class is required.",
