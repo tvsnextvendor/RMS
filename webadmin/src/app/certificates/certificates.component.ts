@@ -35,7 +35,7 @@ export class CertificatesComponent implements OnInit {
     filePath;
     certificateId;
     htmlView;
-    assignTo="course";
+    assignTo="";
 
 
     constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService,private breadCrumbService : BreadCrumbService) {
@@ -70,13 +70,15 @@ export class CertificatesComponent implements OnInit {
     getAssignCertificateDetails(){
         this.commonService.getAssignCertificate(this.resortId).subscribe(resp=>{
             if(resp && resp.isSuccess && resp.data.length){
+                this.assignTo ='';
                 this.constant.templateAssign = resp.data.map(item=>{
                     let obj = {
-                        course : item.courseId,
+                        course : item.courseId ? item.courseId : item.trainingClassId,
                         template : item.certificateId,
-                        mappingId : item.certificateMappingId
+                        mappingId : item.certificateMappingId,
+                        assignTo : item.courseId ? 'course' : 'tranClass' 
                     }
-                    return obj
+                    return obj;
                 })
             }
         })
@@ -279,6 +281,8 @@ export class CertificatesComponent implements OnInit {
         checkEmpty = this.constant.templateAssign.length ? this.constant.templateAssign.find(x=>{ return x.course == null}) : {};
         if(checkEmpty){
             this.alertService.error(this.commonLabels.mandatoryLabels.selectCourse)
+        }else if(this.assignTo == ""){
+            this.alertService.error(this.commonLabels.mandatoryLabels.selectAssignTo);
         }else{
             let obj = {
                 course: null,
