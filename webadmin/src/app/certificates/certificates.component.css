@@ -101,7 +101,10 @@
          opacity: 0.5;
          pointer-events: none;
      }
-.select_arrow {
+     .select_arrow-alg{
+        right: 20px !important;
+     }
+.select_arrow, .select_arrow-alg {
     position: absolute;
     top: 16px;
     right: 7px;

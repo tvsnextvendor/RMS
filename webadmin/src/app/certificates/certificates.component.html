@@ -25,17 +25,22 @@
                     <p class="data-design m-0"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
                     </div>
                     </div></ng-template>
-        <div class="pr-3 pb-2">
-            <div class="row">
-                <label class="col-md-3 col-sm-3 module-batch-title p-0">{{commonLabels.labels.assignTo}}</label>
-                <div class=" col-md-3 col-sm-8 select select-style clearfix p-0 m-0">
+
+        <div class="pb-2">
+            <div class="col-md-12 p-0">
+                <div class="col-md-12 p-0">
+                    <div class="row">
+                <label class="col-md-1 col-sm-3 module-batch-title p-0">{{commonLabels.labels.assignTo}}</label>
+                <div class=" col-md-10 col-sm-8 select select-style clearfix pl-5 m-0">
                     <select id="course" class="form-control p-0" name="assignTo" [(ngModel)]="assignTo" (change)="changeAssigning()">
                         <option value="">{{commonLabels.labels.select}}</option>
                         <option value="course">{{commonLabels.labels.course}}</option>
                         <option value="tranClass">{{commonLabels.labels.trainingClass}}</option>
                     </select>
-                    <div class="select_arrow"></div>
+                    <div class="select_arrow-alg"></div>
                 </div>
+            </div>
+            </div>
             </div>
             </div>
 
@@ -43,26 +48,27 @@
                 <div class="row">
                   
                     <div class="col-md-6 col-sm-12 p-0">
+
                         <div class="row" *ngIf="assignTo == 'course' || data.assignTo == 'course'">
-                            <label class="col-md-3 col-sm-3 module-batch-title p-0">{{commonLabels.labels.course}}</label>
-                            <!-- <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label> -->
-                            <div class=" col-md-8 col-sm-8 select select-style clearfix p-0 m-0">
+                            <label class="col-md-2 col-sm-3 module-batch-title p-0">{{commonLabels.labels.course}}</label>
+                            <!-- <label class="col-md-2 col-sm-3" *ngIf="i!=0"></label> -->
+                            <div class=" col-md-9 col-sm-9 select select-style clearfix pl-5 m-0">
                                 <select id="course" class="form-control p-0" name="Course{{i}}" [(ngModel)]="data.course" #course (change)="checkCourse(course.value)">
                                     <option value = "null" disabled>{{this.commonLabels.labels.selectcourse}}</option>
                                     <option *ngFor="let course of constant.courseList" [value]="course.courseId">{{course.courseName}}</option>
                                 </select>
-                                 <div class="select_arrow"></div>
+                                 <div class="select_arrow-alg"></div>
                             </div>
                         </div>
                         <div class="row" *ngIf="assignTo == 'tranClass' || data.assignTo == 'tranClass'" >
                             <label class="col-md-3 col-sm-3 module-batch-title p-0">{{commonLabels.labels.trainingClass}}</label>
                             <!-- <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label> -->
-                            <div class=" col-md-8 col-sm-8 select select-style clearfix p-0 m-0">
+                            <div class=" col-md-8 col-sm-8 select select-style clearfix pl-1 m-0">
                                 <select id="class" class="form-control p-0" name="Course{{i}}"  [(ngModel)]="data.course" (change)="checkCourse(class.value)" #class>
                                     <option value="null" disabled>{{this.commonLabels.labels.selectopt}}</option>
                                     <option *ngFor="let class of constant.trainingClassList" [value]="class.trainingClassId">{{class.trainingClassName}}</option>
                                 </select>
-                                <div class="select_arrow"></div>
+                                <div class="select_arrow-alg"></div>
                             </div>
                         </div>
                     </div>
