@@ -7,23 +7,29 @@
     </nav>
 </div> -->
 <div>
-<div class="clearfix">
-    <h4 class="add-notify">{{notifyId ? commonLabels.btns.editNotification : commonLabels.btns.createNotification}}</h4>
-</div>
-<div class="modal-body p-0" *ngIf="!notificationType">
+    <div class="clearfix">
+        <h4 class="add-notify">{{notifyId ? commonLabels.btns.editNotification : commonLabels.btns.createNotification}}</h4>
+    </div>
+    <div class="modal-body p-0" *ngIf="!notificationType">
         <!-- <div>
             <p class="text-center table-desc-color">{{commonLabels.msgs.generalNotifi}}</p>
         </div> -->
         <div class="row">
-            <div class="white-bg col-md-12 mb-3 p-3 cp">
-            <span class="notification-title">{{this.commonLabels.labels.assignToCourse}}</span>
-            <button class="float-right btn btn-link" (click)="notificationTypeUpdate('assignedToCourse')"><i class="fa fa-angle-right icons_header" aria-hidden="true" title="Next"></i></button></div>
-            <div class="white-bg col-md-12 mb-3 p-3 cp">
-            <span class="notification-title">{{this.commonLabels.labels.signature}}</span>
-            <button class="float-right btn btn-link"  (click)="notificationTypeUpdate('signature')"><i class="fa fa-angle-right icons_header" aria-hidden="true" title="Next"></i></button></div>
-                <div class="white-bg col-md-12 mb-3 p-3 cp">
-            <span class="notification-title">{{this.commonLabels.labels.nonSignature}}</span>
-            <button class="float-right btn btn-link" (click)="notificationTypeUpdate('nonSignature')"><i class="fa fa-angle-right icons_header" aria-hidden="true" title="Next"></i></button></div>
+            <div class="white-bg col-md-12 mb-3 p-3 cp" (click)="notificationTypeUpdate('assignedToCourse')">
+                <span class="notification-title">{{this.commonLabels.labels.assignToCourse}}</span>
+                <button class="float-right btn btn-link"><i class="fa fa-angle-right icons_header" aria-hidden="true"
+                        title="Next"></i></button>
+            </div>
+            <div class="white-bg col-md-12 mb-3 p-3 cp" (click)="notificationTypeUpdate('signature')">
+                <span class="notification-title">{{this.commonLabels.labels.signature}}</span>
+                <button class="float-right btn btn-link"><i class="fa fa-angle-right icons_header" aria-hidden="true"
+                        title="Next"></i></button>
+            </div>
+            <div class="white-bg col-md-12 mb-3 p-3 cp" (click)="notificationTypeUpdate('nonSignature')">
+                <span class="notification-title">{{this.commonLabels.labels.nonSignature}}</span>
+                <button class="float-right btn btn-link"><i class="fa fa-angle-right icons_header" aria-hidden="true"
+                        title="Next"></i></button>
+            </div>
         </div>
         <!-- <div class="col-md-12 clearfix text-center py-3">
             <button type="button" class="btn btn-primary creat-btn"  (click)="notificationTypeSubmit()">{{commonLabels.btns.yes}}</button>
@@ -31,15 +37,17 @@
         </div>  -->
     </div>
     <form #formDir="ngForm" (ngSubmit)="addBatch(formDir)" *ngIf="notificationType">
-    <div class="notification-box white-bg p-3">
-        
+        <div class="notification-box white-bg p-3">
+
             <div class="row">
                 <div class="col-md-6 pl-0">
                     <div class="row form-group select select-style clearfix" *ngIf="notificationType === 'assignedToCourse'">
-                        <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="course" [(ngModel)]="moduleVar.selectedCourses" (change)="courseSelect($event)">
+                        <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="course"
+                            [(ngModel)]="moduleVar.selectedCourses" (change)="courseSelect($event)">
                             <option value='null' disabled>{{commonLabels.labels.course}}</option>
-                            <option  *ngFor="let course of moduleVar.courseList" [value]="course.courseId">{{course.courseName}}</option>
-                        </select><div class="select_arrow"></div>
+                            <option *ngFor="let course of moduleVar.courseList" [value]="course.courseId">{{course.courseName}}</option>
+                        </select>
+                        <div class="select_arrow"></div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleVar.selectedCourses">
                             {{commonLabels.labels.courseError}}
                         </span>
@@ -59,24 +67,22 @@
                         </span>
                     </div> -->
                     <div class="row form-group select select-style clearfix">
-                        <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="resort" [(ngModel)]="moduleVar.selectedResort" #resort  (change)="getDropdownDetails(resort.value,'')">
+                        <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="resort"
+                            [(ngModel)]="moduleVar.selectedResort" #resort (change)="getDropdownDetails(resort.value,'')">
                             <option value='null' disabled>{{commonLabels.labels.resort}}</option>
-                            <option  *ngFor="let course of moduleVar.resortList" [value]="course.resortId">{{course.resortName}}</option>
-                        </select><div class="select_arrow"></div>
+                            <option *ngFor="let course of moduleVar.resortList" [value]="course.resortId">{{course.resortName}}</option>
+                        </select>
+                        <div class="select_arrow"></div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleVar.selectedResort">
                             {{commonLabels.labels.courseError}}
                         </span>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12 p-0 select-Courses">
-                            <ng-multiselect-dropdown
-                            [disabled]="notifyId ? true : false"
-                            [placeholder]="'Departments'"
-                            [data]="moduleVar.departmentList"
-                            [(ngModel)]="moduleVar.selectedDepartment"
-                            [settings]="moduleVar.departmentSettings"
-                            (onSelect)="onItemSelect($event,'dept','select')"
-                            (onDeSelect) = "onItemSelect($event,'dept','deselect')" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                            <ng-multiselect-dropdown [disabled]="notifyId ? true : false" [placeholder]="'Departments'"
+                                [data]="moduleVar.departmentList" [(ngModel)]="moduleVar.selectedDepartment" [settings]="moduleVar.departmentSettings"
+                                (onSelect)="onItemSelect($event,'dept','select')" (onDeSelect)="onItemSelect($event,'dept','deselect')"
+                                [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedDepartment.length === 0">
                             {{commonLabels.labels.courseError}}
@@ -85,24 +91,22 @@
                 </div>
                 <div class="col-md-6 pr-0">
                     <div class="row form-group select select-style clearfix" *ngIf="notificationType === 'assignedToCourse'">
-                        <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="trainingClass" [(ngModel)]="moduleVar.selectedTrainingClass">
+                        <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="trainingClass"
+                            [(ngModel)]="moduleVar.selectedTrainingClass">
                             <option value='null' disabled>{{commonLabels.labels.trainingClass}}</option>
                             <option *ngFor="let course of moduleVar.trainingClassList" [value]="course.trainingClassId">{{course.trainingClassName}}</option>
-                        </select><div class="select_arrow"></div>
+                        </select>
+                        <div class="select_arrow"></div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && !selectedTrainingClass">
                             {{commonLabels.labels.courseError}}
                         </span>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12 p-0 select-Courses">
-                            <ng-multiselect-dropdown
-                            [disabled]="notifyId ? true : false"
-                            [placeholder]="'Division'"
-                            [data]="moduleVar.divisionList"
-                            [(ngModel)]="moduleVar.selectedDivision"
-                            [settings]="moduleVar.divisionSettings"
-                            (onSelect)="onItemSelect($event,'division','select')"
-                            (onDeSelect) = "onItemSelect($event,'division','deselect')" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                            <ng-multiselect-dropdown [disabled]="notifyId ? true : false" [placeholder]="'Division'"
+                                [data]="moduleVar.divisionList" [(ngModel)]="moduleVar.selectedDivision" [settings]="moduleVar.divisionSettings"
+                                (onSelect)="onItemSelect($event,'division','select')" (onDeSelect)="onItemSelect($event,'division','deselect')"
+                                [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedDivision.length === 0">
                             {{commonLabels.labels.courseError}}
@@ -110,13 +114,9 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12 p-0 select-Courses">
-                            <ng-multiselect-dropdown
-                            [placeholder]="'Employees'"
-                            [data]="moduleVar.employeeList"
-                            [(ngModel)]="moduleVar.selectedEmployee"
-                            [settings]="moduleVar.empSettings"
-                            (onSelect)="onItemSelect($event,'emp','select')"
-                            (onDeSelect) = "onItemSelect($event,'emp','deselect')" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                            <ng-multiselect-dropdown [placeholder]="'Employees'" [data]="moduleVar.employeeList"
+                                [(ngModel)]="moduleVar.selectedEmployee" [settings]="moduleVar.empSettings" (onSelect)="onItemSelect($event,'emp','select')"
+                                (onDeSelect)="onItemSelect($event,'emp','deselect')" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedEmployee.length === 0">
                             {{commonLabels.labels.courseError}}
@@ -128,31 +128,36 @@
                         <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.uploadtxt}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                         <span class="col-md-9 p-0">
                             <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
-                            <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file" #fileData = "ngModel" id="customFile"  (change)="getFileDetails($event)"  required>
-                            <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}<span><i class="fas fa-upload float-right"></i></span></label>
-                            <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">{{commonLabels.labels.uploadtxt}}<span><i class="fas fa-upload float-right"></i></span></label>
+                            <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file"
+                                #fileData="ngModel" id="customFile" (change)="getFileDetails($event)" required>
+                            <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}<span><i
+                                        class="fas fa-upload float-right"></i></span></label>
+                            <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">{{commonLabels.labels.uploadtxt}}<span><i
+                                        class="fas fa-upload float-right"></i></span></label>
                         </span>
                     </div>
                     <div class="row form-group">
                         <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.fileName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                         <span class="col-md-9 p-0">
-                            <input type="text" class="form-control" placeholder="Enter File Name" [(ngModel)]="fileName" name="fileName" #fileNameValue = "ngModel" required>
+                            <input type="text" class="form-control" placeholder="Enter File Name" [(ngModel)]="fileName"
+                                name="fileName" #fileNameValue="ngModel" required>
                         </span>
                     </div>
                     <div class="row form-group">
                         <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.description}}</label>
                         <span class="col-md-9 p-0">
-                            <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description" name="description" #descriptionData = "ngModel" required>
+                            <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description"
+                                name="description" #descriptionData="ngModel" required>
                         </span>
                     </div>
-               
-                <div class="row">
+
+                    <div class="row">
                         <div class="col-md-6 pl-0">
                             <div class="row">
                                 <label class="col-md-5 p-0 label-title">{{commonLabels.labels.from}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                                 <div class="col-md-7 pr-0 pl-5">
-                                    <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen"
-                                            class="batch-icon">
+                                    <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()"
+                                            [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
                                         <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
                                             name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel"
                                             [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
@@ -173,11 +178,11 @@
                             <div class="row">
                                 <label class="col-md-5 p-0 label-title">{{commonLabels.labels.to}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                                 <div class="col-md-7 p-0 batch-input">
-                                    <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
-                                            class="batch-icon">
-                                        <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo"
-                                            bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
-                                            required>
+                                    <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()"
+                                            [attr.aria-expanded]="dp.isOpen" class="batch-icon">
+                                        <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off"
+                                            name="batchTo" bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel"
+                                            [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
                                         <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
                                             {{commonLabels.mandatoryLabels.to}}
                                         </span>
@@ -185,15 +190,15 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
-            </div>
                 <div class="text-center col-md-12 pt-3 px-0">
-                    <button type="button" class="btn btn-default float-right" (click)="back()">{{commonLabels.btns.cancel}}</button>                   
+                    <button type="button" class="btn btn-default float-right" (click)="back()">{{commonLabels.btns.cancel}}</button>
                     <button type="submit" class="btn btn-primary float-right mr-4">{{commonLabels.btns.save}}</button>
                 </div>
 
             </div>
-       
-    </div>
-</form>
+
+        </div>
+    </form>
 </div>
