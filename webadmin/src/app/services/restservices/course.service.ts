@@ -149,6 +149,7 @@ export class CourseService {
     let query = '';
     if(CMSFilterSearchEventSet !== undefined && CMSFilterSearchEventSet !== '')
     {
+      let status             = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.courseStatus)?CMSFilterSearchEventSet.courseStatus:'';
       let courseId           = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.courseId)?CMSFilterSearchEventSet.courseId:'';
       let trainingClassId    = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.trainingClassId)?CMSFilterSearchEventSet.trainingClassId:'';
       let divisionId         = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.parentDivisionId)?CMSFilterSearchEventSet.parentDivisionId:((CMSFilterSearchEventSet && CMSFilterSearchEventSet.childDivisionId)?CMSFilterSearchEventSet.childDivisionId:'');
@@ -163,7 +164,8 @@ export class CourseService {
       departmentId= (departmentId == 'null')?'':departmentId;
       subResortId=   (subResortId == 'null')?'':subResortId;
       createdBy =(createdBy == 'null')?'':createdBy;
-      query = '&courseId='+courseId+'&trainingClassId='+trainingClassId+'&subResortId='+subResortId+'&divisionId='+divisionId+'&departmentId='+departmentId+'&createdBy='+createdBy+'&search='+search;
+      status = (status == 'null')?'':status;
+      query = '&courseId='+courseId+'&trainingClassId='+trainingClassId+'&subResortId='+subResortId+'&divisionId='+divisionId+'&departmentId='+departmentId+'&createdBy='+createdBy+'&search='+search+'&status='+status;
 
     }
     return query;

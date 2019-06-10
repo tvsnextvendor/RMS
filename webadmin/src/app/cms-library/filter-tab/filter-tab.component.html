@@ -1,71 +1,91 @@
-
-      <form  #filterForm = "ngForm" (ngSubmit)="submitForm(filterForm)" >
-    
-    <div class="filter-search white-bg mb-3">           
+<form #filterForm="ngForm" (ngSubmit)="submitForm(filterForm)">
+    <div class="filter-search white-bg mb-3">
         <div class="search-container clearfix">
-            <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)] = "search">
+            <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search">
             <button type="submit"><i class="fa fa-search search-icon"></i></button>
-        </div>            
+        </div>
     </div>
     <div class="white-bg p-3">
         <h6>{{commonLabels.labels.filter}}</h6>
-      
         <div class="row">
-        <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="courseId" class="form-control pl-2" [(ngModel)] = "filterCourse" #course (change)="courseChange(course.value)">
-                <option [value]=null>{{commonLabels.labels.selectcourse}}</option>
-                <option *ngFor="let course of courseFilterList" [value]="course.courseId">{{course.courseName}}</option>
-            </select>
-            <div class="select_arrow"></div></div>
-        <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="trainingClassId" class="form-control pl-2" [(ngModel)] = "filterTrainingClass" #trainingClass [disabled]="filterCourse === 'null'" >
+            <div class="col-md-12 p-0 select select-style clearfix">
+                <select name="courseStatus" class="form-control pl-2" [(ngModel)]="filterCourseStatus" #coursestatus>
+                    <option [value]=null>{{commonLabels.labels.selectcoursestatus}}</option>
+                    <option value="unscheduled">Unscheduled</option>
+                    <option value="workInprogress">Work In Progress</option>
+                    <option value="assigned">Scheduled</option>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
+            <div class="col-md-12 p-0 select select-style clearfix">
+                <select name="courseId" class="form-control pl-2" [(ngModel)]="filterCourse" #course (change)="courseChange(course.value)">
+                    <option [value]=null>{{commonLabels.labels.selectcourse}}</option>
+                    <option *ngFor="let course of courseFilterList" [value]="course.courseId">{{course.courseName}}</option>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
+            <div class="col-md-12 p-0 select select-style clearfix">
+                <select name="trainingClassId" class="form-control pl-2" [(ngModel)]="filterTrainingClass"
+                    #trainingClass [disabled]="filterCourse === 'null'">
                     <option [value]=null>{{commonLabels.labels.selectopt}}</option>
                     <option *ngFor="let training of trainingClassFilterList" [value]="training.trainingClassId">{{training.trainingClassName}}</option>
-            </select>
-            <div class="select_arrow"></div></div>
-        <div class="col-md-12 p-0 mb-3">
-            <input type="text" class="form-control pl-2" placeholder="Parent Resort" name="course" [(ngModel)]="parentResort" disabled/></div>
-        <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="parentDivisionId" class="form-control pl-2" [(ngModel)] = "filterParentDivision" #parentdivision (change)="divisionChange(parentdivision.value,'parent')">
+                </select>
+                <div class="select_arrow"></div>
+            </div>
+            <div class="col-md-12 p-0 mb-3">
+                <input type="text" class="form-control pl-2" placeholder="Parent Resort" name="course" [(ngModel)]="parentResort"
+                    disabled /></div>
+            <div class="col-md-12 p-0 select select-style clearfix">
+                <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterParentDivision"
+                    #parentdivision (change)="divisionChange(parentdivision.value,'parent')">
                     <option [value]=null>{{commonLabels.labels.selectptdivision}}</option>
                     <option *ngFor="let division of parentDivisionFilterList" [value]="division.divisionId">{{division.divisionName}}</option>
-            </select>
-            <div class="select_arrow"></div></div>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
             <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)] = "filterParentDepartment" [disabled]="filterParentDivision === 'null'">
+                <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterParentDepartment"
+                    [disabled]="filterParentDivision === 'null'">
                     <option [value]=null>{{commonLabels.labels.selectptdpmt}}</option>
                     <option *ngFor="let dep of parentDepartmentFilterList" [value]="dep.departmentId">{{dep.departmentName}}</option>
-            </select>
-            <div class="select_arrow"></div></div>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
             <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="childResortId" class="form-control pl-2" [(ngModel)] = "filterChildResort" #childResort (change)="childResortChange(childResort.value)">
+                <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterChildResort" #childResort
+                    (change)="childResortChange(childResort.value)">
                     <option [value]=null>{{commonLabels.labels.selectchildresort}}</option>
                     <option *ngFor="let resort of childResortFilterList" [value]="resort.resortId">{{resort.resortName}}</option>
-            </select>
-            <div class="select_arrow"></div></div>
-            <div class="col-md-12 p-0 select select-style clearfix">
-                <select name="childDivisionId" class="form-control pl-2" [(ngModel)] = "filterChildDivision" #division (change)="divisionChange(division.value,'child')" [disabled]="filterChildResort === 'null'">
-                        <option [value]=null>{{commonLabels.labels.selectchilddivi}}</option>
-                        <option *ngFor="let division of childDivisionFilterList" [value]="division.divisionId">{{division.divisionName}}</option>
                 </select>
-            <div class="select_arrow"></div></div>
+                <div class="select_arrow"></div>
+            </div>
             <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="childDepartmentId" class="form-control pl-2" [(ngModel)] = "filterChildDepartment" [disabled]="filterChildDivision === 'null'">
+                <select name="childDivisionId" class="form-control pl-2" [(ngModel)]="filterChildDivision" #division
+                    (change)="divisionChange(division.value,'child')" [disabled]="filterChildResort === 'null'">
+                    <option [value]=null>{{commonLabels.labels.selectchilddivi}}</option>
+                    <option *ngFor="let division of childDivisionFilterList" [value]="division.divisionId">{{division.divisionName}}</option>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
+            <div class="col-md-12 p-0 select select-style clearfix">
+                <select name="childDepartmentId" class="form-control pl-2" [(ngModel)]="filterChildDepartment"
+                    [disabled]="filterChildDivision === 'null'">
                     <option [value]=null>{{commonLabels.labels.selectchilddpmt}}</option>
                     <option *ngFor="let dep of childDepartmentFilterList" [value]="dep.departmentId">{{dep.departmentName}}</option>
-            </select>
-            <div class="select_arrow"></div></div>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
             <div class="col-md-12 p-0 select select-style clearfix">
-            <select name="createdBy" class="form-control pl-2" [(ngModel)] = "filterCreatedBy">
+                <select name="createdBy" class="form-control pl-2" [(ngModel)]="filterCreatedBy">
                     <option [value]=null>{{commonLabels.labels.selectcreateuser}}</option>
                     <option *ngFor="let creator of createdByList" [value]="creator.userid">{{creator.userName}}</option>
-            </select>
-            <div class="select_arrow"></div></div>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
             <div class="col-md-12 p-0">
                 <button class="float-left m-0 p-0 pt-2 btn btn-link" (click)="resetFilter()">{{commonLabels.btns.clearFilter}}</button>
-                <button type ="submit" class="btn btn-primary">{{commonLabels.btns.apply}}</button>
+                <button type="submit" class="btn btn-primary">{{commonLabels.btns.apply}}</button>
             </div>
         </div>
-      
     </div>
 </form>

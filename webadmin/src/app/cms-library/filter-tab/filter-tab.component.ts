@@ -27,6 +27,7 @@ export class FilterTabComponent implements OnInit {
   filterChildDepartment = 'null';
   filterParentDepartment = 'null';
   filterCreatedBy = 'null';
+  filterCourseStatus = 'null';
   search = '';
   @Output() FilterSearchEvent = new EventEmitter<string>();
   
@@ -75,6 +76,7 @@ export class FilterTabComponent implements OnInit {
       }
     })
   }
+  
 
   divisionChange(divisionId,type){
     console.log(divisionId);
@@ -114,6 +116,7 @@ export class FilterTabComponent implements OnInit {
     this.parentDepartmentFilterList = [];
     this.childDepartmentFilterList = [];
     this.createdByList = [];
+    this.filterCourseStatus = 'null';
     this.filterCourse = 'null';
     this.filterParentDivision = 'null';
     this.filterChildDivision = 'null';
