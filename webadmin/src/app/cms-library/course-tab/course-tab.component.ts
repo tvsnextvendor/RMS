@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output,TemplateRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { HeaderService,HttpService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService} from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../../Constants/common-labels.var';
@@ -52,8 +53,21 @@ export class CourseTabComponent implements OnInit {
   fileDuration;
   selectedCourseId;
   checkBoxEnable;
+  breadCrumbTitle;
 
-  constructor(private breadCrumbService: BreadCrumbService,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
+  constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) {
+     this.activatedRoute.queryParams.subscribe(params=>{ 
+       console.log(window.location.pathname.indexOf("resource"))
+       if(params.tab == 'schedule'){
+         this.breadCrumbTitle = [{title : this.commonLabels.labels.schedule,url:'/calendar'},{title : this.commonLabels.labels.course,url:''}]
+       }else{
+         this.breadCrumbTitle = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.course,url:''}]
+       }
+
+      this.breadCrumbService.setTitle(this.breadCrumbTitle)
+
+     })
+   }
 
   @Output() SelectedcourseList = new EventEmitter<object>();
   @Output() trainingClassRedirect = new EventEmitter<object>();
@@ -65,13 +79,11 @@ export class CourseTabComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
-    let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.course,url:''}]
-    this.breadCrumbService.setTitle(data)
     this.enableDropData('closeEdit','')
     this.getCourseDetails();
     this.checkBoxEnable = this.disableEdit ? true : false;
   }
-  
+
   ngDoCheck(){
     if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
       this.getCourseDetails();

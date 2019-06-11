@@ -31,6 +31,7 @@ export class AddQuizComponent implements OnInit {
   @Input() tabName;
   @Input() quizNames;
   @Output() valueChange = new EventEmitter();
+  @Output() completed = new EventEmitter();
   courseUpdate = false;
   videoDetails = [];
   // courseId;
@@ -155,12 +156,6 @@ export class AddQuizComponent implements OnInit {
         quiz[i].trainingClassId = this.courseId;
       }
     }
-  }
-
-
-  courseChange(){
-    // // this.selectedCourse = 1;
-    // console.log(this.selectedCourse);
   }
 
   // Add Question Box
@@ -376,6 +371,7 @@ export class AddQuizComponent implements OnInit {
         this.courseService.addTrainingClass(params).subscribe((result)=>{
           if(result && result.isSuccess){
              this.route.navigate(['/cmspage'],{queryParams:{type : 'create'}})
+             this.completed.emit(true);
              this.alertService.success(result.message);
           }
         })

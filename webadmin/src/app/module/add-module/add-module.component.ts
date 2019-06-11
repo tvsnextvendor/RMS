@@ -156,7 +156,14 @@ export class AddModuleComponent implements OnInit {
             }
         })
     }
-
+    
+    resetForm(){
+        this.moduleVar.selectCourseName = '';
+        this.moduleVar.selectVideoName = '';
+        this.moduleVar.description= '';
+        this.moduleVar.videoList=[];
+    }
+   
     onItemSelect(item: any) {
         this.moduleVar.selectedCourseIds =  this.selectedCourses.map(item=>{return item.id})
     }
@@ -380,15 +387,12 @@ export class AddModuleComponent implements OnInit {
              id : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassId : '',
              value : data.resp && data.resp.trainingClass ? data.resp.trainingClass.trainingClassName : ''
          }
-
          this.moduleVar.selectedCourseIds=[];
-         
          if(newTrainingClass.id !== ''){
              this.selectedCourses.push(newTrainingClass);
              this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
              data.courseUpdate ? this.submitForm(true) : this.submitForm(false); 
          }
- 
          // data.submitCheck ? this.submitForm(true) :this.courseData(); 
          if(this.moduleVar.selectCourseName){
              this.tabEnable = data.courseUpdate ? false : true;

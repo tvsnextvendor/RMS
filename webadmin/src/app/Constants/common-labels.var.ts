@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 export class CommonLabels{
         
     labels = {
+        "create"            :  "Create",
         "createdBy"         :   "Create By",
         "createdOn"         :   "Created On",
         "lastModifiedOn"    :   "Last Modified On",

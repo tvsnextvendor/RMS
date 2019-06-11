@@ -13,11 +13,12 @@ export class CmsPageComponent implements OnInit {
   constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private headerService :HeaderService,public commonLabels : CommonLabels) { }
 
   ngOnInit() {
-    this.headerService.setTitle({title:this.commonLabels.titles.cmsLibrary, hidemodule:false});
     this.breadCrumbService.setTitle([]);
     this.activatedRoute.queryParams.subscribe(params=>{
-      console.log(params)
       this.urlType = params.type ? params.type  : 'create';
+       let path = window.location.pathname;
+       let data = params.type == 'create' ? 'Create' : params.type == 'edit' ? 'Edit' : path == '/cms-library' ? 'Edit' : 'Create';
+       this.headerService.setTitle({title:data, hidemodule:false});
     })
   }
 

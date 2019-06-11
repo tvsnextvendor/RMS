@@ -21,7 +21,7 @@ export class WorkCourseListComponent implements OnInit {
   
 
   ngOnInit() {
-    this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
+    // this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
     let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.btns.workinProgress,url:''}]
     this.breadCrumbService.setTitle(data);
     this.pageSize = 10;
