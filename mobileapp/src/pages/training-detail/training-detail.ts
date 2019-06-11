@@ -110,7 +110,7 @@ export class TrainingDetailPage {
     findCompletedClass(){
        
        let resortId = this.currentUser.ResortUserMappings[0].resortId;
-        this.http.get(API_URL.URLS.checkClassCompleted + '?trainingClassId=' +this.trainingClassId +'&resortId='+ resortId).subscribe(res=>{
+        this.http.get(API_URL.URLS.checkClassCompleted + '?trainingClassId=' +this.trainingClassId +'&resortId='+ resortId +'&userId='+this.currentUser.userId +'&courseId='+this.courseId).subscribe(res=>{
             if(res['isSuccess']){
                 this.status = 'completed'
             }

@@ -77,7 +77,7 @@
                 <div *ngFor="let comment of commentList;let i=index;" class="comment-row">
                     <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1' : 'user-2'">
                   <ion-col col-2 class="comment-img">
-                    <img *ngIf="!comment.User.userImage" src="assets/images/images1.jpeg" class="comment-image">
+                    <img *ngIf="!comment.User.userImage" src="assets/images/user.png" class="comment-image">
                     <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
                   </ion-col>
                   <ion-col col-10 class="comment-box">
