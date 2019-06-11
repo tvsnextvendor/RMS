@@ -10,24 +10,24 @@
     <div class="clearfix">
         <h4 class="add-notify">{{notifyId ? commonLabels.btns.editNotification : commonLabels.btns.createNotification}}</h4>
     </div>
-    <div class="modal-body p-0" *ngIf="!notificationType">
+    <div class="modal-body px-5" *ngIf="!notificationType">
         <!-- <div>
             <p class="text-center table-desc-color">{{commonLabels.msgs.generalNotifi}}</p>
         </div> -->
         <div class="row">
             <div class="white-bg col-md-12 mb-3 p-3 cp" (click)="notificationTypeUpdate('assignedToCourse')">
                 <span class="notification-title">{{this.commonLabels.labels.assignToCourse}}</span>
-                <button class="float-right btn btn-link"><i class="fa fa-angle-right icons_header" aria-hidden="true"
+                <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
                         title="Next"></i></button>
             </div>
             <div class="white-bg col-md-12 mb-3 p-3 cp" (click)="notificationTypeUpdate('signature')">
                 <span class="notification-title">{{this.commonLabels.labels.signature}}</span>
-                <button class="float-right btn btn-link"><i class="fa fa-angle-right icons_header" aria-hidden="true"
+                <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
                         title="Next"></i></button>
             </div>
             <div class="white-bg col-md-12 mb-3 p-3 cp" (click)="notificationTypeUpdate('nonSignature')">
                 <span class="notification-title">{{this.commonLabels.labels.nonSignature}}</span>
-                <button class="float-right btn btn-link"><i class="fa fa-angle-right icons_header" aria-hidden="true"
+                <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
                         title="Next"></i></button>
             </div>
         </div>
