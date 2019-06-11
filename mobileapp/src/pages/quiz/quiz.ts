@@ -38,7 +38,6 @@ export class QuizPage {
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-             console.log(self.currentUser, "HEHEHEHE");             
             }
         });
   }
@@ -48,14 +47,12 @@ export class QuizPage {
     }
     // Get Quiz Content
     getQuizContent() {
-        this.selectedQuizContent = this.quizData[this.quizStep];
+        this.selectedQuizContent = this.quizData[this.quizStep].QuizMappings[0].Question;
     }
 
     // Change selected question
     changeSelectedValue(option) {
-        console.log(option)
-        this.selectedQuizContent['selectedAnswer'] = option;
-        
+        this.selectedQuizContent['selectedAnswer'] = option;        
     }
 
     // Select previous question
@@ -81,24 +78,9 @@ export class QuizPage {
     }
 
     // Final Congrats
-    calcualteAndGoToCongartulations() {
-        // let userId = this.currentUser.userId;
-        // let data={
-        // 'courseId' : this.courseId,
-        // 'userId'   : userId,
-        // 'status'   : "completed",
-        // 'completedDate' : new Date()
-        // }
-        // this.http.put(false,API_URL.URLS.updateTrainingStatus, data).subscribe((res) => {
-        
-        // },(err) => {
-
-        // });
-        this.completeTrainingClass();
-
+    calcualteAndGoToCongartulations() {          
         let correctAnswersCount  =   0;
         this.quizData.forEach(quizValues => {
-            console.log(quizValues['selectedAnswer'], quizValues['answer'] , quizValues ,"values")
             if (quizValues['selectedAnswer'] == quizValues['answer']) {
                 correctAnswersCount ++;
             }
@@ -107,27 +89,11 @@ export class QuizPage {
             "courseId"          : this.courseId,
             "totalQuestions"    : this.quizData.length,
             "correctAnswers"    : correctAnswersCount,
-            "trainingClassId"   : this.trainingClassId 
+            "trainingClassId"   : this.trainingClassId,
+            "courseName": this.courseName,
         };
         this.navCtrl.push(QuizResultPage, resultData);
     }
 
-    completeTrainingClass(){
-        let postData={
-            "courseId":this.courseId,
-            "trainingClassId": this.trainingClassId,
-            "userId":this.currentUser.userId,
-            "courseName": this.courseName,
-            "userName": this.currentUser.userName,
-            "resortId": this.currentUser.ResortUserMappings[0].resortId,
-            "status":"Completed"
-        }
-
-        this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{
-            if(res['isSuccess']){
-                this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{
-                })
-            }
-        })
-    }
+   
 }

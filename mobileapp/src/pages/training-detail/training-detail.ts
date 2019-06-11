@@ -60,6 +60,7 @@ export class TrainingDetailPage {
     uploadPath;
     status;
     currentUser;
+    prevBtn;
 
     constructor(public navCtrl: NavController,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
         this.Math = Math;
@@ -68,7 +69,7 @@ export class TrainingDetailPage {
         this.trainingClassId = this.detailObject['setData'].trainingClassId;
         this.courseId = this.detailObject['setData'].CourseTrainingClassMaps[0].Course.courseId;
         this.courseName = this.detailObject['setData'].CourseTrainingClassMaps[0].Course.courseName;
-        this.trainingDatas = this.detailObject['setData'].Files;
+        this.trainingDatas = this.detailObject['setData'].FileMappings;
         this.uploadPath = this.detailObject['uploadPath'];
         this.status= this.detailObject['status'];
         this.lastIndexs = this.trainingDatas.length - 1;
@@ -83,7 +84,7 @@ export class TrainingDetailPage {
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-             console.log(self.currentUser, "HEHEHEHE");             
+            this.findCompletedClass();
             }
         });
       }
@@ -99,24 +100,30 @@ export class TrainingDetailPage {
     }
     // first page load
     ionViewDidLoad() {
-        this.setTraining = this.trainingDatas[0];
+        this.prevBtn = this.initial == 0 ? true : false;
+        this.setTraining = this.trainingDatas[0].File;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         this.text = this.setTraining.fileDescription;
-        console.log('ionViewDidLoad TrainingDetailPage');
     }
-    //  after load enter formed
-    ionViewWillEnter() {
-        // this.goToSlideIndex();
-        //this.checkNavigationButton();
+
+    //Find whether class is completed or not.
+    findCompletedClass(){
+       
+       let resortId = this.currentUser.ResortUserMappings[0].resortId;
+        this.http.get(API_URL.URLS.checkClassCompleted + '?trainingClassId=' +this.trainingClassId +'&resortId='+ resortId).subscribe(res=>{
+            if(res['isSuccess']){
+                this.status = 'completed'
+            }
+        })   
     }
+    
     // go to quiz page for training details
     goToQuizPage() {
         let self = this;
           this.http.get(API_URL.URLS.quizAPI + '?trainingClassId=' + this.trainingClassId + '&courseId=' + this.courseId).subscribe((res) => {
             if (res['isSuccess']) {
-                const quiz = res['data'];
-                this.quizData =quiz[0].CourseTrainingClassMaps[0].TrainingClass.Questions;     
-                if(this.quizData.length > 0){
+                this.quizData =res['data'];     
+                if(this.quizData){
                 const alert = this.alertCtrl.create({
                     title: 'Are you ready to take the Quiz ?',
                     buttons: [{
@@ -145,6 +152,7 @@ export class TrainingDetailPage {
      });
     }
    
+   //Call after watching video file.
     videoEnded(){
         let userId = this.currentUser ? this.currentUser.userId : 8;
         let data={
@@ -157,7 +165,6 @@ export class TrainingDetailPage {
         this.http.put(false,API_URL.URLS.fileTrainingStatus, data).subscribe((res) => {
         
         },(err) => {
-
         });
     }
 
@@ -188,26 +195,30 @@ export class TrainingDetailPage {
             this.rightButton = true;
         }
     }
+
+    //go to next file
     showNextPage() {
         this.initial = this.initial + 1;
-        this.setTraining = this.trainingDatas[this.initial];
+        this.setTraining = this.trainingDatas[this.initial].File;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
         if(ext == "mp4" && this.videotag){
-            console.log(this.videotag,"VideoTag");
         const htmlVideoTag = this.videotag.nativeElement;
         htmlVideoTag.load();
         }
         this.fileId = this.setTraining.fileId;
         this.text = this.setTraining.fileDescription;
         this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
+        this.prevBtn = this.initial == 0 ? true : false;
     }
+
+    //go to previous file
     goBackLevel() {
         if (this.initial === 0) {
             this.goBackToDetailPage();
         } else {
             this.initial = this.initial - 1;
-            this.setTraining = this.trainingDatas[this.initial];
+            this.setTraining = this.trainingDatas[this.initial].File;
             this.fileId = this.setTraining.fileId;
             this.text = this.setTraining.fileDescription;
             this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
@@ -216,9 +227,11 @@ export class TrainingDetailPage {
                 const htmlVideoTag = this.videotag.nativeElement;
                 htmlVideoTag.load();
             }
+            this.prevBtn = this.initial == 0 ? true : false;
             this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
         }
     }
+
     getFileExtension(filename) {
         let ext = /^.+\.([^.]+)$/.exec(filename);
         let fileType = ext == null ? "" : ext[1];

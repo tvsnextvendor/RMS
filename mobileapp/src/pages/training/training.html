@@ -21,7 +21,7 @@
     <ion-row>
       <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of allTrainingClasses;let i=index;" (click)="openTrainingDetail(task,i,statusKey,uploadPath)"
         class="main-forum">
-        <ion-card class="training-list" *ngIf="task.Files[0]">
+        <ion-card class="training-list" *ngIf="task.FileMappings[0]">
           <div class="training-image">
             <span class="course-name">{{task.trainingClassName}}</span>
             <img  src="assets/imgs/COURSE.png" />
@@ -35,7 +35,7 @@
               <ion-grid no-padding class="post-details">
                 <ion-row class="">
                   <ion-col col-7 class=" ">
-                    <h4 class="training-name" *ngIf="task.Files[0]">{{task.Files[0].fileName}} </h4>
+                    <h4 class="training-name" *ngIf="task.FileMappings[0]">{{task.FileMappings[0].fileName}} </h4>
                   </ion-col>
                   <ion-col col-5 class="">
                     <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.updated |
@@ -44,8 +44,8 @@
                 </ion-row>
               </ion-grid>
             </ion-card-title>
-            <p class="training-desc" *ngIf="task.Files[0]">
-              {{task.Files[0].fileDescription | words : 15 }}
+            <p class="training-desc" *ngIf="task.FileMappings[0]">
+              {{task.FileMappings[0].fileDescription | words : 15 }}
             </p>
           </ion-card-content>
         </ion-card>

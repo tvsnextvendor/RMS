@@ -74,6 +74,7 @@ export class QuizResultPage implements OnInit {
             this.http.post(false,API_URL.URLS.postFeedBack,postData).subscribe(res=>{
                 if(res['isSuccess']){
                     this.toastr.success(res['message']);
+                    this.completeTrainingClass();
                     this.closeToStart();
                 }
             })
@@ -88,5 +89,24 @@ export class QuizResultPage implements OnInit {
             }, (err) => {
                 console.log('currentUser not received in app.component.ts', err);
             });
+    }
+
+     completeTrainingClass(){
+        let data = this.resultData;
+        let postData={
+            "courseId": data['courseId'],
+            "trainingClassId": data['trainingClassId'],
+            "userId":this.currentUser.userId,
+            "courseName": data['courseName'],
+            "userName": this.currentUser.userName,
+            "resortId": this.currentUser.ResortUserMappings[0].resortId,
+            "status":"Completed"
+        }
+        this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{
+            if(res['isSuccess']){
+                this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{
+                })
+            }
+        })
     }
 }

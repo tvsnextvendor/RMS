@@ -58,8 +58,8 @@ export class TrainingPage {
   @ViewChild('myTabs') tabRef: Tabs;
   //first load
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TrainingPage');
   }
+  
   ionViewDidEnter() {
     this.assignedCoursesList = [];
     this.progressCoursesList = [];
@@ -96,10 +96,6 @@ export class TrainingPage {
         self.allTrainingClasses = res['data']['rows'];
         self.allTrainingClassesCount = res['data']['count'];
         self.uploadPath = res['data']['uploadPaths']['uploadPath'];
-        //alert(self.uploadPath);
-        console.log(res);
-        console.log('self.allTrainingClasses');
-        console.log(self.allTrainingClasses);
         resolve('resolved');
       }, (err) => {
         console.log('error occured', err);

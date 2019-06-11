@@ -29,28 +29,40 @@ export class API_URL {
         'getQuiz': '5c2e1c4f2f0000fd54175475',
         // 'getCourses':'5c28b3923300004e00a58b88'
 
-      
+
+       //login 
        'loginAPI':'8101/login',
+       
+       //Course & TrainingClass
        'trainingCourseAPI':'8103/course/courseByStatus',
        'fileTrainingStatus': '8103/updateFileTrainingStatus',
        'updateTrainingStatus':'8103/updateUserTrainingStatus',
-       'getProfile' : '8101/user/List',
-       'updateProfile': '8101/user/Update/',
        'trainingCourseFilesAPI':'8103/trainingClass/TrainingFileList',
        'quizAPI':'8103/trainingClass/QuizList',
-       'readNotification':'8103/user/readNotification',
-       'updateSettings' : '8101/user/settings',
        'completeTrainingClass':'8103/updateTrainingClassCompletedStatus',
        'postFeedBack':'8103/courseFeedback',
+       'checkClassCompleted':'8103/checkFeedbackRated',
+
+        //User & Settings
+       'getProfile' : '8101/user/List',
+       'updateProfile': '8101/user/Update/',
+       'readNotification':'8103/user/readNotification',
+       'updateSettings' : '8101/user/settings',
+       'forgetPassword':'8101/mobileforgetPassword',
+
+       //Training Schedule & Forum
        'getAllSchedule': '8103/schedule/getAllSchedules',
        'getForum' : '8104/forum',
        'post' : '8104/post',
        'comment': '8104/comment',
+
        'appFeedback' : '8103/applicationFeedback',
+
+        //Dashboard
        'dashboardSchedules':'8103/getScheduleExpireList',
        'dashboardCount':'8103/getDashboardCount',
+
        'certificates' : '8104/getUserCertificates',
-       'forgetPassword':'8101/mobileforgetPassword'
        
     };
 }

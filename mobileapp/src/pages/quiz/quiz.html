@@ -21,15 +21,15 @@
                                 <ion-col col-1 class="quiz-radio">
                                     <label for="true"></label>
                                     <ion-icon name="radio-button-off" class="quizOption-icon"
-                                        *ngIf="'true' != quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        *ngIf="'true' != selectedQuizContent['selectedAnswer']"></ion-icon>
                                     <ion-icon name="checkmark-circle" class="quizOption-icon"
-                                        *ngIf="'true' == quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        *ngIf="'true' == selectedQuizContent['selectedAnswer']"></ion-icon>
                                 </ion-col> 
  
                                 <ion-col col-11>
                                     <input hidden id="true" type="radio" class="with-font" name="TorF"
                                         [value]="true" (change)="changeSelectedValue('true')"
-                                        [checked]="'true' == quizData[quizStep]['selectedAnswer']" />
+                                        [checked]="'true' == selectedQuizContent['selectedAnswer']" />
                                     <p>True</p>
                                 </ion-col>
 
@@ -41,14 +41,14 @@
                                 <ion-col col-1 class="quiz-radio">
                                 <label for="false"></label>
                                     <ion-icon name="radio-button-off" class="quizOption-icon"
-                                        *ngIf="'false' != quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        *ngIf="'false' != selectedQuizContent['selectedAnswer']"></ion-icon>
                                     <ion-icon name="checkmark-circle" class="quizOption-icon"
-                                        *ngIf="'false' == quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        *ngIf="'false' == selectedQuizContent['selectedAnswer']"></ion-icon>
                                 </ion-col>
 
                                 <ion-col col-11>
                                     <input hidden id="false" type="radio" class="with-font" name="TorF" [value]="false" (change)="changeSelectedValue('false')"
-                                        [checked]="'false' == quizData[quizStep]['selectedAnswer']" />
+                                        [checked]="'false' == selectedQuizContent['selectedAnswer']" />
                                     <p>False</p>
                                 </ion-col>
                             </ion-row>
@@ -62,19 +62,19 @@
                     <div class="quiz-content" *ngIf="selectedQuizContent && selectedQuizContent.questionName">
                         <div class="quiz-content-text">
                             <p class="setpCount">{{quizStep+1}}/{{quizData.length}}</p>
-                            <h5 class="selectedQuizContentTitle">{{selectedQuizContent.questionName}}</h5>
+                            <h5 class="selectedQuizContentTitle">{{selectedQuizContent.Question.questionName}}</h5>
                         </div>
                         <div class="quiz-content-options" *ngIf="selectedQuizContent.options && selectedQuizContent.options.length">
                             <span *ngFor="let quizOption of selectedQuizContent.options" class="quizOption">
                                 <ion-row>
                                     <ion-col col-1 class="quiz-radio">
                                         <label for={{quizOption.optionName}}></label>
-                                        <ion-icon name="radio-button-off" class="quizOption-icon" *ngIf="quizOption.optionName != quizData[quizStep]['selectedAnswer']"></ion-icon>
-                                        <ion-icon name="checkmark-circle" class="quizOption-icon" *ngIf="quizOption.optionName == quizData[quizStep]['selectedAnswer']"></ion-icon>
+                                        <ion-icon name="radio-button-off" class="quizOption-icon" *ngIf="quizOption.optionName != selectedQuizContent['selectedAnswer']"></ion-icon>
+                                        <ion-icon name="checkmark-circle" class="quizOption-icon" *ngIf="quizOption.optionName == selectedQuizContent['selectedAnswer']"></ion-icon>
                                     </ion-col>
                                     <ion-col col-11>
                                 <input hidden id={{quizOption.optionName}} type="radio" class="with-font" name="radiogroup"
-                                    [value]="quizOption.optionName" (change)="changeSelectedValue(quizOption.optionName)" [checked]="quizOption.optionName == quizData[quizStep]['selectedAnswer']" />
+                                    [value]="quizOption.optionName" (change)="changeSelectedValue(quizOption.optionName)" [checked]="quizOption.optionName == selectedQuizContent['selectedAnswer']" />
                                 <p>{{quizOption.optionName}}</p>
                             </ion-col>
                             </ion-row>

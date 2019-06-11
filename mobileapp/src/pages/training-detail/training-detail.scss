@@ -14,6 +14,13 @@ page-training-detail {
     padding: 0 36px;
     text-align: right;
 }
+.prev-btn {
+    width: 100%;
+    text-align: center;
+    display: block;
+    padding: 0 36px;
+    text-align: left;
+}
 ion-header {
     padding: 0 0px;
 }
@@ -82,7 +89,9 @@ ion-toolbar {
     object-fit: fill;
     background-size: cover;
 }
-
+.ver-bottom{
+    display: flex;
+}
 
 .arrow-dropleft-icon {
     font-size: 36px;

@@ -88,10 +88,14 @@
     </div>
 </div> -->
 
-<div class="ver-bottom">
-        <a  class="next-btn" href="javascript:void(0);" (click)="showNextPage()" *ngIf="!quizBtn"> >> {{constant.buttons.next}}</a>
+<div class="ver-bottom clearfix">
+    <a class="prev-btn" href="javascript:void(0);" (click)="goBackLevel()"  *ngIf="!prevBtn"> << {{constant.buttons.previous}}</a>
+    <a  class="next-btn" href="javascript:void(0);" (click)="showNextPage()" *ngIf="!quizBtn"> >> {{constant.buttons.next}}</a>
     <div class="take-quiz-btn" (click)="goToQuizPage()"  *ngIf="status !== 'completed'"> 
         {{constant.buttons.takeQuiz}}
     </div>
 </div>
+
+
+
 </ion-content>
