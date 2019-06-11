@@ -50,7 +50,7 @@ export class QuizTabComponent implements OnInit {
       { name: "Non-MCQ", value: "NON-MCQ" }
     ];
     this.quizQuestionsForm = [];
-    let data = [{ title: this.commonLabels.labels.cmsLibrary, url: '/cms-library' }, { title: this.commonLabels.labels.quiz, url: '' }]
+    let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.quiz, url: '' }]
     this.breadCrumbService.setTitle(data);
 
     if (this.directTabEnable) {

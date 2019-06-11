@@ -76,8 +76,6 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.videoList.push(element)
         })
     }
-    let data = this.moduleId ? [{title:this.commonLabels.labels.cmsLibrary, url:'/cms-library'},{title:this.commonLabels.labels.editCourse, url:''}] : [{title:this.commonLabels.labels.cmsLibrary, url:'/cms-library'},{title:this.commonLabels.labels.createCourse, url:''}];
-    this.breadCrumbService.setTitle(data);
     this.moduleVar.api_url = API_URL.URLS;
     this.moduleVar.dropdownSettings = {
         singleSelection: false,
@@ -92,6 +90,16 @@ export class AddModuleComponent implements OnInit {
      }, 2000);   
     this.moduleVar.tabKey = 1;
     this.courseData('');
+   }
+
+   ngDoCheck(){
+    if(this.selectedTab == 'course' ){
+     let data = this.moduleId ? [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editCourse, url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title:this.commonLabels.labels.createCourse, url:''}];
+     this.breadCrumbService.setTitle(data);
+    }else if(this.selectedTab == 'class'){
+     let data = this.moduleId ? [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title:this.commonLabels.labels.createClasses, url:''}];
+    this.breadCrumbService.setTitle(data);    
+    }
    }
 
     includeDropdwnButton(){

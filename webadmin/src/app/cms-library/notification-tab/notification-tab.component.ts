@@ -31,7 +31,7 @@ export class NotificationTabComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
-    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.notification,url:''}]
+    let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.notification,url:''}]
     this.breadCrumbService.setTitle(data)
     let userData= this.utilService.getUserData();
     this.roleId = this.utilService.getRole();
