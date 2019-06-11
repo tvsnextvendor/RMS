@@ -27,7 +27,7 @@
 				</span>
 				</span>			
 			</div>
-			<div class="row mb-2">
+			<div class="row mb-3">
 				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.trainingClass}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
 				<div class="col-md-9 p-0 select-Courses">
 					<ng-multiselect-dropdown
@@ -45,7 +45,7 @@
 			<div class="row form-group" *ngIf="!tabEnable">
 				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.quizName}}</label>
 				<div class=" col-md-9 pl-0 select select-style clearfix p-0 m-0">
-				<select class="form-control p-0" name="quiz" [(ngModel)]="selectedQuiz">
+				<select class="form-control p-0 cp" name="quiz" [(ngModel)]="selectedQuiz">
 					<option value="null" disabled>{{commonLabels.labels.selectQuiz}}</option>
 					<option *ngFor="let quiz of quizList" [value]="quiz.quizId">{{quiz.quizName}}</option>
 				</select>
