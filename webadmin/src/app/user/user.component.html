@@ -104,7 +104,7 @@
             <div class="detail-bottom row">                
                 <div class="row depart-dtl col-md-12 p-0 mb-4 clearfix" *ngFor="let division of divisionDetails;let i = index;">
                     <label *ngIf="division?.Division?.Departments.length" class="col-md-12 p-0 division-title">{{division?.Division?.divisionName}} 
-                        <a (click)="openAddUser(addDivision,'','')" title="add"><i class="fa fa-plus ml-10"></i></a>
+                        <!-- <a (click)="openAddUser(addDivision,'','')" title="add"><i class="fa fa-plus ml-10"></i></a> -->
                         <a (click)="editDivisionData(division?.Division,editDivision)" title="Edit"><i class="fas fa-pencil-alt ml-10"></i></a>
                         <a (click)="removeDivision(deleteDivision,division,i)" class="ml-10" title="Delete"><i class="fas fa-trash"></i></a>
                     </label>
