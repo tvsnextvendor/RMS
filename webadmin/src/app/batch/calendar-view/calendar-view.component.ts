@@ -134,5 +134,13 @@ export class CalendarViewComponent implements OnInit {
     goToCMSLibrary(){
         this.router.navigate(['/cms-library'],{queryParams:{type : 'create',tab : 'schedule'}})
     }
+
+    dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+        if(events.length === 0){
+            var n = date.toString();
+            localStorage.setItem('BatchStartDate',n);
+            this.goToCMSLibrary();
+        }
+      }
  
 }

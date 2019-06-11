@@ -1,4 +1,4 @@
-import { Component, OnInit ,Output, Input, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
@@ -6,7 +6,7 @@ import { BatchVar } from '../../Constants/batch.var';
 import { API_URL } from '../../Constants/api_url';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import {CommonService,AlertService,HttpService,UtilService,HeaderService,UserService,CourseService,ResortService,BreadCrumbService} from '../../services';
+import { CommonService, AlertService, HttpService, UtilService, HeaderService, UserService, CourseService, ResortService, BreadCrumbService } from '../../services';
 import * as moment from 'moment';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
@@ -22,14 +22,14 @@ export class AddBatchComponent implements OnInit {
     @Input() courseList: any = [];
     @Input() scheduleId;
     @Input() scheduleData;
-    courseIds=[];
+    courseIds = [];
     durationValue = '3';
     maxdurationCount;
     countCheck = false;
     countError;
     reminder;
-    status='';
-    errStatus=false;
+    status = '';
+    errStatus = false;
     errMsg;
     showToDate = false;
     showFromDate = false;
@@ -39,39 +39,41 @@ export class AddBatchComponent implements OnInit {
     employeesInBatch = [];
     userData;
     courseDataList = [];
-    passPerError; 
+    passPerError;
     errorValidate;
     resortId;
     paramsType;
 
-    constructor(private breadCrumbService :BreadCrumbService,private alertService: AlertService,private courseService: CourseService,private utilService:UtilService,private resortService:ResortService,private userService: UserService,private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService:CommonService,public commonLabels : CommonLabels) {
+    constructor(private breadCrumbService: BreadCrumbService, private alertService: AlertService, private courseService: CourseService, private utilService: UtilService, private resortService: ResortService, private userService: UserService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService: CommonService, public commonLabels: CommonLabels) {
         this.batchVar.url = API_URL.URLS;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.batchVar.batchId = params['batchId'];
         });
-        this.activatedRoute.queryParams.subscribe(items=>{
-            this.paramsType = items.type;  
+        this.activatedRoute.queryParams.subscribe(items => {
+            this.paramsType = items.type;
         })
     }
 
 
     ngOnInit() {
-    //   this.scheduleId ? this.headerService.setTitle({ title: this.commonLabels.titles.editTitle, hidemodule: false }) : this.headerService.setTitle({ title: this.commonLabels.titles.addTitle, hidemodule: false });
-        this.batchVar.moduleForm=[];
+        //   this.scheduleId ? this.headerService.setTitle({ title: this.commonLabels.titles.editTitle, hidemodule: false }) : this.headerService.setTitle({ title: this.commonLabels.titles.addTitle, hidemodule: false });
+        this.batchVar.moduleForm = [];
         this.clearBatchVar();
         this.batchVar.dategreater = false;
-        let data = this.scheduleId ? [{title : this.commonLabels.labels.calendarView,url:'/calendar'},{title : this.commonLabels.btns.scheduleTraining,url:''}] : [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.btns.scheduleTraining,url:''}]
+        let data = this.scheduleId ? [{ title: this.commonLabels.labels.calendarView, url: '/calendar' }, { title: this.commonLabels.btns.scheduleTraining, url: '' }] : [{ title: this.commonLabels.labels.cmsLibrary, url: '/cms-library' }, { title: this.commonLabels.btns.scheduleTraining, url: '' }]
         this.breadCrumbService.setTitle(data)
-        this.userData =this.utilService.getUserData();
-        
-        if(this.scheduleId){
+        this.userData = this.utilService.getUserData();
+
+        if (this.scheduleId) {
             this.clearBatchForm();
             this.getCourseData();
         }
-        else{
-            this.resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId;
+        else {
+            this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
             this.getResortData(this.resortId);
-            this.batchVar.batchFrom = new Date();
+            let startDate = localStorage.getItem('BatchStartDate');
+            this.batchVar.batchFrom = new Date(startDate);
+           //this.batchVar.batchFrom = new Date();
             this.courseForm();
         }
         //let startDate = localStorage.getItem('BatchStartDate');
@@ -81,17 +83,17 @@ export class AddBatchComponent implements OnInit {
         // this.getBatchDetail();
     }
 
-    getCourseData(){
-        this.courseService.getAllCourse().subscribe(resp=>{
-            if(resp && resp.isSuccess){
-                this.courseDataList = resp.data.rows.length && resp.data.rows.map(item=>{
+    getCourseData() {
+        this.courseService.getAllCourse().subscribe(resp => {
+            if (resp && resp.isSuccess) {
+                this.courseDataList = resp.data.rows.length && resp.data.rows.map(item => {
                     let obj = {
-                        courseId : item.courseId,
-                        courseName : item.courseName
+                        courseId: item.courseId,
+                        courseName: item.courseName
                     }
                     return obj;
                 })
-                this.resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId;
+                this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
                 this.getResortData(this.resortId);
             }
         });
@@ -102,140 +104,140 @@ export class AddBatchComponent implements OnInit {
         return data.value >= new Date(startDate);
     }
 
-    getResortData(resortId){
-        this.resortService.getResortByParentId(resortId).subscribe((result)=>{
+    getResortData(resortId) {
+        this.resortService.getResortByParentId(resortId).subscribe((result) => {
             (this.resortId == parseInt(resortId)) ? this.batchVar.resortList = result.data.Resort : '';
-            this.batchVar.divisionList=result.data.divisions;
+            this.batchVar.divisionList = result.data.divisions;
             this.batchVar.selectedResort = resortId;
-            if(this.scheduleId){
+            if (this.scheduleId) {
                 this.updateScheduleTraining();
             }
         })
-        
+
         //get percentage list
         this.http.get(this.batchVar.url.getPercentageList).subscribe((data) => {
             this.batchVar.percentageList = data.passPercentage;
         });
     }
 
-    updateScheduleTraining(){
+    updateScheduleTraining() {
         this.batchVar.batchFrom = new Date(this.scheduleData.assignedDate);
         this.batchVar.batchTo = new Date(this.scheduleData.dueDate);
         this.batchVar.batchName = this.scheduleData.name;
         this.batchVar.selectedResort = this.scheduleData.Resorts.length && this.scheduleData.Resorts[0].resortId;
-        this.batchVar.moduleForm = this.scheduleData.Courses.map(item=>{
+        this.batchVar.moduleForm = this.scheduleData.Courses.map(item => {
             let obj = {
                 'courseId': item.courseId,
                 'courseName': item.Course.courseName,
                 'passPercentage': item.passPercentage,
-                'mandatory' : item.isMandatory ? "true" : "false",
-                'trainingScheduleCourseId' : item.trainingScheduleCourseId
+                'mandatory': item.isMandatory ? "true" : "false",
+                'trainingScheduleCourseId': item.trainingScheduleCourseId
                 // 'optional' : item.isOptional
-               }
-               this.courseIds.push(item.courseId);
-               return obj;
-               
+            }
+            this.courseIds.push(item.courseId);
+            return obj;
+
         });
 
-        this.reminder=this.scheduleData.notificationDays;
+        this.reminder = this.scheduleData.notificationDays;
         let resort = _.uniqBy(this.scheduleData.Resorts, 'userId');
         let div = _.cloneDeep(this.batchVar.divisionList)
         this.batchVar.divisionId = resort[0].divisionId;
-        this.getDropDownValues('','div');
+        this.getDropDownValues('', 'div');
         this.batchVar.departmentId = resort[0].departmentId;
-        this.getDropDownValues('','dept');
-        this.batchVar.employeeId = resort.map(item=>{return item.userId});
-        this.batchVar.selectedEmp = resort.map(item=>{return item.User});
-        this.batchVar.selectedDivision = div.filter(item => this.batchVar.divisionId.some(other => item.divisionId === other)); 
+        this.getDropDownValues('', 'dept');
+        this.batchVar.employeeId = resort.map(item => { return item.userId });
+        this.batchVar.selectedEmp = resort.map(item => { return item.User });
+        this.batchVar.selectedDivision = div.filter(item => this.batchVar.divisionId.some(other => item.divisionId === other));
         // this.scheduleData.Resorts.forEach(item=>{
-            // let obj = {
-            //     userId : item.userId,
-            //     divisionId : item.divisionId,
-            //     departmentId : item.departmentId
-            // }
-            // // Set dropdown data
-            // if(this.batchVar.selectedDivision.length){this.batchVar.selectedDivision.forEach(x=>{
-            //     if(x.divisionId != item.divisionId){
-            //         this.batchVar.selectedDivision.push(item.Division);
-            //         // this.onEmpSelect('','div');
-            //     }
-            // }) }else if(item.Division){ 
-            //     this.batchVar.selectedDivision.push(item.Division) ;
-            //     // this.onEmpSelect('','div');
-            // }
+        // let obj = {
+        //     userId : item.userId,
+        //     divisionId : item.divisionId,
+        //     departmentId : item.departmentId
+        // }
+        // // Set dropdown data
+        // if(this.batchVar.selectedDivision.length){this.batchVar.selectedDivision.forEach(x=>{
+        //     if(x.divisionId != item.divisionId){
+        //         this.batchVar.selectedDivision.push(item.Division);
+        //         // this.onEmpSelect('','div');
+        //     }
+        // }) }else if(item.Division){ 
+        //     this.batchVar.selectedDivision.push(item.Division) ;
+        //     // this.onEmpSelect('','div');
+        // }
 
-            // if(this.batchVar.selectedDepartment.length) { this.batchVar.selectedDepartment.forEach(x=>{
-            //     if(x.departmentId != item.departmentId){
-            //         this.batchVar.selectedDepartment.push(item.Department);
-            //         // this.onEmpSelect('','dept');
-            //     }
-            // }) }else if(item.Department){ 
-            //     this.batchVar.selectedDepartment.push(item.Department);
-            //     // this.onEmpSelect('','dept');
-            // }
+        // if(this.batchVar.selectedDepartment.length) { this.batchVar.selectedDepartment.forEach(x=>{
+        //     if(x.departmentId != item.departmentId){
+        //         this.batchVar.selectedDepartment.push(item.Department);
+        //         // this.onEmpSelect('','dept');
+        //     }
+        // }) }else if(item.Department){ 
+        //     this.batchVar.selectedDepartment.push(item.Department);
+        //     // this.onEmpSelect('','dept');
+        // }
 
-            // if(this.batchVar.selectedEmp.length){ 
-            //     this.batchVar.selectedEmp.push(item.User);
-            //     let index;
-            //     let valueArr = this.batchVar.selectedEmp.map(function(item){ return parseInt(item.userId) });
-            //     let isDuplicate = valueArr.some(function(item, idx){
-            //         if(valueArr.indexOf(item) != idx){
-            //             index = idx;
-            //         } 
-            //         return valueArr.indexOf(item) != idx 
-            //     });
-            //     isDuplicate && this.batchVar.selectedEmp.splice(index,1);
-            
-            // }else if(item.User){
-            //     this.batchVar.selectedEmp.push(item.User);
-            // }
-            // return obj;
+        // if(this.batchVar.selectedEmp.length){ 
+        //     this.batchVar.selectedEmp.push(item.User);
+        //     let index;
+        //     let valueArr = this.batchVar.selectedEmp.map(function(item){ return parseInt(item.userId) });
+        //     let isDuplicate = valueArr.some(function(item, idx){
+        //         if(valueArr.indexOf(item) != idx){
+        //             index = idx;
+        //         } 
+        //         return valueArr.indexOf(item) != idx 
+        //     });
+        //     isDuplicate && this.batchVar.selectedEmp.splice(index,1);
+
+        // }else if(item.User){
+        //     this.batchVar.selectedEmp.push(item.User);
+        // }
+        // return obj;
         // })
     }
 
-    courseUpdate(data,i){
-        
-        let valueArr = this.batchVar.moduleForm.map(function(item){ return parseInt(item.courseId) });
-        let isDuplicate = valueArr.some(function(item, idx){ 
-            return valueArr.indexOf(item) != idx 
+    courseUpdate(data, i) {
+
+        let valueArr = this.batchVar.moduleForm.map(function (item) { return parseInt(item.courseId) });
+        let isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item) != idx
         });
-        
-        if(isDuplicate){
+
+        if (isDuplicate) {
             this.batchVar.moduleForm[i] = {
                 'courseId': "",
                 'courseName': "",
-                'passPercentage':"null",
-                'mandatory' :"true",
-                'duplicateCourse' : true
+                'passPercentage': "null",
+                'mandatory': "true",
+                'duplicateCourse': true
             };
             this.alertService.error(this.commonLabels.mandatoryLabels.courseScheduleError)
         }
-        else{
-            this.batchVar.moduleForm.forEach(item=>{
-                if(item.duplicateCourse){
+        else {
+            this.batchVar.moduleForm.forEach(item => {
+                if (item.duplicateCourse) {
                     delete item.duplicateCourse;
                 }
             })
             this.courseIds.push(parseInt(data))
-            this.courseDataList.forEach(x=>{
-                if(x.courseId===parseInt(data)){
+            this.courseDataList.forEach(x => {
+                if (x.courseId === parseInt(data)) {
                     this.batchVar.moduleForm[i].courseName = x.courseName;
                 }
-            })       
-        } 
+            })
+        }
     }
 
-    courseForm(){
-      this.courseIds = this.courseList.map(a => a.courseId);
-      this.courseList.forEach((item,key) => {
-        let obj = {
+    courseForm() {
+        this.courseIds = this.courseList.map(a => a.courseId);
+        this.courseList.forEach((item, key) => {
+            let obj = {
                 'courseId': item.courseId,
                 'courseName': item.courseName,
-                'passPercentage':"null",
-                'mandatory' :"true"
+                'passPercentage': "null",
+                'mandatory': "true"
             }
-         this.batchVar.moduleForm.push(obj);
-     });
+            this.batchVar.moduleForm.push(obj);
+        });
     }
 
     errorCheck() {
@@ -295,90 +297,90 @@ export class AddBatchComponent implements OnInit {
             }
         });
     }
-    
 
-    onEmpAllSelect(event,key){
-        if(key == 'div'){
-            this.batchVar.selectedDivision = event; 
-            this.onEmpSelect('','div');
-            if(!event.length){
+
+    onEmpAllSelect(event, key) {
+        if (key == 'div') {
+            this.batchVar.selectedDivision = event;
+            this.onEmpSelect('', 'div');
+            if (!event.length) {
                 this.batchVar.departmentList = [];
-                this.batchVar.employeeList  = [];
+                this.batchVar.employeeList = [];
             }
         }
-        if(key == 'dept'){
-            this.batchVar.selectedDepartment = event; 
-            this.onEmpSelect('','dept');
-            if(!event.length){
-                this.batchVar.employeeList  = [];
+        if (key == 'dept') {
+            this.batchVar.selectedDepartment = event;
+            this.onEmpSelect('', 'dept');
+            if (!event.length) {
+                this.batchVar.employeeList = [];
             }
         }
-        if(key == 'emp'){
-            this.batchVar.selectedEmp = event; 
-            this.onEmpSelect(event,'emp')
+        if (key == 'emp') {
+            this.batchVar.selectedEmp = event;
+            this.onEmpSelect(event, 'emp')
         }
     }
 
-    onEmpSelect(event,key) {
+    onEmpSelect(event, key) {
         this.batchVar.employeeId = this.batchVar.selectedEmp.map(item => { return item.userId });
         this.batchVar.departmentId = this.batchVar.selectedDepartment.map(item => { return item.departmentId });
         this.batchVar.divisionId = this.batchVar.selectedDivision.map(item => { return item.divisionId });
-        this.getDropDownValues(event,key);
+        this.getDropDownValues(event, key);
         this.batchVar.empValidate = false;
     }
 
-    getDropDownValues(event,key){
-        if(key == 'div'){
-            const obj={'divisionId': this.batchVar.divisionId};
-            this.commonService.getDepartmentList(obj).subscribe((result)=>{
-                if(result.isSuccess){
+    getDropDownValues(event, key) {
+        if (key == 'div') {
+            const obj = { 'divisionId': this.batchVar.divisionId };
+            this.commonService.getDepartmentList(obj).subscribe((result) => {
+                if (result.isSuccess) {
                     this.batchVar.departmentList = result.data.rows;
-                    if(this.scheduleId){
+                    if (this.scheduleId) {
                         let dept = _.cloneDeep(this.batchVar.departmentList);
-                        this.batchVar.selectedDepartment = dept.filter(item => this.batchVar.departmentId.some(other => item.departmentId === other)); 
+                        this.batchVar.selectedDepartment = dept.filter(item => this.batchVar.departmentId.some(other => item.departmentId === other));
                     }
                 }
             })
         }
-       
-        if(key == 'dept'){
-        const data={ 'departmentId':  this.batchVar.departmentId, 'createdBy':this.utilService.getUserData().userId}
-         this.userService.getUserByDivDept(data).subscribe(result=>{
-                if(result && result.data){
-                this.batchVar.employeeList = result.data;        
-                this.allEmployees = result.data.reduce((obj, item) => (obj[item.userId] = item, obj) ,{});
-            }
-            
-         })
+
+        if (key == 'dept') {
+            const data = { 'departmentId': this.batchVar.departmentId, 'createdBy': this.utilService.getUserData().userId }
+            this.userService.getUserByDivDept(data).subscribe(result => {
+                if (result && result.data) {
+                    this.batchVar.employeeList = result.data;
+                    this.allEmployees = result.data.reduce((obj, item) => (obj[item.userId] = item, obj), {});
+                }
+
+            })
         }
 
-        if(key == 'emp'){
-            if(event.userId && this.allEmployees[event.userId] ){
+        if (key == 'emp') {
+            if (event.userId && this.allEmployees[event.userId]) {
                 this.employeesInBatch.push(this.allEmployees[event.userId]);
-            } 
-            else if(event.length){
-                event.forEach(item=>{
-                    if(item.userId && this.allEmployees[item.userId] ){
+            }
+            else if (event.length) {
+                event.forEach(item => {
+                    if (item.userId && this.allEmployees[item.userId]) {
                         this.employeesInBatch.push(this.allEmployees[item.userId]);
-                    } 
+                    }
                 })
             }
         }
     }
 
     onEmpDeSelect(event) {
-        
 
-        if(event.userId){
+
+        if (event.userId) {
             const newArray = this.employeesInBatch.filter(item => item.userId != event.userId);
-            
+
             this.employeesInBatch = newArray;
 
         }
-       
+
     }
 
-    
+
     splitDate(date) {
         const newDate = new Date(date);
         const y = newDate.getFullYear();
@@ -415,69 +417,69 @@ export class AddBatchComponent implements OnInit {
 
     //submit batch
     addBatch(form) {
-        this.errStatus= false;
+        this.errStatus = false;
         this.submitted = true;
         this.passPerError = false;
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
         this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) > Date.parse(this.batchVar.batchTo) ? true : false;
-        this.status = ( this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') == this.datePipe.transform(new Date(), 'yyyy-MM-dd') ) ? 'assigned' : 'unassigned';
-        this.batchVar.moduleForm.forEach(item=>{
-            if(item.passPercentage === 'null'){
+        this.status = (this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') == this.datePipe.transform(new Date(), 'yyyy-MM-dd')) ? 'assigned' : 'unassigned';
+        this.batchVar.moduleForm.forEach(item => {
+            if (item.passPercentage === 'null') {
                 this.passPerError = true;
             }
         })
         if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.divisionId.length && this.batchVar.departmentId.length && this.batchVar.employeeId.length && this.batchVar.moduleForm && this.durationValue && this.reminder && !this.passPerError) {
-          //  this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
+            //  this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
             let postData = {
-                "createdBy" : this.userData.userId,
+                "createdBy": this.userData.userId,
                 "assignedDate": this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd'),
                 "dueDate": this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd'),
                 "name": this.batchVar.batchName,
                 "status": this.status,
                 "notificationDays": this.reminder,
-                "resort":{
+                "resort": {
                     "resortId": this.batchVar.selectedResort,
-                    "courses":  this.courseIds,
+                    "courses": this.courseIds,
                     // "users": this.employeesInBatch
-                 },
-                 "departmentId": this.batchVar.departmentId,
+                },
+                "departmentId": this.batchVar.departmentId,
                 "divisionId": this.batchVar.divisionId,
-                "userId":this.batchVar.employeeId,
+                "userId": this.batchVar.employeeId,
                 "courses": this.batchVar.moduleForm,
             }
-            if(this.scheduleId){
+            if (this.scheduleId) {
                 delete postData.status;
-                this.courseService.updateScheduleTraining(this.scheduleId,postData).subscribe(resp=>{
+                this.courseService.updateScheduleTraining(this.scheduleId, postData).subscribe(resp => {
                     this.hidePopup('submit');
-                },err =>{
+                }, err => {
                     // this.errorValidation = false;
-                    this.errorValidate = err.error.error== 'Training scheduled assigned for the same course & user combination'?'Training scheduled assigned for the same course & user combination':'Training schedule name must be unique';
+                    this.errorValidate = err.error.error == 'Training scheduled assigned for the same course & user combination' ? 'Training scheduled assigned for the same course & user combination' : 'Training schedule name must be unique';
                     this.alertService.error(err.error.error);
                 });
             }
-            else{
-                this.courseService.scheduleTraining(postData).subscribe(result=>{
-                    if(result.isSuccess){ 
-                            //   this.clearBatchForm();
-                            this.hidePopup('submit');
-                            this.alertService.success(result.message);                        
-                    }else{
-                        this.errStatus= true;
-                        this.errMsg= result.error;
+            else {
+                this.courseService.scheduleTraining(postData).subscribe(result => {
+                    if (result.isSuccess) {
+                        //   this.clearBatchForm();
+                        this.hidePopup('submit');
+                        this.alertService.success(result.message);
+                    } else {
+                        this.errStatus = true;
+                        this.errMsg = result.error;
                     }
-                },err =>{
+                }, err => {
                     // this.errorValidation = false;
-                    this.errorValidate = err.error.error== 'Training scheduled assigned for the same course & user combination'?'Training scheduled assigned for the same course & user combination':'Training schedule name must be unique';
+                    this.errorValidate = err.error.error == 'Training scheduled assigned for the same course & user combination' ? 'Training scheduled assigned for the same course & user combination' : 'Training schedule name must be unique';
                     this.alertService.error(err.error.error);
                 });
-            }    
+            }
         }
-        else{
+        else {
             this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory)
         }
     }
 
-    hidePopup(data){
+    hidePopup(data) {
         this.clearBatchForm();
         this.goTocmsLibrary();
         // this.someEvent.next(data);
@@ -487,20 +489,20 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.moduleForm = [{
             'courseId': "",
             'courseName': "",
-            'passPercentage':"null",
-            'mandatory' :"true"
+            'passPercentage': "null",
+            'mandatory': "true"
         }];
         this.clearBatchVar();
     }
 
-    clearBatchVar(){
+    clearBatchVar() {
         this.batchVar.batchFrom = '';
         this.batchVar.batchTo = '';
         this.batchVar.batchName = '';
         this.batchVar.selectedEmp = [];
-        this.batchVar.selectedResort=null;
-        this.batchVar.selectedDivision =[];
-        this.batchVar.selectedDepartment=[];
+        this.batchVar.selectedResort = null;
+        this.batchVar.selectedDivision = [];
+        this.batchVar.selectedDepartment = [];
         this.batchVar.employeeList = [];
         this.batchVar.divisionList = [];
         this.batchVar.departmentList = [];
@@ -509,7 +511,7 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.employeeId = [];
     }
 
-  
+
 
     //dynamic remove module fields
     removeForm(i) {
@@ -521,15 +523,15 @@ export class AddBatchComponent implements OnInit {
         let obj = {
             'courseId': "",
             'courseName': "",
-            'passPercentage':"null",
-            'mandatory' :"true"
+            'passPercentage': "null",
+            'mandatory': "true"
         };
         this.batchVar.moduleForm.push(obj);
     }
-    
-    goTocmsLibrary(){
-        this.completed.emit('completed'); 
-      }
+
+    goTocmsLibrary() {
+        this.completed.emit('completed');
+    }
 
 
 }

@@ -316,6 +316,7 @@ export class CommonLabels{
         "editQuiz"          :   "Edit Quiz",
         "editNotification"  :   "Edit Notification",
         "trainingSchedule"  :   "Training Schedule",
+        "schedule"          :   "Schedule",
         "performanceReport" :   "Performance Report",
         "resortDetails"     :   "Resort Details",
         "certifiTrend"      :   "Certification Trend",
