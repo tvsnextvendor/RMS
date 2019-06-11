@@ -63,7 +63,7 @@
                         <div class="row" *ngIf="assignTo == 'tranClass' || data.assignTo == 'tranClass'" >
                             <label class="col-md-3 col-sm-3 module-batch-title p-0">{{commonLabels.labels.trainingClass}}</label>
                             <!-- <label class="col-md-3 col-sm-3" *ngIf="i!=0"></label> -->
-                            <div class=" col-md-8 col-sm-8 select select-style clearfix pl-1 m-0">
+                            <div class=" col-md-8 col-sm-8 select select-style clearfix pl-2 m-0">
                                 <select id="class" class="form-control p-0" name="Course{{i}}"  [(ngModel)]="data.course" (change)="checkCourse(class.value)" #class>
                                     <option value="null" disabled>{{this.commonLabels.labels.selectopt}}</option>
                                     <option *ngFor="let class of constant.trainingClassList" [value]="class.trainingClassId">{{class.trainingClassName}}</option>
