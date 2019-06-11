@@ -49,7 +49,7 @@ export class CalendarViewComponent implements OnInit {
    }
 
     ngOnInit(){
-        this.headerService.setTitle({title:this.commonLabels.titles.calendarTitle, hidemodule: false});
+        this.headerService.setTitle({title:this.commonLabels.labels.schedule, hidemodule: false});
         this.breadCrumbService.setTitle([]);
         let user = this.utilService.getUserData();
         this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {BreadCrumbService,CourseService,UtilService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
@@ -22,17 +22,21 @@ export class NotificationTabComponent implements OnInit {
   enableDuplicate = false;
   enableIndex;
 
-  constructor(private breadCrumbService : BreadCrumbService,
-    public commonLabels :CommonLabels,
-    private courseService :CourseService,
-    private utilService :UtilService,
-    private router :Router ) { }
+  constructor(private breadCrumbService : BreadCrumbService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ) {
+      this.activatedRoute.queryParams.subscribe(params=>{ 
+       if(params.tab == 'schedule'){
+        let data = [{title : this.commonLabels.labels.schedule,url:'/calendar'},{title : this.commonLabels.labels.notification,url:''}]
+         this.breadCrumbService.setTitle(data)
+       }else{
+         let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.notification,url:''}]
+         this.breadCrumbService.setTitle(data)
+       }
+     })
+     }
 
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
-    let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.notification,url:''}]
-    this.breadCrumbService.setTitle(data)
     let userData= this.utilService.getUserData();
     this.roleId = this.utilService.getRole();
     this.resortId = userData.ResortUserMappings.length &&  userData.ResortUserMappings[0].Resort.resortId;

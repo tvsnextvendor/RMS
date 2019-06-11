@@ -119,7 +119,7 @@
 									</button>
 									<ul id="dropdown-basic" *dropdownMenu class="dropdown-menu upload-btn" role="menu" aria-labelledby="button-basic">
 										<li role="menuitem"><a class="dropdown-item pl-2"
-												(click)="showCMSLibrary()">{{commonLabels.labels.cmsLibrary}}</a></li>
+												(click)="showCMSLibrary()">{{commonLabels.labels.resourceLibrary}}</a></li>
 										<li role="menuitem"><a class="dropdown-item pl-2">{{commonLabels.labels.desktop}}
 												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/></a></li>
 									</ul>
@@ -167,8 +167,8 @@
 	</div>
    	</tab>
 	<tab heading="Quiz">
-		<add-quiz *ngIf="moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}' moduleId = {{moduleId}}  [tabName]="selectedTab" [removedFileIds]="removedFileIds" [quizNames]="quizName"></add-quiz>
-		<add-quiz *ngIf="!moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}'  moduleId = {{moduleId}} [tabName]="selectedTab" [quizNames]="quizName"></add-quiz>
+		<add-quiz *ngIf="moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}' moduleId = {{moduleId}}  [tabName]="selectedTab" [removedFileIds]="removedFileIds" [quizNames]="quizName"></add-quiz>
+		<add-quiz *ngIf="!moduleVar.quizDetails.length" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}'  moduleId = {{moduleId}} [tabName]="selectedTab" [quizNames]="quizName"></add-quiz>
 	</tab>
 </tabset>
 </div>

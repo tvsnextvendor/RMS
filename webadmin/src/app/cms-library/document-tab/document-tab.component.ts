@@ -59,7 +59,7 @@ export class DocumentTabComponent implements OnInit {
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
-    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.documents,url:''}]
+    let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.documents,url:''}]
     this.breadCrumbService.setTitle(data)
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();

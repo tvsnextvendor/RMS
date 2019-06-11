@@ -422,7 +422,7 @@ export class AddBatchComponent implements OnInit {
         this.passPerError = false;
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
         this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) > Date.parse(this.batchVar.batchTo) ? true : false;
-        this.status = (this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') == this.datePipe.transform(new Date(), 'yyyy-MM-dd')) ? 'assigned' : 'unassigned';
+        this.status = (this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') == this.datePipe.transform(new Date(), 'yyyy-MM-dd')) ? 'assigned' : 'assigned';
         this.batchVar.moduleForm.forEach(item => {
             if (item.passPercentage === 'null') {
                 this.passPerError = true;

@@ -2,7 +2,6 @@ import { Component, OnInit, TemplateRef,Input, Output, EventEmitter} from '@angu
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService, HttpService, AlertService, FileService } from '../services';
 import { ToastrService } from 'ngx-toastr';
-// import { TraingClassTabComponent } from './traing-class-tab/traing-class-tab.component'
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../Constants/common-labels.var';
 
@@ -111,8 +110,16 @@ export class CMSLibraryComponent implements OnInit {
       this.disableEdit = true;
       this.disableTabs = false;
     }
+    if(params.tab == 'schedule'){
+          this.headerService.setTitle({title:this.commonLabels.labels.schedule, hidemodule:false});
+      }else{
+            let path = window.location.pathname;
+            let data = params.type == 'create' ? 'Create' : params.type == 'edit' ? 'Edit' : path == '/cms-library' ? 'Edit' : 'Create';
+            this.headerService.setTitle({title:data, hidemodule:false});
+      }
   })
-    this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
+
+    
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
