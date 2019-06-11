@@ -55,7 +55,6 @@ export class CMSLibraryComponent implements OnInit {
     if(params.type && params.type == 'create'){
       this.disableEdit = false;
       this.disableTabs = false;
-              console.log(params.tab,"Params")
       switch(params.tab){
         case 'course':
           this.showcreatecourse = true;

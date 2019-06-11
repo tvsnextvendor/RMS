@@ -5,10 +5,12 @@
         <!-- {{CMSFilterSearchEventSet}} -->
         <div class="white-bg p-3 clearfix">
             <div class="clearfix">
-                <label class="square-cont float-left">
+                <label class="square-cont float-left" *ngIf="checkBoxEnable">
                     <input type="checkbox" name="courseId{{i}}" (change)="selectCourse(courses.courseId, courses.courseName, $event.target.checked)"><span class="text-over">{{courses.courseName}}</span>
                     <span class="square-checkmark"></span>
                 </label>
+                <span class="text-over" *ngIf="!checkBoxEnable">{{courses.courseName}}</span>
+
                 <span class="float-right">
                     <a title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
                     <a title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>

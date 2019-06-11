@@ -51,6 +51,7 @@ export class CourseTabComponent implements OnInit {
   selectedIndex; 
   fileDuration;
   selectedCourseId;
+  checkBoxEnable;
 
   constructor(private breadCrumbService: BreadCrumbService,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) { }
 
@@ -64,17 +65,17 @@ export class CourseTabComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
-    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.course,url:''}]
+    let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.course,url:''}]
     this.breadCrumbService.setTitle(data)
     this.enableDropData('closeEdit','')
     this.getCourseDetails();
-    
+    this.checkBoxEnable = this.disableEdit ? true : false;
   }
+  
   ngDoCheck(){
     if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
       this.getCourseDetails();
-    }
-    
+    } 
   }
 
   getCourseDetails(){
