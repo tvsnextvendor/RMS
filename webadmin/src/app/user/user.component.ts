@@ -245,10 +245,10 @@ export class UserComponent implements OnInit {
                     designationName : this.editRoleValue
                 }
                 checkData.push(this.editRoleValue)
-                let designCheck = {designationName : checkData}
-                this.userService.checkDuplicate('role',designCheck).subscribe(resp=>{
-                    if(resp && resp.isSuccess){
-                        this.duplicateError = '';
+                // let designCheck = {designationName : checkData}
+                // this.userService.checkDuplicate('role',designCheck).subscribe(resp=>{
+                //     if(resp && resp.isSuccess){
+                //         this.duplicateError = '';
                         this.userService.updateDesignation(this.roleId,params).subscribe(resp=>{
                             if(resp && resp.isSuccess){
                                 this.getDivisionList(resortId);
@@ -258,15 +258,15 @@ export class UserComponent implements OnInit {
                                 // this.roleComponent.getDropDownDetails('','');
                                 this.alertService.success(this.commonLabels.msgs.designation)
                             }
-                        },err =>{
-                            this.errorValidation = false;
-                            this.errorValidate = err.error.error;
-                            this.alertService.error(err.error.error);
-                        });
-                    }
-                    else{
-                        this.duplicateError = resp.message;
-                    }
+                    //     },err =>{
+                    //         this.errorValidation = false;
+                    //         this.errorValidate = err.error.error;
+                    //         this.alertService.error(err.error.error);
+                    //     });
+                    // }
+                    // else{
+                    //     this.duplicateError = resp.message;
+                    // }
                 })
             }
 
@@ -723,24 +723,26 @@ export class UserComponent implements OnInit {
                 this.editDivisionValue.Departments = params;
                 this.editDivisionValue.removeDepartmentIds = this.removeDepartmentIds;
 
-                let param = {divisionName : divName};
-                this.userService.checkDuplicate('division',param).subscribe(resp=>{
-                    if(resp && resp.isSuccess){
-                        let value = {departmentName : deptName}
-                        this.userService.checkDuplicate('dept',value).subscribe(response=>{
-                            if(response && response.isSuccess){
-                                this.duplicateError = '';
-                                this.updateDivsionSubmit();
-                            }
-                            else{
-                                this.duplicateError =response.message;
-                            }
-                        })
-                    }
-                    else{
-                        this.duplicateError =resp.message;
-                    }
-                });
+                // let param = {divisionName : divName};
+                // this.userService.checkDuplicate('division',param).subscribe(resp=>{
+                //     if(resp && resp.isSuccess){
+                //         let value = {departmentName : deptName}
+                //         this.userService.checkDuplicate('dept',value).subscribe(response=>{
+                //             if(response && response.isSuccess){
+                //                 this.duplicateError = '';
+                //                 this.updateDivsionSubmit();
+                //             }
+                //             else{
+                //                 this.duplicateError =response.message;
+                //             }
+                //         })
+                //     }
+                //     else{
+                //         this.duplicateError =resp.message;
+                //     }
+                // });
+
+                this.updateDivsionSubmit();
                 
             }
             else{
