@@ -1,28 +1,25 @@
-
 <div class="clearfix py-3">
-  <div class="float-right">
+  <!-- <div class="float-right">
       <button *ngIf="!enableBatch" (click)="goToCMSLibrary()" class="btn btn-primary">{{commonLabels.btns.addSchedule}}</button>
-      <!-- <button type="submit" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
-      <button type="button" class="btn btn-default" (click)="clearMessage()">{{commonLabels.btns.cancel}}</button> -->
-  </div>
+  </div> -->
 </div>
 <div class="">
   <div class="calendar-box">
     <div class="white-bg">
-    <div class="clearfix p-3 row calender-header" *ngIf="!enableBatch">
-      <span class="calender-text col-md-4 p-0">{{commonLabels.labels.calendarView}}</span>
-      <span class="month-text col-md-4">
-        <div class="float-left cp" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
-          <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        </div>
-        {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
-        <div class="float-right cp" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
-          <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        </div>
-      </span>
-    </div>
-   
-    <!-- <span class="col-md-4">
+      <div class="clearfix p-3 row calender-header" *ngIf="!enableBatch">
+        <span class="calender-text col-md-4 p-0">{{commonLabels.labels.calendarView}}</span>
+        <span class="month-text col-md-4">
+          <div class="float-left cp" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </div>
+          {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
+          <div class="float-right cp" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </div>
+        </span>
+      </div>
+
+      <!-- <span class="col-md-4">
        <span class="btn-group">
         <div
           class="btn btn-primary"
@@ -48,18 +45,19 @@
         </div>
       </span>
     </span> -->
-    <div [ngSwitch]="view" class="px-3 pb-3 calender-view" *ngIf="!enableBatch">
-      <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-        [cellTemplate]="customCellTemplate" [refresh]="refresh">
-      </mwl-calendar-month-view>
+      <div [ngSwitch]="view" class="px-3 pb-3 calender-view" *ngIf="!enableBatch">
+        <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+          (dayClicked)="dayClicked($event.day)" [cellTemplate]="customCellTemplate" [refresh]="refresh">
+        </mwl-calendar-month-view>
+      </div>
     </div>
-  </div>
     <!-- <app-add-batch *ngIf="!trainingScheduleId && enableBatch" (someEvent)="closeModel()" [scheduleId] = "trainingScheduleId" [scheduleData]="scheduleEditDetails"></app-add-batch> -->
-      <app-add-batch *ngIf="trainingScheduleId && enableBatch" (completed)="closeModel()"  [scheduleId] = "trainingScheduleId" [scheduleData]="scheduleEditDetails"></app-add-batch>
+    <app-add-batch *ngIf="trainingScheduleId && enableBatch" (completed)="closeModel()" [scheduleId]="trainingScheduleId"
+      [scheduleData]="scheduleEditDetails"></app-add-batch>
 
     <ng-template #customCellTemplate let-day="day" let-locale="locale">
       <div class="cal-cell-top">
-        <!--       <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>--> 
+        <!--       <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>-->
         <span class="calender-number">{{
           day.date | calendarDate:'monthViewDayNumber':locale }}</span>
       </div>
