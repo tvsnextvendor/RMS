@@ -83,21 +83,9 @@
                 <a>{{commonLabels.labels.certifiTrend}}</a>
             </li>
         </ul>  
-        <!-- <li [ngClass]="(tabType == 'cms') ? 'active' : ''" >
-            <a (click)="dropDownEnable('cms')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
-        </li> -->
         <li [class.active]="router.isActive('/resource/library')">
             <a routerLink="/resource/library"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
-        </li>
-        <!-- <li
-            [class.active]="router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
-            <a routerLink="/courselist"><img src="assets/images/Modules.png"class="pr-3">Courses</a>
-        </li> -->
-       
-        <!-- <li [class.active]="router.isActive('/rolepermission')">
-            <a routerLink="/rolepermission"><img src="assets/images/menu4.png"class="pr-3">Roles & Permissions</a>
-        </li> -->
-        
+        </li>    
         <li [ngClass]="(tabType == 'show') ? 'active' : ''" >
             <a (click)="dropDownEnable('show')" *ngIf="!enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showMore}}</span></a>
             <a (click)="dropDownEnable('show')" *ngIf="enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showLess}}</span></a>

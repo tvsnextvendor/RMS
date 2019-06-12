@@ -151,12 +151,11 @@ export class ResortComponent implements OnInit {
         } else {
             // child resort added resorts | Role is child resort
             this.roleId = 3;
-        }
-        if (this.resortName && this.locationName && this.email && this.phoneNumber && this.status && this.mobileValidation && this.emailValidation) {
-            if (this.resortId) {
-                this.userObj.email = this.email;
-                this.userObj.phoneNumber = this.phoneNumber;
-               
+        }               
+        if(this.resortName && this.locationName && this.email && this.phoneNumber && this.status && this.mobileValidation && this.emailValidation){
+            if(this.resortId){
+                this.userObj['email'] = this.email;
+                this.userObj['phoneNumber'] = this.phoneNumber;
                 let postData = {
                     "resortName": this.resortName,
                     "email": this.email,

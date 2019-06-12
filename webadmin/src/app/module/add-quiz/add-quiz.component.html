@@ -2,16 +2,14 @@
 	<div class=""> 
 			<form #quizForm="ngForm" ngNativeValidate>
 				<div class="row">
-					
 				</div>
-				<!-- <div class="fileUpload btn btn-primary">
-					<span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{commonLabels.labels.upload}}</span>
-					<input type="file" name="quiz" class="upload" [(ngModel)]="quizAdded" />
-				</div> -->
 				<div class="white-bg p-3 mt-2 table-decs"  *ngFor="let data of quizQuestionsForm;let i = index;">
 					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i,data)">
 						<img src="{{commonLabels.imgs.close1}}" class="close-alg">
 						   <img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>
+						   <div class="col-md-12">
+						   <button *ngIf="i==0" type="button" class="btn btn-primary" (click)="uploadQuiz()">Upload</button>
+						   </div>
 						   <div class="row form-group">
 							<label class="col-md-2 p-0 label-title">{{commonLabels.labels.quizName}}</label>
 							<div class="col-md-10 pl-3">
@@ -104,14 +102,21 @@
 							</div>
 						</div>  
 					</div>
+					<div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="questionList">
+						<p *ngFor="let question of questionList;let i = index"
+							class="course-list course-list-select" dnd-sortable [sortableIndex]="i">
+							{{question.questionName}}<a (click)="removeQuiz(question,i)"><img class="close-alg"
+									src="{{commonLabels.imgs.close}}"></a></p>
+					</div>
 					<div class="clearfix"><a><i class="fa fa-plus float-right icon-design" *ngIf="i==(quizQuestionsForm.length - 1)" aria-hidden="true" (click)="addQuestionForm()"></i></a></div>
 				</div>   
 			<div class="col-sm-12 clearfix py-4 px-0" >
-				<button *ngIf="!moduleId" type="button" class="btn btn-primary" (click)="openEditModal(confirm,'batch')" [disabled]="!quizForm.form.valid">{{commonLabels.btns.save}}</button>
-				<button *ngIf="moduleId" type="button" class="btn btn-primary" (click)="quizSubmit('yes')" [disabled]="!quizForm.form.valid">{{commonLabels.btns.save}}</button>
+				<button *ngIf="!moduleId" type="button" class="btn btn-primary" (click)="openEditModal(confirm,'batch')" [disabled]="!quizForm.form.valid && !questionList">{{commonLabels.btns.save}}</button>
+				<button *ngIf="moduleId" type="button" class="btn btn-primary" (click)="quizSubmit('yes')" [disabled]="!quizForm.form.valid && !questionList">{{commonLabels.btns.save}}</button>
 			</div>
 		</form>
 	</div>
+
 
 	<ng-template #confirm>  
 			<div class="modal-header"> 
@@ -131,3 +136,4 @@
 			</div> 
 		</div>
 		</ng-template>
+

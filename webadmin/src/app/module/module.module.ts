@@ -25,7 +25,8 @@ import { BatchModule } from '../batch/batch.module';
 import {AddQuizComponent} from './add-quiz/add-quiz.component';
 import {AddNotificationComponent} from './add-notofication/add-notification.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import {UploadQuizComponent} from './upload-quiz/upload-quiz.component';
+import {QuizService} from './quiz.service';
 
 const routes: Routes = [
     { path: 'module', component:AddModuleComponent ,canActivate : [AuthGuard]},
@@ -33,7 +34,8 @@ const routes: Routes = [
     { path: 'modulelist/:id', component:ModuleListComponent ,canActivate : [AuthGuard]},
     { path:  'module/:moduleId', component:AddModuleComponent ,canActivate : [AuthGuard]} ,
     { path:  'modules/:moduleId/:courseId', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}, 
-    { path:  'modules', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}          
+    { path:  'modules', component:ModuleDetailsComponent ,canActivate : [AuthGuard]},
+    { path: 'uploadQuiz', component:UploadQuizComponent, canActivate:[AuthGuard]}       
 ];
 export const MY_MOMENT_FORMATS = {
   parseInput: 'l LT',
@@ -75,12 +77,13 @@ export const MY_MOMENT_FORMATS = {
     ModuleListComponent,
     ModuleDetailsComponent,
     AddQuizComponent,
+    UploadQuizComponent,
     AddNotificationComponent
   ],
-  providers: [
+  providers: [QuizService,
     {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},
  ],
   bootstrap: [AddModuleComponent],
-  exports:[AddModuleComponent,AddNotificationComponent]
+  exports:[AddModuleComponent,AddNotificationComponent,UploadQuizComponent]
 })
 export class moduleModule { }

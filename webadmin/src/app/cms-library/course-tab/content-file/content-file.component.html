@@ -30,9 +30,18 @@
                             <td class="text-left">03.50</td>
                             <td class="text-left"><a href="#">100</a></td>     
                             <td class="text-center"><a><i class="fas fa-pencil-alt"aria-hidden="true"></i></a>
-                                <a><i class="fa fa-trash"></i></a>
-                                <a href="#"><i class="far fa-eye"></i></a>
+                                <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
+                                <a *ngIf="file.fileUrl != 'Video'" (click)="openFileContent(file.fileUrl)"><i class="fa fa-eye header-icon" aria-hidden="true"
+                                    title="View"></i></a>
+                                <a *ngIf="file.fileUrl == 'Video'" (click)="viewTraningVideo(viewVideo,file.fileUrl)"><i class="fa fa-eye header-icon" aria-hidden="true"
+                                        title="View"></i></a>
                             </td>                         
+                        </tr>
+                        <tr *ngIf="fileList && !fileList.length">
+                          <td colspan="6">
+                            <p class="text-center data-design p-5"><span class="nodata">
+                                <i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
+                          </td>
                         </tr>
                    
                     </tbody>
@@ -40,3 +49,34 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #viewVideo>
+  <div class="modal-header pb-0">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <video controls class="video-play">
+      <source src="{{uploadPath}}{{trainingVideoUrl}}" type="video/mp4" />
+    </video>
+  </div>
+</ng-template>
+
+<ng-template #deleteDocument>
+  <div class="modal-header pb-0">
+    <p class="hd-alg">{{commonLabels.labels.deleteDoc}}</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <span class="text-content">{{commonLabels.labels.coursedeleteConfirmation}}</span>
+    <div class="text-center mt-4">
+      <button (click)="deleteDoc()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
+      <button type="button" class="btn btn-default"
+        (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
+    </div>
+  </div>
+</ng-template>

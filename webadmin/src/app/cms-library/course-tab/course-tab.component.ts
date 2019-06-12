@@ -58,7 +58,7 @@ export class CourseTabComponent implements OnInit {
 
   constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) {
      this.activatedRoute.queryParams.subscribe(params=>{ 
-       console.log(window.location.pathname.indexOf("resource"))
+    
        if(params.tab == 'schedule'){
          this.breadCrumbTitle = [{title : this.commonLabels.labels.schedule,url:'/calendar'},{title : this.commonLabels.labels.course,url:''}]
        }else if(window.location.pathname.indexOf("resource") != -1){
