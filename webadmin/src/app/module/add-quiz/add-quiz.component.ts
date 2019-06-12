@@ -10,6 +10,7 @@ import { AlertService } from '../../services/alert.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModuleDetailsComponent } from '../module-details/module-details.component';
 import { CommonLabels } from '../../Constants/common-labels.var'
+import {QuizService} from '../quiz.service';
 
 @Component({
   selector: 'add-quiz',
@@ -32,6 +33,7 @@ export class AddQuizComponent implements OnInit {
   @Input() quizNames;
   @Output() valueChange = new EventEmitter();
   @Output() completed = new EventEmitter();
+  @Output() hideClass = new EventEmitter();
   courseUpdate = false;
   videoDetails = [];
   // courseId;
@@ -53,13 +55,21 @@ export class AddQuizComponent implements OnInit {
   optionData = true;
   modalRef;
   removedQuizIds = [];
+  questionList=[];
 
-  constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
+
+  constructor(private modalService: BsModalService,private quizService:QuizService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
     public commonLabels:CommonLabels) {
     this.apiUrls = API_URL.URLS;
   }
   
   ngOnInit() {
+    this.quizService.selectedQuiz.subscribe(res=>{
+        this.questionList = res;
+        if(res){
+        this.hideClass.emit(true);
+        }
+    })
     this.selectedVideo = this.videoId ? this.videoId : null;
     this.selectedCourse = this.courseId ? this.courseId : null;
     this.quizName = this.quizNames ? this.quizNames : '';
@@ -98,6 +108,7 @@ export class AddQuizComponent implements OnInit {
     this.optionData = !this.optionData;
     this.quizQuestionsForm[i].answer = parseInt(event.target.value) === 0 ? 'false' : 'true';
   }
+
   
   editQuizDetails(quizData){
     // this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
@@ -224,6 +235,11 @@ export class AddQuizComponent implements OnInit {
   // Quiz Submission
   quizSubmit(submitType) {
     //Weightage update
+    if(this.questionList){
+      this.questionList.map(item =>{
+        this.quizQuestionsForm.push(item);
+      })
+    }
     let params;
     let hideTraining = submitType === 'yes' ? true : false;
     if(this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length){
@@ -320,9 +336,12 @@ export class AddQuizComponent implements OnInit {
 
   }
 
-  redirectCourseList(){
-    // this.route.navigateByUrl('/cms-library');
+  
+ //Remove selected quiz from form
+  removeQuiz(data,i){
+    this.questionList.splice(i,1);
   }
+
 
   openEditModal(template: TemplateRef<any>,modelValue) {
     if(this.moduleName){
@@ -338,8 +357,20 @@ export class AddQuizComponent implements OnInit {
 
   }
 
+  openConfirmPopup(template: TemplateRef<any>){
+          let modalConfig= {
+            class : "modal-dialog-centered"
+          }
+          this.modalRef = this.modalService.show(template,modalConfig);
+  }
+ 
+ uploadQuiz(){
+    this.route.navigateByUrl('/uploadQuiz');
+ }
+
   addTrainingClass(){
   let params;
+  if(this.quizName){
   if(this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length){
       let data = this.quizQuestionsForm.map(item => {
           item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
@@ -375,6 +406,11 @@ export class AddQuizComponent implements OnInit {
              this.alertService.success(result.message);
           }
         })
+    }else{
+      this.alertService.error('Please fill mandatory fields in Files tab');
+    }
+    }else{
+      this.alertService.error('Quiz Name is required');
     }
   }
 

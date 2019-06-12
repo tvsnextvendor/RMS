@@ -1,0 +1,56 @@
+
+  .square-cont {
+     position: relative;
+     padding-left: 30px;
+     cursor: pointer;
+     -webkit-user-select: none;
+     -moz-user-select: none;
+     -ms-user-select: none;
+     user-select: none;
+     float: left;
+     color: #495057;
+     line-height: 23px;
+     font-size: 14px;
+      color: #73737B;
+      font-weight: 600;
+      margin-bottom:0;
+  }
+  .square-cont input {
+     position: absolute;
+     opacity: 0;
+     cursor: pointer;
+     height: 0;
+     width: 0;
+  }
+  .square-checkmark {
+     position: absolute;
+     top: 3px;
+     left: 0;
+     height: 18px;
+     width: 18px;
+     background-color: #fff;
+     border: 2px solid #9c9c9c;
+     border-radius: 3px !important;
+  }
+  .square-cont input:checked ~ .square-checkmark {
+     background-color: #468FB9;
+     border: 1px solid #468FB9;
+  }
+  .square-checkmark:after {
+     content: "";
+     position: absolute;
+     display: none;
+  }
+  .square-cont input:checked ~ .square-checkmark:after {
+     display: block;
+  }
+  .square-cont .square-checkmark:after {
+     left: 5px;
+     top: 0px;
+     width: 7px;
+     height: 12px;
+     border: solid white;
+     border-width: 0 2px 2px 0;
+     -webkit-transform: rotate(45deg);
+     transform: rotate(45deg);
+  }

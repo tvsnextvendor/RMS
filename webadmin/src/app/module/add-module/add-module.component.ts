@@ -368,6 +368,16 @@ export class AddModuleComponent implements OnInit {
        }
        this.moduleVar.videoList.splice(i, 1);
    }
+  
+   hideTrainingClass(event){
+       this.tabEnable = true;
+       setTimeout(()=>{  
+            if(event && this.staticTabs){
+            this.staticTabs.tabs[1].disabled = false;
+            this.staticTabs.tabs[1].active = true;
+         }
+       }, 500); 
+   }
 
    hideTab(data){
        if(this.moduleVar.courseId){
