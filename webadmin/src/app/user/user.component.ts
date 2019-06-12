@@ -77,6 +77,8 @@ export class UserComponent implements OnInit {
     removedMappingId = [];
     enableRolePermission = false;
     duplicateError;
+    editlabel;
+   
 
     constructor(private pdfService : PDFService ,private excelService :ExcelService,private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
         private commonLabels : CommonLabels,public batchVar : BatchVar,private breadCrumbService :BreadCrumbService) {
@@ -131,6 +133,8 @@ export class UserComponent implements OnInit {
       this.userService.getUser(userId).subscribe((resp)=>{
           if(resp.isSuccess){
               this.constant.userList = resp.data.rows.length ? resp.data.rows : [];
+          }else{
+            this.constant.userList = [];
           }
         });
         let data = this.utilService.getUserData();
@@ -539,7 +543,8 @@ export class UserComponent implements OnInit {
         }
     }
 
-    editDivisionData(data,template : TemplateRef<any>){
+    editDivisionData(data,template : TemplateRef<any>,form){
+        this.editlabel = (form === 'add')?this.commonLabels.labels.addDepartment:this.commonLabels.labels.editDivision;
         this.editDepartmentList = [];
         this.validationDivisionCheck = true;
         this.errorValidation = true;

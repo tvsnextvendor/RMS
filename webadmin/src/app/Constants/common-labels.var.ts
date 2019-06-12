@@ -338,6 +338,7 @@ export class CommonLabels{
         "availabletrainingclass" : "Available Training Class:",
         "avaliablevideos"   :    "Avaliable Videos:",
         "avaliabledocument" :    "Available Document:",
+        "addDepartment"     :   "Add Department"
        
       
     };

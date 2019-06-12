@@ -65,8 +65,13 @@ constructor(private courseService: CourseService,
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
+    if(window.location.pathname.indexOf("resource") != -1){
+      let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.videos,url:''}];
+      this.breadCrumbService.setTitle(data);
+      }else{
     let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.videos,url:''}]
     this.breadCrumbService.setTitle(data);
+      }
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
     //get Resort list

@@ -27,7 +27,10 @@ export class NotificationTabComponent implements OnInit {
        if(params.tab == 'schedule'){
         let data = [{title : this.commonLabels.labels.schedule,url:'/calendar'},{title : this.commonLabels.labels.notification,url:''}]
          this.breadCrumbService.setTitle(data)
-       }else{
+       }else if(window.location.pathname.indexOf("resource") != -1){
+        let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.notification,url:''}];
+        this.breadCrumbService.setTitle(data);
+        }else{
          let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.notification,url:''}]
          this.breadCrumbService.setTitle(data)
        }

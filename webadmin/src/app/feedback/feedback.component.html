@@ -5,19 +5,19 @@
      <div class="row col-md-10 text-center m-auto">
           <div class="col-md-3 ml-5">              
               <select class="form-control" [(ngModel)]="resortSelected">
-                  <option value="">{{commonLabels.labels.resort}}</option>
+                  <option value="">--{{commonLabels.labels.resort}}--</option>
                   <option *ngFor="let resorts of resortData" [value]=resorts.resortId>{{resorts.resortName}}</option>
               </select>             
           </div>
           <div class="col-md-3">              
               <select class="form-control" [(ngModel)]="courseSelected">
-                  <option value="">{{commonLabels.labels.courses}}</option>
+                  <option value="">--{{commonLabels.labels.courses}}--</option>
                   <option *ngFor="let courses of courseData" [value]=courses.courseId>{{courses.courseName}}</option>
               </select>             
           </div>
           <div class="col-md-3">              
               <select class="form-control" [(ngModel)]="trainingClassSelected">
-                  <option value="">{{commonLabels.labels.trainingClass}}</option>
+                  <option value="">--{{commonLabels.labels.trainingClass}}--</option>
                   <option *ngFor="let trainingClass of trainingClassData" [value]=trainingClass.trainingClassId>{{trainingClass.trainingClassName}}</option>
               </select>             
           </div>
@@ -26,6 +26,7 @@
         </div>
       </div>
       <div class="row mt-4">
+       
           <div class="topic-wrap white-bg col-md-12" *ngFor="let feedbacks of feedbackList">
               <div class="topic-wrap-top clearfix p-3">
                   <div class="topic-img-wrap mt-4">

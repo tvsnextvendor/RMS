@@ -34,8 +34,8 @@ export class ForumService {
       return this.http.getLocal('local', this.url.forum + '?page=' + pageDetails.currentPage + '&size=' + pageDetails.pageSize);
   }
 
-  getAdmin() {
-      return this.http.getLocal('local', this.url.userList);
+  getAdmin(createdBy) {
+      return this.http.getLocal('local', this.url.userList+'?createdBy='+createdBy);
   }
 
   getDivision() {

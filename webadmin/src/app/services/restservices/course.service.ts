@@ -170,6 +170,9 @@ export class CourseService {
     }
     return query;
   }
+  getIndividualCourse(courseId){
+    return this.http.getLocal('local',this.url.getCourseById+'?courseId='+courseId);
+  }
   addCourseDuplicate(params){
     return this.http.post('local',this.url.addDuplicateCourse,params);
   }

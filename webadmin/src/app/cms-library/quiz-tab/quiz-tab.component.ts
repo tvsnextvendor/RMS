@@ -50,9 +50,13 @@ export class QuizTabComponent implements OnInit {
       { name: "Non-MCQ", value: "NON-MCQ" }
     ];
     this.quizQuestionsForm = [];
+    if(window.location.pathname.indexOf("resource") != -1){
+      let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.quiz,url:''}];
+      this.breadCrumbService.setTitle(data);
+      }else{
     let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.quiz, url: '' }]
     this.breadCrumbService.setTitle(data);
-
+      }
     if (this.directTabEnable) {
       this.getDropDownDetails();
     }

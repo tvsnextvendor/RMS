@@ -112,6 +112,8 @@ export class CMSLibraryComponent implements OnInit {
     }
     if(params.tab == 'schedule'){
           this.headerService.setTitle({title:this.commonLabels.labels.schedule, hidemodule:false});
+      }else if(window.location.pathname.indexOf("resource") != -1){
+        this.headerService.setTitle({title:this.commonLabels.labels.resourceLibrary, hidemodule:false});
       }else{
             let path = window.location.pathname;
             let data = params.type == 'create' ? 'Create' : params.type == 'edit' ? 'Edit' : path == '/cms-library' ? 'Edit' : 'Create';

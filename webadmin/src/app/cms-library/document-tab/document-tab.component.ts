@@ -59,8 +59,13 @@ export class DocumentTabComponent implements OnInit {
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
+    if(window.location.pathname.indexOf("resource") != -1){
+      let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.documents,url:''}];
+      this.breadCrumbService.setTitle(data);
+      }else{
     let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.documents,url:''}]
     this.breadCrumbService.setTitle(data)
+      }
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
 
