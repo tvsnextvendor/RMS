@@ -54,13 +54,16 @@ export class CourseTabComponent implements OnInit {
   selectedCourseId;
   checkBoxEnable;
   breadCrumbTitle;
+  individualCourse;
 
   constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) {
      this.activatedRoute.queryParams.subscribe(params=>{ 
        console.log(window.location.pathname.indexOf("resource"))
        if(params.tab == 'schedule'){
          this.breadCrumbTitle = [{title : this.commonLabels.labels.schedule,url:'/calendar'},{title : this.commonLabels.labels.course,url:''}]
-       }else{
+       }else if(window.location.pathname.indexOf("resource") != -1){
+        this.breadCrumbTitle = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.course,url:''}]
+      }else{
          this.breadCrumbTitle = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.course,url:''}]
        }
 
@@ -89,7 +92,15 @@ export class CourseTabComponent implements OnInit {
       this.getCourseDetails();
     } 
   }
+  getIndividualCourse(courseId){
+    this.courseService.getIndividualCourse(courseId).subscribe(resp=>{
+      if(resp && resp.isSuccess){
+        console.log(resp);
+      this.individualCourse = resp.data;
+      }
+    });
 
+  }
   getCourseDetails(){
     this.deletedFileId  = [];
     let userId = this.utilService.getUserData().userId;

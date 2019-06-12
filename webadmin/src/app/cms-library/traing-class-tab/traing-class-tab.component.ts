@@ -27,8 +27,13 @@ export class TraingClassTabComponent implements OnInit {
   ngOnInit() {
     this.pageLength = 5;
     this.currentPage = 1;
+     if(window.location.pathname.indexOf("resource") != -1){
+      let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.trainingClass,url:''}];
+      this.breadCrumbService.setTitle(data);
+      }else{
     let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.trainingClass,url:''}]
     this.breadCrumbService.setTitle(data);
+      }
     this.getTrainingClassDetails();
   }
 

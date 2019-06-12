@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HeaderService, CommonService, UtilService, CourseService,BreadCrumbService} from '../services';
-import { CommonLabels} from '../Constants/common-labels.var';
+import { HeaderService, CommonService, UtilService, CourseService, BreadCrumbService } from '../services';
+import { CommonLabels } from '../Constants/common-labels.var';
 
 @Component({
   selector: 'app-feedback',
@@ -17,31 +17,31 @@ export class FeedbackComponent implements OnInit {
   trainingClassData;
   feedbackList = [];
   selectedResortApp = '';
-  applicationData = []; 
+  applicationData = [];
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
     private commonService: CommonService,
     private utilService: UtilService,
     private courseService: CourseService,
-    private breadCrumbService :BreadCrumbService) {
-      this.userId = this.utilService.getUserData().userId;
-    }
+    private breadCrumbService: BreadCrumbService) {
+    this.userId = this.utilService.getUserData().userId;
+  }
 
   ngOnInit() {
-    this.headerService.setTitle({title: 'FeedBack', hidemodule: false});
+    this.headerService.setTitle({ title: 'FeedBack', hidemodule: false });
     this.breadCrumbService.setTitle([]);
     this.commonService.getResortList(this.userId).subscribe(result => {
-      if  (result && result.isSuccess) {
+      if (result && result.isSuccess) {
         this.resortData = result.data.rows;
       }
     });
     this.courseService.getAllCourse().subscribe(result => {
-      if  (result && result.isSuccess) {
+      if (result && result.isSuccess) {
         this.courseData = result.data.rows;
       }
     });
     this.courseService.getTrainingClass().subscribe(result => {
-      if  (result && result.isSuccess) {
+      if (result && result.isSuccess) {
         this.trainingClassData = result.data;
       }
     });
@@ -50,38 +50,41 @@ export class FeedbackComponent implements OnInit {
   }
 
   searchFilter() {
+    this.feedbackList = [];
     const feedbackObj = {
-      resortId : this.resortSelected,
-      courseId : this.courseSelected,
-      trainingClassId : this.trainingClassSelected,
-      feedbackType : 'course'
+      resortId: this.resortSelected,
+      courseId: this.courseSelected,
+      trainingClassId: this.trainingClassSelected,
+      feedbackType: 'course'
     };
     this.commonService.getFeedbackList(feedbackObj).subscribe(result => {
       if (result && result.isSuccess) {
         this.feedbackList = result.data;
         this.clearFilter();
+      } else {
+        this.feedbackList = [];
       }
     });
   }
 
   applicationList() {
     const feedbackObj = {
-      resortId : this.selectedResortApp,
-      feedbackType : 'app'
+      resortId: this.selectedResortApp,
+      feedbackType: 'app'
     };
     this.commonService.getFeedbackList(feedbackObj).subscribe(result => {
       if (result && result.isSuccess) {
         this.applicationData = result.data;
         this.clearFilter();
+      } else {
+        this.applicationData = [];
       }
     });
   }
-
   clearFilter() {
     this.selectedResortApp = '';
     this.courseSelected = '';
     this.resortSelected = '';
     this.trainingClassSelected = '';
   }
-
 }

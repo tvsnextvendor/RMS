@@ -37,7 +37,8 @@ const routes: Routes = [
     { path: 'contentfile', component:  ContentFileComponent ,canActivate : [AuthGuard]},
     { path: 'workinprogress', component:  WorkCourseListComponent ,canActivate : [AuthGuard]},
     { path: 'cmspage', component:  CmsPageComponent ,canActivate : [AuthGuard]},
-    { path: 'createQuiz' , component : CreateQuizComponent,canActivate : [AuthGuard]}
+    { path: 'createQuiz' , component : CreateQuizComponent,canActivate : [AuthGuard]},
+    { path : 'resource/library', component : CMSLibraryComponent, canActivate : [AuthGuard]}
 ];
 
 export const MY_MOMENT_FORMATS = {
