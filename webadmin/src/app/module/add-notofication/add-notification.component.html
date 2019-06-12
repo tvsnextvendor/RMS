@@ -10,26 +10,38 @@
     <div class="clearfix">
         <h4 class="add-notify">{{notifyId ? commonLabels.btns.editNotification : commonLabels.btns.createNotification}}</h4>
     </div>
-    <div class="modal-body px-5" *ngIf="!notificationType">
+    <div class="modal-body" *ngIf="!notificationType">
         <!-- <div>
             <p class="text-center table-desc-color">{{commonLabels.msgs.generalNotifi}}</p>
         </div> -->
         <div class="row">
-            <div class="white-bg col-md-12 mb-3 p-3 cp" (click)="notificationTypeUpdate('assignedToCourse')">
-                <span class="notification-title">{{this.commonLabels.labels.assignToCourse}}</span>
-                <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
-                        title="Next"></i></button>
+            <div class="col-md-4">
+            <div class="white-bg" (click)="notificationTypeUpdate('assignedToCourse')">
+                <div class="ass-header-color clearfix p-1"></div>
+                <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11849.png"></div>
+                <p class="notification-title">{{this.commonLabels.labels.assignToCourse}}</p>
+                <!-- <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
+                        title="Next"></i></button> -->
             </div>
-            <div class="white-bg col-md-12 mb-3 p-3 cp" (click)="notificationTypeUpdate('signature')">
-                <span class="notification-title">{{this.commonLabels.labels.signature}}</span>
-                <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
-                        title="Next"></i></button>
+        </div>
+        <div class="col-md-4">
+            <div class="white-bg" (click)="notificationTypeUpdate('signature')">
+                    <div class="sign-header-color clearfix p-1"></div>
+                    <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11850.png"></div>
+                <p class="notification-title">{{this.commonLabels.labels.signature}}</p>
+                <!-- <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
+                        title="Next"></i></button> -->
             </div>
-            <div class="white-bg col-md-12 mb-3 p-3 cp" (click)="notificationTypeUpdate('nonSignature')">
-                <span class="notification-title">{{this.commonLabels.labels.nonSignature}}</span>
-                <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
-                        title="Next"></i></button>
+        </div>
+        <div class="col-md-4">
+            <div class="white-bg" (click)="notificationTypeUpdate('nonSignature')">
+                    <div class="nonsign-header-color clearfix p-1"></div>
+                    <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11852.png"></div>
+                <p class="notification-title">{{this.commonLabels.labels.nonSignature}}</p>
+                <!-- <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
+                        title="Next"></i></button> -->
             </div>
+        </div>
         </div>
         <!-- <div class="col-md-12 clearfix text-center py-3">
             <button type="button" class="btn btn-primary creat-btn"  (click)="notificationTypeSubmit()">{{commonLabels.btns.yes}}</button>
