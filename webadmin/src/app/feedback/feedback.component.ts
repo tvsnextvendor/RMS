@@ -18,6 +18,7 @@ export class FeedbackComponent implements OnInit {
   feedbackList = [];
   selectedResortApp = '';
   applicationData = [];
+  resortId;
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
     private commonService: CommonService,
@@ -25,12 +26,13 @@ export class FeedbackComponent implements OnInit {
     private courseService: CourseService,
     private breadCrumbService: BreadCrumbService) {
     this.userId = this.utilService.getUserData().userId;
+    this.resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
   }
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'FeedBack', hidemodule: false });
     this.breadCrumbService.setTitle([]);
-    this.commonService.getResortList(this.userId).subscribe(result => {
+    this.commonService.getResortForFeedback(this.resortId).subscribe(result => {
       if (result && result.isSuccess) {
         this.resortData = result.data.rows;
       }
