@@ -5,19 +5,19 @@
      <div class="row col-md-10 text-center m-auto">
           <div class="col-md-3 ml-5">              
               <select class="form-control" [(ngModel)]="resortSelected">
-                  <option value="">--{{commonLabels.labels.resort}}--</option>
+                  <option value="">--{{commonLabels.labels.selectResort}}--</option>
                   <option *ngFor="let resorts of resortData" [value]=resorts.resortId>{{resorts.resortName}}</option>
               </select>             
           </div>
           <div class="col-md-3">              
               <select class="form-control" [(ngModel)]="courseSelected">
-                  <option value="">--{{commonLabels.labels.courses}}--</option>
+                  <option value="">--{{commonLabels.labels.selectcourse}}--</option>
                   <option *ngFor="let courses of courseData" [value]=courses.courseId>{{courses.courseName}}</option>
               </select>             
           </div>
           <div class="col-md-3">              
               <select class="form-control" [(ngModel)]="trainingClassSelected">
-                  <option value="">--{{commonLabels.labels.trainingClass}}--</option>
+                  <option value="">--{{commonLabels.labels.selectopt}}--</option>
                   <option *ngFor="let trainingClass of trainingClassData" [value]=trainingClass.trainingClassId>{{trainingClass.trainingClassName}}</option>
               </select>             
           </div>
@@ -39,12 +39,13 @@
                           <h5 class="hd-tit">{{feedbacks.feedbackMap[0].User.userName}}</h5>
                           <div class="clearfix mt-2">
                             <small class="topic-time float-left">{{feedbacks.created |date}}</small> 
-                            <span class="float-right rating">
-                              <a href="#"><i class="fas fa-star y-color"></i></a>
+                            <span class="float-right rating star-alg">
+                              <!-- <a href="#"><i class="fas fa-star y-color"></i></a>
                               <a href="#"><i class="fas fa-star y-color"></i></a>
                               <a href="#"><i class="fas fa-star y-color"></i></a>
                               <a href="#"><i class="fas fa-star gy-color"></i></a>
-                              <a href="#"><i class="fas fa-star gy-color"></i></a>
+                              <a href="#"><i class="fas fa-star gy-color"></i></a> -->
+                              <ngb-rating [(rate)]='+feedbacks.ratingStar' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
                             </span>
                           </div>
                           
@@ -74,7 +75,7 @@
       <div class="row col-md-5 text-center mx-auto">
         <div class="col-md-9 app-select">              
             <select class="form-control" [(ngModel)]="selectedResortApp">
-                <option value="" >{{commonLabels.labels.resort}}</option>
+                <option value="" >--{{commonLabels.labels.selectResort}}--</option>
                 <option *ngFor="let resorts of resortData" [value]="resorts.resortId">{{resorts.resortName}}</option>
             </select>             
         </div>         
@@ -94,12 +95,13 @@
                     <h5 class="hd-tit">{{apps.feedbackMap[0].User.userName}}</h5>
                     <div class="clearfix mt-2">
                       <small class="topic-time float-left">{{apps.created |date}}</small> 
-                      <span class="float-right rating">
-                          <a href="#"><i class="fas fa-star y-color"></i></a>
+                      <span class="float-right rating star-alg">
+                          <!-- <a href="#"><i class="fas fa-star y-color"></i></a>
                           <a href="#"><i class="fas fa-star y-color"></i></a>
                           <a href="#"><i class="fas fa-star y-color"></i></a>
                           <a href="#"><i class="fas fa-star gy-color"></i></a>
-                          <a href="#"><i class="fas fa-star gy-color"></i></a>
+                          <a href="#"><i class="fas fa-star gy-color"></i></a> -->
+                          <ngb-rating [(rate)]='+apps.ratingStar' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
                           </span>
                     </div>
                     
