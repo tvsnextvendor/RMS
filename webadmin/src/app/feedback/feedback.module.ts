@@ -6,6 +6,7 @@ import {AuthGuard} from '../guard/auth.guard.component';
 import { FormsModule} from '@angular/forms';
 import { FeedbackComponent } from './feedback.component';
 import { TabsModule } from 'ngx-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
     NgHttpLoaderModule.forRoot(),
     TabsModule.forRoot(),
     FormsModule,
+    NgbModule,
     BrowserModule
     ],
   declarations: [
