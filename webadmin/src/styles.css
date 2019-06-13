@@ -45,6 +45,12 @@ body {
 .cp{
 cursor: pointer;
 }
+.quiz-border{
+  border-top: 1px solid #ccc;
+}
+.quiz-border:first-child{
+  border: none;
+}
 span.nodata {
     background-color: unset !important; 
     padding: 10px 20px !important;
@@ -94,7 +100,8 @@ button:focus {
     border-left: none;
     color: #73737B;
     border-radius: 0;
-    font-size: 14px;    
+    font-size: 14px;   
+    cursor: pointer; 
 }
 .btn-primary{
   background-color: #468FB9;
