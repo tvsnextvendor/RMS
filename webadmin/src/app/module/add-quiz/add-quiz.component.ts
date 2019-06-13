@@ -236,10 +236,15 @@ export class AddQuizComponent implements OnInit {
   quizSubmit(submitType) {
     //Weightage update
     if(this.questionList){
+      console.log(this.questionList);
       this.questionList.map(item =>{
+        delete item.questionId;
         this.quizQuestionsForm.push(item);
       })
     }
+   
+   console.log(this.quizQuestionsForm,"quiz Questions");
+
     let params;
     let hideTraining = submitType === 'yes' ? true : false;
     if(this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length){
@@ -365,17 +370,29 @@ export class AddQuizComponent implements OnInit {
   }
  
  uploadQuiz(){
-    this.route.navigateByUrl('/uploadQuiz');
+      this.activatedRoute.queryParams.subscribe(params=>{ 
+       if(params.tab == 'class'){
+          this.route.navigate(['/uploadQuiz'],{queryParams:{tab : 'class'}});
+       }else if(params.tab == 'course'){
+          this.route.navigate(['/uploadQuiz'],{queryParams:{tab : 'course'}});
+       }
+     })
  }
 
   addTrainingClass(){
   let params;
   if(this.quizName){
   if(this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length){
-      let data = this.quizQuestionsForm.map(item => {
-          item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
-          return item;
+  if(this.questionList){
+      this.questionList.map(item =>{
+        delete item.questionId;
+        this.quizQuestionsForm.push(item);
       })
+    }
+    let data = this.quizQuestionsForm.map(item => {
+        item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+        return item;
+    })
       //final data for submission
        params = {
           "trainingClassName":this.selectCourseName,
@@ -404,6 +421,7 @@ export class AddQuizComponent implements OnInit {
              this.route.navigate(['/cmspage'],{queryParams:{type : 'create'}})
              this.completed.emit(true);
              this.alertService.success(result.message);
+              this.quizService.setQuiz('');
           }
         })
     }else{

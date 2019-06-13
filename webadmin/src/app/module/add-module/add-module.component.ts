@@ -380,6 +380,8 @@ export class AddModuleComponent implements OnInit {
    }
   
    hideTrainingClass(event){
+       console.log(event,"EVENT");
+    if(event){
        this.tabEnable = true;
        setTimeout(()=>{  
             if(event && this.staticTabs){
@@ -387,6 +389,7 @@ export class AddModuleComponent implements OnInit {
             this.staticTabs.tabs[1].active = true;
          }
        }, 500); 
+    }
    }
 
    hideTab(data){
