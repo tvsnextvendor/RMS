@@ -36,6 +36,7 @@ export class CertificatesComponent implements OnInit {
     certificateId;
     htmlView;
     assignTo="";
+    assignToClicked = false;
 
 
     constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService,private breadCrumbService : BreadCrumbService) {
@@ -292,18 +293,13 @@ export class CertificatesComponent implements OnInit {
         }
     }
 
-    changeAssigning(){
-         this.constant.templateAssign=[];
-          let obj = {
-                course: null,
-                template: null
-            };
-            this.constant.templateAssign.push(obj);
+    changeAssigning() {
+        this.assignToClicked = true;
     }
 
     checkCourse(id){
         let valueArr = this.constant.templateAssign.map(function(item){ return parseInt(item.course) });
-        let isDuplicate = valueArr.some(function(item, idx){ 
+        let isDuplicate = valueArr.some(function(item, idx) {
             return (valueArr.indexOf(item) != idx)
         });
         if(isDuplicate){
@@ -320,33 +316,38 @@ export class CertificatesComponent implements OnInit {
     assignBatchTemplate(form) {
         let checkEmpty = [];
         checkEmpty = this.constant.templateAssign.length ? this.constant.templateAssign.filter(x=>{ return (x.course == null || x.template == null)}) : [];
-        if(checkEmpty.length){
+        if (checkEmpty.length) {
             this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory);
-        }
-        else{
-            let data = this.constant.templateAssign.map(item=>{
+        } else {
+            console.log(this.constant.templateAssign, 'template assign');
+            const data = this.constant.templateAssign.map(item => {
                 let obj = {
                     certificateId : item.template,
                     certificateMappingId : ''
-                }
-                if(this.assignTo == 'course'){
+                };
+                if (this.assignTo === 'course' ?  item.assignTo === 'course' : item.assignTo === 'course') {
                      obj['courseId'] = item.course;
-                }else{
+                     obj['trainingClassId'] = null;
+                } else if (this.assignTo === 'tranClass' ?  item.assignTo === 'tranClass' : item.assignTo === 'tranClass') {
                     obj['trainingClassId'] = item.course;
+                    obj['courseId'] = null;
+                } else {
+                    obj = obj;
                 }
                 item.mappingId ? obj.certificateMappingId = item.mappingId : delete obj.certificateMappingId;
                 return obj;
-            })
-     
-            let params = {"certificateCourses":data,removeCertificateIds : []};
+            });
+
+            const params = {'certificateCourses': data, removeCertificateIds : []};
             this.removeCertificateIds.length ? params.removeCertificateIds = this.removeCertificateIds : delete params.removeCertificateIds;
             // console.log(params ,"checkEmpty",this.constant.templateAssign)
-            this.commonService.assignCertificate(params).subscribe(resp=>{
-                if(resp && resp.isSuccess){
+            this.commonService.assignCertificate(params).subscribe(resp => {
+                if (resp && resp.isSuccess) {
                     this.getAssignCertificateDetails();
-                }  
-            })
-        }     
+                    this.assignToClicked = false;
+                }
+            });
+        }
     }
 
     //Batch percentage selection
