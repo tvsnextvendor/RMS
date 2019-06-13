@@ -54,7 +54,13 @@ selectedQuizList=[];
 
    submitQuiz(){
        this.quizService.setQuiz(this.selectedQuizList);
-       this.route.navigate(['/cms-library'],{queryParams:{type : 'create',tab : 'class'}})
+      this.activatedRoute.queryParams.subscribe(params=>{ 
+       if(params.tab == 'class'){
+          this.route.navigate(['/cms-library'],{queryParams:{type : 'create',tab : 'class'}})
+       }else if(params.tab == 'course'){
+         this.route.navigate(['/cms-library'],{queryParams:{type : 'create',tab : 'course'}})
+       }
+     })
    }
    
 }

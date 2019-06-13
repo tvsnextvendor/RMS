@@ -55,6 +55,9 @@ export class CourseTabComponent implements OnInit {
   checkBoxEnable;
   breadCrumbTitle;
   individualCourse;
+  assignedCount;
+  inProgressCount;
+  completedCount;
 
   constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private route :Router) {
      this.activatedRoute.queryParams.subscribe(params=>{ 
@@ -92,15 +95,27 @@ export class CourseTabComponent implements OnInit {
       this.getCourseDetails();
     } 
   }
-  getIndividualCourse(courseId){
-    this.courseService.getIndividualCourse(courseId).subscribe(resp=>{
-      if(resp && resp.isSuccess){
-        console.log(resp);
-      this.individualCourse = resp.data;
-      }
-    });
 
+  getIndividualCourse(course, index){
+     this.enableView = true;
+      this.enableEdit = false;
+      this.enableDuplicate = false;
+      this.enableIndex = index;
+      this.courseService.getIndividualCourse(course.courseId).subscribe(resp=>{
+        if(resp && resp.isSuccess){
+        this.individualCourse = resp.data;
+          let data = this.individualCourse[0];
+          let empCount = data.totalEmployeeCount;
+          this.assignedCount = this.calculatePercent(empCount, data.assignedCount);
+          this.inProgressCount = this.calculatePercent(empCount, data.inProgressCount);
+          this.completedCount = this.calculatePercent(empCount, data.completedCount);
+        }
+    });
+   
+  
+    
   }
+
   getCourseDetails(){
     this.deletedFileId  = [];
     let userId = this.utilService.getUserData().userId;
@@ -126,13 +141,14 @@ export class CourseTabComponent implements OnInit {
   enableDropData(type,index){
     localStorage.setItem('index', index);
     localStorage.setItem('type', type);
-    if(type === "view"){
-      this.enableView = this.enableIndex === index ? !this.enableView : true;
-      this.enableEdit = false;
-      this.enableDuplicate = false;
-      this.enableIndex = index;
-      this.getCourseId(index);
-    }
+    // if(type === "view"){
+    //   this.enableView = this.enableIndex === index ? !this.enableView : true;
+    //   this.enableEdit = false;
+    //   this.enableDuplicate = false;
+    //   this.enableIndex = index;
+    //   this.getCourseId(index);
+    //   this.getIndividualCourse(index);
+    // }
     else if(type === "closeDuplicate"){
       this.enableView = true;
       this.enableEdit = false;
@@ -178,7 +194,8 @@ export class CourseTabComponent implements OnInit {
         this.trainingClassListTab.next(data);
     }
 
-
+ 
+ 
   getCourseId(index){
       this.courseListValue.forEach((item,i)=>{
       if(i===index){
@@ -208,8 +225,6 @@ export class CourseTabComponent implements OnInit {
     this.selectedEditTrainingClass = classId;
     this.courseService.getEditCourseDetails('',this.selectedEditCourse,classId).subscribe(resp => {
       if(resp && resp.isSuccess){
-
-        console.log(resp);
         this.fileList = resp.data.length && resp.data;
        // this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
         if(this.addedFiles){
@@ -241,24 +256,26 @@ export class CourseTabComponent implements OnInit {
     this.upload.emit(true);
   }
 
-  calculateContentFiles(courses){
-    let i =0;
-    courses.forEach(function(value,key){
-      i = i + parseInt(value.TrainingClass.FileMappings.length);
-    });
-    return i;
-  }
-
+ 
    // To Calc File Size
-  calculateFileMbSize(courses){
+  calculateFileMbSize(FileMappings){
     let i = 0;
-    courses.forEach(function(value,key){
-      value.TrainingClass.FileMappings.forEach(function(val,key){
-        i = i + parseInt(val.File.fileSize);
-      });
+    FileMappings.forEach(function(value,key){
+       i = i + parseInt(value.File.fileSize);
     });
     return this.formatBytes(i,2);
   }
+
+  calculatePercent(totalempCount,individualCount){
+     if(totalempCount > 0){
+        let totalEmpPer = 100/totalempCount;
+        return individualCount*totalEmpPer;
+     }else{
+       return 0;
+     }
+  }
+
+
   formatBytes(bytes,decimals){
     if(bytes == 0 || bytes === null) return '0 Bytes';
       var k = 1024,
@@ -485,7 +502,6 @@ filePreviewImage(file){
             .then(blob => {
                 self.fileImageDataPreview =  new File([blob], "File_name.png");
                 // self.fileImageDataPreview.type = "image/png";
-                console.log(self.fileImageDataPreview)
             })  
             // Load video in Safari / IE11
             video.muted = true;
