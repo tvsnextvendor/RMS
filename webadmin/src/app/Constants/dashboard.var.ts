@@ -29,6 +29,7 @@ export class DashboardVar {
    totalCourses;
    totalCoursesCount;
    totalNoOfBadges;
+   totalBadges;
    // total = 'total';
    // title = 'Dashboard';
    // task = 'Task';

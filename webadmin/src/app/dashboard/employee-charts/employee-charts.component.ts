@@ -24,6 +24,7 @@ export class EmployeeChartsComponent implements OnInit {
   topCourses;
   hideCharts = true;
   userRole;
+  userId;
 
   TtlDivision;
   TtlDepartment;
@@ -42,6 +43,7 @@ export class EmployeeChartsComponent implements OnInit {
     this.dashboardVar.userName = this.utilService.getUserData().username;
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
     this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
+    this.userId =  this.utilService.getUserData().userId;
   }
 
   ngOnInit() {
@@ -80,7 +82,7 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
   getTopResort(){
-    let query = '?limit=5';
+    let query = '?resortId=' + this.resortId + '&limit=5';
     this.commonService.getTopFiveResort(query).subscribe(resp=>{
       if(resp && resp.isSuccess){
         // console.log(resp)
@@ -123,7 +125,7 @@ export class EmployeeChartsComponent implements OnInit {
     const courseTrendObj = {
       year : this.dashboardVar.years
     };
-    let query = this.resortId ? '&resortId='+this.resortId : '';
+    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
     this.commonService.getCourseTrend(courseTrendObj,query).subscribe(result => {
       if (result && result.isSuccess) {
         this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
@@ -413,6 +415,7 @@ export class EmployeeChartsComponent implements OnInit {
     let query = this.resortId ? '?resortId='+this.resortId : '';
     this.commonService.getBadges(query).subscribe((resp) => {
       const donutChartData = resp.data.badges;
+      this.dashboardVar.totalBadges = resp.data.totalCount;
       // let donutChartData = [
       //   {Badge : {badgeName : 'silver'},totalcount : '4'},
       //   {Badge : {badgeName : 'bronze'},totalcount : '4'},
