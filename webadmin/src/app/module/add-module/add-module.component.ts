@@ -49,6 +49,7 @@ export class AddModuleComponent implements OnInit {
     addButton;
     quizList=[];
     quizName;
+    duplicateCourse = false;
     @Output() upload= new EventEmitter<object>();
     @Output() completed = new EventEmitter<string>();
     @Input() addedFiles;
@@ -58,6 +59,9 @@ export class AddModuleComponent implements OnInit {
    constructor(private breadCrumbService : BreadCrumbService, private modalService: BsModalService,private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
+        });
+        this.activatedRoute.queryParams.subscribe((params) => {
+            this.duplicateCourse = params.duplicate ? true : false;
         });
         if(window.location.pathname.indexOf("module")){
            this.selectedTab = 'course';
@@ -93,10 +97,15 @@ export class AddModuleComponent implements OnInit {
    }
 
    ngDoCheck(){
-    if(this.selectedTab == 'course' ){
+    if(this.duplicateCourse){
+        let data = [{title:this.commonLabels.labels.duplicate, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}];
+        this.breadCrumbService.setTitle(data);   
+    }
+    else if(this.selectedTab == 'course' ){
      let data = this.moduleId ? [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editCourse, url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title:this.commonLabels.labels.createCourse, url:''}];
      this.breadCrumbService.setTitle(data);
-    }else if(this.selectedTab == 'class'){
+    }
+    else if(this.selectedTab == 'class'){
      let data = this.moduleId ? [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title:this.commonLabels.labels.createClasses, url:''}];
     this.breadCrumbService.setTitle(data);    
     }
@@ -142,6 +151,7 @@ export class AddModuleComponent implements OnInit {
                     }
                     return obj;
                 });
+                // this.selectedQuiz = data && data.CourseTrainingClassMaps
                 if(dataId !== ''){
                     let checkId = this.moduleVar.selectedCourseIds.find(x=>x===dataId);
                     if(!checkId){
@@ -609,7 +619,7 @@ export class AddModuleComponent implements OnInit {
                 "createdBy" : user.userId,
                 "status" : courseSubmitType ? 'none' : 'workInprogress'
             }
-            if(this.moduleCourseId || this.moduleId){
+            if((this.moduleCourseId || this.moduleId) && !this.duplicateCourse){
                 let id = this.moduleCourseId ? this.moduleCourseId : this.moduleId;
                 this.courseService.updateCourse(id,params).subscribe((resp)=>{
                     if(resp && resp.isSuccess){
@@ -642,9 +652,14 @@ export class AddModuleComponent implements OnInit {
             else{
                 this.courseService.addCourse(params).subscribe((resp)=>{
                     if(resp && resp.isSuccess){
-                        if(courseSubmitType) {
+                        if(this.duplicateCourse){
+                            this.duplicateCourse = false;
+                            this.route.navigate(['/cms-library'],{queryParams:{type : 'edit',tab : 'course'}})
+                        }
+                        else if(courseSubmitType) {
                             this.moduleCourseId = '';
                             // this.route.navigateByUrl("/cms-library");
+                           
                             this.completed.emit('completed'); 
                         }
                         else{

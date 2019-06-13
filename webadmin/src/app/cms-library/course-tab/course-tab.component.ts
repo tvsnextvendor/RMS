@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output,TemplateRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { HeaderService,HttpService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService} from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../../Constants/common-labels.var';
@@ -56,7 +56,7 @@ export class CourseTabComponent implements OnInit {
   breadCrumbTitle;
   individualCourse;
 
-  constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService) {
+  constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private route :Router) {
      this.activatedRoute.queryParams.subscribe(params=>{ 
     
        if(params.tab == 'schedule'){
@@ -151,11 +151,12 @@ export class CourseTabComponent implements OnInit {
       this.editCourseData(index,'');
     }
     else if(type === "duplicate"){
-      this.enableView = true;
+      this.enableView = false;
       this.enableEdit = false;
-      this.enableDuplicate = true;
-      this.enableIndex = index;
-      this.editCourseData(index,'');
+      this.enableDuplicate = false;
+      // this.enableIndex = index;
+      // this.editCourseData(index,'');
+      this.route.navigate(['/module/'+index.courseId],{queryParams:{duplicate : true}});
     }
     else if(type === 'trainingClass'){
       let value = {tab : 'training'}
