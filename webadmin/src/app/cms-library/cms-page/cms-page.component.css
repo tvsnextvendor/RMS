@@ -8,3 +8,16 @@
     width: 50%;
     float: none;
 }
+.class-header-color{
+    background-color: #0491BD;
+}
+.quiz-header-color{
+    background-color: #34CB6D;
+}
+.course-header-color{
+    background-color: #F1C400;
+}
+.Notification-header-color{
+    background-color: #8B62CC;
+}
+
