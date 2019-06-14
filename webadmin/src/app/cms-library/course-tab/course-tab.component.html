@@ -14,7 +14,15 @@
                 <span class="float-right">
                     <a title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
                     <a title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
-                    <a (click)="getIndividualCourse(courses,i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header p-0" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header p-0" aria-hidden="true" title="Open"></i></a>
+                    <a>
+                        <span (click)="disableView(i)"> 
+                                <i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header p-0" aria-hidden="true" title="Close"></i>
+                        </span>
+                        <span (click)="getIndividualCourse(courses,i)">
+                            <i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header p-0" aria-hidden="true" title="Open"  ></i>
+                        </span>
+                    </a>
+                   
                 </span>
             </div>
             <div *ngFor="let data of individualCourse">
@@ -198,6 +206,7 @@
 <div class="white-bg text-center p-4" *ngIf="!courseListValue.length" >
 <p class="data-design m-0">
     <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
+</div>
 </div>
 <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
 
