@@ -226,7 +226,9 @@ th.action-hd {
 .listrole .detail-bottom span{
     line-height: 30px;
 }
-
+.active-alg{
+    width: 170px;
+}
 .ml-10{
     margin-left: 10px;
 }

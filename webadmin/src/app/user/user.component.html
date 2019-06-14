@@ -68,7 +68,7 @@
                             <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'design') }}</label></span></td>
                             <td class="text-center"><label class="mb-0">{{ user.email }}</label></td>
                             <td class="text-center"><label class="mb-0">{{ user.phoneNumber }}</label></td>
-                            <td class="text-center">
+                            <td class="text-center active-alg">
                                 <a (click)="viewUserDetail(user,i)"><i class="fa fa-eye header-icon"></i></a>
                                 <a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                 <a (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
