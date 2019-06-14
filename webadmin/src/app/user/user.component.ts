@@ -1,4 +1,4 @@
-import { Component,TemplateRef, OnInit ,ViewChild} from '@angular/core';
+import { Component,TemplateRef, OnInit ,ViewChild,Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from "lodash";
@@ -78,6 +78,8 @@ export class UserComponent implements OnInit {
     enableRolePermission = false;
     duplicateError;
     editlabel;
+    userIdData;
+    
    
 
     constructor(private pdfService : PDFService ,private excelService :ExcelService,private alertService: AlertService,private commonService:CommonService ,private utilService: UtilService, private userService:UserService,private resortService: ResortService,private http: HttpService,private modalService : BsModalService,  public constant: UserVar, private headerService:HeaderService, private toastr: ToastrService, private router: Router,
@@ -458,6 +460,11 @@ export class UserComponent implements OnInit {
     messageClose() {
         this.message = '';
     }
+    viewUserDetail(user,i){
+        this.staticTabs.tabs[3].active = true;
+        this.enableRolePermission = true;
+        this.userIdData =  user.userId;
+    }
 
     submitDivision(){
         this.errorValidation = true;
@@ -782,10 +789,9 @@ export class UserComponent implements OnInit {
     }
 
     onEmpSelect(event,key){
-        // console.log(event,'key',key,this.department,this.division)
         this.selectedDivisionId =  this.division.length && this.division.map(item=>{return item.divisionId});
         this.selectedDepartmentId = this.department.length && this.department.map(item=>{return item.departmentId});
-        this.selectedDesignationId = this.designation.length && this.designation.map(item=>{return item.designationId})
+        this.selectedDesignationId = this.designation.length && this.designation.map(item=>{return item.designationId});
         if(key == 'div'){
             const obj={'divisionId': this.selectedDivisionId};
             this.commonService.getDepartmentList(obj).subscribe((result)=>{
@@ -916,12 +922,12 @@ export class UserComponent implements OnInit {
   }
 
   roleTabSelect(type){
-      if(type == 'rolesPermission'){
+      if(type === 'rolesPermission'){
         this.enableRolePermission = true;
+        this.userIdData = '';
       }
       else{
         this.enableRolePermission = false;
       }
-    
   }
 }

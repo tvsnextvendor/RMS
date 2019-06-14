@@ -1,9 +1,8 @@
 <form #rolepermission="ngForm" (ngSubmit)="saveRolePermission(rolepermission)">
-<div class="pt-5">
-	<div class="white-bg pt-3 pl-3 pr-3">
-		<div class="row pb-4">
-			
-			<div class="col-md-4 select select-style clearfix">
+	<div class="pt-5">
+		<div class="white-bg pt-3 pl-3 pr-3">
+			<div class="row pb-4">
+				<div class="col-md-4 select select-style clearfix">
 					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0" (change)="getDropDownDetails('division','')">
 						<option value="" disabled>{{commonLabels.labels.resort}}</option>
 						<option *ngFor="let obj of constant.resortList" [value]="obj.resortId">{{obj.resortName}}</option>
@@ -11,38 +10,38 @@
 					<div class="select_arrow"></div>
 					<span class="required_color" *ngIf="rolepermission.submitted && !constant.resortId">
 						{{commonLabels.mandatoryLabels.resortRequired}}</span>
-			</div>
-			<div class="col-md-4 select select-style clearfix">
-						<select [(ngModel)]="constant.divisionId" name="divisionId" class="form-control pl-0"  (change)="getDropDownDetails('department',constant.divisionId)">
-							<option value="" disabled>{{commonLabels.labels.division}}</option>
-							<option *ngFor="let obj of constant.divisionList" [value]="obj.Division.divisionId">{{obj.Division.divisionName}}</option>
-						</select>
-						<div class="select_arrow"></div>
-							<span class="required_color" *ngIf="rolepermission.submitted && !constant.divisionId">
-								{{commonLabels.mandatoryLabels.division}}</span>
-			</div>
-			<div class="col-md-4 select select-style clearfix">
-					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0"  (change)="getRolePermission()">
+				</div>
+				<div class="col-md-4 select select-style clearfix">
+					<select [(ngModel)]="constant.divisionId" name="divisionId" class="form-control pl-0" (change)="getDropDownDetails('department',constant.divisionId)">
+						<option value="" disabled>{{commonLabels.labels.division}}</option>
+						<option *ngFor="let obj of constant.divisionList" [value]="obj.Division.divisionId">{{obj.Division.divisionName}}</option>
+					</select>
+					<div class="select_arrow"></div>
+					<span class="required_color" *ngIf="rolepermission.submitted && !constant.divisionId">
+						{{commonLabels.mandatoryLabels.division}}</span>
+				</div>
+				<div class="col-md-4 select select-style clearfix">
+					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0" (change)="getRolePermission()">
 						<option value="" disabled>{{commonLabels.labels.department}}</option>
 						<option *ngFor="let obj of constant.departmentList" [value]="obj.departmentId">{{obj.departmentName}}</option>
-					</select>		
+					</select>
 					<div class="select_arrow"></div>
-						<span class="required_color" *ngIf="rolepermission.submitted && !constant.departmentId">
-							{{commonLabels.mandatoryLabels.dept}}</span>
+					<span class="required_color" *ngIf="rolepermission.submitted && !constant.departmentId">
+						{{commonLabels.mandatoryLabels.dept}}</span>
+				</div>
 			</div>
-		</div>
-		<div class="row pb-3">
-			<div class="col-md-4 select select-style clearfix">
-				<select [(ngModel)]="constant.roleId" name="roleId" class="form-control pl-0"  (change)="getRolePermission()">
-					<option value="" disabled>{{commonLabels.labels.roles}}</option>
-					<option value="allRoles">{{commonLabels.labels.allRoles}}</option>
-					<option *ngFor="let obj of constant.roleList" [value]="obj.designationId">{{obj.designationName}}</option>
-				</select>
-				<div class="select_arrow"></div>
+			<div class="row pb-3">
+				<div class="col-md-4 select select-style clearfix">
+					<select [(ngModel)]="constant.roleId" name="roleId" class="form-control pl-0" (change)="getRolePermission()">
+						<option value="" disabled>{{commonLabels.labels.roles}}</option>
+						<option value="allRoles">{{commonLabels.labels.allRoles}}</option>
+						<option *ngFor="let obj of constant.roleList" [value]="obj.designationId">{{obj.designationName}}</option>
+					</select>
+					<div class="select_arrow"></div>
 					<span class="required_color" *ngIf="rolepermission.submitted && !constant.roleId">
 						{{commonLabels.mandatoryLabels.roles}}</span>
-			</div>
-			<!-- <div class="col-md-4 select select-style clearfix">
+				</div>
+				<!-- <div class="col-md-4 select select-style clearfix">
 					<select [(ngModel)]="constant.userId" name="userId" class="form-control pl-0"  (change)="getRolePermission()">
 						<option value="" disabled>{{commonLabels.labels.selectUsers}}</option>
 						<option *ngFor="let obj of constant.createdByList" [value]="obj.userId">{{obj.userName}}</option>
@@ -51,64 +50,69 @@
 						<span class="required_color" *ngIf="rolepermission.submitted && !constant.userId">
 							{{commonLabels.mandatoryLabels.users}}</span>
 			</div> -->
-			<div class="col-md-4">
-				<span>
-					<label class="square-cont mr-5">
-						<input type="checkbox" [(ngModel)]="constant.web" (change)="getRolePermission()" name="web"> {{commonLabels.labels.web}}
-						<span class="square-checkmark"></span>
-					</label>
-					<label class="square-cont">
-						<input type="checkbox" [(ngModel)]="constant.mobile" (change)="getRolePermission()"  name="mobile"> {{commonLabels.labels.mobile}}
-						<span class="square-checkmark"></span>
-					</label>
-				</span>
+				<div class="col-md-4">
+					<span>
+						<label class="square-cont mr-5">
+							<input type="checkbox" [(ngModel)]="constant.web" (change)="getRolePermission()" name="web">
+							{{commonLabels.labels.web}}
+							<span class="square-checkmark"></span>
+						</label>
+						<label class="square-cont">
+							<input type="checkbox" [(ngModel)]="constant.mobile" (change)="getRolePermission()" name="mobile">
+							{{commonLabels.labels.mobile}}
+							<span class="square-checkmark"></span>
+						</label>
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-  <div class="table-responsive custom-table2 pt-1">
- 	<table class="table table-striped white-bg mt-1">
- 		<thead>
- 		<tr class="th-boxshadow">
-    <th class="pl-5">{{commonLabels.labels.menu}}</th>
-    <th class="text-center"><label class="table-checkbox-cont mb-0">
-						<input type="checkbox"  [checked] = 'constant.selectAllView ? true : false'  name="view" (change)="selectAll($event)"> {{commonLabels.labels.view}}
-						<span class="table-checkmark"></span>
-					</label></th>
-    <th class="text-center"><label class="table-checkbox-cont mb-0">
-						<input type="checkbox"  [checked] = 'constant.selectAllUpload ? true : false' name="upload"  (change)="selectAll($event)"> {{commonLabels.labels.upload}}
-						<span class="table-checkmark"></span>
-					</label></th>
-    <th class="text-center"><label class="table-checkbox-cont mb-0">
-						<input type="checkbox"  [checked] = 'constant.selectAllEdit ? true : false'  name="edit"  (change)="selectAll($event)"> {{commonLabels.labels.editdele}}
-						<span class="table-checkmark"></span>
-					</label></th>
-  </tr>
-	</thead>
-	<tbody>
-  <tr class="table-desc-color" *ngFor="let module of constant.modules;let i = index;">
-    <td class="pl-5">{{module.moduleName}}</td>
-    <td class="checkbox-padding"><label class="table-checkbox-cont">
-						<input type="checkbox" [checked]="module.view" name="view" (change)="checkIfAllSelected($event,module.view,i)">
-						<span class="table-checkmark"></span>
-					</label></td>
-    <td class="checkbox-padding"><label class="table-checkbox-cont">
-						<input type="checkbox"  [checked]="module.upload"  name="upload"  (change)="checkIfAllSelected($event,module.upload,i)">
-						<span class="table-checkmark"></span>
-					</label></td>
-    <td class="edit-padding"><label class="table-checkbox-cont">
-						<input type="checkbox"  [checked]="module.edit"  name="edit"  (change)="checkIfAllSelected($event,module.edit,i)">
-						<span class="table-checkmark"></span>
-					</label></td>
-	</tr>
-	</tbody>
- 	</table>
- </div> 
+	<div class="table-responsive custom-table2 pt-1">
+		<table class="table table-striped white-bg mt-1">
+			<thead>
+				<tr class="th-boxshadow">
+					<th class="pl-5">{{commonLabels.labels.menu}}</th>
+					<th class="text-center"><label class="table-checkbox-cont mb-0">
+							<input type="checkbox" [checked]='constant.selectAllView ? true : false' name="view" (change)="selectAll($event)">
+							{{commonLabels.labels.view}}
+							<span class="table-checkmark"></span>
+						</label></th>
+					<th class="text-center"><label class="table-checkbox-cont mb-0">
+							<input type="checkbox" [checked]='constant.selectAllUpload ? true : false' name="upload" (change)="selectAll($event)">
+							{{commonLabels.labels.upload}}
+							<span class="table-checkmark"></span>
+						</label></th>
+					<th class="text-center"><label class="table-checkbox-cont mb-0">
+							<input type="checkbox" [checked]='constant.selectAllEdit ? true : false' name="edit" (change)="selectAll($event)">
+							{{commonLabels.labels.editdele}}
+							<span class="table-checkmark"></span>
+						</label></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="table-desc-color" *ngFor="let module of constant.modules;let i = index;">
+					<td class="pl-5">{{module.moduleName}}</td>
+					<td class="checkbox-padding"><label class="table-checkbox-cont">
+							<input type="checkbox" [checked]="module.view" name="view" (change)="checkIfAllSelected($event,module.view,i)">
+							<span class="table-checkmark"></span>
+						</label></td>
+					<td class="checkbox-padding"><label class="table-checkbox-cont">
+							<input type="checkbox" [checked]="module.upload" name="upload" (change)="checkIfAllSelected($event,module.upload,i)">
+							<span class="table-checkmark"></span>
+						</label></td>
+					<td class="edit-padding"><label class="table-checkbox-cont">
+							<input type="checkbox" [checked]="module.edit" name="edit" (change)="checkIfAllSelected($event,module.edit,i)">
+							<span class="table-checkmark"></span>
+						</label></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
- <div class="float-right p-3">
-	          <button type="submit" class="btn btn-primary mr-3 creat-btn">{{commonLabels.btns.save}}</button>
-            <button type="button" class="btn btn-default" (click)="clearForm(rolepermission)">{{commonLabels.btns.cancel}}</button>           
-        </div>
+	<div class="float-right p-3">
+		<button type="submit" class="btn btn-primary mr-3 creat-btn">{{commonLabels.btns.save}}</button>
+		<button type="button" class="btn btn-default" (click)="clearForm(rolepermission)">{{commonLabels.btns.cancel}}</button>
+	</div>
 
-			</form>
+</form>

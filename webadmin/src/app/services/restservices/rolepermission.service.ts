@@ -8,22 +8,18 @@ import { API_URL } from '../../Constants/api_url';
     providedIn: 'root'
 })
 export class RolePermissionService {
-  
   url;
-
   constructor (private http: HttpService) {
      this.url = API_URL.URLS;
   }
-
   addRolePermission(permissionData){
     return this.http.post('local',this.url.permissionAdd, permissionData);
   }
-
-   getRolePermission(data){
+  getRolePermission(data){
     let params = 'departmentId=' + data.departmentId + '&divisionId=' + data.divisionId + '&resortId=' +data.resortId + '&designationId=' +data.designationId + '&web=' +data.web+ '&mobile=' +data.mobile; 
     return this.http.getLocal('local',this.url.permissionList+'?'+params);
   }
-
- 
-
+  getRolePermissions(userId){
+    return this.http.getLocal('local', this.url.getRolePermissions + '?userId='+userId);
+  }
 }
