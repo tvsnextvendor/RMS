@@ -150,9 +150,9 @@ export class CourseTabComponent implements OnInit {
     //   this.enableDuplicate = false;
     //   this.enableIndex = index;
     //   this.getCourseId(index);
-    //   this.getIndividualCourse(index);
+    // //  this.getIndividualCourse(index);
     // }
-     if(type === "closeDuplicate"){
+      if(type === "closeDuplicate"){
       this.enableView = true;
       this.enableEdit = false;
       this.enableDuplicate = false;
@@ -181,6 +181,7 @@ export class CourseTabComponent implements OnInit {
       let value = {tab : 'training'}
       this.trainingClassRedirect.emit(value);
     }
+  
   }
 
  
@@ -209,16 +210,20 @@ export class CourseTabComponent implements OnInit {
 
   editCourseData(index,id){
     let checkData = id ? this.courseListValue.findIndex(x=>x.courseId === parseInt(id)) : index;
-    this.courseListValue.forEach((item,i)=>{
-      if(i===checkData){
-        this.selectedEditCourse = item.courseId;
-        this.selectedEditCourseName  = item.courseName;
-        this.trainingClassList = item.CourseTrainingClassMaps;
-        this.selectedEditTrainingClass = this.trainingClassList[0].trainingClassId;
-        this.selectedEditTrainingClassName = this.trainingClassList[0].TrainingClass.trainingClassName;
-      }
-    })
-    this.getEditFileData(this.selectedEditTrainingClass, index);
+
+    if(this.courseListValue.length > 0){
+      this.courseListValue.forEach((item,i)=>{
+        if(i===checkData){
+          this.selectedEditCourse = item.courseId;
+          this.selectedEditCourseName  = item.courseName;
+          this.trainingClassList = item.CourseTrainingClassMaps;
+          this.selectedEditTrainingClass = this.trainingClassList[0].trainingClassId;
+          this.selectedEditTrainingClassName = this.trainingClassList[0].TrainingClass.trainingClassName;
+        }
+      });
+      this.getEditFileData(this.selectedEditTrainingClass, index);
+    }
+  
   }
 
   getEditFileData(classId, index){
@@ -235,8 +240,10 @@ export class CourseTabComponent implements OnInit {
                this.fileList.push(element);
           });
         }
+      }else{
+        this.fileList = []
       }
-    })
+    });
   }
 
   pageChanged(e){

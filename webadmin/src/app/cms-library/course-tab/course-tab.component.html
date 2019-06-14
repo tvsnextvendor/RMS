@@ -1,8 +1,12 @@
 <div class="col-md-12 clearfix py-2 px-0">
     <h6 class="count-alg">{{commonLabels.labels.availablecourse}}{{totalCourseCount}}</h6></div>
 <div  *ngFor="let courses of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCourseCount};let i = index">
-    <div id="coss" class="col-md-12 mb-3 clearfix px-0" *ngIf="!enableEdit || enableEdit && enableIndex !== i">
-        <!-- {{CMSFilterSearchEventSet}} -->
+
+    
+
+    <!-- *ngIf="!enableEdit || enableEdit && enableIndex !== i" -->
+    <div id="coss" class="col-md-12 mb-3 clearfix px-0" >
+      
         <div class="white-bg p-3 clearfix">
             <div class="clearfix">
                 <label class="square-cont float-left" *ngIf="checkBoxEnable">
@@ -109,6 +113,7 @@
 
 
 <!-- Edit -->
+<!-- {{enableEdit}} {{enableIndex}} {{i}} -->
 
     <div class="col-md-12 mb-3 clearfix px-0" *ngIf="enableEdit && enableIndex === i">
      	<div class="white-bg p-3 clearfix">
@@ -145,7 +150,7 @@
                         <div class="select_arrow"></div>
                     </div>
                 </div>
-                <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
+                <div class="col-md-12 pt-3" *ngIf="fileList" dnd-sortable-container [sortableData]="fileList">
                     <p *ngFor="let fileData of fileList;let i = index" [ngClass]="fileData.addNew ? 'course-list course-list-select' : 'course-list'"  dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="{{commonLabels.imgs.close}}"></a></p>
                 </div>
                 <div class="pt-3 clearfix">
