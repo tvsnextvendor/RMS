@@ -17,8 +17,8 @@
             <div class="quiz-box row p-4" *ngFor="let data of quizQuestionsForm;let i = index;">                   
                     <div class="col-md-11 p-0">
                         <div class="row form-group">
-                            <label class="col-md-4 p-0 label-title">{{commonLabels.labels.quizName}}</label>
-                            <div class="col-md-8 p-0">
+                            <label class="col-md-2 p-0 label-title">{{commonLabels.labels.quizName}}</label>
+                            <div class="col-md-10 pl-0">
                                 <span>
                                     <input type="text" class="form-control" placeholder="Enter Quiz Name" name="name" #quizname="ngModel"
                                         [(ngModel)]="quizName" required [disabled] = "data.enableEdit === false ? 'true' : false">
