@@ -47,6 +47,10 @@ export class CoursePage implements OnInit {
   notificationCount;
   showSearchBar: boolean = false;
   search;
+  signRequireCount;
+  signRequireList;
+  uploadPath;
+  
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
@@ -104,6 +108,14 @@ export class CoursePage implements OnInit {
     this.navCtrl.setRoot('training-page',this.paramsData);
   }
 
+  openSignRequireDetail(Files){
+    let data = {
+      'files' : Files,
+      'uploadPath' : this.uploadPath
+    }
+    this.navCtrl.setRoot('signrequire-page', data);
+  }
+
   //getcourse 
   async getCoursesList(){
     this.loader.showLoader();
@@ -129,7 +141,25 @@ export class CoursePage implements OnInit {
         resolve('rejected');
       });
     });
-   
+  }
+
+  getSignRequired(){
+    this.showAssigned = true;
+    this.showProgress = true;
+    this.showCompleted = true;
+    this.showSignRequire = false;
+    let userId =  this.currentUser.userId;
+    let resortId = this.currentUser.ResortUserMappings[0].resortId
+    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId +'&resortId='+resortId).subscribe(res=>{
+    if(res['data']['rows']){
+      this.signRequireList =res['data']['rows'];
+      this.signRequireCount = res['data']['count'];
+      this.uploadPath = res['data']['uploadPath']['uploadPath'];
+    }else{
+      this.signRequireCount = 0;
+      this.noRecordsFoundMessage = res['message'];
+    }
+    })
   }
 
    toggleSearchBox() {
@@ -213,13 +243,6 @@ export class CoursePage implements OnInit {
         this.showCompleted = false;
         this.showSignRequire = true;
         break;
-      case 'signRequired':
-        this.showAssigned = true;
-        this.showProgress = true;
-        this.showCompleted = true;
-        this.showSignRequire = false;
-        break;
-
       default:
         this.showAssigned = false;
         this.showProgress = true;

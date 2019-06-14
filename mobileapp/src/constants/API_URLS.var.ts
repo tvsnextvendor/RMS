@@ -42,6 +42,7 @@ export class API_URL {
        'completeTrainingClass':'8103/updateTrainingClassCompletedStatus',
        'postFeedBack':'8103/courseFeedback',
        'checkClassCompleted':'8103/checkFeedbackRated',
+       'signRequired':'8103/getNotification',
 
         //User & Settings
        'getProfile' : '8101/user/List',

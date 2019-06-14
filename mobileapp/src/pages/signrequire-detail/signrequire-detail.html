@@ -1,0 +1,63 @@
+<ion-content padding class="page-training-detail">
+  <ion-header no-border>
+    <ion-toolbar transparent class="details-page-toolbar title-type2" (click)="goBack()">
+      <span class="back-arrow">
+        <img src="assets/imgs/Back.png" />
+      </span>
+      <ion-title class="text-left ">
+        <span class="inner-title">{{Files.fileName}}</span>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="inner-content">
+    <div class="training-det">
+      <div class="image-tag" *ngIf="imageType">
+        <img src="{{showPreView}}" alt="image" class="inner-image">
+      </div>
+
+      <div class="video-tag" *ngIf="!imageType">
+        <video #videoTag id="video-width" autoplay 
+          class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" playsinline
+          class="videoPlayer" poster="{{uploadPath}}{{Files.fileImage}}">
+          <source src="{{showPreView}}" type="video/mp4" />
+        </video>
+      </div>
+        <ion-card-title>
+          <ion-grid no-padding class="">
+
+            <ion-row>
+              <ion-col col-8>
+                <h6>{{Files.fileName}} </h6>
+              </ion-col>
+              <ion-col col-4>
+                <span class="view-button" *ngIf="imageType">
+                  <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
+                    (click)="viewContent(filePath)">View Content </a>
+                </span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+        <div *ngIf="Files.fileDescription" class="quiz-text">
+          <div *ngIf="Files.fileDescription.length <= 400">{{Files.fileDescription}}</div>
+          <div *ngIf="truncating && Files.fileDescription.length > 400">
+            {{Files.fileDescription | words : limit}}
+            <a href="javascript:void(0);" (click)="truncating = false">
+              {{constant.pages.trainingLabels.readMore}}</a>
+          </div>
+          <div *ngIf="!truncating && Files.fileDescription.length > 400">
+            {{Files.fileDescription}}
+            <a href="javascript:void(0);" (click)="truncating = true">
+              {{constant.pages.trainingLabels.readLess}}
+            </a> </div>
+        </div>
+        </div>
+        </div>
+        
+</ion-content>
+<div class="fixed-btn">
+  <button ion-button round class="add-question common-btn" (click)="goBack()">
+    Back
+  </button>
+</div>

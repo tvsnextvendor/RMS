@@ -62,7 +62,7 @@
                     <div class="quiz-content" *ngIf="selectedQuizContent && selectedQuizContent.questionName">
                         <div class="quiz-content-text">
                             <p class="setpCount">{{quizStep+1}}/{{quizData.length}}</p>
-                            <h5 class="selectedQuizContentTitle">{{selectedQuizContent.Question.questionName}}</h5>
+                            <h5 class="selectedQuizContentTitle">{{selectedQuizContent.questionName}}</h5>
                         </div>
                         <div class="quiz-content-options" *ngIf="selectedQuizContent.options && selectedQuizContent.options.length">
                             <span *ngFor="let quizOption of selectedQuizContent.options" class="quizOption">
