@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,EventEmitter,Output,Input} from '@angular/core';
 import { RolePermissionVar } from '../Constants/rolepermission.var';
 import { CommonService } from '../services/restservices/common.service';
 import { RolePermissionService } from '../services/restservices/rolepermission.service';
@@ -15,7 +15,11 @@ import { CommonLabels } from '../Constants/common-labels.var';
 })
 export class RolepermissionComponent implements OnInit {
   resortId;
-  
+  rolesPermissions;
+  //userIdInfo;
+  //@Output() userIdInfo =  new EventEmitter();
+  @Input() userIdInfo;
+
 
   constructor(public constant: RolePermissionVar, private alertService: AlertService, private headerService: HeaderService, private commonService: CommonService, private utilService: UtilService, private rolePermissionService: RolePermissionService,public commonLabels : CommonLabels) {
   }
@@ -32,6 +36,41 @@ export class RolepermissionComponent implements OnInit {
     this.getDropDownDetails('','');
     this.constant.resortList = [];
     this.getresortDetails();
+    if(this.userIdInfo){
+      this.getData();
+    }else{
+      this.constant.modules.forEach(item=>{
+        item.view = false;
+        item.upload = false;
+        item.edit = false;
+      });
+        this.rolesPermissions= [];
+    }
+  }
+  getData(){
+      this.rolePermissionService.getRolePermissions(this.userIdInfo).subscribe((result)=>{
+        if(result && result.isSuccess){
+            this.rolesPermissions=result.data && result.data.rows;
+            this.constant.modules = result.data.rows[0].userPermission;
+        }else{
+          this.constant.modules.forEach(item=>{
+            item.view = false;
+            item.upload = false;
+            item.edit = false;
+          });
+            this.rolesPermissions= [];
+        }
+        this.constant.selectAllView = this.constant.modules.every(function (item: any) {
+          return item.view == true;
+        });
+        this.constant.selectAllUpload = this.constant.modules.every(function (item: any) {
+          return item.upload == true;
+        });
+        this.constant.selectAllEdit = this.constant.modules.every(function (item: any) {
+          return item.edit == true;
+        });
+        console.log(this.rolesPermissions);
+     });
   }
   getresortDetails(){
     let data = this.utilService.getUserData();
@@ -175,7 +214,6 @@ export class RolepermissionComponent implements OnInit {
           this.clearForm(form);
         }
       },(err) => {
-        console.log(err);
         this.alertService.error(err.error.error);
         }
         )
