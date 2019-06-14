@@ -33,7 +33,7 @@
     <span class="tab-item" (click)="showData('inProgress')" [ngClass]="!showProgress ? 'inprogress' : ''">
       {{constant.pages.trainingLabels.progressLabel}}
     </span>
-    <span class="tab-item" (click)="showData('signRequired')" [ngClass]="!showSignRequire ? 'signRequire' : ''">
+    <span class="tab-item" (click)="getSignRequired()" [ngClass]="!showSignRequire ? 'signRequire' : ''">
       {{constant.pages.trainingLabels.signRequired}}
     </span>
     <span class="tab-item" (click)="showData('completed')" [ngClass]="!showCompleted ? 'complete' : ''">
@@ -125,27 +125,25 @@
       </ion-row>
   </div>
   <div class="tab-content" [hidden]="showSignRequire">
-    <ion-row *ngIf="assignedCount > 0">
-      <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
+    <ion-row *ngIf="signRequireCount > 0">
+      <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of signRequireList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
-            <ion-row (click)="openTrainingClass(task.Course.courseId)">
+            <ion-row (click)="openSignRequireDetail(task.File)">
               <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
               <ion-col col-4 col-sm-5 col-md-6 class="course-det">
-                <h4 class="notify-title" (click)="openTrainingClass()"> {{task.Course.courseName}}</h4>
-                <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
-                  {{constant.pages.trainingLabels.trainingClass}}</p>
+                <h4 class="notify-title" (click)="openSignRequireDetail(task.File)"> {{task.File.fileName}}</h4>
               </ion-col>
               <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
-                <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
-                  <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM yyyy'}}</span>
+                <div class="align-right" *ngIf="task.dueDate">
+                  <span class="hour-status batch-date">Due On - {{task.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="org-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
-                  {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
+                  {{calculateExpireDays(task.dueDate)}}</p>
                 </div>
               </ion-col>
-              <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openTrainingClass()">
+              <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openSignRequireDetail(task.File)">
                 <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
               </ion-col>
             </ion-row>
@@ -153,9 +151,7 @@
         </ion-card>
       </ion-col>
     </ion-row>
-
-
-    <ion-row *ngIf="assignedCount == 0">
+    <ion-row *ngIf="signRequireCount == 0">
         <ion-col class="main-forum">
           <ion-card class="forum-card">
             <ion-grid>
