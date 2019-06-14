@@ -4,6 +4,9 @@
     font-weight: 600;
     height: 190px;
 }
+.quiz-para, .course-para{
+    height: 205px;
+}
 .start-btn{
     width: 50%;
     float: none;

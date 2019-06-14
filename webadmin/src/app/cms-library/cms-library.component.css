@@ -1,7 +1,7 @@
 .sticky {
     position: sticky;
     top: 0;
-    height: calc(100vh - 75px);
+    height: calc(100vh + 75px);
 }
 .pb-10{
   padding-bottom: 15px;
