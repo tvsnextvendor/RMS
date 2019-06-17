@@ -37,6 +37,7 @@ export class CertificatesComponent implements OnInit {
     htmlView;
     assignTo="";
     assignToClicked = false;
+    orginArray;
 
 
     constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService,private breadCrumbService : BreadCrumbService) {
@@ -80,7 +81,8 @@ export class CertificatesComponent implements OnInit {
                         assignTo : item.courseId ? 'course' : 'tranClass' 
                     }
                     return obj;
-                })
+                });
+                this.orginArray = this.constant.templateAssign;
             }
         })
     }
@@ -279,10 +281,15 @@ export class CertificatesComponent implements OnInit {
     //dynamic add form
     addForm() {
         let checkEmpty = {};
+
+        console.log( this.constant.templateAssign.length);
         checkEmpty = this.constant.templateAssign.length ? this.constant.templateAssign.find(x=>{ return x.course == null}) : {};
-        if(checkEmpty){
-            this.alertService.error(this.commonLabels.mandatoryLabels.selectCourse)
-        }else if(this.assignTo == ""){
+
+        console.log(checkEmpty);
+        // if(!checkEmpty){
+        //     this.alertService.error(this.commonLabels.mandatoryLabels.selectCourse)
+        // }else 
+        if(this.assignTo == ""){
             this.alertService.error(this.commonLabels.mandatoryLabels.selectAssignTo);
         }else{
             let obj = {
@@ -293,8 +300,29 @@ export class CertificatesComponent implements OnInit {
         }
     }
 
-    changeAssigning() {
-        this.assignToClicked = true;
+    changeAssigning() 
+    {
+        this.constant.templateAssign = this.orginArray;
+        let tempArray = [];
+        if(this.assignTo == 'course')
+        {
+            tempArray = this.constant.templateAssign.filter(x => x.assignTo != 'tranClass')
+        }
+        else if(this.assignTo == 'tranClass')
+        {
+            tempArray = this.constant.templateAssign.filter(x => x.assignTo != 'course')
+        }else{
+            this.constant.templateAssign=[];	
+        }
+        this.constant.templateAssign=[];
+        this.constant.templateAssign =tempArray;
+       
+       this.assignToClicked = true;
+          let obj = {	
+                course: null,	
+                template: null	
+            };	
+        this.constant.templateAssign.push(obj);
     }
 
     checkCourse(id){
@@ -319,20 +347,16 @@ export class CertificatesComponent implements OnInit {
         if (checkEmpty.length) {
             this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory);
         } else {
-            console.log(this.constant.templateAssign, 'template assign');
+          
             const data = this.constant.templateAssign.map(item => {
                 let obj = {
                     certificateId : item.template,
                     certificateMappingId : ''
                 };
-                if (this.assignTo === 'course' ?  item.assignTo === 'course' : item.assignTo === 'course') {
-                     obj['courseId'] = item.course;
-                     obj['trainingClassId'] = null;
-                } else if (this.assignTo === 'tranClass' ?  item.assignTo === 'tranClass' : item.assignTo === 'tranClass') {
+                if(this.assignTo == 'course'){
+                    obj['courseId'] = item.course;
+                }else{
                     obj['trainingClassId'] = item.course;
-                    obj['courseId'] = null;
-                } else {
-                    obj = obj;
                 }
                 item.mappingId ? obj.certificateMappingId = item.mappingId : delete obj.certificateMappingId;
                 return obj;
