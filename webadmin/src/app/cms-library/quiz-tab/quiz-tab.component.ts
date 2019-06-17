@@ -97,18 +97,15 @@ export class QuizTabComponent implements OnInit {
   editQuizDetails() {
     let QuizList;
     this.courseService.getTrainingClassQuiz(this.trainingClassId, this.courseId).subscribe((resp) => {
-      // this.http.get('5cb1afec330000a81e5720af').subscribe((resp) => {
-      console.log(resp)
       if (resp && resp.isSuccess) {
         this.courseName = resp.data && resp.data.length && resp.data[0].QuizMappings[0].Course && resp.data[0].QuizMappings[0].Course.courseName;
         this.trainingClassName = resp.data && resp.data.length && resp.data[0].QuizMappings[0].TrainingClass && resp.data[0].QuizMappings[0].TrainingClass.trainingClassName;
         let responseList = resp.data && resp.data.length && resp.data[0].QuizMappings;
-        this.quizName= resp.data && resp.data[0].quizName;
-        QuizList = responseList.map(item => {
+        this.quizName= resp.data  && resp.data.length && resp.data[0].quizName;
+        QuizList = responseList && responseList.map(item => {
           item.enableEdit = false;
           return item;
         })
-
         this.quizQuestionsForm = QuizList && QuizList.length ? QuizList : [];
         this.weightage = QuizList && QuizList ? (100 / QuizList.length).toFixed(2) : 100;
       }
