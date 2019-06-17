@@ -24,6 +24,7 @@ export class CommonLabels{
         "deleteCourse"      :   "Delete Course",
         "deleteDocConfirmation": "Are you sure you want to delete this document?",
         "upload"            :   "Upload",
+        "uploadQuiz"        :   "Upload Quiz",
         "cancel"            :   "Cancel",
         "cmsLibrary"        :   "CMS Library",
         "course"            :   "Course",
