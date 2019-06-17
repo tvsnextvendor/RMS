@@ -22,7 +22,7 @@
 							</span>
 						</div>
 					</div>
-					<div *ngFor="let data of quizQuestionsForm;let i = index;" class="quiz-border">
+					<div *ngFor="let data of quizQuestionsForm;let i = index;" [ngClass]="(borderUpdate && i != 0) ? 'quiz-border' : ''">
 						<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i,data)">
 							<img src="{{commonLabels.imgs.close1}}" class="close-alg">
 							<img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>

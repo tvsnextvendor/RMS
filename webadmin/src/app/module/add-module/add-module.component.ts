@@ -98,7 +98,7 @@ export class AddModuleComponent implements OnInit {
 
    ngDoCheck(){
     if(this.duplicateCourse){
-        let data = [{title:this.commonLabels.labels.duplicate, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}];
+        let data = [{title:this.commonLabels.labels.duplicate, url:'/cms-library'},{title:this.commonLabels.labels.duplicateCourse, url:''}];
         this.breadCrumbService.setTitle(data);   
     }
     else if(this.selectedTab == 'course' ){
