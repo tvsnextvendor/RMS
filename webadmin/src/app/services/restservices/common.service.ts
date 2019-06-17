@@ -160,5 +160,9 @@ getResortForFeedback(resortId) {
   return this.http.getLocal('local', this.url.resortList + '?parentId=' + resortId);
 }
 
+saveAsNew(courseId, data) {
+  return this.http.post('local', this.url.saveAsNewVersion + '/' + courseId, data);
+}
+
 
 }
