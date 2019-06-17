@@ -361,6 +361,9 @@ export class AddNotificationComponent implements OnInit {
                 this.router.navigate(['/cms-library'],{queryParams : {type:"edit",tab:"notification"}});
                 this.alertService.success(resp.message);
               }
+            },err=>{
+              this.alertService.error(err.error.error);
+              console.log(err.error.error)
             })
           }
         }
@@ -380,6 +383,9 @@ export class AddNotificationComponent implements OnInit {
                 this.router.navigate(['/cms-library'],{queryParams : {type:"edit",tab:"notification"}});
                 this.alertService.success(resp.message);
               }
+            },err=>{
+              console.log(err.error.error);
+              this.alertService.error(err.error.error);
             })
           }
         }

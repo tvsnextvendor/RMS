@@ -39,6 +39,7 @@ export class CreateQuizComponent implements OnInit {
   modalRef;
   removedQuizIds = [];
   quizName;
+  borderUpdate = false;
 
   constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
     public commonLabels:CommonLabels,public location : Location,private breadCrumbService : BreadCrumbService) {
@@ -123,6 +124,7 @@ export class CreateQuizComponent implements OnInit {
   // Add Question Box
   addQuestionForm() {
     let obj;
+    this.borderUpdate = true;
       obj = {
         "questionName": "",
         "questionType": "MCQ",
@@ -150,6 +152,7 @@ export class CreateQuizComponent implements OnInit {
     else{
       this.alertService.warn(this.commonLabels.mandatoryLabels.minimumQuiz);
     }
+    this.quizQuestionsForm.length == 1 ? this.borderUpdate = false : this.borderUpdate = true;
   }
 
   valueChanged(resp,submitCheck,update){
