@@ -152,7 +152,7 @@ export class CourseTabComponent implements OnInit {
     //   this.getCourseId(index);
     // //  this.getIndividualCourse(index);
     // }
-      if(type === "closeDuplicate"){
+    if(type === "closeDuplicate"){
       this.enableView = true;
       this.enableEdit = false;
       this.enableDuplicate = false;
