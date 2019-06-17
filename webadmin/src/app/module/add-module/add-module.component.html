@@ -1,6 +1,7 @@
 <div class="clearfix" *ngIf="selectedTab == 'course'">
-		<h4 class="add-course" *ngIf="!moduleId">Create Course</h4>
-		<h4 class="add-course" *ngIf="moduleId">Edit Course</h4>
+	<h4 class="add-course" *ngIf="!moduleId && !duplicateCourse">Create Course</h4>
+	<h4 class="add-course" *ngIf="moduleId && !duplicateCourse">Edit Course</h4>
+	<h4 class="add-course" *ngIf="duplicateCourse">Duplicate Course</h4>
 </div>
 <div class="row pt-3" *ngIf="selectedTab == 'course'">
 	<form class="col-md-8 pl-0" (ngSubmit) = "openEditModal(confirm,'batch')" #moduleForm = "ngForm">

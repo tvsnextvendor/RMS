@@ -164,5 +164,18 @@ saveAsNew(courseId, data) {
   return this.http.post('local', this.url.saveAsNewVersion + '/' + courseId, data);
 }
 
+getArchieve(query){
+  return this.http.getLocal('local', this.url.archievedSettings + query);
+}
+
+addArchieve(params){
+  return this.http.post('local', this.url.archievedSettings, params);
+}
+updateArchieve(archieveId,params){
+  return this.http.put('local', this.url.archievedSettings+'/'+ archieveId, params);
+}
+removeArchieve(archieveId){
+  return this.http.delete('local', this.url.archievedSettings+'/'+ archieveId);
+}
 
 }

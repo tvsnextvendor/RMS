@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { AuthGuard } from '../guard/auth.guard.component';
@@ -13,7 +14,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   declarations: [
     ArchivalSettingComponent,
