@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderService,BreadCrumbService } from '../services';
+import { HeaderService, BreadCrumbService } from '../services';
 import { CommonLabels } from '../Constants/common-labels.var'
 
 @Component({
@@ -9,11 +9,11 @@ import { CommonLabels } from '../Constants/common-labels.var'
 })
 export class ArchivalSettingComponent implements OnInit {
 
-  constructor(private headerService:HeaderService,public commonLabels : CommonLabels,private breadCrumbService :BreadCrumbService) { }
+  constructor(private headerService: HeaderService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService) { }
 
   ngOnInit() {
-    this.headerService.setTitle({title:'Archival Setting', hidemodule:false});
-      this.breadCrumbService.setTitle([])
+    this.headerService.setTitle({ title: 'Archival Setting', hidemodule: false });
+    this.breadCrumbService.setTitle([])
   }
 
 }
