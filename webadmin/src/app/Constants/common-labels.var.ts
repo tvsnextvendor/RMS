@@ -340,8 +340,11 @@ export class CommonLabels{
         "availabletrainingclass" : "Available Training Class:",
         "avaliablevideos"   :    "Avaliable Videos:",
         "avaliabledocument" :    "Available Document:",
-        "addDepartment"     :   "Add Department"
-       
+        "addDepartment"     :   "Add Department",
+        "addArchieve"       :   "Add Archieve Settings",
+        "updateArchieve"    :   "Update Archieve Settings",
+        "deleteConfirm"     :   "Delete Confirmation",
+        "archieveDelete"    :   "Are you sure you want to delete this archieve?"
       
     };
 

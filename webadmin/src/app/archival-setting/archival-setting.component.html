@@ -12,8 +12,11 @@
     <div class="tab-content col-md-12 p-0">
         <div class="tab-pane active col-md-12 pt-2 p-0" id="employee">
             <div class="col-sm-12 pb-3 p-0 float-right">
-              <button type = "button" class="btn btn-primary" ><i class="fa fa-plus pr-2"></i> {{commonLabels.btns.addNew}}</button>
-              <button type = "button" class="btn btn-primary mr-2" > {{commonLabels.labels.resort}} <i class="fas fa-chevron-down ml-3"></i></button>
+              <button type = "button" class="btn btn-primary" (click)="openEditModal(addArchieve,'','')"><i class="fa fa-plus pr-2"></i> {{commonLabels.btns.addNew}}</button>
+                <form><select id="resort" class="col-md-2 form-control pull-right" name="resortId" [(ngModel)]="selectedResortList" (change)="getArchieveDetails()"> 
+                  <option value="null">{{commonLabels.labels.resort}}</option>
+                  <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName}}</option>
+                </select></form>
             </div>
             <div class="table-responsive white-bg ">
                     <table class="table table-striped" >
@@ -32,28 +35,91 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr class="table-desc-color">
-                                    <td class="text-left">Resort 1</td>
-                                    <td class="text-left">60 Days</td>
-                                    <td class="text-left">120 Days</td>
+                                <tr class="table-desc-color" *ngFor = 'let archieve of archieveList'>
+                                    <td class="text-left">{{archieve?.Resort?.resortName}}</td>
+                                    <td class="text-left">{{archieve?.archievedDays}}</td>
+                                    <td class="text-left">{{archieve?.deletedDays}}</td>
                                     <td class="text-center">
-                                          <a><i class="fas fa-pencil-alt header-icon" aria-hidden="true"></i></a>
-                                          <a><i class="fa fa-trash header-icon"></i></a> 
+                                          <a (click)="openEditModal(addArchieve,archieve.archievedId,'')"><i class="fas fa-pencil-alt header-icon" aria-hidden="true"></i></a>
+                                          <a (click)="openEditModal(confirm,'',archieve.archievedId)"><i class="fa fa-trash header-icon"></i></a> 
                                       </td> 
                                 </tr>
-                                <tr class="table-desc-color">
-                                    <td class="text-left">Resort 1</td>
-                                    <td class="text-left">60 Days</td>
-                                    <td class="text-left">120 Days</td>
-                                    <td class="text-center">
-                                          <a><i class="fas fa-pencil-alt header-icon" aria-hidden="true"></i></a>
-                                          <a><i class="fa fa-trash header-icon"></i></a> 
-                                      </td> 
-                                </tr>
-                            
                             </tbody>
                         </table>
                   </div>
         </div>
     </div>
 </div>
+<div class="white-bg text-center p-4" *ngIf="!archieveList.length" >
+<p class="data-design m-0">
+    <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
+</p>
+</div>
+
+<ng-template #addArchieve>  
+    <div class="modal-header"> 
+        <h4 class="modal-title pull-left">{{commonLabels.labels.addArchieve}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closePopup()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.resort}}</label>
+            <span class="col-md-9 pl-0">
+                <form>
+                    <select id="resort" class="form-control" name="resortId" [(ngModel)]="selectedResort"> 
+                        <option disabled  value="null">{{commonLabels.labels.resort}}</option>
+                        <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName}}</option>
+                    </select>
+                </form>
+            </span>
+            <span class="required_color mt-0" >
+            
+            </span>
+        </div>
+        <div>
+            <label class="col-md-4 p-0 label-title mb-0">{{commonLabels.labels.archiveData}}</label>
+            <span class="col-md-9 pl-0">
+                <input type="number" class="form-control" placeholder="Enter Time for Archieve Data"  name="archieveTime" [(ngModel)]="archieveTime" required>
+            </span>
+            <span class="required_color mt-0" >
+            
+            </span>
+        </div>
+        <div>
+            <label class="col-md-4 p-0 label-title mb-0">{{commonLabels.labels.delData}}</label>
+            <span class="col-md-9 pl-0">
+                <input type="number" class="form-control" placeholder="Enter Time for Delete Data"  name="deleteTime" [(ngModel)]="deleteTime" required>
+            </span>
+            <span class="required_color mt-0" >
+            
+            </span>
+        </div>
+    <div>
+    </div>
+    <div class="text-center col-md-12 p-4 button-section">
+        <button type="button" class="btn btn-default" (click)="closePopup()">{{commonLabels.btns.cancel}}</button>  
+        <button type="button" class="btn btn-primary"  (click)="submitForm()">{{archievedId ? commonLabels.btns.update : commonLabels.btns.save}}</button>             
+    </div> 
+</div>
+</ng-template>
+
+<ng-template #confirm>  
+		<div class="modal-header"> 
+			<h4 class="modal-title pull-left">{{commonLabels.labels.deleteConfirm}}</h4>
+			<button type="button" class="close pull-right" aria-label="Close" (click)="closePopup()">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+		<div>
+			<p class="text-center">{{commonLabels.labels.archieveDelete}}</p>
+		</div>
+		<div class="text-center col-md-12 p-4 button-section">
+			<button type="button" class="btn btn-default mr-2" (click)="closePopup()">{{commonLabels.btns.no}}</button>  
+			<button type="button" class="btn btn-primary"  (click)="removeArchival()">{{commonLabels.btns.yes}}</button>
+						
+		</div> 
+	</div>
+</ng-template>

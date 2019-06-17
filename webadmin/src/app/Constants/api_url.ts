@@ -190,6 +190,9 @@ export class API_URL {
     getCourseEmployeeList : '8103/courseEmployeestatusList',
     topFiveResort : '8103/getTopFiveResorts',
     badgesData: '8103/getBadges',
+    archievedSettings : '8103/archieved',
+    // addArchieve : '8103/archieved',
+    // updateArchieve : '8103/archieved/',
 
     //password update
     forgetPassword : '8101/forgetPassword',

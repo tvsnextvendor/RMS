@@ -94,6 +94,10 @@ export class AddModuleComponent implements OnInit {
      }, 2000);   
     this.moduleVar.tabKey = 1;
     this.courseData('');
+    if(this.duplicateCourse)
+    {
+        this.headerService.setTitle({title:'Duplicate', hidemodule:false});  
+    }   
    }
 
    ngDoCheck(){
