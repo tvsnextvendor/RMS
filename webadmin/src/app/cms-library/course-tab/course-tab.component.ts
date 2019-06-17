@@ -123,7 +123,7 @@ export class CourseTabComponent implements OnInit {
     this.deletedFileId  = [];
     let userId = this.utilService.getUserData().userId;
     // let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none&createdBy='+userId;
-    let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none';
+    let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none' ;
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
       this.CMSFilterSearchEventSet = '';
       if(resp && resp.isSuccess){
@@ -407,6 +407,18 @@ export class CourseTabComponent implements OnInit {
       }
   }
 
+  saveAsNew() {
+    let params = {
+      'trainingClassId' : this.selectedEditTrainingClass,
+      'courseName' : this.selectedEditCourseName,
+      'fileIds' : this.deletedFileId,
+      'files' : this.fileList,
+      'createdBy': this.utilService.getUserData().userId
+    };
+    this.commonService.saveAsNew(this.selectedEditCourse, params).subscribe(result => {
+      console.log(result, 'result');
+    });
+  }
   removeCourse(){
     this.courseService.deleteCourse(this.selectedCourseId).subscribe(res=>{
       if(res.isSuccess){

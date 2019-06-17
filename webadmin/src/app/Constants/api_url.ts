@@ -124,6 +124,7 @@ export class API_URL {
     updateScheduleTraining : '8103/updateScheduleTraining/',
     setPermissions : '8103/trainingClass/filePermissionAdd',
     getCourseById : '8103/course/getIndividualCourses',
+    saveAsNewVersion : '8103/course/saveAsNewVersion',
 
     //Resort Services
     resortAdd : '8102/resort/Add',
@@ -192,7 +193,7 @@ export class API_URL {
 
     //password update
     forgetPassword : '8101/forgetPassword',
-    resetPassword  : '8101/resetpassword' 
+    resetPassword  : '8101/resetpassword'
   }
   
 
