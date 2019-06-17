@@ -1,4 +1,4 @@
-import { Component,Input,Output, EventEmitter, OnInit,ViewChild,ElementRef,TemplateRef} from '@angular/core';
+import { Component,Input,Output, EventEmitter,OnInit,ViewChild,ElementRef,TemplateRef} from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute,Params } from '@angular/router';
 import { HttpService,HeaderService,UtilService,AlertService,CommonService, CourseService,BreadCrumbService } from '../../services';
@@ -22,11 +22,16 @@ quizList;
 selectedQuizList=[];
 
    constructor(private breadCrumbService : BreadCrumbService,private quizService: QuizService,private modalService: BsModalService,private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
-     
-   }
+   
+     let title = [{title : this.commonLabels.labels.quiz,url:'/uploadQuiz'},{title : this.commonLabels.labels.uploadQuiz,url:''}]
+      this.breadCrumbService.setTitle(title)
+
+     }
+   
 
    ngOnInit(){
        this.getQuizList();
+       this.headerService.setTitle({title:this.commonLabels.labels.quiz, hidemodule:false});
    }
    
      getQuizList(){

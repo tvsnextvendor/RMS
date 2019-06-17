@@ -151,6 +151,7 @@ export class AddModuleComponent implements OnInit {
                     }
                     return obj;
                 });
+                this.selectedQuiz = data.CourseTrainingClassMaps[0].TrainingClass.QuizMappings[0].quizId;
                 // this.selectedQuiz = data && data.CourseTrainingClassMaps
                 if(dataId !== ''){
                     let checkId = this.moduleVar.selectedCourseIds.find(x=>x===dataId);
@@ -628,9 +629,8 @@ export class AddModuleComponent implements OnInit {
                     if(resp && resp.isSuccess){
                         this.modalRef &&  this.modalRef.hide();
                         if(this.moduleId){
-                            this.route.navigateByUrl("/workinprogress"); 
+                            this.route.navigate(['/cms-library'],{queryParams:{type : 'edit',tab : 'course'}})
                             this.moduleId = '';
-                            
                         }
                         else{
                             if(courseSubmitType) {

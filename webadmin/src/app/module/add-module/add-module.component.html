@@ -1,17 +1,7 @@
-<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-   <!-- <div>   
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a routerLink="/cms-library" class="cms-breadcrumb">{{commonLabels.labels.cmsLibrary}}</a></li>
-				<li class="breadcrumb-item active" *ngIf="!moduleId">{{commonLabels.labels.createCourse}}</li>
-				<li class="breadcrumb-item active" *ngIf="moduleId">Edit Course</li>
-			</ol>
-		</nav>
-	</div> -->
-	<div class="clearfix" *ngIf="selectedTab == 'course'">
+<div class="clearfix" *ngIf="selectedTab == 'course'">
 		<h4 class="add-course" *ngIf="!moduleId">Create Course</h4>
 		<h4 class="add-course" *ngIf="moduleId">Edit Course</h4>
-	</div>
+</div>
 <div class="row pt-3" *ngIf="selectedTab == 'course'">
 	<form class="col-md-8 pl-0" (ngSubmit) = "openEditModal(confirm,'batch')" #moduleForm = "ngForm">
 		<div class="white-bg p-4">
