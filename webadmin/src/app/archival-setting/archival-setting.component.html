@@ -13,7 +13,7 @@
         <div class="tab-pane active col-md-12 pt-2 p-0" id="employee">
             <div class="col-sm-12 pb-3 p-0 float-right">
               <button type = "button" class="btn btn-primary" (click)="openEditModal(addArchieve,'','')"><i class="fa fa-plus pr-2"></i> {{commonLabels.btns.addNew}}</button>
-                <form><select id="resort" class="col-md-2 form-control pull-right" name="resortId" [(ngModel)]="selectedResortList" (change)="getArchieveDetails()"> 
+                <form><select id="resort" class="col-md-2 form-control pull-right mr-3" name="resortId" [(ngModel)]="selectedResortList" (change)="getArchieveDetails()"> 
                   <option value="null">{{commonLabels.labels.resort}}</option>
                   <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName}}</option>
                 </select></form>
@@ -99,8 +99,8 @@
     <div>
     </div>
     <div class="text-center col-md-12 p-4 button-section">
-        <button type="button" class="btn btn-default" (click)="closePopup()">{{commonLabels.btns.cancel}}</button>  
-        <button type="button" class="btn btn-primary"  (click)="submitForm()">{{archievedId ? commonLabels.btns.update : commonLabels.btns.save}}</button>             
+        <button type="button" class="btn btn-primary creat-btn mr-3"  (click)="submitForm()">{{archievedId ? commonLabels.btns.update : commonLabels.btns.save}}</button>
+        <button type="button" class="btn btn-default" (click)="closePopup()">{{commonLabels.btns.cancel}}</button>                      
     </div> 
 </div>
 </ng-template>
@@ -117,9 +117,8 @@
 			<p class="text-center">{{commonLabels.labels.archieveDelete}}</p>
 		</div>
 		<div class="text-center col-md-12 p-4 button-section">
-			<button type="button" class="btn btn-default mr-2" (click)="closePopup()">{{commonLabels.btns.no}}</button>  
-			<button type="button" class="btn btn-primary"  (click)="removeArchival()">{{commonLabels.btns.yes}}</button>
-						
+            <button type="button" class="btn btn-primary creat-btn mr-3"  (click)="removeArchival()">{{commonLabels.btns.yes}}</button>
+			<button type="button" class="btn btn-default" (click)="closePopup()">{{commonLabels.btns.no}}</button>						
 		</div> 
 	</div>
 </ng-template>
