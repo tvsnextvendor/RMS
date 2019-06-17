@@ -177,8 +177,8 @@ export class CreateQuizComponent implements OnInit {
      }
       this.courseService.addQuiz(postData).subscribe(res=>{
         if(res.isSuccess){
-          this.alertService.success(res.message);
           this.route.navigate(['/cmspage'],{queryParams : {type : 'create'}});
+          this.alertService.success(res.message);
         } 
       })
   }
