@@ -114,9 +114,6 @@ export class CourseTabComponent implements OnInit {
           this.completedCount = data && this.calculatePercent(empCount, data.completedCount);
         }
     });
-   
-  
-    
   }
 
   getCourseDetails(){
