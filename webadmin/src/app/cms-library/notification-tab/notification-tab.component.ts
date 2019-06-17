@@ -49,7 +49,6 @@ export class NotificationTabComponent implements OnInit {
   getNotificationData(){
     let query = this.roleId != 1 ? '?resortId='+this.resortId : '';
     this.courseService.getNotification(query).subscribe(resp=>{
-      console.log(resp)
       if(resp && resp.isSuccess){
         this.notifyListValue = resp.data.rows.length ? resp.data.rows :[];
         this.totalCount = resp.data.count;
@@ -103,4 +102,8 @@ export class NotificationTabComponent implements OnInit {
   goToNotifyEdit(id){
     this.router.navigate(['/cms-library'],{queryParams : {notifyId : id,type:"create",tab:"notification"}});
   }
+  pageChanged(e){
+    this.p = e;
+    this.getNotificationData();
+}
 }
