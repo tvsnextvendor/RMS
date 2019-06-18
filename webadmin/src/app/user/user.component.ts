@@ -251,10 +251,10 @@ export class UserComponent implements OnInit {
                     designationName : this.editRoleValue
                 }
                 checkData.push(this.editRoleValue)
-                // let designCheck = {designationName : checkData}
-                // this.userService.checkDuplicate('role',designCheck).subscribe(resp=>{
-                //     if(resp && resp.isSuccess){
-                //         this.duplicateError = '';
+                let designCheck = {designationName : checkData}
+                this.userService.checkDuplicate('role',designCheck).subscribe(resp=>{
+                    if(resp && resp.isSuccess){
+                        this.duplicateError = '';
                         this.userService.updateDesignation(this.roleId,params).subscribe(resp=>{
                             if(resp && resp.isSuccess){
                                 this.getDivisionList(resortId);
@@ -264,15 +264,15 @@ export class UserComponent implements OnInit {
                                 // this.roleComponent.getDropDownDetails('','');
                                 this.alertService.success(this.commonLabels.msgs.designation)
                             }
-                    //     },err =>{
-                    //         this.errorValidation = false;
-                    //         this.errorValidate = err.error.error;
-                    //         this.alertService.error(err.error.error);
-                    //     });
-                    // }
-                    // else{
-                    //     this.duplicateError = resp.message;
-                    // }
+                        },err =>{
+                            this.errorValidation = false;
+                            this.errorValidate = err.error.error;
+                            this.alertService.error(err.error.error);
+                        });
+                    }
+                    else{
+                        this.duplicateError = resp.message;
+                    }
                 })
             }
 
@@ -692,6 +692,7 @@ export class UserComponent implements OnInit {
         this.userService.deleteDesignation(this.roleId).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 let userData = this.utilService.getUserData();
+                this.roleId='';
                 let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
                 this.constant.modalRef.hide();
                 this.getDivisionList(resortId);
@@ -788,17 +789,32 @@ export class UserComponent implements OnInit {
         // this.getDivisionList(resortId);
     }
 
+    onEmpAllSelect(event, key) {
+        if (key == 'div') {
+            this.division = event;
+            if (!event.length) {
+                this.departmentArray = [];
+            }
+            else{
+                this.onEmpSelect('', 'div');
+            }
+        }
+    }
+
     onEmpSelect(event,key){
         this.selectedDivisionId =  this.division.length && this.division.map(item=>{return item.divisionId});
         this.selectedDepartmentId = this.department.length && this.department.map(item=>{return item.departmentId});
         this.selectedDesignationId = this.designation.length && this.designation.map(item=>{return item.designationId});
-        if(key == 'div'){
+        if(key == 'div' && this.selectedDivisionId.length){
             const obj={'divisionId': this.selectedDivisionId};
             this.commonService.getDepartmentList(obj).subscribe((result)=>{
             if(result.isSuccess){
                 this.departmentArray = result.data.rows;
                 }
             })
+        }
+        else{
+            this.departmentArray = [];
         }
     }
 

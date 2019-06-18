@@ -83,7 +83,7 @@
                                                     <span class="option-btn" *ngIf="oi===3">{{commonLabels.labels.d}}</span>
                                                     <input [disabled] = "data.enableEdit === false ? 'true' : false" type="text" class="form-control pdl27" placeholder="" [name]="optionValue.value" [(ngModel)]="optionValue.optionName" [ngModelOptions]="{ standalone : true }" required>
                                                 </span>
-                                                <input [disabled] = "data.enableEdit === false ? 'true' : false"  type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.answer" [ngModelOptions]="{ standalone : true }">
+                                                <input [disabled] = "data.enableEdit === false ? 'true' : false"  type="text" class="form-control" placeholder="Enter the Answer" [name]="data.answer" [(ngModel)]="data.Question.answer" [ngModelOptions]="{ standalone : true }">
                                             </div>
                                             <div class="pt-2" *ngIf="data.Question.questionType === 'True/False'">
                                                 <span class="col-sm-3 pl-0">

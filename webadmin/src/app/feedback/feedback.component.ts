@@ -19,6 +19,10 @@ export class FeedbackComponent implements OnInit {
   selectedResortApp = '';
   applicationData = [];
   resortId;
+  pageSize;
+  p;
+  appPageSize;
+  page;
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
     private commonService: CommonService,
@@ -32,6 +36,10 @@ export class FeedbackComponent implements OnInit {
   ngOnInit() {
     this.headerService.setTitle({ title: 'FeedBack', hidemodule: false });
     this.breadCrumbService.setTitle([]);
+    this.pageSize = 10;
+    this.p=1;
+    this.appPageSize=10;
+    this.page=1;
     this.commonService.getResortForFeedback(this.resortId).subscribe(result => {
       if (result && result.isSuccess) {
         this.resortData = result.data.rows;
@@ -88,5 +96,14 @@ export class FeedbackComponent implements OnInit {
     this.courseSelected = '';
     this.resortSelected = '';
     this.trainingClassSelected = '';
+  }
+
+  pageChanged(e){
+    this.p = e;
+    this.searchFilter();
+  }
+  pageUpdated(e){
+    this.page = e;
+    this.applicationList();
   }
 }

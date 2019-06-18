@@ -82,10 +82,8 @@ export class QuizTabComponent implements OnInit {
     this.filterTrainingClass = 'null';
     this.courseId = courseId;
     this.courseService.getTrainingclassesById(courseId).subscribe(result => {
-      console.log(result);
       if (result && result.isSuccess) {
         this.trainingClassList = result.data && result.data.length && result.data;
-        console.log(result);
       }
     })
   }
@@ -225,7 +223,6 @@ export class QuizTabComponent implements OnInit {
   deleteQuizQuestion() {
     this.courseService.deleteQuizList(this.deleteQueId).subscribe(resp => {
       if (resp && resp.isSuccess) {
-        console.log(resp)
         this.modalRef.hide();
         this.alertService.success(resp.message);
         this.editQuizDetails();

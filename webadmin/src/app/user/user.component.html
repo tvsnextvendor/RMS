@@ -33,7 +33,7 @@
                     <thead>
                         <tr class="th-boxshadow text-center">
                             <th>
-                                <mfDefaultSorter by="employeeId">{{commonLabels.labels.employeeId}}</mfDefaultSorter>
+                                <mfDefaultSorter by="employeeNo">{{commonLabels.labels.employeeId}}</mfDefaultSorter>
                             </th>
                             <th class="text-center">
                                 <mfDefaultSorter by="userName">{{commonLabels.labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
@@ -61,7 +61,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
-                            <td class="text-center"><label class="mb-0">{{ user.employeeId }}</label></td>
+                            <td class="text-center"><label class="mb-0">{{ user.employeeNo }}</label></td>
                             <td class="text-center"><label class="mb-0">{{ user.userName }}</label></td>
                             <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0" >{{ getDivisionArray(user.ResortUserMappings,'div') }}</label></span></td>
                             <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'dept')}}</label></span></td>
@@ -279,8 +279,8 @@
                     </span> -->
                     <div class="pl-0 form-group select-Courses mb-0">
                     <ng-multiselect-dropdown [placeholder]="'Division'" name="division" [data]="divisionArray"
-                        [(ngModel)]="division" [settings]="batchVar.divisionSettings" (onSelect)="onEmpSelect($event,'div')"
-                        (onDeSelect)="onDeselect($event,'div')" #divisionId="ngModel" required></ng-multiselect-dropdown>
+                        [(ngModel)]="division" [settings]="batchVar.divisionSettings" (onSelect)="onEmpSelect($event,'div')" (onSelectAll)="onEmpAllSelect($event,'div')" (onDeSelectAll)="onEmpAllSelect($event,'div')"
+                        (onDeSelect)="onEmpSelect($event,'div')" #divisionId="ngModel" required></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="userForm.submitted && !division.length">
                             {{commonLabels.mandatoryLabels.diviName}}
                         </span>
@@ -303,7 +303,7 @@
                     </span> -->
                     <div class="pl-0 form-group select-Courses mb-0">
                         <ng-multiselect-dropdown [placeholder]="'Department'" name="department" [data]="departmentArray"
-                        [(ngModel)]="department" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
+                        [(ngModel)]="department" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')" (onSelectAll)="onEmpAllSelect($event,'dept')" (onDeSelectAll)="onEmpAllSelect($event,'dept')"
                         (onDeSelect)="onDeselect($event,'dept')" #departmentId="ngModel" required></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="userForm.submitted && !department.length">
                             {{commonLabels.mandatoryLabels.deptName}}
@@ -326,7 +326,7 @@
                     </span> -->
                     <div class="pl-0 form-group select-Courses mb-0">
                         <ng-multiselect-dropdown [placeholder]="'Designation'" name="designation" [data]="designationArray"
-                        [(ngModel)]="designation" [settings]="batchVar.designationSettings" (onSelect)="onEmpSelect($event,'design')"
+                        [(ngModel)]="designation" [settings]="batchVar.designationSettings" (onSelect)="onEmpSelect($event,'design')" 
                         (onDeSelect)="onDeselect($event,'design')" #departmentId="ngModel" required></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="userForm.submitted && !designation.length">
                             {{commonLabels.mandatoryLabels.roleName}}
@@ -565,7 +565,7 @@
             </div>
             <div *ngIf="!errorValidation"><span class="required_color text-left">{{errorValidate}}</span></div>         
         </div> 
-        <span *ngIf="roleFormSubmitted && roleError && errorValidation" class="required_color ml-3">{{commonLabels.mandatoryLabels.roleName}}</span>
+        <span *ngIf="roleFormSubmitted && roleError && !errorValidation" class="required_color ml-3">{{commonLabels.mandatoryLabels.roleName}}</span>
         <div class="text-center mt-4 mrb-15">
             <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
             <button type="button" class="btn btn-default" (click)="closeAddForm()">{{commonLabels.btns.cancel}}</button>

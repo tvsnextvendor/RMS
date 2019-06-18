@@ -73,4 +73,9 @@ export class ForumService {
   hittingcloseBtn(status) {
     this.closeModel.next(status);
   }
+  removeForumPost(id, type) {
+    let query = type == 'post' ?  this.url.removePost+id : this.url.removeComment+id;
+    return this.http.delete('local', query);
+  }
+
 }

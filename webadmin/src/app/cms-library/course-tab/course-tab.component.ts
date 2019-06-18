@@ -29,7 +29,7 @@ export class CourseTabComponent implements OnInit {
   pageSize;
   p;
   total;
-  fileList;
+  fileList = [];
   deletedFilePath = [];
   deletedFileId = [];
   modalRef;
@@ -232,8 +232,8 @@ export class CourseTabComponent implements OnInit {
       if(resp && resp.isSuccess){
         this.fileList = resp.data.length && resp.data;
        // this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
-        if(this.addedFiles){
-          this.addedFiles.forEach(element => {
+        if(this.addedFiles && this.addedFiles.length){
+           this.addedFiles.forEach(element => {
                this.fileList.push(element);
           });
         }
@@ -330,6 +330,9 @@ export class CourseTabComponent implements OnInit {
                 //  }
                 //  else{
                     this.modalRef.hide();
+                    if(!self.fileList.length){
+                      self.fileList = [];
+                    }
                      self.fileList.push(videoObj);
                 //  }
              }

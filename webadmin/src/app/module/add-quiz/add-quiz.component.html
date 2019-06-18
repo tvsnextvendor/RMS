@@ -70,12 +70,12 @@
 											<span class="option-btn" *ngIf="oi===1">{{commonLabels.labels.b}}</span>
 											<span class="option-btn" *ngIf="oi===2">{{commonLabels.labels.c}}</span>
 											<span class="option-btn" *ngIf="oi===3">{{commonLabels.labels.d}}</span>
-											<input type="text" class="form-control pdl27" placeholder="" name="optionValue.value" [(ngModel)]="optionValue.optionName"  #options="ngModel" required>
+											<input type="text" class="form-control pdl27" placeholder="" name="optionValue.value{{i}}" [(ngModel)]="optionValue.optionName"  #options="ngModel" required>
 											<!-- <span class="required_color" *ngIf="options.invalid && (quizForm.submitted || options.touched)">
 												Option {{oi+1}} {{commonLabels.mandatoryLabels.isRequired}}
 											</span> -->
 										</span>
-										<input type="text" class="form-control mt-2 mb-3" placeholder="Enter the Answer" name="data.answer" [(ngModel)]="data.answer" #quizAnswer="ngModel"  required>
+										<input type="text" class="form-control mt-2 mb-3" placeholder="Enter the Answer" name="data.answer{{i}}" [(ngModel)]="data.answer" #quizAnswer="ngModel"  required>
 										<span class="required_color" *ngIf="quizAnswer.invalid && (quizForm.submitted || quizAnswer.touched)">
 											Answer {{commonLabels.mandatoryLabels.isRequired}}
 										</span>
@@ -96,7 +96,7 @@
 									<div class="row" *ngIf="data.questionType === 'NON-MCQ'">
 										<span class="col-sm-12 pl-0">
 											<!-- <span class="option-btn">{{oi + 1}}</span> -->
-											<input type="text" class="form-control mb-3" placeholder="Enter the Answer" name="data.answer" [(ngModel)]="data.answer"  required>
+											<input type="text" class="form-control mb-3" placeholder="Enter the Answer" name="data.answer{{i}}" [(ngModel)]="data.answer"  required>
 										</span>
 									</div>
 								</div>
