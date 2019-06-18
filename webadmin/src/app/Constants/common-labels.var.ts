@@ -536,6 +536,7 @@ export class CommonLabels{
         "users"             :  "User is required",
         "filenameRequired"  :   "File name is required",
         "passPercentageError" : "Pass Percentage is Required",
+        "courseError"       :   "Please fill the course field",
         "courseScheduleError" : "Course Already added for this schedule",
         "fileformate"       :  "Please add the valid file format" ,
         "minimumQuiz"       :  "Minimum one quiz is mandatory",

@@ -1,3 +1,287 @@
-<p>
-  recent-delete-tab works!
-</p>
+<div class="col-md-12 clearfix py-2 px-0">
+    <h6 class="count-alg">{{commonLabels.labels.availablecourse}}{{totalCourseCount}}</h6></div>
+<div  *ngFor="let courses of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCourseCount};let i = index">
+  
+    <div id="coss" class="col-md-12 mb-3 clearfix px-0" *ngIf="!enableEdit || enableEdit && enableIndex !== i" >
+      
+        <div class="white-bg p-3 clearfix">
+            <div class="clearfix">
+                <label class="square-cont float-left" *ngIf="checkBoxEnable">
+                    <input type="checkbox" name="courseId{{i}}" (change)="selectCourse(courses.courseId, courses.courseName, $event.target.checked)"><span class="text-over">{{courses.courseName}}</span>
+                    <span class="square-checkmark"></span>
+                </label>
+                <span class="text-over" *ngIf="!checkBoxEnable">{{courses.courseName}}</span>
+
+                <span class="float-right">
+                    <a title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
+                    <a title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
+                    <a>
+                        <span (click)="disableView(i)"> 
+                                <i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header p-0" aria-hidden="true" title="Close"></i>
+                        </span>
+                        <span (click)="getIndividualCourse(courses,i)">
+                            <i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header p-0" aria-hidden="true" title="Open"  ></i>
+                        </span>
+                    </a>
+                   
+                </span>
+            </div>
+            <div *ngFor="let data of individualCourse">
+            <div class="row py-3" *ngIf="enableView && enableIndex === i">
+                <div class="col-md-4 p-0">
+                    <div class="form-group pl-0">
+                        <label class="course-header">{{commonLabels.labels.createdBy}}</label>
+                        <span class="form-control pl-0" placeholder="Creator name" *ngIf="courses.createdByDetails">{{data.createdByDetails.userName}}</span> 
+                    </div>              		
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="course-header">{{commonLabels.labels.createdOn}}</label>
+                        <!-- <input type="text" class="form-control pl-0" placeholder="Date"/>  -->
+                        <span class="form-control pl-0" placeholder="Date">{{data.created | date : 'medium'}}</span> 
+                    </div>              		
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="course-header">{{commonLabels.labels.lastModifiedOn}}</label>
+                        <!-- <input type="text" class="form-control pl-0" placeholder="Apr 12 2019 & 11.30"/>  -->
+                        <span class="form-control pl-0" placeholder="Date">{{data.updated | date : 'medium'}}</span> 
+                    </div>              		
+                  </div>
+            </div> 
+            <div class="row py-3" *ngIf="enableView && enableIndex === i">
+                <div class="col-md-3 p-0">
+                    <div class="form-group pl-0">
+                        <label class="course-header">{{commonLabels.labels.noOfTrainingClass}}</label>
+                        <span class="course-count" (click)="tabChange('training',data.courseId,'','')">{{data?.CourseTrainingClassMaps.length}}</span>
+                    </div>              		
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="course-header">{{commonLabels.labels.noOfContentFiles}}</label>
+                        <span class="course-count" routerLink="/files/{{data.courseId}}" >{{data?.FileMappings.length}}</span> 
+                    </div>              		
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="course-header">{{commonLabels.labels.noOfEmployee}}</label>
+                        <span class="course-count" routerLink="/employeelist/{{data.courseId}}">{{data.totalEmployeeCount}}</span> 
+                    </div>              		
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="course-header">{{commonLabels.labels.fileSize}}</label>
+                        <span class="file-size">{{calculateFileMbSize(data.FileMappings)}}</span>
+                    </div>              		
+                </div>
+            </div> 
+            <div *ngIf="enableView && enableIndex === i">
+                <div class="clearfix">
+                    <h5>{{commonLabels.labels.usageStats}}</h5>
+                    <div class="total-count row pt-2">
+                        <span class="col-md-6 p-0">{{commonLabels.labels.totalNoEmp}} {{data.totalEmployeeCount}}</span>
+                        <span class="col-md-6 text-right">{{commonLabels.labels.totalNoCert}} 30</span>
+                    </div>
+                </div>
+                <div class="progress-section pt-3">
+                    <div class="row progress">
+                        <div class="progress-bar p-3 assigned-perc" *ngIf="assignedCount != 0" [style.width.%]="assignedCount">
+                            {{assignedCount}}
+                          </div>
+                          <div class="progress-bar p-3 inprogress-perc" *ngIf="inProgressCount != 0" [style.width.%]="inProgressCount">
+                            {{inProgressCount}}
+                          </div>
+                        <div class="progress-bar p-3 completed-perc" *ngIf="completedCount != 0" [style.width.%]="completedCount">
+                            {{completedCount}}
+                          </div>
+                    </div>
+                    <div class="row usage-state pt-2">
+                        <div class="" *ngIf="assignedCount != 0" [style.width.%]="assignedCount">{{commonLabels.labels.assigned}}</div>
+                        <div class="" *ngIf="inProgressCount != 0" [style.width.%]="inProgressCount">{{commonLabels.labels.inprogress}}</div>
+                        <div class="" *ngIf="completedCount != 0" [style.width.%]="completedCount">{{commonLabels.labels.completed}}</div>
+                    </div>
+                </div>
+                <div class="pt-3 clearfix">
+                    <button class="btn btn-primary" type="button" (click)="enableDropData('duplicate',courses)">{{commonLabels.labels.duplicate}}</button>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>  
+
+<!-- Edit -->
+<!-- {{enableEdit}} {{enableIndex}} {{i}} -->
+
+    <div class="col-md-12 mb-3 clearfix px-0" *ngIf="enableEdit && enableIndex === i">
+     	<div class="white-bg p-3 clearfix">
+            <div class="clearfix">
+                <p class="dup-hd">{{commonLabels.labels.edit}}</p>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeEdit')" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col-md-12 pr-4 clearfix">
+                <div class="btn-group pull-right" dropdown>
+                    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                        aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
+                        {{commonLabels.labels.upload}} <span class="caret ml-4"></span>
+                    </button>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu upload-btn" role="menu" aria-labelledby="button-basic">
+                        <li role="menuitem"><a class="dropdown-item pl-2" (click)="showCMSLibrary()">{{commonLabels.labels.resourceLibrary}}</a></li>
+                        <li role="menuitem"><a class="dropdown-item pl-2" (click)="fileUploadPopup(uploadPopup)">{{commonLabels.labels.desktop}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="px-4 pt-3">
+    	        <div class="row">
+    	            <div class="col-md-6 mb-3 select select-style clearfix">
+    		            <!-- <select name="Course" class="form-control pl-0" [(ngModel)]="selectedEditCourse" (change)="editCourseData('',course.value)" #course>
+                            <option *ngFor="let courselist of courseListValue;let courseIndex = index" [value]="courselist.courseId">{{courselist.courseName}}</option>
+                        </select> -->
+                        <input type = "text" class="form-control pl-0" [(ngModel)] = "selectedEditCourseName" name="courseName"/>
+                    </div>
+    	            <div class="col-md-6 mb-3 select select-style clearfix">
+                        <select name="Training Class" class="form-control pl-0" [(ngModel)]="selectedEditTrainingClass" (change)="getEditFileData(trainingClass.value)" #trainingClass>
+                            <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.TrainingClass.trainingClassName}}</option>
+                        </select>
+                        <div class="select_arrow"></div>
+                    </div>
+                </div>
+                <div class="col-md-12 pt-3" *ngIf="fileList" dnd-sortable-container [sortableData]="fileList">
+                    <p *ngFor="let fileData of fileList;let i = index" [ngClass]="fileData.addNew ? 'course-list course-list-select' : 'course-list'"  dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="{{commonLabels.imgs.close}}"></a></p>
+                </div>
+                <div class="pt-3 clearfix">
+                    <button class="btn btn-primary ml-2" type="button" (click)="updateCourse('edit')">{{commonLabels.btns.save}}</button>
+                    <button class="btn btn-primary" type="button" (click)="saveAsNew()">{{commonLabels.labels.saveAsNew}}</button>
+                </div>
+            </div>    
+        </div>
+    </div>
+
+<!-- End Edit -->
+
+<!-- Duplicate -->
+
+    <div class="col-md-12 mb-3 clearfix px-0" *ngIf="enableDuplicate && enableIndex === i">
+     	<div class="white-bg p-3 clearfix">
+     	    <div class="clearfix">
+                <p class="dup-hd">{{commonLabels.labels.duplicate}}</p>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeDuplicate')" title="Close"> 
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col-md-12 pr-4 clearfix">
+                    <div class="btn-group pull-right" dropdown>
+                        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                            aria-controls="dropdown-basic"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
+                            {{commonLabels.labels.upload}} <span class="caret ml-4"></span>
+                        </button>
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu upload-btn" role="menu" aria-labelledby="button-basic">
+                            <li role="menuitem"><a class="dropdown-item pl-2" (click)="showCMSLibrary()">{{commonLabels.labels.cmsLibrary}}</a></li>
+                            <li role="menuitem"><a class="dropdown-item pl-2" (click)="fileUploadPopup(uploadPopup)">{{commonLabels.labels.desktop}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="px-4 pt-3">     
+                    <div class="row">
+                        <div class="col-md-6 mb-3 select select-style clearfix">
+                            <input type = "text" class="form-control pl-0" [(ngModel)] = "selectedEditCourseName" name="courseName"/>
+                        </div>
+                        <div class="col-md-6 mb-3 select select-style clearfix pr-0">
+                            <select name="Training Class" class="form-control pl-0" [(ngModel)]="selectedEditTrainingClass" (change)="getEditFileData(trainingClass.value)" #trainingClass>
+                                <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.TrainingClass.trainingClassName}}</option>
+                            </select>
+                            <div class="select_arrow"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 pt-3" dnd-sortable-container [sortableData]="fileList">
+                        <p [ngClass]="fileData.addNew ? 'course-list course-list-select' : 'course-list'" *ngFor="let fileData of fileList;let i = index" dnd-sortable [sortableIndex]="i">{{fileData.fileName}}<a (click)="removeVideo(fileData,i)"><img  class="close-alg" src="assets/images/close.png"></a></p>
+                    </div>
+                    <div class="pt-3 clearfix">
+                        <button class="btn btn-primary ml-3" type="button" (click)="updateCourse('duplicate')">{{commonLabels.btns.save}}</button>
+                    </div>
+                </div>    
+        </div>
+    </div>
+</div>
+<div class="white-bg text-center p-4" *ngIf="!courseListValue.length" >
+    <p class="data-design m-0">  
+       <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
+    </p>
+</div>
+<pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
+
+<ng-template #uploadPopup>
+        <div class="modal-header pb-0 ">
+                <p class="hd-alg">{{commonLabels.labels.fileUploadPop}}</p>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body upload-pop">
+                <div class="row col-12 col-md-12 p-0">
+                    <div class="row form-group">
+                        <div class="col-md-4 pl-0">
+                            <label class="col-md-12 p-0 label-title upload-label">{{commonLabels.labels.fileName}}</label>
+                            <input type="text" class="form-control col-md-12 p-0" placeholder="Enter File Name" name="selectVideoName" [(ngModel)]="uploadFileName">
+                            <span class="required_color" *ngIf="videoSubmitted && !selectVideoName">{{commonLabels.labels.fileName}} {{commonLabels.labels.isRequired}}</span>
+                        </div>
+                        <div class="col-md-4 pl-0">
+                            <label class="col-md-12 p-0 label-title upload-label">{{commonLabels.labels.description}}</label>
+                            <input type="text" class="form-control col-md-12 p-0 decs-overflow" placeholder="Enter Description" name="description" [(ngModel)]="description">
+                            <span class="required_color" *ngIf="videoSubmitted && !description">{{commonLabels.labels.description}} {{commonLabels.labels.isRequired}}</span>
+                        </div>
+                        <div class="col-md-4 p-0 upload-line">
+                            <div class="row">
+                                <div class="col-md-6 p-0 mt-4">
+                                    <div class="fileUpload btn btn-primary">
+                                        <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{commonLabels.labels.upload}}</span>
+                                            <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)"/>
+                                    </div>      
+                                <div *ngIf='!previewImage'>
+                                        <video id="video-element" controls [hidden]="true" [attr.src]="videoUrl">
+                                        <source type="video/mp4">
+                                    </video>
+                                    <canvas id="canvas-element" [hidden]="true" ></canvas>
+                                </div>	
+                                    
+                                </div>
+                        <div class="col-md-6 p-0">
+                            <span *ngIf="!videoFile"><img src="{{commonLabels.imgs.profile}}" class="px-2"></span>
+                            <span *ngIf="showImage && videoFile && !previewImage"><img class="thumbnail_img px-4 img-size"></span>
+                            <span *ngIf="showImage && videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img px-4 img-size"></span></div>
+                            <!-- <span class="col-md-4 p-0">	
+                                <a (click)="videoSubmit()"><img src="assets/images/Done.png" class="upload-crt-icon"></a>
+                                <a (click)="cancelVideoSubmit()"><img src="assets/images/cancel2.png"></a>
+                            </span> -->
+                            <span class="required_color mt-1" *ngIf="videoSubmitted && !videoFile">{{commonLabels.labels.fileisRequired}}</span>	
+                            <span class="file-alg">{{commonLabels.labels.acceptedFileTypes}}</span>	 	
+                            </div>						
+                        </div>
+                    </div>
+                </div>    
+                <div class="text-center">
+                    <button (click)="submitUpload()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
+                    <button type="button" class="btn btn-default" (click)="cancelUpload()">{{commonLabels.btns.cancel}}</button>
+                </div>
+            </div>
+</ng-template>
+
+
+
+<ng-template #deleteCourse>
+    <div class="modal-header pb-0">
+        <p class="hd-alg">{{commonLabels.labels.deleteCourse}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <span class="text-content">{{commonLabels.labels.courseDelConfirmation}}</span>
+        <div class="text-center mt-4">
+            <button (click)="removeCourse()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
+            <button type="button" class="btn btn-default"
+                (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
+        </div>
+    </div>
+</ng-template>

@@ -172,6 +172,11 @@ export class API_URL {
     //Badges
     badge : '8104/badge',
 
+    //remove post
+    removePost : "8104/post/",
+    removeComment : "8104/comment/",
+
+
     // Feedback
     feedbackList : '8103/feedbackList',
 

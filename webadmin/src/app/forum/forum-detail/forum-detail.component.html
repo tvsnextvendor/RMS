@@ -94,7 +94,7 @@
                    <div class="topic-wrap-rt pl-3">
                        <div class="topic-into clearfix">
                          <h5 class="hd-tit float-left">{{posts.User.userName}}</h5>
-                         <span class="float-right"><a href="#"><i class="fas fa-times"></i></a></span>
+                         <span class="float-right"><a (click)="removeData('post',posts.postId)"><i class="fas fa-times"></i></a></span>
                        </div>
                        <small class="topic-time">{{posts.createdDate | date}}</small> 
                        <h6 class="topic-name pt-2"><p class="qnt-alg">{{posts.description}}</p></h6>
@@ -126,7 +126,7 @@
                         <div class="topic-into clearfix">
                           <h5 class="hd-tit float-left">{{comments.User.userName}}</h5>
                           <ul class="float-right m-0">
-                            <li><a href="#"><i class="fas fa-trash header-icon"></i></a></li>
+                            <li><a (click)="removeData('comment',comments.commentId)"><i class="fas fa-trash header-icon"></i></a></li>
                             <li class="nav-item dropdown no-arrow">
                               <a  class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown">
                                 <i class="fas fa-ellipsis-v header-icon notif-color"></i></a>

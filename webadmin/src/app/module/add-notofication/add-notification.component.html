@@ -156,7 +156,7 @@
                         </span>
                     </div>
                     <div class="row form-group">
-                        <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.description}}</label>
+                        <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.description}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                         <span class="col-md-9 p-0">
                             <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description"
                                 name="description" #descriptionData="ngModel" required>
@@ -195,9 +195,9 @@
                                         <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off"
                                             name="batchTo" bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel"
                                             [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
-                                        <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
+                                        <!-- <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
                                             {{commonLabels.mandatoryLabels.to}}
-                                        </span>
+                                        </span> -->
                                     </span>
                                 </div>
                             </div>
