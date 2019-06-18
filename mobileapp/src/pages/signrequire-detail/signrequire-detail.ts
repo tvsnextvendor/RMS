@@ -91,7 +91,11 @@ export class SignrequireDetailPage {
     }
 
     goBack(){
-      this.navCtrl.setRoot('course-page');
+      if(this.agree){
+      this.navCtrl.setRoot('course-page','signReq');
+      }else{
+         this.toastr.error("Please agree acknowledgement");
+      }
     }
 
      viewContent(docFile) {
