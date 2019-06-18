@@ -102,6 +102,7 @@ export class LoginComponent implements OnInit {
             let loginCredential ={ 
               emailAddress:data.email,
                password:data.password,
+               type : 'web'
              }
             this.authService.login(loginCredential).subscribe(result=>{
              if(result.isSuccess){

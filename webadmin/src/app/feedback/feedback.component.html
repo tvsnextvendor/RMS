@@ -27,7 +27,7 @@
       </div>
       <div class="row mt-4">
        
-          <div class="topic-wrap white-bg col-md-12" *ngFor="let feedbacks of feedbackList">
+          <div class="topic-wrap white-bg col-md-12" *ngFor="let feedbacks of feedbackList | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCount};let i = index">
               <div class="topic-wrap-top clearfix p-3">
                   <div class="topic-img-wrap mt-4">
                     <span class="topic-thumb">
@@ -70,6 +70,7 @@
             <p class="data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
           </div>
         </div>
+        <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
     </tab>
     <tab heading={{commonLabels.labels.application}} class="container tab-pane p-0">
       <div class="row col-md-5 text-center mx-auto">
@@ -123,6 +124,7 @@
           <p class="data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
         </div>
       </div>
+      <!-- <pagination-controls class="my-pagination" (pageChange)="pageUpdated($event)"></pagination-controls>   -->
   </tab>
 </div>
 </tabset>

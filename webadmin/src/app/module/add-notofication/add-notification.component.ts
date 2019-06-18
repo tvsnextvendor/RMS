@@ -133,12 +133,11 @@ export class AddNotificationComponent implements OnInit {
           else{
             let obj = this.moduleVar.employeeList.find(x=>x.departmentId == this.employeeId);
              this.moduleVar.selectedEmployee.push(obj); 
-           }
+          }
  
     }
 
     getDropdownDetails(resortId,key){
-        
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
             if(key == 'init'){this.moduleVar.resortList=result.data.Resort;}
             this.moduleVar.divisionList=result.data.divisions;
@@ -216,9 +215,6 @@ export class AddNotificationComponent implements OnInit {
             const data = { 'departmentId': this.moduleVar.departmentId, 'createdBy': this.utilService.getUserData().userId }
             this.userService.getUserByDivDept(data).subscribe(result => {
               if (result && result.data) {
-                // this.constant.employeeList && this.constant.employeeList.length ? result.data.forEach(item=>{this.constant.employeeList.push(item)}) : 
-                // this.constant.employeeList = result.data;
-      
                 let listData =_.cloneDeep(this.moduleVar.employeeList);
                 this.moduleVar.employeeList = [];
                 if(checkType == 'select'){
@@ -237,16 +233,12 @@ export class AddNotificationComponent implements OnInit {
                   })
                   this.moduleVar.selectedEmployee = [];
                 }
-              
                 this.moduleVar.employeeList = listData.map(item=>{return item});
-      
-                // this.allEmployees = result.data.reduce((obj, item) => (obj[item.userId] = item, obj), {});
               }
             })
           }
           if(this.notifyId && key == 'emp'){
             if(checkType == 'select'){
-              // this.updatedUserIds
               let user = this.employeeId.findIndex(item=>item == event.userId);
               if(!user){
                 let data = this.moduleVar.employeeList.find(x=>x.userId == event.userId);
@@ -258,8 +250,6 @@ export class AddNotificationComponent implements OnInit {
             else{
               this.removedUserIds.push(event.userId);
             }
-            // this.employeeId
-            // console.log(event,this.moduleVar.employeeList)
           }
           if(this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length ){
             this.moduleVar.errorValidate = false
@@ -320,7 +310,7 @@ export class AddNotificationComponent implements OnInit {
 
     submitNotification(){
       this.batchVar.dategreater = Date.parse(this.batchVar.batchTo) > Date.parse(this.batchVar.batchFrom) ? true : false;
-      if(this.fileName && (this.notificationFileName || this.uploadFileName) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchTo && this.batchVar.dategreater){ 
+      if(this.fileName && (this.notificationFileName || this.uploadFileName) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchTo && this.description && this.batchVar.dategreater){ 
         let data = {
           "courseId":'',
           "createdBy"  :this.userId,
@@ -342,10 +332,7 @@ export class AddNotificationComponent implements OnInit {
           "userId":this.moduleVar.selectedEmployee.map(x=>{return x.userId}),
           "removeUserIds":''
         }
-        // if(!this.fileDuration){
-        //   delete data.fileLength
-        // }
-        // console.log(data ,"data");
+        
         if(this.notificationType == 'assignedToCourse'){
           data.courseId = this.moduleVar.selectedCourses;
           data.trainingClassId = this.moduleVar.selectedTrainingClass;    
@@ -377,7 +364,6 @@ export class AddNotificationComponent implements OnInit {
             delete data.removeUserIds;
             data.signatureStatus = this.notificationType == 'signature' ? true : false;
             this.courseService.addTypeTwoNotification(data).subscribe(resp=>{
-              // console.log(resp)
               if(resp && resp.isSuccess){
                 // this.goTocmsLibrary();
                 this.router.navigate(['/cms-library'],{queryParams : {type:"edit",tab:"notification"}});
@@ -390,11 +376,12 @@ export class AddNotificationComponent implements OnInit {
           }
         }
       }
-      else if(!this.batchVar.dategreater){
+      else if(this.fileName && (this.notificationFileName || this.uploadFileName) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchTo && this.description && !this.batchVar.dategreater){
         this.alertService.error(this.commonLabels.mandatoryLabels.dateLimitError)
       }
       else{
-        this.alertService.error(this.commonLabels.mandatoryLabels.permissionError)
+        this.batchVar.dategreater = true;
+        this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory)
       }
     }
 
@@ -406,10 +393,7 @@ export class AddNotificationComponent implements OnInit {
       this.updatedUserIds.departmentId.length ? data.departmentId = this.updatedUserIds.departmentId : delete data.departmentId;
       this.updatedUserIds.userId.length ? data.userId = this.updatedUserIds.userId : delete data.userId;
       this.removedUserIds.length ? data.removeUserIds = this.removedUserIds : delete data.removeUserIds;
-      // console.log(data,"final data")
-      // updateNotification
       this.courseService.updateNotification(this.notifyId,data).subscribe(resp=>{
-        // console.log(resp,"response")
         if(resp && resp.isSuccess){
           this.router.navigate(['/cms-library'],{queryParams: {type:"edit",tab:"notification"}})
         }
@@ -442,7 +426,6 @@ export class AddNotificationComponent implements OnInit {
     }
 
     courseSelect(event){
-      // console.log(event.target.name);
         if(event.target.value){
           let courseId = event.target.value;
           this.getTraingClassList(courseId);
@@ -463,7 +446,6 @@ export class AddNotificationComponent implements OnInit {
             var duration; 
             this.uploadFileName = event.target.files[0] && event.target.files[0].name;
             let file = event.target.files[0];
-            // this.filePreviewImage(file);
             this.fileSize = file.size;
             // find video duration
             var video = document.createElement('video');
@@ -475,9 +457,6 @@ export class AddNotificationComponent implements OnInit {
             }
             video.src = URL.createObjectURL(file);
 
-            // document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
-            // find file extension
-            // this.uploadFile = file;
             let type = file.type;
             let typeValue = type.split('/');
             let extensionType = typeValue[1].split('.').pop();
@@ -487,7 +466,6 @@ export class AddNotificationComponent implements OnInit {
               this.filePreviewImage(file);
           }
             this.commonService.uploadFiles(file).subscribe(resp=>{
-                // console.log(resp);
                 if(resp && resp.isSuccess){
                     this.notificationFileName = resp.data.length && resp.data[0].filename;
                 }
@@ -520,26 +498,18 @@ export class AddNotificationComponent implements OnInit {
                 canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
                 var image = canvas.toDataURL();
                 var success = image.length > 100000;
-                // if (success) {
-                //   var img = document.querySelector('.thumbnail_img');
-                //   img.setAttribute('src', image);
-                //   URL.revokeObjectURL(url);
-                // }
                 return success;
               };
               video.addEventListener('timeupdate', timeupdate);
               video.preload = 'metadata';
               video.src = url; 
-              // url = video.src; 
               fetch(url)
               .then(res => res.blob())
               .then(blob => {
                   self.fileImageDataPreview =  new File([blob], "File_name.png");
-                  // self.fileImageDataPreview.type = "image/png";
               })  
               // Load video in Safari / IE11
               video.muted = true;
-              //video.playsInline = true;
               video.play();
             };
             fileReader.readAsArrayBuffer(file);
@@ -556,7 +526,6 @@ export class AddNotificationComponent implements OnInit {
       if(!this.notifyType){
         this.alertService.error('Please select the notification type')
       }
-      // console.log(this.notifyType)
       this.notificationType = this.notifyType;
     }
 

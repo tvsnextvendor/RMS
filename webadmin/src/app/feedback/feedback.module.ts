@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { NgHttpLoaderModule } from 'ng-http-loader'; 
+import {NgxPaginationModule} from 'ngx-pagination';
 import {AuthGuard} from '../guard/auth.guard.component';
 import { FormsModule} from '@angular/forms';
 import { FeedbackComponent } from './feedback.component';
@@ -20,7 +21,8 @@ const routes: Routes = [
     TabsModule.forRoot(),
     FormsModule,
     NgbModule,
-    BrowserModule
+    BrowserModule,
+    NgxPaginationModule
     ],
   declarations: [
     FeedbackComponent

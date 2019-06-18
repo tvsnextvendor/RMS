@@ -40,6 +40,7 @@ export class AddBatchComponent implements OnInit {
     userData;
     courseDataList = [];
     passPerError;
+    courseError;
     errorValidate;
     resortId;
     paramsType;
@@ -53,8 +54,7 @@ export class AddBatchComponent implements OnInit {
             this.paramsType = items.type;
         })
     }
-
-
+    
     ngOnInit() {
         //   this.scheduleId ? this.headerService.setTitle({ title: this.commonLabels.titles.editTitle, hidemodule: false }) : this.headerService.setTitle({ title: this.commonLabels.titles.addTitle, hidemodule: false });
         this.batchVar.moduleForm = [];
@@ -73,14 +73,8 @@ export class AddBatchComponent implements OnInit {
             this.getResortData(this.resortId);
             let startDate = localStorage.getItem('BatchStartDate');
             this.batchVar.batchFrom = new Date(startDate);
-           //this.batchVar.batchFrom = new Date();
             this.courseForm();
         }
-        //let startDate = localStorage.getItem('BatchStartDate');
-        //   let startDate = new Date(); 
-        //   this.batchVar.batchFrom= this.splitDate(startDate).toISOString();
-        //   this.batchVar.min =this.splitDate(new Date());
-        // this.getBatchDetail();
     }
 
     getCourseData() {
@@ -369,17 +363,11 @@ export class AddBatchComponent implements OnInit {
     }
 
     onEmpDeSelect(event) {
-
-
         if (event.userId) {
             const newArray = this.employeesInBatch.filter(item => item.userId != event.userId);
-
             this.employeesInBatch = newArray;
-
         }
-
     }
-
 
     splitDate(date) {
         const newDate = new Date(date);
@@ -414,12 +402,12 @@ export class AddBatchComponent implements OnInit {
         }
     }
 
-
     //submit batch
     addBatch(form) {
         this.errStatus = false;
         this.submitted = true;
         this.passPerError = false;
+        this.courseError = false;
         this.batchVar.empValidate = this.batchVar.employeeId ? false : true;
         this.batchVar.dategreater = Date.parse(this.batchVar.batchFrom) > Date.parse(this.batchVar.batchTo) ? true : false;
         this.status = (this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') == this.datePipe.transform(new Date(), 'yyyy-MM-dd')) ? 'assigned' : 'assigned';
@@ -427,8 +415,11 @@ export class AddBatchComponent implements OnInit {
             if (item.passPercentage === 'null') {
                 this.passPerError = true;
             }
+            if(item.courseId == ''){
+                this.courseError = true;
+            }
         })
-        if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.divisionId.length && this.batchVar.departmentId.length && this.batchVar.employeeId.length && this.batchVar.moduleForm && this.durationValue && this.reminder && !this.passPerError) {
+        if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.divisionId.length && this.batchVar.departmentId.length && this.batchVar.employeeId.length && this.batchVar.moduleForm && this.durationValue && this.reminder && !this.passPerError && !this.courseError) {
             //  this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
             let postData = {
                 "createdBy": this.userData.userId,
@@ -511,8 +502,6 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.employeeId = [];
     }
 
-
-
     //dynamic remove module fields
     removeForm(i) {
         this.batchVar.moduleForm.splice(i, 1);
@@ -532,6 +521,4 @@ export class AddBatchComponent implements OnInit {
     goTocmsLibrary() {
         this.completed.emit('completed');
     }
-
-
 }

@@ -4,8 +4,7 @@
         <div class="white-bg p-3 clearfix">
             <div class="clearfix">
                 <label class="square-cont float-left">
-                    <input type="checkbox" name="notifyId{{i}}" (change)="selectNotify(courses.notificationFileId, courses.File.fileName, $event.target.checked)"><span class="text-over">{{courses.File.fileName}}</span>
-                    <span class="square-checkmark"></span>
+                    <span class="text-over">{{courses.File.fileName}}</span>
                 </label>
                 <span class="float-right">
                     <a title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="goToNotifyEdit(courses.notificationFileId)"></i></a>                    
