@@ -56,7 +56,8 @@ export class EventPage implements OnInit {
   getBatch() {
     this.loader.showLoader();
     let userId = this.currentUser.userId;
-    this.http.get(API_URL.URLS.getAllSchedule+'?userId='+userId).subscribe(res=>{
+    // +'?userId='+userId
+    this.http.get(API_URL.URLS.getAllSchedule).subscribe(res=>{
       if(res['isSuccess']){
         this.scheduleList = res['data'];
       }
