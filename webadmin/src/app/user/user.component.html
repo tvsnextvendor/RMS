@@ -268,7 +268,7 @@
             <div class="row form-group">
                 <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.division}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0 select select-style clearfix">
+                <span class="col-md-8 pl-0 select select-style clearfix mb-0">
                     <!-- <select [(ngModel)]="division" #divisionReq="ngModel" name="division" (ngModelChange)="changedivision()" class="form-control" required>
                         <option value="">{{commonLabels.labels.select}}</option>
                         <option *ngFor="let obj of divisionArray" [value]="obj.divisionId">{{obj.divisionName}}</option>
@@ -277,7 +277,7 @@
                     <span class="required_color"
                         *ngIf="userForm.submitted && divisionReq.errors?.required">{{commonLabels.mandatoryLabels.division}}
                     </span> -->
-                    <div class="pl-0 form-group select-Courses">
+                    <div class="pl-0 form-group select-Courses mb-0">
                     <ng-multiselect-dropdown [placeholder]="'Division'" name="division" [data]="divisionArray"
                         [(ngModel)]="division" [settings]="batchVar.divisionSettings" (onSelect)="onEmpSelect($event,'div')"
                         (onDeSelect)="onDeselect($event,'div')" #divisionId="ngModel" required></ng-multiselect-dropdown>
@@ -291,7 +291,7 @@
             <div class="row form-group">
                 <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.department}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0 select select-style clearfix">
+                <span class="col-md-8 pl-0 select select-style clearfix mb-0">
                     <!-- <select [(ngModel)]="department" #departmentReq="ngModel" (ngModelChange)="designationUpdate($event)" name="department"
                         class="form-control" required>
                         <option value="">{{commonLabels.labels.select}}</option>
@@ -301,7 +301,7 @@
                     <span class="required_color"
                         *ngIf="userForm.submitted && departmentReq.errors?.required">{{commonLabels.labels.dept}}
                     </span> -->
-                    <div class="pl-0 form-group select-Courses">
+                    <div class="pl-0 form-group select-Courses mb-0">
                         <ng-multiselect-dropdown [placeholder]="'Department'" name="department" [data]="departmentArray"
                         [(ngModel)]="department" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
                         (onDeSelect)="onDeselect($event,'dept')" #departmentId="ngModel" required></ng-multiselect-dropdown>
@@ -315,7 +315,7 @@
             <div class="row form-group">
                 <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.role}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                  <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0 select select-style clearfix">
+                <span class="col-md-8 pl-0 select select-style clearfix mb-0">
                     <!-- <select [(ngModel)]="designation" name="designation"  #designationReq="ngModel" class="form-control" required>
                         <option value="">{{commonLabels.labels.select}}</option>
                         <option *ngFor="let obj of designationArray" [value]="obj.designationId">{{obj.designationName}}</option>
@@ -324,7 +324,7 @@
                     <span class="required_color" *ngIf="userForm.submitted && designationReq.errors?.required">
                         {{commonLabels.mandatoryLabels.designation}}
                     </span> -->
-                    <div class="pl-0 form-group select-Courses">
+                    <div class="pl-0 form-group select-Courses mb-0">
                         <ng-multiselect-dropdown [placeholder]="'Designation'" name="designation" [data]="designationArray"
                         [(ngModel)]="designation" [settings]="batchVar.designationSettings" (onSelect)="onEmpSelect($event,'design')"
                         (onDeSelect)="onDeselect($event,'design')" #departmentId="ngModel" required></ng-multiselect-dropdown>
