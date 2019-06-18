@@ -46,7 +46,7 @@
               <span class="badge-name">{{item.Badge.badgeName}}</span>
             </ion-col>
             <ion-col col-7 class="mt-4">
-              <h4 class="forum-title">{{item.Course.courseName}}</h4>
+              <h4 class="forum-title" *ngIf="item.Course">{{item.Course.courseName}}</h4>
               <!-- <p class="forum-txt">Training Class Name</p> -->
             </ion-col>
             <ion-col col-2 class="badge-scr mt-4">

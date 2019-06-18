@@ -27,7 +27,7 @@
       <ion-row nowrap class="forecast_container">
         <ion-col col-4 col-md-4>
           <div class="status-block">
-            <div class="expire-circle circle-style">
+            <div class="expire-circle circle-style" (click)="navPage('course')">
               <h4 class="status-title">{{dashboardCount.courseExpire}}</h4>
             </div>
 
@@ -37,7 +37,7 @@
         </ion-col>
         <ion-col col-4 col-md-4>
           <div class="assign-box sts-style">
-            <div class="blue-circle  circle-style">
+            <div class="blue-circle  circle-style" (click)="navPage('signReq')">
               <h4 class="status-title">{{dashboardCount.signatureReq}}</h4>
             </div>
 
@@ -47,7 +47,7 @@
         </ion-col>
         <ion-col col-4 col-md-4>
           <div class="assign-box sts-style">
-            <div class="green-circle  circle-style">
+            <div class="green-circle  circle-style" (click)="navPage('notification')">
               <h4 class="status-title">{{dashboardCount.generalNotification}}</h4>
             </div>
 
@@ -62,7 +62,7 @@
         <ion-card class="forum-card" *ngFor="let schedule of dashboardInfo">
           <ion-grid>
             <ion-row (click)="hideShowDesc(schedule)">
-              <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
+              <ion-col col-4 class="batch-name" (click)="navPage('course')">{{schedule.name}}</ion-col>
               <ion-col col-7 class="batch-date">
                 {{schedule.assignedDate | date:'dd MMM yyyy'}}
                 <span class="to-txt"> To </span>

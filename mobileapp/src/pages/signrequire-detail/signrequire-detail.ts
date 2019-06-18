@@ -1,6 +1,9 @@
 import { Component , ViewChild, ElementRef} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Constant } from '../../constants/Constant.var';
+import {ToastrService} from '../../service/toastrService';
+import { API } from '../../constants/API.var';
+
 
 @IonicPage({
     name: 'signrequire-page'
@@ -13,7 +16,7 @@ import { Constant } from '../../constants/Constant.var';
 
 export class SignrequireDetailPage {
   
-    @ViewChild("videoTag") videotag: ElementRef;
+  @ViewChild("videoTag") videotag: ElementRef;
   Files;
   imageType;
   filePath;
@@ -21,9 +24,9 @@ export class SignrequireDetailPage {
   truncating = true;
   showPreView;
   uploadPath;
+  agree: boolean = false;
  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public constant:Constant) {
-          console.log(this.navParams.data);
+  constructor(public navCtrl: NavController,public toastr: ToastrService, public navParams: NavParams, public constant:Constant) {
           let data = this.navParams.data;
           this.Files = data.files;
           this.uploadPath = data.uploadPath;
@@ -31,7 +34,6 @@ export class SignrequireDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SignrequireDetailPage');
     this.showPreView = this.getFileExtension(this.Files.fileUrl);
   }
 
@@ -91,5 +93,45 @@ export class SignrequireDetailPage {
     goBack(){
       this.navCtrl.setRoot('course-page');
     }
+
+     viewContent(docFile) {
+        // allowed files PPT, .TXT, MP4, .JPG, .DOC, MPEG, AVI
+        // Doc Viewed Files PPT,TXT,DOC
+        if (this.agree) {
+            // const options: DocumentViewerOptions = {
+            //     title: this.trainingClassName
+            // };
+            let docType;
+            switch (this.fileType) {
+                case "pdf":
+                    docType = 'application/pdf';
+                    break;
+                case 'ppt':
+                    docType = 'application/vnd.ms-powerpoint';
+                    break;
+                case 'pptx':
+                    docType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+                    break;
+                case 'doc':
+                    docType = 'application/msword';
+                    break;
+                case 'docx':
+                    docType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                    break;
+                case 'txt':
+                    docType = 'text/plain';
+                    break;
+                default:
+                    docType = 'application/pdf';
+            }
+             let baseUrl = this.uploadPath;
+             console.log(baseUrl + docFile)
+             let target = '_blank';
+             window.open(baseUrl + docFile, target);	
+        }else {
+            this.toastr.error("Please agree acknowledgement to view content"); return false;
+        }
+     }
+
 
 }

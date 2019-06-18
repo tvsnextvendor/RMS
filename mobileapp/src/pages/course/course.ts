@@ -6,14 +6,6 @@ import { API_URL } from '../../constants/API_URLS.var';
 import { LoaderService, SocketService } from '../../service';
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
-//import { TrainingPage } from '../training/training';
-
-/**
- * Generated class for the CoursePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage({
   name: 'course-page'
@@ -50,10 +42,12 @@ export class CoursePage implements OnInit {
   signRequireCount;
   signRequireList;
   uploadPath;
-  
+  tab;
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
+        this.tab = this.navParams.data; 
+      
   }
 
   ngOnInit() {
@@ -68,6 +62,9 @@ export class CoursePage implements OnInit {
              this.getCourseStatus('assigned','');
               this.status = 'assigned';
               this.getNotification();
+                if(this.tab && this.tab == 'signReq'){
+                  this.getSignRequired();
+                }
             }
         });
   }
@@ -149,8 +146,9 @@ export class CoursePage implements OnInit {
     this.showCompleted = true;
     this.showSignRequire = false;
     let userId =  this.currentUser.userId;
-    let resortId = this.currentUser.ResortUserMappings[0].resortId
-    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId +'&resortId='+resortId).subscribe(res=>{
+    let resortId = this.currentUser.ResortUserMappings[0].resortId;
+    let status='signRequired';
+    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId +'&resortId='+resortId+'&status='+status).subscribe(res=>{
     if(res['data']['rows']){
       this.signRequireList =res['data']['rows'];
       this.signRequireCount = res['data']['count'];

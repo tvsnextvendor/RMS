@@ -313,7 +313,7 @@ export class TrainingDetailPage {
                 default:
                     docType = 'application/pdf';
             }
-               let baseUrl = API['API_LINK'];
+               let baseUrl = this.uploadPath;
                   
                 // const url = 'http://demo.greatinnovus.com:8103/uploads/';
                 // const transfer = this.transfer.create();

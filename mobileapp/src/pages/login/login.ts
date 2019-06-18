@@ -38,7 +38,6 @@ export class LoginPage implements OnInit {
     doLogin() {
 
         if(!this.user.name || !this.user.pw){
-           // this.toastr.error("Email ID & Password Can't Be Blank"); return false;
            this.logincredentialerror = "Email ID & Password Can't Be Blank"; return false;
         }
         if (this.user.keepmelogin) {
@@ -47,9 +46,13 @@ export class LoginPage implements OnInit {
         }
         this.authService.login(this.user.name, this.user.pw, this.user.keepmelogin).then(success => {
 
-            if (success) {
-                this.navCtrl.setRoot('home-page');
-               // this.toastr.success('Login Successful');
+            if(success) {
+                this.storage.get('currentUser').then((user: any) => {
+                    if(user){
+                        this.navCtrl.setRoot('home-page');
+                    }
+                })
+               //this.toastr.success('Login Successful');
             }else{
                 this.logincredentialerror = "Please check login credentials"; return false;
                 //this.logincredentialerror = this.authService.loginEmailError ? this.authService.loginEmailError  : this.authService.loginPassErr ;

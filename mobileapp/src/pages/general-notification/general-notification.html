@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar (click)="goBack()">
+    <span class="back-arrow">
+      <img src="assets/imgs/Back.png" />
+    </span>
+    <ion-title>general-notification</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row *ngIf="signRequireCount > 0">
+    <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of signRequireList;let i=index;" class="main-forum">
+      <ion-card class="forum-card">
+        <ion-grid>
+          <ion-row (click)="openSignRequireDetail(task.File)">
+            <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
+              <img src="assets/imgs/profile_circle.png" class="forum-img">
+            </ion-col>
+            <ion-col col-4 col-sm-5 col-md-6 class="course-det">
+              <h4 class="notify-title" (click)="openSignRequireDetail(task.File)"> {{task.File.fileName}}</h4>
+            </ion-col>
+            <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
+              <div class="align-right" *ngIf="task.dueDate">
+                <span class="hour-status batch-date">Due On - {{task.dueDate | date:'dd MMM yyyy'}}</span>
+                <p class="org-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
+                  {{calculateExpireDays(task.dueDate)}}</p>
+              </div>
+            </ion-col>
+            <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openSignRequireDetail(task.File)">
+              <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="signRequireCount == 0">
+    <ion-col class="main-forum">
+      <ion-card class="forum-card">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-12 class="no-data">No Records Found</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

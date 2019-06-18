@@ -17,20 +17,9 @@ import * as moment from 'moment';
 })
 export class HomePage {
   
-  // dataDashboard: any = [];
-  // currentdate;
-  // paramsData = {};
+  
   dashboardInfo: any = [];
   dashboardCount:any ={};
-  // trainingDatas: any = {};
-  // accomplishments: any = {};
-  // modules: any = [];
-  // showMore: boolean = false;
-  // users: any;
-  // selectedModule;
-  // coursePercentage;
-  // moduleId;
-  // allModulesSet ;
   notificationCount;
   currentUser;
   status;
@@ -38,8 +27,7 @@ export class HomePage {
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,public socketService: SocketService, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
-    //this.currentdate = this.getCurrentTime();
-    //this.selectedModule = constant.pages.dashboardLabels.selectModules;
+ 
   }
   //first load
   ionViewDidLoad() {
@@ -55,22 +43,30 @@ export class HomePage {
              self.currentUser = user;
              this.getDashboardInfo();
               this.getNotification();
+              this.getDashboardCount();
             }
         });
   }
 
   ionViewDidEnter() {
-    //this.getModules();
-    this.getDashboardCount();
   }
 
-  // goToChildPage(status) {
-  //   this.paramsData['status'] = status;
-  //   this.navCtrl.setRoot('training-page', this.paramsData)
-  // }
-  // goToAcc(set) {
-  //   this.navCtrl.setRoot('accomplishment-page')
-  // }
+  navPage(page){
+    switch (page) {
+      case 'notification':
+        this.navCtrl.setRoot('generalnotification-page');
+        break;
+      case 'signReq':
+        this.navCtrl.setRoot('course-page',page);
+        break;
+        case 'course' :
+        this.navCtrl.setRoot('course-page',page);
+        break;
+      default:
+         this.navCtrl.setRoot('course-page');
+        break;
+    }
+  }
   
   changeStatus(type){
     this.status=type;
@@ -99,33 +95,15 @@ export class HomePage {
   }
 
   getDashboardCount(){
-    this.http.get(API_URL.URLS.dashboardCount).subscribe((res)=>{
+    let userId= this.currentUser.userId;
+    let resortId = this.currentUser.ResortUserMappings[0].resortId;
+    this.http.get(API_URL.URLS.dashboardCount+'?userId='+userId+'&resortId='+resortId).subscribe((res)=>{
        if(res['isSuccess']){
          this.dashboardCount= res['data'];
        }
     })
   }
    
-//   getModules() {
-//     this.http.getData(API_URL.URLS.getModules).subscribe((data) => {
-//       if (data['isSuccess']) {
-//         this.modules = data['programList'];
-//         this.allModulesSet = data['programList'];
-//       }
-//     });
-//   }
-//   getCurrentTime(){
-//     let d      = new Date();
-//     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-//     let days   = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-//     return days[d.getDay()] + ',' + months[d.getMonth()] + ' ' + d.getDate();
-//   }
-//   changeModule(list){
-//  //  _.remove(this.allModulesSet, list);
-//     this.selectedModule = list.name;
-//     this.moduleId = list.id;
-//     this.trainingDatas = this.dashboardInfo.training[this.moduleId]?this.dashboardInfo.training[this.moduleId]:this.dashboardInfo.training[0];
-//   }
   goToNotification(){
     this.navCtrl.setRoot('notification-page');
   }

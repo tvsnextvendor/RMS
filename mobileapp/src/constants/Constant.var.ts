@@ -18,7 +18,8 @@ export class Constant {
         notification: 'Notification',
         settings: 'Settings',
         library:'Library',
-        calendar:'Calendar'
+        calendar:'Calendar',
+        noData: 'No Data Found'
     };
     buttons = {
         previous: 'Previous',

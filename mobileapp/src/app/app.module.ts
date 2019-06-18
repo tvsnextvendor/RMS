@@ -10,7 +10,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
 import { Calendar } from '@ionic-native/calendar';
 import { DocumentViewer } from '@ionic-native/document-viewer';
-import { AccomplishmentPageModule, CalendarPageModule,TopicPageModule,EventPageModule, ForgetPageModule, ForumPageModule, HomePageModule, LandingPageModule, LoginPageModule, ProfilePageModule, QuizPageModule, QuizResultModule, SettingsPageModule, SignupPageModule, TrainingPageModule, TrainingDetailPageModule, NotificationPageModule, ForumDetailPageModule ,ModalPageModule,LibraryPageModule, CoursePageModule, FeedbackPageModule} from '../pages';
+import { AccomplishmentPageModule, CalendarPageModule,TopicPageModule,EventPageModule, ForgetPageModule, ForumPageModule, HomePageModule, LandingPageModule, LoginPageModule, ProfilePageModule, QuizPageModule, QuizResultModule, SettingsPageModule, SignupPageModule, TrainingPageModule, TrainingDetailPageModule, NotificationPageModule, ForumDetailPageModule ,ModalPageModule,LibraryPageModule, CoursePageModule, FeedbackPageModule, GeneralNotificationPageModule} from '../pages';
 import { API } from '../constants/API.var';
 import { API_URL } from '../constants/API_URLS.var';
 import { MyApp } from './app.component';
@@ -40,6 +40,7 @@ import { LoaderService, ToastrService, SocketService, CommonService,SanitizeHtml
     QuizPageModule,
     QuizResultModule,
     ForumPageModule,
+    GeneralNotificationPageModule,
     SettingsPageModule,
     ProfilePageModule,
     CalendarPageModule,

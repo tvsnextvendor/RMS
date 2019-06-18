@@ -23,9 +23,9 @@
           <source src="{{showPreView}}" type="video/mp4" />
         </video>
       </div>
+      <div class="training-block">
         <ion-card-title>
           <ion-grid no-padding class="">
-
             <ion-row>
               <ion-col col-8>
                 <h6>{{Files.fileName}} </h6>
@@ -39,8 +39,16 @@
             </ion-row>
           </ion-grid>
         </ion-card-title>
+        
+        <div class="checkbox-item clearfix" *ngIf="imageType">
+                <label class="hole-cont mr-2">
+                    <input type="checkbox" [(ngModel)]="agree"  name="options" > 
+                    {{constant.pages.trainingLabels.ackText}}<a href="javascript:void(0);" (click)="viewContent(filePath)">{{constant.pages.trainingLabels.document}}</a>
+                    <span class="checkmark"></span>
+                </label>
+            </div>
         <div *ngIf="Files.fileDescription" class="quiz-text">
-          <div *ngIf="Files.fileDescription.length <= 400">{{Files.fileDescription}}</div>
+          <div *ngIf="Files.fileDescription.length <= 400">{{Files?.fileDescription}}</div>
           <div *ngIf="truncating && Files.fileDescription.length > 400">
             {{Files.fileDescription | words : limit}}
             <a href="javascript:void(0);" (click)="truncating = false">
@@ -51,6 +59,7 @@
             <a href="javascript:void(0);" (click)="truncating = true">
               {{constant.pages.trainingLabels.readLess}}
             </a> </div>
+        </div>
         </div>
         </div>
         </div>

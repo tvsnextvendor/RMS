@@ -108,7 +108,6 @@ export class MyApp {
           this.rootPage = LandingPage;
         }
         console.log(self.currentUser);
-        console.log('self.currentUser');
       }, (err) => {
         this.rootPage = LandingPage;
         console.log('currentUser not received in app.component.ts', err);
