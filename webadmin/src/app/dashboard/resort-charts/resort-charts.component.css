@@ -35,9 +35,9 @@
 .top-employee-height{
 height: 145px !important;
 }
-
-
-
+.training-alg{
+  height: 200px;
+}
 .percent-alg{
   color: #1D4960;
   font-size: 20px;

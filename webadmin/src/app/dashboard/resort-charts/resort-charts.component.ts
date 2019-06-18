@@ -6,7 +6,8 @@ const Highcharts = require('highcharts');
 import Chart from 'chart.js';
 import { API_URL } from 'src/app/Constants/api_url';
 import { Router } from '@angular/router';
-import {CommonLabels} from '../../Constants/common-labels.var'
+import {CommonLabels} from '../../Constants/common-labels.var';
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 
 @Component({
     selector: 'app-resort-charts',
@@ -34,6 +35,7 @@ export class ResortChartsComponent implements OnInit {
          private route: Router,
          public commonLabels:CommonLabels,
          private commonService : CommonService,
+         private mScrollbarService: MalihuScrollbarService,
          private utilService :UtilService) {
         this.dashboardVar.url = API_URL.URLS;
     this.dashboardVar.userName = this.utilService.getUserData().username;
@@ -41,6 +43,9 @@ export class ResortChartsComponent implements OnInit {
     this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     }
 
+    ngAfterViewInit() {
+      this.mScrollbarService.initScrollbar('.sidebar-wrapper', { axis: 'y', theme: 'minimal-dark' });
+    }
     ngOnInit() {
         // this.getData();
         this.getKeyStat();

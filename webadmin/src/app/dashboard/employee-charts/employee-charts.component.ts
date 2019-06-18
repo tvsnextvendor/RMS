@@ -7,6 +7,7 @@ import { API_URL } from 'src/app/Constants/api_url';
 import { Router } from '@angular/router';
 import {UtilService} from '../../services/util.service';
 import { CommonLabels } from '../../Constants/common-labels.var';
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 
 @Component({
   selector: 'app-employee-charts',
@@ -38,12 +39,17 @@ export class EmployeeChartsComponent implements OnInit {
     private http: HttpService,
     private route: Router,
     public commonLabels: CommonLabels,
+    private mScrollbarService: MalihuScrollbarService,
     private commonService: CommonService) {
     this.dashboardVar.url = API_URL.URLS;
     this.dashboardVar.userName = this.utilService.getUserData().username;
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
     this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     this.userId =  this.utilService.getUserData().userId;
+  }
+
+  ngAfterViewInit() {
+    this.mScrollbarService.initScrollbar('.sidebar-wrapper', { axis: 'y', theme: 'minimal-dark' });
   }
 
   ngOnInit() {
