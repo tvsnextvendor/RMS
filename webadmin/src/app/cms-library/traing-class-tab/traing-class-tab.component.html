@@ -21,11 +21,7 @@
             <span class="square-checkmark" *ngIf="uploadPage"></span> 
         </label>
     </div>    
-            <div class="float-right pr-3">
-                <a  (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
-            </div>
-        </div>
-        <div class="float-left" *ngIf="training.enableEdit == true">
+    <div class="float-left" *ngIf="training.enableEdit == true">
             <form #trainingClassNameForm="ngForm" (ngSubmit)="saveTrainingClassName(trainingClassNameForm,i,ci)">
                 <div class="row form-group">
                     <span class="col-md-1 p-0"></span>
@@ -35,13 +31,18 @@
                             name="trainingClassName" #trainingClassName="ngModel" />
                         </div>
                         <div class="col-md-3 pr-0 pl-2">
-                        <button type="submit"
-                            class="btn btn-primary creat-btn">{{commonLabels.btns.save}}</button>
+                        <a><i class="fas fa-save save-icon"></i></a>
+                        <!-- <button type="submit" class="btn btn-primary creat-btn">{{commonLabels.btns.save}}</button> -->
                         </div>
                     </span>
                 </div>
             </form>
         </div>
+            <div class="float-right pr-3">
+                <a  (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        
         <div class="clk-part clearfix pt-1 pr-4" *ngIf="!disableTabs">
             <div class="clk-sec float-left px-4">
                 <a href="javascript:void(0);"
