@@ -304,11 +304,11 @@ export class CertificatesComponent implements OnInit {
     {
         this.constant.templateAssign = this.orginArray;
         let tempArray = [];
-        if(this.assignTo == 'course')
+        if(this.assignTo == 'course' && this.constant.templateAssign)
         {
             tempArray = this.constant.templateAssign.filter(x => x.assignTo != 'tranClass')
         }
-        else if(this.assignTo == 'tranClass')
+        else if(this.assignTo == 'tranClass' && this.constant.templateAssign)
         {
             tempArray = this.constant.templateAssign.filter(x => x.assignTo != 'course')
         }else{
