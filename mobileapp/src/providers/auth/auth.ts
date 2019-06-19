@@ -24,7 +24,7 @@ export class AuthProvider {
   
   login(name: string, pw: string, keepmelogin: boolean): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      let postData = {'emailAddress':name,'password':pw,'keepmelogin':keepmelogin};
+      let postData = {'emailAddress':name,'password':pw,'keepmelogin':keepmelogin,'type':'mobile'};
       this.http.post(API['API_LINK']+API_URL.URLS.loginAPI,postData).subscribe((res) => {
         if (res['isSuccess'])
         {
