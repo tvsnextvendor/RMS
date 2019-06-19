@@ -247,6 +247,9 @@
     word-wrap: normal;
     float: left;
     width: 370px;
+    font-weight: 600;
+    color: #697380;
+    font-size: 16px;
   }
   .clk-sec{
       padding-left: 30px;
