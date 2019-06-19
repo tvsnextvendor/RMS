@@ -113,7 +113,8 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem("resortName", resortName);
              }
             },error => {
-            error.error == "Invalid Password" ? this.passwordError= true : this.emailError = true;
+            error.error == "Invalid Password" ? this.passwordError= true : (error.error == "Invalid Email Address" ? this.emailError = true : '');
+            this.alertService.error(error.error)
         })
                 let localObject = [];
                 // remember password settings

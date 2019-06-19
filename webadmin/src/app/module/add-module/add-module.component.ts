@@ -71,7 +71,8 @@ export class AddModuleComponent implements OnInit {
    }
 
    ngOnInit(){
-    this.getquizList();
+       this.resetForm();
+       this.getquizList();
     if(this.addedFiles && this.addedFiles.length > 0){
         let courseName = this.moduleVar.selectCourseName;
         this.addCourse();

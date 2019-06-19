@@ -563,6 +563,7 @@ export class CommonLabels{
         "selectCourse"      :  "Please select the course",
         "employeeId"        :   "Employee Id is required",
         "confirmPasswordError"     :  "Confirm password is Required",
+        "employeeNullError" :   "Please select valid employee"
 
      
     };
