@@ -74,7 +74,8 @@ getSignRequired(){
   openSignRequireDetail(Files){
     let data = {
       'files' : Files,
-      'uploadPath' : this.uploadPath
+      'uploadPath' : this.uploadPath,
+      'type': 'noSignReq'
     }
     console.log(this.uploadPath);
     this.navCtrl.setRoot('signrequire-page', data);

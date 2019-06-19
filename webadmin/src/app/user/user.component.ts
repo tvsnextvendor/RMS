@@ -172,7 +172,7 @@ export class UserComponent implements OnInit {
             this.empId = data.employeeId;
             // this.changedivision();  
             this.department= data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings,'dept') : [];  
-            //this.accessTo = data.accessTo;  
+            this.accessTo = data.status;  
     }
 
     designationUpdate(data, designation) {

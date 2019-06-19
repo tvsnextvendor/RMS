@@ -16,7 +16,8 @@
   </div>
   <div class="login-action ">
     <div class="max-wth">
-      <button ion-button round type="submit" class="login-btn" (click)="doLogin()">{{constant.pages.loginLabels.signInSmall}}</button>
+      <button ion-button round type="submit" class="login-btn"
+        (click)="doLogin()">{{constant.pages.loginLabels.signInSmall}}</button>
       <span class="error-required" *ngIf="logincredentialerror">{{logincredentialerror}}</span>
       <div class="keep-login">
         <ion-item class="bg-trans">
@@ -24,7 +25,8 @@
           <ion-label>{{constant.pages.loginLabels.keepmeLoggedIn}} </ion-label>
         </ion-item>
       </div>
-      <div class="frget-pwd"><a href="javascript:void(0);" (click)="goToForget()">{{constant.pages.loginLabels.forgetYourPassword}}
+      <div class="frget-pwd"><a href="javascript:void(0);"
+          (click)="goToForget()">{{constant.pages.loginLabels.forgetYourPassword}}
           ?</a></div>
       <!-- <div class="new-account">
         {{constant.pages.loginLabels.needAnAccount}} <a href="javascript:void(0);" (click)="goToSignUp()">
