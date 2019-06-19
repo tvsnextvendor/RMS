@@ -21,6 +21,8 @@ export class NotificationTabComponent implements OnInit {
   enableEdit = false;
   enableDuplicate = false;
   enableIndex;
+  assignedCount;
+  completedCount;
 
   constructor(private breadCrumbService : BreadCrumbService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ) {
       this.activatedRoute.queryParams.subscribe(params=>{ 
@@ -98,6 +100,23 @@ export class NotificationTabComponent implements OnInit {
       this.enableIndex = index;
     }
   }
+
+  getIndividualCourse(course, index){
+    this.enableDropData('view',index);
+    let data = course;
+    let empCount = data && data.totalCount;
+    this.assignedCount = data && this.calculatePercent(empCount, data.assignedCount);
+    this.completedCount = data && this.calculatePercent(empCount, data.completedCount);
+ }
+
+ calculatePercent(totalempCount,individualCount){
+  if(totalempCount > 0){
+     let totalEmpPer = 100/totalempCount;
+     return individualCount*totalEmpPer;
+  }else{
+    return 0;
+  }
+}
 
   goToNotifyEdit(id){
     this.router.navigate(['/cms-library'],{queryParams : {notifyId : id,type:"create",tab:"notification"}});
