@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { HttpService, AlertService, ForumService, UtilService } from '../../services';
+import { HttpService, AlertService, ForumService, UtilService ,UserService} from '../../services';
 import { ForumVar } from '../../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { API_URL } from '../../Constants/api_url';
@@ -39,6 +39,8 @@ export class CreateForumComponent implements OnInit {
   @Input() closeModal;
   departData;
   departmentList = [];
+  assignList = [];
+  assignToId = [];
   adminData;
   Divisions;
   submitted = false;
@@ -52,7 +54,8 @@ export class CreateForumComponent implements OnInit {
     private datePipe: DatePipe,
     private router: Router,
     public commonLabels: CommonLabels,
-    private utilService: UtilService) {
+    private utilService: UtilService,
+    private userService :UserService) {
     this.forumVar.url = API_URL.URLS;
     this.forumVar.forumAdmin = '';
     this.forumVar.forumName = '';
@@ -68,7 +71,6 @@ export class CreateForumComponent implements OnInit {
       this.forumEditPage = result;
     });
     this.currentDate = new Date();
-    this.getAdminList();
     this.getDivisionList();
     if (this.forumEditPage.forumId) {
       this.getForumData();
@@ -118,6 +120,8 @@ export class CreateForumComponent implements OnInit {
         }
       });
       this.departmentList = selectedDepartment.filter(item => item);
+      this.assignToId = forumData.assignedTo;
+      this.getAdminList();
       this.forumVar.forumName = forumData.forumName;
       this.topicsArray = forumData.Topics;
       this.forumVar.forumAdmin = forumData.forumAdmin;
@@ -127,18 +131,23 @@ export class CreateForumComponent implements OnInit {
   }
 
   getAdminList() {
-    let userData = this.utilService.getUserData();
-    let createdBy = userData.userId;
-    this.forumService.getAdmin(createdBy).subscribe((resp) => {
-
+    // let userData = this.utilService.getUserData();
+    let departmentId = this.departmentList.map(item => { return item.id });
+    // let createdBy = userData.userId;
+    // this.forumService.getAdmin(createdBy).subscribe((resp) => {
+      const data = { 'departmentId': departmentId, 'createdBy': this.utilService.getUserData().userId }
+      this.userService.getUserByDivDept(data).subscribe(resp => {
       if(resp.data){
-        this.adminData = resp.data['rows'].map(item => {
+        this.adminData = resp.data.map(item => {
           const admin = {
             id: item.userId,
             value: item.userName
           };
           return admin;
         });
+        if (this.assignToId.length && this.adminData.length) {
+          this.assignList = this.adminData.filter(item=>this.assignToId.some(x=>x==item.id))
+        }
 
       }else{
         this.adminData = [];
@@ -191,6 +200,9 @@ export class CreateForumComponent implements OnInit {
     if (type === 'division') {
       this.getDepartmentList();
     }
+    if(type === 'department'){
+      this.getAdminList();
+    }
   }
 
   onItemDeselect(event, type) {
@@ -241,16 +253,16 @@ export class CreateForumComponent implements OnInit {
       });
     });
     // console.log(this.department['departments'], 'departmentlistSelected');
-
-    if (form.valid && !this.forumVar.uniqueValidate) {
+    if (form.valid && !this.forumVar.uniqueValidate && this.assignList.length) {
       const postData = {
         forum: {
           forumName: this.forumVar.forumName,
           forumAdmin: this.forumVar.forumAdmin,
+          assignedTo : this.assignList.map(item=>{return item.id}),
           startDate: this.datePipe.transform(this.forumVar.startDate, 'yyyy-MM-dd'),
-          endDate: this.datePipe.transform(this.forumVar.endDate, 'yyyy-MM-dd')
-        },
-        createdBy: this.utilService.getUserData().userId
+          endDate: this.datePipe.transform(this.forumVar.endDate, 'yyyy-MM-dd'),
+          createdBy: this.utilService.getUserData().userId
+        }
       };
       if (this.forumEditPage.forumId) {
         const self = this;
@@ -333,6 +345,7 @@ export class CreateForumComponent implements OnInit {
     this.forumVar.forumAdmin = '';
     this.submitted = false;
     this.forumService.editPage({});
+    this.assignList = [];
   }
 
 }
