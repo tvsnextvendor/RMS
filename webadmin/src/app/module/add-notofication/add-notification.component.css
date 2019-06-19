@@ -148,3 +148,9 @@
     padding-bottom: 15px;
     margin: 0;
    }
+   .file-alg{
+    font-size: 12px;
+    float: right;
+    color: #9B9B9B;
+    padding-top: 7px;
+}
