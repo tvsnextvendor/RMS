@@ -18,6 +18,7 @@ export class CreateForumComponent implements OnInit {
 
   forumName;
   forumEditPage;
+  currentDate;
   topicsArray: Array<any> = [{
     topics: '',
     forumTopicId: ''
@@ -66,7 +67,7 @@ export class CreateForumComponent implements OnInit {
     this.forumService.editForum.subscribe(result => {
       this.forumEditPage = result;
     });
-
+    this.currentDate = new Date();
     this.getAdminList();
     this.getDivisionList();
     if (this.forumEditPage.forumId) {

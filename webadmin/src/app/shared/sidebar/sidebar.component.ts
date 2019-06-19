@@ -28,9 +28,11 @@ export class SideBarComponent implements OnInit {
    activeType ;
    tabType;
    currentUrl;
+   roleId;
 
   ngOnInit() {
     let role = this.utilservice.getRole();
+    this.roleId = role;
     if(role == 1){
       this.networkAdmin = true;
       this.peerAdmin = false;

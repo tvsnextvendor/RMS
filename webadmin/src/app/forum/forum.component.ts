@@ -90,7 +90,7 @@ export class ForumComponent implements OnInit {
 
       isActive(forumId, isActive) {
         isActive = !isActive;
-        const activebj = isActive ?    { isActive: true } : { isActive: false };
+        const activebj = isActive ?    { isActive: true,active : '1' } : { isActive: false,active : '0' };
         this.forumUpdate(forumId, activebj);
       }
 

@@ -77,7 +77,7 @@
     <tab heading="Files">
     	<div class="row pt-2">
 			<div class="col-md-12 pl-0">
-			   <span  (click)="tabEnable = false" class="videopage">
+			   <span  *ngIf="selectedTab != 'class'" (click)="tabEnable = false" class="videopage">
 			   	<img src="{{commonLabels.imgs.close1}}" class="close-alg">
 			   	<img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></span>
 				<div class="white-bg p-4">

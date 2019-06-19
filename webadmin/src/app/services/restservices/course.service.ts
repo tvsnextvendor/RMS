@@ -30,6 +30,11 @@ export class CourseService {
     return this.http.getLocal('local',this.url.courseList+'?created='+userId);
   }
 
+  getBatchCourse(){
+    let userId = this.utilService.getUserData().userId;
+    return this.http.getLocal('local',this.url.courseList+'?created='+userId+'&status=none');
+  }
+
   getCourseById(courseId){
     return this.http.getLocal('local',this.url.courseList+'?courseId='+courseId)
   }

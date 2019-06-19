@@ -82,7 +82,7 @@
             <div class="form-group group-box">
                 <div class="input-group date" data-provide="datepicker">
                     <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="startDate" placeholder="Start Date"
-                    bsDatepicker [(ngModel)]="forumVar.startDate" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                    bsDatepicker [(ngModel)]="forumVar.startDate" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" [minDate] = 'currentDate'
                     required>
                     <div class="input-group-addon">
                         <i class="far fa-calendar-alt icons_header" (click)="dp.toggle()"></i>                        
@@ -93,7 +93,7 @@
             <div class="form-group group-box">
                     <div class="input-group date" data-provide="datepicker">
                         <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="endDate" placeholder="End Date"
-                        bsDatepicker [(ngModel)]="forumVar.endDate" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                        bsDatepicker [(ngModel)]="forumVar.endDate" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" [minDate] = 'currentDate'
                         required>
                         <div class="input-group-addon">
                         <i class="far fa-calendar-alt icons_header" (click)="dp.toggle()"></i>                        

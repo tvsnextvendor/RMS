@@ -157,7 +157,7 @@ getBadges(query) {
 }
 
 getResortForFeedback(resortId) {
-  return this.http.getLocal('local', this.url.resortList + '?parentId=' + resortId);
+  return this.http.getLocal('local', this.url.resortList + '?Resort=' + resortId);
 }
 
 saveAsNew(courseId, data) {

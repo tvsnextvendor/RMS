@@ -57,12 +57,13 @@ export class ResortListComponent implements OnInit {
   statusUpdate(i,resortId,status){
     this.resortVar.resortList[i].status = status === 'Active' ? 'InActive' : 'Active';
     let params ={
-      status : status === 'Active' ? 'InActive' : 'Active'
+      status : status === 'Active' ? 'InActive' : 'Active',
+      active : status === 'Active' ? '0' : '1'
     }
     this.resortService.updateResort(resortId,params).subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.getResortDetails();
-        this.alertService.success('Resort status updated successfully');
+        this.alertService.success(resp.message);
       }
     })
   }

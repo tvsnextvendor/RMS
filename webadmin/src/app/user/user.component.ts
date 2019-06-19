@@ -203,7 +203,7 @@ export class UserComponent implements OnInit {
           }
          this.userService.activeUser(userId,params).subscribe(res=>{
             if(res.isSuccess){
-                this.alertService.success(res.result);
+                this.alertService.success(res.message);
                 this.userList();
             }
          });
