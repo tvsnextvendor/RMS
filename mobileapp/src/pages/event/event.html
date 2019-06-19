@@ -47,7 +47,7 @@
               <!-- </div> -->
           <!-- </ion-col> -->
           <ion-col col-6>
-            <div class="expires red-color" *ngIf="course.Course.FeedbackMappings.length == 0"><span class="aligtxt">{{constant.pages.trainingLabels.willExpire}}
+            <div class="expires red-color" *ngIf="course.Course.FeedbackMappings && course.Course.FeedbackMappings.length == 0"><span class="aligtxt">{{constant.pages.trainingLabels.willExpire}}
               {{calculateExpireDays(schedule.dueDate)}}</span></div>
             <!-- <div class="average orange-color" ><span class="aligtxt"> Avg Score
                 {{batch.Score}}% <br>

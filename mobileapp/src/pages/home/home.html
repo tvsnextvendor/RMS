@@ -7,21 +7,21 @@
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.dashboard}}</span>
         <div class="header-icon">
-            <ion-icon (click)="goToForum()" name="ios-chatboxes" class="chat-icon"></ion-icon>
+          <ion-icon (click)="goToForum()" name="ios-chatboxes" class="chat-icon"></ion-icon>
           <a (click)="goToNotification()">
-          <img src="assets/imgs/notification.png" />
-          <span class="dot-circle">{{notificationCount}}</span>
+            <img src="assets/imgs/notification.png" />
+            <span class="dot-circle">{{notificationCount}}</span>
           </a>
         </div>
       </ion-title>
-    </ion-navbar>    
+    </ion-navbar>
   </ion-header>
   <div class="main-content">
     <div class="current-day">
       <h3 *ngIf="currentUser">{{constant.pages.dashboardLabels.goodMrng}}, {{currentUser.userName}}</h3>
       <p class="m-0"><span class="day-detail">{{todayDate | date :'E, MMM dd'}} </span></p>
       <p class="weather-status"><img class="weather-img" src="assets/imgs/cool.png" />
-        <span class="weather-sts">-4<sup>&#8728;</sup> C</span></p> 
+        <span class="weather-sts">-4<sup>&#8728;</sup> C</span></p>
     </div>
     <ion-grid class="status-grid no-padding">
       <ion-row nowrap class="forecast_container">
@@ -58,35 +58,39 @@
       </ion-row>
     </ion-grid>
 
-      <ion-list *ngIf="dashboardInfo">
-        <ion-card class="forum-card" *ngFor="let schedule of dashboardInfo">
-          <ion-grid>
-            <ion-row (click)="hideShowDesc(schedule)">
-              <ion-col col-4 class="batch-name" (click)="navPage('course')">{{schedule.name}}</ion-col>
-              <ion-col col-7 class="batch-date">
-                {{schedule.assignedDate | date:'dd MMM yyyy'}}
-                <span class="to-txt"> To </span>
-                 {{schedule.dueDate | date:'dd MMM yyyy'}}
-              </ion-col>
-              <ion-col col-1 class="batch-icon">
-                <ion-icon name="ios-arrow-down"></ion-icon>
-              </ion-col>
-            </ion-row>
-            <div *ngIf="schedule.isActive">
+    <ion-list *ngIf="dashboardInfo">
+      <ion-card class="forum-card" *ngFor="let schedule of dashboardInfo;let i=index">
+        <ion-grid>
+          <ion-row >
+            <ion-col col-4 class="batch-name" (click)="navPage('course')">{{schedule.name}}</ion-col>
+            <ion-col col-7 class="batch-date"  (click)="navPage('course')">
+              {{schedule.assignedDate | date:'dd MMM yyyy'}}
+              <span class="to-txt"> To </span>
+              {{schedule.dueDate | date:'dd MMM yyyy'}}
+            </ion-col>
+            <ion-col col-1 class="batch-icon" (click)="hideShowDesc(i)">
+              <ion-icon *ngIf="!enableView || enableIndex !== i" name="ios-arrow-forward"></ion-icon>
+              <ion-icon *ngIf="enableView && enableIndex === i" name="ios-arrow-down"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <div *ngIf="enableView && enableIndex === i">
             <ion-row *ngFor="let data of schedule.Resorts">
               <ion-col col-6 class="course-count">
                 <p>{{data.Course.courseName}}</p>
-                <p>{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}} </p>
+                <p>{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}}
+                </p>
               </ion-col>
               <ion-col col-6>
-                <div class="expires org-color"><span class="aligtxt">{{constant.pages.dashboardLabels.expire}}  {{calculateExpireDays(schedule.dueDate)}}</span></div>
+                <div class="expires org-color"><span class="aligtxt">{{constant.pages.dashboardLabels.expire}}
+                    {{calculateExpireDays(schedule.dueDate)}}</span></div>
               </ion-col>
             </ion-row>
-            </div>
-          </ion-grid>
-        </ion-card>
-      </ion-list>
-      <ion-row *ngIf=" dashboardInfo.length == 0">
+          </div>
+        </ion-grid>
+      </ion-card>
+    </ion-list>
+
+    <ion-row *ngIf=" dashboardInfo.length == 0">
       <ion-col class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
@@ -96,15 +100,19 @@
           </ion-grid>
         </ion-card>
       </ion-col>
-      </ion-row>
+    </ion-row>
   </div>
 </ion-content>
 <section class="tab-footer">
-<div class="tab-foot-bg">
-<ul class="clearfix">
-    <li ><span (click)="changeStatus('assigned')"  [ngClass]="status == 'assigned' ? 'active-color' : ''" >{{constant.pages.dashboardLabels.assignedLabel}}</span></li>
-    <li><span>|</span></li>
-    <li><span (click)="changeStatus('inProgress')" [ngClass]="status == 'inProgress' ? 'active-color' : ''">{{constant.pages.dashboardLabels.progressLabel}}</span></li>
-</ul>
-</div>
+  <div class="tab-foot-bg">
+    <ul class="clearfix">
+      <li><span (click)="changeStatus('assigned')"
+          [ngClass]="status == 'assigned' ? 'active-color' : ''">{{constant.pages.dashboardLabels.assignedLabel}}</span>
+      </li>
+      <li><span>|</span></li>
+      <li><span (click)="changeStatus('inProgress')"
+          [ngClass]="status == 'inProgress' ? 'active-color' : ''">{{constant.pages.dashboardLabels.progressLabel}}</span>
+      </li>
+    </ul>
+  </div>
 </section>

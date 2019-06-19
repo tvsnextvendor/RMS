@@ -23,7 +23,9 @@ export class HomePage {
   notificationCount;
   currentUser;
   status;
+  enableView;
   todayDate;
+  enableIndex;
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,public socketService: SocketService, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
@@ -73,8 +75,9 @@ export class HomePage {
     this.getDashboardInfo();
   }
   
-  hideShowDesc(list){
-    list['isActive'] = !list['isActive'];
+  hideShowDesc(i){
+    this.enableView = this.enableIndex === i ? !this.enableView : true;
+    this.enableIndex = i;
   }
 
    calculateExpireDays(dueDate) {

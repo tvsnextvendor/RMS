@@ -41,7 +41,7 @@
         </ion-card-title>
         
         <div class="checkbox-item clearfix" *ngIf="imageType">
-                <label class="hole-cont mr-2">
+                <label class="hole-cont mr-2" *ngIf="pageType == 'signReq'">
                     <input type="checkbox" [(ngModel)]="agree"  name="options" > 
                     {{constant.pages.trainingLabels.ackText}}<a href="javascript:void(0);" (click)="viewContent(filePath)">{{constant.pages.trainingLabels.document}}</a>
                     <span class="checkmark"></span>

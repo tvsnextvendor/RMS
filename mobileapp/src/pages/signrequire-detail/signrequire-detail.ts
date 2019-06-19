@@ -24,12 +24,14 @@ export class SignrequireDetailPage {
   truncating = true;
   showPreView;
   uploadPath;
+  pageType;
   agree: boolean = false;
  
   constructor(public navCtrl: NavController,public toastr: ToastrService, public navParams: NavParams, public constant:Constant) {
           let data = this.navParams.data;
           this.Files = data.files;
           this.uploadPath = data.uploadPath;
+          this.pageType = data.type;
 
   }
 
@@ -91,10 +93,14 @@ export class SignrequireDetailPage {
     }
 
     goBack(){
-      if(this.agree){
-      this.navCtrl.setRoot('course-page','signReq');
+      if(this.pageType == 'signReq'){
+          if(this.agree){
+          this.navCtrl.setRoot('course-page','signReq');
+          }else{
+            this.toastr.error("Please agree acknowledgement");
+          }
       }else{
-         this.toastr.error("Please agree acknowledgement");
+          this.navCtrl.setRoot('generalnotification-page');
       }
     }
 
