@@ -1,8 +1,11 @@
 import { Component , ViewChild, ElementRef} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Constant } from '../../constants/Constant.var';
-import {ToastrService} from '../../service/toastrService';
+import {ToastrService, CommonService} from '../../service';
 import { API } from '../../constants/API.var';
+import { API_URL } from '../../constants/API_URLS.var';
+import { Storage } from '@ionic/storage';
+import { HttpProvider } from '../../providers/http/http';
 
 
 @IonicPage({
@@ -25,9 +28,10 @@ export class SignrequireDetailPage {
   showPreView;
   uploadPath;
   pageType;
+  currentUser;
   agree: boolean = false;
  
-  constructor(public navCtrl: NavController,public toastr: ToastrService, public navParams: NavParams, public constant:Constant) {
+  constructor(public navCtrl: NavController,public commonService:CommonService,public http: HttpProvider,public toastr: ToastrService, public navParams: NavParams,public storage: Storage,public constant:Constant) {
           let data = this.navParams.data;
           this.Files = data.files;
           this.uploadPath = data.uploadPath;
@@ -37,6 +41,15 @@ export class SignrequireDetailPage {
 
   ionViewDidLoad() {
     this.showPreView = this.getFileExtension(this.Files.fileUrl);
+  }
+
+  ngAfterViewInit(){
+             let self = this;
+            this.storage.get('currentUser').then((user: any) => {
+            if (user) {
+             self.currentUser = user;
+            }
+        });
   }
 
 
@@ -102,6 +115,20 @@ export class SignrequireDetailPage {
       }else{
           this.navCtrl.setRoot('generalnotification-page');
       }
+    }
+
+    completeNotification(){
+      console.log(this.Files);
+       let userId =  this.currentUser.userId;
+       let resortId = this.currentUser.ResortUserMappings[0].resortId;
+       let postData={
+         userId : userId,
+         resortId: resortId,
+         notificationFileId: this.Files.fileId
+       }
+      this.http.put(false,API_URL.URLS.completedNotification,postData).subscribe(res=>{
+
+      })
     }
 
      viewContent(docFile) {

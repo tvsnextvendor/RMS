@@ -41,7 +41,7 @@ export class HomePage {
             let self = this;
             this.status='assigned';
             this.storage.get('currentUser').then((user: any) => {
-            if (user) {
+            if (user.token) {
              self.currentUser = user;
              this.getDashboardInfo();
               this.getNotification();

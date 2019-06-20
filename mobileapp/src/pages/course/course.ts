@@ -149,11 +149,11 @@ export class CoursePage implements OnInit {
     let userId =  this.currentUser.userId;
     let resortId = this.currentUser.ResortUserMappings[0].resortId;
     let status='signRequired';
-    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId +'&resortId='+resortId+'&status='+status).subscribe(res=>{
+    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId +'&resortId='+resortId+'&status='+status+'&mobile='+1).subscribe(res=>{
     if(res['data']['rows']){
       this.signRequireList =res['data']['rows'];
       this.signRequireCount = res['data']['count'];
-      this.uploadPath = res['data']['uploadPath']['uploadPath'];
+      this.uploadPath =res['data'].length ? res['data']['uploadPath']['uploadPath']: '';
     }else{
       this.signRequireCount = 0;
       this.noRecordsFoundMessage = res['message'];
