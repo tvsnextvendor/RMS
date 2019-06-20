@@ -2,7 +2,7 @@ import { Component, OnInit,TemplateRef,ViewChild} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import {Router,ActivatedRoute} from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import {HeaderService,UtilService,CourseService,BreadCrumbService} from '../../services';
+import {HeaderService,UtilService,CourseService,BreadCrumbService,AlertService} from '../../services';
 import {BatchVar} from '../../Constants/batch.var';
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
@@ -41,7 +41,8 @@ export class CalendarViewComponent implements OnInit {
     private utilService : UtilService,
     private courseService : CourseService,
     private breadCrumbService : BreadCrumbService,
-    private activatedRoute :ActivatedRoute){
+    private activatedRoute :ActivatedRoute,
+    private alertService : AlertService){
     this.batchVar.url = API_URL.URLS; 
     this.activatedRoute.queryParams.forEach(items=>{
         this.currentUrl = items.type
@@ -66,6 +67,19 @@ export class CalendarViewComponent implements OnInit {
         this.pageUpdate(event,scheduleId,i,addBatch);
         this.router.navigate(['/calendar'],{queryParams : {type:'edit'}})
  
+    }
+
+    goToDelete(event,i){
+        console.log(event ,i)
+        let scheduleId = event.id;
+        this.courseService.removeSchedule(scheduleId).subscribe(resp=>{
+            if(resp && resp.isSuccess){
+                this.alertService.success(resp.message);
+                this.getCalendarDetails();
+            }
+        },err=>{
+            this.alertService.error(err.error.error)
+        })
     }
 
     pageUpdate(event,scheduleId,i,addBatch){
@@ -142,5 +156,5 @@ export class CalendarViewComponent implements OnInit {
             this.goToCMSLibrary();
         }
       }
- 
+
 }

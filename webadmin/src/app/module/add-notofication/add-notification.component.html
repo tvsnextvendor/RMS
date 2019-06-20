@@ -8,7 +8,7 @@
 </div> -->
 <div>
     <div class="clearfix">
-        <h4 class="add-notify">{{notifyId ? commonLabels.btns.editNotification : commonLabels.btns.createNotification}}</h4>
+        <h4 class="add-notify">{{notifyId ? commonLabels.labels.editNotification : commonLabels.btns.createNotification}}</h4>
     </div>
     <div class="modal-body" *ngIf="!notificationType">
         <!-- <div>
@@ -167,17 +167,17 @@
                     <div class="row">
                         <div class="col-md-6 pl-0">
                             <div class="row">
-                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.from}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.from}}</label>
                                 <div class="col-md-7 pr-0 pl-5">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()"
                                             [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
                                         <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
                                             name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel"
                                             [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
-                                        <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
+                                        <!-- <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
                                             {{commonLabels.mandatoryLabels.from}}
-                                        </span>
-                                        <div *ngIf="!batchVar.dategreater" class="required_color">
+                                        </span> -->
+                                        <div *ngIf="batchVar.batchFrom && batchVar.batchTo && !batchVar.dategreater" class="required_color">
                                             <span>{{commonLabels.mandatoryLabels.dateLimitError}} </span>
                                         </div>
                                     </span>
@@ -189,7 +189,7 @@
                         </div>
                         <div class="col-md-6 pr-0">
                             <div class="row">
-                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.to}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.to}}</label>
                                 <div class="col-md-7 p-0 batch-input">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()"
                                             [attr.aria-expanded]="dp.isOpen" class="batch-icon">

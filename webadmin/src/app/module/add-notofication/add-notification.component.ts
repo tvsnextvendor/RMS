@@ -65,10 +65,10 @@ export class AddNotificationComponent implements OnInit {
 
     ngOnInit() {
       this.clearBatchForm();
-      let data = this.notifyId ? [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.btns.editNotification,url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.btns.createNotification,url:''}]
+      let data = this.notifyId ? [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.editNotification,url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.btns.createNotification,url:''}]
       this.breadCrumbService.setTitle(data)
         // let startDate = localStorage.getItem('BatchStartDate');
-        this.batchVar.batchFrom = new Date();
+        this.batchVar.batchFrom = '';
         this.batchVar.batchTo = '';
         this.batchVar.dategreater = true;
         const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
@@ -94,8 +94,8 @@ export class AddNotificationComponent implements OnInit {
             this.uploadFileName = respData.File && respData.File.fileUrl;
             this.fileName = respData.File && respData.File.fileName;
             this.description = respData.File && respData.File.fileDescription;
-            this.batchVar.batchFrom = new Date(respData.assignedDate);
-            this.batchVar.batchTo = new Date(respData.dueDate);
+            this.batchVar.batchFrom = respData.assignedDate ? new Date(respData.assignedDate) : '';
+            this.batchVar.batchTo = respData.dueDate ? new Date(respData.dueDate) : '';
             if(respData.NotificationFileMaps.length) {
               this.moduleVar.divisionId = respData.NotificationFileMaps.map(x=>{ return x.divisionId});
               this.moduleVar.departmentId = respData.NotificationFileMaps.map(x=>{ return x.departmentId});
@@ -309,21 +309,21 @@ export class AddNotificationComponent implements OnInit {
     }
 
     submitNotification(){
-      this.batchVar.dategreater = Date.parse(this.batchVar.batchTo) > Date.parse(this.batchVar.batchFrom) ? true : false;
-      if(this.fileName && (this.notificationFileName || this.uploadFileName) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchTo && this.description && this.batchVar.dategreater){ 
+      this.batchVar.dategreater = this.batchVar.batchFrom && this.batchVar.batchTo && Date.parse(this.batchVar.batchTo) < Date.parse(this.batchVar.batchFrom) ? false : true;
+      if(this.fileName && (this.notificationFileName || this.uploadFileName) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.description && this.batchVar.dategreater){ 
         let data = {
           "courseId":'',
           "createdBy"  :this.userId,
           "trainingClassId":'',
           "signatureStatus" : true,
-          "assignedDate":this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd'),
-          "dueDate":this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd'),
+          "assignedDate":this.batchVar.batchFrom ? this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') : '',
+          "dueDate":this.batchVar.batchTo ? this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd') : '',
           "fileName":this.fileName,
           "fileDescription":this.description,
           "fileSize":this.fileSize,
-          "fileExtension":this.fileExtensionType,
+          "fileExtension":this.fileExtension,
           "fileImage":this.notificationFileImage ? this.notificationFileImage : '',
-          "fileType":this.fileExtension,
+          "fileType":'notification',
           "fileUrl":this.notificationFileName,
           "fileLength":this.fileDuration,
           "resortId":this.moduleVar.selectedResort,
@@ -332,7 +332,7 @@ export class AddNotificationComponent implements OnInit {
           "userId":this.moduleVar.selectedEmployee.map(x=>{return x.userId}),
           "removeUserIds":''
         }
-        
+
         if(this.notificationType == 'assignedToCourse'){
           data.courseId = this.moduleVar.selectedCourses;
           data.trainingClassId = this.moduleVar.selectedTrainingClass;    
