@@ -196,6 +196,7 @@ export class API_URL {
     topFiveResort : '8103/getTopFiveResorts',
     badgesData: '8103/getBadges',
     archievedSettings : '8103/archieved',
+    removeSchedule : '8103/schedule/deleteSchedule/',
     // addArchieve : '8103/archieved',
     // updateArchieve : '8103/archieved/',
 

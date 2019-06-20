@@ -4,6 +4,7 @@ import { FormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import {AuthGuard} from '../guard/auth.guard.component';
 import { CommonModule } from '@angular/common';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ApprovalrequestsComponent } from './approvalrequests.component';
 import { ApprovalrequestsdetailsComponent } from './approvalrequestsdetails/approvalrequestsdetails.component';
 
@@ -21,6 +22,7 @@ const routes: Routes = [
      BrowserModule, 
     FormsModule,  
     RouterModule.forRoot(routes),
+    NgMultiSelectDropDownModule
   ],
   declarations: [ApprovalrequestsComponent, ApprovalrequestsdetailsComponent],
   bootstrap: [ApprovalrequestsComponent]

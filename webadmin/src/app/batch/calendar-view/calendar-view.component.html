@@ -66,6 +66,7 @@
         <span class="col-md-10 p-0">
           <p class="m-0">{{event.batchName}}</p>
           <p class="m-0 clearfix pr-2" (click)="goToBatch(day.date,event,i,editBatch)"><i class="fas fa-pencil-alt float-right"></i></p>
+          <p class="m-0 clearfix pr-2" (click)="goToDelete(event,i)"><i class="fas fa-trash float-right"></i></p>
           <!-- <p class="m-0" *ngFor="let course of event.courseList;">{{course?.Course?.courseName}}</p> -->
           <p class="m-0">{{event.start | date:medium}} - {{event.dueDate | date:medium}}</p>
           <!-- <p class="m-0">{{event.timings}}</p> -->
