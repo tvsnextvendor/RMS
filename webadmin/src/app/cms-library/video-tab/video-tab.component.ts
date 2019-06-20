@@ -79,7 +79,6 @@ constructor(private courseService: CourseService,
         this.resortService.getResortByParentId(resortId).subscribe((result)=>{
             this.constant.resortList=result.data.Resort;
             this.constant.divisionList=result.data.divisions;
-
         })
   }
 
@@ -108,7 +107,8 @@ constructor(private courseService: CourseService,
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
  }
-
+ 
+   //get training classes based on selected course.
    courseChange(){
      this.selectedClass="";
       this.courseService.getTrainingclassesById(this.selectedCourse).subscribe(result=>{
@@ -179,17 +179,14 @@ constructor(private courseService: CourseService,
           this.videoListValue = [];
         }else{
           this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
-          // console.log(_.merge(this.videoListValue, selectedVideos));
+          _.merge(this.videoListValue, selectedVideos);
         }
         this.uploadPath = resp.data.uploadPaths.uploadPath;
       }
       this.CMSFilterSearchEventSet = '';
     },err =>{
       this.CMSFilterSearchEventSet = '';
-    });
-
-   
-     
+    }); 
   }
 
   openEditVideo(template: TemplateRef<any>, data, index) {
@@ -219,7 +216,6 @@ constructor(private courseService: CourseService,
     }
 
     onEmpSelect(event, key,checkType) {
-
       if (event.divisionId) {
         this.constant.divisionId = event.divisionId;
       } else if (event.departmentId) {

@@ -32,7 +32,7 @@ export class ForumPage implements OnInit {
     console.log('ionViewDidLoad ForumPage');
   }
   ionViewDidEnter() {
-    this.getForumDatas();
+   
   }
   ngOnInit(){
 
@@ -53,14 +53,17 @@ export class ForumPage implements OnInit {
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-              this.getNotification();
+               this.getNotification();
+               this.getForumDatas();
             }
         });
   }
  
 
   getForumDatas() {
-    this.http.get(API_URL.URLS.getForum +'?search='+this.search).subscribe((res) => {
+    let userId = this.currentUser.userId;
+    this.http.get(API_URL.URLS.getForum +'?search='+this.search+'&userId='+userId+'&isActive='+1
+                                                                                 ).subscribe((res) => {
       if (res['isSuccess']) {
         this.forumData = res['data']['rows'];
       }

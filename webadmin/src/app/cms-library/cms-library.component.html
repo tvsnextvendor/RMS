@@ -53,8 +53,8 @@
                     <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-document-tab>
                 </div>
                  <!-- app-notification-tab -->
-                 <div  *ngIf = "selectedTab === 'notification' && !hideSection " id="notification" [ngClass] = "'col-md-12 pt-3 clearfix px-0 container tab-pane' + (selectedTab === 'notification' ? 'active show' : 'nav-link')">
-                    <app-notification-tab></app-notification-tab>
+                 <div  *ngIf = "selectedTab === 'notification' && !showcreatecourse " id="notification" [ngClass] = "'col-md-12 pt-3 clearfix px-0 container tab-pane' + (selectedTab === 'notification' ? 'active show' : 'nav-link')">
+                    <app-notification-tab [uploadPage]="hideSection"></app-notification-tab>
                 </div>
                 <!-- Quiz Tab Content --> 
                 <div  *ngIf = "selectedTab === 'quiz' && !hideSection " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">

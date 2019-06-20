@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {BreadCrumbService,CourseService,UtilService } from '../../services';
+import {BreadCrumbService,CourseService,UtilService,FileService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-notification-tab',
@@ -23,8 +24,11 @@ export class NotificationTabComponent implements OnInit {
   enableIndex;
   assignedCount;
   completedCount;
+  fileList=[];
+  @Input() uploadPage;
 
-  constructor(private breadCrumbService : BreadCrumbService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ) {
+
+  constructor(private breadCrumbService : BreadCrumbService,private fileService: FileService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ) {
       this.activatedRoute.queryParams.subscribe(params=>{ 
        if(params.tab == 'schedule'){
         let data = [{title : this.commonLabels.labels.schedule,url:'/calendar'},{title : this.commonLabels.labels.notification,url:''}]
@@ -50,12 +54,29 @@ export class NotificationTabComponent implements OnInit {
 
   getNotificationData(){
     let query = this.roleId != 1 ? '?resortId='+this.resortId : '';
+    let selectedDocuments = this.fileService.getSelectedList('notification');    
     this.courseService.getNotification(query).subscribe(resp=>{
       if(resp && resp.isSuccess){
+         if(resp.data.count === 0)
+        {
+          this.notifyListValue = [];
+        }else{
         this.notifyListValue = resp.data.rows.length ? resp.data.rows :[];
+        if (selectedDocuments) {
+          selectedDocuments.map(doc=>{
+            this.notifyListValue.map(list =>{
+                if(list.File.fileId == doc.fileId){
+                  list.File['selected'] = true;
+                }
+            })
+          })           
+        }
         this.totalCount = resp.data.count;
       }
+      }
     })
+
+   
   }
 
   selectNotify(notifyId,courseName, isChecked){
@@ -117,6 +138,23 @@ export class NotificationTabComponent implements OnInit {
     return 0;
   }
 }
+
+  //Add or remove files from list
+  addFiles(event,file,i){
+    let type=event.target.checked;
+    if(type){
+      file['addNew'] = true;
+      file['selected'] = true;
+      this.fileList.push(file);
+      this.fileService.saveFileList('add',file);
+    }else{
+      let index = this.fileList.findIndex(x => x.fileId === file.fileId);
+      file['selected'] = false;
+      this.fileList.splice(index,1);
+     this.fileService.saveFileList('remove',file);
+    }
+    console.log(this.fileList,"cdsjsjdc");
+  }
 
   goToNotifyEdit(id){
     this.router.navigate(['/cms-library'],{queryParams : {notifyId : id,type:"create",tab:"notification"}});

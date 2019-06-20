@@ -3,9 +3,15 @@
         <!-- {{CMSFilterSearchEventSet}} -->
         <div class="white-bg p-3 clearfix">
             <div class="clearfix">
-                <label class="float-left mb-0">
-                    <span class="text-over">{{courses.File.fileName}}</span>
+               
+                <label class="square-cont float-left" *ngIf="uploadPage">
+                    <input type="checkbox" name="file" value={{courses.File.fileId}} [checked]="courses.File.selected" (change)="addFiles($event,courses.File,i)"><span
+                        class="text-over">{{courses.File.fileName}}</span>
+                    <span class="square-checkmark"></span>
                 </label>
+
+                <span class="text-over" *ngIf="!uploadPage">{{courses.File.fileName}}</span>
+
                 <span class="float-right">
                     <a title="Edit" class="mr-4"><i class="fas fa-calendar-alt icons_header p-0" aria-hidden="true" (click)="goToNotifyEdit(courses.notificationFileId)"></i></a>                    
                     <!-- <a title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a> -->
@@ -75,7 +81,7 @@
     
 </div>
 <div class="col-md-12 p-0">
-    <div class="white-bg text-center p-4" *ngIf="!notifyListValue.length"><p class="data-design">
+    <div class="white-bg text-center p-4" *ngIf="notifyListValue && !notifyListValue.length"><p class="data-design">
         <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
     </div>
 </div>
