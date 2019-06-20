@@ -6,13 +6,25 @@
 				<div class="white-bg p-3 mt-2 table-decs"  *ngFor="let data of quizQuestionsForm;let i = index;">
 					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i,data)">
 						<img src="{{commonLabels.imgs.close1}}" class="close-alg">
-						   <img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>
-						   <div class="col-md-12">
-						   <button *ngIf="i==0" type="button" class="btn btn-primary" (click)="uploadQuiz()">Upload</button>
-						   </div>
+						   <img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>		   
+						 <div class="clearfix py-2">
+						  <div>
+							<label class="square-cont float-left pr-5">
+								<input type="checkbox" name="courseId0">
+								<span class="text-over">New Quiz</span>
+								<span class="square-checkmark"></span>
+							</label>
+							<label class="square-cont float-left">
+									<input type="checkbox" name="courseId0">
+									<span class="text-over">Existing Quiz</span>
+									<span class="square-checkmark"></span>
+								</label>
+						   </div>							   
+						</div> 
+						<hr>
 						   <div class="row form-group">
 							<label class="col-md-2 p-0 label-title">{{commonLabels.labels.quizName}}</label>
-							<div class="col-md-10 pl-3">
+							<div class="col-md-9 pl-3">
 								<span>
 									<input type="text" class="form-control" placeholder="Enter Quiz Name" name="name" #quizname="ngModel"
 										[(ngModel)]="quizName" required>
@@ -21,6 +33,9 @@
 									{{commonLabels.labels.quizName}} {{commonLabels.mandatoryLabels.isRequired}}
 								</span>
 							</div>
+							<div class="col-md-1">
+									<button *ngIf="i==0" type="button" class="btn btn-primary" (click)="uploadQuiz()">Upload</button>
+									</div>
 						   </div>
 					<div class="row  form-group">
 						<div class="col-md-6 row p-0"> 
