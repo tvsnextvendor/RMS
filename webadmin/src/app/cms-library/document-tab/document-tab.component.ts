@@ -168,7 +168,7 @@ export class DocumentTabComponent implements OnInit {
           this.videoListValue = [];
         }else{
            this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
-            // console.log(_.merge(this.videoListValue, selectedDocuments));
+           _.merge(this.videoListValue, selectedDocuments);
         this.uploadPath = resp.data && resp.data.uploadPaths ? resp.data.uploadPaths.uploadPath : '';
       }
        }

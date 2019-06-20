@@ -1,7 +1,7 @@
 import { Component,Input,Output, EventEmitter, OnInit,ViewChild,ElementRef,TemplateRef} from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute,Params } from '@angular/router';
-import { HttpService,HeaderService,UtilService,AlertService,CommonService, CourseService,BreadCrumbService } from '../../services';
+import { HttpService,HeaderService,UtilService,AlertService,CommonService, CourseService,BreadCrumbService,FileService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import {AddQuizComponent} from '../add-quiz/add-quiz.component';
@@ -56,7 +56,7 @@ export class AddModuleComponent implements OnInit {
     @Input() selectedTab;
     // selectedCourseIds:any;
 
-   constructor(private breadCrumbService : BreadCrumbService, private modalService: BsModalService,private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
+   constructor(private breadCrumbService : BreadCrumbService,private fileService:FileService,private modalService: BsModalService,private utilService : UtilService,private courseService : CourseService,private headerService:HeaderService,private elementRef:ElementRef,private toastr : ToastrService,public moduleVar: ModuleVar,private route: Router,private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute,private alertService:AlertService,public commonLabels:CommonLabels){
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId']; 
         });
@@ -178,6 +178,7 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.selectVideoName = '';
         this.moduleVar.description= '';
         this.moduleVar.videoList=[];
+        this.fileService.emptyFileList();
     }
    
     onItemSelect(item: any) {
@@ -370,12 +371,14 @@ export class AddModuleComponent implements OnInit {
    }
 
    removeVideo(data,i){
+       console.log(data);
        if(this.moduleVar.courseId && data.fileId){
            this.removedFileIds.push(data.fileId);
        }
        else{
         this.messageClose();
-        let dataContent = data.filePath;
+        //filepath to delete documents uploaded from Desktop & fileUrl is to del doc uploaded from RL.
+        let dataContent = data.filePath ? data.filePath : "/uploads/"+data.fileUrl;
         this.commonService.removeFiles(dataContent).subscribe(result=>{
             if(result && result.isSuccess){
                 this.alertService.success(this.commonLabels.msgs.fileRemoved)
@@ -405,6 +408,7 @@ export class AddModuleComponent implements OnInit {
             this.message = data.type ? this.commonLabels.labels.updateCourseSuccess : this.commonLabels.labels.addCourseSuccess;
             this.alertService.success(this.message);
             this.messageClose();
+            this.fileService.emptyFileList();
        }
        else{
         this.messageClose();
@@ -427,6 +431,7 @@ export class AddModuleComponent implements OnInit {
              this.tabEnable = data.courseUpdate ? false : true;
              this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
              this.alertService.success(this.message);
+             this.fileService.emptyFileList();
          }
        }   
    }
@@ -497,6 +502,7 @@ export class AddModuleComponent implements OnInit {
    resetTabDetails(add){
     this.tabEnable = add ? true : false;
     this.moduleVar.videoList = [];
+    this.fileService.emptyFileList();
     this.moduleVar.selectCourseName = '';
     this.moduleVar.selectVideoName = '';
     this.moduleVar.description = '';
@@ -650,7 +656,8 @@ export class AddModuleComponent implements OnInit {
 
                         this.alertService.success(this.commonLabels.labels.moduleUpdateMsg);
                         this.moduleSubmitted = false;
-                        
+                        this.fileService.emptyFileList();
+
                     }
                 },err=>{
                     this.modalRef &&  this.modalRef.hide();
@@ -684,6 +691,7 @@ export class AddModuleComponent implements OnInit {
                         
                         this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
                         this.moduleSubmitted = false;
+                        this.fileService.emptyFileList();
                     }
                 },err=>{
                     this.modalRef &&  this.modalRef.hide();
