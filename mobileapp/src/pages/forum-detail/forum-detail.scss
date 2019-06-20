@@ -57,11 +57,14 @@ page-forum-detail{
 		width: 40px;
 		height: 40px;
 	}
-	.forum-txt {
-		font-size: 12px;
+	.answers-txt:hover {
+		color: #468FB9;
+	}
+	.forum-txt, .answers-txt{
+    font-size: 12px;
     color: #656565;
     font-weight: normal;
-    margin: 4px 0;
+	margin: 4px 0;	
 	}
 	.heart-icon {
 		text-align: right;

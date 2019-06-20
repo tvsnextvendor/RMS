@@ -190,7 +190,7 @@ export class ResortChartsComponent implements OnInit {
            pie: {
               shadow: false,
               center: ['50%', '50%'],
-              size: '45%',
+              size: '100%',
               innerSize: '70%'
            },
         //    series: {
