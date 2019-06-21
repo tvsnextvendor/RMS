@@ -629,7 +629,7 @@ export class AddModuleComponent implements OnInit {
         if(this.moduleName && this.selectedCourses.length ){
             let params = {
                 "courseName":this.moduleName,
-                "quizId": this.selectedQuiz, 
+                // "quizId": this.selectedQuiz, 
                 "courseTrainingClasses":this.moduleVar.selectedCourseIds,
                 "createdBy" : user.userId,
                 "status" : courseSubmitType ? 'none' : 'workInprogress'
@@ -712,7 +712,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     openEditModal(template: TemplateRef<any>,modelValue) {
-        if(this.moduleName && this.moduleVar.selectedCourseIds.length && this.selectedQuiz){
+        if(this.moduleName && this.moduleVar.selectedCourseIds.length){
           let modalConfig= {
             class : "modal-dialog-centered"
           }

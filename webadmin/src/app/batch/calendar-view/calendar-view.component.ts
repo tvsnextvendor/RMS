@@ -30,6 +30,9 @@ export class CalendarViewComponent implements OnInit {
     scheduleEditDetails = {};
     enableBatch = false;
     currentUrl ;
+    modalConfig;
+    modalRef;
+    removeScheduleId;
 
   
    constructor(
@@ -69,13 +72,14 @@ export class CalendarViewComponent implements OnInit {
  
     }
 
-    goToDelete(event,i){
-        console.log(event ,i)
-        let scheduleId = event.id;
+    goToDelete(){
+        // console.log(event ,i)
+        let scheduleId = this.removeScheduleId;
         this.courseService.removeSchedule(scheduleId).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 this.alertService.success(resp.message);
                 this.getCalendarDetails();
+                this.closePopup();
             }
         },err=>{
             this.alertService.error(err.error.error)
@@ -126,6 +130,9 @@ export class CalendarViewComponent implements OnInit {
                  })
                  this.events=tempArray;
             }
+            else{
+                this.events = [];
+            }
         })
     }
 
@@ -157,4 +164,13 @@ export class CalendarViewComponent implements OnInit {
         }
       }
 
+      closePopup(){
+        this.modalRef.hide();
+        this.removeScheduleId = '';
+      }
+
+      openConfirmModel(template: TemplateRef<any>,event) {
+          this.removeScheduleId = event.id;
+        this.modalRef = this.modalService.show(template,this.modalConfig);
+      }
 }

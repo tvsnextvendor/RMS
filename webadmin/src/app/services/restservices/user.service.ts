@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http.service';
+import {UtilService} from '../util.service';
 import { map } from 'rxjs/operators';
 import { API_URL } from '../../Constants/api_url';
 
@@ -9,7 +10,7 @@ import { API_URL } from '../../Constants/api_url';
 })
 export class UserService {
   url;
-  constructor (private http: HttpService) {
+  constructor (private http: HttpService,private utilService :UtilService) {
           this.url = API_URL.URLS;
   }
 
@@ -78,6 +79,10 @@ export class UserService {
 
   checkDuplicate(type,params){
     let checkUrl;
+
+    let userData= this.utilService.getUserData();
+    let resortId = userData.ResortUserMappings.length &&  userData.ResortUserMappings[0].Resort.resortId;
+    
     if(type == 'division'){
       checkUrl = this.url.checkDivision;
     }else if(type == 'dept'){
@@ -85,7 +90,7 @@ export class UserService {
     }else if(type == "role"){
       checkUrl = this.url.checkRole;
     }
-    return this.http.post('local',checkUrl, params);
+    return this.http.post('local',checkUrl+'?resortId='+resortId, params);
   }
 
 }

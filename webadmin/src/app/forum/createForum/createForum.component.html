@@ -54,7 +54,8 @@
 					[(ngModel)]="division.divisionList"
 					[settings]="dropdownSettings"
 					(onSelect)="onItemSelect($event, 'division')"
-                    (onDeSelect) = "onItemDeselect($event, 'division')" [ngModelOptions]="{standalone: true}">
+                    (onDeSelect) = "onItemDeselect($event, 'division')" [ngModelOptions]="{standalone: true}"
+                    (onSelectAll)="onItemAllSelect($event,'division')" (onDeSelectAll)="onEmpAllDeSelect($event,'division')">
                 </ng-multiselect-dropdown>
                 <span class="required_color" *ngIf="submitted && division.divisionList?.length === 0">{{commonLabels.mandatoryLabels.division}}</span>
                 </div>
@@ -65,7 +66,8 @@
 					[(ngModel)]="departmentList"
 					[settings]="dropdownSettings"
 					(onSelect)="onItemSelect($event,'department')"
-                    (onDeSelect) = "onItemDeselect($event,'department')" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                    (onDeSelect) = "onItemDeselect($event,'department')" [ngModelOptions]="{standalone: true}"
+                    (onSelectAll)="onItemAllSelect($event,'department')" (onDeSelectAll)="onEmpAllDeSelect($event,'department')"></ng-multiselect-dropdown>
                     <span class="required_color" *ngIf="submitted && departmentList?.length === 0">{{commonLabels.mandatoryLabels.dept}}</span>
                 </div>
                 <div class="form-group select-Courses">
@@ -75,7 +77,8 @@
                         [(ngModel)]="assignList"
                         [settings]="dropdownSettings"
                         (onSelect)="onItemSelect($event,'user')"
-                        (onDeSelect) = "onItemDeselect($event,'user')" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                        (onDeSelect) = "onItemDeselect($event,'user')" [ngModelOptions]="{standalone: true}"
+                        (onSelectAll)="onItemAllSelect($event,'user')" (onDeSelectAll)="onEmpAllDeSelect($event,'user')"></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="submitted && assignList?.length === 0">{{commonLabels.mandatoryLabels.adminRequired}}</span>
                     </div>
                 <div class="form-group">

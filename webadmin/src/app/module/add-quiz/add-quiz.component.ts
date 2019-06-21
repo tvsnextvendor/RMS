@@ -248,7 +248,7 @@ export class AddQuizComponent implements OnInit {
         }
 
         console.log(this.quizQuestionsForm, "quiz Questions");
-
+        let user = this.utilService.getUserData();
         let params;
         let hideTraining = submitType === 'yes' ? true : false;
         if (this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length) {
@@ -266,7 +266,8 @@ export class AddQuizComponent implements OnInit {
                     "trainingClassId": this.courseId,
                     "questionIds": this.removedQuizIds,
                     "fileIds": this.removedFileIds,
-                    "quizId" : ''
+                    "quizId" : '',
+                    "createdBy" : user.userId
                 }
             }
             else {
@@ -275,7 +276,8 @@ export class AddQuizComponent implements OnInit {
                     "files": [],
                     "quizName": this.quizName,
                     "quizQuestions": data,
-                    "quizId" : ''
+                    "quizId" : '',
+                    "createdBy" : user.userId
                 }
             }
 
@@ -410,13 +412,15 @@ export class AddQuizComponent implements OnInit {
                     item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
                     return item;
                 })
+                let user = this.utilService.getUserData();
                 //final data for submission
                 params = {
                     "trainingClassName": this.selectCourseName,
                     "files": [],
                     "quizName": this.quizName,
                     "quizQuestions": data,
-                    "quizId" : ''
+                    "quizId" : '',
+                    "createdBy" : user.userId
                 }
                 if(this.quizCreateType == 'exist' && this.selectedQuiz){
                     params.quizId = this.selectedQuiz;
