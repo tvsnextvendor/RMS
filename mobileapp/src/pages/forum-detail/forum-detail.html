@@ -65,7 +65,8 @@
                 </p>
                 </ion-col>
                 <ion-col col-4>
-                  <p class="vote-count" (click)="showAnswers(list)" *ngIf="list.Comments"><small class="vt-count">{{list.Comments.length}}</small> <span class="forum-txt">{{constant.pages.forumLabels.answers}}</span></p>
+                  <p class="vote-count" (click)="showAnswers(list)" *ngIf="list.Comments"><small class="vt-count">{{list.Comments.length}}</small> 
+                    <span class="answers-txt">{{constant.pages.forumLabels.answers}}</span></p>
                 </ion-col>
                 <ion-col col-4 class="cmd-btn">
                   <button ion-button round small class="blue-btn" (click)="showCommentSet(list,j)">
