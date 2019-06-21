@@ -122,7 +122,7 @@ export class TrainingDetailPage {
         let self = this;
           this.http.get(API_URL.URLS.quizAPI + '?trainingClassId=' + this.trainingClassId + '&courseId=' + this.courseId).subscribe((res) => {
             if (res['isSuccess']) {
-                this.quizData =res['data'];     
+                this.quizData =res['data']['quiz'];     
                 if(this.quizData){
                 const alert = this.alertCtrl.create({
                     title: 'Are you ready to take the Quiz ?',

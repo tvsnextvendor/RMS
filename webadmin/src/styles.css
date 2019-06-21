@@ -101,7 +101,7 @@ button:focus {
     color: #73737B;
     border-radius: 0;
     font-size: 14px;   
-    cursor: pointer; 
+   
 }
 .btn-primary{
   background-color: #468FB9;
