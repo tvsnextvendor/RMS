@@ -1,4 +1,5 @@
 import { Component, OnInit, Input,Output, EventEmitter } from '@angular/core';
+import { Router, ActivatedRoute,Params } from '@angular/router';
 import { HeaderService, HttpService, CourseService, AlertService,UtilService,BreadCrumbService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
@@ -17,12 +18,13 @@ export class TraingClassTabComponent implements OnInit {
   currentPage;
   enableEdit: boolean = false;
   enableIndex;
+  enableClassEdit = false;
   editTrainingCourseId;
   TrainingList: any;
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
   @Input() courseId;
-  constructor(private courseService: CourseService, public commonLabels : CommonLabels, public alertService: AlertService,private utilService :UtilService,private breadCrumbService :BreadCrumbService) { }
+  constructor(private courseService: CourseService, public commonLabels : CommonLabels, public alertService: AlertService,private utilService :UtilService,private breadCrumbService :BreadCrumbService,private route :Router) { }
 
   ngOnInit() {
     this.pageLength = 5;
@@ -33,14 +35,31 @@ export class TraingClassTabComponent implements OnInit {
       }else{
     let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.trainingClass,url:''}]
     this.breadCrumbService.setTitle(data);
+    this.enableClassEdit = true;
       }
-    this.getTrainingClassDetails();
+      if(this.enableClassEdit){
+        this.getTrainingClassList();
+      }
+      else{
+        this.getTrainingClassDetails();
+      }
+    
   }
 
   ngDoCheck(){
     if(this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== ''){
       this.getTrainingClassDetails();
     }
+  }
+
+  getTrainingClassList(){
+    this.courseService.getTrainingClassList('').subscribe(resp=>{
+      console.log(resp);
+      if(resp && resp.isSuccess){
+        this.totalCourseTrainingCount = resp.data.count;
+        this.trainingClassCourseList = resp.data && resp.data.rows.length && resp.data.rows;
+      }
+    })
   }
 
   getTrainingClassDetails() {
@@ -100,6 +119,11 @@ export class TraingClassTabComponent implements OnInit {
       this.alertService.error(this.commonLabels.mandatoryLabels.courseNameError);
     }
 
+  }
+
+  editTrainingClass(data,i){
+    console.log(data)
+    this.route.navigate(['/cms-library'],{queryParams:{type : 'create',tab : 'class',classId:data.trainingClassId}})
   }
 
 }

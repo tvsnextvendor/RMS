@@ -125,6 +125,7 @@ export class API_URL {
     setPermissions : '8103/trainingClass/filePermissionAdd',
     getCourseById : '8103/course/getIndividualCourses',
     saveAsNewVersion : '8103/course/saveAsNewVersion',
+    getTrainingClassList : '8103/trainingclass/getTrainingClassList',
 
     //Resort Services
     resortAdd : '8102/resort/Add',

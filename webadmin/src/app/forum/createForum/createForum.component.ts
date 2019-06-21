@@ -162,7 +162,6 @@ export class CreateForumComponent implements OnInit {
     const selectedDivision = {
       divisionId: this.division['divisionList'] && this.division['divisionList'].map(item => item.id)
     };
-debugger;
     this.forumService.getDepartment(selectedDivision).subscribe((resp) => {
       this.department['departments'] = resp.data && resp.data['rows'];
       this.departData = this.department && this.department['departments'] && this.department['departments'].map(item => {
