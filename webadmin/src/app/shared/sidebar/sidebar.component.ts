@@ -29,16 +29,28 @@ export class SideBarComponent implements OnInit {
    tabType;
    currentUrl;
    roleId;
+   employee;
 
   ngOnInit() {
     let role = this.utilservice.getRole();
+    let userData = this.utilservice.getUserData();
+    
     this.roleId = role;
+    // console.log(this.roleId);
+    // debugger;
     if(role == 1){
       this.networkAdmin = true;
       this.peerAdmin = false;
-    }else{
+      this.employee = false;
+    }else if(role == 4){
+      this.networkAdmin = false;
+      this.peerAdmin = false;
+      this.employee = true;
+    }
+    else{
       this.peerAdmin = true;
       this.networkAdmin =  false;
+      this.employee = false;
     }
     this.activatedRoute.queryParams.subscribe(params=>{
       if(!Object.keys(params).length){
