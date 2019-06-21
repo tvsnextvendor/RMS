@@ -464,7 +464,7 @@ export class AddQuizComponent implements OnInit {
     let user = this.utilService.getUserData();
     this.courseService.getQuizList(user.userId).subscribe(res=>{
         if(res.isSuccess){
-            this.quizList = res.data;
+            this.quizList = res.data && res.data.quiz;
         }
     })
 }

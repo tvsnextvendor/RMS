@@ -96,10 +96,12 @@ export class QuizTabComponent implements OnInit {
     let QuizList;
     this.courseService.getTrainingClassQuiz(this.trainingClassId, this.courseId).subscribe((resp) => {
       if (resp && resp.isSuccess) {
-        this.courseName = resp.data && resp.data.length && resp.data[0].QuizMappings[0].Course && resp.data[0].QuizMappings[0].Course.courseName;
-        this.trainingClassName = resp.data && resp.data.length && resp.data[0].QuizMappings[0].TrainingClass && resp.data[0].QuizMappings[0].TrainingClass.trainingClassName;
-        let responseList = resp.data && resp.data.length && resp.data[0].QuizMappings;
-        this.quizName= resp.data  && resp.data.length && resp.data[0].quizName;
+        let responseQuiz = resp.data.quiz;
+        let responseCourse = resp.data.course;
+        this.courseName = responseCourse && responseCourse.courseName;
+        this.trainingClassName = responseQuiz && responseQuiz.length && responseQuiz[0].QuizMappings[0].TrainingClass && responseQuiz[0].QuizMappings[0].TrainingClass.trainingClassName;
+        let responseList = responseQuiz && responseQuiz.length && responseQuiz[0].QuizMappings;
+        this.quizName= responseQuiz  && responseQuiz.length && responseQuiz[0].quizName;
         QuizList = responseList && responseList.map(item => {
           item.enableEdit = false;
           return item;
