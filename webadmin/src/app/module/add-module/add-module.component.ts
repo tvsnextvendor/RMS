@@ -50,6 +50,8 @@ export class AddModuleComponent implements OnInit {
     quizList=[];
     quizName;
     duplicateCourse = false;
+    classId;
+    editQuizId;
     @Output() upload= new EventEmitter<object>();
     @Output() completed = new EventEmitter<string>();
     @Input() addedFiles;
@@ -62,6 +64,7 @@ export class AddModuleComponent implements OnInit {
         });
         this.activatedRoute.queryParams.subscribe((params) => {
             this.duplicateCourse = params.duplicate ? true : false;
+            this.classId = params.classId ? params.classId : '';
         });
         if(window.location.pathname.indexOf("module")){
            this.selectedTab = 'course';
@@ -94,11 +97,17 @@ export class AddModuleComponent implements OnInit {
     this.includeDropdwnButton(); 
      }, 2000);   
     this.moduleVar.tabKey = 1;
-    this.courseData('');
     if(this.duplicateCourse)
     {
         this.headerService.setTitle({title:'Duplicate', hidemodule:false});  
-    }   
+    } 
+    if(this.classId){
+        let data ={id : this.classId};
+        this.updateCourse(data,'');
+    } 
+    else{
+        this.courseData('');
+    } 
    }
 
    ngDoCheck(){
@@ -114,6 +123,17 @@ export class AddModuleComponent implements OnInit {
      let data = this.moduleId ? [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title:this.commonLabels.labels.createClasses, url:''}];
     this.breadCrumbService.setTitle(data);    
     }
+   }
+
+   getClassDetails(){
+       let query = '&trainingClassId='+this.classId;
+    this.courseService.getTrainingClassList(query).subscribe(resp=>{
+        if(resp && resp.isSuccess){
+            let data = resp.data && resp.data.rows.length && resp.data.rows[0];
+            this.updateCourse(data,'')
+        }
+
+    })
    }
 
     includeDropdwnButton(){
@@ -362,9 +382,10 @@ export class AddModuleComponent implements OnInit {
     this.courseService.getTrainingClassQuiz(data.id,'').subscribe(response=>{
         if(response && response.isSuccess){
             this.quizCheck = true;
-            let quizData = response.data && response.data[0];
+            let quizData = response.data && response.data.quiz[0];
             let questions = quizData.QuizMappings && quizData.QuizMappings.length && quizData.QuizMappings.map(items=>{return items.Question});
             this.quizName  = quizData.quizName;
+            this.editQuizId = quizData.quizId;
             this.moduleVar.quizDetails = questions;
         }
      })

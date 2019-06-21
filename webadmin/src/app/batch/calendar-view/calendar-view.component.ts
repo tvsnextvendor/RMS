@@ -169,7 +169,7 @@ export class CalendarViewComponent implements OnInit {
         this.removeScheduleId = '';
       }
 
-      openConfirmModel(template: TemplateRef<any>,event) {
+      openConfirmModel(template: TemplateRef<any>,event,i) {
           this.removeScheduleId = event.id;
         this.modalRef = this.modalService.show(template,this.modalConfig);
       }

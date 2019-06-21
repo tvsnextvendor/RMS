@@ -226,4 +226,9 @@ export class CourseService {
     return this.http.delete('local',this.url.removeSchedule+scheduleId)
   }
 
+  getTrainingClassList(query){
+    let user = this.utilService.getUserData();
+    return this.http.getLocal('local',this.url.getTrainingClassList+'?createdBy='+user.userId+query);
+  }
+
 }

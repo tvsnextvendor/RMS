@@ -31,6 +31,7 @@ export class AddQuizComponent implements OnInit {
     @Input() removedFileIds;
     @Input() tabName;
     @Input() quizNames;
+    @Input() editQuizId;
     @Output() valueChange = new EventEmitter();
     @Output() completed = new EventEmitter();
     @Output() hideClass = new EventEmitter();
@@ -59,11 +60,15 @@ export class AddQuizComponent implements OnInit {
     quizCreateType;
     quizList=[];
     selectedQuiz = null;
+    classId;
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
         public commonLabels: CommonLabels,private utilService : UtilService) {
         this.apiUrls = API_URL.URLS;
+        this.activatedRoute.queryParams.subscribe((params) => {
+            this.classId = params.classId ? params.classId : '';
+        });
     }
 
     ngOnInit() {
@@ -73,6 +78,7 @@ export class AddQuizComponent implements OnInit {
                 this.hideClass.emit(true);
             }
         })
+
         this.selectedVideo = this.videoId ? this.videoId : null;
         this.selectedCourse = this.courseId ? this.courseId : null;
         this.quizName = this.quizNames ? this.quizNames : '';
@@ -414,14 +420,28 @@ export class AddQuizComponent implements OnInit {
                 })
                 let user = this.utilService.getUserData();
                 //final data for submission
-                params = {
-                    "trainingClassName": this.selectCourseName,
-                    "files": [],
-                    "quizName": this.quizName,
-                    "quizQuestions": data,
-                    "quizId" : '',
-                    "createdBy" : user.userId
+                if(this.classId){
+                    params = {
+                        "trainingClassName": this.selectCourseName,
+                        "files": [],
+                        "createdBy" : user.userId,
+                        "quiz" : {},
+                        "trainingClassId": this.classId,
+                        "questionIds": this.removedQuizIds,
+                        "quizQuestions": data,
+                    }
                 }
+                else{
+                    params = {
+                        "trainingClassName": this.selectCourseName,
+                        "files": [],
+                        "quizName": this.quizName,
+                        "quizQuestions": data,
+                        "quizId" : '',
+                        "createdBy" : user.userId
+                    }
+                }
+
                 if(this.quizCreateType == 'exist' && this.selectedQuiz){
                     params.quizId = this.selectedQuiz;
                     delete params.quizName;
@@ -432,30 +452,70 @@ export class AddQuizComponent implements OnInit {
                   }
                 if (this.videoList.length) {
                     params.files = this.videoList.map(item => {
-                        let obj = {
-                            fileName: item.fileName,
-                            fileDescription: item.fileDescription,
-                            fileType: item.fileType,
-                            fileUrl: item.fileUrl,
-                            fileExtension: item.fileExtension,
-                            fileImage: item.fileImage,
-                            fileSize: item.fileSize,
-                            fileLength: item.fileLength
+                        if (this.classId) {
+                            let obj = {
+                                fileName: item.fileName,
+                                fileDescription: item.fileDescription,
+                                fileType: item.fileType,
+                                fileUrl: item.fileUrl,
+                                fileExtension: item.fileExtension,
+                                fileImage: item.fileImage,
+                                fileSize: item.fileSize,
+                                fileLength: item.fileLength,
+                                fileId: item.fileId,
+                                trainingClassId: item.trainingClassId
+                            }
+                            return obj;
                         }
-                        return obj;
+                        else {
+                            let obj = {
+                                fileName: item.fileName,
+                                fileDescription: item.fileDescription,
+                                fileType: item.fileType,
+                                fileUrl: item.fileUrl,
+                                fileExtension: item.fileExtension,
+                                fileImage: item.fileImage,
+                                fileSize: item.fileSize,
+                                fileLength: item.fileLength
+                            }
+                            return obj;
+                        }
                     }
                     )
                 }
-                this.courseService.addTrainingClass(params).subscribe((result) => {
-                    if (result && result.isSuccess) {
-                        this.selectedQuiz = null;
-                        this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } })
-                        this.completed.emit(true);
-                        this.alertService.success(result.message);
-                        this.fileService.emptyFileList();
-                        this.quizService.setQuiz('');
+                if(this.classId){
+                    params.quiz = {
+                        "quizId" : this.editQuizId,
+                        "quizName": this.quizName
                     }
-                })
+                    console.log(params)
+                    this.courseService.updateTrainingClass(this.classId,params).subscribe((result) => {
+                        console.log(result)
+                        if(result && result.isSuccess){
+                            this.selectedQuiz = null;
+                            this.classId = '';
+                            this.route.navigate(['/cmspage'], { queryParams: { type: 'edit' } })
+                            this.completed.emit(true);
+                            this.alertService.success(result.message);
+                            this.fileService.emptyFileList();
+                            this.quizService.setQuiz('');
+                        }
+                    })
+                    
+                }
+                else{
+                    
+                    this.courseService.addTrainingClass(params).subscribe((result) => {
+                        if (result && result.isSuccess) {
+                            this.selectedQuiz = null;
+                            this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } })
+                            this.completed.emit(true);
+                            this.alertService.success(result.message);
+                            this.fileService.emptyFileList();
+                            this.quizService.setQuiz('');
+                        }
+                    })
+                }
             } else {
                 this.alertService.error('Please fill mandatory fields in Files tab');
             }
