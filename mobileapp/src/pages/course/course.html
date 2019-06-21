@@ -22,7 +22,12 @@
       </ion-searchbar>
     </ion-toolbar>
   </ion-header>
-
+  <div class={{className}} *ngIf="showToastr">
+    <div class="notify-inset">
+      <h6>{{msgTitle}}</h6>
+      <p>{{msgDes}}</p>
+    </div>
+  </div>
 
   <div class="main-content">
 
@@ -219,8 +224,23 @@
   </div>
   </div>
 </ion-content>
-<div class="fixed-btn">
+<div class="fixed-btn" (click)="openLaunchModal(launch)">
     <button ion-button round class="add-question common-btn">
-     Upload Content
+     {{constant.buttons.uploadContent}}
     </button>
-  </div>
+ </div>
+
+
+  <ng-template #launch>
+      <div class="modal-body">
+        <div class="textarea-item">{{constant.pages.trainingLabels.launchMsg}}
+        </div>
+        <hr>
+      </div>
+      <div class="quest-foot model-footer">
+        <button ion-button small clear class="text-can" type="button"
+          (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
+        <button ion-button small clear class="text-add" type="submit"
+          (click)="launchApp()">{{constant.buttons.launch}}</button>
+      </div>
+  </ng-template>

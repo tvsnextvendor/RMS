@@ -35,7 +35,9 @@ export class Constant {
         addQuestion: 'Add Question',
         comment: 'Comment',
         next: 'Next',
-        submit: 'Submit'
+        submit: 'Submit',
+        uploadContent : 'Upload Content',
+        launch: 'LAUNCH'
     };
     pages = {
         loginLabels: {
@@ -125,7 +127,8 @@ export class Constant {
             readMore: '>> Read More',
             viewContent: 'View Content',
             readLess: '<< Read Less',
-            willExpire: 'Will expire in' 
+            willExpire: 'Will expire in',
+            launchMsg : 'This feature cannot be accessed via mobile application. Please check your email for credentials and open the application in a web browser'
         },
         libraryLabels:{
 
