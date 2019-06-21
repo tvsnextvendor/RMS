@@ -1,10 +1,12 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit,TemplateRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { LoaderService, SocketService } from '../../service';
 import { Storage } from '@ionic/storage';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 
 @IonicPage({
@@ -43,9 +45,15 @@ export class CoursePage implements OnInit {
   signRequireList;
   uploadPath;
   tab;
+  modalRef: BsModalRef;
+  className;
+  showToastr;
+  msgTitle;
+  msgDes;
+  
 
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
+  constructor(public navCtrl: NavController,public modalService:BsModalService,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
         this.tab = this.navParams.data; 
       
   }
@@ -69,7 +77,16 @@ export class CoursePage implements OnInit {
         });
   }
 
-  ionViewDidLoad() {
+
+  successMessage(msg){
+    this.showToastr = true;
+    this.className = "notify-box alert alert-success";
+    this.msgTitle = "Success";
+    this.msgDes = msg ;
+    let self = this;
+    setTimeout(function(){ 
+      self.showToastr = false;
+      }, 3000); 
   }
 
   ionViewDidEnter() {
@@ -218,6 +235,23 @@ export class CoursePage implements OnInit {
     const a = moment(new Date());
     const b = moment(new Date(dueDate));
     return a.to(b, true);
+  }
+
+
+  openLaunchModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  launchApp(){
+    let postData = {
+      userId : this.currentUser.userId
+    }
+    this.http.post(false,API_URL.URLS.contentEmail,postData).subscribe(res=>{
+      if(res['isSuccess']){
+        this.successMessage(res['message']);
+        this.modalRef.hide();
+      }
+    })
   }
 
   // show tabs

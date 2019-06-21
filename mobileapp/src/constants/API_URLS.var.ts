@@ -44,6 +44,7 @@ export class API_URL {
        'checkClassCompleted':'8103/checkFeedbackRated',
        'signRequired':'8103/getNotification',
        'completedNotification' : '8103/completedNotification',
+       'contentEmail': '8101/user/contentEmail',
 
         //User & Settings
        'getProfile' : '8101/user/List',
@@ -57,7 +58,6 @@ export class API_URL {
        'getForum' : '8104/forum',
        'post' : '8104/post',
        'comment': '8104/comment',
-
        'appFeedback' : '8103/applicationFeedback',
 
         //Dashboard
