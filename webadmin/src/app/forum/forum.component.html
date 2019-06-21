@@ -55,7 +55,7 @@
                         <tr *ngFor="let forum of forumVar.forumList | paginate: {itemsPerPage: pageSize,currentPage: currentPage,totalItems : totalCount};let i = index" class="table-desc-color">
                                 <td class="text-left txt-unline"><a routerLink="/forumdetail/{{forum.forumId}}" class="forumname-width">{{ forum.forumName }}</a></td>
                                 <td class="text-left">{{ forum.employeesCount }}</td>
-                                <td class="lt-dt-act text-left"><span>{{forum.lastActiveDate |date}}</span></td>
+                                <td class="lt-dt-act text-left"><span>{{forum?.updated |date}}</span></td>
                                 <td class="text-left" ><label class="switch" *ngIf="hideStatus">
                                         <input type="checkbox" [checked]="forum.isActive" (change)= "isActive(forum.forumId, forum.isActive)" > 
                                         <span class="slider round"></span>

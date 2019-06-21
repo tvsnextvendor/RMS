@@ -33,7 +33,7 @@
 					</span>
 				</div>	
 			</div>
-			<div class="row form-group" *ngIf="!tabEnable">
+			<!-- <div class="row form-group" *ngIf="!tabEnable">
 				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.quizName}}</label>
 				<div class=" col-md-9 pl-0 select select-style clearfix p-0 m-0">
 				<select class="form-control p-0 cp" name="quiz" [(ngModel)]="selectedQuiz">
@@ -45,7 +45,7 @@
 				<span class="required_color mt-2" *ngIf="moduleSubmitted && !selectedQuiz">
 					{{commonLabels.mandatoryLabels.quizName}}
 				</span>
-			</div>
+			</div> -->
 		</div>
 		<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
 			<button type="button" class="btn btn-primary btn-save" (click)="openEditModal(confirm,'batch')">{{commonLabels.btns.save}}</button>
