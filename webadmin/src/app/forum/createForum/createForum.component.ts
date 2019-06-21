@@ -29,8 +29,10 @@ export class CreateForumComponent implements OnInit {
     singleSelection: false,
     idField: 'id',
     textField: 'value',
-    enableCheckAll: false,
+    enableCheckAll: true,
     itemsShowLimit: 8,
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
     // allowSearchFilter: true
   };
   admin = {};
@@ -160,7 +162,7 @@ export class CreateForumComponent implements OnInit {
     const selectedDivision = {
       divisionId: this.division['divisionList'] && this.division['divisionList'].map(item => item.id)
     };
-
+debugger;
     this.forumService.getDepartment(selectedDivision).subscribe((resp) => {
       this.department['departments'] = resp.data && resp.data['rows'];
       this.departData = this.department && this.department['departments'] && this.department['departments'].map(item => {
@@ -205,6 +207,17 @@ export class CreateForumComponent implements OnInit {
     }
   }
 
+  onItemAllSelect(event, type) {
+    if (type === 'division') {
+      this.division.divisionList = event;
+      this.getDepartmentList();
+    }
+    if(type === 'department'){
+      this.departmentList = event;
+      this.getAdminList();
+    }
+  }
+
   onItemDeselect(event, type) {
     if (type === 'division') {
       this.forumService.getDepartment({ divisionId: [event.id] }).subscribe((resp) => {
@@ -218,6 +231,20 @@ export class CreateForumComponent implements OnInit {
       });
       this.itemDeselected = true;
     }
+  }
+
+  onEmpAllDeSelect(event, type){
+    if(type == "division"){
+      this.departmentList = [];
+      this.adminData = [];
+      this.departData = [];
+      this.assignList = [];
+    }
+    else if(type == 'department'){
+      this.adminData = [];
+      this.assignList = [];
+    }
+
   }
 
   checkNameUniqueness(forumName) {

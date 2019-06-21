@@ -66,7 +66,7 @@
         <span class="col-md-10 p-0">
           <p class="m-0">{{event.batchName}}</p>
           <p class="m-0 clearfix pr-2">            
-            <span (click)="goToDelete(event,i)"><i class="fas fa-trash float-right"></i></span>
+            <span (click)="openConfirmModel(confirm,event,i)"><i class="fas fa-trash float-right"></i></span>
             <span (click)="goToBatch(day.date,event,i,editBatch)"><i class="fas fa-pencil-alt float-right pr-2"></i></span>
           </p>          
           <!-- <p class="m-0" *ngFor="let course of event.courseList;">{{course?.Course?.courseName}}</p> -->
@@ -89,3 +89,21 @@
     </ng-template>  -->
   </div>
 </div>
+
+<ng-template #confirm>  
+  <div class="modal-header"> 
+    <h4 class="modal-title pull-left">{{commonLabels.labels.deleteConfirm}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closePopup()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  <div>
+    <p class="text-center">{{commonLabels.labels.archieveDelete}}</p>
+  </div>
+  <div class="text-center col-md-12 p-4 button-section">
+          <button type="button" class="btn btn-primary creat-btn mr-3"  (click)="goToDelete()">{{commonLabels.btns.yes}}</button>
+    <button type="button" class="btn btn-default" (click)="closePopup()">{{commonLabels.btns.no}}</button>						
+  </div> 
+</div>
+</ng-template>
