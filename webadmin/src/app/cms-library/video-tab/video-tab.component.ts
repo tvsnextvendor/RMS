@@ -333,12 +333,12 @@ constructor(private courseService: CourseService,
       file['addNew'] = true;
       file['selected'] = true;
       this.fileList.push(file);
-      this.fileService.saveFileList('add',file);
+      this.fileService.sendFileList('add',file);
     }else{
       let index = this.fileList.findIndex(x => x.fileId === file.fileId);
       file['selected'] = false;
       this.fileList.splice(index,1);
-     this.fileService.saveFileList('remove',file);
+     this.fileService.sendFileList('remove',file);
     }
   }
 

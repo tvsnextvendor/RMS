@@ -71,7 +71,7 @@ export class AddModuleComponent implements OnInit {
    }
 
    ngOnInit(){
-       this.resetForm();
+       //this.resetForm();
        this.getquizList();
     if(this.addedFiles && this.addedFiles.length > 0){
         let courseName = this.moduleVar.selectCourseName;
@@ -178,7 +178,7 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.selectVideoName = '';
         this.moduleVar.description= '';
         this.moduleVar.videoList=[];
-        this.fileService.emptyFileList();
+        // this.fileService.emptyFileList();
     }
    
     onItemSelect(item: any) {
@@ -389,7 +389,6 @@ export class AddModuleComponent implements OnInit {
    }
   
    hideTrainingClass(event){
-       console.log(event,"EVENT");
     if(event){
        this.tabEnable = true;
        setTimeout(()=>{  
@@ -502,7 +501,6 @@ export class AddModuleComponent implements OnInit {
    resetTabDetails(add){
     this.tabEnable = add ? true : false;
     this.moduleVar.videoList = [];
-    this.fileService.emptyFileList();
     this.moduleVar.selectCourseName = '';
     this.moduleVar.selectVideoName = '';
     this.moduleVar.description = '';

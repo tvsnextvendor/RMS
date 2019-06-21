@@ -207,14 +207,12 @@ export class DocumentTabComponent implements OnInit {
       file['addNew'] = true;
       file['selected'] = true;
       this.fileList.push(file);
-      this.fileService.saveFileList('add',file);
-
+      this.fileService.sendFileList('add',file);
     }else{
       let index = this.fileList.findIndex(x => x.fileId === file.fileId);
       file['selected'] = false;
       this.fileList.splice(index,1);
-      this.fileService.saveFileList('remove',file);
-
+      this.fileService.sendFileList('remove',file);
     }
   }
 
@@ -224,7 +222,6 @@ export class DocumentTabComponent implements OnInit {
     let modalConfig={
       class : "modal-dialog-centered"
     }
-
      this.constant.fileId= fileId;
      this.constant.modalRef = this.modalService.show(template,modalConfig); 
     }

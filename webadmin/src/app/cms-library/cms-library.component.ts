@@ -1,6 +1,6 @@
-import { Component, OnInit, TemplateRef,Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, OnDestroy,TemplateRef,Input, Output, EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService, HttpService, AlertService, FileService } from '../services';
+import { HeaderService, AlertService, FileService } from '../services';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../Constants/common-labels.var';
@@ -11,12 +11,11 @@ import { CommonLabels } from '../Constants/common-labels.var';
   templateUrl: './cms-library.component.html',
   styleUrls: ['./cms-library.component.css']
 })
-export class CMSLibraryComponent implements OnInit {
+export class CMSLibraryComponent implements OnInit,OnDestroy {
   constructor(
     private modalService: BsModalService,
     public fileService: FileService,
     public commonLabels : CommonLabels, 
-    // private http: HttpService,
     private alertService: AlertService,
     private route: Router, 
     private activatedRoute: ActivatedRoute,
@@ -59,11 +58,13 @@ export class CMSLibraryComponent implements OnInit {
           this.showcreatecourse = true;
           this.enableNotify = false;
           this.tabName=params.tab;
+          this.fileService.emptyFileList();
           break;
         case 'class':
           this.showcreatecourse = true;
           this.enableNotify = false;
           this.tabName=params.tab;
+          this.fileService.emptyFileList();
           break;  
         case 'quiz':
         break;
@@ -223,6 +224,7 @@ export class CMSLibraryComponent implements OnInit {
    }
   
   sendFilesToCourse(){
+    this.fileService.saveFileList();
     this.selectedVideoList = this.fileService.selectedFiles();
     if(this.findCreateCourse){
        this.showCreateCourse();
@@ -246,7 +248,6 @@ export class CMSLibraryComponent implements OnInit {
   }
 
   notificationType(){
-    
     // let modalConfig={
     //   class : "notification-modal"
     // }
@@ -274,5 +275,17 @@ enableData(data,type){
   }
 }
 
+backClicked(){
+  this.activatedRoute.queryParams.subscribe(params=>{
+      this.tabName =params.tab && params.tab == 'class' ? 'class' : 'course';
+  })
+  this.fileService.emptyLocalFileList();
+  this.hideSection = true;
+  this.showcreatecourse = true;
+}
+
+ngOnDestroy(){
+  
+}
    
 }
