@@ -69,8 +69,10 @@
             </div>
 
                 <div class="text-center pt-4" *ngIf="hideSection && !showcreatecourse">
-                    <button type="button" class="btn btn-primary creat-btn"
+                    <button type="button" class="btn btn-primary creat-btn mr-4"
                         (click)="sendFilesToCourse()">{{commonLabels.btns.add}}</button>
+                    <button type="button" class="btn btn-default creat-btn pdl0" 
+                        (click)="backClicked()">{{commonLabels.btns.back}}</button>
                 </div>
         </div>
         <div class="col-md-3 pr-0 pt-2 sticky"  *ngIf="!hideSection">
