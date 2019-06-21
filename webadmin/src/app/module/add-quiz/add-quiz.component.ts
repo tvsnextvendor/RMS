@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderService } from '../../services/header.service';
+import { HeaderService,UtilService } from '../../services';
 import { HttpService } from '../../services/http.service';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CourseService } from '../../services/restservices/course.service';
@@ -56,10 +56,13 @@ export class AddQuizComponent implements OnInit {
     modalRef;
     removedQuizIds = [];
     questionList = [];
+    quizCreateType;
+    quizList=[];
+    selectedQuiz = null;
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
-        public commonLabels: CommonLabels) {
+        public commonLabels: CommonLabels,private utilService : UtilService) {
         this.apiUrls = API_URL.URLS;
     }
 
@@ -73,6 +76,7 @@ export class AddQuizComponent implements OnInit {
         this.selectedVideo = this.videoId ? this.videoId : null;
         this.selectedCourse = this.courseId ? this.courseId : null;
         this.quizName = this.quizNames ? this.quizNames : '';
+        this.quizCreateType = 'new';
         this.questionOptions = [
             { name: "MCQ", value: "MCQ" },
             { name: "True/False", value: "True/False" },
@@ -261,7 +265,8 @@ export class AddQuizComponent implements OnInit {
                     "quizName": this.quizName,
                     "trainingClassId": this.courseId,
                     "questionIds": this.removedQuizIds,
-                    "fileIds": this.removedFileIds
+                    "fileIds": this.removedFileIds,
+                    "quizId" : ''
                 }
             }
             else {
@@ -269,9 +274,19 @@ export class AddQuizComponent implements OnInit {
                     "trainingClassName": this.selectCourseName,
                     "files": [],
                     "quizName": this.quizName,
-                    "quizQuestions": data
+                    "quizQuestions": data,
+                    "quizId" : ''
                 }
             }
+
+            if(this.quizCreateType == 'exist' && this.selectedQuiz){
+                params.quizId = this.selectedQuiz;
+                delete params.quizName;
+                delete params.quizQuestions;
+              }
+              else{
+                  delete params.quizId;
+              }
             if (this.videoList.length) {
                 params.files = this.videoList.map(item => {
                     if (this.courseId) {
@@ -309,6 +324,7 @@ export class AddQuizComponent implements OnInit {
                 this.courseService.updateTrainingClass(this.courseId, params).subscribe((result) => {
                     if (result && result.isSuccess) {
                         this.removedQuizIds = [];
+                        this.selectedQuiz = null;
                         this.valueChanged(result.data, hideTraining, false);
                     }
                     this.modalRef && this.modalRef.hide();
@@ -317,6 +333,7 @@ export class AddQuizComponent implements OnInit {
             else {
                 this.courseService.addTrainingClass(params).subscribe((result) => {
                     if (result && result.isSuccess) {
+                        this.selectedQuiz = null;
                         this.valueChanged(result.data, hideTraining, false);
                     }
                     this.modalRef.hide();
@@ -381,7 +398,7 @@ export class AddQuizComponent implements OnInit {
 
     addTrainingClass() {
         let params;
-        if (this.quizName) {
+        if (this.quizName || this.selectedQuiz) {
             if (this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length) {
                 if (this.questionList) {
                     this.questionList.map(item => {
@@ -398,8 +415,17 @@ export class AddQuizComponent implements OnInit {
                     "trainingClassName": this.selectCourseName,
                     "files": [],
                     "quizName": this.quizName,
-                    "quizQuestions": data
+                    "quizQuestions": data,
+                    "quizId" : ''
                 }
+                if(this.quizCreateType == 'exist' && this.selectedQuiz){
+                    params.quizId = this.selectedQuiz;
+                    delete params.quizName;
+                    delete params.quizQuestions;
+                  }
+                  else{
+                      delete params.quizId;
+                  }
                 if (this.videoList.length) {
                     params.files = this.videoList.map(item => {
                         let obj = {
@@ -418,6 +444,7 @@ export class AddQuizComponent implements OnInit {
                 }
                 this.courseService.addTrainingClass(params).subscribe((result) => {
                     if (result && result.isSuccess) {
+                        this.selectedQuiz = null;
                         this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } })
                         this.completed.emit(true);
                         this.alertService.success(result.message);
@@ -433,4 +460,20 @@ export class AddQuizComponent implements OnInit {
         }
     }
 
+  getquizList(){
+    let user = this.utilService.getUserData();
+    this.courseService.getQuizList(user.userId).subscribe(res=>{
+        if(res.isSuccess){
+            this.quizList = res.data;
+        }
+    })
+}
+
+
+  quizTypeUpdate(event,i){
+    this.quizCreateType = event.target.value;
+    if(this.quizCreateType == 'exist'){
+      this.getquizList();
+    }
+  }
 }

@@ -98,6 +98,9 @@ export class ApprovalrequestsComponent implements OnInit {
     }
   }
 
+  onEmpDeSelect(event){
+
+  }
   submitRequest(){
     this.submitted = true;
   }
