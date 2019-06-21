@@ -107,7 +107,12 @@ export class LoginComponent implements OnInit {
             this.authService.login(loginCredential).subscribe(result=>{
              if(result.isSuccess){
                 const loginData = result.data;
-                this.route.navigateByUrl('/dashboard');
+                const role = loginData.UserRole[0].roleId;
+                if(role === 4){
+                  this.route.navigateByUrl('/cmspage?type=create');
+                }else{
+                  this.route.navigateByUrl('/dashboard');
+                }
                 this.alertService.success(this.commonLabels.msgs.loginSuccess);
                 let resortName = result.data.ResortUserMappings.length && result.data.ResortUserMappings[0].Resort.resortName;
                 localStorage.setItem("resortName", resortName);

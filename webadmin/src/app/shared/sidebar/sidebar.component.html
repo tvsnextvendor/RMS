@@ -116,3 +116,54 @@
     </ul>
 </div>
 </div>
+<div *ngIf = "employee">
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav" >
+           
+            <li [ngClass]="(tabType == 'create') ? 'active' : ''" class="mt75">
+                <a   (click)="dropDownEnable('create')"><img src="{{commonLabels.imgs.cms}}" class="pr-3"><span class="sidebar-title">{{commonLabels.btns.create}}</span><span class="drop-icon"><i *ngIf="enableCreate" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableCreate" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>
+            </li>
+            <ul class="sub-menu" *ngIf="enableCreate">
+                <li [ngClass]="(activeType == 'createclass') ? 'active' : ''">
+                    <a (click)="pageRedirection('create','class')">{{commonLabels.labels.createClasses}}</a>
+                </li>
+                <li [ngClass]="(activeType == 'createquiz') ? 'active' : ((activeType == '/createQuiz') ? 'active' : '')">
+                    <a (click)="pageRedirection('create','quiz')">{{commonLabels.labels.createQuiz}}</a>
+                </li>
+                <li [ngClass]="(activeType == 'createcourse') ? 'active' : ''">
+                    <a (click)="pageRedirection('create','course')">{{commonLabels.btns.createCourse}}</a>
+                </li>
+                <li [ngClass]="(activeType == 'createnotification') ? 'active' : ''">
+                    <a (click)="pageRedirection('create','notification')">{{commonLabels.labels.createNotification}}</a>
+                </li>
+            </ul>
+           
+            <li [ngClass]="(tabType == 'edit') ? 'active' : ''">
+                <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3"><span class="sidebar-title">{{commonLabels.labels.edit}}</span><span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
+            </li>
+            <ul class="sub-menu" *ngIf="enableEdit">
+                <li [ngClass]="(activeType == 'editclass') ? 'active' : ''">
+                    <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editClasses}}</a>
+                </li>
+                <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''">
+                    <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editQuiz}}</a>
+                </li>
+                <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''">
+                    <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editCourse}}</a>
+                </li>
+                <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''">
+                    <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editNotification}}</a>
+                </li>
+                <li [ngClass]="(activeType == 'editworkInprogress') ? 'active' : ''">
+                    <a (click)="pageRedirection('edit','workInprogress')">{{commonLabels.btns.workinProgress}}</a>
+                </li>
+            </ul>
+            <li [class.active]="router.isActive('/resource/library')">
+                <a routerLink="/resource/library"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
+            </li> 
+            <li [class.active]="router.isActive('/approvalrequests')">
+                <a routerLink="/approvalrequests"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.approvalRequests}}</a>
+            </li>           
+        </ul>
+    </div>
+    </div>
