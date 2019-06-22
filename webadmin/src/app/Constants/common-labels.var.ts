@@ -318,7 +318,7 @@ export class CommonLabels{
         "editViewClasses"       :   "Edit / View Classes",
         "duplicateCourse"  :   "Duplicate Course",
         "editViewQuiz"          :   "Edit / View Quiz",
-        "editViewNotification"  :   "Edit / ViewNotification",
+        "editViewNotification"  :   "Edit / View Notification",
         "trainingSchedule"  :   "Training Schedule",
         "schedule"          :   "Schedule",
         "performanceReport" :   "Performance Report",
