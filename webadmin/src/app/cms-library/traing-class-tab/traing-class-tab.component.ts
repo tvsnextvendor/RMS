@@ -29,20 +29,20 @@ export class TraingClassTabComponent implements OnInit {
   ngOnInit() {
     this.pageLength = 5;
     this.currentPage = 1;
-     if(window.location.pathname.indexOf("resource") != -1){
+    if(window.location.pathname.indexOf("resource") != -1){
       let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.trainingClass,url:''}];
       this.breadCrumbService.setTitle(data);
-      }else{
-    let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.trainingClass,url:''}]
-    this.breadCrumbService.setTitle(data);
-    this.enableClassEdit = true;
-      }
-      if(this.enableClassEdit){
-        this.getTrainingClassList();
-      }
-      else{
-        this.getTrainingClassDetails();
-      }
+    }else{
+      let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.trainingClass,url:''}]
+      this.breadCrumbService.setTitle(data);
+      this.enableClassEdit = true;
+    }
+    if(this.enableClassEdit){
+      this.getTrainingClassList();
+    }
+    else{
+      this.getTrainingClassDetails();
+    }
     
   }
 
@@ -54,7 +54,6 @@ export class TraingClassTabComponent implements OnInit {
 
   getTrainingClassList(){
     this.courseService.getTrainingClassList('').subscribe(resp=>{
-      console.log(resp);
       if(resp && resp.isSuccess){
         this.totalCourseTrainingCount = resp.data.count;
         this.trainingClassCourseList = resp.data && resp.data.rows.length && resp.data.rows;
@@ -69,23 +68,22 @@ export class TraingClassTabComponent implements OnInit {
     // console.log(query)
     let newList;
     let trainList;
-  this.courseService.getCourseTrainingClass(this.currentPage, this.pageLength,query).subscribe((resp) => {
-    this.CMSFilterSearchEventSet = '';
-      if (resp && resp.isSuccess) {
-        this.totalCourseTrainingCount = resp.data.count;
-        this.trainingClassCourseList = resp.data && resp.data.rows.length ? resp.data.rows : [];
-        newList = this.trainingClassCourseList.map(item => {
-          let dataSet = item.CourseTrainingClassMaps;
-          trainList = dataSet.map(data => {
-            data.enableEdit = false;
-            return data;
-          });
-        });
-      }
-    },err =>{
+    this.courseService.getCourseTrainingClass(this.currentPage, this.pageLength,query).subscribe((resp) => {
       this.CMSFilterSearchEventSet = '';
-    });
-  
+        if (resp && resp.isSuccess) {
+          this.totalCourseTrainingCount = resp.data.count;
+          this.trainingClassCourseList = resp.data && resp.data.rows.length ? resp.data.rows : [];
+          newList = this.trainingClassCourseList.map(item => {
+            let dataSet = item.CourseTrainingClassMaps;
+            trainList = dataSet.map(data => {
+              data.enableEdit = false;
+              return data;
+            });
+          });
+        }
+      },err =>{
+        this.CMSFilterSearchEventSet = '';
+      });
   }
 
   pageChanged(e) {
@@ -122,7 +120,6 @@ export class TraingClassTabComponent implements OnInit {
   }
 
   editTrainingClass(data,i){
-    console.log(data)
     this.route.navigate(['/cms-library'],{queryParams:{type : 'create',tab : 'class',classId:data.trainingClassId}})
   }
 

@@ -93,6 +93,10 @@ export class CourseService {
      return this.http.getLocal('local',this.url.trainingClassQuiz+'?createdBy='+userId)
   }
 
+  getQuizListById(userId,query){
+    return this.http.getLocal('local',this.url.trainingClassQuiz+'?createdBy='+userId+query)
+ }
+
   scheduleTraining(data){
     return this.http.post('local',this.url.scheduleTraining, data)
   }
@@ -143,6 +147,10 @@ export class CourseService {
 
   updateQuizList(quizId,params){
     return this.http.put('local',this.url.quizListUpdate+quizId,params)
+  }
+  updateQuizById(quizId,params){
+    // quizUpdate
+    return this.http.put('local',this.url.quizUpdate+quizId,params)
   }
   updateQuestion(questionId,params){
     return this.http.put('local',this.url.questionUpdate+questionId,params)

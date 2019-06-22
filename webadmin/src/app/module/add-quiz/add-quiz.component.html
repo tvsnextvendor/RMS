@@ -1,22 +1,22 @@
 <div class="pr-3">
 	<div class=""> 
 			<form #quizForm="ngForm" ngNativeValidate>
-				<div class="row white-bg mt-2">
-						<div class="clearfix p-3">
-								<div>
-								  <label class="square-cont float-left pr-5">
-									  <input type="checkbox" [checked]="quizCreateType === 'new' ? true : false" name="newQuiz" value="new" (change)="quizTypeUpdate($event,i)">
-									  <span class="text-over">New Quiz</span>
-									  <span class="square-checkmark"></span>
-								  </label>
-								  <label class="square-cont float-left">
-										  <input type="checkbox" [checked]="quizCreateType === 'exist' ? true : false" name="newQuiz" value="exist" (change)="quizTypeUpdate($event,i)">
-										  <span class="text-over">Existing Quiz</span>
-										  <span class="square-checkmark"></span>
-									  </label>
-								 </div>							   
-							  </div> 
-							  <hr>
+				<div class="row white-bg mt-2" *ngIf="!classId">
+					<div class="clearfix p-3">
+						<div>
+							<label class="square-cont float-left pr-5">
+								<input type="checkbox" [checked]="quizCreateType === 'new' ? true : false" name="newQuiz" value="new" (change)="quizTypeUpdate($event,i)">
+								<span class="text-over">New Quiz</span>
+								<span class="square-checkmark"></span>
+							</label>
+							<label class="square-cont float-left">
+								<input type="checkbox" [checked]="quizCreateType === 'exist' ? true : false" name="newQuiz" value="exist" (change)="quizTypeUpdate($event,i)">
+								<span class="text-over">Existing Quiz</span>
+								<span class="square-checkmark"></span>
+							</label>
+						</div>							   
+					</div> 
+					<hr>
 				</div>
 				<div class="white-bg p-3 mt-2 table-decs"  *ngFor="let data of quizQuestionsForm;let i = index;">
 					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i,data)">

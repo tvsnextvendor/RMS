@@ -1,6 +1,6 @@
 <!--Quiz Tab Content -->
-    <div class="white-bg pt-4 pb-4">
-        <form>
+    <div *ngIf="!enableQuizEdit" class="white-bg pt-4 pb-4">
+        <form >
             <div class="col-md-9 row m-auto top-select-bx">
                 <span *ngIf="!directTabEnable && courseName" class="col-md-5 form-control" style="margin-right: 40px;"> {{courseName}}</span>
                 <span *ngIf="!directTabEnable && trainingClassName" class="col-md-5 form-control word-wrap"> {{trainingClassName}}</span>
@@ -125,13 +125,33 @@
            </div>
         </form>
     </div> 
+    <div *ngIf="enableQuizEdit">
+        <div  *ngFor="let quiz of quizList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalQuizCount};let i = index"
+        >
+            <div class="white-bg pt-3 mb-3">
+                <div class="clearfix">
+                    <label class="square-cont float-left">
+                        <span class="text-over">{{quiz.quizName}}</span>
+                    </label> 
+                    <span class="float-right">
+                        <a title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="editQuizData(quiz,i)"></i></a>                    
+                        <!-- <a title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a> -->
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 p-0">
+        <div class="white-bg text-center p-4" *ngIf="enableQuizEdit && !quizList.length"><p class="data-design">
+            <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
+        </div>
+    </div>
+    <pagination-controls *ngIf="enableQuizEdit" class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>
     <div class="text-center pt-4" *ngIf="uploadPage">
         <button type="button" class="btn btn-primary creat-btn">Add</button>
     </div>
 
     <ng-template #deleteQuiz>
-
-
         <div class="modal-header pb-0">
             <p class="hd-alg">{{commonLabels.labels.deleteQuiz}}</p>
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -144,9 +164,6 @@
                 <button type="button" (click)="deleteQuizQuestion()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
                 <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
             </div>
-
-
-
         </div>
     </ng-template>
 

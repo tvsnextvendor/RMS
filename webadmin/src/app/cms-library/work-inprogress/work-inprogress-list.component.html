@@ -45,13 +45,13 @@
                 <div class="col-md-3 p-0">
                     <div class="form-group pl-0 mb-0">
                         <label class="course-header">{{commonLabels.labels.noOfTrainingClass}}</label>
-                        <span class="course-count">{{courses?.CourseTrainingClassMaps.length}}</span>
+                        <span class="course-count" (click)="tabChange('training',courses.courseId,'','')">{{courses?.CourseTrainingClassMaps.length}}</span>
                     </div>              		
                 </div>
                 <div class="col-md-3">
                     <div class="form-group mb-0">
                         <label class="course-header">{{commonLabels.labels.noOfContentFiles}}</label>
-                        <span class="course-count">{{calculateContentFiles(courses.CourseTrainingClassMaps)}}</span> 
+                        <span class="course-count" routerLink="/files/{{courses.courseId}}">{{calculateContentFiles(courses.CourseTrainingClassMaps)}}</span> 
                     </div>              		
                 </div>
             </div>
