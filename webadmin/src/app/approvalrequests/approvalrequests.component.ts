@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService, UtilService, ResortService, BreadCrumbService, CommonService, UserService } from '../services';
+import { HeaderService, UtilService, ResortService, BreadCrumbService, CommonService, UserService, AlertService } from '../services';
 import { CommonLabels } from '../Constants/common-labels.var';
 import { BatchVar } from '../Constants/batch.var';
 import { BsModalService } from 'ngx-bootstrap';
@@ -26,8 +26,13 @@ export class ApprovalrequestsComponent implements OnInit {
   approvalList;
   pendingList;
   rejectedList;
-  approvalId;
+  approvals;
   modalRef;
+  rejectComment;
+  showUsers: boolean = false;
+  createdByList;
+  approvalAccess;
+  roleId;
 
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
@@ -36,15 +41,28 @@ export class ApprovalrequestsComponent implements OnInit {
     private resortService: ResortService,
     private commonService: CommonService,
     private userService: UserService,
+    private alertService: AlertService,
     public batchVar: BatchVar, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.headerService.setTitle({ title: 'Approval Request', hidemodule: false });
     this.breadCrumbService.setTitle([]);
     this.userData = this.utilService.getUserData();
+   
     this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
     this.getResortData(this.resortId);
     this.getApprovalList(this.resortId, 'Pending');
+    this.getusers();
+  }
+
+  getusers() {
+    this.commonService.getCreatedByDetails().subscribe(result => {
+      if (result && result.isSuccess) {
+        this.createdByList = result.data && result.data;
+      } else {
+        this.createdByList = [];
+      }
+    })
   }
 
   getResortData(resortId) {
@@ -52,7 +70,7 @@ export class ApprovalrequestsComponent implements OnInit {
       (this.resortId == parseInt(resortId)) ? this.resortList = result.data.Resort : '';
       this.divisionList = result.data.divisions;
       this.selectedResort = resortId;
-    })
+    });
   }
   tabChange(status) {
     this.resortService.getApprovalList(this.resortId, status).subscribe((result) => {
@@ -132,20 +150,61 @@ export class ApprovalrequestsComponent implements OnInit {
     let modalConfig = {
       class: "modal-dialog-centered"
     }
-    this.approvalId = approvals;
+    this.approvals = approvals;
     this.modalRef = this.modalService.show(template, modalConfig);
   }
   rejectConfirm(template: TemplateRef<any>, approvals) {
     let modalConfig = {
       class: "modal-dialog-centered"
     }
-    this.approvalId = approvals;
+    this.approvals = approvals;
     this.modalRef = this.modalService.show(template, modalConfig);
   }
-  approveStatus(){
+  approveStatus() {
+    console.log(this.approvals);
+    console.log(this.approvalAccess);
+
+    let approvalInfo = {
+      'approverId': this.userData.userId,
+      'approvalStatus': 'Approved',
+      'approvalAccess': this.approvalAccess
+    }
+    this.resortService.statusApproval(this.approvals.approvalId, approvalInfo).subscribe((result) => {
+      if (result && result.isSuccess) {
+        this.modalRef.hide();
+        this.alertService.success(result.message);
+      } else {
+        this.alertService.error(result.error);
+      }
+    }, (errorRes) => {
+     // this.modalRef.hide();
+      this.alertService.error(errorRes.error.error);
+    });
+
 
   }
-  rejectStatus(){
-    
+  rejectStatus() {
+    console.log(this.approvals);
+
+    let approvalInfo = {
+      'approverId': this.userData.userId,
+      'approvalStatus': 'Rejected',
+      'rejectComment': this.rejectComment
+    }
+    this.resortService.statusApproval(this.approvals.approvalId, approvalInfo).subscribe((result) => {
+      if (result && result.isSuccess) {
+        this.modalRef.hide();
+        this.alertService.success(result.message);
+      } else {
+        this.alertService.error(result.message);
+      }
+    }, (errorRes) => {
+     // this.modalRef.hide();
+      this.alertService.error(errorRes.error.error);
+    });
+  }
+  secondLevelApproval($ev) {
+    console.log($ev);
+    this.showUsers = true;
   }
 }

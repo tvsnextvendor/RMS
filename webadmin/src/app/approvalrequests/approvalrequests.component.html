@@ -253,12 +253,28 @@
 <ng-template #approveConfirmPop>
     <div class="modal-header pb-0">
         <p class="hd-alg">{{commonLabels.labels.approvalConfirm}}</p>
+       
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body text-center">
         <span class="text-content">{{commonLabels.labels.approveStatusConfirm}}</span>
+
+        <div class="col-md-12">
+                <label class="square-cont float-left pr-5">
+                        <input type="checkbox" name="newQuiz" value="new" (change)="secondLevelApproval($event)">
+                        <span class="text-over">Second Level Approval</span>
+                        <span class="square-checkmark"></span>
+                    </label>
+                    <div class="col-md-6" *ngIf="showUsers">
+                            <select [(ngModel)]="approvalAccess" name="approvalAccess" class="form-control pl-0" >
+                                    <option value="" disabled>{{commonLabels.labels.selectUsers}}</option>
+                                    <option *ngFor="let obj of createdByList" [value]="obj.userId">{{obj.userName}}</option>
+                                </select>
+                    </div>
+
+        </div>
         <div class="text-center mt-4">
             <button (click)="approveStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
             <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
@@ -274,6 +290,9 @@
     </div>
     <div class="modal-body text-center">
         <span class="text-content">{{commonLabels.labels.rejectStatusConfirm}}</span>
+        <div class="col-md-8">
+            <textarea [(ngModel)]="rejectComment" name="rejectComment" class="form-control"></textarea>
+        </div>
         <div class="text-center mt-4">
             <button (click)="rejectStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
             <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
