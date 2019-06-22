@@ -143,16 +143,16 @@
             </li>
             <ul class="sub-menu" *ngIf="enableEdit">
                 <li [ngClass]="(activeType == 'editclass') ? 'active' : ''">
-                    <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editViewClasses}}</a>
+                    <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editClasses}}</a>
                 </li>
                 <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''">
-                    <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editViewQuiz}}</a>
+                    <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editQuiz}}</a>
                 </li>
                 <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''">
-                    <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editViewCourse}}</a>
+                    <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editCourse}}</a>
                 </li>
                 <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''">
-                    <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editViewNotification}}</a>
+                    <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editNotification}}</a>
                 </li>
                 <li [ngClass]="(activeType == 'editworkInprogress') ? 'active' : ''">
                     <a (click)="pageRedirection('edit','workInprogress')">{{commonLabels.btns.workinProgress}}</a>
