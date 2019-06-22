@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output,TemplateRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute,Router } from '@angular/router';
-import { HeaderService,HttpService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService} from '../../services';
+import { HeaderService,HttpService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService, FileService} from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
@@ -24,7 +24,6 @@ export class CourseTabComponent implements OnInit {
   selectedEditCourseName;
   trainingClassList =[];
   selectedEditTrainingClass;
-  selectedEditTrainingClassName;
   selectedCourse = [];
   pageSize;
   p;
@@ -59,7 +58,7 @@ export class CourseTabComponent implements OnInit {
   inProgressCount;
   completedCount;
 
-  constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private route :Router) {
+  constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private route :Router, private fileService: FileService) {
      this.activatedRoute.queryParams.subscribe(params=>{ 
     
        if(params.tab == 'schedule'){
@@ -85,9 +84,17 @@ export class CourseTabComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
-    this.enableDropData('closeEdit','')
+    this.enableDropData('closeEdit','','')
     this.getCourseDetails();
     this.checkBoxEnable = this.disableEdit ? true : false;
+    if (this.addedFiles && this.addedFiles.length) {
+        this.selectedIndex = localStorage.getItem('index');
+        this.enableEdit = true;
+        this.enableDuplicate = false;
+        this.enableView = false;
+        this.enableIndex = parseInt(this.selectedIndex);
+        this.getEditFileData();
+    }
   }
 
   ngDoCheck(){
@@ -99,8 +106,9 @@ export class CourseTabComponent implements OnInit {
     this.enableView = false;
   }
 
+  //course view
   getIndividualCourse(course, index){
-     this.enableView = true;
+      this.enableView = true;
       this.enableEdit = false;
       this.enableDuplicate = false;
       this.enableIndex = index;
@@ -119,18 +127,12 @@ export class CourseTabComponent implements OnInit {
   getCourseDetails(){
     this.deletedFileId  = [];
     let userId = this.utilService.getUserData().userId;
-    // let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none&createdBy='+userId;
     let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none' ;
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
       this.CMSFilterSearchEventSet = '';
       if(resp && resp.isSuccess){
         this.totalCourseCount = resp.data.count;
         this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
-        if(this.addedFiles){
-           this.selectedIndex = localStorage.getItem('index');
-           let type = localStorage.getItem('type');
-           this.selectedIndex && this.selectedIndex != 'NaN' ? this.enableDropData(type,parseInt(this.selectedIndex)) : '';
-        }
       }
     },err =>{
       this.CMSFilterSearchEventSet = '';
@@ -138,17 +140,7 @@ export class CourseTabComponent implements OnInit {
    
   }
 
-  enableDropData(type,index){
-    localStorage.setItem('index', index);
-    localStorage.setItem('type', type);
-    // if(type === "view"){
-    //   this.enableView = this.enableIndex === index ? !this.enableView : true;
-    //   this.enableEdit = false;
-    //   this.enableDuplicate = false;
-    //   this.enableIndex = index;
-    //   this.getCourseId(index);
-    // //  this.getIndividualCourse(index);
-    // }
+  enableDropData(type,index,course){
     if(type === "closeDuplicate"){
       this.enableView = true;
       this.enableEdit = false;
@@ -164,15 +156,13 @@ export class CourseTabComponent implements OnInit {
       this.enableEdit = true;
       this.enableDuplicate = false;
       this.enableIndex = index;
-      this.editCourseData(index,'');
+      this.editCourseData(course,index);
     }
     else if(type === "duplicate"){
       this.enableView = false;
       this.enableEdit = false;
       this.enableDuplicate = false;
-      // this.enableIndex = index;
-      // this.editCourseData(index,'');
-      this.route.navigate(['/module/'+index.courseId],{queryParams:{duplicate : true}});
+      this.route.navigate(['/module/'+course.courseId],{queryParams:{duplicate : true}});
     }
     else if(type === 'trainingClass'){
       let value = {tab : 'training'}
@@ -205,37 +195,41 @@ export class CourseTabComponent implements OnInit {
     })
   }
 
-  editCourseData(index,id){
-    let checkData = id ? this.courseListValue.findIndex(x=>x.courseId === parseInt(id)) : index;
-
-    if(this.courseListValue.length > 0){
-      this.courseListValue.forEach((item,i)=>{
-        if(i===checkData){
-          this.selectedEditCourse = item.courseId;
-          this.selectedEditCourseName  = item.courseName;
-          this.trainingClassList = item.CourseTrainingClassMaps;
+  editCourseData(course,index){
+     localStorage.setItem('index', index);
+          if (this.selectedIndex != index) {
+              this.addedFiles = [];
+          }
+          this.selectedEditCourse = course.courseId;
+          this.selectedEditCourseName  = course.courseName;
+          this.trainingClassList = course.CourseTrainingClassMaps;
           this.selectedEditTrainingClass = this.trainingClassList[0].trainingClassId;
-          this.selectedEditTrainingClassName = this.trainingClassList[0].TrainingClass.trainingClassName;
-        }
-      });
-      this.getEditFileData(this.selectedEditTrainingClass, index);
-    }
-  
+          this.getEditFileData();
   }
 
-  getEditFileData(classId, index){
-    if(this.selectedIndex != index){
-      this.addedFiles=[];
-    }
-    this.selectedEditTrainingClass = classId;
-    this.courseService.getEditCourseDetails('',this.selectedEditCourse,classId).subscribe(resp => {
+  getEditFileData(){   
+   if(this.addedFiles.length){
+     let data = localStorage.getItem('edit');
+      let storedData = JSON.parse(data);
+      this.selectedEditCourse = storedData.course;
+      this.selectedEditTrainingClass = storedData.trainingClass;
+      this.trainingClassList = storedData.classList;
+      this.selectedEditCourseName = storedData.courseName;
+   }else{
+     let storeData = { course: this.selectedEditCourse,courseName : this.selectedEditCourseName,trainingClass: this.selectedEditTrainingClass, classList :this.trainingClassList};
+     localStorage.setItem('edit', JSON.stringify(storeData));
+     this.fileService.emptyFileList();
+     this.fileService.emptyLocalFileList();
+   }
+
+    this.courseService.getEditCourseDetails('',this.selectedEditCourse,this.selectedEditTrainingClass).subscribe(resp => {
       if(resp && resp.isSuccess){
         this.fileList = resp.data.length && resp.data;
-       // this.fileList = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
         if(this.addedFiles && this.addedFiles.length){
            this.addedFiles.forEach(element => {
                this.fileList.push(element);
           });
+          this.addedFiles =[];
         }
       }else{
         this.fileList = []
@@ -246,7 +240,7 @@ export class CourseTabComponent implements OnInit {
   pageChanged(e){
       this.p = e;
       this.getCourseDetails();
-      this.enableDropData('closeEdit','');
+      this.enableDropData('closeEdit','','');
   }
 
   selectCourse(courseId,courseName, isChecked){
@@ -378,7 +372,7 @@ export class CourseTabComponent implements OnInit {
         if(type === 'edit'){
           this.courseService.updateCourseList(this.selectedEditCourse,params).subscribe(resp=>{
             if(resp && resp.isSuccess){
-              this.enableDropData('closeEdit','');
+              this.enableDropData('closeEdit','','');
               this.getCourseDetails();
               this.addedFiles=[];
               this.alertService.success(this.commonLabels.labels.moduleUpdateMsg);
@@ -388,7 +382,7 @@ export class CourseTabComponent implements OnInit {
         else if(type === 'duplicate'){
           this.courseService.addCourseDuplicate(params).subscribe(resp=>{
             if(resp && resp.isSuccess){
-              this.enableDropData('closeEdit','');
+              this.enableDropData('closeEdit','','');
               this.getCourseDetails();
               this.addedFiles=[];
               this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
