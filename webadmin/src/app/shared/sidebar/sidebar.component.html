@@ -139,20 +139,20 @@
             </ul>
            
             <li [ngClass]="(tabType == 'edit') ? 'active' : ''">
-                <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3"><span class="sidebar-title">{{commonLabels.labels.edit}}</span><span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
+                <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3"><span class="sidebar-title">{{commonLabels.labels.editView}}</span><span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
             </li>
             <ul class="sub-menu" *ngIf="enableEdit">
                 <li [ngClass]="(activeType == 'editclass') ? 'active' : ''">
-                    <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editClasses}}</a>
+                    <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editViewClasses}}</a>
                 </li>
                 <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''">
-                    <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editQuiz}}</a>
+                    <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editViewQuiz}}</a>
                 </li>
                 <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''">
-                    <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editCourse}}</a>
+                    <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editViewCourse}}</a>
                 </li>
                 <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''">
-                    <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editNotification}}</a>
+                    <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editViewNotification}}</a>
                 </li>
                 <li [ngClass]="(activeType == 'editworkInprogress') ? 'active' : ''">
                     <a (click)="pageRedirection('edit','workInprogress')">{{commonLabels.btns.workinProgress}}</a>
