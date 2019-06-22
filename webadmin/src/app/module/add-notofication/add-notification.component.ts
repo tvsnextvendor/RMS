@@ -66,7 +66,13 @@ export class AddNotificationComponent implements OnInit {
     ngOnInit() {
       this.clearBatchForm();
       let data = this.notifyId ? [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.editNotification,url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.btns.createNotification,url:''}]
-      this.breadCrumbService.setTitle(data)
+      this.breadCrumbService.setTitle(data);
+      if(this.notifyId){
+        this.headerService.setTitle({title:'Edit', hidemodule:false});  
+      }
+      else{
+        this.headerService.setTitle({title:'Create', hidemodule:false});  
+      }
         // let startDate = localStorage.getItem('BatchStartDate');
         this.batchVar.batchFrom = '';
         this.batchVar.batchTo = '';
@@ -530,6 +536,8 @@ export class AddNotificationComponent implements OnInit {
     }
 
     back(){
-      this.router.navigate(['/cmspage'],{queryParams:{type:'create'}})
+      this.notificationType = '';
+      this.notifyType = '';
+      // this.router.navigate(['/cmspage'],{queryParams:{type:'create'}})
     }
 }

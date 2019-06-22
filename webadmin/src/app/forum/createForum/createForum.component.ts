@@ -47,6 +47,7 @@ export class CreateForumComponent implements OnInit {
   Divisions;
   submitted = false;
   itemDeselected = false;
+  topicEmptyError = false
 
   constructor(
     private toastr: ToastrService,
@@ -59,7 +60,7 @@ export class CreateForumComponent implements OnInit {
     private utilService: UtilService,
     private userService :UserService) {
     this.forumVar.url = API_URL.URLS;
-    this.forumVar.forumAdmin = '';
+    this.forumVar.forumAdmin = null;
     this.forumVar.forumName = '';
 
   }
@@ -68,7 +69,7 @@ export class CreateForumComponent implements OnInit {
     // this.department['departData'] = [];
     // this.department['departmentList'] =[];
     // this.admin['adminData'] =[];
-
+    this.forumVar.forumAdmin = null;
     this.forumService.editForum.subscribe(result => {
       this.forumEditPage = result;
     });
@@ -86,7 +87,7 @@ export class CreateForumComponent implements OnInit {
           topics: '',
           forumTopicId: ''
         }];
-        this.forumVar.forumAdmin = '';
+        this.forumVar.forumAdmin = null;
         this.departmentList = [];
         this.division['divisionList'] = [];
         this.forumVar.startDate = '';
@@ -260,6 +261,14 @@ export class CreateForumComponent implements OnInit {
   onSubmitForm(form) {
     this.submitted = true;
     const departmentList = this.departmentList;
+    let topicEmpty = false;
+    this.topicEmptyError = false;
+    this.topicsArray.forEach(item=>{
+      if(item.topics == ''){
+        topicEmpty = true;
+        this.topicEmptyError = true;
+      }
+    })
     if (this.itemDeselected && this.forumEditPage.forumId) {
       _.forEach(this.Divisions, function (totalValue, key) {
         _.forEach(departmentList, function (deparId, departKey) {
@@ -279,7 +288,7 @@ export class CreateForumComponent implements OnInit {
       });
     });
     // console.log(this.department['departments'], 'departmentlistSelected');
-    if (form.valid && !this.forumVar.uniqueValidate && this.assignList.length) {
+    if (form.valid && !this.forumVar.uniqueValidate && this.assignList.length && !topicEmpty) {
       const postData = {
         forum: {
           forumName: this.forumVar.forumName,
@@ -353,6 +362,9 @@ export class CreateForumComponent implements OnInit {
       // this.clearForm(form);
       // this.forumVar.uniqueValidate = false;
     }
+    else if(topicEmpty){
+      this.alertService.error('Please fill the all topic fields');
+    }
   }
 
   clearForm(formDir) {
@@ -364,11 +376,11 @@ export class CreateForumComponent implements OnInit {
       topics: '',
       forumTopicId: ''
     }];
-    this.forumVar.forumAdmin = '';
+    // this.forumVar.forumAdmin = '';
     this.departmentList = [];
     this.division['divisionList'] = [];
     formDir.reset();
-    this.forumVar.forumAdmin = '';
+    this.forumVar.forumAdmin = null;
     this.submitted = false;
     this.forumService.editPage({});
     this.assignList = [];

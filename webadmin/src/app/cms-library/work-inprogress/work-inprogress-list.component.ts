@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit,Output,EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService} from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
@@ -16,6 +16,7 @@ export class WorkCourseListComponent implements OnInit {
   courseListValue = [];
   enableView;
   enableIndex;
+  @Output() trainingClassListTab =  new EventEmitter();
 
   constructor(private courseService : CourseService ,public commonLabels : CommonLabels,private route: Router,public cmsLibraryVar : CmsLibraryVar,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private headerService : HeaderService,private breadCrumbService :BreadCrumbService) { }
   
@@ -68,6 +69,11 @@ export class WorkCourseListComponent implements OnInit {
     }
   }
 
+  tabChange(tabName,id,courseId,count) {
+    debugger;
+    let data = {tab : tabName,id:'',courseId : id}
+    this.trainingClassListTab.next(data);
+}
   pageChanged(e){
       this.p = e;
       this.getCourseDetails();

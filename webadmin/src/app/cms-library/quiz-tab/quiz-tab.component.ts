@@ -2,7 +2,7 @@ import { Component, OnInit, Input, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { HeaderService, HttpService, AlertService, BreadCrumbService } from '../../services';
+import { HeaderService, HttpService, AlertService, BreadCrumbService ,UtilService} from '../../services';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { CourseService } from '../../services/restservices/course.service';
@@ -40,10 +40,17 @@ export class QuizTabComponent implements OnInit {
   trainingClassList;
   filterCourse = null;
   filterTrainingClass = null;
+  enableQuizEdit = false;
+  quizList = [];
+  pageLength;
+  currentPage;
+  totalQuizCount;
 
-  constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService) { }
+  constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService) { }
 
   ngOnInit() {
+    this.pageLength=5;
+    this.currentPage = 1;
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
       { name: "True/False", value: "True/False" },
@@ -53,18 +60,39 @@ export class QuizTabComponent implements OnInit {
     if(window.location.pathname.indexOf("resource") != -1){
       let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.quiz,url:''}];
       this.breadCrumbService.setTitle(data);
-      }else{
-    let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.quiz, url: '' }]
-    this.breadCrumbService.setTitle(data);
-      }
-    if (this.directTabEnable) {
-      this.getDropDownDetails();
+    }else{
+      let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.quiz, url: '' }]
+      this.breadCrumbService.setTitle(data);
+      this.enableQuizEdit = true;
     }
-    else {
-      this.editQuizDetails();
+    if(this.enableQuizEdit){
+      this.getquizList();
+    }
+    else{
+      if (this.directTabEnable) {
+        this.getDropDownDetails();
+      }
+      else {
+        this.editQuizDetails();
+      }
     }
     this.weightage = 100;
   }
+
+  getquizList(){
+    let user = this.utilService.getUserData();
+    this.courseService.getQuizList(user.userId).subscribe(res=>{
+        if(res && res.isSuccess){
+            this.quizList = res.data.quiz;
+            this.totalQuizCount = this.quizList.length;
+        }
+    })
+}
+
+pageChanged(e) {
+  this.currentPage = e;
+  this.getquizList();
+}
 
   optionValueUpdate(data) {
     this.optionData = !this.optionData;
@@ -230,5 +258,9 @@ export class QuizTabComponent implements OnInit {
         this.editQuizDetails();
       }
     })
+  }
+
+  editQuizData(data,i){
+    this.route.navigate(['/createQuiz'],{queryParams:{quizId:data.quizId}})
   }
 }

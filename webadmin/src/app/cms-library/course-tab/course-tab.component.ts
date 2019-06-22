@@ -355,7 +355,7 @@ export class CourseTabComponent implements OnInit {
 
   updateCourse(type){
     let self =this;
-     this.fileList.filter(function (x) {
+    this.fileList.length && this.fileList.filter(function (x) {
           if(x.addNew){
             x.trainingClassId = self.selectedEditTrainingClass ;
             return delete x.addNew && delete x.TrainingClass;

@@ -355,7 +355,6 @@ export class CommonLabels{
         "approveStatusConfirm" : "Are you sure you want to approve?",
         "rejectStatusConfirm"  : "Are you sure you want to reject?",
         "archieveDelete"    :   "Are you sure you want to delete this archieve?"
-      
     };
 
     btns = {
