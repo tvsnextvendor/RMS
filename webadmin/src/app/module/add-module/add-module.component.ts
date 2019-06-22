@@ -672,7 +672,7 @@ export class AddModuleComponent implements OnInit {
                                 this.staticTabs.tabs[0].active = true;
                             }
                         }
-
+                        this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } });
                         this.alertService.success(this.commonLabels.labels.moduleUpdateMsg);
                         this.moduleSubmitted = false;
                         this.fileService.emptyFileList();
@@ -707,7 +707,7 @@ export class AddModuleComponent implements OnInit {
                         if(!this.tabEnable){
                             this.modalRef && this.modalRef.hide();
                         }
-                        
+                        this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } });
                         this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
                         this.moduleSubmitted = false;
                         this.fileService.emptyFileList();

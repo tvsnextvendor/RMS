@@ -47,7 +47,7 @@ export class QuizPage {
     }
     // Get Quiz Content
     getQuizContent() {
-        this.selectedQuizContent = this.quizData[this.quizStep].QuizMappings[0].Question;
+        this.selectedQuizContent = this.quizData[0].QuizMappings[this.quizStep].Question;
     }
 
     // Change selected question
@@ -63,10 +63,10 @@ export class QuizPage {
 
     // Select next question
     quizNextContent() {
-        if (this.quizData && this.quizData.length && (this.quizData.length - 1 === this.quizStep)) {
+        if (this.quizData && this.quizData[0].QuizMappings.length && (this.quizData[0].QuizMappings.length - 1 === this.quizStep)) {
             this.isQuizCompleted = true;
             this.calcualteAndGoToCongartulations();
-        } else if (this.quizData.length > this.quizStep) {
+        } else if (this.quizData[0].QuizMappings.length > this.quizStep) {
             this.quizStep = this.quizStep + 1;
             this.getQuizContent();
         }
@@ -80,14 +80,14 @@ export class QuizPage {
     // Final Congrats
     calcualteAndGoToCongartulations() {          
         let correctAnswersCount  =   0;
-        this.quizData.forEach(quizValues => {
-            if (quizValues['selectedAnswer'] == quizValues['answer']) {
+        this.quizData[0].QuizMappings.map(quizValues => {
+            if (quizValues.Question['selectedAnswer'] == quizValues.Question['answer']) {
                 correctAnswersCount ++;
             }
         });
         const resultData = {
             "courseId"          : this.courseId,
-            "totalQuestions"    : this.quizData.length,
+            "totalQuestions"    : this.quizData[0].QuizMappings.length,
             "correctAnswers"    : correctAnswersCount,
             "trainingClassId"   : this.trainingClassId,
             "courseName": this.courseName,
