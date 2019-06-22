@@ -17,7 +17,7 @@ export class CommonLabels{
         "file"              :   "Files",       
         "count"             :   "Count:",
         "edit"              :   "Edit",
-        "editView"         :   "Edit / View",
+        "editView"         :    "Edit / View",
         "viewQuiz"          :   "View Quiz",
         "video"             :   "Video(s)",
         "document"          :   "Document(s)",
@@ -51,6 +51,9 @@ export class CommonLabels{
         "action"            :   "Action",
         "select"            :   "Select" ,
         "courseName"        :   "Course Name",
+        "contentName"       :   "Content Name",
+        "contentType"       :   "Content Type",
+        "approverName"      :   "Approver Name",
         "videoTitle"        :   "Video Title",       
         "uploadVideos"      :   "Upload Videos",
         "active"            :   "Active",
@@ -346,6 +349,11 @@ export class CommonLabels{
         "addArchieve"       :   "Add Archieve Settings",
         "updateArchieve"    :   "Update Archieve Settings",
         "deleteConfirm"     :   "Delete Confirmation",
+        "rejectConfirm"     :   "Reject Confirmation",
+        "approvalConfirm"   :   "Approval Confirmation",
+        "approvalConfirmation" : "Are you sure you want to send it for approval?",
+        "approveStatusConfirm" : "Are you sure you want to approve?",
+        "rejectStatusConfirm"  : "Are you sure you want to reject?",
         "archieveDelete"    :   "Are you sure you want to delete this archieve?"
       
     };

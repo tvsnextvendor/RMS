@@ -230,5 +230,8 @@ export class CourseService {
     let user = this.utilService.getUserData();
     return this.http.getLocal('local',this.url.getTrainingClassList+'?createdBy='+user.userId+query);
   }
+  sendApproval(post){
+    return this.http.post('local',this.url.sendApproval,post);
+  }
 
 }
