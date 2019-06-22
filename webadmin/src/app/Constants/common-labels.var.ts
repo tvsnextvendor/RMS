@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 export class CommonLabels{
         
     labels = {
+
         "create"            :  "Create",
         "createdBy"         :   "Create By",
         "createdOn"         :   "Created On",
@@ -137,7 +138,7 @@ export class CommonLabels{
         "web"               :   "Web",
         "addModule"         :   "Add Program",
         "editModule"        :   "Edit Program",
-        "editViewCourse"   :   "Edit / View Course",
+        "editCourse"        :   "Edit / View Course",
         "accessTo"          :   "Access To",
         // "topics"            :   "Topic",
         "coursesAdded"      :   "Training Class Added",
@@ -315,10 +316,10 @@ export class CommonLabels{
         "resetPassword"     :   "Reset password",
         "createClasses"     :   "Create Classes",  
         "createQuiz"        :   "Create Quiz",
-        "editViewClasses"       :   "Edit / View Classes",
+        "editClasses"       :   "Edit / View Classes",
         "duplicateCourse"  :   "Duplicate Course",
-        "editViewQuiz"          :   "Edit / View Quiz",
-        "editViewNotification"  :   "Edit / View Notification",
+        "editQuiz"          :   "Edit / View Quiz",
+        "editNotification"  :   "Edit / View Notification",
         "trainingSchedule"  :   "Training Schedule",
         "schedule"          :   "Schedule",
         "performanceReport" :   "Performance Report",
