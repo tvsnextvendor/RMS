@@ -11,7 +11,7 @@ import { API_URL } from '../../Constants/api_url';
 import { DatePipe } from '@angular/common';
 import { AlertService } from '../../services/alert.service';
 import * as moment from 'moment';
-import{ CommonLabels }  from '../../Constants/common-labels.var'
+import{ CommonLabels }  from '../../Constants/common-labels.var';
 
 @Component({
     selector: 'app-add-notification',
@@ -154,7 +154,9 @@ export class AddNotificationComponent implements OnInit {
     }
 
     getCourses(){
-      this.courseService.getAllCourse().subscribe(result=>{
+      let user = this.utilService.getUserData();
+      let query = '?status=none&created='+user.userId;
+      this.courseService.getNotificationCourse(query).subscribe(result=>{
         if(result && result.isSuccess){
           this.moduleVar.courseList = result.data && result.data.rows;
         }
