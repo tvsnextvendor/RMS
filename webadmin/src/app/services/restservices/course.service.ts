@@ -25,6 +25,10 @@ export class CourseService {
     return this.http.getLocal('local',this.url.courseList+'?page='+currentPage+'&size='+size+query);
   }
 
+  getNotificationCourse(query){
+    return this.http.getLocal('local',this.url.courseList+query);
+  }
+
   getAllCourse(){
     let userId = this.utilService.getUserData().userId;
     return this.http.getLocal('local',this.url.courseList+'?created='+userId);
