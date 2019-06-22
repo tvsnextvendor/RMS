@@ -224,7 +224,7 @@ export class CourseTabComponent implements OnInit {
 
     this.courseService.getEditCourseDetails('',this.selectedEditCourse,this.selectedEditTrainingClass).subscribe(resp => {
       if(resp && resp.isSuccess){
-        this.fileList = resp.data.length && resp.data;
+        this.fileList = resp.data.length ? resp.data : [];
         if(this.addedFiles && this.addedFiles.length){
            this.addedFiles.forEach(element => {
                this.fileList.push(element);
@@ -609,6 +609,37 @@ clearData(){
   this.fileName = '';
   this.fileExtensionType = '';
 }
+
+approvalConfirmation(template: TemplateRef<any>, courses) {
+    let modalConfig = {
+    class: "modal-dialog-centered"
+    }
+    this.selectedCourse = courses;
+    this.modalRef = this.modalService.show(template, modalConfig);
+}
+
+sendApproval(courses) {
+    let userData = this.utilService.getUserData();
+    let userId = userData.userId;
+    let resortId = userData.ResortUserMappings[0].Resort.resortId
+    let approvalData = {
+    'contentName': courses.courseName,
+    'contentId': courses.courseId,
+    'contentType': 'Course',
+    'resortId': resortId,
+    'createdBy': userId,
+    };
+    this.courseService.sendApproval(approvalData).subscribe(result => {
+    if (result && result.isSuccess) {
+    this.alertService.success(result.message);
+    } else {
+    console.log(result.error);
+    this.alertService.error(result.error.error);
+    }
+    });
+}
+
+
 
 }
 
