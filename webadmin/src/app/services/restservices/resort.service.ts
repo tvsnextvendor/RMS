@@ -31,9 +31,11 @@ export class ResortService {
   updateResort(resortId, userData){
       return this.http.put('local',this.url.resortUpdate+resortId,userData)
   }
-
   deleteResort(resortId){
     return this.http.delete('local',this.url.resortDelete+resortId)
+  }
+  getApprovalList(resortId,status){
+    return this.http.getLocal('local',this.url.listApproval+'?resortId='+resortId+'&approvalStatus='+status);
   }
 
 }

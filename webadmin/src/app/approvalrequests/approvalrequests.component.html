@@ -1,146 +1,282 @@
-<div class="pt-3">	
-	<div class="clearfix tab-section">
+<div class="pt-3">
+    <div class="clearfix tab-section">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#pendinglist">{{commonLabels.labels.pending}}</a>
+                <a class="nav-link active" data-toggle="tab" href="#pendinglist" (click)="tabChange('Pending')">{{commonLabels.labels.pending}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#">{{commonLabels.labels.approved}}</a>
+                <a class="nav-link" data-toggle="tab" href="#approvallist" (click)="tabChange('Approved')">{{commonLabels.labels.approved}}</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#">{{commonLabels.labels.rejected}}</a>
+                <a class="nav-link" data-toggle="tab" href="#rejectedlist" (click)="tabChange('Rejected')">{{commonLabels.labels.rejected}}</a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link"  data-toggle="tab" href="#approvedsetting">{{commonLabels.labels.approvalSetting}}</a>
             </li>                -->
-        </ul> 
+        </ul>
     </div>
 
-    <div class="tab-content">
-        <div id="pendinglist" class="col-lg-12 col-sm-12 p-0 pt-3 tab-pane active">                
+    <div class="tab-content active">
+        <div id="pendinglist" class="col-lg-12 col-sm-12 p-0 pt-3 tab-pane active">
             <div class="table-responsive custom-table2 px-1">
                 <table class="table table-striped white-bg mt-1">
-                        <thead>
-                        <tr class="th-boxshadow">                            
+                    <thead>
+                        <tr class="th-boxshadow">
                             <th class="text-left">
-                               {{commonLabels.labels.resort}}
+                                {{commonLabels.labels.resort}}
                             </th>
                             <th class="text-left">
-                               {{commonLabels.labels.requestor}}
+                                {{commonLabels.labels.requestor}}
                             </th>
                             <th class="text-left">
-                                {{commonLabels.labels.courseName}}
+                                {{commonLabels.labels.contentName}}
                             </th>
                             <th class="text-left">
-                               {{commonLabels.labels.receivedOn}}
+                                {{commonLabels.labels.contentType}}
                             </th>
                             <th class="text-left">
-                                {{commonLabels.labels.view}}
+                                {{commonLabels.labels.receivedOn}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.approverName}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.action}}
                             </th>
                         </tr>
-                        </thead>
-                        <tbody>
-                            <tr  class="table-desc-color">
-                                <td class="text-left">Resort 1</td>
-                                <td class="text-left">John</td>
-                                 <td class="text-left">Safety Video</td>
-                                <td class="text-left">19 Dec 2018</td>
-                                <td><a title="View"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
-                            </tr>
-                            <tr  class="table-desc-color">
-                                   <td class="text-left">Resort 2</td>
-                                <td class="text-left">Peter</td>
-                                 <td class="text-left">Safety Video</td>
-                                <td class="text-left">21 Jan 2019</td>
-                                <td><a title="View"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
-                                </tr>
-                                <tr  class="table-desc-color">
-                                   <td class="text-left">Resort 3</td>
-                                <td class="text-left">David</td>
-                                 <td class="text-left">Safety Video</td>
-                                <td class="text-left">16 Feb 2019</td>
-                                <td><a title="View"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
-                                </tr>                       
-                        </tbody>
-                    </table>
+                    </thead>
+                    <tbody>
+                        <tr class="table-desc-color" *ngFor="let item of pendingList;let i=index;">
+                            <td class="text-left">{{item.Resort.resortName}}</td>
+                            <td class="text-left">{{item.Requestor.userName}}</td>
+                            <td class="text-left">{{item.contentName}}</td>
+                            <td class="text-left">{{item.contentType}}</td>
+
+
+                            <td class="text-left">{{item.created | date : 'medium'}}</td>
+                            <td class="text-left">
+                                <span *ngIf="item.Approver"> {{item.Approver.userName}}</span>
+                                <span *ngIf="!item.Approver"> - </span>
+                            </td>
+                            <td>
+                                <a title="To Approve" (click)="approveConfirm(approveConfirmPop,item)"><i class="fa fa-check"
+                                        aria-hidden="true"></i></a>
+                                <a title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i class="fa fa-times"
+                                        aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
-        </div>     
-        
+        </div>
+        <div id="approvallist" class="col-lg-12 col-sm-12 p-0 pt-3 tab-pane">
+            <div class="table-responsive custom-table2 px-1">
+                <table class="table table-striped white-bg mt-1">
+                    <thead>
+                        <tr class="th-boxshadow">
+                            <th class="text-left">
+                                {{commonLabels.labels.resort}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.requestor}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.contentName}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.contentType}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.receivedOn}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.approverName}}
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-desc-color" *ngFor="let item of pendingList;let i=index;">
+                            <td class="text-left">{{item.Resort.resortName}}</td>
+                            <td class="text-left">{{item.Requestor.userName}}</td>
+                            <td class="text-left">{{item.contentName}}</td>
+                            <td class="text-left">{{item.contentType}}</td>
+
+
+                            <td class="text-left">{{item.created | date : 'medium'}}</td>
+                            <td class="text-left">
+                                <span *ngIf="item.Approver"> {{item.Approver.userName}}</span>
+                                <span *ngIf="!item.Approver"> - </span>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="rejectedlist" class="col-lg-12 col-sm-12 p-0 pt-3 tab-pane">
+            <div class="table-responsive custom-table2 px-1">
+                <table class="table table-striped white-bg mt-1">
+                    <thead>
+                        <tr class="th-boxshadow">
+                            <th class="text-left">
+                                {{commonLabels.labels.resort}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.requestor}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.contentName}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.contentType}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.receivedOn}}
+                            </th>
+                            <th class="text-left">
+                                {{commonLabels.labels.approverName}}
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-desc-color" *ngFor="let item of pendingList;let i=index;">
+                            <td class="text-left">{{item.Resort.resortName}}</td>
+                            <td class="text-left">{{item.Requestor.userName}}</td>
+                            <td class="text-left">{{item.contentName}}</td>
+                            <td class="text-left">{{item.contentType}}</td>
+
+
+                            <td class="text-left">{{item.created | date : 'medium'}}</td>
+                            <td class="text-left">
+                                <span *ngIf="item.Approver"> {{item.Approver.userName}}</span>
+                                <span *ngIf="!item.Approver"> - </span>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <div id="approvedsetting" class="col-lg-12 p-0 pt-3 tab-pane ">
             <div class="white-bg p-3">
                 <div class="row">
                     <div class="col-md-3 mb-3 col-sm-6 select select-style clearfix pl-0">
-                        <select id="resort" class="form-control p-0" name="resortId" [(ngModel)]="selectedResort"  #resort (change)=getResortData(resort.value)>
+                        <select id="resort" class="form-control p-0" name="resortId" [(ngModel)]="selectedResort"
+                            #resort (change)=getResortData(resort.value)>
                             <option value="null">{{commonLabels.labels.resort}}</option>
 
                             <option *ngFor="let data of resortList" value="{{data.resortId}}">{{data.resortName}}</option>
-                        </select> 
+                        </select>
                         <div class="select_arrow"></div>
                     </div>
-                <div class="col-md-3 mb-3 col-sm-6  select select-style clearfix">
-                    <div class="pl-0 form-group select-Courses">
-                        <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event,'div')" [data]="divisionList"
-                            [(ngModel)]="selectedDivision" [settings]="batchVar.divisionSettings"  #divisionId="ngModel" (onSelectAll)="onEmpAllSelect($event,'div')" (onDeSelectAll)="onEmpAllSelect($event,'div')" required></ng-multiselect-dropdown>
-                        <span class="required_color" *ngIf="submitted && !selectedDivision.length">
-                            {{commonLabels.mandatoryLabels.division}}
-                        </span>
+                    <div class="col-md-3 mb-3 col-sm-6  select select-style clearfix">
+                        <div class="pl-0 form-group select-Courses">
+                            <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event,'div')"
+                                [data]="divisionList" [(ngModel)]="selectedDivision" [settings]="batchVar.divisionSettings"
+                                #divisionId="ngModel" (onSelectAll)="onEmpAllSelect($event,'div')" (onDeSelectAll)="onEmpAllSelect($event,'div')"
+                                required></ng-multiselect-dropdown>
+                            <span class="required_color" *ngIf="submitted && !selectedDivision.length">
+                                {{commonLabels.mandatoryLabels.division}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3 col-sm-6  select select-style clearfix">
+                        <div class="pl-0 form-group select-Courses">
+                            <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId" [data]="departmentList"
+                                [(ngModel)]="selectedDepartment" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
+                                (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" (onSelectAll)="onEmpAllSelect($event,'dept')"
+                                (onDeSelectAll)="onEmpAllSelect($event,'dept')" required></ng-multiselect-dropdown>
+                            <span class="required_color" *ngIf="submitted && !selectedDepartment.length">
+                                {{commonLabels.mandatoryLabels.dept}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3 col-sm-6  select select-style clearfix pr-0">
+                        <div class="pl-0 form-group select-Courses">
+                            <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId" (onSelect)="onEmpSelect($event,'emp')"
+                                (onDeSelect)="onEmpDeSelect($event)" [data]="employeeList" [(ngModel)]="selectedEmp"
+                                [settings]="batchVar.empSettings" #empId="ngModel" (onSelectAll)="onEmpAllSelect($event,'emp')"
+                                (onDeSelectAll)="onEmpAllSelect($event,'emp')" required></ng-multiselect-dropdown>
+                            <span class="required_color" *ngIf="submitted && !selectedEmp.length">
+                                {{commonLabels.mandatoryLabels.selectEmp}}
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3 col-sm-6  select select-style clearfix">
-                    <div class="pl-0 form-group select-Courses">
-                        <ng-multiselect-dropdown  [placeholder]="'Department'" name="departmentId" [data]="departmentList"
-                            [(ngModel)]="selectedDepartment" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
-                            (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" (onSelectAll)="onEmpAllSelect($event,'dept')" (onDeSelectAll)="onEmpAllSelect($event,'dept')" required></ng-multiselect-dropdown>
-                        <span class="required_color" *ngIf="submitted && !selectedDepartment.length">
-                            {{commonLabels.mandatoryLabels.dept}}
-                        </span>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3 col-sm-6  select select-style clearfix pr-0">
-                    <div class="pl-0 form-group select-Courses">
-                        <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"  (onSelect)="onEmpSelect($event,'emp')"  (onDeSelect)="onEmpDeSelect($event)" [data]="employeeList"
-                            [(ngModel)]="selectedEmp" [settings]="batchVar.empSettings" #empId="ngModel" (onSelectAll)="onEmpAllSelect($event,'emp')" (onDeSelectAll)="onEmpAllSelect($event,'emp')"  required></ng-multiselect-dropdown>
-                        <span class="required_color" *ngIf="submitted && !selectedEmp.length">
-                            {{commonLabels.mandatoryLabels.selectEmp}}
-                        </span>
-                    </div>
-                </div>
-            </div>
-                
 
-            <div class="row pt-3">
+
+                <div class="row pt-3">
                     <div class="col-md-3 mb-3 col-sm-6  select select-style clearfix pl-0">
-        <select name="Training Class" class="form-control pl-0">
-                <option value="">Approver Type</option>
-                <option>Single</option>
-                <option>Multiple</option>
-            </select>
-            <div class="select_arrow"></div></div>
-            <div class="col-md-3 mb-3 col-sm-6  select select-style clearfix">
-        <select name="Training Class" class="form-control pl-0">
-                <option value="">Approver Level</option>
-                <option>Level 1</option>
-                <option>Level 2</option>
-                <option>Level 3</option>
-            </select>
-            <div class="select_arrow"></div></div>
-            <div class="col-md-6 mb-3 col-sm-12 select select-style clearfix pr-0">
-        <div class="mb-2 row">
-                        <label class="col-md-4 col-sm-6  label-title p-0">Approval Within</label>
-                        <div class="col-md-8 col-sm-6  select select-style clearfix p-0">
-                            <select name="Training Class" class="form-control pl-0">
-                                <option>Days</option>
-                                <option>Day 1</option>
-                                <option>Day 2</option>
-                            </select>
-                        <div class="select_arrow"></div></div>
-                    </div></div>
+                        <select name="Training Class" class="form-control pl-0">
+                            <option value="">Approver Type</option>
+                            <option>Single</option>
+                            <option>Multiple</option>
+                        </select>
+                        <div class="select_arrow"></div>
+                    </div>
+                    <div class="col-md-3 mb-3 col-sm-6  select select-style clearfix">
+                        <select name="Training Class" class="form-control pl-0">
+                            <option value="">Approver Level</option>
+                            <option>Level 1</option>
+                            <option>Level 2</option>
+                            <option>Level 3</option>
+                        </select>
+                        <div class="select_arrow"></div>
+                    </div>
+                    <div class="col-md-6 mb-3 col-sm-12 select select-style clearfix pr-0">
+                        <div class="mb-2 row">
+                            <label class="col-md-4 col-sm-6  label-title p-0">Approval Within</label>
+                            <div class="col-md-8 col-sm-6  select select-style clearfix p-0">
+                                <select name="Training Class" class="form-control pl-0">
+                                    <option>Days</option>
+                                    <option>Day 1</option>
+                                    <option>Day 2</option>
+                                </select>
+                                <div class="select_arrow"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div _ngcontent-c17="" class="col-sm-12 clearfix pb-4 px-0">
-                        <button class="btn btn-primary" type="button" (click)="submitRequest()">{{commonLabels.btns.set}}</button>
+                    <button class="btn btn-primary" type="button" (click)="submitRequest()">{{commonLabels.btns.set}}</button>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+<ng-template #approveConfirmPop>
+    <div class="modal-header pb-0">
+        <p class="hd-alg">{{commonLabels.labels.approvalConfirm}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <span class="text-content">{{commonLabels.labels.approveStatusConfirm}}</span>
+        <div class="text-center mt-4">
+            <button (click)="approveStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
+            <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #rejectConfirmPop>
+    <div class="modal-header pb-0">
+        <p class="hd-alg">{{commonLabels.labels.rejectConfirm}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <span class="text-content">{{commonLabels.labels.rejectStatusConfirm}}</span>
+        <div class="text-center mt-4">
+            <button (click)="rejectStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
+            <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
+        </div>
+    </div>
+</ng-template>
