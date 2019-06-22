@@ -57,6 +57,8 @@ export class CourseTabComponent implements OnInit {
   assignedCount;
   inProgressCount;
   completedCount;
+  userData;
+  roleId;
 
   constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private route :Router, private fileService: FileService) {
      this.activatedRoute.queryParams.subscribe(params=>{ 
@@ -86,6 +88,9 @@ export class CourseTabComponent implements OnInit {
     this.p=1;
     this.enableDropData('closeEdit','','')
     this.getCourseDetails();
+    this.userData = this.utilService.getUserData();
+    this.roleId = this.userData.UserRole[0].roleId;
+ 
     this.checkBoxEnable = this.disableEdit ? true : false;
     if (this.addedFiles && this.addedFiles.length) {
         this.selectedIndex = localStorage.getItem('index');
@@ -633,9 +638,11 @@ sendApproval(courses) {
     if (result && result.isSuccess) {
     this.alertService.success(result.message);
     } else {
-    console.log(result.error);
-    this.alertService.error(result.error.error);
+       this.alertService.error(result.message);
     }
+    }, (errorRes) => {
+      this.modalRef.hide();
+      this.alertService.error(errorRes.error.error);
     });
 }
 

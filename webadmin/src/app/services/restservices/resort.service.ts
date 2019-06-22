@@ -37,5 +37,8 @@ export class ResortService {
   getApprovalList(resortId,status){
     return this.http.getLocal('local',this.url.listApproval+'?resortId='+resortId+'&approvalStatus='+status);
   }
+  statusApproval(approvalId, approvalInfo){
+    return this.http.put('local',this.url.statusApproval+approvalId,approvalInfo)
+  }
 
 }
