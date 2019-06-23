@@ -48,7 +48,7 @@ export class ApprovalrequestsComponent implements OnInit {
     this.headerService.setTitle({ title: 'Approval Request', hidemodule: false });
     this.breadCrumbService.setTitle([]);
     this.userData = this.utilService.getUserData();
-   
+
     this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
     this.getResortData(this.resortId);
     this.getApprovalList(this.resortId, 'Pending');
@@ -73,7 +73,8 @@ export class ApprovalrequestsComponent implements OnInit {
     });
   }
   tabChange(status) {
-    this.resortService.getApprovalList(this.resortId, status).subscribe((result) => {
+    let userId = this.userData.userId;
+    this.resortService.getApprovalList(this.resortId, userId, status).subscribe((result) => {
       if (result && result.isSuccess) {
         this.pendingList = result.data.rows;
       } else {
@@ -82,7 +83,8 @@ export class ApprovalrequestsComponent implements OnInit {
     });
   }
   getApprovalList(resortId, status) {
-    this.resortService.getApprovalList(resortId, status).subscribe((result) => {
+    let userId = this.userData.userId;
+    this.resortService.getApprovalList(resortId, userId, status).subscribe((result) => {
       if (result && result.isSuccess) {
         this.pendingList = result.data.rows;
       } else {
@@ -161,9 +163,6 @@ export class ApprovalrequestsComponent implements OnInit {
     this.modalRef = this.modalService.show(template, modalConfig);
   }
   approveStatus() {
-    console.log(this.approvals);
-    console.log(this.approvalAccess);
-
     let approvalInfo = {
       'approverId': this.userData.userId,
       'approvalStatus': 'Approved',
@@ -176,16 +175,12 @@ export class ApprovalrequestsComponent implements OnInit {
       } else {
         this.alertService.error(result.error);
       }
+      this.tabChange('Approved');
     }, (errorRes) => {
-     // this.modalRef.hide();
       this.alertService.error(errorRes.error.error);
     });
-
-
   }
   rejectStatus() {
-    console.log(this.approvals);
-
     let approvalInfo = {
       'approverId': this.userData.userId,
       'approvalStatus': 'Rejected',
@@ -198,8 +193,8 @@ export class ApprovalrequestsComponent implements OnInit {
       } else {
         this.alertService.error(result.message);
       }
+      this.tabChange('Rejected');
     }, (errorRes) => {
-     // this.modalRef.hide();
       this.alertService.error(errorRes.error.error);
     });
   }

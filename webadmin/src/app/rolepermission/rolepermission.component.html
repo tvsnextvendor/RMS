@@ -1,5 +1,5 @@
 <form #rolepermission="ngForm" (ngSubmit)="saveRolePermission(rolepermission)">
-	<div class="pt-5">
+	<div class="pt-5" *ngIf="!userIdInfo">
 		<div class="white-bg pt-3 pl-3 pr-3">
 			<div class="row pb-4">
 				<div class="col-md-4 select select-style clearfix">

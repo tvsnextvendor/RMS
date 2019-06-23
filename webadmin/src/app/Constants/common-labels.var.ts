@@ -139,6 +139,7 @@ export class CommonLabels{
 	    "view"              :   "View",	 
 	    "editdele"          :   "Edit / Delete",
         "web"               :   "Web",
+        "webOrmobile"       :   "Web / Mobile",
         "addModule"         :   "Add Program",
         "editModule"        :   "Edit Program",
         "editCourse"        :   "Edit / View Course",
