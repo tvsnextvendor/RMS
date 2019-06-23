@@ -17,7 +17,6 @@ export class CommonService {
   getResortName() {
     
     let resortName = localStorage.getItem("resortName") != '0' ? localStorage.getItem("resortName") : 'Network Admin';
-  // console.log(localStorage.getItem("resortName"))
     return resortName;
     }
 
@@ -43,6 +42,12 @@ export class CommonService {
 
 getResortList(id){
     return this.http.getLocal('local',this.url.resortList+'?createdBy='+id);
+}
+getParentChildResorts(resortId){
+  return this.http.getLocal('local',this.url.resortList+'?Resort='+resortId);
+}
+getResortByParentId(resortId){
+  return this.http.getLocal('local',this.url.getResortDivision+'?Resort='+resortId+'&type=division')
 }
 
 getDesignationList(resortId){

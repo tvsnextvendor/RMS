@@ -56,7 +56,7 @@ export class TraingClassTabComponent implements OnInit {
     this.courseService.getTrainingClassList('').subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.totalCourseTrainingCount = resp.data.count;
-        this.trainingClassCourseList = resp.data && resp.data.rows.length && resp.data.rows;
+        this.trainingClassCourseList = (resp.data && resp.data.count > 0)? resp.data.rows && resp.data.rows.length && resp.data.rows :[];
       }
     })
   }
