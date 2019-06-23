@@ -33,6 +33,11 @@ export class ApprovalrequestsComponent implements OnInit {
   createdByList;
   approvalAccess;
   roleId;
+  pageSize;
+  p;
+  approvalStatus;
+  approvalStatusSet;
+  totalCount;
 
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
@@ -45,6 +50,8 @@ export class ApprovalrequestsComponent implements OnInit {
     public batchVar: BatchVar, private modalService: BsModalService) { }
 
   ngOnInit() {
+    this.pageSize = 10;
+    this.p=1;
     this.headerService.setTitle({ title: 'Approval Request', hidemodule: false });
     this.breadCrumbService.setTitle([]);
     this.userData = this.utilService.getUserData();
@@ -52,8 +59,15 @@ export class ApprovalrequestsComponent implements OnInit {
     this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
     this.getResortData(this.resortId);
     this.getApprovalList(this.resortId, 'Pending');
+    this.approvalStatusSet = 'Pending'; 
     this.getusers();
   }
+
+  pageChanged(e){
+    alert(e);
+    this.p = e;
+    this.getApprovalList(this.resortId,this.approvalStatusSet);
+   }
 
   getusers() {
     this.commonService.getCreatedByDetails().subscribe(result => {
@@ -73,22 +87,28 @@ export class ApprovalrequestsComponent implements OnInit {
     });
   }
   tabChange(status) {
+    this.approvalStatusSet = status;
     let userId = this.userData.userId;
-    this.resortService.getApprovalList(this.resortId, userId, status).subscribe((result) => {
+
+    this.resortService.getApprovalList(this.resortId, userId, status,this.p,this.pageSize).subscribe((result) => {
       if (result && result.isSuccess) {
         this.pendingList = result.data.rows;
+        this.totalCount = result.data.count;
       } else {
         this.pendingList = [];
+        this.totalCount =  0;
       }
     });
   }
   getApprovalList(resortId, status) {
     let userId = this.userData.userId;
-    this.resortService.getApprovalList(resortId, userId, status).subscribe((result) => {
+    this.resortService.getApprovalList(resortId, userId, status,this.p,this.pageSize).subscribe((result) => {
       if (result && result.isSuccess) {
         this.pendingList = result.data.rows;
+        this.totalCount = result.data.count;
       } else {
         this.pendingList = [];
+        this.totalCount =  0;
       }
     });
   }
