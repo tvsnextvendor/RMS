@@ -633,6 +633,7 @@ sendApproval(courses) {
     'contentType': 'Course',
     'resortId': resortId,
     'createdBy': userId,
+    'reportingTo': userData.reportingTo
     };
     this.courseService.sendApproval(approvalData).subscribe(result => {
     if (result && result.isSuccess) {
@@ -640,6 +641,7 @@ sendApproval(courses) {
     } else {
        this.alertService.error(result.message);
     }
+    this.modalRef.hide();
     }, (errorRes) => {
       this.modalRef.hide();
       this.alertService.error(errorRes.error.error);

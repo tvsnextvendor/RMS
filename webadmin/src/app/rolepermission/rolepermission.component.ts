@@ -49,16 +49,8 @@ export class RolepermissionComponent implements OnInit {
       });
       this.rolesPermissions = [];
     }
-
-   
-
-
   }
-
-
   getData() {
-   
-
     this.rolePermissionService.getRolePermissions(this.userIdInfo).subscribe((result) => {
       if (result && result.isSuccess) {
         this.rolesPermissions = result.data && result.data.rows;
@@ -92,9 +84,6 @@ export class RolepermissionComponent implements OnInit {
       }
     });
   }
-
-
-
   getDivisions(resortId) {
     this.commonService.getResortByParentId(resortId).subscribe((result) => {
       if (result && result.isSuccess) {
@@ -159,7 +148,6 @@ export class RolepermissionComponent implements OnInit {
       this.alertService.error(err.error.error);
     });
   }
-
   //Role Permission - Checklist Data
   getCheckModules(data) {
     if (data.mobile === true && !data.web) {
@@ -170,7 +158,6 @@ export class RolepermissionComponent implements OnInit {
       this.constant.modules = RolePermissionVar.defaultModules;
     }
   }
-
   selectAll(event) {
     const name = event.target.name;
     const value = event.target.checked;
@@ -197,7 +184,6 @@ export class RolepermissionComponent implements OnInit {
 
     // console.log(form);
     // debugger;
-
     if(this.constant.web && this.constant.mobile){
       let menu = [];
       let menuMobile = [];

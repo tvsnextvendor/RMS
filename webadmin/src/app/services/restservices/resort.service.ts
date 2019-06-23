@@ -34,8 +34,8 @@ export class ResortService {
   deleteResort(resortId){
     return this.http.delete('local',this.url.resortDelete+resortId)
   }
-  getApprovalList(resortId,status){
-    return this.http.getLocal('local',this.url.listApproval+'?resortId='+resortId+'&approvalStatus='+status);
+  getApprovalList(resortId,userId,status){
+    return this.http.getLocal('local',this.url.listApproval+'?resortId='+resortId+'&approvalStatus='+status+'&createdBy='+userId);
   }
   statusApproval(approvalId, approvalInfo){
     return this.http.put('local',this.url.statusApproval+approvalId,approvalInfo)
