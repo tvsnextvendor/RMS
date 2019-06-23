@@ -8,7 +8,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ApprovalrequestsComponent } from './approvalrequests.component';
 import { ApprovalrequestsdetailsComponent } from './approvalrequestsdetails/approvalrequestsdetails.component';
 
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 const routes: Routes = [
     { path: 'approvalrequests', component:  ApprovalrequestsComponent ,canActivate : [AuthGuard]},
@@ -22,7 +22,8 @@ const routes: Routes = [
      BrowserModule, 
     FormsModule,  
     RouterModule.forRoot(routes),
-    NgMultiSelectDropDownModule
+    NgMultiSelectDropDownModule,
+    NgxPaginationModule
   ],
   declarations: [ApprovalrequestsComponent, ApprovalrequestsdetailsComponent],
   bootstrap: [ApprovalrequestsComponent]
