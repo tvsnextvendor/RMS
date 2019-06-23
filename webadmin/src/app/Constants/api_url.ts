@@ -127,6 +127,8 @@ export class API_URL {
     getCourseById : '8103/course/getIndividualCourses',
     saveAsNewVersion : '8103/course/saveAsNewVersion',
     getTrainingClassList : '8103/trainingclass/getTrainingClassList',
+    sendApproval:'8103/createApproval',
+    
 
     //Resort Services
     resortAdd : '8102/resort/Add',
@@ -136,6 +138,7 @@ export class API_URL {
     //Role Permission Services
     permissionAdd: '8101/permission/Add',
     permissionList: '8101/permission/List',
+    getRolePermissions:'8101/permission/getRolePermissions',
 
     //Subscription Services
     subscriptionAdd: '8103/subscription/Add',
@@ -188,13 +191,18 @@ export class API_URL {
     getNotification         : '8103/getNotification',
     updateNotification      : '8103/updateNotification/',
 
+    //ApprovalSettings 
+
+    listApproval:'8103/approvallist',
+    statusApproval:'8103/statusApproval/',
+
     // Dashboard
     totalCount : '8103/getTotalCount',
     totalCourse : '8103/getTotalCourse',
     ratedTrainingClasses : '8103/topRatedTrainingClasses',
     getCourseTrend : '8103/getCourseByMonth',
     getCourseTrendList : '8103/getAllCoursesByMonth',
-    getCourseEmployeeList : '8103/courseEmployeestatusList',
+    getCourseEmployeeList : '8103/courseEmployeestatusList ',
     topFiveResort : '8103/getTopFiveResorts',
     badgesData: '8103/getBadges',
     archievedSettings : '8103/archieved',

@@ -352,7 +352,7 @@ export class CommonLabels{
         "rejectConfirm"     :   "Reject Confirmation",
         "approvalConfirm"   :   "Approval Confirmation",
         "approvalConfirmation" : "Are you sure you want to send it for approval?",
-        "approveStatusConfirm" : "Are you sure you want to approve?",
+        "approveStatusConfirm" : "Did you need second level approval?",
         "rejectStatusConfirm"  : "Are you sure you want to reject?",
         "archieveDelete"    :   "Are you sure you want to delete this archieve?"
     };
