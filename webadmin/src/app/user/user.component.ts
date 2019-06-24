@@ -79,6 +79,7 @@ export class UserComponent implements OnInit {
     duplicateError;
     editlabel;
     userIdData;
+    designationArrays;
 
 
 
@@ -124,20 +125,20 @@ export class UserComponent implements OnInit {
                 this.roleDetails = [];
             }
         })
-        // this.commonService.getDesignationList(resortId).subscribe((result) => {
-        //     if (result && result.isSuccess) {
-        //         this.designationArray = result.data && result.data.rows;
-        //     } else {
-        //         this.designationArray = [];
-        //     }
-
-            
-        // })
-        this.commonService.getCreatedByDetails().subscribe(result => {
+        this.commonService.getDesignationList(resortId).subscribe((result) => {
             if (result && result.isSuccess) {
-                this.designationArray = result.data && result.data;
+                this.designationArray = result.data && result.data.rows;
             } else {
                 this.designationArray = [];
+            }
+
+            
+        })
+        this.commonService.getCreatedByDetails().subscribe(result => {
+            if (result && result.isSuccess) {
+                this.designationArrays = result.data && result.data;
+            } else {
+                this.designationArrays = [];
             }
 
             // console.log(this.designationArray);

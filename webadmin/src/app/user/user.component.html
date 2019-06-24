@@ -367,7 +367,7 @@
                 <span class="col-md-8 pl-0 select select-style clearfix">
                     <select [(ngModel)]="reportingTo" name="reportingTo" class="form-control">
                         <option value="">{{commonLabels.labels.select}}</option>
-                        <option *ngFor="let obj of designationArray" [value]="obj.userId">{{obj.userName}}</option>
+                        <option *ngFor="let obj of designationArrays" [value]="obj.userId">{{obj.userName}}</option>
                     </select>
                      <div class="select_arrow"></div>
                 </span> 
