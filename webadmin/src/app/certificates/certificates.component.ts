@@ -35,7 +35,7 @@ export class CertificatesComponent implements OnInit {
     filePath;
     certificateId;
     htmlView;
-    assignTo="";
+    assignTo="course";
     assignToClicked = false;
     orginArray;
 

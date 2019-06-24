@@ -537,7 +537,20 @@ export class AddQuizComponent implements OnInit {
   quizTypeUpdate(event,i){
     this.quizCreateType = event.target.value;
     if(this.quizCreateType == 'exist'){
-      this.getquizList();
+      this.quizQuestionsForm = [{
+        // "questionId": 1,
+        "questionName": "",
+        "questionType": "MCQ",
+        "options": [
+            { "optionId": 1, "optionName": "" },
+            { "optionId": 2, "optionName": "" },
+            { "optionId": 3, "optionName": "" },
+            { "optionId": 4, "optionName": "" }
+        ],
+        "weightage": '100',
+        "answer": ''
+    }];
+    this.getquizList();
     }
   }
 }
