@@ -296,14 +296,19 @@
     <div class="modal-body text-center">
         <span class="text-content">{{commonLabels.labels.approveStatusConfirm}}</span>
 
-        <div class="col-md-12">
-            <label class="square-cont float-left pr-5">
+        <div class="col-md-12 clearfix">
+            <div class="col-md-12 pt-3">
+            <label class="square-cont float-left col-md-6">
                 <input type="checkbox" name="newQuiz" value="new" (change)="secondLevelApproval($event)">
                 <span class="text-over">Second Level Approval</span>
                 <span class="square-checkmark"></span>
             </label>
-            <div class="col-md-6" *ngIf="showUsers">
-                <select [(ngModel)]="approvalAccess" name="approvalAccess" class="form-control pl-0">
+            <input class="col-md-6 form-control" name="resortName" placeholder="" required="" type="text">
+        </div>
+            <div class="col-md-12 row pb-3" *ngIf="showUsers">
+                <label class="col-md-6 label-title p-0 text-left">Status
+                    <span class="mandatory-color">*</span></label>
+                <select [(ngModel)]="approvalAccess" name="approvalAccess" class="col-md-6 form-control">
                     <option value="" disabled>{{commonLabels.labels.selectUsers}}</option>
                     <option *ngFor="let obj of createdByList" [value]="obj.userId">{{obj.userName}}</option>
                 </select>
@@ -325,8 +330,8 @@
     </div>
     <div class="modal-body text-center">
         <span class="text-content">{{commonLabels.labels.rejectStatusConfirm}}</span>
-        <div class="col-md-8">
-            <textarea [(ngModel)]="rejectComment" name="rejectComment" class="form-control"></textarea>
+        <div class="col-md-12">
+            <textarea [(ngModel)]="rejectComment" name="rejectComment" class="col-md-12 reject-textarea"></textarea>
         </div>
         <div class="text-center mt-4">
             <button (click)="rejectStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
