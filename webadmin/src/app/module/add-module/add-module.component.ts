@@ -106,6 +106,7 @@ export class AddModuleComponent implements OnInit {
         this.updateCourse(data,'');
     } 
     else{
+        this.resetData();
         this.courseData('');
     } 
    }
@@ -120,8 +121,15 @@ export class AddModuleComponent implements OnInit {
      this.breadCrumbService.setTitle(data);
     }
     else if(this.selectedTab == 'class'){
-     let data = this.moduleId ? [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title:this.commonLabels.labels.createClasses, url:''}];
-    this.breadCrumbService.setTitle(data);    
+        if(this.classId){
+            let data = [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}] ;
+            this.breadCrumbService.setTitle(data);  
+        }
+        else{
+            let data = this.moduleId ? [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title:this.commonLabels.labels.createClasses, url:''}];
+            this.breadCrumbService.setTitle(data);  
+        }
+       
     }
    }
 
@@ -597,6 +605,14 @@ export class AddModuleComponent implements OnInit {
        this.moduleVar.videoFile = '';
        this.previewImage = '';
        this.moduleVar.videoIndex = 0;
+   }
+   resetData(){
+       this.clearData();
+       this.cancelVideoSubmit();
+       this.moduleVar.quizDetails = [];
+       this.moduleVar.selectCourseName = '';
+       this.moduleVar.videoList = [];
+       this.moduleVar.courseId = '';
    }
 
    checkValidation(){
