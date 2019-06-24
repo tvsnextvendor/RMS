@@ -184,7 +184,7 @@ export class CourseService {
       createdBy =(createdBy == 'null')?'':createdBy;
       status = (status == 'null')?'':status;
       courseStatus = (courseStatus == 'null')?'':courseStatus;
-      query = '&courseId='+courseId+'&trainingClassId='+trainingClassId+'&subResortId='+subResortId+'&divisionId='+divisionId+'&departmentId='+departmentId+'&createdBy='+createdBy+'&search='+search+'&status='+courseStatus;
+      query = '&courseId='+courseId+'&trainingClassId='+trainingClassId+'&subResortId='+subResortId+'&divisionId='+divisionId+'&departmentId='+departmentId+'&createdBy='+createdBy+'&search='+search+'&courseStatus='+courseStatus;
 
     }
     return query;
