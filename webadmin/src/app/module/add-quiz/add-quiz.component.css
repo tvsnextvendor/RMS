@@ -76,9 +76,9 @@
       background-color: #fff;
       border-radius: 10px;
   }
-  .square-cont {
+  .hole-cont {
     position: relative;
-    padding-left: 30px;
+    padding-left: 27px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -86,45 +86,42 @@
     user-select: none;
     float: left;
     color: #495057;
-    line-height: 27px;
-    font-size: 15px;
-     color: #73737B;
-     font-weight: 600;
+    line-height: 30px;
  }
- .square-cont input {
+ .hole-cont input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
  }
- .square-checkmark {
+ .checkmark {
     position: absolute;
-    top: 4px;
+    top: 6px;
     left: 0;
-    height: 18px;
-    width: 18px;
+    height: 20px;
+    width: 20px;
     background-color: #fff;
-    border: 2px solid #9c9c9c;
-    border-radius: 3px !important;
+    border: 1px solid #ccc;
+    border-radius: 15px;
  }
- .square-cont input:checked ~ .square-checkmark {
-    background-color: #468FB9;
+ .hole-cont input:checked ~ .checkmark {
+        background-color: #468FB9;
     border: 1px solid #468FB9;
  }
- .square-checkmark:after {
+ .checkmark:after {
     content: "";
     position: absolute;
     display: none;
  }
- .square-cont input:checked ~ .square-checkmark:after {
+ .hole-cont input:checked ~ .checkmark:after {
     display: block;
  }
- .square-cont .square-checkmark:after {
-    left: 5px;
-    top: 0px;
-    width: 7px;
-    height: 12px;
+ .hole-cont .checkmark:after {
+    left: 6px;
+    top: 3px;
+    width: 6px;
+    height: 10px;
     border: solid white;
     border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
