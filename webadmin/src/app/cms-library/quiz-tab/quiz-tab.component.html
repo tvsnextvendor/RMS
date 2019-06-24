@@ -128,9 +128,9 @@
     <div *ngIf="enableQuizEdit">
         <div  *ngFor="let quiz of quizList | paginate: {itemsPerPage: pageLength,currentPage: currentPage,totalItems : totalQuizCount};let i = index"
         >
-            <div class="white-bg pt-3 mb-3">
+            <div class="white-bg p-3 mb-3">
                 <div class="clearfix">
-                    <label class="square-cont float-left">
+                    <label class="float-left mb-0">
                         <span class="text-over">{{quiz.quizName}}</span>
                     </label> 
                     <span class="float-right">

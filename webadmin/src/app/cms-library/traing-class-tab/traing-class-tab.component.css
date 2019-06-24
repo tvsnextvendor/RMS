@@ -60,5 +60,16 @@
     color: #468FB9;
     padding: 0 12px;
 }
+.text-over{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    float: left;
+    width: 370px;
+    font-weight: 600;
+    color: #697380;
+    font-size: 16px;
+  }
  /* Training */
 
