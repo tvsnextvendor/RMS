@@ -1,9 +1,9 @@
 <div class="pr-3">
 	<div class=""> 
 			<form #quizForm="ngForm" ngNativeValidate>
-				<div class="row white-bg mt-2" *ngIf="!classId">
+				<div class=" white-bg mt-2" *ngIf="!classId && !courseId">
 					<div class="clearfix p-3">
-						<div>
+						<div class="row">
 							<label class="square-cont float-left pr-5">
 								<input type="checkbox" [checked]="quizCreateType === 'new' ? true : false" name="newQuiz" value="new" (change)="quizTypeUpdate($event,i)">
 								<span class="text-over">New Quiz</span>
@@ -14,9 +14,26 @@
 								<span class="text-over">Existing Quiz</span>
 								<span class="square-checkmark"></span>
 							</label>
-						</div>							   
+						</div>					   
 					</div> 
 					<hr>
+				</div>
+				<div class=" white-bg mt-2" *ngIf="quizCreateType == 'new'">
+					<div class="row form-group">
+						<label class="col-md-2 p-0 label-title">{{commonLabels.labels.quizName}}</label>
+						<div class="col-md-9 pl-3">
+							<span>
+								<input type="text" class="form-control" placeholder="Enter Quiz Name" name="name" #quizname="ngModel"
+									[(ngModel)]="quizName" required>
+							</span>
+							<span class="required_color"  *ngIf="quizname.invalid && (quizForm.submitted || quizname.touched)">
+								{{commonLabels.labels.quizName}} {{commonLabels.mandatoryLabels.isRequired}}
+							</span>
+						</div>
+						<div class="col-md-1">
+							<button *ngIf="i==0" type="button" class="btn btn-primary" (click)="uploadQuiz()">Upload</button>
+						</div>
+					</div>		
 				</div>
 				<div class="white-bg p-3 mt-2 table-decs"  *ngFor="let data of quizQuestionsForm;let i = index;">
 					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i,data)">
@@ -40,21 +57,6 @@
 				</span> -->
 			</div>
 			<div *ngIf="quizCreateType == 'new'">
-				<div class="row form-group">
-				<label class="col-md-2 p-0 label-title">{{commonLabels.labels.quizName}}</label>
-				<div class="col-md-9 pl-3">
-					<span>
-						<input type="text" class="form-control" placeholder="Enter Quiz Name" name="name" #quizname="ngModel"
-							[(ngModel)]="quizName" required>
-					</span>
-					<span class="required_color"  *ngIf="quizname.invalid && (quizForm.submitted || quizname.touched)">
-						{{commonLabels.labels.quizName}} {{commonLabels.mandatoryLabels.isRequired}}
-					</span>
-				</div>
-				<div class="col-md-1">
-						<button *ngIf="i==0" type="button" class="btn btn-primary" (click)="uploadQuiz()">Upload</button>
-						</div>
-				</div>
 				<div class="row  form-group">
 					<div class="col-md-6 row p-0"> 
 						<label for="" class="col-sm-4 label-title p-0 m-0">{{commonLabels.labels.questionType}}</label>
@@ -142,7 +144,7 @@
 						{{question.questionName}}<a (click)="removeQuiz(question,i)"><img class="close-alg"
 								src="{{commonLabels.imgs.close}}"></a></p>
 				</div>
-				<div class="clearfix"><a><i class="fa fa-plus float-right icon-design" *ngIf="i==(quizQuestionsForm.length - 1)" aria-hidden="true" (click)="addQuestionForm()"></i></a></div>
+				<div *ngIf="quizCreateType === 'new'" class="clearfix"><a><i class="fa fa-plus float-right icon-design" *ngIf="i==(quizQuestionsForm.length - 1)" aria-hidden="true" (click)="addQuestionForm()"></i></a></div>
 			</div>  
 			</div> 
 			<div class="col-sm-12 clearfix py-4 px-0" >
