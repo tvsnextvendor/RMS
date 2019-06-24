@@ -106,7 +106,7 @@ export class AddModuleComponent implements OnInit {
         this.updateCourse(data,'');
     } 
     else{
-        this.resetData();
+        // this.resetData();
         this.courseData('');
     } 
    }
