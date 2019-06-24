@@ -3,23 +3,25 @@
 			<form #quizForm="ngForm" ngNativeValidate>
 				<div class=" white-bg mt-2" *ngIf="!classId && !courseId">
 					<div class="clearfix p-3">
+
 						<div class="row">
-							<label class="square-cont float-left pr-5">
+							<label class="hole-cont float-left pr-5">
+
 								<input type="checkbox" [checked]="quizCreateType === 'new' ? true : false" name="newQuiz" value="new" (change)="quizTypeUpdate($event,i)">
 								<span class="text-over">New Quiz</span>
-								<span class="square-checkmark"></span>
+								<span class="checkmark"></span>
 							</label>
-							<label class="square-cont float-left">
+							<label class="hole-cont float-left">
 								<input type="checkbox" [checked]="quizCreateType === 'exist' ? true : false" name="newQuiz" value="exist" (change)="quizTypeUpdate($event,i)">
 								<span class="text-over">Existing Quiz</span>
-								<span class="square-checkmark"></span>
+								<span class="checkmark"></span>
 							</label>
 						</div>					   
 					</div> 
 					<hr>
 				</div>
-				<div class=" white-bg mt-2" *ngIf="quizCreateType == 'new'">
-					<div class="row form-group">
+				<div class=" white-bg mt-2 p-3" *ngIf="quizCreateType == 'new'">
+					<div class="row form-group mb-0">
 						<label class="col-md-2 p-0 label-title">{{commonLabels.labels.quizName}}</label>
 						<div class="col-md-9 pl-3">
 							<span>
@@ -41,7 +43,7 @@
 						   <img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>		   
 						 
 			<div class="row form-group" *ngIf="quizCreateType == 'exist'">
-				<label class="col-md-1 p-0 label-title mb-0">{{commonLabels.labels.quizName}}</label>
+				<label class="col-md-2 p-0 label-title mb-0">{{commonLabels.labels.quizName}}</label>
 				<div class=" col-md-9 pl-0 select select-style clearfix p-0 m-0">
 					<select class="form-control p-0 cp" name="quiz" [(ngModel)]="selectedQuiz">
 						<option value="null" disabled>{{commonLabels.labels.selectQuiz}}</option>
