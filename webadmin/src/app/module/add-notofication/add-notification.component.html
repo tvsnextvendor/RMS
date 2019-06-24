@@ -94,7 +94,7 @@
                             <ng-multiselect-dropdown [disabled]="notifyId ? true : false" [placeholder]="'Departments'"
                                 [data]="moduleVar.departmentList" [(ngModel)]="moduleVar.selectedDepartment" [settings]="moduleVar.departmentSettings"
                                 (onSelect)="onItemSelect($event,'dept','select')" (onDeSelect)="onItemSelect($event,'dept','deselect')"
-                                [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                                [ngModelOptions]="{standalone: true}"  (onSelectAll)="onEmpAllSelect($event,'dept','select')" (onDeSelectAll)="onEmpAllSelect($event,'dept','deselect')"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedDepartment.length === 0">
                             {{commonLabels.labels.courseError}}
@@ -118,7 +118,7 @@
                             <ng-multiselect-dropdown [disabled]="notifyId ? true : false" [placeholder]="'Division'"
                                 [data]="moduleVar.divisionList" [(ngModel)]="moduleVar.selectedDivision" [settings]="moduleVar.divisionSettings"
                                 (onSelect)="onItemSelect($event,'division','select')" (onDeSelect)="onItemSelect($event,'division','deselect')"
-                                [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                                [ngModelOptions]="{standalone: true}"  (onSelectAll)="onEmpAllSelect($event,'division','select')" (onDeSelectAll)="onEmpAllSelect($event,'division','deselect')"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedDivision.length === 0">
                             {{commonLabels.labels.courseError}}
@@ -128,7 +128,7 @@
                         <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown [placeholder]="'Employees'" [data]="moduleVar.employeeList"
                                 [(ngModel)]="moduleVar.selectedEmployee" [settings]="moduleVar.empSettings" (onSelect)="onItemSelect($event,'emp','select')"
-                                (onDeSelect)="onItemSelect($event,'emp','deselect')" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
+                                (onDeSelect)="onItemSelect($event,'emp','deselect')" [ngModelOptions]="{standalone: true}"  (onSelectAll)="onEmpAllSelect($event,'emp','select')" (onDeSelectAll)="onEmpAllSelect($event,'emp','deselect')"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedEmployee.length === 0">
                             {{commonLabels.labels.courseError}}
