@@ -263,7 +263,6 @@ notificationTypeUpdate(type){
 }
 
 enableData(data,type){
-  // console.log(data)  
   if(this.selectedCourse.length > 0){
     this.enableBatch = true;
   }else{
@@ -277,11 +276,20 @@ enableData(data,type){
 
 backClicked(){
   this.activatedRoute.queryParams.subscribe(params=>{
+     if(params.type == 'create'){
       this.tabName =params.tab && params.tab == 'class' ? 'class' : 'course';
+      this.hideSection = true;
+      this.showcreatecourse = true;
+      this.fileService.emptyLocalFileList();
+     }else if(params.type == 'edit'){
+      this.selectedTab = 'course';
+      this.hideSection = false;
+      this.showcreatecourse = false;
+      this.fileService.emptyLocalFileList();
+     }
+     
   })
-  this.fileService.emptyLocalFileList();
-  this.hideSection = true;
-  this.showcreatecourse = true;
+  
 }
 
 ngOnDestroy(){
