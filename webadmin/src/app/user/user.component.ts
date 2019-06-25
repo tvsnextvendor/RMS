@@ -33,6 +33,7 @@ export class UserComponent implements OnInit {
     reportingTo = "";
     emailAddress;
     phoneNumber;
+    homeNumber;
     userIndex;
     pageLimitOptions = [];
     pageLimit;
@@ -42,6 +43,7 @@ export class UserComponent implements OnInit {
     editEnable = false;
     validPhone = false;
     validEmail = false;
+    validHomeNo= false;
     validUserId = false;
     triggerNext = false;
     departmentArray = [];
@@ -185,13 +187,12 @@ export class UserComponent implements OnInit {
         this.userId = data.employeeId;
         this.division = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings, 'div') : [];
         this.division.length && this.onEmpSelect('', 'div');
-        this.reportingTo = data.reportDetails.userId;
+        this.reportingTo = data.reportDetails ? data.reportDetails.userId : '';
         this.designation = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings, 'design') : [];
-       // this.reportingTo = data.reportDetails ? data.reportDetails.designationId : "";
         this.emailAddress = data.email;
         this.phoneNumber = data.phoneNumber;
         this.empId = data.employeeNo;
-        // this.changedivision();  
+        //this.homeNumber = data.homeNumber;
         this.department = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings, 'dept') : [];
         this.accessTo = data.status;
     }
@@ -375,6 +376,7 @@ export class UserComponent implements OnInit {
             userName: this.userName,
             email: this.emailAddress,
             phoneNumber: this.phoneNumber,
+            homeNumber: this.homeNumber,
             designationId: this.designation.length ? this.designation.map(item => { return item.designationId }) : [],
             divisionId: this.division.length ? this.division.map(item => { return item.divisionId }) : [],
             departmentId: this.department.length ? this.department.map(item => { return item.departmentId }) : [],
@@ -454,6 +456,9 @@ export class UserComponent implements OnInit {
         else if (type === "mobile") {
             this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber) === 'invalidMobile' ? true : false;
         }
+        else if (type === "home") {
+            this.validHomeNo = this.homeNumber && this.validationCheck("home", this.homeNumber) === 'invalidHomeNo' ? true : false;
+        }
         else {
             this.validEmail = this.emailAddress && this.validationCheck("email", this.emailAddress) === 'invalidEmail' ? true : false;
             this.validPhone = this.phoneNumber && this.validationCheck("mobile", this.phoneNumber) === 'invalidMobile' ? true : false;
@@ -462,19 +467,27 @@ export class UserComponent implements OnInit {
 
     // email and mobile number validation check
     validationCheck(type, value) {
-        if (type === "email") {
-            var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (!emailRegex.test(value)) {
-                return "invalidEmail"
-            }
-        }
-        if (type === "mobile") {
-            let data = value.toString();
-            let phoneNum = data.replace("+", "");
-            let mobileRegex = /^(\d{10}|\d{11}|\d{12})$/;
-            if (!(value.match(mobileRegex))) {
-                return "invalidMobile"
-            }
+        switch (type) {
+            case 'email':
+                var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (!emailRegex.test(value)) {
+                    return "invalidEmail"
+                }
+                break;
+           case 'mobile':
+               let data = value.toString();
+               let phoneNum = data.replace("+", "");
+               let mobileRegex = /^(\d{10}|\d{11}|\d{12})$/;
+               if (!(value.match(mobileRegex))) {
+                   return "invalidMobile"
+               }
+           case 'home':
+               let homeNum = value.toString();
+               let number = homeNum.replace("+", "");
+               let homeRegex = /^(\d{10}|\d{11}|\d{12})$/;
+               if (!(value.match(homeRegex))) {
+                   return "invalidHomeNo"
+               }
         }
     }
 
@@ -588,7 +601,6 @@ export class UserComponent implements OnInit {
         let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
         let fileUploadValue = event.target.files[0];
         let params = { 'file': fileUploadValue }
-        // console.log(fileUploadValue , 'fileUploadValue')
         if (fileUploadValue) {
             this.userService.bulkUpload(fileUploadValue, userId, resortId).subscribe(resp => {
                 if (resp && resp.isSuccess) {
@@ -602,24 +614,6 @@ export class UserComponent implements OnInit {
                 this.alertService.error(err.error.error);
             })
         }
-
-        // let fileReader = new FileReader();
-        // fileReader.onload = (e) => {
-        //     this.arrayBuffer = fileReader.result;
-        //     var data = new Uint8Array(this.arrayBuffer);
-        //     var arr = new Array();
-        //     for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-        //     var bstr = arr.join("");
-        //     var workbook = XLSX.read(bstr, { type: "binary" });
-        //     var first_sheet_name = workbook.SheetNames[0];
-        //     var worksheet = workbook.Sheets[first_sheet_name];
-        //     let finalData = XLSX.utils.sheet_to_json(worksheet, { raw: true })
-        //     console.log(finalData , 'finalData')
-        // finalData && finalData.forEach(item => {
-        //     this.constant.userList.push(item)
-        // })
-        // }
-        // fileReader.readAsArrayBuffer(fileUploadValue);
     }
 
     addForm(type, i) {
@@ -752,30 +746,9 @@ export class UserComponent implements OnInit {
                 return item;
             })
             divName.push(this.editDivisionValue.divisionName)
-            // console.log(this.editDivisionValue,divName,deptName)
             if (this.validationDivisionCheck) {
                 this.editDivisionValue.Departments = params;
                 this.editDivisionValue.removeDepartmentIds = this.removeDepartmentIds;
-
-                // let param = {divisionName : divName};
-                // this.userService.checkDuplicate('division',param).subscribe(resp=>{
-                //     if(resp && resp.isSuccess){
-                //         let value = {departmentName : deptName}
-                //         this.userService.checkDuplicate('dept',value).subscribe(response=>{
-                //             if(response && response.isSuccess){
-                //                 this.duplicateError = '';
-                //                 this.updateDivsionSubmit();
-                //             }
-                //             else{
-                //                 this.duplicateError =response.message;
-                //             }
-                //         })
-                //     }
-                //     else{
-                //         this.duplicateError =resp.message;
-                //     }
-                // });
-
                 this.updateDivsionSubmit();
 
             }
@@ -882,8 +855,6 @@ export class UserComponent implements OnInit {
                 }
             });
             arr = Array.from(details.reduce((m, t) => m.set(t, t), new Map()).values());
-            // console.log(arr,'resilut')
-            // arr = _.sortedUniq(details);
         }
         if (type == 'dept') {
             data.forEach(item => { item.Department ? arr.push(item.Department.departmentName) : '' });

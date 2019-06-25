@@ -61,6 +61,8 @@ export class AddQuizComponent implements OnInit {
     quizList=[];
     selectedQuiz = null;
     classId;
+    userData;
+    resortId;
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
@@ -69,6 +71,8 @@ export class AddQuizComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe((params) => {
             this.classId = params.classId ? params.classId : '';
         });
+        this.userData = this.utilService.getUserData();
+        this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
     }
 
     ngOnInit() {
@@ -273,7 +277,8 @@ export class AddQuizComponent implements OnInit {
                     "questionIds": this.removedQuizIds,
                     "fileIds": this.removedFileIds,
                     "quizId" : '',
-                    "createdBy" : user.userId
+                    "createdBy" : user.userId,
+                    "resortId": this.resortId
                 }
             }
             else {
@@ -283,7 +288,8 @@ export class AddQuizComponent implements OnInit {
                     "quizName": this.quizName,
                     "quizQuestions": data,
                     "quizId" : '',
-                    "createdBy" : user.userId
+                    "createdBy" : user.userId,
+                    "resortId": this.resortId
                 }
             }
 
@@ -429,6 +435,7 @@ export class AddQuizComponent implements OnInit {
                         "trainingClassId": this.classId,
                         "questionIds": this.removedQuizIds,
                         "quizQuestions": data,
+                        "resortId":this.resortId
                     }
                 }
                 else{
@@ -438,7 +445,8 @@ export class AddQuizComponent implements OnInit {
                         "quizName": this.quizName,
                         "quizQuestions": data,
                         "quizId" : '',
-                        "createdBy" : user.userId
+                        "createdBy" : user.userId,
+                        "resortId":this.resortId
                     }
                 }
 
