@@ -534,7 +534,9 @@ export class AddQuizComponent implements OnInit {
 
   getquizList(){
     let user = this.utilService.getUserData();
-    this.courseService.getQuizList(user.userId).subscribe(res=>{
+    let roleId = this.utilService.getRole();
+    let query = roleId !=1 ? '?createdBy='+user.userId : '';
+    this.courseService.getQuizList(query).subscribe(res=>{
         if(res.isSuccess){
             this.quizList = res.data && res.data.quiz;
         }
