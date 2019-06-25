@@ -102,17 +102,22 @@
       </ion-col>
     </ion-row>
   </div>
+ 
 </ion-content>
-<section class="tab-footer">
-  <div class="tab-foot-bg">
-    <ul class="clearfix">
-      <li><span (click)="changeStatus('assigned')"
-          [ngClass]="status == 'assigned' ? 'active-color' : ''">{{constant.pages.dashboardLabels.assignedLabel}}</span>
-      </li>
-      <li><span>|</span></li>
-      <li><span (click)="changeStatus('inProgress')"
-          [ngClass]="status == 'inProgress' ? 'active-color' : ''">{{constant.pages.dashboardLabels.progressLabel}}</span>
-      </li>
-    </ul>
-  </div>
-</section>
+
+<ion-footer class="tab-footer">
+  <section>
+    <div class="tab-foot-bg">
+      <ul class="clearfix">
+        <li><span (click)="changeStatus('assigned')"
+            [ngClass]="status == 'assigned' ? 'active-color' : ''">{{constant.pages.dashboardLabels.assignedLabel}}</span>
+        </li>
+        <li><span>|</span></li>
+        <li><span (click)="changeStatus('inProgress')"
+            [ngClass]="status == 'inProgress' ? 'active-color' : ''">{{constant.pages.dashboardLabels.progressLabel}}</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+</ion-footer>
+

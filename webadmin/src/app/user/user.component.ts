@@ -192,7 +192,7 @@ export class UserComponent implements OnInit {
         this.emailAddress = data.email;
         this.phoneNumber = data.phoneNumber;
         this.empId = data.employeeNo;
-        //this.homeNumber = data.homeNumber;
+        this.homeNumber = data.homeNumber;
         this.department = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings, 'dept') : [];
         this.accessTo = data.status;
     }
@@ -386,7 +386,7 @@ export class UserComponent implements OnInit {
             employeeNo: this.empId,
             resortUserMappingId: []
         };
-        if (this.userName && this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone) {
+        if (this.userName && this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone && !this.validHomeNo) {
             if (this.editEnable) {
                 this.removedMappingId.length ? obj.resortUserMappingId = this.removedMappingId : delete obj.resortUserMappingId;
                 this.userService.updateUser(this.userid, obj).subscribe((result) => {

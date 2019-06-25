@@ -60,8 +60,8 @@
                 <ion-col col-4>
                   <p class="vote-count"><small class="vt-count">{{list.votesCount}}</small> 
                   <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
-                  <img src="assets/imgs/likeblue.png" *ngIf="list.like" / class="cp">
-                  <img src="assets/imgs/likeblack.png" *ngIf="!list.like" (click)="likePost(list,'like')" / class="cp">
+                  <img src="assets/imgs/likeblue.png" class="cp" *ngIf="list.like"  />
+                  <img src="assets/imgs/likeblack.png"  class="cp" *ngIf="!list.like" (click)="likePost(list,'like')"  />
                 </p>
                 </ion-col>
                 <ion-col col-4>
