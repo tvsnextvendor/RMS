@@ -41,6 +41,8 @@ export class CreateQuizComponent implements OnInit {
   quizName;
   borderUpdate = false;
   quizId;
+  userData;
+  resortId;
 
   constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
     public commonLabels:CommonLabels,public location : Location,private breadCrumbService : BreadCrumbService,private utilService :UtilService) {
@@ -48,6 +50,8 @@ export class CreateQuizComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.quizId = params.quizId ? params.quizId : '';
   });
+  this.userData = this.utilService.getUserData();
+  this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
   }
   
   ngOnInit() {
@@ -205,7 +209,9 @@ export class CreateQuizComponent implements OnInit {
      else{
       let postData= {
         quizName : this.quizName,
-        quizQuestions : this.quizQuestionsForm
+        quizQuestions : this.quizQuestionsForm,
+        createdBy:this.userData.userId,
+        resortId:this.resortId
       }
       this.courseService.addQuiz(postData).subscribe(res=>{
         if(res.isSuccess){
