@@ -53,7 +53,8 @@ export class NotificationTabComponent implements OnInit {
   }
 
   getNotificationData(){
-    let query = this.roleId != 1 ? '?resortId='+this.resortId : '';
+    let userData = this.utilService.getUserData();
+    let query = this.roleId != 1 ? '?resortId='+this.resortId+"&createdBy="+userData.userId : '';
     let selectedDocuments = this.fileService.getSelectedList('notification');    
     this.courseService.getNotification(query).subscribe(resp=>{
       if(resp && resp.isSuccess){
