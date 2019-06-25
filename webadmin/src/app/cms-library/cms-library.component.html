@@ -31,9 +31,9 @@
                         <a *ngIf="!disableTabs && disableEdit" [ngClass] = "selectedTab === 'recentDelete' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#recentDelete" (click)="headerTabChange('recentDelete','')">{{commonLabels.btns.recentDelete}}</a>
                     </li>
                 </ul> 
-                <button *ngIf="disableTabs" type = "button" class="btn btn-primary p-2" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
+                <button *ngIf="disableTabs && selectedTab === 'course'" type = "button" class="btn btn-primary p-2" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
             </div>
-            <span class="required_color" *ngIf="showWarning && !showcreatecourse">{{commonLabels.labels.selectcoursestoschedule}}</span> 
+            <span class="required_color" *ngIf="showWarning && !showcreatecourse && selectedTab === 'course'">{{commonLabels.labels.selectcoursestoschedule}}</span> 
 
             <div class="tab-content">
                 <!-- Course Tab Content -->
