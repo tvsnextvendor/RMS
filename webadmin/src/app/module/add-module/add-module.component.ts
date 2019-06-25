@@ -136,39 +136,7 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
-    getClassDetails() {
-        let query = '&trainingClassId=' + this.classId;
-        this.courseService.getTrainingClassList(query).subscribe(resp => {
-            if (resp && resp.isSuccess) {
-                let data = resp.data && resp.data.rows.length && resp.data.rows[0];
-                this.updateCourse(data, '')
-            }
-
-        })
-    }
-
-
-   ngDoCheck(){
-    if(this.duplicateCourse){
-        let data = [{title:this.commonLabels.labels.duplicate, url:'/cms-library'},{title:this.commonLabels.labels.duplicateCourse, url:''}];
-        this.breadCrumbService.setTitle(data);   
-    }
-    else if(this.selectedTab == 'course' ){
-     let data = this.moduleId ? [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editCourse, url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title:this.commonLabels.labels.createCourse, url:''}];
-     this.breadCrumbService.setTitle(data);
-    }
-    else if(this.selectedTab == 'class'){
-        if(this.classId){
-            let data = [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}] ;
-            this.breadCrumbService.setTitle(data);  
-        }
-        else{
-            let data = this.moduleId ? [{title:this.commonLabels.labels.edit, url:'/cms-library'},{title:this.commonLabels.labels.editClasses, url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title:this.commonLabels.labels.createClasses, url:''}];
-            this.breadCrumbService.setTitle(data);  
-        }
-       
-    }
-   }
+ 
 
    getClassDetails(){
        let query = '?trainingClassId='+this.classId;
@@ -187,16 +155,6 @@ export class AddModuleComponent implements OnInit {
         myEl.innerHTML = ' <span class="newCourseId addcourse" (click)="addCourse()" id="newCourseId"><i class="fa fa-plus pr-2"></i> <span class="addnewcourse-title">Add New Training Class</span></span>';
         let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
         ele.onclick = this.addCourse.bind(this);
-        }
-    }
-    
-
-    includeDropdwnButton() {
-        if (this.selectedTab == 'course') {
-            var myEl = document.querySelector('ul.item1');
-            myEl.innerHTML = ' <span class="newCourseId addcourse" (click)="addCourse()" id="newCourseId"><i class="fa fa-plus pr-2"></i> <span class="addnewcourse-title">Add New Training Class</span></span>';
-            let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
-            ele.onclick = this.addCourse.bind(this);
         }
     }
 
