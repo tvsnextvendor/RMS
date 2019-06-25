@@ -248,9 +248,9 @@
     <div class="modal-body">
          <form #userForm="ngForm"  (ngSubmit)="addUser(userForm)">
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.employeeId}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.employeeId}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0">
+                <span class="col-md-7 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Employee Id" [(ngModel)]="empId"
                         name="employeeId" #employee="ngModel" />
                     <span class="required_color"
@@ -258,9 +258,9 @@
                 </span>
             </div>
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.userName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.userName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0">
+                <span class="col-md-7 pl-0">
                     <input type="text" class="form-control" placeholder="Enter User Name" [(ngModel)]="userName"
                         name="userName" #user="ngModel" />
                     <span class="required_color"
@@ -268,17 +268,9 @@
                 </span>
             </div>
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.division}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.division}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0 select select-style clearfix mb-0">
-                    <!-- <select [(ngModel)]="division" #divisionReq="ngModel" name="division" (ngModelChange)="changedivision()" class="form-control" required>
-                        <option value="">{{commonLabels.labels.select}}</option>
-                        <option *ngFor="let obj of divisionArray" [value]="obj.divisionId">{{obj.divisionName}}</option>
-                    </select>
-                    <div class="select_arrow"></div>
-                    <span class="required_color"
-                        *ngIf="userForm.submitted && divisionReq.errors?.required">{{commonLabels.mandatoryLabels.division}}
-                    </span> -->
+                <span class="col-md-7 pl-0 select select-style clearfix mb-0">
                     <div class="pl-0 form-group select-Courses mb-0">
                     <ng-multiselect-dropdown [placeholder]="'Division'" name="division" [data]="divisionArray"
                         [(ngModel)]="division" [settings]="batchVar.divisionSettings" (onSelect)="onEmpSelect($event,'div')" (onSelectAll)="onEmpAllSelect($event,'div')" (onDeSelectAll)="onEmpAllSelect($event,'div')"
@@ -291,18 +283,9 @@
             </div>
             
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.department}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.department}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0 select select-style clearfix mb-0">
-                    <!-- <select [(ngModel)]="department" #departmentReq="ngModel" (ngModelChange)="designationUpdate($event)" name="department"
-                        class="form-control" required>
-                        <option value="">{{commonLabels.labels.select}}</option>
-                        <option *ngFor="let obj of departmentArray" [value]="obj.departmentId">{{obj.departmentName}}</option>
-                    </select>
-                    <div class="select_arrow"></div>
-                    <span class="required_color"
-                        *ngIf="userForm.submitted && departmentReq.errors?.required">{{commonLabels.labels.dept}}
-                    </span> -->
+                <span class="col-md-7 pl-0 select select-style clearfix mb-0">
                     <div class="pl-0 form-group select-Courses mb-0">
                         <ng-multiselect-dropdown [placeholder]="'Department'" name="department" [data]="departmentArray"
                         [(ngModel)]="department" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')" (onSelectAll)="onEmpAllSelect($event,'dept')" (onDeSelectAll)="onEmpAllSelect($event,'dept')"
@@ -315,17 +298,9 @@
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.role}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.role}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                  <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0 select select-style clearfix mb-0">
-                    <!-- <select [(ngModel)]="designation" name="designation"  #designationReq="ngModel" class="form-control" required>
-                        <option value="">{{commonLabels.labels.select}}</option>
-                        <option *ngFor="let obj of designationArray" [value]="obj.designationId">{{obj.designationName}}</option>
-                    </select>
-                     <div class="select_arrow"></div>
-                    <span class="required_color" *ngIf="userForm.submitted && designationReq.errors?.required">
-                        {{commonLabels.mandatoryLabels.designation}}
-                    </span> -->
+                <span class="col-md-7 pl-0 select select-style clearfix mb-0">
                     <div class="pl-0 form-group select-Courses mb-0">
                         <ng-multiselect-dropdown [placeholder]="'Designation'" name="designation" [data]="designationArray"
                         [(ngModel)]="designation" [settings]="batchVar.designationSettings" (onSelect)="onEmpSelect($event,'design')" 
@@ -338,9 +313,9 @@
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.email}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.email}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                  <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0">
+                <span class="col-md-7 pl-0">
                     <input type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="emailAddress"
                         name="emailAddress" #email="ngModel" (keyup)="validationUpdate('email')" />
                         <span class="required_color"
@@ -351,9 +326,9 @@
             </div>
 
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.mobile}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.mobile}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0">
+                <span class="col-md-7 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Mobile Number"
                         [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate('mobile')" /><span
                         class="required_color"
@@ -363,10 +338,22 @@
                 </span>
             </div>
 
+
             <div class="row form-group">
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.reportingTo}}</label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.homeNumber}}</label>
+                <span class="col-md-1"></span>
+                <span class="col-md-7 pl-0">
+                    <input type="text" class="form-control" placeholder="Enter Home Number" [(ngModel)]="homeNumber"
+                        name="homeNumber" #home="ngModel" (keyup)="validationUpdate('home')" />
+                    <span class="required_color" *ngIf="userForm.submitted && homeNumber && validHomeNo">
+                            {{commonLabels.mandatoryLabels.invalidHomeNo}}</span>
+                </span>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.reportingTo}}</label>
                  <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0 select select-style clearfix">
+                <span class="col-md-7 pl-0 select select-style clearfix">
                     <select [(ngModel)]="reportingTo" name="reportingTo" class="form-control">
                         <option value="">{{commonLabels.labels.select}}</option>
                         <option *ngFor="let obj of designationArrays" [value]="obj.userId">{{obj.userName}}</option>
@@ -376,9 +363,9 @@
             </div>
 
             <div class="row form-group">                    
-                <label class="col-md-3 pr-0 label-title mb-0">{{commonLabels.labels.accessTo}}</label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.accessTo}}</label>
                 <span class="col-md-1"></span>
-                <span class="col-md-8 pl-0 select select-style clearfix">
+                <span class="col-md-7 pl-0 select select-style clearfix">
                     <select [(ngModel)]="accessTo" name="accessTo" #accessToReq="ngModel" class="form-control" required>
                         <option value="">{{commonLabels.labels.select}}</option>
                         <option value="web">{{commonLabels.labels.web}}</option>

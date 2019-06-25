@@ -65,9 +65,7 @@ export class MyApp {
         this.nav.setRoot('login-page');
       }
       else {
-        //this.nav.backHistory();
-        // this.nav.pop({});
-        this.nav.setRoot('home-page');
+         this.platform.exitApp();
       }
     });
 
@@ -76,9 +74,7 @@ export class MyApp {
       { title: 'Training', component: CoursePage },
       { title: 'Forum', component: ForumPage },
       { title:'Accomplishments', component: AccomplishmentPage},
-      //{ title: 'Calendar', component: CalendarPage },
       { title: 'Training Schedule', component: EventPage },
-      // { title: 'Library', component: LibraryPage },
       { title: 'Feedback', component: FeedbackPage },
       { title: 'Settings', component: SettingsPage }
     ];
@@ -113,6 +109,7 @@ export class MyApp {
         console.log('currentUser not received in app.component.ts', err);
       });
   }
+  
   appDetails() {
     // let appName = this.appVersion.getAppName();
     // let packageName = this.appVersion.getPackageName();
@@ -123,6 +120,7 @@ export class MyApp {
     // console.log(versionCode);
     // console.log(versionNumber);
   }
+
   //Calendar Options Formations Functions 
   calendarIdUnique;
   calendars;
