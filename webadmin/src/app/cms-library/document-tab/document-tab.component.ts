@@ -148,8 +148,9 @@ export class DocumentTabComponent implements OnInit {
  //Get document list 
   getCourseFileDetails() {
     let userId = this.utilService.getUserData().userId;
-    // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&createdBy='+userId;
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '';
+    let roleId = this.utilService.getRole();
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : roleId != 1 ? '&createdBy='+userId : '';
+    // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '';
     let classId = this.trainingClassId ? this.trainingClassId : '';
     let params={
       type: 'Document',

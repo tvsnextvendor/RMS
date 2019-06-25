@@ -37,7 +37,7 @@
 					</div>		
 				</div>
 				<div class="white-bg p-3 mt-2 table-decs"  *ngFor="let data of quizQuestionsForm;let i = index;">
-					<span><a class="btn btn-link videopage" (click)="removeQuestionForm(i,data)">
+					<span><a class="btn btn-link videopage" *ngIf="quizCreateType === 'new'" (click)="removeQuestionForm(i,data)">
 						<img src="{{commonLabels.imgs.close1}}" class="close-alg">
 						   <img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></a></span>		   
 						 

@@ -212,7 +212,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
-                    <td class="vat user-desc"><label class="mb-0">{{ user.employeeId }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.employeeNo }}</label></td>
                     <td class="vat user-desc"><label class="mb-0">{{ user.userName }}</label></td>
                     <td class="vat user-desc"><span *ngIf="user.ResortUserMappings.length"><label class="mb-0" *ngFor="let div of ResortUserMappings">{{ div.Division.divisionName }}</label></span></td>
                     <td class="vat user-desc"><span *ngIf="user.ResortUserMappings.length"><label class="mb-0" *ngFor="let div of ResortUserMappings">{{ div.Department.departmentName }}</label></span></td>

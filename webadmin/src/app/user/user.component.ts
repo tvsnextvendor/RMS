@@ -190,7 +190,7 @@ export class UserComponent implements OnInit {
        // this.reportingTo = data.reportDetails ? data.reportDetails.designationId : "";
         this.emailAddress = data.email;
         this.phoneNumber = data.phoneNumber;
-        this.empId = data.employeeId;
+        this.empId = data.employeeNo;
         // this.changedivision();  
         this.department = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings, 'dept') : [];
         this.accessTo = data.status;

@@ -88,7 +88,12 @@ export class TraingClassTabComponent implements OnInit {
 
   pageChanged(e) {
     this.currentPage = e;
-    this.getTrainingClassDetails();
+    if(this.enableClassEdit){
+      this.getTrainingClassList();
+    }
+    else{
+      this.getTrainingClassDetails();
+    }
   }
 
   tabChange(tabName, id, courseId,count) {
