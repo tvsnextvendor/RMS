@@ -227,7 +227,8 @@ th.action-hd {
     line-height: 30px;
 }
 .active-alg{
-    width: 170px;
+    /* padding: 0 34px 4px 0 !important; */
+    width: 150px;
 }
 .ml-10{
     margin-left: 10px;
