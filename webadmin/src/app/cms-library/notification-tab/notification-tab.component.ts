@@ -25,6 +25,7 @@ export class NotificationTabComponent implements OnInit {
   assignedCount;
   completedCount;
   fileList=[];
+  scheduleEnable = false;
   @Input() uploadPage;
 
 
@@ -32,7 +33,8 @@ export class NotificationTabComponent implements OnInit {
       this.activatedRoute.queryParams.subscribe(params=>{ 
        if(params.tab == 'schedule'){
         let data = [{title : this.commonLabels.labels.schedule,url:'/calendar'},{title : this.commonLabels.labels.notification,url:''}]
-         this.breadCrumbService.setTitle(data)
+         this.breadCrumbService.setTitle(data);
+         this.scheduleEnable = true;
        }else if(window.location.pathname.indexOf("resource") != -1){
         let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.notification,url:''}];
         this.breadCrumbService.setTitle(data);

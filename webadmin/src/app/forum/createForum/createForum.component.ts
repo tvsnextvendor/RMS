@@ -259,6 +259,7 @@ export class CreateForumComponent implements OnInit {
   }
 
   onSubmitForm(form) {
+
     this.submitted = true;
     const departmentList = this.departmentList;
     let topicEmpty = false;
@@ -288,7 +289,7 @@ export class CreateForumComponent implements OnInit {
       });
     });
     // console.log(this.department['departments'], 'departmentlistSelected');
-    if (form.valid && !this.forumVar.uniqueValidate && this.assignList.length && !topicEmpty) {
+    if (this.forumVar.forumName && this.forumVar.forumAdmin && this.forumVar.startDate && this.forumVar.endDate &&  !this.forumVar.uniqueValidate && this.assignList.length && !topicEmpty) {
       const postData = {
         forum: {
           forumName: this.forumVar.forumName,

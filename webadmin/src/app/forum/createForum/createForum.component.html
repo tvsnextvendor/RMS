@@ -119,7 +119,7 @@
                 <!-- *ngIf="forumEditPage.forumId?closeFunction():false" -->
                 <button *ngIf="!forumEditPage.editPage" type = "submit" class="btn btn-primary creat-btn  mr-3">{{commonLabels.btns.create}}</button>
                 <button *ngIf="forumEditPage.editPage" type = "submit" class="btn btn-primary creat-btn  mr-3">{{commonLabels.btns.update}}</button>
-                <button type="but ton" class="btn btn-default" (click)="clearForm(formDir)" >{{commonLabels.btns.cancel}}</button>            
+                <button type="button" class="btn btn-default" (click)="clearForm(formDir)" >{{commonLabels.btns.cancel}}</button>            
         </div>
     </form>
 </div> 

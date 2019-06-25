@@ -420,7 +420,7 @@ export class AddBatchComponent implements OnInit {
             }
         })
         let nullArray = this.batchVar.employeeId.filter(item=>item == null);
-        if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.divisionId.length && this.batchVar.departmentId.length && this.batchVar.employeeId.length && this.batchVar.moduleForm && this.durationValue && this.reminder && !this.passPerError && !this.courseError && !nullArray.length) {
+        if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.divisionId.length && this.batchVar.departmentId.length && this.batchVar.employeeId.length && this.batchVar.moduleForm && this.durationValue && this.reminder && !this.passPerError && !this.courseError && !nullArray.length && !this.batchVar.dategreater) {
             //  this.batchVar.moduleForm.forEach(function(course){ delete course.courseName });
             let postData = {
                 "createdBy": this.userData.userId,
@@ -468,6 +468,9 @@ export class AddBatchComponent implements OnInit {
         }
         else if(nullArray.length){
             this.alertService.error(this.commonLabels.mandatoryLabels.employeeNullError);
+        }
+        else if (this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.batchName && this.batchVar.divisionId.length && this.batchVar.departmentId.length && this.batchVar.employeeId.length && this.batchVar.moduleForm && this.durationValue && this.reminder && !this.passPerError && !this.courseError && !nullArray.length && this.batchVar.dategreater){
+            this.alertService.error(this.commonLabels.mandatoryLabels.dateLimitError)
         }
         else {
             this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory)
