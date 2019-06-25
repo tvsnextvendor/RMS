@@ -93,8 +93,8 @@ export class CourseService {
     }
   }
 
-  getQuizList(userId){
-     return this.http.getLocal('local',this.url.trainingClassQuiz+'?createdBy='+userId)
+  getQuizList(query){
+     return this.http.getLocal('local',this.url.trainingClassQuiz+query)
   }
 
   getQuizListById(userId,query){
@@ -242,7 +242,7 @@ export class CourseService {
 
   getTrainingClassList(query){
     let user = this.utilService.getUserData();
-    return this.http.getLocal('local',this.url.getTrainingClassList+'?createdBy='+user.userId+query);
+    return this.http.getLocal('local',this.url.getTrainingClassList+query);
   }
   sendApproval(post){
     return this.http.post('local',this.url.sendApproval,post);

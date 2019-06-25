@@ -56,7 +56,7 @@ export class CalendarViewComponent implements OnInit {
         this.headerService.setTitle({title:this.commonLabels.labels.schedule, hidemodule: false});
         this.breadCrumbService.setTitle([]);
         let user = this.utilService.getUserData();
-        this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
+        this.resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
         this.getCalendarDetails();
     }
 
@@ -109,7 +109,9 @@ export class CalendarViewComponent implements OnInit {
     }
 
     getCalendarDetails(){
-        this.courseService.getCalendarSchedule(this.resortId).subscribe(resp=>{
+        let roleId = this.utilService.getRole();
+        let query = roleId != 1 ? this.resortId : ''
+        this.courseService.getCalendarSchedule(query).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 // console.log(resp);
                 let scheduleData = resp.data.length && resp.data;

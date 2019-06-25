@@ -81,7 +81,11 @@ export class QuizTabComponent implements OnInit {
 
   getquizList(){
     let user = this.utilService.getUserData();
-    this.courseService.getQuizList(user.userId).subscribe(res=>{
+    let roleId = this.utilService.getRole();
+    let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
+    let query = roleId !=1 ? '?createdBy='+user.userId+'&resortId='+resortId : '';
+    
+    this.courseService.getQuizList(query).subscribe(res=>{
         if(res && res.isSuccess){
             this.quizList = res.data.quiz;
             this.totalQuizCount = this.quizList.length;

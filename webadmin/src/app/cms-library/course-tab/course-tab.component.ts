@@ -81,12 +81,12 @@ export class CourseTabComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p = 1;
-    this.enableDropData('closeEdit', '', '')
+    this.enableDropData('closeEdit', '', '');
+    this.checkBoxEnable = this.disableEdit ? true : false;
     this.getCourseDetails();
     this.userData = this.utilService.getUserData();
     this.roleId = this.userData.UserRole[0].roleId;
 
-    this.checkBoxEnable = this.disableEdit ? true : false;
     if (this.addedFiles && this.addedFiles.length) {
       this.selectedIndex = localStorage.getItem('index');
       this.enableEdit = true;
@@ -125,8 +125,10 @@ export class CourseTabComponent implements OnInit {
 
   getCourseDetails() {
     this.deletedFileId = [];
-    let userId = this.utilService.getUserData().userId;
-    let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none';
+    let roleId = this.utilService.getRole();
+    let user = this.utilService.getUserData();
+    let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
+    let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId != 1 ? (this.checkBoxEnable ? '&status=none&parentResortId='+resortId : '&status=none&resortId='+resortId+'&created='+user.userId) : '&status=none');
     this.courseService.getCourse(this.p, this.pageSize, query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {

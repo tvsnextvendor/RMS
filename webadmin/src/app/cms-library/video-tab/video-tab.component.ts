@@ -44,7 +44,7 @@ errorValidation;
 errorValidate = false;
 @Input() CMSFilterSearchEventSet;
 @Output() selectedVideos  = new EventEmitter<object>();
-
+resourceLib = false;
 
 constructor(private courseService: CourseService,
   private fileService:FileService,
@@ -68,9 +68,11 @@ constructor(private courseService: CourseService,
     if(window.location.pathname.indexOf("resource") != -1){
       let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.videos,url:''}];
       this.breadCrumbService.setTitle(data);
+      this.resourceLib = true; 
       }else{
     let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.videos,url:''}]
     this.breadCrumbService.setTitle(data);
+    this.resourceLib = false;
       }
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
@@ -159,9 +161,10 @@ constructor(private courseService: CourseService,
 
   //Get File list.
   getCourseFileDetails() {
-    let userId = this.utilService.getUserData().userId;
+    let user = this.utilService.getUserData();
     let roleId = this.utilService.getRole();
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : roleId != 1 ? '&createdBy='+userId : '';
+    let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId != 1 ? (this.resourceLib ? '&resortId='+resortId : '&createdBy='+user.userId+'&resortId='+resortId) : '');
     // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ;
     let classId = this.trainingClassId ? this.trainingClassId : '';
     let params={

@@ -43,6 +43,7 @@ export class AddBatchComponent implements OnInit {
     courseError;
     errorValidate;
     resortId;
+    roleId;
     paramsType;
 
     constructor(private breadCrumbService: BreadCrumbService, private alertService: AlertService, private courseService: CourseService, private utilService: UtilService, private resortService: ResortService, private userService: UserService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService: CommonService, public commonLabels: CommonLabels) {
@@ -53,6 +54,7 @@ export class AddBatchComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe(items => {
             this.paramsType = items.type;
         })
+        this.roleId = this.utilService.getRole();
     }
     
     ngOnInit() {
@@ -69,8 +71,14 @@ export class AddBatchComponent implements OnInit {
             this.getCourseData();
         }
         else {
-            this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
-            this.getResortData(this.resortId);
+            this.resortId = this.userData.ResortUserMappings.length ? this.userData.ResortUserMappings[0].Resort.resortId : '';
+            if(this.roleId == 1){
+                this.getResortList();
+            }
+            else{
+                this.getResortData(this.resortId);  
+            }
+           
             let startDate = localStorage.getItem('BatchStartDate');
             this.batchVar.batchFrom = new Date(startDate);
             this.courseForm();
@@ -80,25 +88,47 @@ export class AddBatchComponent implements OnInit {
     getCourseData() {
         this.courseService.getBatchCourse().subscribe(resp => {
             if (resp && resp.isSuccess) {
-                this.courseDataList = resp.data.rows.length && resp.data.rows.map(item => {
+                this.courseDataList = resp.data.rows.length ? resp.data.rows.map(item => {
                     let obj = {
                         courseId: item.courseId,
                         courseName: item.courseName
                     }
                     return obj;
-                })
-                this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
-                this.getResortData(this.resortId);
+                }) : [];
+                this.resortId = this.userData.ResortUserMappings.length ? this.userData.ResortUserMappings[0].Resort.resortId : ''; 
+                if(this.roleId == 1){
+                    this.getResortList();
+                }
+                else{
+                    this.getResortData(this.resortId);  
+                }
+                
             }
         });
     }
+    // getResort
 
+    getResortList(){
+        this.resortService.getResort().subscribe(item=>{
+            console.log(item)
+            if(item && item.isSuccess){
+                this.batchVar.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+            }
+            
+        })
+    }
     selectFilter(data) {
         let startDate = localStorage.getItem('BatchStartDate');
         return data.value >= new Date(startDate);
     }
 
     getResortData(resortId) {
+        this.batchVar.departmentList = [];
+        this.batchVar.divisionList = [];
+        this.batchVar.employeeList = [];
+        this.batchVar.selectedDivision = [];
+        this.batchVar.selectedDepartment = [];
+        this.batchVar.selectedEmp = []; 
         this.resortService.getResortByParentId(resortId).subscribe((result) => {
             (this.resortId == parseInt(resortId)) ? this.batchVar.resortList = result.data.Resort : '';
             this.batchVar.divisionList = result.data.divisions;
@@ -325,6 +355,10 @@ export class AddBatchComponent implements OnInit {
 
     getDropDownValues(event, key) {
         if (key == 'div') {
+            this.batchVar.departmentId = [];
+            this.batchVar.selectedDepartment = [];
+            this.batchVar.selectedEmp = []; 
+            this.batchVar.employeeList = [];
             const obj = { 'divisionId': this.batchVar.divisionId };
             this.commonService.getDepartmentList(obj).subscribe((result) => {
                 if (result.isSuccess) {
@@ -338,7 +372,10 @@ export class AddBatchComponent implements OnInit {
         }
 
         if (key == 'dept') {
-            const data = { 'departmentId': this.batchVar.departmentId, 'createdBy': this.utilService.getUserData().userId }
+            this.batchVar.selectedEmp = []; 
+            this.batchVar.employeeList = [];
+            const data = { 'departmentId': this.batchVar.departmentId, 'createdBy': ' ' };
+            this.roleId != 1 ? data.createdBy =  this.utilService.getUserData().userId : delete data.createdBy;
             this.userService.getUserByDivDept(data).subscribe(result => {
                 if (result && result.data) {
                     this.batchVar.employeeList = result.data;

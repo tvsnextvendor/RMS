@@ -134,7 +134,7 @@ export class AddModuleComponent implements OnInit {
    }
 
    getClassDetails(){
-       let query = '&trainingClassId='+this.classId;
+       let query = '?trainingClassId='+this.classId;
     this.courseService.getTrainingClassList(query).subscribe(resp=>{
         if(resp && resp.isSuccess){
             let data = resp.data && resp.data.rows.length && resp.data.rows[0];
@@ -650,8 +650,10 @@ export class AddModuleComponent implements OnInit {
    }
 
    getquizList(){
-       let user = this.utilService.getUserData();
-       this.courseService.getQuizList(user.userId).subscribe(res=>{
+    let user = this.utilService.getUserData();
+    let roleId = this.utilService.getRole();
+    let query = roleId !=1 ? '?createdBy='+user.userId : '';
+       this.courseService.getQuizList(query).subscribe(res=>{
            if(res.isSuccess){
                this.quizList = res.data;
            }

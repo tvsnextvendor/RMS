@@ -27,6 +27,7 @@ export class NotificationTabComponent implements OnInit {
   fileList=[];
   scheduleEnable = false;
   @Input() uploadPage;
+  resourseLib = false;
 
 
   constructor(private breadCrumbService : BreadCrumbService,private fileService: FileService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ) {
@@ -38,9 +39,11 @@ export class NotificationTabComponent implements OnInit {
        }else if(window.location.pathname.indexOf("resource") != -1){
         let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.notification,url:''}];
         this.breadCrumbService.setTitle(data);
+        this.resourseLib = true;
         }else{
          let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.notification,url:''}]
-         this.breadCrumbService.setTitle(data)
+         this.breadCrumbService.setTitle(data);
+         this.resourseLib = false;
        }
      })
      }
@@ -56,7 +59,7 @@ export class NotificationTabComponent implements OnInit {
 
   getNotificationData(){
     let userData = this.utilService.getUserData();
-    let query = this.roleId != 1 ? '?resortId='+this.resortId+"&createdBy="+userData.userId : '';
+    let query = this.roleId != 1 ? (this.resourseLib  ? '?resortId='+this.resortId :'?resortId='+this.resortId+"&createdBy="+userData.userId) : '';
     let selectedDocuments = this.fileService.getSelectedList('notification');    
     this.courseService.getNotification(query).subscribe(resp=>{
       if(resp && resp.isSuccess){

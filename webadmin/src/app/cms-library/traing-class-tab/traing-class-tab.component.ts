@@ -53,7 +53,11 @@ export class TraingClassTabComponent implements OnInit {
   }
 
   getTrainingClassList(){
-    this.courseService.getTrainingClassList('').subscribe(resp=>{
+    let user = this.utilService.getUserData();
+    let roleId = this.utilService.getRole();
+    let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
+    let query = roleId != 1 ? '?createdBy='+user.userId+'&resortId='+resortId : '';
+    this.courseService.getTrainingClassList(query).subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.totalCourseTrainingCount = resp.data.count;
         this.trainingClassCourseList = (resp.data && resp.data.count > 0)? resp.data.rows && resp.data.rows.length && resp.data.rows :[];
@@ -62,10 +66,13 @@ export class TraingClassTabComponent implements OnInit {
   }
 
   getTrainingClassDetails() {
-    let userId = this.utilService.getUserData().userId;
-    // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId+'&createdBy='+userId : '&createdBy='+userId;
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId : '';
+    let user = this.utilService.getUserData();
+    let roleId = this.utilService.getRole();
+    let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId !=1 ? (this.courseId ? '&courseId='+this.courseId+'&resortId='+resortId : '&resortId='+resortId):'');
+    // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId : '';
     // console.log(query)
+    debugger;
     let newList;
     let trainList;
     this.courseService.getCourseTrainingClass(this.currentPage, this.pageLength,query).subscribe((resp) => {
