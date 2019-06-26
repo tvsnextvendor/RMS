@@ -33,6 +33,7 @@ export class CalendarViewComponent implements OnInit {
     modalConfig;
     modalRef;
     removeScheduleId;
+    currentDate;
 
   
    constructor(
@@ -53,6 +54,8 @@ export class CalendarViewComponent implements OnInit {
    }
 
     ngOnInit(){
+        this.currentDate = new Date();
+        this.currentDate.setHours(0,0,0,0);
         this.headerService.setTitle({title:this.commonLabels.labels.schedule, hidemodule: false});
         this.breadCrumbService.setTitle([]);
         let user = this.utilService.getUserData();
@@ -159,10 +162,13 @@ export class CalendarViewComponent implements OnInit {
     }
 
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-        if(events.length === 0){
+        if(events.length === 0 && date>=this.currentDate){
             var n = date.toString();
             localStorage.setItem('BatchStartDate',n);
             this.goToCMSLibrary();
+        }
+        else{
+            // this.alertService.info('Schedule date should be greater than current date')
         }
       }
 

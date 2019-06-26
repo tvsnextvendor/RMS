@@ -52,6 +52,7 @@ export class AddNotificationComponent implements OnInit {
       departmentId : [],
       userId : []
     };
+    currentDate;
 
     constructor(private breadCrumbService :BreadCrumbService,public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
@@ -77,6 +78,7 @@ export class AddNotificationComponent implements OnInit {
         this.batchVar.batchFrom = '';
         this.batchVar.batchTo = '';
         this.batchVar.dategreater = true;
+        this.currentDate = new Date();
         const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
         this.moduleVar.selectedResort = resortId;
         this.getDropdownDetails(resortId,'init');

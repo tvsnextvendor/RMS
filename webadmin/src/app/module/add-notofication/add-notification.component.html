@@ -173,7 +173,7 @@
                                             [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
                                         <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
                                             name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel"
-                                            [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
+                                            [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" [minDate]="currentDate" required>
                                         <!-- <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
                                             {{commonLabels.mandatoryLabels.from}}
                                         </span> -->
@@ -195,7 +195,7 @@
                                             [attr.aria-expanded]="dp.isOpen" class="batch-icon">
                                         <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off"
                                             name="batchTo" bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel"
-                                            [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
+                                            [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" [minDate]="currentDate" required>
                                         <!-- <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
                                             {{commonLabels.mandatoryLabels.to}}
                                         </span> -->
