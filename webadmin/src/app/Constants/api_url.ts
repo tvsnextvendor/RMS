@@ -90,6 +90,7 @@ export class API_URL {
     designationList:'8102/designation/List',
     uploadFiles:'8103/uploadFiles',
     removeFiles:'8103/remove',
+    updateFiles:'8103/fileUpdate',
    
     //Course Services
     courseAdd: '8103/course/Add',
@@ -128,6 +129,7 @@ export class API_URL {
     saveAsNewVersion : '8103/course/saveAsNewVersion',
     getTrainingClassList : '8103/trainingclass/getTrainingClassList',
     sendApproval:'8103/createApproval',
+  
     
 
     //Resort Services

@@ -7,6 +7,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { AddQuizComponent } from '../add-quiz/add-quiz.component';
 import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
+import { API } from '../../Constants/api';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
@@ -32,6 +33,7 @@ export class AddModuleComponent implements OnInit {
     courseSubmitted = false;
     moduleSubmitted = false;
     uploadFile;
+    fileId;
     fileUrl;
     fileName;
     labels;
@@ -275,7 +277,7 @@ export class AddModuleComponent implements OnInit {
                     if (fileType === 'application') {
                         let appType = (this.fileName.split('.').pop()).toString();
                         let appDataType = appType.toLowerCase();
-                        this.extensionUpdate(appDataType)
+                        this.extensionUpdate(appDataType, '');
                     }
                     else {
                         this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
@@ -347,6 +349,13 @@ export class AddModuleComponent implements OnInit {
             case "text":
                 this.previewImage = this.commonLabels.imgs.text;
                 break;
+            case "mp4":
+                this.previewImage = API.API_ENDPOINT + "/uploads/" + data.fileImage;
+                break;         
+            case "png" :
+            case "jpeg" : 
+                 this.previewImage = API.API_ENDPOINT + "/uploads/" + data.fileUrl;          
+                 break;
             case "application":
                 if (extensionType === "ms-powerpoint") {
                     this.previewImage = this.commonLabels.imgs.ppt;
@@ -484,6 +493,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     updateVideo(data, i) {
+        this.fileId = data.fileId;
         this.showImage = true;
         this.moduleVar.selectVideoName = data.fileName;
         this.moduleVar.description = data.fileDescription;
@@ -497,54 +507,66 @@ export class AddModuleComponent implements OnInit {
             this.quiz.editQuizDetails(this.moduleVar.quizDetails);
         }
         let fileExtension = data.fileUrl.split('.').pop();
-        this.extensionUpdate(fileExtension);
-    }
+        this.extensionUpdate(fileExtension, data);
+   }
 
-    extensionUpdate(type) {
-        switch (type) {
-            case "ppt":
-                this.previewImage = this.commonLabels.imgs.ppt;
-                break;
-            case "pdf":
-                this.previewImage = this.commonLabels.imgs.pdf;
-                break;
-            case "txt":
-                this.previewImage = this.commonLabels.imgs.text;
-                break;
-            case "docx":
-                this.previewImage = this.commonLabels.imgs.doc;
-                break;
-            case "doc":
-                this.previewImage = this.commonLabels.imgs.doc;
-                break;
-            case "xlsx":
-                this.previewImage = this.commonLabels.imgs.excel;
-                break;
-            case "xls":
-                this.previewImage = this.commonLabels.imgs.excel;
-                break;
-            case "zip":
-                this.previewImage = this.commonLabels.imgs.filezip;
-                break;
-        }
-    }
+   extensionUpdate(type, data){
+       switch(type){
+        case "ppt":
+            this.previewImage =  this.commonLabels.imgs.ppt;  
+            break;
+        case "pdf":
+            this.previewImage =  this.commonLabels.imgs.pdf;
+            break;
+        case "txt":
+            this.previewImage =  this.commonLabels.imgs.text; 
+            break;
+        case "mp4":
+            this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileImage;
+            break;         
+        case "png" :
+        case "jpg" : 
+            this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;  
+            console.log(this.previewImage,"preview");       
+            break;
+        case "docx":
+            this.previewImage =  this.commonLabels.imgs.doc; 
+            break;
+        case "doc":
+            this.previewImage =  this.commonLabels.imgs.doc; 
+            break;
+        case "xlsx":
+            this.previewImage =  this.commonLabels.imgs.excel;
+            break;
+        case "xls":
+            this.previewImage =  this.commonLabels.imgs.excel;
+            break;     
+        case "zip" :
+            this.previewImage =  this.commonLabels.imgs.filezip;
+            break;
+       }
+   }
 
-    addCourse() {
-        this.resetTabDetails(true);
-    }
+   addCourse(){
+    this.resetTabDetails(true);
+   } 
 
-    resetTabDetails(add) {
-        this.tabEnable = add ? true : false;
-        this.moduleVar.videoList = [];
-        this.moduleVar.selectCourseName = '';
-        this.moduleVar.selectVideoName = '';
-        this.moduleVar.description = '';
-        this.moduleVar.videoFile = '';
-        this.moduleVar.courseIndex = '';
-        this.moduleVar.courseId = '';
-        this.moduleVar.videoId = '';
-        this.message = '';
-        this.videoMessage = '';
+   resetTabDetails(add){
+    this.tabEnable = add ? true : false;
+    this.moduleVar.videoList = [];
+    this.moduleVar.selectCourseName = '';
+    this.moduleVar.selectVideoName = '';
+    this.moduleVar.description = '';
+    this.moduleVar.videoFile = '';
+    this.moduleVar.courseIndex = '';
+    this.moduleVar.courseId = '';
+    this.moduleVar.videoId = '';
+    this.message = '';
+    this.videoMessage = '';
+    this.courseSubmitted = false;
+    if(this.quiz && add){
+        let data = [];
+        this.quizCheck = false;
         this.courseSubmitted = false;
         if (this.quiz && add) {
             let data = [];
@@ -555,6 +577,8 @@ export class AddModuleComponent implements OnInit {
             this.quiz.editQuizDetails(data);
         }
     }
+   }
+   
     videoSubmit() {
         this.messageClose();
         let self = this;
@@ -562,7 +586,7 @@ export class AddModuleComponent implements OnInit {
         let videoObj;
         this.moduleVar.courseId ? videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration, trainingClassId: this.moduleVar.courseId } :
             videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration }
-        if (this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile) {
+        if ( this.uploadFile && this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile) {
             this.message = this.moduleVar.courseId !== '' ? (this.commonLabels.labels.videoUpdatedToast) : (this.commonLabels.labels.videoAddedToast);
             this.commonService.uploadFiles(this.uploadFile).subscribe((result) => {
                 if (result && result.isSuccess) {
@@ -586,9 +610,32 @@ export class AddModuleComponent implements OnInit {
                     else {
                         self.moduleVar.videoList.push(videoObj);
                     }
+                 this.fileService.saveVideoList(this.moduleVar.videoList);
                 }
             })
             this.clearData();
+        }else if(this.fileId && !this.uploadFile){
+            let postData={
+                fileName:this.moduleVar.selectVideoName,
+                fileDescription:this.moduleVar.description
+            }
+            this.commonService.updateFiles(this.fileId, postData).subscribe(res=>{
+                if(res.isSuccess){
+                this.videoSubmitted = false;
+                this.alertService.success(res.message);
+                  let videoObj = {
+                      fileName: this.moduleVar.selectVideoName,
+                      fileDescription: this.moduleVar.description,
+                      fileUrl: this.moduleVar.videoFile,
+                      fileId: this.fileId
+                  }
+                   if (this.moduleVar.videoIndex) {
+                       const index = this.moduleVar.videoIndex - 1; 
+                       this.moduleVar.videoList[index] = videoObj;
+                   }
+                  this.clearData();
+                }
+            })
         }
         else {
             this.alertService.error(this.commonLabels.labels.mandatoryFields);

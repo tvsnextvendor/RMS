@@ -60,6 +60,10 @@ uploadFiles(file){
     return this.http.upload('local',this.url.uploadFiles, formData);
 }
 
+updateFiles(id,file){
+   return this.http.put('local',this.url.updateFiles+'/' + id,file);
+}
+
 removeFiles(params){
     return this.http.removeFile('local',this.url.removeFiles, params);
 }
