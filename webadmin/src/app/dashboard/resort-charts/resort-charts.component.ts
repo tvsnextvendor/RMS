@@ -88,11 +88,12 @@ export class ResortChartsComponent implements OnInit {
         let user = roleId != 1 ? data.userId : '';
         this.commonService.getResortList(user).subscribe((result) => {
         if(result && result.isSuccess){
-            result.data && result.data.rows.forEach(item=>{
+          this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
+            // result.data && result.data.rows.forEach(item=>{
             // if(item.resortId === this.resortId){
-                this.resortList.push(item)
+                // this.resortList.push(item)
             // }
-            });
+            // });
         }
         });
     }

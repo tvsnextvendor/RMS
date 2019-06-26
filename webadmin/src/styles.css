@@ -1659,6 +1659,14 @@ p.text-nowrap{
  span.drop-icon {
   float: right;
 }
+.cal-disabled {
+  background-color: #eee;
+  pointer-events: none;
+  /* opacity: 0.1; */
+}
+.cal-disabled .cal-day-number {
+  opacity: 0.1;
+} 
 /************************************ Responsive Alignment ************************************/
 
 
