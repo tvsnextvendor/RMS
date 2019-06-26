@@ -81,13 +81,16 @@
                     <img *ngIf="!comment.User.userImage" src="assets/images/user.png" class="comment-image">
                     <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
                   </ion-col>
-                  <ion-col col-10 class="comment-box">
-                    <h6 class="user-name">{{comment.User.userName}}</h6>
+                  <ion-col col-10 class="comment-box" [ngClass]="{'group-admin': list.Forum.forumAdmin == comment.User.userId}">
+                    <h6 class="user-name">
+                        {{comment.User.userName}}
+                      <span *ngIf="list.Forum.forumAdmin == comment.User.userId" class="group-admin-box">  (Admin)</span>
+                    </h6>
                     <p class="comment-content">{{comment.description}}</p>
                     <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
                     <div class="comment-btn">
-                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(edit, comment)"> <ion-icon name="create"></ion-icon></button>
-                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(delete, comment)"> <ion-icon name="trash"></ion-icon></button>
+                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId || list.Forum.forumAdmin == currentUser.userId" (click)="openEditModal(edit, comment)"> <ion-icon name="create"></ion-icon></button>
+                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId || list.Forum.forumAdmin == currentUser.userId" (click)="openEditModal(delete, comment)"> <ion-icon name="trash"></ion-icon></button>
                     </div>
                   </ion-col>
                     </ion-row>
