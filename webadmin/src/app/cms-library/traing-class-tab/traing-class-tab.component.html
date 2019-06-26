@@ -38,7 +38,7 @@
                     </div>
                 </form>
             </div>
-                <div class="float-right pr-3">
+                <div class="float-right pr-3" *ngIf="iconEnable">
                     <a  (click)="editTrainingClassName(training.trainingClassId,i,ci)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
                 </div>
             </div>

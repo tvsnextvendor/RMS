@@ -45,6 +45,7 @@ errorValidate = false;
 @Input() CMSFilterSearchEventSet;
 @Output() selectedVideos  = new EventEmitter<object>();
 resourceLib = false;
+iconEnable = true;
 
 constructor(private courseService: CourseService,
   private fileService:FileService,
@@ -65,15 +66,19 @@ constructor(private courseService: CourseService,
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
+    let roleId = this.utilService.getRole(); 
     if(window.location.pathname.indexOf("resource") != -1){
       let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.videos,url:''}];
       this.breadCrumbService.setTitle(data);
       this.resourceLib = true; 
-      }else{
-    let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.videos,url:''}]
-    this.breadCrumbService.setTitle(data);
-    this.resourceLib = false;
-      }
+    }else{
+      let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.videos,url:''}]
+      this.breadCrumbService.setTitle(data);
+      this.resourceLib = false;
+    }
+    if(roleId == 4 && this.resourceLib){
+      this.iconEnable = false;
+    }
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
     //get Resort list
@@ -91,7 +96,9 @@ constructor(private courseService: CourseService,
   }
 
   getCourseAndTrainingClass(){
-    this.courseService.getAllCourse().subscribe(result=>{
+    let userId = this.utilService.getUserData().userId;
+    let query = '?created='+userId;
+    this.courseService.getAllCourse(query).subscribe(result=>{
       if(result && result.isSuccess){
         this.courseList = result.data && result.data.rows;
       }

@@ -45,12 +45,15 @@ export class QuizTabComponent implements OnInit {
   pageLength;
   currentPage;
   totalQuizCount;
+  resourceLib = false;
+  iconEnable = true;
 
   constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService) { }
 
   ngOnInit() {
     this.pageLength=5;
     this.currentPage = 1;
+    let roleId = this.utilService.getRole();  
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
       { name: "True/False", value: "True/False" },
@@ -60,10 +63,14 @@ export class QuizTabComponent implements OnInit {
     if(window.location.pathname.indexOf("resource") != -1){
       let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.quiz,url:''}];
       this.breadCrumbService.setTitle(data);
+      this.resourceLib = true;
     }else{
       let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.quiz, url: '' }]
       this.breadCrumbService.setTitle(data);
       this.enableQuizEdit = true;
+    }
+    if(roleId == 4 && this.resourceLib){
+      this.iconEnable = false;
     }
     if(this.enableQuizEdit){
       this.getquizList();
@@ -104,7 +111,7 @@ pageChanged(e) {
   }
 
   getDropDownDetails() {
-    this.courseService.getAllCourse().subscribe(result => {
+    this.courseService.getAllCourse('').subscribe(result => {
       if (result && result.isSuccess) {
         this.courseList = result.data && result.data.rows;
       }

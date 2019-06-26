@@ -45,7 +45,9 @@ export class FeedbackComponent implements OnInit {
         this.resortData = result.data.rows;
       }
     });
-    this.courseService.getAllCourse().subscribe(result => {
+    let userId = this.utilService.getUserData().userId;
+    let query = '?created='+userId;
+    this.courseService.getAllCourse(query).subscribe(result => {
       if (result && result.isSuccess) {
         this.courseData = result.data.rows;
       }

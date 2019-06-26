@@ -33,6 +33,7 @@ export class DocumentTabComponent implements OnInit {
   deletedFilePath=[];
   deletedFileId=[];
   uploadPath;
+  iconEnable = true;
   resourceLib = false;
  
 
@@ -59,6 +60,7 @@ export class DocumentTabComponent implements OnInit {
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
+    let roleId = this.utilService.getRole();
     if(window.location.pathname.indexOf("resource") != -1){
       let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.documents,url:''}];
       this.breadCrumbService.setTitle(data);
@@ -67,6 +69,9 @@ export class DocumentTabComponent implements OnInit {
     let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.documents,url:''}]
     this.breadCrumbService.setTitle(data);
     this.resourceLib = false;
+      }
+      if(roleId == 4 && this.resourceLib){
+        this.iconEnable = false;
       }
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
@@ -85,7 +90,9 @@ export class DocumentTabComponent implements OnInit {
   }
 
   getCourseAndTrainingClass(){
-    this.courseService.getAllCourse().subscribe(result=>{
+    let userId = this.utilService.getUserData().userId;
+    let query = '?created='+userId;
+    this.courseService.getAllCourse(query).subscribe(result=>{
       if(result && result.isSuccess){
         this.courseList = result.data && result.data.rows;
       }

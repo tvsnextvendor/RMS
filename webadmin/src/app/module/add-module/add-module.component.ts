@@ -132,7 +132,6 @@ export class AddModuleComponent implements OnInit {
                 let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createClasses, url: '' }];
                 this.breadCrumbService.setTitle(data);
             }
-
         }
     }
 
@@ -156,11 +155,15 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
-
     courseData(classId) {
-        this.courseService.getTrainingClass().subscribe((resp) => {
+        let user = this.utilService.getUserData();
+        let roleId = this.utilService.getRole();
+        let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
+       let query = "?resortId="+resortId;
+    //    "?createdBy="+user.userId
+        this.courseService.getDropTrainingClassList(query).subscribe((resp) => {
             if (resp && resp.isSuccess) {
-                this.moduleVar.courseList = resp.data && resp.data.length && resp.data.map(item => {
+                this.moduleVar.courseList = resp.data && resp.data.rows.length && resp.data.rows.map(item => {
                     let obj = {
                         id: item.trainingClassId,
                         value: item.trainingClassName

@@ -28,10 +28,12 @@ export class NotificationTabComponent implements OnInit {
   scheduleEnable = false;
   @Input() uploadPage;
   resourseLib = false;
+  iconEnable = true;
 
 
   constructor(private breadCrumbService : BreadCrumbService,private fileService: FileService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ) {
-      this.activatedRoute.queryParams.subscribe(params=>{ 
+    let roleId = this.utilService.getRole();  
+    this.activatedRoute.queryParams.subscribe(params=>{ 
        if(params.tab == 'schedule'){
         let data = [{title : this.commonLabels.labels.schedule,url:'/calendar'},{title : this.commonLabels.labels.notification,url:''}]
          this.breadCrumbService.setTitle(data);
@@ -46,7 +48,10 @@ export class NotificationTabComponent implements OnInit {
          this.resourseLib = false;
        }
      })
+     if(roleId == 4 && this.resourseLib){
+      this.iconEnable = false;
      }
+  }
 
   ngOnInit() {
     this.pageSize = 10;

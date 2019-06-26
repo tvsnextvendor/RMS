@@ -50,9 +50,10 @@ export class CertificatesComponent implements OnInit {
         //get certificate
 
         this.getCertificate();
-
-        //get course
-        this.courseService.getAllCourse().subscribe(resp=>{
+            //get course
+        let userId = this.utilService.getUserData().userId;
+        let query = '?created='+userId;
+        this.courseService.getAllCourse(query).subscribe(resp=>{
             
             if(resp && resp.isSuccess){
                 this.constant.courseList = resp.data.rows.length && resp.data.rows;

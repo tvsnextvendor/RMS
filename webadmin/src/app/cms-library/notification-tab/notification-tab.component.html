@@ -13,7 +13,7 @@
                 <span class="text-over" *ngIf="!uploadPage">{{courses.File.fileName}}</span>
 
                 <span class="float-right">
-                    <a *ngIf = "!scheduleEnable" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="goToNotifyEdit(courses.notificationFileId)"></i></a>
+                    <a *ngIf = "!scheduleEnable && iconEnable" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="goToNotifyEdit(courses.notificationFileId)"></i></a>
                     <a *ngIf = "scheduleEnable" title="Edit" class="mr-4"><i class="fas fa-calendar-alt icons_header p-0" aria-hidden="true" (click)="goToNotifyEdit(courses.notificationFileId)"></i></a>                    
                     <!-- <a title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a> -->
                     <a (click)="getIndividualCourse(courses,i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header p-0" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header p-0" aria-hidden="true" title="Open"></i></a>

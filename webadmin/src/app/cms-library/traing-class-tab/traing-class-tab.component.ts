@@ -21,21 +21,29 @@ export class TraingClassTabComponent implements OnInit {
   enableClassEdit = false;
   editTrainingCourseId;
   TrainingList: any;
+  iconEnable = true;
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
   @Input() courseId;
   constructor(private courseService: CourseService, public commonLabels: CommonLabels, public alertService: AlertService, private utilService: UtilService, private breadCrumbService: BreadCrumbService, private route: Router) { }
 
   ngOnInit() {
-    this.pageLength = 5;
+    this.pageLength = 10;
     this.currentPage = 1;
+    let roleId = this.utilService.getRole();
+    let resourceLib = false;
     if (window.location.pathname.indexOf("resource") != -1) {
       let data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.trainingClass, url: '' }];
       this.breadCrumbService.setTitle(data);
+      resourceLib = true;
     } else {
       let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.trainingClass, url: '' }]
       this.breadCrumbService.setTitle(data);
       this.enableClassEdit = true;
+    }
+
+    if(roleId == 4 && resourceLib){
+      this.iconEnable = false;
     }
     if (this.enableClassEdit) {
       this.getTrainingClassList();
@@ -79,7 +87,7 @@ export class TraingClassTabComponent implements OnInit {
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId : '&resortId=' + resortId) : '');
     // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId : '';
-    console.log(query)
+    // console.log(query)
     // debugger;
     let newList;
     let trainList;
