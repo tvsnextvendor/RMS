@@ -14,8 +14,8 @@
                 <span class="text-over" *ngIf="!checkBoxEnable">{{courses.courseName}}</span>
 
                 <span class="float-right">
-                    <a title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
-                    <a title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
+                    <a *ngIf = "iconEnable" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
+                    <a *ngIf = "iconEnable" title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
                     <a>
                         <span (click)="disableView(i)"> 
                                 <i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header p-0" aria-hidden="true" title="Close"></i>

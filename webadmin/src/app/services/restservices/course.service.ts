@@ -29,9 +29,9 @@ export class CourseService {
     return this.http.getLocal('local',this.url.courseList+query);
   }
 
-  getAllCourse(){
-    let userId = this.utilService.getUserData().userId;
-    return this.http.getLocal('local',this.url.courseList+'?created='+userId);
+  getAllCourse(query){
+    
+    return this.http.getLocal('local',this.url.courseList+query);
   }
 
   getBatchCourse(){
@@ -243,6 +243,9 @@ export class CourseService {
   getTrainingClassList(page,size,query){
     let user = this.utilService.getUserData();
     return this.http.getLocal('local',this.url.getTrainingClassList+'?page='+page+'&size='+size+query);
+  }
+  getDropTrainingClassList(query){
+    return this.http.getLocal('local',this.url.getTrainingClassList+query);
   }
   sendApproval(post){
     return this.http.post('local',this.url.sendApproval,post);

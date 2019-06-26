@@ -58,19 +58,26 @@ export class RecentDeleteTabComponent implements OnInit {
   assignedCount;
   inProgressCount;
   completedCount;
+  iconEnable = true;
+  resourceLib = false;
 
   constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private route :Router) {
-     this.activatedRoute.queryParams.subscribe(params=>{ 
+    let roleId = this.utilService.getRole(); 
+    this.activatedRoute.queryParams.subscribe(params=>{ 
     
        if(params.tab == 'schedule'){
          this.breadCrumbTitle = [{title : this.commonLabels.labels.schedule,url:'/calendar'},{title : this.commonLabels.labels.course,url:''}]
        }else if(window.location.pathname.indexOf("resource") != -1){
         this.breadCrumbTitle = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.recentlyDelete,url:''}]
+        this.resourceLib = true;
       }else{
          this.breadCrumbTitle = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.course,url:''}]
        }
 
       this.breadCrumbService.setTitle(this.breadCrumbTitle)
+      if(roleId == 4 && this.resourceLib){
+        this.iconEnable = false;
+      }
 
      })
    }

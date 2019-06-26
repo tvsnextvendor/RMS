@@ -107,8 +107,8 @@
                    
                     <td>
                         <a title="View" (click)="openFileContent(file)"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                        <a (click)="openEditVideo(editDocTemp,file,i)"  title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
-                        <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
+                        <a *ngIf = "iconEnable" (click)="openEditVideo(editDocTemp,file,i)"  title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
+                        <a *ngIf = "iconEnable" (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                     </td>
                 </tr>
                 <tr *ngIf="videoListValue && !videoListValue.length">

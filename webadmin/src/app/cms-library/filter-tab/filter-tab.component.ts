@@ -45,7 +45,9 @@ export class FilterTabComponent implements OnInit {
   }
 
   getFilterData(){
-    this.courseService.getAllCourse().subscribe(result=>{
+    let userId = this.utilService.getUserData().userId;
+    let query = '?created='+userId;
+    this.courseService.getAllCourse(query).subscribe(result=>{
       if(result && result.isSuccess){
         this.courseFilterList = result.data && result.data.rows;
       }
