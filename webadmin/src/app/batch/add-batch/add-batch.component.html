@@ -127,7 +127,7 @@
                             <div class="row">
                                 <div [ngClass]="scheduleId ? 'row col-md-12 p-0 prgm-select' : 'row col-md-12 p-0 prgm-select'">
                                     <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
-                                    <input *ngIf = "!scheduleId" disabled type="text" class="form-control pl-0 col-md-3 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
+                                    <input *ngIf = "!scheduleId" disabled type="text" class="form-control pl-0 col-md-4 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
                                     <select *ngIf = "scheduleId" id="courseListValue" class="col-md-4 form-control p-0 ml-0" name="course{{i}}"
                                         [(ngModel)]="data.courseId" #courses="ngModel" (change)="courseUpdate(courses.value,i)" placeholder="Course Name" required >
                                         <option value="null" disabled>{{commonLabels.labels.courseName}}</option>
@@ -139,7 +139,7 @@
                                         <option *ngFor="let program of batchVar.programList" value="{{program.id}}">{{program.name}}</option>
                                     </select> -->
 
-                                    <select id="percentageList" [ngClass]="scheduleId ? 'col-md-6 form-control ml-35' : 'col-md-7 form-control ml-75'" name="passPercentage{{i}}"
+                                    <select id="percentageList" [ngClass]="scheduleId ? 'col-md-6 form-control ml-35' : 'col-md-7 form-control ml-36'" name="passPercentage{{i}}"
                                         [(ngModel)]="data.passPercentage" #passpercentage="ngModel" required placeholder="Pass percentage %">
                                         <option value="null">{{commonLabels.labels.percentage}}</option>
                                         <option *ngFor="let percentage of batchVar.percentageList" value="{{percentage.percentage}}">{{percentage.percentage}}</option>
