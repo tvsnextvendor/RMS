@@ -107,12 +107,12 @@ export class AddNotificationComponent implements OnInit {
               this.moduleVar.departmentId = respData.NotificationFileMaps.map(x=>{ return x.departmentId});
               this.employeeId = respData.NotificationFileMaps.map(x=>{ return x.userId});
               this.onItemSelect({divisionId : this.moduleVar.divisionId },'division','select');
-              setTimeout(()=>{
-                this.onItemSelect({departmentId : this.moduleVar.departmentId },'dept','select');
-              },100);
-              setTimeout(()=>{
-                this.setDropDownDetails();
-              },500);
+              // setTimeout(()=>{
+                // this.onItemSelect({departmentId : this.moduleVar.departmentId },'dept','select');
+              // },100);
+              // setTimeout(()=>{
+                // this.setDropDownDetails();
+              // },500);
             }  
           }
         })
@@ -226,6 +226,9 @@ export class AddNotificationComponent implements OnInit {
                   listData && listData.length ? 
                   result.data.rows.forEach(item=>{listData.push(item)}) : 
                   listData = result.data.rows;
+                  if(this.notifyId){
+                    this.onItemSelect({departmentId : this.moduleVar.departmentId },'dept','select');
+                  }
                   // this.constant.departmentList = listData.map(item=>{return item});
                 }
                 else{
@@ -267,6 +270,9 @@ export class AddNotificationComponent implements OnInit {
                   this.moduleVar.selectedEmployee = [];
                 }
                 this.moduleVar.employeeList = listData.map(item=>{return item});
+                if(this.notifyId){
+                  this.setDropDownDetails();
+                }
               }
             })
           }
@@ -441,21 +447,24 @@ export class AddNotificationComponent implements OnInit {
     }
 
     clearBatchForm() {
-   
-        this.batchVar.batchFrom = '';
-        this.batchVar.batchTo = '';
-        this.batchVar.selectedEmp = [];
-        this.batchVar.batchName = '';
-        this.moduleVar.selectedCourses = null;
-        this.moduleVar.selectedTrainingClass = null;
-        this.moduleVar.trainingClassList = [];
-        this.moduleVar.selectedResort = [];
-        this.moduleVar.selectedDepartment = [];
-        this.moduleVar.selectedDivision = []
-        this.moduleVar.selectedEmployee = [];
-        this.moduleVar.employeeList = [];
-        this.moduleVar.departmentList = [];
-        this.notificationType = '';
+      let resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
+      this.batchVar.batchFrom = '';
+      this.batchVar.batchTo = '';
+      this.batchVar.selectedEmp = [];
+      this.batchVar.batchName = '';
+      this.fileName = '';
+      this.file = '';
+      this.description = '';
+      this.moduleVar.selectedCourses = null;
+      this.moduleVar.selectedTrainingClass = null;
+      this.moduleVar.trainingClassList = [];
+      this.moduleVar.selectedResort = resortId;
+      this.moduleVar.selectedDepartment = [];
+      this.moduleVar.selectedDivision = []
+      this.moduleVar.selectedEmployee = [];
+      this.moduleVar.employeeList = [];
+      this.moduleVar.departmentList = [];
+      this.notificationType = '';
     }
 
     courseSelect(event){
@@ -563,6 +572,7 @@ export class AddNotificationComponent implements OnInit {
     }
 
     back(){
+      this.clearBatchForm();
       this.notificationType = '';
       this.notifyType = '';
       // this.router.navigate(['/cmspage'],{queryParams:{type:'create'}})

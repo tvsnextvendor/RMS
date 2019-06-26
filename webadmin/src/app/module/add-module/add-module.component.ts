@@ -136,8 +136,6 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
- 
-
    getClassDetails(){
        let query = '?trainingClassId='+this.classId;
     this.courseService.getTrainingClassList(query).subscribe(resp=>{
