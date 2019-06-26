@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Location } from '@angular/common'; 
 import {Router, ActivatedRoute, Params } from '@angular/router';
 import {CourseService,BreadCrumbService, AlertService} from '../../../services';
 import { CommonLabels } from '../../../Constants/common-labels.var';
@@ -19,7 +20,7 @@ export class ContentFileComponent implements OnInit {
   modalRef : BsModalRef;
   fileId;
   
-  constructor(private breadCrumbService :BreadCrumbService,private alertService: AlertService,private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels,private modalService:BsModalService,private courseService: CourseService) {
+  constructor(private breadCrumbService :BreadCrumbService,private alertService: AlertService,private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels,private modalService:BsModalService,private courseService: CourseService,public location :Location) {
       this.activatedRoute.params.subscribe((params: Params) => {
       this.courseId = params['id']; 
      });

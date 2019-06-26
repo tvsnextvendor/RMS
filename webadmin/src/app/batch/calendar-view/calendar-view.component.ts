@@ -4,12 +4,11 @@ import {Router,ActivatedRoute} from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import {HeaderService,UtilService,CourseService,BreadCrumbService,AlertService} from '../../services';
 import {BatchVar} from '../../Constants/batch.var';
-import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
-import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
+import {startOfDay,endOfDay,subDays,subWeeks,subMonths,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
+import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,CalendarMonthViewDay} from 'angular-calendar';
 import { API_URL } from '../../Constants/api_url';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { AddBatchComponent } from '../add-batch/add-batch.component'
-
 
 
 @Component({
@@ -161,6 +160,19 @@ export class CalendarViewComponent implements OnInit {
         this.router.navigate(['/cms-library'],{queryParams:{type : 'create',tab : 'schedule'}})
     }
 
+    // dateIsValid(date: Date): boolean {
+    // return date >= this.currentDate;
+    // }
+
+    // beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    //     body.forEach(day => {
+    //         console.log(day.date < this.currentDate)
+    //         if (day.date < this.currentDate) {
+    //             day.cssClass = 'cal-disabled';
+    //         }
+    //     });
+    // }
+
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
         if(events.length === 0 && date>=this.currentDate){
             var n = date.toString();
@@ -168,7 +180,7 @@ export class CalendarViewComponent implements OnInit {
             this.goToCMSLibrary();
         }
         else{
-            // this.alertService.info('Schedule date should be greater than current date')
+            this.alertService.info('Schedule date should be greater than current date')
         }
       }
 

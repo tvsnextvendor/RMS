@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common'; 
 import { Router, ActivatedRoute,Params } from '@angular/router';
 import { HttpService,HeaderService,UtilService,AlertService,ExcelService, CourseService,BreadCrumbService } from '../../../services';
 import { CommonLabels } from '../../../Constants/common-labels.var'
@@ -16,7 +17,7 @@ export class EmployeesListComponent implements OnInit {
   pageLimitOptions;
   pageLimit;
 
-  constructor(private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService) { 
+  constructor(private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService,public location : Location) { 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.courseId = params['courseId']; 
       console.log(this.courseId)
