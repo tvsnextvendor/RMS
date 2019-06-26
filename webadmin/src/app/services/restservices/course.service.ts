@@ -240,9 +240,9 @@ export class CourseService {
     return this.http.delete('local',this.url.removeSchedule+scheduleId)
   }
 
-  getTrainingClassList(query){
+  getTrainingClassList(page,size,query){
     let user = this.utilService.getUserData();
-    return this.http.getLocal('local',this.url.getTrainingClassList+query);
+    return this.http.getLocal('local',this.url.getTrainingClassList+'?page='+page+'&size='+size+query);
   }
   sendApproval(post){
     return this.http.post('local',this.url.sendApproval,post);
