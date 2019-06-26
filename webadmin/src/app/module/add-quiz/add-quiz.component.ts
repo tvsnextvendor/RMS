@@ -278,7 +278,11 @@ export class AddQuizComponent implements OnInit {
                     "fileIds": this.removedFileIds,
                     "quizId" : '',
                     "createdBy" : user.userId,
-                    "resortId": this.resortId
+                    "resortId": this.resortId,
+                    "quiz" : {
+                        "quizId" : this.editQuizId,
+                        "quizName": this.quizName,
+                    }
                 }
             }
             else {
