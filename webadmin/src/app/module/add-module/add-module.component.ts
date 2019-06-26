@@ -138,7 +138,7 @@ export class AddModuleComponent implements OnInit {
 
    getClassDetails(){
        let query = '?trainingClassId='+this.classId;
-    this.courseService.getTrainingClassList(query).subscribe(resp=>{
+    this.courseService.getTrainingClassList('','',query).subscribe(resp=>{
         if(resp && resp.isSuccess){
             let data = resp.data && resp.data.rows.length && resp.data.rows[0];
             this.updateCourse(data,'')
