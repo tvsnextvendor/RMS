@@ -154,3 +154,19 @@
     color: #9B9B9B;
     padding-top: 7px;
 }
+.para-alg{
+    color: #468FB9;
+    font-size: 14px;
+    font-weight: 600;
+    height: 190px;
+}
+.quiz-para, .course-para{
+    height: 205px;
+}
+.start-btn{
+    width: 50%;
+    float: none;
+}
+.notify-img-alg{
+    width: 120px;
+}
