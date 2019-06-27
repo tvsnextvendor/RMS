@@ -537,7 +537,16 @@ button:focus {
 .searchbar-md .searchbar-search-icon{
     top: 6px;
 }
-
+page-accomplishment .badge-img {
+    float: none !important;
+    margin: 0 !important;
+   }
+   page-accomplishment .badge-name {
+    font-size: 14px;
+    color: #656565;
+    font-family: 'sf_pro_displaysemibold';
+    float: left !important;
+}
 /*************** check box and radio button **************/
 .hole-cont {
     position: relative;
