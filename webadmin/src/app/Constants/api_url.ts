@@ -204,7 +204,7 @@ export class API_URL {
     ratedTrainingClasses : '8103/topRatedTrainingClasses',
     getCourseTrend : '8103/getCourseByMonth',
     getCourseTrendList : '8103/getAllCoursesByMonth',
-    getCourseEmployeeList : '8103/courseEmployeestatusList ',
+    getCourseEmployeeList : '8103/courseEmployeestatusList',
     topFiveResort : '8103/getTopFiveResorts',
     badgesData: '8103/getBadges',
     archievedSettings : '8103/archieved',

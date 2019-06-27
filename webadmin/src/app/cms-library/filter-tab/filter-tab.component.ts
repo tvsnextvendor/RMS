@@ -99,7 +99,7 @@ export class FilterTabComponent implements OnInit {
    
     this.courseService.getDivision(this.filterChildResort,'parent').subscribe(result=>{
       if(result && result.isSuccess){
-        this.childDivisionFilterList = result.data.divisions && result.data.divisions.length && result.data.divisions;
+        this.childDivisionFilterList = result.data.divisions && result.data.divisions.length ? result.data.divisions : [];
         console.log(this.childDivisionFilterList);
       }
     })
