@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {HeaderService,UtilService,UserService,BreadCrumbService} from '../services';
+import {HeaderService,UtilService,UserService,BreadCrumbService,CommonService} from '../services';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {ProfileVar} from '../Constants/profile.var';
@@ -23,8 +23,11 @@ export class ProfileComponent implements OnInit {
     designationId;
     divisionId;
     userId;
+    profilePic;
+    previewProfilePic;
+    profileFile;
 
-   constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,public profVar: ProfileVar,private router:Router, private datepipe: DatePipe,public commonLabels:CommonLabels,private utilService : UtilService,private userService : UserService,private breadCrumbService :BreadCrumbService){
+   constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,public profVar: ProfileVar,private router:Router, private datepipe: DatePipe,public commonLabels:CommonLabels,private utilService : UtilService,private userService : UserService,private breadCrumbService :BreadCrumbService,private commonService : CommonService){
    
     const currentUrl = this.router.url;
     this.profVar.split_url= currentUrl.split('/');
@@ -41,6 +44,7 @@ export class ProfileComponent implements OnInit {
    ngOnInit(){
     this.headerService.setTitle({title:this.commonLabels.titles.profile, hidemodule:false});
     this.breadCrumbService.setTitle([]);
+    this.previewProfilePic = "assets/images/profile_circle.png";
     this.getProfile();
    }
   
@@ -50,6 +54,7 @@ export class ProfileComponent implements OnInit {
     this.userId = this.userDetails.userId;
     this.profVar.email=this.userDetails.email;
     this.profVar.empId= this.userDetails.employeeId;
+    this.previewProfilePic = this.userDetails.uploadPaths && this.userDetails.uploadPaths.uploadPath && this.userDetails.userImage ? this.userDetails.uploadPaths.uploadPath+this.userDetails.userImage : '';
     // this.profVar.dob= this.datepipe.transform( this.userDetails.dob , 'dd MMM yyyy');
     this.profVar.designation=this.userDetails.Designation && this.userDetails.Designation.designationName;
     this.profVar.dept= this.userDetails.Department && this.userDetails.Department.departmentName;
@@ -124,4 +129,36 @@ validationCheck(type, value) {
     }
 }
 
+fileUpload(e){
+    let reader = new FileReader();
+    let fileName;
+    if (e.target && e.target.files[0]) {
+        let file = e.target.files[0];
+        this.profileFile = file;
+        reader.onloadend = () => {
+            this.previewProfilePic = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }
+    this.commonService.uploadFiles(this.profileFile).subscribe((result) => {
+        if(result && result.isSuccess){
+            fileName = result.data && result.data.length ? result.data[0].filename : '';
+            if(fileName){
+                let obj ={userImage : fileName}
+                this.userService.updateUser(this.userId,obj).subscribe(resp=>{
+                    console.log(resp)
+                    if(resp && resp.isSuccess){
+                        let data = resp.data && resp.data.user;
+                        this.userDetails.userImage = data && data.userImage;
+                        this.userDetails.uploadPaths = resp.data && resp.data.uploadPaths;
+                        localStorage.removeItem("userData");
+                        localStorage.setItem('userData',btoa(JSON.stringify(this.userDetails)));
+                        this.getProfile();
+                        this.alertService.success(this.commonLabels.msgs.profilesuccess);
+                    }
+                })
+            }
+        }
+    })
+}
 }

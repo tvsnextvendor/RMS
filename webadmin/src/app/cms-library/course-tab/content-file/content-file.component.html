@@ -29,7 +29,8 @@
                             <td class="text-left">.{{file.fileExtension}}</td>
                             <td class="text-left">03.50</td>
                             <td class="text-left"><a href="#">100</a></td>     
-                            <td class="text-center"><a><i class="fas fa-pencil-alt"aria-hidden="true"></i></a>
+                            <td class="text-center">
+                              <a (click)="openEditVideo(editDocTemp,file,i)"><i class="fas fa-pencil-alt"aria-hidden="true"></i></a>
                                 <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                                 <a *ngIf="file.fileUrl != 'Video'" (click)="openFileContent(file.fileUrl)"><i class="fa fa-eye header-icon" aria-hidden="true"
                                     title="View"></i></a>
@@ -82,4 +83,68 @@
         (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
     </div>
   </div>
+</ng-template>
+
+<ng-template #editDocTemp>
+    <div class="modal-header pb-0">
+        <p class="hd-alg"><!-- {{constant.btns.editVideo}} -->{{commonLabels.modaltitle.editDoc}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeEditVideoForm()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <span class="required_color" *ngIf="constant.errorValidate">{{constant.errorValidation}}</span>
+        <form #videoEditForm="ngForm" (ngSubmit)="permissionSetSubmit(videoEditForm)">
+            <div class="row form-group">
+                <div class="col-md-5 p-0 float-left">
+                    <div class="pl-0 form-group select-Courses">
+                        <select id="resort" class="form-control p-0" name="resortId"
+                            [(ngModel)]="constant.selectedResort" disabled >
+                            <!-- <select class="form-control p-0"> -->
+                            <option value="null" disabled >Select</option>
+                            <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">
+                                {{data.resortName}}</option>
+                        </select>
+                        <span class="required_color" *ngIf="submitted && !constant.selectedResort">
+                            {{commonLabels.mandatoryLabels.selectResort}}
+                        </span>
+                    </div>
+
+                    <div class="pl-0 form-group select-Courses">
+                        <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId"
+                            [data]="constant.departmentList" [(ngModel)]="constant.selectedDepartment"
+                            [settings]="constant.departmentSettings" (onSelect)="onEmpSelect($event,'dept','select')"
+                            (onDeSelect)="onEmpSelect($event,'dept','deselect')" #departmentId="ngModel" required>
+                        </ng-multiselect-dropdown>
+                        <span class="required_color" *ngIf="submitted && !constant.selectedDepartment.length">
+                            {{commonLabels.mandatoryLabels.dept}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-5 p-0 ml-auto">
+                    <div class="pl-0 form-group select-Courses">
+                        <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId"
+                            (onSelect)="onEmpSelect($event,'div','select')" [data]="constant.divisionList"
+                            [(ngModel)]="constant.selectedDivision" [settings]="constant.divisionSettings"
+                            (onDeSelect)="onEmpSelect($event,'div','deselect')" #divisionId="ngModel" required></ng-multiselect-dropdown>
+                        <span class="required_color" *ngIf="submitted && !constant.selectedDivision.length">
+                            {{commonLabels.mandatoryLabels.division}}
+                        </span>
+                    </div>
+                    <div class="pl-0 form-group select-Courses">
+                        <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"
+                            (onSelect)="onEmpSelect($event,'emp','select')" (onDeSelect)="onEmpSelect($event,'emp','deselect')"
+                            [data]="constant.employeeList" [(ngModel)]="constant.selectedEmp"
+                            [settings]="constant.empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
+                        <span class="required_color" *ngIf="submitted && !constant.selectedEmp.length">
+                            {{commonLabels.mandatoryLabels.selectEmp}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.set}}</button>
+            </div>
+        </form>
+    </div>
 </ng-template>
