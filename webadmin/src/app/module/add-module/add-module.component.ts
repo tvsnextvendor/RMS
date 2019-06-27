@@ -610,7 +610,7 @@ export class AddModuleComponent implements OnInit {
                     else {
                         self.moduleVar.videoList.push(videoObj);
                     }
-                 this.fileService.saveVideoList(this.moduleVar.videoList);
+                // this.fileService.saveVideoList(this.moduleVar.videoList);
                 }
             })
             this.clearData();
