@@ -203,6 +203,8 @@ export class API_URL {
     totalCourse : '8103/getTotalCourse',
     ratedTrainingClasses : '8103/topRatedTrainingClasses',
     getCourseTrend : '8103/getCourseByMonth',
+    getCertificateTrend:'8103/getEmployeeCertificationTrend',
+    getCertificateTrendList:'8103/getEmployeeCertificationTrendDetails',
     getCourseTrendList : '8103/getAllCoursesByMonth',
     getCourseEmployeeList : '8103/courseEmployeestatusList',
     topFiveResort : '8103/getTopFiveResorts',

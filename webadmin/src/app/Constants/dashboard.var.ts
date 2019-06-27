@@ -16,6 +16,7 @@ export class DashboardVar {
    moduleType = null;
    yearList = [{'year': '2017'}, {'year': '2018'}, {'year': '2019'}];
    years = '2019';
+   certYear ='2019';
    taskChart;
    courseTrendData;
    certificationTrend;

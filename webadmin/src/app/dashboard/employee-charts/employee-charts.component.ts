@@ -72,6 +72,7 @@ export class EmployeeChartsComponent implements OnInit {
       this.chartContainer();
       // this.totalStorageSpace();
       this.courseTrend();
+      this.certificationTrend();
     }, 2000);
     this.commonService.getTotalCount(query).subscribe(result => {
       const data = result.data;
@@ -83,6 +84,7 @@ export class EmployeeChartsComponent implements OnInit {
 
   getData() {
     this.getcourseTrend();
+    this.getcertificateTrend();
     this.topRatedCourses();
     this.totalNoOfBadges();
   }
@@ -142,6 +144,21 @@ export class EmployeeChartsComponent implements OnInit {
     });
   }
 
+  getcertificateTrend() {
+    const certificationTrend = {
+      year : this.dashboardVar.certYear
+    };
+    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    this.commonService.getCertificateTrend(certificationTrend,query).subscribe(result => {
+      if (result && result.isSuccess) {
+        this.dashboardVar.certificationTrend = result.data.map(item => parseInt(item, 10));
+        //setTimeout(()=>{
+          this.certificationTrend();
+        //},100) 
+      }
+    });
+  }
+
   getKeyStat() {
     this.http.get(this.dashboardVar.url.getKeyStat).subscribe((data) => {
       const keyStat = data;
@@ -156,8 +173,11 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
   onChangeYear() {
-    // console.log(this.dashboardVar.years);
     this.getcourseTrend() 
+  }
+
+  onChangeCertYear() {
+    this.getcertificateTrend() 
   }
 
 
@@ -391,9 +411,24 @@ export class EmployeeChartsComponent implements OnInit {
         }
       },
       xAxis: {
-        display: false
-      },
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
       yAxis: {
+        opposite: true,
         display: false,
         title: {
           text: null
@@ -404,7 +439,7 @@ export class EmployeeChartsComponent implements OnInit {
         align: 'right',
         verticalAlign: 'bottom'
     },
-    series:   this.dashboardVar.certificationTrend.data,
+    series:  [{name:'Employess',data:this.dashboardVar.certificationTrend}],
     colors: ['#7DB5EC', '#CCCCCC'],
     // stroke:'grey',
   });
