@@ -19,6 +19,7 @@ export class QuizTabComponent implements OnInit {
   @Input() uploadPage;
   @Input() directTabEnable;
   @Input() disableEdit;
+  @Input() CMSFilterSearchEventSet;
   questionForm;
   weightage;
   questionOptions = [];
@@ -51,7 +52,7 @@ export class QuizTabComponent implements OnInit {
   constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService) { }
 
   ngOnInit() {
-    this.pageLength=5;
+    this.pageLength=10;
     this.currentPage = 1;
     let roleId = this.utilService.getRole();  
     this.questionOptions = [
@@ -86,18 +87,30 @@ export class QuizTabComponent implements OnInit {
     this.weightage = 100;
   }
 
+  ngDoCheck() {
+    if (this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== '') {
+      if(this.enableQuizEdit){
+        this.currentPage = 1;
+        this.getquizList();
+      }
+    } 
+  } 
+
   getquizList(){
     let user = this.utilService.getUserData();
     let roleId = this.utilService.getRole();
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
-    let query = roleId !=1 ? '?createdBy='+user.userId+'&resortId='+resortId : '';
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? '?page='+this.currentPage+'&size='+this.pageLength+this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId !=1 ? '?createdBy='+user.userId+'&resortId='+resortId : '');
     
     this.courseService.getQuizList(query).subscribe(res=>{
+      this.CMSFilterSearchEventSet = '';
         if(res && res.isSuccess){
             this.quizList = res.data.quiz;
             this.totalQuizCount = this.quizList.length;
         }
-    })
+      }, err => {
+        this.CMSFilterSearchEventSet = '';
+      });
 }
 
 pageChanged(e) {
