@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
     this.userId = this.userDetails.userId;
     this.profVar.email=this.userDetails.email;
     this.profVar.empId= this.userDetails.employeeId;
-    this.previewProfilePic = this.userDetails.uploadPaths && this.userDetails.uploadPaths.uploadPath && this.userDetails.userImage ? this.userDetails.uploadPaths.uploadPath+this.userDetails.userImage : '';
+    this.previewProfilePic = this.userDetails.uploadPaths && this.userDetails.uploadPaths.uploadPath && this.userDetails.userImage ? this.userDetails.uploadPaths.uploadPath+this.userDetails.userImage : 'assets/images/profile_circle.png';
     // this.profVar.dob= this.datepipe.transform( this.userDetails.dob , 'dd MMM yyyy');
     this.profVar.designation=this.userDetails.Designation && this.userDetails.Designation.designationName;
     this.profVar.dept= this.userDetails.Department && this.userDetails.Department.departmentName;
