@@ -170,7 +170,7 @@ export class CoursePage implements OnInit {
     if(res['data']['rows']){
       this.signRequireList =res['data']['rows'];
       this.signRequireCount = res['data']['count'];
-      this.uploadPath =res['data'].length ? res['data']['uploadPath']['uploadPath']: '';
+      this.uploadPath =res.data.uploadPath.uploadPath;
     }else{
       this.signRequireCount = 0;
       this.noRecordsFoundMessage = res['message'];

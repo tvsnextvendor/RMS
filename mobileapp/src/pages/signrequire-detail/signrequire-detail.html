@@ -41,7 +41,7 @@
         </ion-card-title>
         
         <div class="checkbox-item clearfix" *ngIf="imageType">
-                <label class="hole-cont mr-2" *ngIf="pageType == 'signReq'">
+                <label class="hole-cont mr-2" *ngIf="pageType == 'signReq' && doneClicked">
                     <input type="checkbox" [(ngModel)]="agree" (change)="completeNotification()"  name="options" > 
                     {{constant.pages.trainingLabels.ackText}}<a href="javascript:void(0);" (click)="viewContent(filePath)">{{constant.pages.trainingLabels.document}}</a>
                     <span class="checkmark"></span>
@@ -67,6 +67,6 @@
 </ion-content>
 <div class="fixed-btn">
   <button ion-button round class="add-question common-btn" (click)="goBack()">
-    Back
+    Done
   </button>
 </div>
