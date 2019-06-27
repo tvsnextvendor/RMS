@@ -1,4 +1,4 @@
-import { Component, OnInit,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit,Output,EventEmitter,Input} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService} from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
@@ -16,6 +16,7 @@ export class WorkCourseListComponent implements OnInit {
   courseListValue = [];
   enableView;
   enableIndex;
+  @Input() CMSFilterSearchEventSet;
   @Output() trainingClassListTab =  new EventEmitter();
 
   constructor(private courseService : CourseService ,public commonLabels : CommonLabels,private route: Router,public cmsLibraryVar : CmsLibraryVar,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private headerService : HeaderService,private breadCrumbService :BreadCrumbService) { }
@@ -30,12 +31,19 @@ export class WorkCourseListComponent implements OnInit {
     this.getCourseDetails(); 
   }
 
+  ngDoCheck() {
+    if (this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== '') {
+      this.p = 1;
+      this.getCourseDetails();
+    } 
+  } 
+
   getCourseDetails(){
     let roleId = this.utilService.getRole();
     let userData = this.utilService.getUserData();
-    let query = roleId !=1 ? '&status=workInprogress&created='+userData.userId : '&status=workInprogress';
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=workInprogress' : (roleId !=1 ? '&status=workInprogress&created='+userData.userId : '&status=workInprogress');
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
-
+      this.CMSFilterSearchEventSet = '';
       if(resp && resp.isSuccess){
         this.totalCourseCount = resp.data.count;
         this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
@@ -44,6 +52,8 @@ export class WorkCourseListComponent implements OnInit {
         //    this.enableDropData('edit',parseInt(this.selectedIndex));
         // }
       }
+    }, err => {
+      this.CMSFilterSearchEventSet = '';
     });
    
   }

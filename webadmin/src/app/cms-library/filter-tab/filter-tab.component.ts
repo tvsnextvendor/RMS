@@ -71,20 +71,16 @@ export class FilterTabComponent implements OnInit {
   courseChange(courseId){
     this.filterTrainingClass = 'null';
     this.courseService.getTrainingclassesById(courseId).subscribe(result=>{
-      console.log(result);
       if(result && result.isSuccess){
         this.trainingClassFilterList = result.data && result.data.length && result.data;
-        console.log(result);
       }
     })
   }
   
 
   divisionChange(divisionId,type){
-    console.log(divisionId);
     let id = type === 'parent' ? this.filterParentDivision : this.filterChildDivision;
     this.courseService.getDepartment(id).subscribe(result=>{
-      console.log(result)
        if(type === 'parent'){
         this.parentDepartmentFilterList = result.data.rows && result.data.rows.length && result.data.rows;
       }
