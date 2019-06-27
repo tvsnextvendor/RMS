@@ -72,7 +72,7 @@ export class NotificationTabComponent implements OnInit {
 
   getNotificationData(){
     let userData = this.utilService.getUserData();
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? '?page='+this.p+'&size='+this.pageSize+this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (this.roleId != 1 ? (this.resourseLib  ? '?resortId='+this.resortId :'?resortId='+this.resortId+"&createdBy="+userData.userId) : '');
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? '?page='+this.p+'&size='+this.pageSize+this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (this.roleId != 1 ? (this.resourseLib  ? '?page='+this.p+'&size='+this.pageSize+'&resortId='+this.resortId :'?page='+this.p+'&size='+this.pageSize+'&resortId='+this.resortId+"&createdBy="+userData.userId) : '');
     let selectedDocuments = this.fileService.getSelectedList('notification');    
     this.courseService.getNotification(query).subscribe(resp=>{
       this.CMSFilterSearchEventSet = '';
