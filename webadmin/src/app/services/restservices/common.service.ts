@@ -140,7 +140,12 @@ getTopRatedTrainingClasses(query) {
 getCourseTrend(courseTrendObj,query) {
   return this.http.getLocal('local', this.url.getCourseTrend + '?year=' + courseTrendObj.year + query);
 }
-
+getCertificateTrend(obj,query) {
+  return this.http.getLocal('local', this.url.getCertificateTrend + '?year=' + obj.year + query);
+}
+getCourseTrendListList(courseTrendObj,query) {
+  return this.http.getLocal('local', this.url.getCourseTrendListList + '?year=' + courseTrendObj.year + query + '&month=' + courseTrendObj.month);
+}
 getCourseTrendList(courseTrendObj,query) {
   return this.http.getLocal('local', this.url.getCourseTrendList + '?year=' + courseTrendObj.year + query + '&month=' + courseTrendObj.month);
 }

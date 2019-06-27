@@ -160,16 +160,17 @@
           <div class=" chart-bg p-2" style=" height: 275px">            
               <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                 {{commonLabels.labels.certificationTrend}}
-              <select class="select-btn select select-style clearfix"><option value="Total">2019</option>
+              <select class="select-btn select select-style clearfix" (click)="onChangeCertYear()" [(ngModel)]="dashboardVar.certYear">
+                  <option *ngFor="let year of dashboardVar.yearList" value="{{year.year}}">{{year.year}}</option>
               <!-- <i class="fa fa-chevron-down" aria-hidden="true"></i> --><div class="select_arrow"></div>
             </select>
             </h6>
+            <div *ngIf="dashboardVar.certificationTrend" class="trend-sec" id="certificationTrend"  (click)="certificationTrend()" ></div>
              <!-- <div class="avg-qualification">
               <p class="avg-qua-header">{{dashboardVar.avgQualification}}</p>
               <div class="percentage-alg">{{dashboardVar.certificationTrend.avgQualification}}</div>
               <p class="para-alg">{{dashboardVar.emp}}</p>
-            </div> -->
-            
+            </div> -->     
           </div>
         </div>
       </div>
