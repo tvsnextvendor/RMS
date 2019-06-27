@@ -26,6 +26,7 @@ export class HomePage {
   enableView;
   todayDate;
   enableIndex;
+  interval;
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,public socketService: SocketService, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
@@ -43,12 +44,20 @@ export class HomePage {
             this.storage.get('currentUser').then((user: any) => {
             if (user.token) {
              self.currentUser = user;
+             this.getNotification();
              this.getDashboardInfo();
-              this.getNotification();
-              this.getDashboardCount();
+             this.getDashboardCount();
             }
         });
   }
+
+  ngOnInit(){
+    this.interval = setInterval(() => {
+        this.getDashboardInfo();
+        this.getDashboardCount();
+    }, 20000);
+  }
+
 
   ionViewDidEnter() {
   }
@@ -87,10 +96,8 @@ export class HomePage {
   }
 
   getDashboardInfo() {
-    this.loader.showLoader();
     let userId= this.currentUser.userId;
     this.http.get(API_URL.URLS.dashboardSchedules+'?status='+this.status+'&userId='+userId).subscribe((res) => {
-      this.loader.hideLoader();
       if(res['isSuccess']){
         this.dashboardInfo = res['data'];
       }
@@ -123,6 +130,12 @@ export class HomePage {
    this.socketService.getNotification(socketObj).subscribe((data)=>{
        this.notificationCount = data['unReadCount'];
    });
+  }
+
+  ngOnDestroy(){
+    if (this.interval) {
+        clearInterval(this.interval);
+    }
   }
 
 }
