@@ -5,11 +5,16 @@
   <div class="row py-4"> 
   	 <div class="col-lg-6 col-md-6">
   	    <div class="row py-4 did-line">
-  		<div class="col-lg-5"><input type="file" name="profilePic" [(ngModel)]="profilePic" accept="image/*" (change)="fileUpload($event)"/><img [src]="previewProfilePic"></div>
+  		<div class="col-lg-5">
+        <div class="profile-img">
+        <img class="selected-prf-img" [src]="previewProfilePic">
+        <a class="profile-bg"><i class="fas fa-plus-circle profile-icon"><input  class="upload" type="file" name="profilePic" [(ngModel)]="profilePic" accept="image/*" (change)="fileUpload($event)"/></i></a>
+      </div>
+      </div>
   		<div class="col-lg-7 pl-0">
   			<div class="py-4">
   			<h4>{{profVar.userName}}</h4>
-              <button type = "button" routerLink="/editprofile" class="btn btn-primary profile-save-btn">{{commonLabels.btns.editProfile}}</button>
+          <button type = "button" routerLink="/editprofile" class="btn btn-primary profile-save-btn">{{commonLabels.btns.editProfile}}</button>
   		</div>
   		</div>
      	</div>
