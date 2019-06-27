@@ -38,9 +38,9 @@
 
     <div class="badge-block" *ngIf="certificateList.length > 0">
       <h4 class="popup-tit badge-tit">{{constant.pages.accomplishmentLabels.badges}}</h4>
-      <ion-card class="forum-card">
-        <ion-grid>
-          <ion-row *ngFor="let item of certificateList;let i=index;">
+      <ion-card class="forum-card"  *ngFor="let item of certificateList;let i=index;">
+        <ion-grid *ngIf="item.Badge">
+          <ion-row>
             <ion-col col-3 class="img-section">
               <div class="badge-img"><img src="assets/imgs/b2.png" class="forum-img"></div>
               <span class="badge-name">{{item.Badge.badgeName}}</span>
