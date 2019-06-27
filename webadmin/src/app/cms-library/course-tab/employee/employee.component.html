@@ -14,7 +14,7 @@
     </div>
     <div class="col-lg-12 col-sm-12 p-0">
     <div class="header-section mb-2 clearfix">
-      <h4 class="float-left">Employee 3</h4>
+      <h4 class="float-left">{{user.userName}}</h4>
       <h6 class="float-right">{{commonLabels.labels.count}}{{count}}</h6>
     </div>                
         <div class="table-responsive ">
@@ -38,8 +38,8 @@
                 <tbody>
                     <tr *ngFor="let emp of mf.data,index as i" class="table-desc-color">
                         <td class="text-center">{{emp?.TrainingClass?.trainingClassName}}</td>
-                        <td class="text-center">{{emp.File.fileName}}</td>
-                        <td class="text-center">{{emp.File.fileExtension}}</td>
+                        <td class="text-center" ><span *ngIf="emp.File">{{emp.File.fileName}}</span></td>
+                        <td class="text-center" ><span *ngIf="emp.File">{{emp.File.fileExtension}}</span></td>
                         <td class="text-center">{{emp.status}}</td>                          
                     </tr>
                     <tr *ngIf="listDetails && !listDetails.length">

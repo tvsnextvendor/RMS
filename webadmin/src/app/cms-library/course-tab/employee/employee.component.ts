@@ -16,10 +16,11 @@ export class EmployeeComponent implements OnInit {
   pageLimit;
   listDetails = [];
   count = 0;
+  user;
   constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location,public commonLabels:CommonLabels) { 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.userId = params['userId']; 
-      console.log(this.userId)
+      //console.log(this.userId)
     });
   }
 
@@ -36,10 +37,11 @@ export class EmployeeComponent implements OnInit {
 //Get status list
   getEmployeeDetails(){
     this.courseService.getEmployeeDetails(this.resortId,this.userId).subscribe(resp=>{
-      console.log(resp)
+      //console.log(resp)
       if(resp && resp.isSuccess){
         this.listDetails = resp.data.rows.length ? resp.data.rows : [];
         this.count = resp.data.count ? resp.data.count : 0;
+        this.user = resp.data.user;
       }
     })
   }
