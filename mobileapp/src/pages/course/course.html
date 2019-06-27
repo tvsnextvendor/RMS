@@ -224,11 +224,11 @@
   </div>
   </div>
 </ion-content>
-<div class="fixed-btn" (click)="openLaunchModal(launch)">
-    <button ion-button round class="add-question common-btn">
+<ion-footer class="fixed-btn">
+    <button ion-button round class="add-question common-btn" (click)="openLaunchModal(launch)">
      {{constant.buttons.uploadContent}}
     </button>
- </div>
+ </ion-footer>
 
 
   <ng-template #launch>
