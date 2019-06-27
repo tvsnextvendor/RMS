@@ -29,14 +29,15 @@ export class SignrequireDetailPage {
   uploadPath;
   pageType;
   currentUser;
+  doneClicked: boolean = false;
   agree: boolean = false;
+  hideWarning: boolean = false;
  
   constructor(public navCtrl: NavController,public commonService:CommonService,public http: HttpProvider,public toastr: ToastrService, public navParams: NavParams,public storage: Storage,public constant:Constant) {
           let data = this.navParams.data;
           this.Files = data.files;
           this.uploadPath = data.uploadPath;
           this.pageType = data.type;
-
   }
 
   ionViewDidLoad() {
@@ -107,7 +108,8 @@ export class SignrequireDetailPage {
 
     goBack(){
       if(this.pageType == 'signReq'){
-          if(this.agree){
+          this.doneClicked= true;
+          if(this.agree && this.doneClicked){
           this.navCtrl.setRoot('course-page','signReq');
           }else{
             this.toastr.error("Please agree acknowledgement");
@@ -118,7 +120,7 @@ export class SignrequireDetailPage {
     }
 
     completeNotification(){
-      console.log(this.Files);
+       this.hideWarning = true;
        let userId =  this.currentUser.userId;
        let resortId = this.currentUser.ResortUserMappings[0].resortId;
        let postData={

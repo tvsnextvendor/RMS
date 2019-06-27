@@ -37,7 +37,8 @@ export class Constant {
         next: 'Next',
         submit: 'Submit',
         uploadContent : 'Upload Content',
-        launch: 'LAUNCH'
+        launch: 'LAUNCH',
+        ok : 'Ok'
     };
     pages = {
         loginLabels: {
@@ -111,7 +112,8 @@ export class Constant {
             generalNotifications: 'General Notifications',
             trainingClasses :'Training Classes',
             expire: 'Will expire in',
-            noData:'No Expiring Training Schedules Found'
+            noData:'No Expiring Training Schedules Found',
+            zero: '0'
 
         },
         trainingLabels: {
