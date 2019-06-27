@@ -14,31 +14,68 @@
         <!-- <div>
             <p class="text-center table-desc-color">{{commonLabels.msgs.generalNotifi}}</p>
         </div> -->
-        <div class="row">
-            <div class="col-md-4">
-            <div class="white-bg cp" (click)="notificationTypeUpdate('assignedToCourse')">
+        <div class="row p-5">
+            <div class="col-md-6 pb-1">
+            <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('assignedToCourse')">
                 <div class="ass-header-color clearfix p-1"></div>
-                <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11849.png"></div>
+                <h5 class="text-center pt-3">{{this.commonLabels.labels.assignToCourse}}</h5>
+                <div class="row py-3">
+                    <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11849.png"></div>
+                    <div class="col-md-7 para-alg">
+                      <p>Start here to create a new class. Classes are placed inside courses.</p>
+                      <p>You can place X classes in a course.</p>
+                      <p>You can work on the class and then add it to the single or multiple courses.</p>
+                    </div>
+                  </div>
+                  <div class="col-md-12 text-center px-5">
+                      <button  class="btn btn-primary start-btn">Start</button>
+                </div>
+                <!-- <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11849.png"></div>
                 <p class="notification-title">{{this.commonLabels.labels.assignToCourse}}</p>
-                <!-- <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
+                <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
                         title="Next"></i></button> -->
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="white-bg cp" (click)="notificationTypeUpdate('signature')">
-                    <div class="sign-header-color clearfix p-1"></div>
-                    <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11850.png"></div>
+        <div class="col-md-6 pb-1">
+            <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('signature')">
+                <div class="sign-header-color clearfix p-1"></div>
+                <h5 class="text-center pt-3">{{this.commonLabels.labels.signature}}</h5>
+                <div class="row py-3">
+                    <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11850.png"></div>
+                    <div class="col-md-7 para-alg">
+                      <p>Start here to create a new class. Classes are placed inside courses.</p>
+                      <p>You can place X classes in a course.</p>
+                      <p>You can work on the class and then add it to the single or multiple courses.</p>
+                    </div>
+                  </div>
+                  <div class="col-md-12 text-center px-5">
+                      <button  class="btn btn-primary start-btn">Start</button>
+                </div>
+                <!-- <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11850.png"></div>
                 <p class="notification-title">{{this.commonLabels.labels.signature}}</p>
-                <!-- <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
+                <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
                         title="Next"></i></button> -->
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="white-bg cp" (click)="notificationTypeUpdate('nonSignature')">
+        <div class="col-md-6 pt-4">
+            <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('nonSignature')">
                     <div class="nonsign-header-color clearfix p-1"></div>
-                    <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11852.png"></div>
+                    <h5 class="text-center pt-3">{{this.commonLabels.labels.nonSignature}}</h5>
+                    <div class="row py-3">
+                        <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11852.png"></div>
+                        <div class="col-md-7 para-alg">
+                          <p>Start here to create a new class. Classes are placed inside courses.</p>
+                          <p>You can place X classes in a course.</p>
+                          <p>You can work on the class and then add it to the single or multiple courses.</p>
+                        </div>
+                      </div>
+                      <div class="col-md-12 text-center px-5">
+                          <button  class="btn btn-primary start-btn">Start</button>
+                    </div>
+                
+                <!-- <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11852.png"></div>
                 <p class="notification-title">{{this.commonLabels.labels.nonSignature}}</p>
-                <!-- <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
+                <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
                         title="Next"></i></button> -->
             </div>
         </div>
