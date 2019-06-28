@@ -52,6 +52,8 @@ export class API_URL {
        'readNotification':'8103/user/readNotification',
        'updateSettings' : '8101/user/settings',
        'forgetPassword':'8101/mobileforgetPassword',
+       'uploadFiles':'8103/uploadFiles',
+
 
        //Training Schedule & Forum
        'getAllSchedule': '8103/schedule/getAllSchedules',

@@ -75,4 +75,21 @@ export class HttpProvider implements OnInit {
     return this.http.delete(this.API_ENDPOINT +params,  this.httpOptions). pipe(catchError(this.formatErrors));
   }
 
+   upload(params,data){
+     console.log(data,"FILEsdcds")
+     this.getHeaders();
+     this.API_ENDPOINT =  API['API_LINK'];
+     const formData = new FormData();
+     formData.append('file',data);
+     
+     console.log(formData)
+     this.httpOptions = {
+         headers: new HttpHeaders({
+             'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryuL67FWkv1CA',
+             'Authorization': this.currentUser
+         })
+     };
+     return this.http.post(this.API_ENDPOINT+params, formData,this.httpOptions).pipe(catchError(this.formatErrors));
+}
+
 }
