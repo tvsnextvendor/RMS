@@ -102,10 +102,10 @@ export class TrainingDetailPage {
     ionViewDidLoad() {
         this.prevBtn = this.initial == 0 ? true : false;
         this.setTraining = this.trainingDatas[0].File;
+        this.fileId = this.setTraining.fileId;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         this.text = this.setTraining.fileDescription;
     }
-
     //Find whether class is completed or not.
     findCompletedClass(){
        
@@ -162,6 +162,7 @@ export class TrainingDetailPage {
         'userId' : userId,
         'status': "completed"
         }
+        console.log(data);
         this.http.put(false,API_URL.URLS.fileTrainingStatus, data).subscribe((res) => {
         
         },(err) => {
