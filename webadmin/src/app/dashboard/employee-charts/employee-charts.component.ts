@@ -185,6 +185,11 @@ export class EmployeeChartsComponent implements OnInit {
   goToVideosTrend() {
     this.route.navigateByUrl('/videostrend');
   }
+  
+  //Navigate to certification trend list page
+  goTocertificationTrend(){
+    this.route.navigateByUrl('/certification/trend');
+  }
 
   //Navigate to employee status page
   goToEmpStatus() {

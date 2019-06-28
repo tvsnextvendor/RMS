@@ -29,6 +29,7 @@ export class CommonLabels{
         "uploadQuiz"        :   "Upload Quiz",
         "cancel"            :   "Cancel",
         "cmsLibrary"        :   "CMS Library",
+        "certificate"       :   "Certificate",
         "course"            :   "Course",
         "trainingClass"     :   "Training Class",
         "videos"            :   "Videos",

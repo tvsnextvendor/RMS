@@ -7,7 +7,7 @@ import { CertificatesComponent } from './certificates.component';
 import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ModalModule } from 'ngx-bootstrap';
-import { SanitizeHtmlPipe } from '../services/safeHtmlPipe';
+import { SharedModule } from '../shared/shared.module'
 
 const routes: Routes = [
   { path: 'certificates', component: CertificatesComponent, canActivate: [AuthGuard] },
@@ -19,12 +19,12 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgHttpLoaderModule.forRoot(),
     FormsModule,
+    SharedModule,
     CarouselModule,
     ModalModule.forRoot()
   ],
   declarations: [
     CertificatesComponent,
-    SanitizeHtmlPipe
   ],
   bootstrap: [CertificatesComponent]
 })

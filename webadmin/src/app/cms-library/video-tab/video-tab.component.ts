@@ -132,6 +132,7 @@ constructor(private courseService: CourseService,
       this.courseService.getEditCourseDetails('Video', this.selectedCourse,this.selectedClass).subscribe(resp => {
         if(resp && resp.isSuccess){
           let files = (resp.data.length && resp.data) ? resp.data :[];
+          console.log(this.fileList);
          // let files = resp.data.length && resp.data[0].CourseTrainingClassMaps.length && resp.data[0].CourseTrainingClassMaps[0].TrainingClass && resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files.length ? resp.data[0].CourseTrainingClassMaps[0].TrainingClass.Files : [] ;
           if(this.fileList){
            files.map(x=>{
@@ -182,6 +183,7 @@ constructor(private courseService: CourseService,
       query: query
     }
     let selectedVideos = this.fileService.getSelectedList('Video');
+    console.log(selectedVideos, "SELECTED VIDEOS");
     this.courseService.getFiles(params).subscribe(resp => {
       if (resp && resp.isSuccess) {
         this.totalVideosCount = resp.data.count;
@@ -190,7 +192,11 @@ constructor(private courseService: CourseService,
           this.videoListValue = [];
         }else{
           this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
+          console.log(this.videoListValue, "VideoLISTVALUE");
+          
           _.merge(this.videoListValue, selectedVideos);
+          console.log(this.videoListValue, "MERGEDVALUE");
+          
         }
         this.uploadPath = resp.data.uploadPaths.uploadPath;
       }
