@@ -247,16 +247,15 @@ export class UserComponent implements OnInit {
     }
 
     openAddRole(template: TemplateRef<any>, data, index) {
-
-        // if(data){
-        this.errorValidation = true;
-        this.roleError = false;
-        this.duplicateError = '';
-        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
-        //    }else{
-        // this.resetFields();   
-        // this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
-        //    }
+        if(data == 'bulk'){
+            this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+        }
+        else{
+            this.errorValidation = true;
+            this.roleError = false;
+            this.duplicateError = '';
+            this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+        }
     }
 
 
@@ -604,9 +603,11 @@ export class UserComponent implements OnInit {
         if (fileUploadValue) {
             this.userService.bulkUpload(fileUploadValue, userId, resortId).subscribe(resp => {
                 if (resp && resp.isSuccess) {
+                    this.constant.modalRef.hide();
                     this.userList();
                     this.fileUploadValue = '';
-                    this.alertService.success(resp.message)
+                    this.alertService.success(resp.message);
+                    
                 }
             }, err => {
                 console.log(err.error.error);
@@ -937,5 +938,8 @@ export class UserComponent implements OnInit {
         else {
             this.enableRolePermission = false;
         }
+    }
+    bulkUploadDownload(){
+        console.log("Bulk upload download");
     }
 }
