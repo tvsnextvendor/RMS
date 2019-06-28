@@ -9,6 +9,7 @@ import { API_URL } from '../../constants/API_URLS.var';
 import { API } from '../../constants/API.var';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+//import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 
 @IonicPage({
@@ -162,11 +163,24 @@ export class TrainingDetailPage {
         'userId' : userId,
         'status': "completed"
         }
-        console.log(data);
         this.http.put(false,API_URL.URLS.fileTrainingStatus, data).subscribe((res) => {
         
         },(err) => {
         });
+    }
+    completedViewOperation(fileId){
+        let userId = this.currentUser ? this.currentUser.userId : 8;
+        let data={
+        'courseId' :this.courseId,
+        'trainingClassId' :  this.trainingClassId,
+        'fileId' : fileId,
+        'userId' : userId,
+        'status': "completed"
+        }
+        this.http.put(false,API_URL.URLS.fileTrainingStatus, data).subscribe((res) => {       
+        },(err) => {
+        });
+
     }
 
     videoFailed(event){
@@ -284,7 +298,10 @@ export class TrainingDetailPage {
        
         return fileLink;
     }
-    viewContent(docFile) {
+    viewContent(setTraining,filePath) {
+        let docFile = filePath;
+        let docFileId = setTraining.fileId;
+       
         // allowed files PPT, .TXT, MP4, .JPG, .DOC, MPEG, AVI
         // Doc Viewed Files PPT,TXT,DOC
         //if (this.agree) {
@@ -326,7 +343,8 @@ export class TrainingDetailPage {
                 // });
              console.log(baseUrl + docFile)
              let target = '_blank';
-             window.open(baseUrl + docFile, target);	
+             window.open(baseUrl + docFile, target);
+             this.completedViewOperation(docFileId);	
              //this.document.viewDocument(baseUrl + docFile, docType , options)
              //this.webView.convertFileSrc(baseUrl + docFile)
              
