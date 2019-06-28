@@ -196,6 +196,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   }
 
   redirectTab(value){
+    // debugger;
     this.trainingClassId = '';
     this.courseId = '';
     if(value){

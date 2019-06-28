@@ -106,7 +106,7 @@
 										<span class="option-btn" *ngIf="oi===1">{{commonLabels.labels.b}}</span>
 										<span class="option-btn" *ngIf="oi===2">{{commonLabels.labels.c}}</span>
 										<span class="option-btn" *ngIf="oi===3">{{commonLabels.labels.d}}</span>
-										<input type="text" class="form-control pdl27" placeholder="" name="optionValue.value{{i}}" [(ngModel)]="optionValue.optionName"  #options="ngModel" required>
+										<input type="text" class="form-control pdl27" placeholder="" name="optionValue.value{{oi}}" [(ngModel)]="optionValue.optionName"  #options="ngModel" required>
 										<!-- <span class="required_color" *ngIf="options.invalid && (quizForm.submitted || options.touched)">
 											Option {{oi+1}} {{commonLabels.mandatoryLabels.isRequired}}
 										</span> -->
