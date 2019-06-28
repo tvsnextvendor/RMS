@@ -171,6 +171,7 @@ padding: 0 11px;
 .course-count{
   text-align: right;
   color: #948f8f;
+  cursor: pointer;
 }
 .view-alg{
   font-size: 14px;
