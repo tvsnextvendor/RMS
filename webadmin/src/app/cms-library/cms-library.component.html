@@ -61,7 +61,7 @@
                     <app-quiz-tab [trainingClassId] = "trainingClassId" [courseId] = "courseId" [directTabEnable] = "quizTabHit" [uploadPage]="hideSection" [disableEdit]="disableEdit" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"></app-quiz-tab>
                 </div>
                 <div  *ngIf = "selectedTab === 'workInprogress' && !hideSection " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'workInprogress' ? 'active show' : 'nav-link')">
-                    <app-work-inprogress-tab [CMSFilterSearchEventSet]="CMSFilterSearchEvent"></app-work-inprogress-tab>
+                    <app-work-inprogress-tab [CMSFilterSearchEventSet]="CMSFilterSearchEvent" (trainingClassListTab) = "redirectTab($event)"></app-work-inprogress-tab>
                 </div>
                 <div  *ngIf = "selectedTab === 'recentDelete' && !hideSection " id="recentDelete" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'recentDelete' ? 'active show' : 'nav-link')">
                     <app-recent-delete-tab [CMSFilterSearchEventSet]="CMSFilterSearchEvent"></app-recent-delete-tab>
