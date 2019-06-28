@@ -563,6 +563,7 @@ export class AddModuleComponent implements OnInit {
     this.moduleVar.videoId = '';
     this.message = '';
     this.videoMessage = '';
+    this.quizName = '';
     this.courseSubmitted = false;
     if(this.quiz && add){
         let data = [];

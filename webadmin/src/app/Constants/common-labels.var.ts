@@ -169,7 +169,7 @@ export class CommonLabels{
         "createNotification":   "Create Notification",
         "scheduleTraining"  :   "Schedule A Training",
         "createCourse"      :   "Create Course",      
-        "acceptedFileTypes" :   "Accepted file types: PPT, TXT, MP4, JPG, DOC, MPEG, AVI",
+        "acceptedFileTypes" :   "Accepted file types: TXT, MP4, JPG, DOC, MPEG, AVI",
         "from"              :   "Assigned Date",
         "to"                :   "Due Date",
         "batchName"         :   "Training Schedule Name",        
