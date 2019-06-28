@@ -1,0 +1,82 @@
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
+<div class="row">
+  <div class="col-md-12 p-0">
+    <!-- <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()"
+      [(ngModel)]="trendsVar.years">
+      <option value=''>Year</option>
+      <option *ngFor="let years of trendsVar.yearsList" [value]="years.year">{{years.year}}</option>
+      <div class="select_arrow"></div>
+    </select>
+    <select class="vdo-btn mr-3 select select-style clearfix" id="month" name="month" (change)="onChangeMonth()"
+      [(ngModel)]="trendsVar.months">
+      <option value=''>Month</option>
+      <option *ngFor="let months of trendsVar.monthsList" [value]="months.id">{{months.month}}</option>
+      <div class="select_arrow"></div>
+    </select> -->
+  </div>
+  <div class="table-responsive custom-table2 mt-3">
+    <table class="table white-bg table-striped" [mfData]="trendList" #mf="mfDataTable"
+      [mfRowsOnPage]="(pageLimit.length ? pageLimit : 5)">
+      <thead>
+        <tr class="th-boxshadow">
+          <th>
+            <mfDefaultSorter by="userId">{{commonLabels.labels.userName}}<span class="ml-2"><img 
+              src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="courseName">{{commonLabels.labels.courseName}}<span class="ml-2"><img
+                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="trainingClass">{{commonLabels.labels.trainingClass}}<span class="ml-2"><img
+                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="badge">{{commonLabels.labels.badge}}<span class="ml-2"><img
+                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+          </th>
+          <th class="text-center">
+            <mfDefaultSorter by="certificate">{{commonLabels.labels.certificate}}<span class="ml-2"><img
+                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+          </th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="video-trend-desc" *ngFor="let list of trendList">
+          <td class="vdo-desc-height">
+            {{list.userId}}
+          </td>
+          <td class="vdo-desc-height">
+            <span *ngIf="list.Course">{{list.Course.courseName}}</span>
+            <span *ngIf="!list.Course">-</span>
+          </td>
+          <td class="vdo-desc-height">
+             <span *ngIf="list.TrainingClass">{{list.TrainingClass.trainingClassName}}</span>
+             <span *ngIf="!list.TrainingClass">-</span>
+          </td>
+          <td class="vdo-desc-height">
+           <span *ngIf="list.Badge"> {{list.Badge.badgeName}}</span>
+           <span *ngIf="!list.Badge">-</span>
+          </td>
+          <td class="vdo-desc-height text-center">
+            <div [innerHTML]="list.certificateGenerated  | sanitizeHtml:'html'" width="50%" height="50"></div>
+          </td>
+        </tr>
+        <tr *ngIf="trendList?.length == 0">
+          <td colspan="10">
+            <p class="text-center data-design p-5">
+              <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="col-md-12 p-0 text-center mt-3">
+    <button class="btn btn-primary creat-btn" (click)="location.back()">{{commonLabels.btns.back}}</button>
+  </div>
+</div>

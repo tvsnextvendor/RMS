@@ -6,6 +6,8 @@ import {SideBarComponent} from './sidebar/sidebar.component';
 import {HeaderComponent} from './header/header.component';
 import {ModuleDropdownComponent} from './header/module-dropdown';
 import { FormsModule} from '@angular/forms';
+import { SanitizeHtmlPipe } from './safeHtmlPipe';
+
 
 @NgModule({
   imports: [
@@ -16,12 +18,14 @@ import { FormsModule} from '@angular/forms';
   declarations: [
      SideBarComponent,
      HeaderComponent,
+     SanitizeHtmlPipe,
      SharedComponent,
      ModuleDropdownComponent
   ],
      exports: [SideBarComponent,
      HeaderComponent,
      SharedComponent,
+     SanitizeHtmlPipe,
      ModuleDropdownComponent],
 
   bootstrap: [SharedComponent]

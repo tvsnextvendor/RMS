@@ -35,6 +35,7 @@ import { ApprovalrequestsModule } from './approvalrequests/approvalrequests.modu
 import { ArchivalSettingModule } from './archival-setting/archival-setting.module';
 import { FeedBackModule } from './feedback/feedback.module';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
+import { CertificationTrendModule } from './certification-trend/certification-trend.module';
 
 
 
@@ -50,11 +51,7 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     ResetpasswordComponent,
-    AlertComponent,
-    
-    
-    
-    
+    AlertComponent 
   ],
   imports: [
     BrowserModule,
@@ -84,6 +81,7 @@ const routes: Routes = [
     ApprovalrequestsModule,
     ArchivalSettingModule,
     FeedBackModule,
+    CertificationTrendModule,
     MalihuScrollbarModule.forRoot(),
     
   ],

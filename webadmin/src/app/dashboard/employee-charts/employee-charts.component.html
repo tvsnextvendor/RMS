@@ -162,15 +162,10 @@
                 {{commonLabels.labels.certificationTrend}}
               <select class="select-btn select select-style clearfix" (click)="onChangeCertYear()" [(ngModel)]="dashboardVar.certYear">
                   <option *ngFor="let year of dashboardVar.yearList" value="{{year.year}}">{{year.year}}</option>
-              <!-- <i class="fa fa-chevron-down" aria-hidden="true"></i> --><div class="select_arrow"></div>
+                 <div class="select_arrow"></div>
             </select>
             </h6>
-            <div *ngIf="dashboardVar.certificationTrend" class="trend-sec" id="certificationTrend"  (click)="certificationTrend()" ></div>
-             <!-- <div class="avg-qualification">
-              <p class="avg-qua-header">{{dashboardVar.avgQualification}}</p>
-              <div class="percentage-alg">{{dashboardVar.certificationTrend.avgQualification}}</div>
-              <p class="para-alg">{{dashboardVar.emp}}</p>
-            </div> -->     
+            <div *ngIf="dashboardVar.certificationTrend" class="trend-sec" id="certificationTrend"  (click)="goTocertificationTrend()" ></div>    
           </div>
         </div>
       </div>
