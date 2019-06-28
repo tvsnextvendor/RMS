@@ -466,7 +466,7 @@ export class AddModuleComponent implements OnInit {
             this.moduleVar.selectedCourseIds = [];
             if (newTrainingClass.id !== '') {
                 this.selectedCourses.push(newTrainingClass);
-                this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
+                this.selectedCourses.length ? this.moduleVar.selectedCourseIds = this.selectedCourses.map(item=>{return item.id}) : this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
                 data.courseUpdate ? this.submitForm(true) : this.submitForm(false);
             }
             // data.submitCheck ? this.submitForm(true) :this.courseData(); 
