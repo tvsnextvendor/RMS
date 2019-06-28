@@ -233,7 +233,13 @@ th.action-hd {
 .ml-10{
     margin-left: 10px;
 }
-
+.download-para{
+    display: inline-block;
+}
+.download-alg{
+    color: #948f8f;
+    font-weight: 600;
+}
 @media (max-width:767px){
     .group-section-bx{
         margin-left: 50%;
