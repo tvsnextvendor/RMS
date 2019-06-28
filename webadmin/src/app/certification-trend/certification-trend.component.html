@@ -1,7 +1,7 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class="row">
-  <div class="col-md-12 p-0">
-    <!-- <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()"
+<div class="">
+  <!-- <div class="col-md-12 p-0">
+    <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()"
       [(ngModel)]="trendsVar.years">
       <option value=''>Year</option>
       <option *ngFor="let years of trendsVar.yearsList" [value]="years.year">{{years.year}}</option>
@@ -12,8 +12,8 @@
       <option value=''>Month</option>
       <option *ngFor="let months of trendsVar.monthsList" [value]="months.id">{{months.month}}</option>
       <div class="select_arrow"></div>
-    </select> -->
-  </div>
+    </select>
+  </div> -->
   <div class="table-responsive custom-table2 mt-3">
     <table class="table white-bg table-striped" [mfData]="trendList" #mf="mfDataTable"
       [mfRowsOnPage]="(pageLimit.length ? pageLimit : 5)">
@@ -60,7 +60,7 @@
            <span *ngIf="!list.Badge">-</span>
           </td>
           <td class="vdo-desc-height text-center">
-            <div [innerHTML]="list.certificateGenerated  | sanitizeHtml:'html'" width="50%" height="50"></div>
+            <div  class="certificate-table-alg" [innerHTML]="list.certificateGenerated  | sanitizeHtml:'html'"></div>
           </td>
         </tr>
         <tr *ngIf="trendList?.length == 0">

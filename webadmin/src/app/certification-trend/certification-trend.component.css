@@ -69,3 +69,8 @@
 .creat-btn{
   float: none;
 }
+.certificate-table-alg{
+  width: 87%;
+    float: right;
+    height: 200px;
+}
