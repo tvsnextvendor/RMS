@@ -414,7 +414,8 @@ export class CommonLabels{
         "pdf"               :   "PDF",
         "start"             :   "Start",
         "addSchedule"       :   "Add Schedule",
-        "recentDelete"      :   "Recently Deleted"
+        "recentDelete"      :   "Recently Deleted",
+        "editQuiz"          :   "Edit Quiz",
         
        
     };

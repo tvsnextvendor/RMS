@@ -55,8 +55,8 @@ export class CreateQuizComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.headerService.setTitle({title:this.commonLabels.labels.create, hidemodule:false});
-    let data = [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.labels.createQuiz,url:''}]
+    this.quizId ? this.headerService.setTitle({title:this.commonLabels.labels.edit, hidemodule:false}) : this.headerService.setTitle({title:this.commonLabels.labels.create, hidemodule:false});
+    let data = this.quizId ? [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.btns.editQuiz,url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.labels.createQuiz,url:''}]
     this.breadCrumbService.setTitle(data)
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },

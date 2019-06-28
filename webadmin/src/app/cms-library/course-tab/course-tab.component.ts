@@ -421,6 +421,12 @@ export class CourseTabComponent implements OnInit {
     };
     this.commonService.saveAsNew(this.selectedEditCourse, params).subscribe(result => {
       console.log(result, 'result');
+      if(result && result.isSuccess){
+        this.alertService.success(result.message);
+
+      }
+    },err=>{
+      this.alertService.error(err.error.error);
     });
   }
   removeCourse() {
