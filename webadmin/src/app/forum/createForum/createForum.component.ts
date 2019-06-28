@@ -289,7 +289,8 @@ export class CreateForumComponent implements OnInit {
       });
     });
     // console.log(this.department['departments'], 'departmentlistSelected');
-    if (this.forumVar.forumName && this.forumVar.forumAdmin && this.forumVar.startDate && this.forumVar.endDate &&  !this.forumVar.uniqueValidate && this.assignList.length && !topicEmpty) {
+    let dateCheck = this.forumVar.startDate < this.forumVar.endDate ? true : false;
+    if (this.forumVar.forumName && this.forumVar.forumAdmin && this.forumVar.startDate && this.forumVar.endDate &&  !this.forumVar.uniqueValidate && this.assignList.length && !topicEmpty && dateCheck) {
       const postData = {
         forum: {
           forumName: this.forumVar.forumName,
@@ -362,6 +363,9 @@ export class CreateForumComponent implements OnInit {
       }
       // this.clearForm(form);
       // this.forumVar.uniqueValidate = false;
+    }
+    else if (this.forumVar.forumName && this.forumVar.forumAdmin && this.forumVar.startDate && this.forumVar.endDate &&  !this.forumVar.uniqueValidate && this.assignList.length && !topicEmpty && !dateCheck){
+      this.alertService.error('Start date should be less than end date');
     }
     else if(topicEmpty){
       this.alertService.error('Please fill the all topic fields');
