@@ -149,7 +149,7 @@ export class Constant {
 
         },
         feedbackLabels:{
-           feedbackType: 'Select Type Of Feedback',
+           feedbackType: 'Select type of feedback',
            compliment:'Compliment',
            suggestion:'Query or Suggestion',
            complaint:'Complaint',
