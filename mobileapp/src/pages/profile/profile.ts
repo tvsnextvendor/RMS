@@ -33,6 +33,8 @@ export class ProfilePage implements OnInit {
   showToastr=false;
   msgTitle;
   msgDes;
+  previewProfilePic;
+  profileFile;
 
   constructor(public navCtrl: NavController,public http: HttpProvider
   ,public navParams: NavParams ,public toastr: ToastrService,public storage: Storage, public constant: Constant) {
@@ -66,21 +68,12 @@ export class ProfilePage implements OnInit {
 
   getUserProfile(){
     let userId = this.currentUser.userId;
-    console.log(API_URL.URLS.getProfile+'?userId=');
     this.http.get(API_URL.URLS.getProfile+'?userId='+userId).subscribe((res)=>{
        if(res['isSuccess']){
          this.profileDetail = res['data']['rows'][0];
          this.profile.userName = this.profileDetail.userName;
          this.profile.mobile = this.profileDetail.phoneNumber;
          this.profile.email = this.profileDetail.email;
-        //  this.profileDetail.ResortUserMappings.map(key =>{
-        //     if(key.Designation){
-        //       this.designation= key.Designation.designationName+',';
-        //     }
-        //     console.log(this.designation)
-        //     this.designation = this.removeComma(this.designation)
-        //     console.log(this.designation)
-        //  })
        }
     })
   }
@@ -111,33 +104,44 @@ export class ProfilePage implements OnInit {
     })
   }
 
+ //Image upload
+  uploadImg(e) {
+   let reader = new FileReader();
+   let fileName;
+   if (e.target && e.target.files[0]) {
+       let file = e.target.files[0];
+       this.profileFile = file;
+       reader.onloadend = () => {
+           this.previewProfilePic = reader.result;
+       }
+       reader.readAsDataURL(file);
+   }
+  this.http.upload(API_URL.URLS.uploadFiles, this.profileFile).subscribe(res => {
+       if(res.isSuccess){
+        //  this.previewProfilePic = '';
+        //  this.updateProfilePic();
+       }
+    })
+  }
 
-  uploadImg(fileLoader) {
-      fileLoader.click();
-      var that = this;
-      fileLoader.onchange = function () {
-        var file = fileLoader.files[0];
-        var reader = new FileReader();
-
-        reader.addEventListener("load", function () {
-          that.processing = true;
-          that.getOrientation(fileLoader.files[0], function (orientation) {
-            if (orientation > 1) {
-              that.resetOrientation(reader.result, orientation, function (resetBase64Image) {
-                that.uploadImage = resetBase64Image;
-              });
-            } else {
-              that.uploadImage = reader.result;
-              console.log(this.uploadImage,"Upload Image");
-            }
-          });
-        }, false);
-
-        if (file) {
-          reader.readAsDataURL(file);
-        }
-      }
+  updateProfilePic(){
+    let postData = {
+       "userImage" : this.previewProfilePic
     }
+    this.http.put(false, API_URL.URLS.updateProfile + userId, postData).subscribe((res) => {
+        if (res['isSuccess']) {
+            // this.content.scrollToTop();
+            // this.showToastr = true;
+            // this.className = "notify-box alert alert-success";
+            // this.msgTitle = "Success";
+            // this.msgDes = res['result'];
+            // let self = this;
+            // setTimeout(function() {
+            //     self.navCtrl.setRoot('home-page');
+            // }, 3000);
+        }
+    })
+  }
 
 
     getOrientation(file, callback) {

@@ -19,15 +19,13 @@
 	<form novalidate (ngSubmit)="updateProfile()" [formGroup]="profileForm" class="profile-details">
 		<div class="profile-img">
 			<div class="profile-img-sec">
-			<input type="file" id="fileLoader" #fileLoader name="files" title="Load File" hidden />
-			<!-- <span *ngIf="uploadImage != null"> -->
-		   <img src="assets/images/images1.jpeg" class="profile-image">
-			<!-- </span> -->
+			<input type="file" id="fileLoader" #fileLoader name="profilePic" title="Load File" [(ngModel)]="profilePic" accept="image/*" [ngModelOptions]="{standalone: true}" (change)="uploadImg($event)"  hidden/>
+		    <img [src]="previewProfilePic" class="profile-image">
 			<div class="upload-icon">
-					<a class="pro-icon" (click)="uploadImg(fileLoader)">
+					<a class="pro-icon" (click)="fileLoader.click()" >
 							<ion-icon name="camera"></ion-icon>
 					</a>
-					</div>
+			</div>
 			</div>
 			<h4 class="profile-name">
 				<a data-toggle="collapse" href="#collapseExample" role="button">{{profile.userName}}</a></h4>
