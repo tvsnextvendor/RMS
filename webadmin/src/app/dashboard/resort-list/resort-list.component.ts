@@ -31,7 +31,8 @@ export class ResortListComponent implements OnInit {
     public commonLabels : CommonLabels,
     private pdfService:PDFService,
     private excelService:ExcelService,
-    public location :Location) {
+    public location :Location,
+    private utilService :UtilService) {
     this.resortVar.url = API_URL.URLS;
   }
 
@@ -42,7 +43,9 @@ export class ResortListComponent implements OnInit {
   }
 
   getResortDetails(){
-    let query = '';
+    let user = this.utilService.getUserData();
+    let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
+    let query = '?resortId='+resortId;
     this.commonService.getTopFiveResort(query).subscribe((result) => {  
       if(result && result.isSuccess){
         this.resortList = result.data.rows;

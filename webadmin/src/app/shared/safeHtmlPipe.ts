@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml,SafeStyle,SafeScript,SafeUrl,SafeResourceUrl } from '@angular/platform-browser';
 
 @Pipe({
   name: 'sanitizeHtml'
@@ -25,6 +25,6 @@ export class SanitizeHtmlPipe implements PipeTransform {
           throw new Error(`Unable to bypass security for invalid type: ${type}`);
       }
     }
-    
+
 }
 
