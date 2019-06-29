@@ -29,7 +29,7 @@ export class CertificationTrendComponent implements OnInit {
   getTrendList() {
           this.commonService.getCertificateTrendList().subscribe((res) => {
             if(res.isSuccess){
-            this.trendList = res.data;
+            this.trendList = res.data.rows;
             }
         });
     }
