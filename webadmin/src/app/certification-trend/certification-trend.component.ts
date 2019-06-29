@@ -16,7 +16,7 @@ export class CertificationTrendComponent implements OnInit {
 
 
  
-  constructor(private location:Location,private commonService: CommonService, private commonLabels: CommonLabels) {
+  constructor(public location:Location,private commonService: CommonService, public commonLabels: CommonLabels) {
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[0]];
     

@@ -17,9 +17,9 @@
                 <span class="float-right">
                   
                     <a  title="Send Approval" *ngIf="roleId === 4 && !schedulePage" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
-                    <a  *ngIf="iconEnable" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"
+                    <a  *ngIf="iconEnable && userData.userId == courses.createdBy" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"
                             (click)="enableDropData('edit',i,courses)"></i></a>
-                    <a *ngIf="iconEnable" title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
+                    <a *ngIf="iconEnable && userData.userId == courses.createdBy" title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
                     <a>
                         <span (click)="disableView(i)">
                             <i *ngIf="enableView && enableIndex === i" class="fa fa-angle-down icons_header p-0"
@@ -107,7 +107,7 @@
                             <div class="" *ngIf="completedCount != 0" [style.width.%]="completedCount">{{commonLabels.labels.completed}}</div>
                         </div>
                     </div>
-                    <div *ngIf="iconEnable" class="pt-3 clearfix">
+                    <div *ngIf="iconEnable  && userData.userId == courses.createdBy" class="pt-3 clearfix">
                         <button class="btn btn-primary" type="button" (click)="enableDropData('duplicate',i,courses)">{{commonLabels.labels.duplicate}}</button>
                     </div>
                 </div>

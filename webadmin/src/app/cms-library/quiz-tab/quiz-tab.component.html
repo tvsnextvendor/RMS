@@ -111,8 +111,8 @@
                             </div>
                     </div>
                     <div class="col-md-1 p-0">
-                        <a *ngIf="data.enableEdit === false && iconEnable" (click)="editQuizEnable(i)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
-                        <a *ngIf="data.enableEdit === false && iconEnable" (click)="removeQuiz(deleteQuiz,data)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
+                        <a *ngIf="data.enableEdit === false && iconEnable && editIconHide" (click)="editQuizEnable(i)" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true"></i></a>
+                        <a *ngIf="data.enableEdit === false && iconEnable && editIconHide" (click)="removeQuiz(deleteQuiz,data)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                         <a *ngIf="data.enableEdit === true" (click)="quizSubmit(data.Question,i)" class="mr-2"><img src="{{commonLabels.imgs.ok}}" class="upload-crt-icon"></a>
                         <a *ngIf="data.enableEdit === true" (click)="cancelQuizSubmit(i)"><img src="{{commonLabels.imgs.cancel}}"></a>
                     </div>          

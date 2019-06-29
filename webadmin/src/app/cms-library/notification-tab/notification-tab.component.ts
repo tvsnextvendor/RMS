@@ -30,7 +30,7 @@ export class NotificationTabComponent implements OnInit {
   @Input() CMSFilterSearchEventSet;
   resourseLib = false;
   iconEnable = true;
-
+  userData;
 
   constructor(private breadCrumbService : BreadCrumbService,private fileService: FileService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ) {
     let roleId = this.utilService.getRole();  
@@ -57,9 +57,10 @@ export class NotificationTabComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
-    let userData= this.utilService.getUserData();
+    this.userData = this.utilService.getUserData() && this.utilService.getUserData();
+    // let userData = this.utilService.getUserData();
     this.roleId = this.utilService.getRole();
-    this.resortId = userData.ResortUserMappings.length &&  userData.ResortUserMappings[0].Resort.resortId;
+    this.resortId = this.userData.ResortUserMappings.length &&  this.userData.ResortUserMappings[0].Resort.resortId;
     this.getNotificationData();
   }
 
