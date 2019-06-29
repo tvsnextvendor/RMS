@@ -136,16 +136,25 @@ export class UserComponent implements OnInit {
 
             
         })
-        this.commonService.getCreatedByDetails().subscribe(result => {
-            if (result && result.isSuccess) {
-                this.designationArrays = result.data && result.data;
+        // this.commonService.getCreatedByDetails().subscribe(result => {
+        //     if (result && result.isSuccess) {
+        //         this.designationArrays = result.data && result.data;
+        //     } else {
+        //         this.designationArrays = [];
+        //     }
+
+        const userId = this.utilService.getUserData().userId;
+        this.userService.getUser(userId).subscribe((resp) => {
+                if (resp.isSuccess) {
+                this.designationArrays = resp.data.rows.length ? resp.data.rows : [];
             } else {
                 this.designationArrays = [];
             }
+        });
 
             // console.log(this.designationArray);
             // debugger;
-        });
+        // });
 
         this.roles = [{
             designationName: ''
@@ -611,6 +620,7 @@ export class UserComponent implements OnInit {
                 }
             }, err => {
                 console.log(err.error.error);
+                this.constant.modalRef.hide();
                 this.fileUploadValue = '';
                 this.alertService.error(err.error.error);
             })
