@@ -43,6 +43,8 @@ export class CreateQuizComponent implements OnInit {
   quizId;
   userData;
   resortId;
+  answerEmpty = false;
+  optionEmpty = false;
 
   constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
     public commonLabels:CommonLabels,public location : Location,private breadCrumbService : BreadCrumbService,private utilService :UtilService) {
@@ -188,10 +190,24 @@ export class CreateQuizComponent implements OnInit {
   // Quiz Submission
   quizSubmit(submitType) {
     //Weightage update   
+    this.answerEmpty = false;
+    this.optionEmpty = false;
       let data = this.quizQuestionsForm.map(item => {
+          console.log(item)
+          if(item.questionType !=  "True/False" && !item.answer){
+            this.answerEmpty = true;
+          }
+          if(item.questionType == 'MCQ'){
+            item.options.forEach(data=>{
+              if(!data.optionName){
+                this.optionEmpty = true;
+              }
+            })
+          }
           item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
           return item;
       })
+    if(!this.answerEmpty && !this.optionEmpty)  
      if(this.quizId){
       let postData= {
         quizId : this.quizId,
@@ -219,6 +235,12 @@ export class CreateQuizComponent implements OnInit {
           this.alertService.success(res.message);
         } 
       })
+    }
+    else if(this.answerEmpty ){
+      this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
+    }
+    else if(this.optionEmpty){
+      this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
     }
   }
 
