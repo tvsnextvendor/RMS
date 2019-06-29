@@ -35,6 +35,7 @@ export class DocumentTabComponent implements OnInit {
   uploadPath;
   iconEnable = true;
   resourceLib = false;
+  userData;
  
 
   @Input() CMSFilterSearchEventSet;
@@ -61,6 +62,7 @@ export class DocumentTabComponent implements OnInit {
     this.pageSize = 10;
     this.page=1;
     let roleId = this.utilService.getRole();
+    this.userData = this.utilService.getUserData().userId;
     if(window.location.pathname.indexOf("resource") != -1){
       let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.documents,url:''}];
       this.breadCrumbService.setTitle(data);

@@ -21,6 +21,7 @@ export class TraingClassTabComponent implements OnInit {
   enableClassEdit = false;
   editTrainingCourseId;
   TrainingList: any;
+  userData;
   iconEnable = true;
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
@@ -30,6 +31,7 @@ export class TraingClassTabComponent implements OnInit {
   ngOnInit() {
     this.pageLength = 10;
     this.currentPage = 1;
+    this.userData = this.utilService.getUserData().userId;
     let roleId = this.utilService.getRole();
     let resourceLib = false;
     if (window.location.pathname.indexOf("resource") != -1) {

@@ -60,6 +60,7 @@ export class RecentDeleteTabComponent implements OnInit {
   completedCount;
   iconEnable = true;
   resourceLib = false;
+  userData;
 
   constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private route :Router) {
     let roleId = this.utilService.getRole(); 
@@ -90,6 +91,7 @@ export class RecentDeleteTabComponent implements OnInit {
   
 
   ngOnInit() {
+    this.userData = this.utilService.getUserData().userId; 
     this.pageSize = 10;
     this.p=1;
     this.enableDropData('closeEdit','')

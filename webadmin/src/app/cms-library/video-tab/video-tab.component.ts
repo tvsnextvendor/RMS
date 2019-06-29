@@ -46,6 +46,7 @@ errorValidate = false;
 @Output() selectedVideos  = new EventEmitter<object>();
 resourceLib = false;
 iconEnable = true;
+userData;
 
 constructor(private courseService: CourseService,
   private fileService:FileService,
@@ -67,6 +68,7 @@ constructor(private courseService: CourseService,
     this.pageSize = 10;
     this.page=1;
     let roleId = this.utilService.getRole(); 
+    this.userData = this.utilService.getUserData().userId;
     if(window.location.pathname.indexOf("resource") != -1){
       let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/resource/library'},{title : this.commonLabels.labels.videos,url:''}];
       this.breadCrumbService.setTitle(data);

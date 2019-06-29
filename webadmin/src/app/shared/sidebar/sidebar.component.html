@@ -82,8 +82,8 @@
             <li *ngIf="roleId == 2" [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
                 <a routerLink="/resortList">{{commonLabels.labels.resortDetails}}</a>
             </li>
-            <li class="">
-                <a>{{commonLabels.labels.certifiTrend}}</a>
+            <li [class.active]="router.isActive('/certification/trend')">
+                <a routerLink="/certification/trend">{{commonLabels.labels.certifiTrend}}</a>
             </li>
         </ul>  
         <li [class.active]="router.isActive('/resource/library')">

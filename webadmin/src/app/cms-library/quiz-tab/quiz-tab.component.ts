@@ -48,13 +48,14 @@ export class QuizTabComponent implements OnInit {
   totalQuizCount;
   resourceLib = false;
   iconEnable = true;
+  editIconHide = false;;
 
   constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService) { }
 
   ngOnInit() {
     this.pageLength=10;
     this.currentPage = 1;
-    let roleId = this.utilService.getRole();  
+    let roleId = this.utilService.getRole(); 
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
       { name: "True/False", value: "True/False" },
@@ -146,6 +147,7 @@ pageChanged(e) {
 
   editQuizDetails() {
     let QuizList;
+    let userData = this.utilService.getUserData().userId; 
     this.courseService.getTrainingClassQuiz(this.trainingClassId, this.courseId).subscribe((resp) => {
       if (resp && resp.isSuccess) {
         let responseQuiz = resp.data.quiz;
@@ -154,6 +156,10 @@ pageChanged(e) {
         this.trainingClassName = responseQuiz && responseQuiz.length && responseQuiz[0].QuizMappings[0].TrainingClass && responseQuiz[0].QuizMappings[0].TrainingClass.trainingClassName;
         let responseList = responseQuiz && responseQuiz.length && responseQuiz[0].QuizMappings;
         this.quizName= responseQuiz  && responseQuiz.length && responseQuiz[0].quizName;
+        let created = responseQuiz  && responseQuiz.length ? responseQuiz[0].createdBy : '';
+        if(created && userData == created){
+          this.editIconHide = true;
+        }
         QuizList = responseList && responseList.map(item => {
           item.enableEdit = false;
           return item;
