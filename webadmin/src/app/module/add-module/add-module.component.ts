@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { HttpService, HeaderService, UtilService, AlertService, CommonService, CourseService, BreadCrumbService, FileService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -9,6 +9,9 @@ import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
 import { API } from '../../Constants/api';
 import { CommonLabels } from '../../Constants/common-labels.var'
+// import { filter } from 'rxjs/operators';
+
+
 
 @Component({
     selector: 'app-add-module',
@@ -60,6 +63,7 @@ export class AddModuleComponent implements OnInit {
     @Input() selectedTab;
     userData;
     resortId;
+    previousUrl;
     // selectedCourseIds:any;
 
     constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels) {
@@ -77,19 +81,15 @@ export class AddModuleComponent implements OnInit {
         }
         this.labels = moduleVar.labels;
         this.moduleVar.title = this.moduleId ? this.commonLabels.labels.editCourse : this.commonLabels.labels.createCourse;
+
     }
 
     ngOnInit() {
+        // debugger;
         //this.resetForm();
         this.getquizList();
-        if (this.addedFiles && this.addedFiles.length > 0) {
-            let courseName = this.moduleVar.selectCourseName;
-            this.addCourse();
-            this.moduleVar.selectCourseName = courseName;
-            this.addedFiles.map(element => {
-                this.moduleVar.videoList.push(element)
-            })
-        }
+        this.appendFilesToVideoList(this.addedFiles);
+        
         this.moduleVar.api_url = API_URL.URLS;
         this.moduleVar.dropdownSettings = {
             singleSelection: false,
@@ -111,8 +111,40 @@ export class AddModuleComponent implements OnInit {
             this.updateCourse(data, '');
         }
         else {
-            // this.resetData();
+            // debugger;
+            // console.log(this.route);
+            // let curComp = this.fileService.getCurrentCompname();
+            // if(curComp != 'class'){
+            //     this.resetData();
+            // }   
+
+            // let currentUrl = this.route.url;
+            this.route.events.filter(event => event instanceof NavigationEnd)
+            .subscribe(e => {
+            //   console.log('cur:', currentUrl);
+            //   console.log('prev:', this.previousUrl);
+            //   this.previousUrl = e.url;
+                this.resetData();
+                this.fileService.emptyLocalFileList();
+                this.fileService.saveFileList();
+              this.addedFiles = [];
+            });
             this.courseData('');
+        }
+    }
+
+    // KR added this functionality 
+    // sepearte function created from ng onit - which is called for added files in create and edit training class
+    appendFilesToVideoList(addedFiles){
+        console.log("addedFiles", addedFiles);
+        if (addedFiles && addedFiles.length > 0) {
+            let courseName = this.moduleVar.selectCourseName;
+            this.addCourse();
+            this.moduleVar.selectCourseName = courseName;
+            this.addedFiles.map(element => {
+                console.log(element);
+                this.moduleVar.videoList.push(element)
+            })
         }
     }
 
@@ -378,6 +410,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     updateCourse(data, i) {
+        // debugger;
         if (this.staticTabs) {
             this.staticTabs.tabs[0].disabled = false;
             this.staticTabs.tabs[0].active = true;
@@ -390,7 +423,29 @@ export class AddModuleComponent implements OnInit {
             if (resp && resp.isSuccess) {
                 let classData = resp.data && resp.data.rows.length && resp.data.rows[0];
                 this.moduleVar.selectCourseName = classData.trainingClassName;
-                this.moduleVar.videoList = classData.FileMappings && classData.FileMappings.length && classData.FileMappings.map(items => { return items.File });
+                // debugger;
+                let preAddedFiles = this.fileService.selectedFiles();
+
+                if(preAddedFiles && preAddedFiles.length > 0){
+                    this.addedFiles = preAddedFiles;
+                    this.appendFilesToVideoList(preAddedFiles);
+                }else{
+                    this.moduleVar.videoList = classData.FileMappings && classData.FileMappings.length && classData.FileMappings.map(items => { 
+                        let fileArr  = items.File;
+                        fileArr['addNew'] = true;
+                        fileArr['selected'] = true;
+                        // return items.File 
+                        this.fileService.sendFileList('add',fileArr);
+                        return fileArr;
+                    });
+                    this.fileService.saveFileList();
+                    // preAddedFiles = this.fileService.selectedFiles();
+                }
+                // console.log(preAddedFiles);
+                // this.moduleVar.videoList = [];
+                
+               
+
                 this.tabEnable = true;
             }
             else {
