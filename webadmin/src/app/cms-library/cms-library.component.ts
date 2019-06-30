@@ -19,7 +19,8 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
     private alertService: AlertService,
     private route: Router, 
     private activatedRoute: ActivatedRoute,
-    private headerService: HeaderService) { }
+    private headerService: HeaderService) { 
+    }
 
   modalRef;
   videoFile;
@@ -50,6 +51,9 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   this.quizTabHit = false;
   this.notifyType = 'assignedToCourse';
   this.activatedRoute.queryParams.subscribe(params=>{
+
+    this.fileService.setCurrentCompname(params.tab);
+
     if(params.type && params.type == 'create'){
       this.disableEdit = false;
       this.disableTabs = false;
@@ -281,6 +285,7 @@ backClicked(){
       this.tabName =params.tab && params.tab == 'class' ? 'class' : 'course';
       this.hideSection = true;
       this.showcreatecourse = true;
+      // sendFileList
       this.fileService.emptyLocalFileList();
      }else if(params.type == 'edit'){
       this.selectedTab = 'course';

@@ -8,8 +8,11 @@ export class FileService {
 
     fileList = [];
     localFileList =[];
+    currentComp: string = '';
 
-    constructor() { }
+    constructor() {
+        this.currentComp = 'dummy';
+     }
 
     sendFileList(opr, file) {
         if (opr == 'add') {
@@ -42,6 +45,15 @@ export class FileService {
 
     emptyLocalFileList(){
       this.localFileList=[];
+    }
+
+    // set and get current component name
+    setCurrentCompname(tab){
+        this.currentComp = tab;
+    }
+
+    getCurrentCompname(){
+        return this.currentComp;
     }
 
 }
