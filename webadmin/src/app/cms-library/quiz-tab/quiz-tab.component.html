@@ -1,5 +1,8 @@
 <!--Quiz Tab Content -->
-    <div *ngIf="!enableQuizEdit" class="white-bg pt-4 pb-4">
+<div class="col-md-12 clearfix py-2 px-0" *ngIf="enableQuizEdit">
+    <h6 class="count-alg">{{commonLabels.labels.availableQuiz}}{{totalQuizCount}}</h6>
+</div>   
+<div *ngIf="!enableQuizEdit" class="white-bg pt-4 pb-4">
         <form >
             <div class="col-md-9 row m-auto top-select-bx">
                 <span *ngIf="!directTabEnable && courseName" class="col-md-5 form-control" style="margin-right: 40px;"> {{courseName}}</span>

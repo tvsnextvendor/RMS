@@ -48,7 +48,7 @@ export class QuizTabComponent implements OnInit {
   totalQuizCount;
   resourceLib = false;
   iconEnable = true;
-  editIconHide = false;;
+  editIconHide = false;
 
   constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService) { }
 

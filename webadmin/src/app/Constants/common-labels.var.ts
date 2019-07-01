@@ -345,6 +345,8 @@ export class CommonLabels{
         "createNewQuiz"     :   "Create New Quiz",
         "usageStats"        :   "Usage Stats",
         "availablecourse"   :    "Total Course:",
+        "availableNotification" : "Total Notification:",
+        "availableQuiz"     :   "Total Quiz:",
         "availabletrainingclass" : "Total Training Class:",
         "avaliablevideos"   :    "Total Videos:",
         "avaliabledocument" :    "Total Document:",
