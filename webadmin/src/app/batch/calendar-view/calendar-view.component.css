@@ -27,9 +27,9 @@
     margin: 8px;
     float: right;
 }
-.btn.btn-primary{
+/* .btn.btn-primary{
 	min-width: 0;
-}
+} */
 .btn-outline-secondary{
 	min-width: 0 !important;
 }
