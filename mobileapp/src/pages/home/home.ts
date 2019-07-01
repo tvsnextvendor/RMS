@@ -55,7 +55,7 @@ export class HomePage {
     this.interval = setInterval(() => {
         this.getDashboardInfo();
         this.getDashboardCount();
-    }, 20000);
+    }, 10000);
   }
 
 

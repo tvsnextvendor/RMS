@@ -38,7 +38,10 @@ export class Constant {
         submit: 'Submit',
         uploadContent : 'Upload Content',
         launch: 'LAUNCH',
-        ok : 'Ok'
+        ok : 'Ok',
+        done : 'Done',
+        viewContent : 'View Content',
+        calendar: 'Calendar'
     };
     pages = {
         loginLabels: {
