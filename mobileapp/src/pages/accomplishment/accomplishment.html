@@ -41,11 +41,11 @@
       <ion-card class="forum-card"  *ngFor="let item of certificateList;let i=index;">
         <ion-grid *ngIf="item.Badge">
           <ion-row>
-            <ion-col col-1  col-md-1 class="img-section">
+            <ion-col col-1  col-md-1 class="img-section pr-0">
               <div class="badge-img"><img src="assets/imgs/b2.png" class="forum-img"></div>
               <span class="badge-name">{{item.Badge.badgeName}}</span>
             </ion-col>
-            <ion-col col-10 col-md-10 class="mt-4">
+            <ion-col col-10 col-md-10 class="mt-4 px-0">
               <h4 class="forum-title" *ngIf="item.Course">{{item.Course.courseName}}</h4>
               <!-- <p class="forum-txt">Training Class Name</p> -->
             </ion-col>
