@@ -412,12 +412,15 @@ export class CourseTabComponent implements OnInit {
   }
 
   saveAsNew() {
+    let userData = this.utilService.getUserData();
+    let resortId = userData.ResortUserMappings.length && userData.ResortUserMappings[0].Resort.resortId;
     let params = {
       'trainingClassId': this.selectedEditTrainingClass,
       'courseName': this.selectedEditCourseName,
       'fileIds': this.deletedFileId,
       'files': this.fileList,
-      'createdBy': this.utilService.getUserData().userId
+      'createdBy': this.utilService.getUserData().userId,
+      'resortId' : resortId
     };
     this.commonService.saveAsNew(this.selectedEditCourse, params).subscribe(result => {
       console.log(result, 'result');
