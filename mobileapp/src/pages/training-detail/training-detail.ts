@@ -8,7 +8,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { API } from '../../constants/API.var';
 import { Storage } from '@ionic/storage';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser,InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 //import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 
@@ -62,6 +62,23 @@ export class TrainingDetailPage {
     status;
     currentUser;
     prevBtn;
+    options : InAppBrowserOptions = {
+        location : 'yes',//Or 'no' 
+        hidden : 'no', //Or  'yes'
+        clearcache : 'yes',
+        clearsessioncache : 'yes',
+        zoom : 'yes',//Android only ,shows browser zoom controls 
+        hardwareback : 'yes',
+        mediaPlaybackRequiresUserAction : 'no',
+        shouldPauseOnSuspend : 'no', //Android only 
+        closebuttoncaption : 'Close', //iOS only
+        disallowoverscroll : 'no', //iOS only 
+        toolbar : 'yes', //iOS only 
+        enableViewportScale : 'no', //iOS only 
+        allowInlineMediaPlayback : 'no',//iOS only 
+        presentationstyle : 'pagesheet',//iOS only 
+        fullscreen : 'yes',//Windows only    
+    };
 
     constructor(public navCtrl: NavController,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
         this.Math = Math;
@@ -89,6 +106,20 @@ export class TrainingDetailPage {
             }
         });
       }
+     
+
+      public openWithSystemBrowser(url : string){
+        let target = "_system";
+        this.iab.create(url,target,this.options);
+    }
+    public openWithInAppBrowser(url : string){
+        let target = "_blank";
+        this.iab.create(url,target,this.options);
+    }
+    public openWithCordovaBrowser(url : string){
+        let target = "_self";
+        this.iab.create(url,target,this.options);
+    }  
 
 
     // go to particular index

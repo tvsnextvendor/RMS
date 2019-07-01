@@ -15,7 +15,6 @@
         <div class="image-tag" *ngIf="imageType">
             <img src="{{showPreView}}" alt="image" class="inner-image">
         </div>
-
         <div class="video-tag" *ngIf="!imageType">
             <video #videoTag id="video-width" autoplay (ended)="videoEnded()" (error)="videoFailed(event)" class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
             playsinline class="videoPlayer" poster="{{uploadPath}}{{setTraining.fileImage}}">
@@ -45,21 +44,21 @@
                         <span class="view-button" *ngIf="imageType">
                                 <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
                                 (click)="viewContent(setTraining,filePath)">View Content </a>
+                                <!-- https://www.techiediaries.com-->
                             </span>
+                            <button ion-button (click)="openWithSystemBrowser('https://file-examples.com/wp-content/uploads/2017/10/file-example_PDF_1MB.pdf')">Open with System browser</button>
+                            <button ion-button (click)="openWithInAppBrowser('https://file-examples.com/wp-content/uploads/2017/10/file-example_PDF_1MB.pdf')">Open with In App browser</button>
+                            <button ion-button (click)="openWithCordovaBrowser('https://file-examples.com/wp-content/uploads/2017/10/file-example_PDF_1MB.pdf')">Open with Cordova browser</button>
                 </ion-col>
             </ion-row>  
         </ion-grid>
     </ion-card-title>
-    
-
     <!-- <div class="checkbox-item clearfix" *ngIf="imageType">
         <label class="hole-cont mr-2">
             <input type="checkbox" [(ngModel)]="agree"  name="options" > 
             {{constant.pages.trainingLabels.ackText}}<a href="">{{constant.pages.trainingLabels.document}}</a>
             <span class="checkmark"></span>
         </label>
-
-
     </div> -->
     <div *ngIf="text" class="quiz-text">
         <div *ngIf="text.length <= 400">{{text}}</div>
