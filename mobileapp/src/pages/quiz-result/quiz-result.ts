@@ -100,7 +100,7 @@ export class QuizResultPage implements OnInit {
             "courseName": data['courseName'],
             "userName": this.currentUser.userName,
             "resortId": this.currentUser.ResortUserMappings[0].resortId,
-            "status":"Completed"
+            "status":"completed"
         }
         this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{
             if(res['isSuccess']){

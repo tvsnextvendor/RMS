@@ -288,6 +288,12 @@ export class TrainingDetailPage {
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
+            case "docx":
+                fileLink = "assets/imgs/doc.png";
+                this.imageType = true;
+                this.filePath = filename;
+                this.fileType = fileType;
+                break;
             case "ppt":
                 fileLink = "assets/imgs/ppt.png";
                 this.imageType = true;
@@ -300,7 +306,18 @@ export class TrainingDetailPage {
                  this.filePath = filename;
                  this.fileType = fileType;
                  break;
+            case "xls":
+                 fileLink = 'assets/imgs/xlsx.png';
+                 this.imageType = true;
+                 this.filePath = filename;
+                 this.fileType = fileType;
+                 break;
             case "png" :
+                fileLink = this.uploadPath + filename;
+                this.imageType = true;
+                this.filePath = filename;
+                this.fileType = fileType;
+                break;
             case "jpg" :
                  fileLink = this.uploadPath + filename;
                  this.imageType = true;
@@ -319,8 +336,8 @@ export class TrainingDetailPage {
     viewContent(setTraining,filePath) {
         let docFile = filePath;
         let docFileId = setTraining.fileId;
-       
             let docType;
+            let rootUrl = '';
             switch (this.fileType) {
                 case "pdf":
                     docType = 'application/pdf';
@@ -333,9 +350,11 @@ export class TrainingDetailPage {
                     break;
                 case 'doc':
                     docType = 'application/msword';
+                    rootUrl = 'https://docs.google.com/gview?embedded=true&url=';
                     break;
                 case 'docx':
                     docType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                    rootUrl = 'https://docs.google.com/gview?embedded=true&url=';
                     break;
                 case 'txt':
                     docType = 'text/plain';
@@ -343,9 +362,10 @@ export class TrainingDetailPage {
                 default:
                     docType = 'application/pdf';
             }
-               let baseUrl = this.uploadPath;
+               let baseUrl = rootUrl+this.uploadPath;
                
-             console.log(baseUrl + docFile)
+            //  console.log(baseUrl + docFile);
+            //  debugger;
              this.openWithSystemBrowser(baseUrl+docFile);
              this.completedViewOperation(docFileId);	
         }
