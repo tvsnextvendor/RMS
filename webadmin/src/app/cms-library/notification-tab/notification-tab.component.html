@@ -1,3 +1,6 @@
+<div class="col-md-12 clearfix py-2 px-0">
+    <h6 class="count-alg">{{commonLabels.labels.availableNotification}}{{totalNotifyCount}}</h6>
+</div>
 <div  *ngFor="let courses of notifyListValue | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCount};let i = index">
     <div id="coss" class="col-md-12 mb-3 clearfix px-0" *ngIf="!enableEdit || enableEdit && enableIndex !== i">
         <!-- {{CMSFilterSearchEventSet}} -->

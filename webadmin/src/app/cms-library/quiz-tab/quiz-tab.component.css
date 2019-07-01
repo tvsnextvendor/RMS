@@ -15,3 +15,8 @@
     color: #697380;
     font-size: 16px;
   }
+
+  .count-alg{
+    float: right;
+    font-weight: 600;
+  }

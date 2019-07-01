@@ -31,6 +31,7 @@ export class NotificationTabComponent implements OnInit {
   resourseLib = false;
   iconEnable = true;
   userData;
+  totalNotifyCount;
 
   constructor(private breadCrumbService : BreadCrumbService,private fileService: FileService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ) {
     let roleId = this.utilService.getRole();  
@@ -81,7 +82,9 @@ export class NotificationTabComponent implements OnInit {
          if(resp.data.count === 0)
         {
           this.notifyListValue = [];
+          this.totalNotifyCount = resp.data ? resp.data.count : 0;
         }else{
+        this.totalNotifyCount = resp.data ? resp.data.count : 0;
         this.notifyListValue = resp.data.rows.length ? resp.data.rows :[];
         if (selectedDocuments) {
           selectedDocuments.map(doc=>{

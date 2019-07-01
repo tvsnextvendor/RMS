@@ -506,6 +506,7 @@ export class AddModuleComponent implements OnInit {
         if (this.moduleVar.courseId) {
             this.courseData(this.moduleVar.courseId);
             this.tabEnable = data.courseUpdate ? false : true;
+            data.courseUpdate ? this.submitForm(true) : this.submitForm(false);
             this.message = data.type ? this.commonLabels.labels.updateCourseSuccess : this.commonLabels.labels.addCourseSuccess;
             this.alertService.success(this.message);
             this.messageClose();
