@@ -125,6 +125,7 @@ export class ProfilePage implements OnInit {
   }
 
   updateProfilePic(){
+    let userId = this.currentUser.userId;
     let postData = {
        "userImage" : this.previewProfilePic
     }

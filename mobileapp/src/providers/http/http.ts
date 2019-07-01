@@ -11,6 +11,7 @@ import {of} from 'rxjs/observable/of';
 export class HttpProvider implements OnInit {
   API_ENDPOINT;
   httpOptions;
+  currentUser;
   constructor(public http: HttpClient,public basePath: API,public storage :Storage) {
   }
 
@@ -22,6 +23,7 @@ export class HttpProvider implements OnInit {
   getHeaders() {
       this.storage.get('currentUser').then(
         (val) => {
+          this.currentUser = val.token;
           this.httpOptions = {
             headers: new HttpHeaders({
               'Content-Type': 'application/json',
