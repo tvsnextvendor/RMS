@@ -41,14 +41,10 @@
                     <h6>{{setTraining.fileName}} </h6>
                 </ion-col>
                 <ion-col col-4>
-                        <span class="view-button" *ngIf="imageType">
+                           <span class="view-button" *ngIf="imageType">
                                 <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
-                                (click)="viewContent(setTraining,filePath)">View Content </a>
-                                <!-- https://www.techiediaries.com-->
+                                (click)="viewContent(setTraining,filePath)">{{constant.buttons.viewContent}}</a>
                             </span>
-                            <button ion-button (click)="openWithSystemBrowser('https://file-examples.com/wp-content/uploads/2017/10/file-example_PDF_1MB.pdf')">Open with System browser</button>
-                            <button ion-button (click)="openWithInAppBrowser('https://file-examples.com/wp-content/uploads/2017/10/file-example_PDF_1MB.pdf')">Open with In App browser</button>
-                            <button ion-button (click)="openWithCordovaBrowser('https://file-examples.com/wp-content/uploads/2017/10/file-example_PDF_1MB.pdf')">Open with Cordova browser</button>
                 </ion-col>
             </ion-row>  
         </ion-grid>

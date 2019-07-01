@@ -2,15 +2,12 @@ import { Component, ViewChild, Input ,ElementRef} from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
 import { Constant } from '../../constants/Constant.var';
-import {DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 import {ToastrService} from '../../service/toastrService';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { API } from '../../constants/API.var';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser,InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
-//import { FileOpener } from '@ionic-native/file-opener/ngx';
-
 
 @IonicPage({
     name: 'trainingdetail-page'
@@ -80,7 +77,7 @@ export class TrainingDetailPage {
         fullscreen : 'yes',//Windows only    
     };
 
-    constructor(public navCtrl: NavController,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService, private document: DocumentViewer) {
+    constructor(public navCtrl: NavController,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.trainingClassName = this.detailObject['setData'].trainingClassName;
@@ -108,19 +105,10 @@ export class TrainingDetailPage {
       }
      
 
-      public openWithSystemBrowser(url : string){
+    public openWithSystemBrowser(url : string){
         let target = "_system";
         this.iab.create(url,target,this.options);
     }
-    public openWithInAppBrowser(url : string){
-        let target = "_blank";
-        this.iab.create(url,target,this.options);
-    }
-    public openWithCordovaBrowser(url : string){
-        let target = "_self";
-        this.iab.create(url,target,this.options);
-    }  
-
 
     // go to particular index
     goToSlideIndex() {
@@ -140,7 +128,6 @@ export class TrainingDetailPage {
     }
     //Find whether class is completed or not.
     findCompletedClass(){
-       
        let resortId = this.currentUser.ResortUserMappings[0].resortId;
         this.http.get(API_URL.URLS.checkClassCompleted + '?trainingClassId=' +this.trainingClassId +'&resortId='+ resortId +'&userId='+this.currentUser.userId +'&courseId='+this.courseId).subscribe(res=>{
             if(res['isSuccess']){
@@ -333,12 +320,6 @@ export class TrainingDetailPage {
         let docFile = filePath;
         let docFileId = setTraining.fileId;
        
-        // allowed files PPT, .TXT, MP4, .JPG, .DOC, MPEG, AVI
-        // Doc Viewed Files PPT,TXT,DOC
-        //if (this.agree) {
-            const options: DocumentViewerOptions = {
-                title: this.trainingClassName
-            };
             let docType;
             switch (this.fileType) {
                 case "pdf":
@@ -363,73 +344,10 @@ export class TrainingDetailPage {
                     docType = 'application/pdf';
             }
                let baseUrl = this.uploadPath;
-                  
-                // const url = 'http://demo.greatinnovus.com:8103/uploads/';
-                // const transfer = this.transfer.create();
-                // transfer.download(url+ docFile, this.file.dataDirectory + docFile).then((entry) => {
-                //     console.log('download complete: ' + entry.toURL());
-                // }, (error) => {
-                //     console.log(error);
-                //     // handle error
-                // });
+               
              console.log(baseUrl + docFile)
-             let target = '_blank';
-             window.open(baseUrl + docFile, target);
+             this.openWithSystemBrowser(baseUrl+docFile);
              this.completedViewOperation(docFileId);	
-             //this.document.viewDocument(baseUrl + docFile, docType , options)
-             //this.webView.convertFileSrc(baseUrl + docFile)
-             
-            // let pdfUrl = baseUrl + docFile;
-            // let url = "http://docs.google.com/gview?embedded=true&url=" + pdfUrl;
-            // this.webView.getSettings().setJavaScriptEnabled(true);
-            // this.webView.loadUrl(url);
-                        
+        }
 
-            //For IOS platform 
-            //let baseUrl = location.href.replace("/index.html", ""); 
-            //this.document.viewDocument(baseUrl + docFile, docType, options);
-            //let path = null;
-                //console.log(this.platform, "PLATFORM");
-                //console.log(cordova.file,"CORDOVA FILE");
-                // if (this.platform.is('ios')) {
-                //   console.log(this.file)
-                //    //path = this.file.documentsDirectory;
-                // } else if (this.platform.is('android')) {
-                //    console.log(this.file.dataDirectory)
-                //    //path = this.file.dataDirectory;
-                // }
-                // const transfer = this.transfer.create();
-                // transfer.download(baseUrl + docFile, this.file.dataDirectory + 'myfile.pdf').then(entry => {
-                // let url = entry.toURL();
-                // this.document.viewDocument(url,docType , {});
-                // });
-            //console.log(baseUrl + docFile,  docType)
-        // } else {
-        //     this.toastr.error("Please agree acknowledgement to view content"); return false;
-        // }
-    }
-
-
-
-//    download() {
-
-//         const url = 'http://demo.greatinnovus.com:8103/uploads/';
-//         const transfer = this.transfer.create();
-//         transfer.download(url+ docFile, this.file.dataDirectory + docFile).then((entry) => {
-//             console.log('download complete: ' + entry.toURL());
-//         }, (error) => {
-//             console.log(error);
-//             // handle error
-//         });
-
-//         // const url = 'http://demo.greatinnovus.com:8103/uploads/';
-//         // const transfer = this.transfer.create();
-//         // transfer.download(url+ docFile, this.file.dataDirectory + 
-//         // docFile).then((entry) => {
-//         //  cons ole.log('download complete: ' + entry.toURL());
-//         // }, (error) => {
-//         //  console.log(error);
-//         // // handle error
-//         // });
-//     }
 }

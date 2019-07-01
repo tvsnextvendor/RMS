@@ -6,6 +6,7 @@ import { API } from '../../constants/API.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
 import { HttpProvider } from '../../providers/http/http';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 
 
 @IonicPage({
@@ -15,6 +16,7 @@ import { HttpProvider } from '../../providers/http/http';
 @Component({
   selector: 'page-signrequire-detail',
   templateUrl: 'signrequire-detail.html',
+  providers: [InAppBrowser]
 })
 
 export class SignrequireDetailPage {
@@ -29,11 +31,29 @@ export class SignrequireDetailPage {
   uploadPath;
   pageType;
   currentUser;
-  doneClicked: boolean = false;
+  contentViewed: boolean = false;
   agree: boolean = false;
   hideWarning: boolean = false;
+  options: InAppBrowserOptions = {
+      location: 'yes',//Or 'no' 
+      hidden: 'no', //Or  'yes'
+      clearcache: 'yes',
+      clearsessioncache: 'yes',
+      zoom: 'yes',//Android only ,shows browser zoom controls 
+      hardwareback: 'yes',
+      mediaPlaybackRequiresUserAction: 'no',
+      shouldPauseOnSuspend: 'no', //Android only 
+      closebuttoncaption: 'Close', //iOS only
+      disallowoverscroll: 'no', //iOS only 
+      toolbar: 'yes', //iOS only 
+      enableViewportScale: 'no', //iOS only 
+      allowInlineMediaPlayback: 'no',//iOS only 
+      presentationstyle: 'pagesheet',//iOS only 
+      fullscreen: 'yes',//Windows only    
+  };
+  
  
-  constructor(public navCtrl: NavController,public commonService:CommonService,public http: HttpProvider,public toastr: ToastrService, public navParams: NavParams,public storage: Storage,public constant:Constant) {
+  constructor(public navCtrl: NavController,public commonService:CommonService,public iab:InAppBrowser,public http: HttpProvider,public toastr: ToastrService, public navParams: NavParams,public storage: Storage,public constant:Constant) {
           let data = this.navParams.data;
           this.Files = data.files;
           this.uploadPath = data.uploadPath;
@@ -53,7 +73,6 @@ export class SignrequireDetailPage {
         });
   }
 
-
     getFileExtension(filename) {
         let ext = /^.+\.([^.]+)$/.exec(filename);
         let fileType = ext == null ? "" : ext[1];
@@ -71,7 +90,8 @@ export class SignrequireDetailPage {
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
-            case "doc":
+            case "docx":
+            case "doc" :
                 fileLink = "assets/imgs/doc.png";
                 this.imageType = true;
                 this.filePath = filename;
@@ -98,6 +118,7 @@ export class SignrequireDetailPage {
                  break;
             default:
                 fileLink = this.uploadPath + filename;
+                this.contentViewed = true; 
                 this.imageType = false;
                 this.filePath = filename;
                 this.fileType = fileType;
@@ -106,10 +127,9 @@ export class SignrequireDetailPage {
         return fileLink;
     }
 
-    goBack(){
+    doneClicked(){
       if(this.pageType == 'signReq'){
-          this.doneClicked= true;
-          if(this.agree && this.doneClicked){
+          if(this.agree){
           this.navCtrl.setRoot('course-page','signReq');
           }else{
             this.toastr.error("Please agree acknowledgement");
@@ -117,6 +137,14 @@ export class SignrequireDetailPage {
       }else{
           this.navCtrl.setRoot('generalnotification-page');
       }
+    }
+
+    goBack(){
+        if (this.pageType == 'signReq') {
+                this.navCtrl.setRoot('course-page', 'signReq');
+        } else {
+            this.navCtrl.setRoot('generalnotification-page');
+        }
     }
 
     completeNotification(){
@@ -133,13 +161,8 @@ export class SignrequireDetailPage {
       })
     }
 
-     viewContent(docFile) {
-        // allowed files PPT, .TXT, MP4, .JPG, .DOC, MPEG, AVI
-        // Doc Viewed Files PPT,TXT,DOC
-        if (this.agree) {
-            // const options: DocumentViewerOptions = {
-            //     title: this.trainingClassName
-            // };
+     viewContent(docFile) { 
+         this.contentViewed = true; 
             let docType;
             switch (this.fileType) {
                 case "pdf":
@@ -165,12 +188,18 @@ export class SignrequireDetailPage {
             }
              let baseUrl = this.uploadPath;
              console.log(baseUrl + docFile)
-             let target = '_blank';
-             window.open(baseUrl + docFile, target);	
-        }else {
-            this.toastr.error("Please agree acknowledgement to view content"); return false;
-        }
+             this.openWithSystemBrowser(baseUrl + docFile);
      }
 
+  
+         openWithSystemBrowser(url : string){
+            let baseUrl = this.uploadPath;
+            let target = "_system";
+            this.iab.create(url,target,this.options);
+        }
+
+      
+
+ 
 
 }
