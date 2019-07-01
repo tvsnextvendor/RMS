@@ -87,7 +87,10 @@ export class AddModuleComponent implements OnInit {
     ngOnInit() {
         // debugger;
         //this.resetForm();
-        this.getquizList();
+        if(!this.classId){
+            this.getquizList();
+        }
+       
         this.appendFilesToVideoList(this.addedFiles);
         
         this.moduleVar.api_url = API_URL.URLS;
