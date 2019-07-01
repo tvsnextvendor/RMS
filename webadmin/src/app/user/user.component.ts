@@ -8,6 +8,7 @@ import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { BatchVar } from '../Constants/batch.var';
 import { API_URL } from '../Constants/api_url';
+import {API} from '../../app/Constants/api';
 import { AlertService, PDFService, ExcelService, CommonService, BreadCrumbService } from '../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import * as XLSX from 'ts-xlsx';
@@ -82,14 +83,19 @@ export class UserComponent implements OnInit {
     editlabel;
     userIdData;
     designationArrays;
-
+    API_ENDPOINT;
+    csvDownload;
+    xlsDownload;
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
         private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService) {
         this.constant.url = API_URL.URLS;
+        this.API_ENDPOINT = API.API_ENDPOINT;
     }
     ngOnInit() {
+        this.csvDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.csv';
+        this.xlsDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.xlsx';
         this.headerService.setTitle({ title: this.commonLabels.titles.userManagement, hidemodule: false });
         this.breadCrumbService.setTitle([]);
         this.pageLimitOptions = [5, 10, 25];
@@ -948,8 +954,5 @@ export class UserComponent implements OnInit {
         else {
             this.enableRolePermission = false;
         }
-    }
-    bulkUploadDownload(){
-        console.log("Bulk upload download");
     }
 }
