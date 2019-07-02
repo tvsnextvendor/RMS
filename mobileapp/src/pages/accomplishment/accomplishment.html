@@ -38,8 +38,9 @@
 
     <div class="badge-block" *ngIf="certificateList.length > 0">
       <h4 class="popup-tit badge-tit">{{constant.pages.accomplishmentLabels.badges}}</h4>
-      <ion-card class="forum-card"  *ngFor="let item of certificateList;let i=index;">
-        <ion-grid *ngIf="item.Badge">
+      <div *ngFor="let item of certificateList;let i=index;">
+      <ion-card class="forum-card" *ngIf="item.Badge" >
+        <ion-grid>
           <ion-row>
             <ion-col col-1  col-md-1 class="img-section pr-0">
               <div class="badge-img"><img src="assets/imgs/b2.png" class="forum-img"></div>
@@ -56,6 +57,7 @@
           </ion-row>
         </ion-grid>
       </ion-card>
+    </div>
     </div>
 
     <!-- <ion-slides #sliderTwo [pager]="true" [slidesPerView]="3" class="badge-slide" spaceBetween="1"
