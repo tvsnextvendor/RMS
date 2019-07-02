@@ -32,7 +32,7 @@ export class AddModuleComponent implements OnInit {
     moduleName;
     topics;
     showImage = false;
-    videoSubmitted = false;;
+    videoSubmitted = false;
     courseSubmitted = false;
     moduleSubmitted = false;
     uploadFile;
@@ -292,10 +292,9 @@ export class AddModuleComponent implements OnInit {
             // find file extension
             this.uploadFile = file;
             let type = file.type;
-            let typeValue = type.split('/');
-            let extensionType = typeValue[1].split('.').pop();
-
-            if (typeValue[0].split('.').pop() === 'image' && extensionType === 'gif') {
+            let typeValue = type && type.split('/');
+            let extensionType = typeValue && typeValue.length && typeValue[1].split('.').pop();
+            if ( !extensionType  || typeValue && typeValue.length && typeValue[0].split('.').pop() === 'image' && extensionType === 'gif' || extensionType === 'csv' || extensionType === 'x-msdownload') {
                 this.alertService.error(this.commonLabels.mandatoryLabels.fileformate)
                 this.moduleVar.videoFile = '';
             }

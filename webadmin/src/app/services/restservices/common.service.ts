@@ -40,8 +40,8 @@ export class CommonService {
      return this.http.getLocal('local',this.url.roleList);
  }
 
-getResortList(id){
-    return this.http.getLocal('local',this.url.resortList+'?createdBy='+id);
+getResortList(query){
+    return this.http.getLocal('local',this.url.resortList+query);
 }
 getParentChildResorts(resortId){
   return this.http.getLocal('local',this.url.resortList+'?Resort='+resortId);
