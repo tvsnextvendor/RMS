@@ -25,16 +25,19 @@
           <div class="training-image">
             <span class="course-name">{{task.trainingClassName}}</span>
             <img  src="assets/imgs/COURSE.png" />
-            <span class="play-icon">
+            <!-- <span class="play-icon">
               <img src="assets/imgs/play-button (2).png" />
-            </span>
+            </span> -->
           </div>
           <ion-card-content class="training-content">
             <ion-card-title class="training-title">
               <ion-grid no-padding class="post-details">
                 <ion-row class="">
                   <ion-col col-7 class=" ">
-                    <h4 class="training-name" *ngIf="task.FileMappings[0]">{{task.FileMappings[0].fileName}} </h4>
+                    <h3 *ngIf="task.FeedbackMappings.length > 0">
+                      <span class="status-pass" *ngIf="task.FeedbackMappings[0].status == 'passed'">Completed - {{task.FeedbackMappings[0].passPercentage }} %</span>
+                      <span class="status-fail" *ngIf="task.FeedbackMappings[0].status == 'failed'">Failed - {{task.FeedbackMappings[0].passPercentage }} %</span>
+                    </h3>
                   </ion-col>
                   <ion-col col-5 class="">
                     <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.updated |
