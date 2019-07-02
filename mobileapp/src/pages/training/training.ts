@@ -109,41 +109,41 @@ export class TrainingPage {
     this.navCtrl.setRoot('forum-page');
   }
 
-  getCoursesSeparate() {
-    return new Promise(resolve => {
-      this.http.getData(API_URL.URLS.getCourses).subscribe((data) => {
-        this.allCourses = data;
-        var self = this;
-        this.userAssigned.map(function (value, key) {
-          let assignedobject = self.allCourses.find(x => x.courseId === value);
-          self.assignedCoursesList.push(assignedobject);
-        });
-        this.userProgress.map(function (value, key) {
-          let progressObject = self.allCourses.find(x => x.courseId === value);
-          self.progressCoursesList.push(progressObject);
-        });
-        this.userCompleted.map(function (value, key) {
-          let completedObject = self.allCourses.find(x => x.courseId === value);
-          self.completeCoursesList.push(completedObject);
-        });
-        self.allProgramsAssignedCourses = self.assignedCoursesList;
-        self.allProgramsProgressCourses = self.progressCoursesList;
-        self.allProgramsCompletedCourses = self.completeCoursesList;
+  // getCoursesSeparate() {
+  //   return new Promise(resolve => {
+  //     this.http.getData(API_URL.URLS.getCourses).subscribe((data) => {
+  //       this.allCourses = data;
+  //       var self = this;
+  //       this.userAssigned.map(function (value, key) {
+  //         let assignedobject = self.allCourses.find(x => x.courseId === value);
+  //         self.assignedCoursesList.push(assignedobject);
+  //       });
+  //       this.userProgress.map(function (value, key) {
+  //         let progressObject = self.allCourses.find(x => x.courseId === value);
+  //         self.progressCoursesList.push(progressObject);
+  //       });
+  //       this.userCompleted.map(function (value, key) {
+  //         let completedObject = self.allCourses.find(x => x.courseId === value);
+  //         self.completeCoursesList.push(completedObject);
+  //       });
+  //       self.allProgramsAssignedCourses = self.assignedCoursesList;
+  //       self.allProgramsProgressCourses = self.progressCoursesList;
+  //       self.allProgramsCompletedCourses = self.completeCoursesList;
 
-        if (self.statusKey === 'assigned') {
-          self.totalCount = self.allProgramsAssignedCourses.length;
-        } else if (self.statusKey === 'inprogress') {
-          self.totalCount = self.allProgramsProgressCourses.length;
-        } else if (self.statusKey === 'complete') {
-          self.totalCount = self.allProgramsCompletedCourses.length;
-        }
-        resolve('resolved');
-      }, (err) => {
-        console.log('error occured', err);
-        resolve('rejected');
-      });
-    });
-  }
+  //       if (self.statusKey === 'assigned') {
+  //         self.totalCount = self.allProgramsAssignedCourses.length;
+  //       } else if (self.statusKey === 'inprogress') {
+  //         self.totalCount = self.allProgramsProgressCourses.length;
+  //       } else if (self.statusKey === 'complete') {
+  //         self.totalCount = self.allProgramsCompletedCourses.length;
+  //       }
+  //       resolve('resolved');
+  //     }, (err) => {
+  //       console.log('error occured', err);
+  //       resolve('rejected');
+  //     });
+  //   });
+  // }
 
   // show tabs
   showData(show) {

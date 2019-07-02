@@ -103,6 +103,30 @@ page-training {
 	font-family: 'sf_pro_displayregular';
 	font-weight: 600;
 }
+ 
+.card-title .status-fail {
+	font-size: 12px;
+	color: #df3e3e;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-family: 'sf_pro_displayregular';
+	font-weight: 600;
+	line-height: 18px;
+}
+
+
+.card-title .status-pass {
+	font-size: 12px;
+	color: #279014;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-family: 'sf_pro_displayregular';
+	font-weight: 600;
+	line-height: 18px;
+}
+
 .card-content .training-desc {
 	color: #1d1d1d;
 	font-size: 12px;
