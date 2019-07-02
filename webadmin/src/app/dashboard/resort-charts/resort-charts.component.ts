@@ -86,7 +86,8 @@ export class ResortChartsComponent implements OnInit {
         let data = this.utilService.getUserData();
         let roleId = this.utilService.getRole();
         let user = roleId != 1 ? data.userId : '';
-        this.commonService.getResortList(user).subscribe((result) => {
+        let query = '?createdBy='+user;
+        this.commonService.getResortList(query).subscribe((result) => {
         if(result && result.isSuccess){
           this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
             // result.data && result.data.rows.forEach(item=>{

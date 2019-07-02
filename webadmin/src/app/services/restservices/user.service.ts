@@ -19,8 +19,8 @@ export class UserService {
     return this.http.post('local',this.url.userAdd, userData);
   }
 
-  getUser(userId){
-    return this.http.getLocal('local',this.url.userList+'?createdBy='+userId);
+  getUser(query){
+    return this.http.getLocal('local',this.url.userList+query);
   }
 
   getUserById(userId){

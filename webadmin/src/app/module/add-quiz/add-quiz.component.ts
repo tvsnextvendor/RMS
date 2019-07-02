@@ -63,6 +63,7 @@ export class AddQuizComponent implements OnInit {
     classId;
     userData;
     resortId;
+    enableAddQuiz = false;;
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
@@ -106,6 +107,9 @@ export class AddQuizComponent implements OnInit {
             "answer": ''
         }];
 
+        if(this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)){
+            this.enableAddQuiz = true;
+        }
         if (this.enableQuiz) {
             this.editQuizDetails(this.quizDetails);
         }
@@ -548,11 +552,27 @@ export class AddQuizComponent implements OnInit {
     })
 }
 
+getQuizData(){
+    let user = this.utilService.getUserData();
+    let roleId = this.utilService.getRole();
+    let query = '?quizId='+this.selectedQuiz;
+    this.enableAddQuiz = true;
+    this.courseService.getQuizList(query).subscribe(res=>{
+        if(res.isSuccess){
+            console.log(res)
+            let quizList = res.data && res.data.quiz;
+            this.quizQuestionsForm = quizList.length && quizList[0].QuizMappings && quizList[0].QuizMappings.length ? quizList[0].QuizMappings.map(item=>{return item.Question}) : [];
+            console.log(this.quizQuestionsForm)
+        }
+    })
+}
 
   quizTypeUpdate(event,i){
     this.quizCreateType = event.target.value;
     if(this.quizCreateType == 'exist'){
-      this.quizQuestionsForm = [{
+        this.getquizList();
+    }
+    this.quizQuestionsForm = [{
         // "questionId": 1,
         "questionName": "",
         "questionType": "MCQ",
@@ -565,7 +585,18 @@ export class AddQuizComponent implements OnInit {
         "weightage": '100',
         "answer": ''
     }];
-    this.getquizList();
+    if(this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)){
+        if(this.quizCreateType == 'new'){
+            this.enableAddQuiz = true;
+            this.selectedQuiz = null;
+        }
+        else if(this.selectedQuiz){
+            this.getQuizData();
+        }
+    }
+    else{
+        this.enableAddQuiz = false;
     }
   }
+
 }

@@ -86,6 +86,7 @@ export class UserComponent implements OnInit {
     API_ENDPOINT;
     csvDownload;
     xlsDownload;
+    search;
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
@@ -150,7 +151,8 @@ export class UserComponent implements OnInit {
         //     }
 
         const userId = this.utilService.getUserData().userId;
-        this.userService.getUser(userId).subscribe((resp) => {
+        let query = "?createdBy="+userId;
+        this.userService.getUser(query).subscribe((resp) => {
                 if (resp.isSuccess) {
                 this.designationArrays = resp.data.rows.length ? resp.data.rows : [];
             } else {
@@ -169,7 +171,11 @@ export class UserComponent implements OnInit {
 
     userList() {
         const userId = this.utilService.getUserData().userId;
-        this.userService.getUser(userId).subscribe((resp) => {
+        let query = "?createdBy="+userId;
+        if(this.search){
+            query = "?createdBy="+userId+"&search="+this.search;
+        }
+        this.userService.getUser(query).subscribe((resp) => {
             if (resp.isSuccess) {
                 this.constant.userList = resp.data.rows.length ? resp.data.rows : [];
             } else {
@@ -954,5 +960,9 @@ export class UserComponent implements OnInit {
         else {
             this.enableRolePermission = false;
         }
+    }
+
+    ngOnDestroy(){
+        this.search = '';
     }
 }

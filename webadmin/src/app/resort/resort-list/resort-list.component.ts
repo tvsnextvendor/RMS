@@ -19,6 +19,7 @@ export class ResortListComponent implements OnInit {
   notificationValue;
   userId;
   resortId;
+  search;
 
   constructor(private modalService: BsModalService, private commonService : CommonService ,private userService:UserService,private http: HttpService, 
     private alertService: AlertService, private route: Router, private activatedRoute: ActivatedRoute, public resortVar: ResortVar,
@@ -40,7 +41,11 @@ export class ResortListComponent implements OnInit {
 
   getResortDetails(){
     let data = this.utilService.getUserData();
-    this.commonService.getResortList(data.userId).subscribe((result) => {  
+    let query = "?createdBy="+data.userId;
+    if(this.search){
+      query = "?createdBy="+data.userId+"&search="+this.search;
+    }
+    this.commonService.getResortList(query).subscribe((result) => {  
       if(result && result.isSuccess){
         this.resortVar.resortList = result.data.rows;
       }
@@ -102,5 +107,8 @@ exportAsXLSX():void {
     arr[i].phoneNumber = data.ResortUserMappings.length && data.ResortUserMappings[0].User.phoneNumber;
   })
   this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.resortmanagement);
+}
+ngOnDestroy(){
+  this.search = '';
 }
 }

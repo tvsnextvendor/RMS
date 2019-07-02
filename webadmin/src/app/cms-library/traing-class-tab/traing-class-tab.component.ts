@@ -23,10 +23,18 @@ export class TraingClassTabComponent implements OnInit {
   TrainingList: any;
   userData;
   iconEnable = true;
+  schedulePage = false;
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
   @Input() courseId;
-  constructor(private courseService: CourseService, public commonLabels: CommonLabels, public alertService: AlertService, private utilService: UtilService, private breadCrumbService: BreadCrumbService, private route: Router) { }
+  constructor(private courseService: CourseService,
+     public commonLabels: CommonLabels,
+      public alertService: AlertService, 
+      private utilService: UtilService, 
+      private breadCrumbService: BreadCrumbService,
+      private activatedRoute: ActivatedRoute,
+       private route: Router,
+      ) { }
 
   ngOnInit() {
     this.pageLength = 10;
@@ -34,6 +42,11 @@ export class TraingClassTabComponent implements OnInit {
     this.userData = this.utilService.getUserData().userId;
     let roleId = this.utilService.getRole();
     let resourceLib = false;
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.tab == 'schedule') {
+        this.schedulePage = true;
+      }
+    });
     if (window.location.pathname.indexOf("resource") != -1) {
       let data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.trainingClass, url: '' }];
       this.breadCrumbService.setTitle(data);
