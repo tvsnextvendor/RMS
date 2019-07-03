@@ -31,6 +31,7 @@ export class VideosTrendComponent implements OnInit {
 
    selectedModule;
    resortId;
+   search;
 
    ngOnInit() {
     this.headerService.setTitle({title: this.commonLabels.titles.courseTrend, hidemodule: false});
@@ -81,9 +82,20 @@ export class VideosTrendComponent implements OnInit {
             month : this.trendsVar.months,
         };
         let query = this.resortId ? '&resortId='+this.resortId : '';
+        if(this.search){
+            query = this.resortId ? '&resortId='+this.resortId+"&search="+this.search : '' ;
+        }
         this.commonService.getCourseTrendList(courseTrendObj,query).subscribe((result) => {
           this.trendsVar.moduleList = result.data.rows;
         });
+    }
+
+    ngOnDestroy(){
+        this.search = '';
+    }
+    resetSearch(){
+        this.search = '';
+        this.getModuleList();
     }
 
 }

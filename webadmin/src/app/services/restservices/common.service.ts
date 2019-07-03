@@ -143,8 +143,8 @@ getCourseTrend(courseTrendObj,query) {
 getCertificateTrend(obj,query) {
   return this.http.getLocal('local', this.url.getCertificateTrend + '?year=' + obj.year + query);
 }
-getCertificateTrendList(){
-  return this.http.getLocal('local', this.url.getCertificateTrendList );
+getCertificateTrendList(query){
+  return this.http.getLocal('local', this.url.getCertificateTrendList+query );
 }
 getCourseTrendListList(courseTrendObj,query) {
   return this.http.getLocal('local', this.url.getCourseTrendListList + '?year=' + courseTrendObj.year + query + '&month=' + courseTrendObj.month);
