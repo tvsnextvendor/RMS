@@ -27,7 +27,7 @@
       <ion-row nowrap class="forecast_container">
         <ion-col col-4 col-md-4>
           <div class="status-block">
-            <div class="expire-circle circle-style" (click)="navPage('course')">
+            <div class="expire-circle circle-style" (click)="navPage('course','')">
               <h4 class="status-title" *ngIf="dashboardCount.courseExpire">{{dashboardCount.courseExpire}}</h4>
               <h4 class="status-title" *ngIf="!dashboardCount.courseExpire">{{constant.pages.dashboardLabels.zero}}</h4>
             </div>
@@ -50,7 +50,7 @@
         </ion-col>
         <ion-col col-4 col-md-4>
           <div class="assign-box sts-style">
-            <div class="green-circle  circle-style" (click)="navPage('notification')">
+            <div class="green-circle  circle-style" (click)="navPage('notification','')">
               <h4 class="status-title" *ngIf="dashboardCount.generalNotification">{{dashboardCount.generalNotification}}</h4>
               <h4 class="status-title" *ngIf="!dashboardCount.generalNotification">{{constant.pages.dashboardLabels.zero}}</h4>
             </div>
@@ -64,10 +64,10 @@
 
     <ion-list *ngIf="dashboardInfo">
       <ion-card class="forum-card" *ngFor="let schedule of dashboardInfo;let i=index">
-        <ion-grid>
+        <ion-grid *ngFor="let data of schedule.Resorts">
           <ion-row >
-            <ion-col col-4 class="batch-name" (click)="navPage('course')">{{schedule.name}}</ion-col>
-            <ion-col col-7 class="batch-date"  (click)="navPage('course')">
+            <ion-col col-4 class="batch-name" (click)="navPage('trainingClass', data.Course.courseId)">{{schedule.name}}</ion-col>
+            <ion-col col-7 class="batch-date"  (click)="navPage('trainingClass', data.Course.courseId)">
               {{schedule.assignedDate | date:'dd MMM yyyy'}}
               <span class="to-txt"> To </span>
               {{schedule.dueDate | date:'dd MMM yyyy'}}
@@ -78,7 +78,7 @@
             </ion-col>
           </ion-row>
           <div *ngIf="enableView && enableIndex === i">
-            <ion-row *ngFor="let data of schedule.Resorts">
+            <ion-row (click)="navPage('trainingClass', data.Course.courseId)">
               <ion-col col-6 class="course-count">
                 <p>{{data.Course.courseName}}</p>
                 <p>{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}}
