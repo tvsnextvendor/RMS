@@ -5,7 +5,7 @@ import { TrainingDetailPage } from '../training-detail/training-detail';
 import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
-import { LoaderService } from '../../service/loaderService';
+import { LoaderService, SocketService } from '../../service';
 
 @IonicPage({
   name: 'training-page'
@@ -49,7 +49,10 @@ export class TrainingPage {
   allTrainingClasses;
   allTrainingClassesCount;
   uploadPath;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage, public loader: LoaderService) {
+  currentUser;
+  notificationCount;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public socketService: SocketService,public loader: LoaderService) {
     this.detailObject = this.navParams.data;
     this.courseIdParams = this.detailObject.courseId;
     this.statusKey = this.detailObject['status'] ? this.detailObject['status'] : 'assigned';
@@ -58,6 +61,17 @@ export class TrainingPage {
   @ViewChild('myTabs') tabRef: Tabs;
   //first load
   ionViewDidLoad() {
+  }
+
+
+  ngOnInit(){
+    let self = this;
+    this.storage.get('currentUser').then((user: any) => {
+        if (user) {
+            self.currentUser = user;
+            this.getNotification();
+        }
+    });
   }
   
   ionViewDidEnter() {
@@ -108,42 +122,6 @@ export class TrainingPage {
   goToForum() {
     this.navCtrl.setRoot('forum-page');
   }
-
-  // getCoursesSeparate() {
-  //   return new Promise(resolve => {
-  //     this.http.getData(API_URL.URLS.getCourses).subscribe((data) => {
-  //       this.allCourses = data;
-  //       var self = this;
-  //       this.userAssigned.map(function (value, key) {
-  //         let assignedobject = self.allCourses.find(x => x.courseId === value);
-  //         self.assignedCoursesList.push(assignedobject);
-  //       });
-  //       this.userProgress.map(function (value, key) {
-  //         let progressObject = self.allCourses.find(x => x.courseId === value);
-  //         self.progressCoursesList.push(progressObject);
-  //       });
-  //       this.userCompleted.map(function (value, key) {
-  //         let completedObject = self.allCourses.find(x => x.courseId === value);
-  //         self.completeCoursesList.push(completedObject);
-  //       });
-  //       self.allProgramsAssignedCourses = self.assignedCoursesList;
-  //       self.allProgramsProgressCourses = self.progressCoursesList;
-  //       self.allProgramsCompletedCourses = self.completeCoursesList;
-
-  //       if (self.statusKey === 'assigned') {
-  //         self.totalCount = self.allProgramsAssignedCourses.length;
-  //       } else if (self.statusKey === 'inprogress') {
-  //         self.totalCount = self.allProgramsProgressCourses.length;
-  //       } else if (self.statusKey === 'complete') {
-  //         self.totalCount = self.allProgramsCompletedCourses.length;
-  //       }
-  //       resolve('resolved');
-  //     }, (err) => {
-  //       console.log('error occured', err);
-  //       resolve('rejected');
-  //     });
-  //   });
-  // }
 
   // show tabs
   showData(show) {
@@ -259,5 +237,15 @@ export class TrainingPage {
   }
   goToNotification() {
     this.navCtrl.setRoot('notification-page');
+  }
+
+   getNotification(){
+    let userId = this.currentUser.userId;
+    let socketObj = {
+      userId : userId
+    };
+   this.socketService.getNotification(socketObj).subscribe((data)=>{
+       this.notificationCount = data['unReadCount'];
+   });
   }
 }

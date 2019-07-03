@@ -71,6 +71,19 @@
         </ion-grid>
       </ion-card>
     </ion-list>
+   
+    <ion-row *ngIf="scheduleList.length == 0">
+      <ion-col class="main-forum">
+        <ion-card class="forum-card">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12 class="no-data">{{constant.title.noSchedules}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
   </div>
 </ion-content>
 

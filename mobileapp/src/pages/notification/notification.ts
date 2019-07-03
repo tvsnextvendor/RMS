@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Constant } from '../../constants/Constant.var';
-import {SocketService} from '../../service';
+import {SocketService,LoaderService} from '../../service';
 import {Storage} from '@ionic/storage';
 import * as moment from 'moment';
 
@@ -20,7 +20,7 @@ export class NotificationPage implements OnInit {
   notificationList;
   currentUser;
   count;
-  constructor(public navCtrl: NavController,public storage:Storage, public navParams: NavParams,public socketService: SocketService, public http: HttpProvider, public API_URL: API_URL,public constant:Constant) {
+  constructor(public navCtrl: NavController,public storage:Storage,public loader:LoaderService,public navParams: NavParams,public socketService: SocketService, public http: HttpProvider, public API_URL: API_URL,public constant:Constant) {
   }
   ionViewDidEnter() {       
   }
@@ -46,24 +46,26 @@ export class NotificationPage implements OnInit {
     let socketObj = {
       userId : userId
     };
-   this.socketService.getNotification(socketObj).subscribe((data)=>{
-     console.log(data,"dcjhdsbchjdcjbdhjcbdschdsb")
+    this.loader.showLoader();
+    this.socketService.getNotification(socketObj).subscribe((data)=>{
      if(data['rows']){
+       console.log(data,"notifiacation");
       this.notificationList = data['rows'];
       this.count = data['count'];
      }else{
        this.count = 0;
      }
-      console.log(this.notificationList);
+    this.loader.hideLoader();
    });
   }
 
   calculateHours(date){
-    let now = moment(new Date()); //todays date
-    var duration = moment.duration(now.diff(date));
-    var days = duration.asHours();
-    console.log(days)
-    return days;
+   
+    var a = moment(new Date(date));
+    var b = moment(new Date());
+    let day =  a.from(b, true) // "2 days ago"
+    var temp = day.split(" ")//now you have 3 words in temp
+    return temp[0] + temp[1].charAt(0); // return as 2d
   }
 
   redirect(notification){
@@ -84,14 +86,4 @@ export class NotificationPage implements OnInit {
     });
   }
 
-  // getNotification() {
-  //   this.loader.showLoader();
-  //   this.http.getData(API_URL.URLS.getNotification).subscribe((data) => {
-  //     if (data['isSuccess']) {
-  //       this.notificationList = data['NotificationList'];
-  //     }
-  //     this.loader.hideLoader();
-  //     console.log(this.notificationList);
-  //   });
-  // }
 }
