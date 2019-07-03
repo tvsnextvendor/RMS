@@ -16,7 +16,7 @@
               <div class="filter-search">
                     <div class="search-container clearfix">
                       <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
-                        <button type="button" (click)="userList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
+                        <button type="button" (click)="getModuleList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
                         <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                         <!-- <p>{{list.videoName}}</p> -->
                     </td>
                     <td class="vdo-desc-height">{{list.created | date}}</td>
-                    <td class="vdo-desc-height">{{list.updated | date: 'MM/dd/yyyy'}}</td>
+                    <td class="vdo-desc-height">{{list.updated | date}}</td>
                     <td class="vdo-desc-height text-center">{{list.resortsCount}}</td>
                     <td class="vdo-desc-height text-center und-txt"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}">{{list.employeesCount}}</a></td>
                 </tr>

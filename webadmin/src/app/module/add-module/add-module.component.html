@@ -113,7 +113,7 @@
 										<li role="menuitem"><a class="dropdown-item pl-2"
 												(click)="showCMSLibrary()">{{commonLabels.labels.resourceLibrary}}</a></li>
 										<li role="menuitem"><a class="dropdown-item pl-2">{{commonLabels.labels.desktop}}
-												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"/></a></li>
+												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"  accept="image/*,video/*,.pdf,.zip"/></a></li>
 									</ul>
 								</div>
 								</div>

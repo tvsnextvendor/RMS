@@ -12,13 +12,13 @@
         <div class="filter-search">
                 <div class="search-container clearfix">
                   <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
-                    <button type="button" (click)="userList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
+                    <button type="button" (click)="getResortDetails()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
                     <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button>
                 </div>
             </div>
     </div> 
 
-    <div class="col-lg-12 col-sm-12 p-0">                
+    <div class="col-lg-12 col-sm-12 p-0 table-alg">                
         <div class="table-responsive white-bg custom-table2" id="resortList">
             <table class="table table-striped" [mfData]="resortList" #mf="mfDataTable" [mfRowsOnPage]="10">
                 <thead>

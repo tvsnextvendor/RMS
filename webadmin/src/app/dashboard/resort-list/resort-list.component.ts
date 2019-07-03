@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService,HttpService,CommonService,UserService,UtilService,ResortService,PDFService,ExcelService } from '../../services';
+import { HeaderService,HttpService,CommonService,UserService,UtilService,ResortService,BreadCrumbService,PDFService,ExcelService } from '../../services';
 import { ResortVar } from '../../Constants/resort.var';
 import { API_URL } from '../../Constants/api_url';
 import { AlertService } from 'src/app/services/alert.service';
@@ -20,7 +20,8 @@ export class ResortListComponent implements OnInit {
   notificationValue;
   userId;
   resortId;
-  resortList;
+  resortList = [];
+  search;
 
   constructor( private commonService : CommonService ,
     private alertService: AlertService, 
@@ -32,12 +33,13 @@ export class ResortListComponent implements OnInit {
     private pdfService:PDFService,
     private excelService:ExcelService,
     public location :Location,
-    private utilService :UtilService) {
+    private utilService :UtilService,
+    private breadCrumbService : BreadCrumbService) {
     this.resortVar.url = API_URL.URLS;
   }
 
   ngOnInit() {
-    
+    this.breadCrumbService.setTitle([]);
     this.headerService.setTitle({ title: this.commonLabels.titles.resortmanagement, hidemodule: false });
     this.getResortDetails();
   }
@@ -46,6 +48,9 @@ export class ResortListComponent implements OnInit {
     let user = this.utilService.getUserData();
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
     let query = '?resortId='+resortId;
+    if(this.search){
+      query = '?resortId='+resortId+"&search="+this.search;
+    }
     this.commonService.getTopFiveResort(query).subscribe((result) => {  
       if(result && result.isSuccess){
         this.resortList = result.data.rows;
@@ -68,5 +73,12 @@ export class ResortListComponent implements OnInit {
 exportAsXLSX():void {
   // this.labels.btns.select =  this.labels.btns.excel;
   this.excelService.exportAsExcelFile(this.resortList, this.commonLabels.titles.resortmanagement);
+}
+ngOnDestroy(){
+  this.search = '';
+}
+resetSearch(){
+  this.search = '';
+  this.getResortDetails();
 }
 }
