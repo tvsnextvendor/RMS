@@ -962,6 +962,11 @@ export class UserComponent implements OnInit {
         }
     }
 
+    resetSearch(){
+        this.search = '';
+        this.userList();
+    }
+
     ngOnDestroy(){
         this.search = '';
     }

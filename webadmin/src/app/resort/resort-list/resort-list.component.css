@@ -26,3 +26,30 @@ th.action-hd {
   width: 135px;
   display: block;
 }
+
+.resort-searchbox{
+  padding: 8px;
+  font-size: 14px;
+  background: #fff;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #ccc;
+  margin-right: 1px;
+  width: 73%;
+  }
+  .resort-search-icon{
+  background: none;
+  border: none;
+  }
+  .search-icon{
+  color: #468FB9;
+  font-size: 14px;
+  border: none;
+  }
+  .adduser-respon{
+  clear: both;
+  }
+  .table-alg{
+  clear: both;
+  }
