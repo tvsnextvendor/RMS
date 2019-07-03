@@ -19,7 +19,8 @@ export class Constant {
         settings: 'Settings',
         library:'Library',
         calendar:'Calendar',
-        noData: 'No Data Found'
+        noData: 'No Data Found',
+        noSchedules: 'No Training Schedule Found'
     };
     buttons = {
         previous: 'Previous',

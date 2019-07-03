@@ -32,34 +32,26 @@ export class HomePage {
   constructor(public navCtrl: NavController,public socketService: SocketService, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
  
   }
-  //first load
-  ionViewDidLoad() {
-    this.todayDate = new Date();
-  }
-
   
-  ngAfterViewInit() {
-            let self = this;
-            this.status='assigned';
-            this.storage.get('currentUser').then((user: any) => {
-            if (user.token) {
-             self.currentUser = user;
-             this.getNotification();
-             this.getDashboardInfo();
-             this.getDashboardCount();
-            }
-        });
-  }
-
+ 
   ngOnInit(){
-    this.interval = setInterval(() => {
-        this.getDashboardInfo();
-        this.getDashboardCount();
-    }, 10000);
+    let self = this;
+    this.status = 'assigned';
+    this.storage.get('currentUser').then((user: any) => {
+        if (user.token) {
+            self.currentUser = user;
+            this.getNotification();
+            this.getDashboardInfo();
+            this.getDashboardCount();
+        }
+    });
   }
 
-
-  ionViewDidEnter() {
+   ngAfterViewInit() {
+      this.interval = setInterval(() => {
+          this.getDashboardInfo();
+          this.getDashboardCount();
+      }, 10000);      
   }
 
   navPage(page){
