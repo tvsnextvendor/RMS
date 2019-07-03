@@ -39,6 +39,12 @@ export class ResortListComponent implements OnInit {
         }
   }
 
+
+  resetSearch(){
+    this.search = '';
+    this.getResortDetails();
+    }
+    
   getResortDetails(){
     let data = this.utilService.getUserData();
     let query = "?createdBy="+data.userId;

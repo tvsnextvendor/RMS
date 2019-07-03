@@ -1,24 +1,26 @@
-<div class="row">
-    <div class="col-sm-12 pb-3 p-0">
-        <div class="filter-search mb-3 float-right">
-            <div class="search-container clearfix">
-                <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search">
-                <button type="button" (click)="getResortDetails()"><i class="fa fa-search search-icon"></i></button>
-            </div>
-        </div>
-        <button type = "button" class="btn btn-primary float-right" [routerLink]="['../resorts']"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addNew}}</button>
+<div class="">
+    
+    <div class="float-right row pb-3 adduser-respon"> 
+        <button type = "button" class="btn btn-primary float-right mr-2" [routerLink]="['../resorts']"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addNew}}</button>
         <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="resortVar.resortList.length">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                {{commonLabels.btns.exportTo}}
+            {{commonLabels.btns.exportTo}}
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
                 <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
             </div>
         </div>
+        <div class="filter-search">
+            <div class="search-container clearfix">
+                <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="resort-searchbox">
+                <button type="button" (click)="getResortDetails()" class="resort-search-icon"><i class="fa fa-search search-icon"></i></button>
+                <button type="button" (click)="resetSearch()" class="resort-search-icon"><i class="fas fa-sync-alt search-icon"></i></button>
+            </div>
+        </div>
     </div> 
 
-    <div class="col-lg-12 col-sm-12 p-0">                
+    <div class="col-lg-12 col-sm-12 p-0 table-alg">                
         <div class="table-responsive white-bg custom-table2" id="resortList">
             <table class="table table-striped" [mfData]="resortVar.resortList" #mf="mfDataTable" [mfRowsOnPage]="10">
                 <thead>
