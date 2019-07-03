@@ -54,7 +54,7 @@ export class HomePage {
       }, 10000);      
   }
 
-  navPage(page){
+  navPage(page, courseId){
     switch (page) {
       case 'notification':
         this.navCtrl.setRoot('generalnotification-page');
@@ -62,8 +62,12 @@ export class HomePage {
       case 'signReq':
         this.navCtrl.setRoot('course-page',page);
         break;
-        case 'course' :
-        this.navCtrl.setRoot('course-page',page);
+      case 'trainingClass' :
+        let paramsData = {};
+        paramsData['courseId'] = courseId;
+        paramsData['status'] = this.status;
+        this.navCtrl.setRoot('training-page',paramsData);
+        // this.navCtrl.setRoot('course-page',page);
         break;
       default:
          this.navCtrl.setRoot('course-page');
