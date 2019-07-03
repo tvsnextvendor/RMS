@@ -14,6 +14,15 @@
       <div class="select_arrow"></div>
     </select>
   </div> -->
+<div class="float-right row pb-3 pr-2 adduser-respon">
+  <div class="filter-search">
+      <div class="search-container clearfix">
+        <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
+          <button type="button" (click)="userList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
+          <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button>
+      </div>
+  </div>
+</div>
   <div class="table-responsive custom-table2 mt-3">
     <table class="table white-bg table-striped" [mfData]="trendList" #mf="mfDataTable"
       [mfRowsOnPage]="(pageLimit.length ? pageLimit : 5)">

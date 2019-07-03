@@ -69,3 +69,23 @@
 .creat-btn{
   float: none;
 }
+.user-searchbox{
+  padding: 8px;
+  font-size: 14px;
+  background-color: #fff;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #ccc;
+  margin-right: 1px;
+  width: 73%;
+  }
+  .user-search-icon{
+  background: none;
+  border: none;
+  }
+  .search-icon{
+  color: #468FB9;
+  font-size: 14px;
+  border: none;
+  }

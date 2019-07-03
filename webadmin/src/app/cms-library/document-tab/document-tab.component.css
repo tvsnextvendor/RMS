@@ -71,3 +71,10 @@
     background-color: #fff;
     border-radius: 10px;
 }
+.text-over{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+    display: block;
+}
