@@ -463,7 +463,7 @@ export class AddModuleComponent implements OnInit {
             if (response && response.isSuccess) {
                 this.quizCheck = true;
                 let quizData = response.data && response.data.quiz[0];
-                let questions = quizData.QuizMappings && quizData.QuizMappings.length && quizData.QuizMappings.map(items => { return items.Question });
+                let questions = quizData && quizData.QuizMappings && quizData.QuizMappings.length && quizData.QuizMappings.map(items => { return items.Question });
                 this.quizName = quizData.quizName;
                 this.editQuizId = quizData.quizId;
                 this.moduleVar.quizDetails = questions;
