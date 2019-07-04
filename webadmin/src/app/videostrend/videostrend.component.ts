@@ -98,4 +98,8 @@ export class VideosTrendComponent implements OnInit {
         this.getModuleList();
     }
 
+    onPrint(){
+        window.print();
+    }
+
 }

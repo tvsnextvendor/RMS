@@ -7,13 +7,13 @@
             <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
             <div class="select_arrow"></div>
           </select>
-          <select class="vdo-btn mr-3 select select-style clearfix" id="month" name="month" (change)="onChangeMonth()" [(ngModel)]="trendsVar.months">
+          <select class="vdo-btn mr-2 select select-style clearfix" id="month" name="month" (change)="onChangeMonth()" [(ngModel)]="trendsVar.months">
                 <option value=''>Month</option>
                 <option *ngFor="let months of trendsVar.monthsList" [value]="months.id">{{months.month}}</option>
                 <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
                 <div class="select_arrow"></div>
               </select>
-              <button type = "button" class="btn btn-primary float-right mr-2"><i class="fas fa-print pr-2"></i>Print</button>
+              <button type = "button" class="btn btn-primary float-right mr-2" (click)="onPrint()"><i class="fas fa-print pr-2"></i>Print</button>
               <div class="filter-search">
                     <div class="search-container clearfix">
                       <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
@@ -23,7 +23,7 @@
                 </div>
     </div>
     <div class="table-responsive custom-table2 mt-3">
-        <table class="table white-bg table-striped" [mfData]="trendsVar.videosTrend" #mf="mfDataTable" [mfRowsOnPage]="(trendsVar.pageLimit.length ? trendsVar.pageLimit : 5)">
+        <table class="table white-bg table-striped" [mfData]="trendsVar.moduleList" #mf="mfDataTable" [mfRowsOnPage]="10">
             <thead>
                     <tr class="th-boxshadow">
 
@@ -50,7 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="video-trend-desc" *ngFor="let list of trendsVar.moduleList">
+                <tr class="video-trend-desc" *ngFor="let list of mf.data">
                     <!-- <td><img class="table-img" src="assets/videos/images/bunny.png"></td> -->
                     <td class="vdo-desc-height">{{list.courseName}}
                         <!-- <p>{{list.videoName}}</p> -->
@@ -70,9 +70,9 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <!-- <td colspan="5">
+                    <td colspan="5">
                         <mfBootstrapPaginator></mfBootstrapPaginator>
-                    </td> -->
+                    </td>
                 </tr>
             </tfoot>
         </table>

@@ -81,4 +81,8 @@ resetSearch(){
   this.search = '';
   this.getResortDetails();
 }
+
+onPrint(){
+  window.print();
+}
 }
