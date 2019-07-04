@@ -104,10 +104,10 @@ button:focus {
    
 }
 .btn-primary{
-  background-color: #468FB9;
+  background-color: #468FB9 !important;
   float: right;
   text-transform:capitalize;  
-  border: 2px solid #468FB9;
+  border: 2px solid #468FB9 !important;
 }
 .btn-default{
     border: 2px solid #468FB9;
