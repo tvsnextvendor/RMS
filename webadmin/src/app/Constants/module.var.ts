@@ -18,7 +18,7 @@ export class ModuleVar {
     videoLink;
     selectedModule;
     selectedVideo=[];
-    selectedCourse;
+    selectedCourse=[];
     courseVideos=[];
     selectedCourses = null;
     selectedTrainingClass = null;

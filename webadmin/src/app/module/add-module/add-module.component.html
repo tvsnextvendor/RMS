@@ -9,8 +9,8 @@
 			<div class="row form-group">
 				<label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.courseName}}</label>
 				<span class="col-md-9 p-0">
-					<input type="text" class="form-control pl-0" placeholder="Enter Course Name" [(ngModel)]="moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
-					<span class="required_color mt-2" *ngIf="moduleSubmitted && !moduleName">
+					<input type="text" class="form-control pl-0" placeholder="Enter Course Name" [(ngModel)]="moduleVar.moduleName" name="moduleName" #module = "ngModel" (keyup)="checkValidation()" required>
+					<span class="required_color mt-2" *ngIf="moduleSubmitted && !moduleVar.moduleName">
 					{{commonLabels.mandatoryLabels.courseName}}
 				</span>
 				<span class="required_color" *ngIf="moduleVar.moduleNameCheck">
@@ -24,11 +24,11 @@
 					<ng-multiselect-dropdown
 					[placeholder]="'Select Training Class'"
 					[data]="moduleVar.courseList"
-					[(ngModel)]="selectedCourses"
+					[(ngModel)]="moduleVar.selectedCourse"
 					[settings]="moduleVar.dropdownSettings"
 					(onSelect)="onItemSelect($event)"
 					(onDeSelect) = "onItemDeselect($event)" [ngModelOptions]="{standalone: true}"></ng-multiselect-dropdown>
-					<span class="required_color mt-2" *ngIf="moduleSubmitted && selectedCourses.length === 0">
+					<span class="required_color mt-2" *ngIf="moduleSubmitted && moduleVar.selectedCourse.length === 0">
 						{{commonLabels.labels.courseError}}
 					</span>
 				</div>	
@@ -47,28 +47,28 @@
 				</span>
 			</div> -->
 		</div>
-		<div *ngIf ="!tabEnable" class="clearfix text-center mt-4">
+		<div *ngIf ="!moduleVar.tabEnable" class="clearfix text-center mt-4">
 			<button type="button" class="btn btn-primary btn-save" (click)="openEditModal(confirm,'batch')">{{commonLabels.btns.save}}</button>
 		</div>
 	</form>
 	<div class="col-md-4 p-0 ltside-sec">
 		<div class="white-bg p-4">
 			<h5 class="mb-4">{{commonLabels.labels.coursesAdded}}</h5>
-			<div *ngIf = "selectedCourses.length" class="addedcourse-scroll">
-				<div *ngFor="let course of selectedCourses,index as i">
+			<div *ngIf = "moduleVar.selectedCourse.length" class="addedcourse-scroll">
+				<div *ngFor="let course of moduleVar.selectedCourse,index as i">
 					<p class="training-items">{{course.value}}<span class="float-right">
 							<a (click)= "updateCourse(course,i)" title="Edit"><i class="fas fa-pencil-alt icons_header px-3" aria-hidden="true"></i></a>
 						</span>
 					</p>
 				</div>
 			</div>
-			<div class="text-center" *ngIf = "selectedCourses.length === 0">
+			<div class="text-center" *ngIf = "moduleVar.selectedCourse.length === 0">
 				<p class="data-design"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
 			</div>			
 		</div>
 	</div>
 </div>
-<div *ngIf="(tabEnable || selectedTab == 'class')">
+<div *ngIf="(moduleVar.tabEnable || selectedTab == 'class')">
 <div class="clearfix pt-4">
 	<h4 class="add-course" *ngIf="!classId">{{moduleVar.courseId ? commonLabels.labels.editCourseTitle : commonLabels.labels.addCourseTitle }}</h4>
 	<h4 class="add-course" *ngIf="classId">{{commonLabels.labels.editCourseTitle}}</h4>
@@ -78,7 +78,7 @@
     <tab heading="Files">
     	<div class="row pt-2">
 			<div class="col-md-12 pl-0">
-			   <span  *ngIf="selectedTab != 'class'" (click)="tabEnable = false" class="videopage">
+			   <span  *ngIf="selectedTab != 'class'" (click)="moduleVar.tabEnable = false" class="videopage">
 			   	<img src="{{commonLabels.imgs.close1}}" class="close-alg">
 			   	<img src="{{commonLabels.imgs.cancel1}}" class="cancel-alg"></span>
 				<div class="white-bg p-4">
@@ -157,8 +157,8 @@
 	</div>
    	</tab>
 	<tab heading="Quiz">
-		<add-quiz *ngIf="moduleVar.quizDetails.length" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}' moduleId = {{moduleId}}  [tabName]="selectedTab" [removedFileIds]="removedFileIds" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
-		<add-quiz *ngIf="!moduleVar.quizDetails.length" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleName}}'  moduleId = {{moduleId}} [tabName]="selectedTab" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
+		<add-quiz *ngIf="moduleVar.quizDetails.length" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleVar.moduleName}}' moduleId = {{moduleId}}  [tabName]="selectedTab" [removedFileIds]="removedFileIds" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
+		<add-quiz *ngIf="!moduleVar.quizDetails.length" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{moduleVar.{moduleName}}'  moduleId = {{moduleId}} [tabName]="selectedTab" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
 	</tab>
 </tabset>
 </div>
