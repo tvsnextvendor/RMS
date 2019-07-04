@@ -189,10 +189,17 @@
                         {{commonLabels.labels.invalidModule}}
                     </span>
                 </div>
-                <div class="text-center col-md-12 p-4">
-                    <button type="submit" class="btn btn-primary module-createbtn mr-4">{{scheduleId ? commonLabels.btns.update : commonLabels.btns.create}}</button>
-                    <button type="button" class="btn btn-default creat-btn" (click)="goTocmsLibrary()">{{commonLabels.btns.cancel}}</button>
+                <!-- <div class="clearfix pt-4 pb-2">
+                    <div class="float-right">
+                    <button type="button" class="btn btn-default" (click)="goTocmsLibrary()">{{commonLabels.btns.cancel}}</button>
+                    <button type="submit" class="btn btn-primary  creat-btn mr-4">{{scheduleId ? commonLabels.btns.update : commonLabels.btns.create}}</button>
                 </div>
+                </div> -->
+                <div class="col-md-12 clearfix pt-4 pb-2">
+                    <div  class="float-right">
+                    <button class="btn btn-primary creat-btn mr-3" type="submit">{{scheduleId ? commonLabels.btns.update : commonLabels.btns.create}}</button>
+                    <button  class="btn btn-default" type="button" (click)="goTocmsLibrary()">{{commonLabels.btns.cancel}}</button></div>
+            </div>
 
             </div>
         
