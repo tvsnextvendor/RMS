@@ -353,6 +353,11 @@ export class AddQuizComponent implements OnInit {
                 })
             }
             else {
+                params.quizQuestions && params.quizQuestions.length && params.quizQuestions.forEach(item=>{
+                    if(item.questionId){
+                        delete item.questionId;
+                    }
+                })
                 this.courseService.addTrainingClass(params).subscribe((result) => {
                     if (result && result.isSuccess) {
                         this.selectedQuiz = null;
