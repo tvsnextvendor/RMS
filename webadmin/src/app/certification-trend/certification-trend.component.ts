@@ -46,4 +46,8 @@ export class CertificationTrendComponent implements OnInit {
       this.getTrendList();
     }
 
+    onPrint(){
+      window.print();
+    }
+
 }
