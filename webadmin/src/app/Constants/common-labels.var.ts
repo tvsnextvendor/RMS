@@ -581,7 +581,8 @@ export class CommonLabels{
         "confirmPasswordError"     :  "Confirm password is Required",
         "employeeNullError" :   "Please select valid employee",
         "quizAnswer"        :   "Please fill the answer fields",
-        "quizOption"        :   "Please fill the MCQ question option fields"
+        "quizOption"        :   "Please fill the MCQ question option fields",
+        "scheduleCourse"    :   'Minimum one course is required'
 
      
     };

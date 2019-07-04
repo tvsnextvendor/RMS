@@ -549,7 +549,12 @@ export class AddBatchComponent implements OnInit {
 
     //dynamic remove module fields
     removeForm(i) {
-        this.batchVar.moduleForm.splice(i, 1);
+        if(this.batchVar.moduleForm.length > 1){
+            this.batchVar.moduleForm.splice(i, 1);
+        }
+        else{
+            this.alertService.error(this.commonLabels.mandatoryLabels.scheduleCourse);
+        }
     }
 
     //dynamic add module fields 
