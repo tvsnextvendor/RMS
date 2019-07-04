@@ -218,9 +218,9 @@ export class AddModuleComponent implements OnInit {
         this.courseService.getCourseById(this.moduleId).subscribe(resp => {
             if (resp && resp.isSuccess) {
                 let data = resp.data && resp.data.rows.length && resp.data.rows[0];
-                this.moduleName = data.courseName;
+                this.moduleVar.moduleName = data.courseName;
                 this.moduleVar.selectedCourseIds = data && data.CourseTrainingClassMaps.map(item => { return item.trainingClassId })
-                this.selectedCourses = data && data.CourseTrainingClassMaps.map(item => {
+                this.moduleVar.selectedCourse = data && data.CourseTrainingClassMaps.map(item => {
                     let obj = {
                         id: item.trainingClassId,
                         value: item.TrainingClass.trainingClassName
@@ -235,7 +235,7 @@ export class AddModuleComponent implements OnInit {
                         this.moduleVar.selectedCourseIds.push(dataId);
                         this.moduleVar.courseList.forEach(item => {
                             if (item.id === dataId) {
-                                this.selectedCourses.push(item);
+                                this.moduleVar.selectedCourse.push(item);
                             }
                         })
                     }
@@ -253,12 +253,12 @@ export class AddModuleComponent implements OnInit {
     }
 
     onItemSelect(item: any) {
-        this.moduleVar.selectedCourseIds = this.selectedCourses.map(item => { return item.id })
+        this.moduleVar.selectedCourseIds = this.moduleVar.selectedCourse.map(item => { return item.id })
     }
     onItemDeselect(item: any) {
-        this.moduleVar.selectedCourseIds = this.selectedCourses.map(item => { return item.id })
-        if (item.value === this.moduleVar.selectCourseName || this.selectedCourses.length === 0) {
-            this.tabEnable = false;
+        this.moduleVar.selectedCourseIds = this.moduleVar.selectedCourse.map(item => { return item.id })
+        if (item.value === this.moduleVar.selectCourseName || this.moduleVar.selectedCourse.length === 0) {
+            this.moduleVar.tabEnable = false;
         }
     }
 
@@ -448,7 +448,7 @@ export class AddModuleComponent implements OnInit {
                 
                
 
-                this.tabEnable = true;
+                this.moduleVar.tabEnable = true;
             }
             else {
                 this.alertService.error(this.commonLabels.labels.nodataFound)
@@ -491,7 +491,7 @@ export class AddModuleComponent implements OnInit {
 
     hideTrainingClass(event) {
         if (event) {
-            this.tabEnable = true;
+            this.moduleVar.tabEnable = true;
             setTimeout(() => {
                 if (event && this.staticTabs) {
                     this.staticTabs.tabs[1].disabled = false;
@@ -504,7 +504,7 @@ export class AddModuleComponent implements OnInit {
     hideTab(data) {
         if (this.moduleVar.courseId) {
             this.courseData(this.moduleVar.courseId);
-            this.tabEnable = data.courseUpdate ? false : true;
+            this.moduleVar.tabEnable = data.courseUpdate ? false : true;
             data.courseUpdate ? this.submitForm(true) : this.submitForm(false);
             this.message = data.type ? this.commonLabels.labels.updateCourseSuccess : this.commonLabels.labels.addCourseSuccess;
             this.alertService.success(this.message);
@@ -523,13 +523,13 @@ export class AddModuleComponent implements OnInit {
             }
             this.moduleVar.selectedCourseIds = [];
             if (newTrainingClass.id !== '') {
-                this.selectedCourses.push(newTrainingClass);
-                this.selectedCourses.length ? this.moduleVar.selectedCourseIds = this.selectedCourses.map(item=>{return item.id}) : this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
+                this.moduleVar.selectedCourse.push(newTrainingClass);
+                this.moduleVar.selectedCourse.length ? this.moduleVar.selectedCourseIds = this.moduleVar.selectedCourse.map(item=>{return item.id}) : this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
                 data.courseUpdate ? this.submitForm(true) : this.submitForm(false);
             }
             // data.submitCheck ? this.submitForm(true) :this.courseData(); 
             if (this.moduleVar.selectCourseName) {
-                this.tabEnable = data.courseUpdate ? false : true;
+                this.moduleVar.tabEnable = data.courseUpdate ? false : true;
                 this.message = data.type ? this.labels.updateCourseSuccess : this.labels.addCourseSuccess;
                 this.alertService.success(this.message);
                 this.fileService.emptyFileList();
@@ -540,7 +540,7 @@ export class AddModuleComponent implements OnInit {
     resetClassWidget() {
         this.moduleVar.courseList = [];
         this.moduleVar.selectedCourseIds = [];
-        this.selectedCourses = [];
+        this.moduleVar.selectedCourse = [];
 
     }
 
@@ -610,7 +610,7 @@ export class AddModuleComponent implements OnInit {
    } 
 
    resetTabDetails(add){
-    this.tabEnable = add ? true : false;
+    this.moduleVar.tabEnable = add ? true : false;
     this.moduleVar.videoList = [];
     this.moduleVar.selectCourseName = '';
     this.moduleVar.selectVideoName = '';
@@ -726,10 +726,13 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.selectCourseName = '';
         this.moduleVar.videoList = [];
         this.moduleVar.courseId = '';
+        this.moduleVar.moduleName = '';
+        this.moduleVar.tabEnable = false;
+        this.moduleVar.selectedCourse = [];
     }
 
     checkValidation() {
-        let validation = this.moduleVar.moduleList.find(x => x.moduleName === this.moduleName);
+        let validation = this.moduleVar.moduleList.find(x => x.moduleName === this.moduleVar.moduleName);
         if (validation) {
             this.moduleVar.moduleNameCheck = this.moduleId ? (parseInt(this.moduleId) !== validation.moduleId ? true : false) : true;
         }
@@ -777,9 +780,9 @@ export class AddModuleComponent implements OnInit {
     submitForm(courseSubmitType) {
         this.moduleSubmitted = true;
         let user = this.utilService.getUserData();
-        if (this.moduleName && this.selectedCourses.length) {
+        if (this.moduleVar.moduleName && this.moduleVar.selectedCourse.length) {
             let params = {
-                "courseName": this.moduleName,
+                "courseName": this.moduleVar.moduleName,
                 // "quizId": this.selectedQuiz, 
                 "courseTrainingClasses": this.moduleVar.selectedCourseIds,
                 "createdBy": user.userId,
@@ -836,7 +839,7 @@ export class AddModuleComponent implements OnInit {
                                 this.staticTabs.tabs[0].active = true;
                             }
                         }
-                        if (!this.tabEnable) {
+                        if (!this.moduleVar.tabEnable) {
                             this.modalRef && this.modalRef.hide();
                         }
                         this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } });
@@ -850,10 +853,10 @@ export class AddModuleComponent implements OnInit {
                 });
             }
         }
-        else if (!this.moduleName) {
+        else if (!this.moduleVar.moduleName) {
             this.alertService.error(this.commonLabels.mandatoryLabels.courseName)
         }
-        else if (!this.selectedCourses.length) {
+        else if (!this.moduleVar.selectedCourse.length) {
             this.alertService.error(this.commonLabels.labels.courseError)
         }
     }
@@ -863,13 +866,13 @@ export class AddModuleComponent implements OnInit {
     }
 
     openEditModal(template: TemplateRef<any>, modelValue) {
-        if (this.moduleName && this.moduleVar.selectedCourseIds.length) {
+        if (this.moduleVar.moduleName && this.moduleVar.selectedCourseIds.length) {
             let modalConfig = {
                 class: "modal-dialog-centered"
             }
             this.modalRef = this.modalService.show(template, modalConfig);
         }
-        else if (!this.moduleName) {
+        else if (!this.moduleVar.moduleName) {
             this.alertService.error(this.commonLabels.labels.pleaseaddCourse);
         } else if (!this.moduleVar.selectedCourseIds.length) {
             this.alertService.error(this.commonLabels.mandatoryLabels.trainingClassrequired);
