@@ -146,9 +146,9 @@
                                     </select>
                                     <span *ngIf="submitted && !courseError && passPerError && data.passPercentage === 'null'" class="required_color" >{{commonLabels.mandatoryLabels.passPercentageError}}</span>
                                     <span *ngIf="submitted && courseError && data.courseId === ''" class="required_color" >{{commonLabels.mandatoryLabels.courseError}}</span>
-                                    <div class="col-1 col-md-1 p-0" *ngIf="scheduleId">
-                                            <span><a class="float-right" *ngIf="i==0" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon p-0"></i></a></span>
-                                            <span *ngIf="!data.trainingScheduleCourseId"><a class="float-right" *ngIf="i!=0" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon"></i></a></span>
+                                    <div class="col-1 col-md-1 p-0">
+                                            <span><a class="float-right" *ngIf="i==0 && scheduleId" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon p-0"></i></a></span>
+                                            <span *ngIf="batchVar.moduleForm && batchVar.moduleForm.length > 1"><a class="float-right" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon"></i></a></span>
                                         </div>
                                 </div>
 
