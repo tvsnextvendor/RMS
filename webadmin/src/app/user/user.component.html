@@ -3,7 +3,8 @@
 <tabset #staticTabs *ngIf="userType !== 1">
     <tab heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
         <div class="pt-3" id="contentToConvert">
-            <div class="float-right row pb-3 adduser-respon"> 
+            <div class="col-md-12 clearfix search-box">
+            <div class="float-right row pb-1 adduser-respon"> 
                 <span class="pr-2 upload-line">
                     <!-- <button class="fileUpload btn btn-primary addUser-upload">
                     <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
@@ -21,16 +22,17 @@
                         <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
                     </div>
                 </div>
-                <span class="pr-2"><button class="btn btn-primary" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
+                <span class="pr-2"><button class="btn btn-primary addUser-upload" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
                     <!-- <span class="pagenation-btn">
                     <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
                     class="pagenation-dropdown"></ngx-select-dropdown>
                     </span> -->
-                <div class="filter-search">
+                </div>
+                <div class="float-left row pb-3 filter-search">
                     <div class="search-container clearfix">
                         <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
                         <button type="button" (click)="userList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
-                        <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button>
+                        <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
                     </div>
                 </div>
             </div>
