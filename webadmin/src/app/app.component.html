@@ -1,6 +1,6 @@
 <div id="wrapper">
     <app-sidebar class="doNotPrint" *ngIf="authGuard.showSidebar"></app-sidebar>
-    <div id="" [ngClass] = "!authGuard.showSidebar ? 'login_page' : 'page-content-wrapper'">
+    <div id="" [ngClass] = "!authGuard.showSidebar ? 'login_page' : 'page-content-wrapper page-content-print'">
             <app-header *ngIf="authGuard.showHeader"></app-header>
            
             <router-outlet> 
