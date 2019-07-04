@@ -13,7 +13,7 @@
 }
 .add-batch-icon{
 	line-height: 37px;
-    font-size: 22px;
+    font-size: 17px;
 }
 .module-title-mand{
 	color: #697380;
@@ -117,9 +117,9 @@
     color: #495057 !important;
     background: unset;
   }
-.ml-35{
-    margin-left: 35px;
+.ml-30{
+    margin-left: 30px;
 }
-.ml-36{
-    margin-left: 36px;
+.ml-65{
+    margin-left: 65px;
 }
