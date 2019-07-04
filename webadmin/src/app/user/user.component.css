@@ -52,6 +52,9 @@
     border-radius: 20px;
     padding: 4px;
 } */
+.addUser-upload{
+    height: 38px;
+}
 .user-desc{
     /* padding: 16px; */
     text-align: center;
@@ -240,6 +243,10 @@ th.action-hd {
     color: #948f8f;
     font-weight: 600;
 }
+/* .search-box{
+    display: inline-grid;
+    float: right;
+} */
 @media (max-width:767px){
     .group-section-bx{
         margin-left: 50%;
