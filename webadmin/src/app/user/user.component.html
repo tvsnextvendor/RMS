@@ -1,5 +1,13 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class="tab-section pt-3">    
+<div class="tab-section pt-3">  
+    <div class="clearfix"> 
+            <div class="float-right row pb-3 filter-search">
+                    <div class="search-container clearfix">
+                        <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
+                        <button type="button" (click)="userList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
+                        <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
+                    </div>
+                </div>
 <tabset #staticTabs *ngIf="userType !== 1">
     <tab heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
         <div class="pt-3" id="contentToConvert">
@@ -28,13 +36,7 @@
                     class="pagenation-dropdown"></ngx-select-dropdown>
                     </span> -->
                 </div>
-                <div class="float-left row pb-3 filter-search">
-                    <div class="search-container clearfix">
-                        <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
-                        <button type="button" (click)="userList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
-                        <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
-                    </div>
-                </div>
+                
             </div>
             <form class="table-responsive custom-table2 px-1" #userForm="ngForm" id="userForm">
                 <table class="table table-striped white-bg mt-1" [mfData]="constant.userList" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
@@ -167,6 +169,7 @@
        <app-rolepermission *ngIf="enableRolePermission" [userIdInfo]="userIdData"></app-rolepermission>
     </tab>
 </tabset>  
+</div>
 </div>
 <div class="pr-3 pt-3" id="contentToConvert" *ngIf="userType === 1">
 <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
