@@ -127,7 +127,7 @@
                             <div class="row">
                                 <div [ngClass]="scheduleId ? 'row col-md-12 p-0 prgm-select' : 'row col-md-12 p-0 prgm-select'">
                                     <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
-                                    <input *ngIf = "!scheduleId" disabled type="text" class="form-control pl-0 col-md-4 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
+                                    <input *ngIf = "!scheduleId" disabled type="text" class="form-control pl-0 col-md-3 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
                                     <select *ngIf = "scheduleId" id="courseListValue" class="col-md-4 form-control p-0 ml-0" name="course{{i}}"
                                         [(ngModel)]="data.courseId" #courses="ngModel" (change)="courseUpdate(courses.value,i)" placeholder="Course Name" required >
                                         <option value="null" disabled>{{commonLabels.labels.courseName}}</option>
@@ -139,7 +139,7 @@
                                         <option *ngFor="let program of batchVar.programList" value="{{program.id}}">{{program.name}}</option>
                                     </select> -->
 
-                                    <select id="percentageList" [ngClass]="scheduleId ? 'col-md-6 form-control ml-35' : 'col-md-7 form-control ml-36'" name="passPercentage{{i}}"
+                                    <select id="percentageList" [ngClass]="scheduleId ? 'col-md-6 form-control ml-30' : 'col-md-6 form-control ml-65'" name="passPercentage{{i}}"
                                         [(ngModel)]="data.passPercentage" #passpercentage="ngModel" required placeholder="Pass percentage %">
                                         <option value="null">{{commonLabels.labels.percentage}}</option>
                                         <option *ngFor="let percentage of batchVar.percentageList" value="{{percentage.percentage}}">{{percentage.percentage}}</option>
@@ -147,9 +147,9 @@
                                     <span *ngIf="submitted && !courseError && passPerError && data.passPercentage === 'null'" class="required_color" >{{commonLabels.mandatoryLabels.passPercentageError}}</span>
                                     <span *ngIf="submitted && courseError && data.courseId === ''" class="required_color" >{{commonLabels.mandatoryLabels.courseError}}</span>
                                     <div class="col-1 col-md-1 p-0">
-                                            <span><a class="float-right" *ngIf="i==0 && scheduleId" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon p-0"></i></a></span>
-                                            <span *ngIf="batchVar.moduleForm && batchVar.moduleForm.length > 1"><a class="float-right" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon"></i></a></span>
-                                        </div>
+                                        <span *ngIf="batchVar.moduleForm && batchVar.moduleForm.length > 1"><a class="float-right" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon pr-0 pl-2"></i></a></span>
+                                        <span *ngIf="i==0 && scheduleId"><a class="float-right" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon p-0"></i></a></span>
+                                    </div>
                                 </div>
 
                                 <!-- <div class="" [ngClass]="scheduleId ? 'col-md-7 module-radiobtn p-0' : 'col-md-6 module-radiobtn p-0'">
