@@ -64,21 +64,21 @@
 
     <ion-list *ngIf="dashboardInfo">
       <ion-card class="forum-card" *ngFor="let schedule of dashboardInfo;let i=index">
-        <ion-grid *ngFor="let data of schedule.Resorts">
-          <ion-row >
-            <ion-col col-4 class="batch-name" (click)="navPage('trainingClass', data.Course.courseId)">{{schedule.name}}</ion-col>
-            <ion-col col-7 class="batch-date"  (click)="navPage('trainingClass', data.Course.courseId)">
+        <ion-grid>
+          <ion-row (click)="hideShowDesc(i)">
+            <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
+            <ion-col col-7 class="batch-date">
               {{schedule.assignedDate | date:'dd MMM yyyy'}}
               <span class="to-txt"> To </span>
               {{schedule.dueDate | date:'dd MMM yyyy'}}
             </ion-col>
-            <ion-col col-1 class="batch-icon" (click)="hideShowDesc(i)">
+            <ion-col col-1 class="batch-icon">
               <ion-icon *ngIf="!enableView || enableIndex !== i" name="ios-arrow-forward"></ion-icon>
               <ion-icon *ngIf="enableView && enableIndex === i" name="ios-arrow-down"></ion-icon>
             </ion-col>
           </ion-row>
-          <div *ngIf="enableView && enableIndex === i">
-            <ion-row (click)="navPage('trainingClass', data.Course.courseId)">
+          <div *ngIf="enableView && enableIndex === i" >
+            <ion-row *ngFor="let data of schedule.Resorts" (click)="navPage('trainingClass', data.Course.courseId)">
               <ion-col col-6 class="course-count">
                 <a class="course-click">
                 <p>{{data.Course.courseName}}</p></a>

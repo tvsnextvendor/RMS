@@ -59,7 +59,7 @@ export class EventPage implements OnInit {
     // +'?userId='+userId
     this.http.get(API_URL.URLS.getAllSchedule+'?userId='+userId).subscribe(res=>{
       if(res['isSuccess']){
-        this.scheduleList = res['data'];
+        this.scheduleList = res['data']['rows'];
       }
     })
   }

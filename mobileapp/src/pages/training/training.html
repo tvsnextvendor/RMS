@@ -19,7 +19,7 @@
 
   <div class="tab-content" *ngIf="allTrainingClassesCount > 0">
     <ion-row>
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of allTrainingClasses;let i=index;" (click)="openTrainingDetail(task,i,statusKey,uploadPath)"
+      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of allTrainingClasses;let i=index;" (click)="openTrainingDetail(task,i,uploadPath)"
         class="main-forum">
         <ion-card class="training-list" *ngIf="task.FileMappings[0]">
           <div class="training-image">
@@ -35,7 +35,7 @@
                 <ion-row class="">
                   <ion-col col-7 class=" ">
                     <h3 *ngIf="task.FeedbackMappings.length > 0">
-                      <span class="status-pass" *ngIf="task.FeedbackMappings[0].status == 'passed'">Completed - {{task.FeedbackMappings[0].passPercentage }} %</span>
+                      <span class="status-pass" *ngIf="task.FeedbackMappings[0].status == 'passed'">Completed - {{task.FeedbackMappings[0].passPercentage}} %</span>
                       <span class="status-fail" *ngIf="task.FeedbackMappings[0].status == 'failed'">Failed - {{task.FeedbackMappings[0].passPercentage }} %</span>
                     </h3>
                   </ion-col>

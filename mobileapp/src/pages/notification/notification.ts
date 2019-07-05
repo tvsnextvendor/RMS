@@ -65,7 +65,7 @@ export class NotificationPage implements OnInit {
     var b = moment(new Date());
     let day =  a.from(b, true) // "2 days ago"
     var temp = day.split(" ")//now you have 3 words in temp
-    if(temp[0] == 'a'){
+    if(temp[0] == 'a' || temp[0] == 'an'){
       temp[0] = '1';
     }
     return temp[0] + temp[1].charAt(0); // return as 2d
@@ -73,12 +73,17 @@ export class NotificationPage implements OnInit {
 
   redirect(notification){
     let type = notification.type;
-    if(type == "assignCourse"){
-      this.navCtrl.setRoot('course-page');
-    }else{
-     this.navCtrl.setRoot('forum-page');
+    console.log(type,"TYPE");
+    
+    switch (type) {
+      case "expireCourse":
+      case "assignCourse":
+        this.navCtrl.setRoot('course-page');
+        break;
+      default:
+       this.navCtrl.setRoot('forum-page');
+        break;
     }
-
     let data={
     "status":"Read"
     }

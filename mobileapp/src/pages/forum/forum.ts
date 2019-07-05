@@ -62,7 +62,7 @@ export class ForumPage implements OnInit {
 
   getForumDatas() {
     let userId = this.currentUser.userId;
-    this.http.get(API_URL.URLS.getForum +'?search='+this.search+'&userId='+userId+'&isActive='+1
+    this.http.get(API_URL.URLS.getForum +'?search='+this.search+'&userId='+userId+'&isActive='+1 +'&type='+'mobile'
                                                                                  ).subscribe((res) => {
       if (res['isSuccess']) {
         this.forumData = res['data']['rows'];
