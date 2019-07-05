@@ -165,6 +165,9 @@ export class ResortChartsComponent implements OnInit {
         );
         });
     }
+    goToVideosTrend() {
+      this.route.navigateByUrl('/videostrend');
+    }
 
     chartContainer() {
       Highcharts.chart('chartContainer', {

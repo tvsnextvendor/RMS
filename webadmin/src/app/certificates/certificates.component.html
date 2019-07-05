@@ -174,10 +174,12 @@
     <div class="modal-header">
         <p class="modal-title add-certificate" *ngIf="!certificateId">{{commonLabels.modaltitle.addcertTemplate}}</p>
         <p class="modal-title add-certificate" *ngIf="certificateId">{{commonLabels.modaltitle.editcertTemplate}}</p>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="clearAddForm()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+    <span class="required_color" *ngIf="fileExist">{{commonLabels.msgs.fileExist}}
+    </span>
     <div class="modal-body">
         <form #uploadTemplate="ngForm" (ngSubmit)="onSave(uploadTemplate)">
             <div class="form-group">

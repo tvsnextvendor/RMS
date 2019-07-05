@@ -44,6 +44,7 @@ export class ModuleVar {
     videoFile;
     moduleObj;
     moduleName;
+    existingFile = [];
     sortableList;
     videoList = [];
     tabEnable = false;
