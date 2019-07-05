@@ -1,7 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
@@ -9,138 +7,111 @@ import { Storage } from '@ionic/storage';
 import { LoaderService, SocketService, SanitizeHtmlPipe } from '../../service';
 
 @IonicPage({
-  name: 'accomplishment-page'
+    name: 'accomplishment-page'
 })
 @Component({
-  selector: 'page-accomplishment',
-  templateUrl: 'accomplishment.html',
-  providers: [Constant]
+    selector: 'page-accomplishment',
+    templateUrl: 'accomplishment.html',
+    providers: [Constant]
 })
 export class AccomplishmentPage implements OnInit {
 
-  @ViewChild('sliderOne') sliderOne: Slides;
-  @ViewChild('sliderTwo') sliderTwo: Slides;
-  constructor(public navCtrl: NavController, public storage: Storage, public socketService: SocketService, public navParams: NavParams, public constant: Constant, private modalService: BsModalService, private http: HttpProvider, public API_URL: API_URL, public loader: LoaderService, public sanitizeHtml: SanitizeHtmlPipe) {
+    @ViewChild('sliderOne') sliderOne: Slides;
+    @ViewChild('sliderTwo') sliderTwo: Slides;
+    constructor(public navCtrl: NavController, public storage: Storage, public socketService: SocketService, public navParams: NavParams, public constant: Constant, private http: HttpProvider, public API_URL: API_URL, public loader: LoaderService, public sanitizeHtml: SanitizeHtmlPipe) { }
 
-  }
-  modalRef: BsModalRef;
-  certificateList: any = [];
-  badgeList: any = [];
-  badgeSubImage;
-  certificateDetail: any = {};
-  leftButton: boolean = true;
-  rightButton: boolean = true;
-  SlidePerPage = 2;
-  badgeslide = 3;
-  badgeLftBtn: boolean = true;
-  badgeRigBtn: boolean = true;
-  badgeDetails;
-  notificationCount;
-  showSearchBar: boolean = false;
-  search;
-  currentUser;
+    badgeSubImage;
+    badgeDetails;
+    notificationCount;
+    search;
+    currentUser;
+    totalPage;
+    certificateList: any = [];
+    certificateDetail: any = {};
+    showSearchBar: boolean = false;
+    scrollEnable: boolean = false;
+    leftButton: boolean = true;
+    rightButton: boolean = true;
+    currentPage = this.constant.numbers.one;
+    perPageData = this.constant.numbers.five;
+    SlidePerPage = this.constant.numbers.two;
+    badgeslide = this.constant.numbers.three;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AccomplishmentPage');
-  }
-  ngOnInit() {
-  }
-
-  ngAfterViewInit() {
-    let self = this;
-    this.storage.get('currentUser').then((user: any) => {
-      if (user) {
-        self.currentUser = user;
-        this.getNotification();
-        this.userCertificates();
-      }
-    });
-  }
-
-  ionViewDidEnter() {
-    //this.getCertificates();
-  }
-  onSlideCertChanged() {
-    this.certNavigationButton();
-  }
-  onSlideBadgeChanged() {
-    this.badgeNagButton();
-  }
-  certNavigationButton() {
-    let currentIndex = this.sliderOne.getActiveIndex();
-    let totalIndex = currentIndex + this.SlidePerPage;
-    let totalItems = this.certificateList.length;
-
-    if (currentIndex === 0) {
-      this.leftButton = false;
-      this.rightButton = true;
-    } else if (totalItems === totalIndex) {
-      this.leftButton = true;
-      this.rightButton = false;
-    } else {
-      this.leftButton = true;
-      this.rightButton = true;
+    ngOnInit() {
+        let self = this;
+        this.storage.get('currentUser').then((user: any) => {
+            if (user) {
+                self.currentUser = user;
+                this.getNotification();
+                this.userCertificates();
+            }
+        });
     }
-  }
-  badgeNagButton() {
-    let currentIndex = this.sliderTwo.getActiveIndex();
-    let totalIndex = currentIndex + this.badgeslide;
-    let totalItems = this.badgeList.length;
-    if (currentIndex === 0) {
-      this.badgeLftBtn = false;
-      this.badgeRigBtn = true;
-    } else if (totalItems === totalIndex) {
-      this.badgeLftBtn = true;
-      this.badgeRigBtn = false;
-    } else {
-      this.badgeLftBtn = true;
-      this.badgeRigBtn = true;
+
+    //Certificate slide change 
+    onSlideCertChanged() {
+        let currentIndex = this.sliderOne.getActiveIndex();
+        let totalIndex = currentIndex + this.SlidePerPage;
+        let totalItems = this.certificateList.length;
+        if (currentIndex === 0) {
+            this.leftButton = false;
+            this.rightButton = true;
+        } else if (totalItems === totalIndex) {
+            this.leftButton = true;
+            this.rightButton = false;
+        } else {
+            this.leftButton = true;
+            this.rightButton = true;
+        }
     }
-  }
 
-  getNotification() {
-    let userId = this.currentUser.userId;
-    let socketObj = {
-      userId: userId
-    };
-    this.socketService.getNotification(socketObj).subscribe((data) => {
-      this.notificationCount = data['unReadCount'];
-    });
-  }
+    //Get unread notification count
+    getNotification() {
+        let userId = this.currentUser.userId;
+        let socketObj = {
+            userId: userId
+        };
+        this.socketService.getNotification(socketObj).subscribe((data) => {
+            this.notificationCount = data['unReadCount'];
+        });
+    }
 
-  openModal(certificatetemplate: TemplateRef<any>, item) {
-    this.modalRef = this.modalService.show(certificatetemplate);
-    this.certificateDetail = item;
-    this.modalRef.setClass('certificate-popup');
-  }
-  openBadgeModal(badgetemplate: TemplateRef<any>, item) {
-    this.modalRef = this.modalService.show(badgetemplate);
-    this.badgeDetails = item;
-    this.modalRef.setClass('badge-popup');
-  }
-  // getCertificates() {
-  //   this.loader.showLoader();
-  //   this.http.getData(API_URL.URLS.getCertificates).subscribe((data) => {
-  //     this.loader.hideLoader();
-  //     if (data['isSuccess']) {
-  //       this.certificateList = data['certificateList'];
-  //       this.badgeList = data['badgeList'];
-  //     }
-  //   });
-  // }
-  userCertificates() {
-    this.http.get(API_URL.URLS.certificates + '?userId=' + this.currentUser.userId).subscribe((res) => {
-      if (res['isSuccess']) {
-        this.certificateList = res['data'];
-        console.log(this.certificateList);
-       
-      }
-    })
-  }
-  goToNotification() {
-    this.navCtrl.setRoot('notification-page');
-  }
-  goToForum() {
-    this.navCtrl.setRoot('forum-page');
-  }
+    //Infinite scroll event call
+    doInfinite(event) {
+        this.currentPage += 1;
+        this.scrollEnable = true;
+        setTimeout(() => {
+            this.userCertificates();
+            event.complete(); //To complete scrolling event.
+        }, 1000);
+    }
+
+    //to get badge list
+    userCertificates() {
+        this.http.get(API_URL.URLS.certificates + '?userId=' + this.currentUser.userId + '&page=' + this.currentPage + '&size=' + this.perPageData).subscribe((res) => {
+            if (res['isSuccess']) {
+                let totalData = res['data']['count'];
+                this.totalPage = totalData / this.perPageData;
+                if (this.scrollEnable) {
+                    for (let i = 0; i < res['data']['rows'].length; i++) {
+                        this.certificateList.push(res['data']['rows'][i]);
+                    }
+                } else {
+                    this.certificateList = res['data']['rows'];
+                }
+            }
+        })
+    }
+
+    //Redirect to notification page
+    goToNotification() {
+        this.navCtrl.setRoot('notification-page');
+    }
+
+    //Redirect to Forum page
+    goToForum() {
+        this.navCtrl.setRoot('forum-page');
+    }
+
+
 }

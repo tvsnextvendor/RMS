@@ -5,6 +5,7 @@ export class Constant {
     title = {
         dashboard: 'Dashboard',
         training: 'Training',
+        failedList: 'Failed List',
         quiz: 'Quiz',
         accomplishment: 'Accomplishments',
         changePassword: 'Change Password',
@@ -20,11 +21,13 @@ export class Constant {
         library:'Library',
         calendar:'Calendar',
         noData: 'No Data Found',
-        noSchedules: 'No Training Schedule Found'
+        noSchedules: 'No Training Schedule Found',
+        noRecordsFoundMessage: "No Course Found in this Status"
     };
     buttons = {
         previous: 'Previous',
         takeQuiz: 'Take Quiz',
+        retakeQuiz: 'Retake Quiz',
         sendPassword: 'SEND PASSWORD',
         logOut: 'Log Out',
         menu: 'Menu',
@@ -44,6 +47,20 @@ export class Constant {
         viewContent : 'View Content',
         calendar: 'Calendar'
     };
+    
+    numbers = {
+        one: 1,
+        two: 2,
+        three: 3,
+        four:4,
+        five:5,
+        six:6,
+        seven:7,
+        eight:8,
+        nine:9,
+        zero:0
+    };
+
     pages = {
         loginLabels: {
             signIn: 'SIGN IN',

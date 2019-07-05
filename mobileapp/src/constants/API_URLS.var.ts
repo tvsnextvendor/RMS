@@ -45,6 +45,7 @@ export class API_URL {
        'signRequired':'8103/getNotification',
        'completedNotification' : '8103/completedNotification',
        'contentEmail': '8101/user/contentEmail',
+       'failedList':'8103/schedule/failedList',
 
         //User & Settings
        'getProfile' : '8101/user/List',

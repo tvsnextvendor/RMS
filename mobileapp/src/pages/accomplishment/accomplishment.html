@@ -23,9 +23,6 @@
         (ionSlideDidChange)="onSlideCertChanged()">
         <ion-slide *ngFor="let item of certificateList;let i=index;" class="cert-indv-slide">
           <div [innerHTML]="item.certificateGenerated | sanitizeHtml:'html'"></div>
-          <!-- [innerHTML]="unsafeString | safe:'html'" -->
-          <!-- <iframe [src]="item.certificateGenerated | sanitizeHtml" width="100%" height="200" (click)="openModal(item,item)"></iframe> -->
-          <!-- <img class="certificate-image" src="{{item.certificateImage}}" alt="Certificate Image" > -->
         </ion-slide>
       </ion-slides>
       <span class="slider-btns">
@@ -60,52 +57,14 @@
     </div>
     </div>
 
-    <!-- <ion-slides #sliderTwo [pager]="true" [slidesPerView]="3" class="badge-slide" spaceBetween="1"
-        (ionSlideDidChange)="onSlideBadgeChanged()">
-        <ion-slide *ngFor="let item of badgeList;let i=index;" class="badge-indv-slide badge-inner">
-          <div class="badge-slider">
-            <img class="badge-image" src="{{item.badgeImage}}" alt="Badge Image" (click)="openBadgeModal(badgetemplate,item)">
-            <p class="badge-name">{{item.badgeName}}  </p>
-          </div>
-        </ion-slide>
-      </ion-slides>
-      <span class="slider-btns">
-        <ion-icon name="ios-arrow-back" class="ios-arrow-back-icon" (click)="sliderTwo.slidePrev()" *ngIf="badgeLftBtn"></ion-icon>
-        <ion-icon name="ios-arrow-back" class="ios-arrow-back-icon disabledSliderIcon" *ngIf="!badgeLftBtn"></ion-icon>
-        <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon" (click)="sliderTwo.slideNext()" *ngIf="badgeRigBtn"></ion-icon>
-        <ion-icon name="ios-arrow-forward" class="ios-arrow-forward-icon disabledSliderIcon" *ngIf="!badgeRigBtn"></ion-icon>
-      </span> -->
-
-
-
-
     <div class="norecord" *ngIf="currentUser && certificateList.length === 0">
       <img src="assets/imgs/norecordsfound.png" class="no-records" />
-    </div>
-    <ng-template #badgetemplate>
-      <div class="modal-body">
-        <button type="button" class="close close-icon pull-right " aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <img class="img-subimage badge-img" src="assets/imgs/no@2x.png" alt="assets/imgs/no@2x.png">
-        <p class="badge-description">Successfully Completed 3 Courses in 3 Nights</p>
-      </div>
-    </ng-template>
-    <ng-template #certificatetemplate>
-      <div class="modal-body c-body" *ngIf="certificateDetail">
-
-        <!-- <img class="c-popimage" src="{{certificateDetail.certificateImage}}" alt="{{certificateDetail.certificateImage}}">
-        <div class="certificate-content">
-          <h6 class="model-name">{{certificateDetail.moduleName}}</h6>
-          <p class="model-txt">{{constant.pages.accomplishmentLabels.gradeAchieved}} {{certificateDetail.score}}%</p>
-          <p class="model-txt m-0">{{constant.pages.accomplishmentLabels.completedBy}}
-            {{certificateDetail.certifiedTo}}</p>
-          <p class="model-txt m-0">{{constant.pages.accomplishmentLabels.at}} {{certificateDetail.certifiedOn |
-            date:'EEEE ,LLLL M,yyyy h:mm
-            a'}}</p>
-          <input class="form-control c-imgname" name="certicateLink" disabled value="{{certificateDetail.certificateUrl}}">
-        </div> -->
-      </div>
-    </ng-template>
+    </div>    
   </div>
+  
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
 </ion-content>
