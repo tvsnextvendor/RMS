@@ -36,6 +36,12 @@ export class DocumentTabComponent implements OnInit {
   iconEnable = true;
   resourceLib = false;
   userData;
+  filePermissionType = "Public";
+  userListSize;
+  currentPage;
+  userListData = [];
+  permissionFileId;
+  totalCourseCount = 0;
  
 
   @Input() CMSFilterSearchEventSet;
@@ -43,10 +49,10 @@ export class DocumentTabComponent implements OnInit {
 
 
   constructor(private courseService: CourseService,
-     private fileService: FileService,
-     private alertService: AlertService,
-     public commonLabels : CommonLabels,
-     public constant: CmsLibraryVar,
+      private fileService: FileService,
+      private alertService: AlertService,
+      public commonLabels : CommonLabels,
+      public constant: CmsLibraryVar,
       private modalService : BsModalService,
       private utilService :UtilService,
       private commonService : CommonService,
@@ -61,6 +67,8 @@ export class DocumentTabComponent implements OnInit {
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
+    this.userListSize = 10;
+    this.currentPage = 1;
     let roleId = this.utilService.getRole();
     this.userData = this.utilService.getUserData().userId;
     if(window.location.pathname.indexOf("resource") != -1){
@@ -400,7 +408,8 @@ export class DocumentTabComponent implements OnInit {
           "departmentId" :this.constant.selectedDepartment.map(item=>{return item.departmentId}),
           "resortId" : resortId,
           "employeeId" : this.constant.selectedEmp.map(item=>{return item.userId}),
-          "fileId" :  this.constant.fileId
+          "fileId" :  this.constant.fileId,
+          "filePermissionType" : this.filePermissionType
         }
         this.courseService.setPermission(params).subscribe(resp=>{
           if(resp && resp.isSuccess){
@@ -426,5 +435,42 @@ exportAsXLSX():void {
   // this.labels.btns.select =  this.labels.btns.excel;
   this.excelService.exportAsExcelFile(this.videoListValue, this.commonLabels.titles.docTitle);
 }
+
+getPermissionList(type,data,i){
+  // getPermissionList
+  this.permissionFileId = data.fileId;
+  let query = '?page='+this.currentPage+"&size="+this.userListSize+"&fileId="+data.fileId;
+  this.courseService.getPermissionList(query).subscribe(resp=>{
+    if(resp && resp.isSuccess){
+      this.userListData = resp.data && resp.data.rows.length ? resp.data.rows : [];
+      if(this.userListData.length){
+        this.totalCourseCount = resp.data && resp.data.count;
+        type != 'pagination' ? this.openUserList(type) : '';
+      }
+      else{
+        this.alertService.warn('There no user permission for this file')
+      }
+    }
+  })
+}
+
+openUserList(template: TemplateRef<any>) {
+  this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+}
+
+closeModel(){
+  this.permissionFileId = '';
+  this.userListSize = 10;
+  this.currentPage = 1;
+  this.constant.modalRef.hide();
+  this.getCourseFileDetails();
+}
+
+userPageChanged(e){
+  this.currentPage = e;
+  let data ={fileId : this.permissionFileId};
+  this.getPermissionList('pagination',data,'');
+}
+
 
 }

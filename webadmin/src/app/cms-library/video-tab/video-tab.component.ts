@@ -47,6 +47,12 @@ errorValidate = false;
 resourceLib = false;
 iconEnable = true;
 userData;
+filePermissionType = "Public";
+currentPage;
+userListSize;
+userListData = [];
+permissionFileId;
+totalCourseCount = 0;
 
 constructor(private courseService: CourseService,
   private fileService:FileService,
@@ -67,6 +73,8 @@ constructor(private courseService: CourseService,
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
+    this.currentPage = 10;
+    this.userListSize = 1;
     let roleId = this.utilService.getRole(); 
     this.userData = this.utilService.getUserData().userId;
     if(window.location.pathname.indexOf("resource") != -1){
@@ -424,7 +432,8 @@ constructor(private courseService: CourseService,
         "departmentId" :this.constant.selectedDepartment.map(item=>{return item.departmentId}),
         "resortId" : resortId,
         "employeeId" : this.constant.selectedEmp.map(item=>{return item.userId}),
-        "fileId" :  this.fileId
+        "fileId" :  this.fileId,
+        "filePermissionType" : this.filePermissionType
       }
       this.courseService.setPermission(params).subscribe(resp=>{
         if(resp && resp.isSuccess){
@@ -449,5 +458,42 @@ constructor(private courseService: CourseService,
 exportAsXLSX():void {
   // this.labels.btns.select =  this.labels.btns.excel;
   this.excelService.exportAsExcelFile(this.videoListValue, this.commonLabels.titles.videoTitle);
+}
+
+
+getPermissionList(type,data,i){
+  // getPermissionList
+  this.permissionFileId = data.fileId;
+  let query = '?page='+this.currentPage+"&size="+this.userListSize+"&fileId="+data.fileId;
+  this.courseService.getPermissionList(query).subscribe(resp=>{
+    if(resp && resp.isSuccess){
+      this.userListData = resp.data && resp.data.rows.length ? resp.data.rows : [];
+      if(this.userListData.length){
+        this.totalCourseCount = resp.data && resp.data.count;
+        type != 'pagination' ? this.openUserList(type) : '';
+      }
+      else{
+        this.alertService.warn('There no user permission for this file')
+      }
+    }
+  })
+}
+
+closeModel(){
+  this.permissionFileId = '';
+  this.userListSize = 10;
+  this.currentPage = 1;
+  this.constant.modalRef.hide();
+  this.getCourseFileDetails();
+}
+
+openUserList(template: TemplateRef<any>) {
+  this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+}
+
+userPageChanged(e){
+  this.currentPage = e;
+  let data ={fileId : this.permissionFileId};
+  this.getPermissionList('userList',data,'');
 }
 }

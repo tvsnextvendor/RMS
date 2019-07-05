@@ -100,6 +100,7 @@
                     <td>
                         <a (click)="viewTraningVideo(viewVideo,file.fileUrl)"><i class="fa fa-eye header-icon"
                             aria-hidden="true" title="View"></i></a>
+                        <a *ngIf="iconEnable && userData == file.createdBy" (click)="getPermissionList(userList,file,i)" title="Edit"><i class="fas fa-user-friends header-icon"></i></a>
                         <a *ngIf="iconEnable && userData == file.createdBy" (click)="openEditVideo(editVideoTemp,file,i)"  title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
                         <a *ngIf="iconEnable && userData == file.createdBy" (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                     </td>
@@ -121,7 +122,7 @@
 
 <ng-template #editVideoTemp>
     <div class="modal-header pb-0">
-        <p class="hd-alg"><!-- {{constant.btns.editVideo}} -->{{commonLabels.modaltitle.editVideo}}</p>
+        <p class="hd-alg">{{commonLabels.labels.permissionSet}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="closeEditVideoForm()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -175,6 +176,14 @@
                         </span>
                     </div>
                 </div>
+                <div class="col-md-5 p-0 float-left">
+                    <div class="pl-0 form-group select-Courses">
+                        <select id="permission" class="form-control p-0" name="permissionSet" [(ngModel)]="filePermissionType">
+                            <option value="Public">Public</option>
+                            <option value="Restricted">Restricted</option>
+                        </select>
+                    </div>
+                </div>    
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.set}}</button>
@@ -202,16 +211,31 @@
 </ng-template>
 
 <ng-template #viewVideo>
-<div class="modal-header pb-0">
-<!-- <p class="hd-alg">{{constant.videoFormLabels.deleteVideo}}</p> -->
-<button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-<div class="modal-body text-center">
-<video controls class="video-play">
-<source src="{{uploadPath}}{{trainingVideoUrl}}" type="video/mp4" />
-</video>
-</div>
+    <div class="modal-header pb-0">
+    <!-- <p class="hd-alg">{{constant.videoFormLabels.deleteVideo}}</p> -->
+        <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <video controls class="video-play">
+            <source src="{{uploadPath}}{{trainingVideoUrl}}" type="video/mp4" />
+        </video>
+    </div>
 </ng-template>
 
+<ng-template #userList>
+        <div class="modal-header pb-0">
+            <p class="hd-alg">{{commonLabels.labels.userList}}</p>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModel()" title="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body text-center">
+            <!-- <ul>
+                <li *ngFor="let user of userList"><p>{{user?.User?.userName}}</p></li>
+            </ul> -->
+            <p *ngFor="let user of userListData | paginate: {itemsPerPage: userListSize,currentPage: currentPage,totalItems : totalCourseCount};let i = index">{{user?.User?.userName}}</p>
+        </div>
+        <pagination-controls  *ngIf = "userListData && userListData.length" class="my-pagination" (pageChange)="userPageChanged($event)"></pagination-controls>
+    </ng-template>

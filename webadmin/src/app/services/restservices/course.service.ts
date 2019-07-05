@@ -251,4 +251,9 @@ export class CourseService {
     return this.http.post('local',this.url.sendApproval,post);
   }
 
+  getPermissionList(query){
+    // permissionUserList
+    return this.http.getLocal('local',this.url.permissionUserList+query);
+  }
+
 }
