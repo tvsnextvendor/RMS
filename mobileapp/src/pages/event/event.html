@@ -40,27 +40,32 @@
                   <p *ngIf="course.Course">{{course.Course.CourseTrainingClassMaps.length}} Training Classes</p>
                 </div>
               </ion-col>
-              <!-- <ion-col>
-              <div class="align-right">
-                <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
-                  {{calculateExpireDays(schedule.dueDate)}}</p> -->
-              <!-- <p class="green-color alert-txt-style">{{course.Course.TrainingScheduleResorts[0].status}}</p> -->
-              <!-- </div> -->
-              <!-- </ion-col> -->
+                        <!-- <ion-col>
+                        <div class="align-right">
+                          <p class="red-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
+                            {{calculateExpireDays(schedule.dueDate)}}</p> -->
+                        <!-- <p class="green-color alert-txt-style">{{course.Course.TrainingScheduleResorts[0].status}}</p> -->
+                        <!-- </div> -->
+                        <!-- </ion-col> -->
               <ion-col col-6 *ngIf="course.Course">
+               
                 <div class="expires red-color" *ngIf="course.Course.FeedbackMappings && course.Course.FeedbackMappings.length == 0">
                   <span class="aligtxt">{{constant.pages.trainingLabels.willExpire}}
-                    {{calculateExpireDays(schedule.dueDate)}}</span></div>
-                <!-- <div class="average orange-color" ><span class="aligtxt"> Avg Score
-                {{batch.Score}}% <br>
-                <ion-icon name="md-refresh"></ion-icon>Retake Course
-              </span>
-            </div> -->
-                <div class="average aligtxt" *ngIf="course.Course.TrainingScheduleResorts[0].status == 'completed' && course.Course.FeedbackMappings.length">
+                    {{calculateExpireDays(schedule.dueDate)}}</span>
+                  </div>
+               
+                  <div class="average orange-color" *ngIf="course.Course.FeedbackMappings.length && course.Course.FeedbackMappings[0].status == 'failed'">
+                    <span class="aligtxt" >  Avg Score 
+                  {{course.Course.FeedbackMappings[0].passPercentage}}% <br>
+                  <ion-icon name="md-refresh"></ion-icon>Retake Course
+                   </span>
+                 </div>
+                
+                 <div class="average aligtxt" *ngIf="course.Course.FeedbackMappings.length && course.Course.FeedbackMappings[0].status == 'passed'">
                   <span class="orange-color"> Score
-                    {{course.Course.FeedbackMappings[0].Feedback.ratingPercent}}% <br>
+                    {{course.Course.FeedbackMappings[0].passPercentage}}% <br>
                   </span>
-                  <span class="green-color"><img src="assets/imgs/completed.png" class="completed-img" />{{course.Course.TrainingScheduleResorts[0].status}}</span>
+                  <span class="green-color"><img src="assets/imgs/completed.png" class="completed-img" />Completed</span>
                 </div>
                 <!-- <div class="completed " *ngIf="course.Course.TrainingScheduleResorts[0].status == 'completed' && course.Course.FeedbackMappings.length">
                  

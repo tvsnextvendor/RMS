@@ -1,0 +1,72 @@
+<ion-content padding class="headerFull-bg default-header">
+  <ion-header class="static-header main-header my-component" color="primary">
+    <ion-navbar *ngIf="!showSearchBar">
+      <button ion-button menuToggle>
+        <img src="assets/imgs/menu.png" />
+      </button>
+      <ion-title class="text-left">
+        <span class="header-title">{{constant.title.failedList}}</span>
+        <div class="header-icon">
+          <ion-icon name="ios-search" (click)="toggleSearchBox()" class="chat-icon"></ion-icon>
+          <ion-icon name="ios-chatboxes" (click)="goToForum()" class="chat-icon"></ion-icon>
+          <span (click)="goToNotification()">
+            <img src="assets/imgs/notification.png" />
+            <span class="dot-circle">{{notificationCount}}</span>
+          </span>
+        </div>
+      </ion-title>
+    </ion-navbar>
+    <ion-toolbar *ngIf="showSearchBar">
+      <ion-icon name="md-arrow-back" class="search-backarrow" (click)="toggleSearchBox()"></ion-icon>
+      <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)"
+        class="search-bar">
+      </ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+  
+
+  <div class="main-content">
+    <div class="tab-content clearfix">
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
+          <ion-card class="forum-card">
+            <ion-grid>
+              <ion-row (click)="openTrainingClass(task.courseId)">
+                <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
+                  <img src="assets/imgs/profile_circle.png" class="forum-img">
+                </ion-col>
+                <ion-col col-8 col-sm-9 col-md-9 class="course-det">
+                  <h4 class="notify-title" (click)="openTrainingClass(task.courseId)"> {{task.courseName}}
+                  </h4>
+                  <p class="notify-txt">{{task.CourseTrainingClassMaps.length}}
+                    {{constant.pages.trainingLabels.trainingClass}}</p>
+                  </ion-col>
+                <ion-col col-2 col-sm-1 col-md-1 class="middle-arw">
+                  <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="courseList?.length == 0">
+        <ion-col class="main-forum">
+          <ion-card class="forum-card">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-12 class="no-data">{{constant.title.noRecordsFoundMessage}}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
+

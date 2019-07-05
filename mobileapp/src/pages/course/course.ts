@@ -102,6 +102,10 @@ export class CoursePage implements OnInit {
    goToForum(){
      this.navCtrl.setRoot('forum-page');
   }
+
+  goToFailedList(){
+    this.navCtrl.setRoot('course-failed-page');
+  }
   
   openTrainingClass(courseId) 
   {

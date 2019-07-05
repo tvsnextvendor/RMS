@@ -99,11 +99,37 @@ export class TrainingDetailPage {
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-            this.findCompletedClass();
             }
         });
       }
-     
+      
+    //  disableSeeking(){
+    //      alert('xscsdjk')
+    //      var video = <HTMLMediaElement>document.getElementById('video-width');;
+    //      console.log(video);
+    //      var supposedCurrentTime = 0;
+    //      video.addEventListener('timeupdate', function() {
+    //          if (!video.onseeking) {
+    //              supposedCurrentTime = video.currentTime;
+    //          }
+    //      });
+    //      // prevent user from seeking
+    //      video.addEventListener('seeking', function() {
+    //          // guard agains infinite recursion:
+    //          // user seeks, seeking is fired, currentTime is modified, seeking is fired, current time is modified, ....
+    //          var delta = video.currentTime - supposedCurrentTime;
+    //          if (Math.abs(delta) > 0.01) {
+    //              console.log("Seeking is disabled");
+    //              video.currentTime = supposedCurrentTime;
+    //          }
+    //      });
+    //      // delete the following event handler if rewind is not required
+    //      video.addEventListener('ended', function() {
+    //          // reset state in order to allow for rewind
+    //          supposedCurrentTime = 0;
+    //      });
+         
+    //  }
 
     public openWithSystemBrowser(url : string){
         let target = "_system";
@@ -125,15 +151,6 @@ export class TrainingDetailPage {
         this.fileId = this.setTraining.fileId;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         this.text = this.setTraining.fileDescription;
-    }
-    //Find whether class is completed or not.
-    findCompletedClass(){
-       let resortId = this.currentUser.ResortUserMappings[0].resortId;
-        this.http.get(API_URL.URLS.checkClassCompleted + '?trainingClassId=' +this.trainingClassId +'&resortId='+ resortId +'&userId='+this.currentUser.userId +'&courseId='+this.courseId).subscribe(res=>{
-            if(res['isSuccess']){
-                this.status = 'completed'
-            }
-        })   
     }
     
     // go to quiz page for training details

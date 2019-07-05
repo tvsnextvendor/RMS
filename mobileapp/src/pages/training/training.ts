@@ -106,7 +106,7 @@ export class TrainingPage {
    // let courseId = this.courseIdParams;
     let self = this;
     return new Promise(resolve => {
-      this.http.get(API_URL.URLS.trainingCourseFilesAPI + '?courseId=' + self.courseIdParams).subscribe((res) => {
+      this.http.get(API_URL.URLS.trainingCourseFilesAPI + '?courseId=' + self.courseIdParams+ '&type='+'mobile').subscribe((res) => {
         self.allTrainingClasses = res['data']['rows'];
         self.allTrainingClassesCount = res['data']['count'];
         self.uploadPath = res['data']['uploadPaths']['uploadPath'];
@@ -158,9 +158,9 @@ export class TrainingPage {
     });
   }
   //open  page
-  openTrainingDetail(detailObj, selectedIndex, status, uploadPath) {
+  openTrainingDetail(detailObj, selectedIndex, uploadPath) {
     //alert(uploadPath);
-    this.paramsData['status'] = status;
+    this.paramsData['status'] = detailObj.FeedbackMappings.length ? detailObj.FeedbackMappings[0].status : 'inProgress';
     this.paramsData['setData'] = detailObj;
     this.paramsData['selectedIndex'] = selectedIndex;
     this.paramsData['uploadPath'] = uploadPath;
