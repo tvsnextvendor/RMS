@@ -660,6 +660,9 @@ page-home .course-count p {
     font-size: 14px;
     font-family: 'sf_pro_displayregular';
 }
+page-home .course-count p:hover {
+   color: #468FB9 !important;
+}
 .forum-title.ovr-txt,.forum-title {
     font-size: 15px;
 }
@@ -735,7 +738,9 @@ page-home .course-count p {
 .fixed-content{
     background: rgba(63, 81, 181, 0.42);
 }
-
+.list-md {
+    margin: -1px 0 115px;
+}
 
 
 
