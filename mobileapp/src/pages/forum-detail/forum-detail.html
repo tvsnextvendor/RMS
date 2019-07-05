@@ -65,7 +65,8 @@
                 </p>
                 </ion-col>
                 <ion-col col-4>
-                  <p class="vote-count" (click)="showAnswers(list)" *ngIf="list.Comments"><small class="vt-count">{{list.Comments.length}}</small> 
+                  <p class="vote-count" (click)="showAnswers(list)" *ngIf="list.Comments">
+                    <small class="vt-count num-alg">{{list.Comments.length}}</small> 
                     <span class="answers-txt">{{constant.pages.forumLabels.answers}}</span></p>
                 </ion-col>
                 <ion-col col-4 class="cmd-btn">
@@ -158,7 +159,7 @@
                   </p>
                   </ion-col>
                 <ion-col col-4>
-                  <p class="vote-count" *ngIf="list.Comments">{{list.Comments.length}} <span
+                  <p class="vote-count num-alg" *ngIf="list.Comments">{{list.Comments.length}} <span
                       class="answers-txt">{{constant.pages.forumLabels.answers}}</span></p>
                 </ion-col>
                 <ion-col col-4 class="cmd-btn">

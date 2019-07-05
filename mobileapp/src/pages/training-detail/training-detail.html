@@ -41,9 +41,9 @@
                     <h6>{{setTraining.fileName}} </h6>
                 </ion-col>
                 <ion-col col-4>
-                           <span class="view-button" *ngIf="imageType">
-                                <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
-                                (click)="viewContent(setTraining,filePath)">{{constant.buttons.viewContent}}</a>
+                           <span class="view-button" *ngIf="imageType" (click)="viewContent(setTraining,filePath)">
+                                <ion-icon name="eye" class="eye-icon"></ion-icon> 
+                                <a href="javascript:void(0);" class="view-text">{{constant.buttons.viewContent}}</a>
                             </span>
                 </ion-col>
             </ion-row>  
