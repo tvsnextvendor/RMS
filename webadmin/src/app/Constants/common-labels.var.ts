@@ -359,7 +359,9 @@ export class CommonLabels{
         "approvalConfirmation" : "Are you sure you want to send it for approval?",
         "approveStatusConfirm" : "Did you need second level approval?",
         "rejectStatusConfirm"  : "Are you sure you want to reject?",
-        "archieveDelete"    :   "Are you sure you want to delete this archieve?"
+        "archieveDelete"    :   "Are you sure you want to delete this archieve?",
+        "permissionSet"     :   "Permission Set",
+        "userList"          :   "User List"
     };
 
     btns = {

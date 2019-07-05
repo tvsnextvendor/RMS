@@ -141,6 +141,7 @@ export class API_URL {
     permissionAdd: '8101/permission/Add',
     permissionList: '8101/permission/List',
     getRolePermissions:'8101/permission/getRolePermissions',
+    permissionUserList : '8103/trainingClass/filePermissionList',
 
     //Subscription Services
     subscriptionAdd: '8103/subscription/Add',
