@@ -73,8 +73,8 @@ constructor(private courseService: CourseService,
   ngOnInit(){
     this.pageSize = 10;
     this.page=1;
-    this.currentPage = 10;
-    this.userListSize = 1;
+    this.currentPage = 1;
+    this.userListSize = 10;
     let roleId = this.utilService.getRole(); 
     this.userData = this.utilService.getUserData().userId;
     if(window.location.pathname.indexOf("resource") != -1){
@@ -484,11 +484,14 @@ closeModel(){
   this.userListSize = 10;
   this.currentPage = 1;
   this.constant.modalRef.hide();
-  this.getCourseFileDetails();
+  // this.getCourseFileDetails();
 }
 
 openUserList(template: TemplateRef<any>) {
-  this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+  let modalConfig={
+    class:"modal-lg"
+  }
+  this.constant.modalRef = this.modalService.show(template,modalConfig);
 }
 
 userPageChanged(e){

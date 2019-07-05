@@ -78,12 +78,12 @@
                     <th class="text-left text-nowrap">
                             {{commonLabels.labels.type}}
                     </th>                  
-                    <th class="text-left text-nowrap">
+                    <!-- <th class="text-left text-nowrap">
                             {{commonLabels.labels.noofEmp}}
                     </th>
                     <th class="text-left text-nowrap">
                             {{commonLabels.labels.permission}}
-                    </th>
+                    </th> -->
                     <th class="text-center text-nowrap">
                             {{commonLabels.labels.action}}
                     </th>
@@ -102,8 +102,8 @@
                     <td class="text-left">{{formatBytes(file.fileSize)}}</td>
                     <td class="text-left">{{file.fileExtension}}</td>
                    
-                    <td class="text-left">100</td>
-                    <td>{{file.filePermissionType}}</td>
+                    <!-- <td class="text-left">100</td>
+                    <td>{{file.filePermissionType}}</td> -->
                    
                     <td>
                         <a title="View" (click)="openFileContent(file)"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -226,11 +226,35 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body text-center">
-            <!-- <ul>
-                <li *ngFor="let user of userList"><p>{{user?.User?.userName}}</p></li>
-            </ul> -->
-            <p *ngFor="let user of userListData | paginate: {itemsPerPage: userListSize,currentPage: currentPage,totalItems : totalCourseCount};let i = index">{{user?.User?.userName}}</p>
+        <div class="modal-body text-center">            
+            <table class="table table-striped">
+                <thead>
+                    <tr class="th-boxshadow">
+                        <th class="text-left">                            
+                            <div class="text-over">User Name</div>
+                        </th>
+                        <th class="text-left text-nowrap">
+                                Division
+                        </th>
+                        <th class="text-left text-nowrap">
+                            Department
+                        </th>                  
+                        <th class="text-center text-nowrap">
+                               Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class=" text-nowrap">                  
+                    <tr class="table-desc-color" *ngFor="let user of userListData | paginate: {itemsPerPage: userListSize,currentPage: currentPage,totalItems : totalCourseCount};let i = index">
+                        <td class="text-left">
+                            <div >{{user?.User?.userName}}</div>
+                        </td>                       
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>                         
+                </tbody>
+            </table>  
+            <!-- <p *ngFor="let user of userListData | paginate: {itemsPerPage: userListSize,currentPage: currentPage,totalItems : totalCourseCount};let i = index">{{user?.User?.userName}}</p> -->
         </div>
         <pagination-controls  *ngIf = "userListData && userListData.length" class="my-pagination" (pageChange)="userPageChanged($event)"></pagination-controls>
     </ng-template>

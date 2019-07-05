@@ -235,7 +235,34 @@
             <!-- <ul>
                 <li *ngFor="let user of userList"><p>{{user?.User?.userName}}</p></li>
             </ul> -->
-            <p *ngFor="let user of userListData | paginate: {itemsPerPage: userListSize,currentPage: currentPage,totalItems : totalCourseCount};let i = index">{{user?.User?.userName}}</p>
+            <!-- <p *ngFor="let user of userListData | paginate: {itemsPerPage: userListSize,currentPage: currentPage,totalItems : totalCourseCount};let i = index">{{user?.User?.userName}}</p> -->
+            <table class="table table-striped">
+                <thead>
+                    <tr class="th-boxshadow">
+                        <th class="text-left">                            
+                            <div class="text-over">User Name</div>
+                        </th>
+                        <th class="text-left text-nowrap">
+                                Division
+                        </th>
+                        <th class="text-left text-nowrap">
+                            Department
+                        </th>                  
+                        <th class="text-center text-nowrap">
+                               Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class=" text-nowrap">                  
+                    <tr class="table-desc-color" *ngFor="let user of userListData | paginate: {itemsPerPage: userListSize,currentPage: currentPage,totalItems : totalCourseCount};let i = index">
+                        <td class="text-left">
+                            <div >{{user?.User?.userName}}</div>
+                        </td>                       
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>                         
+                </tbody>
+            </table>  
         </div>
         <pagination-controls  *ngIf = "userListData && userListData.length" class="my-pagination" (pageChange)="userPageChanged($event)"></pagination-controls>
     </ng-template>
