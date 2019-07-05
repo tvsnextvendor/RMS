@@ -620,7 +620,8 @@ export class CommonLabels{
         "regisEmail"        :   "Please enter registered email id",
         "loginSuccess"      :   "Login successfully",
         "tokenExpStatusText":   "Forbidden",
-        "tokenExpErrorMsg"  :   "Session expired, Please Sign out and Continue."
+        "tokenExpErrorMsg"  :   "Session expired, Please Sign out and Continue.",
+        "fileExist"         :   "File already exist"
 
     }
     symbols = {

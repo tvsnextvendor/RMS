@@ -64,6 +64,8 @@ export class AddModuleComponent implements OnInit {
     userData;
     resortId;
     previousUrl;
+    fileExist = false;
+    existingFile = [];
     // selectedCourseIds:any;
 
     constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels) {
@@ -274,51 +276,65 @@ export class AddModuleComponent implements OnInit {
     fileUpload(e) {
         this.showImage = true;
         let self = this;
+        this.fileExist = false;
         let reader = new FileReader();
         var duration;
         if (e.target && e.target.files[0]) {
             let file = e.target.files[0];
-            // find video duration
-            var video = document.createElement('video');
-            video.preload = 'metadata';
-            video.onloadedmetadata = function () {
-                window.URL.revokeObjectURL(video.src);
-                duration = video.duration;
-                self.fileDuration = duration;
-            }
-            video.src = URL.createObjectURL(file);
+            if(this.moduleVar.existingFile.length){
+                this.moduleVar.existingFile.forEach(item=>{
+                  if(item == file.name){
+                    this.fileExist = true;
+                    this.moduleVar.videoFile = '';
+                    file = '';
+                    this.alertService.warn(this.commonLabels.msgs.fileExist)
+                  }
+                })
+              }
+            if(!this.fileExist){
+                this.moduleVar.existingFile.push(file.name)
+                // find video duration
+                var video = document.createElement('video');
+                video.preload = 'metadata';
+                video.onloadedmetadata = function () {
+                    window.URL.revokeObjectURL(video.src);
+                    duration = video.duration;
+                    self.fileDuration = duration;
+                }
+                video.src = URL.createObjectURL(file);
 
-            document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
-            // find file extension
-            this.uploadFile = file;
-            let type = file.type;
-            let typeValue = type && type.split('/');
-            let extensionType = typeValue && typeValue.length && typeValue[1].split('.').pop();
-            if ( !extensionType  || typeValue && typeValue.length && typeValue[0].split('.').pop() === 'image' && extensionType === 'gif' || extensionType === 'csv' || extensionType === 'x-msdownload') {
-                this.alertService.error(this.commonLabels.mandatoryLabels.fileformate)
-                this.moduleVar.videoFile = '';
-            }
-            else {
-                this.moduleVar.fileExtension = extensionType;
-                this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
-                if (this.fileExtensionType === 'Video') {
-                    this.filePreviewImage(file);
+                document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
+                // find file extension
+                this.uploadFile = file;
+                let type = file.type;
+                let typeValue = type && type.split('/');
+                let extensionType = typeValue && typeValue.length && typeValue[1].split('.').pop();
+                if ( !extensionType  || typeValue && typeValue.length && typeValue[0].split('.').pop() === 'image' && extensionType === 'gif' || extensionType === 'csv' || extensionType === 'x-msdownload') {
+                    this.alertService.error(this.commonLabels.mandatoryLabels.fileformate)
+                    this.moduleVar.videoFile = '';
                 }
-                let fileType = typeValue[0];
-                this.fileName = file.name;
-                reader.onloadend = () => {
-                    this.fileUrl = reader.result;
-                    if (fileType === 'application') {
-                        let appType = (this.fileName.split('.').pop()).toString();
-                        let appDataType = appType.toLowerCase();
-                        this.extensionUpdate(appDataType, '');
+                else {
+                    this.moduleVar.fileExtension = extensionType;
+                    this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+                    if (this.fileExtensionType === 'Video') {
+                        this.filePreviewImage(file);
                     }
-                    else {
-                        this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
+                    let fileType = typeValue[0];
+                    this.fileName = file.name;
+                    reader.onloadend = () => {
+                        this.fileUrl = reader.result;
+                        if (fileType === 'application') {
+                            let appType = (this.fileName.split('.').pop()).toString();
+                            let appDataType = appType.toLowerCase();
+                            this.extensionUpdate(appDataType, '');
+                        }
+                        else {
+                            this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
+                        }
                     }
                 }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
         }
     }
 
@@ -729,6 +745,8 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.moduleName = '';
         this.moduleVar.tabEnable = false;
         this.moduleVar.selectedCourse = [];
+        this.moduleVar.existingFile = [];
+        this.fileExist = false;
     }
 
     checkValidation() {
@@ -886,6 +904,8 @@ export class AddModuleComponent implements OnInit {
         if (this.addButton) {
             clearInterval(this.addButton);
         }
+        // this.existingFile = [];
+        this.fileExist = false;
     }
 
 }

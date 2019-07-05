@@ -53,6 +53,8 @@ export class AddNotificationComponent implements OnInit {
       userId : []
     };
     currentDate;
+    existingFile = [];
+    fileExist = false;
 
     constructor(private breadCrumbService :BreadCrumbService,public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
@@ -486,35 +488,48 @@ export class AddNotificationComponent implements OnInit {
 
     getFileDetails(event){
       let self = this;
+      this.fileExist = false;;
         if(event.target.files){
             var duration; 
             this.uploadFileName = event.target.files[0] && event.target.files[0].name;
             let file = event.target.files[0];
-            this.fileSize = file.size;
-            // find video duration
-            var video = document.createElement('video');
-            video.preload = 'metadata';
-            video.onloadedmetadata = function() {
-            window.URL.revokeObjectURL(video.src);
-            duration = video.duration;
-            self.fileDuration = duration;
-            }
-            video.src = URL.createObjectURL(file);
-
-            let type = file.type;
-            let typeValue = type.split('/');
-            let extensionType = typeValue[1].split('.').pop();
-            this.fileExtension = extensionType;
-            this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
-            if(this.fileExtensionType === 'Video'){
-              this.filePreviewImage(file);
-          }
-            this.commonService.uploadFiles(file).subscribe(resp=>{
-                if(resp && resp.isSuccess){
-                    this.notificationFileName = resp.data.length && resp.data[0].filename;
+            if(this.existingFile.length){
+              this.existingFile.forEach(item=>{
+                if(item == file.name){
+                  this.fileExist = true;
+                  this.file = '';
+                  file = '';
+                  this.alertService.warn(this.commonLabels.msgs.fileExist)
                 }
-            })
-        }    
+              })
+            }
+            if(!this.fileExist){
+              this.fileSize = file.size;
+              // find video duration
+              var video = document.createElement('video');
+              video.preload = 'metadata';
+              video.onloadedmetadata = function() {
+              window.URL.revokeObjectURL(video.src);
+              duration = video.duration;
+              self.fileDuration = duration;
+              }
+              video.src = URL.createObjectURL(file);
+
+              let type = file.type;
+              let typeValue = type.split('/');
+              let extensionType = typeValue[1].split('.').pop();
+              this.fileExtension = extensionType;
+              this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+              if(this.fileExtensionType === 'Video'){
+                this.filePreviewImage(file);
+              }
+              this.commonService.uploadFiles(file).subscribe(resp=>{
+                  if(resp && resp.isSuccess){
+                      this.notificationFileName = resp.data.length && resp.data[0].filename;
+                  }
+              })
+            }   
+        } 
     }
 
     filePreviewImage(file){
@@ -577,6 +592,13 @@ export class AddNotificationComponent implements OnInit {
       this.clearBatchForm();
       this.notificationType = '';
       this.notifyType = '';
+      this.fileExist = false;
+      this.existingFile = [];
       // this.router.navigate(['/cmspage'],{queryParams:{type:'create'}})
+    }
+
+    ngOnDestroy(){
+      this.fileExist = false;
+      this.existingFile = [];
     }
 }

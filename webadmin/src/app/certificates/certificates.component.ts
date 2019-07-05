@@ -38,6 +38,8 @@ export class CertificatesComponent implements OnInit {
     assignTo="course";
     assignToClicked = false;
     orginArray;
+    existingFile = [];
+    fileExist = false;
 
 
     constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService,private breadCrumbService : BreadCrumbService) {
@@ -270,8 +272,22 @@ export class CertificatesComponent implements OnInit {
 
     // Template File Upload
     handleFileInput(files: FileList) {
+        this.fileExist = false;
         this.constant.fileToUpload = files.item(0);
-        this.htmlFileUpload(this.constant.fileToUpload);
+        if(this.existingFile.length){
+            this.existingFile.forEach(item=>{
+              if(item == this.constant.fileToUpload.name){
+                this.fileExist = true;
+                this.constant.fileToUpload = null;
+                // this.alertService.warn('File already exist')
+              }
+            })
+          }
+          if(!this.fileExist){
+            this.existingFile.push(this.constant.fileToUpload.name);
+            this.htmlFileUpload(this.constant.fileToUpload);
+          }
+
     }
 
 
@@ -503,7 +519,13 @@ export class CertificatesComponent implements OnInit {
     //clear Add Certificate
     clearAddForm() {
         this.constant.modalRef.hide();
+        this.fileExist = false;
         this.constant.tempName = "";
         this.constant.fileToUpload = null;
+    }
+
+    ngOnDestroy(){
+        this.fileExist = false;
+        this.existingFile = [];
     }
 }

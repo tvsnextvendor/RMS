@@ -62,6 +62,9 @@ export class CourseTabComponent implements OnInit {
   newFileIdsUploadCMS = [];
   schedulePage = false;
   iconEnable = false;
+  existingFile = [];
+  fileExist = false;
+
   constructor(private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService) {
     this.roleId = this.utilService.getRole();
     let resourceLib = false;
@@ -350,6 +353,7 @@ export class CourseTabComponent implements OnInit {
 
   cancelUpload() {
     this.modalRef.hide();
+    this.fileExist = false;
     this.clearData();
   }
 
@@ -452,47 +456,61 @@ export class CourseTabComponent implements OnInit {
   fileUpload(e) {
     this.showImage = true;
     let self = this;
+    this.fileExist = false;
     let reader = new FileReader();
     if (e.target && e.target.files[0]) {
       let file = e.target.files[0];
-      // get video duration
-      var video = document.createElement('video');
-      video.preload = 'metadata';
-      video.onloadedmetadata = function () {
-        window.URL.revokeObjectURL(video.src);
-        var duration = video.duration;
-        self.fileDuration = duration;
-      }
-      video.src = URL.createObjectURL(file);
-      document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
-      this.uploadFile = file;
-      let type = file.type;
-      let typeValue = type.split('/');
-      let extensionType = typeValue[1].split('.').pop();
-      if (typeValue[0].split('.').pop() === 'image' && extensionType === 'gif') {
-        this.videoFile = '';
-      }
-      else {
-        this.fileExtension = extensionType;
-        this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
-        if (this.fileExtensionType === 'Video') {
-          this.filePreviewImage(file);
-        }
-        let fileType = typeValue[0];
-        this.fileName = file.name;
-        reader.onloadend = () => {
-          this.fileUrl = reader.result;
-          if (fileType === 'application') {
-            let appType = (this.fileName.split('.').pop()).toString();
-            let appDataType = appType.toLowerCase();
-            this.extensionUpdate(appDataType)
+      if(this.existingFile.length){
+        this.existingFile.forEach(item=>{
+          if(item == file.name){
+            this.fileExist = true;
+            this.videoFile = '';
+            file = '';
+            // this.alertService.warn('File already exist')
           }
-          else {
-            this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
+        })
+      }
+      if(!this.fileExist){
+        this.existingFile.push(file.name);
+        // get video duration
+        var video = document.createElement('video');
+        video.preload = 'metadata';
+        video.onloadedmetadata = function () {
+          window.URL.revokeObjectURL(video.src);
+          var duration = video.duration;
+          self.fileDuration = duration;
+        }
+        video.src = URL.createObjectURL(file);
+        document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
+        this.uploadFile = file;
+        let type = file.type;
+        let typeValue = type.split('/');
+        let extensionType = typeValue[1].split('.').pop();
+        if (typeValue[0].split('.').pop() === 'image' && extensionType === 'gif') {
+          this.videoFile = '';
+        }
+        else {
+          this.fileExtension = extensionType;
+          this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+          if (this.fileExtensionType === 'Video') {
+            this.filePreviewImage(file);
+          }
+          let fileType = typeValue[0];
+          this.fileName = file.name;
+          reader.onloadend = () => {
+            this.fileUrl = reader.result;
+            if (fileType === 'application') {
+              let appType = (this.fileName.split('.').pop()).toString();
+              let appDataType = appType.toLowerCase();
+              this.extensionUpdate(appDataType)
+            }
+            else {
+              this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
+            }
           }
         }
+        reader.readAsDataURL(file);
       }
-      reader.readAsDataURL(file);
     }
   }
 
@@ -657,6 +675,11 @@ export class CourseTabComponent implements OnInit {
       this.modalRef.hide();
       this.alertService.error(errorRes.error.error);
     });
+  }
+
+  ngOnDestroy(){
+    this.fileExist = false;
+    this.existingFile = [];
   }
 }
 

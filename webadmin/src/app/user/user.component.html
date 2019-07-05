@@ -613,10 +613,11 @@
     <ng-template #bulkUpload>
             <div class="modal-header pb-0">
                 <p class="hd-alg">{{commonLabels.btns.uploadEmp}}</p>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="constant.modalRef.hide()">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelBulkUpload()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <div *ngIf="fileExist"><span class="required_color text-left">{{commonLabels.msgs.fileExist}}</span></div>         
             <div class="modal-body text-center">
                 <div class="download-para">
                 <span class="mr-3"><a href="{{csvDownload}}"><i class="fas fa-download mr-2"></i><span class="download-alg">Download CSV Template</span></a></span>
@@ -629,7 +630,7 @@
                         <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
                             accept=".xlsx,.csv" />
                     </button>
-                    <button type="button" class="btn btn-default" (click)="constant.modalRef.hide()">{{commonLabels.btns.cancel}}</button>
+                    <button type="button" class="btn btn-default" (click)="cancelBulkUpload()">{{commonLabels.btns.cancel}}</button>
                 </div>
             </div>
         </ng-template>

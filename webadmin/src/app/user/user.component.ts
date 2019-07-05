@@ -87,6 +87,8 @@ export class UserComponent implements OnInit {
     csvDownload;
     xlsDownload;
     search;
+    existingFile = [];
+    fileExist = false;
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
@@ -616,26 +618,40 @@ export class UserComponent implements OnInit {
     }
 
     fileUpload(event) {
+        this.fileExist = false;
         const userId = this.utilService.getUserData().userId;
         let userData = this.utilService.getUserData();
         let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
         let fileUploadValue = event.target.files[0];
-        let params = { 'file': fileUploadValue }
-        if (fileUploadValue) {
-            this.userService.bulkUpload(fileUploadValue, userId, resortId).subscribe(resp => {
-                if (resp && resp.isSuccess) {
-                    this.constant.modalRef.hide();
-                    this.userList();
-                    this.fileUploadValue = '';
-                    this.alertService.success(resp.message);
-                    
-                }
-            }, err => {
-                console.log(err.error.error);
-                this.constant.modalRef.hide();
+        if(this.existingFile.length){
+            this.existingFile.forEach(item=>{
+              if(item == fileUploadValue.name){
+                this.fileExist = true;
                 this.fileUploadValue = '';
-                this.alertService.error(err.error.error);
+                fileUploadValue = '';
+                this.alertService.warn(this.commonLabels.msgs.fileExist)
+              }
             })
+          }
+        if(!this.fileExist){
+            this.existingFile.push(fileUploadValue.name)
+            let params = { 'file': fileUploadValue }
+            if (fileUploadValue) {
+                this.userService.bulkUpload(fileUploadValue, userId, resortId).subscribe(resp => {
+                    if (resp && resp.isSuccess) {
+                        this.constant.modalRef.hide();
+                        this.userList();
+                        this.fileUploadValue = '';
+                        this.alertService.success(resp.message);
+                        
+                    }
+                }, err => {
+                    console.log(err.error.error);
+                    this.constant.modalRef.hide();
+                    this.fileUploadValue = '';
+                    this.alertService.error(err.error.error);
+                })
+            }
         }
     }
 
@@ -966,8 +982,14 @@ export class UserComponent implements OnInit {
         this.search = '';
         this.userList();
     }
+    cancelBulkUpload(){
+        this.fileExist = false;
+        this.constant.modalRef.hide();
+    }
 
     ngOnDestroy(){
         this.search = '';
+        this.existingFile = [];
+        this.fileExist = false;
     }
 }
