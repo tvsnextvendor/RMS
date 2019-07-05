@@ -455,7 +455,10 @@ getPermissionList(type,data,i){
 }
 
 openUserList(template: TemplateRef<any>) {
-  this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+  let modalConfig={
+    class:"modal-lg"
+  }
+  this.constant.modalRef = this.modalService.show(template,modalConfig);
 }
 
 closeModel(){
@@ -463,7 +466,7 @@ closeModel(){
   this.userListSize = 10;
   this.currentPage = 1;
   this.constant.modalRef.hide();
-  this.getCourseFileDetails();
+  // this.getCourseFileDetails();
 }
 
 userPageChanged(e){
