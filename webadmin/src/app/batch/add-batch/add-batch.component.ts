@@ -45,6 +45,8 @@ export class AddBatchComponent implements OnInit {
     resortId;
     roleId;
     paramsType;
+    currentDate;
+    previousUpdate = false;
 
     constructor(private breadCrumbService: BreadCrumbService, private alertService: AlertService, private courseService: CourseService, private utilService: UtilService, private resortService: ResortService, private userService: UserService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService: CommonService, public commonLabels: CommonLabels) {
         this.batchVar.url = API_URL.URLS;
@@ -65,7 +67,7 @@ export class AddBatchComponent implements OnInit {
         let data = this.scheduleId ? [{ title: this.commonLabels.labels.calendarView, url: '/calendar' }, { title: this.commonLabels.btns.scheduleTraining, url: '' }] : [{ title: this.commonLabels.labels.resourceLibrary, url: '/cms-library' }, { title: this.commonLabels.btns.scheduleTraining, url: '' }]
         this.breadCrumbService.setTitle(data)
         this.userData = this.utilService.getUserData();
-
+        this.currentDate = new Date();
         if (this.scheduleId) {
             this.clearBatchForm();
             this.getCourseData();
@@ -146,6 +148,9 @@ export class AddBatchComponent implements OnInit {
 
     updateScheduleTraining() {
         this.batchVar.batchFrom = new Date(this.scheduleData.assignedDate);
+        if(this.batchVar.batchFrom < this.currentDate){
+            this.previousUpdate = true;
+        }
         this.batchVar.batchTo = new Date(this.scheduleData.dueDate);
         this.batchVar.batchName = this.scheduleData.name;
         this.batchVar.selectedResort = this.scheduleData.Resorts.length && this.scheduleData.Resorts[0].resortId;
@@ -478,7 +483,7 @@ export class AddBatchComponent implements OnInit {
                 "courses": this.batchVar.moduleForm,
             }
             if (this.scheduleId) {
-                delete postData.status;
+                // delete postData.status;
                 this.courseService.updateScheduleTraining(this.scheduleId, postData).subscribe(resp => {
                     this.hidePopup('submit');
                 }, err => {
@@ -545,6 +550,7 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.divisionId = [];
         this.batchVar.departmentId = [];
         this.batchVar.employeeId = [];
+        this.previousUpdate = false;
     }
 
     //dynamic remove module fields
@@ -570,5 +576,9 @@ export class AddBatchComponent implements OnInit {
 
     goTocmsLibrary() {
         this.completed.emit('completed');
+    }
+
+    ngOnDestroy(){
+        this.previousUpdate = false
     }
 }
