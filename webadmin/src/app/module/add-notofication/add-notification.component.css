@@ -124,13 +124,16 @@
     border-top-color: #cccccc;
    }
 .ass-header-color{
-    background-color: #0491BD;
+    background-color: #0491BD !important;
+    border-color: #0491BD !important;
 }
 .sign-header-color{
-    background-color: #34CB6D;
+    background-color: #34CB6D !important;
+    border-color: #34CB6D !important;
 }
 .nonsign-header-color{
-    background-color: #F1C400;
+    background-color: #F1C400 !important;
+    border-color: #F1C400 !important;
 }
    .add-notify{
     font-size: 18px;
@@ -158,7 +161,7 @@
     color: #468FB9;
     font-size: 14px;
     font-weight: 600;
-    height: 190px;
+    height: 155px;
 }
 .quiz-para, .course-para{
     height: 205px;

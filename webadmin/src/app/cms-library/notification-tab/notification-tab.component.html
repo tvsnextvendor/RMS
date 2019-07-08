@@ -5,8 +5,7 @@
     <div id="coss" class="col-md-12 mb-3 clearfix px-0" *ngIf="!enableEdit || enableEdit && enableIndex !== i">
         <!-- {{CMSFilterSearchEventSet}} -->
         <div class="white-bg p-3 clearfix">
-            <div class="clearfix">
-               
+            <div class="clearfix">               
                 <label class="square-cont float-left" *ngIf="uploadPage">
                     <input type="checkbox" name="file" value={{courses.File.fileId}} [checked]="courses.File.selected" (change)="addFiles($event,courses.File,i)"><span
                         class="text-over">{{courses.File.fileName}}</span>
