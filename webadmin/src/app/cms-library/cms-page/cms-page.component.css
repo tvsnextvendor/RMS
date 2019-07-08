@@ -11,16 +11,21 @@
     width: 50%;
     float: none;
 }
-.class-header-color{
-    background-color: #0491BD;
+.class-color{
+    background-color: #0491BD !important;
+    border-color: #0491BD !important;
 }
-.quiz-header-color{
-    background-color: #34CB6D;
+.quiz-color{
+    background-color: #34CB6D !important;
+    border-color: #34CB6D !important;
 }
-.course-header-color{
-    background-color: #F1C400;
+
+.course-color{
+    background-color: #F1C400 !important;
+    border-color: #F1C400 !important;
 }
-.Notification-header-color{
-    background-color: #8B62CC;
+.Notification-color{
+    background-color: #8B62CC !important;
+    border-color: #8B62CC !important;
 }
 
