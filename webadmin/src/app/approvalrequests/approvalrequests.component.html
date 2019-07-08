@@ -299,17 +299,17 @@
         <div class="col-md-12 clearfix">
             <div class="col-md-12 pt-3">
             <label class="square-cont float-left col-md-6">
-                <input type="checkbox" name="newQuiz" value="new" (change)="secondLevelApproval($event)">
+                <input type="checkbox" name="newQuiz" [checked]= "showUsers" (change)="secondLevelApproval()">
                 <span class="text-over">Second Level Approval</span>
                 <span class="square-checkmark"></span>
             </label>
-            <input class="col-md-6 form-control" name="resortName" placeholder="" required="" type="text">
+            <!-- <input class="col-md-6 form-control" name="resortName" placeholder="" required="" type="text"> -->
         </div>
             <div class="col-md-12 row pb-3" *ngIf="showUsers">
-                <label class="col-md-6 label-title p-0 text-left">Status
+                <label class="col-md-6 label-title p-0 text-left">Employee
                     <span class="mandatory-color">*</span></label>
                 <select [(ngModel)]="approvalAccess" name="approvalAccess" class="col-md-6 form-control">
-                    <option value="" disabled>{{commonLabels.labels.selectUsers}}</option>
+                    <option value="null" disabled>{{commonLabels.labels.selectUsers}}</option>
                     <option *ngFor="let obj of createdByList" [value]="obj.userId">{{obj.userName  | titlecase}}</option>
                 </select>
             </div>
