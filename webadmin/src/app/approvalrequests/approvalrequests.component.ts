@@ -52,6 +52,7 @@ export class ApprovalrequestsComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
+    this.approvalAccess = null;
     this.headerService.setTitle({ title: 'Approval Request', hidemodule: false });
     this.breadCrumbService.setTitle([]);
     this.userData = this.utilService.getUserData();
@@ -218,8 +219,7 @@ export class ApprovalrequestsComponent implements OnInit {
       this.alertService.error(errorRes.error.error);
     });
   }
-  secondLevelApproval($ev) {
-    console.log($ev);
-    this.showUsers = true;
+  secondLevelApproval() {
+    this.showUsers = !this.showUsers;
   }
 }
