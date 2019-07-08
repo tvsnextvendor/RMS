@@ -10,8 +10,8 @@ import { API_URL } from '../../Constants/api_url';
 import { API } from '../../Constants/api';
 import { CommonLabels } from '../../Constants/common-labels.var'
 // import { filter } from 'rxjs/operators';
-
-
+declare var require: any
+var FileUploadThumbnail = require('file-upload-thumbnail');
 
 @Component({
     selector: 'app-add-module',
@@ -66,6 +66,7 @@ export class AddModuleComponent implements OnInit {
     previousUrl;
     fileExist = false;
     existingFile = [];
+    roleId;
     // selectedCourseIds:any;
 
     constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels) {
@@ -96,6 +97,7 @@ export class AddModuleComponent implements OnInit {
         this.appendFilesToVideoList(this.addedFiles);
         
         this.moduleVar.api_url = API_URL.URLS;
+        this.roleId = this.utilService.getRole();
         this.moduleVar.dropdownSettings = {
             singleSelection: false,
             idField: 'id',
@@ -273,6 +275,8 @@ export class AddModuleComponent implements OnInit {
         this.upload.emit(obj);
     }
 
+  
+
     fileUpload(e) {
         this.showImage = true;
         let self = this;
@@ -318,6 +322,32 @@ export class AddModuleComponent implements OnInit {
                     this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
                     if (this.fileExtensionType === 'Video') {
                         this.filePreviewImage(file);
+                    if (e.target.files) {
+                        Array.prototype.slice.call(e.target.files).forEach(function(file){
+                            new FileUploadThumbnail({
+                            maxWidth: 500,
+                            maxHeight: 500,
+                            file: file,
+                            onSuccess: function(src){
+                                console.log(src)
+                                let date = new Date().valueOf();
+                                let text = '';
+                                let possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                                for (let i = 0; i < 5; i++) {
+                                text += possibleText.charAt(Math.floor(Math.random() *    possibleText.length));
+                                }
+                                // Replace extension according to your media type
+                                let imageName = date + text + '.jpeg';
+                                // call method that creates a blob from dataUri
+                                // self.previewImage = src;
+                                let encode = window.btoa(src)
+                                let imageBlob = self.dataURItoBlob(encode);
+                                self.fileImageDataPreview = new File([imageBlob], imageName, { type: 'image/jpeg' });
+                                console.log(self.fileImageDataPreview)
+                            }
+                            }).createThumbnail();
+                        });
+                        }
                     }
                     let fileType = typeValue[0];
                     this.fileName = file.name;
@@ -337,6 +367,17 @@ export class AddModuleComponent implements OnInit {
             }
         }
     }
+
+      dataURItoBlob(dataURI) {
+        const byteString = window.atob(dataURI);
+        const arrayBuffer = new ArrayBuffer(byteString.length);
+        const int8Array = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < byteString.length; i++) {
+          int8Array[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([int8Array], { type: 'image/jpeg' });    
+        return blob;
+     }
 
     filePreviewImage(file) {
         let self = this;
@@ -377,7 +418,7 @@ export class AddModuleComponent implements OnInit {
             fetch(url)
                 .then(res => res.blob())
                 .then(blob => {
-                    self.fileImageDataPreview = new File([blob], "File_name.png");
+                    // self.fileImageDataPreview = new File([blob], "File_name.png");
                     // self.fileImageDataPreview.type = "image/png";
                 })
             // Load video in Safari / IE11
@@ -805,7 +846,8 @@ export class AddModuleComponent implements OnInit {
                 "courseTrainingClasses": this.moduleVar.selectedCourseIds,
                 "createdBy": user.userId,
                 "resortId": this.resortId,
-                "status": courseSubmitType ? 'none' : 'workInprogress'
+                "status": courseSubmitType ? 'none' : 'workInprogress',
+                "draft" : false
             }
             if ((this.moduleCourseId || this.moduleId) && !this.duplicateCourse) {
                 let id = this.moduleCourseId ? this.moduleCourseId : this.moduleId;
@@ -842,6 +884,12 @@ export class AddModuleComponent implements OnInit {
                 })
             }
             else {
+                if(this.roleId == 4){
+                    params.draft = true
+                }
+                else{
+                delete params.draft;
+                }
                 this.courseService.addCourse(params).subscribe((resp) => {
                     if (resp && resp.isSuccess) {
                         if (this.duplicateCourse) {

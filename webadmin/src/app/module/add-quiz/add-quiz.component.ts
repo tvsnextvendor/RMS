@@ -63,7 +63,8 @@ export class AddQuizComponent implements OnInit {
     classId;
     userData;
     resortId;
-    enableAddQuiz = false;;
+    enableAddQuiz = false;
+    roleId;
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
@@ -83,7 +84,7 @@ export class AddQuizComponent implements OnInit {
                 this.hideClass.emit(true);
             }
         })
-
+        this.roleId = this.utilService.getRole();
         this.selectedVideo = this.videoId ? this.videoId : null;
         this.selectedCourse = this.courseId ? this.courseId : null;
         this.quizName = this.quizNames ? this.quizNames : '';
@@ -297,10 +298,17 @@ export class AddQuizComponent implements OnInit {
                     "quizQuestions": data,
                     "quizId" : '',
                     "createdBy" : user.userId,
-                    "resortId": this.resortId
+                    "resortId": this.resortId,
+                    "draft" : false
                 }
             }
 
+            if(this.roleId == 4){
+                params.draft = true
+              }
+              else{
+                delete params.draft;
+              }
             if(this.quizCreateType == 'exist' && this.selectedQuiz){
                 params.quizId = this.selectedQuiz;
                 delete params.quizName;
@@ -350,6 +358,13 @@ export class AddQuizComponent implements OnInit {
                         this.valueChanged(result.data, hideTraining, false);
                     }
                     this.modalRef && this.modalRef.hide();
+                },err=>{
+                    let errData = err.error.error
+                    if(errData && errData.statusKey){
+                        this.courseId = '';
+                        this.quizSubmit(submitType)
+                    }
+        
                 })
             }
             else {
@@ -459,9 +474,16 @@ export class AddQuizComponent implements OnInit {
                         "quizQuestions": data,
                         "quizId" : '',
                         "createdBy" : user.userId,
-                        "resortId":this.resortId
+                        "resortId":this.resortId,
+                        "draft" : false
                     }
                 }
+                if(this.roleId == 4){
+                    params.draft = true
+                  }
+                  else{
+                    delete params.draft;
+                  }
 
                 if(this.quizCreateType == 'exist' && this.selectedQuiz){
                     params.quizId = this.selectedQuiz;

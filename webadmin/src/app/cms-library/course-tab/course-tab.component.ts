@@ -64,10 +64,11 @@ export class CourseTabComponent implements OnInit {
   iconEnable = false;
   existingFile = [];
   fileExist = false;
+  resourceLib;
 
   constructor(private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService) {
     this.roleId = this.utilService.getRole();
-    let resourceLib = false;
+    this.resourceLib = false;
     this.activatedRoute.queryParams.subscribe(params => {
       if (params.tab == 'schedule') {
         this.breadCrumbTitle = [{ title: this.commonLabels.labels.schedule, url: '/calendar' }, { title: this.commonLabels.labels.course, url: '' }]
@@ -75,12 +76,12 @@ export class CourseTabComponent implements OnInit {
       } else if (window.location.pathname.indexOf("resource") != -1) {
         this.breadCrumbTitle = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.course, url: '' }]
         this.schedulePage = false;
-        resourceLib = true;
+        this.resourceLib = true;
       } else {
         this.breadCrumbTitle = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.course, url: '' }]
         this.schedulePage = false;
       }
-      if((this.roleId != 4 && !this.schedulePage) || (this.roleId == 4 && !resourceLib)){
+      if((this.roleId != 4 && !this.schedulePage) || (this.roleId == 4 && !this.resourceLib)){
         this.iconEnable = true;
       }
       this.breadCrumbService.setTitle(this.breadCrumbTitle)
@@ -142,6 +143,9 @@ export class CourseTabComponent implements OnInit {
     let user = this.utilService.getUserData();
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
     let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=none' : (roleId != 1 ? (this.checkBoxEnable ? '&status=none&resortId='+resortId : '&status=none&resortId='+resortId+'&created='+user.userId) : '&status=none');
+    if(roleId == 4 ){
+      query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
+    }
     this.courseService.getCourse(this.p, this.pageSize, query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {

@@ -68,12 +68,12 @@
                             <span class="course-count" routerLink="/files/{{data.courseId}}">{{data?.FileMappings.length}}</span>
                         </div>
                     </div>
-                    <!-- <div class="col-md-3">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label class="course-header">{{commonLabels.labels.noOfEmployee}}</label>
                             <span class="course-count" routerLink="/employeelist/{{data.courseId}}">{{data.totalEmployeeCount}}</span>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="course-header">{{commonLabels.labels.fileSize}}</label>
@@ -187,7 +187,7 @@
                         {{commonLabels.labels.upload}} <span class="caret ml-4"></span>
                     </button>
                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu upload-btn" role="menu" aria-labelledby="button-basic">
-                        <li role="menuitem"><a class="dropdown-item pl-2" (click)="showCMSLibrary()">{{commonLabels.labels.cmsLibrary}}</a></li>
+                        <li role="menuitem"><a class="dropdown-item pl-2" (click)="showCMSLibrary()">{{commonLabels.labels.resourceLibrary}}</a></li>
                         <li role="menuitem"><a class="dropdown-item pl-2" (click)="fileUploadPopup(uploadPopup)">{{commonLabels.labels.desktop}}</a></li>
                     </ul>
                 </div>

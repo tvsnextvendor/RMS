@@ -40,7 +40,7 @@ export class ContentFileComponent implements OnInit {
    }
 
   ngOnInit() {
-    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.contentFile,url:''}]
+    let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/cms-library'},{title : this.commonLabels.labels.contentFile,url:''}]
     this.breadCrumbService.setTitle(data);
      this.getContentFiles();
 
