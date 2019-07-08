@@ -47,3 +47,23 @@ tbody > tr > td {
     font-weight: 600;
     float: left;
 }
+.inprogress-color{
+  color: #570de8de !important;
+  font-weight: 700;
+}
+.completed-color{
+  color: #0a9822f2 !important;
+  font-weight: 700;
+}
+.failed-color{
+  color: #f1310f !important;
+    font-weight: 700;
+}
+.expired-color{
+  color: #f51e46 !important;
+    font-weight: 700;
+}
+.assigned-color{
+  color: #468FB9 !important;
+    font-weight: 700;
+}
