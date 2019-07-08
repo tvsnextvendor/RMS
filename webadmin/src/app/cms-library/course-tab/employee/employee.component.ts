@@ -28,7 +28,7 @@ export class EmployeeComponent implements OnInit {
     let user = this.utilService.getUserData();
     this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
-    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.employeeTabLabel,url:''}]
+    let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/cms-library'},{title : this.commonLabels.labels.employeeTabLabel,url:''}]
     this.breadCrumbService.setTitle(data);
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[1]];

@@ -28,7 +28,13 @@ export class EmployeesListComponent implements OnInit {
     let user = this.utilService.getUserData();
     this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
     this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
-    let data = [{title : this.commonLabels.labels.cmsLibrary,url:'/cms-library'},{title : this.commonLabels.labels.empList,url:''}]
+    let data;
+    if (window.location.pathname.indexOf("resource") != -1) {
+      data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.empList, url: '' }]
+    } else {
+      data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/cms-library' }, { title: this.commonLabels.labels.empList, url: '' }]
+    }
+    // [{title : this.commonLabels.labels.resourceLibrary,url:'/cms-library'},{title : this.commonLabels.labels.empList,url:''}]
     this.breadCrumbService.setTitle(data)
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[1]];

@@ -82,7 +82,6 @@ export class WorkCourseListComponent implements OnInit {
   }
 
   tabChange(tabName,id,courseId,count) {
-    debugger;
     let data = {tab : tabName,id:'',courseId : id}
     this.trainingClassListTab.next(data);
 }

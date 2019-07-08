@@ -56,6 +56,7 @@ export class AddNotificationComponent implements OnInit {
     existingFile = [];
     fileExist = false;
     resourceLib = false;
+    roleId;
 
     constructor(private breadCrumbService :BreadCrumbService,public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
@@ -93,6 +94,7 @@ export class AddNotificationComponent implements OnInit {
         this.batchVar.dategreater = true;
         this.currentDate = new Date();
         const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
+        this.roleId = this.utilService.getRole();
         this.moduleVar.selectedResort = resortId;
         this.getDropdownDetails(resortId,'init');
         this.getCourses();
@@ -384,7 +386,8 @@ export class AddNotificationComponent implements OnInit {
           "divisionId":this.moduleVar.selectedDivision.map(x=>{return x.divisionId}),
           "departmentId":this.moduleVar.selectedDepartment.map(x=>{return x.departmentId}),
           "userId":this.moduleVar.selectedEmployee.map(x=>{return x.userId}),
-          "removeUserIds":''
+          "removeUserIds":'',
+          "draft" : false
         }
 
         if(this.notificationType == 'assignedToCourse'){
@@ -395,6 +398,12 @@ export class AddNotificationComponent implements OnInit {
             this.updateNotification(data);
           }     
           else{
+            if(this.roleId == 4){
+              data.draft = true
+            }
+            else{
+              delete data.draft;
+            }
             delete data.removeUserIds;
             this.courseService.addTypeOneNotification(data).subscribe(resp=>{
               if(resp && resp.isSuccess){
@@ -415,6 +424,12 @@ export class AddNotificationComponent implements OnInit {
             this.updateNotification(data);
           } 
           else{
+            if(this.roleId == 4){
+              data.draft = true
+            }
+            else{
+              delete data.draft;
+            }
             delete data.removeUserIds;
             data.signatureStatus = this.notificationType == 'signature' ? true : false;
             this.courseService.addTypeTwoNotification(data).subscribe(resp=>{

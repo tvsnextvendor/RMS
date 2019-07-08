@@ -27,6 +27,7 @@ export class TraingClassTabComponent implements OnInit {
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
   @Input() courseId;
+  resourceLib;
   constructor(private courseService: CourseService,
      public commonLabels: CommonLabels,
       public alertService: AlertService, 
@@ -41,7 +42,7 @@ export class TraingClassTabComponent implements OnInit {
     this.currentPage = 1;
     this.userData = this.utilService.getUserData().userId;
     let roleId = this.utilService.getRole();
-    let resourceLib = false;
+    this.resourceLib = false;
     this.activatedRoute.queryParams.subscribe(params => {
       if (params.tab == 'schedule') {
         this.schedulePage = true;
@@ -50,14 +51,14 @@ export class TraingClassTabComponent implements OnInit {
     if (window.location.pathname.indexOf("resource") != -1) {
       let data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.trainingClass, url: '' }];
       this.breadCrumbService.setTitle(data);
-      resourceLib = true;
+      this.resourceLib = true;
     } else {
       let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.trainingClass, url: '' }]
       this.breadCrumbService.setTitle(data);
       this.enableClassEdit = true;
     }
 
-    if(roleId == 4 && resourceLib){
+    if(roleId == 4 && this.resourceLib){
       this.iconEnable = false;
     }
     if (this.enableClassEdit) {
@@ -85,6 +86,9 @@ export class TraingClassTabComponent implements OnInit {
     let roleId = this.utilService.getRole();
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId : '&resortId=' + resortId+"&createdBy="+user.userId) : '');
+    if(roleId == 4 ){
+      query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
+    }
     this.courseService.getTrainingClassList(this.currentPage,this.pageLength,query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
@@ -104,6 +108,9 @@ export class TraingClassTabComponent implements OnInit {
     // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId : '';
     // console.log(query)
     // debugger;
+    if(roleId == 4 ){
+      query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
+    }
     let newList;
     let trainList;
     this.courseService.getCourseTrainingClass(this.currentPage, this.pageLength, query).subscribe((resp) => {

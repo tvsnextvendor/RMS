@@ -2,7 +2,7 @@ import { Component, OnInit,TemplateRef,ViewChild} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import {Router,ActivatedRoute} from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import {HeaderService,UtilService,CourseService,BreadCrumbService,AlertService} from '../../services';
+import {HeaderService,UtilService,CourseService,BreadCrumbService,AlertService,CommonService} from '../../services';
 import {BatchVar} from '../../Constants/batch.var';
 import {startOfDay,endOfDay,subDays,subWeeks,subMonths,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,CalendarMonthViewDay} from 'angular-calendar';
@@ -33,6 +33,7 @@ export class CalendarViewComponent implements OnInit {
     modalRef;
     removeScheduleId;
     currentDate;
+    resortList;
 
   
    constructor(
@@ -45,7 +46,8 @@ export class CalendarViewComponent implements OnInit {
     private courseService : CourseService,
     private breadCrumbService : BreadCrumbService,
     private activatedRoute :ActivatedRoute,
-    private alertService : AlertService){
+    private alertService : AlertService,
+    private commonService :CommonService){
     this.batchVar.url = API_URL.URLS; 
     this.activatedRoute.queryParams.forEach(items=>{
         this.currentUrl = items.type
@@ -60,6 +62,11 @@ export class CalendarViewComponent implements OnInit {
         let user = this.utilService.getUserData();
         this.resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
         this.getCalendarDetails();
+        this.commonService.getResortForFeedback(this.resortId).subscribe((result) => { 
+            if(result && result.isSuccess){
+                this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
+            }
+        });
     }
 
     ngDoCheck(){
@@ -109,10 +116,10 @@ export class CalendarViewComponent implements OnInit {
             // console.log(resp)
         })
     }
-
     getCalendarDetails(){
         let roleId = this.utilService.getRole();
-        let query = roleId != 1 ? this.resortId : ''
+        let user = this.utilService.getUserData();
+        let query = roleId != 1 ? this.resortId+"&createdBy="+user.userId : ''
         this.courseService.getCalendarSchedule(query).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 // console.log(resp);

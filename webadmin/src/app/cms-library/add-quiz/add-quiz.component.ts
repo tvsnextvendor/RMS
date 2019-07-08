@@ -45,6 +45,7 @@ export class CreateQuizComponent implements OnInit {
   resortId;
   answerEmpty = false;
   optionEmpty = false;
+  roleId;
 
   constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
     public commonLabels:CommonLabels,public location : Location,private breadCrumbService : BreadCrumbService,private utilService :UtilService) {
@@ -58,6 +59,7 @@ export class CreateQuizComponent implements OnInit {
   
   ngOnInit() {
     this.quizId ? this.headerService.setTitle({title:this.commonLabels.labels.edit, hidemodule:false}) : this.headerService.setTitle({title:this.commonLabels.labels.create, hidemodule:false});
+    this.roleId = this.utilService.getRole();
     let data = this.quizId ? [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.btns.editQuiz,url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.labels.createQuiz,url:''}]
     this.breadCrumbService.setTitle(data)
     this.questionOptions = [
@@ -227,7 +229,14 @@ export class CreateQuizComponent implements OnInit {
         quizName : this.quizName,
         quizQuestions : this.quizQuestionsForm,
         createdBy:this.userData.userId,
-        resortId:this.resortId
+        resortId:this.resortId,
+        draft : false
+      }
+      if(this.roleId == 4){
+        postData.draft = true
+      }
+      else{
+        delete postData.draft;
       }
       this.courseService.addQuiz(postData).subscribe(res=>{
         if(res.isSuccess){
