@@ -55,6 +55,7 @@ export class AddNotificationComponent implements OnInit {
     currentDate;
     existingFile = [];
     fileExist = false;
+    resourceLib = false;
 
     constructor(private breadCrumbService :BreadCrumbService,public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
@@ -63,18 +64,28 @@ export class AddNotificationComponent implements OnInit {
         this.userId = this.utilService.getUserData() && this.utilService.getUserData().userId;
         this.activatedRoute.queryParams.forEach(items=>{
           this.notifyId = items.notifyId;
+          if(items && items.library){
+            this.resourceLib = true;
+          }
         })
     }
 
     ngOnInit() {
       this.clearBatchForm();
-      let data = this.notifyId ? [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.editNotification,url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.btns.createNotification,url:''}]
-      this.breadCrumbService.setTitle(data);
-      if(this.notifyId){
+      if (this.resourceLib) {
         this.headerService.setTitle({title:'Edit', hidemodule:false});  
+        let data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.editNotification, url: '' }]
+        this.breadCrumbService.setTitle(data);
+      }
+      else if(this.notifyId){
+        this.headerService.setTitle({title:'Edit', hidemodule:false});  
+        let data = this.notifyId ? [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.editNotification,url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.btns.createNotification,url:''}]
+        this.breadCrumbService.setTitle(data);
       }
       else{
         this.headerService.setTitle({title:'Create', hidemodule:false});  
+        let data = this.notifyId ? [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.editNotification,url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.btns.createNotification,url:''}]
+        this.breadCrumbService.setTitle(data);
       }
         // let startDate = localStorage.getItem('BatchStartDate');
         this.batchVar.batchFrom = '';
@@ -594,6 +605,12 @@ export class AddNotificationComponent implements OnInit {
       this.notifyType = '';
       this.fileExist = false;
       this.existingFile = [];
+      if (this.resourceLib) {
+        this.router.navigate(['/resource/library']);
+      }
+      else if(this.notifyId){
+        this.router.navigate(['/cms-library'],{queryParams : {type:"edit",tab:"notification"}});
+      }
       // this.router.navigate(['/cmspage'],{queryParams:{type:'create'}})
     }
 

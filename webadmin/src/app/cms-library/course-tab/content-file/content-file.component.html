@@ -18,7 +18,7 @@
                         <th class="text-left">{{commonLabels.labels.fileSize}}</th>
                         <th class="text-left">{{commonLabels.labels.type}}</th>
                         <th class="text-left">{{commonLabels.labels.length}}</th>
-                          <th class="text-left">{{commonLabels.labels.noofEmp}}</th>
+                          <!-- <th class="text-left">{{commonLabels.labels.noofEmp}}</th> -->
                           <th class="text-center">{{commonLabels.labels.action}}</th>      
                     </tr>
                     </thead>
@@ -28,7 +28,7 @@
                             <td class="text-left">{{file.fileSize}}</td>
                             <td class="text-left">.{{file.fileExtension}}</td>
                             <td class="text-left">03.50</td>
-                            <td class="text-left"><a href="#">100</a></td>     
+                            <!-- <td class="text-left"><a href="#">100</a></td>      -->
                             <td class="text-center">
                               <a (click)="openEditVideo(editDocTemp,file,i)"><i class="fas fa-pencil-alt"aria-hidden="true"></i></a>
                                 <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
@@ -103,7 +103,7 @@
                             <!-- <select class="form-control p-0"> -->
                             <option value="null" disabled >Select</option>
                             <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">
-                                {{data.resortName}}</option>
+                                {{data.resortName  | titlecase}}</option>
                         </select>
                         <span class="required_color" *ngIf="submitted && !constant.selectedResort">
                             {{commonLabels.mandatoryLabels.selectResort}}

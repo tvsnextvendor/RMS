@@ -16,7 +16,7 @@
 
                 <span class="float-right">
                   
-                    <a  title="Send Approval" *ngIf="roleId === 4 && !schedulePage" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
+                    <a  title="Send Approval" *ngIf="roleId === 4 && iconEnable && userData.userId == courses.createdBy" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
                     <a  *ngIf="iconEnable && userData.userId == courses.createdBy" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"
                             (click)="enableDropData('edit',i,courses)"></i></a>
                     <a *ngIf="iconEnable && userData.userId == courses.createdBy" title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
@@ -37,7 +37,7 @@
                     <div class="col-md-4 p-0">
                         <div class="form-group pl-0">
                             <label class="course-header">{{commonLabels.labels.createdBy}}</label>
-                            <span class="form-control pl-0" placeholder="Creator name" *ngIf="courses.createdByDetails">{{data.createdByDetails.userName}}</span>
+                            <span class="form-control pl-0" placeholder="Creator name" *ngIf="courses.createdByDetails">{{data.createdByDetails.userName  | titlecase}}</span>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -68,12 +68,12 @@
                             <span class="course-count" routerLink="/files/{{data.courseId}}">{{data?.FileMappings.length}}</span>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="form-group">
                             <label class="course-header">{{commonLabels.labels.noOfEmployee}}</label>
                             <span class="course-count" routerLink="/employeelist/{{data.courseId}}">{{data.totalEmployeeCount}}</span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="course-header">{{commonLabels.labels.fileSize}}</label>

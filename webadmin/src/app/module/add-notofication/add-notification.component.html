@@ -119,7 +119,7 @@
                         <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="resort"
                             [(ngModel)]="moduleVar.selectedResort" #resort (change)="getDropdownDetails(resort.value,'')">
                             <option value='null' disabled>{{commonLabels.labels.resort}}</option>
-                            <option *ngFor="let course of moduleVar.resortList" [value]="course.resortId">{{course.resortName}}</option>
+                            <option *ngFor="let course of moduleVar.resortList" [value]="course.resortId">{{course.resortName  | titlecase}}</option>
                         </select>
                         <div class="select_arrow"></div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleVar.selectedResort">

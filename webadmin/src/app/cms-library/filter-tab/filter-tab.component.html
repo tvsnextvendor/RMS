@@ -55,7 +55,7 @@
                 <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterChildResort" #childResort
                     (change)="childResortChange(childResort.value)">
                     <option [value]=null>{{commonLabels.labels.selectchildresort}}</option>
-                    <option *ngFor="let resort of childResortFilterList" [value]="resort.resortId">{{resort.resortName}}</option>
+                    <option *ngFor="let resort of childResortFilterList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
                 </select>
                 <div class="select_arrow"></div>
             </div>
@@ -78,7 +78,7 @@
             <div class="col-md-12 p-0 select select-style clearfix">
                 <select name="createdBy" class="form-control pl-2" [(ngModel)]="filterCreatedBy">
                     <option [value]=null>{{commonLabels.labels.selectcreateuser}}</option>
-                    <option *ngFor="let creator of createdByList" [value]="creator.userId">{{creator.userName}}</option>
+                    <option *ngFor="let creator of createdByList" [value]="creator.userId">{{creator.userName  | titlecase}}</option>
                 </select>
                 <div class="select_arrow"></div>
             </div>

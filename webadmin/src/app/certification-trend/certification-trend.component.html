@@ -55,7 +55,7 @@
       <tbody>
         <tr class="video-trend-desc" *ngFor="let list of mf.data">
           <td class="vdo-desc-height">
-            <span *ngIf="list.User">{{list.User.userName}}</span>
+            <span *ngIf="list.User">{{list.User.userName  | titlecase}}</span>
           </td>
           <td class="vdo-desc-height">
             <span *ngIf="list.Course">{{list.Course.courseName}}</span>

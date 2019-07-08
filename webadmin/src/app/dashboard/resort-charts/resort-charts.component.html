@@ -19,7 +19,7 @@
              <span><button type="button" class="btn btn-primary parent-resortbtn">{{commonLabels.btns.go}}</button></span>
             <select class="select-btn cp" [(ngModel)]='selectedResort' #resort (change)="getCountDetails(resort.value)">
               <option value="null" disabled>{{commonLabels.labels.parentresort}}</option>
-              <option *ngFor="let resort of resortList" [value]='resort.resortId'>{{resort.resortName}}</option>
+              <option *ngFor="let resort of resortList" [value]='resort.resortId'>{{resort.resortName  | titlecase}}</option>
               <i class="fa fa-chevron-down" aria-hidden="true"></i></select>
             <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
           </div>

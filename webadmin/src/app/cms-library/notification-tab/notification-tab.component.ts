@@ -183,7 +183,13 @@ export class NotificationTabComponent implements OnInit {
   }
 
   goToNotifyEdit(id){
-    this.router.navigate(['/cms-library'],{queryParams : {notifyId : id,type:"create",tab:"notification"}});
+    if(this.resourseLib){
+      this.router.navigate(['/cms-library'],{queryParams : {notifyId : id,type:"create",tab:"notification",library:true}});
+    }
+    else{
+      this.router.navigate(['/cms-library'],{queryParams : {notifyId : id,type:"create",tab:"notification"}});
+    }
+    
   }
   pageChanged(e){
     this.p = e;

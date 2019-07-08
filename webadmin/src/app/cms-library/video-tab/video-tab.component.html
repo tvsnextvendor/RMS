@@ -71,12 +71,12 @@
                     <th class="text-left text-nowrap">
                             {{commonLabels.labels.length}}
                     </th>
-                    <th class="text-left text-nowrap">
+                    <!-- <th class="text-left text-nowrap">
                             {{commonLabels.labels.noofEmp}}
                     </th>
                     <th class="text-left text-nowrap">
                             {{commonLabels.labels.permission}}
-                    </th>
+                    </th> -->
                     <th class="text-center text-nowrap">
                             {{commonLabels.labels.action}}
                     </th>
@@ -95,9 +95,9 @@
                     <td class="text-left">{{file.fileExtension ? file.fileExtension : 'mp4'}}</td>
                     <td class="text-left">{{file.fileLength ? timeFormatTransform(file.fileLength) : '0:00'}}</td>
                    
-                    <td>10</td>
-                    <td class="text-left">{{file.filePermissionType}}</td>
-                    <td>
+                    <!-- <td>10</td> -->
+                    <!-- <td class="text-left">{{file.filePermissionType}}</td> -->
+                    <td class="text-center">
                         <a (click)="viewTraningVideo(viewVideo,file.fileUrl)"><i class="fa fa-eye header-icon"
                             aria-hidden="true" title="View"></i></a>
                         <a *ngIf="iconEnable && userData == file.createdBy" (click)="getPermissionList(userList,file,i)" title="Edit"><i class="fas fa-user-friends header-icon"></i></a>
@@ -138,7 +138,7 @@
                             <!-- <select class="form-control p-0"> -->
                             <option value="null" disabled >Select</option>
                             <option *ngFor="let data of constant.resortList" value="{{data.resortId}}">
-                                {{data.resortName}}</option>
+                                {{data.resortName  | titlecase}}</option>
                         </select>
                         <span class="required_color" *ngIf="submitted && !constant.selectedResort">
                             {{commonLabels.mandatoryLabels.selectResort}}
@@ -240,27 +240,27 @@
                 <thead>
                     <tr class="th-boxshadow">
                         <th class="text-left">                            
-                            <div class="text-over">User Name</div>
+                            <div class="text-over">{{commonLabels.labels.userName}}</div>
                         </th>
                         <th class="text-left text-nowrap">
-                                Division
+                                {{commonLabels.labels.division}}
                         </th>
                         <th class="text-left text-nowrap">
-                            Department
+                                {{commonLabels.labels.department}}
                         </th>                  
                         <th class="text-center text-nowrap">
-                               Status
+                                {{commonLabels.labels.status}}
                         </th>
                     </tr>
                 </thead>
                 <tbody class=" text-nowrap">                  
                     <tr class="table-desc-color" *ngFor="let user of userListData | paginate: {itemsPerPage: userListSize,currentPage: currentPage,totalItems : totalCourseCount};let i = index">
                         <td class="text-left">
-                            <div >{{user?.User?.userName}}</div>
+                            <div >{{user?.User?.userName  | titlecase}}</div>
                         </td>                       
-                        <td class="text-left"></td>
-                        <td class="text-left"></td>
-                        <td class="text-left"></td>                         
+                        <td class="text-left">{{user?.Division?.divisionName}}</td>
+                        <td class="text-left">{{user?.Department?.departmentName}}</td>
+                        <td class="text-left">{{user?.filePermissionType}}</td>                         
                 </tbody>
             </table>  
         </div>
