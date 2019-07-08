@@ -33,7 +33,12 @@
 .btn-outline-secondary{
 	min-width: 0 !important;
 }
-
+.select-btn{
+	width: 45% !important;
+    color: #4D4F5C;
+    border: 1px solid #4D4F5C !important;
+    background-color: #fff;
+}
 
 
 /* .cal-disabled .cal-day-number {
