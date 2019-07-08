@@ -3,7 +3,7 @@
     <div>
       <div class="col-md-12 clearfix p-0">
         <span class="header-border"></span>
-          <h4 class="hd-alg m-0">{{headerVar.title}} - <span class="capitalize">{{this.commonService.getResortName()}}</span></h4>
+          <h4 class="hd-alg m-0">{{headerVar.title}} - <span class="capitalize">{{this.commonService.getResortName()  | titlecase}}</span></h4>
         <span *ngIf="headerVar.hideModule">
           <module-dropdown></module-dropdown>
         </span>

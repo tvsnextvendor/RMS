@@ -813,8 +813,12 @@ export class AddModuleComponent implements OnInit {
                     if (resp && resp.isSuccess) {
                         this.modalRef && this.modalRef.hide();
                         if (this.moduleId) {
-                            this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'course' } })
+                            courseSubmitType ? this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'course' } }) : this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'workInprogress' } })
                             this.moduleId = '';
+                        }
+                        else if(this.classId){
+                            this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'class' } })
+                            this.classId = '';
                         }
                         else {
                             if (courseSubmitType) {
@@ -825,8 +829,8 @@ export class AddModuleComponent implements OnInit {
                                 this.staticTabs.tabs[0].disabled = false;
                                 this.staticTabs.tabs[0].active = true;
                             }
+                            this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } });
                         }
-                        this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } });
                         this.alertService.success(this.commonLabels.labels.moduleUpdateMsg);
                         this.moduleSubmitted = false;
                         this.fileService.emptyFileList();

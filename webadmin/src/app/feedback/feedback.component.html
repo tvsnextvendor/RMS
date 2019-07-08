@@ -6,7 +6,7 @@
           <div class="col-md-3 ml-5">              
               <select class="form-control" [(ngModel)]="resortSelected">
                   <option value="">--{{commonLabels.labels.selectResort}}--</option>
-                  <option *ngFor="let resorts of resortData" [value]=resorts.resortId>{{resorts.resortName}}</option>
+                  <option *ngFor="let resorts of resortData" [value]=resorts.resortId>{{resorts.resortName  | titlecase}}</option>
               </select>             
           </div>
           <div class="col-md-3">              
@@ -56,7 +56,7 @@
                           </p>
                         </div>
                         <div class="link-sec">
-                          <p>{{feedbacks.feedbackMap[0].Resort.resortName}}</p>
+                          <p>{{feedbacks.feedbackMap[0].Resort.resortName  | titlecase}}</p>
                           <p>{{feedbacks.feedbackMap[0].Course.courseName}}</p>
                           <p>{{feedbacks.feedbackMap[0].TrainingClass.trainingClassName}}</p>
                         </div>
@@ -77,7 +77,7 @@
         <div class="col-md-9 app-select">              
             <select class="form-control" [(ngModel)]="selectedResortApp">
                 <option value="" >--{{commonLabels.labels.selectResort}}--</option>
-                <option *ngFor="let resorts of resortData" [value]="resorts.resortId">{{resorts.resortName}}</option>
+                <option *ngFor="let resorts of resortData" [value]="resorts.resortId">{{resorts.resortName  | titlecase}}</option>
             </select>             
         </div>         
         <button class="btn btn-primary" (click)="applicationList()">{{commonLabels.btns.go}}</button>
@@ -93,7 +93,7 @@
             </div>
               <div class="apl-txt-rt pl-3">
                   <div class="topic-into">
-                    <h5 class="hd-tit">{{apps.feedbackMap[0].User?.userName}}</h5>
+                    <h5 class="hd-tit">{{apps.feedbackMap[0].User?.userName  | titlecase}}</h5>
                     <div class="clearfix mt-2">
                       <small class="topic-time float-left">{{apps.created |date}}</small> 
                       <!-- <span class="float-right rating star-alg"> -->
@@ -113,7 +113,7 @@
                     </p>
                   </div>
                   <div class="link-sec">
-                      <p>{{apps.feedbackMap[0].Resort.resortName}}</p>
+                      <p>{{apps.feedbackMap[0].Resort.resortName  | titlecase}}</p>
                   </div>
               </div>              
         </div>              

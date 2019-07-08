@@ -13,7 +13,7 @@
       </div>
   		<div class="col-lg-7 pl-0">
   			<div class="py-4">
-  			<h4>{{profVar.userName}}</h4>
+  			<h4>{{profVar.userName  | titlecase}}</h4>
           <button type = "button" routerLink="/editprofile" class="btn btn-primary profile-save-btn">{{commonLabels.btns.editProfile}}</button>
   		</div>
   		</div>
@@ -80,7 +80,7 @@
                   <div class="col-lg-4"><img src="assets/images/profile_circle.png"></div>
                   <div class="col-lg-8">
                       <div class="py-4">
-                      <h4>{{profVar.userName}}</h4>
+                      <h4>{{profVar.userName  | titlecase}}</h4>
                       <button type = "submit" class="btn btn-primary profile-save-btn">{{commonLabels.btns.save}}</button>
                   </div>
                   </div>

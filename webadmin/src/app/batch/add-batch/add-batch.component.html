@@ -76,7 +76,7 @@
                             <select id="resort" class="form-control p-0" name="resortId" [(ngModel)]="batchVar.selectedResort" [disabled]="scheduleId ? true : false" #resort (change)=getResortData(resort.value)>
                                 <option value="null">{{commonLabels.labels.resort}}</option>
 
-                                <option *ngFor="let data of batchVar.resortList" value="{{data.resortId}}">{{data.resortName}}</option>
+                                <option *ngFor="let data of batchVar.resortList" value="{{data.resortId}}">{{data.resortName  | titlecase}}</option>
                             </select> <div class="select_arrow"></div>
                             <span class="required_color" *ngIf="submitted && !batchVar.selectedResort">
                                 {{commonLabels.mandatoryLabels.selectResort}}

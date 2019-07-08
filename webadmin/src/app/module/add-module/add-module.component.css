@@ -39,12 +39,12 @@
     float: none;
 }
 .upload-crt-icon{
-    padding: 0 9px;
+    padding: 0 12px;
     font-size: 23px;
 }
 .trash-icon{
-    padding: 0 9px;
-    font-size: 21px;
+    padding: 0 0 0 9px;
+    font-size: 20px;
 }
 .option-btn{
     border: 1px solid #468FB9;

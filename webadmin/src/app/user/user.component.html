@@ -72,7 +72,7 @@
                     <tbody>
                         <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
                             <td class="text-center"><label class="mb-0">{{ user.employeeNo }}</label></td>
-                            <td class="text-center"><label class="mb-0">{{ user.userName }}</label></td>
+                            <td class="text-center"><label class="mb-0">{{ user.userName | titlecase}}</label></td>
                             <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0" >{{ getDivisionArray(user.ResortUserMappings,'div') }}</label></span></td>
                             <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'dept')}}</label></span></td>
                             <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'design') }}</label></span></td>
@@ -224,7 +224,7 @@
             <tbody>
                 <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
                     <td class="vat user-desc"><label class="mb-0">{{ user.employeeNo }}</label></td>
-                    <td class="vat user-desc"><label class="mb-0">{{ user.userName }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.userName  | titlecase }}</label></td>
                     <td class="vat user-desc"><span *ngIf="user.ResortUserMappings.length"><label class="mb-0" *ngFor="let div of ResortUserMappings">{{ div.Division.divisionName }}</label></span></td>
                     <td class="vat user-desc"><span *ngIf="user.ResortUserMappings.length"><label class="mb-0" *ngFor="let div of ResortUserMappings">{{ div.Department.departmentName }}</label></span></td>
                     <td class="vat user-desc"><span *ngIf="user.ResortUserMappings.length"><label class="mb-0" *ngFor="let div of ResortUserMappings">{{ div.Designation.designationName }}</label></span></td>
@@ -367,7 +367,7 @@
                 <span class="col-md-7 pl-0 select select-style clearfix">
                     <select [(ngModel)]="reportingTo" name="reportingTo" class="form-control">
                         <option value="">{{commonLabels.labels.select}}</option>
-                        <option *ngFor="let obj of designationArrays" [value]="obj.userId">{{obj.userName}}</option>
+                        <option *ngFor="let obj of designationArrays" [value]="obj.userId">{{obj.userName  | titlecase}}</option>
                     </select>
                      <div class="select_arrow"></div>
                 </span> 

@@ -47,15 +47,15 @@
                     </thead>
                     <tbody>
                         <tr class="table-desc-color" *ngFor="let item of pendingList | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCount};let i = index;">
-                            <td class="text-left">{{item.Resort.resortName}}</td>
-                            <td class="text-left">{{item.Requestor.userName}}</td>
+                            <td class="text-left">{{item.Resort.resortName  | titlecase}}</td>
+                            <td class="text-left">{{item.Requestor.userName  | titlecase}}</td>
                             <td class="text-left">{{item.contentName}}</td>
                             <td class="text-left">{{item.contentType}}</td>
 
 
                             <td class="text-left">{{item.created | date : 'medium'}}</td>
                             <td class="text-left">
-                                <span *ngIf="item.Approver"> {{item.Approver.userName}}</span>
+                                <span *ngIf="item.Approver"> {{item.Approver.userName  | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
                             <td>
@@ -108,15 +108,15 @@
                     </thead>
                     <tbody>
                         <tr class="table-desc-color" *ngFor="let item of pendingList | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCount};let i = index;">
-                            <td class="text-left">{{item.Resort.resortName}}</td>
-                            <td class="text-left">{{item.Requestor.userName}}</td>
+                            <td class="text-left">{{item.Resort.resortName  | titlecase}}</td>
+                            <td class="text-left">{{item.Requestor.userName  | titlecase}}</td>
                             <td class="text-left">{{item.contentName}}</td>
                             <td class="text-left">{{item.contentType}}</td>
 
 
                             <td class="text-left">{{item.created | date : 'medium'}}</td>
                             <td class="text-left">
-                                <span *ngIf="item.Approver"> {{item.Approver.userName}}</span>
+                                <span *ngIf="item.Approver"> {{item.Approver.userName  | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
 
@@ -165,15 +165,15 @@
                     </thead>
                     <tbody>
                         <tr class="table-desc-color" *ngFor="let item of pendingList | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCount};let i = index;">
-                            <td class="text-left">{{item.Resort.resortName}}</td>
-                            <td class="text-left">{{item.Requestor.userName}}</td>
+                            <td class="text-left">{{item.Resort.resortName  | titlecase}}</td>
+                            <td class="text-left">{{item.Requestor.userName  | titlecase}}</td>
                             <td class="text-left">{{item.contentName}}</td>
                             <td class="text-left">{{item.contentType}}</td>
 
 
                             <td class="text-left">{{item.created | date : 'medium'}}</td>
                             <td class="text-left">
-                                <span *ngIf="item.Approver"> {{item.Approver.userName}}</span>
+                                <span *ngIf="item.Approver"> {{item.Approver.userName  | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
 
@@ -206,7 +206,7 @@
                             #resort (change)=getResortData(resort.value)>
                             <option value="null">{{commonLabels.labels.resort}}</option>
 
-                            <option *ngFor="let data of resortList" value="{{data.resortId}}">{{data.resortName}}</option>
+                            <option *ngFor="let data of resortList" value="{{data.resortId}}">{{data.resortName  | titlecase}}</option>
                         </select>
                         <div class="select_arrow"></div>
                     </div>
@@ -310,7 +310,7 @@
                     <span class="mandatory-color">*</span></label>
                 <select [(ngModel)]="approvalAccess" name="approvalAccess" class="col-md-6 form-control">
                     <option value="" disabled>{{commonLabels.labels.selectUsers}}</option>
-                    <option *ngFor="let obj of createdByList" [value]="obj.userId">{{obj.userName}}</option>
+                    <option *ngFor="let obj of createdByList" [value]="obj.userId">{{obj.userName  | titlecase}}</option>
                 </select>
             </div>
 

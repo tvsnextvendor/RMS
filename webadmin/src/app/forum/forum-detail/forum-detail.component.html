@@ -93,7 +93,7 @@
                    </a>
                    <div class="topic-wrap-rt pl-3">
                        <div class="topic-into clearfix">
-                         <h5 class="hd-tit float-left">{{posts.User.userName}}</h5>
+                         <h5 class="hd-tit float-left">{{posts.User.userName  | titlecase}}</h5>
                          <span class="float-right"><a (click)="removeData('post',posts.postId)"><i class="fas fa-times"></i></a></span>
                        </div>
                        <small class="topic-time">{{posts.createdDate | date}}</small> 
@@ -124,7 +124,7 @@
                     </a>
                     <div class="topic-wrap-rt pl-3">
                         <div class="topic-into clearfix">
-                          <h5 class="hd-tit float-left">{{comments.User.userName}}</h5>
+                          <h5 class="hd-tit float-left">{{comments.User.userName  | titlecase}}</h5>
                           <ul class="float-right m-0">
                             <li><a (click)="removeData('comment',comments.commentId)"><i class="fas fa-trash header-icon"></i></a></li>
                             <li class="nav-item dropdown no-arrow">

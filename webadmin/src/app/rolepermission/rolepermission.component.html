@@ -5,7 +5,7 @@
 				<div class="col-md-4 select select-style clearfix">
 					<select [(ngModel)]="constant.resortId" name="resortId" class="form-control pl-0" (change)="getDivisions(constant.resortId)">
 						<option value="null" disabled>-- Select {{commonLabels.labels.resort}} --</option>
-						<option *ngFor="let obj of constant.resortList" [value]="obj.resortId">{{obj.resortName}}</option>
+						<option *ngFor="let obj of constant.resortList" [value]="obj.resortId">{{obj.resortName  | titlecase}}</option>
 					</select>
 					<div class="select_arrow"></div>
 					<span class="required_color" *ngIf="rolepermission.submitted && !constant.resortId">

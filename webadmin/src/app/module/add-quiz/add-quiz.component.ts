@@ -516,7 +516,8 @@ export class AddQuizComponent implements OnInit {
                         if(result && result.isSuccess){
                             this.selectedQuiz = null;
                             this.classId = '';
-                            this.route.navigate(['/cmspage'], { queryParams: { type: 'edit' } })
+                            // this.route.navigate(['/cmspage'], { queryParams: { type: 'edit' } })
+                            this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'class' } })
                             this.completed.emit(true);
                             this.alertService.success(result.message);
                             this.fileService.emptyFileList();
