@@ -16,10 +16,10 @@
             <img src="{{showPreView}}" alt="image" class="inner-image">
         </div>
         <div class="video-tag" *ngIf="!imageType">
-            <video #videoTag id="video-width" autoplay (ended)="videoEnded()" (error)="videoFailed(event)" class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
+            <video #videoTag id="video-width" autoplay (ended)="videoEnded()" (error)="videoFailed($event)" onclick="disableSeeking()" class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
             playsinline class="videoPlayer" poster="{{uploadPath}}{{setTraining.fileImage}}">
-            <source src="{{showPreView}}" type="video/mp4" />
-        </video>
+            <source src="{{showPreView}}" type="video/mp4"/>
+           </video>
        </div>
     <div class="training-block">
         <div class="loading-bar-div">

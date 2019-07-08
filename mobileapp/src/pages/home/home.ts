@@ -32,9 +32,9 @@ export class HomePage {
   constructor(public navCtrl: NavController,public socketService: SocketService, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
  
   }
-  
- 
-  ngOnInit(){
+
+   
+  ionViewWillEnter(){
     let self = this;
     this.status = 'assigned';
     this.storage.get('currentUser').then((user: any) => {

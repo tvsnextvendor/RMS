@@ -71,9 +71,11 @@ export class ProfilePage implements OnInit {
     this.http.get(API_URL.URLS.getProfile+'?userId='+userId).subscribe((res)=>{
        if(res['isSuccess']){
          this.profileDetail = res['data']['rows'][0];
+         let uploadPath = res['data']['uploadPath']['uploadPath'];
          this.profile.userName = this.profileDetail.userName;
          this.profile.mobile = this.profileDetail.phoneNumber;
          this.profile.email = this.profileDetail.email;
+         this.previewProfilePic = uploadPath+ this.profileDetail.userImage;
        }
     })
   }
@@ -116,30 +118,30 @@ export class ProfilePage implements OnInit {
        }
        reader.readAsDataURL(file);
    }
-  this.http.upload(API_URL.URLS.uploadFiles, this.profileFile).subscribe(res => {
+ 
+    this.http.upload(API_URL.URLS.uploadFiles, this.profileFile).subscribe(res => {
        if(res.isSuccess){
-        //  this.previewProfilePic = '';
-        //  this.updateProfilePic();
+         this.updateProfilePic(res['data'][0]['filename']);
        }
     })
   }
 
-  updateProfilePic(){
+  updateProfilePic(name){
     let userId = this.currentUser.userId;
     let postData = {
-       "userImage" : this.previewProfilePic
+       "userImage" : name
     }
     this.http.put(false, API_URL.URLS.updateProfile + userId, postData).subscribe((res) => {
         if (res['isSuccess']) {
-            // this.content.scrollToTop();
-            // this.showToastr = true;
-            // this.className = "notify-box alert alert-success";
-            // this.msgTitle = "Success";
-            // this.msgDes = res['result'];
-            // let self = this;
-            // setTimeout(function() {
-            //     self.navCtrl.setRoot('home-page');
-            // }, 3000);
+            this.content.scrollToTop();
+            this.showToastr = true;
+            this.className = "notify-box alert alert-success";
+            this.msgTitle = "Success";
+            this.msgDes = res['message'];
+            let self = this;
+            setTimeout(function() {
+                self.navCtrl.setRoot('home-page');
+            }, 3000);
         }
     })
   }
