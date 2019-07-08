@@ -58,6 +58,7 @@ export class API_URL {
 
        //Training Schedule & Forum
        'getAllSchedule': '8103/schedule/getAllSchedules',
+       'getScheduleDetail': '8103/schedule/getSpecificSchedule',
        'getForum' : '8104/forum',
        'post' : '8104/post',
        'comment': '8104/comment',
