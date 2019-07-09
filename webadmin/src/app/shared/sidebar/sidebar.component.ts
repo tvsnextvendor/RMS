@@ -117,6 +117,14 @@ export class SideBarComponent implements OnInit {
         this.enableShow = !this.enableShow;  
         this.tabType = 'show'; 
         break;
+      case 'resource':
+        this.router.navigate(['/resource/library']);
+        this.tabType = 'resource';
+        this.enableCreate = false;
+        this.enableEdit = false;
+        this.enableReport = false;
+        this.enableShow = false; 
+        break;
       case 'cms':
         this.router.navigate(['/cms-library']);
         this.tabType = 'cms';

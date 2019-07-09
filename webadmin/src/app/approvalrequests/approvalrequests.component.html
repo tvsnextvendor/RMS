@@ -58,11 +58,12 @@
                                 <span *ngIf="item.Approver"> {{item.Approver.userName  | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
-                            <td>
-                                <a title="To Approve" (click)="approveConfirm(approveConfirmPop,item)"><i class="fa fa-check"
+                            <td >
+                                <a *ngIf = "item.createdBy != userData.userId" title="To Approve" (click)="approveConfirm(approveConfirmPop,item)"><i class="fa fa-check"
                                         aria-hidden="true"></i></a>
-                                <a title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i class="fa fa-times"
+                                <a *ngIf = "item.createdBy != userData.userId" title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i class="fa fa-times"
                                         aria-hidden="true"></i></a>
+                                <span class="text-center" *ngIf = "item.createdBy == userData.userId"> - </span>                                        
                             </td>
                         </tr>
                         <tr class="table-desc-color" *ngIf="totalCount === 0">
