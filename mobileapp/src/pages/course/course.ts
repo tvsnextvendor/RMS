@@ -54,8 +54,7 @@ export class CoursePage implements OnInit {
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,public modalService:BsModalService,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
-        this.tab = this.navParams.data; 
-      
+        this.tab = this.navParams.data;      
   }
 
   ngOnInit() {
@@ -126,11 +125,12 @@ export class CoursePage implements OnInit {
     this.navCtrl.setRoot('training-page',this.paramsData);
   }
 
-  openSignRequireDetail(Files){
+  openSignRequireDetail(Files, notificationFileId){
     let data = {
       'files' : Files,
       'uploadPath' : this.uploadPath,
-      'type' : 'signReq'
+      'type' : 'signReq',
+      'notificationFileId' : notificationFileId
     }
     this.navCtrl.setRoot('signrequire-page', data);
   }
@@ -147,7 +147,8 @@ export class CoursePage implements OnInit {
     this.courseList = [];
     return new Promise(resolve => {
       let userId = this.currentUser ? this.currentUser.userId : 8;
-      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId + '&search=' +search).subscribe((res) => {
+      let resortId = this.currentUser.ResortUserMappings[0].resortId;
+      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId +'&resortId='+resortId+ '&search=' +search).subscribe((res) => {
         if(res['data']['rows']){
           self.courseList    = res['data']['rows'];
           self.assignedCount = res['data']['count'];

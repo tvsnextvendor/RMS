@@ -108,6 +108,11 @@
       </ion-col>
     </ion-row>
   </div>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
  
 </ion-content>
 

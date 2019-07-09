@@ -105,8 +105,10 @@ export class TrainingPage {
   getCourseTrainingClasses() {
    // let courseId = this.courseIdParams;
     let self = this;
+    let userId = this.currentUser.userId;
+    let resortId = this.currentUser.ResortUserMappings[0].resortId;
     return new Promise(resolve => {
-      this.http.get(API_URL.URLS.trainingCourseFilesAPI + '?courseId=' + self.courseIdParams+ '&type='+'mobile').subscribe((res) => {
+      this.http.get(API_URL.URLS.trainingCourseFilesAPI+'?courseId='+self.courseIdParams+'&resortId='+ resortId +'&userId='+userId+'&type='+'mobile').subscribe((res) => {
         self.allTrainingClasses = res['data']['rows'];
         self.allTrainingClassesCount = res['data']['count'];
         self.uploadPath = res['data']['uploadPaths']['uploadPath'];
@@ -116,7 +118,6 @@ export class TrainingPage {
         resolve('rejected');
       });
     });
-
   }
 
   goToForum() {
