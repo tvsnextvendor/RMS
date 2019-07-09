@@ -49,13 +49,17 @@ export class QuizTabComponent implements OnInit {
   resourceLib = false;
   iconEnable = true;
   editIconHide = false;
+  roleId;
+  selectedQuiz;
+  userData;
 
   constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService) { }
 
   ngOnInit() {
     this.pageLength=10;
     this.currentPage = 1;
-    let roleId = this.utilService.getRole(); 
+    this.roleId = this.utilService.getRole(); 
+    this.userData = this.utilService.getUserData();
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
       { name: "True/False", value: "True/False" },
@@ -71,7 +75,7 @@ export class QuizTabComponent implements OnInit {
       this.breadCrumbService.setTitle(data);
       this.enableQuizEdit = true;
     }
-    if(roleId == 4 && this.resourceLib){
+    if(this.roleId == 4 && this.resourceLib){
       this.iconEnable = false;
     }
     if(this.enableQuizEdit){
@@ -294,5 +298,37 @@ pageChanged(e) {
 
   editQuizData(data,i){
     this.route.navigate(['/createQuiz'],{queryParams:{quizId:data.quizId}})
+  }
+
+  approvalConfirmation(template: TemplateRef<any>, quiz) {
+    let modalConfig = {
+      class: "modal-dialog-centered"
+    }
+    this.selectedQuiz = quiz;
+    this.modalRef = this.modalService.show(template, modalConfig);
+  }
+  sendApproval() {
+    let userData = this.utilService.getUserData();
+    let userId = userData.userId;
+    let resortId = userData.ResortUserMappings[0].Resort.resortId
+    let approvalData = {
+      'contentName': this.selectedQuiz.quizName,
+      'contentId': this.selectedQuiz.quizId,
+      'contentType': 'Quiz',
+      'resortId': resortId,
+      'createdBy': userId,
+      'reportingTo': userData.reportingTo
+    };
+    this.courseService.sendApproval(approvalData).subscribe(result => {
+      if (result && result.isSuccess) {
+        this.alertService.success(result.message);
+      } else {
+        this.alertService.error(result.message);
+      }
+      this.modalRef.hide();
+    }, (errorRes) => {
+      this.modalRef.hide();
+      this.alertService.error(errorRes.error.error);
+    });
   }
 }

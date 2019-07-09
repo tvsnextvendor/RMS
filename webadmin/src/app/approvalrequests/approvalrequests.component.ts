@@ -65,7 +65,7 @@ export class ApprovalrequestsComponent implements OnInit {
   }
 
   pageChanged(e){
-    alert(e);
+    // alert(e);
     this.p = e;
     this.getApprovalList(this.resortId,this.approvalStatusSet);
    }
@@ -87,10 +87,10 @@ export class ApprovalrequestsComponent implements OnInit {
       this.selectedResort = resortId;
     });
   }
+
   tabChange(status) {
     this.approvalStatusSet = status;
     let userId = this.userData.userId;
-
     this.resortService.getApprovalList(this.resortId, userId, status,this.p,this.pageSize).subscribe((result) => {
       if (result && result.isSuccess) {
         this.pendingList = result.data.rows;
@@ -101,6 +101,7 @@ export class ApprovalrequestsComponent implements OnInit {
       }
     });
   }
+
   getApprovalList(resortId, status) {
     let userId = this.userData.userId;
     this.resortService.getApprovalList(resortId, userId, status,this.p,this.pageSize).subscribe((result) => {
@@ -113,6 +114,7 @@ export class ApprovalrequestsComponent implements OnInit {
       }
     });
   }
+  
   onEmpAllSelect(event, key) {
     if (key == 'div') {
       this.batchVar.selectedDivision = event;

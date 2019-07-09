@@ -85,14 +85,14 @@ export class ForumComponent implements OnInit {
       }, err => {
         this.alertService.error(err.error.error);
         return;
-    });
+      });
     }
 
-      isActive(forumId, isActive) {
-        isActive = !isActive;
-        const activebj = isActive ?    { isActive: true,active : '1' } : { isActive: false,active : '0' };
-        this.forumUpdate(forumId, activebj);
-      }
+    isActive(forumId, isActive) {
+      isActive = !isActive;
+      const activebj = isActive ?    { isActive: true,active : '1' } : { isActive: false,active : '0' };
+      this.forumUpdate(forumId, activebj);
+    }
 
     openEditModal(template: TemplateRef<any>, forum) {
         this.forumService.editPage({editPage: true, forumId: forum.forumId});
