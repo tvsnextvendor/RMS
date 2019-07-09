@@ -71,11 +71,12 @@ getSignRequired(){
       this.navCtrl.setRoot('home-page');
   }
 
-  openSignRequireDetail(Files){
+  openSignRequireDetail(Files, notificationFileId){
     let data = {
       'files' : Files,
       'uploadPath' : this.uploadPath,
-      'type': 'noSignReq'
+      'type': 'noSignReq',
+      'notificationFileId': notificationFileId
     }
     console.log(this.uploadPath);
     this.navCtrl.setRoot('signrequire-page', data);

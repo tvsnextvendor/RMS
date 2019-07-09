@@ -126,11 +126,12 @@ export class CoursePage implements OnInit {
     this.navCtrl.setRoot('training-page',this.paramsData);
   }
 
-  openSignRequireDetail(Files){
+  openSignRequireDetail(Files, notificationFileId){
     let data = {
       'files' : Files,
       'uploadPath' : this.uploadPath,
-      'type' : 'signReq'
+      'type' : 'signReq',
+      'notificationFileId' : notificationFileId
     }
     this.navCtrl.setRoot('signrequire-page', data);
   }

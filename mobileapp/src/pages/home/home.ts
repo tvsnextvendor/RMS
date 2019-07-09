@@ -51,7 +51,7 @@ export class HomePage {
       this.interval = setInterval(() => {
           this.getDashboardInfo();
           this.getDashboardCount();
-      }, 10000);      
+      }, 5000);      
   }
 
   navPage(page, courseId){

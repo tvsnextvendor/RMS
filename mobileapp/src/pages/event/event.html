@@ -37,7 +37,7 @@
               <ion-col col-6 class="course-count" *ngIf="course.Course">
                 <div>
                   <p *ngIf="course.Course">{{course.Course.courseName}}</p>
-                  <p *ngIf="course.Course">{{course.Course.CourseTrainingClassMaps.length}} Training Classes</p>
+                  <p *ngFor="let class of course.Course.CourseTrainingClassMaps">TC - {{class.TrainingClass.trainingCl}} </p>
                 </div>
               </ion-col>
                         <!-- <ion-col>
@@ -55,8 +55,7 @@
                   </div>
                
                   <div class="average orange-color" *ngIf="course.Course.FeedbackMappings.length && course.Course.FeedbackMappings[0].status == 'failed'">
-                    <span class="aligtxt" >  Avg Score 
-                  {{course.Course.FeedbackMappings[0].passPercentage}}% <br>
+                    <span class="aligtxt" >  Avg Score  {{calculateAvgScore(course.Course.FeedbackMappings)}}% <br>
                   <ion-icon name="md-refresh"></ion-icon>Retake Course
                    </span>
                  </div>

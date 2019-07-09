@@ -51,7 +51,6 @@ export class EventPage implements OnInit {
   openSubEvent(i) {
       this.enableView = this.enableIndex === i ? !this.enableView : true;
       this.enableIndex = i;
-
   }
   getBatch() {
     this.loader.showLoader();
@@ -62,6 +61,17 @@ export class EventPage implements OnInit {
         this.scheduleList = res['data']['rows'];
       }
     })
+  }
+
+  calculateAvgScore(data){
+     console.log(data);
+     let score= 0;
+     data.map(key=>{
+       score+= parseInt(key.passPercentage);
+     });
+     console.log(score,"Score", data.length)
+     let avgScore = score/ data.length;
+     return avgScore.toFixed(0);
   }
 
 calculateExpireDays(dueDate) {

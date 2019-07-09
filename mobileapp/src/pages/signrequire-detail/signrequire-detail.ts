@@ -27,6 +27,7 @@ export class SignrequireDetailPage {
   filePath;
   fileType;
   truncating = true;
+  notificationFileId;
   showPreView;
   uploadPath;
   pageType;
@@ -56,6 +57,7 @@ export class SignrequireDetailPage {
   constructor(public navCtrl: NavController,public commonService:CommonService,public iab:InAppBrowser,public http: HttpProvider,public toastr: ToastrService, public navParams: NavParams,public storage: Storage,public constant:Constant) {
           let data = this.navParams.data;
           this.Files = data.files;
+          this.notificationFileId = data.notificationFileId;
           this.uploadPath = data.uploadPath;
           this.pageType = data.type;
   }
@@ -135,6 +137,7 @@ export class SignrequireDetailPage {
             this.toastr.error("Please agree acknowledgement");
           }
       }else{
+          this.completeNotification();
           this.navCtrl.setRoot('generalnotification-page');
       }
     }
@@ -154,7 +157,7 @@ export class SignrequireDetailPage {
        let postData={
          userId : userId,
          resortId: resortId,
-         notificationFileId: this.Files.fileId
+         notificationFileId: this.notificationFileId
        }
       this.http.put(false,API_URL.URLS.completedNotification,postData).subscribe(res=>{
 
