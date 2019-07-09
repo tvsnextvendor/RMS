@@ -87,8 +87,8 @@
             </li>
         </ul>  
         <li [class.active]="router.isActive('/resource/library')">
-            <a routerLink="/resource/library"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
-        </li>    
+            <a (click)="dropDownEnable('resource')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
+        </li>   
         <li [ngClass]="(tabType == 'show') ? 'active' : ''" >
             <a (click)="dropDownEnable('show')" *ngIf="!enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showMore}}</span></a>
             <a (click)="dropDownEnable('show')" *ngIf="enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showLess}}</span></a>
@@ -183,7 +183,7 @@
                 </li>
             </ul>  
             <li [class.active]="router.isActive('/resource/library')">
-                <a routerLink="/resource/library"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
+                <a (click)="dropDownEnable('resource')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
             </li>    
             <li [ngClass]="(tabType == 'show') ? 'active' : ''" >
                 <a (click)="dropDownEnable('show')" *ngIf="!enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showMore}}</span></a>

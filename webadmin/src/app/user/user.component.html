@@ -1,13 +1,13 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="tab-section pt-3">  
     <div class="clearfix"> 
-            <div class="float-right row pb-3 filter-search">
-                    <div class="search-container clearfix">
-                        <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
-                        <button type="button" (click)="userList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
-                        <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
-                    </div>
-                </div>
+        <form class="float-right row pb-3 filter-search" (ngSubmit)="userList()">
+            <div class="search-container clearfix">
+                <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
+                <button type="submit" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
+                <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
+            </div>
+        </form>
 <tabset #staticTabs *ngIf="userType !== 1">
     <tab heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
         <div class="pt-3" id="contentToConvert">

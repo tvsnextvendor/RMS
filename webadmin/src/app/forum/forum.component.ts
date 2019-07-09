@@ -77,7 +77,8 @@ export class ForumComponent implements OnInit {
     forumUpdate(forumId, pinnedObj) {
       this.forumService.forumUpdate(forumId, {forum: pinnedObj}).subscribe(result => {
         if (result && result.isSuccess) {
-          this.alertService.success(result.message);
+          let msg = result.message ? result.message : result.data;
+          this.alertService.success(msg);
           this.getForumList();
         } else {
           this.alertService.error(result.error);
