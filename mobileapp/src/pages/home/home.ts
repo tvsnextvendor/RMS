@@ -16,10 +16,7 @@ import * as moment from 'moment';
   providers: [Constant]
 })
 export class HomePage {
-  
-  
-  dashboardInfo: any = [];
-  dashboardCount:any ={};
+   
   notificationCount;
   currentUser;
   status;
@@ -27,6 +24,12 @@ export class HomePage {
   todayDate;
   enableIndex;
   interval;
+  totalPage;
+  dashboardInfo: any = [];
+  dashboardCount: any = {};
+  scrollEnable: boolean = false;
+  currentPage = this.constant.numbers.one;
+  perPageData = this.constant.numbers.five;
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,public socketService: SocketService, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
@@ -91,11 +94,29 @@ export class HomePage {
     return a.to(b, true);
   }
 
+   //Infinite scroll event call
+    doInfinite(event) {
+        this.currentPage += 1;
+        this.scrollEnable = true;
+        setTimeout(() => {
+            this.getDashboardInfo();
+            event.complete(); //To complete scrolling event.
+        }, 1000);
+    }
+
   getDashboardInfo() {
     let userId= this.currentUser.userId;
-    this.http.get(API_URL.URLS.dashboardSchedules+'?status='+this.status+'&userId='+userId).subscribe((res) => {
+    this.http.get(API_URL.URLS.dashboardSchedules+'?status='+this.status+'&userId='+userId+'&page='+this.currentPage+'&size='+this.perPageData).subscribe((res) => {
       if(res['isSuccess']){
-        this.dashboardInfo = res['data'];
+        let totalData = res['data']['count'];
+        this.totalPage = totalData / this.perPageData;
+        if (this.scrollEnable) {
+            for (let i = 0; i < res['data']['rows'].length; i++) {
+                this.dashboardInfo.push(res['data']['rows'][i]);
+            }
+        } else {
+            this.dashboardInfo = res['data']['rows'];
+        }
       }
     });
   }
@@ -106,6 +127,10 @@ export class HomePage {
     this.http.get(API_URL.URLS.dashboardCount+'?userId='+userId+'&resortId='+resortId).subscribe((res)=>{
        if(res['isSuccess']){
          this.dashboardCount= res['data'];
+       }else{
+         this.dashboardCount.courseExpire = 0;
+         this.dashboardCount.signatureReq = 0;
+         this.dashboardCount.generalNotification = 0;         
        }
     })
   }

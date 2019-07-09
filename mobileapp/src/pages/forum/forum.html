@@ -39,7 +39,7 @@
                   {{constant.pages.forumLabels.topics}}</p>
               </ion-col>
               <ion-col col-4>
-                <p class="forum-date">{{forum.created | date:'dd MMM yyyy'}}</p>
+                <p class="forum-date">{{forum.endDate | date:'dd MMM yyyy'}}</p>
               </ion-col>
             </ion-row>
           </ion-card-content>
@@ -49,4 +49,10 @@
   </ion-list>
   <img *ngIf="forumData.length == 0" src="assets/imgs/norecordsfound.png" class="no-records" />
 </div>
+
+<ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
+  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
 </ion-content>

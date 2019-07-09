@@ -17,23 +17,30 @@ import { Calendar } from '@ionic-native/calendar';
   templateUrl: 'event.html',
 })
 export class EventPage implements OnInit {
- tag: boolean = false;
-  batches: any = [];
-  batchconfigList:any=[];
+
   notificationCount;
   currentUser;
+  scheduleList = [];
+  enableIndex;
+  enableView;
+  totalPage;
+  calendarIdUnique;
+  calendars;
+  batches: any = [];
+  batchconfigList: any = [];
+  tag: boolean = false;
+  scrollEnable: boolean = false;
+  currentPage = this.constant.numbers.one;
+  perPageData = this.constant.numbers.five;
+  
 
   constructor(public navCtrl: NavController,public calendar: Calendar,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {
   }
-  scheduleList=[];
-  enableIndex;
-  enableView;
-  calendarIdUnique;
-  calendars;
+
   ngOnInit(){
     
   }
-
+  
   ngAfterViewInit() {
             let self = this;
             this.storage.get('currentUser').then((user: any) => {
@@ -52,13 +59,32 @@ export class EventPage implements OnInit {
       this.enableView = this.enableIndex === i ? !this.enableView : true;
       this.enableIndex = i;
   }
+
+ 
+  //Infinite scroll event call
+    doInfinite(event) {
+        this.currentPage += 1;
+        this.scrollEnable = true;
+        setTimeout(() => {
+            this.getBatch();
+            event.complete(); //To complete scrolling event.
+        }, 1000);
+    }
+
   getBatch() {
     this.loader.showLoader();
     let userId = this.currentUser.userId;
-    // +'?userId='+userId
-    this.http.get(API_URL.URLS.getAllSchedule+'?userId='+userId).subscribe(res=>{
+    this.http.get(API_URL.URLS.getAllSchedule+'?userId='+userId+ '&page=' + this.currentPage + '&size=' + this.perPageData).subscribe(res=>{
       if(res['isSuccess']){
-        this.scheduleList = res['data']['rows'];
+        let totalData = res['data']['count'];
+        this.totalPage = totalData / this.perPageData;
+        if (this.scrollEnable) {
+            for (let i = 0; i < res['data']['rows'].length; i++) {
+                this.scheduleList.push(res['data']['rows'][i]);
+            }
+        }else{
+            this.scheduleList = res['data']['rows'];
+        }
       }
     })
   }
