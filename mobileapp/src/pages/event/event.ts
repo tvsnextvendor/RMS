@@ -90,12 +90,10 @@ export class EventPage implements OnInit {
   }
 
   calculateAvgScore(data){
-     console.log(data);
      let score= 0;
      data.map(key=>{
        score+= parseInt(key.passPercentage);
      });
-     console.log(score,"Score", data.length)
      let avgScore = score/ data.length;
      return avgScore.toFixed(0);
   }

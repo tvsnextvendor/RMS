@@ -70,6 +70,7 @@ export class TrainingPage {
         if (user) {
             self.currentUser = user;
             this.getNotification();
+            this.getCourseTrainingClasses();
         }
     });
   }
@@ -85,7 +86,6 @@ export class TrainingPage {
     this.showData(this.statusKey);
     //this.getCousesList();
     this.getModules();
-    this.getCourseTrainingClasses();
   }
   getLocalStorageInfo() {
     return new Promise(resolve => {
