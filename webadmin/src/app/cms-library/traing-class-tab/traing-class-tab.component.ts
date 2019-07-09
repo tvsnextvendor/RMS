@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter ,TemplateRef} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HeaderService, HttpService, CourseService, AlertService, UtilService, BreadCrumbService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-traing-class-tab',
@@ -28,6 +29,10 @@ export class TraingClassTabComponent implements OnInit {
   @Input() uploadPage;
   @Input() courseId;
   resourceLib;
+  selectedClass;
+  modalRef;
+  roleId;
+
   constructor(private courseService: CourseService,
      public commonLabels: CommonLabels,
       public alertService: AlertService, 
@@ -35,13 +40,14 @@ export class TraingClassTabComponent implements OnInit {
       private breadCrumbService: BreadCrumbService,
       private activatedRoute: ActivatedRoute,
        private route: Router,
+       private modalService: BsModalService
       ) { }
 
   ngOnInit() {
     this.pageLength = 10;
     this.currentPage = 1;
     this.userData = this.utilService.getUserData().userId;
-    let roleId = this.utilService.getRole();
+    this.roleId = this.utilService.getRole();
     this.resourceLib = false;
     this.activatedRoute.queryParams.subscribe(params => {
       if (params.tab == 'schedule') {
@@ -58,7 +64,7 @@ export class TraingClassTabComponent implements OnInit {
       this.enableClassEdit = true;
     }
 
-    if(roleId == 4 && this.resourceLib){
+    if(this.roleId == 4 && this.resourceLib){
       this.iconEnable = false;
     }
     if (this.enableClassEdit) {
@@ -158,7 +164,6 @@ export class TraingClassTabComponent implements OnInit {
         "trainingClassName": courseName.form.value.trainingClassName
       }
       this.courseService.updateTrainingClassName(this.editTrainingCourseId, trainingClassnamObj).subscribe((result) => {
-        console.log(result);
       });
       this.trainingClassCourseList[index].CourseTrainingClassMaps[ci].enableEdit = false;
     } else {
@@ -167,5 +172,36 @@ export class TraingClassTabComponent implements OnInit {
   }
   editTrainingClass(data, i) {
     this.route.navigate(['/cms-library'], { queryParams: { type: 'create', tab: 'class', classId: data.trainingClassId } })
+  }
+  approvalConfirmation(template: TemplateRef<any>, courses) {
+    let modalConfig = {
+      class: "modal-dialog-centered"
+    }
+    this.selectedClass = courses;
+    this.modalRef = this.modalService.show(template, modalConfig);
+  }
+  sendApproval() {
+    let userData = this.utilService.getUserData();
+    let userId = userData.userId;
+    let resortId = userData.ResortUserMappings[0].Resort.resortId
+    let approvalData = {
+      'contentName': this.selectedClass.trainingClassName,
+      'contentId': this.selectedClass.trainingClassId,
+      'contentType': 'Training Class',
+      'resortId': resortId,
+      'createdBy': userId,
+      'reportingTo': userData.reportingTo
+    };
+    this.courseService.sendApproval(approvalData).subscribe(result => {
+      if (result && result.isSuccess) {
+        this.alertService.success(result.message);
+      } else {
+        this.alertService.error(result.message);
+      }
+      this.modalRef.hide();
+    }, (errorRes) => {
+      this.modalRef.hide();
+      this.alertService.error(errorRes.error.error);
+    });
   }
 }
