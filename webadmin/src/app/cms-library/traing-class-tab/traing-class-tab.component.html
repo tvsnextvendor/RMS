@@ -75,7 +75,8 @@
                     <span class="text-over">{{courses.trainingClassName}}</span>
                 </label> 
                 <span class="float-right">
-                    <a  *ngIf="!schedulePage" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="editTrainingClass(courses,i)"></i></a>                    
+                    <a  title="Send Approval" *ngIf="roleId === 4 && iconEnable && userData == courses.createdBy" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
+                    <a  *ngIf="!schedulePage" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="editTrainingClass(courses,i)"></i></a>               
                     <!-- <a title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a> -->
                 </span>
             </div>
@@ -94,4 +95,20 @@
     <button type="button" class="btn btn-primary creat-btn">{{commonLabels.btns.add}}</button>
 </div>
 
+
+<ng-template #approvalConfirm>
+    <div class="modal-header pb-0">
+        <p class="hd-alg">{{commonLabels.labels.approvalConfirm}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <span class="text-content">{{commonLabels.labels.approvalConfirmation}}</span>
+        <div class="text-center mt-4">
+            <button (click)="sendApproval()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
+            <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
+        </div>
+    </div>
+</ng-template>
 <!-- End Training Tab Content -->

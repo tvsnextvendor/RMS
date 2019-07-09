@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {BreadCrumbService,CourseService,UtilService,FileService } from '../../services';
+import {BreadCrumbService,CourseService,UtilService,FileService,AlertService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import * as _ from 'lodash';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-notification-tab',
@@ -32,8 +33,11 @@ export class NotificationTabComponent implements OnInit {
   iconEnable = true;
   userData;
   totalNotifyCount;
+  selectedApprovalNotification;
+  modalRef;
 
-  constructor(private breadCrumbService : BreadCrumbService,private fileService: FileService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ) {
+  constructor(private breadCrumbService : BreadCrumbService,private fileService: FileService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ,
+    private modalService: BsModalService,private alertService : AlertService) {
     let roleId = this.utilService.getRole();  
     this.activatedRoute.queryParams.subscribe(params=>{ 
        if(params.tab == 'schedule'){
@@ -183,7 +187,6 @@ export class NotificationTabComponent implements OnInit {
       this.fileList.splice(index,1);
      this.fileService.sendFileList('remove',file);
     }
-    console.log(this.fileList,"cdsjsjdc");
   }
 
   goToNotifyEdit(id){
@@ -198,5 +201,37 @@ export class NotificationTabComponent implements OnInit {
   pageChanged(e){
     this.p = e;
     this.getNotificationData();
+}
+
+approvalConfirmation(template: TemplateRef<any>, courses) {
+  let modalConfig = {
+    class: "modal-dialog-centered"
+  }
+  this.selectedApprovalNotification = courses;
+  this.modalRef = this.modalService.show(template, modalConfig);
+}
+sendApproval() {
+  let userData = this.utilService.getUserData();
+  let userId = userData.userId;
+  let resortId = userData.ResortUserMappings[0].Resort.resortId
+  let approvalData = {
+    'contentName': this.selectedApprovalNotification.File && this.selectedApprovalNotification.File.fileName,
+    'contentId': this.selectedApprovalNotification.notificationFileId,
+    'contentType': 'Notification',
+    'resortId': resortId,
+    'createdBy': userId,
+    'reportingTo': userData.reportingTo
+  };
+  this.courseService.sendApproval(approvalData).subscribe(result => {
+    if (result && result.isSuccess) {
+      this.alertService.success(result.message);
+    } else {
+      this.alertService.error(result.message);
+    }
+    this.modalRef.hide();
+  }, (errorRes) => {
+    this.modalRef.hide();
+    this.alertService.error(errorRes.error.error);
+  });
 }
 }
