@@ -138,7 +138,13 @@ export class LoginComponent implements OnInit {
           const role = loginData.UserRole[0].roleId;
           const rolePermissions = loginData.rolePermissions;
           const resultRolePermissions = this.getObject(rolePermissions, []);
-          localStorage.setItem('RolePermissions',resultRolePermissions);
+          let permissions = [];
+          for(let i in resultRolePermissions){
+               if(i != 'undefined'){
+                permissions.push(resultRolePermissions[i]);
+               }
+          }
+          localStorage.setItem('RolePermissions',JSON.stringify(permissions));
           if (role === 4) {
             this.route.navigateByUrl('/cmspage?type=create');
           } else {
