@@ -1,51 +1,43 @@
-<!-- <div class="pt-2">   
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/cms-library">{{commonLabels.labels.cmsLibrary}}</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0);" (click)="location.back()">{{commonLabels.labels.empList}}</a></li>
-            <li class="breadcrumb-item active">{{commonLabels.labels.employeeTabLabel}}</li>
-        </ol>
-    </nav>
-  </div> -->
-
 <div class="row pt-4">
     <div class="col-sm-12 pb-3 p-0 button-section">
         <button *ngIf = "listDetails.length" type = "button" class="btn btn-primary float-right" (click)="exportAsXLSX()">Export to Excel</button>
+        <button type = "button" class="btn btn-primary float-right mr-2" *ngIf="enableFilter" (click)="resetFilter()">Reset filter</button>       
+        <button type = "button" class="btn btn-primary float-right mr-2" (click)="enableFilter = !enableFilter">filter</button>       
     </div>
-    <div class="float-right row adduser-respon col-md-12 p-0">
-            <div class="col-md-3 select select-style clearfix">
-                    <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterChildResort" #childResort
-                        (change)="childResortChange(childResort.value)">
-                        <option [value]=null>{{commonLabels.labels.selectchildresort}}</option>
-                        <option *ngFor="let resort of childResortFilterList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
-                    </select>
-                    <div class="select_arrow"></div>
-                </div>
+    <div class="float-right row pb-3 adduser-respon col-md-12 p-0" *ngIf="enableFilter">
         <div class="col-md-3 select select-style clearfix">
-            <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterParentDivision"
-                #parentdivision (change)="divisionChange(parentdivision.value,'parent')">
-                <option [value]=null>{{commonLabels.labels.selectptdivision}}</option>
-                <option *ngFor="let division of parentDivisionFilterList" [value]="division.divisionId">{{division.divisionName}}</option>
+            <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
+                (change)="filterSelect(childResort.value,'resort')">
+                <option [value]=null>{{commonLabels.labels.selectResort}}</option>
+                <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
             </select>
             <div class="select_arrow"></div>
         </div>
         <div class="col-md-3 select select-style clearfix">
-            <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterParentDepartment"
-                [disabled]="filterParentDivision === 'null'">
-                <option [value]=null>{{commonLabels.labels.selectptdpmt}}</option>
-                <option *ngFor="let dep of parentDepartmentFilterList" [value]="dep.departmentId">{{dep.departmentName}}</option>
+            <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterDivision"
+                #parentdivision (change)="filterSelect(parentdivision.value,'division')">
+                <option [value]=null>{{commonLabels.labels.selDiv}}</option>
+                <option *ngFor="let division of divisionList" [value]="division.divisionId">{{division.divisionName}}</option>
             </select>
             <div class="select_arrow"></div>
         </div>
         <div class="col-md-3 select select-style clearfix">
-                <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterChildResort" #childResort
-                    (change)="childResortChange(childResort.value)">
-                    <option [value]=null>{{commonLabels.labels.selectchildresort}}</option>
-                    <option *ngFor="let resort of childResortFilterList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
-                </select>
-                <div class="select_arrow"></div>
-            </div>
-    </div>
+            <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
+                [disabled]="filterParentDivision === 'null'" (change)="filterSelect(dept.value,'dept')">
+                <option [value]=null>{{commonLabels.labels.selDept}}</option>
+                <option *ngFor="let dep of departmentList" [value]="dep.departmentId">{{dep.departmentName}}</option>
+            </select>
+            <div class="select_arrow"></div>
+        </div>
+        <div class="col-md-3 select select-style clearfix">
+            <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
+                (change)="filterSelect(emp.value,'emp')">
+                <option [value]=null>{{commonLabels.labels.selEmp}}</option>
+                <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
+            </select>
+            <div class="select_arrow"></div>
+        </div>
+     </div>
     <div class="col-lg-12 col-sm-12 p-0">
     <div class="header-section mb-2 clearfix">
       <h4 class="float-left">{{user?.userName  | titlecase}}</h4>
@@ -89,31 +81,6 @@
                     </tr>
                 </tfoot>
             </table>
-            <!-- <table class="table table-striped">
-                    <thead>
-                    <tr class="th-boxshadow">
-                        <th class="text-left">
-                          Training Class
-                        </th>
-                        <th class="text-left">
-                          Content Files
-                        </th>
-                        <th class="text-left">
-                          File Type
-                        </th>
-                        <th class="text-left">
-                          Status
-                        </th>
-                    </thead>
-                    <tbody>
-                        <tr  class="table-desc-color">
-                            <td class="text-left">Training class 1</td>
-                            <td class="text-left"><a href="#">Video 1</a></td>
-                            <td class="text-left">.mp4</td>
-                            <td class="text-left">In progress</td>                          
-                        </tr>
-                    </tbody>
-                </table> -->
         </div>
     </div>
     <div class="col-md-12 p-0 text-center mt-3">
