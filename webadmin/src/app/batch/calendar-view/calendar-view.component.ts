@@ -34,6 +34,7 @@ export class CalendarViewComponent implements OnInit {
     removeScheduleId;
     currentDate;
     resortList;
+    dayClick;
 
   
    constructor(
@@ -57,6 +58,7 @@ export class CalendarViewComponent implements OnInit {
     ngOnInit(){
         this.currentDate = new Date();
         this.currentDate.setHours(0,0,0,0);
+        this.dayClick = 1;
         this.headerService.setTitle({title:this.commonLabels.labels.schedule, hidemodule: false});
         this.breadCrumbService.setTitle([]);
         let user = this.utilService.getUserData();
@@ -76,8 +78,15 @@ export class CalendarViewComponent implements OnInit {
     }
 
     goToBatch(event,scheduleId,i,addBatch){
-        this.pageUpdate(event,scheduleId,i,addBatch);
-        this.router.navigate(['/calendar'],{queryParams : {type:'edit'}})
+        if(addBatch == "editBatch"){
+            this.pageUpdate(event,scheduleId,i,addBatch);
+            this.router.navigate(['/calendar'],{queryParams : {type:'edit'}})
+            this.dayClick = 2;
+        }
+        else if(addBatch == 'addBatch' && this.dayClick == 1){
+            this.dayClicked(event);
+        }
+        
  
     }
 
@@ -91,7 +100,8 @@ export class CalendarViewComponent implements OnInit {
                 this.closePopup();
             }
         },err=>{
-            this.alertService.error(err.error.error)
+            this.closePopup();
+            this.alertService.error(err.error.error);
         })
     }
 
@@ -114,11 +124,14 @@ export class CalendarViewComponent implements OnInit {
                 this.enableBatch =true
             }
             // console.log(resp)
+        },err=>{
+            this.dayClick = 1;
         })
     }
     getCalendarDetails(){
         let roleId = this.utilService.getRole();
         let user = this.utilService.getUserData();
+        this.dayClick = 1;
         let query = roleId != 1 ? this.resortId+"&createdBy="+user.userId : ''
         this.courseService.getCalendarSchedule(query).subscribe(resp=>{
             if(resp && resp.isSuccess){
@@ -160,6 +173,7 @@ export class CalendarViewComponent implements OnInit {
         this.breadCrumbService.setTitle([]);
         this.trainingScheduleId = '';
         this.scheduleEditDetails = {};
+        this.dayClick = 1;
         this.getCalendarDetails();
     }
 
@@ -181,12 +195,12 @@ export class CalendarViewComponent implements OnInit {
     // }
 
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-        if(events.length === 0 && date>=this.currentDate){
+        if(date>=this.currentDate){
             var n = date.toString();
             localStorage.setItem('BatchStartDate',n);
             this.goToCMSLibrary();
         }
-        else{
+        else if(date<this.currentDate){
             this.alertService.info('Schedule date should be greater than current date')
         }
       }
@@ -194,10 +208,15 @@ export class CalendarViewComponent implements OnInit {
       closePopup(){
         this.modalRef.hide();
         this.removeScheduleId = '';
+        this.dayClick = 1;
       }
 
       openConfirmModel(template: TemplateRef<any>,event,i) {
+          this.dayClick = 2;
           this.removeScheduleId = event.id;
         this.modalRef = this.modalService.show(template,this.modalConfig);
+      }
+      ngOnDestroy(){
+        this.dayClick = 1;
       }
 }
