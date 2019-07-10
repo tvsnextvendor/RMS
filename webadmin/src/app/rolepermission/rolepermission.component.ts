@@ -6,6 +6,7 @@ import { UtilService } from '../services/util.service';
 import { HeaderService } from '../services/header.service';
 import { AlertService } from '../services/alert.service';
 import { CommonLabels } from '../Constants/common-labels.var';
+import * as _ from 'lodash';
 
 
 @Component({
@@ -54,7 +55,23 @@ export class RolepermissionComponent implements OnInit {
     this.rolePermissionService.getRolePermissions(this.userIdInfo).subscribe((result) => {
       if (result && result.isSuccess) {
         this.rolesPermissions = result.data && result.data.rows;
-        this.constant.modules = result.data.rows[0].userPermission;
+        const resultRolePermissions = this.getObject(this.rolesPermissions, []);
+       // console.log(resultRolePermissions);
+        let permissions = [];
+        for(let i in resultRolePermissions){
+            //  console.log(resultRolePermissions);
+            //  console.log(resultRolePermissions[i]);
+            //  console.log(i);
+             if(i != 'undefined'){
+              permissions.push(resultRolePermissions[i]);
+             }
+        }
+
+      
+        // console.log(resultRolePermissions);
+        // console.log(permissions);
+        // debugger;
+        this.constant.modules = permissions;
       } else {
         this.constant.modules.forEach(item => {
           item.view = false;
@@ -184,7 +201,7 @@ export class RolepermissionComponent implements OnInit {
 
     // console.log(form);
     // debugger;
-    if(this.constant.web && this.constant.mobile){
+    //if(this.constant.web && this.constant.mobile){
       let menu = [];
       let menuMobile = [];
       this.constant.modules.forEach(value => {
@@ -220,9 +237,9 @@ export class RolepermissionComponent implements OnInit {
         )
       }
 
-    }else{
-      this.alertService.error("web & mobile both permissions are required");
-    }
+    // }else{
+    //   this.alertService.error("web & mobile both permissions are required");
+    // }
     
 
    
@@ -281,91 +298,38 @@ export class RolepermissionComponent implements OnInit {
     this.constant.roleId = val;
   }
 
+  getObject(theObject, userpermissions) {
+    var result = null;
+    var key = 'moduleName';
+    if (theObject instanceof Array) {
+      for (var i = 0; i < theObject.length; i++) {
+        if (userpermissions[theObject[i].moduleName] == undefined) {
+          userpermissions[theObject[i].moduleName] = [];
+          userpermissions[theObject[i].moduleName] = theObject[i];
+        }
+        result = this.getObject(theObject[i], userpermissions);
+      }
+    }
+    else {
+      let moduleName = theObject.moduleName;
+      for (var prop in theObject) {
+        const data = ["moduleName", "view", "upload", "edit", "delete"];
 
-  // getDropDownDetails(key, value) {
-  //   if (key === 'division') {
-  //     this.commonService.getResortByParentId(this.resortId).subscribe((result) => {
-  //       if (result && result.isSuccess) {
-  //         this.constant.divisionList =  result.data ?  result.data.divisions:[];
-  //         //this.constant.divisionList = result.data.length ? result.data[0].resortMapping.length && result.data[0].resortMapping : [];
-  //         this.getRolePermission();
-  //       }
-  //     });
-  //   }
-  //   if (key === 'department') {
-  //     let params = { "divisionId": value }
-  //     this.commonService.getDepartmentList(params).subscribe((result) => {
-  //       if (result && result.isSuccess) {
-  //         this.constant.departmentList = result.data && result.data.rows;
-  //         this.getRolePermission();
-  //       }
-  //     });
-  //   }
-  //   else {
-  //     this.commonService.getDesignationList(this.resortId).subscribe((result) => {
-  //       if (result && result.isSuccess) {
-  //         this.constant.roleList = result.data && result.data.rows;
-  //       }
-  //     });
-  //     this.commonService.getCreatedByDetails().subscribe(result => {
-  //       if (result && result.isSuccess) {
-  //         this.constant.createdByList = result.data && result.data;
-  //       }
-  //     })
-  //   }
-  // }
-
-  // bubbleSort(a, edit, view, upload) {
+        let found = data.includes(prop);
+        if (found) {
+          if (theObject[prop] == true || theObject[prop] == false) {
+            userpermissions[moduleName][prop] = (userpermissions[moduleName][prop] == true) ? true : theObject[prop];
+          }
+        }
+        if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
+          result = this.getObject(theObject[prop], userpermissions);
+        }
+      }
+    }
+    return userpermissions;
+  }
 
 
-    // console.log(a);
-    // console.log(edit);
-    // console.log(view);
-    // console.log(upload);
-    // var swapped;
-    // do {
-    //   swapped = false;
-    //   for (var i = 0; i < a.length - 1; i++) {
-    //     if (a[i][edit] && a[i + 1][edit]) {
-    //       // var temp = a[i];
-    //       // a[i] = a[i + 1];
-    //       // a[i + 1] = temp;
-    //       a[0][edit] = true;
-
-    //     } else if (a[i][edit] || a[i + 1][edit]) {
-    //       a[0][edit] = true;
-
-    //     } else {
-    //       a[0][edit] = false;
-
-    //     }
-
-
-    //     if (a[i][view] && a[i + 1][view]) {
-    //       a[0][view] = true;
-
-    //     } else if (a[i][view] || a[i + 1][view]) {
-    //       a[0][view] = true;
-
-    //     } else {
-    //       a[0][view] = false;
-
-    //     }
-    //     if (a[i][upload] && a[i + 1][upload]) {
-    //       a[0][upload] = true;
-
-    //     } else if (a[i][upload] || a[i + 1][upload]) {
-    //       a[0][upload] = true;
-
-    //     } else {
-    //       a[0][upload] = false;
-
-    //     }
-    //     swapped = true;
-    //   }
-    // } while (swapped);
-
-  //   return a;
-  // }
+ 
 
 }
