@@ -27,7 +27,7 @@ export class EmployeeComponent implements OnInit {
   ngOnInit() {
     let user = this.utilService.getUserData();
     this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
-    this.headerService.setTitle({ title: 'CMS Library', hidemodule: false });
+    this.headerService.setTitle({ title: this.commonLabels.labels.resourceLibrary, hidemodule: false });
     let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/cms-library'},{title : this.commonLabels.labels.employeeTabLabel,url:''}]
     this.breadCrumbService.setTitle(data);
     this.pageLimitOptions = [5, 10, 25];

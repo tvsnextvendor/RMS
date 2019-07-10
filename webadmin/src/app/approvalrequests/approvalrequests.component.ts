@@ -176,6 +176,8 @@ export class ApprovalrequestsComponent implements OnInit {
       class: "modal-dialog-centered"
     }
     this.approvals = approvals;
+    this.showUsers = false;
+    this.approvalAccess = null;
     this.modalRef = this.modalService.show(template, modalConfig);
   }
   rejectConfirm(template: TemplateRef<any>, approvals) {
@@ -198,7 +200,7 @@ export class ApprovalrequestsComponent implements OnInit {
       } else {
         this.alertService.error(result.error);
       }
-      this.tabChange('Approved');
+      this.tabChange('Pending');
     }, (errorRes) => {
       this.alertService.error(errorRes.error.error);
     });
@@ -216,7 +218,7 @@ export class ApprovalrequestsComponent implements OnInit {
       } else {
         this.alertService.error(result.message);
       }
-      this.tabChange('Rejected');
+      this.tabChange('Pending');
     }, (errorRes) => {
       this.alertService.error(errorRes.error.error);
     });
