@@ -265,15 +265,25 @@
                 </span>
             </div>
             <div class="row form-group">
-                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.userName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.firstName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
                 <span class="col-md-7 pl-0">
-                    <input type="text" class="form-control" placeholder="Enter User Name" [(ngModel)]="userName"
+                    <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="userName"
                         name="userName" #user="ngModel" />
                     <span class="required_color"
                         *ngIf="userForm.submitted && !userName">{{commonLabels.mandatoryLabels.empName}}</span>                 
                 </span>
             </div>
+            <div class="row form-group">
+                    <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.lastName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                    <span class="col-md-1"></span>
+                    <span class="col-md-7 pl-0">
+                        <input type="text" class="form-control" placeholder="Enter Last Name" [(ngModel)]="lastName"
+                            name="lastName" #lastUser="ngModel" />
+                        <span class="required_color"
+                            *ngIf="userForm.submitted && !lastName">{{commonLabels.labels.lastName}}{{commonLabels.mandatoryLabels.isRequired}}</span>                 
+                    </span>
+                </div>
             <div class="row form-group">
                 <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.division}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>

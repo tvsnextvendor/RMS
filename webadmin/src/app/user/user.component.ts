@@ -89,6 +89,7 @@ export class UserComponent implements OnInit {
     search;
     existingFile = [];
     fileExist = false;
+    lastName;
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
@@ -207,6 +208,7 @@ export class UserComponent implements OnInit {
         this.editEnable = true;
         this.userIndex = index;
         this.userName = data.userName;
+        this.lastName = data.lastName && data.lastName
         this.userId = data.employeeId;
         this.division = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings, 'div') : [];
         this.division.length && this.onEmpSelect('', 'div');
@@ -396,6 +398,7 @@ export class UserComponent implements OnInit {
         let resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
         let obj = {
             userName: this.userName,
+            lastName : this.lastName,
             email: this.emailAddress,
             phoneNumber: this.phoneNumber,
             homeNumber: this.homeNumber,
@@ -408,7 +411,7 @@ export class UserComponent implements OnInit {
             employeeNo: this.empId,
             resortUserMappingId: []
         };
-        if (this.userName && this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone && !this.validHomeNo) {
+        if (this.userName && this.lastName &&  this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone && !this.validHomeNo) {
             if (this.editEnable) {
                 this.removedMappingId.length ? obj.resortUserMappingId = this.removedMappingId : delete obj.resortUserMappingId;
                 this.userService.updateUser(this.userid, obj).subscribe((result) => {
@@ -447,6 +450,7 @@ export class UserComponent implements OnInit {
         this.duplicateError = '';
         this.roleFormSubmitted = false;
         this.userName = '';
+        this.lastName = '';
         this.userId = '';
         this.roleId = '';
         this.department = [];
@@ -957,7 +961,7 @@ export class UserComponent implements OnInit {
     exportAsXLSX(): void {
         // this.labels.btns.select =  this.labels.btns.excel;
         let arr = this.constant.userList.map(item =>
-            _.pick(item, ['userId', 'userName', 'email', 'employeeId', 'phoneNumber', 'active'])
+            _.pick(item, ['userId', 'userName','lastName', 'email', 'employeeId', 'phoneNumber', 'active'])
         )
         this.constant.userList.forEach((item, i) => {
             arr[i].role = String(this.getDivisionArray(item.ResortUserMappings, 'design'));
