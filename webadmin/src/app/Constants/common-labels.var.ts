@@ -193,6 +193,8 @@ export class CommonLabels{
         // empName     : 'Department',
         "admin"             :   "Admin",
         "selDept"           :   "Select Department",
+        "selDiv"            :   "Select Division",
+        "selEmp"            :   "Select Employee",
         "selAdmin"          :   "Select Admin",
         "star"              :   "*",
         "votes"             :   "Votes",
@@ -229,7 +231,7 @@ export class CommonLabels{
         "avgQualification"  :   "Average Qualification",
         "totEmp"            :   "Total Employee",
         "emp"               :   "Employees",
-        "selectResort"      :   "Select Resort",
+        "selectResort"      :   "--Select Resort--",
         "weeklyGrowth"      :   "Weekly Growth",
         "cloudy"            :   "CLOUDY",
         "temp"              :   "-4",
@@ -361,7 +363,9 @@ export class CommonLabels{
         "rejectStatusConfirm"  : "Are you sure you want to reject?",
         "archieveDelete"    :   "Are you sure you want to delete this archieve?",
         "permissionSet"     :   "Permission Set",
-        "userList"          :   "User List"
+        "userList"          :   "User List",
+        "firstName"         :   "First Name",
+        "lastName"          :   "Last Name",
     };
 
     btns = {
@@ -503,7 +507,7 @@ export class CommonLabels{
         "trainingClassrequired" : "Training Class is required.",
         "quizNameRequired"  : "Quiz Name is required",
         "videoName"         :  "Video name is required",
-        "isRequired"        :  "is required",
+        "isRequired"        :  " is required",
         "empId"             :  "Employee Id is required",
         "empIdExist"        :  "User ID already exist",
         "empName"           :  "Employee name is required",
@@ -606,7 +610,7 @@ export class CommonLabels{
         "assignSuccessMsg"  :   "Template Assigned Successfully",
         "badgeSuccessMsg"   :   "Badges Selected Successfully",
         "generalNotifi"     :   "Is this a general notification?",
-        "publishmsg"        :   "Do you want to publish this content in the CMS Library?",
+        "publishmsg"        :   "Do you want to publish this content in the Resource Library?",
         "fileRemoved"       :   "File removed successfully",
         "videoUpdate"       :   "Video updated successfully",
         "designation"       :   "Designation updated successfully",

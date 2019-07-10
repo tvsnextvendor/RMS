@@ -200,8 +200,8 @@ export class CourseService {
     return this.http.getLocal('local',this.url.getEmployeeList+'?resortId='+resortId+'&courseId='+courseId);
   }
 
-  getEmployeeDetails(resortId,userId){
-    return this.http.getLocal('local',this.url.getEmployeeDetails+'?resortId='+resortId+'&userId='+userId);
+  getEmployeeDetails(query){
+    return this.http.getLocal('local',this.url.getEmployeeDetails+query);
   }
 
   getCalendarSchedule(resortId){
