@@ -706,6 +706,7 @@ export class AddModuleComponent implements OnInit {
             this.message = this.moduleVar.courseId !== '' ? (this.commonLabels.labels.videoUpdatedToast) : (this.commonLabels.labels.videoAddedToast);
             this.commonService.uploadFiles(this.uploadFile).subscribe((result) => {
                 if (result && result.isSuccess) {
+                    this.clearData();
                     if (videoObj.fileType === 'Video') {
                         self.commonService.uploadFiles(self.fileImageDataPreview).subscribe((resp) => {
                             let fileImagePath = resp.data && resp.data[0].path;
@@ -730,7 +731,6 @@ export class AddModuleComponent implements OnInit {
                     
                 }
             })
-            this.clearData();
         }else if(this.fileId && !this.uploadFile){
             let postData={
                 fileName:this.moduleVar.selectVideoName,
@@ -738,19 +738,20 @@ export class AddModuleComponent implements OnInit {
             }
             this.commonService.updateFiles(this.fileId, postData).subscribe(res=>{
                 if(res.isSuccess){
-                this.videoSubmitted = false;
-                this.alertService.success(res.message);
-                  let videoObj = {
-                      fileName: this.moduleVar.selectVideoName,
-                      fileDescription: this.moduleVar.description,
-                      fileUrl: this.moduleVar.videoFile,
-                      fileId: this.fileId
-                  }
-                   if (this.moduleVar.videoIndex) {
+                    this.clearData();
+                    this.videoSubmitted = false;
+                    this.alertService.success(res.message);
+                    let videoObj = {
+                        fileName: this.moduleVar.selectVideoName,
+                        fileDescription: this.moduleVar.description,
+                        fileUrl: this.moduleVar.videoFile,
+                        fileId: this.fileId
+                    }
+                    if (this.moduleVar.videoIndex) {
                        const index = this.moduleVar.videoIndex - 1; 
                        this.moduleVar.videoList[index] = videoObj;
-                   }
-                  this.clearData();
+                    }
+                //   this.clearData();
                 }
             })
         }

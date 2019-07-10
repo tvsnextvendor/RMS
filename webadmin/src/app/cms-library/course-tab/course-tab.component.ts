@@ -431,9 +431,14 @@ export class CourseTabComponent implements OnInit {
       'resortId' : resortId
     };
     this.commonService.saveAsNew(this.selectedEditCourse, params).subscribe(result => {
-      console.log(result, 'result');
+      // console.log(result, 'result');
       if(result && result.isSuccess){
         this.alertService.success(result.message);
+        this.getCourseDetails();
+        this.enableView = false;
+        this.enableEdit = false;
+        this.enableDuplicate = false;
+        this.enableIndex = '';
 
       }
     },err=>{

@@ -1,4 +1,3 @@
-<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="tab-section pt-3">  
     <div class="clearfix"> 
         <form class="float-right row pb-3 filter-search" (ngSubmit)="userList()">
@@ -8,168 +7,165 @@
                 <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
             </div>
         </form>
-<tabset #staticTabs *ngIf="userType !== 1">
-    <tab heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
-        <div class="pt-3" id="contentToConvert">
-            <div class="col-md-12 clearfix search-box p-0">
-            <div class="float-right row pb-1 adduser-respon"> 
-                <span class="pr-2 upload-line">
-                    <!-- <button class="fileUpload btn btn-primary addUser-upload">
-                    <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
-                    <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
-                    accept=".xlsx,.csv" />
-                    </button> -->
-                    <button class="fileUpload btn btn-primary addUser-upload" (click)="openAddRole(bulkUpload,'bulk','')">{{commonLabels.btns.uploadEmp}}</button>
-                </span> 
-                <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="constant.userList.length">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        {{commonLabels.btns.exportTo}}
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
-                        <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
-                    </div>
-                </div>
-                <span class="pr-2"><button class="btn btn-primary addUser-upload" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
-                    <!-- <span class="pagenation-btn">
-                    <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
-                    class="pagenation-dropdown"></ngx-select-dropdown>
-                    </span> -->
-                </div>
-                
-            </div>
-            <form class="table-responsive custom-table2 px-1" #userForm="ngForm" id="userForm">
-                <table class="table table-striped white-bg mt-1" [mfData]="constant.userList" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
-                    <thead>
-                        <tr class="th-boxshadow text-center">
-                            <th>
-                                <mfDefaultSorter by="employeeNo">{{commonLabels.labels.employeeId}}</mfDefaultSorter>
-                            </th>
-                            <th class="text-center">
-                                <mfDefaultSorter by="userName">{{commonLabels.labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
-                            </th>
-                            <th class="text-center">
-                                <mfDefaultSorter by="Division.divisionName">{{commonLabels.labels.division}}</mfDefaultSorter>
-                            </th>
-                            <th class="text-center">
-                                <mfDefaultSorter by="Department.departmentName">{{commonLabels.labels.department}}</mfDefaultSorter>
-                            </th>
-                            <th class="text-center">
-                                <mfDefaultSorter by="Designation.designationName">{{commonLabels.labels.role}}</mfDefaultSorter>
-                            </th>
-                            <th class="text-center">
-                                <mfDefaultSorter by="emailId">{{commonLabels.labels.email}}</mfDefaultSorter>
-                            </th>
-                            <th class="text-center">
-                                <mfDefaultSorter by="mobile">{{commonLabels.labels.accessTo}}</mfDefaultSorter>
-                            </th>
-                            <th class="text-center action-hd">
-                               <!-- Action -->
-                            </th>
-                           
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
-                            <td class="text-center"><label class="mb-0">{{ user.employeeNo }}</label></td>
-                            <td class="text-center"><label class="mb-0">{{ user.userName | titlecase}}</label></td>
-                            <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0" >{{ getDivisionArray(user.ResortUserMappings,'div') }}</label></span></td>
-                            <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'dept')}}</label></span></td>
-                            <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'design') }}</label></span></td>
-                            <td class="text-center"><label class="mb-0">{{ user.email }}</label></td>
-                            <td class="text-center"><label class="mb-0">{{ user.status }}</label></td>
-                            <td class="text-center">
-                             <div class="active-alg">
-                                <a (click)="viewUserDetail(user,i)"><i class="fa fa-eye header-icon"></i></a>
-                                <a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                <a (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
-                                <a title="{{user.active?'To InActive':'To Active'}}" class=""><label class="switch">
-                                    <input type="checkbox" [checked]="user.active" (change)="activeStatus(user)"> 
-                                    <span class="slider round"></span>
-                                </label></a>    
-                            </div>                            
-                            </td> 
-                                
-                        </tr>
-                        <tr *ngIf="mf.data?.length == 0">
-                            <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr data-html2canvas-ignore="true">
-                            <td colspan="10">
-                                <mfBootstrapPaginator></mfBootstrapPaginator>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </form>
-        </div>
-    </tab>
-    <tab heading={{commonLabels.labels.hierarchy}} (select)="roleTabSelect('div')">  
-        <div class="pt-3 clearfix">
-            <div class="hd-section clearfix">
-            <h5 class="float-left title-hd">{{commonLabels.labels.division}}</h5>
-            <!-- <span *ngIf="!divisionDetails.length" class="float-right"> -->
-                <button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button>
-            <!-- </span> -->
-            </div>
-            <div class="hierarchy-tab white-bg px-4 pt-4 mt-3">
-            <div class="detail-bottom row">                
-                <div class="row depart-dtl col-md-12 p-0 mb-4 clearfix" *ngFor="let division of divisionDetails;let i = index;">
-                    <label *ngIf="division?.Division?.Departments.length" class="col-md-12 p-0 division-title">{{division?.Division?.divisionName}} 
-                            <!-- (click)="openAddUser(addDivision,'','')" -->
-                        <a (click)="editDivisionData(division?.Division,editDivision,'add')" title="Add"><i class="fa fa-plus ml-10"></i></a>
-                        <a (click)="editDivisionData(division?.Division,editDivision,'edit')" title="Edit"><i class="fas fa-pencil-alt ml-10"></i></a>
-                        <a (click)="removeDivision(deleteDivision,division,i)" class="ml-10" title="Delete"><i class="fas fa-trash"></i></a>
-                    </label>
-                        <div *ngIf="division?.Division?.Departments.length" class="dpt-list pl-1 ml-4" >
-                            <div>
-                                <span  *ngFor="let dept of division?.Division?.Departments">{{dept.departmentName}}</span>
-                                <!-- <span>Department 1 <a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span> -->
+        <tabset #staticTabs *ngIf="userType !== 1">
+            <tab heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
+                <div class="pt-3" id="contentToConvert">
+                    <div class="col-md-12 clearfix search-box p-0">
+                    <div class="float-right row pb-1 adduser-respon"> 
+                        <span class="pr-2 upload-line">
+                            <!-- <button class="fileUpload btn btn-primary addUser-upload">
+                            <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
+                            <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
+                            accept=".xlsx,.csv" />
+                            </button> -->
+                            <button class="fileUpload btn btn-primary addUser-upload" (click)="openAddRole(bulkUpload,'bulk','')">{{commonLabels.btns.uploadEmp}}</button>
+                        </span> 
+                        <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="constant.userList.length">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                {{commonLabels.btns.exportTo}}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
+                                <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
                             </div>
                         </div>
+                        <span class="pr-2"><button class="btn btn-primary addUser-upload" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
+                            <!-- <span class="pagenation-btn">
+                            <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
+                            class="pagenation-dropdown"></ngx-select-dropdown>
+                            </span> -->
+                        </div>
                     </div>
-                </div> 
-                <!-- <span *ngIf="!divisionDetails.length">{{commonLabels.labels.noData}}</span> -->
-            <div class="col-md-12 p-0">
-              <div class="text-center p-4"  *ngIf="!divisionDetails.length">
-                <p class="data-design mt-0"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
-              </div>
-            </div>
-            </div>
-        </div>    
-    </tab>
-    <tab heading = {{commonLabels.labels.listofRole}} (select)="roleTabSelect('roles')">
-        <div class="pt-4 clearfix listrole">
-            <div class="hd-section clearfix">
-            <h5 class="float-left title-hd">{{commonLabels.labels.listofRole}}</h5>
-            <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
-            </div>
-            <div class="hierarchy-tab white-bg pt-4 px-4 mt-3">
-                <div class="detail-bottom row">                
-                    <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
-                        <label  *ngIf="roleDetails.length" class="col-md-12 p-0 label-title">
-                            <span class="col-md-2 mr-0 word-wrap">{{i+1}}.{{role.designationName}} </span>
-                            <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                            <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
-                        </label>
+                    <form class="table-responsive custom-table2 px-1" #userForm="ngForm" id="userForm">
+                        <table class="table table-striped white-bg mt-1" [mfData]="constant.userList" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
+                            <thead>
+                                <tr class="th-boxshadow text-center">
+                                    <th>
+                                        <mfDefaultSorter by="employeeNo">{{commonLabels.labels.employeeId}}</mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center">
+                                        <mfDefaultSorter by="userName">{{commonLabels.labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center">
+                                        <mfDefaultSorter by="Division.divisionName">{{commonLabels.labels.division}}</mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center">
+                                        <mfDefaultSorter by="Department.departmentName">{{commonLabels.labels.department}}</mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center">
+                                        <mfDefaultSorter by="Designation.designationName">{{commonLabels.labels.role}}</mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center">
+                                        <mfDefaultSorter by="emailId">{{commonLabels.labels.email}}</mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center">
+                                        <mfDefaultSorter by="mobile">{{commonLabels.labels.accessTo}}</mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center action-hd">
+                                    <!-- Action -->
+                                    </th>   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
+                                    <td class="text-center"><label class="mb-0">{{ user.employeeNo }}</label></td>
+                                    <td class="text-center"><label class="mb-0">{{ user.userName | titlecase}}</label></td>
+                                    <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0" >{{ getDivisionArray(user.ResortUserMappings,'div') }}</label></span></td>
+                                    <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'dept')}}</label></span></td>
+                                    <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'design') }}</label></span></td>
+                                    <td class="text-center"><label class="mb-0">{{ user.email }}</label></td>
+                                    <td class="text-center"><label class="mb-0">{{ user.status }}</label></td>
+                                    <td class="text-center">
+                                    <div class="active-alg">
+                                        <a (click)="viewUserDetail(user,i)"><i class="fa fa-eye header-icon"></i></a>
+                                        <a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
+                                        <a title="{{user.active?'To InActive':'To Active'}}" class=""><label class="switch">
+                                            <input type="checkbox" [checked]="user.active" (change)="activeStatus(user)"> 
+                                            <span class="slider round"></span>
+                                        </label></a>    
+                                    </div>                            
+                                    </td>       
+                                </tr>
+                                <tr *ngIf="mf.data?.length == 0">
+                                    <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr data-html2canvas-ignore="true">
+                                    <td colspan="10">
+                                        <mfBootstrapPaginator></mfBootstrapPaginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </form>
+                </div>
+            </tab>
+            <tab heading={{commonLabels.labels.hierarchy}} (select)="roleTabSelect('div')">  
+                <div class="pt-3 clearfix">
+                    <div class="hd-section clearfix">
+                    <h5 class="float-left title-hd">{{commonLabels.labels.division}}</h5>
+                    <!-- <span *ngIf="!divisionDetails.length" class="float-right"> -->
+                        <button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button>
+                    <!-- </span> -->
                     </div>
-                    <!-- <span *ngIf="!roleDetails.length">>{{commonLabels.labels.noData}}</span> -->
+                    <div class="hierarchy-tab white-bg px-4 pt-4 mt-3">
+                    <div class="detail-bottom row">                
+                        <div class="row depart-dtl col-md-12 p-0 mb-4 clearfix" *ngFor="let division of divisionDetails;let i = index;">
+                            <label *ngIf="division?.Division?.Departments.length" class="col-md-12 p-0 division-title">{{division?.Division?.divisionName}} 
+                                    <!-- (click)="openAddUser(addDivision,'','')" -->
+                                <a (click)="editDivisionData(division?.Division,editDivision,'add')" title="Add"><i class="fa fa-plus ml-10"></i></a>
+                                <a (click)="editDivisionData(division?.Division,editDivision,'edit')" title="Edit"><i class="fas fa-pencil-alt ml-10"></i></a>
+                                <a (click)="removeDivision(deleteDivision,division,i)" class="ml-10" title="Delete"><i class="fas fa-trash"></i></a>
+                            </label>
+                                <div *ngIf="division?.Division?.Departments.length" class="dpt-list pl-1 ml-4" >
+                                    <div>
+                                        <span  *ngFor="let dept of division?.Division?.Departments">{{dept.departmentName}}</span>
+                                        <!-- <span>Department 1 <a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <!-- <span *ngIf="!divisionDetails.length">{{commonLabels.labels.noData}}</span> -->
                     <div class="col-md-12 p-0">
-              <div class="text-center p-4"  *ngIf="!roleDetails.length">
-                <p class="data-design mt-0"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
-              </div>
-            </div>
+                    <div class="text-center p-4"  *ngIf="!divisionDetails.length">
+                        <p class="data-design mt-0"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
+                    </div>
+                    </div>
+                    </div>
+                </div>    
+            </tab>
+            <tab heading = {{commonLabels.labels.listofRole}} (select)="roleTabSelect('roles')">
+                <div class="pt-4 clearfix listrole">
+                    <div class="hd-section clearfix">
+                        <h5 class="float-left title-hd">{{commonLabels.labels.listofRole}}</h5>
+                        <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
+                    </div>
+                    <div class="hierarchy-tab white-bg pt-4 px-4 mt-3">
+                        <div class="detail-bottom row">                
+                            <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
+                                <label  *ngIf="roleDetails.length" class="col-md-12 p-0 label-title">
+                                    <span class="col-md-2 mr-0 word-wrap">{{i+1}}.{{role.designationName}} </span>
+                                    <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                    <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
+                                </label>
+                            </div>
+                            <!-- <span *ngIf="!roleDetails.length">>{{commonLabels.labels.noData}}</span> -->
+                            <div class="col-md-12 p-0">
+                                <div class="text-center p-4"  *ngIf="!roleDetails.length">
+                                    <p class="data-design mt-0"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
                 </div> 
-            </div>
-        </div> 
-    </tab>
-    <tab heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
-       <app-rolepermission *ngIf="enableRolePermission" [userIdInfo]="userIdData"></app-rolepermission>
-    </tab>
-</tabset>  
-</div>
+            </tab>
+            <tab heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
+            <app-rolepermission *ngIf="enableRolePermission" [userIdInfo]="userIdData"></app-rolepermission>
+            </tab>
+        </tabset>  
+    </div>
 </div>
 <div class="pr-3 pt-3" id="contentToConvert" *ngIf="userType === 1">
 <!-- <p *ngIf="message" class="sucess-msg"><i class="fa fa-check-circle upload-crt-icon" aria-hidden="true" (click)="messageClose()"></i>{{message}}</p> -->
