@@ -56,7 +56,7 @@ static readonly defaultModules = [{
 	'edit': false,
 	'type': "web"
 }, {
-	'moduleName': 'CMS Library',
+	'moduleName': 'Resource Library',
 	'view': false,
 	'upload': false,
 	'edit': false,
@@ -99,6 +99,54 @@ static readonly defaultModules = [{
 	'type': "web"
 }, {
 	'moduleName': 'Subscription Model',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+}, {
+	'moduleName': 'Course',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+}, {
+	'moduleName': 'Training Class',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+}, {
+	'moduleName': 'Quiz',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+}, {
+	'moduleName': 'Notification',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+}, {
+	'moduleName': 'Feedback',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+}, {
+	'moduleName': 'Course Trend',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+}, {
+	'moduleName': 'Resort Details',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+}, {
+	'moduleName': 'Certification Trend',
 	'view': false,
 	'upload': false,
 	'edit': false,

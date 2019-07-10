@@ -23,5 +23,10 @@ export class UtilService {
     const userData = atob(localStorage.getItem('userData'));
     return JSON.parse(userData);
   }
+
+  getRolePermissions(){
+    let data = localStorage.getItem('RolePermissions')
+    return JSON.parse(data);
+  }
   
 }

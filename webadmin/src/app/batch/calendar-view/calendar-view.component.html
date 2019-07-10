@@ -54,7 +54,7 @@
     </span> -->
       <div [ngSwitch]="view" class="px-3 pb-3 calender-view" *ngIf="!enableBatch">
         <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-          (dayClicked)="dayClicked($event.day)" [cellTemplate]="customCellTemplate" [refresh]="refresh">
+          (dayClicked)="goToBatch($event.day,'','','addBatch')" [cellTemplate]="customCellTemplate" [refresh]="refresh">
         </mwl-calendar-month-view>
       </div>
     </div>
@@ -74,7 +74,7 @@
           <p class="m-0">{{event.batchName}}</p>
           <p class="m-0 clearfix pr-2">            
             <span (click)="openConfirmModel(confirm,event,i)"><i class="fas fa-trash float-right"></i></span>
-            <span (click)="goToBatch(day.date,event,i,editBatch)"><i class="fas fa-pencil-alt float-right pr-2"></i></span>
+            <span (click)="goToBatch(day.date,event,i,'editBatch')"><i class="fas fa-pencil-alt float-right pr-2"></i></span>
           </p>          
           <!-- <p class="m-0" *ngFor="let course of event.courseList;">{{course?.Course?.courseName}}</p> -->
           <p class="m-0">{{event.start | date:medium}} - {{event.dueDate | date:medium}}</p>
