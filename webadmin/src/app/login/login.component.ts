@@ -1,159 +1,190 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {loginVar} from '../Constants/login.var';
-import {HttpService,CommonService,BreadCrumbService} from '../services';
+import { loginVar } from '../Constants/login.var';
+import { HttpService, CommonService, BreadCrumbService } from '../services';
 import { API_URL } from '../Constants/api_url';
-import {AuthService} from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { CommonLabels } from '../Constants/common-labels.var';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 
 export class LoginComponent implements OnInit {
 
-    forgetPasswordStatus = false;
-    userArray = [];
-    rememberMe = false;
-    rememberMeCheck =[];
-    labels;
-    passwordError = false;
-    emailError = false;
-    btns;
-    constructor(private route: Router, 
-      public loginvar: loginVar,
-      private toastr: ToastrService,
-      private http: HttpService,
-      private authService: AuthService,
-      private API_URL:API_URL,
-      private alertService:AlertService,
-      public commonLabels:CommonLabels,
-      private commonService :CommonService,
-      private breadCrumbService :BreadCrumbService) { }
+  forgetPasswordStatus = false;
+  userArray = [];
+  rememberMe = false;
+  rememberMeCheck = [];
+  labels;
+  passwordError = false;
+  emailError = false;
+  btns;
+  constructor(private route: Router,
+    public loginvar: loginVar,
+    private toastr: ToastrService,
+    private http: HttpService,
+    private authService: AuthService,
+    private API_URL: API_URL,
+    private alertService: AlertService,
+    public commonLabels: CommonLabels,
+    private commonService: CommonService,
+    private breadCrumbService: BreadCrumbService) { }
 
-    ngOnInit() {
-      // get user details '5c0fbeda3100003b1324ee75'
-      // this.http.get(API_URL.URLS.getUsers).subscribe((resp) => {
-      //   this.userArray = resp.UserList;
-      // });
-      this.breadCrumbService.setTitle([])
-      //labels
-      this.labels = this.loginvar.labels;
-      this.btns = this.loginvar.btns;
-      this.passwordError = false;
-      //remember check
-      let localData = (localStorage.getItem("rememberMe"));
-      if(localData){
-        this.rememberMeCheck = JSON.parse(atob(localData));
-        this.rememberCheck(this.loginvar.email);
-      }
+  ngOnInit() {
+    // get user details '5c0fbeda3100003b1324ee75'
+    // this.http.get(API_URL.URLS.getUsers).subscribe((resp) => {
+    //   this.userArray = resp.UserList;
+    // });
+    this.breadCrumbService.setTitle([])
+    //labels
+    this.labels = this.loginvar.labels;
+    this.btns = this.loginvar.btns;
+    this.passwordError = false;
+    //remember check
+    let localData = (localStorage.getItem("rememberMe"));
+    if (localData) {
+      this.rememberMeCheck = JSON.parse(atob(localData));
+      this.rememberCheck(this.loginvar.email);
     }
-// Password remember check
-    rememberCheck(data){
-      let user = this.rememberMeCheck.find(x => x.email === data);
-      if(user && user.remember){
-        this.loginvar.password = user.password;
-        this.rememberMe = user.remember;
-      }
-      else if(user && !user.remember){
-        this.loginvar.password = '';
-        this.rememberMe = user.remember;
-      }
+  }
+  // Password remember check
+  rememberCheck(data) {
+    let user = this.rememberMeCheck.find(x => x.email === data);
+    if (user && user.remember) {
+      this.loginvar.password = user.password;
+      this.rememberMe = user.remember;
     }
-
-    forgetPasswordUpdate(){
-      this.forgetPasswordStatus = !this.forgetPasswordStatus;
-      this.loginvar.email = '';
+    else if (user && !user.remember) {
       this.loginvar.password = '';
-      this.rememberMe = false;
+      this.rememberMe = user.remember;
     }
-
-    // Common function for login and forget password
-    submitLogin(data, forgetStatus) {
-      if(forgetStatus){
-        // forgetpassword
-        if(data.email){
-          let params = {
-            "emailAddress": data.email
-            }
-          this.commonService.forgetPassword(params).subscribe(resp=>{
-            if(resp && resp.isSuccess){
-              this.forgetPasswordStatus = false;
-              this.alertService.success(resp.message);
-            }
-          },err=>{
-            this.alertService.error(err.error.error)
-          })
+  }
+  forgetPasswordUpdate() {
+    this.forgetPasswordStatus = !this.forgetPasswordStatus;
+    this.loginvar.email = '';
+    this.loginvar.password = '';
+    this.rememberMe = false;
+  }
+  getObject(theObject, userpermissions) {
+    var result = null;
+    var key = 'moduleName';
+    if (theObject instanceof Array) {
+      for (var i = 0; i < theObject.length; i++) {
+        if (userpermissions[theObject[i].moduleName] == undefined) {
+          userpermissions[theObject[i].moduleName] = [];
+          userpermissions[theObject[i].moduleName] = theObject[i];
         }
-        else{
-          this.alertService.error(this.commonLabels.msgs.regisEmail)
-        }
-
+        result = this.getObject(theObject[i], userpermissions);
       }
-      // login
-      else if (data.email && data.password && !forgetStatus) {
-            let user = {};
-            this.passwordError = false;
-            this.emailError = false;
-            let loginCredential ={ 
-              emailAddress:data.email,
-               password:data.password,
-               type : 'web'
-             }
-            this.authService.login(loginCredential).subscribe(result=>{
-             if(result.isSuccess){
-                const loginData = result.data;
-                const role = loginData.UserRole[0].roleId;
-                if(role === 4){
-                  this.route.navigateByUrl('/cmspage?type=create');
-                }else{
-                  this.route.navigateByUrl('/dashboard');
-                }
-                this.alertService.success(this.commonLabels.msgs.loginSuccess);
-                let resortName = result.data.ResortUserMappings.length && result.data.ResortUserMappings[0].Resort.resortName;
-                localStorage.setItem("resortName", resortName);
-             }
-            },error => {
-            error.error == "Invalid Password" ? this.passwordError= true : (error.error == "Invalid Email Address" ? this.emailError = true : '');
-            this.alertService.error(error.error)
+    }
+    else {
+      let moduleName = theObject.moduleName;
+      for (var prop in theObject) {
+        const data = ["moduleName", "view", "upload", "edit", "delete"];
+
+        let found = data.includes(prop);
+        if (found) {
+          if (theObject[prop] == true || theObject[prop] == false) {
+            userpermissions[moduleName][prop] = (userpermissions[moduleName][prop] == true) ? true : theObject[prop];
+          }
+        }
+        if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
+          result = this.getObject(theObject[prop], userpermissions);
+        }
+      }
+    }
+    return userpermissions;
+  }
+  // Common function for login and forget password
+  submitLogin(data, forgetStatus) {
+    if (forgetStatus) {
+      // forgetpassword
+      if (data.email) {
+        let params = {
+          "emailAddress": data.email
+        }
+        this.commonService.forgetPassword(params).subscribe(resp => {
+          if (resp && resp.isSuccess) {
+            this.forgetPasswordStatus = false;
+            this.alertService.success(resp.message);
+          }
+        }, err => {
+          this.alertService.error(err.error.error)
         })
-                let localObject = [];
-                // remember password settings
-                if(this.rememberMeCheck.length){
-                  localObject =  this.rememberMeCheck;
-                  let user = localObject.find(x => x.email === data.email);
-                  if(user){
-                    let filterObject = localObject.filter(x => x.email !== data.email);
-                    user.remember = this.rememberMe;
-                    filterObject.push(user)
-                    localStorage.setItem('rememberMe',btoa(JSON.stringify(filterObject)))
-                  }
-                  else{
-                      this.setATLocal(data,localObject);
-                  }
-                }
-                else{
-                  this.setATLocal(data,localObject);
-                }
-              }
-                 
-         else {
-            // this.toastr.error("Please enter login details");
-            localStorage.setItem('userData', '');
+      }
+      else {
+        this.alertService.error(this.commonLabels.msgs.regisEmail)
+      }
+
+    }
+    // login
+    else if (data.email && data.password && !forgetStatus) {
+      let user = {};
+      this.passwordError = false;
+      this.emailError = false;
+      let loginCredential = {
+        emailAddress: data.email,
+        password: data.password,
+        type: 'web'
+      }
+      this.authService.login(loginCredential).subscribe(result => {
+        if (result.isSuccess) {
+          const loginData = result.data;
+          const role = loginData.UserRole[0].roleId;
+          const rolePermissions = loginData.rolePermissions;
+          const resultRolePermissions = this.getObject(rolePermissions, []);
+          localStorage.setItem('RolePermissions',resultRolePermissions);
+          if (role === 4) {
+            this.route.navigateByUrl('/cmspage?type=create');
+          } else {
+            this.route.navigateByUrl('/dashboard');
+          }
+          this.alertService.success(this.commonLabels.msgs.loginSuccess);
+          let resortName = result.data.ResortUserMappings.length && result.data.ResortUserMappings[0].Resort.resortName;
+          localStorage.setItem("resortName", resortName);
         }
+      }, error => {
+        error.error == "Invalid Password" ? this.passwordError = true : (error.error == "Invalid Email Address" ? this.emailError = true : '');
+        this.alertService.error(error.error)
+      })
+      let localObject = [];
+      // remember password settings
+      if (this.rememberMeCheck.length) {
+        localObject = this.rememberMeCheck;
+        let user = localObject.find(x => x.email === data.email);
+        if (user) {
+          let filterObject = localObject.filter(x => x.email !== data.email);
+          user.remember = this.rememberMe;
+          filterObject.push(user)
+          localStorage.setItem('rememberMe', btoa(JSON.stringify(filterObject)))
+        }
+        else {
+          this.setATLocal(data, localObject);
+        }
+      }
+      else {
+        this.setATLocal(data, localObject);
+      }
     }
 
-    setATLocal(data,localObject){
-      let localRememberData={
-        email : data.email,
-        password : data.password,
-        remember : this.rememberMe
-      }
-      localObject.push(localRememberData)
-      localStorage.setItem('rememberMe',btoa(JSON.stringify(localObject)))
+    else {
+      // this.toastr.error("Please enter login details");
+      localStorage.setItem('userData', '');
     }
+  }
+
+  setATLocal(data, localObject) {
+    let localRememberData = {
+      email: data.email,
+      password: data.password,
+      remember: this.rememberMe
+    }
+    localObject.push(localRememberData)
+    localStorage.setItem('rememberMe', btoa(JSON.stringify(localObject)))
+  }
 }
