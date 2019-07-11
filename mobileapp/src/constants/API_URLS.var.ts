@@ -63,7 +63,8 @@ export class API_URL {
        'post' : '8104/post',
        'comment': '8104/comment',
        'appFeedback' : '8103/applicationFeedback',
-
+       'getScheduleTraining' : '8103/schedule',
+ 
         //Dashboard
        'dashboardSchedules':'8103/getScheduleExpireList',
        'dashboardCount':'8103/getDashboardCount',

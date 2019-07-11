@@ -1,22 +1,27 @@
-<ion-header class="main-header my-component" color="primary">
+<!-- <ion-header>
+  <ion-navbar color="primary">
+        <ion-icon (click)="changeMonth('back')" name="arrow-dropleft"></ion-icon>
+        <ion-title>{{ viewTitle }}</ion-title>
+        <ion-icon (click)="changeMonth('forward')" name="arrow-dropright"></ion-icon>
+  </ion-navbar>
+</ion-header> -->
+<ion-content padding class="headerFull-bg default-header">
+<ion-header class="static-header main-header my-component" color="primary">
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title> <span class="header-title">Calendar</span></ion-title>
+    <span class="back-arrow" (click)="goBack()">
+      <img src="assets/imgs/Back.png" />
+    </span>
+    <ion-title class="text-left">
+      <ion-icon (click)="changeMonth('back')" name="arrow-dropleft"></ion-icon>
+      <span class="header-title">{{ viewTitle }}</span>
+      <ion-icon (click)="changeMonth('forward')" name="arrow-dropright"></ion-icon>
+    </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
-    <!-- <button ion-button (click)="openCalendar()">Open Calendar on Current Date</button> -->
 
-    <!-- <ion-list>
-        <ion-item *ngFor="let cal of calendars" tappable>
-          <button ion-button icon-only item-start clear (click)="addEventWithOptions(cal)">
-            <ion-icon name="add"></ion-icon>
-          </button>
-          {{ cal.title }}
-          <p>{{ cal.notes }}</p>
-        
-        </ion-item>
-      </ion-list> -->
+
+  <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+    (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)" step="30" class="calendar">
+  </calendar>
 </ion-content>

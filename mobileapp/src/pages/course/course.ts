@@ -19,40 +19,45 @@ import * as moment from 'moment';
 
 })
 export class CoursePage implements OnInit {
-  showAssigned: boolean = false;
-  showProgress: boolean = true;
-  showCompleted: boolean = true;
-  showSignRequire: boolean = true;
+  
   statusKey;
-  userInformation: any = [];
-  userAssigned: any;
-  userProgress: any;
-  userCompleted: any;
-  courseList:any =[];
-  allCourses: any = [];
-  assignedCount;
-  assignedCoursesList = [];
-  progressCoursesList = [];
-  completeCoursesList = [];
   noRecordsFoundMessage;
-  paramsData ={};
   currentUser;
   status;
-  notificationCount;
-  showSearchBar: boolean = false;
+  notificationCount; 
+  totalPage;
   search;
   signRequireCount;
   signRequireList;
   uploadPath;
   tab;
-  modalRef: BsModalRef;
   className;
   showToastr;
   msgTitle;
   msgDes;
+  assignedCount;
+  modalRef: BsModalRef;
+  assignedCoursesList = [];
+  progressCoursesList = [];
+  completeCoursesList = [];
+  userInformation: any = [];
+  userAssigned: any;
+  userProgress: any;
+  userCompleted: any;
+  courseList: any = [];
+  allCourses: any = [];
+  paramsData = {};
+  showSearchBar: boolean = false;
+  scrollEnable: boolean = false;
+  showAssigned: boolean = false;
+  showProgress: boolean = true;
+  showCompleted: boolean = true;
+  showSignRequire: boolean = true;
+  currentPage = this.constant.numbers.one;
+  perPageData = this.constant.numbers.five;
   
-
   @ViewChild(Content) content: Content;
+  
   constructor(public navCtrl: NavController,public modalService:BsModalService,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
         this.tab = this.navParams.data;      
   }
@@ -70,7 +75,7 @@ export class CoursePage implements OnInit {
               this.status = 'assigned';
               this.getNotification();
                 if(this.tab && this.tab == 'signReq'){
-                  this.getSignRequired();
+                  this.getSignRequired('');
                 }
             }
         });
@@ -141,6 +146,17 @@ export class CoursePage implements OnInit {
     await this.getCourse();
     this.loader.hideLoader();
   }
+
+
+   //Infinite scroll event call
+    doInfinite(event) {
+        this.currentPage += 1;
+        this.scrollEnable = true;
+        setTimeout(() => {
+            this.getCourseStatus(this.status,'');
+            event.complete(); //To complete scrolling event.
+        }, 1000);
+    }
   
   getCourseStatus(status, search) {
     let self = this;
@@ -148,12 +164,20 @@ export class CoursePage implements OnInit {
     return new Promise(resolve => {
       let userId = this.currentUser ? this.currentUser.userId : 8;
       let resortId = this.currentUser.ResortUserMappings[0].resortId;
-      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId +'&resortId='+resortId+ '&search=' +search).subscribe((res) => {
+      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId +'&resortId='+resortId+'&page='+this.currentPage+'&size='+this.perPageData+'&search=' +search).subscribe((res) => {
         if(res['data']['rows']){
-          self.courseList    = res['data']['rows'];
-          self.assignedCount = res['data']['count'];
+          this.assignedCount = res['data']['count'];
+          this.totalPage = this.assignedCount / this.perPageData;
+          if (this.scrollEnable) {
+              for (let i = 0; i < res['data']['rows'].length; i++) {
+                  this.courseList.push(res['data']['rows'][i]);
+              }
+          } else {
+              this.courseList = res['data']['rows'];
+          }
+          console.log(this.courseList,"courselist");
         }else{
-          self.assignedCount = 0;
+          this.assignedCount = 0;
           self.noRecordsFoundMessage = res['message'];
         }
         resolve('resolved');
@@ -163,7 +187,7 @@ export class CoursePage implements OnInit {
     });
   }
 
-  getSignRequired(){
+  getSignRequired(search){
     this.showAssigned = true;
     this.showProgress = true;
     this.showCompleted = true;
@@ -171,7 +195,7 @@ export class CoursePage implements OnInit {
     let userId =  this.currentUser.userId;
     let resortId = this.currentUser.ResortUserMappings[0].resortId;
     let status='signRequired';
-    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId +'&resortId='+resortId+'&status='+status+'&mobile='+1).subscribe(res=>{
+    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId+'&resortId='+resortId+'&status='+status+'&search='+search+'&mobile='+1).subscribe(res=>{
     if(res['data']['rows']){
       this.signRequireList =res['data']['rows'];
       this.signRequireCount = res['data']['count'];
@@ -187,16 +211,22 @@ export class CoursePage implements OnInit {
     this.showSearchBar = !this.showSearchBar;
    }
 
+
    onInput($e) {
-    if (this.search) {
+    if (this.search && this.showSignRequire) {
       this.getCourseStatus(this.status, this.search)
+    }else if(this.search && !this.showSignRequire){
+      this.getSignRequired(this.search)
     } else {
       this.showSearchBar = false;
       this.getCourseStatus(this.status, '');
     }
   }
+  
+  //Close and empty search bar
   onCancel($e) {
     this.showSearchBar = false;
+    this.search="";
     this.getCourseStatus(this.status, '');
   }
 

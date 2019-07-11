@@ -1,190 +1,106 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-import { Calendar } from '@ionic-native/calendar';
+import { Component,OnInit} from '@angular/core';
+import { NavController, AlertController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
+import { Storage } from '@ionic/storage';
+import * as moment from 'moment';
+
+
 @IonicPage({
-  name: 'calendar-page'
+    name: 'calendar-page'
 })
+
 @Component({
-  selector: 'page-calendar',
-  templateUrl: 'calendar.html',
+    selector: 'page-calendar',
+    templateUrl: 'calendar.html'
 })
-export class CalendarPage implements OnInit {
-  calendars = [];
-  calendarIdUnique;
-  calendarShowEnable: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private calendar: Calendar, private plt: Platform, private http: HttpProvider, public apiUrl: API_URL) {
+export class CalendarPage implements OnInit   {
+    eventSource = [];
+    viewTitle: string;
+    currentMonth;
+    selectedDay = new Date();
+    currentUser;
+    calendar = {
+        mode: 'month',
+        currentDate: new Date()
+    };
 
+    constructor(public navCtrl: NavController,public storage: Storage, public http: HttpProvider,private alertCtrl: AlertController) { }
 
-    console.log('constructor');
-    console.log(this.calendarShowEnable);
-    console.log(this.calendarIdUnique);
-
-   // this.checkCalendarPromiseMethod();
-
-     this.plt.ready().then(() => {
-    //   this.createCalendar();
-     });
-  }
-  ngOnInit() {
-    console.log('entered');
-    console.log(this.calendarShowEnable);
-    console.log(this.calendarIdUnique);
-    if (this.calendarShowEnable === true && this.calendarIdUnique) {
-      this.navCtrl.setRoot('home-page');
-    }
-  }
-  ionViewDidLoad() {
-
-    console.log('ionViewDidLoad CalendarPage');
-  }
-
-  ionViewDidEnter() {
-
-    console.log('ionViewDidEnter');
-  }
-  openCalendar() {
-
-    this.calendar.openCalendar(new Date()).then(
-      (msg) => {
-        console.log("open calendar");
-        console.log(msg);
-      },
-      (err) => {
-        console.log("open calendar error");
-        console.log(err);
-      }
-    );
-  }
-
-    // Via Promise
-    error = false;
-    doAsyncTask() {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (this.error) {
-            reject('error');
-          } else {
-            resolve('done');
+    ngOnInit(){
+      this.currentMonth = this.selectedDay.getMonth();  
+      let self = this;
+      this.storage.get('currentUser').then((user: any) => {
+          if (user) {
+              self.currentUser = user;
+               this.getSchedule();
           }
-        }, 1000);
       });
     }
-  checkCalendarPromiseMethod()
-  {
-      this.doAsyncTask().then(
-          (val) => console.log(val),
-          (err) => console.error(err)
-      );
-      // Immediately Resolved Promise
-      let promise = Promise.resolve('done');
-      promise.then((val) => console.log(val)); 
-      Promise.resolve('done')
-         // .then((val) => {throw new Error("fail")})
-          .then((val) => console.log(val))
-          .catch((err) => console.error(err));
-  }
-  createCalendar() {
 
-    var self = this;
-    this.calendar.createCalendar('RMS Calendar').then(
-      (msg) => {
-        console.log("write permission");
-        self.calendar.hasReadWritePermission().then(
-          (res) => {
-            console.log("RMS Calendar hasReadWritePermission", res);
-            if (!res) {
-              self.calendar.requestReadWritePermission().then(
-                (resp) => {
-                  console.log('Request requestReadWritePermission', resp);
-                }
-              );
-            }
-          },
-          (err) => { console.log("RMS Calendar hasReadWritePermission error", err); }
-        );
-        console.log(this.calendar.hasReadWritePermission());
-        console.log("write permission")
+   //Nav to training schedule
+    goBack(){
+    this.navCtrl.setRoot('event-page');
+    }
+ 
+   //set month name
+    onViewTitleChanged(title) {
+      console.log(title,"viewTITLE")
+        this.viewTitle = title;
+    }
 
-        this.calendarIdUnique = msg;
-        self.openCalendar();
-        self.getCalendars();
-        console.log("RMS Calendar Created", msg);
-      },
-      (err) => { console.log("RMS Calendar Creation error", err); }
-    );
-  }
+   //Event detail modal
+    onEventSelected(event) {
+        let start = moment(event.startTime).format('MMMM Do YYYY');
+        let startday = moment(event.startTime).format('ddd');
+        let end = moment(event.endTime).format('MMMM Do YYYY');
+        let endday = moment(event.endTime).format('ddd');
+        let alert = this.alertCtrl.create({
+            title: '' + event.title,
+            subTitle: 'From: ' + startday+', '+ start + '<br>To: '+ endday+ ', ' + end,
+            buttons: ['OK']
+        })
+        alert.present();
+    }
 
-  deleteCalendar() {
-    this.calendar.deleteCalendar('RMS Calendar').then(
-      (msg) => { console.log("RMS Calendar Deleted", msg); },
-      (err) => { console.log("RMS Calendar Deletion error", err); }
-    );
-  }
-  getCalendars() {
-    // var self= this;
-    this.http.getData(API_URL.URLS.getCalendars).subscribe((data) => {
-      if (data['isSuccess']) {
-        this.calendars = data['calendarList'];
-        this.loopCalendar(this.calendars);
-        // this.calendars.map(function(value,key){
-        //     self.addEventWithOptions(value);
-        // });
+    onTimeSelected(ev) {
+        this.selectedDay = ev.selectedTime;
+    }
+
+    changeMonth(direction){ 
+      console.log(this.calendar); 
+      switch(direction){ 
+        case "back": 
+         this.calendar.currentDate = new Date( this.calendar.currentDate.setMonth(this.currentMonth - 1));
+         this.currentMonth = this.currentMonth - 1;
+          break;
+        case "forward":
+         this.calendar.currentDate = new Date(this.calendar.currentDate.setMonth(this.currentMonth + 1)); 
+         this.currentMonth = this.currentMonth + 1; 
+         break; 
+        } 
+        console.log(this.calendar["currentDate"]); 
+        return this.calendar;
       }
-    });
-  }
-  loopCalendar(calendarArray) {
-    var self = this;
-    calendarArray.map(function (value, key) {
-      self.addEventWithOptions(value).then(function (respCollect) {
-        console.log('Total Response Collected here');
-        console.log(respCollect);
-      });
-    });
-  }
-  addEventWithOptions(cal) {
-    return new Promise((resolve, reject) => {
-      //,firstReminderMinutes:15
-      let options = { calendarId: cal.calendarId, calendarName: cal.calendarName, url: cal.url };
-      var startDate = this.getDate(cal.startDate);
-      var endDate = this.getDate(cal.endDate);
-      var startDates = new Date(startDate['year'], startDate['month'], startDate['date'], 0, 0, 0, 0); // beware: month 0 = january, 11 = december
-      var endDates = new Date(endDate['year'], endDate['month'], endDate['date'], 0, 0, 0, 0);
-      console.log(cal);
-      console.log("function call");
 
-      console.log(options);
-      console.log("function call options above one");
-      // this.calendar.findEventWithOptions(cal.title, cal.location, cal.notes, startDates, endDates, options).then(resp => {
-      // console.log("find event resp", startDates, endDates);
-
-      console.log("function dates", startDates, endDates);
-      console.log(cal.title, cal.location, cal.notes, startDates, endDates, options);
-      // console.log(resp.length);
-      // if (resp.length >= 0){
-      this.calendar.createEventWithOptions(cal.title, cal.location, cal.notes, startDates, endDates, options).then(res => {
-        console.log("create event resp", startDates, endDates);
-        console.log("function hitting only once", cal);
-        console.log(res);
-        resolve(res);
-      }, err => {
-        reject(err);
-        console.log('create err: ', err);
-      });
-      // }
-      // }, err => {
-      //   reject(err);
-      //   console.log('find err: ', err);
-      // });
-    });
-  }
-  getDate(dateFormat) {
-    let date = dateFormat.split('-');
-    let resp = {};
-    resp['year'] = date[0];
-    resp['month'] = date[1] - 1;
-    resp['date'] = date[2];
-    return resp;
-  }
+    getSchedule() {
+      let userId = this.currentUser ? this.currentUser.userId : 8;
+      let resortId = this.currentUser.ResortUserMappings[0].resortId;
+      this.http.get(API_URL.URLS.getScheduleTraining+ '?userId=' + userId + '&resortId=' + resortId).subscribe((res) => {
+        if (res['isSuccess']) {
+          let dataList = res['data'];
+          let events = [];
+          dataList.map(value=>{
+            events.push({
+                title: value.name,
+                startTime: new Date(value.assignedDate),
+                endTime: new Date(value.dueDate),
+                allDay: true
+            });
+          })      
+          this.eventSource = events;
+          console.log(this.eventSource, "SOURCE");
+       }
+     });
+   }
 }

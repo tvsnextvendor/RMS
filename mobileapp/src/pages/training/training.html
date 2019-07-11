@@ -35,8 +35,11 @@
                 <ion-row class="">
                   <ion-col col-7 class=" ">
                     <h3 *ngIf="task.FeedbackMappings.length > 0">
-                      <span class="status-pass" *ngIf="task.FeedbackMappings[0].status == 'passed'">Completed - {{task.FeedbackMappings[0].passPercentage}} %</span>
-                      <span class="status-fail" *ngIf="task.FeedbackMappings[0].status == 'failed'">Failed - {{task.FeedbackMappings[0].passPercentage }} %</span>
+                      <span class="status-pass" *ngIf="task.FeedbackMappings[0].status == 'passed'">Completed - {{task.FeedbackMappings[0].passPercentage}} %                        
+                      </span>
+                      <span class="status-fail" *ngIf="task.FeedbackMappings[0].status == 'failed'">Failed - {{task.FeedbackMappings[0].passPercentage }} % <br>
+                        <span>{{constant.pages.trainingLabels.retakeCourse}}</span>
+                      </span>
                     </h3>
                   </ion-col>
                   <ion-col col-5 class="">
