@@ -65,6 +65,8 @@ export class AddQuizComponent implements OnInit {
     resortId;
     enableAddQuiz = false;
     roleId;
+    answerEmpty = false;
+    optionEmpty = false;
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
@@ -254,6 +256,8 @@ export class AddQuizComponent implements OnInit {
     // Quiz Submission
     quizSubmit(submitType) {
         //Weightage update
+        this.answerEmpty = false;
+        this.optionEmpty = false;
         if (this.questionList) {
             console.log(this.questionList);
             this.questionList.map(item => {
@@ -261,141 +265,167 @@ export class AddQuizComponent implements OnInit {
                 this.quizQuestionsForm.push(item);
             })
         }
+        let data = this.quizQuestionsForm.map(item => {
+            console.log(item)
+            if(item.questionType !=  "True/False" && !item.answer){
+              this.answerEmpty = true;
+            }
+            if(item.questionType == 'MCQ'){
+              item.options.forEach(data=>{
+                if(!data.optionName){
+                  this.optionEmpty = true;
+                }
+              })
+            }
+            item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+            return item;
+        })
 
         console.log(this.quizQuestionsForm, "quiz Questions");
         let user = this.utilService.getUserData();
         let params;
         let hideTraining = submitType === 'yes' ? true : false;
-        if (this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length) {
-            let data = this.quizQuestionsForm.map(item => {
-                item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
-                return item;
-            })
-            //final data for submission
-            if (this.courseId) {
-                params = {
-                    "trainingClass": { "trainingClassName": this.selectCourseName },
-                    "files": [],
-                    "quizQuestions": data,
-                    "quizName": this.quizName,
-                    "trainingClassId": this.courseId,
-                    "questionIds": this.removedQuizIds,
-                    "fileIds": this.removedFileIds,
-                    "quizId" : '',
-                    "createdBy" : user.userId,
-                    "resortId": this.resortId,
-                    "quiz" : {
-                        "quizId" : this.editQuizId,
+        debugger;
+        if(!this.optionEmpty && !this.answerEmpty){
+            if (this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length) {
+                let data = this.quizQuestionsForm.map(item => {
+                    item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+                    return item;
+                })
+                //final data for submission
+                if (this.courseId) {
+                    params = {
+                        "trainingClass": { "trainingClassName": this.selectCourseName },
+                        "files": [],
+                        "quizQuestions": data,
                         "quizName": this.quizName,
+                        "trainingClassId": this.courseId,
+                        "questionIds": this.removedQuizIds,
+                        "fileIds": this.removedFileIds,
+                        "quizId" : '',
+                        "createdBy" : user.userId,
+                        "resortId": this.resortId,
+                        "quiz" : {
+                            "quizId" : this.editQuizId,
+                            "quizName": this.quizName,
+                        }
                     }
                 }
-            }
-            else {
-                params = {
-                    "trainingClassName": this.selectCourseName,
-                    "files": [],
-                    "quizName": this.quizName,
-                    "quizQuestions": data,
-                    "quizId" : '',
-                    "createdBy" : user.userId,
-                    "resortId": this.resortId,
-                    "draft" : false
+                else {
+                    params = {
+                        "trainingClassName": this.selectCourseName,
+                        "files": [],
+                        "quizName": this.quizName,
+                        "quizQuestions": data,
+                        "quizId" : '',
+                        "createdBy" : user.userId,
+                        "resortId": this.resortId,
+                        "draft" : false
+                    }
+                }
+
+                if(this.roleId == 4){
+                    params.draft = true
+                }
+                else{
+                    delete params.draft;
+                }
+                if(this.quizCreateType == 'exist' && this.selectedQuiz){
+                    params.quizId = this.selectedQuiz;
+                    delete params.quizName;
+                    delete params.quizQuestions;
+                }
+                else{
+                    delete params.quizId;
+                }
+                if (this.videoList.length) {
+                    params.files = this.videoList.map(item => {
+                        if (this.courseId) {
+                            let obj = {
+                                fileName: item.fileName,
+                                fileDescription: item.fileDescription,
+                                fileType: item.fileType,
+                                fileUrl: item.fileUrl,
+                                fileExtension: item.fileExtension,
+                                fileImage: item.fileImage,
+                                fileSize: item.fileSize,
+                                fileLength: item.fileLength,
+                                fileId: item.fileId,
+                                trainingClassId: item.trainingClassId
+                            }
+                            return obj;
+                        }
+                        else {
+                            let obj = {
+                                fileName: item.fileName,
+                                fileDescription: item.fileDescription,
+                                fileType: item.fileType,
+                                fileUrl: item.fileUrl,
+                                fileExtension: item.fileExtension,
+                                fileImage: item.fileImage,
+                                fileSize: item.fileSize,
+                                fileLength: item.fileLength
+                            }
+                            return obj;
+                        }
+
+                    })
+                }
+                if (this.courseId) {
+                    this.courseService.updateTrainingClass(this.courseId, params).subscribe((result) => {
+                        if (result && result.isSuccess) {
+                            this.removedQuizIds = [];
+                            this.selectedQuiz = null;
+                            this.valueChanged(result.data, hideTraining, false);
+                        }
+                        this.modalRef && this.modalRef.hide();
+                    },err=>{
+                        let errData = err.error.error
+                        if(errData && errData.statusKey){
+                            this.courseId = '';
+                            this.quizSubmit(submitType)
+                        }
+            
+                    })
+                }
+                else {
+                    params.quizQuestions && params.quizQuestions.length && params.quizQuestions.forEach(item=>{
+                        if(item.questionId){
+                            delete item.questionId;
+                        }
+                    })
+                    this.courseService.addTrainingClass(params).subscribe((result) => {
+                        if (result && result.isSuccess) {
+                            this.selectedQuiz = null;
+                            this.valueChanged(result.data, hideTraining, false);
+                        }
+                        this.modalRef.hide();
+
+                    })
                 }
             }
-
-            if(this.roleId == 4){
-                params.draft = true
-              }
-              else{
-                delete params.draft;
-              }
-            if(this.quizCreateType == 'exist' && this.selectedQuiz){
-                params.quizId = this.selectedQuiz;
-                delete params.quizName;
-                delete params.quizQuestions;
-              }
-              else{
-                  delete params.quizId;
-              }
-            if (this.videoList.length) {
-                params.files = this.videoList.map(item => {
-                    if (this.courseId) {
-                        let obj = {
-                            fileName: item.fileName,
-                            fileDescription: item.fileDescription,
-                            fileType: item.fileType,
-                            fileUrl: item.fileUrl,
-                            fileExtension: item.fileExtension,
-                            fileImage: item.fileImage,
-                            fileSize: item.fileSize,
-                            fileLength: item.fileLength,
-                            fileId: item.fileId,
-                            trainingClassId: item.trainingClassId
-                        }
-                        return obj;
-                    }
-                    else {
-                        let obj = {
-                            fileName: item.fileName,
-                            fileDescription: item.fileDescription,
-                            fileType: item.fileType,
-                            fileUrl: item.fileUrl,
-                            fileExtension: item.fileExtension,
-                            fileImage: item.fileImage,
-                            fileSize: item.fileSize,
-                            fileLength: item.fileLength
-                        }
-                        return obj;
-                    }
-
-                })
+            else if (!this.selectCourseName && this.tabName == 'course') {
+                this.modalRef.hide();
+                //this.toastr.error("Course name is mandatory");
+                this.alertService.error(this.commonLabels.mandatoryLabels.courseNameError);
+                // this.courseId ? 
+                //   this.valueChanged('',hideTraining,true)
+                //   :
+                //   this.valueChanged('',hideTraining,false);
+                // this.redirectCourseList();
             }
-            if (this.courseId) {
-                this.courseService.updateTrainingClass(this.courseId, params).subscribe((result) => {
-                    if (result && result.isSuccess) {
-                        this.removedQuizIds = [];
-                        this.selectedQuiz = null;
-                        this.valueChanged(result.data, hideTraining, false);
-                    }
-                    this.modalRef && this.modalRef.hide();
-                },err=>{
-                    let errData = err.error.error
-                    if(errData && errData.statusKey){
-                        this.courseId = '';
-                        this.quizSubmit(submitType)
-                    }
-        
-                })
-            }
-            else {
-                params.quizQuestions && params.quizQuestions.length && params.quizQuestions.forEach(item=>{
-                    if(item.questionId){
-                        delete item.questionId;
-                    }
-                })
-                this.courseService.addTrainingClass(params).subscribe((result) => {
-                    if (result && result.isSuccess) {
-                        this.selectedQuiz = null;
-                        this.valueChanged(result.data, hideTraining, false);
-                    }
-                    this.modalRef.hide();
-
-                })
+            else if (!this.videoList.length) {
+                this.modalRef.hide();
+                this.alertService.error(this.commonLabels.mandatoryLabels.videoError);
             }
         }
-        else if (!this.selectCourseName && this.tabName == 'course') {
+        else if(this.answerEmpty ){
             this.modalRef.hide();
-            //this.toastr.error("Course name is mandatory");
-            this.alertService.error(this.commonLabels.mandatoryLabels.courseNameError);
-            // this.courseId ? 
-            //   this.valueChanged('',hideTraining,true)
-            //   :
-            //   this.valueChanged('',hideTraining,false);
-            // this.redirectCourseList();
+            this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
         }
-        else if (!this.videoList.length) {
+        else if(this.optionEmpty){
             this.modalRef.hide();
-            this.alertService.error(this.commonLabels.mandatoryLabels.videoError);
+        this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
         }
 
     }
@@ -440,6 +470,8 @@ export class AddQuizComponent implements OnInit {
 
     addTrainingClass() {
         let params;
+        this.answerEmpty = false;
+        this.optionEmpty = false;
         if (this.quizName || this.selectedQuiz) {
             if (this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length) {
                 if (this.questionList) {
@@ -449,6 +481,17 @@ export class AddQuizComponent implements OnInit {
                     })
                 }
                 let data = this.quizQuestionsForm.map(item => {
+                    console.log(item)
+                    if(item.questionType !=  "True/False" && !item.answer){
+                      this.answerEmpty = true;
+                    }
+                    if(item.questionType == 'MCQ'){
+                      item.options.forEach(data=>{
+                        if(!data.optionName){
+                          this.optionEmpty = true;
+                        }
+                      })
+                    }
                     item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
                     return item;
                 })
@@ -527,39 +570,48 @@ export class AddQuizComponent implements OnInit {
                     }
                     )
                 }
-                if(this.classId){
-                    params.quiz = {
-                        "quizId" : this.editQuizId,
-                        "quizName": this.quizName
+                debugger;
+                if(!this.optionEmpty && !this.answerEmpty){
+                    if(this.classId){
+                        params.quiz = {
+                            "quizId" : this.editQuizId,
+                            "quizName": this.quizName
+                        }
+                        console.log(params)
+                        this.courseService.updateTrainingClass(this.classId,params).subscribe((result) => {
+                            console.log(result)
+                            if(result && result.isSuccess){
+                                this.selectedQuiz = null;
+                                this.classId = '';
+                                // this.route.navigate(['/cmspage'], { queryParams: { type: 'edit' } })
+                                this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'class' } })
+                                this.completed.emit(true);
+                                this.alertService.success(result.message);
+                                this.fileService.emptyFileList();
+                                this.quizService.setQuiz('');
+                            }
+                        })
+                        
                     }
-                    console.log(params)
-                    this.courseService.updateTrainingClass(this.classId,params).subscribe((result) => {
-                        console.log(result)
-                        if(result && result.isSuccess){
-                            this.selectedQuiz = null;
-                            this.classId = '';
-                            // this.route.navigate(['/cmspage'], { queryParams: { type: 'edit' } })
-                            this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'class' } })
-                            this.completed.emit(true);
-                            this.alertService.success(result.message);
-                            this.fileService.emptyFileList();
-                            this.quizService.setQuiz('');
-                        }
-                    })
-                    
+                    else{
+                        
+                        this.courseService.addTrainingClass(params).subscribe((result) => {
+                            if (result && result.isSuccess) {
+                                this.selectedQuiz = null;
+                                this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } })
+                                this.completed.emit(true);
+                                this.alertService.success(result.message);
+                                this.fileService.emptyFileList();
+                                this.quizService.setQuiz('');
+                            }
+                        })
+                    }
                 }
-                else{
-                    
-                    this.courseService.addTrainingClass(params).subscribe((result) => {
-                        if (result && result.isSuccess) {
-                            this.selectedQuiz = null;
-                            this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } })
-                            this.completed.emit(true);
-                            this.alertService.success(result.message);
-                            this.fileService.emptyFileList();
-                            this.quizService.setQuiz('');
-                        }
-                    })
+                else if(this.answerEmpty ){
+                    this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
+                }
+                else if(this.optionEmpty){
+                this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
                 }
             } else {
                 this.alertService.error('Please fill mandatory fields in Files tab');
@@ -625,6 +677,17 @@ getQuizData(){
     else{
         this.enableAddQuiz = false;
     }
+  }
+
+  mcqAnswerUpdate(answer,index){
+    console.log(answer,index)
+    if(answer){
+        this.quizQuestionsForm[index].answer = answer;
+    }
+    else{
+        this.alertService.error("Please enter the option data before select answer")
+    }
+    
   }
 
 }

@@ -202,6 +202,7 @@ export class ApprovalrequestsComponent implements OnInit {
       }
       this.tabChange('Pending');
     }, (errorRes) => {
+      this.modalRef.hide();
       this.alertService.error(errorRes.error.error);
     });
   }

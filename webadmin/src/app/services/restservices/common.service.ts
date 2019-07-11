@@ -111,9 +111,9 @@ updateCertificate(certificateId, updationData) {
 getFeedbackList(feedbackObj) {
   let feedback;
   if (feedbackObj.feedbackType === 'app') {
-    feedback = '?resortId=' + feedbackObj.resortId + '&feedbackType=' + feedbackObj.feedbackType;
+    feedback = '?resortId=' + feedbackObj.resortId + '&feedbackType=' + feedbackObj.feedbackType+"&createdBy="+feedbackObj.createdBy;
   } else {
-    feedback = '?resortId=' + feedbackObj.resortId + '&courseId=' + feedbackObj.courseId + '&trainingClassId=' + feedbackObj.trainingClassId + '&feedbackType=' + feedbackObj.feedbackType;
+    feedback = '?resortId=' + feedbackObj.resortId + '&courseId=' + feedbackObj.courseId + '&trainingClassId=' + feedbackObj.trainingClassId + '&feedbackType=' + feedbackObj.feedbackType+"&createdBy="+feedbackObj.createdBy;
   }
   return this.http.getLocal('local', this.url.feedbackList + feedback);
 }
