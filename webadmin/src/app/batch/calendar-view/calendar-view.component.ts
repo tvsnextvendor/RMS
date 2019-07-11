@@ -2,7 +2,7 @@ import { Component, OnInit,TemplateRef,ViewChild} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import {Router,ActivatedRoute} from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import {HeaderService,UtilService,CourseService,BreadCrumbService,AlertService,CommonService} from '../../services';
+import {HeaderService,UtilService,CourseService,BreadCrumbService,AlertService,CommonService,ResortService} from '../../services';
 import {BatchVar} from '../../Constants/batch.var';
 import {startOfDay,endOfDay,subDays,subWeeks,subMonths,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,CalendarMonthViewDay} from 'angular-calendar';
@@ -25,6 +25,7 @@ export class CalendarViewComponent implements OnInit {
     activeDayIsOpen : boolean;
     events: CalendarEvent[] = [];
     resortId;
+    networkResortId;
     trainingScheduleId;
     scheduleEditDetails = {};
     enableBatch = false;
@@ -35,6 +36,7 @@ export class CalendarViewComponent implements OnInit {
     currentDate;
     resortList;
     dayClick;
+    roleId;
 
   
    constructor(
@@ -48,7 +50,8 @@ export class CalendarViewComponent implements OnInit {
     private breadCrumbService : BreadCrumbService,
     private activatedRoute :ActivatedRoute,
     private alertService : AlertService,
-    private commonService :CommonService){
+    private commonService :CommonService,
+    private resortService : ResortService){
     this.batchVar.url = API_URL.URLS; 
     this.activatedRoute.queryParams.forEach(items=>{
         this.currentUrl = items.type
@@ -59,16 +62,26 @@ export class CalendarViewComponent implements OnInit {
         this.currentDate = new Date();
         this.currentDate.setHours(0,0,0,0);
         this.dayClick = 1;
+        this.roleId = this.utilService.getRole();
         this.headerService.setTitle({title:this.commonLabels.labels.schedule, hidemodule: false});
         this.breadCrumbService.setTitle([]);
         let user = this.utilService.getUserData();
         this.resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
         this.getCalendarDetails();
-        this.commonService.getResortForFeedback(this.resortId).subscribe((result) => { 
-            if(result && result.isSuccess){
-                this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
-            }
-        });
+        if(this.roleId){
+            this.resortService.getResort().subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                }
+            })
+        }
+        else{
+            this.commonService.getResortForFeedback(this.resortId).subscribe((result) => { 
+                if(result && result.isSuccess){
+                    this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
+                }
+            });
+        }
     }
 
     ngDoCheck(){
@@ -121,6 +134,7 @@ export class CalendarViewComponent implements OnInit {
             if(resp && resp.isSuccess){
                 this.trainingScheduleId = resp.data.length ? resp.data[0].trainingScheduleId : '';
                 this.scheduleEditDetails = resp.data.length ? resp.data[0] : {};
+                this.networkResortId = this.roleId == 1 ? resp.data[0].Resorts.length && resp.data[0].Resorts[0].resortId : '';
                 this.enableBatch =true
             }
             // console.log(resp)

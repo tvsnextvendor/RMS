@@ -9,6 +9,7 @@ import { CommonLabels } from '../../Constants/common-labels.var';
   styleUrls: ['./filter-tab.component.css']
 })
 export class FilterTabComponent implements OnInit {
+  @Input() selectedTab;
   parentResort ;
   parentResortId ;
   courseFilterList = [];

@@ -60,7 +60,7 @@
     </div>
     <!-- <app-add-batch *ngIf="!trainingScheduleId && enableBatch" (someEvent)="closeModel()" [scheduleId] = "trainingScheduleId" [scheduleData]="scheduleEditDetails"></app-add-batch> -->
     <app-add-batch *ngIf="trainingScheduleId && enableBatch" (completed)="closeModel()" [scheduleId]="trainingScheduleId"
-      [scheduleData]="scheduleEditDetails"></app-add-batch>
+      [scheduleData]="scheduleEditDetails" [networkResortId]="networkResortId"></app-add-batch>
 
     <ng-template #customCellTemplate let-day="day" let-locale="locale">
       <div class="cal-cell-top">

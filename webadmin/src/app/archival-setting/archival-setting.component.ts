@@ -1,5 +1,5 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
-import { HeaderService,BreadCrumbService,CommonService,ResortService,AlertService } from '../services';
+import { HeaderService,BreadCrumbService,CommonService,ResortService,AlertService,CourseService } from '../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../Constants/common-labels.var'
 
@@ -11,6 +11,8 @@ import { CommonLabels } from '../Constants/common-labels.var'
 export class ArchivalSettingComponent implements OnInit {
   archieveList = [];
   resortList = [];
+  courseListValue = [];
+  totalCourseCount = 0;
   selectedResortList = null;
   modalConfig;
   modalRef;
@@ -19,13 +21,30 @@ export class ArchivalSettingComponent implements OnInit {
   archieveTime;
   archievedId;
   removeArchievedId;
+  page;
+  pageSize;
 
-  constructor(private headerService:HeaderService,public commonLabels : CommonLabels,private breadCrumbService :BreadCrumbService,private commonService : CommonService,private modalService :  BsModalService,private resortService : ResortService,private alertService :AlertService) { }
+  constructor(private headerService:HeaderService,public commonLabels : CommonLabels,private breadCrumbService :BreadCrumbService,private commonService : CommonService,private modalService :  BsModalService,private resortService : ResortService,private alertService :AlertService,
+    private courseService : CourseService) { }
 
   ngOnInit() {
+    this.page = 1;
+    this.pageSize = 10;
     this.headerService.setTitle({title:'Archival Setting', hidemodule:false});
       this.breadCrumbService.setTitle([])
       this.getArchieveDetails();
+      this.getCourseList();
+  }
+
+  getCourseList(){
+    this.courseService.getCourse(this.page, this.pageSize,'').subscribe(resp => {
+      if (resp && resp.isSuccess) {
+        this.totalCourseCount = resp.data.count;
+        this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
+      }
+    }, err => {
+      
+    });
   }
 
   getArchieveDetails(){
@@ -134,5 +153,9 @@ export class ArchivalSettingComponent implements OnInit {
     this.archieveTime = null;
     this.deleteTime = null;
     this.archievedId = null;
+  }
+  pageChanged(e) {
+    this.page = e;
+    this.getCourseList();
   }
 }

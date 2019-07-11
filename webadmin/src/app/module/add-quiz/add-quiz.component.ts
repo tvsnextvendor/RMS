@@ -419,7 +419,7 @@ export class AddQuizComponent implements OnInit {
                 this.alertService.error(this.commonLabels.mandatoryLabels.videoError);
             }
         }
-        else if(this.answerEmpty ){
+        else if(this.answerEmpty){
             this.modalRef.hide();
             this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
         }

@@ -1,10 +1,10 @@
 <div class="row pt-4">
     <div class="col-sm-12 pb-3 p-0 button-section">
         <button *ngIf = "listDetails.length" type = "button" class="btn btn-primary float-right" (click)="exportAsXLSX()">Export to Excel</button>
-        <button type = "button" class="btn btn-primary float-right mr-2" *ngIf="enableFilter" (click)="resetFilter()">Reset filter</button>       
-        <button type = "button" class="btn btn-primary float-right mr-2" (click)="enableFilter = !enableFilter">filter</button>       
+        <!-- <button type = "button" class="btn btn-primary float-right mr-2" *ngIf="enableFilter" (click)="resetFilter()">Reset filter</button>       
+        <button type = "button" class="btn btn-primary float-right mr-2" (click)="enableFilter = !enableFilter">filter</button>        -->
     </div>
-    <div class="float-right row pb-3 adduser-respon col-md-12 p-0" *ngIf="enableFilter">
+    <!-- <div class="float-right row pb-3 adduser-respon col-md-12 p-0" *ngIf="enableFilter">
         <div class="col-md-3 select select-style clearfix">
             <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
                 (change)="filterSelect(childResort.value,'resort')">
@@ -37,8 +37,47 @@
             </select>
             <div class="select_arrow"></div>
         </div>
-     </div>
-    <div class="col-lg-12 col-sm-12 p-0">
+     </div> -->
+     <div class="float-right row pb-3 adduser-respon col-md-12 p-0">
+            <div class="row col-md-11 p-0">
+                <div class="col-md-3 pl-0 select select-style clearfix">
+                        <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
+                            (change)="filterSelect(childResort.value,'resort')">
+                            <option [value]=null>{{commonLabels.labels.selectResort}}</option>
+                            <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
+                        </select>
+                        <div class="select_arrow"></div>
+                    </div>
+            <div class="col-md-3 pl-0 select select-style clearfix">
+                <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterDivision"
+                    #parentdivision (change)="filterSelect(parentdivision.value,'division')">
+                    <option [value]=null>{{commonLabels.labels.selDiv}}</option>
+                    <option *ngFor="let division of divisionList" [value]="division.divisionId">{{division.divisionName}}</option>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
+            <div class="col-md-3 pl-0 select select-style clearfix">
+                <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
+                    [disabled]="filterParentDivision === 'null'" (change)="filterSelect(dept.value,'dept')">
+                    <option [value]=null>{{commonLabels.labels.selDept}}</option>
+                    <option *ngFor="let dep of departmentList" [value]="dep.departmentId">{{dep.departmentName}}</option>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
+            <div class="col-md-3 pl-0 select select-style clearfix">
+                    <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
+                        (change)="filterSelect(emp.value,'emp')">
+                        <option [value]=null>{{commonLabels.labels.selEmp}}</option>
+                        <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                </div>
+                </div>
+                <div class="col-md-1 refer-btn p-0">
+                <button type="button" (click)="resetFilter()" class="btn user-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
+                </div>
+        </div>
+     <div class="col-lg-12 col-sm-12 p-0">
     <div class="header-section mb-2 clearfix">
       <h4 class="float-left">{{user?.userName  | titlecase}}</h4>
       <h6 class="float-right">{{commonLabels.labels.count}}{{count}}</h6>

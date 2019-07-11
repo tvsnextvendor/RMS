@@ -366,6 +366,7 @@ export class CommonLabels{
         "userList"          :   "User List",
         "firstName"         :   "First Name",
         "lastName"          :   "Last Name",
+        "courseList"        :   "Course List"
     };
 
     btns = {
