@@ -63,9 +63,11 @@ export class FeedbackComponent implements OnInit {
 
   searchFilter() {
     this.feedbackList = [];
+    let user = this.utilService.getUserData();
     const feedbackObj = {
       resortId: this.resortSelected,
       courseId: this.courseSelected,
+      createdBy : user.userId,
       trainingClassId: this.trainingClassSelected,
       feedbackType: 'course'
     };
@@ -80,9 +82,12 @@ export class FeedbackComponent implements OnInit {
   }
 
   applicationList() {
+    let user = this.utilService.getUserData();
     const feedbackObj = {
       resortId: this.selectedResortApp,
-      feedbackType: 'app'
+      feedbackType: 'app',
+      createdBy : user.userId
+
     };
     this.commonService.getFeedbackList(feedbackObj).subscribe(result => {
       if (result && result.isSuccess) {

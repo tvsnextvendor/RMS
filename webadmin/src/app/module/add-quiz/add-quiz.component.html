@@ -103,19 +103,19 @@
 									<div class="col-md-12 p-0 form-group mb-0">
 										<div class="row" *ngIf="data.questionType === 'MCQ' && data.options && data.options.length">
 											<span class="col-sm-12 p-0" *ngFor=" let optionValue of data.options; let oi = index;">
-												<span class="option-btn" *ngIf="oi===0">{{commonLabels.labels.a}}</span>
-												<span class="option-btn" *ngIf="oi===1">{{commonLabels.labels.b}}</span>
-												<span class="option-btn" *ngIf="oi===2">{{commonLabels.labels.c}}</span>
-												<span class="option-btn" *ngIf="oi===3">{{commonLabels.labels.d}}</span>
-												<input type="text" [disabled]="quizCreateType === 'exist' ? true : false" class="form-control pdl27" placeholder="" name="optionValue.value{{i}}{{oi}}" [(ngModel)]="optionValue.optionName"  #options="ngModel" required>
+												<div class="radio-sec" *ngIf="oi===0"><label class="radio-btn radio-a"><input type ="radio" name="answer{{i}}" class="option-btn" [value] = "a" [checked]="data.answer && data.answer == optionValue.optionName ? true : false" (change)="mcqAnswerUpdate(optionValue.optionName,i)"/><span class="radio-nm">{{commonLabels.labels.a}}</span></label></div>
+												<div class="radio-sec" *ngIf="oi===1"><label class="radio-btn radio-b"><input type ="radio" name="answer{{i}}" class="option-btn" [value] = "b" [checked]="data.answer && data.answer == optionValue.optionName ? true : false" (change)="mcqAnswerUpdate(optionValue.optionName,i)"/><span class="radio-nm">{{commonLabels.labels.b}}</span></label></div>
+												<div class="radio-sec" *ngIf="oi===2"><label class="radio-btn radio-c"><input type ="radio" name="answer{{i}}" class="option-btn" [value] = "c" [checked]="data.answer && data.answer == optionValue.optionName ? true : false" (change)="mcqAnswerUpdate(optionValue.optionName,i)"/><span class="radio-nm">{{commonLabels.labels.c}}</span></label></div>
+												<div class="radio-sec" *ngIf="oi===3"><label class="radio-btn radio-d"><input type ="radio" name="answer{{i}}" class="option-btn" [value] = "d" [checked]="data.answer && data.answer == optionValue.optionName ? true : false" (change)="mcqAnswerUpdate(optionValue.optionName,i)"/><span class="radio-nm">{{commonLabels.labels.d}}</span></label></div>
+												<input type="text" [disabled]="quizCreateType === 'exist' ? true : false" class="form-control quiz-radio-input pdl27" placeholder="" name="optionValue.value{{i}}{{oi}}" [(ngModel)]="optionValue.optionName"  #options="ngModel" required>
 												<!-- <span class="required_color" *ngIf="options.invalid && (quizForm.submitted || options.touched)">
 													Option {{oi+1}} {{commonLabels.mandatoryLabels.isRequired}}
 												</span> -->
 											</span>
-											<input type="text" [disabled]="quizCreateType === 'exist' ? true : false" class="form-control mt-2 mb-3" placeholder="Enter the Answer" name="data.answer{{i}}" [(ngModel)]="data.answer" #quizAnswer="ngModel"  required>
-											<span class="required_color" *ngIf="quizAnswer.invalid && (quizForm.submitted || quizAnswer.touched)">
+											<!-- <input type="text" [disabled]="quizCreateType === 'exist' ? true : false" class="form-control mt-2 mb-3" placeholder="Enter the Answer" name="data.answer{{i}}" [(ngModel)]="data.answer" #quizAnswer="ngModel"  required> -->
+											<!-- <span class="required_color" *ngIf="quizAnswer.invalid && (quizForm.submitted || quizAnswer.touched)">
 												Answer {{commonLabels.mandatoryLabels.isRequired}}
-											</span>
+											</span> -->
 										</div>
 										<div class="pt-2" *ngIf="data.questionType === 'True/False'">
 											<span class="col-sm-3 pl-0">
