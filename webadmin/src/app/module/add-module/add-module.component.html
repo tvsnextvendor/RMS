@@ -130,7 +130,10 @@
 							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img class="thumbnail_img img-size"></span>
 							<span *ngIf="showImage && moduleVar.videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img img-size"></span></div>
 							<span class="col-md-3 p-0 upload-line">						   
-								<a (click)="videoSubmit()"><i aria-hidden="true" class="fas fa-arrow-circle-up mr-1 upload-crt-icon"></i></a>
+								<a (click)="videoSubmit()">
+									<img class="upload-crt-icon upload" src="../../../assets/images/upload-button.png">
+									<!-- <i aria-hidden="true" class="fas fa-arrow-circle-up upload-crt-icon"><span class="upload-txt">Upload</span></i>-->
+								</a> 
 							   <a (click)="cancelVideoSubmit()"><i aria-hidden="true" class="fa fa-trash icons_header trash-icon"></i></a>
 							</span>
 							<span class="required_color mt-0" *ngIf="videoSubmitted && !moduleVar.videoFile">{{commonLabels.labels.fileisRequired}}</span>	

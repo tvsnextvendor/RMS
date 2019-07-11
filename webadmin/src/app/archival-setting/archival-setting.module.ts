@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule} from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { RouterModule, Routes } from '@angular/router';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { AuthGuard } from '../guard/auth.guard.component';
@@ -15,7 +16,8 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   declarations: [
     ArchivalSettingComponent,

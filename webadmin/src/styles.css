@@ -1667,6 +1667,16 @@ p.text-nowrap{
 .cal-disabled .cal-day-number {
   opacity: 0.1;
 } 
+.refer-icon{   color: #fff;
+font-size: 14px;
+border: none;
+}
+.refer-btn .btn.user-search-icon {
+  background: #468FB9;
+  border: 1px solid #dcdcdc;
+  padding: 7px 3px;
+  color: #fff;
+}
 /************************************ Responsive Alignment ************************************/
 
 

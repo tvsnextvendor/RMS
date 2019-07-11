@@ -12,7 +12,7 @@
             <button type="submit" class="btn btn-primary">{{commonLabels.btns.apply}}</button>
         </div>
         <div class="row">
-            <div class="col-md-12 p-0 select select-style clearfix">
+            <div class="col-md-12 p-0 select select-style clearfix" *ngIf="selectedTab === 'course'">
                 <select name="courseStatus" class="form-control pl-2" [(ngModel)]="filterCourseStatus" #coursestatus>
                     <option [value]=null>{{commonLabels.labels.selectcoursestatus}}</option>
                     <option value="unscheduled">Unscheduled</option>

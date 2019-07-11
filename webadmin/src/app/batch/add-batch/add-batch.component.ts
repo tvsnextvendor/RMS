@@ -22,6 +22,7 @@ export class AddBatchComponent implements OnInit {
     @Input() courseList: any = [];
     @Input() scheduleId;
     @Input() scheduleData;
+    @Input() networkResortId;
     courseIds = [];
     durationValue = '3';
     maxdurationCount;
@@ -115,6 +116,9 @@ export class AddBatchComponent implements OnInit {
             console.log(item)
             if(item && item.isSuccess){
                 this.batchVar.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                if (this.scheduleId) {
+                    this.getResortData(this.networkResortId);
+                }
             }
             
         })

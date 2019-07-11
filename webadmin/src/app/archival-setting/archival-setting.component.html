@@ -5,7 +5,7 @@
                 <a class="nav-link active" data-toggle="tab" href="#employee">{{commonLabels.labels.employeeContent}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#training">{{commonLabels.labels.deleteTraining}}</a>
+                <a class="nav-link" data-toggle="tab" href="#course">{{commonLabels.labels.courseList}}</a>
             </li>          
         </ul> 
     </div>
@@ -47,14 +47,28 @@
                             </tbody>
                         </table>
                   </div>
+                    <div class="white-bg text-center p-4" *ngIf="!archieveList.length" >
+                        <p class="data-design m-0">
+                            <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
+                        </p>
+                    </div>
+        </div>
+        <div class="tab-pane col-md-12 pt-2 p-0" id="course">
+            <div class="white-bg mb-3 clearfix" *ngFor="let courses of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalCourseCount}">
+                <label class="square-cont mb-0 float-left">
+                    <span class="text-over">{{courses.courseName}}</span>
+                </label>
+            </div>
+            <div class="white-bg text-center p-4" *ngIf="!courseListValue.length" >
+                <p class="data-design m-0">
+                    <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
+                </p>
+            </div>
+            <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>
         </div>
     </div>
 </div>
-<div class="white-bg text-center p-4" *ngIf="!archieveList.length" >
-<p class="data-design m-0">
-    <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
-</p>
-</div>
+
 
 <ng-template #addArchieve>  
     <div class="modal-header"> 

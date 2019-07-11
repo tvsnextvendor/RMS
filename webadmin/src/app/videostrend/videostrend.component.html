@@ -1,8 +1,8 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="">
     <div class="float-right row pb-3 adduser-respon"> 
-        <button type = "button" class="btn btn-primary float-right mr-2" *ngIf="enableFilter" (click)="resetFilter()">Reset filter</button>       
-        <button type = "button" class="btn btn-primary float-right mr-2" (click)="enableFilter = !enableFilter">filter</button>       
+        <!-- <button type = "button" class="btn btn-primary float-right mr-2" *ngIf="enableFilter" (click)="resetFilter()">Reset filter</button>        -->
+        <!-- <button type = "button" class="btn btn-primary float-right mr-2" (click)="enableFilter = !enableFilter">filter</button>        -->
         <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="trendsVar.years">
             <option value=''>Year</option>
             <option *ngFor="let years of trendsVar.yearsList" [value]="years.year">{{years.year}}</option>
@@ -24,8 +24,9 @@
             </form>
         </div>
     </div>
-    <div class="float-right row pb-3 adduser-respon col-md-12 p-0" *ngIf="enableFilter">
-            <div class="col-md-3 select select-style clearfix">
+    <div class="float-right row pb-3 adduser-respon col-md-12 p-0">
+        <div class="row col-md-11 p-0">
+            <div class="col-md-3 pl-0 select select-style clearfix">
                     <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
                         (change)="filterSelect(childResort.value,'resort')">
                         <option [value]=null>{{commonLabels.labels.selectResort}}</option>
@@ -33,7 +34,7 @@
                     </select>
                     <div class="select_arrow"></div>
                 </div>
-        <div class="col-md-3 select select-style clearfix">
+        <div class="col-md-3 pl-0 select select-style clearfix">
             <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterDivision"
                 #parentdivision (change)="filterSelect(parentdivision.value,'division')">
                 <option [value]=null>{{commonLabels.labels.selDiv}}</option>
@@ -41,7 +42,7 @@
             </select>
             <div class="select_arrow"></div>
         </div>
-        <div class="col-md-3 select select-style clearfix">
+        <div class="col-md-3 pl-0 select select-style clearfix">
             <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
                 [disabled]="filterParentDivision === 'null'" (change)="filterSelect(dept.value,'dept')">
                 <option [value]=null>{{commonLabels.labels.selDept}}</option>
@@ -49,13 +50,17 @@
             </select>
             <div class="select_arrow"></div>
         </div>
-        <div class="col-md-3 select select-style clearfix">
+        <div class="col-md-3 pl-0 select select-style clearfix">
                 <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
                     (change)="filterSelect(emp.value,'emp')">
                     <option [value]=null>{{commonLabels.labels.selEmp}}</option>
                     <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
                 </select>
                 <div class="select_arrow"></div>
+            </div>
+            </div>
+            <div class="col-md-1 refer-btn p-0">
+            <button type="button" (click)="resetFilter()" class="btn user-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
             </div>
     </div>
     <div class="table-responsive custom-table2 mt-3">
