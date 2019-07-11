@@ -9,6 +9,12 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
+  <div class={{className}} *ngIf="showToastr">
+    <div class="notify-inset">
+      <h6>{{msgTitle}}</h6>
+      <p>{{msgDes}}</p>
+    </div>
+  </div>
 
   <div class="inner-content" *ngIf="Files">
     <div class="training-det">
@@ -31,9 +37,8 @@
                 <h6>{{Files.fileName}} </h6>
               </ion-col>
               <ion-col col-4>
-                <span class="view-button" *ngIf="imageType">
-                  <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text"
-                    (click)="viewContent(filePath)">{{constant.buttons.viewContent}}</a>
+                <span  (click)="viewContent(filePath)" class="view-button" *ngIf="imageType">
+                  <ion-icon name="eye" class="eye-icon"></ion-icon> <a href="javascript:void(0);" class="view-text">{{constant.buttons.viewContent}}</a>
                 </span>
               </ion-col>
             </ion-row>

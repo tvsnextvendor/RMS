@@ -7,9 +7,12 @@
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.training}}</span>
         <div class="header-icon">
-            <ion-icon name="ios-search" (click)="toggleSearchBox()" class="chat-icon"></ion-icon>
-            <ion-icon name="ios-alert" (click)="goToFailedList()" class="chat-icon"></ion-icon>
-            <ion-icon name="ios-chatboxes" (click)="goToForum()" class="chat-icon"></ion-icon>
+             <span (click)="toggleSearchBox()"><ion-icon name="ios-search" class="chat-icon"></ion-icon></span>
+             <span (click)="goToFailedList()">
+               <ion-icon name="ios-alert" class="chat-icon"></ion-icon> 
+               <!-- <img src="assets/imgs/failList.png" class="chat-icon"/> -->
+              </span>
+            <span (click)="goToForum()"><ion-icon name="ios-chatboxes" class="chat-icon"></ion-icon></span>
             <span (click)="goToNotification()">
           <img src="assets/imgs/notification.png"/>
           <span class="dot-circle">{{notificationCount}}</span>
@@ -58,7 +61,7 @@
               <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
-              <ion-col col-4 col-sm-5 col-md-6 class="course-det">
+              <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.Course">
                 <h4 class="notify-title" (click)="openTrainingClass(task.Course.courseId)"> {{task.Course.courseName}}</h4>
                 <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                   {{constant.pages.trainingLabels.trainingClass}}</p>
@@ -104,7 +107,7 @@
               <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
-              <ion-col col-4 col-sm-5 col-md-6 class="course-det">
+              <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.Course">
                 <h4 class="notify-title" (click)="openTrainingClass(task.Course.courseId)"> {{task.Course.courseName}}</h4>
                 <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                   {{constant.pages.trainingLabels.trainingClass}}</p>
@@ -189,7 +192,7 @@
               <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                 <img src="assets/imgs/profile_circle.png" class="forum-img">
               </ion-col>
-              <ion-col col-4 col-sm-5 col-md-6 class="course-det">
+              <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.Course">
                 <h4 class="notify-title" (click)="openTrainingClass(task.Course.courseId)"> {{task.Course.courseName}}</h4>
                 <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                   {{constant.pages.trainingLabels.trainingClass}}</p>
@@ -226,6 +229,12 @@
   </div>
 </ion-list>
   </div>
+ 
+<ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
+  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
 </ion-content>
 <ion-footer class="fixed-btn">
     <button ion-button round class="add-question common-btn" (click)="openLaunchModal(launch)">

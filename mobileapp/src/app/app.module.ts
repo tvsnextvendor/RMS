@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
-
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
 import { Calendar } from '@ionic-native/calendar';
@@ -17,6 +16,7 @@ import { MyApp } from './app.component';
 import { HttpProvider } from '../providers/http/http';
 import { AuthProvider } from '../providers/auth/auth';
 import { LoaderService, ToastrService, SocketService, CommonService,SanitizeHtmlPipe } from '../service';
+import { NgCalendarModule } from 'ionic2-calendar';
 
 
 @NgModule({
@@ -25,6 +25,7 @@ import { LoaderService, ToastrService, SocketService, CommonService,SanitizeHtml
   ],
   imports: [
     BrowserModule,
+    NgCalendarModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(
@@ -57,8 +58,8 @@ import { LoaderService, ToastrService, SocketService, CommonService,SanitizeHtml
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
-  ],
+    MyApp 
+     ],
   providers: [
     StatusBar,
     SplashScreen,

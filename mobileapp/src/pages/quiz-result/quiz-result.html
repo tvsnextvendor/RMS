@@ -5,6 +5,12 @@
             <!-- <ion-icon name="close" class="close-button" (click)="closeToStart()"></ion-icon> -->
         </ion-toolbar>
     </ion-header>
+    <div class={{className}} *ngIf="showToastr">
+        <div class="notify-inset">
+            <h6>{{msgTitle}}</h6>
+            <p>{{msgDes}}</p>
+        </div>
+    </div>
     <div class="image-wrapper">
         <img src='assets/imgs/congratulations.png' />
     </div>

@@ -104,7 +104,18 @@ export class TrainingDetailPage {
       
       }
 
+
+      // first page load
+     ionViewDidLoad() {
+        this.prevBtn = this.initial == 0 ? true : false;
+        this.setTraining = this.trainingDatas[0].File;
+        this.fileId = this.setTraining.fileId;
+        this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
+        this.text = this.setTraining.fileDescription;
+     }
+
       ionViewDidEnter(){
+        if(!this.imageType){
          var video = <HTMLMediaElement>document.getElementById('video-width');;
          var supposedCurrentTime = 0;
          video.ontimeupdate = function() {
@@ -119,7 +130,8 @@ export class TrainingDetailPage {
                  video.currentTime = supposedCurrentTime;
              }
             }
-         };    
+         }; 
+        }   
       }
       
     public openWithSystemBrowser(url : string){
@@ -134,14 +146,6 @@ export class TrainingDetailPage {
     // event slide changed
     slideChanged() {
         this.checkNavigationButton();
-    }
-    // first page load
-    ionViewDidLoad() {
-        this.prevBtn = this.initial == 0 ? true : false;
-        this.setTraining = this.trainingDatas[0].File;
-        this.fileId = this.setTraining.fileId;
-        this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
-        this.text = this.setTraining.fileDescription;
     }
     
     // go to quiz page for training details

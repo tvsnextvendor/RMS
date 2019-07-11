@@ -25,6 +25,10 @@ export class QuizResultPage implements OnInit {
     errorMessage;
     currentUser: any;
     msgToUser;
+    className;
+    showToastr;
+    msgTitle;
+    msgDes;
     constructor(public navCtrl: NavController,public http: HttpProvider,public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
         this.Math = Math;
         this.resultData = navParams.data;
@@ -80,6 +84,19 @@ export class QuizResultPage implements OnInit {
             })
         }
     }
+    
+
+   successMessage(msg){
+        this.showToastr = true;
+        this.className = "notify-box alert alert-success";
+        this.msgTitle = "Success";
+        this.msgDes = msg ;
+        let self = this;
+        setTimeout(function(){ 
+        self.showToastr = false;
+        }, 3000); 
+   }
+
     getUser() {
         this.storage.get('currentUser').then(
             (val) => {

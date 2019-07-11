@@ -52,6 +52,8 @@ export class HomePage {
 
    ngAfterViewInit() {
       this.interval = setInterval(() => {
+        this.currentPage = 1;
+        this.scrollEnable = false;
           this.getDashboardInfo();
           this.getDashboardCount();
       }, 5000);      
@@ -81,6 +83,8 @@ export class HomePage {
   changeStatus(type){
     this.status=type;
     this.getDashboardInfo();
+    this.enableView = false;
+    this.enableIndex = 0;
   }
   
   hideShowDesc(i){
@@ -127,11 +131,12 @@ export class HomePage {
     this.http.get(API_URL.URLS.dashboardCount+'?userId='+userId+'&resortId='+resortId).subscribe((res)=>{
        if(res['isSuccess']){
          this.dashboardCount= res['data'];
-       }else{
-         this.dashboardCount.courseExpire = 0;
-         this.dashboardCount.signatureReq = 0;
-         this.dashboardCount.generalNotification = 0;         
        }
+      //  else{
+      //    this.dashboardCount.courseExpire = 0;
+      //    this.dashboardCount.signatureReq = 0;
+      //    this.dashboardCount.generalNotification = 0;         
+      //  }
     })
   }
    

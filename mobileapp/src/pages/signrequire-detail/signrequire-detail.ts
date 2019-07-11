@@ -31,6 +31,10 @@ export class SignrequireDetailPage {
   showPreView;
   uploadPath;
   pageType;
+  showToastr;
+  msgTitle;
+  msgDes;
+  className;
   currentUser;
   contentViewed: boolean = false;
   agree: boolean = false;
@@ -65,6 +69,26 @@ export class SignrequireDetailPage {
   ionViewDidLoad() {
     this.showPreView = this.getFileExtension(this.Files.fileUrl);
   }
+
+  ionViewDidEnter(){
+        if(!this.imageType){
+         var video = <HTMLMediaElement>document.getElementById('video-width');;
+         var supposedCurrentTime = 0;
+         video.ontimeupdate = function() {
+             if (video.seeking == false) {
+                 supposedCurrentTime = video.currentTime;
+             }
+         };
+         video.onseeking = function() {
+            if(video.currentTime > supposedCurrentTime){
+             var delta = video.currentTime - supposedCurrentTime;
+             if (Math.abs(delta) > 0.01) {
+                 video.currentTime = supposedCurrentTime;
+             }
+            }
+         }; 
+        }   
+      }
 
   ngAfterViewInit(){
              let self = this;
@@ -129,12 +153,24 @@ export class SignrequireDetailPage {
         return fileLink;
     }
 
+
+  successMessage(msg){
+    this.showToastr = true;
+    this.className = "notify-box alert alert-error";
+    this.msgTitle = "Error";
+    this.msgDes = msg ;
+    let self = this;
+    setTimeout(function(){ 
+      self.showToastr = false;
+      }, 3000); 
+  }
+
     doneClicked(){
       if(this.pageType == 'signReq'){
           if(this.agree){
           this.navCtrl.setRoot('course-page','signReq');
           }else{
-            this.toastr.error("Please agree acknowledgement");
+            this.successMessage('Please agree acknowledgement');
           }
       }else{
           this.completeNotification();
