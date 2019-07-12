@@ -13,3 +13,24 @@
 .arrow-right{
     right: 80px;
 }
+.calendar{ 
+thead{
+    background-color: #c1bfbf;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif !important;
+}
+tbody{
+    border: 1px solid #ddd;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 13px !important;
+}
+.monthview-selected{
+    background-color: #80abc3 !important;
+    color: white !important;
+}
+.monthview-current{
+    background-color: #0aab0a !important;
+}
+}
