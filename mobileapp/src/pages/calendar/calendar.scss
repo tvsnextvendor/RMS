@@ -1,3 +1,15 @@
-page-calendar {
-
+.month-title{
+        position: relative;
+    display: block;
+    text-align: center;
+}
+.arrow-left,.arrow-right{
+    position: absolute;
+    top: 4px;
+}
+.arrow-left{
+    left: 0px;
+}
+.arrow-right{
+    right: 0px;
 }

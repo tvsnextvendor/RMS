@@ -143,6 +143,8 @@ export class Constant {
             completedLabel: 'Completed',
             signRequired: 'Sign Required',
             trainingClass:'Training Class',
+            score: 'Score',
+            takeCourse: 'Retake Course',
             postedLabel: 'Posted :',
             lastViewed: 'Last Viewed :',
             ackText: 'I acknowledge that i have read the attached ',

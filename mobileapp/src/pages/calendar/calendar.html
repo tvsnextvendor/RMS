@@ -7,14 +7,16 @@
 </ion-header> -->
 <ion-content padding class="headerFull-bg default-header">
 <ion-header class="static-header main-header my-component" color="primary">
-  <ion-navbar>
+  <ion-navbar class="change-password-toolbar title-type2">
     <span class="back-arrow" (click)="goBack()">
       <img src="assets/imgs/Back.png" />
     </span>
     <ion-title class="text-left">
-      <ion-icon (click)="changeMonth('back')" name="arrow-dropleft"></ion-icon>
-      <span class="header-title">{{ viewTitle }}</span>
-      <ion-icon (click)="changeMonth('forward')" name="arrow-dropright"></ion-icon>
+      <div class="calendar-title">
+      
+      <span class="inner-title month-title"><ion-icon (click)="changeMonth('back')" class="arrow-left" name="arrow-dropleft"></ion-icon>{{ viewTitle }}<ion-icon (click)="changeMonth('forward')" class="arrow-right" name="arrow-dropright"></ion-icon></span>
+      
+      </div>
     </ion-title>
   </ion-navbar>
 </ion-header>
