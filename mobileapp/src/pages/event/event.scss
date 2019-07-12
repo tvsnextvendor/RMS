@@ -23,8 +23,9 @@ ion-header.header {
 {
      font-weight: 600;
      height: 100%;
-    align-items: flex-end;
-    display: flex;
+     display: block;
+   /* align-items: flex-end;
+    display: flex;*/
     text-align: right;
     width: 100%;
 }
@@ -54,6 +55,10 @@ img.completed-img {
     width: 19px;
     margin-right: 7px;
 }
+.course-count {
+    width: 100%;
+}
+
 // .add-question{
 //     left: 10px;
 //     width:170px;

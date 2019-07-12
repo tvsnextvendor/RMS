@@ -26,6 +26,7 @@ export class EventPage implements OnInit {
   totalPage;
   calendarIdUnique;
   calendars;
+  scheduleDetail;
   batches: any = [];
   batchconfigList: any = [];
   tag: boolean = false;
@@ -48,17 +49,21 @@ export class EventPage implements OnInit {
              self.currentUser = user;
               this.getNotification();
               this.getBatch();
-              //this.getCalendars();
             }
         });
   }
   
-  ionViewDidEnter(){
-    
-  }
-  openSubEvent(i) {
+  
+  openSubEvent(i, scheduleId) {
+     console.log(scheduleId)
+    let userId = this.currentUser.userId;
+    this.http.get(API_URL.URLS.getScheduleDetail + '?userId=' + userId + '&trainingScheduleId=' + scheduleId).subscribe(res => {
+        if (res['isSuccess']) {
+            this.scheduleDetail = res['data'];
+        }
+    })
       this.enableView = this.enableIndex === i ? !this.enableView : true;
-      this.enableIndex = i;
+      this.enableIndex = i;     
   }
 
  
@@ -72,8 +77,14 @@ export class EventPage implements OnInit {
         }, 1000);
     }
 
+    retakeCourse(courseId){
+      let paramsData= {};
+      paramsData['courseId'] = courseId;
+      this.navCtrl.setRoot('training-page', paramsData);
+    }
+
   getBatch() {
-    this.loader.showLoader();
+    //  this.loader.showLoader();
     let userId = this.currentUser.userId;
     this.http.get(API_URL.URLS.getAllSchedule+'?userId='+userId+ '&page=' + this.currentPage + '&size=' + this.perPageData).subscribe(res=>{
       if(res['isSuccess']){
@@ -87,6 +98,7 @@ export class EventPage implements OnInit {
             this.scheduleList = res['data']['rows'];
         }
       }
+      //this.loader.hideLoader();
     })
   }
 

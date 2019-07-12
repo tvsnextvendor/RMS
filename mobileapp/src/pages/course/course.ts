@@ -196,7 +196,7 @@ export class CoursePage implements OnInit {
     let resortId = this.currentUser.ResortUserMappings[0].resortId;
     let status='signRequired';
     this.http.get(API_URL.URLS.signRequired+'?userId=' +userId+'&resortId='+resortId+'&status='+status+'&search='+search+'&mobile='+1).subscribe(res=>{
-    if(res['data']['rows']){
+    if(res['data']['rows'].length){
       this.signRequireList =res['data']['rows'];
       this.signRequireCount = res['data']['count'];
       this.uploadPath =res.data.uploadPath.uploadPath;
