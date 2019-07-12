@@ -59,8 +59,9 @@ export class CourseService {
   updateTrainingClass(trainingClassId,params) {
     return this.http.put('local', this.url.courseTrainingClassUpdate + trainingClassId,params)
   }
-  deleteCourse(courseId){
-    return this.http.delete('local',this.url.courseDelete+courseId)
+  deleteCourse(courseId,undo){
+    let unDo = undo ? undo : '';
+    return this.http.delete('local',this.url.courseDelete+courseId+unDo)
   }
 
   deleteDocument(docId){

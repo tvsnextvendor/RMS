@@ -37,7 +37,7 @@ export class VideosTrendDetailsComponent implements OnInit {
         private breadCrumbService :BreadCrumbService,
         private resortService : ResortService,
         private userService :UserService) {
-        this.resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
+        this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.trendsVar.videoId = params['id'];
         });

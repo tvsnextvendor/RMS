@@ -65,7 +65,8 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.moduleForm = [];
         this.clearBatchVar();
         this.batchVar.dategreater = false;
-        let data = this.scheduleId ? [{ title: this.commonLabels.labels.calendarView, url: '/calendar' }, { title: this.commonLabels.btns.scheduleTraining, url: '' }] : [{ title: this.commonLabels.labels.resourceLibrary, url: '/cms-library' }, { title: this.commonLabels.btns.scheduleTraining, url: '' }]
+        // let data = this.scheduleId ? [{ title: this.commonLabels.labels.calendarView, url: '/calendar' }, { title: this.commonLabels.btns.scheduleTraining, url: '' }] : [{ title: this.commonLabels.labels.resourceLibrary, url: '/cms-library' }, { title: this.commonLabels.btns.scheduleTraining, url: '' }]
+        let data = [{ title: this.commonLabels.labels.calendarView, url: '/calendar' }, { title: this.commonLabels.btns.scheduleTraining, url: '' }];
         this.breadCrumbService.setTitle(data)
         this.userData = this.utilService.getUserData();
         this.currentDate = new Date();

@@ -195,4 +195,8 @@ removeArchieve(archieveId){
   return this.http.delete('local', this.url.archievedSettings+'/'+ archieveId);
 }
 
+getAllResort(query){
+  return this.http.getLocal('local', this.url.getAllResort + query);
+}
+
 }

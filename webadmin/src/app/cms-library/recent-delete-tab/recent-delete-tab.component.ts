@@ -61,9 +61,11 @@ export class RecentDeleteTabComponent implements OnInit {
   iconEnable = true;
   resourceLib = false;
   userData;
+  roleId;
+  resortId;
 
   constructor(private breadCrumbService: BreadCrumbService,private activatedRoute : ActivatedRoute,private courseService : CourseService ,public commonLabels : CommonLabels,private modalService : BsModalService,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private route :Router) {
-    let roleId = this.utilService.getRole(); 
+    this.roleId = this.utilService.getRole(); 
     this.activatedRoute.queryParams.subscribe(params=>{ 
     
        if(params.tab == 'schedule'){
@@ -76,7 +78,7 @@ export class RecentDeleteTabComponent implements OnInit {
        }
 
       this.breadCrumbService.setTitle(this.breadCrumbTitle)
-      if(roleId == 4 && this.resourceLib){
+      if(this.roleId == 4 && this.resourceLib){
         this.iconEnable = false;
       }
 
@@ -91,7 +93,10 @@ export class RecentDeleteTabComponent implements OnInit {
   
 
   ngOnInit() {
-    this.userData = this.utilService.getUserData().userId; 
+     
+    let user = this.utilService.getUserData(); 
+    this.userData = user.userId;
+    this.resortId = user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
     this.pageSize = 10;
     this.p=1;
     this.enableDropData('closeEdit','')
@@ -129,7 +134,7 @@ export class RecentDeleteTabComponent implements OnInit {
     this.deletedFileId  = [];
     let userId = this.utilService.getUserData().userId;
     // let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none&createdBy='+userId;
-    let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+"&isDeleted=true" : '&status=none'+"&isDeleted=true" ;
+    let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+"&isDeleted=true" : (this.roleId != 1 ? '&status=none'+"&isDeleted=true"+"&resortId="+this.resortId  : '&status=none'+"&isDeleted=true");
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
       this.CMSFilterSearchEventSet = '';
       if(resp && resp.isSuccess){
@@ -429,7 +434,8 @@ export class RecentDeleteTabComponent implements OnInit {
     });
   }
   removeCourse(){
-    this.courseService.deleteCourse(this.selectedCourseId).subscribe(res=>{
+    let query = "?deleteUndo=1"
+    this.courseService.deleteCourse(this.selectedCourseId,query).subscribe(res=>{
       if(res.isSuccess){
         this.alertService.success(res.message);
         this.modalRef.hide();

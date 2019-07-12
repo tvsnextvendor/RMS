@@ -446,7 +446,7 @@ export class CourseTabComponent implements OnInit {
     });
   }
   removeCourse() {
-    this.courseService.deleteCourse(this.selectedCourseId).subscribe(res => {
+    this.courseService.deleteCourse(this.selectedCourseId,'').subscribe(res => {
       if (res.isSuccess) {
         this.alertService.success(res.message);
         this.modalRef.hide();

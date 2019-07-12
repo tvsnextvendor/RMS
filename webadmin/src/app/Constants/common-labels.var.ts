@@ -28,7 +28,7 @@ export class CommonLabels{
         "upload"            :   "Upload",
         "uploadQuiz"        :   "Upload Quiz",
         "cancel"            :   "Cancel",
-        "cmsLibrary"        :   "CMS Library",
+        "cmsLibrary"        :   "Resource Library",
         "certificate"       :   "Certificate",
         "course"            :   "Course",
         "trainingClass"     :   "Training Class",
@@ -65,6 +65,7 @@ export class CommonLabels{
         "deleteVideo"       :   "Delete Video",
         "coursedeleteConfirmation": "This file will be deleted from all courses,Do you still want to  continue?",
         "courseDelConfirmation": "Are you sure you want to delete this course?", 
+        "courseUndoConfirmation": "Are you sure you want to restore this course?", 
         "selectopt"         :   "--Select Training Class--",
         "selectcourse"      :   "--Select Course--",
         "selectcoursestatus":   "--Select Course Status--",
@@ -300,7 +301,7 @@ export class CommonLabels{
         "newPassword"       :   "New Password",
         "confirmPassword"   :   "Confirm Password",        
         "quizSelection"     :   "How do you want to add Quiz?",
-        "fromCMSLibrary"    :   "Upload from CMS Library",
+        "fromCMSLibrary"    :   "Upload from Resource Library",
         "addNew"            :   "Add new Quiz",
         "pwdMissmatchMsg"   :   "Password Mismatch",
         "subject"           :   "subject",
@@ -430,7 +431,7 @@ export class CommonLabels{
     };
 
     titles = {
-        "cmsLibrary"        :  "CMS Library",
+        "cmsLibrary"        :  "Resource Library",
         "userManagement"    :  "User Management",
         "resortmanagement"  :  "Resort Management",
         "addresortmagnt"    :  "Add Resort Management",

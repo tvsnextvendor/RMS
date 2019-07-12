@@ -87,6 +87,7 @@ export class CalendarViewComponent implements OnInit {
     ngDoCheck(){
         if(!this.currentUrl){
             this.enableBatch = false;
+            this.breadCrumbService.setTitle([]);
         }
     }
 
@@ -99,8 +100,6 @@ export class CalendarViewComponent implements OnInit {
         else if(addBatch == 'addBatch' && this.dayClick == 1){
             this.dayClicked(event);
         }
-        
- 
     }
 
     goToDelete(){

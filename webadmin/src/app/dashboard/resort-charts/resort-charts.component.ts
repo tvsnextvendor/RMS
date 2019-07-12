@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardVar } from '../../Constants/dashboard.var';
-import { HttpService,CommonService,UtilService } from '../../services';
+import { HttpService,CommonService,UtilService,CourseService } from '../../services';
 declare var require: any;
 const Highcharts = require('highcharts');
 import Chart from 'chart.js';
@@ -28,7 +28,10 @@ export class ResortChartsComponent implements OnInit {
     topCourses;
     hideCharts;
     resortList =[];
+    resortChildList = [];
     selectedResort = null;
+    selectedParentResort = null;
+    roleId;
 
     constructor(public dashboardVar: DashboardVar,
          private http: HttpService,
@@ -36,7 +39,8 @@ export class ResortChartsComponent implements OnInit {
          public commonLabels:CommonLabels,
          private commonService : CommonService,
          private mScrollbarService: MalihuScrollbarService,
-         private utilService :UtilService) {
+         private utilService :UtilService,
+         private courseService :CourseService) {
         this.dashboardVar.url = API_URL.URLS;
     this.dashboardVar.userName = this.utilService.getUserData().username;
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
@@ -48,12 +52,19 @@ export class ResortChartsComponent implements OnInit {
     }
     ngOnInit() {
         // this.getData();
+        this.roleId = this.utilService.getRole();
         this.getKeyStat();
-        this.getResortDetails();
         this.totalNoOfBadges();
         this.dashboardVar.years = '2019';
         this.userRole = this.utilService.getRole();
         this.getCountDetails(this.resortId);
+        if(this.roleId == 1){
+          this.getResortDetails();
+        }
+        else{
+          this.selectedParentResort = this.resortId;
+          this.getChildResort('');
+        }
     }
 
     getCountDetails(resortId){
@@ -88,16 +99,23 @@ export class ResortChartsComponent implements OnInit {
         let user = roleId != 1 ? data.userId : '';
         let query = '?createdBy='+user;
         this.commonService.getResortList(query).subscribe((result) => {
-        if(result && result.isSuccess){
-          this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
-            // result.data && result.data.rows.forEach(item=>{
-            // if(item.resortId === this.resortId){
-                // this.resortList.push(item)
-            // }
-            // });
-        }
+          if(result && result.isSuccess){
+            this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
+          }
         });
     }
+
+    getChildResort(resortId){
+      let query = resortId ? resortId : this.resortId;
+      this.courseService.getChildResort(query).subscribe((result) => {
+          if(result && result.isSuccess){
+            this.resortChildList = result.data && result.data.Resort.length ? result.data.Resort : [];
+            // this.selectedResort = resortId
+            // this.getCountDetails(resortId);
+          }
+        });
+    }
+
 
     getData() {
          // //get Task stackbar chart data
