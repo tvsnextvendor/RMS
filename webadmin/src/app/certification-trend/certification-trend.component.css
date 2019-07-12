@@ -3,14 +3,27 @@
     width: 100px;
     height: 50px;
 }
-.table td {
+/* .table td {
     border-bottom: 1px solid #C5C5C5;
-}
+} */
+/* .certificate .table td {
+  border: 1px solid #C5C5C5 !important;
+  vertical-align: middle !important;
+} */
 .video-trend-desc{
 	color: #939399;
 }
 .vdo-desc-height{
-	line-height: 65px;
+  line-height: 65px;
+}
+.certificate .vdo-desc-height{
+  border: 1px solid #C5C5C5 !important;
+  vertical-align: middle !important;
+}
+.table {
+  width: 99% !important;
+  margin-bottom: 1rem;
+  color: #212529;
 }
 .export-btn{
     border-radius: 20px;
