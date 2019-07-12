@@ -245,7 +245,7 @@ export class CourseService {
     return this.http.getLocal('local',this.url.getTrainingClassList+'?page='+page+'&size='+size+query);
   }
   getDropTrainingClassList(query){
-    return this.http.getLocal('local',this.url.getTrainingClassList+query);
+    return this.http.getLocal('local',this.url.dropdownTCList+query);
   }
   sendApproval(post){
     return this.http.post('local',this.url.sendApproval,post);

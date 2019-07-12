@@ -128,6 +128,7 @@ export class API_URL {
     getCourseById : '8103/course/getIndividualCourses',
     saveAsNewVersion : '8103/course/saveAsNewVersion',
     getTrainingClassList : '8103/trainingclass/getTrainingClassList',
+    dropdownTCList:'8103/trainingclass/trainingClasses',
     sendApproval:'8103/createApproval',
   
     
