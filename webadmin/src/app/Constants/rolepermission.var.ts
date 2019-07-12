@@ -206,7 +206,7 @@ static readonly webAndMobile = [{
 	'edit': false,
 	'type': "web"
 }, {
-	'moduleName': 'CMS Library',
+	'moduleName': 'Resource Library',
 	'view': false,
 	'upload': false,
 	'edit': false,

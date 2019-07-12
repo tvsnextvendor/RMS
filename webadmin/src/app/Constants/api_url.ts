@@ -181,6 +181,8 @@ export class API_URL {
     //Badges
     badge : '8104/badge',
 
+    getAllResort : "8102/resort/getAllResorts",
+
     //remove post
     removePost : "8104/post/",
     removeComment : "8104/comment/",

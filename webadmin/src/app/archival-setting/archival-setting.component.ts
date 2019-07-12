@@ -23,6 +23,7 @@ export class ArchivalSettingComponent implements OnInit {
   removeArchievedId;
   page;
   pageSize;
+  selectedCourseId;
 
   constructor(private headerService:HeaderService,public commonLabels : CommonLabels,private breadCrumbService :BreadCrumbService,private commonService : CommonService,private modalService :  BsModalService,private resortService : ResortService,private alertService :AlertService,
     private courseService : CourseService) { }
@@ -158,4 +159,30 @@ export class ArchivalSettingComponent implements OnInit {
     this.page = e;
     this.getCourseList();
   }
+
+  deleteConfirmation(template: TemplateRef<any>,courseId) {
+    let modalConfig={
+      class : "modal-dialog-centered"
+    }
+     this.selectedCourseId = courseId;
+     this.modalRef = this.modalService.show(template,modalConfig); 
+    }
+
+    removeCourse(){
+      let query = "?deleteUndo=1"
+      this.courseService.deleteCourse(this.selectedCourseId,query).subscribe(res=>{
+        if(res.isSuccess){
+          this.alertService.success(res.message);
+          this.modalRef.hide();
+          this.getCourseList();
+        }else{
+          this.modalRef.hide();
+          this.alertService.error(res.message);
+        }
+      },err =>{
+        console.log(err);
+        this.modalRef.hide();
+         this.alertService.error(err.error.error);
+      })
+    }
 }

@@ -58,7 +58,7 @@
             </div>
             <div class="col-md-3 pl-0 select select-style clearfix">
                 <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
-                    [disabled]="filterParentDivision === 'null'" (change)="filterSelect(dept.value,'dept')">
+                     (change)="filterSelect(dept.value,'dept')">
                     <option [value]=null>{{commonLabels.labels.selDept}}</option>
                     <option *ngFor="let dep of departmentList" [value]="dep.departmentId">{{dep.departmentName}}</option>
                 </select>

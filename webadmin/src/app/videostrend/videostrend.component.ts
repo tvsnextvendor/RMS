@@ -42,7 +42,7 @@ export class VideosTrendComponent implements OnInit {
     ) {
     this.trendsVar.url = API_URL.URLS;
     this.roleId = this.utilsService.getRole();
-    this.resortId = this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId;
+    this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
    }
 
    ngOnInit() {
