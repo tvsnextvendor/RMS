@@ -9,15 +9,29 @@
 }
 .arrow-left{
     left: 80px;
+    cursor: pointer;
 }
 .arrow-right{
     right: 80px;
+    cursor: pointer;
 }
 .calendar{ 
+    .table-bordered{
+    border: none;
+    background-color: #fff;
+    margin: 0;
+    }
+    .event-detail-container{
+        border-top: none;
+        margin: 0;
+    }
+    td{
+        padding: 15px !important;
+    }
 thead{
-    background-color: #c1bfbf;
+    background-color: #468FB9;
     color: #fff;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 600;
     font-family: 'Open Sans', sans-serif !important;
 }
@@ -32,5 +46,24 @@ tbody{
 }
 .monthview-current{
     background-color: #0aab0a !important;
+}
+.monthview-primary-with-event{
+    background-color: #3a87ad;
+    color: white;
+    border-radius: 35px;
+}
+.monthview-eventdetail-timecolumn{
+    color: #989393;
+    font-size: 15px;
+    font-weight: lighter;
+}
+.event-detail{
+    width: 230px;
+    display: inline-block;
+    text-align: center;
+    color: #908c8c;
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: 2px;
 }
 }

@@ -108,6 +108,18 @@ ion-header ion-icon.search-backarrow,ion-header ion-icon.search-backarrow {
         line-height: 35px;
             margin: 11px 8px 11px 0;
 }
+/******************calendar css ****************/
+.calendar{
+                    .table-bordered> thead> tr> th, 
+                    .table-bordered> tbody> tr> th ,
+                    .table-bordered> tfoot> tr> th ,
+                    .table-bordered> thead> tr> td ,
+                    .table-bordered> tbody> tr> td ,
+                    .table-bordered> tfoot> tr> td {
+                        border:none !important;
+                    }               
+                    
+                }
 /*******************header menu css **************/
 ion-toolbar {
     color: #fff;
