@@ -147,9 +147,7 @@ export class LoginComponent implements OnInit {
                  }
             }
             localStorage.setItem('RolePermissions',JSON.stringify(permissions));
-
           }
-         
           if (role === 4) {
             this.route.navigateByUrl('/cmspage?type=create');
           } else {

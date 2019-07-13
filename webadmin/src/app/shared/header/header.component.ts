@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
    
   ngOnInit(){
   
-    this.getNotification();
+   // this.getNotification();
    
     this.headerService.TitleDetail.subscribe((resp) => { 
       setTimeout(() =>{ this.headerVar.title=resp.title,

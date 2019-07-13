@@ -68,20 +68,20 @@ export class CalendarViewComponent implements OnInit {
         let user = this.utilService.getUserData();
         this.resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
         this.getCalendarDetails();
-        if(this.roleId){
-            this.resortService.getResort().subscribe(item=>{
-                if(item && item.isSuccess){
-                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
-                }
-            })
-        }
-        else{
+        // if(this.roleId){
+        //     this.resortService.getResort().subscribe(item=>{
+        //         if(item && item.isSuccess){
+        //             this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+        //         }
+        //     })
+        // }
+        // else{
             this.commonService.getResortForFeedback(this.resortId).subscribe((result) => { 
                 if(result && result.isSuccess){
                     this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
                 }
             });
-        }
+       // }
     }
 
     ngDoCheck(){

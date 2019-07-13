@@ -119,8 +119,8 @@ export class CourseService {
     return this.http.post('local',this.url.departmentList,{'divisionId':divisionId});
   }
 
-  getCreatedByDetails(){
-    return this.http.getLocal('local',this.url.getCreatedByDetails);
+  getCreatedByDetails(resortId){
+    return this.http.getLocal('local',this.url.getCreatedByDetails+'?resortId='+resortId);
   }
 
   getFiles(params){

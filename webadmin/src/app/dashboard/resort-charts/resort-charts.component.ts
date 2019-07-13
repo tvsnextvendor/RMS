@@ -32,6 +32,7 @@ export class ResortChartsComponent implements OnInit {
     selectedResort = null;
     selectedParentResort = null;
     roleId;
+    resortName;
 
     constructor(public dashboardVar: DashboardVar,
          private http: HttpService,
@@ -45,6 +46,7 @@ export class ResortChartsComponent implements OnInit {
     this.dashboardVar.userName = this.utilService.getUserData().username;
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
     this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
+    this.resortName = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortName;
     }
 
     ngAfterViewInit() {
@@ -92,26 +94,30 @@ export class ResortChartsComponent implements OnInit {
         this.topRatedCourses();
         this.getcourseTrend();
     }
+    selectResort(){
+      this.resortId = (this.selectedResort)?this.selectedResort:this.selectedParentResort;
+      this.getCountDetails(this.resortId);
+    }
 
     getResortDetails(){
-        let data = this.utilService.getUserData();
         let roleId = this.utilService.getRole();
-        let user = roleId != 1 ? data.userId : '';
-        let query = '?createdBy='+user;
-        this.commonService.getResortList(query).subscribe((result) => {
+        // Get All Parents N/W Admin
+        let query = '?parents='+roleId;
+        this.commonService.getAllResort(query).subscribe((result) => {
           if(result && result.isSuccess){
-            this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
+            this.resortList = result.data ? result.data : [];
+          }else{
+            this.resortList = [];
           }
         });
     }
 
     getChildResort(resortId){
-      let query = resortId ? resortId : this.resortId;
-      this.courseService.getChildResort(query).subscribe((result) => {
+      // get All Childs From Parents
+      let query = '?parentId='+ (resortId ? resortId : this.resortId);
+      this.commonService.getAllResort(query).subscribe((result) => {
           if(result && result.isSuccess){
-            this.resortChildList = result.data && result.data.Resort.length ? result.data.Resort : [];
-            // this.selectedResort = resortId
-            // this.getCountDetails(resortId);
+            this.resortChildList = result.data  ? result.data : [];
           }
         });
     }
