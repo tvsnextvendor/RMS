@@ -63,7 +63,7 @@ export class FilterTabComponent implements OnInit {
         this.childResortFilterList = result.data  && result.data.Resort;
       }
     })
-    this.courseService.getCreatedByDetails().subscribe(result=>{
+    this.courseService.getCreatedByDetails(this.parentResortId).subscribe(result=>{
       if(result && result.isSuccess){
         this.createdByList = result.data  && result.data;
       }

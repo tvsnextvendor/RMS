@@ -43,6 +43,7 @@ export class CommonService {
 getResortList(query){
     return this.http.getLocal('local',this.url.resortList+query);
 }
+
 getParentChildResorts(resortId){
   return this.http.getLocal('local',this.url.resortList+'?Resort='+resortId);
 }

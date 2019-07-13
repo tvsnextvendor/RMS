@@ -52,7 +52,8 @@ export class FeedbackComponent implements OnInit {
         this.courseData = result.data.rows;
       }
     });
-    this.courseService.getTrainingClass().subscribe(result => {
+    let currentquery = '?resortId'+this.resortId;
+    this.courseService.getDropTrainingClassList(currentquery).subscribe(result => {
       if (result && result.isSuccess) {
         this.trainingClassData = result.data;
       }
@@ -65,7 +66,7 @@ export class FeedbackComponent implements OnInit {
     this.feedbackList = [];
     let user = this.utilService.getUserData();
     const feedbackObj = {
-      resortId: this.resortSelected,
+      resortId: (this.resortSelected)?this.resortSelected:this.resortId,
       courseId: this.courseSelected,
       createdBy : user.userId,
       trainingClassId: this.trainingClassSelected,
@@ -84,7 +85,7 @@ export class FeedbackComponent implements OnInit {
   applicationList() {
     let user = this.utilService.getUserData();
     const feedbackObj = {
-      resortId: this.selectedResortApp,
+      resortId: (this.selectedResortApp)?this.selectedResortApp:this.resortId,
       feedbackType: 'app',
       createdBy : user.userId
 

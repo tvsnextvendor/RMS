@@ -61,10 +61,13 @@ export class CertificatesComponent implements OnInit {
                 this.constant.courseList = resp.data.rows.length && resp.data.rows;
             }
         })
+        let currentquery = '?resortId='+this.resortId;
       
-     this.courseService.getTrainingClass().subscribe((resp) => {
+      this.courseService.getDropTrainingClassList(currentquery).subscribe((resp) => {
             if(resp && resp.isSuccess){
-                this.constant.trainingClassList = resp.data; 
+                this.constant.trainingClassList =(resp.data && resp.data.rows.length) ? resp.data.rows :[]; 
+                }else{
+                    this.constant.trainingClassList = []; 
                 }
         })
 
