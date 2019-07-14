@@ -43,6 +43,7 @@ export class API_URL {
     getCourses: "5c2dbf2e2f000056301751f7",
     getEmployeeProgress: '5c3458c92e00009000378d89',
     getCertificationTrend: '5c32f85c2e00007400121dcd',
+    
     //getTopEmployees      : "5c04e6cf3300002900d01e56",
     getTopEmployees: "5c2e14522f0000ba47175436",
     getvisitorsByResorts: "5c2df1f32f0000384717533d",
@@ -201,6 +202,9 @@ export class API_URL {
 
     listApproval:'8103/approvallist',
     statusApproval:'8103/statusApproval/',
+
+    certificateTrendCount:'8103/getEmployeeCoursesCount',
+    certificateTrendCountDetail:'8103/getEmployeesBadgesReport',
 
     // Dashboard
     totalCount : '8103/getTotalCount',

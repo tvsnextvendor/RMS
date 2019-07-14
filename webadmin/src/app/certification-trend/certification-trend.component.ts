@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService ,BreadCrumbService,HeaderService} from '../services';
+import { CommonService, BreadCrumbService, HeaderService, UtilService } from '../services';
 import { CommonLabels } from '../Constants/common-labels.var'
-import { Location } from '@angular/common'; 
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-certification-trend',
@@ -9,45 +9,50 @@ import { Location } from '@angular/common';
   styleUrls: ['./certification-trend.component.css']
 })
 export class CertificationTrendComponent implements OnInit {
- 
+
   pageLimitOptions;
   pageLimit;
   search;
-  trendList=[];
-
-
- 
-  constructor(public location:Location,private commonService: CommonService, public commonLabels: CommonLabels,private breadCrumbService :BreadCrumbService,private headerService : HeaderService) {
+  trendList = [];
+  resortId;
+  constructor(public location: Location, private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService) {
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[0]];
-    
-   }
-
+  }
   ngOnInit() {
-    this.headerService.setTitle({title: this.commonLabels.labels.certifiTrend, hidemodule: false});
+    this.headerService.setTitle({ title: this.commonLabels.labels.certifiTrend, hidemodule: false });
     this.breadCrumbService.setTitle([]);
+    this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
+    this.getTrendCountList();
+  }
+  getTrendList() {
+    let query = this.search ? "?search=" + this.search : '';
+    this.commonService.getCertificateTrendList(query).subscribe((res) => {
+      if (res.isSuccess) {
+        this.trendList = res.data.rows.length ? res.data.rows : [];
+      }
+    });
+  }
+  getTrendCountList() {
+    let query = this.resortId ? "?resortId=" + this.resortId : '';
+    (query) ? query + "&search=" + this.search : '';
+    this.commonService.certificateTrendCount(query).subscribe((res) => {
+      if (res.isSuccess) {
+        this.trendList = res.data.rows.length ? res.data.rows : [];
+      } else {
+        this.trendList = [];
+      }
+      console.log(this.trendList);
+    });
+  }
+  ngOnDestroy() {
+    this.search = '';
+  }
+  resetSearch() {
+    this.search = '';
     this.getTrendList();
   }
-
-  getTrendList() {
-    let query = this.search ? "?search="+this.search : '';
-          this.commonService.getCertificateTrendList(query).subscribe((res) => {
-            if(res.isSuccess){
-              this.trendList = res.data.rows.length ? res.data.rows : [];
-            }
-        });
-    }
-
-    ngOnDestroy(){
-      this.search = '';
-    }
-    resetSearch(){
-      this.search = '';
-      this.getTrendList();
-    }
-
-    onPrint(){
-      window.print();
-    }
-
+  onPrint() {
+    window.print();
+  }
 }

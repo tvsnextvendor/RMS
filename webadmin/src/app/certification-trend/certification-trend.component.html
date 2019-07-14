@@ -4,12 +4,12 @@
   <div class="filter-search">
       <div class="search-container clearfix">
         <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
-        <button type="button" (click)="getTrendList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
+        <button type="button" (click)="getTrendCountList()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
       </div>
   </div>
 </div>
 <div class="table-responsive custom-table2 mt-3">
-    <table class="table white-bg table-striped" [mfData]="trendsVar.moduleList" #mf="mfDataTable" [mfRowsOnPage]="10">
+    <table class="table white-bg table-striped" [mfData]="trendList" #mf="mfDataTable" [mfRowsOnPage]="10">
         <thead>
                 <tr class="th-boxshadow text-center">
                 <th>Course Name</th>
@@ -18,19 +18,19 @@
                 </tr>
         </thead>
         <tbody>
-            <tr class="video-trend-desc text-center">                
-                <td class="vdo-desc-height">Course 1 +</td>
-                <td class="vdo-desc-height">20</td>
+            <tr class="video-trend-desc text-center" *ngFor="let item of trendList;let i=index;">                
+                <td class="vdo-desc-height">{{item.courseName}}</td>
+                <td class="vdo-desc-height">{{item.assignedCount}}</td>
                 <td class="vdo-desc-height text-center und-txt">
-                  <a href="javaScript:void">20</a></td>
+                  <a href="javaScript:void">{{item.completedCount}}</a></td>
             </tr>  
-            <tr class="video-trend-desc text-center">                
+            <!-- <tr class="video-trend-desc text-center">                
                 <td class="vdo-desc-height">Course 2 +</td>
                 <td class="vdo-desc-height">20</td>
                 <td class="vdo-desc-height text-center und-txt">
                   <a href="javaScript:void">20</a></td>
-            </tr>            
-            <tr *ngIf="trendsVar.moduleList?.length == 0">
+            </tr>             -->
+            <tr *ngIf="trendList?.length == 0">
                 <td colspan="10"><p class="text-center data-design p-5">
                 <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
             </tr>
@@ -39,7 +39,7 @@
 </div>
 
 <div class="table-responsive custom-table2 mt-3">
-    <table class="table white-bg table-striped" [mfData]="trendsVar.moduleList" #mf="mfDataTable" [mfRowsOnPage]="10">
+    <table class="table white-bg table-striped" [mfData]="trendList" #mf="mfDataTable" [mfRowsOnPage]="10">
         <thead>
                 <tr class="th-boxshadow text-center">
                 <th>User Name</th>
@@ -63,7 +63,7 @@
                 <td class="vdo-desc-height">TC3</td>
                 <td class="vdo-desc-height">Gold</td>
             </tr>            
-            <tr *ngIf="trendsVar.moduleList?.length == 0">
+            <tr *ngIf="trendList?.length == 0">
                 <td colspan="10"><p class="text-center data-design p-5">
                 <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
             </tr>
@@ -81,7 +81,7 @@
                 <td class="vdo-desc-height">TC3</td>
                 <td class="vdo-desc-height">Gold</td>
             </tr>            
-            <tr *ngIf="trendsVar.moduleList?.length == 0">
+            <tr *ngIf="trendList?.length == 0">
                 <td colspan="10"><p class="text-center data-design p-5">
                 <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
             </tr>
