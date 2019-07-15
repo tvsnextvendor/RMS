@@ -120,6 +120,7 @@ export class API_URL {
     assignVideoToCourse: '8103/course/assignVideosToCourse',
     addDuplicateCourse : '8103/course/courseDuplicate',
     getCourseTrainingClassById : '8103/trainingClass/TrainingFileList',
+    getFilesByTCId:'8103/trainingClass/classFilesList',
     getEmployeeList : '8103/courseEmployeestatusList',
     getEmployeeDetails : '8103/employeeFilestatusList',
     getScheduleTraining : '8103/schedule',

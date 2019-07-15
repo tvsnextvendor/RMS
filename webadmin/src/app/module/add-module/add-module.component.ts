@@ -174,7 +174,7 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
-    ngDoCheck() {
+    ngDoCheck(){
         // if (this.duplicateCourse) {
         //     let data = [{ title: this.commonLabels.labels.duplicate, url: '/cms-library' }, { title: this.commonLabels.labels.duplicateCourse, url: '' }];
         //     this.breadCrumbService.setTitle(data);
@@ -195,17 +195,15 @@ export class AddModuleComponent implements OnInit {
         // }
     }
 
-   getClassDetails(){
-       let query = '?trainingClassId='+this.classId;
-    this.courseService.getTrainingClassList('','',query).subscribe(resp=>{
-        if(resp && resp.isSuccess){
-            let data = resp.data && resp.data.rows.length && resp.data.rows[0];
-            this.updateCourse(data,'')
-        }
-
-    })
-   }
-
+//    getClassDetails(){
+//        let query = '?trainingClassId='+this.classId;
+//     this.courseService.getTrainingClassList('','',query).subscribe(resp=>{
+//         if(resp && resp.isSuccess){
+//             let data = resp.data && resp.data.rows.length && resp.data.rows[0];
+//             this.updateCourse(data,'')
+//         }
+//     })
+//    }
     includeDropdwnButton(){
         if(this.selectedTab == 'course'){
         var myEl = document.querySelector('ul.item1');
@@ -214,12 +212,11 @@ export class AddModuleComponent implements OnInit {
         ele.onclick = this.addCourse.bind(this);
         }
     }
-
     courseData(classId) {
         let user = this.utilService.getUserData();
         let roleId = this.utilService.getRole();
         let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
-       let query = "?resortId="+resortId;
+        let query = "?resortId="+resortId;
     //    "?createdBy="+user.userId
         this.courseService.getDropTrainingClassList(query).subscribe((resp) => {
             if (resp && resp.isSuccess) {
@@ -488,7 +485,6 @@ export class AddModuleComponent implements OnInit {
     }
 
     updateCourse(data, i) {
-        // debugger;
         if (this.staticTabs) {
             this.staticTabs.tabs[0].disabled = false;
             this.staticTabs.tabs[0].active = true;
@@ -497,18 +493,17 @@ export class AddModuleComponent implements OnInit {
         this.quizName = '';
         this.moduleVar.courseId = data.id;
         //    this.selectedQuiz = ;
-        this.courseService.getCourseTrainingClassById(data.id, this.moduleId).subscribe(resp => {
+        this.courseService.getFilesByTCId(data.id).subscribe(resp => {
             if (resp && resp.isSuccess) {
-                let classData = resp.data && resp.data.rows.length && resp.data.rows[0];
-                this.moduleVar.selectCourseName = classData.trainingClassName;
-                // debugger;
+                let classData = resp.data;
+                this.moduleVar.selectCourseName = classData[0].TrainingClass.trainingClassName;
                 let preAddedFiles = this.fileService.selectedFiles();
 
                 if(preAddedFiles && preAddedFiles.length > 0){
                     this.addedFiles = preAddedFiles;
                     this.appendFilesToVideoList(preAddedFiles);
                 }else{
-                    this.moduleVar.videoList = classData.FileMappings && classData.FileMappings.length && classData.FileMappings.map(items => { 
+                    this.moduleVar.videoList = classData.map(items => { 
                         let fileArr  = items.File;
                         fileArr['addNew'] = true;
                         fileArr['selected'] = true;
@@ -517,19 +512,38 @@ export class AddModuleComponent implements OnInit {
                         return fileArr;
                     });
                     this.fileService.saveFileList();
-                    // preAddedFiles = this.fileService.selectedFiles();
                 }
-                // console.log(preAddedFiles);
-                // this.moduleVar.videoList = [];
-                
-               
-
                 this.moduleVar.tabEnable = true;
             }
-            else {
-                this.alertService.error(this.commonLabels.labels.nodataFound)
-            }
-        })
+        });
+
+        // this.courseService.getCourseTrainingClassById(data.id, this.moduleId).subscribe(resp => {
+        //     if (resp && resp.isSuccess) {
+        //         let classData = resp.data && resp.data.rows.length && resp.data.rows[0];
+        //         this.moduleVar.selectCourseName = classData.trainingClassName;
+        //         let preAddedFiles = this.fileService.selectedFiles();
+
+        //         if(preAddedFiles && preAddedFiles.length > 0){
+        //             this.addedFiles = preAddedFiles;
+        //             this.appendFilesToVideoList(preAddedFiles);
+        //         }else{
+        //             this.moduleVar.videoList = classData.FileMappings && classData.FileMappings.length && classData.FileMappings.map(items => { 
+        //                 let fileArr  = items.File;
+        //                 fileArr['addNew'] = true;
+        //                 fileArr['selected'] = true;
+        //                 // return items.File 
+        //                 this.fileService.sendFileList('add',fileArr);
+        //                 return fileArr;
+        //             });
+        //             this.fileService.saveFileList();
+        //         }
+        //         this.moduleVar.tabEnable = true;
+        //     }
+        //     else {
+        //         this.alertService.error(this.commonLabels.labels.nodataFound)
+        //     }
+        // });
+
         this.getEditQuizData(data);
         this.cancelVideoSubmit();
     }

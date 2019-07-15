@@ -49,6 +49,9 @@ export class CourseService {
   getCourseTrainingClassById(classId,courseId){
     return this.http.getLocal('local',this.url.getCourseTrainingClassById+'?trainingClassId='+classId)
   }
+  getFilesByTCId(classId){
+    return this.http.getLocal('local',this.url.getFilesByTCId+'?trainingClassId='+classId)
+  }
 
   updateCourse(courseId, userData){
       return this.http.put('local',this.url.courseUpdate+courseId,userData)
