@@ -8,11 +8,11 @@
     top: 4px;
 }
 .arrow-left{
-    left: 80px;
+    left: 40px;
     cursor: pointer;
 }
 .arrow-right{
-    right: 80px;
+    right: 40px;
     cursor: pointer;
 }
 .calendar{ 
@@ -22,11 +22,11 @@
     margin: 0;
     }
     .event-detail-container{
-        border-top: none;
+        border-top: none !important;
         margin: 0;
     }
     td{
-        padding: 15px !important;
+        padding: 14px !important;
     }
 thead{
     background-color: #468FB9;
@@ -43,14 +43,16 @@ tbody{
 .monthview-selected{
     background-color: #80abc3 !important;
     color: white !important;
+    border-radius: 36px;
 }
 .monthview-current{
     background-color: #0aab0a !important;
+    border-radius: 36px;
 }
 .monthview-primary-with-event{
     background-color: #3a87ad;
     color: white;
-    border-radius: 35px;
+    border-radius: 36px;
 }
 .monthview-eventdetail-timecolumn{
     color: #989393;
@@ -65,5 +67,12 @@ tbody{
     font-size: 18px;
     font-weight: normal;
     letter-spacing: 2px;
+}
+.list-ios > .item-block{
+    border-bottom: 1px solid #ccc !important;
+    border-top: none !important;
+}
+.list-ios .item-block .item-inner{
+    border-bottom: none !important;
 }
 }
