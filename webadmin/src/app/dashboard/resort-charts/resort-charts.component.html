@@ -17,7 +17,9 @@
             <!-- <button class="btn_alg" routerLink="/calendar">{{dashboardVar.btns.openCalendar}}</button> -->
           </div>
           <div class="clearfix pt-3">
-            <p class="parent-data">{{commonLabels.labels.dashdatamsg}}</p>
+            <p class="parent-data" *ngIf="!selectedResort && !selectedParentResort">{{commonLabels.labels.dashprtdatamsg}}</p>
+            <p class="parent-data" *ngIf="selectedParentResort && !selectedResort">{{commonLabels.labels.dashchilddatamsg}}</p>
+            
              <span><button type="button" (click)="selectResort()" class="btn btn-primary parent-resortbtn">{{commonLabels.btns.go}}</button></span>
              <select [disabled]="selectedParentResort == null" class="select-btn cp" [(ngModel)]='selectedResort' #resort (change)="getCountDetails(resort.value)">
                 <option value="null" disabled>{{commonLabels.labels.childResort}}</option>

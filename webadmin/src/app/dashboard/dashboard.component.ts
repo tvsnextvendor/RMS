@@ -22,15 +22,12 @@ export class DashboardComponent implements OnInit {
   this.breadCrumbService.setTitle([])
   const roleId = this.utilService.getRole();
     // this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
-    // if(roleId !== 1){
+     if(roleId !== 3){
         this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
-    // }
-    // else if(roleId === 1){
-    //   this.tabTitle= [this.commonLabels.labels.summary];
-    // }
+     }else if(roleId === 3){
+      this.tabTitle= [this.commonLabels.labels.summary];
+    }
     this.selectedtab = this.tabTitle[0];
-  
-  // console.log(data,user.roleId)
   }
 
   ngAfterContentInit() {

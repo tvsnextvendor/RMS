@@ -109,17 +109,17 @@ ion-header ion-icon.search-backarrow,ion-header ion-icon.search-backarrow {
             margin: 11px 8px 11px 0;
 }
 /******************calendar css ****************/
-.calendar{
-                    .table-bordered> thead> tr> th, 
-                    .table-bordered> tbody> tr> th ,
-                    .table-bordered> tfoot> tr> th ,
-                    .table-bordered> thead> tr> td ,
-                    .table-bordered> tbody> tr> td ,
-                    .table-bordered> tfoot> tr> td {
-                        border:none !important;
-                    }               
+// .calendar{
+//                     .table-bordered> thead> tr> th, 
+//                     .table-bordered> tbody> tr> th ,
+//                     .table-bordered> tfoot> tr> th ,
+//                     .table-bordered> thead> tr> td ,
+//                     .table-bordered> tbody> tr> td ,
+//                     .table-bordered> tfoot> tr> td {
+//                         border:none !important;
+//                     }               
                     
-                }
+//                 }
 /*******************header menu css **************/
 ion-toolbar {
     color: #fff;
@@ -757,8 +757,76 @@ page-home .course-count p:hover {
 
 
 @media (min-width: 1200px) { } 
-@media (min-width: 980px) and (max-width: 1199px) { } 
-@media (min-width: 768px) and (max-width: 979px) { } 
+@media (min-width: 980px) and (max-width: 1199px) { 
+     .table-bordered> tbody> tr> th ,
+                    .table-bordered> tfoot> tr> th ,
+                    .table-bordered> thead> tr> td ,
+                    .table-bordered> tbody> tr> td ,
+                    .table-bordered> tfoot> tr> td {
+                        border: 1px solid #dee2e6;
+                    }       
+                    .calendar .monthview-primary-with-event{
+                        border-radius: unset !important;
+                    }
+} 
+@media (min-width: 768px) and (max-width: 979px) { 
+    .table-bordered> tbody> tr> th ,
+                    .table-bordered> tfoot> tr> th ,
+                    .table-bordered> thead> tr> td ,
+                    .table-bordered> tbody> tr> td ,
+                    .table-bordered> tfoot> tr> td {
+                        border: 1px solid #dee2e6;
+                    }   
+                    .calendar .monthview-primary-with-event{
+                        border-radius: unset !important;
+                    }    
+} 
 @media (min-width: 979px){}
 @media (max-width: 767px) { } 
-@media (max-width: 480px) { }
+@media (max-width: 480px) {
+    .calendar td {
+    padding: 13px !important;
+}
+.table-bordered> thead> tr> th, 
+                    .table-bordered> tbody> tr> th ,
+                    .table-bordered> tfoot> tr> th ,
+                    .table-bordered> thead> tr> td ,
+                    .table-bordered> tbody> tr> td ,
+                    .table-bordered> tfoot> tr> td {
+                        border:none !important;
+                    }          
+ }
+ @media (min-width: 375px) and (max-width: 667px) { 
+     .calendar td {
+    padding: 15px !important;
+}
+.table-bordered> thead> tr> th, 
+                    .table-bordered> tbody> tr> th ,
+                    .table-bordered> tfoot> tr> th ,
+                    .table-bordered> thead> tr> td ,
+                    .table-bordered> tbody> tr> td ,
+                    .table-bordered> tfoot> tr> td {
+                        border:none !important;
+                    }          
+ }
+ @media (min-width: 414px) and (max-width: 736px) { 
+.calendar td {
+    padding: 18px !important;
+}
+.table-bordered> thead> tr> th, 
+                    .table-bordered> tbody> tr> th ,
+                    .table-bordered> tfoot> tr> th ,
+                    .table-bordered> thead> tr> td ,
+                    .table-bordered> tbody> tr> td ,
+                    .table-bordered> tfoot> tr> td {
+                        border:none !important;
+                    }          
+ }
+ @media (min-width: 736px) and (max-width: 812px) { 
+     .calendar td {
+    padding: 16px !important;
+}
+.calendar .monthview-primary-with-event{
+                        border-radius: unset !important;
+                    }
+}

@@ -13,7 +13,7 @@ import { CommonLabels } from '../../Constants/common-labels.var'
 export class CertificationDetailComponent implements OnInit {
  
  courseId;
- badgeList;
+ badgeList=[];
  resortId;
  search='';
  totalLength;
@@ -41,11 +41,9 @@ export class CertificationDetailComponent implements OnInit {
     this.commonService.certificateTrendCountDetail(query).subscribe((res) => {
         if (res.isSuccess) {
             this.badgeList = res.data.rows.length ? res.data.rows : [];
-            //this.calculateAvgScore(this.badgeList);
         } else {
             this.badgeList = [];
         }
-        console.log(this.badgeList);
     });
   }
 
