@@ -16,9 +16,12 @@
     cursor: pointer;
 }
 .calendar{ 
+    .monthview-container {
+        background-color: #fff;
+    }
     .table-bordered{
     border: none;
-    background-color: #fff;
+    background-color: #fff !important;
     margin: 0;
     }
     .event-detail-container{
@@ -55,18 +58,18 @@ tbody{
     border-radius: 36px;
 }
 .monthview-eventdetail-timecolumn{
-    color: #989393;
+    color: #909094;
+    font-weight: 500;
     font-size: 15px;
-    font-weight: lighter;
 }
 .event-detail{
     width: 230px;
     display: inline-block;
     text-align: center;
-    color: #908c8c;
-    font-size: 18px;
-    font-weight: normal;
     letter-spacing: 2px;
+    font-weight: 500;
+    color: #737373;
+    font-size: 18px;
 }
 .list-ios > .item-block{
     border-bottom: 1px solid #ccc !important;
