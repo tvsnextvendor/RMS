@@ -145,7 +145,7 @@ getCertificateTrend(obj,query) {
   return this.http.getLocal('local', this.url.getCertificateTrend + '?year=' + obj.year + query);
 }
 certificateTrendCount(query){
-  console.log(query);
+  // console.log(query);
   return this.http.getLocal('local', this.url.certificateTrendCount+query );
 }
 certificateTrendCountDetail(query){

@@ -57,7 +57,8 @@ export class FilterTabComponent implements OnInit {
         this.courseFilterList = result.data && result.data.rows;
       }
     })
-    this.courseService.getCreatedByDetails(this.parentResortId).subscribe(result=>{
+    let id = this.roleId != 1 ? this.parentResortId : '';
+    this.courseService.getCreatedByDetails(id).subscribe(result=>{
       if(result && result.isSuccess){
         this.createdByList = result.data  && result.data;
       }
@@ -66,7 +67,7 @@ export class FilterTabComponent implements OnInit {
     if(this.roleId == 1 ){
       let query = "?parents=1";
       this.commonService.getAllResort(query).subscribe(resp=>{
-        console.log(resp)
+        // console.log(resp)
         if(resp && resp.isSuccess){
           this.parentResortList = resp.data && resp.data.length ? resp.data : [];
         }
@@ -123,7 +124,7 @@ export class FilterTabComponent implements OnInit {
     this.courseService.getDivision(this.filterChildResort,'parent').subscribe(result=>{
       if(result && result.isSuccess){
         this.childDivisionFilterList = result.data.divisions && result.data.divisions.length ? result.data.divisions : [];
-        console.log(this.childDivisionFilterList);
+        // console.log(this.childDivisionFilterList);
       }
     })
   }

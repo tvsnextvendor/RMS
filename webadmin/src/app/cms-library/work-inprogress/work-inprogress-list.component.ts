@@ -73,7 +73,7 @@ export class WorkCourseListComponent implements OnInit {
       this.enableView = false;
     }
     else if(type === "edit"){
-      console.log(this.courseListValue[index])
+      // console.log(this.courseListValue[index])
       let course = this.courseListValue[index];
       this.route.navigateByUrl('/module/'+course.courseId);
     }

@@ -119,7 +119,7 @@ export class CalendarViewComponent implements OnInit {
 
     pageUpdate(event,scheduleId,i,addBatch){
         localStorage.setItem('BatchStartDate',event);
-        console.log(event,scheduleId)
+        // console.log(event,scheduleId)
         if(Object.keys(scheduleId)){
             this.getScheduleData(scheduleId.id);
             // this.openEditModal(addBatch,event)

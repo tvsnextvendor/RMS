@@ -162,13 +162,13 @@ export class AddModuleComponent implements OnInit {
     // KR added this functionality 
     // sepearte function created from ng onit - which is called for added files in create and edit training class
     appendFilesToVideoList(addedFiles){
-        console.log("addedFiles", addedFiles);
+        // console.log("addedFiles", addedFiles);
         if (addedFiles && addedFiles.length > 0) {
             let courseName = this.moduleVar.selectCourseName;
             this.addCourse();
             this.moduleVar.selectCourseName = courseName;
             this.addedFiles.map(element => {
-                console.log(element);
+                // console.log(element);
                 this.moduleVar.videoList.push(element)
             })
         }
@@ -348,7 +348,7 @@ export class AddModuleComponent implements OnInit {
                             maxHeight: 500,
                             file: file,
                             onSuccess: function(src){
-                                console.log(src)
+                                // console.log(src)
                                 let date = new Date().valueOf();
                                 let text = '';
                                 let possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -362,7 +362,7 @@ export class AddModuleComponent implements OnInit {
                                 let encode = window.btoa(src)
                                 let imageBlob = self.dataURItoBlob(encode);
                                 self.fileImageDataPreview = new File([imageBlob], imageName, { type: 'image/jpeg' });
-                                console.log(self.fileImageDataPreview)
+                                // console.log(self.fileImageDataPreview)
                             }
                             }).createThumbnail();
                         });
@@ -548,7 +548,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     removeVideo(data, i) {
-        console.log(data);
+        // console.log(data);
         if (this.moduleVar.courseId && data.fileId) {
             this.removedFileIds.push(data.fileId);
         }
@@ -661,7 +661,7 @@ export class AddModuleComponent implements OnInit {
         case "png" :
         case "jpg" : 
             this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;  
-            console.log(this.previewImage,"preview");       
+            // console.log(this.previewImage,"preview");       
             break;
         case "docx":
             this.previewImage =  this.commonLabels.imgs.doc; 

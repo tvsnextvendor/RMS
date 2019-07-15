@@ -14,7 +14,7 @@ export class SubscriptionComponent implements OnInit {
 
   ngOnInit(){
 
-        console.log(this.constant.title);
+        // console.log(this.constant.title);
         this.headerService.setTitle({title:this.commonLabels.titles.subscription, hidemodule:false});
         this.breadCrumbService.setTitle([]);
   }

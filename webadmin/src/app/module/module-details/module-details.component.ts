@@ -88,7 +88,7 @@ export class ModuleDetailsComponent implements OnInit {
             this.videoName = data.fileName;
 
             this.videoFile = data.fileUrl;
-            console.log(this.videoFile.substring(this.videoFile.lastIndexOf('/') + 1));
+            // console.log(this.videoFile.substring(this.videoFile.lastIndexOf('/') + 1));
             this.description = data.fileDescription;
             this.previewImage = data.videoImage;
             this.videoIndex = index;
@@ -121,7 +121,7 @@ export class ModuleDetailsComponent implements OnInit {
             this.alertService.success(this.message);
         }
         else {
-            console.log("video submitted error");
+            // console.log("video submitted error");
         }
     }
     messageClose() {

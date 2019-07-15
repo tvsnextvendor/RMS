@@ -146,7 +146,7 @@ fileUpload(e){
             if(fileName){
                 let obj ={userImage : fileName}
                 this.userService.updateUser(this.userId,obj).subscribe(resp=>{
-                    console.log(resp)
+                    // console.log(resp)
                     if(resp && resp.isSuccess){
                         let data = resp.data && resp.data.user;
                         this.userDetails.userImage = data && data.userImage;
