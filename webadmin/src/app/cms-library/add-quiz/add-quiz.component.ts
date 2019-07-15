@@ -94,7 +94,18 @@ export class CreateQuizComponent implements OnInit {
     this.courseService.getQuizListById(user.userId,query).subscribe(res=>{
         if(res && res.isSuccess){
             this.quizName = res.data.quiz.length && res.data.quiz[0].quizName;
-            this.quizQuestionsForm = res.data.quiz.length && res.data.quiz[0].QuizMappings.length ? res.data.quiz[0].QuizMappings.map(item=>{return item.Question}) : [] ;
+            this.quizQuestionsForm = res.data.quiz.length && res.data.quiz[0].QuizMappings.length ? res.data.quiz[0].QuizMappings.map(item=>{return item.Question}) : [{
+              "questionName": "",
+              "questionType": "MCQ",
+              "options": [
+                { "optionId": 1, "optionName": "" },
+                { "optionId": 2, "optionName": "" },
+                { "optionId": 3, "optionName": "" },
+                { "optionId": 4, "optionName": "" }
+              ],
+              "weightage": '100',
+              "answer" : ''
+            }];
         }
     })
   }
