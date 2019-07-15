@@ -18,140 +18,25 @@
                 </tr>
         </thead>
         <tbody>
-            <tr class="video-trend-desc text-center" *ngFor="let item of trendList;let i=index;">                
+            <tr class="video-trend-desc text-center" *ngFor="let item of mf.data;let i=index;">                
                 <td class="vdo-desc-height">{{item.courseName}}</td>
                 <td class="vdo-desc-height">{{item.assignedCount}}</td>
                 <td class="vdo-desc-height text-center und-txt">
-                  <a href="javaScript:void">{{item.completedCount}}</a></td>
+                  <a href="javaScript:void" routerLink="/certification/{{item.courseId}}" >{{item.completedCount}}</a></td>
             </tr>  
-            <!-- <tr class="video-trend-desc text-center">                
-                <td class="vdo-desc-height">Course 2 +</td>
-                <td class="vdo-desc-height">20</td>
-                <td class="vdo-desc-height text-center und-txt">
-                  <a href="javaScript:void">20</a></td>
-            </tr>             -->
             <tr *ngIf="trendList?.length == 0">
                 <td colspan="10"><p class="text-center data-design p-5">
                 <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
             </tr>
-        </tbody>        
+        </tbody>  
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <mfBootstrapPaginator></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
     </table>
+</div>
 </div>
 
-<div class="table-responsive custom-table2 mt-3">
-    <table class="table white-bg table-striped" [mfData]="trendList" #mf="mfDataTable" [mfRowsOnPage]="10">
-        <thead>
-                <tr class="th-boxshadow text-center">
-                <th>User Name</th>
-                <th>Score</th>
-                <th>Training class</th>
-                <th>Badge received</th>
-                </tr>
-        </thead>
-        <tbody>
-            <tr class="video-trend-desc text-center certificate">                
-                <td class="vdo-desc-height" rowspan="3">Bob</td>
-                <td class="vdo-desc-height" rowspan="3">90%</td>
-                <td class="vdo-desc-height">TC1</td>                
-                <td class="vdo-desc-height">Platinum</td>
-            </tr>  
-           <tr class="video-trend-desc text-center certificate">                
-              <td class="vdo-desc-height">TC2</td>
-               <td class="vdo-desc-height">Diamond</td>
-            </tr>     
-            <tr class="video-trend-desc text-center certificate">                
-                <td class="vdo-desc-height">TC3</td>
-                <td class="vdo-desc-height">Gold</td>
-            </tr>            
-            <tr *ngIf="trendList?.length == 0">
-                <td colspan="10"><p class="text-center data-design p-5">
-                <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
-            </tr>
-            <tr class="video-trend-desc text-center certificate">                
-                <td class="vdo-desc-height" rowspan="3">Billy</td>
-                <td class="vdo-desc-height" rowspan="3">80%</td>
-                <td class="vdo-desc-height">TC1</td>                
-                <td class="vdo-desc-height">Platinum</td>
-            </tr>  
-           <tr class="video-trend-desc text-center certificate">                
-              <td class="vdo-desc-height">TC2</td>
-               <td class="vdo-desc-height">Diamond</td>
-            </tr>     
-            <tr class="video-trend-desc text-center certificate">                
-                <td class="vdo-desc-height">TC3</td>
-                <td class="vdo-desc-height">Gold</td>
-            </tr>            
-            <tr *ngIf="trendList?.length == 0">
-                <td colspan="10"><p class="text-center data-design p-5">
-                <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
-            </tr>
-        </tbody>        
-    </table>
-</div>
-<div class="col-md-12 p-0 text-center mt-3">
-    <button class="btn btn-primary creat-btn" (click)="location.back()">Bank</button>
-</div>
-</div>
-  <!-- <div class="table-responsive custom-table2 mt-3">
-    <table class="table white-bg table-striped" [mfData]="trendList" #mf="mfDataTable"
-      [mfRowsOnPage]="(pageLimit.length ? pageLimit : 5)">
-      <thead>
-        <tr class="th-boxshadow">
-          <th>
-            <mfDefaultSorter by="userId">{{commonLabels.labels.userName}}<span class="ml-2"><img 
-              src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-          </th>
-          <th>
-            <mfDefaultSorter by="courseName">{{commonLabels.labels.courseName}}<span class="ml-2"><img
-                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-          </th>
-          <th>
-            <mfDefaultSorter by="trainingClass">{{commonLabels.labels.trainingClass}}<span class="ml-2"><img
-                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-          </th>
-          <th>
-            <mfDefaultSorter by="badge">{{commonLabels.labels.badge}}<span class="ml-2"><img
-                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-          </th>
-          <th class="text-center">
-            <mfDefaultSorter by="certificate">{{commonLabels.labels.certificate}}<span class="ml-2"><img
-                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-          </th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="video-trend-desc" *ngFor="let list of mf.data">
-          <td class="vdo-desc-height">
-            <span *ngIf="list.User">{{list.User.userName  | titlecase}}</span>
-          </td>
-          <td class="vdo-desc-height">
-            <span *ngIf="list.Course">{{list.Course.courseName}}</span>
-            <span *ngIf="!list.Course">-</span>
-          </td>
-          <td class="vdo-desc-height">
-             <span *ngIf="list.TrainingClass">{{list.TrainingClass.trainingClassName}}</span>
-             <span *ngIf="!list.TrainingClass">-</span>
-          </td>
-          <td class="vdo-desc-height">
-           <span *ngIf="list.Badge"> {{list.Badge.badgeName}}</span>
-           <span *ngIf="!list.Badge">-</span>
-          </td>
-          <td class="vdo-desc-height text-center">
-            <div  class="certificate-table-alg" [innerHTML]="list.certificateGenerated  | sanitizeHtml:'html'"></div>
-          </td>
-        </tr>
-        <tr *ngIf="trendList?.length == 0">
-          <td colspan="10">
-            <p class="text-center data-design p-5">
-              <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p>
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-        </tr>
-      </tfoot>
-    </table>
-  </div> -->
- 

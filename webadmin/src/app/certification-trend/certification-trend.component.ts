@@ -26,17 +26,18 @@ export class CertificationTrendComponent implements OnInit {
     this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     this.getTrendCountList();
   }
-  getTrendList() {
-    let query = this.search ? "?search=" + this.search : '';
-    this.commonService.getCertificateTrendList(query).subscribe((res) => {
-      if (res.isSuccess) {
-        this.trendList = res.data.rows.length ? res.data.rows : [];
-      }
-    });
-  }
+  // getTrendList() {
+  //   let query = this.search ? "?search=" + this.search : '';
+  //   this.commonService.getCertificateTrendList(query).subscribe((res) => {
+  //     if (res.isSuccess) {
+  //       this.trendList = res.data.rows.length ? res.data.rows : [];
+  //     }
+  //   });
+ // }
+  
   getTrendCountList() {
     let query = this.resortId ? "?resortId=" + this.resortId : '';
-    (query) ? query + "&search=" + this.search : '';
+    this.search ? query + "&search=" + this.search : '';
     this.commonService.certificateTrendCount(query).subscribe((res) => {
       if (res.isSuccess) {
         this.trendList = res.data.rows.length ? res.data.rows : [];
@@ -46,12 +47,13 @@ export class CertificationTrendComponent implements OnInit {
       // console.log(this.trendList);
     });
   }
+
   ngOnDestroy() {
     this.search = '';
   }
   resetSearch() {
     this.search = '';
-    this.getTrendList();
+    this.getTrendCountList();
   }
   onPrint() {
     window.print();

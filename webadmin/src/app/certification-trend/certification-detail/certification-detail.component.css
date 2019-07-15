@@ -1,0 +1,4 @@
+.table thead th, .table td{
+    vertical-align: middle;
+    border: none;
+}

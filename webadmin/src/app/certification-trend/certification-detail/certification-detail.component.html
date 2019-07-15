@@ -1,0 +1,40 @@
+<div class="">
+    <div class="table-responsive custom-table2 mt-3">
+      <table class="table white-bg table-striped" [mfData]="badgeList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+          <tr class="th-boxshadow text-center">
+            <th>User Name</th>
+            <th>Score</th>
+            <th>Training class</th>
+            <th>Badge received</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of mf.data;let i=index;">
+          <tr class="video-trend-desc text-center certificate" >
+            <td class="vdo-desc-height"  [attr.rowspan]=item.CertificateUserMappings.length+1>{{item.userName}}</td>
+            <td class="vdo-desc-height"  [attr.rowspan]=item.CertificateUserMappings.length+1>{{calculateAvgScore(item.CertificateUserMappings)}}</td>
+          </tr>
+         
+          <tr class="video-trend-desc text-center certificate" *ngFor="let badge of item.CertificateUserMappings">
+            <td class="vdo-desc-height" *ngIf="badge.TrainingClass">{{badge.TrainingClass.trainingClassName}}</td>
+            <td class="vdo-desc-height">
+              <span *ngIf="badge.Badge">{{badge.Badge.badgeName}} </span>
+              <span *ngIf="!badge.Badge">-</span>
+              </td>
+          </tr>
+          
+          <tr *ngIf="badgeList?.length == 0">
+            <td colspan="10">
+              <p class="text-center data-design p-5">
+                <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12 p-0 text-center mt-3">
+      <button class="btn btn-primary creat-btn" routerLink="/certification/trend">Back</button>
+    </div>
+</div>
+    

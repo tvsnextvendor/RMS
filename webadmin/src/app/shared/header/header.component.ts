@@ -26,17 +26,16 @@ export class HeaderComponent implements OnInit {
   }
    
   ngOnInit(){
-  
    // this.getNotification();
-   
     this.headerService.TitleDetail.subscribe((resp) => { 
       setTimeout(() =>{ this.headerVar.title=resp.title,
           this.headerVar.hideModule=resp.hidemodule 
         })
     });
-    // this.http.get(this.headerVar.url.getNotifications).subscribe((data) => {
-    //    this.headerVar.notificationList = data;
-    // })
+    
+    this.http.get(this.headerVar.url.getNotifications).subscribe((data) => {
+       this.headerVar.notificationList = data;
+    })
   }
 
   ngDoCheck(){
@@ -54,16 +53,16 @@ export class HeaderComponent implements OnInit {
 
   getNotification(){
     let userData = this.utilService.getUserData();
-    // console.log(userData.userId)
-      // let socketObj = {
-      //   userId : userData.userId
-      // };
-      // setInterval(() => {
-      //    this.socketService.getNotification(socketObj).subscribe((data) => {
-      //        console.log(data)
-      //        //this.notificationCount = data['unReadCount'];
-      //    });
-      // }, 10000);
+    //console.log(userData.userId)
+      let socketObj = {
+        userId : userData.userId
+      };
+      setInterval(() => {
+         this.socketService.getNotification(socketObj).subscribe((data) => {
+             //console.log(data)
+             //this.notificationCount = data['unReadCount'];
+         });
+      }, 10000);
      
    }
 
