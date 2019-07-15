@@ -134,7 +134,9 @@ export class RecentDeleteTabComponent implements OnInit {
     this.deletedFileId  = [];
     let userId = this.utilService.getUserData().userId;
     // let query = this.CMSFilterSearchEventSet ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '&status=none&createdBy='+userId;
-    let query = this.CMSFilterSearchEventSet  && this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+"&isDeleted=true" : (this.roleId != 1 ? '&status=none'+"&isDeleted=true"+"&resortId="+this.resortId  : '&status=none'+"&isDeleted=true");
+    let query = this.CMSFilterSearchEventSet  && this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
+                  (this.roleId != 1 ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+"&isDeleted=true"+"&resortId="+this.resortId : this.courseService.searchQuery(this.CMSFilterSearchEventSet)+"&isDeleted=true") : 
+                    (this.roleId != 1 ? '&status=none'+"&isDeleted=true"+"&resortId="+this.resortId  : '&status=none'+"&isDeleted=true");
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
       this.CMSFilterSearchEventSet = '';
       if(resp && resp.isSuccess){

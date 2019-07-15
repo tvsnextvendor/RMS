@@ -262,4 +262,15 @@ export class CreateQuizComponent implements OnInit {
     }
 }
 
+mcqAnswerUpdate(answer,index){
+  // console.log(answer,index)
+  if(answer){
+      this.quizQuestionsForm[index].answer = answer;
+  }
+  else{
+      this.alertService.error("Please enter the option data before select answer")
+  }
+  
+}
+
 }

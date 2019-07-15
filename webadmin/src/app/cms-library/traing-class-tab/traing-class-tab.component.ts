@@ -91,7 +91,9 @@ export class TraingClassTabComponent implements OnInit {
     let user = this.utilService.getUserData();
     let roleId = this.utilService.getRole();
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId : '&resortId=' + resortId+"&createdBy="+user.userId) : '');
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
+                  (roleId != 1 ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&resortId='+resortId  : this.courseService.searchQuery(this.CMSFilterSearchEventSet)) : 
+                    (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId : '&resortId=' + resortId+"&createdBy="+user.userId) : '');
     if(roleId == 4 ){
       query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
     }

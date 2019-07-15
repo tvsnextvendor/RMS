@@ -105,7 +105,9 @@ export class QuizTabComponent implements OnInit {
     let user = this.utilService.getUserData();
     let roleId = this.utilService.getRole();
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? '?page='+this.currentPage+'&size='+this.pageLength+this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId !=1 ? '?createdBy='+user.userId+'&resortId='+resortId : '');
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
+                  (roleId !=1 ?  '?page='+this.currentPage+'&size='+this.pageLength+this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&resortId='+resortId  : '?page='+this.currentPage+'&size='+this.pageLength+this.courseService.searchQuery(this.CMSFilterSearchEventSet)) : 
+                    (roleId !=1 ? '?createdBy='+user.userId+'&resortId='+resortId : '');
     if(roleId == 4 ){
       query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
     }

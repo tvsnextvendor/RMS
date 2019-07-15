@@ -52,3 +52,41 @@
 .ml10{
     margin-left : 10px;
 }
+
+
+.radio-btn{
+    display: block;
+    padding: 5px 5px 5px 20px;
+    position: relative;
+}
+.radio-btn input{
+    display: none;
+}
+.radio-btn span{
+     position: absolute;
+     border: 1px solid #dcdcdc;
+     width: 25px;
+     height: 25px;
+     border-radius: 20px;
+     overflow: hidden;
+     text-align: center;
+     line-height: 22px;
+     font-size: 15px;
+     left: -3px;
+     top: 0px;
+     margin-top: 0px;
+     cursor: pointer;
+}
+.radio-sec{
+    display: inline-block;
+}
+.form-control.quiz-radio-input{
+ display: inline-block;
+ margin-left: -32px;
+ padding-left: 35px;
+}
+.radio-btn input:checked + span{
+ background-color: #468FB9;
+ border-color: #468FB9;
+ color: #fff;
+}

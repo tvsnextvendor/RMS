@@ -142,8 +142,12 @@ export class CourseTabComponent implements OnInit {
     let roleId = this.utilService.getRole();
     let user = this.utilService.getUserData();
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
-    let query = this.CMSFilterSearchEventSet && this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=none'  : (roleId != 1 ? (this.checkBoxEnable ? '&status=none&resortId='+resortId : '&status=none&resortId='+resortId+'&created='+user.userId) : '&status=none');
-    if(roleId == 4 ){
+    let query = this.CMSFilterSearchEventSet && this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
+                  (roleId != 1 ? (this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=none&resortId='+resortId) : 
+                    this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=none' )  : 
+                      (roleId != 1 ? (this.checkBoxEnable ? '&status=none&resortId='+resortId : 
+                        '&status=none&resortId='+resortId+'&created='+user.userId) : '&status=none');
+    if(roleId == 4){
       query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
     }
     this.courseService.getCourse(this.p, this.pageSize, query).subscribe(resp => {

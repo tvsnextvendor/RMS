@@ -36,9 +36,9 @@ export class RolepermissionComponent implements OnInit {
     this.getRoles(this.resortId);
     this.constant.resortList = [];
     this.getresortDetails();
-    console.log("this.userIdInfo");
+    // console.log("this.userIdInfo");
 
-    console.log(this.userIdInfo);
+    // console.log(this.userIdInfo);
     //debugger;
     if (this.userIdInfo) {
       this.getData();
@@ -89,7 +89,7 @@ export class RolepermissionComponent implements OnInit {
       this.constant.selectAllEdit = this.constant.modules.every(function (item: any) {
         return item.edit == true;
       });
-      console.log(this.rolesPermissions);
+      // console.log(this.rolesPermissions);
     });
   }
   getresortDetails() {
