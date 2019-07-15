@@ -1,6 +1,6 @@
 import { Component, OnInit ,Input, Output, EventEmitter} from '@angular/core';
 import { UtilService } from '../../services/util.service';
-import { CourseService } from '../../services/restservices';
+import { CourseService,CommonService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
 @Component({
@@ -10,8 +10,8 @@ import { CommonLabels } from '../../Constants/common-labels.var';
 })
 export class FilterTabComponent implements OnInit {
   @Input() selectedTab;
-  parentResort ;
-  parentResortId ;
+  parentResort = null ;
+  parentResortId = null ;
   courseFilterList = [];
   parentDivisionFilterList = [];
   childResortFilterList = [];
@@ -30,10 +30,13 @@ export class FilterTabComponent implements OnInit {
   filterCreatedBy = 'null';
   filterCourseStatus = 'null';
   search = '';
+  roleId;
+  parentResortList = [];
   @Output() FilterSearchEvent = new EventEmitter<string>();
   
 
-  constructor(private utilService : UtilService,private courseService : CourseService,public commonLabels : CommonLabels) { }
+  constructor(private utilService : UtilService,private courseService : CourseService,public commonLabels : CommonLabels,
+    private commonService : CommonService) { }
 
   ngOnInit() {
     let data = this.utilService.getUserData();
@@ -41,26 +44,17 @@ export class FilterTabComponent implements OnInit {
       let resortDetails = data.ResortUserMappings;
       this.parentResort = resortDetails[0].Resort.resortName;
       this.parentResortId = resortDetails[0].Resort.resortId;
-      this.getFilterData();
     }
+    this.roleId = this.utilService.getRole();
+    this.getFilterData();
   }
 
   getFilterData(){
     let userId = this.utilService.getUserData().userId;
-    let query = '?created='+userId;
+    let query = this.roleId != 1  ? '?created='+userId  : "";
     this.courseService.getAllCourse(query).subscribe(result=>{
       if(result && result.isSuccess){
         this.courseFilterList = result.data && result.data.rows;
-      }
-    })
-    this.courseService.getDivision(this.parentResortId,'parent').subscribe(result=>{
-      if(result && result.isSuccess){
-        this.parentDivisionFilterList = result.data && result.data.divisions;
-      }
-    })
-    this.courseService.getChildResort(this.parentResortId).subscribe(result=>{
-      if(result && result.isSuccess){
-        this.childResortFilterList = result.data  && result.data.Resort;
       }
     })
     this.courseService.getCreatedByDetails(this.parentResortId).subscribe(result=>{
@@ -68,7 +62,39 @@ export class FilterTabComponent implements OnInit {
         this.createdByList = result.data  && result.data;
       }
     })
+
+    if(this.roleId == 1 ){
+      let query = "?parents=1";
+      this.commonService.getAllResort(query).subscribe(resp=>{
+        console.log(resp)
+        if(resp && resp.isSuccess){
+          this.parentResortList = resp.data && resp.data.length ? resp.data : [];
+        }
+      })
+    }
+    else{
+      this.getDivisionDetails('');
+    }
+
   }
+
+  getDivisionDetails(resortId){
+    let data = resortId ? resortId : this.parentResortId;
+    if(data){
+      this.courseService.getDivision(data,'parent').subscribe(result=>{
+        if(result && result.isSuccess){
+          this.parentDivisionFilterList = result.data && result.data.divisions;
+        }
+      })
+    }
+    let query = "?parentId="+data;
+    this.commonService.getAllResort(query).subscribe(result=>{
+      if(result && result.isSuccess){
+        this.childResortFilterList = result.data  && result.data.length ? result.data : [];
+      }
+    })
+  }
+
   courseChange(courseId){
     this.filterTrainingClass = 'null';
     this.courseService.getTrainingclassesById(courseId).subscribe(result=>{

@@ -259,14 +259,14 @@ export class AddQuizComponent implements OnInit {
         this.answerEmpty = false;
         this.optionEmpty = false;
         if (this.questionList) {
-            console.log(this.questionList);
+            // console.log(this.questionList);
             this.questionList.map(item => {
                 delete item.questionId;
                 this.quizQuestionsForm.push(item);
             })
         }
         let data = this.quizQuestionsForm.map(item => {
-            console.log(item)
+            // console.log(item)
             if(item.questionType !=  "True/False" && !item.answer){
               this.answerEmpty = true;
             }
@@ -281,11 +281,10 @@ export class AddQuizComponent implements OnInit {
             return item;
         })
 
-        console.log(this.quizQuestionsForm, "quiz Questions");
+        // console.log(this.quizQuestionsForm, "quiz Questions");
         let user = this.utilService.getUserData();
         let params;
         let hideTraining = submitType === 'yes' ? true : false;
-        debugger;
         if(!this.optionEmpty && !this.answerEmpty){
             if (this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length) {
                 let data = this.quizQuestionsForm.map(item => {
@@ -570,16 +569,16 @@ export class AddQuizComponent implements OnInit {
                     }
                     )
                 }
-                debugger;
+
                 if(!this.optionEmpty && !this.answerEmpty){
                     if(this.classId){
                         params.quiz = {
                             "quizId" : this.editQuizId,
                             "quizName": this.quizName
                         }
-                        console.log(params)
+                        // console.log(params)
                         this.courseService.updateTrainingClass(this.classId,params).subscribe((result) => {
-                            console.log(result)
+                            // console.log(result)
                             if(result && result.isSuccess){
                                 this.selectedQuiz = null;
                                 this.classId = '';
@@ -639,10 +638,10 @@ getQuizData(){
     this.enableAddQuiz = true;
     this.courseService.getQuizList(query).subscribe(res=>{
         if(res.isSuccess){
-            console.log(res)
+            // console.log(res)
             let quizList = res.data && res.data.quiz;
             this.quizQuestionsForm = quizList.length && quizList[0].QuizMappings && quizList[0].QuizMappings.length ? quizList[0].QuizMappings.map(item=>{return item.Question}) : [];
-            console.log(this.quizQuestionsForm)
+            // console.log(this.quizQuestionsForm)
         }
     })
 }
@@ -680,7 +679,7 @@ getQuizData(){
   }
 
   mcqAnswerUpdate(answer,index){
-    console.log(answer,index)
+    // console.log(answer,index)
     if(answer){
         this.quizQuestionsForm[index].answer = answer;
     }

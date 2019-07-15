@@ -12,11 +12,25 @@
             <a routerLink="/resortslist"><img src="{{commonLabels.imgs.resort}}"class="pr-3">{{commonLabels.titles.resortmanagement}}</a>
         </li>
         <li [class.active]="router.isActive('/cms-library') || router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')">
-            <a (click)="pageRedirection('edit','course')"><img src="{{commonLabels.imgs.cms}}"class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
+            <a (click)="dropDownEnable('resource')"><img src="{{commonLabels.imgs.cms}}"class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
         </li>
         <li [class.active]="router.isActive('/calendar')">
             <a (click)="dropDownEnable('calendar')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.schedule}}</a>
         </li>
+        <li [ngClass]="(tabType == 'report') ? 'active' : ''">
+            <a (click)="dropDownEnable('report')"><img class="pr-2" src="assets/images/sel_reports.png">{{commonLabels.labels.performanceReport}}<span class="drop-icon"><i *ngIf="enableReport" aria-hidden="true" class="fa fa-angle-down icons_header pl-2" title="Open"></i><i *ngIf="!enableReport" class="fa fa-angle-right icons_header  pl-2" aria-hidden="true" title="Open"></i></span></a>
+        </li>
+        <ul class="sub-menu" *ngIf="enableReport">
+            <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''">
+                <a routerLink="/videostrend">{{commonLabels.labels.videosTrend}}</a>
+            </li>
+            <li [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
+                <a routerLink="/resortList">{{commonLabels.labels.resortDetails}}</a>
+            </li>
+            <li [class.active]="router.isActive('/certification/trend')">
+                <a routerLink="/certification/trend">{{commonLabels.labels.certifiTrend}}</a>
+            </li>
+        </ul>  
         <li [class.active]="router.isActive('/archivalsetting')">
             <a routerLink="/archivalsetting"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.archivalSettings}}</a>
         </li>

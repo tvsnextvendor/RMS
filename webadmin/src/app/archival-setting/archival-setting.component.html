@@ -5,7 +5,7 @@
                 <a class="nav-link active" data-toggle="tab" href="#employee">{{commonLabels.labels.employeeContent}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#course">{{commonLabels.labels.courseList}}</a>
+                <a class="nav-link" data-toggle="tab" href="#course">Delete Course files</a>
             </li>          
         </ul> 
     </div>
@@ -25,9 +25,9 @@
                                 <th class="text-left">
                                     {{commonLabels.labels.resort}}
                                 </th>
-                                <th class="text-left">
+                                <!-- <th class="text-left">
                                     {{commonLabels.labels.archiveData}}
-                                </th>
+                                </th> -->
                                 <th class="text-left">
                                     {{commonLabels.labels.delData}}
                                 </th>
@@ -37,7 +37,7 @@
                             <tbody>
                                 <tr class="table-desc-color" *ngFor = 'let archieve of archieveList'>
                                     <td class="text-left">{{archieve?.Resort?.resortName  | titlecase}}</td>
-                                    <td class="text-left">{{archieve?.archievedDays}}</td>
+                                    <!-- <td class="text-left">{{archieve?.archievedDays}}</td> -->
                                     <td class="text-left">{{archieve?.deletedDays}}</td>
                                     <td class="text-center">
                                           <a (click)="openEditModal(addArchieve,archieve.archievedId,'')"><i class="fas fa-pencil-alt header-icon" aria-hidden="true"></i></a>
@@ -95,7 +95,7 @@
             
             </span>
         </div>
-        <div>
+        <!-- <div>
             <label class="col-md-4 p-0 label-title mb-0">{{commonLabels.labels.archiveData}}</label>
             <span class="col-md-9 pl-0">
                 <input type="number" class="form-control" placeholder="Enter Time for Archieve Data"  name="archieveTime" [(ngModel)]="archieveTime" required>
@@ -103,7 +103,7 @@
             <span class="required_color mt-0" >
             
             </span>
-        </div>
+        </div> -->
         <div>
             <label class="col-md-4 p-0 label-title mb-0">{{commonLabels.labels.delData}}</label>
             <span class="col-md-9 pl-0">

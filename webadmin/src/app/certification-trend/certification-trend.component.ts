@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService, BreadCrumbService, HeaderService, UtilService } from '../services';
 import { CommonLabels } from '../Constants/common-labels.var'
-import { Location } from '@angular/common';
+import { VideosTrendVar } from '../Constants/videostrend.var';
+import { Location } from '@angular/common'; 
 
 @Component({
   selector: 'app-certification-trend',
@@ -15,7 +16,7 @@ export class CertificationTrendComponent implements OnInit {
   search;
   trendList = [];
   resortId;
-  constructor(public location: Location, private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService) {
+  constructor(public location: Location, private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService,public trendsVar: VideosTrendVar) {
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[0]];
   }
