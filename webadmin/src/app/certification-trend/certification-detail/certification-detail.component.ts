@@ -15,7 +15,7 @@ export class CertificationDetailComponent implements OnInit {
  courseId;
  badgeList;
  resortId;
- 
+ search='';
  totalLength;
  
   constructor(public activatedRoute: ActivatedRoute,private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService) { 
@@ -35,7 +35,8 @@ export class CertificationDetailComponent implements OnInit {
   getBadgeList(){
      let query={
        courseId : this.courseId,
-       resortId : this.resortId 
+       resortId : this.resortId,
+       search : this.search 
       }
     this.commonService.certificateTrendCountDetail(query).subscribe((res) => {
         if (res.isSuccess) {
@@ -58,17 +59,11 @@ export class CertificationDetailComponent implements OnInit {
     })
 
     avgScore = score / totalLength;
-    console.log(avgScore);
     return avgScore;
+  }
 
-    // let score = 0;
-    // console.log(tcMark,totalClass);
-    //  score+=parseInt(tcMark);
-    // console.log(score,"SCORE");
-    // let avgScore;
-    // avgScore = score/totalClass;
-    // console.log(avgScore, "AVGSCORE");
-    // return avgScore;
+  onPrint() {
+    window.print();
   }
 
 }

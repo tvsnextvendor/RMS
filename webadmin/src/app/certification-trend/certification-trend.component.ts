@@ -13,7 +13,7 @@ export class CertificationTrendComponent implements OnInit {
 
   pageLimitOptions;
   pageLimit;
-  search;
+  search='';
   trendList = [];
   resortId;
   constructor(public location: Location, private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService,public trendsVar: VideosTrendVar) {
@@ -36,8 +36,9 @@ export class CertificationTrendComponent implements OnInit {
  // }
   
   getTrendCountList() {
-    let query = this.resortId ? "?resortId=" + this.resortId : '';
-    this.search ? query + "&search=" + this.search : '';
+    let query = this.resortId ? "?resortId=" + this.resortId + "&search=" + this.search  : '';
+
+    console.log(query)
     this.commonService.certificateTrendCount(query).subscribe((res) => {
       if (res.isSuccess) {
         this.trendList = res.data.rows.length ? res.data.rows : [];

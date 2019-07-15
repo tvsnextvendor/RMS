@@ -149,7 +149,7 @@ certificateTrendCount(query){
   return this.http.getLocal('local', this.url.certificateTrendCount+query );
 }
 certificateTrendCountDetail(query){
-  return this.http.getLocal('local', this.url.certificateTrendCountDetail+'?courseId='+query.courseId+'&resortId='+query.resortId);
+  return this.http.getLocal('local', this.url.certificateTrendCountDetail+'?courseId='+query.courseId+'&resortId='+query.resortId+'&search='+query.search);
 }
 getCertificateTrendList(query){
   return this.http.getLocal('local', this.url.getCertificateTrendList+query );
