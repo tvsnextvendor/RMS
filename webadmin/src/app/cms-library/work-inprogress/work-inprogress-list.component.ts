@@ -42,7 +42,9 @@ export class WorkCourseListComponent implements OnInit {
     let roleId = this.utilService.getRole();
     let userData = this.utilService.getUserData();
     let resortId = userData.ResortUserMappings && userData.ResortUserMappings.length && userData.ResortUserMappings[0].Resort.resortId;
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=workInprogress' : (roleId !=1 ? '&status=workInprogress&created='+userData.userId+'&resortId='+resortId : '&status=workInprogress');
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
+                  (roleId !=1 ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=workInprogress'+'&resortId='+resortId : this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=workInprogress') : 
+                    (roleId !=1 ? '&status=workInprogress&created='+userData.userId+'&resortId='+resortId : '&status=workInprogress');
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
       this.CMSFilterSearchEventSet = '';
       if(resp && resp.isSuccess){

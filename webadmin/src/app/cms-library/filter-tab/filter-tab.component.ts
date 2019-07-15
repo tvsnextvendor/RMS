@@ -32,6 +32,7 @@ export class FilterTabComponent implements OnInit {
   search = '';
   roleId;
   parentResortList = [];
+  enableResort = false;
   @Output() FilterSearchEvent = new EventEmitter<string>();
   
 
@@ -47,6 +48,9 @@ export class FilterTabComponent implements OnInit {
     }
     this.roleId = this.utilService.getRole();
     this.getFilterData();
+    if(this.roleId == 2 || this.roleId == 4){
+      this.enableResort = true;
+    }
   }
 
   getFilterData(){
