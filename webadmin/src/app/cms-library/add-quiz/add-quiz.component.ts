@@ -195,7 +195,7 @@ export class CreateQuizComponent implements OnInit {
     this.answerEmpty = false;
     this.optionEmpty = false;
       let data = this.quizQuestionsForm.map(item => {
-          console.log(item)
+          // console.log(item)
           if(item.questionType !=  "True/False" && !item.answer){
             this.answerEmpty = true;
           }

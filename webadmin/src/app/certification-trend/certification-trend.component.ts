@@ -43,7 +43,7 @@ export class CertificationTrendComponent implements OnInit {
       } else {
         this.trendList = [];
       }
-      console.log(this.trendList);
+      // console.log(this.trendList);
     });
   }
   ngOnDestroy() {

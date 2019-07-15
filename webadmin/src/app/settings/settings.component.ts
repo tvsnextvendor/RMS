@@ -41,7 +41,7 @@ export class SettingsComponent implements OnInit {
                 "oldPassword" : formData.oldPwd,
                 "newPassword" : formData.newPwd
             }
-            console.log(postData)
+            // console.log(postData)
             this.commonService.passwordUpdate(postData).subscribe(resp=>{
                 if(resp && resp.isSuccess){
                     this.resetData();

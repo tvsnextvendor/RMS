@@ -211,7 +211,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   }
   
   getCourse(event){
-    console.log(event);
+    // console.log(event);
     this.selectedCourse=event;
   }
 

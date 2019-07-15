@@ -302,10 +302,10 @@ export class CertificatesComponent implements OnInit {
     addForm() {
         let checkEmpty = {};
 
-        console.log( this.constant.templateAssign.length);
+        // console.log( this.constant.templateAssign.length);
         checkEmpty = this.constant.templateAssign.length ? this.constant.templateAssign.find(x=>{ return x.course == null}) : {};
 
-        console.log(checkEmpty);
+        // console.log(checkEmpty);
         // if(!checkEmpty){
         //     this.alertService.error(this.commonLabels.mandatoryLabels.selectCourse)
         // }else 

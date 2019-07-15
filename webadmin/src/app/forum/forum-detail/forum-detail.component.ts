@@ -37,10 +37,10 @@ export class ForumDetailComponent implements OnInit {
   }
 
   removeData(type,id){
-      console.log(type,id)
+      // console.log(type,id)
       this.forumService.removeForumPost(id,type).subscribe(resp=>{
         if(resp && resp.isSuccess){
-          console.log(resp)
+          // console.log(resp)
           this.alertService.success(resp.data);
           this.getDetails();
           this.viewComment = [false];

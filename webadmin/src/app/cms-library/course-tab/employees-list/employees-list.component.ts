@@ -20,7 +20,7 @@ export class EmployeesListComponent implements OnInit {
   constructor(private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService,public location : Location) { 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.courseId = params['courseId']; 
-      console.log(this.courseId)
+      // console.log(this.courseId)
     });
   }
 
@@ -44,7 +44,7 @@ export class EmployeesListComponent implements OnInit {
   //Get Employee List
   getEmployeeList(){
     this.courseService.getEmployeeListDetails(this.resortId,this.courseId).subscribe(resp=>{
-      console.log(resp)
+      // console.log(resp)
       if(resp && resp.isSuccess){
         this.listDetails = resp.data && resp.data.rows.length && resp.data.rows;
         this.count = resp.data && resp.data.rows.length && resp.data.count;
