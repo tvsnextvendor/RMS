@@ -177,15 +177,16 @@ export class CourseService {
       let createdBy          = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.createdBy)?CMSFilterSearchEventSet.createdBy:'';
       let search             = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.search)?CMSFilterSearchEventSet.search:''
 
-      courseId=  (courseId == 'null')?'':courseId;
-      trainingClassId = (trainingClassId == 'null')?'':trainingClassId;
-      divisionId= (divisionId == 'null')?'':divisionId;
-      departmentId= (departmentId == 'null')?'':departmentId;
-      subResortId=   (subResortId == 'null')?'':subResortId;
-      createdBy =(createdBy == 'null')?'':createdBy;
-      status = (status == 'null')?'':status;
-      courseStatus = (courseStatus == 'null')?'':courseStatus;
-      query = '&courseId='+courseId+'&trainingClassId='+trainingClassId+'&subResortId='+subResortId+'&divisionId='+divisionId+'&departmentId='+departmentId+'&createdBy='+createdBy+'&search='+search+'&courseStatus='+courseStatus;
+      courseId=  (!courseId || courseId == 'null')?'':'&courseId='+courseId;
+      trainingClassId = (!trainingClassId || trainingClassId == 'null')?'':'&trainingClassId='+trainingClassId;
+      divisionId= (!divisionId || divisionId == 'null')?'':'&divisionId='+divisionId;
+      departmentId= (!departmentId || departmentId == 'null')?'':'&departmentId='+departmentId;
+      subResortId=   (!subResortId || subResortId == 'null')?'':'&subResortId='+subResortId;
+      createdBy =(!createdBy || createdBy == 'null')?'':'&createdBy='+createdBy;
+      status = (!status || status == 'null')?'':status;
+      courseStatus = (!courseStatus || courseStatus == 'null')?'':'&courseStatus='+courseStatus;
+      search = (search == '') ? '': '&search='+search
+      query = courseId+trainingClassId+subResortId+divisionId+departmentId+createdBy+search+courseStatus;
 
     }
     return query;
@@ -198,7 +199,8 @@ export class CourseService {
   }
 
   getEmployeeListDetails(resortId,courseId){
-    return this.http.getLocal('local',this.url.getEmployeeList+'?resortId='+resortId+'&courseId='+courseId);
+    let query = resortId ? '?resortId='+resortId+'&courseId='+courseId : '?courseId='+courseId;
+    return this.http.getLocal('local',this.url.getEmployeeList+query);
   }
 
   getEmployeeDetails(query){

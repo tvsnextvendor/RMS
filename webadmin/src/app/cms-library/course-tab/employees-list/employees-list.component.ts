@@ -26,7 +26,7 @@ export class EmployeesListComponent implements OnInit {
 
   ngOnInit() {
     let user = this.utilService.getUserData();
-    this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
+    this.resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : ''; 
     this.headerService.setTitle({ title: 'Resource Library', hidemodule: false });
     let data;
     if (window.location.pathname.indexOf("resource") != -1) {

@@ -48,14 +48,14 @@ export class VideosTrendDetailsComponent implements OnInit {
         this.headerService.setTitle({ title: this.commonLabels.titles.courseTrend, hidemodule: false });
         this.breadCrumbService.setTitle([]);
         this.roleId = this.utilService.getRole();
-        this.resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
-        this.filterResort = this.resortId;
+        this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : '';
+        this.filterResort = this.resortId ? this.resortId : null;
         this.getEmployeeList('');
         this.getResortList();
     }
 
     getEmployeeList(filter){
-        let query =  this.resortId  ? '?resortId='+this.resortId : '';
+        let query =  this.resortId  ? '&resortId='+this.resortId : '';
         if(filter){
             query = query+filter
         }
@@ -68,12 +68,22 @@ export class VideosTrendDetailsComponent implements OnInit {
 
 
     getResortList(){
-        this.resortService.getResort().subscribe(item=>{
-            if(item && item.isSuccess){
-                this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
-                this.filterSelect(this.filterResort,'resort')
-            } 
-        })
+        if(this.roleId != 1){
+            this.resortService.getResort().subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                    this.filterSelect(this.filterResort,'resort')
+                } 
+            })
+        }
+        else{
+            this.commonService.getAllResort('').subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.length ? item.data : [];
+                    // this.filterSelect(this.filterResort,'resort')
+                } 
+            })
+        }
     }
 
     filterSelect(value,type){

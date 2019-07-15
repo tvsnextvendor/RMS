@@ -90,6 +90,25 @@ export class AddModuleComponent implements OnInit {
     ngOnInit() {
         // debugger;
         //this.resetForm();
+
+        if (this.duplicateCourse) {
+            let data = [{ title: this.commonLabels.labels.duplicate, url: '/cms-library' }, { title: this.commonLabels.labels.duplicateCourse, url: '' }];
+            this.breadCrumbService.setTitle(data);
+        }
+        else if (this.selectedTab == 'course') {
+            let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editCourse, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createCourse, url: '' }];
+            this.breadCrumbService.setTitle(data);
+        }
+        else if (this.selectedTab == 'class') {
+            if (this.classId) {
+                let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }];
+                this.breadCrumbService.setTitle(data);
+            }
+            else {
+                let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createClasses, url: '' }];
+                this.breadCrumbService.setTitle(data);
+            }
+        }
         if(!this.classId){
             this.getquizList();
         }
@@ -156,24 +175,24 @@ export class AddModuleComponent implements OnInit {
     }
 
     ngDoCheck() {
-        if (this.duplicateCourse) {
-            let data = [{ title: this.commonLabels.labels.duplicate, url: '/cms-library' }, { title: this.commonLabels.labels.duplicateCourse, url: '' }];
-            this.breadCrumbService.setTitle(data);
-        }
-        else if (this.selectedTab == 'course') {
-            let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editCourse, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createCourse, url: '' }];
-            this.breadCrumbService.setTitle(data);
-        }
-        else if (this.selectedTab == 'class') {
-            if (this.classId) {
-                let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }];
-                this.breadCrumbService.setTitle(data);
-            }
-            else {
-                let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createClasses, url: '' }];
-                this.breadCrumbService.setTitle(data);
-            }
-        }
+        // if (this.duplicateCourse) {
+        //     let data = [{ title: this.commonLabels.labels.duplicate, url: '/cms-library' }, { title: this.commonLabels.labels.duplicateCourse, url: '' }];
+        //     this.breadCrumbService.setTitle(data);
+        // }
+        // else if (this.selectedTab == 'course') {
+        //     let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editCourse, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createCourse, url: '' }];
+        //     this.breadCrumbService.setTitle(data);
+        // }
+        // else if (this.selectedTab == 'class') {
+        //     if (this.classId) {
+        //         let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }];
+        //         this.breadCrumbService.setTitle(data);
+        //     }
+        //     else {
+        //         let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createClasses, url: '' }];
+        //         this.breadCrumbService.setTitle(data);
+        //     }
+        // }
     }
 
    getClassDetails(){

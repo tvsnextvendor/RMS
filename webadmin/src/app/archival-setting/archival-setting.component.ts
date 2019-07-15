@@ -94,10 +94,10 @@ export class ArchivalSettingComponent implements OnInit {
   submitForm(){
     let params = {
       "resortId" : this.selectedResort,
-      "archievedDays" : this.archieveTime,
+      // "archievedDays" : this.archieveTime,
       "deletedDays":this.deleteTime
     }
-    if(this.selectedResort && this.archieveTime && this.deleteTime){
+    if(this.selectedResort && this.deleteTime){
       if(this.archievedId){
         this.commonService.updateArchieve(this.archievedId,params).subscribe(resp=>{
           if(resp && resp.isSuccess){

@@ -36,11 +36,20 @@
                 </select>
                 <div class="select_arrow"></div>
             </div>
-            <div class="col-md-12 p-0 mb-3">
+            <div *ngIf = "roleId == 1" class="col-md-12 p-0 select select-style clearfix">
+                    <select name="resortId" class="form-control pl-2" [(ngModel)]="parentResortId"
+                        #parentResort (change)="getDivisionDetails(parentResortId.value)">
+                        <option value="null">{{commonLabels.labels.parentresort}}</option>
+                        <option *ngFor="let resort of parentResortList" [value]="resort.resortId">{{resort.resortName}}</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                </div>
+            <div  *ngIf = "roleId != 1" class="col-md-12 p-0 mb-3">
                 <input type="text" class="form-control pl-2" placeholder="Parent Resort" name="course" [(ngModel)]="parentResort"
-                    disabled /></div>
+                    disabled />
+            </div>
             <div class="col-md-12 p-0 select select-style clearfix">
-                <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterParentDivision"
+                <select [disabled] = "!parentResortId" name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterParentDivision"
                     #parentdivision (change)="divisionChange(parentdivision.value,'parent')">
                     <option [value]=null>{{commonLabels.labels.selectptdivision}}</option>
                     <option *ngFor="let division of parentDivisionFilterList" [value]="division.divisionId">{{division.divisionName}}</option>
@@ -56,7 +65,7 @@
                 <div class="select_arrow"></div>
             </div>
             <div class="col-md-12 p-0 select select-style clearfix">
-                <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterChildResort" #childResort
+                <select [disabled] = "!parentResortId" name="childResortId" class="form-control pl-2" [(ngModel)]="filterChildResort" #childResort
                     (change)="childResortChange(childResort.value)">
                     <option [value]=null>{{commonLabels.labels.selectchildresort}}</option>
                     <option *ngFor="let resort of childResortFilterList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>

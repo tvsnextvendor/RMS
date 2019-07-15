@@ -38,23 +38,25 @@ export class EmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.roleId = this.utilService.getRole()
     let user = this.utilService.getUserData();
-    this.resortId = user.ResortUserMappings && user.ResortUserMappings[0].Resort.resortId;
+    this.resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : '';
     this.headerService.setTitle({ title: this.commonLabels.labels.resourceLibrary, hidemodule: false });
     let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/cms-library'},{title : this.commonLabels.labels.employeeTabLabel,url:''}]
     this.breadCrumbService.setTitle(data);
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[1]];
-    this.filterResort = this.resortId;
+    this.filterResort = this.resortId ? this.resortId : null;
     this.getEmployeeDetails('');
     this.getResortList();
   }
 //Get status list
   getEmployeeDetails(query){
-    let dataQuery = '?resortId='+this.resortId+'&userId='+this.userId;
+    let dataQuery = this.resortId ? '?resortId='+this.resortId+'&userId='+this.userId : '?userId='+this.userId ;
     if(query){
       dataQuery = this.empChange ? query : query+'&userId='+this.userId; 
     }
+
     this.courseService.getEmployeeDetails(dataQuery).subscribe(resp=>{
       //console.log(resp)
       if(resp && resp.isSuccess){
@@ -71,12 +73,22 @@ export class EmployeeComponent implements OnInit {
   }
 
   getResortList(){
-    this.resortService.getResort().subscribe(item=>{
-        if(item && item.isSuccess){
-            this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
-            this.filterSelect(this.filterResort,'resort')
-        } 
-    })
+    if(this.roleId != 1){
+        this.resortService.getResort().subscribe(item=>{
+            if(item && item.isSuccess){
+                this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                this.filterSelect(this.filterResort,'resort')
+            } 
+        })
+    }
+    else{
+        this.commonService.getAllResort('').subscribe(item=>{
+            if(item && item.isSuccess){
+                this.resortList = item.data && item.data.length ? item.data : [];
+                // this.filterSelect(this.filterResort,'resort')
+            } 
+        })
+    }
 }
 
 filterSelect(value,type){

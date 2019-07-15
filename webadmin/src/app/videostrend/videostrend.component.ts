@@ -48,7 +48,7 @@ export class VideosTrendComponent implements OnInit {
    ngOnInit() {
     this.headerService.setTitle({title: this.commonLabels.titles.courseTrend, hidemodule: false});
     this.breadCrumbService.setTitle([]);
-    this.filterResort  = this.resortId;
+    this.filterResort = this.resortId ? this.resortId : null;
     this.getVideosTrend('');
     this.getModuleList('');
     this.getResortList();
@@ -169,6 +169,23 @@ export class VideosTrendComponent implements OnInit {
                 this.filterSelect(this.filterResort,'resort')
             } 
         })
+        if(this.roleId != 1){
+            this.resortService.getResort().subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                    this.filterSelect(this.filterResort,'resort')
+                } 
+            })
+        }
+        else{
+            this.commonService.getAllResort('').subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.length ? item.data : [];
+                    // this.filterSelect(this.filterResort,'resort')
+                } 
+            })
+        }
+        
     }
 
     filterSelect(value,type){
