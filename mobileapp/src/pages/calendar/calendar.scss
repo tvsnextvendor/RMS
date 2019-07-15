@@ -5,7 +5,7 @@
 }
 .arrow-left,.arrow-right{
     position: absolute;
-    top: 4px;
+    font-size: 29px;
 }
 .arrow-left{
     left: 40px;
@@ -28,9 +28,9 @@
         border-top: none !important;
         margin: 0;
     }
-    td{
-        padding: 14px !important;
-    }
+    // td{
+    //     padding: 14px !important;
+    // }
 thead{
     background-color: #468FB9;
     color: #fff;

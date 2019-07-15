@@ -45,7 +45,6 @@ export class CalendarPage implements OnInit   {
  
    //set month name
     onViewTitleChanged(title) {
-      console.log(title,"viewTITLE")
         this.viewTitle = title;
     }
 
@@ -68,7 +67,6 @@ export class CalendarPage implements OnInit   {
     }
 
     changeMonth(direction){ 
-      console.log(this.calendar); 
       switch(direction){ 
         case "back": 
          this.calendar.currentDate = new Date( this.calendar.currentDate.setMonth(this.currentMonth - 1));
@@ -79,7 +77,6 @@ export class CalendarPage implements OnInit   {
          this.currentMonth = this.currentMonth + 1; 
          break; 
         } 
-        console.log(this.calendar["currentDate"]); 
         return this.calendar;
       }
 
@@ -99,7 +96,6 @@ export class CalendarPage implements OnInit   {
             });
           })      
           this.eventSource = events;
-          console.log(this.eventSource, "SOURCE");
        }
      });
    }
