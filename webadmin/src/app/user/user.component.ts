@@ -961,7 +961,7 @@ export class UserComponent implements OnInit {
     exportAsXLSX(): void {
         // this.labels.btns.select =  this.labels.btns.excel;
         let arr = this.constant.userList.map(item =>
-            _.pick(item, ['userId', 'userName','lastName', 'email', 'employeeId', 'phoneNumber', 'active'])
+            _.pick(item, ['userId', 'userName','lastName', 'email', 'employeeNo', 'phoneNumber', 'active'])
         )
         this.constant.userList.forEach((item, i) => {
             arr[i].role = String(this.getDivisionArray(item.ResortUserMappings, 'design'));
