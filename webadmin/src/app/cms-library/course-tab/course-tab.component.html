@@ -107,7 +107,7 @@
                             <div class="" *ngIf="completedCount != 0" [style.width.%]="completedCount">{{commonLabels.labels.completed}}</div>
                         </div>
                     </div>
-                    <div *ngIf="iconEnable  && userData.userId == courses.createdBy" class="pt-3 clearfix">
+                    <div *ngIf="userData.userId == courses.createdBy" class="pt-3 clearfix">
                         <button class="btn btn-primary" type="button" (click)="enableDropData('duplicate',i,courses)">{{commonLabels.labels.duplicate}}</button>
                     </div>
                 </div>

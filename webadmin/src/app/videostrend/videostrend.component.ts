@@ -1,9 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common'; 
-import {HttpService, HeaderService, UtilService, CommonService,BreadCrumbService,ResortService,UserService} from '../services';
+import {HttpService, HeaderService, UtilService,PDFService, ExcelService, CommonService,BreadCrumbService,ResortService,UserService} from '../services';
 import {VideosTrendVar} from '../Constants/videostrend.var';
 import { API_URL } from '../Constants/api_url';
 import { CommonLabels } from '../Constants/common-labels.var'
+import * as moment from 'moment';
 
 
 
@@ -23,6 +24,7 @@ export class VideosTrendComponent implements OnInit {
    divisionList = [];
    departmentList = [];
    empList = [];
+   xlsxList=[];
    filterResort;
    filterDivision;
    filterDept;
@@ -37,6 +39,8 @@ export class VideosTrendComponent implements OnInit {
     public location :Location,
     public commonLabels:CommonLabels,
     private breadCrumbService :BreadCrumbService,
+    private pdfService:PDFService,
+    private excelService: ExcelService,
     private resortService :ResortService,
     private userService : UserService
     ) {
@@ -160,8 +164,30 @@ export class VideosTrendComponent implements OnInit {
         window.print();
     }
 
-    // getResort
 
+    // Create PDF
+    exportAsPDF(){ 
+        var data = document.getElementById('courseTrend'); 
+        this.pdfService.htmlPDFFormat(data,this.commonLabels.titles.courseTrend);  
+    }
+
+    //Create Excel sheet
+    exportAsXLSX():void {   
+        this.trendsVar.moduleList.map(item=>{
+            // moment().format('ll');
+            let list = {
+            "Course Name": item.courseName,
+            "Uploaded Date": moment(item.created).format('ll'),
+            "Modified Date": moment(item.updated).format('ll'),
+            "No.of Resorts": item.resortsCount,
+            "No. of Employees":item.employeesCount
+            };
+        this.xlsxList.push(list);
+        })
+        this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.titles.courseTrend);
+    }
+
+    // getResort
     getResortList(){
         this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
             if(item && item.isSuccess){

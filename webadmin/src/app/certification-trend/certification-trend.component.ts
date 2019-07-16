@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService, BreadCrumbService, HeaderService, UtilService } from '../services';
+import { CommonService, BreadCrumbService, HeaderService, UtilService,PDFService,ExcelService } from '../services';
 import { CommonLabels } from '../Constants/common-labels.var'
 import { VideosTrendVar } from '../Constants/videostrend.var';
 import { Location } from '@angular/common'; 
@@ -15,8 +15,9 @@ export class CertificationTrendComponent implements OnInit {
   pageLimit;
   search='';
   trendList = [];
+  xlsxList =[];
   resortId;
-  constructor(public location: Location, private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService,public trendsVar: VideosTrendVar) {
+  constructor(public location: Location, private commonService: CommonService, public commonLabels: CommonLabels,private excelService: ExcelService,private pdfService:PDFService,private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService,public trendsVar: VideosTrendVar) {
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[0]];
   }
@@ -56,6 +57,29 @@ export class CertificationTrendComponent implements OnInit {
     this.search = '';
     this.getTrendCountList();
   }
+  
+  // Create PDF
+  exportAsPDF(){ 
+    var data = document.getElementById('trendList'); 
+    this.pdfService.htmlPDFFormat(data,this.commonLabels.labels.certifiTrend);  
+  }
+
+  // Create Excel sheet
+  exportAsXLSX():void {
+    
+    
+    this.trendList.map(item=>{
+        let list = {
+          "Course Name": item.courseName,
+          "Assigned Count": item.assignedCount,
+          "Completed Count": item.completedCount
+        };
+       this.xlsxList.push(list);
+    })
+    console.log(this.xlsxList, "trend")
+    this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.labels.certifiTrend);
+  }
+
   onPrint() {
     window.print();
   }

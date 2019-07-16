@@ -185,3 +185,8 @@ height: 145px !important;
 .percent-size{
   font-size: 18px;
 }
+
+.trend-sec{
+  height: 200px; margin: 0 auto; padding-top: 50px;
+  cursor: pointer;
+}

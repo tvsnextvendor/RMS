@@ -145,11 +145,14 @@
         <div class="col-md-4 p-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-                {{commonLabels.labels.resortCertif}}
+                {{commonLabels.labels.empCertificationTrend}}
               <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
                 <option *ngFor="let year of dashboardVar.yearList" value="{{year.year}}">{{year.year}}</option>
                 <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
               </select></h6>
+             <div *ngIf="dashboardVar.certificationTrend" class="trend-sec" id="certificationTrend"
+                            (click)="goTocertificationTrend()"></div>
+
           </div>
         </div>
       </div>
