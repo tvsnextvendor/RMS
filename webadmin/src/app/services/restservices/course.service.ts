@@ -35,8 +35,10 @@ export class CourseService {
   }
 
   getBatchCourse(){
-    let userId = this.utilService.getUserData().userId;
-    return this.http.getLocal('local',this.url.courseList+'?created='+userId+'&status=none');
+    let userData = this.utilService.getUserData();
+    let userId = userData.userId;
+    let resortId =userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId:'';
+    return this.http.getLocal('local',this.url.courseList+'?resortId='+resortId+'&status=none');
   }
 
   getCourseById(courseId){
@@ -127,12 +129,14 @@ export class CourseService {
   }
 
   getFiles(params){
+    let userData = this.utilService.getUserData();
+    let userId = userData.userId;
     if(params.classId){
-      return this.http.getLocal('local',this.url.fileList+'?fileType='+params.type+'&trainingClassId='+params.classId+'&page='+params.page+'&size='+params.size+params.query);
+      return this.http.getLocal('local',this.url.fileList+'?fileType='+params.type+'&userId='+userId+'&trainingClassId='+params.classId+'&page='+params.page+'&size='+params.size+params.query);
     }else if(params.courseId){
-      return this.http.getLocal('local',this.url.fileList+'?courseId='+params.courseId);
+      return this.http.getLocal('local',this.url.fileList+'?courseId='+params.courseId+'&userId='+userId);
     }else{
-      return this.http.getLocal('local',this.url.fileList+'?fileType='+params.type+'&page='+params.page+'&size='+params.size+params.query);
+      return this.http.getLocal('local',this.url.fileList+'?fileType='+params.type+'&page='+params.page+'&size='+params.size+params.query+'&userId='+userId);
     }
     
   }

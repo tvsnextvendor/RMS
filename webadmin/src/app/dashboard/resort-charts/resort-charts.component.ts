@@ -32,6 +32,7 @@ export class ResortChartsComponent implements OnInit {
     selectedResort = null;
     selectedParentResort = null;
     roleId;
+    userId;
     resortName;
 
     constructor(public dashboardVar: DashboardVar,
@@ -47,6 +48,7 @@ export class ResortChartsComponent implements OnInit {
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
     this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     this.resortName = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortName;
+    this.userId = this.utilService.getUserData().userId;
     }
 
     ngAfterViewInit() {
@@ -56,6 +58,7 @@ export class ResortChartsComponent implements OnInit {
         // this.getData();
         this.roleId = this.utilService.getRole();
         this.getKeyStat();
+        this.getcertificateTrend();
         this.totalNoOfBadges();
         this.dashboardVar.years = '2019';
         this.userRole = this.utilService.getRole();
@@ -192,6 +195,78 @@ export class ResortChartsComponent implements OnInit {
     goToVideosTrend() {
       this.route.navigateByUrl('/videostrend');
     }
+
+    //Navigate to certification trend list page
+    goTocertificationTrend(){
+      this.route.navigateByUrl('/certification/trend');
+    }
+
+   
+  getcertificateTrend() {
+    const certificationTrend = {
+      year : this.dashboardVar.certYear
+    };
+    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    this.commonService.getCertificateTrend(certificationTrend,query).subscribe(result => {
+      if (result && result.isSuccess) {
+        this.dashboardVar.certificationTrend = result.data.map(item => parseInt(item, 10));
+        //setTimeout(()=>{
+          this.certificationTrend();
+        //},100) 
+      }
+    });
+  }
+
+
+    certificationTrend() {
+    Highcharts.chart('certificationTrend', {
+      credits: {
+        enabled: false
+      },
+      chart: {
+        type: 'spline',
+      },
+      title: {
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
+      xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+      yAxis: {
+        opposite: true,
+        display: false,
+        title: {
+          text: null
+        }
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'bottom'
+    },
+    series:  [{name:'Employess',    showInLegend: false,data:this.dashboardVar.certificationTrend}],
+    colors: ['#7DB5EC', '#CCCCCC'],
+    // stroke:'grey',
+  });
+  }
+
 
     chartContainer() {
       Highcharts.chart('chartContainer', {

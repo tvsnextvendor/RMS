@@ -15,6 +15,15 @@
             <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
             <div class="select_arrow"></div>
         </select>
+        <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="trendsVar.moduleList?.length">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                {{commonLabels.btns.exportTo}}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
+                <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
+            </div>
+        </div>
         <button type = "button" class="btn btn-primary float-right mr-2" (click)="onPrint()"><i class="fas fa-print pr-2"></i>Print</button>
         <div class="filter-search">
             <form class="search-container clearfix" (ngSubmit)="getModuleList('')">
@@ -64,7 +73,7 @@
             </div>
     </div>
     <div class="table-responsive custom-table2 mt-3">
-        <table class="table white-bg table-striped" [mfData]="trendsVar.moduleList" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <table class="table white-bg table-striped" [mfData]="trendsVar.moduleList" #mf="mfDataTable" [mfRowsOnPage]="10" id="courseTrend">
             <thead>
                     <tr class="th-boxshadow">
 
@@ -99,7 +108,10 @@
                     <td class="vdo-desc-height">{{list.created | date}}</td>
                     <td class="vdo-desc-height">{{list.updated | date}}</td>
                     <td class="vdo-desc-height text-center">{{list.resortsCount}}</td>
-                    <td class="vdo-desc-height text-center und-txt"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}">{{list.employeesCount}}</a></td>
+                    <td class="vdo-desc-height text-center und-txt">
+                    <span *ngIf="list.employeesCount > 0"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}">{{list.employeesCount}}</a></span>
+                    <span *ngIf="list.employeesCount == 0">{{list.employeesCount}}</span>
+                    </td>
                 </tr>
                 <!-- <tr *ngIf="trendsVar.moduleList?.length == 0">
                     <td colspan="5" class="text-center data-design">{{trendsVar.noData}}</td>

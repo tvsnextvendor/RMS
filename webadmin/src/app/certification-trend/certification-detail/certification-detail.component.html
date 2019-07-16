@@ -23,7 +23,6 @@
             <td class="vdo-desc-height"  [attr.rowspan]=item.CertificateUserMappings.length+1>{{item.userName}}</td>
             <td class="vdo-desc-height"  [attr.rowspan]=item.CertificateUserMappings.length+1>{{calculateAvgScore(item.CertificateUserMappings)}}</td>
           </tr>
-         
           <tr class="video-trend-desc text-center certificate" *ngFor="let badge of item.CertificateUserMappings">
             <td class="vdo-desc-height" *ngIf="badge.TrainingClass">{{badge.TrainingClass.trainingClassName}}</td>
             <td class="vdo-desc-height">
@@ -31,14 +30,14 @@
               <span *ngIf="!badge.Badge">-</span>
               </td>
           </tr>
-          
-          <tr *ngIf="badgeList?.length == 0">
+        </tbody>
+        <tbody *ngIf="badgeList?.length == 0">
+          <tr>
             <td colspan="10">
               <p class="text-center data-design p-5">
                 <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p>
             </td>
           </tr>
-
         </tbody>
       </table>
     </div>
