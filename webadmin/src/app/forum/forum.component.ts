@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef} from '@angular/core';
-import {HeaderService, ForumService,PDFService,ExcelService,BreadCrumbService} from '../services';
+import {HeaderService, ForumService,PDFService,ExcelService,BreadCrumbService,PermissionService} from '../services';
 import {ForumVar} from '../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -33,7 +33,8 @@ export class ForumComponent implements OnInit {
       private alertService: AlertService,
       private pdfService : PDFService,
       private excelService : ExcelService,
-      private breadCrumbService :BreadCrumbService
+      private breadCrumbService :BreadCrumbService,
+      private permissionService :PermissionService
       ) {
        this.forumVar.url = API_URL.URLS;
     }
@@ -63,6 +64,9 @@ export class ForumComponent implements OnInit {
      });
     }
 
+    permissionCheck(){
+      return this.permissionService.editPermissionCheck('Forum');
+    }
     pageChanged(page) {
       this.currentPage = page;
       this.getForumList();

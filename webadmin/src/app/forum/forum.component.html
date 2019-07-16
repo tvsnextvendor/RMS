@@ -45,7 +45,7 @@
                             <th class="text-left">
                                 <span><mfDefaultSorter by="activeStatus">{{commonLabels.labels.activeInActive}}</mfDefaultSorter></span>
                             </th>
-                            <th class="text-center action-hd">
+                            <th class="text-center action-hd" *ngIf="permissionCheck()">
                                 <mfDefaultSorter>{{commonLabels.labels.action}}</mfDefaultSorter>
                             </th>
                         </tr>
@@ -57,16 +57,16 @@
                                 <td class="text-left">{{ forum.employeesCount }}</td>
                                 <td class="lt-dt-act text-left"><span>{{forum?.updated |date}}</span></td>
                                 <td class="text-left" ><label class="switch" *ngIf="hideStatus">
-                                        <input type="checkbox" [checked]="forum.isActive" (change)= "isActive(forum.forumId, forum.isActive)" > 
+                                        <input [disabled]="!permissionCheck()" type="checkbox" [checked]="forum.isActive" (change)= "isActive(forum.forumId, forum.isActive)" > 
                                         <span class="slider round"></span>
                                     </label>
                                     <label *ngIf="!hideStatus">{{forum.isActive ? 'Active' : 'Inactive'}}</label>
                                 </td>
-                                    <td class="text-center">
-                                        <a (click)="openEditModal(editForum,forum)" title="Edit"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
-                                        <a (click)="deleteConfirmation(deleteForum, forum.forumId)"  title="Delete"><i class="fa fa-trash"></i></a>
-                                        <a (click)="isPinned(forum.forumId, forum.isPinned)" title="Hook" ><i class="fas fa-thumbtack" [ngClass]="forum.isPinned ? 'pinned-icon':'unpinned-icon'"></i></a>
-                                    </td> 
+                                <td class="text-center" *ngIf="permissionCheck()">
+                                    <a (click)="openEditModal(editForum,forum)" title="Edit"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                                    <a (click)="deleteConfirmation(deleteForum, forum.forumId)"  title="Delete"><i class="fa fa-trash"></i></a>
+                                    <a (click)="isPinned(forum.forumId, forum.isPinned)" title="Hook" ><i class="fas fa-thumbtack" [ngClass]="forum.isPinned ? 'pinned-icon':'unpinned-icon'"></i></a>
+                                </td> 
                         </tr>
                         <tr *ngIf="forumVar.forumList?.length == 0">
                             <td colspan="5"> <p class="text-center data-design p-5"><span class="nodata">

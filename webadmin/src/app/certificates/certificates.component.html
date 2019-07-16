@@ -11,7 +11,7 @@
                         <iframe [src]="template.imageFile | sanitizeHtml:'resourceUrl'" width="100%" height="200"></iframe>
                         <div class="p-2 clearfix">
                             <p class="certificate-name">{{template.certificateName}} </p>
-                            <span class="float-right">
+                            <span class="float-right" *ngIf="permissionCheck('Certificates','edit')">
                                 <a title="Edit" (click)="openAddtemplate(addTemplate, template.certificateId)" class="ml-2"><i
                                         class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"></i></a>
                                 <a (click)="openDeleteTemplate(deleteTemplate,template.certificateId)" title="Delete"
@@ -195,7 +195,7 @@
                 <label class="col-md-12 pl-0 uploadTemplate-title">{{commonLabels.labels.fileUpload}}</label>
                 <div class="choose-file-btn fileUpload ">
                     <span class="pl-2">{{commonLabels.labels.chooseFile}}</span>
-                    <input type="file" id="file" accept="text/html" (change)="handleFileInput($event.target.files)"
+                    <input [disabled]="!permissionCheck('Certificates','upload')" type="file" id="file" accept="text/html" (change)="handleFileInput($event.target.files)"
                         class="upload"></div><span>{{constant.fileToUpload?.name}}</span>
                 <iframe *ngIf="constant.fileToUpload && certificateId" [src]="htmlView | sanitizeHtml"></iframe>
             </div>

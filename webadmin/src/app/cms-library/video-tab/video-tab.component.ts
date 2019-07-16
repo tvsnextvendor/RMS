@@ -5,7 +5,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { VideoVar } from '../../Constants/video.var';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import { CommonLabels } from '../../Constants/common-labels.var';
-import { CommonService, UtilService, ResortService, UserService, AlertService, FileService,PDFService,ExcelService } from '../../services';
+import { CommonService, UtilService, ResortService, UserService, AlertService, FileService,PDFService,ExcelService,PermissionService } from '../../services';
 import * as _ from 'lodash';
 
 
@@ -66,7 +66,8 @@ constructor(private courseService: CourseService,
     public commonLabels : CommonLabels,
     private pdfService : PDFService,
     private excelService : ExcelService,
-    private breadCrumbService :BreadCrumbService ) {
+    private breadCrumbService :BreadCrumbService ,
+    private permissionService : PermissionService) {
    this.labels = constant.videoFormLabels;
 }
 
@@ -86,7 +87,7 @@ constructor(private courseService: CourseService,
       this.breadCrumbService.setTitle(data);
       this.resourceLib = false;
     }
-    if(roleId == 4 && this.resourceLib){
+    if(roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Course')){
       this.iconEnable = false;
     }
     this.getCourseFileDetails();

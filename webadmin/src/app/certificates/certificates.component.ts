@@ -1,6 +1,6 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderService,CommonService ,UtilService,CourseService,BreadCrumbService} from '../services';
+import { HeaderService,CommonService ,UtilService,CourseService,BreadCrumbService,PermissionService} from '../services';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -42,7 +42,7 @@ export class CertificatesComponent implements OnInit {
     fileExist = false;
 
 
-    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService,private breadCrumbService : BreadCrumbService) {
+    constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService,private breadCrumbService : BreadCrumbService,private permissionService : PermissionService) {
         this.constant.url = API_URL.URLS;
     }
     ngOnInit() {
@@ -73,6 +73,15 @@ export class CertificatesComponent implements OnInit {
 
         this.getbadgepercentage();
         this.getAssignCertificateDetails();
+    }
+
+    permissionCheck(modules ,type){
+        if(type == 'upload'){
+            return this.permissionService.uploadPermissionCheck(modules);
+        }
+        else if(type == 'edit'){
+            return this.permissionService.editPermissionCheck(modules);
+        }
     }
 
     getAssignCertificateDetails(){
@@ -242,18 +251,23 @@ export class CertificatesComponent implements OnInit {
 
 
     openAddtemplate(template: TemplateRef<any>, certificateId) {
-        this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
-        if (certificateId) {
-            this.certificateId = certificateId;
-            this.commonService.getParticularCertificate(this.certificateId, this.resortId).subscribe(result => {
-                const certificateValues = result.data.certificates[0];
-                this.constant.tempName = certificateValues.certificateName;
-                this.constant.fileToUpload = certificateValues.certificateHtml;
-                this.filePath = result.data.path.uploadPath;
-                this.htmlView = this.filePath + certificateValues.certificateHtml;
-            });
-        } else {
-            this.certificateId = '';
+        if(this.permissionService.uploadPermissionCheck("Certificates")){
+            this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
+            if (certificateId) {
+                this.certificateId = certificateId;
+                this.commonService.getParticularCertificate(this.certificateId, this.resortId).subscribe(result => {
+                    const certificateValues = result.data.certificates[0];
+                    this.constant.tempName = certificateValues.certificateName;
+                    this.constant.fileToUpload = certificateValues.certificateHtml;
+                    this.filePath = result.data.path.uploadPath;
+                    this.htmlView = this.filePath + certificateValues.certificateHtml;
+                });
+            } else {
+                this.certificateId = '';
+            }
+        }
+        else{
+            this.alertService.warn("Sorry your file upload permission is disabled")
         }
     }
 

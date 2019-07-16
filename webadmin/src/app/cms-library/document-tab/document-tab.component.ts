@@ -1,5 +1,5 @@
 import { Component, OnInit,Input,TemplateRef , EventEmitter, Output} from '@angular/core';
-import { HeaderService, HttpService,BreadCrumbService, CourseService, AlertService, FileService, ResortService,UtilService,CommonService,UserService,PDFService,ExcelService} from '../../services';
+import { HeaderService, HttpService,BreadCrumbService, CourseService, AlertService, FileService, ResortService,UtilService,CommonService,UserService,PDFService,ExcelService,PermissionService} from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -60,7 +60,8 @@ export class DocumentTabComponent implements OnInit {
       private resortService : ResortService,
       private pdfService :PDFService,
       private excelService :ExcelService ,
-      private breadCrumbService : BreadCrumbService) { 
+      private breadCrumbService : BreadCrumbService,
+      private permissionService : PermissionService) { 
 
   }
 
@@ -80,9 +81,10 @@ export class DocumentTabComponent implements OnInit {
     this.breadCrumbService.setTitle(data);
     this.resourceLib = false;
       }
-      if(roleId == 4 && this.resourceLib){
+      if(roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Course')){
         this.iconEnable = false;
       }
+      
     this.getCourseFileDetails();
     this.getCourseAndTrainingClass();
 

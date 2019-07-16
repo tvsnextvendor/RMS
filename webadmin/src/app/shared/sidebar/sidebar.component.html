@@ -41,7 +41,7 @@
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav" id="scroll-bx">
         <!-- <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')" -->
-        <li  [ngClass]="(tabType == 'dashboard') ? 'active mt75' : 'mt75'">
+        <li  [ngClass]="(tabType == 'dashboard') ? 'active mt75' : 'mt75'" *ngIf="permissionCheck('Dashboard','view')">
             <a (click)="dropDownEnable('dashboard')"><img src="{{commonLabels.imgs.dashboard}}"class="pr-3">{{commonLabels.titles.dashboard}}</a>
         </li>
         <!-- <li [class.active]="router.isActive('/cms-library') || router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')"> -->
@@ -67,40 +67,40 @@
             <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3"><span class="sidebar-title">{{commonLabels.labels.editView}}</span><span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
         </li>
         <ul class="sub-menu" *ngIf="enableEdit">
-            <li [ngClass]="(activeType == 'editclass') ? 'active' : ''">
+            <li [ngClass]="(activeType == 'editclass') ? 'active' : ''" *ngIf="permissionCheck('Training Class','view')">
                 <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editClasses}}</a>
             </li>
-            <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''">
+            <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''" *ngIf="permissionCheck('Quiz','view')">
                 <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editQuiz}}</a>
             </li>
-            <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''">
+            <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''" *ngIf="permissionCheck('Course','view')">
                 <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editCourse}}</a>
             </li>
-            <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''">
+            <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''" *ngIf="permissionCheck('Notification','view')">
                 <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editNotification}}</a>
             </li>
-            <li [ngClass]="(activeType == 'editworkInprogress') ? 'active' : ''">
+            <li [ngClass]="(activeType == 'editworkInprogress') ? 'active' : ''" *ngIf="permissionCheck('Course','view')">
                 <a (click)="pageRedirection('edit','workInprogress')">{{commonLabels.btns.workinProgress}}</a>
             </li>
         </ul>        
-        <li [class.active]="router.isActive('/calendar')">
+        <li [class.active]="router.isActive('/calendar')"  *ngIf="permissionCheck('Calendar','view')">
             <a (click)="dropDownEnable('calendar')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.schedule}}</a>
         </li>
         <li [ngClass]="(tabType == 'report') ? 'active' : ''">
             <a (click)="dropDownEnable('report')"><img class="pr-2" src="assets/images/sel_reports.png">{{commonLabels.labels.performanceReport}}<span class="drop-icon"><i *ngIf="enableReport" aria-hidden="true" class="fa fa-angle-down icons_header pl-2" title="Open"></i><i *ngIf="!enableReport" class="fa fa-angle-right icons_header  pl-2" aria-hidden="true" title="Open"></i></span></a>
         </li>
         <ul class="sub-menu" *ngIf="enableReport">
-            <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''">
+            <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''" *ngIf="permissionCheck('Course Trend','view')">
                 <a routerLink="/videostrend">{{commonLabels.labels.videosTrend}}</a>
             </li>
-            <li *ngIf="roleId == 2" [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
+            <li *ngIf="roleId == 2 && permissionCheck('Resort Details','view')" [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
                 <a routerLink="/resortList">{{commonLabels.labels.resortDetails}}</a>
             </li>
-            <li [class.active]="router.isActive('/certification/trend')">
+            <li [class.active]="router.isActive('/certification/trend')" *ngIf="permissionCheck('Certification Trend','view')">
                 <a routerLink="/certification/trend">{{commonLabels.labels.certifiTrend}}</a>
             </li>
         </ul>  
-        <li [class.active]="router.isActive('/resource/library')">
+        <li [class.active]="router.isActive('/resource/library')"  *ngIf="permissionCheck('Resource Library','view')">
             <a (click)="dropDownEnable('resource')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
         </li>   
         <li [ngClass]="(tabType == 'show') ? 'active' : ''" >
@@ -108,25 +108,25 @@
             <a (click)="dropDownEnable('show')" *ngIf="enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showLess}}</span></a>
         </li>
         <ul class="p-0" *ngIf="enableShow">
-            <li [class.active]="router.isActive('/users')">
+            <li [class.active]="router.isActive('/users')"  *ngIf="permissionCheck('User Management','view')">
                 <a routerLink="/users"><img src="{{commonLabels.imgs.user}}" class="pr-3">{{commonLabels.titles.userManagement}}</a>
             </li>
-            <li *ngIf="roleId == 2" [class.active]="router.isActive('/resortslist') || router.isActive('/resorts') || router.isActive('/resorts/:id')">
+            <li *ngIf="roleId == 2 && permissionCheck('Resort Management','view')" [class.active]="router.isActive('/resortslist') || router.isActive('/resorts') || router.isActive('/resorts/:id')">
                 <a routerLink="/resortslist"><img src="{{commonLabels.imgs.resort}}" class="pr-3">{{commonLabels.titles.resortmanagement}}</a>
             </li> 
-            <li [class.active]="router.isActive('/approvalrequests')">
+            <li [class.active]="router.isActive('/approvalrequests')"  *ngIf="permissionCheck('Approval Request','view')">
                 <a routerLink="/approvalrequests"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.approvalRequests}}</a>
             </li>
-            <li [class.active]="router.isActive('/forum')">
+            <li [class.active]="router.isActive('/forum')"  *ngIf="permissionCheck('Forum','view')">
                 <a routerLink="/forum"><img src="{{commonLabels.imgs.forum}}"class="pr-3"><span class="sidebar-title">{{commonLabels.labels.forum}}</span></a>
             </li>
-            <li [class.active]="router.isActive('/certificates')">
+            <li [class.active]="router.isActive('/certificates')" *ngIf="permissionCheck('Certificates','view')">
                 <a routerLink="/certificates"><img src="assets/images/Certificates.png"class="pr-3">{{commonLabels.titles.certificate}}</a>
             </li>
-            <li [class.active]="router.isActive('/subscriptionlist')">
+            <li [class.active]="router.isActive('/subscriptionlist')" *ngIf="permissionCheck('Subscription Model','view')">
                 <a routerLink="/subscriptionlist"><img src="{{commonLabels.imgs.subscription}}" class="pr-3">{{commonLabels.titles.subscription}}</a>
             </li>
-            <li [class.active]="router.isActive('/feedback')">
+            <li [class.active]="router.isActive('/feedback')" *ngIf="permissionCheck('Feedback','view')">
                 <a routerLink="/feedback"><img src="assets/images/feedback.png" class="pr-3"><span class="sidebar-title">{{commonLabels.titles.feedback}}</span></a>
             </li>
         </ul>
@@ -137,7 +137,7 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav" id="scroll-bx">
             <!-- <li [class.active]="router.isActive('/dashboard') || router.isActive('/employeestatus') || router.isActive('/employeedetails') || router.isActive('/videostrend/:id') || router.isActive('/videostrend')" -->
-            <li  [ngClass]="(tabType == 'dashboard') ? 'active mt75' : 'mt75'">
+            <li  [ngClass]="(tabType == 'dashboard') ? 'active mt75' : 'mt75'" *ngIf="permissionCheck('Dashboard','view')">
                 <a (click)="dropDownEnable('dashboard')"><img src="{{commonLabels.imgs.dashboard}}"class="pr-3">{{commonLabels.titles.dashboard}}</a>
             </li>
             <!-- <li [class.active]="router.isActive('/cms-library') || router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')"> -->
@@ -163,40 +163,40 @@
                 <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3"><span class="sidebar-title">{{commonLabels.labels.editView}}</span><span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
             </li>
             <ul class="sub-menu" *ngIf="enableEdit">
-                <li [ngClass]="(activeType == 'editclass') ? 'active' : ''">
+                <li [ngClass]="(activeType == 'editclass') ? 'active' : ''" >
                     <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editClasses}}</a>
                 </li>
-                <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''">
+                <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''"  *ngIf="permissionCheck('Quiz','view')">
                     <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editQuiz}}</a>
                 </li>
-                <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''">
+                <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''"  *ngIf="permissionCheck('Course','view')">
                     <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editCourse}}</a>
                 </li>
-                <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''">
+                <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''"  *ngIf="permissionCheck('Notification','view')">
                     <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editNotification}}</a>
                 </li>
-                <li [ngClass]="(activeType == 'editworkInprogress') ? 'active' : ''">
+                <li [ngClass]="(activeType == 'editworkInprogress') ? 'active' : ''"  *ngIf="permissionCheck('Course','view')">
                     <a (click)="pageRedirection('edit','workInprogress')">{{commonLabels.btns.workinProgress}}</a>
                 </li>
             </ul>        
-            <li [class.active]="router.isActive('/calendar')">
+            <li [class.active]="router.isActive('/calendar')" *ngIf="permissionCheck('Calendar','view')">
                 <a (click)="dropDownEnable('calendar')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.schedule}}</a>
             </li>
             <li [ngClass]="(tabType == 'report') ? 'active' : ''">
                 <a (click)="dropDownEnable('report')"><img class="pr-2" src="assets/images/sel_reports.png">{{commonLabels.labels.performanceReport}}<span class="drop-icon"><i *ngIf="enableReport" aria-hidden="true" class="fa fa-angle-down icons_header pl-2" title="Open"></i><i *ngIf="!enableReport" class="fa fa-angle-right icons_header  pl-2" aria-hidden="true" title="Open"></i></span></a>
             </li>
             <ul class="sub-menu" *ngIf="enableReport">
-                <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''">
+                <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''"  *ngIf="permissionCheck('Course Trend','view')">
                     <a routerLink="/videostrend">{{commonLabels.labels.videosTrend}}</a>
                 </li>
                 <!-- <li *ngIf="roleId == 2" [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
                     <a routerLink="/resortList">{{commonLabels.labels.resortDetails}}</a>
                 </li> -->
-                <li [class.active]="router.isActive('/certification/trend')">
+                <li [class.active]="router.isActive('/certification/trend')"  *ngIf="permissionCheck('Certification Trend','view')">
                     <a routerLink="/certification/trend">{{commonLabels.labels.certifiTrend}}</a>
                 </li>
             </ul>  
-            <li [class.active]="router.isActive('/resource/library')">
+            <li [class.active]="router.isActive('/resource/library')"  *ngIf="permissionCheck('Resource Library','view')">
                 <a (click)="dropDownEnable('resource')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
             </li>    
             <li [ngClass]="(tabType == 'show') ? 'active' : ''" >
@@ -204,25 +204,25 @@
                 <a (click)="dropDownEnable('show')" *ngIf="enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showLess}}</span></a>
             </li>
             <ul class="p-0" *ngIf="enableShow">
-                <li [class.active]="router.isActive('/users')">
+                <li [class.active]="router.isActive('/users')" *ngIf="permissionCheck('User Management','view')">
                     <a routerLink="/users"><img src="{{commonLabels.imgs.user}}" class="pr-3">{{commonLabels.titles.userManagement}}</a>
                 </li>
                 <!-- <li *ngIf="roleId == 2" [class.active]="router.isActive('/resortslist') || router.isActive('/resorts') || router.isActive('/resorts/:id')">
                     <a routerLink="/resortslist"><img src="{{commonLabels.imgs.resort}}" class="pr-3">{{commonLabels.titles.resortmanagement}}</a>
                 </li>  -->
-                <li [class.active]="router.isActive('/approvalrequests')">
+                <li [class.active]="router.isActive('/approvalrequests')" *ngIf="permissionCheck('Approval Request','view')">
                     <a routerLink="/approvalrequests"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.approvalRequests}}</a>
                 </li>
-                <li [class.active]="router.isActive('/forum')">
+                <li [class.active]="router.isActive('/forum')" *ngIf="permissionCheck('Forum','view')">
                     <a routerLink="/forum"><img src="{{commonLabels.imgs.forum}}"class="pr-3"><span class="sidebar-title">{{commonLabels.labels.forum}}</span></a>
                 </li>
-                <li [class.active]="router.isActive('/certificates')">
+                <li [class.active]="router.isActive('/certificates')" *ngIf="permissionCheck('Certificates','view')">
                     <a routerLink="/certificates"><img src="assets/images/Certificates.png"class="pr-3">{{commonLabels.titles.certificate}}</a>
                 </li>
                 <!-- <li [class.active]="router.isActive('/subscriptionlist')">
                     <a routerLink="/subscriptionlist"><img src="{{commonLabels.imgs.subscription}}" class="pr-3">{{commonLabels.titles.subscription}}</a>
                 </li> -->
-                <li [class.active]="router.isActive('/feedback')">
+                <li [class.active]="router.isActive('/feedback')" *ngIf="permissionCheck('Feedback','view')">
                     <a routerLink="/feedback"><img src="assets/images/feedback.png" class="pr-3"><span class="sidebar-title">{{commonLabels.titles.feedback}}</span></a>
                 </li>
             </ul>

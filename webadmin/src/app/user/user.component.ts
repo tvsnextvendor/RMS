@@ -9,7 +9,7 @@ import { UserVar } from '../Constants/user.var';
 import { BatchVar } from '../Constants/batch.var';
 import { API_URL } from '../Constants/api_url';
 import {API} from '../../app/Constants/api';
-import { AlertService, PDFService, ExcelService, CommonService, BreadCrumbService } from '../services';
+import { AlertService, PDFService, ExcelService, CommonService, BreadCrumbService,PermissionService } from '../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import * as XLSX from 'ts-xlsx';
 import { UserService, ResortService, UtilService } from '../services';
@@ -90,14 +90,16 @@ export class UserComponent implements OnInit {
     existingFile = [];
     fileExist = false;
     lastName;
+    uploadPermission = true;
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
-        private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService) {
+        private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService,private permissionService : PermissionService) {
         this.constant.url = API_URL.URLS;
         this.API_ENDPOINT = API.API_ENDPOINT;
     }
     ngOnInit() {
+        let roleId = this.utilService.getRole();
         this.csvDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.csv';
         this.xlsDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.xlsx';
         this.headerService.setTitle({ title: this.commonLabels.titles.userManagement, hidemodule: false });
@@ -106,6 +108,9 @@ export class UserComponent implements OnInit {
         this.pageLimit = [this.pageLimitOptions[1]];
         this.userList();
         this.getResortId();
+        if(roleId == 4 && !this.permissionService.uploadPermissionCheck("User Management")){
+            this.uploadPermission = false;
+        }
 
     }
 
@@ -119,6 +124,10 @@ export class UserComponent implements OnInit {
 
         });
         this.getDivisionList(resortId);
+    }
+
+    permissionCheck(){
+        return this.permissionService.editPermissionCheck("User Management")
     }
 
     getDivisionList(resortId) {

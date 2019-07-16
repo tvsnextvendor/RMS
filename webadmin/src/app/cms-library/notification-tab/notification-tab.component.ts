@@ -1,6 +1,6 @@
 import { Component, OnInit, Input,TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {BreadCrumbService,CourseService,UtilService,FileService,AlertService } from '../../services';
+import {BreadCrumbService,CourseService,UtilService,FileService,AlertService,PermissionService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import * as _ from 'lodash';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -37,7 +37,7 @@ export class NotificationTabComponent implements OnInit {
   modalRef;
 
   constructor(private breadCrumbService : BreadCrumbService,private fileService: FileService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ,
-    private modalService: BsModalService,private alertService : AlertService) {
+    private modalService: BsModalService,private alertService : AlertService,private permissionService : PermissionService) {
     let roleId = this.utilService.getRole();  
     this.activatedRoute.queryParams.subscribe(params=>{ 
        if(params.tab == 'schedule'){
@@ -54,7 +54,7 @@ export class NotificationTabComponent implements OnInit {
          this.resourseLib = false;
        }
      })
-     if(roleId == 4 && this.resourseLib){
+     if(roleId == 4 && this.resourseLib || !this.permissionService.editPermissionCheck('Notification')){
       this.iconEnable = false;
      }
   }

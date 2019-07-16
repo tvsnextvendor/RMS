@@ -9,7 +9,7 @@ import { ModuleVar } from '../../Constants/module.var';
 import { HttpService } from 'src/app/services/http.service';
 import { API_URL } from '../../Constants/api_url';
 import { DatePipe } from '@angular/common';
-import { AlertService } from '../../services/alert.service';
+import { AlertService,PermissionService } from '../../services';
 import * as moment from 'moment';
 import{ CommonLabels }  from '../../Constants/common-labels.var';
 
@@ -57,9 +57,10 @@ export class AddNotificationComponent implements OnInit {
     fileExist = false;
     resourceLib = false;
     roleId;
+    uploadPermission = true;
 
     constructor(private breadCrumbService :BreadCrumbService,public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
-        public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService) {
+        public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService,private permissionService :PermissionService) {
         this.batchVar.url = API_URL.URLS;
         this.labels = moduleVar.labels;
         this.userId = this.utilService.getUserData() && this.utilService.getUserData().userId;
@@ -98,6 +99,13 @@ export class AddNotificationComponent implements OnInit {
         this.moduleVar.selectedResort = resortId;
         this.getDropdownDetails(resortId,'init');
         this.getCourses();
+        if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Notification')){
+          this.uploadPermission = false;
+          this.alertService.warn("Sorry Your file upload permission is disabled")
+        }
+        else{
+          this.uploadPermission = true;
+        }
     }
 
     getNotificationDetails(){

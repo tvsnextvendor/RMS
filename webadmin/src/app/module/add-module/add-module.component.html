@@ -101,7 +101,7 @@
 							<span class="required_color" *ngIf="videoSubmitted && !moduleVar.description">{{commonLabels.mandatoryLabels.description}}</span>
 						</div>
 							
-						<div class="col-md-4 p-0">
+						<div class="col-md-4 p-0" *ngIf = "uploadPermission">
 							<div class="row">
 							<div class="col-md-5 pr-0 upload-line">
 								<div class="btn-group align-items-center" dropdown>

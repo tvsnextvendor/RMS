@@ -25,8 +25,9 @@ export class UtilService {
   }
 
   getRolePermissions(){
-    let data = localStorage.getItem('RolePermissions')
-    return JSON.parse(data);
+    let data = localStorage.getItem('RolePermissions');
+    let result = JSON.parse(data).length ? JSON.parse(data)  : [];
+    return result;
   }
   
 }

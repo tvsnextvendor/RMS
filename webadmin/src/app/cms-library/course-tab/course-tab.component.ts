@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HeaderService, HttpService, CourseService, CommonService, AlertService, UtilService, BreadCrumbService, FileService } from '../../services';
+import { HeaderService, HttpService, CourseService, CommonService, AlertService, UtilService, BreadCrumbService, FileService,PermissionService } from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
@@ -66,7 +66,7 @@ export class CourseTabComponent implements OnInit {
   fileExist = false;
   resourceLib;
 
-  constructor(private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService) {
+  constructor(private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService,private permissionService :PermissionService) {
     this.roleId = this.utilService.getRole();
     this.resourceLib = false;
     this.activatedRoute.queryParams.subscribe(params => {
@@ -81,7 +81,7 @@ export class CourseTabComponent implements OnInit {
         this.breadCrumbTitle = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.course, url: '' }]
         this.schedulePage = false;
       }
-      if((this.roleId != 4 && !this.schedulePage) || (this.roleId == 4 && !this.resourceLib)){
+      if((this.roleId != 4 && !this.schedulePage) || (this.roleId == 4 && !this.resourceLib && !this.schedulePage && this.permissionService.editPermissionCheck('Course'))){
         this.iconEnable = true;
       }
       this.breadCrumbService.setTitle(this.breadCrumbTitle)

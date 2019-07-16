@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter ,TemplateRef} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { HeaderService, HttpService, CourseService, AlertService, UtilService, BreadCrumbService } from '../../services';
+import { HeaderService, HttpService, CourseService, AlertService, UtilService, BreadCrumbService ,PermissionService} from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
@@ -40,7 +40,8 @@ export class TraingClassTabComponent implements OnInit {
       private breadCrumbService: BreadCrumbService,
       private activatedRoute: ActivatedRoute,
        private route: Router,
-       private modalService: BsModalService
+       private modalService: BsModalService,
+       private permissionService : PermissionService 
       ) { }
 
   ngOnInit() {
@@ -64,7 +65,7 @@ export class TraingClassTabComponent implements OnInit {
       this.enableClassEdit = true;
     }
 
-    if(this.roleId == 4 && this.resourceLib){
+    if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Training Class')){
       this.iconEnable = false;
     }
     if (this.enableClassEdit) {
