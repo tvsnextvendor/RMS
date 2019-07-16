@@ -177,7 +177,7 @@
                         <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.uploadtxt}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                         <span class="col-md-9 p-0">
                             <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
-                            <input type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file"
+                            <input [disabled]="!uploadPermission" type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file"
                                 #fileData="ngModel" id="customFile" (change)="getFileDetails($event)" accept="image/*,video/*,.pdf,.zip" required>
                             <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}<span><i
                                         class="fas fa-upload float-right"></i></span></label>

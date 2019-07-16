@@ -1,6 +1,6 @@
 import { Component, OnInit,Output,EventEmitter,Input} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService} from '../../services';
+import { HeaderService,CourseService,CommonService,AlertService ,UtilService,BreadCrumbService,PermissionService} from '../../services';
 import { CmsLibraryVar } from '../../Constants/cms-library.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 
@@ -19,7 +19,7 @@ export class WorkCourseListComponent implements OnInit {
   @Input() CMSFilterSearchEventSet;
   @Output() trainingClassListTab =  new EventEmitter();
 
-  constructor(private courseService : CourseService ,public commonLabels : CommonLabels,private route: Router,public cmsLibraryVar : CmsLibraryVar,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private headerService : HeaderService,private breadCrumbService :BreadCrumbService) { }
+  constructor(private courseService : CourseService ,public commonLabels : CommonLabels,private route: Router,public cmsLibraryVar : CmsLibraryVar,private commonService:CommonService,private alertService : AlertService,private utilService : UtilService,private headerService : HeaderService,private breadCrumbService :BreadCrumbService,private permissionService :PermissionService) { }
   
 
   ngOnInit() {
@@ -37,6 +37,10 @@ export class WorkCourseListComponent implements OnInit {
       this.getCourseDetails();
     } 
   } 
+
+  permissionCheck(modules){
+    return this.permissionService.editPermissionCheck(modules);
+  }
 
   getCourseDetails(){
     let roleId = this.utilService.getRole();

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
-import { UtilService  } from '../../services/util.service';
+import { UtilService ,PermissionService } from '../../services';
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
-import { CommonLabels } from '../../Constants/common-labels.var'
+import { CommonLabels } from '../../Constants/common-labels.var';
+import { Permissions } from '../../Constants/role_permission' ;
 
 
 @Component({
@@ -16,7 +17,8 @@ export class SideBarComponent implements OnInit {
     private utilservice: UtilService,
     private mScrollbarService: MalihuScrollbarService,
     public commonLabels:CommonLabels,
-    private activatedRoute : ActivatedRoute) { }
+    private activatedRoute : ActivatedRoute,
+    private permissionService :PermissionService) { }
    
    role;
    peerAdmin;
@@ -30,11 +32,20 @@ export class SideBarComponent implements OnInit {
    currentUrl;
    roleId;
    employee;
+   rolePermission;
+   editViewEnable = false;
 
   ngOnInit() {
     let role = this.utilservice.getRole();
     let userData = this.utilservice.getUserData();
-    
+    // this.rolePermission = this.utilservice.getRolePermissions().length ? this.utilservice.getRolePermissions() : Permissions.user.menu;
+    // if(role == 2){
+    //   this.rolePermission = Permissions.peeradmin.menu;
+    // }
+    // console.log(this.rolePermission)
+    if(this.permissionCheck('Quiz','edit') || this.permissionCheck('Training Class','edit') || this.permissionCheck('Course','edit') || this.permissionCheck('Notification','edit')){
+      this.editViewEnable = true;
+    }
     this.roleId = role;
     // console.log(this.roleId);
     // debugger;
@@ -67,6 +78,18 @@ export class SideBarComponent implements OnInit {
 
   ngAfterViewInit() {
     this.mScrollbarService.initScrollbar('#sidebar-wrapper', { axis: 'y', theme: 'minimal-dark' });
+  }
+
+  permissionCheck(modules,type){
+    if(type == 'view'){
+      // console.log(modules,this.permissionService.viewPermissionCheck(modules))
+      return this.permissionService.viewPermissionCheck(modules);
+    }
+    else if(type == 'edit'){
+        // console.log(modules,this.permissionService.editPermissionCheck(modules))
+      return this.permissionService.editPermissionCheck(modules);
+    }
+   
   }
 
   dropDownEnable(type){

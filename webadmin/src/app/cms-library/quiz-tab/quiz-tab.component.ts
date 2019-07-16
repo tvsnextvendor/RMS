@@ -2,7 +2,7 @@ import { Component, OnInit, Input, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { HeaderService, HttpService, AlertService, BreadCrumbService ,UtilService} from '../../services';
+import { HeaderService, HttpService, AlertService, BreadCrumbService ,UtilService,PermissionService} from '../../services';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { CourseService } from '../../services/restservices/course.service';
@@ -53,7 +53,7 @@ export class QuizTabComponent implements OnInit {
   selectedQuiz;
   userData;
 
-  constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService) { }
+  constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService,private permissionService : PermissionService) { }
 
   ngOnInit() {
     this.pageLength=10;
@@ -75,7 +75,8 @@ export class QuizTabComponent implements OnInit {
       this.breadCrumbService.setTitle(data);
       this.enableQuizEdit = true;
     }
-    if(this.roleId == 4 && this.resourceLib){
+    if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Quiz')){
+      // debugger;
       this.iconEnable = false;
     }
     if(this.enableQuizEdit){
@@ -133,7 +134,8 @@ pageChanged(e) {
   }
 
   getDropDownDetails() {
-    this.courseService.getAllCourse('').subscribe(result => {
+    let user = this.utilService.getUserData() ? "?created="+this.utilService.getUserData().userId : '';
+    this.courseService.getAllCourse(user).subscribe(result => {
       if (result && result.isSuccess) {
         this.courseList = result.data && result.data.rows;
       }

@@ -17,7 +17,7 @@
                         <span class="text-over">{{courses.courseName}}</span>
                     </label>
                 <span class="float-right">
-                    <a title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
+                    <a *ngIf ="permissionCheck('Course')" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
                     <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header pr-0" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header pr-0" aria-hidden="true" title="open"></i></a>
                 </span>
             </div>

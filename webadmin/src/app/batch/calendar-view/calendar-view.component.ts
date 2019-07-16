@@ -2,7 +2,7 @@ import { Component, OnInit,TemplateRef,ViewChild} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import {Router,ActivatedRoute} from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import {HeaderService,UtilService,CourseService,BreadCrumbService,AlertService,CommonService,ResortService} from '../../services';
+import {HeaderService,UtilService,CourseService,BreadCrumbService,AlertService,CommonService,ResortService,PermissionService} from '../../services';
 import {BatchVar} from '../../Constants/batch.var';
 import {startOfDay,endOfDay,subDays,subWeeks,subMonths,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,CalendarMonthViewDay} from 'angular-calendar';
@@ -51,7 +51,8 @@ export class CalendarViewComponent implements OnInit {
     private activatedRoute :ActivatedRoute,
     private alertService : AlertService,
     private commonService :CommonService,
-    private resortService : ResortService){
+    private resortService : ResortService,
+    private permissionService : PermissionService){
     this.batchVar.url = API_URL.URLS; 
     this.activatedRoute.queryParams.forEach(items=>{
         this.currentUrl = items.type
@@ -91,6 +92,10 @@ export class CalendarViewComponent implements OnInit {
         }
     }
 
+    permissionCheck(modules){
+        return this.permissionService.editPermissionCheck(modules)
+    }
+    
     goToBatch(event,scheduleId,i,addBatch){
         if(addBatch == "editBatch"){
             this.pageUpdate(event,scheduleId,i,addBatch);

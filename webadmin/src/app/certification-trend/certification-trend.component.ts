@@ -39,7 +39,7 @@ export class CertificationTrendComponent implements OnInit {
   getTrendCountList() {
     let query = this.resortId ? "?resortId=" + this.resortId + "&search=" + this.search  : '';
 
-    console.log(query)
+    // console.log(query)
     this.commonService.certificateTrendCount(query).subscribe((res) => {
       if (res.isSuccess) {
         this.trendList = res.data.rows.length ? res.data.rows : [];

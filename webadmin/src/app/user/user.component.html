@@ -12,7 +12,7 @@
                 <div class="pt-3" id="contentToConvert">
                     <div class="col-md-12 clearfix search-box p-0">
                     <div class="float-right row pb-1 adduser-respon"> 
-                        <span class="pr-2 upload-line">
+                        <span *ngIf = "uploadPermission" class="pr-2 upload-line">
                             <!-- <button class="fileUpload btn btn-primary addUser-upload">
                             <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
                             <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
@@ -82,10 +82,10 @@
                                     <td class="text-center"><label class="mb-0">{{ user.status }}</label></td>
                                     <td class="text-center">
                                     <div class="active-alg">
-                                        <a (click)="viewUserDetail(user,i)"><i class="fa fa-eye header-icon"></i></a>
-                                        <a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                        <a (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
-                                        <a title="{{user.active?'To InActive':'To Active'}}" class=""><label class="switch">
+                                        <a *ngIf = "permissionCheck()" (click)="viewUserDetail(user,i)"><i class="fa fa-eye header-icon"></i></a>
+                                        <a *ngIf = "permissionCheck()" (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a *ngIf = "permissionCheck()" (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
+                                        <a *ngIf = "permissionCheck()" title="{{user.active?'To InActive':'To Active'}}" class=""><label class="switch">
                                             <input type="checkbox" [checked]="user.active" (change)="activeStatus(user)"> 
                                             <span class="slider round"></span>
                                         </label></a>    
@@ -120,9 +120,9 @@
                         <div class="row depart-dtl col-md-12 p-0 mb-4 clearfix" *ngFor="let division of divisionDetails;let i = index;">
                             <label *ngIf="division?.Division?.Departments.length" class="col-md-12 p-0 division-title">{{division?.Division?.divisionName}} 
                                     <!-- (click)="openAddUser(addDivision,'','')" -->
-                                <a (click)="editDivisionData(division?.Division,editDivision,'add')" title="Add"><i class="fa fa-plus ml-10"></i></a>
-                                <a (click)="editDivisionData(division?.Division,editDivision,'edit')" title="Edit"><i class="fas fa-pencil-alt ml-10"></i></a>
-                                <a (click)="removeDivision(deleteDivision,division,i)" class="ml-10" title="Delete"><i class="fas fa-trash"></i></a>
+                                <a *ngIf = "permissionCheck()" (click)="editDivisionData(division?.Division,editDivision,'add')" title="Add"><i class="fa fa-plus ml-10"></i></a>
+                                <a *ngIf = "permissionCheck()" (click)="editDivisionData(division?.Division,editDivision,'edit')" title="Edit"><i class="fas fa-pencil-alt ml-10"></i></a>
+                                <a *ngIf = "permissionCheck()" (click)="removeDivision(deleteDivision,division,i)" class="ml-10" title="Delete"><i class="fas fa-trash"></i></a>
                             </label>
                                 <div *ngIf="division?.Division?.Departments.length" class="dpt-list pl-1 ml-4" >
                                     <div>
@@ -152,8 +152,8 @@
                             <div class="row depart-dtl col-md-12 p-0" *ngFor="let role of roleDetails;let i = index;">
                                 <label  *ngIf="roleDetails.length" class="col-md-12 p-0 label-title">
                                     <span class="col-md-2 mr-0 word-wrap">{{i+1}}.{{role.designationName}} </span>
-                                    <a (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <a (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
+                                    <a *ngIf = "permissionCheck()" (click)="editRoleData(role,editRole)" class="icon-section pt-2 pl-4" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                    <a *ngIf = "permissionCheck()" (click)="removeRole(deleteRole,role,i)" class="icon-section pt-2 pl-4" title="Delete"><i class="fas fa-trash"></i></a>
                                 </label>
                             </div>
                             <!-- <span *ngIf="!roleDetails.length">>{{commonLabels.labels.noData}}</span> -->
@@ -166,8 +166,8 @@
                     </div>
                 </div> 
             </tab>
-            <tab heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
-            <app-rolepermission *ngIf="enableRolePermission" [userIdInfo]="userIdData"></app-rolepermission>
+            <tab *ngIf = "permissionCheck()" heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
+            <app-rolepermission *ngIf="enableRolePermission " [userIdInfo]="userIdData"></app-rolepermission>
             </tab>
         </tabset>  
     </div>

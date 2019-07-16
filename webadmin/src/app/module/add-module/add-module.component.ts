@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
-import { HttpService, HeaderService, UtilService, AlertService, CommonService, CourseService, BreadCrumbService, FileService } from '../../services';
+import { HttpService, HeaderService, UtilService, AlertService, CommonService, CourseService, BreadCrumbService, FileService,PermissionService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { AddQuizComponent } from '../add-quiz/add-quiz.component';
@@ -67,9 +67,10 @@ export class AddModuleComponent implements OnInit {
     fileExist = false;
     existingFile = [];
     roleId;
+    uploadPermission = true;
     // selectedCourseIds:any;
 
-    constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels) {
+    constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels,private permissionService : PermissionService) {
         this.activatedRoute.params.subscribe((params: Params) => {
             this.moduleId = params['moduleId'];
         });
@@ -90,16 +91,33 @@ export class AddModuleComponent implements OnInit {
     ngOnInit() {
         // debugger;
         //this.resetForm();
-
+        this.roleId = this.utilService.getRole();
         if (this.duplicateCourse) {
             let data = [{ title: this.commonLabels.labels.duplicate, url: '/cms-library' }, { title: this.commonLabels.labels.duplicateCourse, url: '' }];
             this.breadCrumbService.setTitle(data);
+            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')){
+                this.uploadPermission = false;
+            }
         }
         else if (this.selectedTab == 'course') {
             let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editCourse, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createCourse, url: '' }];
             this.breadCrumbService.setTitle(data);
+            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')){
+                this.uploadPermission = false;
+                this.alertService.warn("Sorry Your file upload permission is disabled")
+            }
+            else{
+                this.uploadPermission = true;
+              }
         }
         else if (this.selectedTab == 'class') {
+            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Training Class')){
+                this.uploadPermission = false;
+                this.alertService.warn("Sorry Your file upload permission is disabled")
+            }
+            else{
+                this.uploadPermission = true;
+              }
             if (this.classId) {
                 let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }];
                 this.breadCrumbService.setTitle(data);
@@ -116,7 +134,6 @@ export class AddModuleComponent implements OnInit {
         this.appendFilesToVideoList(this.addedFiles);
         
         this.moduleVar.api_url = API_URL.URLS;
-        this.roleId = this.utilService.getRole();
         this.moduleVar.dropdownSettings = {
             singleSelection: false,
             idField: 'id',

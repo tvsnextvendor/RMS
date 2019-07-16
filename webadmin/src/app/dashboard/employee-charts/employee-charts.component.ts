@@ -449,7 +449,7 @@ export class EmployeeChartsComponent implements OnInit {
         align: 'right',
         verticalAlign: 'bottom'
     },
-    series:  [{name:'Employees',data:this.dashboardVar.certificationTrend}],
+    series:  [{name:'Employee',data:this.dashboardVar.certificationTrend}],
     colors: ['#7DB5EC', '#CCCCCC'],
     // stroke:'grey',
   });

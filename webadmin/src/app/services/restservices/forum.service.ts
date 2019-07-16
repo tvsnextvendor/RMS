@@ -31,7 +31,8 @@ export class ForumService {
     // } else {
     //   query = '?forumId' + pageDetails.forumId;
     // }
-      return this.http.getLocal('local', this.url.forum + '?page=' + pageDetails.currentPage + '&size=' + pageDetails.pageSize);
+    let user = this.utilService.getUserData() ? "&createdBy="+this.utilService.getUserData().userId : '';
+      return this.http.getLocal('local', this.url.forum + '?page=' + pageDetails.currentPage + '&size=' + pageDetails.pageSize+user);
   }
 
   getAdmin(createdBy) {
