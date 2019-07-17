@@ -85,6 +85,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
     else if(params.type && params.type == 'edit'){
       this.disableEdit = false;
       this.showcreatecourse = false;
+      this.hideSection =false;
       this.enableNotify = false;
       this.enableBatch = false;
       this.disableTabs = false;
