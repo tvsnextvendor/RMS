@@ -269,7 +269,7 @@ export class CommonLabels{
         "totalDept"         :   "Total Department",
         "allresort"         :   "All Resort",
         "strgUtili"         :   "Storage Utilisation",
-        "gudmrng"           :   "Good Morning,",
+        "welcome"           :   "Welcome,",
         "subStatus"         :   "Subscription Status",
         "resortCertif"      :   "Resort Certificate Trend",
         "peakResort"        :   "Peak Resort!",
