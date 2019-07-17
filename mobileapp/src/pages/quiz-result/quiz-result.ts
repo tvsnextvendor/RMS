@@ -25,27 +25,35 @@ export class QuizResultPage implements OnInit {
     errorMessage;
     currentUser: any;
     msgToUser;
+    trainingClassName;
     className;
     showToastr;
     msgTitle;
+    success;
     msgDes;
     constructor(public navCtrl: NavController,public http: HttpProvider,public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
         this.Math = Math;
         this.resultData = navParams.data;
+        console.log(this.resultData,"cjksnck")
+        this.trainingClassName = this.resultData['trainingClassName'];
+        this.resultData['passPercentage'] = this.resultData['passPerc'];
         this.resultData['percentage'] = Math.round((this.resultData['correctAnswers'] / this.resultData['totalQuestions']) * 100);
         events.subscribe('star-rating:changed', (starRating) => {
             this.feedback.rating = starRating;
-        });
+        });        
     }
+    
     ngOnInit() {
         this.feedbackform = new FormGroup({
           //  'description': new FormControl('', [Validators.required])
             'description': new FormControl('')
         });
-        if(this.resultData['correctAnswers'] >= ( this.resultData['totalQuestions'] / 2 ) ) {
-           this.msgToUser = "Congratulations";
+        if(this.resultData['percentage'] >= this.resultData['passPercentage'] ) {
+           this.msgToUser = "You have successfully completed.";
+           this.success = true;
         }else{
-            this.msgToUser = "Better luck next time";
+            this.msgToUser = "Please retake quiz to get certified.";
+            this.success = false;
         }
      
         this.getUser();

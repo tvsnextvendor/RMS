@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,IonicPage } from 'ionic-angular';
 import { QuizResultPage } from '../quiz-result/quiz-result';
-import { HttpProvider } from '../../providers/http/http';
-import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
 
 @IonicPage({
@@ -23,13 +21,16 @@ export class QuizPage {
     courseId;
     courseName;
     currentUser;
+    passPercentage;
 
-    constructor(public navCtrl: NavController,public storage: Storage ,private http: HttpProvider,private navParams:NavParams) {
+    constructor(public navCtrl: NavController,public storage: Storage,private navParams:NavParams) {
         this.trainingObj = this.navParams.data;
-        this.videoMenuTitle = this.trainingObj.menu;
-        this.trainingClassId = this.trainingObj.trainingClassId;
-        this.courseId = this.trainingObj.courseId;
-        this.courseName = this.trainingObj.courseName;
+        console.log(this.trainingObj,"QUIZ");
+        this.videoMenuTitle = this.trainingObj['setData'].trainingClassName;
+        this.trainingClassId = this.trainingObj['setData'].trainingClassId;
+        this.passPercentage = this.trainingObj['setData'].CourseTrainingClassMaps.length ? this.trainingObj['setData'].CourseTrainingClassMaps[0].Course.TrainingScheduleCourses[0].passPerc : '';
+        this.courseId = this.trainingObj['setData'].CourseTrainingClassMaps.length ? this.trainingObj['setData'].CourseTrainingClassMaps[0].Course.courseId : '';
+        this.courseName = this.trainingObj['setData'].CourseTrainingClassMaps.length ? this.trainingObj['setData'].CourseTrainingClassMaps[0].Course.courseName : '';
         this.quizData = this.trainingObj.quizData;
     }
 
@@ -42,7 +43,7 @@ export class QuizPage {
         });
   }
     //first load
-    ionViewDidLoad() {
+    ngOnInit() {
         this.getQuizContent();
     }
     // Get Quiz Content
@@ -90,7 +91,9 @@ export class QuizPage {
             "totalQuestions"    : this.quizData[0].QuizMappings.length,
             "correctAnswers"    : correctAnswersCount,
             "trainingClassId"   : this.trainingClassId,
+            "trainingClassName" : this.trainingObj['setData'].trainingClassName,
             "courseName": this.courseName,
+            "passPerc" : this.passPercentage 
         };
         this.navCtrl.push(QuizResultPage, resultData);
     }
