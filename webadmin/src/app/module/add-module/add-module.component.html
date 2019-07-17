@@ -131,7 +131,7 @@
 							<span *ngIf="showImage && moduleVar.videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img img-size"></span></div>
 							<span class="col-md-3 p-0 upload-line">						   
 								<a (click)="videoSubmit()">
-									<img class="upload-crt-icon upload" src="../../../assets/images/upload-button.png">
+									<img class="upload-crt-icon upload" src="{{commonLabels.imgs.upload}}">
 									<!-- <i aria-hidden="true" class="fas fa-arrow-circle-up upload-crt-icon"><span class="upload-txt">Upload</span></i>-->
 								</a> 
 							   <a (click)="cancelVideoSubmit()"><i aria-hidden="true" class="fa fa-trash icons_header trash-icon"></i></a>

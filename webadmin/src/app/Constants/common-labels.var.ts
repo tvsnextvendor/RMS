@@ -492,6 +492,7 @@ export class CommonLabels{
         "bunny"         :   "assets/videos/images/bunny.png",
         "email"         :   "assets/images/email.png",
         "pwd"           :   "assets/images/password.png",
+        "upload"        :   "assets/images/upload-button.png"
 
 
 
