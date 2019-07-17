@@ -379,7 +379,7 @@ export class AddNotificationComponent implements OnInit {
           "courseId":'',
           "createdBy"  :this.userId,
           "trainingClassId":'',
-          "signatureStatus" : true,
+          "signatureStatus" : this.notificationType == 'nonSignature' ? false : true,
           "assignedDate":this.batchVar.batchFrom ? this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') : '',
           "dueDate":this.batchVar.batchTo ? this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd') : '',
           "fileName":this.fileName,

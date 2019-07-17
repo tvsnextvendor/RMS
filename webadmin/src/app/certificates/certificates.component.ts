@@ -498,7 +498,7 @@ export class CertificatesComponent implements OnInit {
 
     // Add Certificate Template
     onSave(form) {
-        if (form.valid) {
+        if (form.valid && this.htmlName && this.htmlPath) {
             let apiService;
             // if (this.constant.fileToUpload) {
                 const postData = {

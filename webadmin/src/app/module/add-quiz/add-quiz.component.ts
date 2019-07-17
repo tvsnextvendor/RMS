@@ -593,7 +593,6 @@ export class AddQuizComponent implements OnInit {
                         
                     }
                     else{
-                        
                         this.courseService.addTrainingClass(params).subscribe((result) => {
                             if (result && result.isSuccess) {
                                 this.selectedQuiz = null;
@@ -684,9 +683,21 @@ getQuizData(){
         this.quizQuestionsForm[index].answer = answer;
     }
     else{
-        this.alertService.error("Please enter the option data before select answer")
+        this.alertService.error(this.commonLabels.mandatoryLabels.optionSelect)
     }
     
+  }
+
+  duplicateOptionCheck(index,value,optionIndex){
+    let data = this.quizQuestionsForm[index].options;
+    data.length && data.forEach((item,i)=>{
+        if(i != optionIndex){
+            if(item.optionName && value == item.optionName){
+                this.alertService.warn(this.commonLabels.mandatoryLabels.optionDuplicate)
+                this.quizQuestionsForm[index].options[optionIndex].optionName = '';
+            }
+        }
+    })
   }
 
 }
