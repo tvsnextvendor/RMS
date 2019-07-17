@@ -446,7 +446,7 @@ export class CommonLabels{
         "certiTempl"        :  "Certificates Templates",
         "subscription"      :  "Subscription Model" ,
         "dashboard"         :  "Dashboard",
-        "archivalSettings"  :  "Archival Settings",
+        "purgeSettings"     :  "Purge Settings",
         "approvalRequests"  :   "Approval Requests",  
         "calendar"          :  "Calendar",
         "feedback"          :  "Feedback",
