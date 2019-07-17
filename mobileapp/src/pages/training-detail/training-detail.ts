@@ -52,8 +52,6 @@ export class TrainingDetailPage {
     truncating = true;
     agree: boolean = false;
     courseId;
-    courseName;
-    trainingClassName;
     trainingClassId;
     uploadPath;
     status;
@@ -80,10 +78,8 @@ export class TrainingDetailPage {
     constructor(public navCtrl: NavController,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
-        this.trainingClassName = this.detailObject['setData'].trainingClassName;
         this.trainingClassId = this.detailObject['setData'].trainingClassId;
         this.courseId = this.detailObject['setData'].CourseTrainingClassMaps[0].Course.courseId;
-        this.courseName = this.detailObject['setData'].CourseTrainingClassMaps[0].Course.courseName;
         this.trainingDatas = this.detailObject['setData'].FileMappings;
         this.uploadPath = this.detailObject['uploadPath'];
         this.status= this.detailObject['status'];
@@ -166,11 +162,8 @@ export class TrainingDetailPage {
                     {
                         text: 'Yes',
                         handler: () => {
-                            self.paramsData['trainingClassId'] = self.trainingClassId;
-                            self.paramsData['courseId'] = self.courseId;
-                            self.paramsData['menu'] = self.trainingClassName;
                             self.paramsData['quizData'] = self.quizData;
-                            self.paramsData['courseName'] = self.courseName;
+                            self.paramsData['setData']= this.detailObject['setData'];
                             self.navCtrl.push(QuizPage, self.paramsData);
                         }
                     }]

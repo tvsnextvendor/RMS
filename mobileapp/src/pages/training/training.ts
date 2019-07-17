@@ -50,11 +50,13 @@ export class TrainingPage {
   allTrainingClassesCount;
   uploadPath;
   currentUser;
+  trainingScheduleId;
   notificationCount;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public socketService: SocketService,public loader: LoaderService) {
     this.detailObject = this.navParams.data;
     this.courseIdParams = this.detailObject.courseId;
+    this.trainingScheduleId = this.detailObject.trainingScheduleId;
     this.statusKey = this.detailObject['status'] ? this.detailObject['status'] : 'assigned';
     this.selectedModule = constant.pages.dashboardLabels.selectModules;
   }
@@ -108,7 +110,7 @@ export class TrainingPage {
     let userId = this.currentUser.userId;
     let resortId = this.currentUser.ResortUserMappings[0].resortId;
     return new Promise(resolve => {
-      this.http.get(API_URL.URLS.trainingCourseFilesAPI+'?courseId='+self.courseIdParams+'&resortId='+ resortId +'&userId='+userId+'&type='+'mobile').subscribe((res) => {
+      this.http.get(API_URL.URLS.trainingCourseFilesAPI+'?courseId='+self.courseIdParams+'&trainingScheduleId='+this.trainingScheduleId+'&resortId='+ resortId +'&userId='+userId+'&type='+'mobile').subscribe((res) => {
         self.allTrainingClasses = res['data']['rows'];
         self.allTrainingClassesCount = res['data']['count'];
         self.uploadPath = res['data']['uploadPaths']['uploadPath'];
@@ -160,7 +162,6 @@ export class TrainingPage {
   }
   //open  page
   openTrainingDetail(detailObj, selectedIndex, uploadPath) {
-    //alert(uploadPath);
     this.paramsData['status'] = detailObj.FeedbackMappings.length ? detailObj.FeedbackMappings[0].status : 'inProgress';
     this.paramsData['setData'] = detailObj;
     this.paramsData['selectedIndex'] = selectedIndex;

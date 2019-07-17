@@ -111,21 +111,22 @@ export class CoursePage implements OnInit {
     this.navCtrl.setRoot('course-failed-page');
   }
   
-  openTrainingClass(courseId) 
+  openTrainingClass(data) 
   {
     if(this.status == 'assigned'){
     let userId = this.currentUser ? this.currentUser.userId : 8;
-        let data={
-        'courseId' :courseId,
+        let postData={
+        'courseId' :data.Course.courseId,
         'userId' : userId,
         'status': "inProgress"
         }
-        this.http.put(false,API_URL.URLS.updateTrainingStatus, data).subscribe((res) => {      
+        this.http.put(false,API_URL.URLS.updateTrainingStatus, postData).subscribe((res) => {      
         },(err) => {
 
         });
       }
-    this.paramsData['courseId'] = courseId;
+    this.paramsData['courseId'] = data.Course.courseId;
+    this.paramsData['trainingScheduleId'] = data.TrainingSchedule.trainingScheduleId;
     this.paramsData['status'] = this.status;
     this.navCtrl.setRoot('training-page',this.paramsData);
   }
@@ -175,7 +176,6 @@ export class CoursePage implements OnInit {
           } else {
               this.courseList = res['data']['rows'];
           }
-          console.log(this.courseList,"courselist");
         }else{
           this.assignedCount = 0;
           self.noRecordsFoundMessage = res['message'];

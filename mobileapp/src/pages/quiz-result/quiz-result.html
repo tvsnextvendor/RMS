@@ -12,7 +12,8 @@
         </div>
     </div>
     <div class="image-wrapper">
-        <img src='assets/imgs/congratulations.png' />
+        <img *ngIf="success" src='assets/imgs/congratulations.png' />
+        <img *ngIf="!success" src='assets/imgs/failure.png' />
     </div>
     <div text-center class="congratulations-text">
         <!-- <span class="congratulations-text-span">
@@ -20,11 +21,12 @@
         </span> -->
         <span class="congratulations-text-span">
             <h5>{{msgToUser}}</h5>
+            <h5 *ngIf="success">{{trainingClassName}}</h5>
         </span>
-        <p>{{constant.pages.quizResultLabels.yourscored}} {{resultData.correctAnswers}}
-            {{constant.pages.quizResultLabels.outOf}} {{resultData.totalQuestions}}!</p>
+        <!-- <p>{{constant.pages.quizResultLabels.yourscored}} 
+            {{constant.pages.quizResultLabels.outOf}} !</p> -->
         <span class="score-btn">
-            <p>{{constant.pages.quizResultLabels.yourScorePercent}} {{resultData.percentage}}%</p>
+            <p>{{constant.pages.quizResultLabels.yourScorePercent}} {{resultData.percentage }}%   ({{resultData.correctAnswers}}/{{resultData.totalQuestions}})</p>
         </span>
         <form (ngSubmit)="feedbackForm()" [formGroup]="feedbackform" novalidate>
             <div class="rating-block">
