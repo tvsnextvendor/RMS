@@ -31,7 +31,7 @@ export class ArchivalSettingComponent implements OnInit {
   ngOnInit() {
     this.page = 1;
     this.pageSize = 10;
-    this.headerService.setTitle({title:'Archival Setting', hidemodule:false});
+    this.headerService.setTitle({title:'Purge Setting', hidemodule:false});
       this.breadCrumbService.setTitle([])
       this.getArchieveDetails();
       this.getCourseList();
