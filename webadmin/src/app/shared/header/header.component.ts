@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
    
   ngOnInit(){
     let userData= this.utilService.getUserData();
-    console.log(userData, "USERDATA");
+    // console.log(userData, "USERDATA");
     this.uploadPath = userData ? userData.uploadPaths.uploadPath : '';
     this.getNotification();
     this.headerService.TitleDetail.subscribe((resp) => { 
@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit {
          this.socketService.getNotification(socketObj).subscribe((data) => {
              this.notificationCount = data['unReadCount'];
              this.notificationList = data['rows'];
-             console.log(this.notificationList)
+            //  console.log(this.notificationList)
 
          });
        }, 15000);  

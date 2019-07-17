@@ -151,6 +151,12 @@ export class CreateForumComponent implements OnInit {
         if (this.assignToId.length && this.adminData.length) {
           this.assignList = this.adminData.filter(item=>this.assignToId.some(x=>x==item.id))
         }
+        if(this.assignList.length && this.adminData.length){
+          this.assignList = this.assignList.filter(o => this.adminData.find(x => x.id === o.id));
+        }
+        else{
+          this.assignList = [];
+        }
 
       }else{
         this.adminData = [];
@@ -172,6 +178,9 @@ export class CreateForumComponent implements OnInit {
         };
         return department;
       });
+      if(this.departmentList.length){
+        this.getAdminList();
+      }
     });
   }
 
@@ -225,11 +234,26 @@ export class CreateForumComponent implements OnInit {
         if (wholeDivision) {
           this.departmentList = this.departmentList.filter(o => !wholeDivision.find(x => x.departmentId === o.id));
           this.departData = this.departData.filter(o => !wholeDivision.find(x => x.departmentId === o.id));
+          // if(this.departmentList.length){
+            this.getAdminList();
+          // }
         } else {
           // const divisionNull = this.Divisions.filter(o => !this.division['divisionList'].find(x => x.id === o.divisionId));
         }
       });
       this.itemDeselected = true;
+    }
+    else if(type == 'department'){
+      // this.getAdminList();
+      this.userService.getUserByDivDept({'departmentId':  [event.id], 'createdBy': this.utilService.getUserData().userId }).subscribe(resp => {
+        if(resp.data){
+          let wholeDivision = resp.data;
+          this.adminData = this.adminData.filter(o => !wholeDivision.find(x => x.userId === o.id));
+            this.assignList = this.assignList.filter(o => !wholeDivision.find(x => x.userId === o.id));
+        }else{
+          this.adminData = [];
+        }   
+      });
     }
   }
 

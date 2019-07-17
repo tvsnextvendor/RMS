@@ -91,6 +91,7 @@ export class UserComponent implements OnInit {
     fileExist = false;
     lastName;
     uploadPermission = true;
+    userTab = true;
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
@@ -879,7 +880,7 @@ export class UserComponent implements OnInit {
         }
         if (key == 'dept') {
             let id = event.departmentId;
-            let obj = this.editData.ResortUserMappings.forEach(item => {
+            let obj = this.editData.ResortUserMappings.length && this.editData.ResortUserMappings.forEach(item => {
                 if (item.Division && item.Department.departmentId == id) {
                     let arr = [];
                     arr.push(item.resortUserMappingId);
@@ -982,9 +983,13 @@ export class UserComponent implements OnInit {
     }
 
     roleTabSelect(type) {
+        this.userTab = false;
         if (type === 'rolesPermission') {
             this.enableRolePermission = true;
             this.userIdData = '';
+        }
+        else if(type == 'user'){
+            this.userTab = true;
         }
         else {
             this.enableRolePermission = false;
