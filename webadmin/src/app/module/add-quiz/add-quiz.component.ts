@@ -363,10 +363,13 @@ export class AddQuizComponent implements OnInit {
                                 fileExtension: item.fileExtension,
                                 fileImage: item.fileImage,
                                 fileSize: item.fileSize,
+                                fileId: item.fileId,
                                 fileLength: item.fileLength
                             }
                             return obj;
                         }
+
+
 
                     })
                 }
