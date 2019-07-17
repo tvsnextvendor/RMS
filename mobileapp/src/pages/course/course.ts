@@ -54,7 +54,7 @@ export class CoursePage implements OnInit {
   showCompleted: boolean = true;
   showSignRequire: boolean = true;
   currentPage = this.constant.numbers.one;
-  perPageData = this.constant.numbers.five;
+  perPageData = this.constant.numbers.ten;
   
   @ViewChild(Content) content: Content;
   

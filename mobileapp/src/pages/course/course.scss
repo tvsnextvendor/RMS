@@ -57,7 +57,7 @@ page-course {
         font-size: 14px;
 		font-weight: 600;
 		text-align: right;
-        margin-top: 13px;
+        margin-top: 20px;
 	}
 	.add-question {
 		z-index: 6;
@@ -96,6 +96,13 @@ page-course {
 	font-size: 17px;
 	padding: 10px;
 	border-bottom: 1px solid #ccc;
+}
+
+.tot-count{
+    text-align: right;
+    font-weight: 600;
+    font-size: 14px;
+    color: #5d5959;
 }
 
 

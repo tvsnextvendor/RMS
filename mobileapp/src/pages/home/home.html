@@ -10,7 +10,7 @@
           <ion-icon (click)="goToForum()" name="ios-chatboxes" class="chat-icon"></ion-icon>
           <a (click)="goToNotification()">
             <img src="assets/imgs/notification.png" />
-            <span class="dot-circle">{{notificationCount}}</span>
+            <span class="dot-circle" *ngIf="notificationCount > 0">{{notificationCount}}</span>
           </a>
         </div>
       </ion-title>
@@ -19,9 +19,9 @@
   <div class="main-content">
     <div class="current-day">
       <h3 *ngIf="currentUser">{{constant.pages.dashboardLabels.goodMrng}}, {{currentUser.userName}}</h3>
-      <p class="m-0"><span class="day-detail">{{todayDate | date :'E, MMM dd'}} </span></p>
+      <!-- <p class="m-0"><span class="day-detail">{{todayDate | date :'E, MMM dd'}} </span></p>
       <p class="weather-status"><img class="weather-img" src="assets/imgs/cool.png" />
-        <span class="weather-sts">-4<sup>&#8728;</sup> C</span></p>
+        <span class="weather-sts">-4<sup>&#8728;</sup> C</span></p> -->
     </div>
     <ion-grid class="status-grid no-padding">
       <ion-row nowrap class="forecast_container">
@@ -122,10 +122,12 @@
       <ul class="clearfix">
         <li><span (click)="changeStatus('assigned')"
             [ngClass]="status == 'assigned' ? 'active-color' : ''">{{constant.pages.dashboardLabels.assignedLabel}}</span>
+            <div class="notification-cont" *ngIf="dashboardCount.assignedCount > 0"><span class="notification-num">{{dashboardCount.assignedCount}}</span></div>
         </li>
         <li><span>|</span></li>
         <li><span (click)="changeStatus('inProgress')"
             [ngClass]="status == 'inProgress' ? 'active-color' : ''">{{constant.pages.dashboardLabels.progressLabel}}</span>
+            <div class="notification-cont" *ngIf="dashboardCount.inProgressCount > 0"><span class="notification-num">{{dashboardCount.inProgressCount}}</span></div>
         </li>
       </ul>
     </div>

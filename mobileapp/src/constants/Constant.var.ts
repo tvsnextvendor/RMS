@@ -58,6 +58,7 @@ export class Constant {
         seven:7,
         eight:8,
         nine:9,
+        ten:10,
         zero:0
     };
 
@@ -99,7 +100,7 @@ export class Constant {
             }
         },
         dashboardLabels: {
-            goodMrng: 'Good Morning',
+            goodMrng: 'Good Day',
             currentTime: 'Thursday, Aug 10',
             selectModules: 'All Programs',
             module: 'Program',

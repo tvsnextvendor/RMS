@@ -424,6 +424,7 @@ img.completed-img {
 			 li {
 				float: left;
 				list-style: none;
+				position: relative;
 				span {
 					opacity: 0.4;
     color: #fff;
@@ -431,10 +432,41 @@ img.completed-img {
     line-height: 40px;
 	font-size: 13px;
 	
+	
+				}
+				.notification-cont{
+					position: absolute;
+    top: -5px;
+    right: -13px;
+    border-radius: 30px;
+    background-color: red;
+    width: 28px;
+    text-align: center;
+    height: 28px;
+    margin: 0 auto;
+    padding: 2px;
+				}
+.notification-num{
+	border: 1px solid #fff;
+    border-radius: 37px;
+    font-size: 15px;
+    opacity: 1;
+    line-height: 20px;
+    display: block;
+    margin: 0 auto;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    padding: 0;
+    font-weight: 800;
+				}
+				.notification-num{
+					text-align: center;
 				}
 				.active-color{
 					opacity: 1;
 				}
+				
 			}
 		}
 		

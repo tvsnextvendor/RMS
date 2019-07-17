@@ -768,6 +768,13 @@ page-home .course-count p:hover {
                     .calendar .monthview-primary-with-event{
                         border-radius: unset !important;
                     }
+page-course .complete-status{
+    color: #279014;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 20px;
+}                         
 } 
 @media (min-width: 768px) and (max-width: 979px) { 
     .table-bordered> tbody> tr> th ,
@@ -779,7 +786,14 @@ page-home .course-count p:hover {
                     }   
                     .calendar .monthview-primary-with-event{
                         border-radius: unset !important;
-                    }    
+                    }  
+page-course .complete-status{
+    color: #279014;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 20px;
+}                           
 } 
 @media (min-width: 979px){}
 @media (max-width: 767px) { } 
@@ -794,7 +808,14 @@ page-home .course-count p:hover {
                     .table-bordered> tbody> tr> td ,
                     .table-bordered> tfoot> tr> td {
                         border:none !important;
-                    }          
+                    }   
+page-course .complete-status{
+    color: #279014;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 10px !important;
+}       
  }
  @media (min-width: 375px) and (max-width: 667px) { 
      .calendar td {
@@ -807,7 +828,14 @@ page-home .course-count p:hover {
                     .table-bordered> tbody> tr> td ,
                     .table-bordered> tfoot> tr> td {
                         border:none !important;
-                    }          
+                    }  
+page-course .complete-status{
+    color: #279014;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 10px !important;
+}             
  }
  @media (min-width: 414px) and (max-width: 736px) { 
 .calendar td {
@@ -820,7 +848,15 @@ page-home .course-count p:hover {
                     .table-bordered> tbody> tr> td ,
                     .table-bordered> tfoot> tr> td {
                         border:none !important;
-                    }          
+                    } 
+page-course .complete-status{
+    color: #279014;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 10px !important;
+}                         
+                    
  }
  @media (min-width: 736px) and (max-width: 812px) { 
      .calendar td {
@@ -829,4 +865,11 @@ page-home .course-count p:hover {
 .calendar .monthview-primary-with-event{
                         border-radius: unset !important;
                     }
+page-course .complete-status{
+    color: #279014;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 20px;
+}                         
 }

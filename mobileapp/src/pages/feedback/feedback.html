@@ -8,7 +8,7 @@
       <span class="header-title">{{constant.title.feedback}}</span>
       <div class="header-icon" (click)="goToNotification()">
         <img src="assets/imgs/notification.png" />
-        <span class="dot-circle">{{notificationCount}}</span>
+        <span class="dot-circle" *ngIf="notificationCount > 0">{{notificationCount}}</span>
       </div>
     </ion-title>
   </ion-navbar>
