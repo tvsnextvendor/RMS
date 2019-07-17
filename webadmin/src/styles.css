@@ -73,6 +73,16 @@ span.nodata {
   color: #468FB9;
   display: block;
 }
+.notification-icon{
+  color: #468FB9;
+    font-size: 30px;
+    display: block;
+}
+.notification-txt{
+  font-weight: 600;
+  color: #697380;
+  font-size: 15px;
+}
 .btn-save{
     float: none !important;
  } 

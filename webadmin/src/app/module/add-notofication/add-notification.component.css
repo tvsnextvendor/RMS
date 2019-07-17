@@ -173,3 +173,7 @@
 .notify-img-alg{
     width: 120px;
 }
+.upload-file{
+    position: relative;
+    z-index: 10;
+}
