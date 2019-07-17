@@ -546,6 +546,7 @@ export class CommonLabels{
         "topicRequired"     :  "Topic is required",          
         "adminRequired"     :  "Admin is required" ,
         "tempNameMandatory" :  "Template Name is required.",
+        "tempFileMandatory" :  "Template File is required.",
         "quizName"          : "Quiz Name is mandatory",
         "uploadErrMsg"      :  "Template File is mandatory",
         "badgepercentageError" : "Badge pass percentage already assigned",
@@ -592,9 +593,9 @@ export class CommonLabels{
         "employeeNullError" :   "Please select valid employee",
         "quizAnswer"        :   "Please fill the answer fields",
         "quizOption"        :   "Please fill the MCQ question option fields",
-        "scheduleCourse"    :   'Minimum one course is required'
-
-     
+        "scheduleCourse"    :   'Minimum one course is required',
+        "optionDuplicate"   :   "Same option value already enter for this question",
+        "optionSelect"      :   "Please enter the option data before select answer"
     };
 
      modaltitle ={

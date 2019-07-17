@@ -71,7 +71,8 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="course-header">{{commonLabels.labels.noOfEmployee}}</label>
-                            <span class="course-count" routerLink="/employeelist/{{data.courseId}}">{{data.totalEmployeeCount}}</span>
+                            <span *ngIf ="data.totalEmployeeCount" class="course-count" routerLink="/employeelist/{{data.courseId}}">{{data.totalEmployeeCount}}</span>
+                            <span *ngIf ="data.totalEmployeeCount == 0" class="course-count">{{data.totalEmployeeCount}}</span>
                         </div>
                     </div>
                     <div class="col-md-3">
