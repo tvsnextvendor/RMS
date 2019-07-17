@@ -65,9 +65,10 @@ export class HeaderComponent implements OnInit {
       });
        setInterval(() => {
          this.socketService.getNotification(socketObj).subscribe((data) => {
-             console.log(data)
              this.notificationCount = data['unReadCount'];
              this.notificationList = data['rows'];
+             console.log(this.notificationList)
+
          });
        }, 15000);  
    }

@@ -190,3 +190,8 @@ height: 145px !important;
   height: 200px; margin: 0 auto; padding-top: 50px;
   cursor: pointer;
 }
+.select-resort, .select-parent{
+    color: #545050;
+    font-size: 12px;
+    font-weight: 600;
+}
