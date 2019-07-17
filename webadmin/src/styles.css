@@ -466,7 +466,7 @@ li.search-block {
 	width: 20px;
     border-radius: 10px;
     color: #fff !important;
-    background-color: #468FB9;
+    background-color: #dc3545;
     position: absolute;
     top: -11px;
     right: -2px;
@@ -515,7 +515,10 @@ li.search-block {
 }
 .noti-desc{
   font-size: 12px;
-  line-height: 30px;
+    line-height: 18px;
+    word-break: break-all;
+    white-space: normal;
+    overflow: hidden;
 }
 .noti-timer{
   font-size: 14px;
