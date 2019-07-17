@@ -48,7 +48,7 @@ getSignRequired(){
     let resortId = this.currentUser.ResortUserMappings[0].resortId;
     let status = 'noSignRequired';
     this.loader.showLoader();
-    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId +'&resortId='+resortId+'&status='+status).subscribe(res=>{
+    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId +'&resortId='+resortId+'&mobile='+1+'&status='+status).subscribe(res=>{
     if(res['data']['rows']){
        this.loader.hideLoader();
       this.signRequireList =res['data']['rows'];

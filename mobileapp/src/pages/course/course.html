@@ -43,7 +43,7 @@
     <span class="tab-item" (click)="showData('inProgress')" [ngClass]="!showProgress ? 'inprogress' : ''">
       {{constant.pages.trainingLabels.progressLabel}}
     </span>
-    <span class="tab-item" (click)="getSignRequired()" [ngClass]="!showSignRequire ? 'signRequire' : ''">
+    <span class="tab-item" (click)="getSignRequired('')" [ngClass]="!showSignRequire ? 'signRequire' : ''">
       {{constant.pages.trainingLabels.signRequired}}
     </span>
     <span class="tab-item" (click)="showData('completed')" [ngClass]="!showCompleted ? 'complete' : ''">
@@ -157,10 +157,13 @@
                 <h4 class="notify-title" (click)="openSignRequireDetail(task.File,task.notificationFileId)"> {{task.File.fileName}}</h4>
               </ion-col>
               <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
-                <div class="align-right" *ngIf="task.dueDate">
+                <div class="align-right" *ngIf="task.dueDate && task.NotificationFileMaps[0].status != 'completed'">
                   <span class="hour-status batch-date">Due On - {{task.dueDate | date:'dd MMM yyyy'}}</span>
                   <p class="org-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
                   {{calculateExpireDays(task.dueDate)}}</p>
+                </div>
+                <div class="complete-status" *ngIf="task.NotificationFileMaps[0].status == 'completed'">
+                  Completed
                 </div>
               </ion-col>
               <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openSignRequireDetail(task.File,task.notificationFileId)">
