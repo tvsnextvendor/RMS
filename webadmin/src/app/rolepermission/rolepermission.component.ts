@@ -18,6 +18,7 @@ export class RolepermissionComponent implements OnInit {
   resortId;
   rolesPermissions;
   @Input() userIdInfo;
+  @Input() viewUserRolePermission;
 
 
   constructor(public constant: RolePermissionVar, private alertService: AlertService, private headerService: HeaderService, private commonService: CommonService, private utilService: UtilService, private rolePermissionService: RolePermissionService, public commonLabels: CommonLabels) {

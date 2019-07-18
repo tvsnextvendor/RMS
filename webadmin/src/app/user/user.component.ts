@@ -92,6 +92,7 @@ export class UserComponent implements OnInit {
     lastName;
     uploadPermission = true;
     userTab = true;
+    viewUserRolePermission = false;
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
@@ -533,6 +534,7 @@ export class UserComponent implements OnInit {
     viewUserDetail(user, i) {
         this.staticTabs.tabs[3].active = true;
         this.enableRolePermission = true;
+        this.viewUserRolePermission = true;
         this.userIdData = user.userId;
     }
 
@@ -984,6 +986,7 @@ export class UserComponent implements OnInit {
 
     roleTabSelect(type) {
         this.userTab = false;
+        this.viewUserRolePermission = false;
         if (type === 'rolesPermission') {
             this.enableRolePermission = true;
             this.userIdData = '';
