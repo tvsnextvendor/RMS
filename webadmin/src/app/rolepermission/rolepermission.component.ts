@@ -178,20 +178,38 @@ export class RolepermissionComponent implements OnInit {
   selectAll(event) {
     const name = event.target.name;
     const value = event.target.checked;
-    for (var i = 0; i < this.constant.modules.length; i++) {
-      this.constant.modules[i][name] = value;
-      if (name == 'view') {
-        this.constant.selectAllView = value;
-      } else if (name == 'upload') {
-        this.constant.selectAllUpload = value;
-      } else if (name == 'edit') {
-        this.constant.selectAllEdit = value;
-      } else {
-        this.constant.selectAllView = value;
-        this.constant.selectAllUpload = value;
-        this.constant.selectAllEdit = value;
+    if(this.constant.modules.length == 1 && (name == 'view' || name == 'edit')){
+      name == 'view'  ? this.alertService.warn('Sorry unable to give view permision for mobile settings') : this.alertService.warn('Sorry unable to give edit permision for mobile settings')
+    }
+    else{
+      for (var i = 0; i < this.constant.modules.length; i++) {
+        this.constant.modules[i][name] = value;
+        if (name == 'view') {
+          this.constant.selectAllView = value;
+        } else if (name == 'upload') {
+          this.constant.selectAllUpload = value;
+        } else if (name == 'edit') {
+          this.constant.selectAllEdit = value;
+        } else {
+          this.constant.selectAllView = value;
+          this.constant.selectAllUpload = value;
+          this.constant.selectAllEdit = value;
+        }
       }
     }
+    console.log(this.constant.modules,name)
+    this.constant.modules.forEach((item,i)=>{
+      if(item.moduleName ==  "Employee Content Upload" && name == 'view'){
+        this.constant.modules[i].view = false;
+        this.constant.selectAllView = false;
+        this.alertService.warn('Sorry unable to give view permision for mobile settings')
+      }
+      else if(item.moduleName ==  "Employee Content Upload" && name == 'edit'){
+        this.constant.modules[i].edit = false;
+        this.constant.selectAllEdit = false;
+        this.alertService.warn('Sorry unable to give edit permision for mobile settings')
+      }
+    })
   }
 
   saveRolePermission(form) {
