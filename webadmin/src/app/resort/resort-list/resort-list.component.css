@@ -28,6 +28,7 @@ th.action-hd {
 }
 
 .resort-searchbox{
+  position: relative;
   padding: 8px;
   font-size: 14px;
   background: #fff;
@@ -36,11 +37,14 @@ th.action-hd {
   border-right: none;
   border-bottom: 1px solid #ccc;
   margin-right: 1px;
-  width: 84%;
+  width: 100%;
   }
   .resort-search-icon{
   background: none;
   border: none;
+  position: absolute;
+  right: 18px;
+  top: 85px;
   }
   .search-icon{
   color: #468FB9;

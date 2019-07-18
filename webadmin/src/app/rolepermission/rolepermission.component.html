@@ -93,9 +93,10 @@
 			<tbody>
 				<tr class="table-desc-color" *ngFor="let module of constant.modules;let i = index;">
 					<td class="pl-5">{{module.moduleName}}</td>
-					<td class="checkbox-padding"><label class="table-checkbox-cont">
+					<td class="checkbox-padding">
+						<label class="table-checkbox-cont">
 							<input [disabled]="module.moduleName == 'Employee Content Upload' ? true : false" type="checkbox" [checked]="module.view" name="view" (change)="checkIfAllSelected($event,module.view,i)">
-							<span class="table-checkmark"></span>
+							<span [ngClass]="module.moduleName == 'Employee Content Upload' ? 'table-checkmark checkmark-disable':'table-checkmark'"></span>
 						</label></td>
 					<td class="checkbox-padding"><label class="table-checkbox-cont">
 							<input type="checkbox" [checked]="module.upload" name="upload" (change)="checkIfAllSelected($event,module.upload,i)">
@@ -103,7 +104,7 @@
 						</label></td>
 					<td class="edit-padding"><label class="table-checkbox-cont">
 							<input [disabled]="module.moduleName == 'Employee Content Upload' ? true : false" type="checkbox" [checked]="module.edit" name="edit" (change)="checkIfAllSelected($event,module.edit,i)">
-							<span class="table-checkmark"></span>
+							<span [ngClass]="module.moduleName == 'Employee Content Upload' ? 'table-checkmark checkmark-disable': 'table-checkmark'"></span>
 						</label></td>
 				</tr>
 			</tbody>
