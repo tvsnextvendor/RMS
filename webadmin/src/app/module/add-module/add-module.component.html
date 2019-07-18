@@ -127,7 +127,7 @@
 							</div>
                         <div class="col-md-4 pr-0">
 							<span *ngIf="!moduleVar.videoFile"><img src="{{commonLabels.imgs.profile}}" class="pl-3"></span>
-							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img class="thumbnail_img img-size"></span>
+							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img src="{{commonLabels.imgs.profile}}" class="thumbnail_img img-size"></span>
 							<span *ngIf="showImage && moduleVar.videoFile && previewImage"><img  src = "{{previewImage}}" class="thumbnail_img img-size"></span></div>
 							<span class="col-md-3 p-0 upload-line">						   
 								<a (click)="videoSubmit()">

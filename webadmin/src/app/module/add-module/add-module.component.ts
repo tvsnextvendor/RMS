@@ -687,7 +687,8 @@ export class AddModuleComponent implements OnInit {
             this.previewImage =  this.commonLabels.imgs.text; 
             break;
         case "mp4":
-            this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileImage;
+            // this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileImage;
+            this.previewImage = null;
             break;         
         case "png" :
         case "jpg" : 
