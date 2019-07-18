@@ -39,7 +39,7 @@
 					<div class=" col-md-9 pl-0 select select-style clearfix p-0 m-0">
 						<select class="form-control p-0 cp" name="quiz" [(ngModel)]="selectedQuiz" (change)="getQuizData()">
 							<option value="null" disabled>{{commonLabels.labels.selectQuiz}}</option>
-							<option *ngFor="let quiz of quizList" [value]="quiz.quizId">{{quiz.quizName}}</option>
+							<option *ngFor="let quiz of quizList" value="{{quiz.quizId}}~{{quiz.QuizMappings[0].TrainingClass.trainingClassId}}">{{quiz.quizName}}</option>
 						</select>
 						<div class="select_arrow"></div>
 					</div>
