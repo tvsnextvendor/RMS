@@ -70,6 +70,7 @@
   float: none;
 }
 .user-searchbox{
+  position: relative;
   padding: 8px;
   font-size: 14px;
   background-color: #fff;
@@ -83,6 +84,9 @@
   .user-search-icon{
   background: none;
   border: none;
+  position: absolute;
+  right: 18px;
+  top: 85px;
   }
   .search-icon{
   color: #468FB9;
