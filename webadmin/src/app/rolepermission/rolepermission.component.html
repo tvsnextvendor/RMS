@@ -111,7 +111,7 @@
 		</table>
 	</div>
 
-	<div class="float-right p-3">
+	<div *ngIf="!viewUserRolePermission" class="float-right p-3">
 		<button type="submit" class="btn btn-primary mr-3 creat-btn">{{commonLabels.btns.save}}</button>
 		<button type="button" class="btn btn-default" (click)="clearForm(rolepermission)">{{commonLabels.btns.cancel}}</button>
 	</div>

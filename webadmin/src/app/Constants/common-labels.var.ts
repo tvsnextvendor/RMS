@@ -242,7 +242,7 @@ export class CommonLabels{
         "employeeTabLabel"  :   "Employee",        
         "recentComment"     :   "Recent Comment",
         "wishes"            :   "Good Morning",        
-        "notificationdash"  :   "You have 5 important tasks today, Some messages and notifications.",
+        "notificationdash"  :   "You have 5 notification alert.",
         "totalCourses"      :   'Total Courses',
         "availableCourses"  :   'Assigned Courses',
         "completedCourses"  :   'Completed Courses',
