@@ -197,6 +197,13 @@ padding: 0 11px;
     width: 30px;
     color: #65A1C5;
 }
+.fnt-size{
+  font-size: 33px;
+  font-weight: 600;
+  padding-bottom: 2px;
+  line-height: 2;
+  padding-right: 22px;
+}
 .total-count{
   margin: 0;
     color: #1D4960;
@@ -207,4 +214,9 @@ padding: 0 11px;
 }
 .training-alg{
   height: 200px;
+}
+.selected-prf-img{
+	width: 70px;
+    height: 70px;
+    border-radius: 90px;
 }
