@@ -269,7 +269,7 @@ export class CommonLabels{
         "totalDept"         :   "Total Department",
         "allresort"         :   "All Resort",
         "strgUtili"         :   "Storage Utilisation",
-        "gudmrng"           :   "Good Morning,",
+        "welcome"           :   "Welcome,",
         "subStatus"         :   "Subscription Status",
         "resortCertif"      :   "Resort Certificate Trend",
         "peakResort"        :   "Peak Resort!",
@@ -446,7 +446,7 @@ export class CommonLabels{
         "certiTempl"        :  "Certificates Templates",
         "subscription"      :  "Subscription Model" ,
         "dashboard"         :  "Dashboard",
-        "archivalSettings"  :  "Archival Settings",
+        "purgeSettings"     :  "Purge Settings",
         "approvalRequests"  :   "Approval Requests",  
         "calendar"          :  "Calendar",
         "feedback"          :  "Feedback",
@@ -492,6 +492,7 @@ export class CommonLabels{
         "bunny"         :   "assets/videos/images/bunny.png",
         "email"         :   "assets/images/email.png",
         "pwd"           :   "assets/images/password.png",
+        "upload"        :   "assets/images/upload-button.png"
 
 
 

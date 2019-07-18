@@ -20,7 +20,7 @@
 }
 .upload{
 	position: absolute;
-    top: 57px;
+    top: 55px;
     left: 10px;
     margin: 0;
     padding: 0;
@@ -37,7 +37,7 @@
 .profile-img{
 	position: relative;
 }
-.profile-img:hover .profile-bg{
+.profile-img .profile-bg{
 	position: absolute;
     top: 0px;
     left: 0px;
@@ -49,9 +49,9 @@
 	visibility: visible;
 
 }
-.profile-img .profile-bg{
+/* .profile-img .profile-bg{
 display: none;visibility: hidden;
-}
+} */
 /* .profile-bg{
 	position: absolute;
     top: 0px;

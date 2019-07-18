@@ -48,7 +48,7 @@
 								<label class="col-md-4 p-0 label-title">{{commonLabels.labels.weightage}}</label>
 								<div class="col-md-8">
 									<span>
-										<input type="text" class="form-control" placeholder="Enter Weightage" name="Weightage" value="{{weightage}}%"
+										<input disabled type="text" class="form-control" placeholder="Enter Weightage" name="Weightage" value="{{weightage}}%"
 										#WeightageVal="ngModel" [(ngModel)]="data.weightage" required>
 									</span>
 									<span class="required_color" *ngIf="WeightageVal && WeightageVal.invalid && (quizForm.submitted || WeightageVal.touched)">

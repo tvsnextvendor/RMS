@@ -88,6 +88,7 @@
     height: 200px;
 }
 .user-searchbox{
+  position: relative;
   padding: 8px;
   font-size: 14px;
   background-color: #fff;
@@ -96,11 +97,14 @@
   border-right: none;
   border-bottom: 1px solid #ccc;
   margin-right: 1px;
-  width: 84%;
+  width: 100%;
   }
   .user-search-icon{
   background: none;
   border: none;
+  position: absolute;
+  right: 22px;
+  top: 85px;
   }
   .search-icon{
   color: #468FB9;

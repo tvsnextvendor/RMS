@@ -155,48 +155,50 @@ static readonly defaultModules = [{
 
 
 static readonly mobileModules = [{
-	'moduleName': 'Mobile_Dashboard',
+	'moduleName': 'Employee Content Upload',
 	'view': false,
 	'upload': false,
 	'edit': false,
 	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Training',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Forum',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Accomplishments',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Training Schedule',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Feedback',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Settings',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}];
+}
+// {
+// 	'moduleName': 'Mobile_Training',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Forum',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Accomplishments',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Training Schedule',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Feedback',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Settings',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }
+];
 
 
 static readonly webAndMobile = [{
@@ -253,49 +255,57 @@ static readonly webAndMobile = [{
 	'upload': false,
 	'edit': false,
 	'type': "web"
-}, {
-	'moduleName': 'Mobile_Dashboard',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Training',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Forum',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Accomplishments',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Training Schedule',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Feedback',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}, {
-	'moduleName': 'Mobile_Settings',
+}, 
+{
+	'moduleName': 'Employee Content Upload',
 	'view': false,
 	'upload': false,
 	'edit': false,
 	'type': "mobile"
 }
+// {
+// 	'moduleName': 'Mobile_Dashboard',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Training',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Forum',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Accomplishments',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Training Schedule',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Feedback',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }, {
+// 	'moduleName': 'Mobile_Settings',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "mobile"
+// }
 ];
 
 

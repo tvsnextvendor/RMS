@@ -10,13 +10,13 @@
             </div>
         </div>
         <button type = "button" class="btn btn-primary float-right mr-2" (click)="onPrint()"><i class="fas fa-print pr-2"></i>Print</button>
-        <div class="filter-search">
+        <form class="filter-search" (ngSubmit)="getResortDetails()">
                 <div class="search-container clearfix">
                   <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
-                    <button type="button" (click)="getResortDetails()" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
+                    <button type="submit"  class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
                     <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
                 </div>
-            </div>
+            </form>
     </div> 
 
     <div class="col-lg-12 col-sm-12 p-0 table-alg">                
