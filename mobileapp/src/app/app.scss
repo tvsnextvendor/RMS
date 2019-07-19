@@ -765,9 +765,11 @@ page-home .course-count p:hover {
                     .table-bordered> tfoot> tr> td {
                         border: 1px solid #dee2e6;
                     }       
-                    .calendar .monthview-primary-with-event{
+                    .calendar {
+                        .monthview-primary-with-event, .monthview-current{
                         border-radius: unset !important;
                     }
+                }
 page-course .complete-status{
     color: #279014;
     font-size: 14px;
@@ -784,9 +786,11 @@ page-course .complete-status{
                     .table-bordered> tfoot> tr> td {
                         border: 1px solid #dee2e6;
                     }   
-                    .calendar .monthview-primary-with-event{
+                .calendar{ 
+                    .monthview-primary-with-event, .monthview-current{
                         border-radius: unset !important;
                     }  
+                }
 page-course .complete-status{
     color: #279014;
     font-size: 14px;
@@ -862,9 +866,11 @@ page-course .complete-status{
      .calendar td {
     padding: 16px !important;
 }
-.calendar .monthview-primary-with-event{
+.calendar{ 
+    .monthview-primary-with-event  .monthview-current{
                         border-radius: unset !important;
                     }
+                }
 page-course .complete-status{
     color: #279014;
     font-size: 14px;
