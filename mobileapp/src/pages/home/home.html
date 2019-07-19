@@ -80,9 +80,10 @@
           <div *ngIf="enableView && enableIndex === i" >
             <ion-row *ngFor="let data of schedule.Resorts" (click)="navPage('trainingClass', data.Course.courseId)">
               <ion-col col-6 class="course-count">
-                <a class="course-click">
-                <p>{{data.Course.courseName}}</p></a>
-                <a class="course-click"> <p>{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}}
+                <a>
+                <p class="course-click">{{data.Course.courseName}}</p></a>
+                <a> 
+                <p class="course-click">{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}}
                 </p></a>
               
               </ion-col>

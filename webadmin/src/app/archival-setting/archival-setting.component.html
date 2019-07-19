@@ -2,10 +2,10 @@
   <div class="clearfix pt-5 tab-section">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#employee">{{commonLabels.labels.employeeContent}}</a>
+                <a class="nav-link active" data-toggle="tab" href="#employee" (click)="tabType('content')">{{commonLabels.labels.employeeContent}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#course">Delete Course files</a>
+                <a class="nav-link" data-toggle="tab" href="#course" (click)="tabType('course')">Delete Course files</a>
             </li>          
         </ul> 
     </div>
@@ -19,48 +19,89 @@
                 </select></form>
             </div>
             <div class="table-responsive white-bg ">
-                    <table class="table table-striped" >
-                            <thead>
-                            <tr class="th-boxshadow">
-                                <th class="text-left">
-                                    {{commonLabels.labels.resort}}
-                                </th>
-                                <!-- <th class="text-left">
-                                    {{commonLabels.labels.archiveData}}
-                                </th> -->
-                                <th class="text-left">
-                                    {{commonLabels.labels.delData}}
-                                </th>
-                                <th class="text-left"></th>
+                <table class="table table-striped" >
+                        <thead>
+                        <tr class="th-boxshadow">
+                            <th class="text-left">
+                                {{commonLabels.labels.resort}}
+                            </th>
+                            <!-- <th class="text-left">
+                                {{commonLabels.labels.archiveData}}
+                            </th> -->
+                            <th class="text-left">
+                                {{commonLabels.labels.delData}}
+                            </th>
+                            <th class="text-left"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-desc-color" *ngFor = 'let archieve of archieveList'>
+                                <td class="text-left">{{archieve?.Resort?.resortName  | titlecase}}</td>
+                                <td class="text-left">{{archieve?.archievedDays}}</td>
+                                <!-- <td class="text-left">{{archieve?.deletedDays}}</td> -->
+                                <td class="text-center">
+                                        <a (click)="openEditModal(addArchieve,archieve.archievedId,'')"><i class="fas fa-pencil-alt header-icon" aria-hidden="true"></i></a>
+                                        <a (click)="openEditModal(confirm,'',archieve.archievedId)"><i class="fa fa-trash header-icon"></i></a> 
+                                    </td> 
                             </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table-desc-color" *ngFor = 'let archieve of archieveList'>
-                                    <td class="text-left">{{archieve?.Resort?.resortName  | titlecase}}</td>
-                                    <!-- <td class="text-left">{{archieve?.archievedDays}}</td> -->
-                                    <td class="text-left">{{archieve?.deletedDays}}</td>
-                                    <td class="text-center">
-                                          <a (click)="openEditModal(addArchieve,archieve.archievedId,'')"><i class="fas fa-pencil-alt header-icon" aria-hidden="true"></i></a>
-                                          <a (click)="openEditModal(confirm,'',archieve.archievedId)"><i class="fa fa-trash header-icon"></i></a> 
-                                      </td> 
-                                </tr>
-                            </tbody>
-                        </table>
-                  </div>
-                    <div class="white-bg text-center p-4" *ngIf="!archieveList.length" >
-                        <p class="data-design m-0">
-                            <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
-                        </p>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="white-bg text-center p-4" *ngIf="!archieveList.length" >
+                    <p class="data-design m-0">
+                        <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
+                    </p>
+                </div>
         </div>
         <div class="tab-pane col-md-12 pt-2 p-0" id="course">
-            <div class="white-bg mb-3 clearfix" *ngFor="let courses of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalCourseCount}">
+            <!-- <div class="white-bg mb-3 clearfix" *ngFor="let courses of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalCourseCount}">
                 <label class="square-cont mb-0 float-left">
                     <span class="text-over">{{courses.courseName}}</span>
                 </label>
                 <span class="float-right">
                     <a title="undo" class="mr-4 undo-icon"><i class="fa fa-undo header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
                 </span>
+            </div>
+            <div class="white-bg text-center p-4" *ngIf="!courseListValue.length" >
+                <p class="data-design m-0">
+                    <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
+                </p>
+            </div> -->
+            <div class="col-sm-12 pb-3 p-0 float-right">
+                <button type = "button" class="btn btn-primary" (click)="openEditModal(addArchieve,'','')"><i class="fa fa-plus pr-2"></i> {{commonLabels.btns.addNew}}</button>
+                <form><select id="resort" class="col-md-2 form-control pull-right mr-3" name="resortId" [(ngModel)]="selectedResortList" (change)="getCourseList()"> 
+                <option value="null">{{commonLabels.labels.resort}}</option>
+                <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
+                </select></form>
+            </div>
+            <div class="table-responsive white-bg ">
+                <table class="table table-striped" >
+                    <thead>
+                        <tr class="th-boxshadow">
+                            <th class="text-left">
+                                {{commonLabels.labels.resort}}
+                            </th>
+                            <!-- <th class="text-left">
+                                {{commonLabels.labels.archiveData}}
+                            </th> -->
+                            <th class="text-left">
+                                {{commonLabels.labels.delData}}
+                            </th>
+                            <th class="text-left"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-desc-color" *ngFor = 'let archieve of courseListValue | paginate: {itemsPerPage: pageSize,currentPage: page,totalItems : totalCourseCount}'>
+                            <td class="text-left">{{archieve?.Resort?.resortName  | titlecase}}</td>
+                            <td class="text-left">{{archieve?.archievedDays}}</td>
+                            <!-- <td class="text-left">{{archieve?.deletedDays}}</td> -->
+                            <td class="text-center">
+                                    <a (click)="openEditModal(addArchieve,archieve.archievedId,'')"><i class="fas fa-pencil-alt header-icon" aria-hidden="true"></i></a>
+                                    <a (click)="openEditModal(confirm,'',archieve.archievedId)"><i class="fa fa-trash header-icon"></i></a> 
+                                </td> 
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="white-bg text-center p-4" *ngIf="!courseListValue.length" >
                 <p class="data-design m-0">
@@ -95,16 +136,16 @@
             
             </span>
         </div>
-        <!-- <div>
-            <label class="col-md-4 p-0 label-title mb-0">{{commonLabels.labels.archiveData}}</label>
+        <div>
+            <label class="col-md-4 p-0 label-title mb-0">{{commonLabels.labels.delData}}</label>
             <span class="col-md-9 pl-0">
-                <input type="number" class="form-control" placeholder="Enter Time for Archieve Data"  name="archieveTime" [(ngModel)]="archieveTime" required>
+                <input type="number" class="form-control" placeholder="Enter Time for Delete Data"  name="archieveTime" [(ngModel)]="archieveTime" required>
             </span>
             <span class="required_color mt-0" >
             
             </span>
-        </div> -->
-        <div>
+        </div>
+        <!-- <div>
             <label class="col-md-4 p-0 label-title mb-0">{{commonLabels.labels.delData}}</label>
             <span class="col-md-9 pl-0">
                 <input type="number" class="form-control" placeholder="Enter Time for Delete Data"  name="deleteTime" [(ngModel)]="deleteTime" required>
@@ -112,7 +153,7 @@
             <span class="required_color mt-0" >
             
             </span>
-        </div>
+        </div> -->
     <div>
     </div>
     <div class="text-center col-md-12 p-4 button-section">

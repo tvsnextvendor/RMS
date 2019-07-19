@@ -167,7 +167,7 @@
                 </div> 
             </tab>
             <tab *ngIf = "permissionCheck()" heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
-            <app-rolepermission *ngIf="enableRolePermission " [userIdInfo]="userIdData"></app-rolepermission>
+            <app-rolepermission *ngIf="enableRolePermission " [userIdInfo]="userIdData" [viewUserRolePermission] = "viewUserRolePermission"></app-rolepermission>
             </tab>
         </tabset>  
     </div>

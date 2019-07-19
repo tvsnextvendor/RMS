@@ -78,7 +78,7 @@
                   <div class="row py-4 did-line">
                   <div class="col-lg-4">
                       <div class="profile-img">
-                          <img class="selected-prf-img" src="assets/images/profile_circle.png">
+                          <img class="selected-prf-img" [src]="previewProfilePic">
                           <a class="profile-bg"><i class="fas fa-plus-circle profile-icon"><input  class="upload" type="file" name="profilePic" [(ngModel)]="profilePic" accept="image/*" (change)="fileUpload($event)"/></i></a>
                         </div>
                     </div>

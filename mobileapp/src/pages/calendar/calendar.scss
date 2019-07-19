@@ -61,11 +61,13 @@ tbody{
     color: #909094;
     font-weight: 500;
     font-size: 15px;
+    width: 60px !important;
+    display: inline-block;
 }
 .event-detail{
-    width: 230px;
-    display: inline-block;
-    text-align: center;
+    // width: 230px;
+    // display: inline-block;
+    // text-align: center;
     letter-spacing: 2px;
     font-weight: 500;
     color: #737373;
