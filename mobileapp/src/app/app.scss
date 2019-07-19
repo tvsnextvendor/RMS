@@ -765,9 +765,10 @@ page-home .course-count p:hover {
                     .table-bordered> tfoot> tr> td {
                         border: 1px solid #dee2e6;
                     }       
-                    .calendar .monthview-primary-with-event{
+                    .calendar{ .monthview-primary-with-event, .monthview-current{
                         border-radius: unset !important;
                     }
+                }
 } 
 @media (min-width: 768px) and (max-width: 979px) { 
     .table-bordered> tbody> tr> th ,
@@ -777,9 +778,10 @@ page-home .course-count p:hover {
                     .table-bordered> tfoot> tr> td {
                         border: 1px solid #dee2e6;
                     }   
-                    .calendar .monthview-primary-with-event{
+                    .calendar{ .monthview-primary-with-event, .monthview-current{
                         border-radius: unset !important;
                     }    
+                }
 } 
 @media (min-width: 979px){}
 @media (max-width: 767px) { } 
@@ -826,7 +828,8 @@ page-home .course-count p:hover {
      .calendar td {
     padding: 16px !important;
 }
-.calendar .monthview-primary-with-event{
+.calendar{ .monthview-primary-with-event, .monthview-current{
                         border-radius: unset !important;
                     }
+                }
 }
