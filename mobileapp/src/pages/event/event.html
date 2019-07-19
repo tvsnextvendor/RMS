@@ -37,7 +37,7 @@
             <ion-row *ngFor="let course of scheduleDetail">
               <div class="course-count" *ngIf="course.CourseTrainingClassMaps.length">
                 <div>
-                  <p>{{course.courseName}}</p>
+                  <p class="course-click">{{course.courseName}}</p>
                   <div *ngFor="let class of course.CourseTrainingClassMaps">
                     <ion-row>
                   <ion-col col-6>TC - {{class.TrainingClass.trainingClassName}}</ion-col>
