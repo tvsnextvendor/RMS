@@ -15,7 +15,7 @@
             <span (click)="goToForum()"><ion-icon name="ios-chatboxes" class="chat-icon"></ion-icon></span>
             <span (click)="goToNotification()">
           <img src="assets/imgs/notification.png"/>
-          <span class="dot-circle">{{notificationCount}}</span>
+          <span class="dot-circle" *ngIf="notificationCount > 0">{{notificationCount}}</span>
           </span>
         </div>
       </ion-title>
@@ -54,6 +54,7 @@
 
   <div class="tab-content clearfix" [hidden]="showAssigned">
     <ion-row *ngIf="assignedCount > 0">
+      <p  class="col-md-12 tot-count">Total Courses: {{assignedCount}}</p>
       <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
@@ -100,6 +101,7 @@
   </div>
   <div class="tab-content" [hidden]="showProgress">
     <ion-row *ngIf="assignedCount > 0">
+      <p  class="col-md-12 tot-count">Total Courses: {{assignedCount}}</p>
       <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
@@ -146,6 +148,7 @@
   </div>
   <div class="tab-content" [hidden]="showSignRequire">
     <ion-row *ngIf="signRequireCount > 0">
+      <p  class="col-md-12 tot-count">Total Courses: {{signRequireCount}}</p>
       <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of signRequireList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
@@ -188,6 +191,7 @@
   </div>
   <div class="tab-content" [hidden]="showCompleted">
     <ion-row *ngIf="assignedCount > 0">
+      <p class="col-md-12 tot-count">Total Courses: {{assignedCount}}</p>
       <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
         <ion-card class="forum-card">
           <ion-grid>
