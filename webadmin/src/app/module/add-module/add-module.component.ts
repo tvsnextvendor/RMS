@@ -339,8 +339,8 @@ export class AddModuleComponent implements OnInit {
                     self.fileDuration = duration;
                 }
                 video.src = URL.createObjectURL(file);
-
-                document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
+                console.log(  document.querySelector("#video-element source"),'  document.querySelector("#video-element source")',video.src)
+                document.querySelector("#video-element source") && document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
                 // find file extension
                 this.uploadFile = file;
                 let type = file.type;
@@ -769,6 +769,7 @@ export class AddModuleComponent implements OnInit {
                     self.videoSubmitted = false;
                     videoObj.fileUrl = result.data && result.data[0].filename;
                     videoObj.fileSize = result.data.length && result.data[0].size;
+                    this.fileId ? videoObj.fileId = this.fileId : '';
                     videoObj.filePath = result.path && result.path;
                     if (self.moduleVar.videoIndex) {
                         let index = self.moduleVar.videoIndex - 1;
@@ -779,6 +780,7 @@ export class AddModuleComponent implements OnInit {
                         self.moduleVar.videoList.push(videoObj);
                     }
                     this.fileService.sendFileList('add', videoObj);
+                    this.fileId = '';
                     
                 }
             })
@@ -802,6 +804,7 @@ export class AddModuleComponent implements OnInit {
                        const index = this.moduleVar.videoIndex - 1; 
                        this.moduleVar.videoList[index] = videoObj;
                     }
+                    this.fileId = '';
                 //   this.clearData();
                 }
             })
@@ -826,6 +829,7 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.description = '';
         this.moduleVar.videoFile = '';
         this.previewImage = '';
+        this.fileId = '';
         this.moduleVar.videoIndex = 0;
     }
     resetData() {
