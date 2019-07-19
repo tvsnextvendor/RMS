@@ -330,7 +330,10 @@ export class AddQuizComponent implements OnInit {
                     delete params.draft;
                 }
                 if(this.quizCreateType == 'exist' && this.selectedQuiz){
-                    params.quizId = this.selectedQuiz;
+                    let selectRes = this.selectedQuiz;
+                    let quizId = selectRes.split('~');
+                    // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
+                    params.quizId = quizId[0];
                     delete params.quizName;
                     delete params.quizQuestions;
                 }
@@ -531,7 +534,10 @@ export class AddQuizComponent implements OnInit {
                   }
 
                 if(this.quizCreateType == 'exist' && this.selectedQuiz){
-                    params.quizId = this.selectedQuiz;
+                    let selectRes = this.selectedQuiz;
+                    let quizId = selectRes.split('~');
+                    // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
+                    params.quizId = quizId[0];
                     delete params.quizName;
                     delete params.quizQuestions;
                   }
