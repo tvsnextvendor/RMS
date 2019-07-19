@@ -198,7 +198,6 @@ export class RolepermissionComponent implements OnInit {
         }
       }
     }
-    console.log(this.constant.modules,name)
     this.constant.modules.forEach((item,i)=>{
       if(item.moduleName ==  "Employee Content Upload" && name == 'view'){
         this.constant.modules[i].view = false;
