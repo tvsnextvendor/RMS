@@ -400,6 +400,9 @@ export class UserComponent implements OnInit {
                 this.userList();
                 this.alertService.success(result.message);
             }
+        },err=>{
+            this.constant.modalRef.hide();
+            this.alertService.error(err.error.error);
         })
     }
 
