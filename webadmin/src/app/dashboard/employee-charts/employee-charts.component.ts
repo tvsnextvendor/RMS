@@ -26,7 +26,7 @@ export class EmployeeChartsComponent implements OnInit {
   hideCharts = true;
   userRole;
   userId;
-
+  previewProfilePic;
   TtlDivision;
   TtlDepartment;
   TtlEmployee;
@@ -60,6 +60,8 @@ export class EmployeeChartsComponent implements OnInit {
     this.getData();
     this.getTopResort();
     this.getKeyStat();
+    let userDetails = this.utilService.getUserData();
+    this.previewProfilePic = userDetails.uploadPaths && userDetails.uploadPaths.uploadPath && userDetails.userImage ? userDetails.uploadPaths.uploadPath+userDetails.userImage : '';
     this.dashboardVar.years = '2019';
     let query = this.resortId ? '?resortId='+this.resortId +'&type='+'summary': '';
   

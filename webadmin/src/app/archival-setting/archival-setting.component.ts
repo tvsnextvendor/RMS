@@ -24,6 +24,7 @@ export class ArchivalSettingComponent implements OnInit {
   page;
   pageSize;
   selectedCourseId;
+  tabName = 'content';
 
   constructor(private headerService:HeaderService,public commonLabels : CommonLabels,private breadCrumbService :BreadCrumbService,private commonService : CommonService,private modalService :  BsModalService,private resortService : ResortService,private alertService :AlertService,
     private courseService : CourseService) { }
@@ -32,29 +33,36 @@ export class ArchivalSettingComponent implements OnInit {
     this.page = 1;
     this.pageSize = 10;
     this.headerService.setTitle({title:'Purge Setting', hidemodule:false});
-      this.breadCrumbService.setTitle([])
+      this.breadCrumbService.setTitle([]);
+      this.getResortList();
       this.getArchieveDetails();
-      this.getCourseList();
   }
 
   getCourseList(){
-    this.courseService.getCourse(this.page, this.pageSize,'').subscribe(resp => {
-      if (resp && resp.isSuccess) {
-        this.totalCourseCount = resp.data.count;
-        this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
-      }
-    }, err => {
-      
-    });
+    // this.courseService.getCourse(this.page, this.pageSize,'').subscribe(resp => {
+      let query = "?type=Course"
+      query = this.selectedResortList ? query+'&resortId='+this.selectedResortList : query;
+      this.commonService.getArchieve(query).subscribe(resp=>{
+        if (resp && resp.isSuccess) {
+          this.totalCourseCount = resp.data.count;
+          this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
+        }
+      }, err => {
+        
+      });
   }
 
   getArchieveDetails(){
-    let query = this.selectedResortList ? '?resortId='+this.selectedResortList : '';
+    let query = "?type=contentUpload"
+    query = this.selectedResortList ? query+'&resortId='+this.selectedResortList : query;
     this.commonService.getArchieve(query).subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.archieveList = resp.data && resp.data.rows && resp.data.rows.length ? resp.data.rows : []; 
       }
     })
+  }
+
+  getResortList(){
     this.resortService.getResort().subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.resortList = resp.data &&resp.data.rows && resp.data.rows.length ? resp.data.rows : [];
@@ -94,16 +102,18 @@ export class ArchivalSettingComponent implements OnInit {
   submitForm(){
     let params = {
       "resortId" : this.selectedResort,
-      // "archievedDays" : this.archieveTime,
-      "deletedDays":this.deleteTime
+      "archievedDays" : this.archieveTime,
+      "type" :  ''
+      // "deletedDays":this.deleteTime
     }
-    if(this.selectedResort && this.deleteTime){
+    this.tabName == "content" ? params.type = "contentUpload": params.type = "Course";
+    if(this.selectedResort && this.archieveTime){
       if(this.archievedId){
         this.commonService.updateArchieve(this.archievedId,params).subscribe(resp=>{
           if(resp && resp.isSuccess){
             this.closePopup();
             this.alertService.success(resp.message);
-            this.getArchieveDetails();
+            this.tabName == 'content' ? this.getArchieveDetails() : this.getCourseList();
           }
         },err=>{
           console.log(err.error.error);
@@ -116,7 +126,8 @@ export class ArchivalSettingComponent implements OnInit {
           if(resp && resp.isSuccess){
             this.closePopup();
             this.alertService.success(resp.message);
-            this.getArchieveDetails();
+            // this.getArchieveDetails();
+            this.tabName == 'content' ? this.getArchieveDetails() : this.getCourseList();
           }
         },err=>{
           console.log(err.error.error);
@@ -132,7 +143,6 @@ export class ArchivalSettingComponent implements OnInit {
 
   removeArchival(){
     this.commonService.removeArchieve(this.removeArchievedId).subscribe(resp=>{
-      console.log(resp)
       if(resp && resp.isSuccess){
         this.closePopup();
         this.alertService.success(resp.message);
@@ -184,5 +194,17 @@ export class ArchivalSettingComponent implements OnInit {
         this.modalRef.hide();
          this.alertService.error(err.error.error);
       })
+    }
+
+    tabType(data){
+      this.tabName = data;
+      this.selectedResortList = null;
+      if(data == "content"){
+        this.getArchieveDetails();
+      }
+      else{
+        this.getCourseList();
+      }
+      this.resetFields();
     }
 }

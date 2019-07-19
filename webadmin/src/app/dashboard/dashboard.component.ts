@@ -21,11 +21,14 @@ export class DashboardComponent implements OnInit {
   this.headerService.setTitle({title:this.commonLabels.titles.dashboard, hidemodule:false});
   this.breadCrumbService.setTitle([])
   const roleId = this.utilService.getRole();
+  let user = this.utilService.getUserData();
+  let parentId = user && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort && user.ResortUserMappings[0].Resort.parentId ? user.ResortUserMappings[0].Resort.parentId : '';
     // this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
-     if(roleId !== 3){
-        this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
-     }else if(roleId === 3){
+    if(roleId === 3 || parentId){
       this.tabTitle= [this.commonLabels.labels.summary];
+    }
+    else{
+      this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
     }
     this.selectedtab = this.tabTitle[0];
   }
