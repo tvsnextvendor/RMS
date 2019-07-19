@@ -276,43 +276,43 @@ export class TrainingDetailPage {
         let fileLink;
         switch (fileType) {
             case "pdf":
-                fileLink = "assets/imgs/pdf.png";
+                fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "txt":
-                fileLink = "assets/imgs/text.png";
+                fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "doc":
-                fileLink = "assets/imgs/doc.png";
+                fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "docx":
-                fileLink = "assets/imgs/doc.png";
+                fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "ppt":
-                fileLink = "assets/imgs/ppt.png";
+                fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "xlsx":
-                 fileLink = 'assets/imgs/xlsx.png';
+                 fileLink = 'assets/imgs/banner.png';
                  this.imageType = true;
                  this.filePath = filename;
                  this.fileType = fileType;
                  break;
             case "xls":
-                 fileLink = 'assets/imgs/xlsx.png';
+                 fileLink = 'assets/imgs/banner.png';
                  this.imageType = true;
                  this.filePath = filename;
                  this.fileType = fileType;

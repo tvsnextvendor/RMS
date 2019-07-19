@@ -1,4 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, ViewChild } from '@angular/core';
+import { Nav } from 'ionic-angular';
 import { Injectable, OnInit } from '@angular/core';
 import { API } from '../../constants/API.var';
 import { Storage } from '@ionic/storage';
@@ -9,6 +11,7 @@ import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class HttpProvider implements OnInit {
+  @ViewChild(Nav) nav; Nav;
   API_ENDPOINT;
   httpOptions;
   currentUser;
@@ -39,7 +42,8 @@ export class HttpProvider implements OnInit {
    if(error.status === 403 || error.status === 401){
           console.log("Please log out and login again");
           console.log(this.storage);
-          this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
+          this.nav.setRoot('login-page');
+          //this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
 			}else{
         return of(error.error);
 			}  

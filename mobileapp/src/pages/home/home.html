@@ -32,7 +32,7 @@
               <!-- <h4 class="status-title" *ngIf="!dashboardCount.courseExpire">{{constant.pages.dashboardLabels.zero}}</h4> -->
             </div>
 
-            <p class="course-sec">{{constant.pages.dashboardLabels.courseExpiring}}</p>
+            <p class="course-sec">{{constant.pages.dashboardLabels.assignedLabel}}</p>
 
           </div>
         </ion-col>
@@ -65,29 +65,32 @@
     <ion-list *ngIf="dashboardInfo">
       <ion-card class="forum-card" *ngFor="let schedule of dashboardInfo;let i=index">
         <ion-grid>
-          <ion-row (click)="hideShowDesc(i)">
+          <ion-row >
+            <ion-col col-11 (click)="navPage('course','')">
+            <ion-row>
             <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
             <ion-col col-7 class="batch-date">
               {{schedule.assignedDate | date:'dd MMM yyyy'}}
               <span class="to-txt"> To </span>
               {{schedule.dueDate | date:'dd MMM yyyy'}}
             </ion-col>
-            <ion-col col-1 class="batch-icon">
-              <ion-icon *ngIf="!enableView || enableIndex !== i" name="ios-arrow-forward"></ion-icon>
-              <ion-icon *ngIf="enableView && enableIndex === i" name="ios-arrow-down"></ion-icon>
+            </ion-row>
+            </ion-col>
+            <ion-col col-1 class="batch-icon" (click)="hideShowDesc(i)">
+              <ion-icon *ngIf="!enableView || enableIndex !== i" name="ios-arrow-forward" class="arrow-icon"></ion-icon>
+              <ion-icon *ngIf="enableView && enableIndex === i" name="ios-arrow-down" class="arrow-icon"></ion-icon>
             </ion-col>
           </ion-row>
           <div *ngIf="enableView && enableIndex === i" >
-            <ion-row *ngFor="let data of schedule.Resorts" (click)="navPage('trainingClass', data.Course.courseId)">
-              <ion-col col-6 class="course-count">
+            <ion-row *ngFor="let data of schedule.Resorts">
+              <ion-col col-6 class="course-count" (click)="navPage('trainingClass',data)">
                 <a>
                 <p class="course-click">{{data.Course.courseName}}</p></a>
-                <a> 
-                <p class="course-click">{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}}
+                <a> <p>{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}}
                 </p></a>
-              
+
               </ion-col>
-              <ion-col col-6>
+              <ion-col col-6 (click)="navPage('course', '')">
                 <div class="expires org-color"><span class="aligtxt">{{constant.pages.dashboardLabels.expire}}
                     {{calculateExpireDays(schedule.dueDate)}}</span></div>
               </ion-col>
@@ -121,12 +124,12 @@
   <section>
     <div class="tab-foot-bg">
       <ul class="clearfix">
-        <li><span (click)="changeStatus('assigned')"
-            [ngClass]="status == 'assigned' ? 'active-color' : ''">{{constant.pages.dashboardLabels.assignedLabel}}</span>
+        <li (click)="changeStatus('assigned')"><span 
+            [ngClass]="status == 'assigned' ? 'active-color' : ''">{{constant.pages.dashboardLabels.courseExpiring}}</span>
             <div class="notification-cont" *ngIf="dashboardCount.assignedCount > 0"><span class="notification-num">{{dashboardCount.assignedCount}}</span></div>
         </li>
         <li><span>|</span></li>
-        <li><span (click)="changeStatus('inProgress')"
+        <li (click)="changeStatus('inProgress')"><span 
             [ngClass]="status == 'inProgress' ? 'active-color' : ''">{{constant.pages.dashboardLabels.progressLabel}}</span>
             <div class="notification-cont" *ngIf="dashboardCount.inProgressCount > 0"><span class="notification-num">{{dashboardCount.inProgressCount}}</span></div>
         </li>

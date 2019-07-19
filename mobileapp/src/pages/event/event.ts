@@ -55,7 +55,6 @@ export class EventPage implements OnInit {
   
   
   openSubEvent(i, scheduleId) {
-     console.log(scheduleId)
     let userId = this.currentUser.userId;
     this.http.get(API_URL.URLS.getScheduleDetail + '?userId=' + userId + '&trainingScheduleId=' + scheduleId).subscribe(res => {
         if (res['isSuccess']) {
@@ -101,7 +100,14 @@ export class EventPage implements OnInit {
       //this.loader.hideLoader();
     })
   }
-
+ 
+  redirectPage(courseId, scheduleId){
+    let paramsData={};
+    paramsData['courseId'] = courseId;
+    paramsData['trainingScheduleId'] = scheduleId;
+    this.navCtrl.setRoot('training-page', paramsData);
+  }
+   
   calculateAvgScore(data){
      let score= 0;
      data.map(key=>{

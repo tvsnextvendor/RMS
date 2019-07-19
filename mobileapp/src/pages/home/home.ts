@@ -25,11 +25,13 @@ export class HomePage {
   enableIndex;
   interval;
   totalPage;
+  paramsData={};
   dashboardInfo: any = [];
   dashboardCount: any = {};
   scrollEnable: boolean = false;
   currentPage = this.constant.numbers.one;
   perPageData = this.constant.numbers.five;
+
 
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController,public socketService: SocketService, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
@@ -56,23 +58,31 @@ export class HomePage {
         this.scrollEnable = false;
           this.getDashboardInfo();
           this.getDashboardCount();
-      }, 5000);      
+      }, 10000);      
   }
 
-  navPage(page, courseId){
+  navPage(page, data){
+    // alert('djcbdbvbf')
+    console.log(data,"Data")
     switch (page) {
       case 'notification':
         this.navCtrl.setRoot('generalnotification-page');
         break;
       case 'signReq':
-        this.navCtrl.setRoot('course-page',page);
+        this.paramsData['tab'] = page;
+        this.navCtrl.setRoot('course-page',this.paramsData);
+        break;
+      case 'course':
+      console.log(this.status);
+        this.paramsData['status'] = this.status;
+        this.navCtrl.setRoot('course-page', this.paramsData);
         break;
       case 'trainingClass' :
-        let paramsData = {};
-        paramsData['courseId'] = courseId;
-        paramsData['status'] = this.status;
-        this.navCtrl.setRoot('training-page',paramsData);
-        // this.navCtrl.setRoot('course-page',page);
+        console.log(data,"DATA");
+        this.paramsData['courseId'] = data.courseId;
+        this.paramsData['trainingScheduleId'] = data.trainingScheduleId;
+        this.paramsData['status'] = this.status;
+        this.navCtrl.setRoot('training-page',this.paramsData);
         break;
       default:
          this.navCtrl.setRoot('course-page');

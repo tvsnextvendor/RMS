@@ -28,6 +28,20 @@ export class AuthProvider {
       this.http.post(API['API_LINK']+API_URL.URLS.loginAPI,postData).subscribe((res) => {
         if (res['isSuccess'])
         {
+           let loginData = res['data'];
+          if (loginData.rolePermissions) {
+              const rolePermissions = loginData.rolePermissions;
+              const resultRolePermissions = this.getObject(rolePermissions, []);
+              let permissions = [];
+              for (let i in resultRolePermissions) {
+                  if (i != 'undefined') {
+                      permissions.push(resultRolePermissions[i]);
+                  }
+              }
+              this.storage.set('RolePermissions', JSON.stringify(permissions)).then(() => {
+              });
+          }
+
           this.storage.set('currentUser', res['data']).then(() => {
             this.currentUserSet = {
               token :res['data']['token'],
@@ -55,6 +69,7 @@ export class AuthProvider {
     this.currentUserSet = null;
     this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
     this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
+    this.storage.remove('RolePermissions').then(() => {console.log("roles removed")})
   }
   getCurrentUserDetails(){
      let self = this;
@@ -70,5 +85,36 @@ export class AuthProvider {
           console.log('currentUser not received in app.component.ts', err);
         });
       });
+  }
+
+
+   getObject(theObject, userpermissions) {
+    var result = null;
+    var key = 'moduleName';
+    if (theObject instanceof Array) {
+      for (var i = 0; i < theObject.length; i++) {
+        if (userpermissions[theObject[i].moduleName] == undefined) {
+          userpermissions[theObject[i].moduleName] = [];
+          userpermissions[theObject[i].moduleName] = theObject[i];
+        }
+        result = this.getObject(theObject[i], userpermissions);
+      }
+    }
+    else {
+      let moduleName = theObject.moduleName;
+      for (var prop in theObject) {
+        const data = ["moduleName", "view", "upload", "edit", "delete"];
+        let found = data.includes(prop);
+        if (found) {
+          if (theObject[prop] == true || theObject[prop] == false) {
+            userpermissions[moduleName][prop] = (userpermissions[moduleName][prop] == true) ? true : theObject[prop];
+          }
+        }
+        if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
+          result = this.getObject(theObject[prop], userpermissions);
+        }
+      }
+    }
+    return userpermissions;
   }
 }

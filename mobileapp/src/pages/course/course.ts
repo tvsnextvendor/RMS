@@ -53,13 +53,18 @@ export class CoursePage implements OnInit {
   showProgress: boolean = true;
   showCompleted: boolean = true;
   showSignRequire: boolean = true;
+  hideUploadContent: boolean = false;
   currentPage = this.constant.numbers.one;
   perPageData = this.constant.numbers.ten;
   
   @ViewChild(Content) content: Content;
   
   constructor(public navCtrl: NavController,public modalService:BsModalService,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
-        this.tab = this.navParams.data;      
+        let detailObj = this.navParams.data;
+        this.tab = detailObj && detailObj.tab;
+        this.status = detailObj && detailObj.status;
+
+        console.log(detailObj)      
   }
 
   ngOnInit() {
@@ -68,11 +73,19 @@ export class CoursePage implements OnInit {
 
   ngAfterViewInit() {
             let self = this;
+            this.storage.get('RolePermissions').then((res:any) =>{
+              if(res != "[]"){
+                let data =JSON.parse(res);
+                this.hideUploadContent = data[0]['upload'];
+                console.log(this.hideUploadContent)
+              }  
+            });
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-             this.getCourseStatus('assigned','');
-              this.status = 'assigned';
+              this.status = this.status ? this.status : 'assigned';
+              this.getCourseStatus(this.status, '');
+              this.showData(this.status);
               this.getNotification();
                 if(this.tab && this.tab == 'signReq'){
                   this.getSignRequired('');
@@ -125,6 +138,7 @@ export class CoursePage implements OnInit {
 
         });
       }
+      console.log(data)
     this.paramsData['courseId'] = data.Course.courseId;
     this.paramsData['trainingScheduleId'] = data.TrainingSchedule.trainingScheduleId;
     this.paramsData['status'] = this.status;
