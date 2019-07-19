@@ -243,7 +243,7 @@
 </ion-infinite-scroll>
 
 </ion-content>
-<ion-footer class="fixed-btn">
+<ion-footer class="fixed-btn" *ngIf="hideUploadContent">
     <button ion-button round class="add-question common-btn" (click)="openLaunchModal(launch)">
      {{constant.buttons.uploadContent}}
     </button>

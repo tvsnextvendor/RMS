@@ -64,12 +64,12 @@ export class QuizResultPage implements OnInit {
         this.navCtrl.setRoot('home-page');
     }
     feedbackForm() {
-        if (this.feedback && !this.feedback.rating) {
-            this.errorMessage =  "Rating is required"; return false;
-        }else if(!this.feedback.description){
-            this.errorMessage =  "Suggestions / Feedback is required"; return false;
-        } else {
-            this.errorMessage  = '';
+         if (!this.feedback.rating) {
+             this.errorMessage =  "Rating is required"; return false;
+         }else {
+        //     this.errorMessage =  "Suggestions / Feedback is required"; return false;
+        // } else {
+           this.errorMessage  = '';
             let percentages = [{ 1: 20, 2: 40, 3: 60, 4: 80, 5: 100 }];
             const resortId = this.currentUser.ResortUserMappings[0].resortId;
             let postData = {
@@ -118,12 +118,14 @@ export class QuizResultPage implements OnInit {
 
      completeTrainingClass(){
         let data = this.resultData;
+        console.log(this.currentUser,"Jbjhdsbcjb")
         let postData={
             "courseId": data['courseId'],
             "trainingClassId": data['trainingClassId'],
             "userId":this.currentUser.userId,
             "courseName": data['courseName'],
             "userName": this.currentUser.userName,
+            "lastName":this.currentUser.lastName,
             "resortId": this.currentUser.ResortUserMappings[0].resortId,
             "status":"completed"
         }

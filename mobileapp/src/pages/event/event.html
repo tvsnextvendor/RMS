@@ -34,10 +34,10 @@
           </ion-row>
          
           <div *ngIf="enableView && enableIndex === i">
-            <ion-row *ngFor="let course of scheduleDetail">
+            <ion-row *ngFor="let course of scheduleDetail" >
               <div class="course-count" *ngIf="course.CourseTrainingClassMaps.length">
                 <div>
-                  <p class="course-click">{{course.courseName}}</p>
+                  <p class="course-click" (click)="redirectPage(course.courseId,schedule.trainingScheduleId)">{{course.courseName}}</p>
                   <div *ngFor="let class of course.CourseTrainingClassMaps">
                     <ion-row>
                   <ion-col col-6>TC - {{class.TrainingClass.trainingClassName}}</ion-col>

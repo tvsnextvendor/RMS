@@ -49,7 +49,7 @@ export class NotificationPage implements OnInit {
     this.loader.showLoader();
     this.socketService.getNotification(socketObj).subscribe((data)=>{
      if(data['rows']){
-       console.log(data,"notifiacation");
+      console.log(data,"notifiacation");
       this.notificationList = data['rows'];
       this.count = data['count'];
      }else{
@@ -73,8 +73,7 @@ export class NotificationPage implements OnInit {
 
   redirect(notification){
     let type = notification.type;
-    console.log(type,"TYPE");
-    
+    console.log(type,"TYPE");    
     switch (type) {
       case "expireCourse":
       case "assignCourse":
@@ -84,14 +83,14 @@ export class NotificationPage implements OnInit {
        this.navCtrl.setRoot('forum-page');
         break;
     }
-    let data={
-    "status":"Read"
-    }
 
-    this.http.put(false,API_URL.URLS.readNotification+'/'+notification.notificationId,data).subscribe((res) => {      
-    },(err) => {
-
+     let data = {
+              "status": "Read"
+          }
+    this.http.put(false, API_URL.URLS.readNotification + '/' + notification.notificationId, data).subscribe((res) => {
+    }, (err) => {
     });
+   
   }
 
 }
