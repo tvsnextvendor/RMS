@@ -57,9 +57,20 @@
     </div>
     </div>
 
-    <div class="norecord" *ngIf="currentUser && certificateList.length === 0">
+    <!-- <div class="norecord" *ngIf="currentUser && certificateList.length === 0">
       <img src="assets/imgs/norecordsfound.png" class="no-records" />
-    </div>    
+    </div>     -->
+    <ion-row *ngIf="currentUser && certificateList.length === 0">
+        <ion-col class="main-forum">
+          <ion-card class="forum-card">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-12>{{constant.pages.dashboardLabels.noData}}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
   </div>
   
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
