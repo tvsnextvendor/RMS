@@ -63,8 +63,6 @@ export class CoursePage implements OnInit {
         let detailObj = this.navParams.data;
         this.tab = detailObj && detailObj.tab;
         this.status = detailObj && detailObj.status;
-
-        console.log(detailObj)      
   }
 
   ngOnInit() {
@@ -138,7 +136,6 @@ export class CoursePage implements OnInit {
 
         });
       }
-      console.log(data)
     this.paramsData['courseId'] = data.Course.courseId;
     this.paramsData['trainingScheduleId'] = data.TrainingSchedule.trainingScheduleId;
     this.paramsData['status'] = this.status;
