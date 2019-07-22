@@ -71,7 +71,7 @@
                       {{constant.pages.trainingLabels.trainingClass}}</p>
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
-                    <div class="align-right" *ngIf="task.TrainingSchedule">
+                    <div class="align-right" *ngIf="task">
                       <span class="hour-status batch-date">Due On - {{task.TrainingScheduleResorts[0].TrainingSchedule.dueDate | date:'dd MMM
                         yyyy'}}</span>
                       <p class="org-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
@@ -120,7 +120,7 @@
                       {{constant.pages.trainingLabels.trainingClass}}</p>
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
-                    <div class="align-right" *ngIf="task.TrainingSchedule">
+                    <div class="align-right" *ngIf="task">
                       <span class="hour-status batch-date">Due On - {{task.TrainingScheduleResorts[0].TrainingSchedule.dueDate | date:'dd MMM
                         yyyy'}}</span>
                       <p class="org-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}

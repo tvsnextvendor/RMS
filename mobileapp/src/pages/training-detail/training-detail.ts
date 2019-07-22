@@ -146,6 +146,10 @@ export class TrainingDetailPage {
     
     // go to quiz page for training details
     goToQuizPage() {
+        if (this.videotag) {
+            const htmlVideoTag = this.videotag.nativeElement;
+            htmlVideoTag.pause();
+        }
         let self = this;
           this.http.get(API_URL.URLS.quizAPI + '?trainingClassId=' + this.trainingClassId + '&courseId=' + this.courseId).subscribe((res) => {
             if (res['isSuccess']) {

@@ -42,8 +42,8 @@
                       </span>
                     </h3>
                   </ion-col>
-                  <ion-col col-5 class="">
-                    <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.updated |
+                  <ion-col col-5 class="" *ngIf="task.created">
+                    <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.created |
                       date:'dd/MM/yyyy'}}</p>
                   </ion-col>
                 </ion-row>
