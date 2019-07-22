@@ -144,12 +144,12 @@
                                         <option value="null">{{commonLabels.labels.percentage}}</option>
                                         <option *ngFor="let percentage of batchVar.percentageList" value="{{percentage.percentage}}">{{percentage.percentage}}</option>
                                     </select>
-                                    <span *ngIf="submitted && !courseError && passPerError && data.passPercentage === 'null'" class="required_color" >{{commonLabels.mandatoryLabels.passPercentageError}}</span>
-                                    <span *ngIf="submitted && courseError && data.courseId === ''" class="required_color" >{{commonLabels.mandatoryLabels.courseError}}</span>
                                     <div class="col-1 col-md-1 p-0">
                                         <span *ngIf="batchVar.moduleForm && batchVar.moduleForm.length > 1"><a class="float-right" (click)="removeForm(i)"><i class="fa fa-times icons_header add-batch-icon pr-0 pl-2"></i></a></span>
                                         <span *ngIf="i==0 && scheduleId"><a class="float-right" (click)="addForm()"><i class="fa fa-plus icons_header add-batch-icon p-0"></i></a></span>
                                     </div>
+                                    <span *ngIf="submitted && !courseError && passPerError && data.passPercentage === 'null'" class="required_color" >{{commonLabels.mandatoryLabels.passPercentageError}}</span>
+                                    <span *ngIf="submitted && courseError && data.courseId === ''" class="required_color" >{{commonLabels.mandatoryLabels.courseError}}</span>                                    
                                 </div>
 
                                 <!-- <div class="" [ngClass]="scheduleId ? 'col-md-7 module-radiobtn p-0' : 'col-md-6 module-radiobtn p-0'">
