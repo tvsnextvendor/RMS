@@ -127,17 +127,17 @@ export class CoursePage implements OnInit {
     if(this.status == 'assigned'){
     let userId = this.currentUser ? this.currentUser.userId : 8;
         let postData={
-        'courseId' :data.Course.courseId,
+        'courseId' :data.courseId,
         'userId' : userId,
         'status': "inProgress"
         }
         this.http.put(false,API_URL.URLS.updateTrainingStatus, postData).subscribe((res) => {      
         },(err) => {
-
+          console.log(err);
         });
       }
-    this.paramsData['courseId'] = data.Course.courseId;
-    this.paramsData['trainingScheduleId'] = data.TrainingSchedule.trainingScheduleId;
+    this.paramsData['courseId'] = data.courseId;
+    this.paramsData['trainingScheduleId'] = data.TrainingScheduleResorts[0].TrainingSchedule.trainingScheduleId;
     this.paramsData['status'] = this.status;
     this.navCtrl.setRoot('training-page',this.paramsData);
   }
