@@ -31,14 +31,19 @@ export class HeaderComponent implements OnInit {
    
   ngOnInit(){
     let userData= this.utilService.getUserData();
-    // console.log(userData, "USERDATA");
+    let socketObj = {
+        userId: userData.userId
+    };    
     this.uploadPath = userData && userData.uploadPaths && userData.uploadPaths.uploadPath ? userData.uploadPaths.uploadPath : '';
-    this.getNotification();
+    this.getNotification(socketObj);
     this.headerService.TitleDetail.subscribe((resp) => { 
       setTimeout(() =>{ this.headerVar.title=resp.title,
           this.headerVar.hideModule=resp.hidemodule 
         })
     });
+    setInterval(() => {
+      this.getNotification(socketObj);
+    }, 15000);      
   }
 
   ngDoCheck(){
@@ -54,23 +59,13 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  getNotification(){
-      let userData = this.utilService.getUserData();
-      let socketObj = {
-        userId : userData.userId
-      };
-      this.socketService.getNotification(socketObj).subscribe((data) => {
-          this.notificationCount = data['unReadCount'];
-          this.notificationList = data['rows'];
-      });
-       setInterval(() => {
+  getNotification(socketObj){
          this.socketService.getNotification(socketObj).subscribe((data) => {
              this.notificationCount = data['unReadCount'];
              this.notificationList = data['rows'];
             //  console.log(this.notificationList)
 
          });
-       }, 15000);  
    }
 
    calculateHours(date){
