@@ -14,7 +14,7 @@
             <a class="nav-link dropdown-toggle p-0" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-bell icons_header" aria-hidden="true"></i>
-              <span class="badge badge-danger noti-pop">{{notificationCount}}</span>
+              <span class="badge badge-danger noti-pop" *ngIf="notificationCount > 0">{{notificationCount}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right header-noti-dropdown pb-2"  aria-labelledby="alertsDropdown" >
               <div class="dropdown-item pt-2 pb-0" href="#" *ngIf="notificationList?.length > 0" >
