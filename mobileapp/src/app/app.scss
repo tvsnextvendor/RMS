@@ -770,6 +770,13 @@ page-home .course-count p:hover {
                         border-radius: unset !important;
                     }
                 }
+                .table-bordered{
+                    border: none;
+                    background-color: #fff !important;
+                    margin: 0;
+                    border-collapse: unset !important;
+                    border-spacing: unset !important;
+                    }
 page-course .complete-status{
     color: #279014;
     font-size: 14px;
@@ -791,6 +798,13 @@ page-course .complete-status{
                         border-radius: unset !important;
                     }  
                 }
+                .table-bordered{
+                    border: none;
+                    background-color: #fff !important;
+                    margin: 0;
+                    border-collapse: unset !important;
+                    border-spacing: unset !important;
+                    }
 page-course .complete-status{
     color: #279014;
     font-size: 14px;
