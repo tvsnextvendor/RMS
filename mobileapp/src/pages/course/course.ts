@@ -69,12 +69,14 @@ export class CoursePage implements OnInit {
     
   }
 
-  ngAfterViewInit() {
+  ionViewWillEnter() {
             let self = this;
             this.storage.get('RolePermissions').then((res:any) =>{
               if(res != "[]"){
                 let data =JSON.parse(res);
-                this.hideUploadContent = data[0]['upload'];
+                let obj = data.find(o => o.moduleName === 'Employee Content Upload');
+                console.log(obj,"OBJ")
+                this.hideUploadContent = obj && obj['upload'] ? obj['upload'] : false;
                 console.log(this.hideUploadContent)
               }  
             });

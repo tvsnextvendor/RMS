@@ -76,9 +76,10 @@ export class EventPage implements OnInit {
         }, 1000);
     }
 
-    retakeCourse(courseId){
+    retakeCourse(courseId,scheduleId){
       let paramsData= {};
       paramsData['courseId'] = courseId;
+      paramsData['trainingScheduleId'] = scheduleId;
       this.navCtrl.setRoot('training-page', paramsData);
     }
 

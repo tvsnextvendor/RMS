@@ -56,7 +56,7 @@
                       <div class="average orange-color"
                         *ngIf="class.TrainingClass.FeedbackMappings[0].status == 'failed'">
                         {{constant.pages.trainingLabels.score}} {{class.TrainingClass.FeedbackMappings[0].passPerc}}%
-                        <span class="aligtxt" (click)="retakeCourse(class.courseId)"><br>
+                        <span class="aligtxt" (click)="retakeCourse(class.courseId,schedule.trainingScheduleId)"><br>
                           <ion-icon name="md-refresh"> {{constant.pages.trainingLabels.takeCourse}} </ion-icon>
                         </span>
                       </div>

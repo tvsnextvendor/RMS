@@ -36,8 +36,12 @@ export class AccomplishmentPage implements OnInit {
     perPageData = this.constant.numbers.five;
     SlidePerPage = this.constant.numbers.two;
     badgeslide = this.constant.numbers.three;
+   
+    ngOnInit(){
+        
+    }
 
-    ngOnInit() {
+    ionViewWillEnter() {
         let self = this;
         this.storage.get('currentUser').then((user: any) => {
             if (user) {
