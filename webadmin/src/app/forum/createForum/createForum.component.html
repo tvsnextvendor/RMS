@@ -94,11 +94,11 @@
         <div class="date-section pb-1">
             <div class="form-group group-box">
                 <div class="input-group date" data-provide="datepicker">
-                    <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="startDate" placement="top" placeholder="Start Date"
+                    <input type="text" class="form-control" #dp1="bsDatepicker" autocomplete="off" name="startDate" placement="top" placeholder="Start Date"
                     bsDatepicker [(ngModel)]="forumVar.startDate" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" [minDate] = 'currentDate'
                     required>
                     <div class="input-group-addon">
-                        <i class="far fa-calendar-alt icons_header" (click)="dp.toggle()"></i>                        
+                        <i class="far fa-calendar-alt icons_header" (click)="dp1.toggle()"></i>                        
                     </div>
                 </div>
                 <!-- <span class="required_color" *ngIf="submitted && !forumVar.startDate">{{forumVar.mandatoryLabels.startDate}}</span> -->

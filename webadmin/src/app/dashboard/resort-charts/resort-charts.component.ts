@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { DashboardVar } from '../../Constants/dashboard.var';
 import { HttpService,CommonService,UtilService,CourseService } from '../../services';
 declare var require: any;
@@ -34,6 +34,7 @@ export class ResortChartsComponent implements OnInit {
     roleId;
     userId;
     resortName;
+    @Input() notificationCount;
 
     constructor(public dashboardVar: DashboardVar,
          private http: HttpService,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { DashboardVar } from '../../Constants/dashboard.var';
 declare var require: any;
 const Highcharts = require('highcharts');
@@ -34,6 +34,7 @@ export class EmployeeChartsComponent implements OnInit {
   totalCourse;
   resortDetails = [];
   resortName;
+  @Input() notificationCount;
 
   constructor(public dashboardVar: DashboardVar,
     private utilService: UtilService,

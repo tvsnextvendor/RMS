@@ -8,8 +8,8 @@
 </div>
 
 <div class="tab-content">
-    <div *ngIf="selectedtab === tabTitle[0]" role="tabpanel" class="tab-pane active" id="one"><app-employee-charts></app-employee-charts></div>
-    <div *ngIf="selectedtab === tabTitle[1]" role="tabpanel" class="tab-pane active" id="two"><app-resort-charts></app-resort-charts></div>
+    <div *ngIf="selectedtab === tabTitle[0]" role="tabpanel" class="tab-pane active" id="one"><app-employee-charts [notificationCount]="notificationCount"></app-employee-charts></div>
+    <div *ngIf="selectedtab === tabTitle[1]" role="tabpanel" class="tab-pane active" id="two"><app-resort-charts [notificationCount]="notificationCount"></app-resort-charts></div>
 </div>
 
         
