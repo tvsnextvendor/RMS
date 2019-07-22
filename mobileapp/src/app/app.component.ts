@@ -104,7 +104,7 @@ export class MyApp implements OnInit{
         if (val) {
          // debugger;
           self.currentUser = val;
-        //  self.uploadPath= this.currentUser['uploadPaths']['uploadPath'];
+          self.uploadPath= this.currentUser['uploadPaths']['uploadPath'];
           self.userImage = this.currentUser.userImage;
           console.log(this.currentUser,"CURRENTUSER");
           console.log(this.uploadPath)

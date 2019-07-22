@@ -69,6 +69,7 @@ export class CourseFailedPage {
   {
       let paramsData = {};
       paramsData['courseId'] = courseId;
+      paramsData['trainingScheduleId'] = '';
       paramsData['status'] = 'failed';
       this.navCtrl.setRoot('training-page',paramsData);
   }

@@ -11,7 +11,8 @@
                     <img *ngIf="currentUser.userImage" src="{{currentUser.userImage}}" class="profile-image">
                 </ion-item> -->
                 <ion-item menuClose (tap)="openPage(profilePage)">
-                    <img src="assets/images/user.png" class="profile-image">
+                    <img *ngIf="!userImage" src="assets/images/user.png" class="profile-image">
+                    <img *ngIf="userImage" src="{{uploadPath}}{{userImage}}" class="profile-image">
                 </ion-item>
                 <button menuClose ion-item *ngFor="let p of pages" (tap)="openPage(p)">
                     {{p.title}}

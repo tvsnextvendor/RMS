@@ -105,39 +105,45 @@ export class SignrequireDetailPage {
         let fileLink;
         switch (fileType) {
             case "pdf":
-                fileLink = "assets/imgs/pdf.png";
+                fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "txt":
-                fileLink = "assets/imgs/text.png";
+                fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "docx":
             case "doc" :
-                fileLink = "assets/imgs/doc.png";
+                fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "ppt":
-                fileLink = "assets/imgs/ppt.png";
+                fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "xlsx":
-                 fileLink = 'assets/imgs/xlsx.png';
+                 fileLink = 'assets/imgs/banner.png';
                  this.imageType = true;
                  this.filePath = filename;
                  this.fileType = fileType;
                  break;
             case "png" :
+                fileLink = 'assets/imgs/banner.png';
+                this.imageType = true;
+                this.filePath = filename;
+                this.fileType = fileType;
+                break;
             case "jpg" :
-                 fileLink = this.uploadPath + filename;
+                 //fileLink = this.uploadPath + filename;
+                 fileLink = 'assets/imgs/banner.png';
                  this.imageType = true;
                  this.filePath = filename;
                  this.fileType = fileType;

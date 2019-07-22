@@ -318,13 +318,15 @@ export class TrainingDetailPage {
                  this.fileType = fileType;
                  break;
             case "png" :
-                fileLink = this.uploadPath + filename;
+                //fileLink = this.uploadPath + filename;
+                fileLink = 'assets/imgs/banner.png';
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
             case "jpg" :
-                 fileLink = this.uploadPath + filename;
+                 //fileLink = this.uploadPath + filename;
+                 fileLink = 'assets/imgs/banner.png';
                  this.imageType = true;
                  this.filePath = filename;
                  this.fileType = fileType;
