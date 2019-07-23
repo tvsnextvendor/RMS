@@ -388,9 +388,9 @@ export class AddQuizComponent implements OnInit {
                         let errData = err.error.error
                         if(errData && errData.statusKey){
                             this.courseId = '';
-                            this.quizSubmit(submitType)
+                            this.alertService.error('Training Class is owned by another user, Please change Training Class Name');
+                            this.modalRef && this.modalRef.hide();
                         }
-            
                     })
                 }
                 else {

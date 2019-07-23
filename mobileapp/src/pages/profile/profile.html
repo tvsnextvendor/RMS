@@ -20,7 +20,10 @@
 		<div class="profile-img">
 			<div class="profile-img-sec">
 			<input type="file" id="fileLoader" #fileLoader name="profilePic" title="Load File" [(ngModel)]="profilePic" accept="image/*" [ngModelOptions]="{standalone: true}" (change)="uploadImg($event)"  hidden/>
-		    <img [src]="previewProfilePic" class="profile-image">
+			<!-- <img [src]="previewProfilePic" class="profile-image"> -->
+			<img *ngIf="!profileDetail.userImage" src="assets/images/user.png" class="profile-image">
+			<img *ngIf="profileDetail.userImage" src="previewProfilePic" class="profile-image">
+
 			<div class="upload-icon">
 					<a class="pro-icon" (click)="fileLoader.click()" >
 							<ion-icon name="camera"></ion-icon>
