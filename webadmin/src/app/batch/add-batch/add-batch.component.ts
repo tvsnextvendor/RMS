@@ -384,8 +384,8 @@ export class AddBatchComponent implements OnInit {
         if (key == 'dept') {
             this.batchVar.selectedEmp = []; 
             this.batchVar.employeeList = [];
-            const data = { 'departmentId': this.batchVar.departmentId, 'createdBy': ' ' };
-            this.roleId != 1 ? data.createdBy =  this.utilService.getUserData().userId : delete data.createdBy;
+            const data = { 'departmentId': this.batchVar.departmentId, 'resortId': ' ' };
+            this.roleId != 1 ? data.resortId =  this.batchVar.selectedResort : delete data.resortId;
             this.userService.getUserByDivDept(data).subscribe(result => {
                 if (result && result.data) {
                     this.batchVar.employeeList = result.data;

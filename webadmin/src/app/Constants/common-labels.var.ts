@@ -243,7 +243,7 @@ export class CommonLabels{
         "recentComment"     :   "Recent Comment",
         "wishes"            :   "Good Morning",        
         "notificationdash"  :   "You have ",
-        "notifyAlert"       :   " notification alert.",
+        "notifyAlert"       :   " notification(s) alert.",
         "totalCourses"      :   'Total Courses',
         "availableCourses"  :   'Assigned Courses',
         "completedCourses"  :   'Completed Courses',

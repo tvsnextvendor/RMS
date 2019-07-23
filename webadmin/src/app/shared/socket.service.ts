@@ -28,7 +28,4 @@ export class SocketService {
         });
         return subject;
     }
-
-
-
 }

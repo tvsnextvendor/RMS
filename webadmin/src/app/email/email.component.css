@@ -70,8 +70,8 @@ ul li{
   position: relative;
 }
 .Signature-btn{
-  position: absolute;
-  top: 42px;
-  right: 15px;
-  z-index: 10;
+    position: absolute;
+    top: 78px;
+    right: 204px;
+    z-index: 10;
 }

@@ -791,7 +791,6 @@ export class AddModuleComponent implements OnInit {
             }
             this.commonService.updateFiles(this.fileId, postData).subscribe(res=>{
                 if(res.isSuccess){
-                    this.clearData();
                     this.videoSubmitted = false;
                     this.alertService.success(res.message);
                     let videoObj = {
@@ -804,6 +803,7 @@ export class AddModuleComponent implements OnInit {
                        const index = this.moduleVar.videoIndex - 1; 
                        this.moduleVar.videoList[index] = videoObj;
                     }
+                    this.clearData();
                     this.fileId = '';
                 //   this.clearData();
                 }
