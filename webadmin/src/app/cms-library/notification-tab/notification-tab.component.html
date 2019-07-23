@@ -8,11 +8,11 @@
             <div class="clearfix">               
                 <label class="square-cont float-left" *ngIf="uploadPage">
                     <input type="checkbox" name="file" value={{courses.File.fileId}} [checked]="courses.File.selected" (change)="addFiles($event,courses.File,i)"><span
-                        class="text-over">{{courses.File.fileName}}</span>
+                        class="text-over">{{courses?.File?.fileName}}</span>
                     <span class="square-checkmark"></span>
                 </label>
 
-                <span class="text-over" *ngIf="!uploadPage">{{courses.File.fileName}}</span>
+                <span class="text-over" *ngIf="!uploadPage">{{courses?.File?.fileName}}</span>
 
                 <span class="float-right">
                     <a  title="Send Approval" *ngIf="roleId === 4 && iconEnable && userData.userId == courses.User.userId" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
@@ -55,7 +55,7 @@
                     <div class="clearfix">
                         <h5>{{commonLabels.labels.usageStats}}</h5>
                         <div class="total-count row pt-2">
-                            <span class="col-md-6 p-0">{{commonLabels.labels.totalNoEmp}} {{courses.totalCount}}</span>
+                            <span class="col-md-6 p-0">{{commonLabels.labels.totalNoEmp}} {{courses?.totalCount}}</span>
                         </div>
                     </div>
                     <div class="progress-section pt-3">

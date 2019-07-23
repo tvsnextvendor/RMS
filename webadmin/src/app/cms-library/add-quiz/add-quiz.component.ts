@@ -284,4 +284,16 @@ mcqAnswerUpdate(answer,index){
   
 }
 
+duplicateOptionCheck(index,value,optionIndex){
+  let data = this.quizQuestionsForm[index].options;
+  data.length && data.forEach((item,i)=>{
+      if(i != optionIndex){
+          if(item.optionName && value == item.optionName){
+              this.alertService.warn(this.commonLabels.mandatoryLabels.optionDuplicate)
+              this.quizQuestionsForm[index].options[optionIndex].optionName = '';
+          }
+      }
+  })
+}
+
 }

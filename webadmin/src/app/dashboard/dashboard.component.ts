@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import {DashboardVar} from '../Constants/dashboard.var';
 import {HeaderService,BreadCrumbService} from '../services';
 import {SocketService} from '../shared/socket.service';
@@ -12,7 +13,6 @@ import { CommonLabels } from '../Constants/common-labels.var'
 export class DashboardComponent implements OnInit {
  
   tabs = [];
-  
   tabTitle = [];
   notificationCount = 0;
   selectedtab;
@@ -34,9 +34,9 @@ export class DashboardComponent implements OnInit {
       this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
     }
     this.selectedtab = this.tabTitle[0];
-    setInterval(() => {
-      this.getNotification();
-    }, 15000); 
+    // setInterval(() => {
+    //   this.getNotification();
+    // }, 15000); 
   }
 
   ngAfterContentInit() {
@@ -49,14 +49,28 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  getNotification(){
-    let userData = this.utilService.getUserData();
-    let socketObj = {
-      userId: userData.userId
-    }; 
+//   getNotification(){
+//     let userData = this.utilService.getUserData();
+//     let socketObj = {
+//       userId: userData.userId
+//     }; 
+//     this.socketService.getNotification(socketObj).subscribe((data) => {
+//       this.notificationCount = data['unReadCount'];
+//     }); 
+//  }
+
+getNotification(){
+  let userData= this.utilService.getUserData();
+  let socketObj = {
+    userId: userData.userId
+  };  
+  Observable.interval(10000).subscribe(observer => {	
     this.socketService.getNotification(socketObj).subscribe((data) => {
-      this.notificationCount = data['unReadCount'];
-    }); 
+        this.notificationCount = data['unReadCount'];
+        // this.notificationList = data['rows'];
+      //  console.log(this.notificationList)
+    });
+  });
  }
 
   selectTab(tab: any) {

@@ -984,6 +984,7 @@ export class UserComponent implements OnInit {
             arr[i].role = String(this.getDivisionArray(item.ResortUserMappings, 'design'));
             arr[i].division = String(this.getDivisionArray(item.ResortUserMappings, 'div'));
             arr[i].department = String(this.getDivisionArray(item.ResortUserMappings, 'dept'));
+            arr[i].reportingTo = item.reportDetails ? item.reportDetails.userName : '';
         })
         // console.log(arr)
         this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.userManagement);
