@@ -508,9 +508,12 @@ li.search-block {
     will-change: transform;
         min-width: 389px !important;
 }
-.header-noti-dropdown .dropdown-item:hover {
-    background-color: #E5EFF5;
+.header-noti-dropdown .sec-notify:hover {
+  background-color: #E5EFF5;
 }
+/* .header-noti-dropdown .dropdown-item:hover {
+    background-color: #E5EFF5;
+} */
 .user-logout .dropdown-item:hover {
     background-color: #E5EFF5;
 }

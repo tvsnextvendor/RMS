@@ -18,7 +18,8 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right header-noti-dropdown pb-2"  aria-labelledby="alertsDropdown" >
               <div class="dropdown-item pt-2 pb-0" href="#" *ngIf="notificationList?.length > 0" >
-                <div class="row" *ngFor="let item of notificationList">
+                <div class="row  sec-notify mb-2" *ngFor="let item of notificationList">
+                <span class="col-md-2 pr-0" *ngIf="!item.User.userImage"><img class="notification-img" src="assets/images/user-icon1.png"></span>
                 <span class="col-md-2 pr-0" *ngIf="item.User.userImage"><img class="notification-img" src="{{uploadPath}}{{item.User.userImage}}"></span> 
                 <span class="noti-desc col-md-8 p-0">{{item.notification}}</span>
                 <span class="noti-timer col-md-2 pr-0">{{calculateHours(item.created)}}</span>
