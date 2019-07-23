@@ -208,7 +208,7 @@
                                 <div class="col-md-7 pr-0 pl-5">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()"
                                             [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
-                                        <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off"
+                                        <input type="text" class="form-control p-0" #dpFrom="bsDatepicker"  placement="top" autocomplete="off"
                                             name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel"
                                             [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" [minDate]="currentDate" required>
                                         <!-- <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
@@ -230,7 +230,7 @@
                                 <div class="col-md-7 p-0 batch-input">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()"
                                             [attr.aria-expanded]="dp.isOpen" class="batch-icon">
-                                        <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off"
+                                        <input type="text" class="form-control" #dp="bsDatepicker" placement="top" autocomplete="off"
                                             name="batchTo" bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel"
                                             [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" [minDate]="currentDate" required>
                                         <!-- <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
