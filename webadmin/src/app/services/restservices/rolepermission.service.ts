@@ -19,7 +19,7 @@ export class RolePermissionService {
     let params = 'departmentId=' + data.departmentId + '&divisionId=' + data.divisionId + '&resortId=' +data.resortId + '&designationId=' +data.designationId + '&web=' +data.web+ '&mobile=' +data.mobile; 
     return this.http.getLocal('local',this.url.permissionList+'?'+params);
   }
-  getRolePermissions(userId){
-    return this.http.getLocal('local', this.url.getRolePermissions + '?userId='+userId);
+  getRolePermissions(query){
+    return this.http.getLocal('local', this.url.getRolePermissions + query);
   }
 }

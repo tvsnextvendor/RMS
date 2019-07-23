@@ -18,10 +18,17 @@ export class RolepermissionComponent implements OnInit {
   resortId;
   rolesPermissions;
   @Input() userIdInfo;
+  @Input() userStatusInfo;
   @Input() viewUserRolePermission;
 
 
   constructor(public constant: RolePermissionVar, private alertService: AlertService, private headerService: HeaderService, private commonService: CommonService, private utilService: UtilService, private rolePermissionService: RolePermissionService, public commonLabels: CommonLabels) {
+  }
+
+  ngOnChanges(){
+    if (this.userIdInfo) {
+      this.getData();
+    } 
   }
 
   ngOnInit() {
@@ -42,7 +49,7 @@ export class RolepermissionComponent implements OnInit {
     // console.log(this.userIdInfo);
     //debugger;
     if (this.userIdInfo) {
-      this.getData();
+      // this.getData();
     } else {
       this.constant.modules.forEach(item => {
         item.view = false;
@@ -53,7 +60,9 @@ export class RolepermissionComponent implements OnInit {
     }
   }
   getData() {
-    this.rolePermissionService.getRolePermissions(this.userIdInfo).subscribe((result) => {
+    let query = "?userId="+this.userIdInfo;
+    query = this.userStatusInfo && this.userStatusInfo == 'web' ? query+"&web=1" : (this.userStatusInfo == 'mobile' ? query+"&mobile=1" : query)
+    this.rolePermissionService.getRolePermissions(query).subscribe((result) => {
       if (result && result.isSuccess) {
         this.rolesPermissions = result.data && result.data.rows;
         const resultRolePermissions = this.getObject(this.rolesPermissions, []);

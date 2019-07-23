@@ -34,6 +34,8 @@ export class EmployeeChartsComponent implements OnInit {
   totalCourse;
   resortDetails = [];
   resortName;
+  roleId;
+  userName;
   @Input() notificationCount;
 
   constructor(public dashboardVar: DashboardVar,
@@ -61,7 +63,9 @@ export class EmployeeChartsComponent implements OnInit {
     this.getData();
     this.getTopResort();
     this.getKeyStat();
+    this.roleId = this.utilService.getRole();
     let userDetails = this.utilService.getUserData();
+    this.userName = userDetails.userName;
     this.previewProfilePic = userDetails.uploadPaths && userDetails.uploadPaths.uploadPath && userDetails.userImage ? userDetails.uploadPaths.uploadPath+userDetails.userImage : '';
     this.dashboardVar.years = '2019';
     let query = this.resortId ? '?resortId='+this.resortId +'&type='+'summary': '';

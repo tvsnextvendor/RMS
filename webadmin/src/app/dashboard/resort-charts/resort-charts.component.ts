@@ -33,6 +33,7 @@ export class ResortChartsComponent implements OnInit {
     selectedParentResort = null;
     roleId;
     userId;
+    userName;
     resortName;
     @Input() notificationCount;
 
@@ -58,6 +59,8 @@ export class ResortChartsComponent implements OnInit {
     ngOnInit() {
         // this.getData();
         this.roleId = this.utilService.getRole();
+        let userDetails = this.utilService.getUserData();
+        this.userName = userDetails.userName;
         this.getKeyStat();
         this.getcertificateTrend();
         this.totalNoOfBadges();

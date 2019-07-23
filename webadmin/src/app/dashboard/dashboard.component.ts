@@ -34,6 +34,9 @@ export class DashboardComponent implements OnInit {
       this.tabTitle= [this.commonLabels.labels.summary,this.commonLabels.labels.resort];
     }
     this.selectedtab = this.tabTitle[0];
+    setInterval(() => {
+      this.getNotification();
+    }, 15000); 
   }
 
   ngAfterContentInit() {
@@ -49,23 +52,13 @@ export class DashboardComponent implements OnInit {
   getNotification(){
     let userData = this.utilService.getUserData();
     let socketObj = {
-      userId : userData.userId
-    };
+      userId: userData.userId
+    }; 
     this.socketService.getNotification(socketObj).subscribe((data) => {
-        this.notificationCount = data['unReadCount'];
-        // this.notificationList = data['rows'];
-    });
-     setInterval(() => {
-       this.socketService.getNotification(socketObj).subscribe((data) => {
-           this.notificationCount = data['unReadCount'];
-          //  this.notificationList = data['rows'];
-          //  console.log(this.notificationList)
-
-       });
-     }, 15000);  
+      this.notificationCount = data['unReadCount'];
+    }); 
  }
 
-  
   selectTab(tab: any) {
     // deactivate all tabs
     // this.tabs.toArray().forEach(tab => (tab.active = false));
