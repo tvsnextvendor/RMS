@@ -70,7 +70,6 @@ export class EmployeeChartsComponent implements OnInit {
     this.dashboardVar.years = '2019';
     let query = this.resortId ? '?resortId='+this.resortId +'&type='+'summary': '';
   
-
     this.commonService.getTotalCourse(query).subscribe(result => {
       const totalCourses = result.data.training;
       this.dashboardVar.totalCoursesCount = result.data.courseTotalCount;

@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { HeaderService } from '../../services/header.service';
+import { Observable } from 'rxjs/Rx';
 import { Router,ActivatedRoute } from '@angular/router';
 import {AuthGuard} from '../../guard/auth.guard.component'
 import {HttpService,CommonService,BreadCrumbService, UtilService} from '../../services';
@@ -31,19 +32,16 @@ export class HeaderComponent implements OnInit {
    
   ngOnInit(){
     let userData= this.utilService.getUserData();
-    let socketObj = {
-        userId: userData.userId
-    };    
     this.uploadPath = userData && userData.uploadPaths && userData.uploadPaths.uploadPath ? userData.uploadPaths.uploadPath : '';
-    this.getNotification(socketObj);
+    this.getNotification();
     this.headerService.TitleDetail.subscribe((resp) => { 
       setTimeout(() =>{ this.headerVar.title=resp.title,
           this.headerVar.hideModule=resp.hidemodule 
         })
     });
-    setInterval(() => {
-      this.getNotification(socketObj);
-    }, 15000);      
+    // setInterval(() => {
+    //   this.getNotification();
+    // }, 15000);      
   }
 
   ngDoCheck(){
@@ -59,13 +57,18 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  getNotification(socketObj){
-         this.socketService.getNotification(socketObj).subscribe((data) => {
-             this.notificationCount = data['unReadCount'];
-             this.notificationList = data['rows'];
-            //  console.log(this.notificationList)
-
-         });
+  getNotification(){
+    let userData= this.utilService.getUserData();
+    let socketObj = {
+      userId: userData.userId
+    };  
+    Observable.interval(15000).subscribe(observer => {	
+      this.socketService.getNotification(socketObj).subscribe((data) => {
+          this.notificationCount = data['unReadCount'];
+          this.notificationList = data['rows'];
+        //  console.log(this.notificationList)
+      });
+    });
    }
 
    calculateHours(date){

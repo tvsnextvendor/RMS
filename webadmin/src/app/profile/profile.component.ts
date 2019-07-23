@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     this.profVar.userName=this.userDetails.userName;
     this.userId = this.userDetails.userId;
     this.profVar.email=this.userDetails.email;
-    this.profVar.empId= this.userDetails.employeeId;
+    this.profVar.empId= this.userDetails.employeeNo;
     this.previewProfilePic = this.userDetails.uploadPaths && this.userDetails.uploadPaths.uploadPath && this.userDetails.userImage ? this.userDetails.uploadPaths.uploadPath+this.userDetails.userImage : 'assets/images/user-icon1.png';
     // this.profVar.dob= this.datepipe.transform( this.userDetails.dob , 'dd MMM yyyy');
     this.profVar.designation=this.userDetails.Designation && this.userDetails.Designation.designationName;
