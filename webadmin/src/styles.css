@@ -188,6 +188,9 @@ table td.td-pd {
 .breadcrumb-current{
   color: #656565 !important;
 }
+.user-tab ul.nav.nav-tabs {
+  display: none !important;
+}
 /******** check box ***************/
 .hole-cont {
    position: relative;

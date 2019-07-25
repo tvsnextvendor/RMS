@@ -285,4 +285,36 @@ th.action-hd {
     font-size: 14px;
     border: none;
     }
+    .para-alg{
+        color: #468FB9;
+        font-size: 13px;
+        font-weight: 600;
+        height: 155px;
+    }
+    .quiz-para, .course-para{
+        height: 155px;
+    }
+    .start-btn{
+        width: 50%;
+        float: none;
+    }
+    .class-color{
+        background-color: #0491BD !important;
+        border-color: #0491BD !important;
+    }
+    .quiz-color{
+        background-color: #34CB6D !important;
+        border-color: #34CB6D !important;
+    }
     
+    .course-color{
+        background-color: #F1C400 !important;
+        border-color: #F1C400 !important;
+    }
+    .Notification-color{
+        background-color: #8B62CC !important;
+        border-color: #8B62CC !important;
+    }
+    .user-tab ul.nav.nav-tabs {
+        display: none !important;
+    }
