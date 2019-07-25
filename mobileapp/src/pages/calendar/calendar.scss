@@ -15,6 +15,47 @@
     right: 40px;
     cursor: pointer;
 }
+.popup-header{
+    padding: 0 25px;
+}
+.question-header{
+    background-color: #2F98D1;
+    padding-bottom: 7px;
+}
+.popup-box p{
+    text-align: left !important;
+}
+.header-design{
+    font-size: 16px;
+    color: #fff;
+}
+.course-hd{
+    font-size: 15px;
+    color: #444040;
+    font-weight: 600;
+    padding: 7px 0;
+}
+.hd-alg{
+    padding: 0 0 12px 0;
+    border-bottom: 1px solid #ccc;
+}
+.btn-alg{
+    background-color: #11C12E !important;
+    padding: 0 30px;
+    border-radius: 4px;
+}
+.date-hd{
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    padding-right: 10px;
+}
+.date-cont{
+    color: #000;
+}
+.course-alg{
+    
+}
 .calendar{ 
     .monthview-container {
         background-color: #fff;
