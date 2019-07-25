@@ -14,6 +14,7 @@ import {RolepermissionModule } from '../rolepermission/rolepermission.module';
 
 const routes: Routes = [
   { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'users/:type', component: UserComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
