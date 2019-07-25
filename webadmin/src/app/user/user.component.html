@@ -1,5 +1,5 @@
 <div class="tab-section pt-3">  
-    <div class="clearfix"> 
+    <div class="clearfix" *ngIf="userPagesEnable"> 
         <form *ngIf = "userTab" class="float-right row pb-3 filter-search" (ngSubmit)="userList()">
             <div class="search-container clearfix">
                 <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
@@ -8,7 +8,7 @@
             </div>
         </form>
     </div>
-    <div class="clearfix">
+    <div class="clearfix" *ngIf="!userPagesEnable">
         <div class="row px-5 pt-4">
             <div class="col-md-6 pb-1">
                 <div class="white-bg pb-3">
@@ -23,7 +23,7 @@
                     </div>
                   </div>
                   <div class="col-md-12 text-center px-5">
-                      <button class="btn btn-primary start-btn class-color" (click)="pageRedirection('create','class')">{{commonLabels.btns.start}}</button>
+                      <button class="btn btn-primary start-btn class-color" (click)="roleTabSelect('user')">{{commonLabels.btns.start}}</button>
                       <!-- <button class="btn btn-primary start-btn class-color" (click)="pageRedirection('edit','class')">{{commonLabels.btns.start}}</button>             -->
                   </div>
                 </div>
@@ -40,7 +40,7 @@
                       </div>
                     </div>
                     <div class="col-md-12 text-center px-5">
-                        <button class="btn btn-primary start-btn quiz-color" (click)="pageRedirection('create','quiz')">{{commonLabels.btns.start}}</button>
+                        <button class="btn btn-primary start-btn quiz-color" (click)="roleTabSelect('div')">{{commonLabels.btns.start}}</button>
                         <!-- <button class="btn btn-primary start-btn quiz-color" (click)="pageRedirection('edit','quiz')">{{commonLabels.btns.start}}</button>          -->
                     </div>
                   </div>
@@ -59,7 +59,7 @@
                 </div>
               </div>
               <div class="col-md-12 text-center px-5">
-                  <button class="btn btn-primary start-btn course-color" (click)="pageRedirection('create','course')">{{commonLabels.btns.start}}</button>
+                  <button class="btn btn-primary start-btn course-color" (click)="roleTabSelect('roles')">{{commonLabels.btns.start}}</button>
                   <!-- <button class="btn btn-primary start-btn course-color" (click)="pageRedirection('edit','course')">{{commonLabels.btns.start}}</button>      -->
             </div>
             </div>
@@ -76,17 +76,18 @@
                   </div>
               </div>
               <div class="col-md-12 text-center px-5">
-                  <button class="btn btn-primary start-btn Notification-color" (click)="pageRedirection('create','notification')">{{commonLabels.btns.start}}</button>
+                  <button class="btn btn-primary start-btn Notification-color" (click)="roleTabSelect('rolesPermission')">{{commonLabels.btns.start}}</button>
                   <!-- <button class="btn btn-primary start-btn Notification-color" (click)="pageRedirection('edit','notification')">{{commonLabels.btns.start}}</button>         -->
             </div>
             </div>
           </div>
         </div>
     </div>
-        <tabset #staticTabs *ngIf="userType !== 1" class="user-tab">
-            <tab heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
+        <tabset #staticTabs *ngIf="userType !== 1 && userPagesEnable" class="user-tab">
+            <tab [active] = "selectTab == 'user'" heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
                 <div class="pt-3" id="contentToConvert">
                     <div class="col-md-12 clearfix search-box p-0">
+                        
                     <div class="float-right row pb-1 adduser-respon"> 
                         <span *ngIf = "uploadPermission" class="pr-2 upload-line">
                             <!-- <button class="fileUpload btn btn-primary addUser-upload">
@@ -117,29 +118,28 @@
                             <thead>
                                 <tr class="th-boxshadow text-center">
                                     <th>
-                                        <mfDefaultSorter by="employeeNo">{{commonLabels.labels.employeeId}}</mfDefaultSorter>
+                                        <mfDefaultSorter by="employeeNo">{{commonLabels.labels.employeeId}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
                                         <mfDefaultSorter by="userName">{{commonLabels.labels.firstName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                                     </th>
                                     <th>
-                                        <mfDefaultSorter by="employeeName">{{commonLabels.labels.lastName}}<span class="ml-2"><img src="assets/images/sortby.png"
-                                                    class="s-width"></span></mfDefaultSorter>
+                                        <mfDefaultSorter by="lastName">{{commonLabels.labels.lastName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
-                                        <mfDefaultSorter by="Division.divisionName">{{commonLabels.labels.division}}</mfDefaultSorter>
+                                        <mfDefaultSorter>{{commonLabels.labels.role}}</mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
-                                        <mfDefaultSorter by="Department.departmentName">{{commonLabels.labels.department}}</mfDefaultSorter>
+                                        <mfDefaultSorter>{{commonLabels.labels.division}}</mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
-                                        <mfDefaultSorter by="Designation.designationName">{{commonLabels.labels.role}}</mfDefaultSorter>
+                                        <mfDefaultSorter>{{commonLabels.labels.department}}</mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
-                                        <mfDefaultSorter by="emailId">{{commonLabels.labels.email}}</mfDefaultSorter>
+                                        <mfDefaultSorter by="email">{{commonLabels.labels.email}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
-                                        <mfDefaultSorter by="mobile">{{commonLabels.labels.accessTo}}</mfDefaultSorter>
+                                        <mfDefaultSorter by="status">{{commonLabels.labels.accessTo}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                                     </th>
                                     <th class="text-center action-hd">
                                     <!-- Action -->
@@ -151,9 +151,9 @@
                                     <td class="text-center"><label class="mb-0">{{ user.employeeNo }}</label></td>
                                     <td class="text-center"><label class="mb-0">{{ user.userName | titlecase}}</label></td>
                                     <td class="text-center"><label class="mb-0">{{ user?.lastName | titlecase}}</label></td>
+                                    <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'design') }}</label></span></td>
                                     <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0" >{{ getDivisionArray(user.ResortUserMappings,'div') }}</label></span></td>
                                     <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'dept')}}</label></span></td>
-                                    <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'design') }}</label></span></td>
                                     <td class="text-center"><label class="mb-0">{{ user.email }}</label></td>
                                     <td class="text-center"><label class="mb-0">{{ user.status }}</label></td>
                                     <td class="text-center">
@@ -183,7 +183,7 @@
                     </form>
                 </div>
             </tab>
-            <tab heading={{commonLabels.labels.hierarchy}} (select)="roleTabSelect('div')">  
+            <tab [active] = "selectTab == 'div'" heading={{commonLabels.labels.hierarchy}} (select)="roleTabSelect('div')">  
                 <div class="pt-3 clearfix">
                     <div class="hd-section clearfix">
                     <h5 class="float-left title-hd">{{commonLabels.labels.division}}</h5>
@@ -217,7 +217,7 @@
                     </div>
                 </div>    
             </tab>
-            <tab heading = {{commonLabels.labels.listofRole}} (select)="roleTabSelect('roles')">
+            <tab [active] = "selectTab == 'roles'" heading = {{commonLabels.labels.listofRole}} (select)="roleTabSelect('roles')">
                 <div class="pt-4 clearfix listrole">
                     <div class="hd-section clearfix">
                         <h5 class="float-left title-hd">{{commonLabels.labels.listofRole}}</h5>
@@ -242,7 +242,10 @@
                     </div>
                 </div> 
             </tab>
-            <tab *ngIf = "permissionCheck()" heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
+            <tab [active] = "selectTab == 'rolesPermission'" *ngIf = "permissionCheck()" heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
+            <span class="pr-2" *ngIf="viewUserRolePermission">
+                <button class="btn btn-primary" (click)="back('roles')">{{commonLabels.btns.back}}</button>
+            </span>
             <app-rolepermission *ngIf="enableRolePermission " [userIdInfo]="userIdData" [viewUserRolePermission] = "viewUserRolePermission" [userStatusInfo]="userStatus"></app-rolepermission>
             </tab>
         </tabset>  

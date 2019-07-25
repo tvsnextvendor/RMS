@@ -136,7 +136,7 @@ export class CourseService {
     }else if(params.courseId){
       return this.http.getLocal('local',this.url.fileList+'?courseId='+params.courseId+'&userId='+userId);
     }else{
-      return this.http.getLocal('local',this.url.fileList+'?fileType='+params.type+'&page='+params.page+'&size='+params.size+params.query+'&userId='+userId);
+      return this.http.getLocal('local',this.url.fileList+'?fileType='+params.type+'&page='+params.page+'&size='+params.size+params.query);
     }
     
   }
@@ -265,5 +265,11 @@ export class CourseService {
     // permissionUserList
     return this.http.getLocal('local',this.url.permissionUserList+query);
   }
+
+  getCourseForNotification(query){
+    // getCourseByResort
+    return this.http.getLocal('local',this.url.getCourseByResort+query);
+  }
+
 
 }

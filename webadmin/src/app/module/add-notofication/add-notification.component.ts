@@ -180,10 +180,11 @@ export class AddNotificationComponent implements OnInit {
 
     getCourses(){
       let user = this.utilService.getUserData();
-      let query = '?status=none&created='+user.userId;
-      this.courseService.getNotificationCourse(query).subscribe(result=>{
+      let resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : ''; 
+      let query = '?status=none&resortId='+resortId;
+      this.courseService.getCourseForNotification(query).subscribe(result=>{
         if(result && result.isSuccess){
-          this.moduleVar.courseList = result.data && result.data.rows;
+          this.moduleVar.courseList = result.data.length && result.data;
         }
       })
     }
@@ -273,7 +274,7 @@ export class AddNotificationComponent implements OnInit {
             })
           }
           if (key == 'dept') {
-            const data = { 'departmentId': this.moduleVar.departmentId, 'createdBy': this.utilService.getUserData().userId }
+            const data = { 'departmentId': this.moduleVar.departmentId, 'resortId': this.moduleVar.selectedResort}
             this.userService.getUserByDivDept(data).subscribe(result => {
               if (result && result.data) {
                 let listData =_.cloneDeep(this.moduleVar.employeeList);
