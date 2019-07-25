@@ -142,7 +142,7 @@ export class Constant {
             assignedLabel: 'Assigned',
             progressLabel: 'In Progress',
             completedLabel: 'Completed',
-            signRequired: 'Sign Required',
+            signRequired: 'Sig. Required',
             trainingClass:'Training Class',
             score: 'Score',
             takeCourse: 'Retake Course',

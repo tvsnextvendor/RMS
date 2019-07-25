@@ -100,7 +100,7 @@ export class ProfilePage implements OnInit {
         this.msgDes=res['result'];
         let self = this;
           setTimeout(function(){ 
-          self.navCtrl.setRoot('home-page');
+          self.navCtrl.push('home-page');
           }, 3000);     
       }
     })
@@ -140,7 +140,7 @@ export class ProfilePage implements OnInit {
             this.msgDes = res['message'];
             let self = this;
             setTimeout(function() {
-                self.navCtrl.setRoot('home-page');
+                self.navCtrl.push('home-page');
             }, 3000);
         }
     })
@@ -217,10 +217,10 @@ export class ProfilePage implements OnInit {
 
 
   goToProfile() {
-    this.navCtrl.setRoot('profile-page');
+    this.navCtrl.push('profile-page');
   }
   goToPrevious(){
-    this.navCtrl.setRoot('home-page');
+    this.navCtrl.push('home-page');
   }
 
 

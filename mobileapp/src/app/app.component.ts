@@ -43,6 +43,8 @@ export class MyApp implements OnInit{
       // Catches the active view
       let nav = this.app.getActiveNavs()[0];
       let activeView = nav.getActive();
+      let pageName = activeView.component.name;
+      console.log(pageName);
       if (activeView.component.name == "HomePage") {
           //Double check to exit app                  
           if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
@@ -56,11 +58,12 @@ export class MyApp implements OnInit{
               toast.present();
               this.lastTimeBackPress = new Date().getTime();
           }
-      } else{
-        console.log("YAYYYYYY");
-        //this.location.back();
-        //this.nav.pop();
+      }else if(pageName == "CoursePage" || pageName ==  "ForumPage" || pageName ==  "AccomplishmentPage" || pageName ==  "FeedbackPage" ||  pageName == "EventPage"){
+        console.log("GOT IT")
         this.nav.setRoot('home-page');
+      }else{
+        console.log("YAYYYYYY");
+         this.nav.pop();
         }
     });
 

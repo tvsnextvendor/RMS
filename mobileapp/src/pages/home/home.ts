@@ -66,26 +66,26 @@ export class HomePage {
     console.log(data,"Data")
     switch (page) {
       case 'notification':
-        this.navCtrl.setRoot('generalnotification-page');
+        this.navCtrl.push('generalnotification-page');
         break;
       case 'signReq':
         this.paramsData['tab'] = page;
-        this.navCtrl.setRoot('course-page',this.paramsData);
+        this.navCtrl.push('course-page',this.paramsData);
         break;
       case 'course':
       console.log(this.status);
         this.paramsData['status'] = this.status;
-        this.navCtrl.setRoot('course-page', this.paramsData);
+        this.navCtrl.push('course-page', this.paramsData);
         break;
       case 'trainingClass' :
         console.log(data,"DATA");
         this.paramsData['courseId'] = data.courseId;
         this.paramsData['trainingScheduleId'] = data.trainingScheduleId;
         this.paramsData['status'] = this.status;
-        this.navCtrl.setRoot('training-page',this.paramsData);
+        this.navCtrl.push('training-page',this.paramsData);
         break;
       default:
-         this.navCtrl.setRoot('course-page');
+         this.navCtrl.push('course-page');
         break;
     }
   }
@@ -151,11 +151,11 @@ export class HomePage {
   }
    
   goToNotification(){
-    this.navCtrl.setRoot('notification-page');
+    this.navCtrl.push('notification-page');
   }
   
   goToForum(){
-     this.navCtrl.setRoot('forum-page');
+     this.navCtrl.push('forum-page');
   }
 
     getNotification(){

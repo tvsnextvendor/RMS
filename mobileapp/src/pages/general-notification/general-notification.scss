@@ -84,4 +84,8 @@ page-general-notification {
 	.notification-header{
 		line-height: 18px
 	}
+	
+	.no-backbtn .back-button.show-back-button {
+		display: none !important;
+	}
 }

@@ -174,21 +174,23 @@ export class SignrequireDetailPage {
     doneClicked(){
       if(this.pageType == 'signReq'){
           if(this.agree){
-          this.navCtrl.setRoot('course-page','signReq');
+          this.navCtrl.push('course-page','signReq');
           }else{
             this.successMessage('Please agree acknowledgement');
           }
       }else{
           this.completeNotification();
-          this.navCtrl.setRoot('generalnotification-page');
+          this.navCtrl.push('generalnotification-page');
       }
     }
 
     goBack(){
         if (this.pageType == 'signReq') {
-                this.navCtrl.setRoot('course-page', 'signReq');
+              let paramsData ={};
+                paramsData['tab'] = 'signReq'
+                this.navCtrl.push('course-page', paramsData);
         } else {
-            this.navCtrl.setRoot('generalnotification-page');
+            this.navCtrl.push('generalnotification-page');
         }
     }
 

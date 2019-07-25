@@ -47,11 +47,11 @@ export class CourseFailedPage {
   }
 
    goToNotification() {
-    this.navCtrl.setRoot('notification-page');
+    this.navCtrl.push('notification-page');
   }
 
    goToForum(){
-     this.navCtrl.setRoot('forum-page');
+     this.navCtrl.push('forum-page');
   }
 
    getNotification(){
@@ -71,7 +71,7 @@ export class CourseFailedPage {
       paramsData['courseId'] = courseId;
       paramsData['trainingScheduleId'] = '';
       paramsData['status'] = 'failed';
-      this.navCtrl.setRoot('training-page',paramsData);
+      this.navCtrl.push('training-page',paramsData);
   }
 
    toggleSearchBox() {

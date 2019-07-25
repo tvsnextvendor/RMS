@@ -46,5 +46,11 @@ page-feedback {
     .list-md {
         margin: -1px 0 115px;
     }
+
+    
+    .no-backbtn .back-button.show-back-button {
+        display: none !important;
+    }
+
     
 }

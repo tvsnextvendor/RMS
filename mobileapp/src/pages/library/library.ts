@@ -218,7 +218,7 @@ export class LibraryPage {
     }
   }
   goToNotification() {
-    this.navCtrl.setRoot('notification-page');
+    this.navCtrl.push('notification-page');
   }
   onInput($e) {
     console.log("On input");

@@ -77,10 +77,10 @@ export class NotificationPage implements OnInit {
     switch (type) {
       case "expireCourse":
       case "assignCourse":
-        this.navCtrl.setRoot('course-page');
+        this.navCtrl.push('course-page');
         break;
       default:
-       this.navCtrl.setRoot('forum-page');
+       this.navCtrl.push('forum-page');
         break;
     }
 

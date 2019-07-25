@@ -123,7 +123,7 @@ export class TrainingPage {
   }
 
   goToForum() {
-    this.navCtrl.setRoot('forum-page');
+    this.navCtrl.push('forum-page');
   }
 
   // show tabs
@@ -238,7 +238,7 @@ export class TrainingPage {
     }
   }
   goToNotification() {
-    this.navCtrl.setRoot('notification-page');
+    this.navCtrl.push('notification-page');
   }
 
    getNotification(){

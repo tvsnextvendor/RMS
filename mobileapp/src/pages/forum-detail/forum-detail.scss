@@ -389,3 +389,6 @@ button.btn-dele:hover:not(.disable-hover){
 	border-radius: 0px 9px 9px 9px;
 	text-align: left;
 }
+.no-backbtn .back-button.show-back-button {
+		display: none !important;
+}
