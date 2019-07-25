@@ -40,12 +40,12 @@ export class ForumPage implements OnInit {
 
   goToTopic(detailObj){
      this.paramsData['setData'] = detailObj;
-    this.navCtrl.setRoot('topic-page',this.paramsData);
+    this.navCtrl.push('topic-page',this.paramsData);
   }
 
 
   goToNotification() {
-    this.navCtrl.setRoot('notification-page');
+    this.navCtrl.push('notification-page');
   }
 
    ngAfterViewInit() {

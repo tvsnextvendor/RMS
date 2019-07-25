@@ -34,7 +34,7 @@ export class TopicPage {
   
    goToForumDetail(detailObj) {
     this.paramsData['setData'] = detailObj;
-    this.navCtrl.setRoot('forumdetail-page', this.paramsData);
+    this.navCtrl.push('forumdetail-page', this.paramsData);
   }
 
 }

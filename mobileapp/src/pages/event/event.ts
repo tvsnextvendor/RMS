@@ -80,7 +80,7 @@ export class EventPage implements OnInit {
       let paramsData= {};
       paramsData['courseId'] = courseId;
       paramsData['trainingScheduleId'] = scheduleId;
-      this.navCtrl.setRoot('training-page', paramsData);
+      this.navCtrl.push('training-page', paramsData);
     }
 
   getBatch() {
@@ -106,7 +106,7 @@ export class EventPage implements OnInit {
     let paramsData={};
     paramsData['courseId'] = courseId;
     paramsData['trainingScheduleId'] = scheduleId;
-    this.navCtrl.setRoot('training-page', paramsData);
+    this.navCtrl.push('training-page', paramsData);
   }
    
   calculateAvgScore(data){
@@ -135,15 +135,15 @@ calculateExpireDays(dueDate) {
   }
 
   goToForum(){
-     this.navCtrl.setRoot('forum-page');
+     this.navCtrl.push('forum-page');
   }
    
   goToNotification() {
-    this.navCtrl.setRoot('notification-page');
+    this.navCtrl.push('notification-page');
   }
 
   goToCalendar(){
-    this.navCtrl.setRoot('calendar-page');
+    this.navCtrl.push('calendar-page');
   }
 
 

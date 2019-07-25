@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header> -->
 <ion-content padding class="headerFull-bg default-header">
-<ion-header class="static-header main-header my-component" color="primary">
+<ion-header class="static-header main-header my-component no-backbtn" color="primary">
   <ion-navbar class="change-password-toolbar title-type2">
     <span class="back-arrow" (click)="goBack()">
       <img src="assets/imgs/Back.png" />
@@ -27,4 +27,26 @@
     (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
     (onTimeSelected)="onTimeSelected($event)" step="30" class="calendar">
   </calendar>
+
+  <ng-template #calDetail>
+    <div class="popup-box">
+      <div class="modal-header question-header">
+        <ion-row>
+          <p>{{eventDetail.title}}</p>
+        </ion-row>
+      </div>
+      <div class="modal-body">
+          <p>From:  {{eventDetail.startTime | date:'dd MMM yyyy' }}</p>
+          <p>To:    {{eventDetail.endTime | date:'dd MMM yyyy' }}</p>
+          Courses:  <p *ngFor="let data of eventDetail.courses">
+            <a class="course-click" (click)="navPage(data.courseId)">{{data.Course.courseName}}</a>
+          </p>  
+      </div>
+      <div class="model-footer">
+        <button ion-button small clear type="button" class="btn btn-can"
+          (click)="modalRef.hide()">{{constant.buttons.ok}}</button> 
+      </div>
+    </div>
+  </ng-template> 
+
 </ion-content>

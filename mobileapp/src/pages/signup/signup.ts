@@ -42,7 +42,7 @@ export class SignupPage implements OnInit {
   signupfn() {
     console.log(this.signup);
     this.toastr.success('Registration successful');
-    this.navCtrl.setRoot('login-page');
+    this.navCtrl.push('login-page');
     //API_URL.URLS.doSignup
     // this.http.post('/signup', this.signup).subscribe((data) => {
     //   console.log(data);
@@ -55,7 +55,7 @@ export class SignupPage implements OnInit {
       .then(res => {
         console.log(res);
         this.toastr.success('Registration successful');
-        this.navCtrl.setRoot('login-page');
+        this.navCtrl.push('login-page');
       })
       .catch(err => {
         console.log(err)
@@ -74,7 +74,7 @@ export class SignupPage implements OnInit {
       .then(() => {
         console.log('Logged in!');
         this.toastr.success('Registration successful');
-        this.navCtrl.setRoot('login-page');
+        this.navCtrl.push('login-page');
       })
       .catch(e => {
         console.log('Error logging in', e);
@@ -82,6 +82,6 @@ export class SignupPage implements OnInit {
       });
   }
   goBackLogin() {
-    this.navCtrl.setRoot('login-page');
+    this.navCtrl.push('login-page');
   }
 }

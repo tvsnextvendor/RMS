@@ -19,7 +19,7 @@ export class LandingPage {
     this.storage.get('currentUser').then((resp) => {
       //console.log("currentUser",resp);
       if(resp){
-        this.navCtrl.setRoot('home-page');
+        this.navCtrl.push('home-page');
       }
       //debugger;
      });

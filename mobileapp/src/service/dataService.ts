@@ -5,14 +5,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 export class DataService {
   
-  notificationCount = new BehaviorSubject(null)
-  notification = this.notificationCount.asObservable();
+  loginData = new BehaviorSubject(null)
+  getLoginData = this.loginData.asObservable();
 
   constructor() { }
   
-  sendCount(count) {
-      console.log(count,"COUNT");
-      this.notificationCount.next(count);
+  sendLoginData(data) {
+      console.log(data,"COUNT");
+      this.loginData.next(data);
    }
   
   

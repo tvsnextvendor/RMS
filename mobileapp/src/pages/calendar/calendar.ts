@@ -1,8 +1,10 @@
-import { Component,OnInit} from '@angular/core';
+import { Component,OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
+import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 
 
@@ -20,12 +22,15 @@ export class CalendarPage implements OnInit   {
     currentMonth;
     selectedDay = new Date();
     currentUser;
+    eventDetail;
     calendar = {
         mode: 'month',
         currentDate: new Date()
     };
+    modalRef: BsModalRef;
+    @ViewChild('calDetail') modalTemplate : TemplateRef<any>;
 
-    constructor(public navCtrl: NavController,public storage: Storage, public http: HttpProvider,private alertCtrl: AlertController) { }
+    constructor(private modalService: BsModalService, public constant: Constant,public navCtrl: NavController,public storage: Storage, public http: HttpProvider,private alertCtrl: AlertController) { }
 
     ngOnInit(){
       this.currentMonth = this.selectedDay.getMonth();  
@@ -40,7 +45,7 @@ export class CalendarPage implements OnInit   {
 
    //Nav to training schedule
     goBack(){
-    this.navCtrl.setRoot('event-page');
+    this.navCtrl.push('event-page');
     }
  
    //set month name
@@ -50,17 +55,22 @@ export class CalendarPage implements OnInit   {
 
    //Event detail modal
     onEventSelected(event) {
-        let start = moment(event.startTime).format('MMMM Do YYYY');
-        let startday = moment(event.startTime).format('ddd');
-        let end = moment(event.endTime).format('MMMM Do YYYY');
-        let endday = moment(event.endTime).format('ddd');
-        let alert = this.alertCtrl.create({
-            title: '' + event.title,
-            subTitle: 'From: ' + startday+', '+ start + '<br>To: '+ endday+ ', ' + end,
-            buttons: ['OK']
-        })
-        alert.present();
+      this.openModal(this.modalTemplate,event);
     }
+
+
+  openModal(template: TemplateRef<any>,event) {
+    this.eventDetail = event;
+    this.modalRef = this.modalService.show(template);
+  }
+
+  navPage(courseId){
+   this.modalRef.hide(); 
+   let paramsData = {};
+   paramsData['courseId'] = courseId;
+   paramsData['trainingScheduleId'] = this.eventDetail && this.eventDetail['scheduleId'];
+   this.navCtrl.push('training-page',paramsData);   
+  }
 
     onTimeSelected(ev) {
         this.selectedDay = ev.selectedTime;
@@ -88,11 +98,14 @@ export class CalendarPage implements OnInit   {
           let dataList = res['data'];
           let events = [];
           dataList.map(value=>{
+            console.log(value,"VALUE");
             events.push({
                 title: value.name,
                 startTime: new Date(value.assignedDate),
                 endTime: new Date(value.dueDate),
-                allDay: true
+                allDay: true,
+                courses: value.Courses,
+                scheduleId : value.trainingScheduleId
             });
           })      
           this.eventSource = events;

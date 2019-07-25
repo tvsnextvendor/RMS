@@ -61,3 +61,8 @@ page-forum {
 p{
     font-family: 'sf_pro_displayregular';
 }
+
+
+.no-backbtn .back-button.show-back-button {
+    display: none !important;
+}

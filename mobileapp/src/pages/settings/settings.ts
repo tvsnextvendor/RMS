@@ -62,7 +62,7 @@ export class SettingsPage implements OnInit {
     let self = this;
     setTimeout(function(){ 
       self.showToastr = false;
-      self.navCtrl.setRoot('home-page');
+      self.navCtrl.push('home-page');
       }, 3000); 
   }
   submit() {
@@ -90,7 +90,7 @@ export class SettingsPage implements OnInit {
     }
   }
   goToPrevious() {
-    this.navCtrl.setRoot('home-page');
+    this.navCtrl.push('home-page');
   }
   toggleSection() {
     this.showPasswordChange = !this.showPasswordChange;
@@ -99,7 +99,7 @@ export class SettingsPage implements OnInit {
 
    logOut() {
     this.auth.logout();
-    this.navCtrl.setRoot('login-page');
+    this.navCtrl.push('login-page');
   }
 
   getUser() {

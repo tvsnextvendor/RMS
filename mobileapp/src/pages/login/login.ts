@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
             if(success) {
                 this.storage.get('currentUser').then((user: any) => {
                     if(user){
-                        this.navCtrl.setRoot('home-page');
+                        this.navCtrl.push('home-page');
                     }
                 })
                //this.toastr.success('Login Successful');
@@ -70,13 +70,13 @@ export class LoginPage implements OnInit {
         });
     }
     goToSignUp() {
-        this.navCtrl.setRoot('signup-page');
+        this.navCtrl.push('signup-page');
     }
     goToForget() {
-        this.navCtrl.setRoot('forget-page');
+        this.navCtrl.push('forget-page');
     }
     goBackLogin(){
-        this.navCtrl.setRoot('login-page');
+        this.navCtrl.push('login-page');
       }
 
   

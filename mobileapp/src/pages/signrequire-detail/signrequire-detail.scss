@@ -36,7 +36,7 @@ ion-toolbar {
 
 }
 .image-tag{
-    padding:0;
+    padding:0i;
     background-color: #468FB9;
 }
 .inner-image{
@@ -153,7 +153,7 @@ ion-toolbar {
     text-align: center;
     padding: 12px 0;
     font-size: 20px;
-   margin: 20px auto 20px auto;
+    margin: 20px auto 20px auto;
 }
 
 .loading-bar-div {
@@ -310,5 +310,11 @@ page-signrequire-detail .img-box .inner-image {
 		display: flex;
 		justify-content: center;
     }
+
+
+.no-backbtn .back-button.show-back-button {
+    display: none !important;
+}
+
 
 

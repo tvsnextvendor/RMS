@@ -52,7 +52,7 @@ export class FeedbackPage {
   }
 
   goToNotification() {
-    this.navCtrl.setRoot('notification-page');
+    this.navCtrl.push('notification-page');
   }
 
    getNotification(){
@@ -110,7 +110,7 @@ saveFeedback(){
         this.msgDes=res['message'];
         let self = this;
           setTimeout(function(){ 
-          self.navCtrl.setRoot('home-page');
+          self.navCtrl.push('home-page');
           }, 3000); 
       }
   })

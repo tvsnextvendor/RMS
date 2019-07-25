@@ -68,7 +68,7 @@ getSignRequired(){
   }
 
   goBack(){
-      this.navCtrl.setRoot('home-page');
+      this.navCtrl.push('home-page');
   }
 
   openSignRequireDetail(Files, notificationFileId){
@@ -79,7 +79,7 @@ getSignRequired(){
       'notificationFileId': notificationFileId
     }
     console.log(this.uploadPath);
-    this.navCtrl.setRoot('signrequire-page', data);
+    this.navCtrl.push('signrequire-page', data);
   }
   
 }

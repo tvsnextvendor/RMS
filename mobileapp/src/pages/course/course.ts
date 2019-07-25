@@ -113,15 +113,15 @@ export class CoursePage implements OnInit {
     this.getCoursesList(); 
   }
   goToNotification() {
-    this.navCtrl.setRoot('notification-page');
+    this.navCtrl.push('notification-page');
   }
 
    goToForum(){
-     this.navCtrl.setRoot('forum-page');
+     this.navCtrl.push('forum-page');
   }
 
   goToFailedList(){
-    this.navCtrl.setRoot('course-failed-page');
+    this.navCtrl.push('course-failed-page');
   }
   
   openTrainingClass(data) 
@@ -141,7 +141,7 @@ export class CoursePage implements OnInit {
     this.paramsData['courseId'] = data.courseId;
     this.paramsData['trainingScheduleId'] = data.TrainingScheduleResorts[0].TrainingSchedule.trainingScheduleId;
     this.paramsData['status'] = this.status;
-    this.navCtrl.setRoot('training-page',this.paramsData);
+    this.navCtrl.push('training-page',this.paramsData);
   }
 
   openSignRequireDetail(Files, notificationFileId){
@@ -151,7 +151,7 @@ export class CoursePage implements OnInit {
       'type' : 'signReq',
       'notificationFileId' : notificationFileId
     }
-    this.navCtrl.setRoot('signrequire-page', data);
+    this.navCtrl.push('signrequire-page', data);
   }
 
   //getcourse 
@@ -200,7 +200,7 @@ export class CoursePage implements OnInit {
     });
   }
 
-  getSignRequired(search){
+  getSignRequired(search){    
     this.showAssigned = true;
     this.showProgress = true;
     this.showCompleted = true;

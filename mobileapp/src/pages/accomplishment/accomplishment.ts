@@ -109,12 +109,12 @@ export class AccomplishmentPage implements OnInit {
 
     //Redirect to notification page
     goToNotification() {
-        this.navCtrl.setRoot('notification-page');
+        this.navCtrl.push('notification-page');
     }
 
     //Redirect to Forum page
     goToForum() {
-        this.navCtrl.setRoot('forum-page');
+        this.navCtrl.push('forum-page');
     }
 
 
