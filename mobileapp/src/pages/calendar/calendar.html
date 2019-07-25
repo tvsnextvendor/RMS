@@ -31,19 +31,27 @@
   <ng-template #calDetail>
     <div class="popup-box">
       <div class="modal-header question-header">
-        <ion-row>
+        <!-- <ion-row>
           <p>{{eventDetail.title}}</p>
-        </ion-row>
+        </ion-row> -->
+        <div class="popup-header">
+          <h6 class="header-design">{{eventDetail.title}}</h6>
+        </div>
       </div>
       <div class="modal-body">
-          <p>From:  {{eventDetail.startTime | date:'dd MMM yyyy' }}</p>
-          <p>To:    {{eventDetail.endTime | date:'dd MMM yyyy' }}</p>
-          Courses:  <p *ngFor="let data of eventDetail.courses">
+        <div class="hd-alg row">
+          <p class="p-0 col-md-12"><span class="date-hd col-md-4 p-0">From Date:</span><span class="date-cont col-md-8">{{eventDetail.startTime | date:'dd MMM yyyy' }}</span></p>          
+          <p class="p-0 col-md-12"><span class="date-hd col-md-4 p-0">To Date:</span><span class="date-cont col-md-8">{{eventDetail.endTime | date:'dd MMM yyyy' }}</span></p>          
+       </div>
+       <div>
+          <div class="course-hd">Courses: </div>
+          <p *ngFor="let data of eventDetail.courses" class="course-alg">
             <a class="course-click" (click)="navPage(data.courseId)">{{data.Course.courseName}}</a>
-          </p>  
+          </p> 
+        </div> 
       </div>
       <div class="model-footer">
-        <button ion-button small clear type="button" class="btn btn-can"
+        <button ion-button small clear type="button" class="btn btn-can btn-alg"
           (click)="modalRef.hide()">{{constant.buttons.ok}}</button> 
       </div>
     </div>
