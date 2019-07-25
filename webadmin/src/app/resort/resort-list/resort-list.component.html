@@ -26,10 +26,10 @@
                 <thead>
                     <tr class="th-boxshadow">
                         <th class="text-left name-txt">
-                            <mfDefaultSorter>{{commonLabels.labels.resortName}}</mfDefaultSorter>
+                            <mfDefaultSorter by="resortName">{{commonLabels.labels.resortName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-left">
-                            <mfDefaultSorter>{{commonLabels.labels.location}}</mfDefaultSorter>
+                            <mfDefaultSorter by="location">{{commonLabels.labels.location}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-left">
                             <mfDefaultSorter>{{commonLabels.labels.email}}</mfDefaultSorter>
@@ -44,10 +44,10 @@
                                 <p class="text-nowrap">{{commonLabels.labels.totalStorage}}</p>
                         </th>
                         <th class="text-center">
-                            <mfDefaultSorter>{{commonLabels.labels.status}}</mfDefaultSorter>
+                            <mfDefaultSorter by="status">{{commonLabels.labels.status}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-center">
-                            <mfDefaultSorter>{{commonLabels.labels.numberOfUser}}</mfDefaultSorter>
+                            <mfDefaultSorter by="totalNoOfUsers">{{commonLabels.labels.numberOfUser}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-center" *ngIf = "userId === 1">
                             <p class="text-nowrap">Expiry due in</p>

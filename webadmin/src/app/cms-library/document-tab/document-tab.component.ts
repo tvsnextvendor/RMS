@@ -36,7 +36,7 @@ export class DocumentTabComponent implements OnInit {
   iconEnable = true;
   resourceLib = false;
   userData;
-  filePermissionType = "Public";
+  filePermissionType = "Restricted";
   userListSize;
   currentPage;
   userListData = [];
@@ -413,7 +413,7 @@ export class DocumentTabComponent implements OnInit {
           "resortId" : resortId,
           "employeeId" : this.constant.selectedEmp.map(item=>{return item.userId}),
           "fileId" :  this.constant.fileId,
-          "filePermissionType" : this.filePermissionType
+          "filePermissionType" : 'Restricted'
         }
         this.courseService.setPermission(params).subscribe(resp=>{
           if(resp && resp.isSuccess){

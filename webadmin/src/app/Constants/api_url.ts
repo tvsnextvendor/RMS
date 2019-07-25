@@ -132,6 +132,7 @@ export class API_URL {
     getTrainingClassList : '8103/trainingclass/getTrainingClassList',
     dropdownTCList:'8103/trainingclass/trainingClasses',
     sendApproval:'8103/createApproval',
+    getCourseByResort:'8103/course/getCourses',
   
     
 

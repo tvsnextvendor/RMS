@@ -88,10 +88,10 @@
         <div class="col-md-4 p-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-              {{commonLabels.labels.totalCourses}}</h6>
+              {{commonLabels.labels.videosTrend}}</h6>
                 <span class="totalcourses">{{commonLabels.labels.totalCourses}}
                     <span class="percent-alg">{{dashboardVar.totalCoursesCount}}</span></span>  
-                    <div *ngIf="dashboardVar.totalCourses" id="totalCourses" style="min-width: 150px; height: 220px; max-width: 600px; margin: 0 auto"></div>
+                    <div *ngIf="dashboardVar.totalCourses" id="totalCourses" style="min-width: 150px; height: 220px; max-width: 600px; margin: 0 auto" (click)="goToVideosTrend()"></div>
           </div><div class="col-sm-3 pl-0 course-style">
               <div class=" chart-bg">
                 
@@ -134,13 +134,13 @@
         <div class="col-md-8 p-0">
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
-              {{commonLabels.labels.videosTrend}}
+              {{commonLabels.labels.totalNoOfCourses}}
               <select class="vdo-btn mr-3 select select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
                 <option *ngFor="let year of dashboardVar.yearList" value="{{year.year}}">{{year.year}}</option>
                 <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
                 <div class="select_arrow"></div>
               </select>
-              <div *ngIf="dashboardVar.courseTrendData" class="trend-sec" id="trend" style="" (click)="goToVideosTrend()" ></div>
+              <div *ngIf="dashboardVar.courseTrendData" class="trend-sec" id="trend" style=""></div>
             </h6> 
           </div>
         </div>

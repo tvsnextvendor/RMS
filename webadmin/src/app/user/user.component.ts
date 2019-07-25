@@ -1,5 +1,5 @@
 import { Component, TemplateRef, OnInit, ViewChild, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute,Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from "lodash";
 import { TabsetComponent } from 'ngx-bootstrap';
@@ -94,10 +94,13 @@ export class UserComponent implements OnInit {
     userTab = true;
     viewUserRolePermission = false;
     userStatus = '';
+    userPagesEnable = false;
+    selectTab = 'user';
+    activatedTab = 'user';
 
 
-    constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
-        private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService,private permissionService : PermissionService) {
+    constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService,private permissionService : PermissionService,
+        private activatedRoute : ActivatedRoute) {
         this.constant.url = API_URL.URLS;
         this.API_ENDPOINT = API.API_ENDPOINT;
     }
@@ -114,7 +117,17 @@ export class UserComponent implements OnInit {
         if(roleId == 4 && !this.permissionService.uploadPermissionCheck("User Management")){
             this.uploadPermission = false;
         }
-
+        this.activatedRoute.params.subscribe((params) => {
+            if(params && Object.keys(params).length){
+                this.roleTabSelect(params.type)
+                this.activatedTab = params.type;
+            }
+            else{
+                this.breadCrumbService.setTitle([]);
+                this.userPagesEnable = false;
+                this.selectTab = 'user';
+            }
+        });
     }
 
     getResortId() {
@@ -165,8 +178,11 @@ export class UserComponent implements OnInit {
         //         this.designationArrays = [];
         //     }
 
-        const userId = this.utilService.getUserData().userId;
-        let query = "?createdBy="+userId;
+        let userData = this.utilService.getUserData();
+        let roleId = this.utilService.getRole();
+        const userId = userData.userId;
+        let resort = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
+        let query = roleId != 4 ? "?createdBy="+userId : "?resortId="+resort; 
         this.userService.getUser(query).subscribe((resp) => {
                 if (resp.isSuccess) {
                 this.designationArrays = resp.data.rows.length ? resp.data.rows : [];
@@ -185,10 +201,13 @@ export class UserComponent implements OnInit {
     }
 
     userList() {
-        const userId = this.utilService.getUserData().userId;
-        let query = "?createdBy="+userId;
+        let userData = this.utilService.getUserData();
+        let roleId = this.utilService.getRole();
+        const userId = userData.userId;
+        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
+        let query = roleId != 4 ? "?createdBy="+userId : "?resortId="+resortId; 
         if(this.search){
-            query = "?createdBy="+userId+"&search="+this.search;
+            query = query+"&search="+this.search;
         }
         this.userService.getUser(query).subscribe((resp) => {
             if (resp.isSuccess) {
@@ -985,24 +1004,59 @@ export class UserComponent implements OnInit {
             arr[i].division = String(this.getDivisionArray(item.ResortUserMappings, 'div'));
             arr[i].department = String(this.getDivisionArray(item.ResortUserMappings, 'dept'));
             arr[i].reportingTo = item.reportDetails ? item.reportDetails.userName : '';
+            arr[i].accessTo = item.reportDetails ? item.reportDetails.status : '';
         })
         // console.log(arr)
         this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.userManagement);
     }
 
     roleTabSelect(type) {
+        this.userPagesEnable = true;
+        this.selectTab = type;
         this.userTab = false;
-        this.viewUserRolePermission = false;
+        // this.viewUserRolePermission = false;
+        this.router.navigate(['/users/'+type])
         if (type === 'rolesPermission') {
             this.enableRolePermission = true;
-            this.userIdData = '';
-            this.userStatus = '';
+            if(!this.viewUserRolePermission){
+                this.userIdData = '';
+                this.userStatus = '';
+            }
         }
         else if(type == 'user'){
             this.userTab = true;
         }
         else {
             this.enableRolePermission = false;
+        }
+        switch(type){
+            case 'user':
+                let data1 = [{ title: this.commonLabels.labels.userManagement, url: '/users' }, { title: this.commonLabels.labels.selectUsers, url: '' }];
+                this.breadCrumbService.setTitle(data1);
+                break;
+            case 'div':
+                let data2 = [{ title: this.commonLabels.labels.userManagement, url: '/users' }, { title: this.commonLabels.labels.hierarchy, url: '' }];
+                this.breadCrumbService.setTitle(data2);
+                break;
+            case 'roles':
+                let data3 = [{ title: this.commonLabels.labels.userManagement, url: '/users' }, { title: this.commonLabels.labels.listofRole, url: '' }];
+                this.breadCrumbService.setTitle(data3);
+                break;
+            case 'rolesPermission':
+                let data4 = [{ title: this.commonLabels.labels.userManagement, url: '/users' }, { title: this.commonLabels.labels.rolesPermission, url: '' }];
+                this.breadCrumbService.setTitle(data4);
+                break;    
+        }
+    }
+
+    back(type){
+        if(type == 'roles'){
+            this.viewUserRolePermission = false;
+            this.roleTabSelect('user');
+        }
+        else{
+            this.userPagesEnable = false;
+            this.breadCrumbService.setTitle([]);  
         }
     }
 
@@ -1019,5 +1073,7 @@ export class UserComponent implements OnInit {
         this.search = '';
         this.existingFile = [];
         this.fileExist = false;
+        this.userPagesEnable = false;
+        this.selectTab = 'user';
     }
 }

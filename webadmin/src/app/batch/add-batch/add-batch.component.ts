@@ -90,23 +90,23 @@ export class AddBatchComponent implements OnInit {
     }
 
     getCourseData() {
-        this.courseService.getBatchCourse().subscribe(resp => {
+        this.resortId = this.userData.ResortUserMappings.length ? this.userData.ResortUserMappings[0].Resort.resortId : ''; 
+        let query = '?status=none&resortId='+this.resortId;
+        this.courseService.getCourseForNotification(query).subscribe(resp => {
             if (resp && resp.isSuccess) {
-                this.courseDataList = resp.data.rows.length ? resp.data.rows.map(item => {
+                this.courseDataList = resp.data.length ? resp.data.map(item => {
                     let obj = {
                         courseId: item.courseId,
                         courseName: item.courseName
                     }
                     return obj;
                 }) : [];
-                this.resortId = this.userData.ResortUserMappings.length ? this.userData.ResortUserMappings[0].Resort.resortId : ''; 
                 if(this.roleId == 1){
                     this.getResortList();
                 }
                 else{
                     this.getResortData(this.resortId);  
                 }
-                
             }
         });
     }

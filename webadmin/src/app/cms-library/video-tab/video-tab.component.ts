@@ -47,7 +47,7 @@ errorValidate = false;
 resourceLib = false;
 iconEnable = true;
 userData;
-filePermissionType = "Public";
+filePermissionType = "Restricted";
 currentPage;
 userListSize;
 userListData = [];
@@ -436,7 +436,7 @@ constructor(private courseService: CourseService,
         "resortId" : resortId,
         "employeeId" : this.constant.selectedEmp.map(item=>{return item.userId}),
         "fileId" :  this.fileId,
-        "filePermissionType" : this.filePermissionType
+        "filePermissionType" : 'Restricted'
       }
       this.courseService.setPermission(params).subscribe(resp=>{
         if(resp && resp.isSuccess){

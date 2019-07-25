@@ -1,5 +1,5 @@
 <form #rolepermission="ngForm" (ngSubmit)="saveRolePermission(rolepermission)">
-	<div class="pt-5" *ngIf="!userIdInfo">
+	<div class="pt-3" *ngIf="!userIdInfo">
 		<div class="white-bg pt-3 pl-3 pr-3">
 			<div class="row pb-4">
 				<div class="col-md-4 select select-style clearfix">
@@ -66,6 +66,10 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div *ngIf="!viewUserRolePermission" class="col-md-12 text-right p-0 pt-3">
+		<button type="submit" class="btn btn-primary mr-3 creat-btn">{{commonLabels.btns.save}}</button>
+		<button type="button" class="btn btn-default" (click)="clearForm(rolepermission)">{{commonLabels.btns.cancel}}</button>
 	</div>
 
 	<div class="table-responsive custom-table2 pt-1">
