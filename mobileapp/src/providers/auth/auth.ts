@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { API } from '../../constants/API.var';
-import {ToastrService} from '../../service/toastrService';
+import {ToastrService, DataService } from '../../service';
 import 'rxjs/add/operator/catch';
 
 export interface User {
@@ -18,7 +18,7 @@ export class AuthProvider {
   loginEmailError;
   loginPassErr;
   
-  constructor(public http: HttpClient, public toastr: ToastrService, public storage: Storage) {
+  constructor(public http: HttpClient,public dataService: DataService,public toastr: ToastrService, public storage: Storage) {
   }
   
   
@@ -29,7 +29,8 @@ export class AuthProvider {
         if (res['isSuccess'])
         {
            let loginData = res['data'];
-          if (loginData.rolePermissions) {
+           this.dataService.sendLoginData(loginData);
+           if (loginData.rolePermissions) {
               const rolePermissions = loginData.rolePermissions;
               const resultRolePermissions = this.getObject(rolePermissions, []);
               let permissions = [];
@@ -70,6 +71,7 @@ export class AuthProvider {
     this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
     this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
     this.storage.remove('RolePermissions').then(() => {console.log("roles removed")})
+    this.dataService.sendLoginData('');
   }
   getCurrentUserDetails(){
      let self = this;

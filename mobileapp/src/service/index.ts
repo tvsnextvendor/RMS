@@ -4,3 +4,4 @@ export * from './toastrService';
 export * from './dataService';
 export * from './commonService';
 export * from './safeHtmlPipe';
+export * from './networkProvider';

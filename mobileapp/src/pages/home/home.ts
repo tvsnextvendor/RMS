@@ -58,12 +58,10 @@ export class HomePage {
         this.scrollEnable = false;
           this.getDashboardInfo();
           this.getDashboardCount();
-      }, 10000);      
+      }, 15000);      
   }
 
   navPage(page, data){
-    // alert('djcbdbvbf')
-    console.log(data,"Data")
     switch (page) {
       case 'notification':
         this.navCtrl.push('generalnotification-page');
@@ -73,12 +71,10 @@ export class HomePage {
         this.navCtrl.push('course-page',this.paramsData);
         break;
       case 'course':
-      console.log(this.status);
         this.paramsData['status'] = this.status;
         this.navCtrl.push('course-page', this.paramsData);
         break;
       case 'trainingClass' :
-        console.log(data,"DATA");
         this.paramsData['courseId'] = data.courseId;
         this.paramsData['trainingScheduleId'] = data.trainingScheduleId;
         this.paramsData['status'] = this.status;
