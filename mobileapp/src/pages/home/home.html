@@ -69,7 +69,7 @@
             <ion-col col-11 (click)="navPage('course','')">
             <ion-row>
             <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
-            <ion-col col-7 class="batch-date">
+            <ion-col col-7 class="batch-date pr-0">
               {{schedule.assignedDate | date:'dd MMM yyyy'}}
               <span class="to-txt"> To </span>
               {{schedule.dueDate | date:'dd MMM yyyy'}}
