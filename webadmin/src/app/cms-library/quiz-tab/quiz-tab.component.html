@@ -150,7 +150,7 @@
             <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
         </div>
     </div>
-    <pagination-controls *ngIf="enableQuizEdit" class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>
+    <pagination-controls *ngIf="enableQuizEdit" [ngClass]="totalQuizCount < 10 ? 'my-pagination pagenation-count-alg' : 'my-pagination'"  (pageChange)="pageChanged($event)"></pagination-controls>
     <div class="text-center pt-4" *ngIf="uploadPage">
         <button type="button" class="btn btn-primary creat-btn">Add</button>
     </div>

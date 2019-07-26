@@ -6,83 +6,8 @@
                 <button type="submit" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
                 <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
             </div>
-        </form>
-    </div>
-    <div class="clearfix" *ngIf="!userPagesEnable">
-        <div class="row px-5 pt-4">
-            <div class="col-md-6 pb-1">
-                <div class="white-bg pb-3">
-                    <div class="class-color clearfix p-1"></div>
-                  <h5 class="text-center pt-1">Create/Edit User</h5>
-                  <div class="row pb-3">
-                    <div class="col-md-5 text-center"><img class="pt-2" src="assets/images/Group 11898.png"></div>
-                    <div class="col-md-7 para-alg">
-                      <p class="mb-0">Start here to create a new class. Classes are placed inside courses.</p>
-                      <p class="mb-0">You can place X classes in a course.</p>
-                      <p class="mb-0">You can work on the class and then add it to the single or multiple courses.</p>
-                    </div>
-                  </div>
-                  <div class="col-md-12 text-center px-5">
-                      <button class="btn btn-primary start-btn class-color" (click)="roleTabSelect('user')">{{commonLabels.btns.start}}</button>
-                      <!-- <button class="btn btn-primary start-btn class-color" (click)="pageRedirection('edit','class')">{{commonLabels.btns.start}}</button>             -->
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 pb-1">
-                  <div class="white-bg pb-3">
-                      <div class="quiz-color clearfix p-1"></div>
-                    <h5 class="text-center pt-1">Create/Edit Divisions & Departments</h5>
-                    <div class="row pb-3">
-                      <div class="col-md-5 text-center"><img class="pt-2" src="assets/images/Group 11899.png"></div>
-                      <div class="col-md-7 para-alg quiz-para">
-                        <p class="mb-0">Start here to create a new quiz. It is to test a user's understanding on the course that was assigned to him.</p>
-                        <p class="mb-0">Based on the scoring, system will determine the pass or fall percentage.</p>
-                      </div>
-                    </div>
-                    <div class="col-md-12 text-center px-5">
-                        <button class="btn btn-primary start-btn quiz-color" (click)="roleTabSelect('div')">{{commonLabels.btns.start}}</button>
-                        <!-- <button class="btn btn-primary start-btn quiz-color" (click)="pageRedirection('edit','quiz')">{{commonLabels.btns.start}}</button>          -->
-                    </div>
-                  </div>
-                </div>
-            
-          <div class="col-md-6 pt-4">
-            <div class="white-bg pb-3">
-                <div class="course-color clearfix p-1"></div>
-              <h5 class="text-center pt-1">Create/Edit Job Title</h5>
-              <div class="row pb-3">
-                <div class="col-md-5 text-center"><img class="pt-2" src="assets/images/Group 11900.png"></div>
-                <div class="col-md-7 para-alg course-para">
-                  <p class="mb-0">Start here to create a new course. You can then fill it with classes.</p>
-                  <p class="mb-0">Upon course completion a certificate will be awarded.</p>
-                  <p class="mb-0">Complete progress of each class is tracked and can br seen in the Reports menu</p>
-                </div>
-              </div>
-              <div class="col-md-12 text-center px-5">
-                  <button class="btn btn-primary start-btn course-color" (click)="roleTabSelect('roles')">{{commonLabels.btns.start}}</button>
-                  <!-- <button class="btn btn-primary start-btn course-color" (click)="pageRedirection('edit','course')">{{commonLabels.btns.start}}</button>      -->
-            </div>
-            </div>
-          </div>
-          <div class="col-md-6 pt-4">
-            <div class="white-bg pb-3">
-                <div class="Notification-color clearfix p-1"></div>
-              <h5 class="text-center pt-1">Assign/Edit Roles and Permissions</h5>
-              <div class="row pb-3">
-                <div class="col-md-5 text-center"><img class="" src="assets/images/Group 11901.png"></div>
-                <div class="col-md-7 para-alg">
-                  <p class="mb-0">Start here to create a new notification. You can notify employees on important announcements 
-                    and also receive their acknowledgement on the same.</p>
-                  </div>
-              </div>
-              <div class="col-md-12 text-center px-5">
-                  <button class="btn btn-primary start-btn Notification-color" (click)="roleTabSelect('rolesPermission')">{{commonLabels.btns.start}}</button>
-                  <!-- <button class="btn btn-primary start-btn Notification-color" (click)="pageRedirection('edit','notification')">{{commonLabels.btns.start}}</button>         -->
-            </div>
-            </div>
-          </div>
-        </div>
-    </div>
+        </form>   
+    
         <tabset #staticTabs *ngIf="userType !== 1 && userPagesEnable" class="user-tab">
             <tab [active] = "selectTab == 'user'" heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
                 <div class="pt-3" id="contentToConvert">
@@ -243,12 +168,88 @@
                 </div> 
             </tab>
             <tab [active] = "selectTab == 'rolesPermission'" *ngIf = "permissionCheck()" heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
-            <span class="pr-2" *ngIf="viewUserRolePermission">
+            <!-- <span class="pr-2" *ngIf="viewUserRolePermission">
                 <button class="btn btn-primary" (click)="back('roles')">{{commonLabels.btns.back}}</button>
-            </span>
+            </span> -->
             <app-rolepermission *ngIf="enableRolePermission " [userIdInfo]="userIdData" [viewUserRolePermission] = "viewUserRolePermission" [userStatusInfo]="userStatus"></app-rolepermission>
             </tab>
         </tabset>  
+    </div>
+        <div class="clearfix" *ngIf="!userPagesEnable">
+            <div class="row px-5 pt-4">
+                <div class="col-md-6 pb-1">
+                    <div class="white-bg pb-3">
+                        <div class="class-color clearfix p-1"></div>
+                      <h5 class="text-center pt-1">Create/Edit User</h5>
+                      <div class="row pb-3">
+                        <div class="col-md-5 text-center"><img class="pt-2" src="assets/images/Group 11898.png"></div>
+                        <div class="col-md-7 para-alg">
+                          <p class="mb-0">Start here to create a new class. Classes are placed inside courses.</p>
+                          <p class="mb-0">You can place X classes in a course.</p>
+                          <p class="mb-0">You can work on the class and then add it to the single or multiple courses.</p>
+                        </div>
+                      </div>
+                      <div class="col-md-12 text-center px-5">
+                          <button class="btn btn-primary start-btn class-color" (click)="roleTabSelect('user')">{{commonLabels.btns.start}}</button>
+                          <!-- <button class="btn btn-primary start-btn class-color" (click)="pageRedirection('edit','class')">{{commonLabels.btns.start}}</button>             -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 pb-1">
+                      <div class="white-bg pb-3">
+                          <div class="quiz-color clearfix p-1"></div>
+                        <h5 class="text-center pt-1">Create/Edit Divisions & Departments</h5>
+                        <div class="row pb-3">
+                          <div class="col-md-5 text-center"><img class="pt-2" src="assets/images/Group 11899.png"></div>
+                          <div class="col-md-7 para-alg quiz-para">
+                            <p class="mb-0">Start here to create a new quiz. It is to test a user's understanding on the course that was assigned to him.</p>
+                            <p class="mb-0">Based on the scoring, system will determine the pass or fall percentage.</p>
+                          </div>
+                        </div>
+                        <div class="col-md-12 text-center px-5">
+                            <button class="btn btn-primary start-btn quiz-color" (click)="roleTabSelect('div')">{{commonLabels.btns.start}}</button>
+                            <!-- <button class="btn btn-primary start-btn quiz-color" (click)="pageRedirection('edit','quiz')">{{commonLabels.btns.start}}</button>          -->
+                        </div>
+                      </div>
+                    </div>
+                
+              <div class="col-md-6 pt-4">
+                <div class="white-bg pb-3">
+                    <div class="course-color clearfix p-1"></div>
+                  <h5 class="text-center pt-1">Create/Edit Job Title</h5>
+                  <div class="row pb-3">
+                    <div class="col-md-5 text-center"><img class="pt-2" src="assets/images/Group 11900.png"></div>
+                    <div class="col-md-7 para-alg course-para">
+                      <p class="mb-0">Start here to create a new course. You can then fill it with classes.</p>
+                      <p class="mb-0">Upon course completion a certificate will be awarded.</p>
+                      <p class="mb-0">Complete progress of each class is tracked and can br seen in the Reports menu</p>
+                    </div>
+                  </div>
+                  <div class="col-md-12 text-center px-5">
+                      <button class="btn btn-primary start-btn course-color" (click)="roleTabSelect('roles')">{{commonLabels.btns.start}}</button>
+                      <!-- <button class="btn btn-primary start-btn course-color" (click)="pageRedirection('edit','course')">{{commonLabels.btns.start}}</button>      -->
+                </div>
+                </div>
+              </div>
+              <div class="col-md-6 pt-4">
+                <div class="white-bg pb-3">
+                    <div class="Notification-color clearfix p-1"></div>
+                  <h5 class="text-center pt-1">Assign/Edit Roles and Permissions</h5>
+                  <div class="row pb-3">
+                    <div class="col-md-5 text-center"><img class="" src="assets/images/Group 11901.png"></div>
+                    <div class="col-md-7 para-alg">
+                      <p class="mb-0">Start here to create a new notification. You can notify employees on important announcements 
+                        and also receive their acknowledgement on the same.</p>
+                      </div>
+                  </div>
+                  <div class="col-md-12 text-center px-5">
+                      <button class="btn btn-primary start-btn Notification-color" (click)="roleTabSelect('rolesPermission')">{{commonLabels.btns.start}}</button>
+                      <!-- <button class="btn btn-primary start-btn Notification-color" (click)="pageRedirection('edit','notification')">{{commonLabels.btns.start}}</button>         -->
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
     
 </div>
 <div class="pr-3 pt-3" id="contentToConvert" *ngIf="userType === 1">

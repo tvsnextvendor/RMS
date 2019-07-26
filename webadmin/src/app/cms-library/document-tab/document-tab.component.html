@@ -120,7 +120,7 @@
         </table>    
         <!-- <span *ngIf="videoListValue && !videoListValue.length">No Data </span>     -->
     </div>
-    <pagination-controls *ngIf="videoListValue && videoListValue.length" class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
+    <pagination-controls *ngIf="videoListValue && videoListValue.length" [ngClass]="totalVideosCount < 10 ? 'my-pagination pagenation-count-alg' : 'my-pagination'" (pageChange)="pageChanged($event)"></pagination-controls>  
 </div>
 <!-- 
 <div class="text-center pt-4" *ngIf="uploadPage">

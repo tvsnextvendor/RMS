@@ -278,7 +278,7 @@ th.action-hd {
     border: none;
     position: absolute;
     right: 22px;
-    top: 101px;
+    top: 144px;
     }
     .search-icon{
     color: #468FB9;
@@ -315,6 +315,6 @@ th.action-hd {
         background-color: #8B62CC !important;
         border-color: #8B62CC !important;
     }
-    .user-tab ul.nav.nav-tabs {
+    /* .user-tab ul.nav.nav-tabs {
         display: none !important;
-    }
+    } */
