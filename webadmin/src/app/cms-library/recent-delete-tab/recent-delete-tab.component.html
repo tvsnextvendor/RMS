@@ -239,7 +239,7 @@
                                 <div class="col-md-6 p-0 mt-4">
                                     <div class="fileUpload btn btn-primary">
                                         <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{commonLabels.labels.upload}}</span>
-                                            <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)" accept="image/*,video/*,.pdf,.zip"/>
+                                            <input type="file" name="videoFile" class="upload" [(ngModel)]="videoFile" (change)="fileUpload($event)" accept="image/*,video/*,.pdf,.zip,.txt,.doc"/>
                                     </div>      
                                 <div *ngIf='!previewImage'>
                                         <video id="video-element" controls [hidden]="true" [attr.src]="videoUrl">

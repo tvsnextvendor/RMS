@@ -240,7 +240,7 @@ export class AddBatchComponent implements OnInit {
             this.batchVar.moduleForm[i] = {
                 'courseId': "",
                 'courseName': "",
-                'passPercentage': "null",
+                'passPercentage': "100",
                 'mandatory': "true",
                 'duplicateCourse': true
             };
@@ -267,7 +267,7 @@ export class AddBatchComponent implements OnInit {
             let obj = {
                 'courseId': item.courseId,
                 'courseName': item.courseName,
-                'passPercentage': "null",
+                'passPercentage': "100",
                 'mandatory': "true"
             }
             this.batchVar.moduleForm.push(obj);
@@ -535,7 +535,7 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.moduleForm = [{
             'courseId': "",
             'courseName': "",
-            'passPercentage': "null",
+            'passPercentage': "100",
             'mandatory': "true"
         }];
         this.clearBatchVar();
@@ -573,7 +573,7 @@ export class AddBatchComponent implements OnInit {
         let obj = {
             'courseId': "",
             'courseName': "",
-            'passPercentage': "null",
+            'passPercentage': "100",
             'mandatory': "true"
         };
         this.batchVar.moduleForm.push(obj);

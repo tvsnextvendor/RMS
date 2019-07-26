@@ -260,12 +260,12 @@ export class AddQuizComponent implements OnInit {
         this.optionEmpty = false;
         if (this.questionList) {
             // console.log(this.questionList);
-            this.questionList.map(item => {
+            this.questionList.map((item,i) => {
                 delete item.questionId;
                 this.quizQuestionsForm.push(item);
             })
         }
-        let data = this.quizQuestionsForm.map(item => {
+        let data = this.quizQuestionsForm.map((item,i) => {
             // console.log(item)
             if(item.questionType !=  "True/False" && !item.answer){
               this.answerEmpty = true;
@@ -277,6 +277,7 @@ export class AddQuizComponent implements OnInit {
                 }
               })
             }
+            item.order = i+1;
             item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
             return item;
         })
@@ -485,7 +486,7 @@ export class AddQuizComponent implements OnInit {
                         this.quizQuestionsForm.push(item);
                     })
                 }
-                let data = this.quizQuestionsForm.map(item => {
+                let data = this.quizQuestionsForm.map((item,i) => {
                     // console.log(item)
                     if(item.questionType !=  "True/False" && !item.answer){
                       this.answerEmpty = true;
@@ -497,6 +498,7 @@ export class AddQuizComponent implements OnInit {
                         }
                       })
                     }
+                    item.order = i+1;
                     item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
                     return item;
                 })
@@ -643,14 +645,15 @@ getQuizData(){
     let user = this.utilService.getUserData();
     let roleId = this.utilService.getRole();
     let selectRes = this.selectedQuiz;
-    let quizId = selectRes.split('~');
-    let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
+    // let quizId = selectRes.split('~');
+    // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
+    let query = '?quizId='+selectRes;
     this.enableAddQuiz = true;
     this.courseService.getQuizList(query).subscribe(res=>{
         if(res.isSuccess){
             // console.log(res)
             let quizList = res.data && res.data.quiz;
-            this.quizQuestionsForm = quizList.length && quizList[0].QuizMappings && quizList[0].QuizMappings.length ? quizList[0].QuizMappings.map(item=>{return item.Question}) : [];
+            this.quizQuestionsForm = quizList.length && quizList[0].Questions && quizList[0].Questions.length ? quizList[0].Questions : [];
             // console.log(this.quizQuestionsForm)
         }
     })
