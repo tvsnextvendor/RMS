@@ -109,6 +109,9 @@ page-course {
 .no-backbtn .back-button.show-back-button {
     display: none !important;
 }
+ion-col.batch-name {
+    text-transform: capitalize;
+}
 
 
 

@@ -24,6 +24,7 @@
 }
 .popup-box p{
     text-align: left !important;
+    padding: 4px 0 !important;
 }
 .header-design{
     font-size: 16px;
@@ -53,9 +54,12 @@
 .date-cont{
     color: #000;
 }
-.course-alg{
-    
+.hd-alg{ 
+    label {
+    display: unset;
 }
+}
+
 .calendar{ 
     .monthview-container {
         background-color: #fff;
