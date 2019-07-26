@@ -31,17 +31,20 @@
   <ng-template #calDetail>
     <div class="popup-box">
       <div class="modal-header question-header">
-        <!-- <ion-row>
-          <p>{{eventDetail.title}}</p>
-        </ion-row> -->
-        <div class="popup-header">
+        <div class="col-md-12 text-center popup-header">
           <h6 class="header-design">{{eventDetail.title}}</h6>
         </div>
-      </div>
+      </div>  
       <div class="modal-body">
         <div class="hd-alg row">
-          <p class="p-0 col-md-12"><span class="date-hd col-md-4 p-0">From Date:</span><span class="date-cont col-md-8">{{eventDetail.startTime | date:'dd MMM yyyy' }}</span></p>          
-          <p class="p-0 col-md-12"><span class="date-hd col-md-4 p-0">To Date:</span><span class="date-cont col-md-8">{{eventDetail.endTime | date:'dd MMM yyyy' }}</span></p>          
+          <p class="p-0 col-md-12">
+            <label class="date-hd col-md-4 p-0">From Date</label>
+            <span class="date-cont col-md-8">:{{eventDetail.startTime | date:'dd MMM yyyy' }}</span>
+          </p>          
+          <p class="p-0 col-md-12">
+            <label class="date-hd col-md-5 p-0">To Date</label>
+            <span class="date-cont col-md-7">:{{eventDetail.endTime | date:'dd MMM yyyy' }}</span>
+          </p>          
        </div>
        <div>
           <div class="course-hd">Courses: </div>
