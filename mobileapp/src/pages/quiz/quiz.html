@@ -11,7 +11,7 @@
                 <div class="quiz-container" *ngIf="selectedQuizContent && selectedQuizContent.questionType == 'True/False'">
                     <div class="quiz-content" *ngIf="selectedQuizContent && selectedQuizContent.questionName">
                         <div class="quiz-content-text">
-                            <p class="setpCount">{{quizStep+1}}/{{quizData[0].QuizMappings.length}}</p>
+                            <p class="setpCount">{{quizStep+1}}/{{quizData[0].Questions.length}}</p>
                             <h5 class="selectedQuizContentTitle">{{selectedQuizContent.questionName}}</h5>
                         </div>
                         <div class="quiz-content-options">
@@ -52,7 +52,7 @@
                 <div class="quiz-container" *ngIf="selectedQuizContent && selectedQuizContent.questionType == 'MCQ'">
                     <div class="quiz-content" *ngIf="selectedQuizContent && selectedQuizContent.questionName">
                         <div class="quiz-content-text">
-                            <p class="setpCount">{{quizStep+1}}/{{quizData[0].QuizMappings.length}}</p>
+                            <p class="setpCount">{{quizStep+1}}/{{quizData[0].Questions.length}}</p>
                             <h5 class="selectedQuizContentTitle">{{selectedQuizContent.questionName}}</h5>
                         </div>
                         <div class="quiz-content-options" *ngIf="selectedQuizContent.options && selectedQuizContent.options.length">
@@ -79,7 +79,7 @@
                 <div class="quiz-container" *ngIf="selectedQuizContent && selectedQuizContent.questionType == 'NON-MCQ'">
                     <div class="quiz-content" *ngIf="selectedQuizContent && selectedQuizContent.questionName">
                         <div class="quiz-content-text">
-                            <p class="setpCount">{{quizStep+1}}/{{quizData[0].QuizMappings.length}}</p>
+                            <p class="setpCount">{{quizStep+1}}/{{quizData[0].Questions.length}}</p>
                             <h5 class="selectedQuizContentTitle">{{selectedQuizContent.questionName}}</h5>
                         </div>
                         <div class="quiz-content-options">
@@ -100,7 +100,7 @@
                     </button>
                     <button float-right class="btn quiz-btn" [disabled]="(selectedQuizContent && !selectedQuizContent.selectedAnswer)"
                         (click)="quizNextContent()">
-                        {{(quizStep == (quizData[0].QuizMappings.length-1)) ? 'finish' : 'next'}}
+                        {{(quizStep == (quizData[0].Questions.length-1)) ? 'finish' : 'next'}}
                     </button>
                 </div>
             </div>

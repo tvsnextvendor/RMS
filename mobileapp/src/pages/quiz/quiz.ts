@@ -48,7 +48,8 @@ export class QuizPage {
     }
     // Get Quiz Content
     getQuizContent() {
-        this.selectedQuizContent = this.quizData[0].QuizMappings[this.quizStep].Question;
+        this.selectedQuizContent = this.quizData[0].Questions[this.quizStep];
+        console.log(this.selectedQuizContent,"SELECTEDQUIZ");
     }
 
     // Change selected question
@@ -64,10 +65,10 @@ export class QuizPage {
 
     // Select next question
     quizNextContent() {
-        if (this.quizData && this.quizData[0].QuizMappings.length && (this.quizData[0].QuizMappings.length - 1 === this.quizStep)) {
+        if (this.quizData && this.quizData[0].Questions.length && (this.quizData[0].Questions.length - 1 === this.quizStep)) {
             this.isQuizCompleted = true;
             this.calcualteAndGoToCongartulations();
-        } else if (this.quizData[0].QuizMappings.length > this.quizStep) {
+        } else if (this.quizData[0].Questions.length > this.quizStep) {
             this.quizStep = this.quizStep + 1;
             this.getQuizContent();
         }
@@ -81,14 +82,15 @@ export class QuizPage {
     // Final Congrats
     calcualteAndGoToCongartulations() {          
         let correctAnswersCount  =   0;
-        this.quizData[0].QuizMappings.map(quizValues => {
-            if (quizValues.Question['selectedAnswer'] == quizValues.Question['answer']) {
+        this.quizData[0].Questions.map(quizValues => {
+            console.log(quizValues,"QUIZVALUES");
+            if (quizValues['selectedAnswer'] == quizValues['answer']) {
                 correctAnswersCount ++;
             }
         });
         const resultData = {
             "courseId"          : this.courseId,
-            "totalQuestions"    : this.quizData[0].QuizMappings.length,
+            "totalQuestions"    : this.quizData[0].Questions.length,
             "correctAnswers"    : correctAnswersCount,
             "trainingClassId"   : this.trainingClassId,
             "trainingClassName" : this.trainingObj['setData'].trainingClassName,
