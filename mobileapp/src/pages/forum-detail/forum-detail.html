@@ -159,7 +159,7 @@
                   </p>
                   </ion-col>
                 <ion-col col-4>
-                  <p class="vote-count num-alg" *ngIf="list.Comments">{{list.Comments.length}} <span
+                  <p class="vote-count num-alg" (click)="showAnswers(list)" *ngIf="list.Comments">{{list.Comments.length}} <span
                       class="answers-txt">{{constant.pages.forumLabels.answers}}</span></p>
                 </ion-col>
                 <ion-col col-4 class="cmd-btn">

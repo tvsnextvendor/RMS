@@ -51,6 +51,7 @@ export class API_URL {
        'getProfile' : '8101/user/List',
        'updateProfile': '8101/user/Update/',
        'readNotification':'8103/user/readNotification',
+       'readAllNoti':'8103/user/readAllNotifications',
        'updateSettings' : '8101/user/settings',
        'forgetPassword':'8101/mobileforgetPassword',
        'uploadFiles':'8103/uploadFiles',

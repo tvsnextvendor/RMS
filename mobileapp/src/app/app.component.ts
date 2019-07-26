@@ -1,18 +1,18 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Nav, Platform, App } from 'ionic-angular';
+import { Nav,Platform, App, ToastController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
 import { Constant } from '../constants/Constant.var';
 import { AuthProvider } from '../providers/auth/auth';
-import { LandingPage, HomePage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage, CoursePage,AccomplishmentPage,FeedbackPage } from '../pages/indexComponent';
+import { LandingPage, HomePage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage, CoursePage,AccomplishmentPage,FeedbackPage,LoginPage } from '../pages/indexComponent';
 import { Calendar } from '@ionic-native/calendar';
 import { API_URL } from '../constants/API_URLS.var';
 import { HttpProvider } from '../providers/http/http';
-import { ToastController } from 'ionic-angular';
 import { Location } from "@angular/common";
-
+import { Network } from '@ionic-native/network';
+import {DataService, NetworkProvider} from "../service";
 
 
 
@@ -31,20 +31,46 @@ export class MyApp implements OnInit{
   lastTimeBackPress = 0;
   timePeriodToExit = 2000;
   windowWidth;
+  showSideBar: boolean = true;
   profilePage = { title: 'Profile', component: ProfilePage };
 
-  constructor(private location: Location,public toastCtrl:ToastController,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, public appVersion: AppVersion, public storage: Storage, public constant: Constant, public app: App,public calendar:Calendar,public API_URL:API_URL,public http:HttpProvider) {
+  constructor(private location: Location,public toastCtrl:ToastController,public dataService:DataService,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, public appVersion: AppVersion, public storage: Storage, public constant: Constant, public app: App,public calendar:Calendar,public API_URL:API_URL,public http:HttpProvider,public events: Events,public network: Network,public networkProvider: NetworkProvider) {
+    
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
+      this.networkProvider.initializeNetworkEvents();
+      
+      // Offline event
+      this.events.subscribe('network:offline', () => {
+          alert('Please check your network connection');
+      });
+      
+      // Online event
+      this.events.subscribe('network:online', () => {
+          alert('Network Connected');
+      });
     });
+
+    this.dataService.getLoginData.subscribe(res=>{
+      console.log(res,"Res")
+      if(res){
+        console.log(res, "GOTIT");
+        this.currentUser = res;
+        this.uploadPath = this.currentUser['uploadPaths']['uploadPath'];
+        this.userImage = this.currentUser.userImage;
+        this.showSideBar = true;
+      }else{
+        console.log(res, "NOT GOTIT")
+        this.getDetails();
+      }
+    })
 
     this.platform.registerBackButtonAction(() => {
       // Catches the active view
       let nav = this.app.getActiveNavs()[0];
       let activeView = nav.getActive();
       let pageName = activeView.component.name;
-      console.log(pageName);
       if (activeView.component.name == "HomePage") {
           //Double check to exit app                  
           if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
@@ -59,10 +85,10 @@ export class MyApp implements OnInit{
               this.lastTimeBackPress = new Date().getTime();
           }
       }else if(pageName == "CoursePage" || pageName ==  "ForumPage" || pageName ==  "AccomplishmentPage" || pageName ==  "FeedbackPage" ||  pageName == "EventPage"){
-        console.log("GOT IT")
         this.nav.setRoot('home-page');
+      }else if(pageName == "LoginPage"){
+        this.nav.setRoot('landing-page');
       }else{
-        console.log("YAYYYYYY");
          this.nav.pop();
         }
     });
@@ -82,22 +108,10 @@ export class MyApp implements OnInit{
 
 
   openPage(page) {
-    // if(page.component === CalendarPage){
-    //   this.platform.ready().then(() => {
-    //     this.createCalendar();
-    //   });
-    // }else{
       this.nav.setRoot(page.component);
-   // }
   }
 
   ngOnInit(){
-    this.getDetails();
-  }
-
-  logOut() {
-    this.authService.logout();
-    this.nav.setRoot('login-page');
   }
 
   getDetails() {
@@ -105,14 +119,13 @@ export class MyApp implements OnInit{
     this.storage.get('currentUser').then(
       (val) => {
         if (val) {
-         // debugger;
-          self.currentUser = val;
-          self.uploadPath= this.currentUser['uploadPaths']['uploadPath'];
-          self.userImage = this.currentUser.userImage;
-          console.log(this.currentUser,"CURRENTUSER");
-          console.log(this.uploadPath)
+          this.currentUser = val;
+          this.uploadPath = this.currentUser['uploadPaths']['uploadPath'];
+          this.userImage = this.currentUser.userImage;
+          this.showSideBar = true;
           this.rootPage = HomePage;
         } else {
+          this.showSideBar = false;
           this.rootPage = LandingPage;
         }
         console.log(self.currentUser);

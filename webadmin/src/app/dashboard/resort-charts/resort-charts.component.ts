@@ -87,7 +87,6 @@ export class ResortChartsComponent implements OnInit {
               return {name: item.status[0].toUpperCase() + item.status.substr(1).toLowerCase(), y: parseInt(item.totalcount, 10)};
             });
           });
-          // console.log(this.dashboardVar.totalCoursesCount,"this.dashboardVar.totalCoursesCount")
           setTimeout(() => {
             this.totalCoursesLine();
             this.chartContainer();
@@ -190,7 +189,6 @@ export class ResortChartsComponent implements OnInit {
     totalNoOfBadges() {
       let query = this.resortId ? '?resortId='+this.resortId : '';
       this.commonService.getBadges(query).subscribe((resp) => {
-        // console.log(resp, 'daaaa');
         const donutChartData = resp.data.badges;
         this.dashboardVar.totalNoOfBadges = donutChartData.map(item =>
             [item.Badge.badgeName , parseInt(item.totalcount, 10)]
@@ -206,10 +204,15 @@ export class ResortChartsComponent implements OnInit {
       this.route.navigateByUrl('/certification/trend');
     }
 
-   
+  
+  changeCertificationYear(){
+    this.getcertificateTrend();
+  }
+
+
   getcertificateTrend() {
     const certificationTrend = {
-      year : this.dashboardVar.certYear
+      year : this.dashboardVar.years
     };
     let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
     this.commonService.getCertificateTrend(certificationTrend,query).subscribe(result => {
@@ -720,7 +723,6 @@ export class ResortChartsComponent implements OnInit {
         this.route.navigateByUrl('/addBatch');
     }
     onChangeYear(){
-      // console.log(this.dashboardVar.years)
       this.getcourseTrend()
     }
 
@@ -737,13 +739,12 @@ export class ResortChartsComponent implements OnInit {
     
       getcourseTrend() {
         const courseTrendObj = {
-          year : this.dashboardVar.years
+          year : this.dashboardVar.certYear
         };
         let query = this.resortId ? '&resortId='+this.resortId : '';
         this.commonService.getCourseTrend(courseTrendObj,query).subscribe(result => {
           if (result && result.isSuccess) {
             this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
-            // console.log(this.dashboardVar.courseTrendData, 'data');
             this.courseTrend();
           }
         });

@@ -88,7 +88,7 @@
           <div class=" chart-bg p-2" style=" height: 275px">
               <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                 {{commonLabels.labels.videosTrend}}
-                <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
+                <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.certYear">
                   <option *ngFor="let year of dashboardVar.yearList" [value]="year.year">{{year.year}}</option>
                   <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
                 </select>
@@ -148,7 +148,7 @@
           <div class=" chart-bg p-2" style=" height: 275px">
             <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                 {{commonLabels.labels.empCertificationTrend}}
-              <select class="vdo-btn mr-3" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="dashboardVar.years">
+              <select class="vdo-btn mr-3" id="year" name="year" (change)="changeCertificationYear()" [(ngModel)]="dashboardVar.years">
                 <option *ngFor="let year of dashboardVar.yearList" value="{{year.year}}">{{year.year}}</option>
                 <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
               </select></h6>

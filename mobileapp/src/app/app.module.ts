@@ -15,8 +15,10 @@ import { API_URL } from '../constants/API_URLS.var';
 import { MyApp } from './app.component';
 import { HttpProvider } from '../providers/http/http';
 import { AuthProvider } from '../providers/auth/auth';
-import { LoaderService, ToastrService, SocketService, CommonService,SanitizeHtmlPipe } from '../service';
+import { LoaderService,DataService,ToastrService, SocketService, CommonService,SanitizeHtmlPipe,NetworkProvider } from '../service';
 import { NgCalendarModule } from 'ionic2-calendar';
+import { Network } from '@ionic-native/network';
+
 
 
 @NgModule({
@@ -68,8 +70,11 @@ import { NgCalendarModule } from 'ionic2-calendar';
     API_URL,
     HttpProvider,
     AuthProvider,
+    NetworkProvider,
+    Network,
     LoaderService,
     ToastrService,
+    DataService,
     SocketService,
     CommonService,
     GooglePlus,

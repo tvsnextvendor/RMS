@@ -11,15 +11,14 @@
 </ion-header>
 <div class="main-content">
   <ion-list>
-    <ion-card *ngFor="let notify of notificationList;let i=index;" [ngClass]="notify.status == 'Read' ? 'forum-card read-message' : 'forum-card'"  >
-      <ion-grid *ngIf="count > 0">
+    <ion-item-sliding *ngFor="let notify of notificationList;let i=index"> 
+      <ion-item #ionItem>
         <ion-row (click)="redirect(notify)">
           <ion-col col-2 col-sm-1>
-            <img src="assets/imgs/profile_circle.png" class="forum-img">
+          <img src="assets/imgs/profile_circle.png" class="forum-img">
           </ion-col>
           <ion-col col-8 col-sm-8>
-            <h4 class="notify-title"  [innerHTML]="notify.notification"></h4>
-            <!-- <p class="notify-txt">{{notify.description}}</p> -->
+          <h4 class="notify-title" [innerHTML]="notify.notification"></h4>
           </ion-col>
           <ion-col col-2 col-sm-3 class="arrow-icon pl-0">
             <div class="align-right">
@@ -28,8 +27,31 @@
             </div>
           </ion-col>
         </ion-row>
-        </ion-grid>
-        </ion-card>
+      </ion-item>
+      <ion-item-options side="start" (ionSwipe)="saveItem(notify)">
+      </ion-item-options>
+      </ion-item-sliding>
+          <!-- <ion-card>
+            <ion-grid *ngIf="count > 0">
+              <ion-row (click)="redirect(notify)">
+                <ion-col col-2 col-sm-1>
+                  <img src="assets/imgs/profile_circle.png" class="forum-img">
+                </ion-col>
+                <ion-col col-8 col-sm-8>
+                  <h4 class="notify-title" [innerHTML]="notify.notification"></h4>
+                </ion-col>
+                <ion-col col-2 col-sm-3 class="arrow-icon pl-0">
+                  <div class="align-right">
+                    <span class="hour-status">{{calculateHours(notify.created)}}</span>
+                    <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card> -->
+    
+   
+
         <ion-row *ngIf="count == 0">
           <ion-col class="main-forum">
             <ion-card class="forum-card">
