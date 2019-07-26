@@ -68,6 +68,9 @@ export class AddModuleComponent implements OnInit {
     existingFile = [];
     roleId;
     uploadPermission = true;
+    modalConfig;
+    deleteFileData;
+    deleteFileIndex;
     // selectedCourseIds:any;
 
     constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels,private permissionService : PermissionService) {
@@ -570,7 +573,7 @@ export class AddModuleComponent implements OnInit {
             if (response && response.isSuccess) {
                 this.quizCheck = true;
                 let quizData = response.data && response.data.quiz[0];
-                let questions = quizData && quizData.QuizMappings && quizData.QuizMappings.length && quizData.QuizMappings.map(items => { return items.Question });
+                let questions = quizData && quizData.Questions && quizData.Questions.length ? quizData.Questions : []; 
                 this.quizName = quizData.quizName;
                 this.editQuizId = quizData.quizId;
                 this.moduleVar.quizDetails = questions;
@@ -578,7 +581,9 @@ export class AddModuleComponent implements OnInit {
         })
     }
 
-    removeVideo(data, i) {
+    removeVideo() {
+        let data = this.deleteFileData;
+        let i = this.deleteFileIndex ;
         // console.log(data);
         if (this.moduleVar.courseId && data.fileId) {
             this.removedFileIds.push(data.fileId);
@@ -594,6 +599,22 @@ export class AddModuleComponent implements OnInit {
             })
         }
         this.moduleVar.videoList.splice(i, 1);
+        this.closeDeletePopup();
+    }
+
+    openDeleteModal(template: TemplateRef<any>,item,i) {
+        let modalConfig = {
+            class: "modal-dialog-centered"
+        }
+        this.modalRef = this.modalService.show(template, modalConfig);
+        this.deleteFileData = item;
+        this.deleteFileIndex = i;
+    }
+
+    closeDeletePopup(){
+        this.deleteFileData = '';
+        this.deleteFileIndex = '';
+        this.modalRef.hide();
     }
 
     hideTrainingClass(event) {

@@ -65,6 +65,7 @@ export class ResortChartsComponent implements OnInit {
         this.getcertificateTrend();
         this.totalNoOfBadges();
         this.dashboardVar.years = '2019';
+        this.dashboardVar.certYear = '2019';
         this.userRole = this.utilService.getRole();
         this.getCountDetails(this.resortId);
         if(this.roleId == 1){

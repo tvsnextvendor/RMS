@@ -94,7 +94,7 @@ export class CreateQuizComponent implements OnInit {
     this.courseService.getQuizListById(user.userId,query).subscribe(res=>{
         if(res && res.isSuccess){
             this.quizName = res.data.quiz.length && res.data.quiz[0].quizName;
-            this.quizQuestionsForm = res.data.quiz.length && res.data.quiz[0].QuizMappings.length ? res.data.quiz[0].QuizMappings.map(item=>{return item.Question}) : [{
+            this.quizQuestionsForm = res.data.quiz.length && res.data.quiz[0].Questions.length ? res.data.quiz[0].Questions : [{
               "questionName": "",
               "questionType": "MCQ",
               "options": [
@@ -205,7 +205,7 @@ export class CreateQuizComponent implements OnInit {
     //Weightage update   
     this.answerEmpty = false;
     this.optionEmpty = false;
-      let data = this.quizQuestionsForm.map(item => {
+      let data = this.quizQuestionsForm.map((item,i) => {
           // console.log(item)
           if(item.questionType !=  "True/False" && !item.answer){
             this.answerEmpty = true;
@@ -217,6 +217,7 @@ export class CreateQuizComponent implements OnInit {
               }
             })
           }
+          item.order = i+1;
           item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
           return item;
       })

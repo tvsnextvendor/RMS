@@ -113,7 +113,7 @@
 										<li role="menuitem"><a class="dropdown-item pl-2"
 												(click)="showCMSLibrary()">{{commonLabels.labels.resourceLibrary}}</a></li>
 										<li role="menuitem"><a class="dropdown-item pl-2">{{commonLabels.labels.desktop}}
-												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"  accept="image/*,video/*,.pdf,.zip"/></a></li>
+												<input type="file" name="videoFile" class="upload" [(ngModel)]="moduleVar.videoFile" (change)="fileUpload($event)"  accept="image/*,video/*,.pdf,.zip,.txt,.doc"/></a></li>
 									</ul>
 								</div>
 								</div>
@@ -146,7 +146,7 @@
 								<span class="col-md-4 word-wrap">{{item.fileDescription}}</span>
 								<span class="col-md-4 word-wrap">{{item.fileUrl}}</span>
 								<span class="col-md-2 word-wrap">
-									<a (click)= "removeVideo(item,i)" title="Trash"><i class="fa fa-trash icons_header float-right" aria-hidden="true"></i></a>
+									<a (click)= "openDeleteModal(deleteconfirm,item,i)" title="Trash"><i class="fa fa-trash icons_header float-right" aria-hidden="true"></i></a>
 									<a (click)= "updateVideo(item,i)" title="Edit"><i class="fas fa-pencil-alt icons_header float-right" aria-hidden="true"></i></a>								
 								</span>
 							</li>
@@ -181,6 +181,24 @@
 			<button type="button" class="btn btn-default mr-2" (click)="submitForm(false)">{{commonLabels.btns.no}}</button>  
 			<button type="button" class="btn btn-primary"  (click)="submitForm(true)">{{commonLabels.btns.yes}}</button>
 						
+		</div> 
+	</div>
+</ng-template>
+
+<ng-template #deleteconfirm>  
+		<div class="modal-header"> 
+			<h4 class="modal-title pull-left">{{commonLabels.labels.deleteConfirm}}</h4>
+			<button type="button" class="close pull-right" aria-label="Close" (click)="closeDeletePopup()">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+		<div>
+			<p class="text-center">{{commonLabels.labels.fileDelete}}</p>
+		</div>
+		<div class="text-center col-md-12 p-4 button-section">
+			<button type="button" class="btn btn-primary mr-2"  (click)="removeVideo()">{{commonLabels.btns.yes}}</button>
+			<button type="button" class="btn btn-default" (click)="closeDeletePopup()">{{commonLabels.btns.no}}</button>  
 		</div> 
 	</div>
 </ng-template>

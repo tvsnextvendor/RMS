@@ -164,7 +164,7 @@ pageChanged(e) {
         let responseCourse = resp.data.course;
         this.courseName = responseCourse && responseCourse.courseName;
         this.trainingClassName = responseQuiz && responseQuiz.length && responseQuiz[0].QuizMappings[0].TrainingClass && responseQuiz[0].QuizMappings[0].TrainingClass.trainingClassName;
-        let responseList = responseQuiz && responseQuiz.length && responseQuiz[0].QuizMappings;
+        let responseList = responseQuiz && responseQuiz.length && responseQuiz[0].Questions;
         this.quizName= responseQuiz  && responseQuiz.length && responseQuiz[0].quizName;
         let created = responseQuiz  && responseQuiz.length ? responseQuiz[0].createdBy : '';
         if(created && userData == created){

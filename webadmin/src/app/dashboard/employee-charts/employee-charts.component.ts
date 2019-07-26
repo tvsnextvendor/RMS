@@ -68,6 +68,7 @@ export class EmployeeChartsComponent implements OnInit {
     this.userName = userDetails.userName;
     this.previewProfilePic = userDetails.uploadPaths && userDetails.uploadPaths.uploadPath && userDetails.userImage ? userDetails.uploadPaths.uploadPath+userDetails.userImage : '';
     this.dashboardVar.years = '2019';
+    this.dashboardVar.certYear = '2019';
     let query = this.resortId ? '?resortId='+this.resortId +'&type='+'summary': '';
   
     this.commonService.getTotalCourse(query).subscribe(result => {
