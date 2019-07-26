@@ -188,9 +188,9 @@ table td.td-pd {
 .breadcrumb-current{
   color: #656565 !important;
 }
-.user-tab ul.nav.nav-tabs {
+/* .user-tab ul.nav.nav-tabs {
   display: none !important;
-}
+} */
 /******** check box ***************/
 .hole-cont {
    position: relative;
@@ -869,6 +869,9 @@ li {
 .table-striped tbody tr:nth-child(even) {
     background-color: #F4FBFF;
 }
+.table-cls-alg tbody tr:nth-child(even){
+  border-bottom: 1px solid #ccc;
+}
 .th-boxshadow{
     border-bottom: 3px solid #ccc;
     box-shadow: 0px 2px 2px 2px #ccc;
@@ -1498,6 +1501,26 @@ background-color: #C1E1F3;
 .my-pagination .ngx-pagination li.pagination-next a:hover{
   background:none;
 }
+.pagenation-count-alg .pagination-next.disabled, .pagenation-count-alg .pagination-previous.disabled{
+  background: #c5c2c28c;
+  color: #fff;
+}
+.ngx-pagination .disabled:hover{
+  
+}
+/* li.pagination-next.disabled{
+
+} */
+/* .ngx-pagination .pagination-previous.disabled:hover {
+  background: #c5c2c28c;
+  color: #fff;
+  border: 1px solid #c5c2c28c;
+}
+.my-pagination .ngx-pagination .pagination-next li:hover{
+  background: #c5c2c28c;
+  color: #fff;
+  border: 1px solid #c5c2c28c;
+} */
 .my-pagination .ngx-pagination li {
     display: inline-block;
     font-size: 14px;

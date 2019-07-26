@@ -64,4 +64,4 @@
     <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></div>
 </div>
 
-<pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"></pagination-controls>  
+<pagination-controls [ngClass]="totalCourseCount < 10 ? 'my-pagination pagenation-count-alg' : 'my-pagination'"  (pageChange)="pageChanged($event)"></pagination-controls>  
