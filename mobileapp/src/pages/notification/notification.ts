@@ -33,6 +33,7 @@ export class NotificationPage implements OnInit {
             if (user) {
              self.currentUser = user;
              this.getNotification();
+             // this.readAllNotification();
             }
         });  
   }
@@ -41,12 +42,30 @@ export class NotificationPage implements OnInit {
   }
 
 
-  getNotification(){
+  // readAllNotification(){
+  //   let userId = this.currentUser.userId;
+  //   this.http.put(false, API_URL.URLS.readAllNoti+ '/' + userId).subscribe((res) => {
+  //   }, (err) => {
+  //   });
+  // }
+
+  saveItem(notification){
+   let data = {
+       "status": "Read"
+   }
+   this.http.put(false, API_URL.URLS.readNotification + '/' + notification.notificationId, data).subscribe((res) => {
+     this.getNotification();
+   }, (err) => {
+   });
+  }
+
+
+  getNotification(){    
     let userId = this.currentUser.userId;
     let socketObj = {
       userId : userId
     };
-    this.loader.showLoader();
+    // this.loader.showLoader();
     this.socketService.getNotification(socketObj).subscribe((data)=>{
      if(data['rows']){
       console.log(data,"notifiacation");
@@ -55,12 +74,11 @@ export class NotificationPage implements OnInit {
      }else{
        this.count = 0;
      }
-    this.loader.hideLoader();
+    // this.loader.hideLoader();
    });
   }
 
   calculateHours(date){
-   
     var a = moment(new Date(date));
     var b = moment(new Date());
     let day =  a.from(b, true) // "2 days ago"
@@ -82,15 +100,7 @@ export class NotificationPage implements OnInit {
       default:
        this.navCtrl.push('forum-page');
         break;
-    }
-
-     let data = {
-              "status": "Read"
-          }
-    this.http.put(false, API_URL.URLS.readNotification + '/' + notification.notificationId, data).subscribe((res) => {
-    }, (err) => {
-    });
-   
+    }   
   }
 
 }

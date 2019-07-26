@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { API } from '../../constants/API.var';
 import {ToastrService, DataService } from '../../service';
+import { map, catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Rx'
+import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 
 export interface User {
@@ -22,10 +24,10 @@ export class AuthProvider {
   }
   
   
-  login(name: string, pw: string, keepmelogin: boolean): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+  login(name: string, pw: string, keepmelogin: boolean): Observable <any>{
       let postData = {'emailAddress':name,'password':pw,'keepmelogin':keepmelogin,'type':'mobile'};
-      this.http.post(API['API_LINK']+API_URL.URLS.loginAPI,postData).subscribe((res) => {
+     return this.http.post(API['API_LINK']+API_URL.URLS.loginAPI,postData).pipe(
+        map((res) => {
         if (res['isSuccess'])
         {
            let loginData = res['data'];
@@ -51,14 +53,12 @@ export class AuthProvider {
             } 
             
           });
-          resolve(true);      
-        }else{
-         reject(false);
+          return res;
         }
-      },(err)=>{
-        reject(false);
-      });
-    });
+    }),catchError((error: HttpErrorResponse) => {
+         return Observable.throw(error.error);
+        })
+      )
   }
 
 

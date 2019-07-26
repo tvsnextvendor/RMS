@@ -44,29 +44,16 @@ export class LoginPage implements OnInit {
             this.storage.set('userInput', this.user).then(() => {
             });
         }
-        this.authService.login(this.user.name, this.user.pw, this.user.keepmelogin).then(success => {
-
+        this.authService.login(this.user.name, this.user.pw, this.user.keepmelogin).subscribe(success => {
+          console.log(success,"Success");
             if(success) {
-                this.storage.get('currentUser').then((user: any) => {
-                    if(user){
                         this.navCtrl.push('home-page');
-                    }
-                })
-               //this.toastr.success('Login Successful');
-            }else{
+                }else{
                 this.logincredentialerror = "Please check login credentials"; return false;
-                //this.logincredentialerror = this.authService.loginEmailError ? this.authService.loginEmailError  : this.authService.loginPassErr ;
             }
-        }).catch(err => {
-            console.log(err);
-            this.logincredentialerror = "Please check login credentials"; return false;
-            // this.toastr.error("Please check login credentials"); return false;
-            // const alert = this.alertCtrl.create({
-            //     title: 'Login Failed',
-            //     subTitle: 'Please check login credentials',
-            //     buttons: ['OK']
-            // });
-            // alert.present();
+        },error => {
+            console.log(error, "ERROR");
+            this.logincredentialerror = error.error; return false;
         });
     }
     goToSignUp() {

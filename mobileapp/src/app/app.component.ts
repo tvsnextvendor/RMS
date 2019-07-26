@@ -119,6 +119,9 @@ export class MyApp implements OnInit{
     this.storage.get('currentUser').then(
       (val) => {
         if (val) {
+          this.currentUser = val;
+          this.uploadPath = this.currentUser['uploadPaths']['uploadPath'];
+          this.userImage = this.currentUser.userImage;
           this.showSideBar = true;
           this.rootPage = HomePage;
         } else {

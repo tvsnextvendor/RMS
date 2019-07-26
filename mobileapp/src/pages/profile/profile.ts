@@ -5,7 +5,7 @@ import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { HttpProvider } from '../../providers/http/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService} from '../../service';
+import { ToastrService, DataService, LoaderService} from '../../service';
 
 
 @IonicPage({
@@ -37,7 +37,7 @@ export class ProfilePage implements OnInit {
   profileFile;
 
   constructor(public navCtrl: NavController,public http: HttpProvider
-  ,public navParams: NavParams ,public toastr: ToastrService,public storage: Storage, public constant: Constant) {
+  ,public navParams: NavParams,public loader: LoaderService,public dataService: DataService,public toastr: ToastrService,public storage: Storage, public constant: Constant) {
   }
 
   ionViewDidLoad() {  
@@ -91,13 +91,15 @@ export class ProfilePage implements OnInit {
       "email":this.profile.email,
       "phoneNumber":this.profile.mobile
     }
+    this.loader.showLoader();
     this.http.put(false,API_URL.URLS.updateProfile+userId, postData).subscribe((res)=>{
+      this.loader.hideLoader();
       if(res['isSuccess']){
         this.content.scrollToTop();
         this.showToastr=true;
         this.className = "notify-box alert alert-success";
         this.msgTitle = "Success";
-        this.msgDes=res['result'];
+        this.msgDes=res['message'];
         let self = this;
           setTimeout(function(){ 
           self.navCtrl.push('home-page');
@@ -121,17 +123,27 @@ export class ProfilePage implements OnInit {
  
     this.http.upload(API_URL.URLS.uploadFiles, this.profileFile).subscribe(res => {
        if(res.isSuccess){
+         this.storage.get('currentUser').then(valueStr => {
+             console.log(valueStr);
+             // Modify just that property
+             valueStr.userImage = res['data'][0]['filename'];
+             // Save the entire data again
+             this.storage.set('currentUser', valueStr);
+         });
          this.updateProfilePic(res['data'][0]['filename']);
        }
     })
   }
+ 
 
   updateProfilePic(name){
     let userId = this.currentUser.userId;
     let postData = {
        "userImage" : name
     }
+    this.loader.showLoader();
     this.http.put(false, API_URL.URLS.updateProfile + userId, postData).subscribe((res) => {
+      this.loader.hideLoader();
         if (res['isSuccess']) {
             this.content.scrollToTop();
             this.showToastr = true;
@@ -142,6 +154,10 @@ export class ProfilePage implements OnInit {
             setTimeout(function() {
                 self.navCtrl.push('home-page');
             }, 3000);
+
+            this.storage.get('currentUser').then(valueStr => {
+                 this.dataService.sendLoginData(valueStr);
+            });
         }
     })
   }
