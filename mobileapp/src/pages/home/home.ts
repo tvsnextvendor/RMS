@@ -4,7 +4,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
 import { API_URL } from '../../constants/API_URLS.var';
-import { LoaderService, SocketService} from '../../service';
+import { LoaderService} from '../../service';
 import * as moment from 'moment';
 
 @IonicPage({
@@ -17,7 +17,6 @@ import * as moment from 'moment';
 })
 export class HomePage {
    
-  notificationCount;
   currentUser;
   status;
   enableView;
@@ -34,25 +33,24 @@ export class HomePage {
 
 
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController,public socketService: SocketService, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
+  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
  
   }
 
    
-  ionViewWillEnter(){
+  ngOnInit(){
     let self = this;
     this.status = 'assigned';
     this.storage.get('currentUser').then((user: any) => {
         if (user.token) {
             self.currentUser = user;
-            this.getNotification();
             this.getDashboardInfo();
             this.getDashboardCount();
         }
     });
   }
 
-   ngAfterViewInit() {
+   ionViewDidLoad() {
       this.interval = setInterval(() => {
         this.currentPage = 1;
         this.scrollEnable = false;
@@ -145,24 +143,12 @@ export class HomePage {
       //  }
     })
   }
-   
-  goToNotification(){
-    this.navCtrl.push('notification-page');
-  }
+  
   
   goToForum(){
      this.navCtrl.push('forum-page');
   }
 
-    getNotification(){
-    let userId = this.currentUser.userId;
-    let socketObj = {
-      userId : userId
-    };
-   this.socketService.getNotification(socketObj).subscribe((data)=>{
-       this.notificationCount = data['unReadCount'];
-   });
-  }
 
   ngOnDestroy(){
     if (this.interval) {

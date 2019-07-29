@@ -50,13 +50,23 @@ export class NotificationPage implements OnInit {
   // }
 
   saveItem(notification){
+  setTimeout(() => {
+   this.notificationList.filter((key, index)=>{
+     if(key.notificationId ==  notification.notificationId){
+       this.notificationList.splice(index, 1);       
+     }
+   })
+  },500)
+
    let data = {
        "status": "Read"
    }
+
    this.http.put(false, API_URL.URLS.readNotification + '/' + notification.notificationId, data).subscribe((res) => {
      this.getNotification();
    }, (err) => {
    });
+
   }
 
 

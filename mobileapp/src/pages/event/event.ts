@@ -4,7 +4,7 @@ import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
-import {LoaderService, SocketService} from '../../service';
+import {LoaderService} from '../../service';
 import * as moment from 'moment';
 import { Calendar } from '@ionic-native/calendar';
 
@@ -18,7 +18,6 @@ import { Calendar } from '@ionic-native/calendar';
 })
 export class EventPage implements OnInit {
 
-  notificationCount;
   currentUser;
   scheduleList = [];
   enableIndex;
@@ -35,7 +34,7 @@ export class EventPage implements OnInit {
   perPageData = this.constant.numbers.five;
   
 
-  constructor(public navCtrl: NavController,public calendar: Calendar,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {
+  constructor(public navCtrl: NavController,public calendar: Calendar,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {
   }
 
   ngOnInit(){
@@ -47,7 +46,6 @@ export class EventPage implements OnInit {
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-              this.getNotification();
               this.getBatch();
             }
         });
@@ -124,24 +122,12 @@ calculateExpireDays(dueDate) {
     return a.to(b, true);
   }
 
-    getNotification(){
-    let userId = this.currentUser.userId;
-    let socketObj = {
-      userId : userId
-    };
-   this.socketService.getNotification(socketObj).subscribe((data)=>{
-      this.notificationCount = data['unReadCount'];
-   });
-  }
+  
 
   goToForum(){
      this.navCtrl.push('forum-page');
   }
    
-  goToNotification() {
-    this.navCtrl.push('notification-page');
-  }
-
   goToCalendar(){
     this.navCtrl.push('calendar-page');
   }

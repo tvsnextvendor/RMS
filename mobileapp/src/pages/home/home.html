@@ -6,12 +6,10 @@
       </button>
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.dashboard}}</span>
+        
         <div class="header-icon">
           <ion-icon (click)="goToForum()" name="ios-chatboxes" class="chat-icon"></ion-icon>
-          <a (click)="goToNotification()">
-            <img src="assets/imgs/notification.png" />
-            <span class="dot-circle" *ngIf="notificationCount > 0">{{notificationCount}}</span>
-          </a>
+          <app-bell></app-bell>
         </div>
       </ion-title>
     </ion-navbar>

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { Injectable, OnInit } from '@angular/core';
 import { API } from '../../constants/API.var';
-import {DataService} from '../../service';
+import { DataService } from '../../service';
 import { Storage } from '@ionic/storage';
 import { catchError } from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
@@ -43,7 +43,7 @@ export class HttpProvider implements OnInit {
           console.log("Please log out and login again");
           console.log(this.storage);
           alert('Please Sign out and login again');
-          //this.dataService.sendLoginData('');
+          this.dataService.sendLoginData('');
           //this.nav.setRoot('login-page');
           //this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
 			}else{

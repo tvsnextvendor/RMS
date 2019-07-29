@@ -16,10 +16,7 @@
           <span (click)="goToForum()">
             <ion-icon name="ios-chatboxes" class="chat-icon"></ion-icon>
           </span>
-          <span (click)="goToNotification()">
-            <img src="assets/imgs/notification.png" />
-            <span class="dot-circle" *ngIf="notificationCount > 0">{{notificationCount}}</span>
-          </span>
+          <app-bell></app-bell>
         </div>
       </ion-title>
     </ion-navbar>
