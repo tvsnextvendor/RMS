@@ -11,7 +11,8 @@
           <!-- <li class="search-block"><a><input placeholder="Search" name="search" autocomplete="off" type="text" id="formInlineName"
                 class="form-searchbox searchbox-alg" value=""><i class="fa fa-search list_search" aria-hidden="true"></i></a></li>           -->
           <li class="nav-item dropdown no-arrow bell-notification"  >
-            <a class="nav-link dropdown-toggle p-0" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+            <app-notification></app-notification>
+            <!-- <a class="nav-link dropdown-toggle p-0" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-bell icons_header" aria-hidden="true"></i>
               <span class="badge badge-danger noti-pop" *ngIf="notificationCount > 0">{{notificationCount}}</span>
@@ -24,15 +25,15 @@
                 <span class="noti-desc col-md-8 p-0">{{item.notification}}</span>
                 <span class="noti-timer col-md-2 pr-0">{{calculateHours(item.created)}}</span>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="white-bg text-center p-4" *ngIf="notifyListValue && !notifyListValue.length">
               <p class="data-design">
                 <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
             </div> -->
-            <div class="dropdown-item pt-2 pb-0 text-center" *ngIf="notificationList?.length == 0">
+            <!-- <div class="dropdown-item pt-2 pb-0 text-center" *ngIf="notificationList?.length == 0">
                 <span class=""><i class="far fa-frown notification-icon"></i><span class="notification-txt">No notifications found</span></span>
             </div>
-            </div>
+            </div> -->
           </li>
           <li [class.active]="router.isActive('/email')"><a routerLink="/email"><i class="fa fa-envelope icons_header"
                 aria-hidden="true"></i></a></li>

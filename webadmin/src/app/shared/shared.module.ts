@@ -7,6 +7,7 @@ import {HeaderComponent} from './header/header.component';
 import {ModuleDropdownComponent} from './header/module-dropdown';
 import { FormsModule} from '@angular/forms';
 import { SanitizeHtmlPipe } from './safeHtmlPipe';
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SanitizeHtmlPipe } from './safeHtmlPipe';
      HeaderComponent,
      SanitizeHtmlPipe,
      SharedComponent,
-     ModuleDropdownComponent
+     ModuleDropdownComponent,
+     NotificationComponent
   ],
      exports: [SideBarComponent,
      HeaderComponent,

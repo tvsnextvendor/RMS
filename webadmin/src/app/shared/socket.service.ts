@@ -19,7 +19,7 @@ export class SocketService {
     }
 
     getNotification(userId) {
-        this.socket = io(this.url);
+        this.socket = io(this.url,{transports: ['websocket']});
         const subject = new Observable(subject => {
             this.socket.emit('userId', userId);
             this.socket.once("getNotifications", function(data) {

@@ -42,20 +42,20 @@ export class FeedbackComponent implements OnInit {
     this.page=1;
     this.commonService.getResortForFeedback(this.resortId).subscribe(result => {
       if (result && result.isSuccess) {
-        this.resortData = result.data.rows;
+        this.resortData = result.data.rows.length ? result.data.rows : [];
       }
     });
     let userId = this.utilService.getUserData().userId;
     let query = '?created='+userId;
     this.courseService.getAllCourse(query).subscribe(result => {
       if (result && result.isSuccess) {
-        this.courseData = result.data.rows;
+        this.courseData = result.data.rows.length ? result.data.rows : [];
       }
     });
     let currentquery = '?resortId'+this.resortId;
     this.courseService.getDropTrainingClassList(currentquery).subscribe(result => {
       if (result && result.isSuccess) {
-        this.trainingClassData = result.data;
+        this.trainingClassData = result.data.rows.length ? result.data.rows : [];
       }
     });
     this.searchFilter();
