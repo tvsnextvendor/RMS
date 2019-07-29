@@ -42,3 +42,33 @@
     clear: both;
     padding-bottom: 0px;
    }
+   .user-searchbox{
+    position: relative;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    margin-right: 1px;
+    width: 100%;
+    }
+    .user-search-icon{
+    background: none;
+    border: none;
+    position: absolute;
+    top: 6px;
+    right: 16px;
+    }
+    .search-icon{
+        color: #468FB9;
+        font-size: 14px;
+        border: none;
+        }
+.reset-search-icon{
+        background: #468FB9;
+    border: 1px solid #dcdcdc;
+    padding: 7px 3px;
+    color: #fff;
+}
