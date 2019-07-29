@@ -4,7 +4,7 @@ import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
-import { LoaderService, SocketService, SanitizeHtmlPipe } from '../../service';
+import { LoaderService, SanitizeHtmlPipe } from '../../service';
 
 @IonicPage({
     name: 'accomplishment-page'
@@ -18,11 +18,10 @@ export class AccomplishmentPage implements OnInit {
 
     @ViewChild('sliderOne') sliderOne: Slides;
     @ViewChild('sliderTwo') sliderTwo: Slides;
-    constructor(public navCtrl: NavController, public storage: Storage, public socketService: SocketService, public navParams: NavParams, public constant: Constant, private http: HttpProvider, public API_URL: API_URL, public loader: LoaderService, public sanitizeHtml: SanitizeHtmlPipe) { }
+    constructor(public navCtrl: NavController, public storage: Storage, public navParams: NavParams, public constant: Constant, private http: HttpProvider, public API_URL: API_URL, public loader: LoaderService, public sanitizeHtml: SanitizeHtmlPipe) { }
 
     badgeSubImage;
     badgeDetails;
-    notificationCount;
     search;
     currentUser;
     totalPage;
@@ -46,7 +45,6 @@ export class AccomplishmentPage implements OnInit {
         this.storage.get('currentUser').then((user: any) => {
             if (user) {
                 self.currentUser = user;
-                this.getNotification();
                 this.userCertificates();
             }
         });
@@ -69,16 +67,7 @@ export class AccomplishmentPage implements OnInit {
         }
     }
 
-    //Get unread notification count
-    getNotification() {
-        let userId = this.currentUser.userId;
-        let socketObj = {
-            userId: userId
-        };
-        this.socketService.getNotification(socketObj).subscribe((data) => {
-            this.notificationCount = data['unReadCount'];
-        });
-    }
+    
 
     //Infinite scroll event call
     doInfinite(event) {
@@ -105,11 +94,6 @@ export class AccomplishmentPage implements OnInit {
                 }
             }
         })
-    }
-
-    //Redirect to notification page
-    goToNotification() {
-        this.navCtrl.push('notification-page');
     }
 
     //Redirect to Forum page

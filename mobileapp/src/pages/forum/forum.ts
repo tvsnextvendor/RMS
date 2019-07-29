@@ -3,9 +3,7 @@ import { IonicPage, NavController, NavParams,Content } from 'ionic-angular';
 import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
-//import { ForumDetailPage } from '../forum-detail/forum-detail';
 import { Storage } from '@ionic/storage';
-import { SocketService} from '../../service';
 import * as moment from 'moment';
 
 @IonicPage({
@@ -20,7 +18,6 @@ export class ForumPage implements OnInit {
   
   search='';
   totalPage;
-  notificationCount;
   currentUser;
   forumData: any = [];
   paramsData: any = { 'setData': [] };
@@ -31,7 +28,7 @@ export class ForumPage implements OnInit {
 
   @ViewChild(Content) content: Content;
 
-  constructor(public navCtrl: NavController,public storage: Storage,public socketService: SocketService,public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL) {
+  constructor(public navCtrl: NavController,public storage: Storage,public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL) {
   }
   
   ngOnInit(){
@@ -44,16 +41,11 @@ export class ForumPage implements OnInit {
   }
 
 
-  goToNotification() {
-    this.navCtrl.push('notification-page');
-  }
-
    ngAfterViewInit() {
             let self = this;
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-               this.getNotification();
                this.getForumDatas();
             }
         });
@@ -114,14 +106,6 @@ export class ForumPage implements OnInit {
     this.getForumDatas();
   }
 
-   getNotification(){
-    let userId = this.currentUser.userId;
-    let socketObj = {
-      userId : userId
-    };
-   this.socketService.getNotification(socketObj).subscribe((data)=>{
-       this.notificationCount = data['unReadCount'];
-   });
-  }
+  
 
 }

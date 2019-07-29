@@ -4,7 +4,6 @@ import { HttpProvider } from '../../providers/http/http';
 import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
-import {SocketService } from '../../service';
 
 
 @IonicPage({
@@ -18,7 +17,6 @@ import {SocketService } from '../../service';
 export class CourseFailedPage {
  
   showSearchBar;
-  notificationCount;
   currentUser;
   search;
   courseList;
@@ -28,7 +26,7 @@ export class CourseFailedPage {
   perPageData = this.constant.numbers.five;
   
 
-  constructor(public storage: Storage,public socketService: SocketService,public navCtrl: NavController,public constant: Constant,public navParams: NavParams, public http: HttpProvider) {
+  constructor(public storage: Storage,public navCtrl: NavController,public constant: Constant,public navParams: NavParams, public http: HttpProvider) {
   }
 
   ionViewDidLoad() {
@@ -41,29 +39,16 @@ export class CourseFailedPage {
         if (user) {
             self.currentUser = user;
             this.getFailedCourse('');
-            this.getNotification();
         }
     });
   }
 
-   goToNotification() {
-    this.navCtrl.push('notification-page');
-  }
 
    goToForum(){
      this.navCtrl.push('forum-page');
   }
 
-   getNotification(){
-    let userId = this.currentUser.userId;
-    let socketObj = {
-      userId : userId
-    };
-   this.socketService.getNotification(socketObj).subscribe((data)=>{
-      this.notificationCount = data['unReadCount'];
-   });
-  }
-
+ 
 
   openTrainingClass(courseId)
   {

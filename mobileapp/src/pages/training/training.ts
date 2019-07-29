@@ -5,7 +5,7 @@ import { TrainingDetailPage } from '../training-detail/training-detail';
 import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
-import { LoaderService, SocketService } from '../../service';
+import { LoaderService } from '../../service';
 
 @IonicPage({
   name: 'training-page'
@@ -51,9 +51,8 @@ export class TrainingPage {
   uploadPath;
   currentUser;
   trainingScheduleId;
-  notificationCount;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public socketService: SocketService,public loader: LoaderService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public loader: LoaderService) {
     this.detailObject = this.navParams.data;
     this.courseIdParams = this.detailObject.courseId;
     this.trainingScheduleId = this.detailObject.trainingScheduleId;
@@ -71,7 +70,6 @@ export class TrainingPage {
     this.storage.get('currentUser').then((user: any) => {
         if (user) {
             self.currentUser = user;
-            this.getNotification();
             this.getCourseTrainingClasses();
         }
     });
@@ -237,17 +235,5 @@ export class TrainingPage {
       this.resetToAllCourses();
     }
   }
-  goToNotification() {
-    this.navCtrl.push('notification-page');
-  }
-
-   getNotification(){
-    let userId = this.currentUser.userId;
-    let socketObj = {
-      userId : userId
-    };
-   this.socketService.getNotification(socketObj).subscribe((data)=>{
-       this.notificationCount = data['unReadCount'];
-   });
-  }
+ 
 }

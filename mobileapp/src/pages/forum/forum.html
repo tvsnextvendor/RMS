@@ -9,10 +9,7 @@
       <span class="header-title">{{constant.title.forum}}</span>
       <div class="header-icon">
           <ion-icon name="ios-search" (click)="toggleSearchBox()" class="chat-icon"></ion-icon>
-              <span (click)="goToNotification()">
-              <img src="assets/imgs/notification.png" />
-              <span class="dot-circle" *ngIf="notificationCount > 0">{{notificationCount}}</span>
-              </span>
+          <app-bell></app-bell>
        
       </div>
     </ion-title>

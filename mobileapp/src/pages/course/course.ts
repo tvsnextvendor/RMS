@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
-import { LoaderService, SocketService } from '../../service';
+import { LoaderService } from '../../service';
 import { Storage } from '@ionic/storage';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -24,7 +24,6 @@ export class CoursePage implements OnInit {
   noRecordsFoundMessage;
   currentUser;
   status;
-  notificationCount; 
   totalPage;
   search;
   signRequireCount;
@@ -59,7 +58,7 @@ export class CoursePage implements OnInit {
   
   @ViewChild(Content) content: Content;
   
-  constructor(public navCtrl: NavController,public modalService:BsModalService,public socketService: SocketService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
+  constructor(public navCtrl: NavController,public modalService:BsModalService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
         let detailObj = this.navParams.data;
         this.tab = detailObj && detailObj.tab;
         this.status = detailObj && detailObj.status;
@@ -86,7 +85,6 @@ export class CoursePage implements OnInit {
               this.status = this.status ? this.status : 'assigned';
               this.getCourseStatus(this.status, '');
               this.showData(this.status);
-              this.getNotification();
                 if(this.tab && this.tab == 'signReq'){
                   this.getSignRequired('');
                 }
@@ -111,9 +109,6 @@ export class CoursePage implements OnInit {
     this.progressCoursesList = [];
     this.completeCoursesList = [];
     this.getCoursesList(); 
-  }
-  goToNotification() {
-    this.navCtrl.push('notification-page');
   }
 
    goToForum(){
@@ -244,15 +239,6 @@ export class CoursePage implements OnInit {
   }
 
 
-    getNotification(){
-    let userId = this.currentUser.userId;
-    let socketObj = {
-      userId : userId
-    };
-   this.socketService.getNotification(socketObj).subscribe((data)=>{
-      this.notificationCount = data['unReadCount'];
-   });
-  }
 
 
   getCourse() {

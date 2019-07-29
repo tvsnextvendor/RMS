@@ -14,13 +14,13 @@
     <ion-item-sliding *ngFor="let notify of notificationList;let i=index"> 
       <ion-item #ionItem>
         <ion-row (click)="redirect(notify)">
-          <ion-col col-2 col-sm-1>
+          <ion-col col-2>
           <img src="assets/imgs/profile_circle.png" class="forum-img">
           </ion-col>
-          <ion-col col-8 col-sm-8>
-          <h4 class="notify-title" [innerHTML]="notify.notification"></h4>
+          <ion-col col-8>
+          <h4 class="notify-title notiTextWrap" [innerHTML]="notify.notification"></h4>
           </ion-col>
-          <ion-col col-2 col-sm-3 class="arrow-icon pl-0">
+          <ion-col col-2  class="arrow-icon pl-0">
             <div class="align-right">
               <span class="hour-status">{{calculateHours(notify.created)}}</span>
               <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
@@ -52,7 +52,7 @@
     
    
 
-        <ion-row *ngIf="count == 0">
+        <ion-row *ngIf="notificationList?.length == 0">
           <ion-col class="main-forum">
             <ion-card class="forum-card">
               <ion-grid>

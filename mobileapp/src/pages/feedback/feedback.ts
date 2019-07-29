@@ -4,7 +4,6 @@ import { Constant } from '../../constants/Constant.var';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
-import {SocketService} from '../../service';
 
 @IonicPage({
   name: 'feedback-page'
@@ -29,9 +28,8 @@ export class FeedbackPage {
   showToastr=false;
   msgTitle;
   msgDes;
-  notificationCount;
 
-  constructor(public navCtrl: NavController,public socketService:SocketService,public constant: Constant,public storage:Storage,public http:HttpProvider,public navParams: NavParams) {
+  constructor(public navCtrl: NavController,public constant: Constant,public storage:Storage,public http:HttpProvider,public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -44,25 +42,10 @@ export class FeedbackPage {
       (val) => {
         if (val) {
           self.currentUser = val;
-          this.getNotification();
         }
       }, (err) => {
         console.log('currentUser not received in profile.component.ts', err);
       });    
-  }
-
-  goToNotification() {
-    this.navCtrl.push('notification-page');
-  }
-
-   getNotification(){
-    let userId = this.currentUser.userId;
-    let socketObj = {
-      userId : userId
-    };
-   this.socketService.getNotification(socketObj).subscribe((data)=>{
-      this.notificationCount = data['unReadCount'];
-   });
   }
 
 selectSmiley(type, status){

@@ -20,6 +20,12 @@ page-notification {
   .notify-title {
     margin-top: 5px !important;
   }
+  
+  .notiTextWrap{
+    overflow: hidden;
+    white-space: normal;
+  }
+
   span.hour-status {
     padding-right: 12px;
 }

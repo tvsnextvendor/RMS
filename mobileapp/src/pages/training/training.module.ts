@@ -3,6 +3,8 @@ import { IonicPageModule } from 'ionic-angular';
 import { TrainingPage } from './training';
 import { TruncateModule } from '@yellowspot/ng-truncate';
 import {ScrollingHeaderModule} from 'ionic-scrolling-header';
+import { ComponentsModule } from '../../components/components.module';
+
 
 @NgModule({
   declarations: [
@@ -11,7 +13,8 @@ import {ScrollingHeaderModule} from 'ionic-scrolling-header';
   imports: [
     ScrollingHeaderModule,
     IonicPageModule.forChild(TrainingPage),
-    TruncateModule
+    TruncateModule,
+    ComponentsModule
   ],
 })
 export class TrainingPageModule {}
