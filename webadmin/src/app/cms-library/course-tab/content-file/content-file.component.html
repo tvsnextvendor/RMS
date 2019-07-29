@@ -31,6 +31,9 @@
                             <!-- <td class="text-left"><a href="#">100</a></td>      -->
                             <td class="text-center">
                               <a (click)="openEditVideo(editDocTemp,file,i)"><i class="fas fa-pencil-alt"aria-hidden="true"></i></a>
+                             <a  (click)="getPermissionList(userList,file,i)" title="Edit"><i
+                                                          class="fas fa-user-friends header-icon"></i></a>
+
                                 <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                                 <a *ngIf="file.fileUrl != 'Video'" (click)="openFileContent(file.fileUrl)"><i class="fa fa-eye header-icon" aria-hidden="true"
                                     title="View"></i></a>
@@ -87,7 +90,7 @@
 
 <ng-template #editDocTemp>
     <div class="modal-header pb-0">
-        <p class="hd-alg"><!-- {{constant.btns.editVideo}} -->{{commonLabels.modaltitle.editDoc}}</p>
+        <p class="hd-alg">{{commonLabels.labels.permissionSet}}</p>
         <button type="button" class="close pull-right" aria-label="Close" (click)="closeEditVideoForm()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -147,4 +150,45 @@
             </div>
         </form>
     </div>
+</ng-template>
+
+<ng-template #userList>
+  <div class="modal-header pb-0">
+    <p class="hd-alg">{{commonLabels.labels.userList}}</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModel()" title="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+     <table class="table table-striped">
+      <thead>
+        <tr class="th-boxshadow">
+          <th class="text-left">
+            <div class="text-over">{{commonLabels.labels.userName}}</div>
+          </th>
+          <th class="text-left text-nowrap">
+            {{commonLabels.labels.division}}
+          </th>
+          <th class="text-left text-nowrap">
+            {{commonLabels.labels.department}}
+          </th>
+          <th class="text-center text-nowrap">
+            {{commonLabels.labels.status}}
+          </th>
+        </tr>
+      </thead>
+      <tbody class=" text-nowrap">
+        <tr class="table-desc-color"
+          *ngFor="let user of userListData | paginate: {itemsPerPage: userListSize,currentPage: currentPage,totalItems : totalCourseCount};let i = index">
+          <td class="text-left">
+            <div>{{user?.User?.userName  | titlecase}}</div>
+          </td>
+          <td class="text-left">{{user?.Division?.divisionName}}</td>
+          <td class="text-left">{{user?.Department?.departmentName}}</td>
+          <td class="text-left">{{user?.filePermissionType}}</td>
+      </tbody>
+    </table>
+  </div>
+  <pagination-controls *ngIf="userListData && userListData.length" class="my-pagination"
+    (pageChange)="userPageChanged($event)"></pagination-controls>
 </ng-template>
