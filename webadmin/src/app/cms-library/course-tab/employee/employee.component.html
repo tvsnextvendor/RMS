@@ -64,17 +64,24 @@
                 </select>
                 <div class="select_arrow"></div>
             </div>
-            <div class="col-md-3 pl-0 select select-style clearfix">
+            <div class="col-md-3 pl-0 filter-search">
+                    <form class="search-container clearfix" (ngSubmit)="getEmployeeDetails('')">
+                        <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
+                        <button type="submit" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
+                        <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
+                    </form>
+                </div>
+            <!-- <div class="col-md-3 pl-0 select select-style clearfix">
                     <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
                         (change)="filterSelect(emp.value,'emp')">
                         <option [value]=null>{{commonLabels.labels.selEmp}}</option>
                         <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
                     </select>
                     <div class="select_arrow"></div>
-                </div>
+                </div> -->
                 </div>
                 <div class="col-md-1 refer-btn p-0">
-                <button type="button" (click)="resetFilter()" class="btn user-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
+                <button type="button" (click)="resetFilter()" class="btn reset-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
                 </div>
         </div>
      <div class="col-lg-12 col-sm-12 p-0">
