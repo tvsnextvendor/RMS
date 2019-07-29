@@ -89,7 +89,6 @@ export class SideBarComponent implements OnInit {
         // console.log(modules,this.permissionService.editPermissionCheck(modules))
       return this.permissionService.editPermissionCheck(modules);
     }
-   
   }
 
   dropDownEnable(type){

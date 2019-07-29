@@ -907,7 +907,7 @@ export class UserComponent implements OnInit {
         if (key == 'dept') {
             let id = event.departmentId;
             let obj = this.editData.ResortUserMappings.length && this.editData.ResortUserMappings.forEach(item => {
-                if (item.Division && item.Department.departmentId == id) {
+                if (item.Department && item.Department.departmentId == id) {
                     let arr = [];
                     arr.push(item.resortUserMappingId);
                     this.removedMappingId = _.sortedUniq(arr);
@@ -917,7 +917,7 @@ export class UserComponent implements OnInit {
         if (key == 'design') {
             let id = event.designationId;
             let obj = this.editData.ResortUserMappings.forEach(item => {
-                if (item.Division && item.Designation.designationId == id) {
+                if (item.Designation && item.Designation.designationId == id) {
                     this.removedMappingId.push(item.resortUserMappingId);
                 }
             })
