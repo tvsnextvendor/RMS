@@ -28,6 +28,7 @@ export class EmployeeComponent implements OnInit {
   roleId;
   enableFilter= false;
   empChange = false;
+  search;
   
   constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location,public commonLabels:CommonLabels,private resortService : ResortService,
     private userService :UserService,private commonService :CommonService) { 
@@ -55,6 +56,10 @@ export class EmployeeComponent implements OnInit {
     let dataQuery = this.resortId ? '?resortId='+this.resortId+'&userId='+this.userId : '?userId='+this.userId ;
     if(query){
       dataQuery = this.empChange ? query : query+'&userId='+this.userId; 
+      // dataQuery = query;
+    }
+    if(this.search){
+      dataQuery = dataQuery+"&search="+this.search;
     }
 
     this.courseService.getEmployeeDetails(dataQuery).subscribe(resp=>{
@@ -148,6 +153,7 @@ resetFilter(){
     this.filterDept = null;
     this.filterUser = null;
     this.empChange = false;
+    this.search = '';
     this.getEmployeeDetails('');
 }
 }
