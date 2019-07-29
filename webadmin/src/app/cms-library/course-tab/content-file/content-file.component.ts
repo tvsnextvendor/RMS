@@ -21,6 +21,11 @@ export class ContentFileComponent implements OnInit {
   uploadPath;
   modalRef : BsModalRef;
   fileId;
+  pageSize;
+  page;
+  currentPage;
+  userListSize;
+  permissionFileId;
   
   constructor(private breadCrumbService :BreadCrumbService,
     private alertService: AlertService,
@@ -40,6 +45,10 @@ export class ContentFileComponent implements OnInit {
    }
 
   ngOnInit() {
+     this.pageSize = 10;
+     this.page = 1;
+     this.currentPage = 1;
+     this.userListSize = 10;
     let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/cms-library'},{title : this.commonLabels.labels.contentFile,url:''}]
     this.breadCrumbService.setTitle(data);
      this.getContentFiles();
@@ -50,6 +59,46 @@ export class ContentFileComponent implements OnInit {
          this.constant.divisionList=result.data.divisions;
 
      })
+    }
+
+
+      getPermissionList(type,data,i){
+      // getPermissionList
+      this.permissionFileId = data.fileId;
+      let query = "?fileId="+data.fileId;
+      this.courseService.getPermissionList(query).subscribe(resp=>{
+        if(resp && resp.isSuccess){
+          this.userListData = resp.data && resp.data.rows.length ? resp.data.rows : [];
+          if(this.userListData.length){
+            this.totalCourseCount = resp.data && resp.data.count;
+            type != 'pagination' ? this.openUserList(type) : '';
+          }
+          else{
+            this.alertService.warn('There no user permission for this file')
+          }
+        }
+      })
+      }
+
+    userPageChanged(e){
+      this.currentPage = e;
+      let data ={fileId : this.permissionFileId};
+      this.getPermissionList('userList',data,'');
+    }
+
+    openUserList(template: TemplateRef<any>) {
+      let modalConfig={
+        class:"modal-lg"
+      }
+      this.constant.modalRef = this.modalService.show(template,modalConfig);
+    }
+
+    closeModel(){
+      this.permissionFileId = '';
+      this.userListSize = 10;
+      this.currentPage = 1;
+      this.constant.modalRef.hide();
+      // this.getCourseFileDetails();
     }
 
     getContentFiles(){
