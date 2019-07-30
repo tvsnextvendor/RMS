@@ -94,14 +94,14 @@ export class ForumPage implements OnInit {
     if (this.search) {
       this.getForumDatas();
     } else {
-      this.showSearchBar = false;
+      //this.showSearchBar = false;
       this.search='';
       this.getForumDatas();
     }
   }
 
   onCancel($e) {
-    this.showSearchBar = false;
+    //this.showSearchBar = false;
     this.search='';
     this.getForumDatas();
   }

@@ -60,6 +60,10 @@ export class ForumDetailPage implements OnInit {
   className;
   msgTitle;
   msgDes;
+  commentErr = false;
+  quesErr= false;
+  quesDisable= false;
+
   constructor(public navCtrl: NavController, public loader: LoaderService, public navParams: NavParams, private modalService: BsModalService, public constant: Constant, private toastr: ToastrService, public API_URL: API_URL, private http: HttpProvider, private storage: Storage, public modalCtrl: ModalController) {
     this.forumDetailObject = this.navParams.data;
     //this.employees = this.forumDetailObject['setData']['employees'];
@@ -105,10 +109,13 @@ export class ForumDetailPage implements OnInit {
   modalRef: BsModalRef;
 
   openModal(template: TemplateRef<any>) {
+    this.quesErr = false;
+    this.quesDisable = false
     this.modalRef = this.modalService.show(template);
   }
 
   openEditModal(template: TemplateRef<any>, comment) {
+    this.commentErr = false;
     this.editComment = comment.description;
     this.commentId = comment.commentId;
     this.postId = comment.postId;
@@ -127,14 +134,20 @@ export class ForumDetailPage implements OnInit {
       'postId': this.postId,
       'createdBy': this.createdBy
     }
+    if(this.isempty(this.editComment) ){
+      this.commentErr = true;
+      this.editDisable = true;
+    }else{
     this.http.put(false, API_URL.URLS.comment + '/' + this.commentId, postData).subscribe(res => {
       if (res['isSuccess']) {
+        this.commentErr = false;
+        this.editDisable = false;
         this.successMessage(res['data']);
-        //this.toastr.success(res['data']);
         this.modalRef.hide();
         this.getTopicsRelated();
       }
     })
+    }
   }
 
   //Add post
@@ -145,17 +158,24 @@ export class ForumDetailPage implements OnInit {
       "createdBy": this.currentUser.userId,
       "votesCount": 0
     }
+    if(!this.forum.question || this.isempty(this.forum.question) ){
+      this.quesErr = true;
+      this.forum.question=""
+      this.quesDisable = true;
+    }else{
     this.loader.showLoader();
     this.http.post(false, API_URL.URLS.post, postData).subscribe(res => {
       if (res['isSuccess']) {
-         this.successMessage(res['data']);
-        // this.toastr.success(res['data']);
+        this.successMessage(res['data']);
+        this.quesErr= false;
+        this.quesDisable = false;
         this.getTopicsRelated();
         this.forum.question = '';
         this.modalRef.hide();
       }
       this.loader.hideLoader();
     })
+    }
 
   }
   successMessage(msg){
@@ -243,20 +263,23 @@ export class ForumDetailPage implements OnInit {
       "description": this.comment,
       "createdBy": this.currentUser.userId,
       "postId": id
-    }
-    if (!this.comment) {
+    } 
+    if (!this.comment || this.isempty(this.comment)  ) {
       this.toastr.error("Comment is required");
     } else {
       this.http.post(false, API_URL.URLS.comment, postData).subscribe(res => {
         if (res['isSuccess']) {
           this.getTopicsRelated();
           this.getComments(id);
-         // this.toastr.success(res['data']);
-         this.successMessage(res['data']);
+          this.successMessage(res['data']);
           this.comment = '';
         }
       })
     }
+  }
+
+   isempty(str) {
+    return (!str || /^\s*$/.test(str));
   }
 
   likePost(list, status) {

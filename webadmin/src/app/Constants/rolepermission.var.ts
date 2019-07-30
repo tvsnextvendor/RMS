@@ -202,111 +202,114 @@ static readonly mobileModules = [{
 
 
 static readonly webAndMobile = [{
-	'moduleName': 'Dashboard',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
-	'moduleName': 'Resource Library',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
-	'moduleName': 'User Management',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
-	'moduleName': 'Resort Management',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
-	'moduleName': 'Approval Request',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
-	'moduleName': 'Calendar',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
-	'moduleName': 'Forum',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
-	'moduleName': 'Certificates',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
-	'moduleName': 'Subscription Model',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, 
-{
-	'moduleName': 'Employee Content Upload',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "mobile"
-}
-// {
-// 	'moduleName': 'Mobile_Dashboard',
-// 	'view': false,
-// 	'upload': false,
-// 	'edit': false,
-// 	'type': "mobile"
-// }, {
-// 	'moduleName': 'Mobile_Training',
-// 	'view': false,
-// 	'upload': false,
-// 	'edit': false,
-// 	'type': "mobile"
-// }, {
-// 	'moduleName': 'Mobile_Forum',
-// 	'view': false,
-// 	'upload': false,
-// 	'edit': false,
-// 	'type': "mobile"
-// }, {
-// 	'moduleName': 'Mobile_Accomplishments',
-// 	'view': false,
-// 	'upload': false,
-// 	'edit': false,
-// 	'type': "mobile"
-// }, {
-// 	'moduleName': 'Mobile_Training Schedule',
-// 	'view': false,
-// 	'upload': false,
-// 	'edit': false,
-// 	'type': "mobile"
-// }, {
-// 	'moduleName': 'Mobile_Feedback',
-// 	'view': false,
-// 	'upload': false,
-// 	'edit': false,
-// 	'type': "mobile"
-// }, {
-// 	'moduleName': 'Mobile_Settings',
-// 	'view': false,
-// 	'upload': false,
-// 	'edit': false,
-// 	'type': "mobile"
-// }
-];
+                                   'moduleName': 'Dashboard',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Resource Library',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'User Management',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Resort Management',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Approval Request',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Calendar',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Forum',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Certificates',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Subscription Model',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Course',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Training Class',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Quiz',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Notification',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Feedback',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Course Trend',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Resort Details',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               }, {
+                                   'moduleName': 'Certification Trend',
+                                   'view': false,
+                                   'upload': false,
+                                   'edit': false,
+                                   'type': "web"
+                               },{
+									'moduleName': 'Employee Content Upload',
+									'view': false,
+									'upload': false,
+									'edit': false,
+									'type': "mobile"
+                             }];
 
 
 }
