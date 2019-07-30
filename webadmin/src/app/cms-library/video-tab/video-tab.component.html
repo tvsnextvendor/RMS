@@ -101,7 +101,7 @@
                         <a (click)="viewTraningVideo(viewVideo,file.fileUrl)"><i class="fa fa-eye header-icon"
                             aria-hidden="true" title="View"></i></a>
                         <a *ngIf="iconEnable && userData == file.createdBy" (click)="getPermissionList(userList,file,i)" title="Edit"><i class="fas fa-user-friends header-icon"></i></a>
-                        <a *ngIf="iconEnable && userData == file.createdBy" (click)="openEditVideo(editVideoTemp,file,i)"  title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
+                        <a *ngIf="iconEnable && userData == file.createdBy" (click)="openEditVideo(editVideoTemp,file,i)"  title="User list"><i class="fas fa-pencil-alt header-icon"></i></a>
                         <a *ngIf="iconEnable && userData == file.createdBy" (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                     </td>
                 </tr>
