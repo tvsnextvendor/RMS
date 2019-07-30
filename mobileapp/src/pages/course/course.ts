@@ -226,14 +226,14 @@ export class CoursePage implements OnInit {
     }else if(this.search && !this.showSignRequire){
       this.getSignRequired(this.search)
     } else {
-      this.showSearchBar = false;
+      //this.showSearchBar = false;
       this.getCourseStatus(this.status, '');
     }
   }
   
   //Close and empty search bar
   onCancel($e) {
-    this.showSearchBar = false;
+    //this.showSearchBar = false;
     this.search="";
     this.getCourseStatus(this.status, '');
   }

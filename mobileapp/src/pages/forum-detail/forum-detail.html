@@ -28,7 +28,9 @@
     </div>
 <div class="main-content">
   <div [ngSwitch]="forumTopics">
+   
     <ion-list *ngSwitchCase="'mostRecent'">
+      
       <ion-row *ngIf="recentList">
         <ion-col col-12 col-md-6 col-sm-6 class="main-forum" *ngFor="let list of recentList;let j=index;">
           <ion-card class="forum-card">
@@ -151,7 +153,6 @@
                 </ion-col>
               </ion-row> -->
               <ion-row class="review-block" *ngIf="list.isActive">
-              
                 <ion-col col-4>
                     <p class="vote-count"><small class="vt-count">{{list.votesCount}}</small> <span class="forum-txt">{{constant.pages.forumLabels.votes}}</span>
                     <img src="assets/imgs/likeblue.png" *ngIf="list.like" />
@@ -168,36 +169,48 @@
                   </button>
                 </ion-col>
               </ion-row>
-              <div *ngIf="list.isComment" class="reply-comment">
+              <div *ngIf="list.isAnswer" class="reply-comment">
                 <div *ngFor="let comment of commentList;let i=index;" class="comment-row">
-                   <ion-row  [ngClass]="comment.User.userId == currentUser.userId? 'user-1 col-md-12' : 'user-2 col-md-12'">
-                  <ion-col col-2 class="comment-img">
-                    <img *ngIf="!comment.User.userImage" src="assets/images/user.png" class="comment-image">
-                    <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
-                  </ion-col>
-                  <ion-col col-10 class="comment-box">
-                    <h6 class="user-name">{{comment.User.userName}}</h6>
-                    <p class="comment-content">{{comment.description}}</p>
-                    <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
-                    <div class="comment-btn">
-                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(edit, comment)">
-                          <i class="fas fa-pencil-alt"></i></button>
-                      <button class="btn reply-cnt" *ngIf="comment.User.userId == currentUser.userId" (click)="openEditModal(delete, comment)"> <i class="fas fa-trash"></i></button>
-                    </div>
-                  </ion-col>
-                </ion-row>
+                  <ion-row [ngClass]="comment.User.userId == currentUser.userId? 'user-1' : 'user-2'">
+                    <ion-col col-2 class="comment-img">
+                      <img *ngIf="!comment.User.userImage" src="assets/images/user.png" class="comment-image">
+                      <img *ngIf="comment.User.userImage" src="{{comment.User.userImage}}" class="comment-image">
+                    </ion-col>
+                    <ion-col col-10 class="comment-box" [ngClass]="{'group-admin': list.Forum.forumAdmin == comment.User.userId}">
+                      <h6 class="user-name">
+                        {{comment.User.userName}}
+                        <span *ngIf="list.Forum.forumAdmin == comment.User.userId" class="group-admin-box"> (Admin)</span>
+                      </h6>
+                      <p class="comment-content">{{comment.description}}</p>
+                      <span class="comment-time">{{comment.commentDate | timeAgo}}</span>
+                      <div class="comment-btn">
+                        <button class="btn reply-cnt"
+                          *ngIf="comment.User.userId == currentUser.userId || list.Forum.forumAdmin == currentUser.userId"
+                          (click)="openEditModal(edit, comment)">
+                          <ion-icon name="create"></ion-icon>
+                        </button>
+                        <button class="btn reply-cnt"
+                          *ngIf="comment.User.userId == currentUser.userId || list.Forum.forumAdmin == currentUser.userId"
+                          (click)="openEditModal(delete, comment)">
+                          <ion-icon name="trash"></ion-icon>
+                        </button>
+                      </div>
+                    </ion-col>
+                  </ion-row>
                 </div>
-                <form (ngSubmit)="saveComment(list.postId, j)" novalidate>
+              </div>
+              <div *ngIf="list.isComment" class="reply-comment">
+                <form (ngSubmit)="saveComment(list.postId,j)" novalidate>
                   <ion-row>
                     <ion-col col-2>
                       <img src="assets/images/user.png" class="comment-image">
                     </ion-col>
                     <ion-col col-10 class="input-grp-box">
                       <ion-item class="comment-item">
-                        <ion-input name="comment" [(ngModel)]="comment" class="comment-input" placeholder="Add a comment ...">
+                        <ion-input name="comment" [(ngModel)]="comment" placeholder="Add a comment ..." class="comment-input">
                         </ion-input>
                       </ion-item>
-                      <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId,j)"></ion-icon>
+                      <ion-icon name="md-send" class="input-icon" (click)="saveComment(list.postId, j)"></ion-icon>
                     </ion-col>
                   </ion-row>
                 </form>
@@ -218,21 +231,19 @@
         <span aria-hidden="true">&times;</span>
       </button> -->
     </div>
-    <form novalidate (ngSubmit)="questionSubmit()" [formGroup]="QuestionForm">
+    <form novalidate (ngSubmit)="questionSubmit()">
       <div class="modal-body">
         <ion-item class="textarea-item">
-          <ion-textarea type="question" [(ngModel)]="forum.question" formControlName="question" [class.error1]="!QuestionForm.controls.question.valid && QuestionForm.controls.question.dirty"
+          <ion-textarea name="addQuest" type="question" [(ngModel)]="forum.question" 
             placeholder="What is the safety precaution required to enter the ski sport?" class="type-ques"></ion-textarea>
         </ion-item>
-        <div *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
-          <div class="error" *ngIf="QuestionForm.get('question').hasError('required') && QuestionForm.get('question').touched">
+          <div class="error" *ngIf="quesErr">
             {{constant.pages.forumLabels.validations.questionRequired}}
           </div>
-        </div>
       </div>
       <div class="quest-foot model-footer">
         <button ion-button small clear class="text-can" type="button" (click)="modalRef.hide()">{{constant.buttons.cancel}}</button>
-        <button ion-button small clear  class="text-add" type="submit" [disabled]="QuestionForm.invalid">{{constant.buttons.add}}</button>
+        <button ion-button small clear  class="text-add" type="submit">{{constant.buttons.add}}</button>
       </div>
     </form>
   </ng-template>
@@ -250,6 +261,7 @@
             <ion-item class="comment-item">
               <ion-input name="comment" [(ngModel)]="editComment" (input)="changeEditInput()"  class="comment-input" placeholder="Add a comment ..."></ion-input>
             </ion-item>
+            <div class="commtErr" *ngIf="commentErr">Comment is required.</div>
           </ion-col>
         </ion-row>
       </div>
