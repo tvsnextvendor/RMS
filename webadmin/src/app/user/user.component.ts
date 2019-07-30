@@ -1015,7 +1015,7 @@ export class UserComponent implements OnInit {
         this.selectTab = type;
         this.userTab = false;
         // this.viewUserRolePermission = false;
-        this.router.navigate(['/users/'+type])
+        this.router.navigate(['/users/'+type]);
         if (type === 'rolesPermission') {
             this.enableRolePermission = true;
             if(!this.viewUserRolePermission){
@@ -1025,9 +1025,13 @@ export class UserComponent implements OnInit {
         }
         else if(type == 'user'){
             this.userTab = true;
+            this.viewUserRolePermission = false;
         }
         else {
             this.enableRolePermission = false;
+        }
+        if(type != 'rolesPermission'){
+            this.viewUserRolePermission = false;
         }
         switch(type){
             case 'user':

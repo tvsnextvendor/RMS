@@ -29,6 +29,14 @@ export class RolepermissionComponent implements OnInit {
     if (this.userIdInfo) {
       this.getData();
     } 
+    else{
+      this.constant.modules.forEach(item => {
+        item.view = false;
+        item.upload = false;
+        item.edit = false;
+      });
+      this.rolesPermissions = [];
+    }
   }
 
   ngOnInit() {

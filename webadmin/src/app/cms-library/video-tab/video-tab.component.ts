@@ -185,7 +185,7 @@ constructor(private courseService: CourseService,
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
                   (roleId != 1 ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&resortId='+resortId : this.courseService.searchQuery(this.CMSFilterSearchEventSet)) : 
-                    (roleId != 1 ? (this.resourceLib ? '&resortId='+resortId : '&createdBy='+user.userId+'&resortId='+resortId) : '');
+                    (roleId != 1 ? ((this.resourceLib || this.uploadPage) ? '&resortId='+resortId : '&createdBy='+user.userId+'&resortId='+resortId) : '');
     // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ;
     let classId = this.trainingClassId ? this.trainingClassId : '';
     let params={
