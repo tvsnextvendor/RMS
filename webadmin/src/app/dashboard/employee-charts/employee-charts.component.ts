@@ -36,6 +36,7 @@ export class EmployeeChartsComponent implements OnInit {
   resortName;
   roleId;
   userName;
+  IschildResort;
   @Input() notificationCount;
 
   constructor(public dashboardVar: DashboardVar,
@@ -60,17 +61,17 @@ export class EmployeeChartsComponent implements OnInit {
   ngOnInit() {
     this.viewText = "View more";
     this.userRole = this.utilService.getRole();
+    this.roleId = this.utilService.getRole();
+    let userDetails = this.utilService.getUserData();
+    this.IschildResort = userDetails.ResortUserMappings.length && userDetails.ResortUserMappings[0].Resort.parentId == null ? true : false;
     this.getData();
     this.getTopResort();
     this.getKeyStat();
-    this.roleId = this.utilService.getRole();
-    let userDetails = this.utilService.getUserData();
     this.userName = userDetails.userName;
     this.previewProfilePic = userDetails.uploadPaths && userDetails.uploadPaths.uploadPath && userDetails.userImage ? userDetails.uploadPaths.uploadPath+userDetails.userImage : '';
     this.dashboardVar.years = '2019';
     this.dashboardVar.certYear = '2019';
-    let query = this.resortId ? '?resortId='+this.resortId +'&type='+'summary': '';
-  
+    let query = this.resortId ? (this.IschildResort ? '?resortId='+this.resortId : '?resortId=' + this.resortId+'&type='+'summary') : '';
     this.commonService.getTotalCourse(query).subscribe(result => {
       const totalCourses = result.data.training;
       this.dashboardVar.totalCoursesCount = result.data.courseTotalCount;
@@ -130,8 +131,7 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
   topRatedCourses() {
-    let query = this.resortId ? '?resortId='+this.resortId+'&type='+'summary' : '';
-    
+    let query = this.resortId ? (this.IschildResort ? '?resortId=' + this.resortId : '?resortId=' + this.resortId + '&type=' + 'summary') : '';
     this.commonService.getTopRatedTrainingClasses(query).subscribe((result) => {
       if (result && result.isSuccess) {
         this.topCourses = result.data.map(item => {
@@ -145,7 +145,8 @@ export class EmployeeChartsComponent implements OnInit {
     const courseTrendObj = {
       year : this.dashboardVar.years
     };
-    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId+'&type='+'summary';
+    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    query = !this.IschildResort ? query + '&type='+'summary' : query;
     this.commonService.getCourseTrend(courseTrendObj,query).subscribe(result => {
       if (result && result.isSuccess) {
         this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
@@ -160,7 +161,8 @@ export class EmployeeChartsComponent implements OnInit {
     const certificationTrend = {
       year : this.dashboardVar.certYear
     };
-    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId+'&type='+'summary';
+    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    query = !this.IschildResort ? query + '&type=' + 'summary' : query;
     this.commonService.getCertificateTrend(certificationTrend,query).subscribe(result => {
       if (result && result.isSuccess) {
         this.dashboardVar.certificationTrend = result.data.map(item => parseInt(item, 10));
@@ -470,7 +472,7 @@ export class EmployeeChartsComponent implements OnInit {
 
   // get total number of badges and display in chart
   totalNoOfBadges() {
-    let query = this.resortId ? '?resortId='+this.resortId+'&type='+'summary' : '';
+    let query = this.resortId ? (this.IschildResort ? '?resortId=' + this.resortId : '?resortId=' + this.resortId + '&type=' + 'summary')  : '';
     this.commonService.getBadges(query).subscribe((resp) => {
       const donutChartData = resp.data.badges;
       this.dashboardVar.totalBadges = resp.data.totalCount;
