@@ -63,7 +63,7 @@ export class EmployeeChartsComponent implements OnInit {
     this.userRole = this.utilService.getRole();
     this.roleId = this.utilService.getRole();
     let userDetails = this.utilService.getUserData();
-    this.IschildResort = userDetails.ResortUserMappings.length && userDetails.ResortUserMappings[0].Resort.parentId == null ? true : false;
+    this.IschildResort = userDetails.ResortUserMappings.length && userDetails.ResortUserMappings[0].Resort.parentId  ? true : false;
     this.getData();
     this.getTopResort();
     this.getKeyStat();
