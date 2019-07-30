@@ -166,4 +166,18 @@ export class SideBarComponent implements OnInit {
       this.router.navigate(['/cms-library'],{queryParams:{type : type,tab : data}})
     } 
   }
+
+  expandCheck(type){
+    if(type == 'performance'){
+      if(this.permissionCheck('Course Trend','view') || this.permissionCheck('Resort Details','view') || this.permissionCheck('Certification Trend','view')){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    if(type == "show"){
+
+    }
+  }
 }

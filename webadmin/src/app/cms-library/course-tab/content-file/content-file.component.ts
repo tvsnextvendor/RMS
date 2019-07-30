@@ -24,6 +24,8 @@ export class ContentFileComponent implements OnInit {
   pageSize;
   page;
   currentPage;
+  userListData;
+  totalCourseCount;
   userListSize;
   permissionFileId;
   
