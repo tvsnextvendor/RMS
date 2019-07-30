@@ -103,6 +103,7 @@ export class EmployeeComponent implements OnInit {
 }
 
 filterSelect(value,type){
+  this.resortId = ''
     if(type == "resort"){
         this.filterDivision =null;
         this.filterDept = null;
@@ -154,12 +155,14 @@ filterSelect(value,type){
 }
 
 resetFilter(){
-    this.filterResort = null;
+    // this.filterResort = null;
     this.filterDivision =null;
     this.filterDept = null;
     this.filterUser = null;
     this.empChange = false;
     this.search = '';
+    this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : '';
+    this.filterResort = this.resortId;
     this.getEmployeeDetails('');
 }
 }

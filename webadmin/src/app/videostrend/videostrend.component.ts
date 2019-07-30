@@ -123,12 +123,13 @@ export class VideosTrendComponent implements OnInit {
       }
 
     resetFilter(){
-        this.filterResort = null;
         this.filterDivision =null;
         this.filterDept = null;
         this.filterUser = null;
         this.trendsVar.years = '';
         this.trendsVar.months = '';
+        this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
+        this.filterResort = this.resortId;
         this.getModuleList('');
     }
 
@@ -215,6 +216,7 @@ export class VideosTrendComponent implements OnInit {
     }
 
     filterSelect(value,type){
+        this.resortId = '';
         if(type == "resort"){
             this.filterDivision =null;
             this.filterDept = null;

@@ -210,7 +210,7 @@ export class ResortComponent implements OnInit {
                 });
             }
         }
-        else {
+        else if(!this.resortName || !this.locationName || !this.email || !this.phoneNumber || !this.status) {
             this.alertService.error("Mandatory fields are Required")
         }
     }

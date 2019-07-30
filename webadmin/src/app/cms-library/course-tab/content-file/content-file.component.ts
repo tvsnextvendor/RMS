@@ -28,6 +28,7 @@ export class ContentFileComponent implements OnInit {
   totalCourseCount;
   userListSize;
   permissionFileId;
+  selectAllPermission = false;
   
   constructor(private breadCrumbService :BreadCrumbService,
     private alertService: AlertService,
@@ -181,8 +182,10 @@ export class ContentFileComponent implements OnInit {
         "departmentId" :this.constant.selectedDepartment.map(item=>{return item.departmentId}),
         "resortId" : resortId,
         "employeeId" : this.constant.selectedEmp.map(item=>{return item.userId}),
-        "fileId" :  this.constant.fileId
+        "fileId" :  this.constant.fileId,
+        "filePermissionType" : ''
       }
+      this.selectAllPermission ? params.filePermissionType = 'Public' : params.filePermissionType = 'Restricted';
       this.courseService.setPermission(params).subscribe(resp=>{
         if(resp && resp.isSuccess){
           this.closeEditVideoForm();
@@ -196,7 +199,7 @@ export class ContentFileComponent implements OnInit {
     }
   }
 
-  onEmpSelect(event, key,checkType) {
+  onEmpSelect(event, key,checkType,selectAll) {
 
     if (event.divisionId) {
       this.constant.divisionId = event.divisionId;
@@ -266,6 +269,9 @@ export class ContentFileComponent implements OnInit {
           // this.allEmployees = result.data.reduce((obj, item) => (obj[item.userId] = item, obj), {});
         }
       })
+    }
+    if (key == 'emp') {
+      this.selectAllPermission = selectAll;
     }
     if(this.constant.selectedDivision.length && this.constant.selectedDepartment.length && this.constant.selectedEmp.length ){
       this.constant.errorValidate = false
