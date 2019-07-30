@@ -91,7 +91,7 @@ export class AddBatchComponent implements OnInit {
 
     getCourseData() {
         this.resortId = this.userData.ResortUserMappings.length ? this.userData.ResortUserMappings[0].Resort.resortId : ''; 
-        let query = '?status=none&resortId='+this.resortId;
+        let query = '?resortId='+this.resortId;
         this.courseService.getCourseForNotification(query).subscribe(resp => {
             if (resp && resp.isSuccess) {
                 this.courseDataList = resp.data.length ? resp.data.map(item => {
@@ -384,7 +384,7 @@ export class AddBatchComponent implements OnInit {
         if (key == 'dept') {
             this.batchVar.selectedEmp = []; 
             this.batchVar.employeeList = [];
-            const data = { 'departmentId': this.batchVar.departmentId, 'resortId': ' ' };
+            const data = { 'departmentId': this.batchVar.departmentId, 'resortId': ' ',type : 'schedule' };
             this.roleId != 1 ? data.resortId =  this.batchVar.selectedResort : delete data.resortId;
             this.userService.getUserByDivDept(data).subscribe(result => {
                 if (result && result.data) {

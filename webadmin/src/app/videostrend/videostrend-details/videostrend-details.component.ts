@@ -69,7 +69,13 @@ export class VideosTrendDetailsComponent implements OnInit {
 
     getResortList(){
         if(this.roleId != 1){
-            this.resortService.getResort().subscribe(item=>{
+            // this.resortService.getResort().subscribe(item=>{
+            //     if(item && item.isSuccess){
+            //         this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+            //         this.filterSelect(this.filterResort,'resort')
+            //     } 
+            // })
+            this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
                 if(item && item.isSuccess){
                     this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
                     this.filterSelect(this.filterResort,'resort')
