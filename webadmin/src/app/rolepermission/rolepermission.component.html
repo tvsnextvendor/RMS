@@ -78,17 +78,17 @@
 				<tr class="th-boxshadow">
 					<th class="pl-5">{{commonLabels.labels.menu}}</th>
 					<th class="text-center"><label class="table-checkbox-cont mb-0">
-							<input type="checkbox" [checked]='constant.selectAllView ? true : false' name="view" (change)="selectAll($event)">
+							<input type="checkbox" [disabled]="viewUserRolePermission" [checked]='constant.selectAllView ? true : false' name="view" (change)="selectAll($event)">
 							{{commonLabels.labels.view}}
 							<span class="table-checkmark"></span>
 						</label></th>
 					<th class="text-center"><label class="table-checkbox-cont mb-0">
-							<input type="checkbox" [checked]='constant.selectAllUpload ? true : false' name="upload" (change)="selectAll($event)">
+							<input type="checkbox" [disabled]="viewUserRolePermission" [checked]='constant.selectAllUpload ? true : false' name="upload" (change)="selectAll($event)">
 							{{commonLabels.labels.upload}}
 							<span class="table-checkmark"></span>
 						</label></th>
 					<th class="text-center"><label class="table-checkbox-cont mb-0">
-							<input type="checkbox" [checked]='constant.selectAllEdit ? true : false' name="edit" (change)="selectAll($event)">
+							<input type="checkbox" [disabled]="viewUserRolePermission" [checked]='constant.selectAllEdit ? true : false' name="edit" (change)="selectAll($event)">
 							{{commonLabels.labels.editdele}}
 							<span class="table-checkmark"></span>
 						</label></th>
@@ -97,17 +97,17 @@
 			<tbody>
 				<tr class="table-desc-color" *ngFor="let module of constant.modules;let i = index;">
 					<td class="pl-5">{{module.moduleName}}</td>
-					<td class="checkbox-padding">
+					<td class="checkbox-padding" >
 						<label class="table-checkbox-cont">
-							<input [disabled]="module.moduleName == 'Employee Content Upload' ? true : false" type="checkbox" [checked]="module.view" name="view" (change)="checkIfAllSelected($event,module.view,i)">
+							<input [disabled]="module.moduleName == 'Employee Content Upload' ? true : (viewUserRolePermission ? true : false)" type="checkbox" [checked]="module.view" name="view" (change)="checkIfAllSelected($event,module.view,i)">
 							<span [ngClass]="module.moduleName == 'Employee Content Upload' ? 'table-checkmark checkmark-disable':'table-checkmark'"></span>
 						</label></td>
 					<td class="checkbox-padding"><label class="table-checkbox-cont">
-							<input type="checkbox" [checked]="module.upload" name="upload" (change)="checkIfAllSelected($event,module.upload,i)">
+							<input [disabled] = "viewUserRolePermission" type="checkbox" [checked]="module.upload" name="upload" (change)="checkIfAllSelected($event,module.upload,i)">
 							<span class="table-checkmark"></span>
 						</label></td>
 					<td class="edit-padding"><label class="table-checkbox-cont">
-							<input [disabled]="module.moduleName == 'Employee Content Upload' ? true : false" type="checkbox" [checked]="module.edit" name="edit" (change)="checkIfAllSelected($event,module.edit,i)">
+							<input [disabled]="module.moduleName == 'Employee Content Upload' ? true : (viewUserRolePermission ? true : false)" type="checkbox" [checked]="module.edit" name="edit" (change)="checkIfAllSelected($event,module.edit,i)">
 							<span [ngClass]="module.moduleName == 'Employee Content Upload' ? 'table-checkmark checkmark-disable': 'table-checkmark'"></span>
 						</label></td>
 				</tr>

@@ -34,6 +34,9 @@ export class RolepermissionComponent implements OnInit {
         item.view = false;
         item.upload = false;
         item.edit = false;
+        this.constant.selectAllView = false;
+        this.constant.selectAllUpload = false;
+        this.constant.selectAllEdit = false;
       });
       this.rolesPermissions = [];
     }

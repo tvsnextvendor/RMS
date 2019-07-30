@@ -53,6 +53,7 @@ userListSize;
 userListData = [];
 permissionFileId;
 totalCourseCount = 0;
+selectAllPermission = false;
 
 constructor(private courseService: CourseService,
   private fileService:FileService,
@@ -245,7 +246,7 @@ constructor(private courseService: CourseService,
       this.trainingVideoUrl = videourl;
     }
 
-    onEmpSelect(event, key,checkType) {
+    onEmpSelect(event, key,checkType,selectAll) {
       if (event.divisionId) {
         this.constant.divisionId = event.divisionId;
       } else if (event.departmentId) {
@@ -261,6 +262,7 @@ constructor(private courseService: CourseService,
           if (result.isSuccess) {
             let listData =_.cloneDeep(this.constant.departmentList);
             this.constant.departmentList = [];
+            this.constant.employeeList = [];
             if(checkType == 'select'){
               listData && listData.length ? 
               result.data.rows.forEach(item=>{listData.push(item)}) : 
@@ -316,6 +318,7 @@ constructor(private courseService: CourseService,
         })
       }
       if (key == 'emp') {
+        this.selectAllPermission = selectAll;
         if (event.userId && this.allEmployees[event.userId]) {
           this.employeesInBatch.push(this.allEmployees[event.userId]);
         }
@@ -436,8 +439,10 @@ constructor(private courseService: CourseService,
         "resortId" : resortId,
         "employeeId" : this.constant.selectedEmp.map(item=>{return item.userId}),
         "fileId" :  this.fileId,
-        "filePermissionType" : 'Restricted'
+        "filePermissionType" : 'Restricted',
+        // "selectAllUser" : false
       }
+      this.selectAllPermission ? params.filePermissionType = 'Public' : params.filePermissionType = 'Restricted';
       this.courseService.setPermission(params).subscribe(resp=>{
         if(resp && resp.isSuccess){
           this.closeEditVideoForm();

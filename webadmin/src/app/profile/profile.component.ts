@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
     this.profVar.email=this.userDetails.email;
     this.profVar.empId= this.userDetails.employeeNo;
     this.previewProfilePic = this.userDetails.uploadPaths && this.userDetails.uploadPaths.uploadPath && this.userDetails.userImage ? this.userDetails.uploadPaths.uploadPath+this.userDetails.userImage : 'assets/images/user-icon1.png';
-    // this.profVar.dob= this.datepipe.transform( this.userDetails.dob , 'dd MMM yyyy');
+    this.profVar.dob=  this.userDetails.dateOfBirth  ? new Date(this.userDetails.dateOfBirth) : ''; 
     this.profVar.designation=this.userDetails.Designation && this.userDetails.Designation.designationName;
     this.profVar.dept= this.userDetails.Department && this.userDetails.Department.departmentName;
     this.profVar.mobile=this.userDetails.phoneNumber;
@@ -77,6 +77,7 @@ export class ProfileComponent implements OnInit {
                 divisionId:this.divisionId,
                 departmentId:this.departmentId,
                 reportingTo:this.reportingTo,
+                dateOfBirth  : this.datepipe.transform( this.profVar.dob , 'dd MMM yyyy'),
                 accessTo: 'web',
             };
            if(this.profVar.userName && this.profVar.mobile && this.profVar.email && !this.validPhone){

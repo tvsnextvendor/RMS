@@ -174,9 +174,9 @@
     
                         <div class="pl-0 form-group select-Courses">
                             <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId"
-                                [data]="constant.departmentList" [(ngModel)]="constant.selectedDepartment"
-                                [settings]="constant.departmentSettings" (onSelect)="onEmpSelect($event,'dept','select')"
-                                (onDeSelect)="onEmpSelect($event,'dept','deselect')" #departmentId="ngModel" required>
+                                [data]="constant.departmentList" [(ngModel)]="constant.selectedDepartment" (onSelectAll)="onEmpSelect($event,'dept','select',true)" (onDeSelectAll)="onEmpSelect($event,'dept',deselect,true)"
+                                [settings]="constant.departmentSettings" (onSelect)="onEmpSelect($event,'dept','select',false)"
+                                (onDeSelect)="onEmpSelect($event,'dept','deselect',false)" #departmentId="ngModel" required>
                             </ng-multiselect-dropdown>
                             <span class="required_color" *ngIf="submitted && !constant.selectedDepartment.length">
                                 {{commonLabels.mandatoryLabels.dept}}
@@ -186,17 +186,17 @@
                     <div class="col-md-5 p-0 ml-auto">
                         <div class="pl-0 form-group select-Courses">
                             <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId"
-                                (onSelect)="onEmpSelect($event,'div','select')" [data]="constant.divisionList"
-                                [(ngModel)]="constant.selectedDivision" [settings]="constant.divisionSettings"
-                                (onDeSelect)="onEmpSelect($event,'div','deselect')" #divisionId="ngModel" required></ng-multiselect-dropdown>
+                                (onSelect)="onEmpSelect($event,'div','select',false)" [data]="constant.divisionList"
+                                [(ngModel)]="constant.selectedDivision" [settings]="constant.divisionSettings" (onSelectAll)="onEmpSelect($event,'div','select',true)" (onDeSelectAll)="onEmpSelect($event,'div',deselect,true)"
+                                (onDeSelect)="onEmpSelect($event,'div','deselect',false)" #divisionId="ngModel" required></ng-multiselect-dropdown>
                             <span class="required_color" *ngIf="submitted && !constant.selectedDivision.length">
                                 {{commonLabels.mandatoryLabels.division}}
                             </span>
                         </div>
                         <div class="pl-0 form-group select-Courses">
                             <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"
-                                (onSelect)="onEmpSelect($event,'emp','select')" (onDeSelect)="onEmpSelect($event,'emp','deselect')"
-                                [data]="constant.employeeList" [(ngModel)]="constant.selectedEmp"
+                                (onSelect)="onEmpSelect($event,'emp','select',false)" (onDeSelect)="onEmpSelect($event,'emp','deselect',false)"
+                                [data]="constant.employeeList" [(ngModel)]="constant.selectedEmp" (onSelectAll)="onEmpSelect($event,'emp','select',true)" (onDeSelectAll)="onEmpSelect($event,'emp',deselect,true)"
                                 [settings]="constant.empSettings" #empId="ngModel" required></ng-multiselect-dropdown>
                             <span class="required_color" *ngIf="submitted && !constant.selectedEmp.length">
                                 {{commonLabels.mandatoryLabels.selectEmp}}

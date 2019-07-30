@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   this.headerService.setTitle({title:this.commonLabels.titles.dashboard, hidemodule:false});
   this.breadCrumbService.setTitle([]);
-  this.getNotification();
+  // this.getNotification();
   const roleId = this.utilService.getRole();
   let user = this.utilService.getUserData();
   let parentId = user && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort && user.ResortUserMappings[0].Resort.parentId ? user.ResortUserMappings[0].Resort.parentId : '';

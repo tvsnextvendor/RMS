@@ -52,7 +52,7 @@ export class VideoVar {
         singleSelection: false,
         idField: 'departmentId',
         textField: 'departmentName',
-        enableCheckAll: false,
+        enableCheckAll: true,
         itemsShowLimit: 8,
         }
         resortSettings = {
@@ -66,14 +66,14 @@ export class VideoVar {
         singleSelection: false,
         idField: 'userId',
         textField: 'userName',
-        enableCheckAll: false,
+        enableCheckAll: true,
         itemsShowLimit: 8,
         }
         divisionSettings = {
         singleSelection: false,
         idField: 'divisionId',
         textField: 'divisionName',
-        enableCheckAll: false,
+        enableCheckAll: true,
         itemsShowLimit: 8,
         }
 

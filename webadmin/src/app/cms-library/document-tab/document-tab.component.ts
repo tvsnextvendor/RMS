@@ -42,6 +42,7 @@ export class DocumentTabComponent implements OnInit {
   userListData = [];
   permissionFileId;
   totalCourseCount = 0;
+  selectAllPermission = false;
  
 
   @Input() CMSFilterSearchEventSet;
@@ -327,7 +328,7 @@ export class DocumentTabComponent implements OnInit {
     this.constant.modalRef.hide();
   }
 
-  onEmpSelect(event, key,checkType) {
+  onEmpSelect(event, key,checkType,selectAll) {
 
     if (event.divisionId) {
       this.constant.divisionId = event.divisionId;
@@ -398,6 +399,9 @@ export class DocumentTabComponent implements OnInit {
         }
       })
     }
+    if (key == 'emp') {
+      this.selectAllPermission = selectAll;
+    }
     if(this.constant.selectedDivision.length && this.constant.selectedDepartment.length && this.constant.selectedEmp.length ){
       this.constant.errorValidate = false
     }
@@ -415,6 +419,7 @@ export class DocumentTabComponent implements OnInit {
           "fileId" :  this.constant.fileId,
           "filePermissionType" : 'Restricted'
         }
+        this.selectAllPermission ? params.filePermissionType = 'Public' : params.filePermissionType = 'Restricted';
         this.courseService.setPermission(params).subscribe(resp=>{
           if(resp && resp.isSuccess){
             this.closeEditVideoForm();
