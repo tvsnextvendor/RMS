@@ -196,12 +196,12 @@ export class VideosTrendComponent implements OnInit {
             } 
         })
         if(this.roleId != 1){
-            this.resortService.getResort().subscribe(item=>{
-                if(item && item.isSuccess){
-                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
-                    this.filterSelect(this.filterResort,'resort')
-                } 
-            })
+            // this.resortService.getResort().subscribe(item=>{
+            //     if(item && item.isSuccess){
+            //         this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+            //         this.filterSelect(this.filterResort,'resort')
+            //     } 
+            // })
         }
         else{
             this.commonService.getAllResort('').subscribe(item=>{
