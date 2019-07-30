@@ -1444,7 +1444,7 @@ background-color: #C1E1F3;
 .modal-content .group-box .form-control{
   border: none;
 }
-/* pagination */
+/********************** pagination ****************/
 .my-pagination .ngx-pagination {
   margin-top:1.5em;
   padding-left:0;
@@ -1506,7 +1506,8 @@ background-color: #C1E1F3;
   color: #fff;
 }
 .ngx-pagination .disabled:hover{
-  
+  background: #c5c2c28c !important;
+  color: #fff !important;
 }
 /* li.pagination-next.disabled{
 
