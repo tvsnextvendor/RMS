@@ -35,7 +35,7 @@
     </div>
     <div class="float-right row pb-3 adduser-respon col-md-12 p-0">
         <div class="row col-md-11 p-0">
-            <div class="col-md-3 pl-0 select select-style clearfix">
+            <div class="col-md-4 pl-0 select select-style clearfix">
                     <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
                         (change)="filterSelect(childResort.value,'resort')">
                         <option [value]=null>{{commonLabels.labels.selectResort}}</option>
@@ -43,7 +43,7 @@
                     </select>
                     <div class="select_arrow"></div>
                 </div>
-        <div class="col-md-3 pl-0 select select-style clearfix">
+        <div class="col-md-4 pl-0 select select-style clearfix">
             <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterDivision"
                 #parentdivision (change)="filterSelect(parentdivision.value,'division')">
                 <option [value]=null>{{commonLabels.labels.selDiv}}</option>
@@ -51,7 +51,7 @@
             </select>
             <div class="select_arrow"></div>
         </div>
-        <div class="col-md-3 pl-0 select select-style clearfix">
+        <div class="col-md-4 pl-0 select select-style clearfix">
             <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
                  (change)="filterSelect(dept.value,'dept')">
                 <option [value]=null>{{commonLabels.labels.selDept}}</option>
