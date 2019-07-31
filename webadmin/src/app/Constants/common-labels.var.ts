@@ -172,6 +172,7 @@ export class CommonLabels{
         "scheduleTraining"  :   "Schedule A Training",
         "createCourse"      :   "Create Course",      
         "acceptedFileTypes" :   "Accepted file types: TXT, MP4, JPG, DOC, MPEG, AVI",
+        "acceptedhtmlTypes" :   "(Accept only HTML file)",
         "from"              :   "Assigned Date",
         "to"                :   "Due Date",
         "batchName"         :   "Training Schedule Name",        
