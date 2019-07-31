@@ -25,10 +25,10 @@ export class VideosTrendComponent implements OnInit {
    departmentList = [];
    empList = [];
    xlsxList=[];
-   filterResort;
-   filterDivision;
-   filterDept;
-   filterUser;
+   filterResort = null;
+   filterDivision = null;
+   filterDept = null;
+   filterUser = null;
    roleId;
 
    constructor(private headerService: HeaderService,
@@ -128,7 +128,7 @@ export class VideosTrendComponent implements OnInit {
         this.filterUser = null;
         this.trendsVar.years = '';
         this.trendsVar.months = '';
-        this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
+        this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : null;
         this.filterResort = this.resortId;
         this.getModuleList('');
     }
@@ -190,13 +190,13 @@ export class VideosTrendComponent implements OnInit {
 
     // getResort
     getResortList(){
-        this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
-            if(item && item.isSuccess){
-                this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
-                this.filterSelect(this.filterResort,'resort')
-            } 
-        })
         if(this.roleId != 1){
+            this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                    this.filterSelect(this.filterResort,'resort')
+                } 
+            })
             // this.resortService.getResort().subscribe(item=>{
             //     if(item && item.isSuccess){
             //         this.resortList = item.data && item.data.rows.length ? item.data.rows : [];

@@ -182,7 +182,7 @@
             <li [class.active]="router.isActive('/calendar')" *ngIf="permissionCheck('Calendar','view')">
                 <a (click)="dropDownEnable('calendar')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.schedule}}</a>
             </li>
-            <li [ngClass]="(tabType == 'report') ? 'active' : ''">
+            <li [ngClass]="(tabType == 'report') ? 'active' : ''" *ngIf="expandCheck('performance')">
                 <a (click)="dropDownEnable('report')"><img class="pr-2" src="assets/images/sel_reports.png">{{commonLabels.labels.performanceReport}}<span class="drop-icon"><i *ngIf="enableReport" aria-hidden="true" class="fa fa-angle-down icons_header pl-2" title="Open"></i><i *ngIf="!enableReport" class="fa fa-angle-right icons_header  pl-2" aria-hidden="true" title="Open"></i></span></a>
             </li>
             <ul class="sub-menu" *ngIf="enableReport">
@@ -199,7 +199,7 @@
             <li [class.active]="router.isActive('/resource/library')"  *ngIf="permissionCheck('Resource Library','view')">
                 <a (click)="dropDownEnable('resource')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.resourceLibrary}}</a>
             </li>    
-            <li [ngClass]="(tabType == 'show') ? 'active' : ''" >
+            <li [ngClass]="(tabType == 'show') ? 'active' : ''" *ngIf="expandCheck('show')">
                 <a (click)="dropDownEnable('show')" *ngIf="!enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showMore}}</span></a>
                 <a (click)="dropDownEnable('show')" *ngIf="enableShow"><img src="assets/images/updown_arrow.png" class="pr-3"><span class="show-btn">{{commonLabels.labels.showLess}}</span></a>
             </li>
