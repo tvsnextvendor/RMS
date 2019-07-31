@@ -772,7 +772,6 @@ export class AddModuleComponent implements OnInit {
         let self = this;
         this.videoSubmitted = true;
         let videoObj;
-        debugger;
         this.moduleVar.courseId ? videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration, trainingClassId: this.moduleVar.courseId } :
             videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration }
         if ( this.uploadFile && this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile) {
