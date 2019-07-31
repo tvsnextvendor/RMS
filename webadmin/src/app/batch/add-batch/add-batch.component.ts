@@ -48,6 +48,7 @@ export class AddBatchComponent implements OnInit {
     paramsType;
     currentDate;
     previousUpdate = false;
+    existingUser = [];
 
     constructor(private breadCrumbService: BreadCrumbService, private alertService: AlertService, private courseService: CourseService, private utilService: UtilService, private resortService: ResortService, private userService: UserService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService: CommonService, public commonLabels: CommonLabels) {
         this.batchVar.url = API_URL.URLS;
@@ -183,6 +184,7 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.employeeId = resort.map(item => { return item.userId });
         this.batchVar.selectedEmp = resort.map(item => { return item.User });
         this.batchVar.selectedDivision = div.filter(item => this.batchVar.divisionId.some(other => item.divisionId === other));
+        this.existingUser = resort.map(item => { return item.userId });
         // this.scheduleData.Resorts.forEach(item=>{
         // let obj = {
         //     userId : item.userId,
@@ -486,8 +488,16 @@ export class AddBatchComponent implements OnInit {
                 "divisionId": this.batchVar.divisionId,
                 "userId": this.batchVar.employeeId,
                 "courses": this.batchVar.moduleForm,
+                "insertUserId" : [],
+                "getUserId" : []
             }
+            console.log(this.existingUser)
+            
             if (this.scheduleId) {
+                let newUsers = this.batchVar.employeeId.filter(item=> this.existingUser.some(o=> o != item));
+                postData.insertUserId = newUsers;
+                postData.getUserId = this.existingUser;
+
                 // delete postData.status;
                 this.courseService.updateScheduleTraining(this.scheduleId, postData).subscribe(resp => {
                     this.hidePopup('submit');
@@ -498,6 +508,8 @@ export class AddBatchComponent implements OnInit {
                 });
             }
             else {
+                delete postData.insertUserId;
+                delete postData.getUserId;
                 this.courseService.scheduleTraining(postData).subscribe(result => {
                     if (result.isSuccess) {
                         //   this.clearBatchForm();

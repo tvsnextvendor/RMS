@@ -177,7 +177,12 @@ export class SideBarComponent implements OnInit {
       }
     }
     if(type == "show"){
-
+      if(this.permissionCheck('User Management','view') || this.permissionCheck('Approval Request','view') || this.permissionCheck('Forum','view') || this.permissionCheck('Certificates','view') || this.permissionCheck('Feedback','view')){
+        return true;
+      }
+      else{
+        return false;
+      }
     }
   }
 }

@@ -140,7 +140,7 @@ export class CreateForumComponent implements OnInit {
     // this.forumService.getAdmin(createdBy).subscribe((resp) => {
       const data = { 'departmentId': departmentId, 'createdBy': this.utilService.getUserData().userId }
       this.userService.getUserByDivDept(data).subscribe(resp => {
-      if(resp.data){
+      if(resp && resp.isSuccess && resp.data){
         this.adminData = resp.data.map(item => {
           const admin = {
             id: item.userId,
@@ -160,6 +160,7 @@ export class CreateForumComponent implements OnInit {
 
       }else{
         this.adminData = [];
+        this.assignList = [];
       }
       
     });

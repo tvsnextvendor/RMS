@@ -493,6 +493,7 @@ export class UserComponent implements OnInit {
         this.reportingTo = '';
         this.emailAddress = '';
         this.phoneNumber = '';
+        this.homeNumber = '';
         this.triggerNext = false;
         this.editRoleValue = '';
         this.empId = '';
@@ -1004,7 +1005,7 @@ export class UserComponent implements OnInit {
             arr[i].division = String(this.getDivisionArray(item.ResortUserMappings, 'div'));
             arr[i].department = String(this.getDivisionArray(item.ResortUserMappings, 'dept'));
             arr[i].reportingTo = item.reportDetails ? item.reportDetails.userName : '';
-            arr[i].accessTo = item.reportDetails ? item.reportDetails.status : '';
+            arr[i].accessTo = item.status ? item.status : '';
         })
         // console.log(arr)
         this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.userManagement);

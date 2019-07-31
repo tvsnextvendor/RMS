@@ -659,7 +659,8 @@
             </div>
             <div *ngIf="!errorValidation"><span class="required_color text-left">{{errorValidate}}</span></div>         
         </div> 
-        <span *ngIf="roleFormSubmitted && roleError && !errorValidation" class="required_color ml-3">{{commonLabels.mandatoryLabels.roleName}}</span>
+        <span *ngIf="roleFormSubmitted && roleError && errorValidation" class="required_color ml-3">{{commonLabels.mandatoryLabels.roleName}}</span>
+        <!-- <span *ngIf="roleFormSubmitted && !dept.designationName" class="required_color ml-3">{{commonLabels.mandatoryLabels.roleName}}</span> -->
         <div class="text-center mt-4 mrb-15">
             <button type="button" (click)="submitRole()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
             <button type="button" class="btn btn-default" (click)="closeAddForm()">{{commonLabels.btns.cancel}}</button>
