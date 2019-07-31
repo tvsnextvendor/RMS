@@ -27,7 +27,8 @@
                             <td class="text-left">{{file.fileName}}</td>
                             <td class="text-left">{{file.fileSize}}</td>
                             <td class="text-left">.{{file.fileExtension}}</td>
-                            <td class="text-left">03.50</td>
+                            <td class="text-left" *ngIf = "file.fileType == 'Video'">{{file.fileLength | number : '1.2-2'}}</td>
+                            <td class="text-left" *ngIf = "file.fileType != 'Video'">-</td>
                             <!-- <td class="text-left"><a href="#">100</a></td>      -->
                             <td class="text-center">
                               <a (click)="openEditVideo(editDocTemp,file,i)"><i class="fas fa-pencil-alt"aria-hidden="true"></i></a>

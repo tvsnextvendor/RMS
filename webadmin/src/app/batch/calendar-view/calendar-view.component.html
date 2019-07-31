@@ -17,7 +17,7 @@
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
           </div>
         </span>
-        <span class="col-md-4">
+        <span class="col-md-4" *ngIf="roleId != 3">
           <select class="select-btn cp ng-pristine ng-valid ng-touched" name="resort" [(ngModel)]="resortId" (change)="getCalendarDetails()">
           <option _ngcontent-c27="" disabled="true" value="null" ng-reflect-value="null">Parent Resort</option>
           <option _ngcontent-c27="" *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName | titlecase}}</option>
