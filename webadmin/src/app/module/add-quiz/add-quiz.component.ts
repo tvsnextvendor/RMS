@@ -252,9 +252,13 @@ export class AddQuizComponent implements OnInit {
             courseUpdate: submitCheck,
             type: update ? true : false,
             resp: resp,
-            // submitCheck : submitCheck
         }
-        this.valueChange.emit(data);
+        if(this.ownerShipErr){
+          data['changeTC'] = true;
+         this.valueChange.emit(data);
+        }else{
+         this.valueChange.emit(data);
+        }
     }
 
     // Quiz Submission
