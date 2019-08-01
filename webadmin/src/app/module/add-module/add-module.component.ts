@@ -630,6 +630,8 @@ export class AddModuleComponent implements OnInit {
     }
 
     hideTab(data) {
+        this.moduleVar.courseId = data.changeTC ? "" : this.moduleVar.courseId;
+        this.moduleVar.selectedCourse = data.changeTC ? [] : this.moduleVar.selectedCourse;
         if (this.moduleVar.courseId) {
             this.courseData(this.moduleVar.courseId);
             this.moduleVar.tabEnable = data.courseUpdate ? false : true;

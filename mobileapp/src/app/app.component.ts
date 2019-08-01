@@ -84,7 +84,10 @@ export class MyApp implements OnInit{
               toast.present();
               this.lastTimeBackPress = new Date().getTime();
           }
-      }else if(pageName == "CoursePage" || pageName ==  "ForumPage" || pageName ==  "AccomplishmentPage" || pageName ==  "FeedbackPage" ||  pageName == "EventPage"){
+      }else if(pageName == "LandingPage"){
+          navigator['app'].exitApp();
+      }
+      else if(pageName == "CoursePage" || pageName ==  "ForumPage" || pageName ==  "AccomplishmentPage" || pageName ==  "FeedbackPage" ||  pageName == "EventPage"){
         this.nav.setRoot('home-page');
       }else if(pageName == "LoginPage"){
         this.nav.setRoot('landing-page');
