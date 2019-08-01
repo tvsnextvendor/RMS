@@ -600,7 +600,8 @@ export class CommonLabels{
         "quizOption"        :   "Please fill the MCQ question option fields",
         "scheduleCourse"    :   'Minimum one course is required',
         "optionDuplicate"   :   "Same option value already enter for this question",
-        "optionSelect"      :   "Please enter the option data before select answer"
+        "optionSelect"      :   "Please enter the option data before select answer",
+        "approverError"     :   "Please select the second level approver"
     };
 
      modaltitle ={

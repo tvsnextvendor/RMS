@@ -679,14 +679,24 @@ export class CourseTabComponent implements OnInit {
     };
     this.courseService.sendApproval(approvalData).subscribe(result => {
       if (result && result.isSuccess) {
-        this.alertService.success(result.message);
+        this.modalRef.hide();
+        // this.alertService.success(result.message);
+        setTimeout(()=>{
+          this.alertService.success(result.message);
+        },300)
       } else {
-        this.alertService.error(result.message);
+        this.modalRef.hide();
+        setTimeout(()=>{
+          this.alertService.error(result.message);
+        },300)  
       }
-      this.modalRef.hide();
+      
     }, (errorRes) => {
       this.modalRef.hide();
-      this.alertService.error(errorRes.error.error);
+      setTimeout(()=>{
+        this.alertService.error(errorRes.error.error);
+      },300)
+      // this.alertService.error(errorRes.error.error);
     });
   }
 

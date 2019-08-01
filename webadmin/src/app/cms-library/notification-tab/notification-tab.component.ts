@@ -225,15 +225,25 @@ sendApproval() {
     'reportingTo': userData.reportingTo
   };
   this.courseService.sendApproval(approvalData).subscribe(result => {
-    if (result && result.isSuccess) {
-      this.alertService.success(result.message);
-    } else {
-      this.alertService.error(result.message);
-    }
     this.modalRef.hide();
+    if (result && result.isSuccess) {
+      // this.alertService.success(result.message);
+      setTimeout(()=>{
+        this.alertService.success(result.message);
+      },300) 
+      
+    } else {
+      // this.alertService.error(result.message);
+      setTimeout(()=>{
+        this.alertService.error(result.message);
+      },300) 
+    }
   }, (errorRes) => {
     this.modalRef.hide();
-    this.alertService.error(errorRes.error.error);
+    setTimeout(()=>{
+      this.alertService.error(errorRes.error.error);
+    },300)
+    
   });
 }
 }

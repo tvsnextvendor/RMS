@@ -27,6 +27,10 @@ export class CommonService {
     return this.http.getLocal('local',this.url.getCreatedByDetails);
   }
 
+  getCreatedByDetailsByResort(query){
+    return this.http.getLocal('local',this.url.getCreatedByDetails+query);
+  }
+
  getDepartmentList(data){
       let params = data ? data : '';
       if(params){    
