@@ -377,7 +377,7 @@
                     <div class="pl-0 form-group select-Courses mb-0">
                     <ng-multiselect-dropdown [placeholder]="'Division'" name="division" [data]="divisionArray"
                         [(ngModel)]="division" [settings]="batchVar.divisionSettings" (onSelect)="onEmpSelect($event,'div')" (onSelectAll)="onEmpAllSelect($event,'div')" (onDeSelectAll)="onEmpAllSelect($event,'div')"
-                        (onDeSelect)="onEmpSelect($event,'div')" #divisionId="ngModel" required></ng-multiselect-dropdown>
+                        (onDeSelect)="onDeselect($event,'div')" #divisionId="ngModel" required></ng-multiselect-dropdown>
                         <span class="required_color" *ngIf="userForm.submitted && !division.length">
                             {{commonLabels.mandatoryLabels.diviName}}
                         </span>
