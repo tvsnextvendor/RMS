@@ -177,3 +177,28 @@
 		</div>
 		</ng-template>
 
+
+
+	<ng-template #tcNameChange>
+		<div class="modal-header">
+			<h4 class="modal-title pull-left">Training Class is owned by another user, Please change Training Class Name</h4>
+			<!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+				<span aria-hidden="true">&times;</span>
+			</button> -->
+		</div>
+		<div class="modal-body">
+			<div>
+				<p class="text-center">Training Class Name</p>
+				<input type="text" class="form-control" placeholder="Enter Training Class Name" name="selectCourseName"
+					[(ngModel)]="updatedClassName">
+				<span class="required_color"
+					*ngIf=" tcErr && !updatedClassName">Training Class Name is required.</span>
+			</div>
+			<div class="text-center col-md-12 p-4 button-section">
+				<button type="button" class="btn btn-primary mr-3"
+					(click)="changeClassName()">Save</button>
+				<button type="button" class="btn btn-default" (click)="modalRef.hide()">Cancel</button>
+			</div>
+		</div>
+	</ng-template>
+

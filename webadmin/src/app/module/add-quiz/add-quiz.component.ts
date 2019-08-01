@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output,ViewChild,EventEmitter, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeaderService,UtilService } from '../../services';
@@ -36,6 +36,7 @@ export class AddQuizComponent implements OnInit {
     @Output() completed = new EventEmitter();
     @Output() hideClass = new EventEmitter();
     courseUpdate = false;
+    tcErr = false;
     videoDetails = [];
     // courseId;
     // videoId;
@@ -65,8 +66,11 @@ export class AddQuizComponent implements OnInit {
     resortId;
     enableAddQuiz = false;
     roleId;
+    updatedClassName;
+    ownerShipErr = false;
     answerEmpty = false;
     optionEmpty = false;
+    @ViewChild('tcNameChange') modalTemplate : TemplateRef<any>;
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
@@ -382,19 +386,20 @@ export class AddQuizComponent implements OnInit {
                         if (result && result.isSuccess) {
                             this.removedQuizIds = [];
                             this.selectedQuiz = null;
+                            this.ownerShipErr = false;
                             this.valueChanged(result.data, hideTraining, false);
                         }
                         this.modalRef && this.modalRef.hide();
                     },err=>{
                         let errData = err.error.error
+                        this.ownerShipErr =errData && errData.statusKey ? true : false;
                         if(errData && errData.statusKey){
-                            this.courseId = '';
-                            this.alertService.error('Training Class is owned by another user, Please change Training Class Name');
                             this.modalRef && this.modalRef.hide();
+                            this.openTcModal(this.modalTemplate);
                         }
                     })
                 }
-                else {
+                else{
                     params.quizQuestions && params.quizQuestions.length && params.quizQuestions.forEach(item=>{
                         if(item.questionId){
                             delete item.questionId;
@@ -434,6 +439,25 @@ export class AddQuizComponent implements OnInit {
         this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
         }
 
+    }
+
+    
+   //Open modal when trying to edit TC that was owned by another user.
+    openTcModal(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
+    }
+
+    
+   //Change TC name when trying to edit TC that was owned by another user.
+    changeClassName(){
+        if(this.updatedClassName){
+            this.tcErr = false;
+            this.courseId = "";
+            this.selectCourseName= this.updatedClassName;
+            this.quizSubmit('yes');
+        }else{
+            this.tcErr = true;
+        }
     }
 
 
