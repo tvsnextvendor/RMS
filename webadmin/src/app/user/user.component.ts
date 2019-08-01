@@ -879,23 +879,34 @@ export class UserComponent implements OnInit {
         this.selectedDivisionId = this.division.length && this.division.map(item => { return item.divisionId });
         this.selectedDepartmentId = this.department.length && this.department.map(item => { return item.departmentId });
         this.selectedDesignationId = this.designation.length && this.designation.map(item => { return item.designationId });
-        if (key == 'div' && this.selectedDivisionId.length) {
-            const obj = { 'divisionId': this.selectedDivisionId };
-            this.commonService.getDepartmentList(obj).subscribe((result) => {
-                if (result.isSuccess) {
-                    this.departmentArray = result.data.rows;
-                }
-            })
+        if (key == 'div') {
+            
+            if(this.selectedDivisionId.length){
+                const obj = { 'divisionId': this.selectedDivisionId };
+                this.commonService.getDepartmentList(obj).subscribe((result) => {
+                    if (result.isSuccess) {
+                        this.departmentArray = result.data.rows;
+                        this.department = this.department.filter(o => this.departmentArray.find(x => x.departmentId === o.departmentId));
+                    }
+                })
+            }
+            else{
+                this.departmentArray = [];
+                this.department = [];
+            }
         }
-        else {
-            this.departmentArray = [];
-        }
+        // else if(key == 'dept'){
+
+        // }
+        // else {
+        //     this.departmentArray = [];
+        // }
     }
 
     onDeselect(event, key) {
         if (key == 'div') {
             let id = event.divisionId;
-            this.editData.ResortUserMappings.forEach(item => {
+            this.editData ? this.editData.ResortUserMappings.forEach(item => {
                 if (item.Division && item.Division.divisionId == id) {
                     let arr = [];
                     arr.push(item.resortUserMappingId);
@@ -903,7 +914,7 @@ export class UserComponent implements OnInit {
                     this.department = this.department.filter(x => x.departmentId != item.departmentId);
                     this.onEmpSelect('', 'div');
                 }
-            })
+            }):this.onEmpSelect('', 'div');;
         }
         if (key == 'dept') {
             let id = event.departmentId;

@@ -491,11 +491,12 @@ export class AddBatchComponent implements OnInit {
                 "insertUserId" : [],
                 "getUserId" : []
             }
-            console.log(this.existingUser)
-            
+            // console.log(this.existingUser,this.batchVar.selectedEmp)
+            // debugger;
             if (this.scheduleId) {
                 let newUsers = this.batchVar.employeeId.filter(item=> this.existingUser.some(o=> o != item));
                 postData.insertUserId = newUsers;
+                postData.userId = this.batchVar.selectedEmp.map(item=>{return item.userId});
                 postData.getUserId = this.existingUser;
 
                 // delete postData.status;
