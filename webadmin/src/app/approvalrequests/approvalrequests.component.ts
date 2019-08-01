@@ -38,6 +38,7 @@ export class ApprovalrequestsComponent implements OnInit {
   approvalStatus;
   approvalStatusSet;
   totalCount;
+  levelApprovalError = false;
 
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
@@ -71,7 +72,8 @@ export class ApprovalrequestsComponent implements OnInit {
    }
 
   getusers() {
-    this.commonService.getCreatedByDetails().subscribe(result => {
+    let query = this.resortId ? "?resortId="+this.resortId : ''; 
+    this.commonService.getCreatedByDetailsByResort(query).subscribe(result => {
       if (result && result.isSuccess) {
         this.createdByList = result.data && result.data;
       } else {
@@ -188,24 +190,37 @@ export class ApprovalrequestsComponent implements OnInit {
     this.modalRef = this.modalService.show(template, modalConfig);
   }
   approveStatus() {
-    let approvalInfo = {
-      'approverId': this.userData.userId,
-      'approvalStatus': 'Approved',
-      'approvalAccess': this.approvalAccess
-    }
-    this.resortService.statusApproval(this.approvals.approvalId, approvalInfo).subscribe((result) => {
-      if (result && result.isSuccess) {
-        this.modalRef.hide();
-        this.alertService.success(result.message);
-      } else {
-        this.alertService.error(result.error);
+    if(!this.showUsers || (this.showUsers && this.approvalAccess)){
+      this.levelApprovalError = false;
+      let approvalInfo = {
+        'approverId': this.userData.userId,
+        'approvalStatus': 'Approved',
+        'approvalAccess': this.approvalAccess
       }
-      this.tabChange('Pending');
-    }, (errorRes) => {
-      this.modalRef.hide();
-      this.alertService.error(errorRes.error.error);
-    });
+      this.resortService.statusApproval(this.approvals.approvalId, approvalInfo).subscribe((result) => {
+        if (result && result.isSuccess) {
+          this.modalRef.hide();
+          this.alertService.success(result.message);
+        } else {
+          this.alertService.error(result.error);
+        }
+        this.tabChange('Pending');
+      }, (errorRes) => {
+        this.modalRef.hide();
+        this.alertService.error(errorRes.error.error);
+      });
+    }
+    else{
+      this.levelApprovalError = true;
+    }
   }
+
+  approverSelect(){
+    if(this.approvalAccess){
+      this.levelApprovalError = false;
+    }
+  }
+
   rejectStatus() {
     let approvalInfo = {
       'approverId': this.userData.userId,

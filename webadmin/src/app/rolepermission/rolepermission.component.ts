@@ -164,7 +164,13 @@ export class RolepermissionComponent implements OnInit {
     this.getCheckModules(data);
     this.rolePermissionService.getRolePermission(data).subscribe((result) => {
       if (result.isSuccess) {
-        this.constant.modules = result.data.rows[0].userPermission;
+        if(result.data.rows.length == 1 ){
+          this.constant.modules =  result.data.rows[0].userPermission;
+        }
+        else if(result.data.rows.length && result.data.rows.length >1){
+          let array = result.data.rows.map(item=>{return item.userPermission});
+          this.constant.modules = _.concat(array[0],array[1]);
+        }
       } else {
         this.constant.modules.forEach(item => {
           item.view = false;
