@@ -290,6 +290,7 @@ export class CoursePage implements OnInit {
 
   // show tabs
   showData(show) {
+    this.showSearchBar = false;
     this.status = show;
     switch (show) {
       case 'assigned':

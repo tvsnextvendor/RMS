@@ -57,12 +57,12 @@
 						</ion-col>
 					</ion-row>
 				</ion-grid>
-				<div *ngIf="(profileForm.get('mobile').hasError('required') || profileForm.get('mobile').hasError('minlength') || profileForm.get('mobile').hasError('maxlength')  ) && profileForm.get('mobile').touched"
+				<div *ngIf="(profileForm.get('mobile').hasError('required') || profileForm.get('mobile').hasError('pattern')  ) && profileForm.get('mobile').touched"
 					class="error-block">
 					<div class="error" *ngIf="profileForm.get('mobile').hasError('required') && profileForm.get('mobile').touched">
 					  {{constant.pages.profileLabels.validations.mobileRequired}}
 					</div>
-					<div class="error" *ngIf="(profileForm.get('mobile').hasError('pattern') || profileForm.get('mobile').hasError('minlength') || profileForm.get('mobile').hasError('maxlength')) && profileForm.get('mobile').touched">
+					<div class="error" *ngIf="profileForm.get('mobile').hasError('pattern')  && profileForm.get('mobile').touched">
 						{{constant.pages.profileLabels.validations.invalidMobile}}
 					</div>
 				</div>
@@ -93,9 +93,9 @@
 							<img src="assets/imgs/Department.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<div *ngIf="profileDetail.ResortUserMappings">
-								<span *ngFor="let dept of profileDetail.ResortUserMappings" class="list-dt">
-									<p class="profile-info" *ngIf="dept.Department">{{dept.Department.departmentName}},</p>
+							<div *ngIf="departList">
+								<span class="list-dt">
+									<p class="profile-info">{{departList.join()}}</p>
 								</span>
 							</div>
 							<small>{{constant.pages.profileLabels.department}}</small>
@@ -108,9 +108,9 @@
 							<img src="assets/imgs/Designation.png">
 						</ion-col>
 						<ion-col col-11 class="profile-info">
-							<div *ngIf="profileDetail.ResortUserMappings">
-								<span *ngFor="let desig of profileDetail.ResortUserMappings" class="list-dt">
-									<p class="profile-info" *ngIf="desig.Designation">{{desig.Designation.designationName}},</p>
+							<div *ngIf="desigList">
+								<span class="list-dt">
+									<p class="profile-info">{{desigList.join()}}</p>
 								</span>
 							</div>
 							<small>{{constant.pages.profileLabels.designation}}</small>

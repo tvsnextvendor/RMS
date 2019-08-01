@@ -35,7 +35,9 @@ export class ProfilePage implements OnInit {
   msgDes;
   previewProfilePic;
   profileFile;
-
+  desigList=[];
+  departList=[];
+ 
   constructor(public navCtrl: NavController,public http: HttpProvider
   ,public navParams: NavParams,public loader: LoaderService,public dataService: DataService,public toastr: ToastrService,public storage: Storage, public constant: Constant) {
   }
@@ -46,9 +48,10 @@ export class ProfilePage implements OnInit {
   
   ngOnInit() {
     let EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+    let MOBILEPATTERN = /^(\d{10}|\d{11}|\d{12})$/;
      this.profileForm = new FormGroup({
       userName: new FormControl('', [Validators.required]),
-      mobile: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10), Validators.maxLength(12)]),
+      mobile: new FormControl('', [Validators.required, Validators.pattern(MOBILEPATTERN)]),
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
     });
   }
@@ -71,7 +74,17 @@ export class ProfilePage implements OnInit {
     this.http.get(API_URL.URLS.getProfile+'?userId='+userId).subscribe((res)=>{
        if(res['isSuccess']){
          this.profileDetail = res['data']['rows'][0];
-         let uploadPath = res['data']['uploadPath']['uploadPath'];
+          let uploadPath = res['data']['uploadPath']['uploadPath'];
+          this.profileDetail.ResortUserMappings.filter(val=>{
+           if(val.Designation != null){
+            this.desigList.push(val.Designation.designationName);
+           }
+         })
+         this.profileDetail.ResortUserMappings.filter(val => {
+             if (val.Department != null) {
+                 this.departList.push(val.Department.departmentName);
+             }
+         })
          this.profile.userName = this.profileDetail.userName;
          this.profile.mobile = this.profileDetail.phoneNumber;
          this.profile.email = this.profileDetail.email;
