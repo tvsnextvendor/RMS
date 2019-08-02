@@ -94,7 +94,7 @@
                     <div class="col-md-5 p-0 ml-auto">
                             <!-- <label class="col-md-4 p-0 label-title">{{batchVar.labels.selectDept}}</label> -->
                             <div class="pl-0 form-group select-Courses">
-                                <ng-multiselect-dropdown [disabled]="scheduleId ? true : false" [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event,'div')" [data]="batchVar.divisionList"
+                                <ng-multiselect-dropdown [disabled]="scheduleId ? true : false" [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event,'div')" (onDeSelect)="onEmpSelect($event,'div')" [data]="batchVar.divisionList"
                                     [(ngModel)]="batchVar.selectedDivision" [settings]="batchVar.divisionSettings"  #divisionId="ngModel" (onSelectAll)="onEmpAllSelect($event,'div')" (onDeSelectAll)="onEmpAllSelect($event,'div')" required></ng-multiselect-dropdown>
                                 <span class="required_color" *ngIf="submitted && !batchVar.selectedDivision.length">
                                     {{commonLabels.mandatoryLabels.division}}

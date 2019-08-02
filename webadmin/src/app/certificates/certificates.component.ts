@@ -260,6 +260,8 @@ export class CertificatesComponent implements OnInit {
                     this.constant.tempName = certificateValues.certificateName;
                     this.constant.fileToUpload = certificateValues.certificateHtml;
                     this.filePath = result.data.path.uploadPath;
+                    this.htmlPath = result.data.path.uploadPath;
+                    this.htmlName = certificateValues.certificateHtml;
                     this.htmlView = this.filePath + certificateValues.certificateHtml;
                 });
             } else {
@@ -538,7 +540,10 @@ export class CertificatesComponent implements OnInit {
         this.constant.modalRef.hide();
         this.fileExist = false;
         this.constant.tempName = "";
+        this.certificateId = '';
         this.constant.fileToUpload = null;
+        this.htmlName = '';
+        this.htmlPath = '';
     }
 
     ngOnDestroy(){
