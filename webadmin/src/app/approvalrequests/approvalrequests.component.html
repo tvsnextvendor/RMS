@@ -333,7 +333,7 @@
     <div class="modal-body text-center">
         <span class="text-content">{{commonLabels.labels.rejectStatusConfirm}}</span>
         <div class="col-md-12">
-            <textarea [(ngModel)]="rejectComment" name="rejectComment" class="col-md-12 reject-textarea"></textarea>
+            <textarea [(ngModel)]="rejectComment" name="rejectComment" class="col-md-12 reject-textarea" placeholder="Write your comment here"></textarea>
         </div>
         <div class="text-center mt-4">
             <button (click)="rejectStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
