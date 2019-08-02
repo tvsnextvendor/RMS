@@ -360,38 +360,47 @@ export class AddBatchComponent implements OnInit {
     onEmpSelect(event, key) {
         this.batchVar.employeeId = this.batchVar.selectedEmp.map(item => { return item.userId });
         this.batchVar.departmentId = this.batchVar.selectedDepartment.map(item => { return item.departmentId });
-        this.batchVar.divisionId = this.batchVar.selectedDivision.map(item => { return item.divisionId });
+        this.batchVar.divisionId = this.batchVar.selectedDivision.length ? this.batchVar.selectedDivision.map(item => { return item.divisionId }) : [];
         this.getDropDownValues(event, key);
         this.batchVar.empValidate = false;
     }
 
     getDropDownValues(event, key) {
         if (key == 'div') {
-            this.batchVar.departmentId = [];
-            this.batchVar.selectedDepartment = [];
-            this.batchVar.selectedEmp = []; 
-            this.batchVar.employeeList = [];
             const obj = { 'divisionId': this.batchVar.divisionId };
             this.commonService.getDepartmentList(obj).subscribe((result) => {
                 if (result.isSuccess) {
                     this.batchVar.departmentList = result.data.rows;
                     if (this.scheduleId) {
                         let dept = _.cloneDeep(this.batchVar.departmentList);
-                        this.batchVar.selectedDepartment = dept.filter(item => this.batchVar.departmentId.some(other => item.departmentId === other));
+                        this.batchVar.selectedDepartment = this.batchVar.selectedDepartment.filter(o => result.data.rows.find(x => x.departmentId === o.departmentId));
                     }
+                }
+                else{
+                    this.batchVar.departmentId = [];
+                    this.batchVar.departmentList  = [];
+                    this.batchVar.selectedDepartment = [];
+                    this.batchVar.selectedEmp = []; 
+                    this.batchVar.employeeList = [];
                 }
             })
         }
 
         if (key == 'dept') {
-            this.batchVar.selectedEmp = []; 
+            // this.batchVar.selectedEmp = []; 
             this.batchVar.employeeList = [];
             const data = { 'departmentId': this.batchVar.departmentId, 'resortId': ' ',type : 'schedule' };
             this.roleId != 1 ? data.resortId =  this.batchVar.selectedResort : delete data.resortId;
             this.userService.getUserByDivDept(data).subscribe(result => {
                 if (result && result.data) {
                     this.batchVar.employeeList = result.data;
+                    this.batchVar.selectedEmp = this.batchVar.selectedEmp.filter(o => result.data.find(x => x.userId === o.userId));
+                    // this.batchVar.selectedEmp = this.batchVar.selectedEmp.filter(item=>)
                     this.allEmployees = result.data.reduce((obj, item) => (obj[item.userId] = item, obj), {});
+                }
+                else{
+                     this.batchVar.selectedEmp = []; 
+                    this.batchVar.employeeList = [];
                 }
 
             })

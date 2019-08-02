@@ -197,13 +197,15 @@
                     <span class="pl-2">{{commonLabels.labels.chooseFile}}</span>
                     <input [disabled]="!permissionCheck('Certificates','upload')" type="file" id="file" accept="text/html" (change)="handleFileInput($event.target.files)"
                         class="upload"></div><span>{{constant.fileToUpload?.name}}</span>
-                <iframe *ngIf="constant.fileToUpload && certificateId" [src]="htmlView | sanitizeHtml"></iframe>
+                <!-- <iframe *ngIf="constant.fileToUpload && certificateId" [src]="htmlView | sanitizeHtml"></iframe> -->
+                <iframe *ngIf="certificateId" [src]="htmlView | sanitizeHtml:'resourceUrl'"></iframe>
                 <span class="required_color" *ngIf=" (uploadTemplate.submitted && !htmlName)">
                         {{commonLabels.mandatoryLabels.tempFileMandatory}}
                     </span>
             </div>
             <div class="text-center pt-4">
-                <button type="submit" class="btn btn-default  mr-3">{{commonLabels.labels.upload}}</button>
+                <button type="submit" class="btn btn-default  mr-3" *ngIf="!certificateId">{{commonLabels.labels.upload}}</button>
+                <button type="submit" class="btn btn-default  mr-3" *ngIf="certificateId">{{commonLabels.btns.update}}</button>
                 <button type="button" class="btn btn-primary creat-btn mr-3" (click)="clearAddForm()">{{commonLabels.btns.cancel}}</button>
             </div>
         </form>

@@ -106,8 +106,11 @@ export class UserComponent implements OnInit {
     }
     ngOnInit() {
         let roleId = this.utilService.getRole();
-        this.csvDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.csv';
-        this.xlsDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.xlsx';
+        let userData = this.utilService.getUserData();
+        // this.csvDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.csv';
+        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
+        // this.xlsDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.xlsx';
+        this.xlsDownload = resortId  ? this.API_ENDPOINT + '8101/user/createExcelTemplate?resortId='+resortId : '';
         this.headerService.setTitle({ title: this.commonLabels.titles.userManagement, hidemodule: false });
         this.breadCrumbService.setTitle([]);
         this.pageLimitOptions = [5, 10, 25];
