@@ -39,6 +39,7 @@ export class ApprovalrequestsComponent implements OnInit {
   approvalStatusSet;
   totalCount;
   levelApprovalError = false;
+  selectedTab;
 
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
@@ -53,6 +54,7 @@ export class ApprovalrequestsComponent implements OnInit {
   ngOnInit() {
     this.pageSize = 10;
     this.p=1;
+    this.selectedTab = 'Pending';
     this.approvalAccess = null;
     this.headerService.setTitle({ title: 'Approval Request', hidemodule: false });
     this.breadCrumbService.setTitle([]);
@@ -76,6 +78,9 @@ export class ApprovalrequestsComponent implements OnInit {
     this.commonService.getCreatedByDetailsByResort(query).subscribe(result => {
       if (result && result.isSuccess) {
         this.createdByList = result.data && result.data;
+          let user = this.utilService.getUserData();
+          let userId = user && user.userId;
+          this.createdByList =  this.createdByList.filter(item=>item.userId != userId);
       } else {
         this.createdByList = [];
       }
@@ -92,6 +97,7 @@ export class ApprovalrequestsComponent implements OnInit {
 
   tabChange(status) {
     this.approvalStatusSet = status;
+    this.selectedTab = status;
     let userId = this.userData.userId;
     this.resortService.getApprovalList(this.resortId, userId, status,this.p,this.pageSize).subscribe((result) => {
       if (result && result.isSuccess) {
@@ -201,10 +207,16 @@ export class ApprovalrequestsComponent implements OnInit {
         if (result && result.isSuccess) {
           this.modalRef.hide();
           this.alertService.success(result.message);
+          if(!this.approvalAccess){
+            this.selectedTab = 'Approved';
+            this.tabChange('Approved');
+          }
         } else {
           this.alertService.error(result.error);
         }
-        this.tabChange('Pending');
+        if(this.showUsers){
+          this.tabChange('Pending');
+        }
       }, (errorRes) => {
         this.modalRef.hide();
         this.alertService.error(errorRes.error.error);
@@ -229,17 +241,25 @@ export class ApprovalrequestsComponent implements OnInit {
     }
     this.resortService.statusApproval(this.approvals.approvalId, approvalInfo).subscribe((result) => {
       if (result && result.isSuccess) {
-        this.modalRef.hide();
+        this.closePopup();
         this.alertService.success(result.message);
+        this.selectedTab = 'Rejected';
+        this.tabChange('Rejected');
       } else {
+        this.closePopup();
         this.alertService.error(result.message);
       }
-      this.tabChange('Pending');
     }, (errorRes) => {
+      this.closePopup();
       this.alertService.error(errorRes.error.error);
     });
   }
   secondLevelApproval() {
     this.showUsers = !this.showUsers;
+  }
+
+  closePopup(){
+    this.modalRef.hide();
+    this.rejectComment = '';
   }
 }

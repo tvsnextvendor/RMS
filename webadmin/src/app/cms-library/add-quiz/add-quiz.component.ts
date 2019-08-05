@@ -2,7 +2,7 @@ import { Component, OnInit ,Input,Output,EventEmitter,TemplateRef } from '@angul
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderService,BreadCrumbService,UtilService} from '../../services';
+import { HeaderService,BreadCrumbService,UtilService,PermissionService} from '../../services';
 import { HttpService } from '../../services/http.service';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CourseService } from '../../services/restservices/course.service';
@@ -46,9 +46,10 @@ export class CreateQuizComponent implements OnInit {
   answerEmpty = false;
   optionEmpty = false;
   roleId;
+  submitted = false;
 
   constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
-    public commonLabels:CommonLabels,public location : Location,private breadCrumbService : BreadCrumbService,private utilService :UtilService) {
+    public commonLabels:CommonLabels,public location : Location,private breadCrumbService : BreadCrumbService,private utilService :UtilService,public permissionService : PermissionService) {
     this.apiUrls = API_URL.URLS;
     this.activatedRoute.queryParams.subscribe((params) => {
       this.quizId = params.quizId ? params.quizId : '';
@@ -205,6 +206,8 @@ export class CreateQuizComponent implements OnInit {
     //Weightage update   
     this.answerEmpty = false;
     this.optionEmpty = false;
+    this.submitted = true;
+  
       let data = this.quizQuestionsForm.map((item,i) => {
           // console.log(item)
           if(item.questionType !=  "True/False" && !item.answer){
@@ -221,46 +224,53 @@ export class CreateQuizComponent implements OnInit {
           item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
           return item;
       })
-    if(!this.answerEmpty && !this.optionEmpty)  
-     if(this.quizId){
-      let postData= {
-        quizId : this.quizId,
-        quizName : this.quizName,
-        quizQuestions : this.quizQuestionsForm,
-        questionIds : this.removedQuizIds
-      }
-      this.courseService.updateQuizList(this.quizId,postData).subscribe(resp=>{
-        if(resp && resp.isSuccess){
-          this.route.navigate(['/cms-library'],{queryParams : {type : 'edit',tab:'quiz'}});
-          this.alertService.success(resp.message);
+    if(!this.answerEmpty && !this.optionEmpty && this.permissionService.nameValidationCheck(this.quizName))  {
+      if(this.quizId){
+        let postData= {
+          quizId : this.quizId,
+          quizName : this.quizName,
+          quizQuestions : this.quizQuestionsForm,
+          questionIds : this.removedQuizIds
         }
-      })
-     }
-     else{
-      let postData= {
-        quizName : this.quizName,
-        quizQuestions : this.quizQuestionsForm,
-        createdBy:this.userData.userId,
-        resortId:this.resortId,
-        draft : false
-      }
-      if(this.roleId == 4){
-        postData.draft = true
+        this.courseService.updateQuizList(this.quizId,postData).subscribe(resp=>{
+          if(resp && resp.isSuccess){
+            this.route.navigate(['/cms-library'],{queryParams : {type : 'edit',tab:'quiz'}});
+            this.alertService.success(resp.message);
+            this.submitted = false;
+          }
+        },err=>{
+          this.submitted = false;
+        })
       }
       else{
-        delete postData.draft;
+        let postData= {
+          quizName : this.quizName,
+          quizQuestions : this.quizQuestionsForm,
+          createdBy:this.userData.userId,
+          resortId:this.resortId,
+          draft : false
+        }
+        if(this.roleId == 4){
+          postData.draft = true
+        }
+        else{
+          delete postData.draft;
+        }
+        this.courseService.addQuiz(postData).subscribe(res=>{
+          if(res.isSuccess){
+            this.route.navigate(['/cmspage'],{queryParams : {type : 'create'}});
+            this.alertService.success(res.message);
+            this.submitted = false;
+          } 
+        },err=>{
+          this.submitted = false;
+        })
       }
-      this.courseService.addQuiz(postData).subscribe(res=>{
-        if(res.isSuccess){
-          this.route.navigate(['/cmspage'],{queryParams : {type : 'create'}});
-          this.alertService.success(res.message);
-        } 
-      })
     }
-    else if(this.answerEmpty ){
+    else if(this.permissionService.nameValidationCheck(this.quizName) && this.answerEmpty){
       this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
     }
-    else if(this.optionEmpty){
+    else if(this.permissionService.nameValidationCheck(this.quizName) && this.optionEmpty){
       this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
     }
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { HeaderService, BreadCrumbService } from '../services';
+import { HeaderService, BreadCrumbService,PermissionService } from '../services';
 import { HttpService } from '../services/http.service';
 import { ResortService } from '../services/restservices/resort.service';
 import { CommonService } from '../services/restservices/common.service';
@@ -38,7 +38,7 @@ export class ResortComponent implements OnInit {
     divisionDetails;
 
     constructor(private alertService: AlertService, private activeRoute: ActivatedRoute, private resortService: ResortService, private commonService: CommonService, private http: HttpService, private location: Location, private resortVar: ResortVar, private utilsService: UtilService, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
-        public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService) {
+        public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService,public permissionService : PermissionService) {
         this.activeRoute.params.subscribe((params: Params) => {
             this.resortId = params['id'];
         })
@@ -152,7 +152,7 @@ export class ResortComponent implements OnInit {
             // child resort added resorts | Role is child resort
             this.roleId = 3;
         }               
-        if(this.resortName && this.locationName && this.email && this.phoneNumber && this.status && this.mobileValidation && this.emailValidation){
+        if(this.resortName && this.permissionService.nameValidationCheck(this.resortName) &&  this.locationName && this.email && this.phoneNumber && this.status && this.mobileValidation && this.emailValidation){
             if(this.resortId){
                 this.userObj['email'] = this.email;
                 this.userObj['phoneNumber'] = this.phoneNumber;
@@ -210,6 +210,9 @@ export class ResortComponent implements OnInit {
                 });
             }
         }
+        // else if(this.resortName && !this.permissionService.nameValidationCheck(this.resortName)){
+        //     this.alertService.error("Please enter the valid name");
+        // }
         else if(!this.resortName || !this.locationName || !this.email || !this.phoneNumber || !this.status) {
             this.alertService.error("Mandatory fields are Required")
         }

@@ -776,7 +776,7 @@ export class AddModuleComponent implements OnInit {
         let videoObj;
         this.moduleVar.courseId ? videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration, trainingClassId: this.moduleVar.courseId } :
             videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration }
-        if ( this.uploadFile && this.moduleVar.selectVideoName && this.moduleVar.description && this.moduleVar.videoFile) {
+            if ( this.uploadFile && this.moduleVar.selectVideoName && this.permissionService.nameValidationCheck(this.moduleVar.selectVideoName) &&  this.moduleVar.description && this.moduleVar.videoFile) {
             this.message = this.moduleVar.courseId !== '' ? (this.commonLabels.labels.videoUpdatedToast) : (this.commonLabels.labels.videoAddedToast);
             this.commonService.uploadFiles(this.uploadFile).subscribe((result) => {
                 if (result && result.isSuccess) {
@@ -918,7 +918,7 @@ export class AddModuleComponent implements OnInit {
     submitForm(courseSubmitType) {
         this.moduleSubmitted = true;
         let user = this.utilService.getUserData();
-        if (this.moduleVar.moduleName && this.moduleVar.selectedCourse.length) {
+        if (this.permissionService.nameValidationCheck(this.moduleVar.moduleName) && this.moduleVar.selectedCourse.length) {
             let params = {
                 "courseName": this.moduleVar.moduleName,
                 // "quizId": this.selectedQuiz, 
@@ -978,7 +978,6 @@ export class AddModuleComponent implements OnInit {
                         else if (courseSubmitType) {
                             this.moduleCourseId = '';
                             // this.route.navigateByUrl("/cms-library");
-
                             this.completed.emit('completed');
                         }
                         else {
@@ -1002,7 +1001,7 @@ export class AddModuleComponent implements OnInit {
                 });
             }
         }
-        else if (!this.moduleVar.moduleName) {
+        else if (!this.permissionService.nameValidationCheck(this.moduleVar.moduleName) || this.moduleVar.moduleName) {
             this.alertService.error(this.commonLabels.mandatoryLabels.courseName)
         }
         else if (!this.moduleVar.selectedCourse.length) {
@@ -1015,19 +1014,20 @@ export class AddModuleComponent implements OnInit {
     }
 
     openEditModal(template: TemplateRef<any>, modelValue) {
-        if (this.moduleVar.moduleName && this.moduleVar.selectedCourseIds.length) {
+        if (this.moduleVar.moduleName && this.permissionService.nameValidationCheck(this.moduleVar.moduleName) && this.moduleVar.selectedCourseIds.length) {
             let modalConfig = {
                 class: "modal-dialog-centered"
             }
             this.modalRef = this.modalService.show(template, modalConfig);
         }
-        else if (!this.moduleVar.moduleName) {
+        else if (!this.moduleVar.moduleName || !this.permissionService.nameValidationCheck(this.moduleVar.moduleName)) {
             this.alertService.error(this.commonLabels.labels.pleaseaddCourse);
         } else if (!this.moduleVar.selectedCourseIds.length) {
             this.alertService.error(this.commonLabels.mandatoryLabels.trainingClassrequired);
-        } else if (!this.selectedQuiz) {
-            this.alertService.error(this.commonLabels.mandatoryLabels.quizNameRequired);
-        }
+        } 
+        // else if (!this.selectedQuiz) {
+        //     this.alertService.error(this.commonLabels.mandatoryLabels.quizNameRequired);
+        // }
 
     }
 

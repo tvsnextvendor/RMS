@@ -99,7 +99,7 @@ export class UserComponent implements OnInit {
     activatedTab = 'user';
 
 
-    constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService,private permissionService : PermissionService,
+    constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService,public permissionService : PermissionService,
         private activatedRoute : ActivatedRoute) {
         this.constant.url = API_URL.URLS;
         this.API_ENDPOINT = API.API_ENDPOINT;
@@ -448,7 +448,7 @@ export class UserComponent implements OnInit {
             employeeNo: this.empId,
             resortUserMappingId: []
         };
-        if (this.userName && this.lastName &&  this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone && !this.validHomeNo) {
+        if (this.userName && this.permissionService.nameValidationCheck(this.userName) && this.lastName && this.permissionService.nameValidationCheck(this.lastName) &&  this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone && !this.validHomeNo) {
             if (this.editEnable) {
                 this.removedMappingId.length ? obj.resortUserMappingId = this.removedMappingId : delete obj.resortUserMappingId;
                 this.userService.updateUser(this.userid, obj).subscribe((result) => {
@@ -575,7 +575,7 @@ export class UserComponent implements OnInit {
         let deptName = [];
         this.constant.divisionTemplate.forEach(item => {
             item.departments.forEach(value => {
-                if (value.departmentName === '') {
+                if (value.departmentName === '' || !this.permissionService.nameValidationCheck(value.departmentName)) {
                     this.divisionValidationCheck = false;
                 }
                 deptName.push(value.departmentName);
@@ -634,7 +634,7 @@ export class UserComponent implements OnInit {
     next() {
         this.divisionValidationCheck = true;
         this.constant.divisionTemplate.forEach(item => {
-            if (item.divisionName === '') {
+            if (item.divisionName === '' || !this.permissionService.nameValidationCheck(item.divisionName)) {
                 this.divisionValidationCheck = false;
             }
         })

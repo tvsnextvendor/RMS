@@ -59,4 +59,11 @@ export class PermissionService implements OnInit {
         return permissionEnable;
     }
 
+    nameValidationCheck(name){
+        let nameValidation = (name || '').trim().length === 0;
+        // console.log(nameValidation)
+        return !nameValidation;
+        
+    }
+
 }
