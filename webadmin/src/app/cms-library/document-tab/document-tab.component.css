@@ -1,5 +1,19 @@
-
   /* Documents Tab */
+  .required_color{
+    color: #f44336;
+    font-size: 12px;
+    display: block;
+    width: 100%;
+    margin-top: 0 !important;
+    padding-left: 17px;
+ }
+ .hd-alg{
+    font-size: 20px;
+    font-weight: 600;
+    float: left;  
+    line-height: 31px;
+    margin-bottom: 5px !important;
+  }
   .count-alg{
   float: right;
   font-weight: 600;
