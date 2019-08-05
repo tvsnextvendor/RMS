@@ -127,8 +127,8 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
-        <span class="required_color" *ngIf="errorValidate">{{errorValidation}}</span>
+    <span class="required_color" *ngIf="errorValidate">{{errorValidation}}</span>
+    <div class="modal-body">        
         <form #videoEditForm="ngForm" (ngSubmit)="permissionSetSubmit(videoEditForm)">
             <div class="row form-group">
                 <div class="col-md-5 p-0 float-left">
