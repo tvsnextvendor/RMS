@@ -167,7 +167,7 @@
                     </div>
                 </div> 
             </tab>
-            <tab [active] = "selectTab == 'rolesPermission'" *ngIf = "permissionCheck()" heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')">
+            <tab [active] = "selectTab == 'rolesPermission'" *ngIf = "permissionCheck() && userType !== 4" heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')"> 
             <!-- <span class="pr-2" *ngIf="viewUserRolePermission">
                 <button class="btn btn-primary" (click)="back('roles')">{{commonLabels.btns.back}}</button>
             </span> -->
@@ -228,7 +228,7 @@
                 </div>
                 </div>
               </div>
-              <div class="col-md-6 pt-4">
+              <div class="col-md-6 pt-4" *ngIf="userType !== 4">
                 <div class="white-bg pb-3">
                     <div class="Notification-color clearfix p-1"></div>
                   <h5 class="text-center pt-1">Assign/Edit Roles and Permissions</h5>
@@ -357,7 +357,9 @@
                     <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="userName"
                         name="userName" #user="ngModel" />
                     <span class="required_color"
-                        *ngIf="userForm.submitted && !userName">{{commonLabels.mandatoryLabels.empName}}</span>                 
+                        *ngIf="userForm.submitted && !userName">{{commonLabels.mandatoryLabels.empName}}</span> 
+                    <span class="required_color"
+                        *ngIf="userForm.submitted && !this.permissionService.nameValidationCheck(userName)">Please enter the valid name</span>                 
                 </span>
             </div>
             <div class="row form-group">
@@ -367,7 +369,9 @@
                         <input type="text" class="form-control" placeholder="Enter Last Name" [(ngModel)]="lastName"
                             name="lastName" #lastUser="ngModel" />
                         <span class="required_color"
-                            *ngIf="userForm.submitted && !lastName">{{commonLabels.labels.lastName}}{{commonLabels.mandatoryLabels.isRequired}}</span>                 
+                            *ngIf="userForm.submitted && !lastName">{{commonLabels.labels.lastName}}{{commonLabels.mandatoryLabels.isRequired}}</span>  
+                            <span class="required_color"
+                            *ngIf="userForm.submitted && !this.permissionService.nameValidationCheck(lastName)">Please enter the valid name</span>                   
                     </span>
                 </div>
             <div class="row form-group">

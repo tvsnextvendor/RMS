@@ -375,7 +375,7 @@ export class AddNotificationComponent implements OnInit {
 
     submitNotification(){
       this.batchVar.dategreater = this.batchVar.batchFrom && this.batchVar.batchTo && Date.parse(this.batchVar.batchTo) < Date.parse(this.batchVar.batchFrom) ? false : true;
-      if(this.fileName && (this.notificationFileName || this.uploadFileName) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.description && this.batchVar.dategreater){ 
+      if(this.fileName && this.permissionService.nameValidationCheck(this.fileName) && (this.notificationFileName && this.permissionService.nameValidationCheck(this.notificationFileName) || this.uploadFileName && this.permissionService.nameValidationCheck(this.uploadFileName)) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.description && this.batchVar.dategreater){ 
         let data = {
           "courseId":'',
           "createdBy"  :this.userId,

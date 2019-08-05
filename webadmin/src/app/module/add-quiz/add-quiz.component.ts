@@ -6,7 +6,7 @@ import { HttpService } from '../../services/http.service';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CourseService } from '../../services/restservices/course.service';
 import { API_URL } from '../../Constants/api_url';
-import { AlertService, FileService } from '../../services';
+import { AlertService, FileService,PermissionService } from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModuleDetailsComponent } from '../module-details/module-details.component';
 import { CommonLabels } from '../../Constants/common-labels.var'
@@ -74,7 +74,7 @@ export class AddQuizComponent implements OnInit {
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
-        public commonLabels: CommonLabels,private utilService : UtilService) {
+        public commonLabels: CommonLabels,private utilService : UtilService,private permissionService :PermissionService) {
         this.apiUrls = API_URL.URLS;
         this.activatedRoute.queryParams.subscribe((params) => {
             this.classId = params.classId ? params.classId : '';
@@ -295,7 +295,7 @@ export class AddQuizComponent implements OnInit {
         let params;
         let hideTraining = submitType === 'yes' ? true : false;
         if(!this.optionEmpty && !this.answerEmpty){
-            if (this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length) {
+            if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) && this.videoList.length && this.quizQuestionsForm.length) {
                 let data = this.quizQuestionsForm.map(item => {
                     item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
                     return item;
@@ -507,7 +507,7 @@ export class AddQuizComponent implements OnInit {
         this.answerEmpty = false;
         this.optionEmpty = false;
         if (this.quizName || this.selectedQuiz) {
-            if (this.selectCourseName && this.videoList.length && this.quizQuestionsForm.length) {
+            if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) &&this.videoList.length && this.quizQuestionsForm.length) {
                 if (this.questionList) {
                     this.questionList.map(item => {
                         delete item.questionId;
@@ -692,19 +692,24 @@ getQuizData(){
     if(this.quizCreateType == 'exist'){
         this.getquizList();
     }
-    this.quizQuestionsForm = [{
-        // "questionId": 1,
-        "questionName": "",
-        "questionType": "MCQ",
-        "options": [
-            { "optionId": 1, "optionName": "" },
-            { "optionId": 2, "optionName": "" },
-            { "optionId": 3, "optionName": "" },
-            { "optionId": 4, "optionName": "" }
-        ],
-        "weightage": '100',
-        "answer": ''
-    }];
+    if(this.classId || this.courseId){
+
+    }
+    else{
+        this.quizQuestionsForm = [{
+            // "questionId": 1,
+            "questionName": "",
+            "questionType": "MCQ",
+            "options": [
+                { "optionId": 1, "optionName": "" },
+                { "optionId": 2, "optionName": "" },
+                { "optionId": 3, "optionName": "" },
+                { "optionId": 4, "optionName": "" }
+            ],
+            "weightage": '100',
+            "answer": ''
+        }];
+    }
     if(this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)){
         if(this.quizCreateType == 'new'){
             this.enableAddQuiz = true;

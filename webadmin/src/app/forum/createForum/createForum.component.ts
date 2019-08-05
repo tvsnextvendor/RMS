@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { HttpService, AlertService, ForumService, UtilService ,UserService} from '../../services';
+import { HttpService, AlertService, ForumService, UtilService ,UserService,PermissionService} from '../../services';
 import { ForumVar } from '../../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
 import { API_URL } from '../../Constants/api_url';
@@ -58,7 +58,8 @@ export class CreateForumComponent implements OnInit {
     private router: Router,
     public commonLabels: CommonLabels,
     private utilService: UtilService,
-    private userService :UserService) {
+    private userService :UserService,
+    private permissionService : PermissionService) {
     this.forumVar.url = API_URL.URLS;
     this.forumVar.forumAdmin = null;
     this.forumVar.forumName = '';
@@ -315,7 +316,7 @@ export class CreateForumComponent implements OnInit {
     });
     // console.log(this.department['departments'], 'departmentlistSelected');
     let dateCheck = this.forumVar.startDate < this.forumVar.endDate ? true : false;
-    if (this.forumVar.forumName && this.forumVar.forumAdmin && this.forumVar.startDate && this.forumVar.endDate &&  !this.forumVar.uniqueValidate && this.assignList.length && !topicEmpty && dateCheck) {
+    if (this.forumVar.forumName && this.permissionService.nameValidationCheck(this.forumVar.forumName) && this.forumVar.forumAdmin && this.forumVar.startDate && this.forumVar.endDate &&  !this.forumVar.uniqueValidate && this.assignList.length && !topicEmpty && dateCheck) {
       const postData = {
         forum: {
           forumName: this.forumVar.forumName,
@@ -388,6 +389,9 @@ export class CreateForumComponent implements OnInit {
       }
       // this.clearForm(form);
       // this.forumVar.uniqueValidate = false;
+    }
+    else if(!this.permissionService.nameValidationCheck(this.forumVar.forumName)){
+      this.alertService.error("Please enter the valid forum name");
     }
     else if (this.forumVar.forumName && this.forumVar.forumAdmin && this.forumVar.startDate && this.forumVar.endDate &&  !this.forumVar.uniqueValidate && this.assignList.length && !topicEmpty && !dateCheck){
       this.alertService.error('Start date should be less than end date');

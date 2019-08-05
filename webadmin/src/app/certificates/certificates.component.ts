@@ -243,12 +243,11 @@ export class CertificatesComponent implements OnInit {
        this.commonService.deleteCertificate(this.certificateId).subscribe(res=>{
           if(res.isSuccess){
             this.constant.modalRef.hide();
-            this.alertService.success(this.commonLabels.msgs.badgeSuccessMsg);
+            this.alertService.success(res.message);
             this.getCertificate();
           }
        })
    }
-
 
     openAddtemplate(template: TemplateRef<any>, certificateId) {
         if(this.permissionService.uploadPermissionCheck("Certificates")){

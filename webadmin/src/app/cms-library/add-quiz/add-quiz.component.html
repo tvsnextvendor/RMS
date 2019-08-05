@@ -21,6 +21,9 @@
 							<span class="required_color" *ngIf="!quizName && (quizForm.submitted || quizname.touched)">
 								{{commonLabels.labels.quizName}} {{commonLabels.mandatoryLabels.isRequired}}
 							</span>
+							<span class="required_color" *ngIf="submitted && quizName && !permissionService.nameValidationCheck(quizName)">
+								Please enter the valid quiz name
+							</span>
 						</div>
 						<!-- <div class="col-md-1">
 							<button type="button" class="btn btn-primary" (click)="uploadQuiz()">Upload</button>

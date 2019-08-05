@@ -2,13 +2,13 @@
     <div class="clearfix tab-section">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#pendinglist" (click)="tabChange('Pending')">{{commonLabels.labels.pending}}</a>
+                <a [ngClass]="selectedTab == 'Pending' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#pendinglist" (click)="tabChange('Pending')">{{commonLabels.labels.pending}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#approvallist" (click)="tabChange('Approved')">{{commonLabels.labels.approved}}</a>
+                <a [ngClass]="selectedTab == 'Approved' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#approvallist" (click)="tabChange('Approved')">{{commonLabels.labels.approved}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#rejectedlist" (click)="tabChange('Rejected')">{{commonLabels.labels.rejected}}</a>
+                <a [ngClass]="selectedTab == 'Rejected' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#rejectedlist" (click)="tabChange('Rejected')">{{commonLabels.labels.rejected}}</a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link"  data-toggle="tab" href="#approvedsetting">{{commonLabels.labels.approvalSetting}}</a>
@@ -40,7 +40,7 @@
                             <th class="text-left">
                                 {{commonLabels.labels.approverName}}
                             </th>
-                            <th class="text-left">
+                            <th *ngIf="selectedTab == 'Pending'" class="text-left">
                                 {{commonLabels.labels.action}}
                             </th>
                         </tr>
@@ -58,7 +58,7 @@
                                 <span *ngIf="item.Approver"> {{item.Approver.userName  | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
-                            <td >
+                            <td *ngIf="selectedTab == 'Pending'">
                                 <a *ngIf = "item.createdBy != userData.userId" title="To Approve" (click)="approveConfirm(approveConfirmPop,item)"><i class="fa fa-check"
                                         aria-hidden="true"></i></a>
                                 <a *ngIf = "item.createdBy != userData.userId" title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i class="fa fa-times"
@@ -104,7 +104,6 @@
                             <th class="text-left">
                                 {{commonLabels.labels.approverName}}
                             </th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -300,7 +299,7 @@
         <div class="col-md-12 clearfix">
             <div class="col-md-12 pt-3">
             <label class="square-cont float-left col-md-6">
-                <input type="checkbox" name="newQuiz" [checked]= "showUsers" (change)="secondLevelApproval()">
+                <input type="checkbox" name="levelApprove" [checked]= "showUsers" (change)="secondLevelApproval()">
                 <span class="text-over">Second Level Approval</span>
                 <span class="square-checkmark"></span>
             </label>
@@ -326,7 +325,7 @@
 <ng-template #rejectConfirmPop>
     <div class="modal-header pb-0">
         <p class="hd-alg">{{commonLabels.labels.rejectConfirm}}</p>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" title="Close">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closePopup()" title="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -337,7 +336,7 @@
         </div>
         <div class="text-center mt-4">
             <button (click)="rejectStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
-            <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{commonLabels.btns.cancel}}</button>
+            <button type="button" class="btn btn-default" (click)="closePopup()">{{commonLabels.btns.cancel}}</button>
         </div>
     </div>
 </ng-template>
