@@ -143,19 +143,26 @@ export class AddQuizComponent implements OnInit {
         let selectedVideoList = quizData;
         this.selectedVideo = this.videoId;
         this.selectedCourse = this.courseId;
-        this.quizQuestionsForm = selectedVideoList && selectedVideoList.length ? selectedVideoList : [{
-            // "questionId": 1,
-            "questionName": "",
-            "questionType": "MCQ",
-            "options": [
-                { "optionId": 1, "optionName": "" },
-                { "optionId": 2, "optionName": "" },
-                { "optionId": 3, "optionName": "" },
-                { "optionId": 4, "optionName": "" }
-            ],
-            "weightage": '100',
-            "answer": ''
-        }];
+        if(selectedVideoList && selectedVideoList.length) {
+            this.quizQuestionsForm =  selectedVideoList 
+        } 
+        else{
+            this.quizCreateType = 'none';
+            this.quizQuestionsForm  = [];
+        } 
+        //  [{
+        //     // "questionId": 1,
+        //     "questionName": "",
+        //     "questionType": "MCQ",
+        //     "options": [
+        //         { "optionId": 1, "optionName": "" },
+        //         { "optionId": 2, "optionName": "" },
+        //         { "optionId": 3, "optionName": "" },
+        //         { "optionId": 4, "optionName": "" }
+        //     ],
+        //     "weightage": '100',
+        //     "answer": ''
+        // }];
         this.weightage = selectedVideoList && selectedVideoList ? (100 / selectedVideoList.length).toFixed(2) : 100;
         // });
     }
@@ -294,7 +301,7 @@ export class AddQuizComponent implements OnInit {
         let user = this.utilService.getUserData();
         let params;
         let hideTraining = submitType === 'yes' ? true : false;
-        if(!this.optionEmpty && !this.answerEmpty){
+        if(!this.optionEmpty && !this.answerEmpty || (this.quizCreateType === 'none')){
             if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) && this.videoList.length && this.quizQuestionsForm.length) {
                 let data = this.quizQuestionsForm.map(item => {
                     item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
@@ -318,6 +325,12 @@ export class AddQuizComponent implements OnInit {
                             "quizName": this.quizName,
                         }
                     }
+                    if(this.quizCreateType === 'none'){
+                        delete params.quiz;
+                        delete params.questionIds;
+                        delete params.quizQuestions;
+                        delete params.quizName;
+                    }
                 }
                 else {
                     params = {
@@ -329,6 +342,10 @@ export class AddQuizComponent implements OnInit {
                         "createdBy" : user.userId,
                         "resortId": this.resortId,
                         "draft" : false
+                    }
+                    if(this.quizCreateType === 'none'){
+                        delete params.quizName;
+                        delete params.quizQuestions;
                     }
                 }
 
@@ -506,7 +523,7 @@ export class AddQuizComponent implements OnInit {
         let params;
         this.answerEmpty = false;
         this.optionEmpty = false;
-        if (this.quizName || this.selectedQuiz) {
+        if (this.quizName || this.selectedQuiz || this.quizCreateType === 'none') {
             if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) &&this.videoList.length && this.quizQuestionsForm.length) {
                 if (this.questionList) {
                     this.questionList.map(item => {
@@ -543,6 +560,11 @@ export class AddQuizComponent implements OnInit {
                         "quizQuestions": data,
                         "resortId":this.resortId
                     }
+                    if(this.quizCreateType === 'none'){
+                        delete params.quiz;
+                        delete params.questionIds;
+                        delete params.quizQuestions;
+                    }
                 }
                 else{
                     params = {
@@ -554,6 +576,10 @@ export class AddQuizComponent implements OnInit {
                         "createdBy" : user.userId,
                         "resortId":this.resortId,
                         "draft" : false
+                    }
+                    if(this.quizCreateType === 'none'){
+                        delete params.quizName;
+                        delete params.quizQuestions;
                     }
                 }
                 if(this.roleId == 4){
@@ -609,11 +635,13 @@ export class AddQuizComponent implements OnInit {
                     )
                 }
 
-                if(!this.optionEmpty && !this.answerEmpty){
+                if((!this.optionEmpty && !this.answerEmpty) || (this.quizCreateType === 'none')){
                     if(this.classId){
-                        params.quiz = {
-                            "quizId" : this.editQuizId,
-                            "quizName": this.quizName
+                        if(this.quizCreateType !== 'none'){
+                            params.quiz = {
+                                "quizId" : this.editQuizId,
+                                "quizName": this.quizName
+                            }
                         }
                         // console.log(params)
                         this.courseService.updateTrainingClass(this.classId,params).subscribe((result) => {
