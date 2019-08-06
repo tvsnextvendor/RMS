@@ -126,8 +126,6 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
             this.headerService.setTitle({title:data, hidemodule:false});
       }
   })
-
-    
   }
 
   openEditModal(template: TemplateRef<any>,modelValue) {
@@ -180,6 +178,12 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
     else{
       this.quizTabHit = false; 
     }
+    this.activatedRoute.queryParams.subscribe(params=>{
+      if(params && params.type == 'edit' && title != "video" && title != 'document'){
+        title = (title == 'training') ? 'class' : title;
+        this.route.navigate(['/cms-library'],{queryParams:{type : 'edit',tab : title}})
+      }
+    });
   }
  
   completed(event){

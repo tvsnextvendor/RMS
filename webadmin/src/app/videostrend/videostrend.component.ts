@@ -247,16 +247,16 @@ export class VideosTrendComponent implements OnInit {
         else if(type == "dept"){
             this.filterUser = null;
             // console.log(value);
-            let data = { 'departmentId': this.filterDept, 'createdBy': ' ' };
-            this.roleId != 1 ? data.createdBy =  this.utilsService.getUserData().userId : delete data.createdBy;
-            this.userService.getUserByDivDept(data).subscribe(result => {
-                if (result && result.data) {
-                    this.empList = result.data;
-                    let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept;
-                    this.getModuleList(query);
-                }
+            // let data = { 'departmentId': this.filterDept, 'createdBy': ' ' };
+            // this.roleId != 1 ? data.createdBy =  this.utilsService.getUserData().userId : delete data.createdBy;
+            // this.userService.getUserByDivDept(data).subscribe(result => {
+            //     if (result && result.data) {
+            //         this.empList = result.data;
+            let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept;
+            this.getModuleList(query);
+                // }
 
-            })
+            // })
         }
         else if(type == "emp"){
             // console.log(value);

@@ -52,7 +52,7 @@ export class FeedbackComponent implements OnInit {
         this.courseData = result.data.rows.length ? result.data.rows : [];
       }
     });
-    let currentquery = '?resortId'+this.resortId;
+    let currentquery = '?resortId='+this.resortId;
     this.courseService.getDropTrainingClassList(currentquery).subscribe(result => {
       if (result && result.isSuccess) {
         this.trainingClassData = result.data.rows.length ? result.data.rows : [];
