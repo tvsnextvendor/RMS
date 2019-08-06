@@ -164,14 +164,25 @@ export class RolepermissionComponent implements OnInit {
     this.getCheckModules(data);
     this.rolePermissionService.getRolePermission(data).subscribe((result) => {
       if (result.isSuccess) {
+        //when either web or mobile has values(any one option). 
         if(result.data.rows.length == 1 ){
-          this.constant.modules =  result.data.rows[0].userPermission;
+           //when mobile has value but both are selected, Concatenate it. 
+            if(result.data.rows[0].userPermission.length == 1){
+            let array1  =  result.data.rows[0].userPermission;
+            let array2 =  this.constant.modules.slice(0, -1);  
+            this.constant.modules  = array2.concat(array1);
+            }else{
+              this.constant.modules = result.data.rows[0].userPermission;
+            }
         }
-        else if(result.data.rows.length && result.data.rows.length >1){
-          let array = result.data.rows.map(item=>{return item.userPermission});
-          this.constant.modules = _.concat(array[0],array[1]);
+        //when web and mobile have values(both option).
+        else if(result.data.rows.length){
+            let array = result.data.rows.map(item=>{return item.userPermission});
+            this.constant.modules = _.concat(array[0],array[1]);
         }
-      } else {
+      }
+      //Default unselect all options 
+      else {
         this.constant.modules.forEach(item => {
           item.view = false;
           item.upload = false;
