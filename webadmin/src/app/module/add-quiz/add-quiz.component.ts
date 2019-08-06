@@ -323,7 +323,8 @@ export class AddQuizComponent implements OnInit {
                         "quiz" : {
                             "quizId" : this.editQuizId,
                             "quizName": this.quizName,
-                        }
+                        },
+                        "noQuiz" : 1
                     }
                     if(this.quizCreateType === 'none'){
                         delete params.quiz;
@@ -331,6 +332,21 @@ export class AddQuizComponent implements OnInit {
                         delete params.quizQuestions;
                         delete params.quizName;
                     }
+                    else{
+                        delete params.noQuiz;
+                    }
+                    if(this.quizCreateType == 'exist' && this.selectedQuiz){
+                        let selectRes = this.selectedQuiz;
+                        let quizId = selectRes.split('~');
+                        // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
+                        params.quizId = quizId[0];
+                        delete params.quiz;
+                        delete params.questionIds;
+                        delete params.quizQuestions;
+                      }
+                      else{
+                          delete params.quizId;
+                      }
                 }
                 else {
                     params = {
@@ -558,13 +574,29 @@ export class AddQuizComponent implements OnInit {
                         "trainingClassId": this.classId,
                         "questionIds": this.removedQuizIds,
                         "quizQuestions": data,
-                        "resortId":this.resortId
+                        "resortId":this.resortId,
+                        "noQuiz" : 1
                     }
                     if(this.quizCreateType === 'none'){
                         delete params.quiz;
                         delete params.questionIds;
                         delete params.quizQuestions;
                     }
+                    else{
+                        delete params.noQuiz;
+                    }
+                    if(this.quizCreateType == 'exist' && this.selectedQuiz){
+                        delete params.quiz;
+                        delete params.questionIds;
+                        delete params.quizQuestions;
+                        let selectRes = this.selectedQuiz;
+                        let quizId = selectRes.split('~');
+                        // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
+                        params.quizId = quizId[0]; 
+                      }
+                      else{
+                          delete params.quizId;
+                      }
                 }
                 else{
                     params = {
@@ -637,7 +669,7 @@ export class AddQuizComponent implements OnInit {
 
                 if((!this.optionEmpty && !this.answerEmpty) || (this.quizCreateType === 'none')){
                     if(this.classId){
-                        if(this.quizCreateType !== 'none'){
+                        if(this.quizCreateType !== 'none' && this.quizCreateType !== 'exist'){
                             params.quiz = {
                                 "quizId" : this.editQuizId,
                                 "quizName": this.quizName
