@@ -178,6 +178,7 @@ export class AddBatchComponent implements OnInit {
         let resort = _.uniqBy(this.scheduleData.Resorts, 'userId');
         let div = _.cloneDeep(this.batchVar.divisionList)
         this.batchVar.divisionId = resort[0].divisionId;
+        this.batchVar.selectedDepartment = resort[0].departmentId;
         this.getDropDownValues('', 'div');
         this.batchVar.departmentId = resort[0].departmentId;
         this.getDropDownValues('', 'dept');
@@ -373,7 +374,7 @@ export class AddBatchComponent implements OnInit {
                     this.batchVar.departmentList = result.data.rows;
                     if (this.scheduleId) {
                         let dept = _.cloneDeep(this.batchVar.departmentList);
-                        this.batchVar.selectedDepartment = this.batchVar.selectedDepartment.filter(o => result.data.rows.find(x => x.departmentId === o.departmentId));
+                        this.batchVar.selectedDepartment =  result.data.rows.filter(x => this.batchVar.selectedDepartment.find(o => x.departmentId === o));
                     }
                 }
                 else{

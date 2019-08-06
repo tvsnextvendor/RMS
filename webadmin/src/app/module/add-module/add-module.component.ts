@@ -574,8 +574,8 @@ export class AddModuleComponent implements OnInit {
                 this.quizCheck = true;
                 let quizData = response.data && response.data.quiz[0];
                 let questions = quizData && quizData.Questions && quizData.Questions.length ? quizData.Questions : []; 
-                this.quizName = quizData.quizName;
-                this.editQuizId = quizData.quizId;
+                this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
+                this.editQuizId = quizData && quizData.quizId ? quizData.quizId : '';
                 this.moduleVar.quizDetails = questions;
             }
         })

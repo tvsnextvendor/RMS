@@ -1,7 +1,7 @@
 <div class="pr-3">
 	<div class=""> 
 			<form #quizForm="ngForm" ngNativeValidate>
-				<div class=" white-bg mt-2" *ngIf="!classId && !courseId">
+				<div class=" white-bg mt-2">
 					<div class="clearfix p-3">
 						<div class="row">
 							<label class="hole-cont float-left pr-5">
@@ -9,9 +9,14 @@
 								<span class="text-over">New Quiz</span>
 								<span class="checkmark"></span>
 							</label>
-							<label class="hole-cont float-left">
+							<label class="hole-cont float-left pr-5">
 								<input type="checkbox" [checked]="quizCreateType === 'exist' ? true : false" name="newQuiz" value="exist" (change)="quizTypeUpdate($event,i)">
 								<span class="text-over">Existing Quiz</span>
+								<span class="checkmark"></span>
+							</label>
+							<label class="hole-cont float-left">
+								<input type="checkbox" [checked]="quizCreateType === 'none' ? true : false" name="newQuiz" value="none" (change)="quizTypeUpdate($event,i)">
+								<span class="text-over">No Quiz</span>
 								<span class="checkmark"></span>
 							</label>
 						</div>					   
