@@ -17,16 +17,18 @@ page-feedback {
         }
     }
     .your-feedback textarea {
-        border-bottom: 1px solid #ACAEAF;
+        border: 1px solid #ACAEAF;
         resize: none;
-        max-height: 40px;
+        max-height: 100px;
     }
     .your-feedback textarea {
-        border-bottom: 1px solid #ACAEAF;
+        border: 1px solid #ACAEAF;
         resize: none;
-        max-height: 40px;
-        height: 35px;
+        max-height: 100px;
+        height: 100px;
         font-size: 16px;
+        border-radius: 4px;
+        padding: 0 7px;
     }
     .smiley-icon img {
         width: 80px;
