@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef} from '@angular/core';
+import { DatePipe } from '@angular/common';
 import {HeaderService, ForumService,PDFService,ExcelService,BreadCrumbService,PermissionService} from '../services';
 import {ForumVar} from '../Constants/forum.var';
 import { ToastrService } from 'ngx-toastr';
@@ -34,7 +35,8 @@ export class ForumComponent implements OnInit {
       private pdfService : PDFService,
       private excelService : ExcelService,
       private breadCrumbService :BreadCrumbService,
-      private permissionService :PermissionService
+      private permissionService :PermissionService,
+      private datePipe: DatePipe
       ) {
        this.forumVar.url = API_URL.URLS;
     }
@@ -159,7 +161,19 @@ enablePdf(){
 // Create Excel sheet
 exportAsXLSX():void {
   // this.labels.btns.select =  this.labels.btns.excel;
-  this.excelService.exportAsExcelFile(this.forumVar.forumList, this.commonLabels.titles.forumtitle);
+  let list = this.forumVar.forumList.map(item=>{
+    let obj = {
+      "Forum Name" : item.forumName,
+      "Topics" : (item.Topics.map(t=>{return t.topics})).toString(),
+      "Divisions" : (item.Divisions.map(d=>{return d.Division.divisionName})).toString(),
+      "Department" : (item.Divisions.map(d=>{return d.Department.departmentName})).toString(),
+      "Start Date" : item.startDate,
+      "End Date"  : item.endDate,
+      "Last Activated Date" : this.datePipe.transform(item.lastActiveDate, 'yyyy-MM-dd')
+    }
+    return obj
+  })
+  this.excelService.exportAsExcelFile(list, this.commonLabels.titles.forumtitle);
 }
 
 }

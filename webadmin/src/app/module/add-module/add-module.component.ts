@@ -74,12 +74,13 @@ export class AddModuleComponent implements OnInit {
     // selectedCourseIds:any;
 
     constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels,private permissionService : PermissionService) {
-        this.activatedRoute.params.subscribe((params: Params) => {
-            this.moduleId = params['moduleId'];
-        });
+        // this.activatedRoute.params.subscribe((params: Params) => {
+        //     this.moduleId = params['moduleId'];
+        // });
         this.activatedRoute.queryParams.subscribe((params) => {
             this.duplicateCourse = params.duplicate ? true : false;
             this.classId = params.classId ? params.classId : '';
+            this.moduleId = params.moduleId  ? params['moduleId'] : '';
         });
         this.userData = this.utilService.getUserData();
         this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;

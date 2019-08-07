@@ -1012,14 +1012,16 @@ export class UserComponent implements OnInit {
     exportAsXLSX(): void {
         // this.labels.btns.select =  this.labels.btns.excel;
         let arr = this.constant.userList.map(item =>
-            _.pick(item, ['userId', 'userName','lastName', 'email', 'employeeNo', 'phoneNumber', 'active'])
+            _.pick(item, ['userName','lastName', 'email', 'phoneNumber', 'active'])
         )
         this.constant.userList.forEach((item, i) => {
+            arr[i].empId = item.employeeNo;
             arr[i].role = String(this.getDivisionArray(item.ResortUserMappings, 'design'));
             arr[i].division = String(this.getDivisionArray(item.ResortUserMappings, 'div'));
             arr[i].department = String(this.getDivisionArray(item.ResortUserMappings, 'dept'));
             arr[i].reportingTo = item.reportDetails ? item.reportDetails.userName : '';
             arr[i].accessTo = item.status ? item.status : '';
+            
         })
         // console.log(arr)
         this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.userManagement);

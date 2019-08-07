@@ -182,7 +182,7 @@ export class CourseTabComponent implements OnInit {
       this.enableView = false;
       this.enableEdit = false;
       this.enableDuplicate = false;
-      this.route.navigate(['/module/' + course.courseId], { queryParams: { duplicate: true } });
+      this.route.navigate(['/cms-library'], { queryParams: { type:"create",tab:'course',duplicate: true,'moduleId':  course.courseId} });
     }
     else if (type === 'trainingClass') {
       let value = { tab: 'training' }
@@ -267,7 +267,7 @@ export class CourseTabComponent implements OnInit {
     if (isChecked) {
       this.selectedCourse.push({ 'courseId': courseId, 'courseName': courseName });
     } else {
-      let index = this.selectedCourse.indexOf(courseId);
+      let index = this.selectedCourse.findIndex(item=>item.courseId == courseId);
       this.selectedCourse.splice(index, 1);
     }
     this.SelectedcourseList.emit(this.selectedCourse);
