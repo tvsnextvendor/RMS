@@ -1732,7 +1732,7 @@ border: none;
 @media (min-width: 1200px) {}
 @media (min-width: 800px) and (max-width: 1280px) { 
   .tab-section .nav-link{
-    padding: 8px 14px !important;
+    padding: 8px 13.9px!important;
   }
 }
 @media (min-width: 980px) and (max-width: 1199px) { }
