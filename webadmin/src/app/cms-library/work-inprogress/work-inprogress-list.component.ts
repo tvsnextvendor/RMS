@@ -81,7 +81,8 @@ export class WorkCourseListComponent implements OnInit {
     else if(type === "edit"){
       // console.log(this.courseListValue[index])
       let course = this.courseListValue[index];
-      this.route.navigateByUrl('/module/'+course.courseId);
+      // this.route.navigateByUrl('/module/'+course.courseId);
+      this.route.navigate(['/cms-library'], { queryParams: { type:"create",tab:'course','moduleId':  course.courseId} });
     }
     else if(type === 'trainingClass'){
       let value = {tab : 'training'}

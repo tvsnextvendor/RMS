@@ -302,11 +302,11 @@ export class AddQuizComponent implements OnInit {
         let params;
         let hideTraining = submitType === 'yes' ? true : false;
         if(!this.optionEmpty && !this.answerEmpty || (this.quizCreateType === 'none')){
-            if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) && this.videoList.length && this.quizQuestionsForm.length) {
-                let data = this.quizQuestionsForm.map(item => {
+            if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) && this.videoList.length && (this.quizQuestionsForm.length || this.quizCreateType === 'none')) {
+                let data = this.quizQuestionsForm.length ? this.quizQuestionsForm.map(item => {
                     item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
                     return item;
-                })
+                }) : [];
                 //final data for submission
                 if (this.courseId) {
                     params = {
@@ -540,7 +540,7 @@ export class AddQuizComponent implements OnInit {
         this.answerEmpty = false;
         this.optionEmpty = false;
         if (this.quizName || this.selectedQuiz || this.quizCreateType === 'none') {
-            if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) &&this.videoList.length && this.quizQuestionsForm.length) {
+            if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) &&this.videoList.length && (this.quizQuestionsForm.length || this.quizCreateType === 'none')) {
                 if (this.questionList) {
                     this.questionList.map(item => {
                         delete item.questionId;

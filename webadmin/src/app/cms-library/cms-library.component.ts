@@ -205,7 +205,6 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   }
 
   redirectTab(value){
-    // debugger;
     this.trainingClassId = '';
     this.courseId = '';
     if(value){
@@ -236,12 +235,17 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   sendFilesToCourse(){
     this.fileService.saveFileList();
     this.selectedVideoList = this.fileService.selectedFiles();
-    if(this.findCreateCourse){
-       this.showCreateCourse();
-    }else{
-      this.hideSection= false;
-      this.selectedTab = 'course';
-     }
+    if(this.selectedVideoList.length){
+      if(this.findCreateCourse){
+        this.showCreateCourse();
+     }else{
+       this.hideSection= false;
+       this.selectedTab = 'course';
+      }
+    }
+    else{
+      this.alertService.error("Please select add minimum one file")
+    }
   }
 
   openCreateModal(template: TemplateRef<any>,modelValue) {

@@ -37,7 +37,7 @@
                 <tbody>
                     <tr *ngFor="let emp of mf.data,index as i" class="table-desc-color">
                         <td class="text-center">{{emp?.User?.userName  | titlecase}}</td>
-                        <td class="text-center"><a *ngIf= "emp.status != 'assigned'" routerLink="/employee/{{emp.userId}}">{{emp.status | titlecase}}</a><a *ngIf= "emp.status == 'assigned'">{{emp.status | titlecase}}</a></td>
+                        <td class="text-center"><a *ngIf= "emp.status != 'assigned' && emp.status != 'unAssigned'" routerLink="/employee/{{emp.userId}}">{{emp.status | titlecase}}</a><span *ngIf= "emp.status == 'assigned'">{{emp.status | titlecase}}</span><span *ngIf= "emp.status == 'unAssigned'">{{emp.status | titlecase}}</span></td>
                         <td class="text-center">{{emp.created | date:medium}}</td>
                         <td class="text-center">{{emp.completedDate ? emp.completedDate : ''}}</td>                          
                     </tr>
