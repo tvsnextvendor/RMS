@@ -671,9 +671,10 @@ export class AddQuizComponent implements OnInit {
                     if(this.classId){
                         if(this.quizCreateType !== 'none' && this.quizCreateType !== 'exist'){
                             params.quiz = {
-                                "quizId" : this.editQuizId,
+                                "quizId" : '',
                                 "quizName": this.quizName
                             }
+                            this.editQuizId ? params.quiz.quizId = this.editQuizId : delete params.quiz.quizId;
                         }
                         // console.log(params)
                         this.courseService.updateTrainingClass(this.classId,params).subscribe((result) => {
@@ -752,9 +753,9 @@ getQuizData(){
     if(this.quizCreateType == 'exist'){
         this.getquizList();
     }
-    if(this.classId || this.courseId){
-
-    }
+   else if(this.quizCreateType == "none"){
+    this.quizQuestionsForm = []; 
+   }
     else{
         this.quizQuestionsForm = [{
             // "questionId": 1,
