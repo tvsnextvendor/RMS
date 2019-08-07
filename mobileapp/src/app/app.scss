@@ -241,11 +241,15 @@ ion-header.static-header {
         padding-top: 0px !important;
         padding-left: 0px !important;
 	
-		padding-right: 0px !important;
+        padding-right: 0px !important;
+        overflow-y: auto !important;
 }
 .main-content {
     padding-left: 16px;
     padding-right: 16px;
+}
+ .scroll-content:before {
+    bottom: 0px !important;
 }
 /****************end static header **********************/
 /******************** Fixed button *******************/
