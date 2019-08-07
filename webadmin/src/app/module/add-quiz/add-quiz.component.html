@@ -22,7 +22,7 @@
 						</div>					   
 					</div> 
 				</div>
-				<div class=" white-bg mt-2 p-3" *ngIf="quizCreateType == 'new'">
+				<div class=" white-bg mt-2 p-3" *ngIf="quizCreateType == 'new' ? true : (enableQuiz && quizCreateType == ''? true : false)">
 					<div class="row form-group mb-0">
 						<label class="col-md-2 p-0 label-title">{{commonLabels.labels.quizName}}</label>
 						<div class="col-md-9 pl-3">
@@ -55,7 +55,7 @@
 						{{commonLabels.mandatoryLabels.quizName}}
 					</span> -->
 				</div>
-			<div *ngIf="enableAddQuiz">
+			<div *ngIf="enableAddQuiz ? true : (enableQuiz && quizCreateType == ''? true : false)">
 				<div class="white-bg p-3 mt-2 table-decs"  *ngFor="let data of quizQuestionsForm;let i = index;">
 					<span>
 						<a class="btn btn-link videopage" *ngIf="quizCreateType === 'new'" (click)="removeQuestionForm(i,data)">

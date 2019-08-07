@@ -144,7 +144,8 @@ export class AddQuizComponent implements OnInit {
         this.selectedVideo = this.videoId;
         this.selectedCourse = this.courseId;
         if(selectedVideoList && selectedVideoList.length) {
-            this.quizQuestionsForm =  selectedVideoList 
+            this.quizQuestionsForm =  selectedVideoList ;
+            this.quizCreateType = '';
         } 
         else{
             this.quizCreateType = 'none';
@@ -770,6 +771,9 @@ getQuizData(){
             "weightage": '100',
             "answer": ''
         }];
+    }
+    if(!event.target.checked && this.enableQuiz) {
+        this.editQuizDetails(this.quizDetails);
     }
     if(this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)){
         if(this.quizCreateType == 'new'){
