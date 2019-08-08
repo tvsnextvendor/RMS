@@ -105,9 +105,12 @@ export class CalendarPage implements OnInit   {
                 endTime: new Date(value.dueDate),
                 allDay: true,
                 courses: value.Courses,
+                colorCode:value.colorCode,
                 scheduleId : value.trainingScheduleId
             });
-          })      
+          })    
+
+          console.log(events,"cbdsjbj")  
           this.eventSource = events;
        }
      });
