@@ -151,7 +151,7 @@
 								{{question.questionName}}<a (click)="removeQuiz(question,i)"><img class="close-alg"
 										src="{{commonLabels.imgs.close}}"></a></p>
 						</div>
-						<div *ngIf="quizCreateType === 'new'" class="clearfix"><a><i class="fa fa-plus float-right icon-design" *ngIf="i==(quizQuestionsForm.length - 1)" aria-hidden="true" (click)="addQuestionForm()"></i></a></div>
+						<div *ngIf="quizCreateType === 'new' ? true : ((quizCreateType === '' && enableQuiz) ? true : false)" class="clearfix"><a><i class="fa fa-plus float-right icon-design" *ngIf="i==(quizQuestionsForm.length - 1)" aria-hidden="true" (click)="addQuestionForm()"></i></a></div>
 					</div>  
 				</div> 
 			</div>

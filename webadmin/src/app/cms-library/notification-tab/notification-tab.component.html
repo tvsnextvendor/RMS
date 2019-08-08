@@ -47,7 +47,9 @@
                         <div class="form-group">
                             <label class="notification-header">{{commonLabels.labels.type}}</label>
                             <!-- <input type="text" class="form-control pl-0" placeholder="Apr 12 2019 & 11.30"/>  -->
-                            <span class="form-control pl-0 word-wrap" placeholder="Type">{{courses?.type | titlecase}}</span> 
+                            <span class="form-control pl-0 word-wrap" placeholder="Type" *ngIf="courses.type == 'general' ? true : (courses.type == '' ? true : false)">General</span>
+                            <span class="form-control pl-0 word-wrap" placeholder="Type" *ngIf="courses.type == 'signRequired'">Sign Required</span> 
+                            <span class="form-control pl-0 word-wrap" placeholder="Type" *ngIf="courses.type == 'assignedToCourse'">Assigned To Course</span> 
                         </div>              		
                     </div>
             </div> 
