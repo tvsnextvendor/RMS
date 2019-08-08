@@ -333,6 +333,10 @@ export class AddQuizComponent implements OnInit {
                         delete params.quizQuestions;
                         delete params.quizName;
                     }
+                    else if(this.quizCreateType === 'new'){
+                        delete params.quiz;
+                        delete params.noQuiz;
+                    }
                     else{
                         delete params.noQuiz;
                     }
@@ -571,6 +575,7 @@ export class AddQuizComponent implements OnInit {
                         "trainingClassName": this.selectCourseName,
                         "files": [],
                         "createdBy" : user.userId,
+                        "quizName": this.quizName,
                         "quiz" : {},
                         "trainingClassId": this.classId,
                         "questionIds": this.removedQuizIds,
@@ -676,6 +681,10 @@ export class AddQuizComponent implements OnInit {
                                 "quizName": this.quizName
                             }
                             this.editQuizId ? params.quiz.quizId = this.editQuizId : delete params.quiz.quizId;
+                        }
+                        if(this.quizCreateType === 'new'){
+                            delete params.quiz;
+                            delete params.noQuiz;
                         }
                         // console.log(params)
                         this.courseService.updateTrainingClass(this.classId,params).subscribe((result) => {
