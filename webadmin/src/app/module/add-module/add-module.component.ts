@@ -517,7 +517,7 @@ export class AddModuleComponent implements OnInit {
         this.courseService.getFilesByTCId(data.id).subscribe(resp => {
             if (resp && resp.isSuccess) {
                 let classData = resp.data;
-                this.moduleVar.selectCourseName = classData[0].TrainingClass.trainingClassName;
+                this.moduleVar.selectCourseName = classData && classData.length && classData[0].TrainingClass && classData[0].TrainingClass.trainingClassName;
                 let preAddedFiles = this.fileService.selectedFiles();
 
                 if(preAddedFiles && preAddedFiles.length > 0){
