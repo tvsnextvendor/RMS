@@ -165,6 +165,7 @@ export class CalendarViewComponent implements OnInit {
                         moduleCount : resp.data.length,
                         courseCount : item.Courses.length,
                         courseList  : item.Courses, 
+                        colorCode   : item.colorCode, 
                         // timings     : fromTime +'-' + toTime ,
                         id          : item.trainingScheduleId, 
                     }

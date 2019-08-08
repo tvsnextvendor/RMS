@@ -1,19 +1,21 @@
 <ion-content padding class="login-bg" no-bounce overflow-scroll="false">
+  <form ng-submit="doLogin()">
   <div class="signin-process">
     <div class="max-wth">
       <p class="sign-title">{{constant.pages.loginLabels.signIn}}</p>
       <ion-list class="signin-block">
         <ion-item class="input-login">
-          <ion-input type="text" [(ngModel)]="user.name" placeholder="Email ID"></ion-input>
+          <ion-input type="text" name="userName" [(ngModel)]="user.name" placeholder="Email ID"></ion-input>
         </ion-item>
 
         <ion-item class="input-login">
-          <ion-input type="password" round [(ngModel)]="user.pw" placeholder="Password"></ion-input>
+          <ion-input type="password" name="pwd" round [(ngModel)]="user.pw" placeholder="Password"></ion-input>
         </ion-item>
 
       </ion-list>
     </div>
   </div>
+  </form>
   <div class="login-action ">
     <div class="max-wth">
       <button ion-button round type="submit" class="login-btn"

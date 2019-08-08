@@ -160,7 +160,8 @@ export class TrainingPage {
   }
   //open  page
   openTrainingDetail(detailObj, selectedIndex, uploadPath) {
-    this.paramsData['status'] = detailObj.FeedbackMappings.length ? detailObj.FeedbackMappings[0].status : 'inProgress';
+    console.log(detailObj,"DETAILOBJ")
+    this.paramsData['status'] = detailObj.FeedbackMappings.length ? (detailObj.QuizMappings.length == 0 ? "noQuiz" : detailObj.FeedbackMappings[0].status )  : (detailObj.QuizMappings.length == 0 ? "noQuiz" : 'inProgress' ) ;
     this.paramsData['setData'] = detailObj;
     this.paramsData['selectedIndex'] = selectedIndex;
     this.paramsData['uploadPath'] = uploadPath;

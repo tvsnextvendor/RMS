@@ -71,7 +71,7 @@
                     <div class="align-right" *ngIf="task">
                       <span class="hour-status batch-date">Due On - {{task.TrainingScheduleResorts[0].TrainingSchedule.dueDate | date:'dd MMM
                         yyyy'}}</span>
-                      <p class="org-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
+                      <p class="org-color alert-txt-style">
                         {{calculateExpireDays(task.TrainingScheduleResorts[0].TrainingSchedule.dueDate)}}</p>
                     </div>
                     <!-- <div class="align-right" *ngIf="task.NotificationFile">
@@ -120,7 +120,7 @@
                     <div class="align-right" *ngIf="task">
                       <span class="hour-status batch-date">Due On - {{task.TrainingScheduleResorts[0].TrainingSchedule.dueDate | date:'dd MMM
                         yyyy'}}</span>
-                      <p class="org-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
+                      <p class="org-color alert-txt-style">
                         {{calculateExpireDays(task.TrainingScheduleResorts[0].TrainingSchedule.dueDate)}}</p>
                     </div>
                     <!-- <div class="align-right" *ngIf="task.NotificationFile">
@@ -167,7 +167,7 @@
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
                     <div class="align-right" *ngIf="task.dueDate && task.NotificationFileMaps[0].status != 'completed'">
                       <span class="hour-status batch-date">Due On - {{task.dueDate | date:'dd MMM yyyy'}}</span>
-                      <p class="org-color alert-txt-style">{{constant.pages.trainingLabels.willExpire}}
+                      <p class="org-color alert-txt-style">
                         {{calculateExpireDays(task.dueDate)}}</p>
                     </div>
                     <div class="complete-status" *ngIf="task.NotificationFileMaps[0].status == 'completed'">

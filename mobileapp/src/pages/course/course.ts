@@ -247,11 +247,11 @@ export class CoursePage implements OnInit {
         this.allCourses = data;
         var self = this;
         this.allCourses.assigned.map(function (value, key) {
-          value['expireDate']=self.calculateExpireDays(value.dueDate);
+          //value['expireDate']=self.calculateExpireDays(value.dueDate);
           self.assignedCoursesList.push(value);          
         });
         this.allCourses.inprogress.map(function (value, key) {
-          value['expireDate']=self.calculateExpireDays(value.dueDate);
+         // value['expireDate']=self.calculateExpireDays(value.dueDate);
           self.progressCoursesList.push(value);
         });
         this.allCourses.completed.map(function (value, key) {
@@ -266,10 +266,22 @@ export class CoursePage implements OnInit {
   }
 
   calculateExpireDays(dueDate) {
+    let todaysDate = moment(new Date()).format("YYYY-MM-DD");
+    let tomDate = moment(new Date()).add(1,'days').format("YYYY-MM-DD");;
+    if(dueDate == todaysDate){
+      let string = "Expires Today"
+      return string;
+    }else if(dueDate == tomDate){
+      let string = "Will expire tomorrow"
+      return string;
+    }else{
     const a = moment(new Date());
     const b = moment(new Date(dueDate));
-    return a.to(b, true);
+    let string =  this.constant.pages.trainingLabels.willExpire +' ' + a.to(b, true);
+    return string;
+    }
   }
+
 
 
   openLaunchModal(template: TemplateRef<any>) {

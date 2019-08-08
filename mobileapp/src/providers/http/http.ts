@@ -38,12 +38,13 @@ export class HttpProvider implements OnInit {
         });
   }
 
- private formatErrors(error: any) {   
+ private formatErrors(error: any) {  
+   let self = this; 
    if(error.status === 403 || error.status === 401){
           console.log("Please log out and login again");
           console.log(this.storage);
           alert('Please Sign out and login again');
-          this.dataService.sendLoginData('');
+          self.dataService.sendLoginData('');
           //this.nav.setRoot('login-page');
           //this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
 			}else{
