@@ -90,6 +90,17 @@ tbody{
     font-family: 'Open Sans', sans-serif !important;
     font-size: 13px !important;
 }
+.calendar-color{
+    margin-bottom: 0 !important;
+    padding: 6px !important;
+}
+td.monthview-primary-with-event {
+    padding: 0 !important;
+    background-color: transparent !important;
+  }
+  .calendar-event {
+    height: 50px !important;
+  }
 // .monthview-selected{
 //     background-color: #80abc3 !important;
 //     color: white !important;

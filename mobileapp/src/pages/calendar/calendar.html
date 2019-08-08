@@ -20,7 +20,7 @@
     <ng-template #template let-view="view" let-row="row" let-col="col">
         <div *ngIf="view.dates[row*7+col].events">
           <div *ngFor="let obj of view.dates[row*7+col].events">
-                <p [ngStyle]="{'background-color': obj.colorCode}">{{view.dates[row*7+col].label}}</p>    
+                <p [ngStyle]="{'background-color': obj.colorCode}" class="calendar-color">{{view.dates[row*7+col].label}}</p>    
             </div>
           </div>
         <div *ngIf="view.dates[row*7+col].events.length == 0">
