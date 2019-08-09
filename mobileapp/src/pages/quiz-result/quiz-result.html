@@ -25,7 +25,7 @@
         </span>
         <!-- <p>{{constant.pages.quizResultLabels.yourscored}} 
             {{constant.pages.quizResultLabels.outOf}} !</p> -->
-        <span class="score-btn">
+        <span class="score-btn" *ngIf="!noQuiz">
             <p>{{constant.pages.quizResultLabels.yourScorePercent}} {{resultData.percentage }}%   ({{resultData.correctAnswers}}/{{resultData.totalQuestions}})</p>
         </span>
         <form (ngSubmit)="feedbackForm()" [formGroup]="feedbackform" novalidate>

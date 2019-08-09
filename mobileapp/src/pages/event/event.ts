@@ -31,7 +31,7 @@ export class EventPage implements OnInit {
   tag: boolean = false;
   scrollEnable: boolean = false;
   currentPage = this.constant.numbers.one;
-  perPageData = this.constant.numbers.five;
+  perPageData = this.constant.numbers.ten;
   
 
   constructor(public navCtrl: NavController,public calendar: Calendar,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public API_URL: API_URL,public loader:LoaderService) {

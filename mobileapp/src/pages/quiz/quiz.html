@@ -25,7 +25,7 @@
                                     <ion-col col-11>
                                         <input hidden id="true" type="radio" class="with-font" name="TorF" [value]="true"
                                             (change)="changeSelectedValue('true')" [checked]="'true' == selectedQuizContent['selectedAnswer']" />
-                                        <p>True</p>
+                                        <label class="quiz-label" for="true">True</label>
                                     </ion-col>
                                 </ion-row>
                             </span>
@@ -40,7 +40,7 @@
                                     <ion-col col-11>
                                         <input hidden id="false" type="radio" class="with-font" name="TorF" [value]="false"
                                             (change)="changeSelectedValue('false')" [checked]="'false' == selectedQuizContent['selectedAnswer']" />
-                                        <p>False</p>
+                                        <label class="quiz-label" for="false">False</label>
                                     </ion-col>
                                 </ion-row>
                             </span>
@@ -67,7 +67,7 @@
                                         <input hidden id={{quizOption.optionName}} type="radio" class="with-font" name="radiogroup"
                                             [value]="quizOption.optionName" (change)="changeSelectedValue(quizOption.optionName)"
                                             [checked]="quizOption.optionName == selectedQuizContent['selectedAnswer']" />
-                                        <p>{{quizOption.optionName}}</p>
+                                        <label for={{quizOption.optionName}} class="quiz-label">{{quizOption.optionName}}</label>
                                     </ion-col>
                                 </ion-row>
                             </span>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="quiz-btn-container">
                     <button float-left class="btn quiz-btn quiz-btn-left" [disabled]="!quizStep" (click)="quizPreviousContent()">
-                        Preview
+                        previous
                     </button>
                     <button float-right class="btn quiz-btn" [disabled]="(selectedQuizContent && !selectedQuizContent.selectedAnswer)"
                         (click)="quizNextContent()">

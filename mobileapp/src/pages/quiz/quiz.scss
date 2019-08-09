@@ -72,13 +72,16 @@ ion-header.header-ios {
     float: left;
 }
 
-.quizOption p {
+.quizOption p, .quizOption label.quiz-label {
     margin: 2px 10px;
     color: #656565;
     float: left;
     font-size: 15px;
+    position: static;
 }
-
+.quizOption label.quiz-label {
+      line-height: 24px; 
+}
 .quiz-btn-container {
     float: left;
     width: 100%;

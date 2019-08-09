@@ -1,6 +1,7 @@
 import { Component, ViewChild, Input ,ElementRef} from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
+import { QuizResultPage } from '../quiz-result/quiz-result';
 import { Constant } from '../../constants/Constant.var';
 import {ToastrService} from '../../service/toastrService';
 import { HttpProvider } from '../../providers/http/http';
@@ -57,6 +58,10 @@ export class TrainingDetailPage {
     status;
     currentUser;
     prevBtn;
+    className;
+    showToastr = false;
+    msgTitle;
+    msgDes;
     options : InAppBrowserOptions = {
         location : 'yes',//Or 'no' 
         hidden : 'no', //Or  'yes'
@@ -83,6 +88,7 @@ export class TrainingDetailPage {
         this.trainingDatas = this.detailObject['setData'].FileMappings;
         this.uploadPath = this.detailObject['uploadPath'];
         this.status= this.detailObject['status'];
+        console.log(this.detailObject,"STATUS");
         this.lastIndexs = this.trainingDatas.length - 1;
         this.selectedIndexs = this.detailObject['selectedIndex'];
         this.trainingStatus = this.detailObject.status;
@@ -111,6 +117,7 @@ export class TrainingDetailPage {
      }
 
       ionViewDidEnter(){
+        //Restrict forward video
         if(!this.imageType){
          var video = <HTMLMediaElement>document.getElementById('video-width');;
          var supposedCurrentTime = 0;
@@ -129,7 +136,8 @@ export class TrainingDetailPage {
          }; 
         }   
       }
-      
+
+    //Open file content in browser  
     public openWithSystemBrowser(url : string){
         let target = "_system";
         this.iab.create(url,target,this.options);
@@ -168,6 +176,7 @@ export class TrainingDetailPage {
                         handler: () => {
                             self.paramsData['quizData'] = self.quizData;
                             self.paramsData['setData']= this.detailObject['setData'];
+                            self.paramsData['scheduleId']=this.detailObject['scheduleId'],
                             self.navCtrl.push(QuizPage, self.paramsData);
                         }
                     }]
@@ -195,6 +204,8 @@ export class TrainingDetailPage {
         },(err) => {
         });
     }
+
+    //After view content
     completedViewOperation(fileId){
         let userId = this.currentUser ? this.currentUser.userId : 8;
         let data={
@@ -213,6 +224,46 @@ export class TrainingDetailPage {
     videoFailed(event){
         console.log(event, "failed");        
     }
+ 
+    // Check files and videos of training class are completed or not while clicking done btn atlast.
+    checkCompleteorNot(){
+        let userId = this.currentUser ? this.currentUser.userId : 8;
+        let data = {
+            'trainingClassId': this.trainingClassId,
+            'userId': userId,
+        }
+        this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
+            if(res.isSuccess){
+                if(res.data.statusKey == false){
+                     this.toastrMsg(res.data.message, "error")
+                }else{
+                   const resultData = {
+                       "courseId": this.courseId,
+                       "trainingClassId": this.trainingClassId,
+                       "scheduleId": this.detailObject['scheduleId'],
+                       "trainingClassName": this.detailObject['setData'].trainingClassName,
+                       "courseName": this.detailObject['setData'].CourseTrainingClassMaps[0].Course.courseName,
+                       "status": "noQuiz"
+                   };
+                    this.navCtrl.push(QuizResultPage, resultData);
+                }
+            }
+        }, (err) => {
+        });
+    }
+
+
+    toastrMsg(msg, status){
+        this.showToastr = true;
+        this.className = status == "success" ?  "notify-box.alert-success" : "notify-box alert alert-error";
+        this.msgTitle =status == "success" ? "Success" : "Error";
+        this.msgDes = msg ;
+        let self = this;
+        setTimeout(function(){ 
+        self.showToastr = false;
+        }, 3000); 
+    }
+
 
     // go back
     goBackToDetailPage() {
@@ -344,6 +395,8 @@ export class TrainingDetailPage {
        
         return fileLink;
     }
+
+    //View content
     viewContent(setTraining,filePath) {
         let docFile = filePath;
         let docFileId = setTraining.fileId;
@@ -375,8 +428,6 @@ export class TrainingDetailPage {
             }
                let baseUrl = rootUrl+this.uploadPath;
                
-            //  console.log(baseUrl + docFile);
-            //  debugger;
              this.openWithSystemBrowser(baseUrl+docFile);
              this.completedViewOperation(docFileId);	
         }

@@ -24,18 +24,33 @@ export class HttpProvider implements OnInit {
 
 
   getHeaders() {
-      this.storage.get('currentUser').then(
+      
+    this.storage.get('currentUser').then(
         (val) => {
-          this.currentUser = val.token;
-          this.httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type': 'application/json',
-              'Authorization':val.token
-            })
-          };
+            this.currentUser = val.token;
+            this.httpOptions = {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'Authorization': val.token
+                })
+            };
         }, (err) => {
-          console.log('error occured', err);
+            console.log('error occured', err);
         });
+
+      this.dataService.getLoginData.subscribe(res=>{
+        if(res){
+          console.log(res, "GOTIT");
+          this.currentUser = res.token;
+          this.httpOptions = {
+              headers: new HttpHeaders({
+                  'Content-Type': 'application/json',
+                  'Authorization': res.token
+              })
+          };
+        }
+      })
+     
   }
 
  private formatErrors(error: any) {  

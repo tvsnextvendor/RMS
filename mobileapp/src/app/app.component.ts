@@ -99,7 +99,7 @@ export class MyApp implements OnInit{
     this.pages = [
       { title: 'Dashboard', component: HomePage },
       { title: 'Training', component: CoursePage },
-      { title: 'Forum', component: ForumPage },
+      // { title: 'Forum', component: ForumPage },
       { title:'Accomplishments', component: AccomplishmentPage},
       { title: 'Training Schedule', component: EventPage },
       { title: 'Feedback', component: FeedbackPage },

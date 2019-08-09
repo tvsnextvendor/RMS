@@ -46,6 +46,7 @@ export class API_URL {
        'completedNotification' : '8103/completedNotification',
        'contentEmail': '8101/user/contentEmail',
        'failedList':'8103/schedule/failedList',
+       'checkFileComplete':'8103/checkTrainingFilesCompleted',
 
         //User & Settings
        'getProfile' : '8101/user/List',

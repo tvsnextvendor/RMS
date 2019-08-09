@@ -9,6 +9,13 @@
             </ion-title>
         </ion-toolbar>
     </ion-header>
+
+<div class={{className}} *ngIf="showToastr">
+    <div class="notify-inset">
+        <h6>{{msgTitle}}</h6>
+        <p>{{msgDes}}</p>
+    </div>
+</div>
   
 <div class="inner-content" *ngIf="setTraining">
     <div class="training-det">
@@ -84,6 +91,7 @@
     <div class="take-quiz-btn" (click)="goToQuizPage()"  *ngIf="status == 'inProgress'"> 
         {{constant.buttons.takeQuiz}}
     </div>
+    <div class="take-quiz-btn" (click)="checkCompleteorNot()" *ngIf="status == 'noQuiz' && quizBtn ">Done</div>
     <div class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="status == 'failed'">
         {{constant.buttons.retakeQuiz}}
     </div>
