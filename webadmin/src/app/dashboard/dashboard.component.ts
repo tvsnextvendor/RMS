@@ -39,15 +39,15 @@ export class DashboardComponent implements OnInit {
     // }, 15000); 
   }
 
-  ngAfterContentInit() {
-    // get all active tabs
-    const activeTabs = this.tabs.filter(tab => tab.active);
+  // ngAfterContentInit() {
+  //   // get all active tabs
+  //   const activeTabs = this.tabs.filter(tab => tab.active);
 
-    // if there is no active tab set, activate the first
-    if (activeTabs.length === 0) {
-      // this.selectTab(this.tabs.first);
-    }
-  }
+  //   // if there is no active tab set, activate the first
+  //   if (activeTabs.length === 0) {
+  //     // this.selectTab(this.tabs.first);
+  //   }
+  // }
 
 //   getNotification(){
 //     let userData = this.utilService.getUserData();

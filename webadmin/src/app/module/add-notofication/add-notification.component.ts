@@ -524,7 +524,7 @@ export class AddNotificationComponent implements OnInit {
     getFileDetails(event){
       let self = this;
       this.fileExist = false;;
-        if(event.target.files){
+        if(event.target.files && event.target.files.length){
             var duration; 
             this.uploadFileName = event.target.files[0] && event.target.files[0].name;
             let file = event.target.files[0];
@@ -538,7 +538,7 @@ export class AddNotificationComponent implements OnInit {
                 }
               })
             }
-            if(!this.fileExist){
+            if(file &&  !this.fileExist){
               this.fileSize = file.size;
               // find video duration
               var video = document.createElement('video');
