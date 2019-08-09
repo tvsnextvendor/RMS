@@ -55,6 +55,9 @@ export class ResortChartsComponent implements OnInit {
 
     ngAfterViewInit() {
       this.mScrollbarService.initScrollbar('.sidebar-wrapper', { axis: 'y', theme: 'minimal-dark' });
+      this.getcertificateTrend();
+      this.totalNoOfBadges();
+      this.getCountDetails(this.resortId);
     }
     ngOnInit() {
         // this.getData();
@@ -62,12 +65,11 @@ export class ResortChartsComponent implements OnInit {
         let userDetails = this.utilService.getUserData();
         this.userName = userDetails.userName;
         this.getKeyStat();
-        this.getcertificateTrend();
-        this.totalNoOfBadges();
+        
         this.dashboardVar.years = '2019';
         this.dashboardVar.certYear = '2019';
         this.userRole = this.utilService.getRole();
-        this.getCountDetails(this.resortId);
+        
         if(this.roleId == 1){
           this.getResortDetails();
         }
@@ -86,11 +88,10 @@ export class ResortChartsComponent implements OnInit {
             this.dashboardVar.totalCourses = totalCourses.map(item => {
               return {name: item.status[0].toUpperCase() + item.status.substr(1).toLowerCase(), y: parseInt(item.totalcount, 10)};
             });
+            this.totalCoursesLine();
           });
           setTimeout(() => {
-            this.totalCoursesLine();
-            this.chartContainer();
-            this.totalStorageSpace();
+            // this.totalStorageSpace();
           }, 2000);
           this.commonService.getTotalCount(query).subscribe(result => {
             const data = result.data;
@@ -193,6 +194,7 @@ export class ResortChartsComponent implements OnInit {
         this.dashboardVar.totalNoOfBadges = donutChartData.map(item =>
             [item.Badge.badgeName , parseInt(item.totalcount, 10)]
         );
+        this.chartContainer();
         });
     }
     goToVideosTrend() {

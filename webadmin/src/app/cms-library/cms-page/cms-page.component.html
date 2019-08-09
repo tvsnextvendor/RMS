@@ -1,56 +1,55 @@
 <div class="row px-5 pt-4">
     <div class="col-md-6 pb-1">
         <div class="white-bg pb-3">
-            <div class="class-color clearfix p-1"></div>
-          <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Class' : commonLabels.labels.createNewClass }}</h5>
+            <div class="course-color clearfix p-1"></div>
+          <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Course' : commonLabels.labels.createNewCourse}}</h5>
           <div class="row pb-3">
-            <div class="col-md-5 text-center"><img class="pt-4" src="assets/images/Group 11863.png"></div>
-            <div class="col-md-7 para-alg">
-              <p class="mb-0 pt-3">Start here to create a new class. Classes are placed inside courses.</p>
-              <p class="mb-0">You can place X classes in a course.</p>
-              <p class="mb-0">You can work on the class and then add it to the single or multiple courses.</p>
+            <div class="col-md-5 text-center"><img class="pt-4" src="assets/images/Group 11861.png"></div>
+            <div class="col-md-7 para-alg course-para">
+              <p class="mb-0">Start here to create a new course. You can then fill it with classes.</p>
+              <p class="mb-0">Upon course completion a certificate will be awarded.</p>
+              <p class="mb-0">Complete progress of each class is tracked and can be seen in the Reports menu</p>
             </div>
           </div>
           <div class="col-md-12 text-center px-5">
-              <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn class-color" (click)="pageRedirection('create','class')">{{commonLabels.btns.start}}</button>
-              <button *ngIf="urlType == 'edit'"  class="btn btn-primary start-btn class-color" (click)="pageRedirection('edit','class')">{{commonLabels.btns.start}}</button>            
-          </div>
+              <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn course-color" (click)="pageRedirection('create','course')">{{commonLabels.btns.start}}</button>
+              <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn course-color" (click)="pageRedirection('edit','course')">{{commonLabels.btns.start}}</button>     </div>
         </div>
       </div>
-      <div class="col-md-6 pb-1">
-          <div class="white-bg pb-3">
-              <div class="quiz-color clearfix p-1"></div>
-            <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Quiz' : commonLabels.labels.createNewQuiz}}</h5>
-            <div class="row pb-3">
-              <div class="col-md-5 text-center"><img class="pt-3" src="assets/images/Group 11862.png"></div>
-              <div class="col-md-7 para-alg quiz-para">
-                <p class="mb-0 pt-3">Start here to create a new quiz. It is to test a user's understanding on the course that was assigned to him.</p>
-                <p class="mb-0">Based on the scoring, system will determine the pass or fall percentage.</p>
-              </div>
-            </div>
-            <div class="col-md-12 text-center px-5">
-                <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn quiz-color" (click)="pageRedirection('create','quiz')">{{commonLabels.btns.start}}</button>
-                <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn quiz-color" (click)="pageRedirection('edit','quiz')">{{commonLabels.btns.start}}</button>         
-            </div>
+  <div class="col-md-6 pb-1">
+      <div class="white-bg pb-3">
+          <div class="class-color clearfix p-1"></div>
+        <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Class' : commonLabels.labels.createNewClass }}</h5>
+        <div class="row pb-3">
+          <div class="col-md-5 text-center"><img class="pt-4" src="assets/images/Group 11863.png"></div>
+          <div class="col-md-7 para-alg">
+            <p class="mb-0 pt-3">Start here to create a new class. Classes are placed inside courses.</p>
+            <p class="mb-0">You can place X classes in a course.</p>
+            <p class="mb-0">You can work on the class and then add it to the single or multiple courses.</p>
           </div>
         </div>
-    
+        <div class="col-md-12 text-center px-5">
+            <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn class-color" (click)="pageRedirection('create','class')">{{commonLabels.btns.start}}</button>
+            <button *ngIf="urlType == 'edit'"  class="btn btn-primary start-btn class-color" (click)="pageRedirection('edit','class')">{{commonLabels.btns.start}}</button>            
+        </div>
+      </div>
+  </div>
   <div class="col-md-6 pt-4">
-    <div class="white-bg pb-3">
-        <div class="course-color clearfix p-1"></div>
-      <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Course' : commonLabels.labels.createNewCourse}}</h5>
-      <div class="row pb-3">
-        <div class="col-md-5 text-center"><img class="pt-4" src="assets/images/Group 11861.png"></div>
-        <div class="col-md-7 para-alg course-para">
-          <p class="mb-0">Start here to create a new course. You can then fill it with classes.</p>
-          <p class="mb-0">Upon course completion a certificate will be awarded.</p>
-          <p class="mb-0">Complete progress of each class is tracked and can be seen in the Reports menu</p>
+      <div class="white-bg pb-3">
+          <div class="quiz-color clearfix p-1"></div>
+        <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Quiz' : commonLabels.labels.createNewQuiz}}</h5>
+        <div class="row pb-3">
+          <div class="col-md-5 text-center"><img class="pt-3" src="assets/images/Group 11862.png"></div>
+          <div class="col-md-7 para-alg quiz-para">
+            <p class="mb-0 pt-3">Start here to create a new quiz. It is to test a user's understanding on the course that was assigned to him.</p>
+            <p class="mb-0">Based on the scoring, system will determine the pass or fall percentage.</p>
+          </div>
+        </div>
+        <div class="col-md-12 text-center px-5">
+            <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn quiz-color" (click)="pageRedirection('create','quiz')">{{commonLabels.btns.start}}</button>
+            <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn quiz-color" (click)="pageRedirection('edit','quiz')">{{commonLabels.btns.start}}</button>         
         </div>
       </div>
-      <div class="col-md-12 text-center px-5">
-          <button *ngIf="urlType == 'create'" class="btn btn-primary start-btn course-color" (click)="pageRedirection('create','course')">{{commonLabels.btns.start}}</button>
-          <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn course-color" (click)="pageRedirection('edit','course')">{{commonLabels.btns.start}}</button>     </div>
-    </div>
   </div>
   <div class="col-md-6 pt-4">
     <div class="white-bg pb-3">

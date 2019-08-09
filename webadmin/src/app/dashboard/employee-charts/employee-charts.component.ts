@@ -56,6 +56,9 @@ export class EmployeeChartsComponent implements OnInit {
 
   ngAfterViewInit() {
     this.mScrollbarService.initScrollbar('.sidebar-wrapper', { axis: 'y', theme: 'minimal-dark' });
+    if(this.roleId != 1){
+      this.getData();
+    }
   }
 
   ngOnInit() {
@@ -64,7 +67,6 @@ export class EmployeeChartsComponent implements OnInit {
     this.roleId = this.utilService.getRole();
     let userDetails = this.utilService.getUserData();
     this.IschildResort = userDetails.ResortUserMappings.length && userDetails.ResortUserMappings[0].Resort.parentId  ? true : false;
-    this.getData();
     this.getTopResort();
     this.getKeyStat();
     this.userName = userDetails.userName;
@@ -72,20 +74,7 @@ export class EmployeeChartsComponent implements OnInit {
     this.dashboardVar.years = '2019';
     this.dashboardVar.certYear = '2019';
     let query = this.resortId ? (this.IschildResort ? '?resortId='+this.resortId : '?resortId=' + this.resortId+'&type='+'summary') : '';
-    this.commonService.getTotalCourse(query).subscribe(result => {
-      const totalCourses = result.data.training;
-      this.dashboardVar.totalCoursesCount = result.data.courseTotalCount;
-      this.dashboardVar.totalCourses = totalCourses.map(item => {
-        return {name: item.status[0].toUpperCase() + item.status.substr(1).toLowerCase(), y: parseInt(item.totalcount, 10)};
-      });
-    });
-    setTimeout(() => {
-      this.totalCoursesLine();
-      this.chartContainer();
-      // this.totalStorageSpace();
-      this.courseTrend();
-      this.certificationTrend();
-    }, 2000);
+    // this.getData();
     this.commonService.getTotalCount(query).subscribe(result => {
       const data = result.data;
       this.TtlDivision = data.divisionCount;
@@ -99,6 +88,15 @@ export class EmployeeChartsComponent implements OnInit {
     this.getcertificateTrend();
     this.topRatedCourses();
     this.totalNoOfBadges();
+    let query = this.resortId ? (this.IschildResort ? '?resortId='+this.resortId : '?resortId=' + this.resortId+'&type='+'summary') : '';
+    this.commonService.getTotalCourse(query).subscribe(result => {
+      const totalCourses = result.data.training;
+      this.dashboardVar.totalCoursesCount = result.data.courseTotalCount;
+      this.dashboardVar.totalCourses = totalCourses.map(item => {
+        return {name: item.status[0].toUpperCase() + item.status.substr(1).toLowerCase(), y: parseInt(item.totalcount, 10)};
+      });
+      this.totalCoursesLine();
+    });
   }
 
   getTopResort(){
@@ -476,122 +474,12 @@ export class EmployeeChartsComponent implements OnInit {
     this.commonService.getBadges(query).subscribe((resp) => {
       const donutChartData = resp.data.badges;
       this.dashboardVar.totalBadges = resp.data.totalCount;
-      // let donutChartData = [
-      //   {Badge : {badgeName : 'silver'},totalcount : '4'},
-      //   {Badge : {badgeName : 'bronze'},totalcount : '4'},
-      //   {Badge : {badgeName : 'gold'},totalcount : '4'},
-      //   {Badge : {badgeName : 'platinum'},totalcount : '4'}]
       this.dashboardVar.totalNoOfBadges = donutChartData.map(item =>
           [item.Badge.badgeName , parseInt(item.totalcount, 10)]
       );
-      // this.donutEnable = true;
-      // console.log(donutChartData);
-      // const labels = donutChartData.labels;
-      // const data_values = donutChartData.data_values;
-
-      // const data = data_values.map(function (value, index) {
-      //   return { name: labels[index], y: value };
-      // }, []);
-
-      // Highcharts.chart('chartContainer', {
-      //   chart: {
-      //     plotBackgroundColor: null,
-      //     plotBorderWidth: null,
-      //     plotShadow: false,
-      //     type: 'pie'
-      //   },
-      //   title: {
-      //     text: 'Total',
-      //     verticalAlign: 'middle',
-      //     align: 'top',
-      //     x: 120,
-      //     y: -10,
-      //     floating: true,
-      //     style: {
-      //       color: '#468FB9',
-      //       fontWeight: 'normal',
-      //       fontSize: '14px'
-      //     }
-      //   },
-      //   subtitle: {
-      //     text: '100',
-      //     verticalAlign: 'middle',
-      //     align: 'middle',
-      //     x: 120,
-      //     floating: true,
-      //     style: {
-      //       color: '#468FB9',
-      //       fontWeight: 'normal',
-      //       fontSize: '20px'
-      //     }
-      //   },
-      //   tooltip: {
-      //     pointFormat: '<b>{point.percentage:.1f}%</b>'
-      //   },
-
-      //   plotOptions: {
-      //     pie: {
-      //       colors: ['#B9F2FF', '#FFD700', '#C0C0C0', '#CD7F32'],
-      //       allowPointSelect: true,
-      //       innerSize: '60%',
-      //       cursor: 'pointer',
-      //       indexLabelFontSize: 12,
-      //       dataLabels: {
-      //         enabled: true,
-      //         format: '{point.name}',
-      //         connectorColor: 'black',
-      //         style: {
-      //           fontWeight: 'normal',
-      //           fontSize: '8px',
-      //         }
-      //     },
-      //       tooltip: {
-      //           pointFormat: '<b>{point.percentage:.1f}%</b>'
-      //       },
-
-      //       plotOptions: {
-      //           pie: {
-      //               allowPointSelect: true,
-      //               innerSize: '60%',
-      //                cursor: 'pointer',
-      //                indexLabelFontSize: 12,
-      //                colors: ['#7DB5EC', '#CCCCCC', '#90ED7C', '#F7A25C'],
-      //               dataLabels: {
-      //                   enabled: true,
-      //                   format: '{point.name}',
-      //                 connectorColor: 'black',
-      //                 style: {
-      //                   fontWeight: 'normal',
-      //                   fontSize: '8px',
-      //               }
-      //             }
-      //           }
-      //       },
-      //       // xAxis: {
-      //       //     categories: labels
-      //       // },
-      //       series: [{
-      //           name: '',
-      //           data: this.dashboardVar.totalNoOfBadges
-      //       }],
-      //       credits: {
-      //         enabled: false
-      //       }
-      //     },
-      //   },
-      //   // xAxis: {
-      //   //   categories: labels
-      //   // },
-      //   series: [{
-      //     name: '',
-      //     data: this.dashboardVar.totalNoOfBadges
-      //   }],
-      //   credits: {
-      //     enabled: false
-      //   }
-      // }
+      this.chartContainer();
     });
-    }
+  }
     chartContainer() {
       Highcharts.chart('chartContainer', {
         chart : {

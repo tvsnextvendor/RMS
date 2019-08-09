@@ -77,7 +77,7 @@
             <span class="totalcourses">{{commonLabels.labels.totalCourses}}-
               <span class="percent-alg">{{dashboardVar.totalCoursesCount}}</span>
             </span>  
-            <div *ngIf="dashboardVar.totalCourses" id="totalCourses" style="min-width: 150px; height: 220px; max-width: 600px; margin: 0 auto"></div>
+            <div id="totalCourses" style="min-width: 150px; height: 220px; max-width: 600px; margin: 0 auto"></div>
           </div>
           <div class="col-sm-3 pl-0 course-style">
             <div class=" chart-bg"></div>
@@ -92,7 +92,7 @@
                   <option *ngFor="let year of dashboardVar.yearList" [value]="year.year">{{year.year}}</option>
                   <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
                 </select>
-                <div *ngIf="dashboardVar.courseTrendData" id="trend" style="height: 225px; margin: 0 auto; padding-top: 50px;" (click)="goToVideosTrend()" ></div>
+                <div  id="trend" style="height: 225px; margin: 0 auto; padding-top: 50px;" (click)="goToVideosTrend()" ></div>
               </h6>  
               
             </div>
@@ -140,7 +140,7 @@
                 <p class="mb-0 pl-3 percent-size">{{dashboardVar.totalBadges}}</p>
               </div>
               <div class="donutchat-style">
-                <div *ngIf="dashboardVar.totalNoOfBadges" id="chartContainer" style="height: 200px; width: 300px"></div>
+                <div  id="chartContainer" style="height: 200px; width: 300px"></div>
               </div>
           </div>
         </div>
@@ -152,7 +152,7 @@
                 <option *ngFor="let year of dashboardVar.yearList" value="{{year.year}}">{{year.year}}</option>
                 <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
               </select></h6>
-             <div *ngIf="dashboardVar.certificationTrend" class="trend-sec" id="certificationTrend"
+             <div class="trend-sec" id="certificationTrend"
                             (click)="goTocertificationTrend()"></div>
 
           </div>
