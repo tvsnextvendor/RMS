@@ -626,6 +626,7 @@ export class AddNotificationComponent implements OnInit {
     back(){
       this.clearBatchForm();
       this.notificationType = '';
+      this.uploadFileName = '';
       this.notifyType = '';
       this.fileExist = false;
       this.existingFile = [];
