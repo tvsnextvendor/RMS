@@ -7,18 +7,17 @@ page-training-detail {
     padding: 0px !important;
     font-family: 'sf_pro_displayregular';
 }
-.next-btn {
+.next-btn,.prev-btn{
     width: 100%;
     text-align: center;
     display: block;
-    // padding: 0 36px;
-    text-align: right;
+     font-size: 18px;
+     // padding: 0 36px;
+}
+.next-btn {   
+    text-align: right;  
 }
 .prev-btn {
-    width: 100%;
-    text-align: center;
-    display: block;
-    // padding: 0 36px;
     text-align: left;
 }
 ion-header {
@@ -219,10 +218,11 @@ h6{
     font-size: 24px;
     position: relative;
     top: 4px;
+    font-size: 28px;
 }
 .view-text{
     color:#5b5757;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 20px;
     display: inline-block;
     font-weight: 100;

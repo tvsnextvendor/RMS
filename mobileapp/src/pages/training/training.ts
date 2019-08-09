@@ -161,13 +161,19 @@ export class TrainingPage {
   //open  page
   openTrainingDetail(detailObj, selectedIndex, uploadPath) {
     console.log(detailObj,"DETAILOBJ")
-    this.paramsData['status'] = detailObj.FeedbackMappings.length ? (detailObj.QuizMappings.length == 0 ? "noQuiz" : detailObj.FeedbackMappings[0].status )  : (detailObj.QuizMappings.length == 0 ? "noQuiz" : 'inProgress' ) ;
+    this.paramsData['status'] = detailObj.FeedbackMappings.length ? (detailObj.QuizMappings.length == 0 ? this.checkCompleted(detailObj) : detailObj.FeedbackMappings[0].status )  : (detailObj.QuizMappings.length == 0 ? "noQuiz" : 'inProgress' ) ;
     this.paramsData['setData'] = detailObj;
     this.paramsData['selectedIndex'] = selectedIndex;
     this.paramsData['uploadPath'] = uploadPath;
-
+    this.paramsData['scheduleId'] = this.trainingScheduleId;
     this.navCtrl.push(TrainingDetailPage, this.paramsData);
   }
+
+  checkCompleted(data){
+   let status = data.FeedbackMappings.length ? 'completed' : 'noQuiz';
+   return status;
+  }
+
   //getcourse 
   async getCousesList() {
     this.loader.showLoader();

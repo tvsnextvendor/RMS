@@ -23,7 +23,7 @@ export class CourseFailedPage {
   totalPage;
   scrollEnable: boolean = false;
   currentPage = this.constant.numbers.one;
-  perPageData = this.constant.numbers.five;
+  perPageData = this.constant.numbers.ten;
   
 
   constructor(public storage: Storage,public navCtrl: NavController,public constant: Constant,public navParams: NavParams, public http: HttpProvider) {

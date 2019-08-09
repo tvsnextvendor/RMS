@@ -24,7 +24,7 @@ export class ForumPage implements OnInit {
   showSearchBar: boolean = false;
   scrollEnable: boolean = false;
   currentPage = this.constant.numbers.one;
-  perPageData = this.constant.numbers.five;
+  perPageData = this.constant.numbers.ten;
 
   @ViewChild(Content) content: Content;
 

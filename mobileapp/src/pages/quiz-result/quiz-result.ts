@@ -31,11 +31,13 @@ export class QuizResultPage implements OnInit {
     msgTitle;
     success;
     msgDes;
+    noQuiz= false;
+
     constructor(public navCtrl: NavController,public http: HttpProvider,public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
         this.Math = Math;
         this.resultData = navParams.data;
-        console.log(this.resultData,"cjksnck")
         this.trainingClassName = this.resultData['trainingClassName'];
+        this.noQuiz = this.resultData['status'] ? true : false ;
         this.resultData['passPercentage'] = this.resultData['passPerc'];
         this.resultData['percentage'] = Math.round((this.resultData['correctAnswers'] / this.resultData['totalQuestions']) * 100);
         events.subscribe('star-rating:changed', (starRating) => {
@@ -48,7 +50,7 @@ export class QuizResultPage implements OnInit {
           //  'description': new FormControl('', [Validators.required])
             'description': new FormControl('')
         });
-        if(this.resultData['percentage'] >= this.resultData['passPercentage'] ) {
+        if(this.noQuiz || this.resultData['percentage'] >= this.resultData['passPercentage'] ) {
            this.msgToUser = "You have successfully completed.";
            this.success = true;
         }else{
@@ -82,6 +84,9 @@ export class QuizResultPage implements OnInit {
                 "userId": this.currentUser.userId,
                 "resortId":resortId,
                 "trainingClassId" : this.resultData['trainingClassId']
+            }
+            if(this.noQuiz){
+                postData['passPercentage'] = 100;
             }
             this.http.post(false,API_URL.URLS.postFeedBack,postData).subscribe(res=>{
                 if(res['isSuccess']){
@@ -127,6 +132,7 @@ export class QuizResultPage implements OnInit {
             "userName": this.currentUser.userName,
             "lastName":this.currentUser.lastName,
             "resortId": this.currentUser.ResortUserMappings[0].resortId,
+            "trainingScheduleId": this.resultData['scheduleId'],
             "status":"completed"
         }
         this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{

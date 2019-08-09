@@ -32,7 +32,7 @@ export class AccomplishmentPage implements OnInit {
     leftButton: boolean = true;
     rightButton: boolean = true;
     currentPage = this.constant.numbers.one;
-    perPageData = this.constant.numbers.five;
+    perPageData = this.constant.numbers.ten;
     SlidePerPage = this.constant.numbers.two;
     badgeslide = this.constant.numbers.three;
    

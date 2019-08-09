@@ -93,6 +93,7 @@ export class QuizPage {
             "totalQuestions"    : this.quizData[0].Questions.length,
             "correctAnswers"    : correctAnswersCount,
             "trainingClassId"   : this.trainingClassId,
+            "scheduleId": this.trainingObj['scheduleId'],
             "trainingClassName" : this.trainingObj['setData'].trainingClassName,
             "courseName": this.courseName,
             "passPerc" : this.passPercentage 
