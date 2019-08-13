@@ -24,7 +24,7 @@ export class CertificationTrendComponent implements OnInit {
   ngOnInit() {
     this.headerService.setTitle({ title: this.commonLabels.labels.certifiTrend, hidemodule: false });
     this.breadCrumbService.setTitle([]);
-    this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
+    this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     this.getTrendCountList();
   }
   // getTrendList() {
@@ -37,7 +37,7 @@ export class CertificationTrendComponent implements OnInit {
  // }
   
   getTrendCountList() {
-    let query = this.resortId ? "?resortId=" + this.resortId + "&search=" + this.search  : '';
+    let query = this.resortId ? "?resortId=" + this.resortId + "&search=" + this.search  : (this.search != '' ? "?search=" + this.search  : '');
 
     // console.log(query)
     this.commonService.certificateTrendCount(query).subscribe((res) => {

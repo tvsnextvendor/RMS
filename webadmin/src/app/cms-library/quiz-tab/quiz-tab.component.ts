@@ -134,10 +134,18 @@ pageChanged(e) {
   }
 
   getDropDownDetails() {
-    let user = this.utilService.getUserData() ? "?created="+this.utilService.getUserData().userId : '';
-    this.courseService.getAllCourse(user).subscribe(result => {
-      if (result && result.isSuccess) {
-        this.courseList = result.data && result.data.rows;
+    // let user = this.utilService.getUserData() ? "?created="+this.utilService.getUserData().userId : '';
+    // this.courseService.getAllCourse(user).subscribe(result => {
+    //   if (result && result.isSuccess) {
+    //     this.courseList = result.data && result.data.rows;
+    //   }
+    // })
+    let user = this.utilService.getUserData();
+    let resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : ''; 
+    let query = resortId ? '?resortId='+resortId : ''; 
+    this.courseService.getCourseForNotification(query).subscribe(result=>{
+      if(result && result.isSuccess){
+        this.courseList = result.data.length && result.data;
       }
     })
   }
