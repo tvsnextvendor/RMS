@@ -103,6 +103,12 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
         case 'notification':
         this.selectedTab = 'notification';
         break;
+        case 'video':
+          this.selectedTab = 'video';
+          break;
+        case 'document':
+          this.selectedTab = 'document';
+          break;
         case 'workInprogress':
         this.selectedTab = 'workInprogress';
         break;
