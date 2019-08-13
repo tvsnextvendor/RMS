@@ -528,7 +528,7 @@ export class AddModuleComponent implements OnInit {
                         fileArr['addNew'] = true;
                         fileArr['selected'] = true;
                         // return items.File 
-                        this.fileService.sendFileList('add',fileArr);
+                        //this.fileService.sendFileList('add',fileArr);
                         return fileArr;
                     });
                     this.fileService.saveFileList();
