@@ -4,18 +4,18 @@
 				<div class=" white-bg mt-2">
 					<div class="clearfix p-3">
 						<div class="row">
-							<label class="hole-cont float-left pr-5">
-								<input type="checkbox" [checked]="quizCreateType === 'new' ? true : false" name="newQuiz" value="new" (change)="quizTypeUpdate($event,i)">
+							<label class="hole-cont float-left pr-5" *ngIf="!editEnable">
+								<input type="checkbox" [checked]="quizCreateType === 'new' ? true : false" name="newQuiz" value="new" (change)="quizTypeUpdate($event)">
 								<span class="text-over">New Quiz</span>
 								<span class="checkmark"></span>
 							</label>
 							<label class="hole-cont float-left pr-5">
-								<input type="checkbox" [checked]="quizCreateType === 'exist' ? true : false" name="newQuiz" value="exist" (change)="quizTypeUpdate($event,i)">
+								<input type="checkbox" [checked]="quizCreateType === 'exist' ? true : false" name="newQuiz" value="exist" (change)="quizTypeUpdate($event)">
 								<span class="text-over">Existing Quiz</span>
 								<span class="checkmark"></span>
 							</label>
 							<label class="hole-cont float-left">
-								<input type="checkbox" [checked]="quizCreateType === 'none' ? true : false" name="newQuiz" value="none" (change)="quizTypeUpdate($event,i)">
+								<input type="checkbox" [checked]="quizCreateType === 'none' ? true : false" name="newQuiz" value="none" (change)="quizTypeUpdate($event)">
 								<span class="text-over">No Quiz</span>
 								<span class="checkmark"></span>
 							</label>

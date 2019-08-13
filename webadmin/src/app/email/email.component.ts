@@ -54,6 +54,7 @@ export class EmailComponent implements OnInit {
                 ["cut", "copy", "delete", "removeFormat", "undo", "redo"],
                 ["paragraph", "blockquote", "removeBlockquote", "horizontalLine", "orderedList", "unorderedList"],
                 // ["link", "unlink", "image", "video"]
+                ["link", "image"]
             ]
         }
 
