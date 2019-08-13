@@ -25,6 +25,7 @@ export class CalendarViewComponent implements OnInit {
     activeDayIsOpen : boolean;
     events: CalendarEvent[] = [];
     resortId;
+    selectedResort = null;
     networkResortId;
     trainingScheduleId;
     scheduleEditDetails = {};
@@ -68,23 +69,30 @@ export class CalendarViewComponent implements OnInit {
         this.breadCrumbService.setTitle([]);
         let user = this.utilService.getUserData();
         this.resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
+        this.selectedResort = this.resortId ? this.resortId : null;
         this.getCalendarDetails();
-        // if(this.roleId){
-        //     this.resortService.getResort().subscribe(item=>{
-        //         if(item && item.isSuccess){
-        //             this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
-        //         }
-        //     })
-        // }
-        // else{
-            this.commonService.getResortForFeedback(this.resortId).subscribe((result) => { 
-                if(result && result.isSuccess){
-                    this.resortList = result.data && result.data.rows.length ? result.data.rows : [];
-                }
-            });
-       // }
+        this.getResortList();
     }
-
+  
+     // getResort
+    getResortList(){
+        if(this.roleId != 1){
+            this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                } 
+            })
+        }
+        else{
+            this.commonService.getAllResort('').subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.length ? item.data : [];
+                } 
+            })
+        }
+        
+    }
+   
     ngDoCheck(){
         if(!this.currentUrl){
             this.enableBatch = false;
@@ -150,7 +158,7 @@ export class CalendarViewComponent implements OnInit {
         let roleId = this.utilService.getRole();
         let user = this.utilService.getUserData();
         this.dayClick = 1;
-        let query = roleId != 1 ? this.resortId+"&createdBy="+user.userId : ''
+        let query = this.selectedResort ? this.selectedResort+"&createdBy="+user.userId : '';
         this.courseService.getCalendarSchedule(query).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 // console.log(resp);
