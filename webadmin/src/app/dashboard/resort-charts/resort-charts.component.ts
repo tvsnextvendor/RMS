@@ -105,6 +105,7 @@ export class ResortChartsComponent implements OnInit {
     selectResort(){
       this.resortId = (this.selectedResort)?this.selectedResort:this.selectedParentResort;
       this.getCountDetails(this.resortId);
+      this.totalNoOfBadges();
     }
 
     getResortDetails(){
