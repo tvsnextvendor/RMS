@@ -70,6 +70,7 @@ export class AddQuizComponent implements OnInit {
     ownerShipErr = false;
     answerEmpty = false;
     optionEmpty = false;
+    editEnable = false;
     @ViewChild('tcNameChange') modalTemplate : TemplateRef<any>;
 
 
@@ -95,6 +96,7 @@ export class AddQuizComponent implements OnInit {
         this.selectedCourse = this.courseId ? this.courseId : null;
         this.quizName = this.quizNames ? this.quizNames : '';
         this.quizCreateType = 'new';
+        this.editEnable = false;
         this.questionOptions = [
             { name: "MCQ", value: "MCQ" },
             { name: "True/False", value: "True/False" },
@@ -117,7 +119,7 @@ export class AddQuizComponent implements OnInit {
         if(this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)){
             this.enableAddQuiz = true;
         }
-        if (this.enableQuiz) {
+        if (this.enableQuiz && this.enableQuiz == 'true') {
             this.editQuizDetails(this.quizDetails);
         }
         if (this.courseId) {
@@ -143,6 +145,7 @@ export class AddQuizComponent implements OnInit {
         let selectedVideoList = quizData;
         this.selectedVideo = this.videoId;
         this.selectedCourse = this.courseId;
+        this.editEnable = this.enableQuiz == 'true' ? true : false;
         if(selectedVideoList && selectedVideoList.length) {
             this.quizQuestionsForm =  selectedVideoList ;
             this.quizCreateType = '';
@@ -429,6 +432,7 @@ export class AddQuizComponent implements OnInit {
                             this.removedQuizIds = [];
                             this.selectedQuiz = null;
                             this.ownerShipErr = false;
+                            this.editEnable = false;
                             this.valueChanged(result.data, hideTraining, false);
                         }
                         this.modalRef && this.modalRef.hide();
@@ -698,6 +702,8 @@ export class AddQuizComponent implements OnInit {
                                 this.alertService.success(result.message);
                                 this.fileService.emptyFileList();
                                 this.quizService.setQuiz('');
+                                this.editEnable = false;
+
                             }
                         })
                         
@@ -758,7 +764,7 @@ getQuizData(){
     })
 }
 
-  quizTypeUpdate(event,i){
+  quizTypeUpdate(event){
     this.quizCreateType = event.target.value;
     if(this.quizCreateType == 'exist'){
         this.getquizList();

@@ -160,8 +160,8 @@
 	</div>
    	</tab>
 	<tab heading="Quiz">
-		<add-quiz *ngIf="moduleVar.quizDetails.length" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleVar.moduleName}}' moduleId = {{moduleId}}  [tabName]="selectedTab" [removedFileIds]="removedFileIds" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
-		<add-quiz *ngIf="!moduleVar.quizDetails.length" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleVar.moduleName}}'  moduleId = {{moduleId}} [tabName]="selectedTab" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
+		<add-quiz *ngIf="quizCheck" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleVar.moduleName}}' moduleId = {{moduleId}}  [tabName]="selectedTab" [removedFileIds]="removedFileIds" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
+		<add-quiz *ngIf="!quizCheck" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleVar.moduleName}}'  moduleId = {{moduleId}} [tabName]="selectedTab" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
 	</tab>
 </tabset>
 </div>
