@@ -132,17 +132,18 @@ export class CalendarViewComponent implements OnInit {
 
     pageUpdate(event,scheduleId,i,addBatch){
         localStorage.setItem('BatchStartDate',event);
-        // console.log(event,scheduleId)
+        console.log(scheduleId)
         if(Object.keys(scheduleId)){
-            this.getScheduleData(scheduleId.id);
+            this.getScheduleData(scheduleId.id,scheduleId.scheduleType);
             // this.openEditModal(addBatch,event)
         }
         // this.router.navigateByUrl('/addBatch');
     }
 
 
-    getScheduleData(id){
-        this.courseService.getPopupSchedule(id).subscribe(resp=>{
+    getScheduleData(id,type){
+        let query = '?trainingScheduleId='+id+"&scheduleType="+type;
+        this.courseService.getPopupSchedule(query).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 this.trainingScheduleId = resp.data.length ? resp.data[0].trainingScheduleId : '';
                 this.scheduleEditDetails = resp.data.length ? resp.data[0] : {};
@@ -174,6 +175,7 @@ export class CalendarViewComponent implements OnInit {
                         courseCount : item.Courses.length,
                         courseList  : item.Courses, 
                         colorCode   : item.colorCode, 
+                        scheduleType : item.scheduleType,
                         // timings     : fromTime +'-' + toTime ,
                         id          : item.trainingScheduleId, 
                     }

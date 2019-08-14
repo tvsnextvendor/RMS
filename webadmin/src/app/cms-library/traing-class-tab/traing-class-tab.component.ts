@@ -28,8 +28,10 @@ export class TraingClassTabComponent implements OnInit {
   @Input() CMSFilterSearchEventSet;
   @Input() uploadPage;
   @Input() courseId;
+  @Output() scheduleClassList = new EventEmitter<object>();
   resourceLib;
   selectedClass;
+  scheduleClass = [];
   modalRef;
   roleId;
 
@@ -214,5 +216,15 @@ export class TraingClassTabComponent implements OnInit {
         this.alertService.error(errorRes.error.error);
       },300); 
     });
+  }
+
+  selectClass(trainingClassId, trainingClassName, isChecked) {
+    if (isChecked) {
+      this.scheduleClass.push({ 'trainingClassId': trainingClassId, 'trainingClassName': trainingClassName });
+    } else {
+      let index = this.scheduleClass.findIndex(item=>item.trainingClassId == trainingClassId);
+      this.scheduleClass.splice(index, 1);
+    }
+    this.scheduleClassList.emit(this.scheduleClass);
   }
 }

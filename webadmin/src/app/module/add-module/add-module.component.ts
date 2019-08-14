@@ -92,45 +92,14 @@ export class AddModuleComponent implements OnInit {
 
     }
 
+    ngOnChanges(){
+        this.breadScrumUpdate();
+    }
+
     ngOnInit() {
-        // debugger;
         //this.resetForm();
         this.roleId = this.utilService.getRole();
-        if (this.duplicateCourse) {
-            let data = [{ title: this.commonLabels.labels.duplicate, url: '/cms-library' }, { title: this.commonLabels.labels.duplicateCourse, url: '' }];
-            this.breadCrumbService.setTitle(data);
-            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')){
-                this.uploadPermission = false;
-            }
-        }
-        else if (this.selectedTab == 'course') {
-            let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editCourse, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createCourse, url: '' }];
-            this.breadCrumbService.setTitle(data);
-            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')){
-                this.uploadPermission = false;
-                this.alertService.warn("Sorry Your file upload permission is disabled")
-            }
-            else{
-                this.uploadPermission = true;
-              }
-        }
-        else if (this.selectedTab == 'class') {
-            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Training Class')){
-                this.uploadPermission = false;
-                this.alertService.warn("Sorry Your file upload permission is disabled")
-            }
-            else{
-                this.uploadPermission = true;
-              }
-            if (this.classId) {
-                let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }];
-                this.breadCrumbService.setTitle(data);
-            }
-            else {
-                let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createClasses, url: '' }];
-                this.breadCrumbService.setTitle(data);
-            }
-        }
+        // this.breadScrumUpdate();
         if(!this.classId){
             this.getquizList();
         }
@@ -180,6 +149,44 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
+    breadScrumUpdate(){
+        if (this.duplicateCourse) {
+            let data = [{ title: this.commonLabels.labels.duplicate, url: '/cms-library' }, { title: this.commonLabels.labels.duplicateCourse, url: '' }];
+            this.breadCrumbService.setTitle(data);
+            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')){
+                this.uploadPermission = false;
+            }
+        }
+        else if (this.selectedTab == 'course') {
+            let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editCourse, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createCourse, url: '' }];
+            this.breadCrumbService.setTitle(data);
+            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')){
+                this.uploadPermission = false;
+                this.alertService.warn("Sorry Your file upload permission is disabled")
+            }
+            else{
+                this.uploadPermission = true;
+              }
+        }
+        else if (this.selectedTab == 'class') {
+            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Training Class')){
+                this.uploadPermission = false;
+                this.alertService.warn("Sorry Your file upload permission is disabled")
+            }
+            else{
+                this.uploadPermission = true;
+              }
+            if (this.classId) {
+                let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }];
+                this.breadCrumbService.setTitle(data);
+            }
+            else {
+                let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createClasses, url: '' }];
+                this.breadCrumbService.setTitle(data);
+            }
+        }
+    }
+
     // KR added this functionality 
     // sepearte function created from ng onit - which is called for added files in create and edit training class
     appendFilesToVideoList(addedFiles){
@@ -194,37 +201,7 @@ export class AddModuleComponent implements OnInit {
             })
         }
     }
-
-    ngDoCheck(){
-        // if (this.duplicateCourse) {
-        //     let data = [{ title: this.commonLabels.labels.duplicate, url: '/cms-library' }, { title: this.commonLabels.labels.duplicateCourse, url: '' }];
-        //     this.breadCrumbService.setTitle(data);
-        // }
-        // else if (this.selectedTab == 'course') {
-        //     let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editCourse, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createCourse, url: '' }];
-        //     this.breadCrumbService.setTitle(data);
-        // }
-        // else if (this.selectedTab == 'class') {
-        //     if (this.classId) {
-        //         let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }];
-        //         this.breadCrumbService.setTitle(data);
-        //     }
-        //     else {
-        //         let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createClasses, url: '' }];
-        //         this.breadCrumbService.setTitle(data);
-        //     }
-        // }
-    }
-
-//    getClassDetails(){
-//        let query = '?trainingClassId='+this.classId;
-//     this.courseService.getTrainingClassList('','',query).subscribe(resp=>{
-//         if(resp && resp.isSuccess){
-//             let data = resp.data && resp.data.rows.length && resp.data.rows[0];
-//             this.updateCourse(data,'')
-//         }
-//     })
-//    }
+    
     includeDropdwnButton(){
         if(this.selectedTab == 'course'){
         var myEl = document.querySelector('ul.item1');

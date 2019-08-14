@@ -124,19 +124,36 @@
                         <div  [ngClass]="scheduleId ? 'col-11 col-md-12 p-0' : 'col-12 col-md-12 p-0'">
                             <div class="row">
                                 <div [ngClass]="scheduleId ? 'row col-md-12 p-0 prgm-select' : 'row col-md-12 p-0 prgm-select'">
-                                    <input type="hidden" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
-                                    <input *ngIf = "!scheduleId" disabled type="text" class="form-control pl-0 col-md-4 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
-                                    <select *ngIf = "scheduleId" id="courseListValue" class="col-md-4 form-control p-0 ml-0" name="course{{i}}"
+                                    <input type="hidden" *ngIf = "tabType == 'course'" class="form-control p-0" [(ngModel)]="data.courseId" name="courseId{{i}}">
+                                    <input *ngIf = "!scheduleId && tabType == 'course'" disabled type="text" class="form-control pl-0 col-md-4 course-input" [(ngModel)]="data.courseName" name="courseName{{i}}">
+                                    <select *ngIf = "scheduleId && tabType == 'course'" id="courseListValue" class="col-md-4 form-control p-0 ml-0" name="course{{i}}"
                                         [(ngModel)]="data.courseId" #courses="ngModel" (change)="courseUpdate(courses.value,i)" placeholder="Course Name" required >
                                         <option value="null" disabled>{{commonLabels.labels.courseName}}</option>
                                         <option *ngFor="let courses of courseDataList" value="{{courses.courseId}}">{{courses.courseName}}</option>
                                     </select>
-                                    <span *ngIf="data.duplicateCourse" class="required_color" >{{commonLabels.mandatoryLabels.courseScheduleError}}</span>
+                                    <span *ngIf="data.duplicateCourse && tabType == 'course'" class="required_color" >{{commonLabels.mandatoryLabels.courseScheduleError}}</span>
                                     <!-- <select id="program" class="col-md-5 form-control p-0" name="program{{i}}" [(ngModel)]="data.program">
                                         <option value="null">{{batchVar.select}}</option>
                                         <option *ngFor="let program of batchVar.programList" value="{{program.id}}">{{program.name}}</option>
                                     </select> -->
-
+                                    <input type="hidden" *ngIf = "tabType == 'training'" class="form-control p-0" [(ngModel)]="data.trainingClassId" name="trainingClassId{{i}}">
+                                    <input *ngIf = "!scheduleId && tabType == 'training'" disabled type="text" class="form-control pl-0 col-md-4 course-input" [(ngModel)]="data.trainingClassName" name="trainingClassName{{i}}">
+                                    <select *ngIf = "scheduleId && tabType == 'training'" id="classListValue" class="col-md-4 form-control p-0 ml-0" name="trainingClass{{i}}"
+                                        [(ngModel)]="data.trainingClassId" #courses="ngModel" (change)="courseUpdate(courses.value,i)" placeholder="Training Class Name" required >
+                                        <option value="null" disabled>{{commonLabels.labels.trainingClass}}</option>
+                                        <option *ngFor="let courses of trainingClassData" value="{{courses.trainingClassId}}">{{courses.trainingClassName}}</option>
+                                    </select>
+                                    <span *ngIf="data.duplicateCourse && tabType == 'training'" class="required_color" >{{commonLabels.mandatoryLabels.classScheduleError}}</span>
+                                    
+                                    <input type="hidden" *ngIf = "tabType == 'notification'" class="form-control p-0" [(ngModel)]="data.notificationFileId" name="notificationFileId{{i}}">
+                                    <input *ngIf = "!scheduleId && tabType == 'notification'" disabled type="text" class="form-control pl-0 col-md-4 course-input" [(ngModel)]="data.fileName" name="fileName{{i}}">
+                                    <select *ngIf = "scheduleId && tabType == 'notification'" id="notificatonListValue" class="col-md-4 form-control p-0 ml-0" name="notification{{i}}"
+                                        [(ngModel)]="data.trainingClassId" #courses="ngModel" (change)="courseUpdate(courses.value,i)" placeholder="Notification" required >
+                                        <option value="null" disabled>{{commonLabels.labels.notification}}</option>
+                                        <option *ngFor="let courses of courseDataList" value="{{courses.notificationFileId}}">{{courses.fileName}}</option>
+                                    </select>
+                                    <span *ngIf="data.duplicateCourse && tabType == 'notification'" class="required_color" >{{commonLabels.mandatoryLabels.notificationScheduleError}}</span>
+                                    
                                     <select id="percentageList" [ngClass]="scheduleId ? 'col-md-6 form-control ml-30' : 'col-md-6 form-control ml-36'" name="passPercentage{{i}}"
                                         [(ngModel)]="data.passPercentage" #passpercentage="ngModel" required placeholder="Pass percentage %">
                                         <option value="null">{{commonLabels.labels.percentage}}</option>

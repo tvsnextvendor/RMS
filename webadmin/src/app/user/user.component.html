@@ -345,7 +345,7 @@
                 <span class="col-md-1"></span>
                 <span class="col-md-7 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Employee Id" [(ngModel)]="empId"
-                        name="employeeId" #employee="ngModel" />
+                        name="employeeId" #employee="ngModel" autocomplete="off" />
                     <span class="required_color"
                         *ngIf="userForm.submitted && !empId">{{commonLabels.mandatoryLabels.employeeId}}</span>                 
                 </span>
@@ -355,7 +355,7 @@
                 <span class="col-md-1"></span>
                 <span class="col-md-7 pl-0">
                     <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="userName"
-                        name="userName" #user="ngModel" />
+                        name="userName" #user="ngModel" autocomplete="off"/>
                     <span class="required_color"
                         *ngIf="userForm.submitted && !userName">{{commonLabels.mandatoryLabels.empName}}</span> 
                     <span class="required_color"
@@ -367,7 +367,7 @@
                     <span class="col-md-1"></span>
                     <span class="col-md-7 pl-0">
                         <input type="text" class="form-control" placeholder="Enter Last Name" [(ngModel)]="lastName"
-                            name="lastName" #lastUser="ngModel" />
+                            name="lastName" #lastUser="ngModel" autocomplete="off" />
                         <span class="required_color"
                             *ngIf="userForm.submitted && !lastName">{{commonLabels.labels.lastName}}{{commonLabels.mandatoryLabels.isRequired}}</span>  
                             <span class="required_color"
@@ -424,7 +424,7 @@
                  <span class="col-md-1"></span>
                 <span class="col-md-7 pl-0">
                     <input type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="emailAddress"
-                        name="emailAddress" #email="ngModel" (keyup)="validationUpdate('email')" />
+                        name="emailAddress" #email="ngModel" (keyup)="validationUpdate('email')" autocomplete="off"/>
                         <span class="required_color"
                             *ngIf="userForm.submitted && !emailAddress">{{commonLabels.mandatoryLabels.emailId}}</span>
                         <span class="required_color"
@@ -437,7 +437,7 @@
                 <span class="col-md-1"></span>
                 <span class="col-md-7 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Mobile Number"
-                        [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate('mobile')" /><span
+                        [(ngModel)]="phoneNumber" name="phoneNumber" #mobile="ngModel" (keyup)="validationUpdate('mobile')" autocomplete="off"/><span
                         class="required_color"
                         *ngIf="userForm.submitted && !phoneNumber">{{commonLabels.mandatoryLabels.mobNo}}</span><span
                         class="required_color" *ngIf="userForm.submitted && phoneNumber && validPhone">
@@ -451,7 +451,7 @@
                 <span class="col-md-1"></span>
                 <span class="col-md-7 pl-0">
                     <input type="text" class="form-control" placeholder="Enter Home Number" [(ngModel)]="homeNumber"
-                        name="homeNumber" #home="ngModel" (keyup)="validationUpdate('home')" />
+                        name="homeNumber" #home="ngModel" (keyup)="validationUpdate('home')" autocomplete="off"/>
                     <span class="required_color" *ngIf="userForm.submitted && homeNumber && validHomeNo">
                             {{commonLabels.mandatoryLabels.invalidHomeNo}}</span>
                 </span>

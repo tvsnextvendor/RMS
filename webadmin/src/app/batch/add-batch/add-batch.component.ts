@@ -23,6 +23,7 @@ export class AddBatchComponent implements OnInit {
     @Input() scheduleId;
     @Input() scheduleData;
     @Input() networkResortId;
+    @Input() tabType;
     courseIds = [];
     durationValue = '3';
     maxdurationCount;
@@ -49,6 +50,7 @@ export class AddBatchComponent implements OnInit {
     currentDate;
     previousUpdate = false;
     existingUser = [];
+    trainingClassData;
 
     constructor(private breadCrumbService: BreadCrumbService, private alertService: AlertService, private courseService: CourseService, private utilService: UtilService, private resortService: ResortService, private userService: UserService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService: CommonService, public commonLabels: CommonLabels) {
         this.batchVar.url = API_URL.URLS;
@@ -92,7 +94,7 @@ export class AddBatchComponent implements OnInit {
 
     getCourseData() {
         this.resortId = this.userData.ResortUserMappings.length ? this.userData.ResortUserMappings[0].Resort.resortId : ''; 
-        let query = '?resortId='+this.resortId;
+        let query = this.resortId ? '?resortId='+this.resortId : ''; 
         this.courseService.getCourseForNotification(query).subscribe(resp => {
             if (resp && resp.isSuccess) {
                 this.courseDataList = resp.data.length ? resp.data.map(item => {
@@ -108,6 +110,12 @@ export class AddBatchComponent implements OnInit {
                 else{
                     this.getResortData(this.resortId);  
                 }
+            }
+        });
+        let currentquery = '?resortId='+this.resortId;
+        this.courseService.getDropTrainingClassList(currentquery).subscribe(result => {
+            if (result && result.isSuccess) {
+            this.trainingClassData = result.data.rows.length ? result.data.rows : [];
             }
         });
     }
@@ -157,21 +165,36 @@ export class AddBatchComponent implements OnInit {
         if(this.batchVar.batchFrom < this.currentDate){
             this.previousUpdate = true;
         }
+        this.tabType = this.scheduleData.scheduleType == 'trainingClass' ? 'training' : this.scheduleData.scheduleType;
         this.batchVar.batchTo = new Date(this.scheduleData.dueDate);
         this.batchVar.batchName = this.scheduleData.name;
         this.batchVar.selectedResort = this.scheduleData.Resorts.length && this.scheduleData.Resorts[0].resortId;
         this.batchVar.moduleForm = this.scheduleData.Courses.map(item => {
-            let obj = {
-                'courseId': item.courseId,
-                'courseName': item.Course.courseName,
-                'passPercentage': item.passPercentage,
-                'mandatory': item.isMandatory ? "true" : "false",
-                'trainingScheduleCourseId': item.trainingScheduleCourseId
-                // 'optional' : item.isOptional
-            }
-            this.courseIds.push(item.courseId);
-            return obj;
+            let obj = {};
 
+            if(this.tabType == 'course'){
+                obj = {
+                    'courseId': item.courseId ? item.courseId :  '',
+                    'courseName': item.Course ? item.Course.courseName : '',
+                    'passPercentage': item.passPercentage,
+                    'mandatory': item.isMandatory ? "true" : "false",
+                    'trainingScheduleCourseId': item.trainingScheduleCourseId
+                    // 'optional' : item.isOptional
+                }
+                this.courseIds.push(item.courseId);
+            }
+            else if(this.tabType == 'training'){
+                obj = {
+                    'trainingClassId': (item.trainingClassId ? item.trainingClassId : ''),
+                    'trainingClassName':  (item.TrainingClass ? item.TrainingClass.trainingClassName : ''),
+                    'passPercentage': item.passPercentage,
+                    'mandatory': item.isMandatory ? "true" : "false",
+                    'trainingScheduleCourseId': item.trainingScheduleCourseId
+                    // 'optional' : item.isOptional
+                }
+                this.courseIds.push(item.trainingClassId);
+            }
+            return obj;
         });
 
         this.reminder = this.scheduleData.notificationDays;
@@ -233,48 +256,107 @@ export class AddBatchComponent implements OnInit {
     }
 
     courseUpdate(data, i) {
+        if(this.tabType == 'course'){
+            let valueArr = this.batchVar.moduleForm.map(function (item) { return parseInt(item.courseId) });
+            let isDuplicate = valueArr.some(function (item, idx) {
+                return valueArr.indexOf(item) != idx
+            });
 
-        let valueArr = this.batchVar.moduleForm.map(function (item) { return parseInt(item.courseId) });
-        let isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
-
-        if (isDuplicate) {
-            this.batchVar.moduleForm[i] = {
-                'courseId': "",
-                'courseName': "",
-                'passPercentage': "100",
-                'mandatory': "true",
-                'duplicateCourse': true
-            };
-            this.alertService.error(this.commonLabels.mandatoryLabels.courseScheduleError)
+            if (isDuplicate) {
+                this.batchVar.moduleForm[i] = {
+                    'courseId': "",
+                    'courseName': "",
+                    'passPercentage': "100",
+                    'mandatory': "true",
+                    'duplicateCourse': true
+                };
+                this.alertService.error(this.commonLabels.mandatoryLabels.courseScheduleError)
+            }
+            else {
+                this.batchVar.moduleForm.forEach(item => {
+                    if (item.duplicateCourse) {
+                        delete item.duplicateCourse;
+                    }
+                })
+                this.courseIds.push(parseInt(data))
+                this.courseDataList.forEach(x => {
+                    if (x.courseId === parseInt(data)) {
+                        this.batchVar.moduleForm[i].courseName = x.courseName;
+                    }
+                })
+            }
         }
-        else {
-            this.batchVar.moduleForm.forEach(item => {
-                if (item.duplicateCourse) {
-                    delete item.duplicateCourse;
-                }
-            })
-            this.courseIds.push(parseInt(data))
-            this.courseDataList.forEach(x => {
-                if (x.courseId === parseInt(data)) {
-                    this.batchVar.moduleForm[i].courseName = x.courseName;
-                }
-            })
+        else  if(this.tabType == 'training'){
+            let valueArr = this.batchVar.moduleForm.map(function (item) { return parseInt(item.trainingClassId) });
+            let isDuplicate = valueArr.some(function (item, idx) {
+                return valueArr.indexOf(item) != idx
+            });
+
+            if (isDuplicate) {
+                this.batchVar.moduleForm[i] = {
+                    'trainingClassId': "",
+                    'trainingClassName': "",
+                    'passPercentage': "100",
+                    'mandatory': "true",
+                    'duplicateCourse': true
+                };
+                this.alertService.error(this.commonLabels.mandatoryLabels.classScheduleError)
+            }
+            else {
+                this.batchVar.moduleForm.forEach(item => {
+                    if (item.duplicateCourse) {
+                        delete item.duplicateCourse;
+                    }
+                })
+                this.courseIds.push(parseInt(data))
+                this.trainingClassData.forEach(x => {
+                    if (x.trainingClassId === parseInt(data)) {
+                        this.batchVar.moduleForm[i].trainingClassName = x.trainingClassName;
+                    }
+                })
+            }
         }
     }
 
     courseForm() {
-        this.courseIds = this.courseList.map(a => a.courseId);
-        this.courseList.forEach((item, key) => {
-            let obj = {
-                'courseId': item.courseId,
-                'courseName': item.courseName,
-                'passPercentage': "100",
-                'mandatory': "true"
-            }
-            this.batchVar.moduleForm.push(obj);
-        });
+        console.log(this.tabType)
+        if(this.tabType == "course"){
+            this.courseIds = this.courseList.map(a => a.courseId);
+            this.courseList.forEach((item, key) => {
+                let obj = {
+                    'courseId': item.courseId,
+                    'courseName': item.courseName,
+                    'passPercentage': "100",
+                    'mandatory': "true"
+                }
+                this.batchVar.moduleForm.push(obj);
+            });
+        }
+        else if(this.tabType == "training"){
+            this.courseIds = this.courseList.map(a => a.trainingClassId);
+            this.courseList.forEach((item, key) => {
+                let obj = {
+                    'trainingClassId': item.trainingClassId,
+                    'trainingClassName': item.trainingClassName,
+                    'passPercentage': "100",
+                    'mandatory': "true"
+                }
+                this.batchVar.moduleForm.push(obj);
+            });
+        }
+        else if(this.tabType == "notification"){
+            this.courseIds = this.courseList.map(a => a.notificationFileId);
+            this.courseList.forEach((item, key) => {
+                let obj = {
+                    'notificationFileId': item.notificationFileId,
+                    'fileName': item.fileName,
+                    'passPercentage': "100",
+                    'mandatory': "true"
+                }
+                this.batchVar.moduleForm.push(obj);
+            }); 
+        }
+       
     }
 
     errorCheck() {
@@ -499,7 +581,8 @@ export class AddBatchComponent implements OnInit {
                 "userId": this.batchVar.employeeId,
                 "courses": this.batchVar.moduleForm,
                 "insertUserId" : [],
-                "getUserId" : []
+                "getUserId" : [],
+                "scheduleType" : this.tabType == 'training' ? 'trainingClass' : this.tabType
             }
             // console.log(this.existingUser,this.batchVar.selectedEmp)
             // debugger;
@@ -593,12 +676,33 @@ export class AddBatchComponent implements OnInit {
 
     //dynamic add module fields 
     addForm() {
-        let obj = {
-            'courseId': "",
-            'courseName': "",
-            'passPercentage': "100",
-            'mandatory': "true"
-        };
+
+        let obj = {};
+        if(this.tabType == 'course'){
+            obj = {
+                'courseId': "",
+                'courseName': "",
+                'passPercentage': "100",
+                'mandatory': "true"
+            };
+        }
+        else if(this.tabType == 'training'){
+            obj = {
+                'trainingClassId': "",
+                'trainingClassName': "",
+                'passPercentage': "100",
+                'mandatory': "true"
+            };
+        }
+        else if(this.tabType == 'notification'){
+            obj = {
+                'notificationFileId': "",
+                'fileName': "",
+                'passPercentage': "100",
+                'mandatory': "true"
+            };
+        }
+        
         this.batchVar.moduleForm.push(obj);
     }
 

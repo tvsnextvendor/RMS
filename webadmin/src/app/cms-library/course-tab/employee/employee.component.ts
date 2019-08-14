@@ -74,7 +74,7 @@ export class EmployeeComponent implements OnInit {
 
    // Create Excel sheet
    exportAsXLSX():void {
-    this.excelService.exportAsExcelFile(this.listDetails, this.listDetails[0].Course.courseName);
+    this.excelService.exportAsExcelFile(this.listDetails,this.commonLabels.labels.statusList);
   }
 
   getResortList(){
