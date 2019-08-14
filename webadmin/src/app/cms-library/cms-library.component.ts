@@ -186,12 +186,12 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
     else{
       this.quizTabHit = false; 
     }
-    // this.activatedRoute.queryParams.subscribe(params=>{
-    //   if(params && params.type == 'edit' && title != "video" && title != 'document'){
+    this.activatedRoute.queryParams.subscribe(params=>{
+      if(params && params.type == 'edit'){
         title = (title == 'training') ? 'class' : title;
         this.route.navigate(['/cms-library'],{queryParams:{type : 'edit',tab : title}})
-      // }
-    // });
+      }
+    });
   }
  
   completed(event){
