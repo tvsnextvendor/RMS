@@ -51,6 +51,7 @@ export class AddBatchComponent implements OnInit {
     previousUpdate = false;
     existingUser = [];
     trainingClassData;
+    getCourseId = [];
 
     constructor(private breadCrumbService: BreadCrumbService, private alertService: AlertService, private courseService: CourseService, private utilService: UtilService, private resortService: ResortService, private userService: UserService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService: CommonService, public commonLabels: CommonLabels) {
         this.batchVar.url = API_URL.URLS;
@@ -182,6 +183,7 @@ export class AddBatchComponent implements OnInit {
                     // 'optional' : item.isOptional
                 }
                 this.courseIds.push(item.courseId);
+                this.getCourseId.push(item.courseId);
             }
             else if(this.tabType == 'training'){
                 obj = {
@@ -193,10 +195,10 @@ export class AddBatchComponent implements OnInit {
                     // 'optional' : item.isOptional
                 }
                 this.courseIds.push(item.trainingClassId);
+                this.getCourseId.push(item.trainingClassId)
             }
             return obj;
-        });
-
+        })
         this.reminder = this.scheduleData.notificationDays;
         let resort = _.uniqBy(this.scheduleData.Resorts, 'userId');
         let div = _.cloneDeep(this.batchVar.divisionList)
@@ -582,6 +584,7 @@ export class AddBatchComponent implements OnInit {
                 "courses": this.batchVar.moduleForm,
                 "insertUserId" : [],
                 "getUserId" : [],
+                "getCourseId" : [],
                 "scheduleType" : this.tabType == 'training' ? 'trainingClass' : this.tabType
             }
             // console.log(this.existingUser,this.batchVar.selectedEmp)
@@ -591,6 +594,9 @@ export class AddBatchComponent implements OnInit {
                 postData.insertUserId = newUsers;
                 postData.userId = this.batchVar.selectedEmp.map(item=>{return item.userId});
                 postData.getUserId = this.existingUser;
+                postData.getCourseId = this.getCourseId;
+                this.tabType == "course" ? postData.resort.courses = this.batchVar.moduleForm.map(item=>{return item.courseId}) : 
+                postData.resort.courses = this.batchVar.moduleForm.map(item=>{return item.trainingClassId});
 
                 // delete postData.status;
                 this.courseService.updateScheduleTraining(this.scheduleId, postData).subscribe(resp => {
@@ -604,6 +610,7 @@ export class AddBatchComponent implements OnInit {
             else {
                 delete postData.insertUserId;
                 delete postData.getUserId;
+                delete postData.getCourseId;
                 this.courseService.scheduleTraining(postData).subscribe(result => {
                     if (result.isSuccess) {
                         //   this.clearBatchForm();
