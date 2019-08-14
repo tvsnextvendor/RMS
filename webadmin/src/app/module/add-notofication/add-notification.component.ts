@@ -126,6 +126,7 @@ export class AddNotificationComponent implements OnInit {
             }
             this.uploadFileName = respData.File && respData.File.fileUrl;
             this.fileName = respData.File && respData.File.fileName;
+            this.scheduleName = respData.TrainingScheduleResorts && respData.TrainingScheduleResorts.length && respData.TrainingScheduleResorts[0].TrainingSchedule && respData.TrainingScheduleResorts[0].TrainingSchedule.name ? respData.TrainingScheduleResorts[0].TrainingSchedule.name : '';
             // this.description = respData.File && respData.File.fileDescription;
             this.description = respData.File && respData.File.description;
             this.batchVar.batchFrom = respData.assignedDate ? new Date(respData.assignedDate) : '';
@@ -521,7 +522,8 @@ export class AddNotificationComponent implements OnInit {
       this.removedUserIds.length ? data.removeUserIds = this.removedUserIds : delete data.removeUserIds;
       this.courseService.updateNotification(this.notifyId,data).subscribe(resp=>{
         if(resp && resp.isSuccess){
-          this.router.navigate(['/cms-library'],{queryParams: {type:"edit",tab:"notification"}})
+          // this.router.navigate(['/cms-library'],{queryParams: {type:"edit",tab:"notification"}})
+          this.back();
         }
       },err=>{
         console.log(err.error.message)
@@ -683,7 +685,8 @@ export class AddNotificationComponent implements OnInit {
         this.router.navigate(['/resource/library']);
       }
       else if(this.notifyId){
-        this.router.navigate(['/cms-library'],{queryParams : {type:"edit",tab:"notification"}});
+        // this.router.navigate(['/cms-library'],{queryParams : {type:"edit",tab:"notification"}});
+        this.location.back();
       }
       // this.router.navigate(['/cmspage'],{queryParams:{type:'create'}})
     }

@@ -106,9 +106,15 @@ export class CalendarViewComponent implements OnInit {
     
     goToBatch(event,scheduleId,i,addBatch){
         if(addBatch == "editBatch"){
-            this.pageUpdate(event,scheduleId,i,addBatch);
-            this.router.navigate(['/calendar'],{queryParams : {type:'edit'}})
-            this.dayClick = 2;
+            if(scheduleId.scheduleType == 'notification'){
+                let id = scheduleId.notificationFileId;
+                this.router.navigate(['/cms-library'],{queryParams : {notifyId : id,type:"create",tab:"notification"}});
+            }
+            else{
+                this.pageUpdate(event,scheduleId,i,addBatch);
+                this.router.navigate(['/calendar'],{queryParams : {type:'edit'}})
+                this.dayClick = 2;
+            }
         }
         else if(addBatch == 'addBatch' && this.dayClick == 1){
             this.dayClicked(event);
@@ -132,7 +138,6 @@ export class CalendarViewComponent implements OnInit {
 
     pageUpdate(event,scheduleId,i,addBatch){
         localStorage.setItem('BatchStartDate',event);
-        console.log(scheduleId)
         if(Object.keys(scheduleId)){
             this.getScheduleData(scheduleId.id,scheduleId.scheduleType);
             // this.openEditModal(addBatch,event)
@@ -176,6 +181,7 @@ export class CalendarViewComponent implements OnInit {
                         courseList  : item.Courses, 
                         colorCode   : item.colorCode, 
                         scheduleType : item.scheduleType,
+                        notificationFileId :  item.Resorts && item.Resorts.length && item.Resorts[0].NotificationFile ? item.Resorts[0].NotificationFile.notificationFileId : '',
                         // timings     : fromTime +'-' + toTime ,
                         id          : item.trainingScheduleId, 
                     }
