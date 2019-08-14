@@ -7,8 +7,8 @@
         <div class="white-bg p-3 clearfix">
             <div class="clearfix">               
                 <label class="square-cont float-left" *ngIf="uploadPage ? true : (scheduleEnable ? true : false)">
-                    <input *ngIf = "uploadPage && !scheduleEnable" type="checkbox" name="file" value={{courses.File.fileId}} [checked]="courses.File.selected" (change)="addFiles($event,courses.File,i)">
-                    <input *ngIf = "!uploadPage && scheduleEnable" type="checkbox" name="file" [value]="courses.notificationFileId" [checked]="courses.File.selected" (change)="selectClass(courses.notificationFileId, courses.File.fileName, $event.target.checked)">
+                    <input *ngIf = "uploadPage && !scheduleEnable" type="checkbox" name="file" value={{courses.File.fileId}} [checked]="courses?.File?.selected" (change)="addFiles($event,courses.File,i)">
+                    <input *ngIf = "!uploadPage && scheduleEnable" type="checkbox" name="file" [value]="courses.notificationFileId" [checked]="courses?.File?.selected" (change)="selectClass(courses.notificationFileId, courses?.File?.fileName, $event.target.checked)">
                     <span
                         class="text-over">{{courses?.File?.fileName}}</span>
                     <span class="square-checkmark"></span>
