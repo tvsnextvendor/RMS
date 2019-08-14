@@ -190,10 +190,19 @@
                         </span>
                     </div>
                     <div class="row form-group">
+                        <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.batchName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                        <span class="col-md-9 p-0">
+                            <input type="text" class="form-control" placeholder="Enter Schedule Name" [(ngModel)]="scheduleName"
+                                name="scheduleName" #scheduleNameValue="ngModel" required>
+                        </span>
+                    </div>
+                    <div class="row form-group">
                         <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.description}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                         <span class="col-md-9 p-0">
-                            <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description"
-                                name="description" #descriptionData="ngModel" required>
+                            <!-- <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description"
+                                name="description" #descriptionData="ngModel" required> -->
+                                <textarea type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description"
+                                name="description" #descriptionData="ngModel" required></textarea>
                         </span>
                     </div>
 

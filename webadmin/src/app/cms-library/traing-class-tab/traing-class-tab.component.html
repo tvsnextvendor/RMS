@@ -72,7 +72,12 @@
             <!-- {{CMSFilterSearchEventSet}} -->
         <div class="white-bg p-3 mb-3">
             <div class="clearfix">
-                <label class="float-left mb-0">
+                <label class="square-cont float-left" *ngIf="schedulePage">
+                    <input type="checkbox" name="classId{{i}}" (change)="selectClass(courses.trainingClassId, courses.trainingClassName, $event.target.checked)"><span
+                        class="text-over">{{courses.trainingClassName}}</span>
+                    <span class="square-checkmark"></span>
+                </label>
+                <label class="float-left mb-0" *ngIf="!schedulePage">
                     <span class="text-over">{{courses.trainingClassName}}</span>
                 </label> 
                 <span class="float-right">

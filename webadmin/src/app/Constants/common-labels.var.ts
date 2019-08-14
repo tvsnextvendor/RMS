@@ -378,7 +378,8 @@ export class CommonLabels{
         "userList"          :   "User List",
         "firstName"         :   "First Name",
         "lastName"          :   "Last Name",
-        "courseList"        :   "Course List"
+        "courseList"        :   "Course List",
+        "statusList"        :   "Course Status details"
     };
 
     btns = {

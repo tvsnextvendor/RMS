@@ -44,7 +44,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   enableBatch = false;
   disableEdit = false;
   disableTabs = false;
-
+  schedulePage = false;
 
   ngOnInit() {
   this.selectedTab = 'course';
@@ -57,6 +57,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
     if(params.type && params.type == 'create'){
       this.disableEdit = false;
       this.disableTabs = false;
+      this.schedulePage = false;
       switch(params.tab){
         case 'course':
           this.showcreatecourse = true;
@@ -79,6 +80,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
         case 'schedule':
         this.disableTabs = true;
         this.disableEdit = true;
+        this.schedulePage = true;
         break;
       }
     }
@@ -184,12 +186,12 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
     else{
       this.quizTabHit = false; 
     }
-    this.activatedRoute.queryParams.subscribe(params=>{
-      if(params && params.type == 'edit' && title != "video" && title != 'document'){
+    // this.activatedRoute.queryParams.subscribe(params=>{
+    //   if(params && params.type == 'edit' && title != "video" && title != 'document'){
         title = (title == 'training') ? 'class' : title;
         this.route.navigate(['/cms-library'],{queryParams:{type : 'edit',tab : title}})
-      }
-    });
+      // }
+    // });
   }
  
   completed(event){

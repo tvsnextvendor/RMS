@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,TemplateRef } from '@angular/core';
+import { Component, OnInit, Input,TemplateRef, Output ,EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {BreadCrumbService,CourseService,UtilService,FileService,AlertService,PermissionService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
@@ -29,12 +29,14 @@ export class NotificationTabComponent implements OnInit {
   scheduleEnable = false;
   @Input() uploadPage;
   @Input() CMSFilterSearchEventSet;
+  @Output() scheduleNotificationList = new EventEmitter<object>();;
   resourseLib = false;
   iconEnable = true;
   userData;
   totalNotifyCount;
   selectedApprovalNotification;
   modalRef;
+  scheduleNotification = [];
 
   constructor(private breadCrumbService : BreadCrumbService,private fileService: FileService,private activatedRoute : ActivatedRoute,public commonLabels :CommonLabels,private courseService :CourseService,private utilService :UtilService,private router :Router ,
     private modalService: BsModalService,private alertService : AlertService,private permissionService : PermissionService) {
@@ -177,6 +179,7 @@ export class NotificationTabComponent implements OnInit {
 
   //Add or remove files from list
   addFiles(event,file,i){
+    console.log(file)
     let type=event.target.checked;
     if(type){
       file['addNew'] = true;
@@ -245,5 +248,15 @@ sendApproval() {
     },300)
     
   });
+}
+
+selectClass(notificationFileId, fileName, isChecked) {
+  if (isChecked) {
+    this.scheduleNotification.push({ 'notificationFileId': notificationFileId, 'fileName': fileName });
+  } else {
+    let index = this.scheduleNotification.findIndex(item=>item.notificationFileId == notificationFileId);
+    this.scheduleNotification.splice(index, 1);
+  }
+  this.scheduleNotificationList.emit(this.scheduleNotification);
 }
 }

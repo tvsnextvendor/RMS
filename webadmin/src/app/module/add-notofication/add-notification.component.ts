@@ -57,7 +57,9 @@ export class AddNotificationComponent implements OnInit {
     fileExist = false;
     resourceLib = false;
     roleId;
+    scheduleName;
     uploadPermission = true;
+
 
     constructor(private breadCrumbService :BreadCrumbService,public location : Location, private alertService: AlertService, private headerService: HeaderService,public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
         public commonLabels:CommonLabels , private utilService : UtilService,private resortService : ResortService,private courseService : CourseService,private commonService : CommonService,private userService : UserService,private permissionService :PermissionService) {
@@ -94,7 +96,7 @@ export class AddNotificationComponent implements OnInit {
         this.batchVar.batchTo = '';
         this.batchVar.dategreater = true;
         this.currentDate = new Date();
-        const resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
+        const resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
         this.roleId = this.utilService.getRole();
         this.moduleVar.selectedResort = resortId;
         this.getDropdownDetails(resortId,'init');
@@ -124,10 +126,15 @@ export class AddNotificationComponent implements OnInit {
             }
             this.uploadFileName = respData.File && respData.File.fileUrl;
             this.fileName = respData.File && respData.File.fileName;
-            this.description = respData.File && respData.File.fileDescription;
+            // this.description = respData.File && respData.File.fileDescription;
+            this.description = respData.File && respData.File.description;
             this.batchVar.batchFrom = respData.assignedDate ? new Date(respData.assignedDate) : '';
             this.batchVar.batchTo = respData.dueDate ? new Date(respData.dueDate) : '';
             if(respData.NotificationFileMaps.length) {
+              if(this.roleId == 1){
+                this.moduleVar.selectedResort = respData.NotificationFileMaps[0].resortId;
+                this.getDivisionData(this.moduleVar.selectedResort,'');
+              }
               this.moduleVar.divisionId = respData.NotificationFileMaps.map(x=>{ return x.divisionId});
               this.moduleVar.departmentId = respData.NotificationFileMaps.map(x=>{ return x.departmentId});
               this.employeeId = respData.NotificationFileMaps.map(x=>{ return x.userId});
@@ -169,19 +176,46 @@ export class AddNotificationComponent implements OnInit {
     }
 
     getDropdownDetails(resortId,key){
-        this.resortService.getResortByParentId(resortId).subscribe((result)=>{
-            if(key == 'init'){this.moduleVar.resortList=result.data.Resort;}
-            this.moduleVar.divisionList=result.data.divisions;
-            if(this.notifyId){
-              this.getNotificationDetails();
-            }
-        })
+      this.moduleVar.selectedDepartment = [];
+      this.moduleVar.selectedDivision = [];
+      this.moduleVar.selectedEmployee = [];
+      this.moduleVar.employeeList = [];
+        // this.resortService.getResortByParentId(resortId).subscribe((result)=>{
+        //     if(key == 'init'){this.moduleVar.resortList=result.data.Resort;}
+        //     this.moduleVar.divisionList=result.data.divisions;
+        //     if(this.notifyId){
+        //       this.getNotificationDetails();
+        //     }
+        // })
+        if(this.roleId == 1){
+          this.commonService.getAllResort('').subscribe(item=>{
+            if(item && item.isSuccess){
+                this.moduleVar.resortList = item.data && item.data.length ? item.data : [];
+                this.getNotificationDetails();
+                // this.getNotificationDetails();
+                // this.filterSelect(this.filterResort,'resort')
+            } 
+          })
+        }
+        else{
+          this.getDivisionData(resortId,key);
+        }
+    }
+
+    getDivisionData(resortId,key){
+      this.resortService.getResortByParentId(resortId).subscribe((result)=>{
+        if(key == 'init'){this.moduleVar.resortList=result.data.Resort;}
+        this.moduleVar.divisionList=result.data.divisions;
+        if(this.notifyId && this.roleId != 1){
+          this.getNotificationDetails();
+        }
+    })
     }
 
     getCourses(){
       let user = this.utilService.getUserData();
       let resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : ''; 
-      let query = '?resortId='+resortId;
+      let query = resortId ? '?resortId='+resortId : ''; 
       this.courseService.getCourseForNotification(query).subscribe(result=>{
         if(result && result.isSuccess){
           this.moduleVar.courseList = result.data.length && result.data;
@@ -248,6 +282,7 @@ export class AddNotificationComponent implements OnInit {
               if (result.isSuccess) {
                 let listData =_.cloneDeep(this.moduleVar.departmentList);
                 this.moduleVar.departmentList = [];
+                this.moduleVar.employeeList = [];
                 if(checkType == 'select'){
                   listData && listData.length ? 
                   result.data.rows.forEach(item=>{listData.push(item)}) : 
@@ -375,7 +410,7 @@ export class AddNotificationComponent implements OnInit {
 
     submitNotification(){
       this.batchVar.dategreater = this.batchVar.batchFrom && this.batchVar.batchTo && Date.parse(this.batchVar.batchTo) < Date.parse(this.batchVar.batchFrom) ? false : true;
-      if(this.fileName && this.permissionService.nameValidationCheck(this.fileName) && (this.notificationFileName && this.permissionService.nameValidationCheck(this.notificationFileName) || this.uploadFileName && this.permissionService.nameValidationCheck(this.uploadFileName)) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.description && this.batchVar.dategreater){ 
+      if(this.fileName && this.permissionService.nameValidationCheck(this.fileName) && (this.notificationFileName && this.permissionService.nameValidationCheck(this.notificationFileName) || this.uploadFileName && this.permissionService.nameValidationCheck(this.uploadFileName) || this.description && this.permissionService.nameValidationCheck(this.description)) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length  && this.batchVar.dategreater && this.scheduleName){ 
         let data = {
           "courseId":'',
           "createdBy"  :this.userId,
@@ -384,7 +419,8 @@ export class AddNotificationComponent implements OnInit {
           "assignedDate":this.batchVar.batchFrom ? this.datePipe.transform(this.batchVar.batchFrom, 'yyyy-MM-dd') : '',
           "dueDate":this.batchVar.batchTo ? this.datePipe.transform(this.batchVar.batchTo, 'yyyy-MM-dd') : '',
           "fileName":this.fileName,
-          "fileDescription":this.description,
+          // "fileDescription":this.description,
+          "description":this.description,
           "fileSize":this.fileSize,
           "fileExtension":this.fileExtension,
           "fileImage":this.notificationFileImage ? this.notificationFileImage : '',
@@ -396,7 +432,19 @@ export class AddNotificationComponent implements OnInit {
           "departmentId":this.moduleVar.selectedDepartment.map(x=>{return x.departmentId}),
           "userId":this.moduleVar.selectedEmployee.map(x=>{return x.userId}),
           "removeUserIds":'',
+          "scheduleType":"notification",
+          "trainingScheduleName" : this.scheduleName,
           "draft" : false
+        }
+
+        if(!this.notificationFileImage){
+          !this.fileExtension ? delete data.fileExtension : '';
+          !this.fileDuration ? delete data.fileLength : '';
+          !this.fileSize ? delete data.fileSize : '';
+          !this.notificationFileName ? delete data.fileUrl : '';
+        }
+        if(!this.description){
+          delete data.description;
         }
 
         if(this.notificationType == 'assignedToCourse'){
@@ -486,7 +534,7 @@ export class AddNotificationComponent implements OnInit {
     }
 
     clearBatchForm() {
-      let resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
+      let resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
       this.batchVar.batchFrom = '';
       this.batchVar.batchTo = '';
       this.batchVar.selectedEmp = [];
@@ -504,6 +552,7 @@ export class AddNotificationComponent implements OnInit {
       this.moduleVar.employeeList = [];
       this.moduleVar.departmentList = [];
       this.notificationType = '';
+      this.scheduleName = '';
     }
 
     courseSelect(event){

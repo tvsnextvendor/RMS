@@ -217,8 +217,8 @@ export class CourseService {
   getCalendarSchedule(resortId){
     return this.http.getLocal('local',this.url.getScheduleTraining+'?resortId='+resortId);
   }
-  getPopupSchedule(scheduleId){
-    return this.http.getLocal('local',this.url.getPopupScheduleData+'?trainingScheduleId='+scheduleId);
+  getPopupSchedule(query){
+    return this.http.getLocal('local',this.url.getPopupScheduleData+query);
   }
   updateScheduleTraining(scheduleId,params){
     //updateScheduleTraining

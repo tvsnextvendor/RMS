@@ -1,5 +1,5 @@
 <app-add-notification *ngIf="enableNotify && !enableBatch &&!showcreatecourse" (someEvent)="closeModal()" (completed)="completed($event)"></app-add-notification>
-<app-add-batch *ngIf="enableBatch && !enableNotify && !showcreatecourse" [courseList]="this.selectedCourse"  (someEvent)="hidePopup($event)" (completed)="completed($event)"></app-add-batch>
+<app-add-batch *ngIf="enableBatch && !enableNotify && !showcreatecourse" [courseList]="this.selectedCourse"  [tabType]="selectedTab" (someEvent)="hidePopup($event)" (completed)="completed($event)"></app-add-batch>
 <app-add-module *ngIf="showcreatecourse && !enableBatch && !enableNotify" [selectedTab]="tabName" (upload)="showUploadPage($event)" (completed)="completed($event)"  [addedFiles]="selectedVideoList"></app-add-module>   
 <div class="" *ngIf="!showcreatecourse && !enableNotify && !enableBatch"> 
     <div class="row">
@@ -31,18 +31,20 @@
                         <a *ngIf="!disableTabs && disableEdit" [ngClass] = "selectedTab === 'recentDelete' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#recentDelete" (click)="headerTabChange('recentDelete','')">{{commonLabels.btns.recentDelete}}</a>
                     </li>
                 </ul> 
-                <button *ngIf="disableTabs && selectedTab === 'course'" type = "button" class="btn btn-primary p-2" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
+                <button *ngIf="schedulePage" type = "button" class="btn btn-primary p-2" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
             </div>
             <span class="required_color" *ngIf="showWarning && !showcreatecourse && selectedTab === 'course'">{{commonLabels.labels.selectcoursestoschedule}}</span> 
+            <span class="required_color" *ngIf="showWarning && !showcreatecourse && selectedTab === 'training'">{{commonLabels.labels.selectclasstoschedule}}</span> 
+            <span class="required_color" *ngIf="showWarning && !showcreatecourse && selectedTab === 'notification'">{{commonLabels.labels.selectNotificationtoschedule}}</span> 
 
             <div class="tab-content">
                 <!-- Course Tab Content -->
                 <div *ngIf = "selectedTab === 'course' && !hideSection" id="course" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'course' ? 'active show' : 'nav-link')">
-                        <app-course-tab (SelectedcourseList)="getCourse($event)" (trainingClassListTab) = "redirectTab($event)" (upload)="showUploadPage($event)" (trainingClassRedirect)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"  [addedFiles]="selectedVideoList" [disableEdit]="disableEdit"></app-course-tab>
+                    <app-course-tab (SelectedcourseList)="getCourse($event)" (trainingClassListTab) = "redirectTab($event)" (upload)="showUploadPage($event)" (trainingClassRedirect)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"  [addedFiles]="selectedVideoList" [disableEdit]="disableEdit"></app-course-tab>
                 </div>
                 <!-- Training Class Tab Content -->
                 <div *ngIf = "selectedTab === 'training' && !hideSection" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
-                    <app-traing-class-tab (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [courseId]="courseId" [disableEdit]="disableEdit" [disableTabs]= 'disableTabs'></app-traing-class-tab>
+                    <app-traing-class-tab (scheduleClassList)="getCourse($event)" (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [courseId]="courseId" [disableEdit]="disableEdit" [disableTabs]= 'disableTabs'></app-traing-class-tab>
                 </div>
                 <!-- Video Tab Content -->
                 <div *ngIf = "selectedTab === 'video' && !showcreatecourse" id="video" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
@@ -54,7 +56,7 @@
                 </div>
                  <!-- app-notification-tab -->
                  <div  *ngIf = "selectedTab === 'notification' && !showcreatecourse " id="notification" [ngClass] = "'col-md-12 pt-3 clearfix px-0 container tab-pane' + (selectedTab === 'notification' ? 'active show' : 'nav-link')">
-                    <app-notification-tab [uploadPage]="hideSection" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"></app-notification-tab>
+                    <app-notification-tab (scheduleNotificationList)="getCourse($event)" [uploadPage]="hideSection" [CMSFilterSearchEventSet]="CMSFilterSearchEvent"></app-notification-tab>
                 </div>
                 <!-- Quiz Tab Content --> 
                 <div  *ngIf = "selectedTab === 'quiz' && !hideSection " id="quiz" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'quiz' ? 'active show' : 'nav-link')">
