@@ -128,7 +128,7 @@ export class AddNotificationComponent implements OnInit {
             this.fileName = respData.File && respData.File.fileName;
             this.scheduleName = respData.TrainingScheduleResorts && respData.TrainingScheduleResorts.length && respData.TrainingScheduleResorts[0].TrainingSchedule && respData.TrainingScheduleResorts[0].TrainingSchedule.name ? respData.TrainingScheduleResorts[0].TrainingSchedule.name : '';
             // this.description = respData.File && respData.File.fileDescription;
-            this.description = respData.File && respData.File.description;
+            this.description =  (respData.description ? respData.description : '');
             this.batchVar.batchFrom = respData.assignedDate ? new Date(respData.assignedDate) : '';
             this.batchVar.batchTo = respData.dueDate ? new Date(respData.dueDate) : '';
             if(respData.NotificationFileMaps.length) {
@@ -411,7 +411,7 @@ export class AddNotificationComponent implements OnInit {
 
     submitNotification(){
       this.batchVar.dategreater = this.batchVar.batchFrom && this.batchVar.batchTo && Date.parse(this.batchVar.batchTo) < Date.parse(this.batchVar.batchFrom) ? false : true;
-      if(this.fileName && this.permissionService.nameValidationCheck(this.fileName) && (this.notificationFileName && this.permissionService.nameValidationCheck(this.notificationFileName) || this.uploadFileName && this.permissionService.nameValidationCheck(this.uploadFileName) || this.description && this.permissionService.nameValidationCheck(this.description)) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length  && this.batchVar.dategreater && this.scheduleName){ 
+      if((this.notificationFileName && this.permissionService.nameValidationCheck(this.notificationFileName) && this.fileName && this.permissionService.nameValidationCheck(this.fileName) || this.uploadFileName && this.permissionService.nameValidationCheck(this.uploadFileName) && this.fileName && this.permissionService.nameValidationCheck(this.fileName) || this.description && this.permissionService.nameValidationCheck(this.description)) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length  && this.batchVar.dategreater && this.scheduleName){ 
         let data = {
           "courseId":'',
           "createdBy"  :this.userId,
