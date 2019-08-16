@@ -843,7 +843,15 @@ page-course .complete-status{
     font-weight: 600;
     text-align: right;
     margin-top: 10px !important;
-}       
+}  
+page-course .progress-tab .tab-item:nth-child(3) {
+    border-right: 1px solid #329CD6;
+}     
+ }
+ @media (max-width: 480px) {
+    page-course .progress-tab .tab-item:nth-child(3) {
+        border-right: 1px solid #329CD6;
+    }    
  }
  @media (min-width: 375px) and (max-width: 667px) { 
      .calendar td {
@@ -863,7 +871,10 @@ page-course .complete-status{
     font-weight: 600;
     text-align: right;
     margin-top: 10px !important;
-}             
+}  
+// page-course .progress-tab .tab-item:nth-child(3) {
+//     border-right: 1px solid #329CD6;
+// }              
  }
  @media (min-width: 414px) and (max-width: 736px) { 
 .calendar td {
@@ -884,7 +895,9 @@ page-course .complete-status{
     text-align: right;
     margin-top: 10px !important;
 }                         
-                    
+// page-course .progress-tab .tab-item:nth-child(3) {
+//     border-right: 1px solid #329CD6;
+// }                      
  }
  @media (min-width: 736px) and (max-width: 812px) { 
      .calendar td {

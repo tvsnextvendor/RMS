@@ -228,6 +228,11 @@ h6{
     font-weight: 100;
     font-family: 'sf_pro_displaysemibold';
 }
+.view-text:hover{
+    color: #468FB9;
+    text-decoration: underline;
+    cursor: pointer;
+}
 .ack-label{
     float: right;
     margin: -4px 0 0 11px;
