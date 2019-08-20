@@ -38,6 +38,7 @@ export class API_URL {
        'fileTrainingStatus': '8103/updateFileTrainingStatus',
        'updateTrainingStatus':'8103/updateUserTrainingStatus',
        'trainingCourseFilesAPI':'8103/trainingClass/TrainingFileList',
+       'trainingClassFilesAPI':'8103/trainingClass/classFilesList',
        'quizAPI':'8103/trainingClass/QuizList',
        'completeTrainingClass':'8103/updateTrainingClassCompletedStatus',
        'postFeedBack':'8103/courseFeedback',

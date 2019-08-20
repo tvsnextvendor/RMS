@@ -54,6 +54,7 @@ export class TrainingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public loader: LoaderService) {
     this.detailObject = this.navParams.data;
+    console.log(this.detailObject,"trainingPAGE");
     this.courseIdParams = this.detailObject.courseId;
     this.trainingScheduleId = this.detailObject.trainingScheduleId;
     this.statusKey = this.detailObject['status'] ? this.detailObject['status'] : 'assigned';
@@ -102,8 +103,8 @@ export class TrainingPage {
         });
     });
   }
+  
   getCourseTrainingClasses() {
-   // let courseId = this.courseIdParams;
     let self = this;
     let userId = this.currentUser.userId;
     let resortId = this.currentUser.ResortUserMappings[0].resortId;
@@ -159,13 +160,16 @@ export class TrainingPage {
     });
   }
   //open  page
-  openTrainingDetail(detailObj, selectedIndex, uploadPath) {
-    console.log(detailObj,"DETAILOBJ")
-    this.paramsData['status'] = detailObj.FeedbackMappings.length ? (detailObj.QuizMappings.length == 0 ? this.checkCompleted(detailObj) : detailObj.FeedbackMappings[0].status )  : (detailObj.QuizMappings.length == 0 ? "noQuiz" : 'inProgress' ) ;
-    this.paramsData['setData'] = detailObj;
-    this.paramsData['selectedIndex'] = selectedIndex;
-    this.paramsData['uploadPath'] = uploadPath;
-    this.paramsData['scheduleId'] = this.trainingScheduleId;
+  openTrainingDetail(data) {
+    this.paramsData['trainingClassId'] = data.CourseTrainingClassMaps[0].trainingClassId;
+    this.paramsData['courseId'] = data.CourseTrainingClassMaps[0].courseId;
+    // this.paramsData['status'] = detailObj.FeedbackMappings.length ? (detailObj.QuizMappings.length == 0 ? this.checkCompleted(detailObj) : detailObj.FeedbackMappings[0].status )  : (detailObj.QuizMappings.length == 0 ? "noQuiz" : 'inProgress' ) ;
+    this.paramsData['status'] = data.FeedbackMappings.length ? data.FeedbackMappings[0].status : 'inProgress';    
+    this.paramsData['setData'] = this.detailObject;
+    this.paramsData['setData']['passPercentage'] = data.CourseTrainingClassMaps[0].Course.TrainingScheduleCourses[0].passPerc;
+    // this.paramsData['selectedIndex'] = selectedIndex;
+    // this.paramsData['uploadPath'] = uploadPath;
+    this.paramsData['trainingScheduleId'] = this.trainingScheduleId;
     this.navCtrl.push(TrainingDetailPage, this.paramsData);
   }
 

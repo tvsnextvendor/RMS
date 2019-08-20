@@ -155,7 +155,8 @@ export class Constant {
             readLess: '<< Read Less',
             willExpire: 'Will expire in',
             launchMsg : 'This feature cannot be accessed via mobile application. Please check your email for credentials and open the application in a web browser',
-            retakeCourse :'Please retake course to get certified'
+            retakeCourse :'Please retake course to get certified',
+            retakeClass: 'Retake class to get certified'
         },
         libraryLabels:{
 

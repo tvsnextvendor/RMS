@@ -28,10 +28,11 @@ export class QuizPage {
         console.log(this.trainingObj,"QUIZ");
         this.videoMenuTitle = this.trainingObj['setData'].trainingClassName;
         this.trainingClassId = this.trainingObj['setData'].trainingClassId;
-        this.passPercentage = this.trainingObj['setData'].CourseTrainingClassMaps.length ? this.trainingObj['setData'].CourseTrainingClassMaps[0].Course.TrainingScheduleCourses[0].passPerc : '';
-        this.courseId = this.trainingObj['setData'].CourseTrainingClassMaps.length ? this.trainingObj['setData'].CourseTrainingClassMaps[0].Course.courseId : '';
-        this.courseName = this.trainingObj['setData'].CourseTrainingClassMaps.length ? this.trainingObj['setData'].CourseTrainingClassMaps[0].Course.courseName : '';
+        this.passPercentage = this.trainingObj['setData'].passPercentage;
+        this.courseId = this.trainingObj['setData'].courseId;
+        this.courseName = this.trainingObj['setData'].courseName;
         this.quizData = this.trainingObj.quizData;
+        console.log(this.trainingObj,"QUIZ jcn")
     }
 
      ngAfterViewInit() {
@@ -93,8 +94,9 @@ export class QuizPage {
             "totalQuestions"    : this.quizData[0].Questions.length,
             "correctAnswers"    : correctAnswersCount,
             "trainingClassId"   : this.trainingClassId,
-            "scheduleId": this.trainingObj['scheduleId'],
+            "scheduleId": this.trainingObj['setData'].trainingScheduleId,
             "trainingClassName" : this.trainingObj['setData'].trainingClassName,
+            "typeSet" : this.trainingObj['setData'].typeSet,
             "courseName": this.courseName,
             "passPerc" : this.passPercentage 
         };

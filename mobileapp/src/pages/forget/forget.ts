@@ -45,8 +45,8 @@ export class ForgetPage implements OnInit {
     }
     this.http.post(false,API_URL.URLS.forgetPassword, postData).subscribe((res) => {
       if(res['isSuccess']){
-         this.toastrMessage(res['message'], 'success');
          this.navCtrl.setRoot('login-page');
+         this.toastrMessage(res['message'], 'success');
       }else{
         this.toastrMessage(res['error'], 'error');
       }

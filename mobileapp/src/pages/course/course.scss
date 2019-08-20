@@ -114,5 +114,34 @@ ion-col.batch-name {
 }
 
 
+ .status-fail {
+	font-size: 12px;
+	color: #df3e3e;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-family: 'sf_pro_displayregular';
+	font-weight: 600;
+	line-height: 18px;
+}
+
+
+ .status-pass {
+	font-size: 12px;
+	color: #279014;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-family: 'sf_pro_displayregular';
+	font-weight: 600;
+	line-height: 18px;
+ }
+  
+ status-h3{
+	 padding-top: 5px
+ }
+
+
+
 
 

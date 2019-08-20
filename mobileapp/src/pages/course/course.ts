@@ -74,9 +74,7 @@ export class CoursePage implements OnInit {
               if(res != "[]"){
                 let data =JSON.parse(res);
                 let obj = data.find(o => o.moduleName === 'Employee Content Upload');
-                console.log(obj,"OBJ")
                 this.hideUploadContent = obj && obj['upload'] ? obj['upload'] : false;
-                console.log(this.hideUploadContent)
               }  
             });
             this.storage.get('currentUser').then((user: any) => {
@@ -124,19 +122,30 @@ export class CoursePage implements OnInit {
     if(this.status == 'assigned'){
     let userId = this.currentUser ? this.currentUser.userId : 8;
         let postData={
-        'courseId' :data.courseId,
         'userId' : userId,
         'status': "inProgress"
         }
+        data.Course ? postData['courseId'] = data.courseId : postData['trainingClassId'] = data.trainingClassId;
         this.http.put(false,API_URL.URLS.updateTrainingStatus, postData).subscribe((res) => {      
         },(err) => {
           console.log(err);
         });
       }
-    this.paramsData['courseId'] = data.courseId;
-    this.paramsData['trainingScheduleId'] = data.TrainingScheduleResorts[0].TrainingSchedule.trainingScheduleId;
-    this.paramsData['status'] = this.status;
-    this.navCtrl.push('training-page',this.paramsData);
+      this.paramsData['courseId'] = data.courseId;
+      this.paramsData['courseName'] = data.Course ? data.Course.courseName:'';
+      this.paramsData['trainingScheduleId'] = data.TrainingSchedule.trainingScheduleId;
+      this.paramsData['status'] = this.status;
+   
+      if(data.Course){   
+        this.paramsData['typeSet'] = 'Course';
+        this.navCtrl.push('training-page',this.paramsData);
+      }else{
+        this.paramsData['setData'] = {};
+        this.paramsData['setData']['typeSet'] = 'Class';
+        this.paramsData['trainingClassId'] = data.trainingClassId ? data.trainingClassId : '';
+        this.navCtrl.push('trainingdetail-page', this.paramsData);
+      }
+    
   }
 
   openSignRequireDetail(Files, notificationFileId){
@@ -265,9 +274,10 @@ export class CoursePage implements OnInit {
     });
   }
 
-  calculateExpireDays(dueDate) {
+  calculateExpireDays(duedate) {
+    let dueDate = moment(duedate).format("YYYY-MM-DD");
     let todaysDate = moment(new Date()).format("YYYY-MM-DD");
-    let tomDate = moment(new Date()).add(1,'days').format("YYYY-MM-DD");;
+    let tomDate = moment(new Date()).add(1,'days').format("YYYY-MM-DD");
     if(dueDate == todaysDate){
       let string = "Expires Today"
       return string;
@@ -276,8 +286,7 @@ export class CoursePage implements OnInit {
       return string;
     }else{
     const a = moment(new Date());
-    const b = moment(new Date(dueDate));
-    let string =  this.constant.pages.trainingLabels.willExpire +' ' + a.to(b, true);
+    let string =  this.constant.pages.trainingLabels.willExpire +' ' + a.to(dueDate, true);
     return string;
     }
   }

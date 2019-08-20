@@ -25,7 +25,7 @@ export class AuthProvider {
   
   
   login(name: string, pw: string, keepmelogin: boolean): Observable <any>{
-      let postData = {'emailAddress':name,'password':pw,'keepmelogin':keepmelogin,'type':'mobile'};
+      let postData = {'emailAddress':name,'password':pw,'keepmelogin':keepmelogin,'type':'mobile', 'agreeTerms': 1};
      return this.http.post(API['API_LINK']+API_URL.URLS.loginAPI,postData).pipe(
         map((res) => {
         if (res['isSuccess'])

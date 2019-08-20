@@ -37,8 +37,9 @@ export class QuizResultPage implements OnInit {
         this.Math = Math;
         this.resultData = navParams.data;
         this.trainingClassName = this.resultData['trainingClassName'];
+        console.log(this.resultData,"RESULT")
         this.noQuiz = this.resultData['status'] ? true : false ;
-        this.resultData['passPercentage'] = this.resultData['passPerc'];
+        // this.resultData['passPercentage'] = this.resultData['passPercentage'];
         this.resultData['percentage'] = Math.round((this.resultData['correctAnswers'] / this.resultData['totalQuestions']) * 100);
         events.subscribe('star-rating:changed', (starRating) => {
             this.feedback.rating = starRating;
@@ -50,7 +51,7 @@ export class QuizResultPage implements OnInit {
           //  'description': new FormControl('', [Validators.required])
             'description': new FormControl('')
         });
-        if(this.noQuiz || this.resultData['percentage'] >= this.resultData['passPercentage'] ) {
+        if(this.noQuiz || this.resultData['percentage'] >= this.resultData['passPerc'] ) {
            this.msgToUser = "You have successfully completed.";
            this.success = true;
         }else{
@@ -129,6 +130,7 @@ export class QuizResultPage implements OnInit {
             "trainingClassId": data['trainingClassId'],
             "userId":this.currentUser.userId,
             "courseName": data['courseName'],
+            "typeSet":this.resultData['typeSet'],
             "userName": this.currentUser.userName,
             "lastName":this.currentUser.lastName,
             "resortId": this.currentUser.ResortUserMappings[0].resortId,

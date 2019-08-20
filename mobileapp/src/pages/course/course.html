@@ -62,17 +62,20 @@
                   <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                     <img src="assets/imgs/profile_circle.png" class="forum-img">
                   </ion-col>
-                  <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task">
-                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.courseName}}</h4>
-                    <p class="notify-txt">{{task.CourseTrainingClassMaps.length}}
+                  <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.Course">
+                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.Course.courseName}}</h4>
+                    <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                       {{constant.pages.trainingLabels.trainingClass}}</p>
                   </ion-col>
+                  <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.TrainingClass">
+                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.TrainingClass.trainingClassName}}</h4>
+                  </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
-                    <div class="align-right" *ngIf="task">
-                      <span class="hour-status batch-date">Due On - {{task.TrainingScheduleResorts[0].TrainingSchedule.dueDate | date:'dd MMM
+                    <div class="align-right" *ngIf="task.TrainingSchedule">
+                      <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM
                         yyyy'}}</span>
                       <p class="org-color alert-txt-style">
-                        {{calculateExpireDays(task.TrainingScheduleResorts[0].TrainingSchedule.dueDate)}}</p>
+                        {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
                     </div>
                     <!-- <div class="align-right" *ngIf="task.NotificationFile">
                       <span class="hour-status batch-date">Due On - {{task.NotificationFile.dueDate | date:'dd MMM
@@ -111,17 +114,29 @@
                   <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                     <img src="assets/imgs/profile_circle.png" class="forum-img">
                   </ion-col>
-                  <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task">
-                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.courseName}}</h4>
-                    <p class="notify-txt">{{task.CourseTrainingClassMaps.length}}
+                  <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.Course">
+                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.Course.courseName}}</h4>
+                    <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                       {{constant.pages.trainingLabels.trainingClass}}</p>
+                  </ion-col>
+                  <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.TrainingClass">
+                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.TrainingClass.trainingClassName}}</h4>
+                      <h3 class="status-h3" *ngIf="task.TrainingClass.FeedbackMappings.length > 0">
+                        <span class="status-pass" *ngIf="task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].status == 'passed'">Completed -
+                          {{task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].passPercentage}} %
+                        </span>
+                        <span class="status-fail" *ngIf="task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].status == 'failed'">Failed -
+                          {{task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].passPercentage }} % <br>
+                          <span>{{constant.pages.trainingLabels.retakeClass}}</span>
+                        </span>
+                      </h3>
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
                     <div class="align-right" *ngIf="task">
-                      <span class="hour-status batch-date">Due On - {{task.TrainingScheduleResorts[0].TrainingSchedule.dueDate | date:'dd MMM
+                      <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM
                         yyyy'}}</span>
                       <p class="org-color alert-txt-style">
-                        {{calculateExpireDays(task.TrainingScheduleResorts[0].TrainingSchedule.dueDate)}}</p>
+                        {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
                     </div>
                     <!-- <div class="align-right" *ngIf="task.NotificationFile">
                       <span class="hour-status batch-date">Due On - {{task.NotificationFile.dueDate | date:'dd MMM
@@ -204,10 +219,13 @@
                   <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                     <img src="assets/imgs/profile_circle.png" class="forum-img">
                   </ion-col>
-                  <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task">
-                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.courseName}}</h4>
-                    <p class="notify-txt">{{task.CourseTrainingClassMaps.length}}
+                  <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.Course">
+                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.Course.courseName}}</h4>
+                    <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                       {{constant.pages.trainingLabels.trainingClass}}</p>
+                  </ion-col>
+                  <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.TrainingClass">
+                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.TrainingClass.trainingClassName}}</h4>
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
                     <!-- <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
@@ -241,11 +259,11 @@
       </div>
     </ion-list>
   </div>
-
+<!-- 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
 
 </ion-content>
 <ion-footer class="fixed-btn" *ngIf="hideUploadContent">
