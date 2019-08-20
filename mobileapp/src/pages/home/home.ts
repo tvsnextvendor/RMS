@@ -96,10 +96,27 @@ export class HomePage {
     this.enableIndex = i;
   }
 
-   calculateExpireDays(dueDate) {
+  //  calculateExpireDays(dueDate) {
+  //   const a = moment(new Date());
+  //   const b = moment(new Date(dueDate));
+  //   return a.to(b, true);
+  // }
+
+   calculateExpireDays(duedate) {
+    let dueDate = moment(duedate).format("YYYY-MM-DD");
+    let todaysDate = moment(new Date()).format("YYYY-MM-DD");
+    let tomDate = moment(new Date()).add(1,'days').format("YYYY-MM-DD");
+    if(dueDate == todaysDate){
+      let string = "Expires Today"
+      return string;
+    }else if(dueDate == tomDate){
+      let string = "Will expire tomorrow"
+      return string;
+    }else{
     const a = moment(new Date());
-    const b = moment(new Date(dueDate));
-    return a.to(b, true);
+    let string =  this.constant.pages.trainingLabels.willExpire +' ' + a.to(dueDate, true);
+    return string;
+    }
   }
 
    //Infinite scroll event call
