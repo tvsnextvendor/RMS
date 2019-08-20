@@ -692,6 +692,7 @@ export class AddQuizComponent implements OnInit {
                             delete params.noQuiz;
                         }
                         // console.log(params)
+
                         this.courseService.updateTrainingClass(this.classId,params).subscribe((result) => {
                             // console.log(result)
                             if(result && result.isSuccess){
@@ -786,8 +787,10 @@ export class AddQuizComponent implements OnInit {
             "weightage": '100',
             "answer": ''
         }];
+        this.quizName = '';
     }
     if(!event.target.checked && this.enableQuiz) {
+        this.quizName = this.quizNames ? this.quizNames : '';
         this.editQuizDetails(this.quizDetails);
     }
     if(this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)){

@@ -73,7 +73,10 @@ export class UserService {
 
   bulkUpload(params,userId,resortId){
     const formData = new FormData();
-    formData.append("file",params)
+    formData.append("file",params.file);
+    formData.append("divisionId",params.divisionId);
+    formData.append("departmentId",params.departmentId);
+    formData.append("designationId",params.designationId);
     return this.http.upload('local',this.url.bulkUploadUrl+'?createdBy='+userId+'&resortId='+resortId, formData);
   }
 

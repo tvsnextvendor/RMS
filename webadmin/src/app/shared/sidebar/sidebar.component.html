@@ -30,6 +30,9 @@
             <li [class.active]="router.isActive('/certification/trend')">
                 <a routerLink="/certification/trend">{{commonLabels.labels.certifiTrend}}</a>
             </li>
+            <li [class.active]="router.isActive('/expiring/trend')">
+                <a routerLink="/expiring/trend">{{commonLabels.labels.expiringTrend}}</a>
+            </li>
         </ul>  
         <li [class.active]="router.isActive('/archivalsetting')">
             <a routerLink="/archivalsetting"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.purgeSettings}}</a>
@@ -104,6 +107,9 @@
             </li>
             <li [class.active]="router.isActive('/certification/trend')" *ngIf="permissionCheck('Certification Trend','view')">
                 <a routerLink="/certification/trend">{{commonLabels.labels.certifiTrend}}</a>
+            </li>
+            <li [class.active]="router.isActive('/expiring/trend')">
+                <a routerLink="/expiring/trend">{{commonLabels.labels.expiringTrend}}</a>
             </li>
         </ul>  
         <li [class.active]="router.isActive('/resource/library')"  *ngIf="permissionCheck('Resource Library','view')">
@@ -206,6 +212,9 @@
                 </li> -->
                 <li [class.active]="router.isActive('/certification/trend')"  *ngIf="permissionCheck('Certification Trend','view')">
                     <a routerLink="/certification/trend">{{commonLabels.labels.certifiTrend}}</a>
+                </li>
+                <li [class.active]="router.isActive('/expiring/trend')">
+                    <a routerLink="/expiring/trend">{{commonLabels.labels.expiringTrend}}</a>
                 </li>
             </ul>  
             <li [class.active]="router.isActive('/resource/library')"  *ngIf="permissionCheck('Resource Library','view')">

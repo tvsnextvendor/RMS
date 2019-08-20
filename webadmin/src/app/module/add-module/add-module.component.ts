@@ -748,7 +748,9 @@ export class AddModuleComponent implements OnInit {
    }
    
     videoSubmit() {
-        this.messageClose();
+        // this.messageClose();
+        this.message = '';
+        this.videoMessage = '';
         let self = this;
         this.videoSubmitted = true;
         let videoObj;

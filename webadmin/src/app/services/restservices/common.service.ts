@@ -211,4 +211,17 @@ getAllResort(query){
   return this.http.getLocal('local', this.url.getAllResort + query);
 }
 
+getExpireTrendList(query,courseId,type){
+  let id = type == 'course' &&  courseId ? '?courseId='+courseId : type == 'class' && courseId ? '?trainingClassId='+courseId : '' ;
+  return this.http.getLocal('local', this.url.expireTrend +id+query);
+}
+getClassTrendList(courseTrendObj,query) {
+  return this.http.getLocal('local', this.url.getTrainingClassByYear + '?year=' + courseTrendObj.year + query + '&month=' + courseTrendObj.month);
+}
+getReportingManager(query){
+  return this.http.post('local', this.url.getReportingManager, query);
+}
+sendExpireNotification(params){
+  return this.http.post('local', this.url.getReportingManager, params);
+}
 }

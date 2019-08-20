@@ -221,7 +221,11 @@ export class API_URL {
     badgesData: '8103/getBadges',
     archievedSettings : '8103/archieved',
     removeSchedule : '8103/schedule/deleteSchedule/',
-    // addArchieve : '8103/archieved',
+    expireTrend     : '8103/employeesExpireList',   
+    getTrainingClassByYear : '8103/getAllTCByMonth',
+    getReportingManager   : '8103/user/getReportingManagers',
+    sendExpireNotification    : '8103/user/sendExpireNotification',
+     // addArchieve : '8103/archieved',
     // updateArchieve : '8103/archieved/',
 
     //password update
