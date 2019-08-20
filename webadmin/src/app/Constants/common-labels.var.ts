@@ -33,6 +33,7 @@ export class CommonLabels{
         "course"            :   "Course",
         "class"             :   "Class",
         "trainingClass"     :   "Training Class",
+        "className"         :   "Training Class Name",
         "videos"            :   "Videos",
         "documents"         :   "Documents",
         "notification"      :   "Notification",
@@ -368,6 +369,7 @@ export class CommonLabels{
         "deleteConfirm"     :   "Delete Confirmation",
         "rejectConfirm"     :   "Reject Confirmation",
         "approvalConfirm"   :   "Approval Confirmation",
+        "notifyConfirm"     :   "Notification Confirmation",
         "approvalConfirmation" : "Are you sure you want to send it for approval?",
         "approveStatusConfirm" : "Did you need second level approval?",
         "rejectStatusConfirm"  : "Are you sure you want to reject?",
@@ -379,7 +381,11 @@ export class CommonLabels{
         "firstName"         :   "First Name",
         "lastName"          :   "Last Name",
         "courseList"        :   "Course List",
-        "statusList"        :   "Course Status details"
+        "statusList"        :   "Course Status details",
+        "expiringTrend"     :   "Expiring Trend",
+        "sendToAll"         :   "Send to all employee",
+        "sendToReporter"    :   "Send only to reporting persons",
+        "reportingError"    :   "Please select minimum one reporting manager"
     };
 
     btns = {
@@ -438,6 +444,7 @@ export class CommonLabels{
         "addSchedule"       :   "Add Schedule",
         "recentDelete"      :   "Recently Deleted",
         "editQuiz"          :   "Edit Quiz",
+        "sendNotification"  :   "Send Notification"
         
        
     };

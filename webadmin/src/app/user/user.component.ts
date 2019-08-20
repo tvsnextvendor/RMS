@@ -97,6 +97,20 @@ export class UserComponent implements OnInit {
     userPagesEnable = false;
     selectTab = 'user';
     activatedTab = 'user';
+    resortId = null;
+    bulkUploadWarn = false;
+    designationSettings = {
+        singleSelection: false,
+        idField: 'designationId',
+        textField: 'designationName',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        enableCheckAll: true,
+        itemsShowLimit: 8,
+        allowSearchFilter : true,
+        searchPlaceholderText : "Search",
+        clearSearchFilter : true
+    }
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService,public permissionService : PermissionService,
@@ -109,8 +123,9 @@ export class UserComponent implements OnInit {
         let userData = this.utilService.getUserData();
         // this.csvDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.csv';
         let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
-        // this.xlsDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.xlsx';
-        this.xlsDownload = resortId  ? this.API_ENDPOINT + '8101/user/createExcelTemplate?resortId='+resortId : '';
+        this.resortId = resortId;
+        this.xlsDownload = this.API_ENDPOINT + '8101/user/createXLS';
+        // this.xlsDownload = resortId  ? this.API_ENDPOINT + '8101/user/createExcelTemplate?resortId='+resortId : '';
         this.headerService.setTitle({ title: this.commonLabels.titles.userManagement, hidemodule: false });
         this.breadCrumbService.setTitle([]);
         this.pageLimitOptions = [5, 10, 25];
@@ -307,6 +322,8 @@ export class UserComponent implements OnInit {
 
     openAddRole(template: TemplateRef<any>, data, index) {
         if(data == 'bulk'){
+            this.getResortDetails();
+            this.resetBulkUploadData();
             this.constant.modalRef = this.modalService.show(template, this.constant.modalConfig);
         }
         else{
@@ -679,9 +696,15 @@ export class UserComponent implements OnInit {
           }
         if(!this.fileExist){
             this.existingFile.push(fileUploadValue.name)
-            let params = { 'file': fileUploadValue }
-            if (fileUploadValue) {
-                this.userService.bulkUpload(fileUploadValue, userId, resortId).subscribe(resp => {
+            let params = { 
+                            'file': fileUploadValue ,
+                            'divisionId' : this.selectedDivisionId.toString(),
+                            'departmentId' : this.department.map(item => { return item.departmentId }).toString(),
+                            'designationId'  : this.designation.map(item =>{return item.designationId}).toString()
+                        }
+            if (fileUploadValue && this.selectedDivisionId.length && this.department.length &&  this.designation.length) {
+                this.bulkUploadWarn = false;
+                this.userService.bulkUpload(params, userId, resortId).subscribe(resp => {
                     if (resp && resp.isSuccess) {
                         this.constant.modalRef.hide();
                         this.userList();
@@ -693,8 +716,12 @@ export class UserComponent implements OnInit {
                     console.log(err.error.error);
                     this.constant.modalRef.hide();
                     this.fileUploadValue = '';
+                    this.resetBulkUploadData();
                     this.alertService.error(err.error.error);
                 })
+            }
+            else{
+                this.bulkUploadWarn = true;
             }
         }
     }
@@ -871,6 +898,7 @@ export class UserComponent implements OnInit {
             this.division = event;
             if (!event.length) {
                 this.departmentArray = [];
+                this.department = [];
             }
             else {
                 this.onEmpSelect('', 'div');
@@ -882,8 +910,7 @@ export class UserComponent implements OnInit {
         this.selectedDivisionId = this.division.length && this.division.map(item => { return item.divisionId });
         this.selectedDepartmentId = this.department.length && this.department.map(item => { return item.departmentId });
         this.selectedDesignationId = this.designation.length && this.designation.map(item => { return item.designationId });
-        if (key == 'div') {
-            
+        if (key == 'div') {         
             if(this.selectedDivisionId.length){
                 const obj = { 'divisionId': this.selectedDivisionId };
                 this.commonService.getDepartmentList(obj).subscribe((result) => {
@@ -1086,8 +1113,21 @@ export class UserComponent implements OnInit {
         this.userList();
     }
     cancelBulkUpload(){
-        this.fileExist = false;
+        this.resetBulkUploadData();
         this.constant.modalRef.hide();
+    }
+
+    resetBulkUploadData(){
+        this.fileExist = false;
+        this.designation = [];
+        this.division = [];
+        this.department = [];
+        this.departmentArray = [];
+        this.batchVar.divisionList = [];
+        this.batchVar.selectedResort = null;
+        this.bulkUploadWarn = false;
+        let userData = this.utilService.getUserData();
+        this.resortId =  userData.ResortUserMappings && userData.ResortUserMappings.length ? userData.ResortUserMappings[0].Resort.resortId : '';
     }
 
     ngOnDestroy(){
@@ -1096,5 +1136,27 @@ export class UserComponent implements OnInit {
         this.fileExist = false;
         this.userPagesEnable = false;
         this.selectTab = 'user';
+    }
+    getResortDetails() {
+        let userData = this.utilService.getUserData();
+        let resortId = userData.ResortUserMappings && userData.ResortUserMappings.length ? userData.ResortUserMappings[0].Resort.resortId : '';
+        this.commonService.getParentChildResorts(resortId).subscribe((result) => {
+          if (result && result.isSuccess) {
+              this.batchVar.resortList = result.data && result.data.rows.length ? result.data.rows : [];
+          }
+        });
+    }
+    getResortData(resortId) {
+        this.batchVar.departmentList = [];
+        this.batchVar.divisionList = [];
+        this.batchVar.employeeList = [];
+        this.batchVar.selectedDivision = [];
+        this.batchVar.selectedDepartment = [];
+        this.batchVar.selectedEmp = []; 
+        this.resortService.getResortByParentId(resortId).subscribe((result) => {
+            (this.resortId == parseInt(resortId)) ? this.batchVar.resortList = result.data.Resort : '';
+            this.batchVar.divisionList = result.data.divisions;
+            this.batchVar.selectedResort = resortId;
+        })
     }
 }

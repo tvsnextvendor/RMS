@@ -708,26 +708,81 @@
     </ng-template>
 
     <ng-template #bulkUpload>
-            <div class="modal-header pb-0">
-                <p class="hd-alg">{{commonLabels.btns.uploadEmp}}</p>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelBulkUpload()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div *ngIf="fileExist"><span class="required_color text-left">{{commonLabels.msgs.fileExist}}</span></div>         
-            <div class="modal-body text-center">
-                <div class="download-para">
+        <div class="modal-header pb-0">
+            <p class="hd-alg">{{commonLabels.btns.uploadEmp}}</p>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="cancelBulkUpload()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div *ngIf="fileExist">
+            <span class="required_color text-left">{{commonLabels.msgs.fileExist}}</span>
+        </div>         
+        <div class="modal-body text-center">
+            <div class="download-para">
                 <!-- <span class="mr-3"><a href="{{csvDownload}}"><i class="fas fa-download mr-2"></i><span class="download-alg">Download CSV Template</span></a></span> -->
                 <span><a  href="{{xlsDownload}}"><i class="fas fa-download mr-2"></i><span class="download-alg">Download XLS Template</span></a></span>
             </div>
-
-                <div class="text-center mt-3">
-                    <button class="fileUpload btn btn-primary addUser-upload creat-btn mr-3">
-                        <span>{{commonLabels.labels.upload}}</span>
-                        <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
-                            accept=".xlsx,.csv" />
-                    </button>
-                    <button type="button" class="btn btn-default" (click)="cancelBulkUpload()">{{commonLabels.btns.cancel}}</button>
+            <span class="required_color" *ngIf="bulkUploadWarn">Please select all the following values with content file </span>
+            <div class="row">
+                <div class="col-md-5 p-0 float-left">
+                    <div class="pl-0 form-group select-Courses select select-style clearfix">
+                        <select id="resort" class="form-control p-0" name="resortId" [(ngModel)]="batchVar.selectedResort" #resort (change)=getResortData(resort.value)>
+                            <option value="null" disabled>{{commonLabels.labels.resort}}</option>
+                            <option *ngFor="let data of batchVar.resortList" value="{{data.resortId}}">{{data.resortName  | titlecase}}</option>
+                        </select> <div class="select_arrow"></div>
+                        <span class="required_color" *ngIf="submitted && !batchVar.selectedResort">
+                            {{commonLabels.mandatoryLabels.selectResort}}
+                        </span>
+                    </div>
+                    <div class="pl-0 form-group select-Courses select select-style clearfix">
+                        <ng-multiselect-dropdown [placeholder]="'Department'" name="departmentId" [data]="departmentArray"
+                            [(ngModel)]="department" [settings]="batchVar.departmentSettings" (onSelect)="onEmpSelect($event,'dept')"
+                            (onDeSelect)="onEmpSelect($event,'dept')" #departmentId="ngModel" (onSelectAll)="onEmpAllSelect($event,'dept')" (onDeSelectAll)="onEmpAllSelect($event,'dept')" required></ng-multiselect-dropdown>
+                        <span class="required_color" *ngIf="submitted && !batchVar.selectedDepartment.length">
+                            {{commonLabels.mandatoryLabels.dept}}
+                        </span>
+                    </div>
                 </div>
+                <div class="col-md-5 p-0 ml-auto">
+                    <div class="pl-0 form-group select-Courses">
+                        <ng-multiselect-dropdown [placeholder]="'Division'" name="divisionId" (onSelect)="onEmpSelect($event,'div')" (onDeSelect)="onEmpSelect($event,'div')" [data]="batchVar.divisionList"
+                            [(ngModel)]="division" [settings]="batchVar.divisionSettings"  #divisionId="ngModel" (onSelectAll)="onEmpAllSelect($event,'div')" (onDeSelectAll)="onEmpAllSelect($event,'div')" required></ng-multiselect-dropdown>
+                        <span class="required_color" *ngIf="submitted && !batchVar.selectedDivision.length">
+                            {{commonLabels.mandatoryLabels.division}}
+                        </span>
+                    </div>
+                    <!-- <div class="row form-group"> -->
+                            <!-- <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.role}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                             <span class="col-md-1"></span>
+                            <span class="col-md-7 pl-0 select select-style clearfix mb-0"> -->
+                        <div class="pl-0 form-group select-Courses">
+                            <ng-multiselect-dropdown [placeholder]="'Designation'" name="designation" [data]="designationArray"
+                            [(ngModel)]="designation" [settings]="designationSettings" (onSelect)="onEmpSelect($event,'design')" 
+                            (onDeSelect)="onDeselect($event,'design')" #departmentId="ngModel" required></ng-multiselect-dropdown>
+                            <span class="required_color" *ngIf="submitted && !designation.length">
+                                {{commonLabels.mandatoryLabels.roleName}}
+                            </span>
+                        </div>
+                            <!-- </span>  -->
+                    <!-- </div> -->
+                    <!-- <div class="pl-0 form-group select-Courses">
+                        <ng-multiselect-dropdown [placeholder]="'Employees'" name="employeeId"  (onSelect)="onEmpSelect($event,'emp')"  (onDeSelect)="onEmpDeSelect($event)" [data]="batchVar.employeeList"
+                            [(ngModel)]="batchVar.selectedEmp" [settings]="batchVar.empSettings" #empId="ngModel" (onSelectAll)="onEmpAllSelect($event,'emp')" (onDeSelectAll)="onEmpAllSelect($event,'emp')"  required></ng-multiselect-dropdown>
+                        <span class="required_color" *ngIf="submitted && !batchVar.selectedEmp.length">
+                            {{commonLabels.mandatoryLabels.selectEmp}}
+                        </span>
+                    </div> -->
+                </div>  
+                <div class="col-md-6 pl-0 form-group"></div>
             </div>
-        </ng-template>
+
+            <div class="text-center mt-3">
+                <button class="fileUpload btn btn-primary addUser-upload creat-btn mr-3">
+                    <span>{{commonLabels.labels.upload}}</span>
+                    <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
+                        accept=".xlsx,.csv" />
+                </button>
+                <button type="button" class="btn btn-default" (click)="cancelBulkUpload()">{{commonLabels.btns.cancel}}</button>
+            </div>
+        </div>
+    </ng-template>
