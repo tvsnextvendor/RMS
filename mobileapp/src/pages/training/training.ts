@@ -54,7 +54,6 @@ export class TrainingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public loader: LoaderService) {
     this.detailObject = this.navParams.data;
-    console.log(this.detailObject,"trainingPAGE");
     this.courseIdParams = this.detailObject.courseId;
     this.trainingScheduleId = this.detailObject.trainingScheduleId;
     this.statusKey = this.detailObject['status'] ? this.detailObject['status'] : 'assigned';

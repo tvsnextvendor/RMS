@@ -91,8 +91,7 @@ export class TrainingDetailPage {
         // this.trainingDatas = this.detailObject['setData'].FileMappings;
         // this.uploadPath = this.detailObject['uploadPath'];
         this.status= this.detailObject['status'] ? this.detailObject['status'] : '' ;
-        console.log(this.status, this.detailObject, "STATUS");
-        // console.log(this.detailObject,"STATUS");
+       // console.log(this.detailObject,"STATUS");
         // this.lastIndexs = this.trainingDatas.length - 1;
         // this.selectedIndexs = this.detailObject['selectedIndex'];
         // this.trainingStatus = this.detailObject.status;
@@ -145,7 +144,6 @@ export class TrainingDetailPage {
 
       // first page load
      loadFirstFile() {
-         console.log(this.allTrainingClasses)
         this.prevBtn = this.initial == 0 ? true : false;
         this.setTraining = this.allTrainingClasses[0].File;
         this.fileId = this.setTraining.fileId;
@@ -155,7 +153,6 @@ export class TrainingDetailPage {
      }
 
       ionViewDidEnter(){
-        console.log(this.imageType);
         //Restrict forward video
         if(!this.imageType){
          var video = <HTMLMediaElement>document.getElementById('video-width');
@@ -217,7 +214,6 @@ export class TrainingDetailPage {
                     {
                         text: 'Yes',
                         handler: () => {
-                            console.log(this.detailObject['setData'],"SETdcshjb")
                             self.paramsData['quizData'] = self.quizData;
                             self.paramsData['setData']= this.detailObject['setData'];
                             self.paramsData['setData']['trainingClassId'] = this.detailObject['trainingClassId'];
@@ -274,7 +270,7 @@ export class TrainingDetailPage {
     checkCompleteorNot(){
         let userId = this.currentUser ? this.currentUser.userId : 8;
         let data = {
-            'trainingClassId': this.detailObject['setData'].trainingClassId,
+            'trainingClassId': this.detailObject.trainingClassId,
             'userId': userId,
         }
         this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
@@ -284,7 +280,7 @@ export class TrainingDetailPage {
                 }else{
                    const resultData = {
                        "courseId": this.detailObject['setData'].courseId,
-                       "trainingClassId": this.detailObject['setData'].trainingClassId,
+                       "trainingClassId": this.detailObject.trainingClassId,
                        "scheduleId": this.detailObject['trainingScheduleId'],
                        "trainingClassName": this.detailObject['setData'].trainingClassName,
                        "courseName": this.detailObject['setData'].courseName,

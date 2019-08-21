@@ -63,7 +63,8 @@
     <ion-list *ngIf="dashboardInfo">
       <ion-card class="forum-card" *ngFor="let schedule of dashboardInfo;let i=index">
         <ion-grid>
-          <ion-row >
+          
+         <ion-row>
             <ion-col col-11 (click)="navPage('course','')">
             <ion-row>
             <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
@@ -73,27 +74,40 @@
               {{schedule.dueDate | date:'dd MMM yyyy'}}
             </ion-col>
             </ion-row>
-            </ion-col>
-            <ion-col col-1 class="batch-icon" (click)="hideShowDesc(i)">
-              <ion-icon *ngIf="!enableView || enableIndex !== i" name="ios-arrow-forward" class="arrow-icon"></ion-icon>
-              <ion-icon *ngIf="enableView && enableIndex === i" name="ios-arrow-down" class="arrow-icon"></ion-icon>
-            </ion-col>
-          </ion-row>
-          <div *ngIf="enableView && enableIndex === i" >
-            <ion-row *ngFor="let data of schedule.Resorts">
-              <ion-col col-6 class="course-count" (click)="navPage('trainingClass',data)">
-                <a>
-                <p class="course-click">{{data.Course.courseName}}</p></a>
-                <a> <p>{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}}
-                </p></a>
-
-              </ion-col>
-              <ion-col col-6 (click)="navPage('course', '')">
-                <div class="expires org-color"><span class="aligtxt">
-                    {{calculateExpireDays(schedule.dueDate)}}</span></div>
-              </ion-col>
+           </ion-col>
+          <ion-col col-1 class="batch-icon" (click)="hideShowDesc(i)">
+            <ion-icon *ngIf="!enableView || enableIndex !== i" name="ios-arrow-forward" class="arrow-icon"></ion-icon>
+            <ion-icon *ngIf="enableView && enableIndex === i" name="ios-arrow-down" class="arrow-icon"></ion-icon>
+          </ion-col>
+        </ion-row>
+          
+        <div *ngIf="enableView && enableIndex === i" >
+            <ion-row *ngFor="let data of schedule.Resorts"> 
+                 <!-- Scheduled Course-->
+                 <ion-col col-6 class="course-count" *ngIf="data.Course" (click)="navPage('trainingClass',data)">
+                  <a>
+                  <p class="course-click" (click)="navPage('trainingClass',data)">{{data.Course.courseName}}</p></a>
+                  <a> <p>{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}}
+                  </p></a>
+                </ion-col>
+                <ion-col col-6 *ngIf="data.Course" (click)="navPage('trainingClass',data)">
+                  <div class="expires org-color"><span class="aligtxt">
+                      {{calculateExpireDays(schedule.dueDate)}}</span></div>
+                </ion-col>
+              
+                <!-- Scheduled Class -->
+                <ion-col col-6 class="course-count"  *ngIf="data.TrainingClass" (click)="navPage('trainingDetail',data)">
+                  <a>
+                    <p class="course-click">{{data.TrainingClass.trainingClassName}}</p>
+                  </a>
+                </ion-col>
+                <ion-col col-6  *ngIf="data.TrainingClass" (click)="navPage('trainingDetail', data)">
+                  <div class="expires org-color"><span class="aligtxt">
+                      {{calculateExpireDays(schedule.dueDate)}}</span></div>
+                </ion-col>
             </ion-row>
           </div>
+
         </ion-grid>
       </ion-card>
     </ion-list>
