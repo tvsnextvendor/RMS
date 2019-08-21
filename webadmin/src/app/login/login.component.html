@@ -30,6 +30,12 @@
                            </label>     
                             <span  *ngIf="!forgetPasswordStatus" class="forgot-pwd" (click) = "forgetPasswordUpdate()">{{commonLabels.btns.forgetPassword}}</span>
                         </div>
+                        <div  *ngIf="!forgetPasswordStatus" class="form-group clearfix">
+                        <label class="hole-cont ml70">{{commonLabels.mandatoryLabels.agreeTerms}}
+                            <input type="checkbox" [(ngModel)] = "agreeTerms" name="agreeTerm">
+                            <span class="checkmark"></span>
+                            </label>     
+                        </div>
                         <div   *ngIf="!forgetPasswordStatus" class="form-group">
                             <button  type="submit" class="btn btn-primary login-btn">{{commonLabels.btns.login}}</button>
                         </div>
