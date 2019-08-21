@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
   passwordError = false;
   emailError = false;
   btns;
+  agreeTerms = false;
+
   constructor(private route: Router,
     public loginvar: loginVar,
     private toastr: ToastrService,
@@ -130,7 +132,8 @@ export class LoginComponent implements OnInit {
       let loginCredential = {
         emailAddress: data.email,
         password: data.password,
-        type: 'web'
+        type: 'web',
+        agreeTerms : this.agreeTerms
       }
       this.authService.login(loginCredential).subscribe(result => {
         if (result.isSuccess) {

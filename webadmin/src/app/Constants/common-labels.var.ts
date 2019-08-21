@@ -616,7 +616,8 @@ export class CommonLabels{
         "scheduleCourse"    :   'Minimum one course is required',
         "optionDuplicate"   :   "Same option value already enter for this question",
         "optionSelect"      :   "Please enter the option data before select answer",
-        "approverError"     :   "Please select the second level approver"
+        "approverError"     :   "Please select the second level approver",
+        "agreeTerms"        :   "Agree terms & conditions"
     };
 
      modaltitle ={
