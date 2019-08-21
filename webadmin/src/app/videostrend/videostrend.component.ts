@@ -143,7 +143,7 @@ export class VideosTrendComponent implements OnInit {
         };
         let query = this.resortId ? '&resortId='+this.resortId : '';
         if(this.search){
-            query = this.resortId ? '&resortId='+this.resortId+"&search="+this.search : '' ;
+            query = this.resortId ? '&resortId='+this.resortId+"&search="+this.search : "&search="+this.search ;
         }
         if(filter){
             query = query+filter;

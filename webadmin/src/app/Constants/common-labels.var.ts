@@ -385,7 +385,8 @@ export class CommonLabels{
         "expiringTrend"     :   "Expiring Trend",
         "sendToAll"         :   "Send to all employee",
         "sendToReporter"    :   "Send only to reporting persons",
-        "reportingError"    :   "Please select minimum one reporting manager"
+        "reportingError"    :   "Please select minimum one reporting manager",
+        "totalNoOfScheduleCourses"  :   "Total no. of scheduled courses -"
     };
 
     btns = {
