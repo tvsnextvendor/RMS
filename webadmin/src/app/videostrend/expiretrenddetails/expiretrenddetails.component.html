@@ -1,15 +1,15 @@
 <div class=" pt-5">
     <div class="" id="contentToConvert">
         <div class="float-right row pb-3 adduser-respon col-md-12 p-0">
-                <div class="row col-md-11 p-0">
-                    <div class="col-md-3 pl-0 select select-style clearfix">
-                            <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
-                                (change)="filterSelect(childResort.value,'resort')">
-                                <option [value]=null>{{commonLabels.labels.selectResort}}</option>
-                                <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
-                            </select>
-                            <div class="select_arrow"></div>
-                        </div>
+            <div class="row col-md-11 p-0">
+                <div class="col-md-3 pl-0 select select-style clearfix">
+                    <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
+                        (change)="filterSelect(childResort.value,'resort')">
+                        <option [value]=null>{{commonLabels.labels.selectResort}}</option>
+                        <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                </div>
                 <div class="col-md-3 pl-0 select select-style clearfix">
                     <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterDivision"
                         #parentdivision (change)="filterSelect(parentdivision.value,'division')">
@@ -27,17 +27,17 @@
                     <div class="select_arrow"></div>
                 </div>
                 <div class="col-md-3 pl-0 select select-style clearfix">
-                        <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
-                            (change)="filterSelect(emp.value,'emp')">
-                            <option [value]=null>{{commonLabels.labels.selEmp}}</option>
-                            <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
-                        </select>
-                        <div class="select_arrow"></div>
-                    </div>
-                    </div>
-                    <div class="col-md-1 refer-btn p-0">
-                    <button type="button" (click)="resetFilter()" class="btn user-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
-                    </div>
+                    <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
+                        (change)="filterSelect(emp.value,'emp')">
+                        <option [value]=null>{{commonLabels.labels.selEmp}}</option>
+                        <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                </div>
+            </div>
+            <div class="col-md-1 refer-btn p-0">
+                <button type="button" (click)="resetFilter()" class="btn user-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
+            </div>
         </div>
         <div><button class="float-right btn btn-primary" (click)="openNotificationModel(notification)">{{commonLabels.btns.sendNotification}}</button></div>
          <div class="table-responsive custom-table2 px-2">
@@ -71,10 +71,12 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let emp of trendsVar.employeeList" class="table-desc-color">
-                        <td> <label class="square-cont float-left">
-                            <input type="checkbox" name="courseId{{i}}" (change)="selectEmployee(emp,$event.target.checked)">
-                            <span class="square-checkmark"></span>
-                        </label></td>
+                        <td>
+                            <label class="square-cont float-left">
+                                <input type="checkbox" name="courseId{{i}}" (change)="selectEmployee(emp,$event.target.checked)">
+                                <span class="square-checkmark"></span>
+                            </label>
+                        </td>
                         <td class="vat employeeName-width">{{emp?.ResortUserMappings[0]?.Resort?.resortName  | titlecase}}</td>
                         <td class="vat pl-4 employeeName-width">{{emp?.userName  | titlecase}}</td>
                         <td class="vat text-left">{{getListArray(emp.ResortUserMappings,'division')}}</td>
@@ -105,7 +107,7 @@
         </div>
         <div class="modal-body text-center">
             <div class="col-md-12 clearfix">
-                <div class="col-md-12 pt-3">
+                <div class="col-md-12 pt-3 clearfix">
                     <span>
                         <label class="square-cont mr-5">
                             <input type="checkbox" [(ngModel)]="hideReporters"  (change)="reportersSelect('hide')" name="hideReport">
@@ -117,29 +119,6 @@
                             {{commonLabels.labels.sendToReporter}}
                             <span class="square-checkmark"></span>
                         </label>
-                        <!-- <label class="square-cont">
-                                <input type="radio" name="showReport" [value]= 'hide' [checked]="showReporters == 'hide' ? true : false"   (change)="reportersSelect('hide')"/>
-                                {{commonLabels.labels.sendToAll}}
-                                <span class="square-checkmark"></span>
-                            </label>
-                            <label class="square-cont">
-                                <input type="radio" name="showReport" [value]= 'show' [checked]="showReporters == 'show' ? true : false"  (change)="reportersSelect('show')"/>
-                                {{commonLabels.labels.sendToReporter}}
-                                <span class="square-checkmark"></span>
-                            </label> -->
-
-
-                            <!-- <label class="square-cont">
-                                    <input type="checkbox" [(ngModel)]="typeSet1" (change)="reportersSelect('toAllEmployee')" name="showReportSendToAll">
-                                    {{commonLabels.labels.sendToAll}}
-                                    <span class="square-checkmark"></span>
-                                </label>
-                                <label class="square-cont">
-                                    <input type="checkbox" [(ngModel)]="typeSet2" (change)="reportersSelect('toAllReportManager')" name="showReportReportManager">
-                                    {{commonLabels.labels.sendToReporter}}
-                                    <span class="square-checkmark"></span>
-                                </label> -->
-
                     </span>
                 </div>
                 <span *ngIf="reportingError" class="required_color">{{commonLabels.labels.reportingError}}</span>

@@ -64,11 +64,9 @@ export class ExpiretrenddetailsComponent implements OnInit {
     private modalService: BsModalService,
     private alertService : AlertService) { 
       this.activatedRoute.params.subscribe((params: Params) => {
-        console.log(params)
         this.courseId = params['id'];
       });
       this.activatedRoute.queryParams.subscribe((params) => {
-        console.log(params)
         this.trendType = params.type;
         // this.courseId = params['id'];
       });
@@ -93,7 +91,6 @@ export class ExpiretrenddetailsComponent implements OnInit {
     this.commonService.getExpireTrendList(query,this.courseId,this.trendType).subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.trendsVar.employeeList = resp.data.rows;
-        console.log(resp)
       }
     })
   }
@@ -123,7 +120,6 @@ filterSelect(value,type){
         this.filterDivision =null;
         this.filterDept = null;
         this.filterUser = null;
-        // console.log(value);
         this.resortService.getResortByParentId(this.filterResort).subscribe((result) => {
             if (result.isSuccess) {
                 this.divisionList = result.data.divisions;
@@ -136,7 +132,6 @@ filterSelect(value,type){
     else if(type == "division"){
         this.filterDept = null;
         this.filterUser = null;
-        // console.log(value);
         let obj = { 'divisionId': this.filterDivision };
         this.commonService.getDepartmentList(obj).subscribe((result) => {
             if (result.isSuccess) {
@@ -148,7 +143,6 @@ filterSelect(value,type){
     }
     else if(type == "dept"){
         this.filterUser = null;
-        // console.log(value);
         let data = { 'departmentId': this.filterDept, 'createdBy': ' ' };
         this.roleId != 1 ? data.createdBy =  this.utilService.getUserData().userId : delete data.createdBy;
         this.userService.getUserByDivDept(data).subscribe(result => {
@@ -161,7 +155,6 @@ filterSelect(value,type){
         })
     }
     else if(type == "emp"){
-        // console.log(value);
         let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept+"&userId="+this.filterUser;
         this.getExpireTrendList(query);
     }
@@ -169,7 +162,6 @@ filterSelect(value,type){
 }
 
 resetFilter(){
-    // this.filterResort = null;
     this.filterDivision =null;
     this.filterDept = null;
     this.filterUser = null;
@@ -206,7 +198,6 @@ getListArray(data,type){
 }
 
 selectEmployee(data,checked){
-  console.log(data,checked)
   if(checked){
     this.selectedEmp.push(data.userId);
   }
@@ -214,7 +205,6 @@ selectEmployee(data,checked){
     let index = this.selectedEmp.findIndex(d=>d == data.userId);
     this.selectedEmp.splice(index,1);
   }
-  console.log(this.selectedEmp)
 }
 
 openNotificationModel(template : TemplateRef<any>){
@@ -231,21 +221,15 @@ openNotificationModel(template : TemplateRef<any>){
 }
 
 reportersSelect(type){
-  alert(type);
   this.showReporters = type;
   if(this.showReporters == 'show'){
     this.getReporterList();
-    // this.showReporters = true;
     this.hideReporters = null;
-    alert("showed");
   }
   else{
-    // typeSet1
     this.reportingMangerList = [];
     this.reporter = [];
     this.showReporters = null;
-    // this.hideReporters = true;
-    alert("hide");
   } 
 }
 
@@ -253,7 +237,6 @@ getReporterList(){
   let query =  {userIds:[]};
   query.userIds = this.selectedEmp;
   this.commonService.getReportingManager(query).subscribe(resp=>{
-    // console.log(resp);
     if(resp && resp.isSuccess){
       let arr =  resp.data.map(item=>{
         let obj ;
@@ -268,11 +251,9 @@ getReporterList(){
         }
         return obj;
       })
-      console.log(arr);
       this.reportingMangerList = arr.filter(function(x){
         return (x != "");
       });
-      console.log(this.reportingMangerList)
     }
   })
 }
@@ -303,11 +284,8 @@ getReporterList(){
         params.trainingClassId = this.courseId;
         delete params.courseId; 
       }
-      debugger;
       this.commonService.sendExpireNotification(params).subscribe(resp=>{
-        // console.log(resp);
         if(resp && resp.isSuccess){
-          console.log(resp)
           this.resetData();
         }
       },err=>{
