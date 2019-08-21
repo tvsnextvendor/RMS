@@ -37,7 +37,6 @@ export class QuizResultPage implements OnInit {
         this.Math = Math;
         this.resultData = navParams.data;
         this.trainingClassName = this.resultData['trainingClassName'];
-        console.log(this.resultData,"RESULT")
         this.noQuiz = this.resultData['status'] ? true : false ;
         // this.resultData['passPercentage'] = this.resultData['passPercentage'];
         this.resultData['percentage'] = Math.round((this.resultData['correctAnswers'] / this.resultData['totalQuestions']) * 100);
@@ -84,7 +83,7 @@ export class QuizResultPage implements OnInit {
                 "scoreOutof": this.resultData['totalQuestions'],
                 "userId": this.currentUser.userId,
                 "resortId":resortId,
-                "trainingClassId" : this.resultData['trainingClassId']
+                "trainingClassId" : this.resultData['trainingClassId'] 
             }
             if(this.noQuiz){
                 postData['passPercentage'] = 100;
@@ -124,7 +123,6 @@ export class QuizResultPage implements OnInit {
 
      completeTrainingClass(){
         let data = this.resultData;
-        console.log(this.currentUser,"Jbjhdsbcjb")
         let postData={
             "courseId": data['courseId'],
             "trainingClassId": data['trainingClassId'],

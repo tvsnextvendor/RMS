@@ -25,14 +25,12 @@ export class QuizPage {
 
     constructor(public navCtrl: NavController,public storage: Storage,private navParams:NavParams) {
         this.trainingObj = this.navParams.data;
-        console.log(this.trainingObj,"QUIZ");
         this.videoMenuTitle = this.trainingObj['setData'].trainingClassName;
         this.trainingClassId = this.trainingObj['setData'].trainingClassId;
         this.passPercentage = this.trainingObj['setData'].passPercentage;
         this.courseId = this.trainingObj['setData'].courseId;
         this.courseName = this.trainingObj['setData'].courseName;
         this.quizData = this.trainingObj.quizData;
-        console.log(this.trainingObj,"QUIZ jcn")
     }
 
      ngAfterViewInit() {
@@ -50,7 +48,6 @@ export class QuizPage {
     // Get Quiz Content
     getQuizContent() {
         this.selectedQuizContent = this.quizData[0].Questions[this.quizStep];
-        console.log(this.selectedQuizContent,"SELECTEDQUIZ");
     }
 
     // Change selected question
@@ -84,7 +81,6 @@ export class QuizPage {
     calcualteAndGoToCongartulations() {          
         let correctAnswersCount  =   0;
         this.quizData[0].Questions.map(quizValues => {
-            console.log(quizValues,"QUIZVALUES");
             if (quizValues['selectedAnswer'] == quizValues['answer']) {
                 correctAnswersCount ++;
             }

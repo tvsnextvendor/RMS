@@ -13,11 +13,12 @@
       </ion-title>
     </ion-navbar>
   </ion-header>
+  
   <div class="main-content">
     <ion-list>
       <ion-card *ngFor="let schedule of scheduleList;let i=index;" class="forum-card">
         <ion-grid>
-          <ion-row (click)="openSubEvent(i, schedule.trainingScheduleId)">
+          <ion-row (click)="openSubEvent(i, schedule)">
             <ion-col col-4 class="batch-name">
               <h4>{{schedule.name}}</h4>
             </ion-col>
@@ -30,17 +31,17 @@
             </ion-col>
           </ion-row>
          
-          <div *ngIf="enableView && enableIndex === i">
-            <ion-row *ngFor="let course of scheduleDetail" >
+          <div *ngIf="enableView && enableIndex === i && courseScheduleDetail">
+            <ion-row *ngFor="let course of courseScheduleDetail" >
               <div class="course-count" *ngIf="course.CourseTrainingClassMaps.length">
                 <div>
-                  <p class="course-click" (click)="redirectPage(course.courseId,schedule.trainingScheduleId)">{{course.courseName}}</p>
+                  <p class="course-click" (click)="redirectTCPage(course.courseId,schedule.trainingScheduleId)">{{course.courseName}}</p>
                   <div *ngFor="let class of course.CourseTrainingClassMaps">
-                    <ion-row>
+                  <ion-row>
                   <ion-col col-6>TC - {{class.TrainingClass.trainingClassName}}</ion-col>
                   <ion-col col-6>
                       <div class="expires red-color" *ngIf="class.TrainingClass.FeedbackMappings[0].status == null">
-                        <span class="aligtxt">{{constant.pages.trainingLabels.willExpire}}
+                        <span class="aligtxt">
                           {{calculateExpireDays(schedule.dueDate)}}</span>
                       </div>
                       <div class="average aligtxt"
@@ -53,7 +54,7 @@
                       <div class="average orange-color"
                         *ngIf="class.TrainingClass.FeedbackMappings[0].status == 'failed'">
                         {{constant.pages.trainingLabels.score}} {{class.TrainingClass.FeedbackMappings[0].passPerc}}%
-                        <span class="aligtxt" (click)="retakeCourse(class.courseId,schedule.trainingScheduleId)"><br>
+                        <span class="aligtxt" (click)="redirectTCPage(class.courseId,schedule.trainingScheduleId)"><br>
                           <ion-icon name="md-refresh"> {{constant.pages.trainingLabels.takeCourse}} </ion-icon>
                         </span>
                       </div>
@@ -64,6 +65,40 @@
               </div>
             </ion-row>
           </div>
+
+
+          <div *ngIf="enableView && enableIndex === i && classScheduleDetail">
+            <ion-row *ngFor="let class of classScheduleDetail">
+              <div class="course-count">
+                    <ion-row>
+                      <ion-col col-6>
+                        <p class="course-click" (click)="redirectFilesPage(class.trainingClassId,schedule.trainingScheduleId)">TC - {{class.trainingClassName}}</p>
+                      </ion-col>
+                      <ion-col col-6>
+                        <div class="expires red-color" *ngIf="class.FeedbackMappings.length == 0">
+                          <span class="aligtxt">
+                            {{calculateExpireDays(schedule.dueDate)}}</span>
+                        </div>
+                        <div class="average aligtxt" *ngIf="class.FeedbackMappings.length && class.FeedbackMappings[0].status == 'passed'">
+                          <span class="orange-color"> {{constant.pages.trainingLabels.score}}
+                            {{class.FeedbackMappings[0].passPercentage}}% <br>
+                          </span>
+                          <span class="green-color"><img src="assets/imgs/completed.png"
+                              class="completed-img" />{{constant.pages.trainingLabels.completedLabel}}</span>
+                        </div>
+                        <div class="average orange-color" *ngIf="class.FeedbackMappings.length && class.FeedbackMappings[0].status == 'failed'">
+                          {{constant.pages.trainingLabels.score}} {{class.FeedbackMappings[0].passPercentage}}%
+                          <span class="aligtxt" (click)="redirectFilesPage(class.trainingClassId,schedule.trainingScheduleId)"><br>
+                            <ion-icon name="md-refresh"> {{constant.pages.trainingLabels.takeCourse}} </ion-icon>
+                          </span>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+              </div>
+            </ion-row>
+          </div>
+
+
         </ion-grid>
       </ion-card>
     
@@ -81,6 +116,7 @@
     </ion-row>
    </ion-list>
   </div>
+
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>

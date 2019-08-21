@@ -56,7 +56,7 @@ export class HomePage {
         this.scrollEnable = false;
           this.getDashboardInfo();
           this.getDashboardCount();
-      }, 15000);      
+      }, 10000);      
   }
 
   navPage(page, data){
@@ -77,6 +77,14 @@ export class HomePage {
         this.paramsData['trainingScheduleId'] = data.trainingScheduleId;
         this.paramsData['status'] = this.status;
         this.navCtrl.push('training-page',this.paramsData);
+        break;
+      case 'trainingDetail' :
+        let paramsData = {};
+        paramsData['trainingClassId'] = data.trainingClassId;
+        paramsData['trainingScheduleId'] = data.trainingScheduleId;
+        paramsData['setData'] = {};
+        paramsData['setData']['typeSet'] = "Class";
+        this.navCtrl.push('trainingdetail-page', paramsData);
         break;
       default:
          this.navCtrl.push('course-page');

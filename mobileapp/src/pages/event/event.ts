@@ -25,7 +25,8 @@ export class EventPage implements OnInit {
   totalPage;
   calendarIdUnique;
   calendars;
-  scheduleDetail;
+  courseScheduleDetail;
+  classScheduleDetail;
   batches: any = [];
   batchconfigList: any = [];
   tag: boolean = false;
@@ -52,11 +53,19 @@ export class EventPage implements OnInit {
   }
   
   
-  openSubEvent(i, scheduleId) {
+  openSubEvent(i, data) {
     let userId = this.currentUser.userId;
-    this.http.get(API_URL.URLS.getScheduleDetail + '?userId=' + userId + '&trainingScheduleId=' + scheduleId).subscribe(res => {
+    const scheduleData = data.Courses[0];
+    this.courseScheduleDetail=[];
+    this.classScheduleDetail=[];
+    let courseClassId = scheduleData.courseId ? '&courseId=' +scheduleData.courseId : '&trainingClassId=' +scheduleData.trainingClassId;
+    this.http.get(API_URL.URLS.getScheduleDetail + '?userId=' + userId + '&trainingScheduleId=' + data.trainingScheduleId +courseClassId).subscribe(res => {
         if (res['isSuccess']) {
-            this.scheduleDetail = res['data'];
+             if(scheduleData.courseId){
+              this.courseScheduleDetail =  res['data']['course']; 
+             }else{
+              this.classScheduleDetail = res['data']['class'];
+             }
         }
     })
       this.enableView = this.enableIndex === i ? !this.enableView : true;
@@ -74,12 +83,7 @@ export class EventPage implements OnInit {
         }, 1000);
     }
 
-    retakeCourse(courseId,scheduleId){
-      let paramsData= {};
-      paramsData['courseId'] = courseId;
-      paramsData['trainingScheduleId'] = scheduleId;
-      this.navCtrl.push('training-page', paramsData);
-    }
+   
 
   getBatch() {
     //  this.loader.showLoader();
@@ -100,11 +104,22 @@ export class EventPage implements OnInit {
     })
   }
  
-  redirectPage(courseId, scheduleId){
+  //For scheduled course
+  redirectTCPage(courseId, scheduleId){
     let paramsData={};
     paramsData['courseId'] = courseId;
     paramsData['trainingScheduleId'] = scheduleId;
     this.navCtrl.push('training-page', paramsData);
+  }
+
+  //For scheduled class
+  redirectFilesPage(trainingClassId,scheduleId){
+    let paramsData = {};
+    paramsData['trainingClassId'] = trainingClassId;
+    paramsData['trainingScheduleId'] = scheduleId;
+    paramsData['setData']={};
+    paramsData['setData']['typeSet']="Class";
+    this.navCtrl.push('trainingdetail-page', paramsData);
   }
    
   calculateAvgScore(data){
@@ -116,10 +131,26 @@ export class EventPage implements OnInit {
      return avgScore.toFixed(0);
   }
 
-calculateExpireDays(dueDate) {
+
+  calculateExpireDays(duedate) {
+    let dueDate = moment(duedate).format("YYYY-MM-DD");
+    let todaysDate = moment(new Date()).format("YYYY-MM-DD");
+    let tomDate = moment(new Date()).add(1,'days').format("YYYY-MM-DD");
+    
+    if(dueDate == todaysDate){
+      let string = "Expires Today"
+      return string;
+    }else if(dueDate == tomDate){
+      let string = "Will expire tomorrow"
+      return string;
+    }else if(dueDate <= todaysDate){
+      let string = "Expired"
+      return string;
+    }else{
     const a = moment(new Date());
-    const b = moment(new Date(dueDate));
-    return a.to(b, true);
+    let string =  this.constant.pages.trainingLabels.willExpire +' ' + a.to(dueDate, true);
+    return string;
+    }
   }
 
   
