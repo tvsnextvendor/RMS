@@ -68,15 +68,14 @@
       <tab heading="Course" (select)="dataSelect('course')">
           <table class="table white-bg table-striped" [mfData]="moduleList" #mf="mfDataTable" [mfRowsOnPage]="10" id="courseTrend">
               <thead>
-                      <tr class="th-boxshadow">
-                      <th>
-                          <mfDefaultSorter by="courseName">{{commonLabels.labels.courseName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-                      </th>
-                      <th>
-                          <mfDefaultSorter by="noOfEmployees">{{commonLabels.labels.noOfEmployee}}<span class="ml-2"><img
-                                          src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-                      </th>
-                  </tr>
+                <tr class="th-boxshadow">
+                    <th>
+                        <mfDefaultSorter by="courseName">{{commonLabels.labels.courseName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="employeesCount">{{commonLabels.labels.noOfEmployee}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                    </th>
+                </tr>
               </thead>
               <tbody>
                 <tr class="video-trend-desc" *ngFor="let list of mf.data">
@@ -108,11 +107,10 @@
               <thead>
                       <tr class="th-boxshadow">
                       <th>
-                          <mfDefaultSorter by="courseName">{{commonLabels.labels.className}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                          <mfDefaultSorter by="trainingClassName">{{commonLabels.labels.className}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                       </th>
                       <th>
-                          <mfDefaultSorter by="noOfEmployees">{{commonLabels.labels.noOfEmployee}}<span class="ml-2"><img
-                                          src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                          <mfDefaultSorter by="employeesCount">{{commonLabels.labels.noOfEmployee}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                       </th>
                   </tr>
               </thead>
