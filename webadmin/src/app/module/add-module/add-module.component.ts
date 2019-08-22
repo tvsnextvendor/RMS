@@ -113,6 +113,9 @@ export class AddModuleComponent implements OnInit {
             textField: 'value',
             enableCheckAll: false,
             itemsShowLimit: 8,
+            allowSearchFilter : true,
+            searchPlaceholderText : "Search",
+            clearSearchFilter : true
             // allowSearchFilter: true
         };
         this.addButton = setInterval(() => {
@@ -320,7 +323,7 @@ export class AddModuleComponent implements OnInit {
                     self.fileDuration = duration;
                 }
                 video.src = URL.createObjectURL(file);
-                console.log(  document.querySelector("#video-element source"),'  document.querySelector("#video-element source")',video.src)
+                // console.log(  document.querySelector("#video-element source"),'  document.querySelector("#video-element source")',video.src)
                 document.querySelector("#video-element source") && document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
                 // find file extension
                 this.uploadFile = file;

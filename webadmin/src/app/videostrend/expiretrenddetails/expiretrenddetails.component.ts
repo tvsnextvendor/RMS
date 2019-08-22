@@ -242,8 +242,8 @@ getReporterList(){
         let obj ;
         if(item.reportDetails){
           obj = {
-            userId : item.userId,
-            userName : item.userName 
+            userId : item.reportDetails.userId,
+            userName : item.reportDetails.userName 
           }
         }
         else{
@@ -267,7 +267,7 @@ getReporterList(){
       trainingClassId : ''
     }
     if(!this.showReporters || this.showReporters != 'show' || this.showReporters =='show' && this.reporter.length){
-      this.reportingError = true;
+      this.reportingError = false;
       if(this.showReporters == 'show'){
         params.userIds = this.reporter.map(item=>{ return item.userId});
         params.typeSet = 'toAllReportManager';
@@ -287,9 +287,11 @@ getReporterList(){
       this.commonService.sendExpireNotification(params).subscribe(resp=>{
         if(resp && resp.isSuccess){
           this.resetData();
+          this.alertService.success(resp.message)
         }
       },err=>{
         this.resetData();
+        this.alertService.error(err.error.error)
       })
     }
     else{
@@ -302,7 +304,9 @@ getReporterList(){
     this.showReporters = null;
     this.hideReporters = 'hide';
     this.reportingMangerList = [];
+    this.selectedEmp = [];
     this.reporter = [];
     this.modalRef.hide();
+    this.getExpireTrendList('');
   }
 }
