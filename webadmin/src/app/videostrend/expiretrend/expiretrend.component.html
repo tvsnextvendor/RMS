@@ -94,7 +94,7 @@
                 </tr>
               </tbody>
               <tfoot>
-                  <tr>
+                  <tr *ngIf="moduleList?.length > 10">
                       <td colspan="5">
                           <mfBootstrapPaginator></mfBootstrapPaginator>
                       </td>
@@ -128,7 +128,7 @@
                   </tr>
               </tbody>
               <tfoot>
-                  <tr>
+                  <tr *ngIf="moduleList?.length > 10">
                       <td colspan="5">
                           <mfBootstrapPaginator></mfBootstrapPaginator>
                       </td>

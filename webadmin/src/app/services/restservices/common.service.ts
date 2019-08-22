@@ -222,6 +222,6 @@ getReportingManager(query){
   return this.http.post('local', this.url.getReportingManager, query);
 }
 sendExpireNotification(params){
-  return this.http.post('local', this.url.getReportingManager, params);
+  return this.http.post('local', this.url.sendExpireNotification, params);
 }
 }
