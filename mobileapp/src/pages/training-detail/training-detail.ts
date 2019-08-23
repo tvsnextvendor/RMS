@@ -32,6 +32,7 @@ export class TrainingDetailPage {
     currentVideoIndex = 0;
     loadingBarWidth = 0;
     Math: any;
+    userId;
     paramsData: any = {};
     setTraining: any;
     initial: number = 0;
@@ -57,6 +58,7 @@ export class TrainingDetailPage {
     uploadPath;
     status;
     currentUser;
+    resortId;
     prevBtn;
     className;
     feedback;
@@ -104,6 +106,8 @@ export class TrainingDetailPage {
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
+             self.resortId = self.currentUser.ResortUserMappings[0].resortId;
+             self.userId = self.currentUser ? self.currentUser.userId : '';
              this.getCourseTrainingClasses();
             }
         });
@@ -113,10 +117,8 @@ export class TrainingDetailPage {
 
         getCourseTrainingClasses() {
             let self = this;
-            let userId = this.currentUser.userId;
-            let resortId = this.currentUser.ResortUserMappings[0].resortId;
             return new Promise(resolve => {
-            this.http.get(API_URL.URLS.trainingClassFilesAPI+'?trainingClassId='+this.detailObject.trainingClassId+'&trainingScheduleId='+this.detailObject.trainingScheduleId+'&resortId='+ resortId +'&userId='+userId+'&type='+'mobile').subscribe((res) => {
+            this.http.get(API_URL.URLS.trainingClassFilesAPI+'?trainingClassId='+this.detailObject.trainingClassId+'&trainingScheduleId='+this.detailObject.trainingScheduleId+'&resortId='+ this.resortId +'&userId='+this.userId+'&type='+'mobile').subscribe((res) => {
                 if(res.isSuccess){
                 self.feedback = res['data']['feedback'];
                 self.allTrainingClasses = res['data']['file'];        
@@ -192,52 +194,65 @@ export class TrainingDetailPage {
     
     // go to quiz page for training details
     goToQuizPage() {
-        if (this.videotag) {
-            const htmlVideoTag = this.videotag.nativeElement;
-            htmlVideoTag.pause();
+       
+        let data = {
+            'trainingClassId': this.detailObject.trainingClassId,
+            'userId': this.userId,
+            'resortId': this.resortId
         }
-        let self = this;
-          const data = this.detailObject;
-          let query = data.courseId ? '?trainingClassId=' + data.trainingClassId + '&courseId=' + data.courseId : '?trainingClassId=' + data.trainingClassId  ;
-          this.http.get(API_URL.URLS.quizAPI + query).subscribe((res) => {
-            if (res['isSuccess']) {
-                this.quizData =res['data']['quiz'];     
-                if(this.quizData){
-                const alert = this.alertCtrl.create({
-                    title: 'Are you ready to take the Quiz ?',
-                    buttons: [{
-                        text: 'Later',
-                        role: 'later',
-                        handler: () => {
-                        }
-                    },
-                    {
-                        text: 'Yes',
-                        handler: () => {
-                            self.paramsData['quizData'] = self.quizData;
-                            self.paramsData['setData']= this.detailObject['setData'];
-                            self.paramsData['setData']['trainingClassId'] = this.detailObject['trainingClassId'];
-                            self.paramsData['scheduleId']=this.detailObject['scheduleId'],
-                            self.navCtrl.push(QuizPage, self.paramsData);
-                        }
-                    }]
-                });
-                alert.present();
-            }else{
-                this.toastr.error('No Questions available.');
-            }
-         }
-     });
+        this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
+            if(res.isSuccess){
+                if(res.data.statusKey == false){
+                     this.toastrMsg(res.data.message, "error")
+                }else{
+                    if (this.videotag) {
+                        const htmlVideoTag = this.videotag.nativeElement;
+                        htmlVideoTag.pause();
+                    }
+                  let self = this;
+                  const data = this.detailObject;
+                  let query = data.courseId ? '?trainingClassId=' + data.trainingClassId + '&courseId=' + data.courseId : '?trainingClassId=' + data.trainingClassId;
+                  this.http.get(API_URL.URLS.quizAPI + query).subscribe((res) => {
+                      if (res['isSuccess']) {
+                          this.quizData = res['data']['quiz'];
+                          if (this.quizData) {
+                              const alert = this.alertCtrl.create({
+                                  title: 'Are you ready to take the Quiz ?',
+                                  buttons: [{
+                                      text: 'Later',
+                                      role: 'later',
+                                      handler: () => {
+                                      }
+                                  },
+                                  {
+                                      text: 'Yes',
+                                      handler: () => {
+                                          self.paramsData['quizData'] = self.quizData;
+                                          self.paramsData['setData'] = this.detailObject['setData'];
+                                          self.paramsData['setData']['trainingClassId'] = this.detailObject['trainingClassId'];
+                                          self.paramsData['scheduleId'] = this.detailObject['scheduleId'],
+                                              self.navCtrl.push(QuizPage, self.paramsData);
+                                      }
+                                  }]
+                              });
+                              alert.present();
+                          } else {
+                              this.toastr.error('No Questions available.');
+                          }
+                      }
+                  });
+                }
+            }});
+   
     }
    
    //Call after watching video file.
     videoEnded(){
-        let userId = this.currentUser ? this.currentUser.userId : 8;
         let data={
         'courseId' :this.detailObject['setData'].courseId,
         'trainingClassId' :  this.detailObject['setData'].trainingClassId,
         'fileId' : this.fileId,
-        'userId' : userId,
+        'userId' : this.userId,
         'status': "completed"
         }
         this.http.put(false,API_URL.URLS.fileTrainingStatus, data).subscribe((res) => {
@@ -248,12 +263,11 @@ export class TrainingDetailPage {
 
     //After view content
     completedViewOperation(fileId){
-        let userId = this.currentUser ? this.currentUser.userId : 8;
         let data={
         'courseId' :this.detailObject['setData'].courseId,
         'trainingClassId' :  this.detailObject['setData'].trainingClassId,
         'fileId' : fileId,
-        'userId' : userId,
+        'userId' : this.userId,
         'status': "completed"
         }
         this.http.put(false,API_URL.URLS.fileTrainingStatus, data).subscribe((res) => {       
@@ -268,10 +282,10 @@ export class TrainingDetailPage {
  
     // Check files and videos of training class are completed or not while clicking done btn atlast.
     checkCompleteorNot(){
-        let userId = this.currentUser ? this.currentUser.userId : 8;
         let data = {
             'trainingClassId': this.detailObject.trainingClassId,
-            'userId': userId,
+            'userId': this.userId,
+            'resortId': this.resortId
         }
         this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
             if(res.isSuccess){

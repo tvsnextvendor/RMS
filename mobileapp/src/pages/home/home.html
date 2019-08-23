@@ -98,13 +98,25 @@
                 <!-- Scheduled Class -->
                 <ion-col col-6 class="course-count"  *ngIf="data.TrainingClass" (click)="navPage('trainingDetail',data)">
                   <a>
-                    <p class="course-click">{{data.TrainingClass.trainingClassName}}</p>
+                    <p class="course-click" (click)="navPage('trainingDetail',data)">{{data.TrainingClass.trainingClassName}}</p>
                   </a>
                 </ion-col>
                 <ion-col col-6  *ngIf="data.TrainingClass" (click)="navPage('trainingDetail', data)">
                   <div class="expires org-color"><span class="aligtxt">
                       {{calculateExpireDays(schedule.dueDate)}}</span></div>
                 </ion-col>
+
+                  <!-- Scheduled Notification-->
+                  <ion-col col-6 class="course-count" *ngIf="data.NotificationFile" (click)="navPage('notification','')">
+                    <a>
+                      <p class="course-click" *ngIf="data.NotificationFile.File" (click)="navPage('notification','')">{{data.NotificationFile.File.fileName}}</p>
+                    </a>
+                    <p class="description" *ngIf="data.NotificationFile.description">{{data.NotificationFile.description}}</p>
+                  </ion-col>
+                  <ion-col col-6 *ngIf="data.NotificationFile" (click)="navPage('notification','')">
+                    <div class="expires org-color"><span class="aligtxt">
+                        {{calculateExpireDays(schedule.dueDate)}}</span></div>
+                  </ion-col>
             </ion-row>
           </div>
 

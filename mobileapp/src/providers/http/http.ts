@@ -40,7 +40,6 @@ export class HttpProvider implements OnInit {
 
       this.dataService.getLoginData.subscribe(res=>{
         if(res){
-          console.log(res, "GOTIT");
           this.currentUser = res.token;
           this.httpOptions = {
               headers: new HttpHeaders({
@@ -53,19 +52,18 @@ export class HttpProvider implements OnInit {
      
   }
 
- private formatErrors(error: any) {  
-   let self = this; 
-   if(error.status === 403 || error.status === 401){
-          console.log("Please log out and login again");
-          console.log(this.storage);
-          alert('Please Sign out and login again');
-          self.dataService.sendLoginData('');
-          //this.nav.setRoot('login-page');
-          //this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
-			}else{
-        return of(error.error);
-			}  
-  }
+  private formatErrors(error: any) {  
+    let self = this; 
+    if(error.status === 403 || error.status === 401){
+            console.log("Please log out and login again");
+            alert('Please Sign out and login again');
+            self.dataService.sendLoginData('');
+            //this.nav.setRoot('login-page');
+            //this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
+        }else{
+          return of(error.error);
+        }  
+    }
 
   get(url) {
     this.getHeaders();

@@ -171,13 +171,13 @@
           <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of signRequireList;let i=index;" class="main-forum">
             <ion-card class="forum-card">
               <ion-grid>
-                <ion-row (click)="openSignRequireDetail(task.File,task.notificationFileId)">
+                <ion-row (click)="openSignRequireDetail(task,task.notificationFileId)">
                   <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                     <img src="assets/imgs/profile_circle.png" class="forum-img">
                   </ion-col>
                   <ion-col col-4 col-sm-5 col-md-6 class="course-det">
-                    <h4 class="notify-title" (click)="openSignRequireDetail(task.File,task.notificationFileId)">
-                      {{task.File.fileName}}</h4>
+                    <h4 class="notify-title" (click)="openSignRequireDetail(task,task.notificationFileId)">
+                      {{task.TrainingScheduleResorts[0].TrainingSchedule.name}}</h4>
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
                     <div class="align-right" *ngIf="task.dueDate && task.NotificationFileMaps[0].status != 'completed'">
@@ -189,7 +189,7 @@
                       Completed
                     </div>
                   </ion-col>
-                  <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openSignRequireDetail(task.File,task.notificationFileId)">
+                  <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openSignRequireDetail(task,task.notificationFileId)">
                     <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
                   </ion-col>
                 </ion-row>
