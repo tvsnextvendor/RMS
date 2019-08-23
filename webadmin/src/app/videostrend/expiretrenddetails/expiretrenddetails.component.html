@@ -121,6 +121,9 @@
                     <ng-multiselect-dropdown [placeholder]="'Reporting Manager'" name="reporter" [data]="reportingMangerList"
                     [(ngModel)]="reporter" [settings]="reportSettings" #reporterId="ngModel" required></ng-multiselect-dropdown>
                 </div>
+                <div class="col-md-12">
+                    <textarea [(ngModel)]="comments" name="Comment" class="col-md-12 reject-textarea" placeholder="Write your comment here"></textarea>
+                </div>
             </div>
             <div class="text-center mt-4">
                 <button (click)="sendNotification()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>

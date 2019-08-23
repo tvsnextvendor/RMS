@@ -99,6 +99,8 @@ export class UserComponent implements OnInit {
     activatedTab = 'user';
     resortId = null;
     bulkUploadWarn = false;
+    fullAccess = 'full'
+    approvalAccess = null;
     designationSettings = {
         singleSelection: false,
         idField: 'designationId',
@@ -257,7 +259,7 @@ export class UserComponent implements OnInit {
         this.editEnable = true;
         this.userIndex = index;
         this.userName = data.userName;
-        this.lastName = data.lastName && data.lastName
+        this.lastName = data.lastName && data.lastName;
         this.userId = data.employeeId;
         this.division = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings, 'div') : [];
         this.division.length && this.onEmpSelect('', 'div');
@@ -269,6 +271,14 @@ export class UserComponent implements OnInit {
         this.homeNumber = data.homeNumber;
         this.department = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings, 'dept') : [];
         this.accessTo = data.status;
+        if(data.accessSet && data.accessSet == "FullAccess"){
+            this.fullAccess = 'full';
+            this.approvalAccess = null;
+        }
+        else{
+            this.fullAccess = null;
+            this.approvalAccess = 'approve';
+        }
     }
 
     designationUpdate(data, designation) {
@@ -463,6 +473,7 @@ export class UserComponent implements OnInit {
             accessTo: this.accessTo,
             resortId: resortId,
             employeeNo: this.empId,
+            accessSet : this.fullAccess == 'full' ? 'FullAccess' : 'ApprovalAccess',
             resortUserMappingId: []
         };
         if (this.userName && this.permissionService.nameValidationCheck(this.userName) && this.lastName && this.permissionService.nameValidationCheck(this.lastName) &&  this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone && !this.validHomeNo) {
@@ -517,6 +528,8 @@ export class UserComponent implements OnInit {
         this.triggerNext = false;
         this.editRoleValue = '';
         this.empId = '';
+        this.fullAccess = 'full';
+        this.approvalAccess = null;
         this.roles = [{
             designationName: ''
         }]
@@ -1158,5 +1171,17 @@ export class UserComponent implements OnInit {
             this.batchVar.divisionList = result.data.divisions;
             this.batchVar.selectedResort = resortId;
         })
+    }
+
+    accessSelect(type){
+        if(type == "full"){
+            this.fullAccess = 'full'
+            this.approvalAccess = null;
+        }
+        else{
+            this.fullAccess = null
+            this.approvalAccess = "approve";
+        }
+        
     }
 }
