@@ -38,7 +38,14 @@ ion-toolbar {
 .image-tag{
     padding: 0;
     background-color: #468FB9;
+    position: relative;
 }
+.view-image-tag{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 20%;
+  }
 .inner-image{
        width: 100%;
     height: auto;
@@ -279,3 +286,4 @@ page-training-detail .image-tag.img-box {
     width: 100%;
     height: auto;
   }
+  

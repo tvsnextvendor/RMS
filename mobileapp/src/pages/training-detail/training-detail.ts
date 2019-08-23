@@ -88,17 +88,8 @@ export class TrainingDetailPage {
     constructor(public navCtrl: NavController,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
-        // this.trainingClassId = this.detailObject['setData'].trainingClassId;
-        // this.courseId = this.detailObject['setData'].CourseTrainingClassMaps[0].Course.courseId;
-        // this.trainingDatas = this.detailObject['setData'].FileMappings;
-        // this.uploadPath = this.detailObject['uploadPath'];
         this.status= this.detailObject['status'] ? this.detailObject['status'] : '' ;
-       // console.log(this.detailObject,"STATUS");
-        // this.lastIndexs = this.trainingDatas.length - 1;
-        // this.selectedIndexs = this.detailObject['selectedIndex'];
-        // this.trainingStatus = this.detailObject.status;
-        // this.loadingBarWidth = (100 / parseInt(this.trainingDatas.length, 10));
-        // this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
+      
     }
 
       ngAfterViewInit() {
@@ -121,8 +112,8 @@ export class TrainingDetailPage {
             this.http.get(API_URL.URLS.trainingClassFilesAPI+'?trainingClassId='+this.detailObject.trainingClassId+'&trainingScheduleId='+this.detailObject.trainingScheduleId+'&resortId='+ this.resortId +'&userId='+this.userId+'&type='+'mobile').subscribe((res) => {
                 if(res.isSuccess){
                 self.feedback = res['data']['feedback'];
-                self.allTrainingClasses = res['data']['file'];        
-                self.status = this.detailObject['setData']['typeSet'] == 'Class' ? ( self.feedback.length ? self.feedback[0].status : 'inProgress' )  : this.detailObject['status'];
+                self.allTrainingClasses = res['data']['file'];  
+                self.status = (this.detailObject['setData']['typeSet'] == 'Class') ? ( (self.feedback.length  && self.feedback[0].status) ? self.feedback[0].status : 'inProgress' )  : this.detailObject['status'];
                 if(res['data']['quiz'].length == 0){
                    self.status = 'noQuiz';
                 }

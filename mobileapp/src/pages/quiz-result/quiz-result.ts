@@ -128,6 +128,7 @@ export class QuizResultPage implements OnInit {
             "trainingClassId": data['trainingClassId'],
             "userId":this.currentUser.userId,
             "courseName": data['courseName'],
+            "trainingClassName":data['trainingClassName'],
             "typeSet":this.resultData['typeSet'],
             "userName": this.currentUser.userName,
             "lastName":this.currentUser.lastName,

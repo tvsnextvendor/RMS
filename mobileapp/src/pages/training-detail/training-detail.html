@@ -1,7 +1,7 @@
 <ion-content padding class="page-training-detail">
     <ion-header no-border>
         <ion-toolbar transparent class="details-page-toolbar title-type2" (click)="goBackToDetailPage()">
-            <span class="back-arrow" > 
+            <span class="back-arrow">
                 <img src="assets/imgs/Back.png" />
             </span>
             <ion-title class="text-left ">
@@ -10,90 +10,94 @@
         </ion-toolbar>
     </ion-header>
 
-<div class={{className}} *ngIf="showToastr">
-    <div class="notify-inset">
-        <h6>{{msgTitle}}</h6>
-        <p>{{msgDes}}</p>
-    </div>
-</div>
-  
-<div class="inner-content" *ngIf="setTraining">
-    <div class="training-det">
-        <div class="image-tag" *ngIf="imageType">
-            <img src="{{showPreView}}" alt="image" class="inner-image">
+    <div class={{className}} *ngIf="showToastr">
+        <div class="notify-inset">
+            <h6>{{msgTitle}}</h6>
+            <p>{{msgDes}}</p>
         </div>
-        <div class="video-tag" *ngIf="!imageType">
-            <video #videoTag id="video-width" autoplay (ended)="videoEnded()" (error)="videoFailed($event)" class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline"
-            playsinline class="videoPlayer" poster="{{uploadPath}}{{setTraining.fileImage}}">
-            <source src="{{showPreView}}" type="video/mp4"/>
-           </video>
-       </div>
-    <div class="training-block">
-        <div class="loading-bar-div">
-            <div class="loading-bar">
-                <span class="video-progress-bar" [ngClass]="{'playedProgressBar': i <= initial}" [ngStyle]="{'width.%': loadingBarWidth}"
-                *ngFor="let trainingVideo of allTrainingClasses; let i = index">
-                <p>{{i}}</p>
-            </span>
-        </div>
-        <span class="loading-bar-percentage">
-            <p>{{Math.round(loadingBarWidth * (initial+1))}}<span>%</span></p>
-        </span>
     </div>
-    
-    <ion-card-title ><ion-grid no-padding class="">
+    <div class="inner-content" *ngIf="setTraining">
+        <div class="training-det">
+            <div class="image-tag" *ngIf="imageType">
+                <img src="{{showPreView}}" alt="image" class="inner-image">
+                <a href="javascript:void(0);" (click)="viewContent(setTraining,filePath)" class="view-image-tag"><img
+                        src="assets/imgs/ViewButton@2x.png" alt="ViewButton@2x.png"></a>
+            </div>
+            <div class="video-tag" *ngIf="!imageType">
+                <video #videoTag id="video-width" autoplay (ended)="videoEnded()" (error)="videoFailed($event)" class="video-width"
+                    controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" playsinline class="videoPlayer"
+                    poster="{{uploadPath}}{{setTraining.fileImage}}">
+                    <source src="{{showPreView}}" type="video/mp4" />
+                </video>
+            </div>
+            <div class="training-block">
+                <div class="loading-bar-div">
+                    <div class="loading-bar">
+                        <span class="video-progress-bar" [ngClass]="{'playedProgressBar': i <= initial}" [ngStyle]="{'width.%': loadingBarWidth}"
+                            *ngFor="let trainingVideo of allTrainingClasses; let i = index">
+                            <p>{{i}}</p>
+                        </span>
+                    </div>
+                    <span class="loading-bar-percentage">
+                        <p>{{Math.round(loadingBarWidth * (initial+1))}}<span>%</span></p>
+                    </span>
+                </div>
 
-            <ion-row>
-                <ion-col col-6>
-                    <h6>{{setTraining.fileName}} </h6>
-                </ion-col>
-                <ion-col col-6>
-                           <span class="view-button" *ngIf="imageType" (click)="viewContent(setTraining,filePath)">
-                                <ion-icon name="eye" class="eye-icon"></ion-icon> 
-                                <a href="javascript:void(0);" class="view-text">{{constant.buttons.viewContent}}</a>
-                            </span>
-                </ion-col>
-            </ion-row>  
-        </ion-grid>
-    </ion-card-title>
-    <!-- <div class="checkbox-item clearfix" *ngIf="imageType">
+                <ion-card-title>
+                    <ion-grid no-padding class="">
+
+                        <ion-row>
+                            <ion-col col-6>
+                                <h6>{{setTraining.fileName}} </h6>
+                            </ion-col>
+                            <ion-col col-6>
+                                <span class="view-button" *ngIf="imageType" (click)="viewContent(setTraining,filePath)">
+                                    <ion-icon name="eye" class="eye-icon"></ion-icon>
+                                    <a href="javascript:void(0);" class="view-text">{{constant.buttons.viewContent}}</a>
+                                </span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-title>
+                <!-- <div class="checkbox-item clearfix" *ngIf="imageType">
         <label class="hole-cont mr-2">
             <input type="checkbox" [(ngModel)]="agree"  name="options" > 
             {{constant.pages.trainingLabels.ackText}}<a href="">{{constant.pages.trainingLabels.document}}</a>
             <span class="checkmark"></span>
         </label>
     </div> -->
-    <div *ngIf="text" class="quiz-text">
-        <div *ngIf="text.length <= 400">{{text}}</div>
-        <div *ngIf="truncating && text.length > 400">
-            {{text | words : limit}}
-            <a href="javascript:void(0);" (click)="truncating = false">
-            {{constant.pages.trainingLabels.readMore}}</a>
-        </div>
-        <div *ngIf="!truncating && text.length > 400">
-            {{text}}
-            <a href="javascript:void(0);" (click)="truncating = true">
-                {{constant.pages.trainingLabels.readLess}}
-            </a> </div>
-        </div> 
-    </div>
-</div>
-</div>
-<div class="ver-bottom clearfix" *ngIf="setTraining">    
-    <div class="p-3 clearfix">
-        <div class="float-left">
-            <a class="prev-btn" href="javascript:void(0);" (click)="goBackLevel()"  *ngIf="!prevBtn"> << {{constant.buttons.previous}}</a>   
-        </div>
-        <div class="float-right">
-            <a  class="next-btn" href="javascript:void(0);" (click)="showNextPage()" *ngIf="!quizBtn">{{constant.buttons.next}} >> </a>
+                <div *ngIf="text" class="quiz-text">
+                    <div *ngIf="text.length <= 400">{{text}}</div>
+                    <div *ngIf="truncating && text.length > 400">
+                        {{text | words : limit}}
+                        <a href="javascript:void(0);" (click)="truncating = false">
+                            {{constant.pages.trainingLabels.readMore}}</a>
+                    </div>
+                    <div *ngIf="!truncating && text.length > 400">
+                        {{text}}
+                        <a href="javascript:void(0);" (click)="truncating = true">
+                            {{constant.pages.trainingLabels.readLess}}
+                        </a> </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="take-quiz-btn" (click)="goToQuizPage()"  *ngIf="status == 'inProgress' || status == 'assigned' "> 
-        {{constant.buttons.takeQuiz}}
+
+    <div class="ver-bottom clearfix" *ngIf="setTraining">
+        <div class="p-3 clearfix">
+            <div class="float-left">
+                <a class="prev-btn" href="javascript:void(0);" (click)="goBackLevel()" *ngIf="!prevBtn">
+                    << {{constant.buttons.previous}} </a> </div> <div class="float-right">
+                        <a class="next-btn" href="javascript:void(0);" (click)="showNextPage()" *ngIf="!quizBtn">{{constant.buttons.next}}
+                            >> </a>
+            </div>
+        </div>
+        <div class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="status == 'inProgress' || status == 'assigned' ">
+            {{constant.buttons.takeQuiz}}
+        </div>
+        <div class="take-quiz-btn" (click)="checkCompleteorNot()" *ngIf="status == 'noQuiz' && quizBtn ">Done</div>
+        <div class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="status == 'failed'">
+            {{constant.buttons.retakeQuiz}}
+        </div>
     </div>
-    <div class="take-quiz-btn" (click)="checkCompleteorNot()" *ngIf="status == 'noQuiz' && quizBtn ">Done</div>
-    <div class="take-quiz-btn" (click)="goToQuizPage()" *ngIf="status == 'failed'">
-        {{constant.buttons.retakeQuiz}}
-    </div>
-</div>
 </ion-content>
