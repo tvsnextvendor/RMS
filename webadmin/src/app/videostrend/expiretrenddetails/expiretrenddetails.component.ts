@@ -35,6 +35,7 @@ export class ExpiretrenddetailsComponent implements OnInit {
   reportingMangerList = [];
   reporter = [];
   reportingError = false;
+  comments ; 
   // typeSet1='toAllEmployee';
   // typeSet2='toAllReportManager';
 
@@ -264,7 +265,8 @@ getReporterList(){
       typeSet : '',
       createdBy : this.utilService.getUserData().userId,
       courseId : '',
-      trainingClassId : ''
+      trainingClassId : '',
+      comments : this.comments
     }
     if(!this.showReporters || this.showReporters != 'show' || this.showReporters =='show' && this.reporter.length){
       this.reportingError = false;
@@ -306,6 +308,7 @@ getReporterList(){
     this.reportingMangerList = [];
     this.selectedEmp = [];
     this.reporter = [];
+    this.comments = '';
     this.modalRef.hide();
     this.getExpireTrendList('');
   }

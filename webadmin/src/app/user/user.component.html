@@ -484,6 +484,22 @@
                         *ngIf="userForm.submitted && accessToReq.errors?.required">{{commonLabels.mandatoryLabels.accessTo}}</span>
                 </span>                 
             </div>
+            <div class="row form-group">
+                <span class="pl11">
+                    <label class="square-cont mr-5">
+                        <input type="checkbox" [(ngModel)]="fullAccess"  (change)="accessSelect('full')" name="full">
+                        Full Access
+                        <span class="square-checkmark"></span>
+                    </label>
+                </span>
+                <span class="pl30">
+                    <label class="square-cont">
+                        <input type="checkbox" [(ngModel)]="approvalAccess"  (change)="accessSelect('approve')" name="approve">
+                        Approval Access
+                        <span class="square-checkmark"></span>
+                    </label>
+                </span>
+            </div>
 
           <span class="text-center mb-3 mt-0 required_color" *ngIf="errMsg">{{errMsg}}</span>
 

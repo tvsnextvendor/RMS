@@ -364,3 +364,9 @@ th.action-hd {
          color: #495057 !important;
          background: unset;
        }
+       .pl11{
+           padding-left: 11px
+       }
+       .pl30{
+        padding-left: 30px
+    }
