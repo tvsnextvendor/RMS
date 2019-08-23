@@ -536,3 +536,10 @@ page-home .course-sec{
 .no-backbtn .back-button.show-back-button {
     display: none !important;
 }
+
+.description {
+  white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}

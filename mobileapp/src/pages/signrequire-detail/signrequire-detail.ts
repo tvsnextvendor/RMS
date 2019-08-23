@@ -36,6 +36,7 @@ export class SignrequireDetailPage {
   msgDes;
   className;
   currentUser;
+  description;
   contentViewed: boolean = false;
   agree: boolean = false;
   hideWarning: boolean = false;
@@ -60,14 +61,22 @@ export class SignrequireDetailPage {
  
   constructor(public navCtrl: NavController,public commonService:CommonService,public iab:InAppBrowser,public http: HttpProvider,public toastr: ToastrService, public navParams: NavParams,public storage: Storage,public constant:Constant) {
           let data = this.navParams.data;
-          this.Files = data.files;
+          this.Files = data.files ? data.files : {};
           this.notificationFileId = data.notificationFileId;
-          this.uploadPath = data.uploadPath;
+          this.uploadPath = data.uploadPath ? data.uploadPath : '';
           this.pageType = data.type;
+          this.description = data.description;
   }
 
   ionViewDidLoad() {
+    if(!this.description){
     this.showPreView = this.getFileExtension(this.Files.fileUrl);
+    }else{
+     this.showPreView = "assets/imgs/banner.png";
+     this.imageType = true;
+    //  this.Files.fileDescription = this.description;
+    }
+
   }
 
   ionViewDidEnter(){
@@ -174,7 +183,9 @@ export class SignrequireDetailPage {
     doneClicked(){
       if(this.pageType == 'signReq'){
           if(this.agree){
-          this.navCtrl.push('course-page','signReq');
+                let paramsData = {};
+                paramsData['tab'] = 'signReq'
+                this.navCtrl.push('course-page', paramsData);
           }else{
             this.successMessage('Please agree acknowledgement');
           }

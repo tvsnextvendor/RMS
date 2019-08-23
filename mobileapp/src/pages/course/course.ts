@@ -84,6 +84,7 @@ export class CoursePage implements OnInit {
               this.getCourseStatus(this.status, '');
               this.showData(this.status);
                 if(this.tab && this.tab == 'signReq'){
+                  console.log(this.tab)
                   this.getSignRequired('');
                 }
             }
@@ -120,17 +121,29 @@ export class CoursePage implements OnInit {
   openTrainingClass(data) 
   {
     if(this.status == 'assigned'){
+      console.log(this.status,"STATUS")
     let userId = this.currentUser ? this.currentUser.userId : 8;
-        let postData={
+    
+       let postData={
         'userId' : userId,
         'status': "inProgress"
         }
-        data.Course ? postData['courseId'] = data.courseId : postData['trainingClassId'] = data.trainingClassId;
+        
+        if(data.Course){
+          postData['courseId'] = data.courseId;
+          postData['typeSet'] = 'Course';
+        }else{
+          postData['trainingClassId'] = data.trainingClassId;
+          postData['typeSet'] = 'Class';
+        }
+
         this.http.put(false,API_URL.URLS.updateTrainingStatus, postData).subscribe((res) => {      
         },(err) => {
           console.log(err);
         });
+
       }
+    
       this.paramsData['courseId'] = data.courseId;
       this.paramsData['courseName'] = data.Course ? data.Course.courseName:'';
       this.paramsData['trainingScheduleId'] = data.TrainingSchedule.trainingScheduleId;
@@ -148,14 +161,20 @@ export class CoursePage implements OnInit {
     
   }
 
-  openSignRequireDetail(Files, notificationFileId){
-    let data = {
-      'files' : Files,
-      'uploadPath' : this.uploadPath,
+  openSignRequireDetail(data, notificationFileId){
+    let postData = {
       'type' : 'signReq',
       'notificationFileId' : notificationFileId
     }
-    this.navCtrl.push('signrequire-page', data);
+   
+   if(data.description){
+      postData['description'] = data.description;
+   }else{
+    postData['files'] = data.File;
+    postData['uploadPath'] = this.uploadPath;
+   }
+
+    this.navCtrl.push('signrequire-page', postData);
   }
 
   //getcourse 

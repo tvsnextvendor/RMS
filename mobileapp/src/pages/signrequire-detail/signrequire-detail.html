@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div class="inner-content" *ngIf="Files">
+  <div class="inner-content" *ngIf="Files || description">
     <div class="training-det">
       <div class="image-tag" *ngIf="imageType">
         <img src="{{showPreView}}" alt="image" class="inner-image">
@@ -33,8 +33,10 @@
         <ion-card-title>
           <ion-grid no-padding class="">
             <ion-row>
-              <ion-col col-8>
+              <ion-col col-8 *ngIf="!description">
                 <h6>{{Files.fileName}} </h6>
+              </ion-col>
+              <ion-col col-8 *ngIf="description">
               </ion-col>
               <ion-col col-4>
                 <span  (click)="viewContent(filePath)" class="view-button" *ngIf="imageType">
@@ -65,6 +67,21 @@
               {{constant.pages.trainingLabels.readLess}}
             </a> </div>
         </div>
+
+        <div *ngIf="description" class="quiz-text">
+          <div *ngIf="description.length <= 400">{{description}}</div>
+          <div *ngIf="truncating && description.length > 400">
+            {{description | words : limit}}
+            <a href="javascript:void(0);" (click)="truncating = false">
+              {{constant.pages.trainingLabels.readMore}}</a>
+          </div>
+          <div *ngIf="!truncating && description.length > 400">
+            {{description}}
+            <a href="javascript:void(0);" (click)="truncating = true">
+              {{constant.pages.trainingLabels.readLess}}
+            </a> </div>
+        </div>
+
         </div>
         </div>
         </div>

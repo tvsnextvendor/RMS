@@ -71,15 +71,18 @@ getSignRequired(){
       this.navCtrl.push('home-page');
   }
 
-  openSignRequireDetail(Files, notificationFileId){
-    let data = {
-      'files' : Files,
-      'uploadPath' : this.uploadPath,
+  openSignRequireDetail(data, notificationFileId){
+    let postData = {
       'type': 'noSignReq',
       'notificationFileId': notificationFileId
     }
-    console.log(this.uploadPath);
-    this.navCtrl.push('signrequire-page', data);
+    if (data.description) {
+        postData['description'] = data.description;
+    } else {
+        postData['files'] = data.File;
+        postData['uploadPath'] = this.uploadPath;
+    }
+    this.navCtrl.push('signrequire-page', postData);
   }
   
 }
