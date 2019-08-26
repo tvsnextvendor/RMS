@@ -109,7 +109,7 @@
                     <td class="vdo-desc-height">{{list.updated | date}}</td>
                     <td class="vdo-desc-height text-center">{{list.resortsCount}}</td>
                     <td class="vdo-desc-height text-center und-txt">
-                    <span *ngIf="list.employeesCount > 0"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}">{{list.employeesCount}}</a></span>
+                    <span *ngIf="list.employeesCount > 0"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}" [queryParams]="{type: 'course'}">{{list.employeesCount}}</a></span>
                     <span *ngIf="list.employeesCount == 0">{{list.employeesCount}}</span>
                     </td>
                 </tr>

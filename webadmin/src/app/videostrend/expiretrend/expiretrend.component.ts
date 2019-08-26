@@ -1,5 +1,6 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { Location } from '@angular/common'; 
+import { Router, ActivatedRoute } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap';
 import {HttpService, HeaderService, UtilService,PDFService, ExcelService, CommonService,BreadCrumbService,ResortService,UserService} from '../../services';
 import {VideosTrendVar} from '../../Constants/videostrend.var';
@@ -40,9 +41,16 @@ export class ExpiretrendComponent implements OnInit {
     private pdfService:PDFService,
     private excelService: ExcelService,
     private resortService :ResortService,
-    private userService : UserService) { 
+    private userService : UserService,
+    private route : Router,
+    private activatedRoute : ActivatedRoute) { 
       this.roleId = this.utilsService.getRole();
       this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
+      this.activatedRoute.queryParams.subscribe(item=>{
+        if(item && item.type){
+          this.seletedTab = item.type;
+        }
+      })
     }
 
 
@@ -191,6 +199,7 @@ resetFilter(){
 
 dataSelect(type){
   this.seletedTab = type;
+  this.route.navigate(['/expiring/trend'],{queryParams : {type : type}});
     // this.getModuleList('');
   this.resetFilter();
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { HeaderService } from '../../services/header.service';
 import { VideosTrendVar } from '../../Constants/videostrend.var';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ExcelService, PDFService, CommonService, UtilService,BreadCrumbService,ResortService,UserService } from '../../services';
+import { ExcelService, PDFService, AlertService, CommonService, UtilService,BreadCrumbService,ResortService,UserService } from '../../services';
 import { API_URL } from 'src/app/Constants/api_url';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
@@ -25,6 +26,7 @@ export class VideosTrendDetailsComponent implements OnInit {
     filterUser = null;
     roleId;
     enableFilter= false;
+    trendType;
 
     constructor(private headerService: HeaderService,
         private excelService: ExcelService,
@@ -36,16 +38,23 @@ export class VideosTrendDetailsComponent implements OnInit {
         private commonService: CommonService,
         private breadCrumbService :BreadCrumbService,
         private resortService : ResortService,
-        private userService :UserService) {
+        private userService :UserService,
+        public location : Location,
+        private alertService : AlertService) {
         this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.trendsVar.videoId = params['id'];
         });
         this.trendsVar.url = API_URL.URLS;
+        this.activatedRoute.queryParams.subscribe((params) => {
+            this.trendType = params.type;
+            // this.courseId = params['id'];
+          });
     }
 
     ngOnInit() {
-        this.headerService.setTitle({ title: this.commonLabels.titles.courseTrend, hidemodule: false });
+        let title = this.trendType == 'course' ? this.commonLabels.titles.courseTrend : this.commonLabels.labels.classTrend;
+        this.headerService.setTitle({ title: title, hidemodule: false });
         this.breadCrumbService.setTitle([]);
         this.roleId = this.utilService.getRole();
         this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : '';
@@ -59,10 +68,13 @@ export class VideosTrendDetailsComponent implements OnInit {
         if(filter){
             query = query+filter
         }
-        this.commonService.getCourseEmployeeList(query, this.trendsVar.videoId).subscribe((result) => {
+        this.commonService.getCourseEmployeeList(query, this.trendsVar.videoId,this.trendType).subscribe((result) => {
             if  (result && result.isSuccess) {
                 this.trendsVar.employeeList = result.data.rows;
             }
+        },err=>{
+            this.trendsVar.employeeList = [];
+            this.alertService.error(err.error.error);
         });
     }
 

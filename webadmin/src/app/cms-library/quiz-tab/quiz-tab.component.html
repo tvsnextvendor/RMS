@@ -23,8 +23,8 @@
                             <label class="col-md-2 p-0 label-title">{{commonLabels.labels.quizName}}</label>
                             <div class="col-md-10 pl-0">
                                 <span>
-                                    <input type="text" class="form-control" placeholder="Enter Quiz Name" name="name" #quizname="ngModel"
-                                        [(ngModel)]="quizName" required [disabled] = "data.enableEdit === false ? 'true' : false">
+                                    <input [disabled] = "data.enableEdit == false ? 'true' : 'false'" type="text" class="form-control" placeholder="Enter Quiz Name" name="name" #quizname="ngModel"
+                                        [(ngModel)]="quizName" required>
                                 </span>
                                 <!-- <span class="required_color" *ngIf="!quizName && (quizForm.submitted || quizname.touched)">
                                     {{commonLabels.labels.quizName}} {{commonLabels.mandatoryLabels.isRequired}}

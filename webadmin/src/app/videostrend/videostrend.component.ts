@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common'; 
-import {HttpService, HeaderService, UtilService,PDFService, ExcelService, CommonService,BreadCrumbService,ResortService,UserService} from '../services';
+import {HttpService, HeaderService, UtilService,AlertService, PDFService, ExcelService, CommonService,BreadCrumbService,ResortService,UserService} from '../services';
 import {VideosTrendVar} from '../Constants/videostrend.var';
 import { API_URL } from '../Constants/api_url';
 import { CommonLabels } from '../Constants/common-labels.var'
@@ -42,7 +42,8 @@ export class VideosTrendComponent implements OnInit {
     private pdfService:PDFService,
     private excelService: ExcelService,
     private resortService :ResortService,
-    private userService : UserService
+    private userService : UserService,
+    private alertService : AlertService
     ) {
     this.trendsVar.url = API_URL.URLS;
     this.roleId = this.utilsService.getRole();
@@ -150,6 +151,9 @@ export class VideosTrendComponent implements OnInit {
         }
         this.commonService.getCourseTrendList(courseTrendObj,query).subscribe((result) => {
           this.trendsVar.moduleList = result.data.rows;
+        },err => {
+            this.trendsVar.moduleList = [];
+            this.alertService.error(err.error.error)
         });
     }
 

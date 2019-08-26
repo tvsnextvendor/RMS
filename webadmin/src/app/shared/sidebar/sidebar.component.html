@@ -24,6 +24,9 @@
             <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''">
                 <a routerLink="/videostrend">{{commonLabels.labels.videosTrend}}</a>
             </li>
+            <li [ngClass]="(tabType == 'report' && currentUrl == '/classtrend') ? 'active' : ''" *ngIf="permissionCheck('Training Class Trend','view')">
+                <a routerLink="/classtrend">{{commonLabels.labels.classTrend}}</a>
+            </li>
             <li [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
                 <a routerLink="/resortList">{{commonLabels.labels.resortDetails}}</a>
             </li>
@@ -101,6 +104,9 @@
         <ul class="sub-menu" *ngIf="enableReport">
             <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''" *ngIf="permissionCheck('Course Trend','view')">
                 <a routerLink="/videostrend">{{commonLabels.labels.videosTrend}}</a>
+            </li>
+            <li [ngClass]="(tabType == 'report' && currentUrl == '/classtrend') ? 'active' : ''" *ngIf="permissionCheck('Training Class Trend','view')">
+                <a routerLink="/classtrend">{{commonLabels.labels.classTrend}}</a>
             </li>
             <li *ngIf="roleId == 2 && permissionCheck('Resort Details','view')" [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
                 <a routerLink="/resortList">{{commonLabels.labels.resortDetails}}</a>
@@ -206,6 +212,9 @@
             <ul class="sub-menu" *ngIf="enableReport">
                 <li [ngClass]="(tabType == 'report' && currentUrl == '/videostrend') ? 'active' : ''"  *ngIf="permissionCheck('Course Trend','view')">
                     <a routerLink="/videostrend">{{commonLabels.labels.videosTrend}}</a>
+                </li>
+                <li [ngClass]="(tabType == 'report' && currentUrl == '/classtrend') ? 'active' : ''" *ngIf="permissionCheck('Training Class Trend','view')">
+                    <a routerLink="/classtrend">{{commonLabels.labels.classTrend}}</a>
                 </li>
                 <!-- <li *ngIf="roleId == 2" [ngClass]="(tabType == 'report' && currentUrl == '/resortList') ? 'active' : ''">
                     <a routerLink="/resortList">{{commonLabels.labels.resortDetails}}</a>
