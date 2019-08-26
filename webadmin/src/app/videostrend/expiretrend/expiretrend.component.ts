@@ -62,7 +62,7 @@ export class ExpiretrendComponent implements OnInit {
         year : this.trendsVar.years,
         month : this.trendsVar.months,
     };
-    let query = this.resortId ? '&resortId='+this.resortId : '';
+    let query = this.resortId ? '&resortId='+this.resortId+"&expire=1"  : ''+"&expire=1" ;
     if(this.search){
         query = this.resortId ? '&resortId='+this.resortId+"&search="+this.search : "&search="+this.search ;
     }
