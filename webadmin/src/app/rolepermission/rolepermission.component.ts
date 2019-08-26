@@ -37,6 +37,7 @@ export class RolepermissionComponent implements OnInit {
         this.constant.selectAllView = false;
         this.constant.selectAllUpload = false;
         this.constant.selectAllEdit = false;
+        this.constant.web = null;
       });
       this.rolesPermissions = [];
     }
@@ -55,10 +56,7 @@ export class RolepermissionComponent implements OnInit {
     this.getRoles(this.resortId);
     this.constant.resortList = [];
     this.getresortDetails();
-    // console.log("this.userIdInfo");
-
-    // console.log(this.userIdInfo);
-    //debugger;
+   
     if (this.userIdInfo) {
       // this.getData();
     } else {

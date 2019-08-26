@@ -276,9 +276,9 @@
                                     class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>
-                            <mfDefaultSorter by="employeeName">{{commonLabels.labels.lastName}}<span class="ml-2"><img src="assets/images/sortby.png"
-                                        class="s-width"></span></mfDefaultSorter>
-                        </th>
+                        <mfDefaultSorter by="employeeName">{{commonLabels.labels.lastName}}<span class="ml-2"><img src="assets/images/sortby.png"
+                                    class="s-width"></span></mfDefaultSorter>
+                    </th>
                     <th>
                         <mfDefaultSorter by="division">{{commonLabels.labels.division}}</mfDefaultSorter>
                     </th>
@@ -478,6 +478,8 @@
                         <option value="web">{{commonLabels.labels.web}}</option>
                         <option value="mobile">{{commonLabels.labels.mobile}}</option>
                         <option value="web/mobile">{{commonLabels.labels.webOrmobile}}</option>
+                        <option value="mobileAdmin">{{commonLabels.labels.mobileAdmin}}</option>
+                        <option value="web/mobileAdmin'">{{commonLabels.labels.webOrMobileAdmin}}</option>
                     </select>
                     <div class="select_arrow"></div>
                     <span class="required_color"
@@ -488,14 +490,14 @@
                 <span class="pl11">
                     <label class="square-cont mr-5">
                         <input type="checkbox" [(ngModel)]="fullAccess"  (change)="accessSelect('full')" name="full">
-                        Full Access
+                        {{commonLabels.labels.fullAccess}}
                         <span class="square-checkmark"></span>
                     </label>
                 </span>
                 <span class="pl30">
                     <label class="square-cont">
                         <input type="checkbox" [(ngModel)]="approvalAccess"  (change)="accessSelect('approve')" name="approve">
-                        Approval Access
+                        {{commonLabels.labels.approvalAccess}}
                         <span class="square-checkmark"></span>
                     </label>
                 </span>

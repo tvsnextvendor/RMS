@@ -45,6 +45,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   disableEdit = false;
   disableTabs = false;
   schedulePage = false;
+  resourceLib = false;
 
   ngOnInit() {
   this.selectedTab = 'course';
@@ -127,6 +128,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
     if(params.tab == 'schedule'){
           this.headerService.setTitle({title:this.commonLabels.labels.schedule, hidemodule:false});
       }else if(window.location.pathname.indexOf("resource") != -1){
+        this.resourceLib = true;
         this.headerService.setTitle({title:this.commonLabels.labels.resourceLibrary, hidemodule:false});
       }else{
             let path = window.location.pathname;
@@ -304,19 +306,18 @@ backClicked(){
       this.showcreatecourse = true;
       // sendFileList
       this.fileService.emptyLocalFileList();
-     }else if(params.type == 'edit'){
+     }else if(params.type == 'edit' || this.resourceLib){
       this.selectedTab = 'course';
       this.hideSection = false;
       this.showcreatecourse = false;
       this.fileService.emptyLocalFileList();
      }
-     
   })
   
 }
 
 ngOnDestroy(){
-  
+  this.resourceLib = false;
 }
    
 }

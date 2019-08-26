@@ -790,8 +790,6 @@ export class UserComponent implements OnInit {
             this.removeDepartmentIds.push(this.editDepartmentList[i].departmentId);
             this.editDepartmentList.splice(i, 1);
             this.validationDivisionCheck = true;
-
-
         }
     }
 
@@ -873,7 +871,6 @@ export class UserComponent implements OnInit {
                 this.editDivisionValue.Departments = params;
                 this.editDivisionValue.removeDepartmentIds = this.removeDepartmentIds;
                 this.updateDivsionSubmit();
-
             }
             else {
                 this.alertService.error(this.commonLabels.mandatoryLabels.deptName);

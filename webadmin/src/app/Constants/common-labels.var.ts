@@ -386,7 +386,12 @@ export class CommonLabels{
         "sendToAll"         :   "Send to all employee",
         "sendToReporter"    :   "Send only to reporting persons",
         "reportingError"    :   "Please select minimum one reporting manager",
-        "totalNoOfScheduleCourses"  :   "Total no. of scheduled courses -"
+        "totalNoOfScheduleCourses"  :   "Total no. of scheduled courses -",
+        "mobileAdmin"       :   "Mobile Admin",
+        "webOrMobileAdmin"  :   "Web/mobileAdmin",
+        "fullAccess"        :   "Full Access",
+        "approvalAccess"    :   " Required Content Approval"    
+
     };
 
     btns = {
