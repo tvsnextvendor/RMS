@@ -206,13 +206,11 @@ getCalculateDue(expireTrend){
     let timeDiff = dueDate.getTime() - currentDate.getTime();
     DaysDiff = timeDiff / (1000 * 3600 * 24);
     DaysDiff =  Math.round(DaysDiff);
-    console.log(DaysDiff);
   }else{
     DaysDiff = '-';
   }
   return DaysDiff;
 }
-
 selectEmployee(data,checked){
   if(checked){
     this.selectedEmp.push(data.userId);

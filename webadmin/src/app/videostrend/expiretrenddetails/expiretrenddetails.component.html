@@ -84,8 +84,8 @@
                         <td class="vat text-left">{{getListArray(emp.ResortUserMappings,'dept')}}</td>
                         <td class="vat text-left" *ngIf="emp.reportDetails">{{emp?.reportDetails?.userName}}</td>
                         <td class="vat text-left" *ngIf="!emp.reportDetails">-</td>
-                        <!-- <td class="vat text-left">{{emp.TrainingScheduleResorts[0].TrainingSchedule.dueDate}}</td> -->
-                        <td class="vat text-left">{{getCalculateDue(emp.TrainingScheduleResorts[0]) }}</td>
+                        <!-- <td class="vat text-left"><span *ngIf="emp.TrainingScheduleResorts">{{emp.TrainingScheduleResorts[0].TrainingSchedule.dueDate}}</span></td> -->
+                        <td class="vat text-left"><span *ngIf="emp.TrainingScheduleResorts">{{getCalculateDue(emp.TrainingScheduleResorts[0]) }}</span></td>
                     </tr>
                     <tr *ngIf="trendsVar.employeeList?.length == 0">
                         <td colspan="10">
