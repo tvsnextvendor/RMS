@@ -31,6 +31,16 @@
                 <app-ngx-editor [config]="editorConfig" [(ngModel)]="dataModel"></app-ngx-editor>
                 <!-- <editor [(ngModel)]="dataModel"></editor> -->
                 <button class="btn btn-primary Signature-btn" type="button" (click)="addSign()" [disabled]="!setSignatureStatus">{{commonLabels.btns.addSign}}</button>
+                <label for="file-upload" class="custom-file-upload upload-btn">
+                    <i class="fa fa-paperclip"></i> 
+                </label>
+                <input id="file-upload" type="file" (change)="fileUpload($event)"  multiple/>
+                <div class="file-wrap" *ngIf="attachments">
+                    <span class="file-detail" *ngFor="let file of attachments; let i = index ">
+                     {{file.name}}
+                     <span class="close-file" (click)="removeAttachment(i)">X</span>
+                    </span>
+                </div>
             </div>
              <div class="py-4 clearfix"><button class="btn btn-primary" type="button" (click)="sendMail()">{{commonLabels.btns.send}}</button></div>
         </div>
