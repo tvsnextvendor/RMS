@@ -390,7 +390,8 @@ export class CommonLabels{
         "mobileAdmin"       :   "Mobile Admin",
         "webOrMobileAdmin"  :   "Web/mobileAdmin",
         "fullAccess"        :   "Full Access",
-        "approvalAccess"    :   " Required Content Approval"    
+        "approvalAccess"    :   " Required Content Approval",
+        "noOfDays"          :   "No.Of Days"    
 
     };
 
@@ -450,7 +451,8 @@ export class CommonLabels{
         "addSchedule"       :   "Add Schedule",
         "recentDelete"      :   "Recently Deleted",
         "editQuiz"          :   "Edit Quiz",
-        "sendNotification"  :   "Send Notification"
+        "sendNotification"  :   "Send Notification",
+       
         
        
     };
