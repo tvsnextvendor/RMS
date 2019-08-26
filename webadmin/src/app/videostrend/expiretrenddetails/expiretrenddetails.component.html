@@ -44,7 +44,10 @@
                 [mfRowsOnPage]="10">
                 <thead>
                     <tr class="th-boxshadow">
-                        <th colspan="1"></th>
+                        <th colspan="1"><label class="square-cont float-left">
+                            <input type="checkbox" name="course" [checked]="selectAllEmp" (change)="selectAll($event.target.checked)">
+                            <span class="square-checkmark"></span>
+                        </label></th>
                         <th colspan="1" class="text-left">
                             <mfDefaultSorter by="resortName">{{commonLabels.labels.resortName}}</mfDefaultSorter>
                         </th>
@@ -73,7 +76,7 @@
                     <tr *ngFor="let emp of mf.data" class="table-desc-color">
                         <td>
                             <label class="square-cont float-left">
-                                <input type="checkbox" name="courseId{{i}}" (change)="selectEmployee(emp,$event.target.checked)">
+                                <input type="checkbox" name="courseId{{i}}" [checked]="emp.checked" (change)="selectEmployee(emp,$event.target.checked)">
                                 <span class="square-checkmark"></span>
                             </label>
                         </td>
