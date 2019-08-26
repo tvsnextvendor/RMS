@@ -36,6 +36,7 @@ export class ExpiretrenddetailsComponent implements OnInit {
   reporter = [];
   reportingError = false;
   comments ; 
+  selectAllEmp = false;
   // typeSet1='toAllEmployee';
   // typeSet2='toAllReportManager';
 
@@ -213,11 +214,36 @@ getCalculateDue(expireTrend){
 }
 selectEmployee(data,checked){
   if(checked){
+    let i = this.trendsVar.employeeList.findIndex(d=>d.userId == data.userId);
+    this.trendsVar.employeeList[i].checked = true;
     this.selectedEmp.push(data.userId);
+    this.selectAllEmp = this.trendsVar.employeeList.every(function (item: any) {
+      return item.checked == true;
+    });
   }
   else{
     let index = this.selectedEmp.findIndex(d=>d == data.userId);
+    let i = this.trendsVar.employeeList.findIndex(d=>d.userId == data.userId);
+    this.trendsVar.employeeList[i].checked = false;
     this.selectedEmp.splice(index,1);
+    this.selectAllEmp = false;
+  }
+}
+
+selectAll(check){
+  if(check){
+    this.trendsVar.employeeList.forEach(item=>{
+      this.selectedEmp.push(item.userId);
+      item.checked = true;
+    })
+    this.selectAllEmp = true;
+  }
+  else{
+    this.trendsVar.employeeList.forEach(item=>{
+      item.checked = false;
+    })
+    this.selectedEmp = [];
+    this.selectAllEmp = false;
   }
 }
 
@@ -324,5 +350,6 @@ getReporterList(){
     this.comments = '';
     this.modalRef.hide();
     this.getExpireTrendList('');
+    this.selectAllEmp = false;
   }
 }
