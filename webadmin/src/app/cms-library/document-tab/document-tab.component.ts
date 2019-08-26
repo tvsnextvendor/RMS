@@ -328,17 +328,28 @@ export class DocumentTabComponent implements OnInit {
     this.constant.modalRef.hide();
   }
 
-  onEmpSelect(event, key,checkType,selectAll) {
+  onEmpSelect(event,key,checkType,selectAll) {
 
-    if (event.divisionId) {
-      this.constant.divisionId = event.divisionId;
-    } else if (event.departmentId) {
-      this.constant.departmentId = event.departmentId;
+    if (event.divisionId || (selectAll && key == 'div')) {
+      this.constant.divisionId = selectAll ? event.map(item=>{return item.divisionId})  : event.divisionId;
+      if(selectAll && !checkType){
+        this.constant.departmentList = [];
+        this.constant.employeeList = [];
+        this.constant.selectedDepartment = [];
+        this.constant.selectedEmp = [];
+      }
+    } else if (event.departmentId || (selectAll && key == 'dept')) {
+      this.constant.departmentId = selectAll ? event.map(item=>{return item.departmentId})  : event.departmentId;
+      if(selectAll && !checkType){
+        // this.constant.departmentList = [];
+        this.constant.employeeList = [];
+        // this.constant.selectedDepartment = [];
+        this.constant.selectedEmp = [];
+      }
     } else {
       this.constant.divisionId = '';
       this.constant.departmentId = '';
     }
-    
     if (key == 'div') {
       const obj = { 'divisionId': this.constant.divisionId };
       this.commonService.getDepartmentList(obj).subscribe((result) => {
