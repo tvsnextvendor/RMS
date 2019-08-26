@@ -198,6 +198,21 @@ getListArray(data,type){
   }
 }
 
+getCalculateDue(expireTrend){
+  let DaysDiff;
+  if(expireTrend && expireTrend.TrainingSchedule && expireTrend.TrainingSchedule.dueDate){
+    let currentDate = new Date();
+    let dueDate = new Date(expireTrend.TrainingSchedule.dueDate);
+    let timeDiff = dueDate.getTime() - currentDate.getTime();
+    DaysDiff = timeDiff / (1000 * 3600 * 24);
+    DaysDiff =  Math.round(DaysDiff);
+    console.log(DaysDiff);
+  }else{
+    DaysDiff = '-';
+  }
+  return DaysDiff;
+}
+
 selectEmployee(data,checked){
   if(checked){
     this.selectedEmp.push(data.userId);

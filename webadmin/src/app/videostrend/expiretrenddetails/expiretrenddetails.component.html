@@ -6,7 +6,8 @@
                     <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
                         (change)="filterSelect(childResort.value,'resort')">
                         <option [value]=null>{{commonLabels.labels.selectResort}}</option>
-                        <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
+                        <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName |
+                            titlecase}}</option>
                     </select>
                     <div class="select_arrow"></div>
                 </div>
@@ -19,16 +20,14 @@
                     <div class="select_arrow"></div>
                 </div>
                 <div class="col-md-3 pl-0 select select-style clearfix">
-                    <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
-                         (change)="filterSelect(dept.value,'dept')">
+                    <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept (change)="filterSelect(dept.value,'dept')">
                         <option [value]=null>{{commonLabels.labels.selDept}}</option>
                         <option *ngFor="let dep of departmentList" [value]="dep.departmentId">{{dep.departmentName}}</option>
                     </select>
                     <div class="select_arrow"></div>
                 </div>
                 <div class="col-md-3 pl-0 select select-style clearfix">
-                    <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
-                        (change)="filterSelect(emp.value,'emp')">
+                    <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp (change)="filterSelect(emp.value,'emp')">
                         <option [value]=null>{{commonLabels.labels.selEmp}}</option>
                         <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
                     </select>
@@ -40,7 +39,7 @@
             </div>
         </div>
         <div><button class="float-right btn btn-primary" (click)="openNotificationModel(notification)">{{commonLabels.btns.sendNotification}}</button></div>
-         <div class="table-responsive custom-table2 px-2">
+        <div class="table-responsive custom-table2 px-2">
             <table class="table white-bg table-striped mt-3" [mfData]="trendsVar.employeeList" #mf="mfDataTable"
                 [mfRowsOnPage]="10">
                 <thead>
@@ -62,6 +61,12 @@
                         <th colspan="1" class="text-left">
                             <mfDefaultSorter>{{commonLabels.labels.reportingTo}}</mfDefaultSorter>
                         </th>
+                        <!-- <th colspan="1" class="text-left">
+                            <mfDefaultSorter>Due Date</mfDefaultSorter>
+                        </th> -->
+                        <th colspan="1" class="text-left">
+                            <mfDefaultSorter>{{commonLabels.labels.noOfDays}}</mfDefaultSorter>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,16 +77,21 @@
                                 <span class="square-checkmark"></span>
                             </label>
                         </td>
-                        <td class="vat employeeName-width">{{emp?.ResortUserMappings[0]?.Resort?.resortName  | titlecase}}</td>
-                        <td class="vat pl-4 employeeName-width">{{emp?.userName  | titlecase}}</td>
+                        <td class="vat employeeName-width">{{emp?.ResortUserMappings[0]?.Resort?.resortName |
+                            titlecase}}</td>
+                        <td class="vat pl-4 employeeName-width">{{emp?.userName | titlecase}}</td>
                         <td class="vat text-left">{{getListArray(emp.ResortUserMappings,'division')}}</td>
                         <td class="vat text-left">{{getListArray(emp.ResortUserMappings,'dept')}}</td>
                         <td class="vat text-left" *ngIf="emp.reportDetails">{{emp?.reportDetails?.userName}}</td>
                         <td class="vat text-left" *ngIf="!emp.reportDetails">-</td>
+                        <!-- <td class="vat text-left">{{emp.TrainingScheduleResorts[0].TrainingSchedule.dueDate}}</td> -->
+                        <td class="vat text-left">{{getCalculateDue(emp.TrainingScheduleResorts[0]) }}</td>
                     </tr>
                     <tr *ngIf="trendsVar.employeeList?.length == 0">
-                        <td colspan="10"><p class="text-center data-design p-5">
-                        <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
+                        <td colspan="10">
+                            <p class="text-center data-design p-5">
+                                <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -91,43 +101,42 @@
         </div>
     </div>
 </div>
-
 <ng-template #notification>
-        <div class="modal-header pb-0">
-            <p class="hd-alg">{{commonLabels.labels.notifyConfirm}}</p>
-    
-            <button type="button" class="close pull-right" aria-label="Close" (click)="resetData()" title="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body text-center">
-            <div class="col-md-12 clearfix">
-                <div class="col-md-12 pt-3 clearfix">
-                    <span>
-                        <label class="square-cont mr-5">
-                            <input type="checkbox" [(ngModel)]="hideReporters"  (change)="reportersSelect('hide')" name="hideReport">
-                            {{commonLabels.labels.sendToAll}}
-                            <span class="square-checkmark"></span>
-                        </label>
-                        <label class="square-cont">
-                            <input type="checkbox" [(ngModel)]="showReporters"  (change)="reportersSelect('show')" name="showReport">
-                            {{commonLabels.labels.sendToReporter}}
-                            <span class="square-checkmark"></span>
-                        </label>
-                    </span>
-                </div>
-                <span *ngIf="reportingError" class="required_color">{{commonLabels.labels.reportingError}}</span>
-                <div class="pl-0 form-group select-Courses" *ngIf="showReporters == 'show'">
-                    <ng-multiselect-dropdown [placeholder]="'Reporting Manager'" name="reporter" [data]="reportingMangerList"
+    <div class="modal-header pb-0">
+        <p class="hd-alg">{{commonLabels.labels.notifyConfirm}}</p>
+
+        <button type="button" class="close pull-right" aria-label="Close" (click)="resetData()" title="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <div class="col-md-12 clearfix">
+            <div class="col-md-12 pt-3 clearfix">
+                <span>
+                    <label class="square-cont mr-5">
+                        <input type="checkbox" [(ngModel)]="hideReporters" (change)="reportersSelect('hide')" name="hideReport">
+                        {{commonLabels.labels.sendToAll}}
+                        <span class="square-checkmark"></span>
+                    </label>
+                    <label class="square-cont">
+                        <input type="checkbox" [(ngModel)]="showReporters" (change)="reportersSelect('show')" name="showReport">
+                        {{commonLabels.labels.sendToReporter}}
+                        <span class="square-checkmark"></span>
+                    </label>
+                </span>
+            </div>
+            <span *ngIf="reportingError" class="required_color">{{commonLabels.labels.reportingError}}</span>
+            <div class="pl-0 form-group select-Courses" *ngIf="showReporters == 'show'">
+                <ng-multiselect-dropdown [placeholder]="'Reporting Manager'" name="reporter" [data]="reportingMangerList"
                     [(ngModel)]="reporter" [settings]="reportSettings" #reporterId="ngModel" required></ng-multiselect-dropdown>
-                </div>
-                <div class="col-md-12">
-                    <textarea [(ngModel)]="comments" name="Comment" class="col-md-12 reject-textarea" placeholder="Write your comment here"></textarea>
-                </div>
             </div>
-            <div class="text-center mt-4">
-                <button (click)="sendNotification()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
-                <button type="button" class="btn btn-default" (click)="resetData()">{{commonLabels.btns.cancel}}</button>
+            <div class="col-md-12">
+                <textarea [(ngModel)]="comments" name="Comment" class="col-md-12 reject-textarea" placeholder="Write your comment here"></textarea>
             </div>
         </div>
-    </ng-template>
+        <div class="text-center mt-4">
+            <button (click)="sendNotification()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
+            <button type="button" class="btn btn-default" (click)="resetData()">{{commonLabels.btns.cancel}}</button>
+        </div>
+    </div>
+</ng-template>
