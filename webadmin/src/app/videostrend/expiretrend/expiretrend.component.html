@@ -63,7 +63,7 @@
           <button type="button" (click)="resetFilter()" class="btn reset-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
           </div>
   </div>
-  <div class="table-responsive custom-table2 mt-3">{{seletedTab}}
+  <div class="table-responsive custom-table2 mt-3">
     <tabset  #staticTabs>
       <tab [active] = "seletedTab == 'course'"  heading="Course" (select)="dataSelect('course')">
           <table class="table white-bg table-striped" [mfData]="moduleList" #mf="mfDataTable" [mfRowsOnPage]="10" id="courseTrend">
