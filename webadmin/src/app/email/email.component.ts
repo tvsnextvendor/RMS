@@ -1,17 +1,16 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderService,BreadCrumbService } from '../services';
-import { HttpService } from '../services/http.service';
+import { HttpService, UtilService, AlertService, HeaderService, BreadCrumbService} from '../services';
 import { EmailVar } from '../Constants/email.var';
 import { API_URL } from '../Constants/api_url';
-import { AlertService } from '../services/alert.service';
 import { CommonLabels } from '../Constants/common-labels.var';
 
 @Component({
     selector: 'app-email',
     templateUrl: './email.component.html',
     styleUrls: ['./email.component.css'],
+    // encapsulation: ViewEncapsulation.None 
 })
 
 export class EmailComponent implements OnInit {
@@ -24,9 +23,11 @@ export class EmailComponent implements OnInit {
     userList = [];
     userDetails;
     dataModel;
+    uploadFileName;
     editorConfig ={};
     setSignatureStatus: boolean = true;
-    constructor(private toastr: ToastrService, private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService) {
+    attachments=[];
+    constructor(private toastr: ToastrService,private utilService: UtilService,private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService) {
         this.email.url = API_URL.URLS;
     }
 
@@ -114,9 +115,10 @@ export class EmailComponent implements OnInit {
 
 
     addSign() {
-        this.userDetails = JSON.parse(localStorage.getItem('userData'));
+        this.userDetails = this.utilService.getUserData();
+        console.log(this.userDetails);
         let content = this.dataModel;
-        const signature = "<br><b>Thanks,</b><br>" + this.userDetails.username;
+        const signature = "<br><b>Thanks,</b><br>" + this.userDetails.userName;
         if(this.setSignatureStatus){
             this.dataModel = (content) ? content + signature : signature;
             this.setSignatureStatus = false;
@@ -140,5 +142,25 @@ export class EmailComponent implements OnInit {
             this.emailForm.to = '';
             this.alertService.warn(this.commonLabels.msgs.warnMsg);
         }
+    }
+
+     fileUpload(event){
+            let files = event.target.files;
+            let content = this.dataModel;
+            if (files.length > 0) {   
+                this.attachments = files;           
+                console.log(this.attachments); // You will see the file
+            } 
+    }
+
+    removeAttachment(i){
+        console.log(i,"I");
+        console.log(this.attachments,"ATTACHMENTS");
+        this.attachments.splice(0,1);
+        // this.attachments.filter((key, index) => {
+        //     if (key.notificationId == notification.notificationId) {
+        //         this.notificationList.splice(index, 1);
+        //     }
+        // })
     }
 }
