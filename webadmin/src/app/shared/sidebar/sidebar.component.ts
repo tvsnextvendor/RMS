@@ -169,7 +169,7 @@ export class SideBarComponent implements OnInit {
 
   expandCheck(type){
     if(type == 'performance'){
-      if(this.permissionCheck('Course Trend','view') || this.permissionCheck('Resort Details','view') || this.permissionCheck('Certification Trend','view')){
+      if(this.permissionCheck('Course Trend','view') || this.permissionCheck('Training Class Trend','view') || this.permissionCheck('Resort Details','view') || this.permissionCheck('Certification Trend','view') || this.permissionCheck('Expire Trend','view')){
         return true;
       }
       else{

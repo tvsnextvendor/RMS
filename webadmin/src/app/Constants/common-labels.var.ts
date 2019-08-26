@@ -388,11 +388,11 @@ export class CommonLabels{
         "reportingError"    :   "Please select minimum one reporting manager",
         "totalNoOfScheduleCourses"  :   "Total no. of scheduled courses -",
         "mobileAdmin"       :   "Mobile Admin",
-        "webOrMobileAdmin"  :   "Web/mobileAdmin",
+        "webOrMobileAdmin"  :   "Web/Mobile Admin",
         "fullAccess"        :   "Full Access",
         "approvalAccess"    :   " Required Content Approval",
-        "noOfDays"          :   "No.Of Days"    
-
+        "noOfDays"          :   "No.Of Days",    
+        "classTrend"        :   "Training Class Trend"
     };
 
     btns = {

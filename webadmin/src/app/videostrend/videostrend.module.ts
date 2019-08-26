@@ -13,13 +13,16 @@ import { FormsModule} from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
 import { ExpiretrendComponent } from './expiretrend/expiretrend.component';
 import { ExpiretrenddetailsComponent } from './expiretrenddetails/expiretrenddetails.component';
+import { ClasstrendComponent } from './classtrend/classtrend.component';
 
 
 const routes: Routes = [
     { path: 'videostrend', component:VideosTrendComponent ,canActivate : [AuthGuard]},
     { path : 'videostrend/:id', component:VideosTrendDetailsComponent, canActivate:[AuthGuard] },
     { path : 'expiring/trend', component:ExpiretrendComponent, canActivate:[AuthGuard] },
-    { path : 'expiring/trend/:id', component:ExpiretrenddetailsComponent, canActivate:[AuthGuard] }
+    { path : 'expiring/trend/:id', component:ExpiretrenddetailsComponent, canActivate:[AuthGuard] },
+    { path: 'classtrend', component:ClasstrendComponent ,canActivate : [AuthGuard]},
+    // { path : 'classtrend/:id', component:VideosTrendDetailsComponent, canActivate:[AuthGuard] },
 ];
 
 @NgModule({
@@ -35,7 +38,7 @@ const routes: Routes = [
     NgMultiSelectDropDownModule
     ],
   declarations: [
-    VideosTrendComponent,VideosTrendDetailsComponent, ExpiretrendComponent, ExpiretrenddetailsComponent
+    VideosTrendComponent,VideosTrendDetailsComponent, ExpiretrendComponent, ExpiretrenddetailsComponent, ClasstrendComponent
   ],
   bootstrap: [VideosTrendComponent]
 })

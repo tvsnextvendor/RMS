@@ -165,8 +165,9 @@ getCourseTrendList(courseTrendObj,query) {
   return this.http.getLocal('local', this.url.getCourseTrendList + '?year=' + courseTrendObj.year + query + '&month=' + courseTrendObj.month);
 }
 
-getCourseEmployeeList(query, courseId) {
-  return this.http.getLocal('local', this.url.getCourseEmployeeList + '?courseId=' + courseId+ query );
+getCourseEmployeeList(query, courseId,type) {
+  let typeQuery = type == 'course' ?  '?courseId=' + courseId : '?trainingClassId=' + courseId;
+  return this.http.getLocal('local', this.url.getCourseEmployeeList + typeQuery + query );
 }
 
 getTopFiveResort(query){

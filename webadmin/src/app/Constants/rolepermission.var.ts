@@ -139,6 +139,18 @@ static readonly defaultModules = [{
 	'upload': false,
 	'edit': false,
 	'type': "web"
+},{
+	'moduleName': 'Training Class Trend',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+},{
+	'moduleName': 'Expire Trend',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
 }, {
 	'moduleName': 'Resort Details',
 	'view': false,
@@ -291,7 +303,19 @@ static readonly webAndMobile = [{
                                    'upload': false,
                                    'edit': false,
                                    'type': "web"
-                               }, {
+                               },{
+								'moduleName': 'Training Class Trend',
+								'view': false,
+								'upload': false,
+								'edit': false,
+								'type': "web"
+								},{
+									'moduleName': 'Expire Trend',
+									'view': false,
+									'upload': false,
+									'edit': false,
+									'type': "web"
+								}, {
                                    'moduleName': 'Resort Details',
                                    'view': false,
                                    'upload': false,
