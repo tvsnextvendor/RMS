@@ -60,6 +60,7 @@ export class HomePage {
   }
 
   navPage(page, data){
+    // console.log(page,data, "PAGE")
     switch (page) {
       case 'general':
       case 'notification':
@@ -72,16 +73,19 @@ export class HomePage {
         break;
       case 'assignedToCourse':
       case 'course':
+        this.changeTrainingStatus(data);
         this.paramsData['status'] = this.status;
         this.navCtrl.push('course-page', this.paramsData);
         break;
       case 'trainingClass' :
+       this.changeTrainingStatus(data);
         this.paramsData['courseId'] = data.courseId;
         this.paramsData['trainingScheduleId'] = data.trainingScheduleId;
         this.paramsData['status'] = this.status;
         this.navCtrl.push('training-page',this.paramsData);
         break;
       case 'trainingDetail' :
+       this.changeTrainingStatus(data);
         let paramsData = {};
         paramsData['trainingClassId'] = data.trainingClassId;
         paramsData['trainingScheduleId'] = data.trainingScheduleId;
@@ -94,10 +98,35 @@ export class HomePage {
         break;
     }
   }
+
+    changeTrainingStatus(data){
+      console.log(data, this.status)
+      if (this.status == 'assigned') {
+          let userId = this.currentUser ? this.currentUser.userId : 8;   
+          let postData = {
+              'userId': userId,
+              'status': "inProgress"
+          } 
+          if (data.Course) {
+              postData['courseId'] = data.courseId;
+              postData['typeSet'] = 'Course';
+          } else {
+              postData['trainingClassId'] = data.trainingClassId;
+              postData['typeSet'] = 'Class';
+          }
+          this.http.put(false, API_URL.URLS.updateTrainingStatus, postData).subscribe((res) => {
+          }, (err) => {
+              console.log(err);
+          });
+      
+      }
+    }
   
   changeStatus(type){
+    this.loader.showLoader();
     this.status=type;
     this.getDashboardInfo();
+    this.loader.hideLoader();
     this.enableView = false;
     this.enableIndex = 0;
   }
