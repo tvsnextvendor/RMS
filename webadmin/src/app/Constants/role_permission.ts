@@ -19,6 +19,8 @@ export const Permissions= {
             {"moduleName":"Feedback","view":true,"upload":false,"edit":false,"type":"web"},
             {"moduleName":"Course Trend","view":true,"upload":false,"edit":false,"type":"web"},
             {"moduleName":"Training Class Trend","view":true,"upload":false,"edit":false,"type":"web"},
+            {"moduleName":"Notification Trend","view":true,"upload":false,"edit":false,"type":"web"},
+            {"moduleName":"Expire Trend","view":true,"upload":false,"edit":false,"type":"web"},
             {"moduleName":"Resort Details","view":true,"upload":false,"edit":false,"type":"web"},
             {"moduleName":"Certification Trend","view":true,"upload":false,"edit":false,"type":"web"}
         ],
@@ -45,6 +47,8 @@ export const Permissions= {
             {"moduleName":"Feedback","view":true,"upload":true,"edit":true,"type":"web"},
             {"moduleName":"Course Trend","view":true,"upload":true,"edit":true,"type":"web"},
             {"moduleName":"Training Class Trend","view":true,"upload":false,"edit":false,"type":"web"},
+            {"moduleName":"Notification Trend","view":true,"upload":false,"edit":false,"type":"web"},
+            {"moduleName":"Expire Trend","view":true,"upload":false,"edit":false,"type":"web"},
             {"moduleName":"Resort Details","view":true,"upload":true,"edit":true,"type":"web"},
             {"moduleName":"Certification Trend","view":true,"upload":true,"edit":true,"type":"web"}
         ],

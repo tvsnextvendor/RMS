@@ -166,7 +166,7 @@ getCourseTrendList(courseTrendObj,query) {
 }
 
 getCourseEmployeeList(query, courseId,type) {
-  let typeQuery = type == 'course' ?  '?courseId=' + courseId : '?trainingClassId=' + courseId;
+  let typeQuery = type == 'course' ?  '?courseId=' + courseId : (type == 'class' ? '?trainingClassId=' + courseId : '?notificationFileId=' + courseId);
   return this.http.getLocal('local', this.url.getCourseEmployeeList + typeQuery + query );
 }
 
@@ -224,5 +224,8 @@ getReportingManager(query){
 }
 sendExpireNotification(params){
   return this.http.post('local', this.url.sendExpireNotification, params);
+}
+getNotificationTrendList(courseTrendObj,query) {
+  return this.http.getLocal('local', this.url.getAllNotificationsByMonth + '?year=' + courseTrendObj.year + query + '&month=' + courseTrendObj.month);
 }
 }

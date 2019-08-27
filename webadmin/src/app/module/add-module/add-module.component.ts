@@ -946,7 +946,9 @@ export class AddModuleComponent implements OnInit {
                 })
             }
             else {
-                if(this.roleId == 4){
+                
+                let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+                if(this.roleId == 4 && accessSet){
                     params.draft = true
                 }
                 else{

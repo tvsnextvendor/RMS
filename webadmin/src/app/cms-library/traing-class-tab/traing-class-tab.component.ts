@@ -34,6 +34,7 @@ export class TraingClassTabComponent implements OnInit {
   scheduleClass = [];
   modalRef;
   roleId;
+  accessSet = false;
 
   constructor(private courseService: CourseService,
      public commonLabels: CommonLabels,
@@ -50,6 +51,7 @@ export class TraingClassTabComponent implements OnInit {
     this.pageLength = 10;
     this.currentPage = 1;
     this.userData = this.utilService.getUserData().userId;
+    this.accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
     this.roleId = this.utilService.getRole();
     this.resourceLib = false;
     this.activatedRoute.queryParams.subscribe(params => {

@@ -223,6 +223,7 @@ export class API_URL {
     removeSchedule : '8103/schedule/deleteSchedule/',
     expireTrend     : '8103/employeesExpireList',   
     getTrainingClassByYear : '8103/getAllTCByMonth',
+    getAllNotificationsByMonth : '8103/getAllNotificationsByMonth',
     getReportingManager   : '8103/user/getReportingManagers',
     sendExpireNotification    : '8103/user/sendExpireNotification',
      // addArchieve : '8103/archieved',

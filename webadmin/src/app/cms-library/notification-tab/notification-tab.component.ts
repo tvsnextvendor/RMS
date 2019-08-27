@@ -38,6 +38,7 @@ export class NotificationTabComponent implements OnInit {
   modalRef;
   scheduleNotification = [];
   getUserId;
+  accessSet = false;
 
   constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, private courseService: CourseService, private utilService: UtilService, private router: Router,
     private modalService: BsModalService, private alertService: AlertService, private permissionService: PermissionService) {
@@ -66,6 +67,7 @@ export class NotificationTabComponent implements OnInit {
     this.pageSize = 10;
     this.p = 1;
     this.userData = this.utilService.getUserData() && this.utilService.getUserData();
+    this.accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
     // let userData = this.utilService.getUserData();
     this.roleId = this.utilService.getRole();
     this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
