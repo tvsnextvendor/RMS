@@ -467,7 +467,8 @@ export class AddNotificationComponent implements OnInit {
           this.updateNotification(data);
         }
         else {
-          if (this.roleId == 4) {
+          let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+          if (this.roleId == 4 && accessSet) {
             data.draft = true
           }
           else {
@@ -493,7 +494,8 @@ export class AddNotificationComponent implements OnInit {
           this.updateNotification(data);
         }
         else {
-          if (this.roleId == 4) {
+          let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+          if (this.roleId == 4 && accessSet) {
             data.draft = true
           }
           else {

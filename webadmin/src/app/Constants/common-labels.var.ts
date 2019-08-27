@@ -392,7 +392,9 @@ export class CommonLabels{
         "fullAccess"        :   "Full Access",
         "approvalAccess"    :   " Required Content Approval",
         "noOfDays"          :   "No.Of Days",    
-        "classTrend"        :   "Training Class Trend"
+        "classTrend"        :   "Training Class Trend",
+        "notificationTrend" :   "Notification Trend",
+        "scheduleName"      :   "Schedule Name"
     };
 
     btns = {

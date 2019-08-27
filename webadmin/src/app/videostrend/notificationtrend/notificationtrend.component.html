@@ -1,0 +1,137 @@
+<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
+<div class="">
+  <div class="float-right row pb-3 adduser-respon"> 
+      <!-- <button type = "button" class="btn btn-primary float-right mr-2" *ngIf="enableFilter" (click)="resetFilter()">Reset filter</button>        -->
+      <!-- <button type = "button" class="btn btn-primary float-right mr-2" (click)="enableFilter = !enableFilter">filter</button>        -->
+      <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="trendsVar.years">
+          <option value=''>Year</option>
+          <option *ngFor="let years of trendsVar.yearsList" [value]="years.year">{{years.year}}</option>
+          <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
+          <div class="select_arrow"></div>
+      </select>
+      <select class="vdo-btn mr-2 select select-style clearfix" id="month" name="month" (change)="onChangeMonth()" [(ngModel)]="trendsVar.months">
+          <option value=''>Month</option>
+          <option *ngFor="let months of trendsVar.monthsList" [value]="months.id">{{months.month}}</option>
+          <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
+          <div class="select_arrow"></div>
+      </select>
+      <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="trendsVar.moduleList?.length">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              {{commonLabels.btns.exportTo}}
+          </button>
+          <div class="dropdown-menu">
+              <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
+              <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
+          </div>
+      </div>
+      <button type = "button" class="btn btn-primary float-right mr-2" (click)="onPrint()"><i class="fas fa-print pr-2"></i>Print</button>
+      <div class="filter-search">
+          <form class="search-container clearfix" (ngSubmit)="getModuleList('')">
+              <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
+              <button type="submit" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
+              <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
+          </form>
+      </div>
+  </div>
+  <div class="float-right row pb-3 adduser-respon col-md-12 p-0">
+      <div class="row col-md-11 p-0">
+          <div class="col-md-4 pl-0 select select-style clearfix">
+                  <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
+                      (change)="filterSelect(childResort.value,'resort')">
+                      <option [value]=null>{{commonLabels.labels.selectResort}}</option>
+                      <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
+                  </select>
+                  <div class="select_arrow"></div>
+              </div>
+      <div class="col-md-4 pl-0 select select-style clearfix">
+          <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterDivision"
+              #parentdivision (change)="filterSelect(parentdivision.value,'division')">
+              <option [value]=null>{{commonLabels.labels.selDiv}}</option>
+              <option *ngFor="let division of divisionList" [value]="division.divisionId">{{division.divisionName}}</option>
+          </select>
+          <div class="select_arrow"></div>
+      </div>
+      <div class="col-md-4 pl-0 select select-style clearfix">
+          <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
+               (change)="filterSelect(dept.value,'dept')">
+              <option [value]=null>{{commonLabels.labels.selDept}}</option>
+              <option *ngFor="let dep of departmentList" [value]="dep.departmentId">{{dep.departmentName}}</option>
+          </select>
+          <div class="select_arrow"></div>
+      </div>
+      <!-- <div class="col-md-3 pl-0 select select-style clearfix">
+              <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
+                  (change)="filterSelect(emp.value,'emp')">
+                  <option [value]=null>{{commonLabels.labels.selEmp}}</option>
+                  <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
+              </select>
+              <div class="select_arrow"></div>
+          </div> -->
+          </div>
+          <div class="col-md-1 refer-btn p-0">
+          <button type="button" (click)="resetFilter()" class="btn reset-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
+          </div>
+  </div>
+  <div class="table-responsive custom-table2 mt-3">
+      <table class="table white-bg table-striped" [mfData]="trendsVar.moduleList" #mf="mfDataTable" [mfRowsOnPage]="10" id="courseTrend">
+          <thead>
+                  <tr class="th-boxshadow">
+
+                  <th>
+                      <mfDefaultSorter by="scheduleName">{{commonLabels.labels.scheduleName}}<span class="ml-2"><img
+                                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                  </th>
+                  <th>
+                      <mfDefaultSorter by="created">{{commonLabels.labels.uploadedDate}}<span class="ml-2"><img
+                                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                  </th>
+                  <th>
+                      <mfDefaultSorter by="updated">{{commonLabels.labels.modifiedDate}}<span class="ml-2"><img
+                                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                  </th>
+                  <th class="text-center">
+                      <mfDefaultSorter by="resortsCount">{{commonLabels.labels.noOfResorts}}<span class="ml-2"><img
+                                  src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                  </th>
+                  <th>
+                      <mfDefaultSorter by="employeesCount">{{commonLabels.labels.noOfEmployee}}<span class="ml-2"><img
+                                      src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class="video-trend-desc" *ngFor="let list of mf.data">
+                  <!-- <td><img class="table-img" src="assets/videos/images/bunny.png"></td> -->
+                  <td class="vdo-desc-height">{{list.scheduleName}}
+                      <!-- <p>{{list.videoName}}</p> -->
+                  </td>
+                  <td class="vdo-desc-height">{{list.created | date}}</td>
+                  <td class="vdo-desc-height">{{list.updated | date}}</td>
+                  <td class="vdo-desc-height text-center">{{list.resortsCount}}</td>
+                  <td class="vdo-desc-height text-center und-txt">
+                  <span *ngIf="list.employeesCount > 0"><a href="javaScript:void" routerLink="/videostrend/{{list.notificationFileId}}"  [queryParams]="{type: 'notification'}">{{list.employeesCount}}</a></span>
+                  <span *ngIf="list.employeesCount == 0">{{list.employeesCount}}</span>
+                  </td>
+              </tr>
+              <!-- <tr *ngIf="trendsVar.moduleList?.length == 0">
+                  <td colspan="5" class="text-center data-design">{{trendsVar.noData}}</td>
+              </tr> -->
+              <tr *ngIf="trendsVar.moduleList?.length == 0">
+                  <td colspan="10"><p class="text-center data-design p-5">
+                  <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
+              </tr>
+          </tbody>
+          <tfoot>
+              <tr>
+                  <td colspan="5">
+                      <mfBootstrapPaginator></mfBootstrapPaginator>
+                  </td>
+              </tr>
+          </tfoot>
+      </table>
+  </div>
+      <div class="col-md-12 p-0 text-center mt-3">
+          <button class="btn btn-primary creat-btn" (click)="location.back()">{{commonLabels.btns.back}}</button>
+      </div>
+  
+</div>

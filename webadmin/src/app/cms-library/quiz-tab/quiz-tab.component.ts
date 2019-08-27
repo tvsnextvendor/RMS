@@ -52,6 +52,7 @@ export class QuizTabComponent implements OnInit {
   roleId;
   selectedQuiz;
   userData;
+  accessSet = false;
 
   constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService,private permissionService : PermissionService) { }
 
@@ -60,6 +61,7 @@ export class QuizTabComponent implements OnInit {
     this.currentPage = 1;
     this.roleId = this.utilService.getRole(); 
     this.userData = this.utilService.getUserData();
+    this.accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
       { name: "True/False", value: "True/False" },

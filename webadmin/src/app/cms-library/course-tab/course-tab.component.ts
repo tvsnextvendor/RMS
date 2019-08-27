@@ -65,6 +65,7 @@ export class CourseTabComponent implements OnInit {
   existingFile = [];
   fileExist = false;
   resourceLib;
+  accessSet = false;
 
   constructor(private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService,private permissionService :PermissionService) {
     this.roleId = this.utilService.getRole();
@@ -100,6 +101,7 @@ export class CourseTabComponent implements OnInit {
     this.checkBoxEnable = this.disableEdit ? true : false;
     this.getCourseDetails();
     this.userData = this.utilService.getUserData();
+    this.accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
 
     if (this.addedFiles && this.addedFiles.length) {
       this.selectedIndex = localStorage.getItem('index');
@@ -172,6 +174,13 @@ export class CourseTabComponent implements OnInit {
       this.enableDuplicate = false;
     }
     else if (type === "edit") {
+      this.enableView = false;
+      this.enableDuplicate = false;
+      this.enableIndex = index;
+      this.enableEdit = false;
+      this.route.navigate(['/cms-library'], { queryParams: { type:"create",tab:'course','moduleId':  course.courseId} });
+    }
+    else if(type ===  'saveAsNew'){
       this.enableView = false;
       this.enableEdit = true;
       this.enableDuplicate = false;

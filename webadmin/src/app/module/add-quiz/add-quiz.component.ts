@@ -372,8 +372,8 @@ export class AddQuizComponent implements OnInit {
                         delete params.quizQuestions;
                     }
                 }
-
-                if(this.roleId == 4){
+                let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+                if(this.roleId == 4 && accessSet){
                     params.draft = true
                 }
                 else{
@@ -625,7 +625,8 @@ export class AddQuizComponent implements OnInit {
                         delete params.quizQuestions;
                     }
                 }
-                if(this.roleId == 4){
+                let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+                if(this.roleId == 4 && accessSet){
                     params.draft = true
                   }
                   else{

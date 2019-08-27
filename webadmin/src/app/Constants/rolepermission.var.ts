@@ -146,6 +146,12 @@ static readonly defaultModules = [{
 	'edit': false,
 	'type': "web"
 },{
+	'moduleName': 'Notification Trend',
+	'view': false,
+	'upload': false,
+	'edit': false,
+	'type': "web"
+},{
 	'moduleName': 'Expire Trend',
 	'view': false,
 	'upload': false,
@@ -309,6 +315,12 @@ static readonly webAndMobile = [{
 								'upload': false,
 								'edit': false,
 								'type': "web"
+								},{
+									'moduleName': 'Notification Trend',
+									'view': false,
+									'upload': false,
+									'edit': false,
+									'type': "web"
 								},{
 									'moduleName': 'Expire Trend',
 									'view': false,

@@ -53,7 +53,7 @@ export class VideosTrendDetailsComponent implements OnInit {
     }
 
     ngOnInit() {
-        let title = this.trendType == 'course' ? this.commonLabels.titles.courseTrend : this.commonLabels.labels.classTrend;
+        let title = this.trendType == 'course' ? this.commonLabels.titles.courseTrend : (this.trendType == 'class' ? this.commonLabels.labels.classTrend : this.commonLabels.labels.notificationTrend);
         this.headerService.setTitle({ title: title, hidemodule: false });
         this.breadCrumbService.setTitle([]);
         this.roleId = this.utilService.getRole();
