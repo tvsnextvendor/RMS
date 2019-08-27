@@ -134,7 +134,8 @@ export class Constant {
             generalNotifications: 'General Notifications',
             trainingClasses :'Training Classes',
             expire: 'Will expire in',
-            noData:'No Expiring Training Schedules Found',
+            noExpireData:'No Expiring Training Schedules Found',
+            noInprogressData:'No Inprogress Training Schedules Found',
             zero: '0'
 
         },

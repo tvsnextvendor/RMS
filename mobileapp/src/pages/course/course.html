@@ -132,8 +132,8 @@
                       </h3>
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
-                    <div class="align-right" *ngIf="task">
-                      <span class="hour-status batch-date">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM
+                    <div class="align-right" *ngIf="task && task.TrainingSchedule && task.TrainingSchedule.dueDate">
+                      <span class="hour-status batch-date" *ngIf="task.TrainingSchedule.dueDate">Due On - {{task.TrainingSchedule.dueDate | date:'dd MMM
                         yyyy'}}</span>
                       <p class="org-color alert-txt-style">
                         {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>

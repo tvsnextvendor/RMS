@@ -65,7 +65,7 @@
         <ion-grid>
           
          <ion-row>
-            <ion-col col-11 (click)="navPage('course','')">
+            <ion-col col-11 (click)="navPage('course',schedule)">
             <ion-row>
             <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
             <ion-col col-7 class="batch-date pr-0">
@@ -129,7 +129,8 @@
         <ion-card class="forum-card">
           <ion-grid>
             <ion-row>
-              <ion-col col-12>{{constant.pages.dashboardLabels.noData}}</ion-col>
+              <ion-col col-12 *ngIf="status == 'assigned'">{{constant.pages.dashboardLabels.noExpireData}}</ion-col>
+              <ion-col col-12 *ngIf="status == 'inProgress'">{{constant.pages.dashboardLabels.noInprogressData}}</ion-col>
             </ion-row>
           </ion-grid>
         </ion-card>
