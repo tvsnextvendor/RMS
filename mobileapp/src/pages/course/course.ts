@@ -197,11 +197,12 @@ export class CoursePage implements OnInit {
   
   getCourseStatus(status, search) {
     let self = this;
-    this.courseList = [];
+    //this.courseList = [];
     return new Promise(resolve => {
       let userId = this.currentUser ? this.currentUser.userId : 8;
       let resortId = this.currentUser.ResortUserMappings[0].resortId;
-      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId +'&resortId='+resortId+'&page='+this.currentPage+'&size='+this.perPageData+'&search=' +search).subscribe((res) => {
+      // '&page=' + this.currentPage + '&size=' + this.perPageData
+      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId +'&resortId='+resortId+'&search=' +search).subscribe((res) => {
         if(res['data']['rows']){
           this.assignedCount = res['data']['count'];
           this.totalPage = this.assignedCount / this.perPageData;

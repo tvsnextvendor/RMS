@@ -61,13 +61,16 @@ export class HomePage {
 
   navPage(page, data){
     switch (page) {
+      case 'general':
       case 'notification':
         this.navCtrl.push('generalnotification-page');
         break;
+      case 'signRequired':
       case 'signReq':
-        this.paramsData['tab'] = page;
+        this.paramsData['tab'] = 'signReq';
         this.navCtrl.push('course-page',this.paramsData);
         break;
+      case 'assignedToCourse':
       case 'course':
         this.paramsData['status'] = this.status;
         this.navCtrl.push('course-page', this.paramsData);

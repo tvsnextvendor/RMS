@@ -107,13 +107,13 @@
                 </ion-col>
 
                   <!-- Scheduled Notification-->
-                  <ion-col col-6 class="course-count" *ngIf="data.NotificationFile" (click)="navPage('notification','')">
+                  <ion-col col-6 class="course-count" *ngIf="data.NotificationFile" (click)="navPage(data.NotificationFile.type,'')">
                     <a>
-                      <p class="course-click" *ngIf="data.NotificationFile.File" (click)="navPage('notification','')">{{data.NotificationFile.File.fileName}}</p>
+                      <p class="course-click" *ngIf="data.NotificationFile.File" (click)="navPage(data.NotificationFile.type,'')">{{data.NotificationFile.File.fileName}}</p>
                     </a>
                     <p class="description" *ngIf="data.NotificationFile.description">{{data.NotificationFile.description}}</p>
                   </ion-col>
-                  <ion-col col-6 *ngIf="data.NotificationFile" (click)="navPage('notification','')">
+                  <ion-col col-6 *ngIf="data.NotificationFile" (click)="navPage(data.NotificationFile.type,'')">
                     <div class="expires org-color"><span class="aligtxt">
                         {{calculateExpireDays(schedule.dueDate)}}</span></div>
                   </ion-col>
