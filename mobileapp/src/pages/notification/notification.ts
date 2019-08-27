@@ -104,6 +104,8 @@ export class NotificationPage implements OnInit {
     console.log(type,"TYPE");    
     switch (type) {
       case "expireCourse":
+      case "expiryNotifyToEmployees":
+      case "expiryNotifyToManagers":
       case "assignCourse":
         this.navCtrl.push('course-page');
         break;

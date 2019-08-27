@@ -123,8 +123,8 @@ export class TrainingDetailPage {
                 self.detailObject['setData']['passPercentage'] = this.detailObject['setData']['typeSet'] == 'Class' ? ( res['data'].schedulePercentage.length ? res['data'].schedulePercentage[0].passPercentage: '') : self.detailObject['setData']['passPercentage'] ;
                 self.detailObject['setData']['trainingClassName'] = self.allTrainingClasses[0].TrainingClass.trainingClassName;
                 this.loadingBarWidth = (100 / parseInt(self.allTrainingClasses.length, 10));
-                this.loadFirstFile();
                 self.uploadPath = res['data']['uploadPaths']['uploadPath'];
+                this.loadFirstFile();
                 resolve('resolved');
                 }
             }, (err) => {
@@ -141,7 +141,11 @@ export class TrainingDetailPage {
         this.setTraining = this.allTrainingClasses[0].File;
         this.fileId = this.setTraining.fileId;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
-        // this.restrictForward();
+        let ext = this.setTraining.fileUrl.split('.').pop();
+        if (ext == "mp4" && this.videotag) {
+            const htmlVideoTag = this.videotag.nativeElement;
+            htmlVideoTag.load();
+        }
         this.text = this.setTraining.fileDescription;
      }
 
@@ -342,6 +346,7 @@ export class TrainingDetailPage {
         this.setTraining = this.allTrainingClasses[this.initial].File;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
+        console.log(this.imageType,this.videotag, ext);
         if(ext == "mp4" && this.videotag){
         const htmlVideoTag = this.videotag.nativeElement;
         htmlVideoTag.load();
@@ -363,6 +368,7 @@ export class TrainingDetailPage {
             this.text = this.setTraining.fileDescription;
             this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
             let ext = this.setTraining.fileUrl.split('.').pop();
+            console.log(this.imageType,this.videotag, ext)
             if(ext == "mp4" && this.videotag){
                 const htmlVideoTag = this.videotag.nativeElement;
                 htmlVideoTag.load();
@@ -426,6 +432,7 @@ export class TrainingDetailPage {
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
+            case "jpeg" :
             case "jpg" :
                  //fileLink = this.uploadPath + filename;
                  fileLink = 'assets/imgs/banner.png';
