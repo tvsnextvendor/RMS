@@ -25,7 +25,6 @@ page-notification {
     overflow: hidden;
     white-space: normal;
   }
-
   span.hour-status {
     padding-right: 12px;
 }
@@ -33,10 +32,24 @@ page-notification {
   background-color: #c1d7e26b;
     border: 2px solid #a2cfe896;
 }
-
-
 .no-backbtn .back-button.show-back-button {
     display: none !important;
 }
 
+// Added Just for testing
+.col {
+  //padding: 5px;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  min-height: 1px;
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  max-width: max-content;
+  }
 }
