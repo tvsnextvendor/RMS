@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common'; 
+import {Router} from "@angular/router";
 import {HttpService, HeaderService, AlertService, UtilService,PDFService, ExcelService, CommonService,BreadCrumbService,ResortService,UserService} from '../../services';
 import {VideosTrendVar} from '../../Constants/videostrend.var';
 import { API_URL } from '../../Constants/api_url';
@@ -40,7 +41,8 @@ export class NotificationtrendComponent implements OnInit {
    private excelService: ExcelService,
    private resortService :ResortService,
    private userService : UserService,
-   private alertService : AlertService
+   private alertService : AlertService,
+   private router : Router
    ) {
    this.trendsVar.url = API_URL.URLS;
    this.roleId = this.utilsService.getRole();
@@ -177,7 +179,7 @@ export class NotificationtrendComponent implements OnInit {
        this.trendsVar.moduleList.map(item=>{
            // moment().format('ll');
            let list = {
-           "Training Class Name": item.trainingClassName,
+           "Schedule Name": item.scheduleName,
            "Uploaded Date": moment(item.created).format('ll'),
            "Modified Date": moment(item.updated).format('ll'),
            "No.of Resorts": item.resortsCount,
@@ -187,6 +189,23 @@ export class NotificationtrendComponent implements OnInit {
        })
        this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.labels.classTrend);
    }
+
+   onMail(){
+    this.trendsVar.moduleList.map(item=>{
+        // moment().format('ll');
+        let list = {
+        "Schedule Name": item.scheduleName,
+        "Uploaded Date": moment(item.created).format('ll'),
+        "Modified Date": moment(item.updated).format('ll'),
+        "No.of Resorts": item.resortsCount,
+        "No. of Employees":item.employeesCount
+        };
+    this.xlsxList.push(list);
+    })
+    // this.exportAsExcelWithFile(this.xlsxList, this.commonLabels.titles.courseTrend);
+    localStorage.setItem('mailfile',JSON.stringify(this.xlsxList))
+    this.router.navigate(['/email'],{queryParams :{type:'exportmail'}})
+}
 
    // getResort
    getResortList(){

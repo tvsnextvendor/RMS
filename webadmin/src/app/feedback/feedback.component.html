@@ -31,7 +31,7 @@
               <div class="topic-wrap-top clearfix p-3">
                   <div class="topic-img-wrap mt-4">
                     <span class="topic-thumb">
-                      <img src="{{commonLabels.imgs.user1}}">
+                      <img src="{{uploadPath.uploadPath}}{{feedbacks.feedbackMap[0].User?.userImage}}">
                     </span>
                   </div>
                     <div class="topic-wrap-rt pl-4">
@@ -51,14 +51,17 @@
                           
                         </div>
                         <div class="desc-section mt-2">
-                          <p>
+                          <p *ngIf="feedbacks.feedback">
                               {{feedbacks.feedback}}
+                          </p>
+                          <p *ngIf="!feedbacks.feedback" >
+                            -
                           </p>
                         </div>
                         <div class="link-sec">
-                          <p>{{feedbacks.feedbackMap[0].Resort.resortName  | titlecase}}</p>
-                          <p>{{feedbacks.feedbackMap[0].Course.courseName}}</p>
-                          <p>{{feedbacks.feedbackMap[0].TrainingClass.trainingClassName}}</p>
+                          <p>{{feedbacks.feedbackMap[0].Resort?.resortName  | titlecase}}</p>
+                          <p>{{feedbacks.feedbackMap[0].Course?.courseName}}</p>
+                          <p>{{feedbacks.feedbackMap[0].TrainingClass?.trainingClassName}}</p>
                         </div>
                        
                     </div>              
@@ -96,14 +99,6 @@
                     <h5 class="hd-tit">{{apps.feedbackMap[0].User?.userName  | titlecase}}</h5>
                     <div class="clearfix mt-2">
                       <small class="topic-time float-left">{{apps.created |date}}</small> 
-                      <!-- <span class="float-right rating star-alg"> -->
-                          <!-- <a href="#"><i class="fas fa-star y-color"></i></a>
-                          <a href="#"><i class="fas fa-star y-color"></i></a>
-                          <a href="#"><i class="fas fa-star y-color"></i></a>
-                          <a href="#"><i class="fas fa-star gy-color"></i></a>
-                          <a href="#"><i class="fas fa-star gy-color"></i></a> -->
-                          <!-- <ngb-rating [(rate)]='+apps.ratingStar' [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-                          </span> -->
                     </div>
                     
                   </div>

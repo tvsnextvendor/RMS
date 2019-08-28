@@ -1,12 +1,11 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common'; 
+import {Router} from'@angular/router';
 import {HttpService, HeaderService, UtilService,AlertService, PDFService, ExcelService, CommonService,BreadCrumbService,ResortService,UserService} from '../services';
 import {VideosTrendVar} from '../Constants/videostrend.var';
 import { API_URL } from '../Constants/api_url';
 import { CommonLabels } from '../Constants/common-labels.var'
 import * as moment from 'moment';
-
-
 
 @Component({
     selector: 'app-videostrend',
@@ -43,7 +42,8 @@ export class VideosTrendComponent implements OnInit {
     private excelService: ExcelService,
     private resortService :ResortService,
     private userService : UserService,
-    private alertService : AlertService
+    private alertService : AlertService,
+    private router : Router
     ) {
     this.trendsVar.url = API_URL.URLS;
     this.roleId = this.utilsService.getRole();
@@ -169,6 +169,22 @@ export class VideosTrendComponent implements OnInit {
         window.print();
     }
 
+    onMail(){
+        this.trendsVar.moduleList.map(item=>{
+            // moment().format('ll');
+            let list = {
+            "Course Name": item.courseName,
+            "Uploaded Date": moment(item.created).format('ll'),
+            "Modified Date": moment(item.updated).format('ll'),
+            "No.of Resorts": item.resortsCount,
+            "No. of Employees":item.employeesCount
+            };
+        this.xlsxList.push(list);
+        })
+        // this.exportAsExcelWithFile(this.xlsxList, this.commonLabels.titles.courseTrend);
+        localStorage.setItem('mailfile',JSON.stringify(this.xlsxList))
+        this.router.navigate(['/email'],{queryParams :{type:'exportmail'}})
+    }
 
     // Create PDF
     exportAsPDF(){ 

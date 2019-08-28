@@ -23,6 +23,8 @@ export class FeedbackComponent implements OnInit {
   p;
   appPageSize;
   page;
+  uploadPath;
+
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
     private commonService: CommonService,
@@ -74,7 +76,8 @@ export class FeedbackComponent implements OnInit {
     };
     this.commonService.getFeedbackList(feedbackObj).subscribe(result => {
       if (result && result.isSuccess) {
-        this.feedbackList = result.data;
+        this.feedbackList = result.data && result.data.feedback.rows.length ? result.data.feedback.rows : [];
+        this.uploadPath = result.data ? result.data.uploadPaths : '';
         this.clearFilter();
       } else {
         this.feedbackList = [];
@@ -92,7 +95,7 @@ export class FeedbackComponent implements OnInit {
     };
     this.commonService.getFeedbackList(feedbackObj).subscribe(result => {
       if (result && result.isSuccess) {
-        this.applicationData = result.data;
+        this.applicationData = result.data && result.data.feedback.rows.length ? result.data.feedback.rows : [];
         this.clearFilter();
       } else {
         this.applicationData = [];

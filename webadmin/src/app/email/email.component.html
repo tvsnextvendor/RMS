@@ -1,13 +1,23 @@
 <div class="pt-5 pr-3">
 <div class="white-bg">
     <div class="row">
-        <div class="col-3 dep-border">
+        <div class="col-3 mt-3">
+            <div class="col-md-12 p-0 select select-style clearfix">
+                <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterParentDivision"
+                    #parentdivision (change)="divisionChange(parentdivision.value)">
+                    <option [value]=null>{{commonLabels.labels.selDiv}}</option>
+                    <option *ngFor="let division of divisionList" [value]="division.divisionId">{{division.divisionName}}</option>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
+            <div class="col-md-12 p-0">
             <label class="dep-title">{{commonLabels.labels.department}}</label>
             <ul>
-                <li *ngFor="let depart of departments;let i=index;">
-                   <span class="dep-list"> <a (click)="groupMail(depart)"><span [ngClass] = "i===0 ? 'clr-grey' : i===1 ? 'clr-red' : i===2 ? 'clr-green' : i===3 ? 'clr-blue' : 'clr-pink'"><i class="fa fa-circle font-circle"></i></span>{{depart.department}}</a></span>
+                <li *ngFor="let depart of departmentList;let i=index;">
+                   <span class="dep-list"> <a (click)="groupMail(depart)"><span [ngClass] = "i===0 ? 'clr-grey' : i===1 ? 'clr-red' : i===2 ? 'clr-green' : i===3 ? 'clr-blue' : 'clr-pink'"><i class="fa fa-circle font-circle"></i></span>{{depart.departmentName}}</a></span>
                 </li>
             </ul>
+            </div>
             
 
         </div>
@@ -34,7 +44,7 @@
                 <label for="file-upload" class="custom-file-upload upload-btn">
                     <i class="fa fa-paperclip"></i> 
                 </label>
-                <input id="file-upload" type="file" (change)="fileUpload($event)"  multiple/>
+                <input id="file-upload" type="file" (change)="fileUpload($event,'')"  multiple/>
                 <div class="file-wrap" *ngIf="attachments">
                     <span class="file-detail" *ngFor="let file of attachments; let i = index ">
                      {{file.name}}

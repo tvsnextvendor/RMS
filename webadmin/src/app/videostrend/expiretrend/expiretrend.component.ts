@@ -58,7 +58,7 @@ export class ExpiretrendComponent implements OnInit {
     this.headerService.setTitle({title: this.commonLabels.labels.expiringTrend, hidemodule: false});
     this.breadCrumbService.setTitle([]);
     // this.getExpireTrendList('');
-    this.filterResort = this.resortId;
+    this.filterResort = this.resortId ? this.resortId : null;
     this.getModuleList('');
     this.getResortList();
   }
@@ -235,5 +235,20 @@ exportAsXLSX():void {
   this.xlsxList.push(list);
   })
   this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.titles.courseTrend);
+}
+
+onMail(){
+  this.trendsVar.moduleList.map(item=>{
+      // moment().format('ll');
+      let list = {
+      "Training Class Name": item.trainingClassName,
+      "No.of Resorts": item.resortsCount,
+      "No. of Employees":item.employeesCount
+      };
+  this.xlsxList.push(list);
+  })
+  // this.exportAsExcelWithFile(this.xlsxList, this.commonLabels.titles.courseTrend);
+  localStorage.setItem('mailfile',JSON.stringify(this.xlsxList))
+  this.route.navigate(['/email'],{queryParams :{type:'exportmail'}})
 }
 }
