@@ -1,10 +1,17 @@
 import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute} from '@angular/router';
+import {Location} from "@angular/common";
 import { ToastrService } from 'ngx-toastr';
-import { HttpService, UtilService, AlertService, HeaderService, BreadCrumbService} from '../services';
+import { HttpService, UtilService, AlertService, HeaderService, BreadCrumbService,CourseService,UserService} from '../services';
 import { EmailVar } from '../Constants/email.var';
 import { API_URL } from '../Constants/api_url';
 import { CommonLabels } from '../Constants/common-labels.var';
+import * as XLSX from 'xlsx';
+import { debug } from 'util';
+
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
 
 @Component({
     selector: 'app-email',
@@ -27,14 +34,31 @@ export class EmailComponent implements OnInit {
     editorConfig ={};
     setSignatureStatus: boolean = true;
     attachments=[];
-    constructor(private toastr: ToastrService,private utilService: UtilService,private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService) {
+    queryParamType;
+    divisionList = [];
+    departmentList = [];
+    filterParentDivision = null;
+
+    constructor(private toastr: ToastrService,private utilService: UtilService,private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService,private activatedRoute :ActivatedRoute,private router : Router,private courseService : CourseService,private userService : UserService,public location :Location) {
         this.email.url = API_URL.URLS;
+        this.activatedRoute.queryParams.subscribe(item=>{
+            console.log(item)
+            if(item && item.type){
+                this.queryParamType = item.type;
+            }
+            else{
+                this.queryParamType = '';
+            }
+        })
     }
 
     ngOnInit() {
         this.headerService.setTitle({ title: this.emailVar.title, hidemodule: false });
         this.breadCrumbService.setTitle([]);
-        this.departmentList();
+        let userData = this.utilService.getUserData();
+        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
+        this.getDivisionList(resortId);
+        // this.departmentList();
 
        this.editorConfig= {
             "editable": true,
@@ -59,24 +83,69 @@ export class EmailComponent implements OnInit {
             ]
         }
 
+        if(this.queryParamType == 'exportmail'){
+            let data = localStorage.getItem('mailfile');
+            let file = JSON.parse(data)
+            this.exportAsExcelWithFile(file, 'Trend report');
+        }
+
     }
-    departmentList() {
-        this.http.get(this.email.url.getDepartments).subscribe((resp) => {
-            this.departments = resp['DepartmentList'];
-        });
-        this.http.get(this.email.url.getUsers).subscribe((resp) => {
-            this.userList = resp['UserList'];
-        });
+
+    getDivisionList(resortId){
+        this.courseService.getDivision(resortId,'parent').subscribe(result=>{
+            if(result && result.isSuccess){
+              this.divisionList = result.data && result.data.divisions;
+            }
+          })
     }
+    
+    // departmentList() {
+    //     this.http.get(this.email.url.getDepartments).subscribe((resp) => {
+    //         this.departments = resp['DepartmentList'];
+    //     });
+    //     this.http.get(this.email.url.getUsers).subscribe((resp) => {
+    //         this.userList = resp['UserList'];
+    //     });
+    // }
 
     sendMail() {
         // console.log(this.dataModel)
         this.sendClicked = true;
         if (this.emailForm.to && this.emailForm.subject) {
-            let toAddress = this.selectedDepartment ? this.selectedDepartment +' '+ this.commonLabels.labels.department : this.emailForm.to;
-            this.alertService.success(this.commonLabels.msgs.mailSuccess + toAddress);
-            this.sendClicked = false;
-            this.resetFields();
+            // let toAddress = this.emailForm.to;
+            // debugger;
+            let params = {
+                'to' : (this.emailForm.to).toString(),
+                'cc' : this.emailForm.cc,
+                'subject' : this.emailForm.subject,
+                'message' : this.dataModel,
+                'file' : ''
+            }
+            const formData = new FormData();
+                formData.append('to' ,(this.emailForm.to).toString());
+                formData.append('cc' ,this.emailForm.cc,);
+                formData.append('subject',this.emailForm.subject,);
+                formData.append('message' , this.dataModel,);
+            if(!this.attachments.length){
+                delete params.file
+            }
+            else{
+                formData.append( 'file' , this.attachments[0])
+            }
+            this.userService.sendEmailToUser(formData).subscribe(resp=>{
+                console.log(resp)
+                if(resp && resp.isSuccess){
+                    localStorage.removeItem('mailfile');
+                    this.resetFields();
+                    this.sendClicked = false;
+                    if(this.queryParamType == 'exportmail'){
+                        this.location.back();
+                    }
+                    this.alertService.success(resp.message);
+                }
+            },err=>{
+                this.alertService.error(err.error.error);
+            })
         }
         else if (!this.emailForm.to) {
             this.alertService.error(this.commonLabels.mandatoryLabels.addressMand);
@@ -111,6 +180,12 @@ export class EmailComponent implements OnInit {
     resetFields() {
         this.emailForm = { 'this.commonLabels.labels.totext' : '', 'this.commonLabels.labels.cc': '', 'this.commonLabels.labels.subject': '' };
         this.selectedDepartment = '';
+        this.attachments = [];
+        this.divisionList = [];
+        this.departmentList = [];
+        this.filterParentDivision = null;
+        this.dataModel = '';
+
     }
 
 
@@ -126,41 +201,79 @@ export class EmailComponent implements OnInit {
     }
 
     groupMail(group) {
-        // console.log(group)
+        let userData = this.utilService.getUserData();
+        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
         let data = [];
-        this.selectedDepartment = group.department;
-        this.userList.forEach(items => {
-            if (items.department === group.department) {
-                data.push(items.emailAddress);
+        this.selectedDepartment = group.departmentId;
+        let dept = [];
+        dept.push(this.selectedDepartment);
+        let query = {"departmentId":dept,"resortId":resortId}
+        this.userService.getUserByDivDept(query).subscribe(item=>{
+            let result = item.data.length ? item.data : [];
+            data = result.map(d=>{return d.email});
+            // console.log(data)
+            if (data.length) {
+                this.emailForm.to = data;
+            }
+            else {
+                this.emailForm.to = '';
+                this.alertService.warn(this.commonLabels.msgs.warnMsg);
             }
         })
-        // console.log(data)
-        if (data.length) {
-            this.emailForm.to = data;
-        }
-        else {
-            this.emailForm.to = '';
-            this.alertService.warn(this.commonLabels.msgs.warnMsg);
-        }
     }
 
-     fileUpload(event){
-            let files = event.target.files;
+     fileUpload(event,type){
+            let files = type == 'mail' ? event : event.target.files;
             let content = this.dataModel;
             if (files.length > 0) {   
                 this.attachments = files;           
                 console.log(this.attachments); // You will see the file
             } 
+            else if(type == 'mail' && files){
+                this.attachments.push(files); 
+            }
     }
 
     removeAttachment(i){
         console.log(i,"I");
         console.log(this.attachments,"ATTACHMENTS");
-        this.attachments.splice(0,1);
+        this.attachments.splice(i,1);
+        if(this.queryParamType == 'exportmail'){
+            localStorage.removeItem('mailfile');
+            this.router.navigate(['/email']);
+        }
         // this.attachments.filter((key, index) => {
         //     if (key.notificationId == notification.notificationId) {
         //         this.notificationList.splice(index, 1);
         //     }
         // })
     }
+
+    exportAsExcelWithFile(json: any[], excelFileName: string): void {
+    
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelWithFile(excelBuffer, excelFileName);
+      }
+    
+     saveAsExcelWithFile(buffer: any, fileName: string): void {
+        const data: Blob = new Blob([buffer], {
+          type: EXCEL_TYPE
+        });
+        var file = new File([data],fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+        console.log(file)
+        this.fileUpload(file,'mail')
+      }
+
+      divisionChange(divisionId){
+        let id = divisionId
+        this.courseService.getDepartment(id).subscribe(result=>{
+            this.departmentList = result.data.rows && result.data.rows.length && result.data.rows
+        })
+      }
+
+      ngOnDestroy(){
+        localStorage.removeItem('mailfile');
+      }
 }

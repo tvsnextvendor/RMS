@@ -237,7 +237,7 @@ export class CommonLabels{
         "avgQualification"  :   "Average Qualification",
         "totEmp"            :   "Total Employee",
         "emp"               :   "Employees",
-        "selectResort"      :   "--Select Resort--",
+        "selectResort"      :   "Select Resort",
         "weeklyGrowth"      :   "Weekly Growth",
         "cloudy"            :   "CLOUDY",
         "temp"              :   "-4",
@@ -394,7 +394,8 @@ export class CommonLabels{
         "noOfDays"          :   "No.Of Days",    
         "classTrend"        :   "Training Class Trend",
         "notificationTrend" :   "Notification Trend",
-        "scheduleName"      :   "Schedule Name"
+        "scheduleName"      :   "Schedule Name",
+        "saveAsNewVersion"  :   "Save as new version"
     };
 
     btns = {

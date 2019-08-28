@@ -80,7 +80,7 @@ export class ExpiretrenddetailsComponent implements OnInit {
     this.breadCrumbService.setTitle([]);
     this.roleId = this.utilService.getRole();
     this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : '';
-    this.filterResort = this.resortId;
+    this.filterResort = this.resortId ? this.resortId : null;
     this.getExpireTrendList('')
     this.getResortList();
   }

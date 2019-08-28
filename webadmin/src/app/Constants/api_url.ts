@@ -226,6 +226,7 @@ export class API_URL {
     getAllNotificationsByMonth : '8103/getAllNotificationsByMonth',
     getReportingManager   : '8103/user/getReportingManagers',
     sendExpireNotification    : '8103/user/sendExpireNotification',
+    sendEmail       : "8103/user/sendReportEmail",
      // addArchieve : '8103/archieved',
     // updateArchieve : '8103/archieved/',
 

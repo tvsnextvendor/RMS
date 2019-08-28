@@ -62,7 +62,7 @@ export class UserService {
   addResortDesignation(params){
     return this.http.post('local',this.url.addDesignation, params);
   }
-
+  sendEmail
   updateDesignation(id,params){
     return this.http.put('local',this.url.updateDesignation+id,params)
   }
@@ -94,6 +94,10 @@ export class UserService {
       checkUrl = this.url.checkRole;
     }
     return this.http.post('local',checkUrl+'?resortId='+resortId, params);
+  }
+
+  sendEmailToUser(params){
+    return this.http.upload('local',this.url.sendEmail, params);
   }
 
 }

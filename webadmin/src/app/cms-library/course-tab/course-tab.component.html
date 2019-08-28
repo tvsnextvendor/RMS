@@ -19,8 +19,8 @@
                     <a  title="Send Approval" *ngIf="roleId === 4 && accessSet && iconEnable && userData.userId == courses.createdBy" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
                     <a  *ngIf="iconEnable && userData.userId == courses.createdBy" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"
                             (click)="enableDropData('edit',i,courses)"></i></a>
-                    <a  *ngIf="iconEnable && userData.userId == courses.createdBy" title="Save as new" class="mr-4"><i class="fa fa-code-fork icons_header p-0" aria-hidden="true"
-                        (click)="enableDropData('saveAsNew',i,courses)"></i></a>
+                    <a  *ngIf="iconEnable && userData.userId == courses.createdBy" title="Save as new" class="mr-4"><img
+                        src="assets/images/idea.png" (click)="enableDropData('saveAsNew',i,courses)" ></a>
                     <a *ngIf="iconEnable && userData.userId == courses.createdBy" title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a>
                     <a>
                         <span (click)="disableView(i)">
@@ -124,7 +124,7 @@
     <div class="col-md-12 mb-3 clearfix px-0" *ngIf="enableEdit && enableIndex === i">
         <div class="white-bg p-3 clearfix">
             <div class="clearfix">
-                <p class="dup-hd">{{commonLabels.labels.edit}}</p>
+                <p class="dup-hd">{{commonLabels.labels.saveAsNewVersion}}</p>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="enableDropData('closeEdit')"
                     title="Close">
                     <span aria-hidden="true">&times;</span>
