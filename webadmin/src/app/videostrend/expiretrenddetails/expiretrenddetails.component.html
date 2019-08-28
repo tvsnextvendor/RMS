@@ -67,7 +67,7 @@
                         <!-- <th colspan="1" class="text-left">
                             <mfDefaultSorter>Due Date</mfDefaultSorter>
                         </th> -->
-                        <th colspan="1" class="text-left">
+                        <th colspan="1" class="text-left" >
                             <mfDefaultSorter>{{commonLabels.labels.noOfDays}}</mfDefaultSorter>
                         </th>
                     </tr>
@@ -87,7 +87,7 @@
                         <td class="vat text-left" *ngIf="emp.reportDetails">{{emp?.reportDetails?.userName}}</td>
                         <td class="vat text-left" *ngIf="!emp.reportDetails">-</td>
                         <!-- <td class="vat text-left"><span *ngIf="emp.TrainingScheduleResorts">{{emp.TrainingScheduleResorts[0].TrainingSchedule.dueDate}}</span></td> -->
-                        <td class="vat text-left"><span *ngIf="emp.TrainingScheduleResorts">{{getCalculateDue(emp.TrainingScheduleResorts[0]) }}</span></td>
+                        <td class="vat text-left"><span *ngIf="emp.TrainingScheduleResorts"  [ngClass]="{'no-red-font': getCalculateDue(emp.TrainingScheduleResorts[0]) <= 3, 'no-blue-font': getCalculateDue(emp.TrainingScheduleResorts[0]) > 3 }">{{getCalculateDue(emp.TrainingScheduleResorts[0])}}</span></td>
                     </tr>
                     <tr *ngIf="trendsVar.employeeList?.length == 0">
                         <td colspan="10">
