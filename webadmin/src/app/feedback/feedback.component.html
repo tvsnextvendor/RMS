@@ -31,7 +31,8 @@
               <div class="topic-wrap-top clearfix p-3">
                   <div class="topic-img-wrap mt-4">
                     <span class="topic-thumb">
-                      <img src="{{uploadPath.uploadPath}}{{feedbacks.feedbackMap[0].User?.userImage}}">
+                      <img *ngIf ="feedbacks.feedbackMap[0].User?.userImage" src="{{uploadPath.uploadPath}}{{feedbacks.feedbackMap[0].User?.userImage}}">
+                      <img *ngIf ="!feedbacks.feedbackMap[0].User?.userImage"  src="{{commonLabels.imgs.user1}}">
                     </span>
                   </div>
                     <div class="topic-wrap-rt pl-4">

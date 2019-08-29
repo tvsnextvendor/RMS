@@ -57,7 +57,7 @@
                         <label class="col-md-5 pl-0 label-title">{{commonLabels.labels.batchName}}</label>
                         <div class="col-md-7 p-0">
                             <input class="form-control  p-0" name="batchName" [(ngModel)]="batchVar.batchName"
-                                #BatchName="ngModel" type="text" placeholder="Enter Training Schedule Name" maxlength="30" required>
+                                #BatchName="ngModel" type="text" placeholder="Enter Training Schedule Name" required>
                             <span class="required_color" *ngIf="BatchName && BatchName.invalid && (formDir.submitted || BatchName.touched)">
                                 {{commonLabels.mandatoryLabels.batchName}}
                             </span>

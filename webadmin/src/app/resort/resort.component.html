@@ -18,7 +18,7 @@
                 <div class="col-12 col-md-6 pl-0">
                     <div class="row mb-4 ">
                         <label class="col-6 col-md-4 label-title pl-0">{{commonLabels.labels.resortName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
-                        <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Resort Name" [(ngModel)]="resortName" #resort = "ngModel" required>
+                        <input class="col-6 col-md-8 form-control" type="text" name="resortName" placeholder="Site Name" [(ngModel)]="resortName" #resort = "ngModel" required>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && !resortName">{{commonLabels.mandatoryLabels.resortRequired}} </span>
                         <span class="col-6 col-md-4"></span><span class="col-6 col-md-8 required_color mt-0" *ngIf="submitted && resortName && !permissionService.nameValidationCheck(resortName)">Please enter the valid name</span>
                     </div>
