@@ -53,6 +53,7 @@ export class QuizTabComponent implements OnInit {
   selectedQuiz;
   userData;
   accessSet = false;
+  quizId;
 
   constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService,private permissionService : PermissionService) { }
 
@@ -176,6 +177,7 @@ pageChanged(e) {
         this.trainingClassName = responseQuiz && responseQuiz.length && responseQuiz[0].QuizMappings[0].TrainingClass && responseQuiz[0].QuizMappings[0].TrainingClass.trainingClassName;
         let responseList = responseQuiz && responseQuiz.length && responseQuiz[0].Questions;
         this.quizName= responseQuiz  && responseQuiz.length && responseQuiz[0].quizName;
+        this.quizId= responseQuiz  && responseQuiz.length && responseQuiz[0].quizId;
         let created = responseQuiz  && responseQuiz.length ? responseQuiz[0].createdBy : '';
         if(created && userData == created){
           this.editIconHide = true;
@@ -277,6 +279,7 @@ pageChanged(e) {
 
   quizSubmit(data, i) {
     let params = {
+      "quizId":this.quizId,
       "quizName": this.quizName,
       "questionName": data.questionName,
       "questionType": data.questionType,
