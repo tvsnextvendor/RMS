@@ -107,10 +107,18 @@ export class ResortListComponent implements OnInit {
 // Create Excel sheet
 exportAsXLSX():void {
   // this.labels.btns.select =  this.labels.btns.excel;
-  let arr = this.resortVar.resortList.map(item=>_.pick(item,['resortId','resortName','location','status','totalNoOfUsers','totalStorage','allocatedSpace']));
+  // let arr = this.resortVar.resortList.map(item=>_.pick(item,['location','status']));
+  let arr = [];
   this.resortVar.resortList.forEach((data,i)=>{
-    arr[i].email = data.ResortUserMappings.length && data.ResortUserMappings[0].User.email;
-    arr[i].phoneNumber = data.ResortUserMappings.length && data.ResortUserMappings[0].User.phoneNumber;
+    let obj = {
+      "siteId" : data.resortId,
+      "siteName" : data.resortName,
+      "email" : data.ResortUserMappings.length && data.ResortUserMappings[0].User.email,
+      "phoneNumber" : data.ResortUserMappings.length && data.ResortUserMappings[0].User.phoneNumber,
+      "location" : data.location,
+      "status" : data.status
+    }
+    arr.push(obj);
   })
   this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.resortmanagement);
 }

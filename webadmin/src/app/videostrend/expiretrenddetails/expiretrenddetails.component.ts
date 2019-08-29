@@ -94,6 +94,9 @@ export class ExpiretrenddetailsComponent implements OnInit {
       if(resp && resp.isSuccess){
         this.trendsVar.employeeList = resp.data.rows;
       }
+      else{
+        this.trendsVar.employeeList = [];
+      }
     })
   }
 
@@ -138,9 +141,9 @@ filterSelect(value,type){
         this.commonService.getDepartmentList(obj).subscribe((result) => {
             if (result.isSuccess) {
                 this.departmentList = result.data.rows;
-                let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision;
-                this.getExpireTrendList(query);
             }
+            let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision;
+            this.getExpireTrendList(query);
         })
     }
     else if(type == "dept"){
@@ -150,10 +153,9 @@ filterSelect(value,type){
         this.userService.getUserByDivDept(data).subscribe(result => {
             if (result && result.data) {
                 this.empList = result.data;
-                let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept;
-                this.getExpireTrendList(query);
             }
-
+            let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept;
+            this.getExpireTrendList(query);
         })
     }
     else if(type == "emp"){

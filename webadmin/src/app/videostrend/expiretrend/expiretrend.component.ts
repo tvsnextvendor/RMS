@@ -82,12 +82,18 @@ export class ExpiretrendComponent implements OnInit {
         if(result && result.isSuccess){
           this.moduleList = result.data && result.data.rows && result.data.rows.length ? result.data.rows : [];
         }
+        else{
+          this.moduleList = [];
+        }
       });
     }
     if(this.seletedTab == 'class'){
       this.commonService.getClassTrendList(courseTrendObj,query).subscribe((result) => {
         if(result && result.isSuccess){
           this.classList = result.data && result.data.rows && result.data.rows.length ? result.data.rows : [];
+        }
+        else{
+          this.classList = [];
         }
       })
     }
