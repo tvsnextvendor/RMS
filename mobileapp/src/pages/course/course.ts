@@ -7,6 +7,9 @@ import { LoaderService } from '../../service';
 import { Storage } from '@ionic/storage';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { PopoverController } from 'ionic-angular';
+import { PopoverPage } from '../popover/popover';
+// import {PopoverComponent} from '../../components/popover/popover';
 import * as moment from 'moment';
 
 @IonicPage({
@@ -33,6 +36,7 @@ export class CoursePage implements OnInit {
   className;
   showToastr;
   msgTitle;
+  filterData;
   msgDes;
   assignedCount;
   modalRef: BsModalRef;
@@ -58,8 +62,9 @@ export class CoursePage implements OnInit {
   
   @ViewChild(Content) content: Content;
   
-  constructor(public navCtrl: NavController,public modalService:BsModalService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
+  constructor(public popoverCtrl: PopoverController,public navCtrl: NavController,public modalService:BsModalService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
         let detailObj = this.navParams.data;
+        console.log(detailObj,"DETAilOBJ")
         this.tab = detailObj && detailObj.tab;
         this.status = detailObj && detailObj.status;
   }
@@ -91,11 +96,27 @@ export class CoursePage implements OnInit {
         });
   }
 
+  //to open popover page while clicking filter icon.
+   presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage, {status: this.status, filterData: this.filterData});
+    popover.present({
+      ev: myEvent,
+    });
+    //get selected data from popover page when it is closed.
+    popover.onDidDismiss(data => {
+        console.log(data,"YAYA");
+        if (data != null) {
+            this.filterData = data.filterData;
+            this.status = data.status;
+            this.getCourseStatus(this.status,'');
+        }
+    })
+  }
 
-  successMessage(msg){
+  successMessage(msg,status){
     this.showToastr = true;
-    this.className = "notify-box alert alert-success";
-    this.msgTitle = "Success";
+    this.className = status && status == 'success' ? "notify-box alert alert-success" : "notify-box alert alert-error";
+    this.msgTitle =  status && status == 'success' ? "Success" : "Error";
     this.msgDes = msg ;
     let self = this;
     setTimeout(function(){ 
@@ -121,42 +142,56 @@ export class CoursePage implements OnInit {
   openTrainingClass(data) 
   {
     if(this.status == 'assigned'){
-      console.log(this.status,"STATUS")
-    let userId = this.currentUser ? this.currentUser.userId : 8;
-    
+      let userId = this.currentUser ? this.currentUser.userId : 8;    
        let postData={
         'userId' : userId,
         'status': "inProgress"
-        }
-        
-        if(data.Course){
-          postData['courseId'] = data.courseId;
-          postData['typeSet'] = 'Course';
-        }else{
-          postData['trainingClassId'] = data.trainingClassId;
-          postData['typeSet'] = 'Class';
-        }
-
-        this.http.put(false,API_URL.URLS.updateTrainingStatus, postData).subscribe((res) => {      
+        } 
+          if(data.Course){
+            postData['courseId'] = data.courseId;
+            postData['typeSet'] = 'Course';
+          }else{
+            postData['trainingClassId'] = data.trainingClassId;
+            postData['typeSet'] = 'Class';
+          }
+        this.http.put(false,API_URL.URLS.updateTrainingStatus, postData).subscribe((res) => { 
+          if(res.isSuccess){
+              this.paramsData['courseId'] = data.courseId;
+              this.paramsData['courseName'] = data.Course ? data.Course.courseName:'';
+              this.paramsData['trainingScheduleId'] = data.trainingScheduleId;
+              this.paramsData['status'] = this.status;
+          
+              if(data.Course){   
+                this.paramsData['typeSet'] = 'Course';
+                this.navCtrl.push('training-page',this.paramsData);
+              }else{
+                this.paramsData['setData'] = {};
+                this.paramsData['setData']['typeSet'] = 'Class';
+                this.paramsData['trainingClassId'] = data.trainingClassId ? data.trainingClassId : '';
+                this.navCtrl.push('trainingdetail-page', this.paramsData);
+              }
+          }else{
+            this.successMessage(res['error'], 'error');
+          }    
         },(err) => {
           console.log(err);
         });
 
-      }
-    
-      this.paramsData['courseId'] = data.courseId;
-      this.paramsData['courseName'] = data.Course ? data.Course.courseName:'';
-      this.paramsData['trainingScheduleId'] = data.TrainingSchedule.trainingScheduleId;
-      this.paramsData['status'] = this.status;
-   
-      if(data.Course){   
-        this.paramsData['typeSet'] = 'Course';
-        this.navCtrl.push('training-page',this.paramsData);
       }else{
-        this.paramsData['setData'] = {};
-        this.paramsData['setData']['typeSet'] = 'Class';
-        this.paramsData['trainingClassId'] = data.trainingClassId ? data.trainingClassId : '';
-        this.navCtrl.push('trainingdetail-page', this.paramsData);
+        this.paramsData['courseId'] = data.courseId;
+        this.paramsData['courseName'] = data.Course ? data.Course.courseName : '';
+        this.paramsData['trainingScheduleId'] = data.trainingScheduleId;
+        this.paramsData['status'] = this.status;
+        
+        if (data.Course) {
+            this.paramsData['typeSet'] = 'Course';
+            this.navCtrl.push('training-page', this.paramsData);
+        } else {
+            this.paramsData['setData'] = {};
+            this.paramsData['setData']['typeSet'] = 'Class';
+            this.paramsData['trainingClassId'] = data.trainingClassId ? data.trainingClassId : '';
+            this.navCtrl.push('trainingdetail-page', this.paramsData);
+        }
       }
     
   }
@@ -202,7 +237,7 @@ export class CoursePage implements OnInit {
       let userId = this.currentUser ? this.currentUser.userId : 8;
       let resortId = this.currentUser.ResortUserMappings[0].resortId;
       // '&page=' + this.currentPage + '&size=' + this.perPageData
-      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId +'&resortId='+resortId+'&search=' +search).subscribe((res) => {
+      this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId +'&resortId='+resortId+'&search=' +search+'&selectType='+this.filterData).subscribe((res) => {
         if(res['data']['rows']){
           this.assignedCount = res['data']['count'];
           this.totalPage = this.assignedCount / this.perPageData;
@@ -224,7 +259,8 @@ export class CoursePage implements OnInit {
     });
   }
 
-  getSignRequired(search){    
+  getSignRequired(search){  
+    this.loader.showLoader();  
     this.showAssigned = true;
     this.showProgress = true;
     this.showCompleted = true;
@@ -241,7 +277,8 @@ export class CoursePage implements OnInit {
       this.signRequireCount = 0;
       this.noRecordsFoundMessage = res['message'];
     }
-    })
+    });
+    this.loader.hideLoader();
   }
 
    toggleSearchBox() {
@@ -323,7 +360,7 @@ export class CoursePage implements OnInit {
     }
     this.http.post(false,API_URL.URLS.contentEmail,postData).subscribe(res=>{
       if(res['isSuccess']){
-        this.successMessage(res['message']);
+        this.successMessage(res['message'], 'success');
         this.modalRef.hide();
       }
     })
@@ -358,8 +395,9 @@ export class CoursePage implements OnInit {
         this.showCompleted = true;
         this.showSignRequire = true;
     }
-
+    this.loader.showLoader();
     this.getCourseStatus(show,'');
+    this.loader.hideLoader();
 
   }
 

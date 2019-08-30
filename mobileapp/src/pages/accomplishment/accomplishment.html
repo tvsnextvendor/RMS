@@ -7,7 +7,7 @@
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.accomplishment}}</span>
         <div class="header-icon">
-          <ion-icon name="ios-chatboxes" (click)="goToForum()" class="chat-icon"></ion-icon>
+          <!-- <ion-icon name="ios-chatboxes" (click)="goToForum()" class="chat-icon"></ion-icon> -->
           <app-bell></app-bell>
         </div>
       </ion-title>
@@ -62,8 +62,8 @@
         <ion-col class="main-forum">
           <ion-card class="forum-card">
             <ion-grid>
-              <ion-row>
-                <ion-col col-12>{{constant.pages.dashboardLabels.noData}}</ion-col>
+              <ion-row  class="no-records">
+                <ion-col col-12>{{constant.title.noData}}</ion-col>
               </ion-row>
             </ion-grid>
           </ion-card>
