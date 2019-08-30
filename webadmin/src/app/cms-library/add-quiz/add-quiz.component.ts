@@ -264,6 +264,7 @@ export class CreateQuizComponent implements OnInit {
           } 
         },err=>{
           this.submitted = false;
+          this.alertService.success(err.error.error);
         })
       }
     }

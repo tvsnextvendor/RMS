@@ -708,6 +708,8 @@ export class AddQuizComponent implements OnInit {
                                 this.editEnable = false;
 
                             }
+                        }, err => {
+                            this.alertService.error(err.error.error);
                         }) 
                     }
                     else{
@@ -720,6 +722,8 @@ export class AddQuizComponent implements OnInit {
                                 this.fileService.emptyFileList();
                                 this.quizService.setQuiz('');
                             }
+                        }, err => {
+                            this.alertService.error(err.error.error);
                         })
                     }
                 }
