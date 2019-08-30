@@ -129,7 +129,7 @@ export class Constant {
             certificatesObtained: 'Certificates Obtained',
             badgesObtained: 'Badges Obtained',
             complete: 'Complete',
-            courseExpiring:'Courses Expiring',
+            courseExpiring:'Expiring',
             signatureRequired: 'Signature Required',
             generalNotifications: 'General Notifications',
             trainingClasses :'Training Classes',
