@@ -7,15 +7,18 @@
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.training}}</span>
         <div class="header-icon">
+          <span (click)="presentPopover($event)">
+            <ion-icon name="ios-funnel-outline"  class="chat-icon"></ion-icon>
+          </span>
           <span (click)="toggleSearchBox()">
             <ion-icon name="ios-search" class="chat-icon"></ion-icon>
           </span>
           <span (click)="goToFailedList()">
             <img class="fail-img" src="assets/imgs/failedList.png" />
           </span>
-          <span (click)="goToForum()">
+          <!-- <span (click)="goToForum()">
             <ion-icon name="ios-chatboxes" class="chat-icon"></ion-icon>
-          </span>
+          </span> -->
           <app-bell></app-bell>
         </div>
       </ion-title>
@@ -54,7 +57,7 @@
 
       <div class="tab-content clearfix" [hidden]="showAssigned">
         <ion-row *ngIf="assignedCount > 0">
-          <p class="col-md-12 tot-count">Total Courses: {{assignedCount}}</p>
+          <p class="col-md-12 tot-count">Total : {{assignedCount}}</p>
           <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
             <ion-card class="forum-card">
               <ion-grid>
@@ -106,7 +109,7 @@
       </div>
       <div class="tab-content" [hidden]="showProgress">
         <ion-row *ngIf="assignedCount > 0">
-          <p class="col-md-12 tot-count">Total Courses: {{assignedCount}}</p>
+          <p class="col-md-12 tot-count">Total : {{assignedCount}}</p>
           <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
             <ion-card class="forum-card">
               <ion-grid>
@@ -167,7 +170,7 @@
       </div>
       <div class="tab-content" [hidden]="showSignRequire">
         <ion-row *ngIf="signRequireCount > 0">
-          <p class="col-md-12 tot-count">Total Courses: {{signRequireCount}}</p>
+          <p class="col-md-12 tot-count">Total : {{signRequireCount}}</p>
           <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of signRequireList;let i=index;" class="main-forum">
             <ion-card class="forum-card">
               <ion-grid>
@@ -211,7 +214,7 @@
       </div>
       <div class="tab-content" [hidden]="showCompleted">
         <ion-row *ngIf="assignedCount > 0">
-          <p class="col-md-12 tot-count">Total Courses: {{assignedCount}}</p>
+          <p class="col-md-12 tot-count">Total : {{assignedCount}}</p>
           <ion-col col-12 col-sm-12 col-md-12 *ngFor="let task of courseList;let i=index;" class="main-forum">
             <ion-card class="forum-card">
               <ion-grid>

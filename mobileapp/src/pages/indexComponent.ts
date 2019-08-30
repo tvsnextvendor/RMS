@@ -19,5 +19,6 @@ export * from './forum-detail/forum-detail';
 export * from './course/course';
 export * from './feedback/feedback';
 export * from './topic/topic';
+export * from './popover/popover';
 export * from './signrequire-detail/signrequire-detail';
 export * from './general-notification/general-notification';

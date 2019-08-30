@@ -7,21 +7,40 @@
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.training}}</span>
        <div class="header-icon">
-        <ion-icon name="ios-chatboxes" (click)="goToForum()" class="chat-icon"></ion-icon>
+        <!-- <ion-icon name="ios-chatboxes" (click)="goToForum()" class="chat-icon"></ion-icon> -->
         <app-bell></app-bell>
         </div>  
-      </ion-title>
+      </ion-title> 
+        
+      <!-- <div >
+          <h1 text-center >
+            {{time}}
+          </h1>
+          <ion-grid>
+            <ion-row text-center class="mt-5">
+              <ion-col class="col-12" *ngIf="!running && time == blankTime">
+                <button  ion-button
+                  (tap)="start()">{{ 'start'   }}</button>
+              </ion-col>
+              <ion-col class="col-12" *ngIf="running">
+                <button  ion-button
+                  (tap)="stop()">{{ 'stop'  }}</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </div> -->
+
     </ion-navbar>
   </ion-header>
 
   <div class="tab-content" *ngIf="allTrainingClassesCount > 0">
     <ion-row>
-      <ion-col col-12 col-sm-6 col-md-4 *ngFor="let task of allTrainingClasses;let i=index;" (click)="openTrainingDetail(task)"
+      <ion-col col-12 col-sm-6 col-md-6 *ngFor="let task of allTrainingClasses;let i=index;" (click)="openTrainingDetail(task)"
         class="main-forum">
         <ion-card class="training-list" >
           <div class="training-image">
             <span class="course-name">{{task.trainingClassName}}</span>
-            <img  src="assets/imgs/COURSE.png" />
+            <img  src="assets/imgs/COURSE1.png" />
             <!-- <span class="play-icon">
               <img src="assets/imgs/play-button (2).png" />
             </span> -->
@@ -41,7 +60,7 @@
                   </ion-col>
                   <ion-col col-5 class="" *ngIf="task.created">
                     <p class="post-date">{{constant.pages.trainingLabels.postedLabel}} {{task.created |
-                      date:'dd/MM/yyyy'}}</p>
+                      date:'MM/dd/yyyy'}}</p>
                   </ion-col>
                 </ion-row>
               </ion-grid>

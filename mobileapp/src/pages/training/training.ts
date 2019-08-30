@@ -52,8 +52,17 @@ export class TrainingPage {
   currentUser;
   trainingScheduleId;
 
+  timeBegan = null
+  timeStopped:any = null
+  stoppedDuration:any = 0
+  started = null
+  running = false
+  blankTime = "00:00.000"
+  time = "00:00.000"
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public loader: LoaderService) {
     this.detailObject = this.navParams.data;
+    console.log(this.detailObject,"TRAINING")
     this.courseIdParams = this.detailObject.courseId;
     this.trainingScheduleId = this.detailObject.trainingScheduleId;
     this.statusKey = this.detailObject['status'] ? this.detailObject['status'] : 'assigned';
@@ -63,6 +72,59 @@ export class TrainingPage {
   //first load
   ionViewDidLoad() {
   }
+
+
+
+     start() {
+    // if(this.running) return;
+    if (this.timeBegan === null) {
+        this.reset();
+        this.timeBegan = new Date();
+    }
+    if (this.timeStopped !== null) {
+      let newStoppedDuration:any = (+new Date() - this.timeStopped)
+      this.stoppedDuration = this.stoppedDuration + newStoppedDuration;
+    }
+    this.started = setInterval(this.clockRunning.bind(this), 10);
+      this.running = true;
+    }
+    stop() {
+      this.running = false;
+      this.timeStopped = new Date();
+      clearInterval(this.started);
+   }
+    reset() {
+      this.running = false;
+      clearInterval(this.started);
+      this.stoppedDuration = 0;
+      this.timeBegan = null;
+      this.timeStopped = null;
+      this.time = this.blankTime;
+    }
+    zeroPrefix(num, digit) {
+      let zero = '';
+      for(let i = 0; i < digit; i++) {
+        zero += '0';
+      }
+      return (zero + num).slice(-digit);
+    }
+    clockRunning(){
+      let currentTime:any = new Date()
+      let timeElapsed:any = new Date(currentTime - this.timeBegan - this.stoppedDuration)
+      let hour = timeElapsed.getUTCHours()
+      let min = timeElapsed.getUTCMinutes()
+      let sec = timeElapsed.getUTCSeconds()
+      let ms = timeElapsed.getUTCMilliseconds();
+    this.time =
+      this.zeroPrefix(hour, 2) + ":" +
+      this.zeroPrefix(min, 2) + ":" +
+      this.zeroPrefix(sec, 2) + "." +
+      this.zeroPrefix(ms, 3);
+    };
+
+
+
+
 
 
   ngOnInit(){
@@ -160,14 +222,12 @@ export class TrainingPage {
   }
   //open  page
   openTrainingDetail(data) {
+    console.log(data,"OPEN TRAINING")
     this.paramsData['trainingClassId'] = data.CourseTrainingClassMaps[0].trainingClassId;
     this.paramsData['courseId'] = data.CourseTrainingClassMaps[0].courseId;
-    // this.paramsData['status'] = detailObj.FeedbackMappings.length ? (detailObj.QuizMappings.length == 0 ? this.checkCompleted(detailObj) : detailObj.FeedbackMappings[0].status )  : (detailObj.QuizMappings.length == 0 ? "noQuiz" : 'inProgress' ) ;
     this.paramsData['status'] = data.FeedbackMappings.length ? data.FeedbackMappings[0].status : 'inProgress';    
     this.paramsData['setData'] = this.detailObject;
     this.paramsData['setData']['passPercentage'] = data.CourseTrainingClassMaps[0].Course.TrainingScheduleCourses[0].passPerc;
-    // this.paramsData['selectedIndex'] = selectedIndex;
-    // this.paramsData['uploadPath'] = uploadPath;
     this.paramsData['trainingScheduleId'] = this.trainingScheduleId;
     this.navCtrl.push(TrainingDetailPage, this.paramsData);
   }

@@ -20,5 +20,6 @@ export * from './library/library.module';
 export * from './course/course.module';
 export * from './feedback/feedback.module';
 export * from './topic/topic.module';
+export * from './popover/popover.module';
 export * from './signrequire-detail/signrequire-detail.module';
 export * from './general-notification/general-notification.module';

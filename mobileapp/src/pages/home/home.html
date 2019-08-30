@@ -8,7 +8,7 @@
         <span class="header-title">{{constant.title.dashboard}}</span>
         
         <div class="header-icon">
-          <ion-icon (click)="goToForum()" name="ios-chatboxes" class="chat-icon"></ion-icon>
+          <!-- <ion-icon (click)="goToForum()" name="ios-chatboxes" class="chat-icon"></ion-icon> -->
           <app-bell></app-bell>
         </div>
       </ion-title>
@@ -65,53 +65,63 @@
         <ion-grid>
           
          <ion-row>
-            <ion-col col-11 (click)="navPage('course',schedule)">
-            <ion-row>
-            <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
-            <ion-col col-7 class="batch-date pr-0">
-              {{schedule.assignedDate | date:'dd MMM yyyy'}}
-              <span class="to-txt"> To </span>
-              {{schedule.dueDate | date:'dd MMM yyyy'}}
+            <ion-col col-11 *ngIf="schedule.scheduleType == 'notification'" (click)="navPage('scheduleType',schedule)">
+              <ion-row>
+                <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
+                <ion-col col-7 class="batch-date pr-0">
+                  {{schedule.assignedDate | date:'dd MMM yyyy'}}
+                  <span class="to-txt"> To </span>
+                  {{schedule.dueDate | date:'dd MMM yyyy'}}
+                </ion-col>
+              </ion-row>
             </ion-col>
-            </ion-row>
-           </ion-col>
-          <ion-col col-1 class="batch-icon" (click)="hideShowDesc(i)">
-            <ion-icon *ngIf="!enableView || enableIndex !== i" name="ios-arrow-forward" class="arrow-icon"></ion-icon>
-            <ion-icon *ngIf="enableView && enableIndex === i" name="ios-arrow-down" class="arrow-icon"></ion-icon>
-          </ion-col>
+            <ion-col col-11 *ngIf="schedule.scheduleType != 'notification'" (click)="navPage('course',schedule)">
+              <ion-row>
+                <ion-col col-4 class="batch-name">{{schedule.name}}</ion-col>
+                <ion-col col-7 class="batch-date pr-0">
+                  {{schedule.assignedDate | date:'dd MMM yyyy'}}
+                  <span class="to-txt"> To </span>
+                  {{schedule.dueDate | date:'dd MMM yyyy'}}
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-1 class="batch-icon" (click)="hideShowDesc(i)">
+              <ion-icon *ngIf="!enableView || enableIndex !== i" name="ios-arrow-forward" class="arrow-icon"></ion-icon>
+              <ion-icon *ngIf="enableView && enableIndex === i" name="ios-arrow-down" class="arrow-icon"></ion-icon>
+            </ion-col>
         </ion-row>
           
         <div *ngIf="enableView && enableIndex === i" >
             <ion-row *ngFor="let data of schedule.Resorts"> 
                  <!-- Scheduled Course-->
-                 <ion-col col-6 class="course-count" *ngIf="data.Course" (click)="navPage('trainingClass',data)">
+                 <ion-col col-6 class="course-count" *ngIf="data.Course" >
                   <a>
-                  <p class="course-click" (click)="navPage('trainingClass',data)">{{data.Course.courseName}}</p></a>
+                  <p class="course-click" (click)="navPage('course',data)">{{data.Course.courseName}}</p></a>
                   <a> <p>{{data.Course.CourseTrainingClassMaps.length}} {{constant.pages.dashboardLabels.trainingClasses}}
                   </p></a>
                 </ion-col>
-                <ion-col col-6 *ngIf="data.Course" (click)="navPage('trainingClass',data)">
+                <ion-col col-6 *ngIf="data.Course" (click)="navPage('course',data)">
                   <div class="expires org-color"><span class="aligtxt">
                       {{calculateExpireDays(schedule.dueDate)}}</span></div>
                 </ion-col>
               
                 <!-- Scheduled Class -->
-                <ion-col col-6 class="course-count"  *ngIf="data.TrainingClass" (click)="navPage('trainingDetail',data)">
+                <ion-col col-6 class="course-count"  *ngIf="data.TrainingClass">
                   <a>
-                    <p class="course-click" (click)="navPage('trainingDetail',data)">{{data.TrainingClass.trainingClassName}}</p>
+                    <p class="course-click" (click)="navPage('course',data)">{{data.TrainingClass.trainingClassName}}</p>
                   </a>
                 </ion-col>
-                <ion-col col-6  *ngIf="data.TrainingClass" (click)="navPage('trainingDetail', data)">
+                <ion-col col-6  *ngIf="data.TrainingClass" (click)="navPage('course', data)">
                   <div class="expires org-color"><span class="aligtxt">
                       {{calculateExpireDays(schedule.dueDate)}}</span></div>
                 </ion-col>
 
                   <!-- Scheduled Notification-->
-                  <ion-col col-6 class="course-count" *ngIf="data.NotificationFile" (click)="navPage(data.NotificationFile.type,'')">
+                  <ion-col col-6 class="course-count" *ngIf="data.NotificationFile">
                     <a>
                       <p class="course-click" *ngIf="data.NotificationFile.File" (click)="navPage(data.NotificationFile.type,'')">{{data.NotificationFile.File.fileName}}</p>
                     </a>
-                    <p class="description" *ngIf="data.NotificationFile.description">{{data.NotificationFile.description}}</p>
+                    <p class="description" *ngIf="data.NotificationFile.description" (click)="navPage(data.NotificationFile.type,'')">{{data.NotificationFile.description}}</p>
                   </ion-col>
                   <ion-col col-6 *ngIf="data.NotificationFile" (click)="navPage(data.NotificationFile.type,'')">
                     <div class="expires org-color"><span class="aligtxt">
@@ -119,11 +129,9 @@
                   </ion-col>
             </ion-row>
           </div>
-
         </ion-grid>
       </ion-card>
     </ion-list>
-
     <ion-row *ngIf=" dashboardInfo.length == 0">
       <ion-col class="main-forum">
         <ion-card class="forum-card">
@@ -136,13 +144,13 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  </div>
-
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
- 
+      <!-- 
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="currentPage < totalPage">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    -->
+</div>
 </ion-content>
 
 <ion-footer class="tab-footer">
