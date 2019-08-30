@@ -48,15 +48,11 @@ export class CourseFailedPage {
      this.navCtrl.push('forum-page');
   }
 
- 
-
-  openTrainingClass(courseId)
+  navPage()
   {
       let paramsData = {};
-      paramsData['courseId'] = courseId;
-      paramsData['trainingScheduleId'] = '';
-      paramsData['status'] = 'failed';
-      this.navCtrl.push('training-page',paramsData);
+      paramsData['status'] = 'inProgress';
+      this.navCtrl.push('course-page',paramsData);
   }
 
    toggleSearchBox() {
