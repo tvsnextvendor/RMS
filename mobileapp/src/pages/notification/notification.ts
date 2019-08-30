@@ -110,8 +110,10 @@ export class NotificationPage implements OnInit {
         this.navCtrl.push('course-page');
         break;
       default:
-       this.navCtrl.push('forum-page');
+        this.navCtrl.push('course-page');
         break;
+      //  this.navCtrl.push('forum-page');
+      //   break;
     }   
   }
 

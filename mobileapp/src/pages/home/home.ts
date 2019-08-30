@@ -59,9 +59,16 @@ export class HomePage {
       }, 10000);      
   }
 
+  //Navigate schedules to respective pages
   navPage(page, data){
-    // console.log(page,data, "PAGE")
-    switch (page) {
+    let pageName;
+    if(page == 'scheduleType'){
+       pageName = data.Resorts[0].NotificationFile.type;
+    }else{
+       pageName = page;
+    }
+
+    switch (pageName) {
       case 'general':
       case 'notification':
         this.navCtrl.push('generalnotification-page');
@@ -71,21 +78,20 @@ export class HomePage {
         this.paramsData['tab'] = 'signReq';
         this.navCtrl.push('course-page',this.paramsData);
         break;
-      case 'assignedToCourse':
       case 'course':
-        this.changeTrainingStatus(data);
+        //this.changeTrainingStatus(data);
         this.paramsData['status'] = this.status;
         this.navCtrl.push('course-page', this.paramsData);
         break;
       case 'trainingClass' :
-       this.changeTrainingStatus(data);
+        //this.changeTrainingStatus(data);
         this.paramsData['courseId'] = data.courseId;
         this.paramsData['trainingScheduleId'] = data.trainingScheduleId;
         this.paramsData['status'] = this.status;
         this.navCtrl.push('training-page',this.paramsData);
         break;
       case 'trainingDetail' :
-       this.changeTrainingStatus(data);
+       //this.changeTrainingStatus(data);
         let paramsData = {};
         paramsData['trainingClassId'] = data.trainingClassId;
         paramsData['trainingScheduleId'] = data.trainingScheduleId;
@@ -99,8 +105,8 @@ export class HomePage {
     }
   }
 
+    //Change status from "assigned" to "inprogress"
     changeTrainingStatus(data){
-      console.log(data, this.status)
       if (this.status == 'assigned') {
           let userId = this.currentUser ? this.currentUser.userId : 8;   
           let postData = {
@@ -122,6 +128,7 @@ export class HomePage {
       }
     }
   
+  //tab change
   changeStatus(type){
     this.loader.showLoader();
     this.status=type;
@@ -131,17 +138,13 @@ export class HomePage {
     this.enableIndex = 0;
   }
   
+  //open detail section
   hideShowDesc(i){
     this.enableView = this.enableIndex === i ? !this.enableView : true;
     this.enableIndex = i;
   }
-
-  //  calculateExpireDays(dueDate) {
-  //   const a = moment(new Date());
-  //   const b = moment(new Date(dueDate));
-  //   return a.to(b, true);
-  // }
-
+ 
+  //Calculate expiry days 
    calculateExpireDays(duedate) {
     let dueDate = moment(duedate).format("YYYY-MM-DD");
     let todaysDate = moment(new Date()).format("YYYY-MM-DD");
@@ -166,12 +169,14 @@ export class HomePage {
         setTimeout(() => {
             this.getDashboardInfo();
             event.complete(); //To complete scrolling event.
-        }, 1000);
+        }, 2000);
     }
 
+  //Get schedule data
   getDashboardInfo() {
     let userId= this.currentUser.userId;
-    this.http.get(API_URL.URLS.dashboardSchedules+'?status='+this.status+'&userId='+userId+'&page='+this.currentPage+'&size='+this.perPageData).subscribe((res) => {
+    // +'&page=' + this.currentPage + '&size=' + this.perPageData
+    this.http.get(API_URL.URLS.dashboardSchedules+'?status='+this.status+'&userId='+userId).subscribe((res) => {
       if(res['isSuccess']){
         let totalData = res['data']['count'];
         this.totalPage = totalData / this.perPageData;
@@ -186,6 +191,7 @@ export class HomePage {
     });
   }
 
+ //get expiry schedule count
   getDashboardCount(){
     let userId= this.currentUser.userId;
     let resortId = this.currentUser.ResortUserMappings[0].resortId;
@@ -201,11 +207,10 @@ export class HomePage {
     })
   }
   
-  
+  //Navigate to forum
   goToForum(){
      this.navCtrl.push('forum-page');
   }
-
 
   ngOnDestroy(){
     if (this.interval) {

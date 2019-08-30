@@ -1,0 +1,16 @@
+<ion-content>
+  <ion-list radio-group    [(ngModel)]="selectedOption">
+    <ion-item>
+      <ion-label>Course</ion-label>
+      <ion-radio (click)="changeOption()" value="Course"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Class</ion-label>
+      <ion-radio (click)="changeOption()" value="Class"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <div class="button-group">
+    <button ion-button class="clr-btn" (click)="clearFilter()">Clear</button>
+    <button ion-button class="apply-btn" (click)="applyFilter()">Apply</button>
+  </div>
+</ion-content>
