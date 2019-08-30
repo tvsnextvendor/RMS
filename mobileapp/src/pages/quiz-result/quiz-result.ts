@@ -36,6 +36,7 @@ export class QuizResultPage implements OnInit {
     constructor(public navCtrl: NavController,public http: HttpProvider,public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
         this.Math = Math;
         this.resultData = navParams.data;
+        console.log(this.resultData, "QUIZ result");
         this.trainingClassName = this.resultData['trainingClassName'];
         this.noQuiz = this.resultData['status'] ? true : false ;
         // this.resultData['passPercentage'] = this.resultData['passPercentage'];
@@ -122,14 +123,17 @@ export class QuizResultPage implements OnInit {
     }
 
      completeTrainingClass(){
+     
         let data = this.resultData;
+        let typeSetData = this.resultData['typeSet'] ? this.resultData['typeSet'] : this.resultData['setData'].typeSet;
+        console.log(this.resultData, typeSetData)
         let postData={
             "courseId": data['courseId'],
             "trainingClassId": data['trainingClassId'],
             "userId":this.currentUser.userId,
             "courseName": data['courseName'],
             "trainingClassName":data['trainingClassName'],
-            "typeSet":this.resultData['typeSet'],
+            "typeSet":typeSetData,
             "userName": this.currentUser.userName,
             "lastName":this.currentUser.lastName,
             "resortId": this.currentUser.ResortUserMappings[0].resortId,

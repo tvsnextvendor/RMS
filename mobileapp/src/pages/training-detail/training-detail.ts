@@ -8,6 +8,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { API } from '../../constants/API.var';
 import { Storage } from '@ionic/storage';
+import { Platform } from 'ionic-angular'; 
 import { InAppBrowser,InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 
 @IonicPage({
@@ -26,8 +27,10 @@ export class TrainingDetailPage {
     inactiveRightButton: boolean = true;
     activeLeftButton: boolean = false;
     activeRightButton: boolean = false;
+    noQuiz:boolean = false;
     leftButton: boolean = true;
     rightButton: boolean = true;
+    btnDisable : boolean = false;
     videoMenuTitle = "";
     currentVideoIndex = 0;
     loadingBarWidth = 0;
@@ -85,11 +88,11 @@ export class TrainingDetailPage {
         fullscreen : 'yes',//Windows only    
     };
 
-    constructor(public navCtrl: NavController,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService) {
+    constructor(public navCtrl: NavController,public platform:Platform,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.status= this.detailObject['status'] ? this.detailObject['status'] : '' ;
-      
+        console.log(this.detailObject,"TRAINING DETAIL")
     }
 
       ngAfterViewInit() {
@@ -102,7 +105,6 @@ export class TrainingDetailPage {
              this.getCourseTrainingClasses();
             }
         });
-      
       }
 
 
@@ -113,9 +115,9 @@ export class TrainingDetailPage {
                 if(res.isSuccess){
                 self.feedback = res['data']['feedback'];
                 self.allTrainingClasses = res['data']['file'];  
-                self.status = (this.detailObject['setData']['typeSet'] == 'Class') ? ( (self.feedback.length  && self.feedback[0].status) ? self.feedback[0].status : 'inProgress' )  : this.detailObject['status'];
+                self.status = self.detailObject['setData']['typeSet'] == 'Class' ? ( (self.feedback.length  && self.feedback[0].status) ? self.feedback[0].status : 'inProgress' )  : self.detailObject['status'];
                 if(res['data']['quiz'].length == 0){
-                   self.status = 'noQuiz';
+                   self.noQuiz = true;
                 }
                 self.allTrainingClassesCount = res['data']['file'].length;
                 self.lastIndexs = self.allTrainingClassesCount - 1;
@@ -124,6 +126,7 @@ export class TrainingDetailPage {
                 self.detailObject['setData']['trainingClassName'] = self.allTrainingClasses[0].TrainingClass.trainingClassName;
                 this.loadingBarWidth = (100 / parseInt(self.allTrainingClasses.length, 10));
                 self.uploadPath = res['data']['uploadPaths']['uploadPath'];
+                console.log(self.status, self.noQuiz, self.quizBtn)                                                           
                 this.loadFirstFile();
                 resolve('resolved');
                 }
@@ -174,14 +177,23 @@ export class TrainingDetailPage {
 
     //Open file content in browser  
     public openWithSystemBrowser(url : string){
+        console.log(url,"URL")
         let target = "_system";
         this.iab.create(url,target,this.options);
     }
+
+   
+    public openWithCordovaBrowser(url : string){
+        console.log(url, "URL")
+        let target = "_self";
+        this.iab.create(url,target,this.options);
+    }  
 
     // go to particular index
     goToSlideIndex() {
         this.slides.slideTo(this.selectedIndexs, 500);
     }
+  
     // event slide changed
     slideChanged() {
         this.checkNavigationButton();
@@ -189,7 +201,7 @@ export class TrainingDetailPage {
     
     // go to quiz page for training details
     goToQuizPage() {
-       
+       this.btnDisable= true;
         let data = {
             'trainingClassId': this.detailObject.trainingClassId,
             'userId': this.userId,
@@ -217,6 +229,7 @@ export class TrainingDetailPage {
                                       text: 'Later',
                                       role: 'later',
                                       handler: () => {
+                                          self.btnDisable = false;
                                       }
                                   },
                                   {
@@ -238,14 +251,13 @@ export class TrainingDetailPage {
                   });
                 }
             }});
-   
     }
    
    //Call after watching video file.
     videoEnded(){
         let data={
-        'courseId' :this.detailObject['setData'].courseId,
-        'trainingClassId' :  this.detailObject['setData'].trainingClassId,
+        'courseId' :this.detailObject.courseId,
+        'trainingClassId' :  this.detailObject.trainingClassId,
         'fileId' : this.fileId,
         'userId' : this.userId,
         'status': "completed"
@@ -272,7 +284,7 @@ export class TrainingDetailPage {
     }
 
     videoFailed(event){
-        console.log(event, "failed");        
+        //console.log(event, "failed");        
     }
  
     // Check files and videos of training class are completed or not while clicking done btn atlast.
@@ -290,6 +302,7 @@ export class TrainingDetailPage {
                    const resultData = {
                        "courseId": this.detailObject['setData'].courseId,
                        "trainingClassId": this.detailObject.trainingClassId,
+                       "setData" : this.detailObject['setData'],
                        "scheduleId": this.detailObject['trainingScheduleId'],
                        "trainingClassName": this.detailObject['setData'].trainingClassName,
                        "courseName": this.detailObject['setData'].courseName,
@@ -346,7 +359,6 @@ export class TrainingDetailPage {
         this.setTraining = this.allTrainingClasses[this.initial].File;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
-        console.log(this.imageType,this.videotag, ext);
         if(ext == "mp4" && this.videotag){
         const htmlVideoTag = this.videotag.nativeElement;
         htmlVideoTag.load();
@@ -368,7 +380,6 @@ export class TrainingDetailPage {
             this.text = this.setTraining.fileDescription;
             this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
             let ext = this.setTraining.fileUrl.split('.').pop();
-            console.log(this.imageType,this.videotag, ext)
             if(ext == "mp4" && this.videotag){
                 const htmlVideoTag = this.videotag.nativeElement;
                 htmlVideoTag.load();
@@ -432,6 +443,8 @@ export class TrainingDetailPage {
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
+            case "avi":
+            case "mpg":
             case "jpeg" :
             case "jpg" :
                  //fileLink = this.uploadPath + filename;
@@ -450,6 +463,7 @@ export class TrainingDetailPage {
         //this.restrictForward();
         return fileLink;
     }
+
 
     //View content
     viewContent(setTraining,filePath) {
@@ -482,8 +496,20 @@ export class TrainingDetailPage {
                     docType = 'application/pdf';
             }
                let baseUrl = rootUrl+this.uploadPath;
-               
-             this.openWithSystemBrowser(baseUrl+docFile);
+
+
+             this.platform.ready().then(() => {
+             
+                 if (this.platform.is('android') || this.platform.is('mobileweb') || this.platform.is('browser')) {
+                     this.openWithSystemBrowser(baseUrl + docFile);
+                     console.log("running on Android device!");
+                 }
+                 if (this.platform.is('ios')) {
+                     this.openWithCordovaBrowser(baseUrl + docFile);
+                     console.log("running on iOS device!");
+                 }
+             }); 
+
              this.completedViewOperation(docFileId);	
         }
 
