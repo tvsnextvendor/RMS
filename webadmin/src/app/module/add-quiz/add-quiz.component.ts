@@ -403,7 +403,20 @@ export class AddQuizComponent implements OnInit {
                                 fileSize: item.fileSize,
                                 fileLength: item.fileLength,
                                 fileId: item.fileId,
-                                trainingClassId: item.trainingClassId
+                                trainingClassId: item.trainingClassId,
+                                inputUrl : '',
+                                transcodeUrl : '',
+                                jobId : ''
+                            }
+                            if(item.fileType == 'Video'){
+                                obj.inputUrl = item.inputUrl;
+                                obj.transcodeUrl = item.transcodeUrl;
+                                obj.jobId = item.jobId;
+                            }
+                            else{
+                                delete obj.inputUrl;
+                                delete obj.transcodeUrl;
+                                delete obj.jobId;
                             }
                             return obj;
                         }
@@ -417,7 +430,20 @@ export class AddQuizComponent implements OnInit {
                                 fileImage: item.fileImage,
                                 fileSize: item.fileSize,
                                 fileId: item.fileId,
-                                fileLength: item.fileLength
+                                fileLength: item.fileLength,
+                                inputUrl : '',
+                                transcodeUrl : '',
+                                jobId : ''
+                            }
+                            if(item.fileType == 'Video'){
+                                obj.inputUrl = item.inputUrl;
+                                obj.transcodeUrl = item.transcodeUrl;
+                                obj.jobId = item.jobId;
+                            }
+                            else{
+                                delete obj.inputUrl;
+                                delete obj.transcodeUrl;
+                                delete obj.jobId;
                             }
                             return obj;
                         }
@@ -657,7 +683,20 @@ export class AddQuizComponent implements OnInit {
                                 fileSize: item.fileSize,
                                 fileLength: item.fileLength,
                                 fileId: item.fileId,
-                                trainingClassId: item.trainingClassId
+                                trainingClassId: item.trainingClassId,
+                                jobId : '',
+                                transcodeUrl :'',
+                                inputUrl : ''
+                            }
+                            if(item.fileType == 'Video'){
+                                obj.inputUrl = item.inputUrl;
+                                obj.transcodeUrl = item.transcodeUrl;
+                                obj.jobId = item.jobId;
+                            }
+                            else{
+                                delete obj.inputUrl;
+                                delete obj.transcodeUrl;
+                                delete obj.jobId;
                             }
                             return obj;
                         }
@@ -671,7 +710,21 @@ export class AddQuizComponent implements OnInit {
                                 fileImage: item.fileImage,
                                 fileSize: item.fileSize,
                                 fileLength: item.fileLength,
-                                fileId: item.fileId
+                                fileId: item.fileId,
+                                jobId : '',
+                                transcodeUrl :'',
+                                inputUrl : ''
+
+                            }
+                            if(item.fileType == 'Video'){
+                                obj.inputUrl = item.inputUrl;
+                                obj.transcodeUrl = item.transcodeUrl;
+                                obj.jobId = item.jobId;
+                            }
+                            else{
+                                delete obj.inputUrl;
+                                delete obj.transcodeUrl;
+                                delete obj.jobId;
                             }
                             return obj;
                         }

@@ -65,6 +65,12 @@ uploadFiles(file){
     return this.http.upload('local',this.url.uploadFiles, formData);
 }
 
+vidoeUploadFiles(file){
+  const formData = new FormData();
+  formData.append("file",file)
+  return this.http.upload('local',this.url.videoTrans, formData);
+}
+
 updateFiles(id,file){
    return this.http.put('local',this.url.updateFiles+'/' + id,file);
 }
