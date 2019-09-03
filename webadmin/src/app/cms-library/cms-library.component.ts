@@ -31,6 +31,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   hideSection=false;
   trainingClassId;
   courseId;
+  resourceLibrary =false;
   CMSFilterSearchEvent;
   quizTabHit;
   deselectAll= false;
@@ -155,6 +156,11 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   showUploadPage(event){
      this.findCreateCourse = event.key ? true : false;
     if(event){
+      this.activatedRoute.queryParams.subscribe(params => {
+          if (params && params.type == 'edit') {
+              this.resourceLibrary = true;
+          }
+      });
       this.hideSection= true;
       this.selectedTab = 'video';
       this.showcreatecourse = false;
@@ -189,7 +195,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
       this.quizTabHit = false; 
     }
     this.activatedRoute.queryParams.subscribe(params=>{
-      if(params && params.type == 'edit'){
+      if(params && params.type == 'edit' && !this.resourceLibrary){
         title = (title == 'training') ? 'class' : title;
         this.route.navigate(['/cms-library'],{queryParams:{type : 'edit',tab : title}})
       }
