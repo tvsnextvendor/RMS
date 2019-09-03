@@ -89,7 +89,9 @@ export class NotificationTabComponent implements OnInit {
       (this.roleId != 1 ? (this.resourseLib ? '?page=' + this.p + '&size=' + this.pageSize + '&resortId=' + this.resortId : '?page=' + this.p + '&size=' + this.pageSize + '&resortId=' + this.resortId + "&createdBy=" + userData.userId) : '');
     let selectedDocuments = this.fileService.getSelectedList('notification');
     if (roleId == 4) {
-      query = this.resourseLib ? (query + "&draft=false") : (query + "&draft=true");
+      let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+      query = this.resourseLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
+      // query = this.resourseLib ? (query + "&draft=false") : (query + "&draft=true");
     }
    
 

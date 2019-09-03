@@ -227,6 +227,7 @@ export class API_URL {
     getReportingManager   : '8103/user/getReportingManagers',
     sendExpireNotification    : '8103/user/sendExpireNotification',
     sendEmail       : "8103/user/sendReportEmail",
+    videoTrans : "8103/uploadDocuments",
      // addArchieve : '8103/archieved',
     // updateArchieve : '8103/archieved/',
 
