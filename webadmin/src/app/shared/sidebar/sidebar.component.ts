@@ -48,7 +48,6 @@ export class SideBarComponent implements OnInit {
     }
     this.roleId = role;
     // console.log(this.roleId);
-    // debugger;
     if(role == 1){
       this.networkAdmin = true;
       this.peerAdmin = false;

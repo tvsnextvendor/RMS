@@ -113,7 +113,6 @@ export class EmailComponent implements OnInit {
         this.sendClicked = true;
         if (this.emailForm.to && this.emailForm.subject) {
             // let toAddress = this.emailForm.to;
-            // debugger;
             let params = {
                 'to' : (this.emailForm.to).toString(),
                 'cc' : this.emailForm.cc,

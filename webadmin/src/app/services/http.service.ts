@@ -106,9 +106,18 @@ export class HttpService {
         'Authorization': this.utilService.getToken()
       })
     };
-    let paramData = {
-      path : paramPath
+    let paramData = {path : ''};
+  if(paramPath && paramPath.path){
+    if(API.AWS){
+      delete paramData.path;
+      paramData = paramPath 
+    } else{
+      paramData.path = paramPath.path;
     }
+  }
+  else{
+    paramData.path = paramPath
+  }
     const API_ENDPOINT = api == "local" ? API.API_ENDPOINT:API.API_URL;
     return this.http.request('delete',API_ENDPOINT+url, {headers:httpOptions.headers,body:paramData}).pipe(
       map(this.extractData));

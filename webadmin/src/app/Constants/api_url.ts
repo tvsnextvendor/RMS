@@ -228,6 +228,7 @@ export class API_URL {
     sendExpireNotification    : '8103/user/sendExpireNotification',
     sendEmail       : "8103/user/sendReportEmail",
     videoTrans : "8103/uploadDocuments",
+    removeTrans  : '8103/removeDocuments',
      // addArchieve : '8103/archieved',
     // updateArchieve : '8103/archieved/',
 

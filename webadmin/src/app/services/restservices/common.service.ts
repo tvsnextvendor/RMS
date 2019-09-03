@@ -78,7 +78,8 @@ updateFiles(id,file){
 }
 
 removeFiles(params){
-    return this.http.removeFile('local',this.url.removeFiles, params);
+  let url = API.AWS ? this.url.removeTrans : this.url.removeFiles;
+    return this.http.removeFile('local',url, params);
 }
 
 getResortDivision(id){
