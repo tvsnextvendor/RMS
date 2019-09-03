@@ -62,6 +62,19 @@ export class AuthProvider {
   }
 
 
+  forgetPassword(postData): Observable <any>{
+   return this.http.post(API['API_LINK'] + API_URL.URLS.forgetPassword, postData).pipe(
+        map((res) => {
+            if (res['isSuccess']) {
+                return res;
+            }
+        }), catchError((error: HttpErrorResponse) => {
+            return Observable.throw(error.error);
+        })
+    )
+  }
+
+
   isLoggedIn() {
     return this.currentUserSet !== null;
   }
