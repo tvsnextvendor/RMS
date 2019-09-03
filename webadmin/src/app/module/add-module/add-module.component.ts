@@ -823,7 +823,7 @@ export class AddModuleComponent implements OnInit {
 
     videoFileUpload(videoObj){
         let self = this;
-        this.commonService.vidoeUploadFiles(this.uploadFile).subscribe((result) => {
+        this.commonService.videoUploadFiles(this.uploadFile).subscribe((result) => {
             if (result && result.isSuccess) {
                 console.log(result)
                 this.clearData();

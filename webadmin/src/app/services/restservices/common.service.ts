@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpService } from '../http.service';
 import { map } from 'rxjs/operators';
 import { API_URL } from '../../Constants/api_url';
+import {API} from '../../../app/Constants/api';
 
 @Injectable({    
     providedIn: 'root'
@@ -65,10 +66,11 @@ uploadFiles(file){
     return this.http.upload('local',this.url.uploadFiles, formData);
 }
 
-vidoeUploadFiles(file){
+videoUploadFiles(file){
   const formData = new FormData();
   formData.append("file",file)
-  return this.http.upload('local',this.url.videoTrans, formData);
+  let url = API.AWS ? this.url.videoTrans : this.url.uploadFiles;
+  return this.http.upload('local',url, formData);
 }
 
 updateFiles(id,file){
