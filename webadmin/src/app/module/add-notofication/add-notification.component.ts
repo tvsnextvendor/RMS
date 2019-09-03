@@ -61,6 +61,9 @@ export class AddNotificationComponent implements OnInit {
   trainingScheduleId;
   uploadPermission = true;
   getUserId;
+  inputUrl;
+  jobId;
+  transcodeUrl;
 
   constructor(private breadCrumbService: BreadCrumbService, public location: Location, private alertService: AlertService, private headerService: HeaderService, public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
     public commonLabels: CommonLabels, private utilService: UtilService, private resortService: ResortService, private courseService: CourseService, private commonService: CommonService, private userService: UserService, private permissionService: PermissionService) {
@@ -134,6 +137,9 @@ export class AddNotificationComponent implements OnInit {
         }
         this.uploadFileName = respData.File && respData.File.fileUrl;
         this.fileName = respData.File && respData.File.fileName;
+        this.inputUrl = respData.File && respData.File.inputUrl ? respData.File.inputUrl : '';
+        this.transcodeUrl = respData.File && respData.File.transcodeUrl ? respData.File.transcodeUrl : '';
+        this.jobId = respData.File && respData.File.jobId ? respData.File.jobId : '';
         this.scheduleName = respData.TrainingScheduleResorts && respData.TrainingScheduleResorts.length && respData.TrainingScheduleResorts[0].TrainingSchedule && respData.TrainingScheduleResorts[0].TrainingSchedule.name ? respData.TrainingScheduleResorts[0].TrainingSchedule.name : '';
         this.trainingScheduleId = respData.TrainingScheduleResorts && respData.TrainingScheduleResorts.length && respData.TrainingScheduleResorts[0].TrainingSchedule && respData.TrainingScheduleResorts[0].TrainingSchedule.name ? respData.TrainingScheduleResorts[0].TrainingSchedule.trainingScheduleId : '';
         
@@ -447,7 +453,15 @@ export class AddNotificationComponent implements OnInit {
         "removeUserIds": '',
         "scheduleType": "notification",
         "trainingScheduleName": this.scheduleName,
-        "draft": false
+        "draft": false,
+        "inputUrl" : this.inputUrl ? this.inputUrl : '',
+        "jobId" :  this.jobId ? this.jobId : '',
+        "transcodeUrl" :  this.transcodeUrl ? this.transcodeUrl : ''
+      }
+      if(!data.jobId) { 
+        delete data.inputUrl;
+        delete data.transcodeUrl;
+        delete data.jobId;
       }
 
       if (!this.notificationFileImage) {
@@ -573,6 +587,9 @@ export class AddNotificationComponent implements OnInit {
     this.moduleVar.departmentList = [];
     this.notificationType = '';
     this.scheduleName = '';
+    this.inputUrl='';
+    this.jobId='';
+    this.transcodeUrl='';
   }
 
   courseSelect(event) {
@@ -624,14 +641,25 @@ export class AddNotificationComponent implements OnInit {
         let extensionType = typeValue[1].split('.').pop();
         this.fileExtension = extensionType;
         this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
-        if (this.fileExtensionType === 'Video') {
-          this.filePreviewImage(file);
+        if (this.fileExtensionType === 'Video') {  
+          this.commonService.videoUploadFiles(file).subscribe(resp => {
+            if (resp && resp.isSuccess) {
+              this.filePreviewImage(file);
+              this.notificationFileName = resp.data.length && resp.data[0].filename;
+              this.inputUrl = resp.inputLocation ?resp.inputLocation : '';
+              this.transcodeUrl = resp.outputLocation ?resp.outputLocation : '';
+              this.jobId = resp.transcode && resp.transcode.Job ? resp.transcode.Job.Id : '';
+            }
+          })
         }
-        this.commonService.uploadFiles(file).subscribe(resp => {
-          if (resp && resp.isSuccess) {
-            this.notificationFileName = resp.data.length && resp.data[0].filename;
-          }
-        })
+        else{
+          this.commonService.uploadFiles(file).subscribe(resp => {
+            if (resp && resp.isSuccess) {
+              this.notificationFileName = resp.data.length && resp.data[0].filename;
+            }
+          })
+        }
+      
       }
     }
   }
