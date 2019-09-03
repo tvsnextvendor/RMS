@@ -283,6 +283,11 @@ export class TrainingDetailPage {
 
     }
 
+
+    readMoreLess(){
+        this.truncating = !this.truncating;
+    }
+
     videoFailed(event){
         //console.log(event, "failed");        
     }
@@ -356,6 +361,7 @@ export class TrainingDetailPage {
     //go to next file
     showNextPage() {
         this.initial = this.initial + 1;
+        this.truncating = true;
         this.setTraining = this.allTrainingClasses[this.initial].File;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
@@ -375,6 +381,7 @@ export class TrainingDetailPage {
             this.goBackToDetailPage();
         } else {
             this.initial = this.initial - 1;
+            this.truncating = true;
             this.setTraining = this.allTrainingClasses[this.initial].File;
             this.fileId = this.setTraining.fileId;
             this.text = this.setTraining.fileDescription;

@@ -70,12 +70,12 @@
                     <div *ngIf="text.length <= 400">{{text}}</div>
                     <div *ngIf="truncating && text.length > 400">
                         {{text | words : limit}}
-                        <a href="javascript:void(0);" (click)="truncating = false">
+                        <a href="javascript:void(0);" (click)="readMoreLess()">
                             {{constant.pages.trainingLabels.readMore}}</a>
                     </div>
                     <div *ngIf="!truncating && text.length > 400">
                         {{text}}
-                        <a href="javascript:void(0);" (click)="truncating = true">
+                        <a href="javascript:void(0);" (click)="readMoreLess()">
                             {{constant.pages.trainingLabels.readLess}}
                         </a> </div>
                 </div>
