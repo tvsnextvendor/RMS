@@ -101,6 +101,8 @@ export class UserComponent implements OnInit {
     bulkUploadWarn = false;
     fullAccess = 'full'
     approvalAccess = null;
+    childResort = [];
+    childResortFilterList = [];
     designationSettings = {
         singleSelection: false,
         idField: 'designationId',
@@ -159,6 +161,13 @@ export class UserComponent implements OnInit {
             this.divisionArray = (result.data) ? result.data.divisions : [];
 
         });
+
+        let query = "?parentId="+resortId;
+        this.commonService.getAllResort(query).subscribe(result=>{
+            if(result && result.isSuccess){
+                this.childResortFilterList = result.data  && result.data.length ? result.data : [];
+            }
+        })
         this.getDivisionList(resortId);
     }
 
@@ -474,8 +483,10 @@ export class UserComponent implements OnInit {
             resortId: resortId,
             employeeNo: this.empId,
             accessSet : this.fullAccess == 'full' ? 'FullAccess' : 'ApprovalAccess',
-            resortUserMappingId: []
+            resortUserMappingId: [],
+            // childResortIds : []
         };
+        // this.childResort.length ? obj.childResortIds = this.childResort.map(item=>{return item.resortId}) : delete obj.childResortIds;
         if (this.userName && this.permissionService.nameValidationCheck(this.userName) && this.lastName && this.permissionService.nameValidationCheck(this.lastName) &&  this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone && !this.validHomeNo) {
             if (this.editEnable) {
                 this.removedMappingId.length ? obj.resortUserMappingId = this.removedMappingId : delete obj.resortUserMappingId;
@@ -1011,7 +1022,7 @@ export class UserComponent implements OnInit {
                 }
             });
             // arr = Array.from(details.reduce((m, t) => m.set(t, t.divisionId,t.divisionName), new Map()).values());
-            arr = _.sortedUniq(details)
+            arr = _.uniqBy(details,'divisionId')
             // console.log(arr,'arr')
         }
         if (type == 'dept') {
@@ -1079,6 +1090,7 @@ export class UserComponent implements OnInit {
         }
         else if(type == 'user'){
             this.userTab = true;
+            this.enableRolePermission = false;
             this.viewUserRolePermission = false;
         }
         else {

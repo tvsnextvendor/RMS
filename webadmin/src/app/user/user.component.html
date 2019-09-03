@@ -468,6 +468,31 @@
                      <div class="select_arrow"></div>
                 </span> 
             </div>
+            <!-- <div class="row form-group">
+                    <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.childResort}}</label>
+                     <span class="col-md-1"></span>
+                    <span class="col-md-7 pl-0 select select-style clearfix">
+                        <select [(ngModel)]="childResort" name="childResort" class="form-control">
+                            <option value="">{{commonLabels.labels.select}}</option>
+                            <option *ngFor="let obj of childResortFilterList" [value]="obj.resortId">{{obj.resortName  | titlecase}}</option>
+                        </select>
+                         <div class="select_arrow"></div>
+                    </span> 
+                </div> -->
+
+                <!-- <div class="row form-group">
+                        <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.childResort}}</label>
+                         <span class="col-md-1"></span>
+                        <span class="col-md-7 pl-0 select select-style clearfix mb-0">
+                            <div class="pl-0 form-group select-Courses mb-0">
+                                <ng-multiselect-dropdown [placeholder]="'Child Resort'" name="childResort" [data]="childResortFilterList"
+                                [(ngModel)]="childResort" [settings]="batchVar.resortSettings" #childResortId="ngModel" required></ng-multiselect-dropdown>
+                                <span class="required_color" *ngIf="userForm.submitted && !childResort.length">
+                                    {{commonLabels.mandatoryLabels.roleName}}
+                                </span>
+                            </div>
+                        </span> 
+                    </div>     -->
 
             <div class="row form-group">                    
                 <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.accessTo}}</label>
