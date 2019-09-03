@@ -382,7 +382,12 @@ export class RolepermissionComponent implements OnInit {
     return userpermissions;
   }
 
-
+ngOnDestroy(){
+  this.constant.resortId = null;
+  this.constant.divisionId = null;
+  this.constant.departmentId = null;
+  this.constant.roleId = null;
+}
  
 
 }

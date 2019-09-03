@@ -57,17 +57,21 @@ export class TraingClassTabComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       if (params.tab == 'schedule') {
         this.schedulePage = true;
+        let data = [{ title: this.commonLabels.labels.schedule, url: '/calendar' }, { title: this.commonLabels.labels.trainingClass, url: '' }]
+        this.breadCrumbService.setTitle(data);
+        this.enableClassEdit = true;
+      }
+      else if (window.location.pathname.indexOf("resource") != -1) {
+        let data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.trainingClass, url: '' }];
+        this.breadCrumbService.setTitle(data);
+        this.resourceLib = true;
+      } else {
+        let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.trainingClass, url: '' }]
+        this.breadCrumbService.setTitle(data);
+        this.enableClassEdit = true;
       }
     });
-    if (window.location.pathname.indexOf("resource") != -1) {
-      let data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.trainingClass, url: '' }];
-      this.breadCrumbService.setTitle(data);
-      this.resourceLib = true;
-    } else {
-      let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.trainingClass, url: '' }]
-      this.breadCrumbService.setTitle(data);
-      this.enableClassEdit = true;
-    }
+    
 
     if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Training Class')){
       this.iconEnable = false;

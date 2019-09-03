@@ -255,21 +255,22 @@ export class AddNotificationComponent implements OnInit {
 
   onEmpAllSelect(event, key, type) {
     if (key == 'division') {
+      this.moduleVar.departmentList = [];
+      this.moduleVar.employeeList = [];
       let selectedDivision = event.length && event.map(item => { return item.divisionId });
       let divData = { divisionId: selectedDivision }
-      this.onItemSelect(divData, key, type);
-      if (!event.length) {
-        this.moduleVar.departmentList = [];
-        this.moduleVar.employeeList = [];
-      }
+      event.length && this.onItemSelect(divData, key, type);
+      // if (!event.length) {
+      // }
     }
     if (key == 'dept') {
+      this.moduleVar.employeeList = [];
       let selectedDepartment = event.length && event.map(item => { return item.departmentId });
       let deptData = { departmentId: selectedDepartment }
-      this.onItemSelect(deptData, key, type);
-      if (!event.length) {
-        this.moduleVar.employeeList = [];
-      }
+      event.length && this.onItemSelect(deptData, key, type);
+      // if (!event.length) {
+        
+      // }
     }
     if (key == 'emp') {
       let selectedEmp = event.length && event.map(item => { return item.userId });

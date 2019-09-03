@@ -57,6 +57,9 @@ export class CourseTabComponent implements OnInit {
   assignedCount;
   inProgressCount;
   completedCount;
+  assignedCountWidth;
+  inProgressCountWidth;
+  completedCountWidth;
   userData;
   roleId;
   newFileIdsUploadCMS = [];
@@ -135,6 +138,9 @@ export class CourseTabComponent implements OnInit {
         this.assignedCount = data && (this.calculatePercent(empCount, data.assignedCount)).toFixed(2);
         this.inProgressCount = data && (this.calculatePercent(empCount, data.inProgressCount)).toFixed(2);
         this.completedCount = data && (this.calculatePercent(empCount, data.completedCount)).toFixed(2);
+        this.assignedCountWidth = data && (this.calculatePercent(empCount, data.assignedCount));
+        this.inProgressCountWidth = data && (this.calculatePercent(empCount, data.inProgressCount));
+        this.completedCountWidth = data && (this.calculatePercent(empCount, data.completedCount));
       }
     });
   }
@@ -150,7 +156,8 @@ export class CourseTabComponent implements OnInit {
                       (roleId != 1 ? (this.checkBoxEnable ? '&status=none&resortId='+resortId : 
                         '&status=none&resortId='+resortId+'&created='+user.userId) : '&status=none');
     if(roleId == 4){
-      query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
+      let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+      query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
     }
     this.courseService.getCourse(this.p, this.pageSize, query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';

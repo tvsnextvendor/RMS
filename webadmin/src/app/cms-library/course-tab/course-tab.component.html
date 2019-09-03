@@ -94,20 +94,20 @@
                     </div>
                     <div class="progress-section pt-3">
                         <div class="row progress">
-                            <div class="progress-bar p-3 assigned-perc" *ngIf="assignedCount != 0" [style.width.%]="assignedCount">
+                            <div class="progress-bar p-3 assigned-perc" *ngIf="assignedCount != 0" [style.width.%]="assignedCountWidth">
                                 {{assignedCount}}
                             </div>
-                            <div class="progress-bar p-3 inprogress-perc" *ngIf="inProgressCount != 0" [style.width.%]="inProgressCount">
+                            <div class="progress-bar p-3 inprogress-perc" *ngIf="inProgressCount != 0" [style.width.%]="inProgressCountWidth">
                                 {{inProgressCount}}
                             </div>
-                            <div class="progress-bar p-3 completed-perc" *ngIf="completedCount != 0" [style.width.%]="completedCount">
+                            <div class="progress-bar p-3 completed-perc" *ngIf="completedCount != 0" [style.width.%]="completedCountWidth">
                                 {{completedCount}}
                             </div>
                         </div>
                         <div class="row usage-state pt-2">
-                            <div class="" *ngIf="assignedCount != 0" [style.width.%]="assignedCount">{{commonLabels.labels.assigned}}</div>
-                            <div class="" *ngIf="inProgressCount != 0" [style.width.%]="inProgressCount">{{commonLabels.labels.inprogress}}</div>
-                            <div class="" *ngIf="completedCount != 0" [style.width.%]="completedCount">{{commonLabels.labels.completed}}</div>
+                            <div class="" *ngIf="assignedCount != 0" [style.width.%]="assignedCountWidth">{{commonLabels.labels.assigned}}</div>
+                            <div class="" *ngIf="inProgressCount != 0" [style.width.%]="inProgressCountWidth">{{commonLabels.labels.inprogress}}</div>
+                            <div class="" *ngIf="completedCount != 0" [style.width.%]="completedCountWidth">{{commonLabels.labels.completed}}</div>
                         </div>
                     </div>
                     <div *ngIf="userData.userId == courses.createdBy" class="pt-3 clearfix">

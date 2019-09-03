@@ -283,7 +283,7 @@ export class DocumentTabComponent implements OnInit {
         filesIds: fileIds,
      }
 
-    if(this.submitted && this.selectedClass && this.selectedCourse){
+    if(this.submitted && this.selectedClass && this.selectedCourse && updatedFileList.length){
       this.courseService.assignVideosToCourse(postData).subscribe(res=>{
             if(res.isSuccess){
               this.alertService.success(res.message);
@@ -294,6 +294,9 @@ export class DocumentTabComponent implements OnInit {
               }); 
             }
       })
+    }
+    else if(!updatedFileList.length){
+      this.alertService.error(this.commonLabels.mandatoryLabels.videoError)
     }
   }
 
@@ -453,7 +456,18 @@ export class DocumentTabComponent implements OnInit {
 // Create Excel sheet
 exportAsXLSX():void {
   // this.labels.btns.select =  this.labels.btns.excel;
-  this.excelService.exportAsExcelFile(this.videoListValue, this.commonLabels.titles.docTitle);
+  let data = this.videoListValue.map(item=>{
+    let obj = {
+      'File Id'   : item.fileId,
+      'File name' : item.fileName,
+      'File type' : item.fileExtension,
+      'File description' : item.fileDescription,
+      'File size' : this.formatBytes(item.fileSize),
+      'Created at' : item.created
+    }
+    return obj;
+  })
+  this.excelService.exportAsExcelFile(data, this.commonLabels.titles.docTitle);
 }
 
 getPermissionList(type,data,i){

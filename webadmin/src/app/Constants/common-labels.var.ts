@@ -395,7 +395,9 @@ export class CommonLabels{
         "classTrend"        :   "Training Class Trend",
         "notificationTrend" :   "Notification Trend",
         "scheduleName"      :   "Schedule Name",
-        "saveAsNewVersion"  :   "Save as new version"
+        "saveAsNewVersion"  :   "Save as new version",
+        "rejectorName"      :   "Rejector Name",
+        "fileOrDesc"  :   "File Or Description anyone is mandatory field "
     };
 
     btns = {
