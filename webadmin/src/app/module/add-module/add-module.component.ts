@@ -759,37 +759,38 @@ export class AddModuleComponent implements OnInit {
         let videoObj;
         this.moduleVar.courseId ? videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration, trainingClassId: this.moduleVar.courseId } :
             videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration }
-            if ( this.uploadFile && this.moduleVar.selectVideoName && this.permissionService.nameValidationCheck(this.moduleVar.selectVideoName) &&  this.moduleVar.description && this.moduleVar.videoFile) {
+        if ( this.uploadFile && this.moduleVar.selectVideoName && this.permissionService.nameValidationCheck(this.moduleVar.selectVideoName) &&  this.moduleVar.description && this.moduleVar.videoFile) {
             this.message = this.moduleVar.courseId !== '' ? (this.commonLabels.labels.videoUpdatedToast) : (this.commonLabels.labels.videoAddedToast);
-            this.commonService.uploadFiles(this.uploadFile).subscribe((result) => {
-                if (result && result.isSuccess) {
-                    this.clearData();
-                    if (videoObj.fileType === 'Video') {
-                        self.commonService.uploadFiles(self.fileImageDataPreview).subscribe((resp) => {
-                            let fileImagePath = resp.data && resp.data[0].path;
-                            videoObj.fileImage = resp.data && resp.data[0].filename;
-                        })
+            if (videoObj.fileType === 'Video') {
+                this.videoFileUpload(videoObj);
+            }
+            else{
+                this.commonService.uploadFiles(this.uploadFile).subscribe((result) => {
+                    if (result && result.isSuccess) {
+                        this.clearData();
+                        self.filePath = result.path && result.path;
+                        self.alertService.success(this.message);
+                        self.videoSubmitted = false;
+                        videoObj.fileUrl = result.data && result.data[0].filename;
+                        videoObj.fileSize = result.data.length && result.data[0].size;
+                        this.fileId ? videoObj.fileId = this.fileId : '';
+                        videoObj.filePath = result.path && result.path;
+                        if (self.moduleVar.videoIndex) {
+                            let index = self.moduleVar.videoIndex - 1;
+                            self.moduleVar.videoList[index] = videoObj;
+                            self.moduleVar.videoIndex = 0;
+                        }
+                        else {
+                            self.moduleVar.videoList.push(videoObj);
+                        }
+                        this.fileService.sendFileList('add', videoObj);
+                        this.fileId = '';
+                        
                     }
-                    self.filePath = result.path && result.path;
-                    self.alertService.success(this.message);
-                    self.videoSubmitted = false;
-                    videoObj.fileUrl = result.data && result.data[0].filename;
-                    videoObj.fileSize = result.data.length && result.data[0].size;
-                    this.fileId ? videoObj.fileId = this.fileId : '';
-                    videoObj.filePath = result.path && result.path;
-                    if (self.moduleVar.videoIndex) {
-                        let index = self.moduleVar.videoIndex - 1;
-                        self.moduleVar.videoList[index] = videoObj;
-                        self.moduleVar.videoIndex = 0;
-                    }
-                    else {
-                        self.moduleVar.videoList.push(videoObj);
-                    }
-                    this.fileService.sendFileList('add', videoObj);
-                    this.fileId = '';
-                    
-                }
-            })
+                })
+            }
+            
+           
         }else if(this.fileId && !this.uploadFile){
             let postData={
                 fileName:this.moduleVar.selectVideoName,
@@ -818,6 +819,43 @@ export class AddModuleComponent implements OnInit {
         else {
             this.alertService.error(this.commonLabels.labels.mandatoryFields);
         }
+    }
+
+    videoFileUpload(videoObj){
+        let self = this;
+        this.commonService.vidoeUploadFiles(this.uploadFile).subscribe((result) => {
+            if (result && result.isSuccess) {
+                console.log(result)
+                this.clearData();
+                if (videoObj.fileType === 'Video') {
+                    self.commonService.uploadFiles(self.fileImageDataPreview).subscribe((resp) => {
+                        let fileImagePath = resp.data && resp.data[0].path;
+                        videoObj.fileImage = resp.data && resp.data[0].filename;
+                    })
+                }
+                self.filePath = result.path && result.path;
+                self.alertService.success(this.message);
+                self.videoSubmitted = false;
+                videoObj.fileUrl = result.data && result.data[0].filename;
+                videoObj.fileSize = result.data.length && result.data[0].size;
+                videoObj.inputUrl = result.inputLocation ?result.inputLocation : '';
+                videoObj.transcodeUrl = result.outputLocation ?result.outputLocation : '';
+                videoObj.jobId = result.transcode && result.transcode.Job ? result.transcode.Job.Id : '';
+                this.fileId ? videoObj.fileId = this.fileId : '';
+                videoObj.filePath = result.path && result.path;
+                if (self.moduleVar.videoIndex) {
+                    let index = self.moduleVar.videoIndex - 1;
+                    self.moduleVar.videoList[index] = videoObj;
+                    self.moduleVar.videoIndex = 0;
+                }
+                else {
+                    self.moduleVar.videoList.push(videoObj);
+                }
+                this.fileService.sendFileList('add', videoObj);
+                this.fileId = '';
+                
+            }
+        })
     }
 
     clearData() {
