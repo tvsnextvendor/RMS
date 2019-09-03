@@ -79,7 +79,6 @@ export class QuizTabComponent implements OnInit {
       this.enableQuizEdit = true;
     }
     if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Quiz')){
-      // debugger;
       this.iconEnable = false;
     }
     if(this.enableQuizEdit){

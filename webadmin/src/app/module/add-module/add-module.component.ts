@@ -130,7 +130,6 @@ export class AddModuleComponent implements OnInit {
             this.updateCourse(data, '');
         }
         else {
-            // debugger;
             // console.log(this.route);
             // let curComp = this.fileService.getCurrentCompname();
             // if(curComp != 'class'){
@@ -565,14 +564,25 @@ export class AddModuleComponent implements OnInit {
     removeVideo() {
         let data = this.deleteFileData;
         let i = this.deleteFileIndex ;
-        // console.log(data);
+        console.log(data);
         if (this.moduleVar.courseId && data.fileId) {
             this.removedFileIds.push(data.fileId);
         }
         else {
             this.messageClose();
-            //filepath to delete documents uploaded from Desktop & fileUrl is to del doc uploaded from RL.
-            let dataContent = data.filePath ? data.filePath : "/uploads/" + data.fileUrl;
+            let dataContent
+            if(data.jobId){
+                dataContent = 
+                    {
+                        "fileName" : data.fileUrl,
+                        "jobId": data.jobId ? data.jobId : '',
+                        "path": data.filePath ? data.filePath : "/uploads/" + data.fileUrl
+                    }
+            }
+            else{
+                dataContent = data.filePath ? data.filePath : "/uploads/" + data.fileUrl;
+            }
+            //filepath to delete documents uploaded from Desktop & fileUrl is to del doc uploaded from RL.  
             this.commonService.removeFiles(dataContent).subscribe(result => {
                 if (result && result.isSuccess) {
                     this.alertService.success(this.commonLabels.msgs.fileRemoved)

@@ -89,7 +89,6 @@ export class RolepermissionComponent implements OnInit {
       
         // console.log(resultRolePermissions);
         // console.log(permissions);
-        // debugger;
         this.constant.modules = permissions;
       } else {
         this.constant.modules.forEach(item => {
@@ -253,7 +252,6 @@ export class RolepermissionComponent implements OnInit {
     // console.log(this.constant.mobile);
 
     // console.log(form);
-    // debugger;
     //if(this.constant.web && this.constant.mobile){
       let menu = [];
       let menuMobile = [];

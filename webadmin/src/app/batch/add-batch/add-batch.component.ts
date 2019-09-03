@@ -588,7 +588,6 @@ export class AddBatchComponent implements OnInit {
                 "scheduleType" : this.tabType == 'training' ? 'trainingClass' : this.tabType
             }
             // console.log(this.existingUser,this.batchVar.selectedEmp)
-            // debugger;
             if (this.scheduleId) {
                 let newUsers = this.batchVar.employeeId.filter(item=> this.existingUser.some(o=> o != item));
                 postData.insertUserId = newUsers;

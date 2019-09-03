@@ -124,7 +124,6 @@ export class TraingClassTabComponent implements OnInit {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId : '&resortId=' + resortId) : '');
     // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId : '';
     // console.log(query)
-    // debugger;
     if(roleId == 4 ){
       query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
     }

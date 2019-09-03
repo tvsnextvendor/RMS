@@ -221,7 +221,6 @@ export class UserComponent implements OnInit {
         });
 
             // console.log(this.designationArray);
-            // debugger;
         // });
 
         this.roles = [{
