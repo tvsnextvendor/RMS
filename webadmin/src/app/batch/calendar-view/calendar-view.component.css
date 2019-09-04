@@ -39,6 +39,13 @@
     border: 1px solid #4D4F5C !important;
     background-color: #fff;
 }
+.shortcut-word{
+	text-overflow: ellipsis;
+    width: 100px;
+    height: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
 
 /* .cal-disabled .cal-day-number {
