@@ -69,6 +69,7 @@ export class CourseTabComponent implements OnInit {
   fileExist = false;
   resourceLib;
   accessSet = false;
+  iconEnableApproval = false;
 
   constructor(private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService,private permissionService :PermissionService) {
     this.roleId = this.utilService.getRole();
@@ -87,6 +88,9 @@ export class CourseTabComponent implements OnInit {
       }
       if((this.roleId != 4 && !this.schedulePage) || (this.roleId == 4 && !this.resourceLib && !this.schedulePage && this.permissionService.editPermissionCheck('Course'))){
         this.iconEnable = true;
+      }
+      if((this.roleId == 4 && !this.resourceLib && !this.schedulePage )){
+        this.iconEnableApproval = true;
       }
       this.breadCrumbService.setTitle(this.breadCrumbTitle)
     });

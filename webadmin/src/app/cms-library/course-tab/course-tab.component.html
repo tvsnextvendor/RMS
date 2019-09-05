@@ -15,8 +15,8 @@
                 <span class="text-over" *ngIf="!checkBoxEnable">{{courses.courseName}}</span>
 
                 <span class="float-right">
-                  
-                    <a  title="Send Approval" *ngIf="roleId === 4 && accessSet && iconEnable && userData.userId == courses.createdBy" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
+                  <!-- {{roleId === 4 && accessSet}}{{iconEnable}}{{userData.userId == courses.createdBy}} -->
+                    <a  title="Send Approval" *ngIf="roleId === 4 && accessSet && iconEnableApproval && userData.userId == courses.createdBy" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
                     <a  *ngIf="iconEnable && userData.userId == courses.createdBy" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"
                             (click)="enableDropData('edit',i,courses)"></i></a>
                     <a  *ngIf="iconEnable && userData.userId == courses.createdBy" title="Save as new" class="mr-4"><img

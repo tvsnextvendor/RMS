@@ -183,7 +183,7 @@
                         </li>
             </ul>
             
-            <li [ngClass]="(tabType == 'edit') ? 'active' : ''">
+            <li [ngClass]="(tabType == 'edit') ? 'active' : ''"  *ngIf="expandCheck('edit')">
                 <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3"><span class="sidebar-title">{{commonLabels.labels.editView}}</span><span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
             </li>
             <ul class="sub-menu" *ngIf="enableEdit">
