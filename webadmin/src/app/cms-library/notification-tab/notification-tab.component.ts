@@ -39,6 +39,7 @@ export class NotificationTabComponent implements OnInit {
   scheduleNotification = [];
   getUserId;
   accessSet = false;
+  iconEnableApproval = false;
 
   constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, private courseService: CourseService, private utilService: UtilService, private router: Router,
     private modalService: BsModalService, private alertService: AlertService, private permissionService: PermissionService) {
@@ -60,6 +61,9 @@ export class NotificationTabComponent implements OnInit {
     })
     if (roleId == 4 && this.resourseLib || !this.permissionService.editPermissionCheck('Notification')) {
       this.iconEnable = false;
+    }
+    if(this.roleId == 4 && !this.resourseLib && !this.scheduleEnable ){
+      this.iconEnableApproval = true;
     }
   }
 

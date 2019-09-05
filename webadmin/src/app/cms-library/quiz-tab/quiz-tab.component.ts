@@ -54,6 +54,7 @@ export class QuizTabComponent implements OnInit {
   userData;
   accessSet = false;
   quizId;
+  iconEnableApproval = false;
 
   constructor(private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, public constant: QuizVar, private toastr: ToastrService, private modalService: BsModalService, private breadCrumbService: BreadCrumbService,private utilService:UtilService,private permissionService : PermissionService) { }
 
@@ -80,6 +81,9 @@ export class QuizTabComponent implements OnInit {
     }
     if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Quiz')){
       this.iconEnable = false;
+    }
+    if((this.roleId == 4 && !this.resourceLib)){
+      this.iconEnableApproval = true;
     }
     if(this.enableQuizEdit){
       this.getquizList();

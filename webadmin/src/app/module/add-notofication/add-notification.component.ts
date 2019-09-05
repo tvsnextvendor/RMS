@@ -263,6 +263,8 @@ export class AddNotificationComponent implements OnInit {
     if (key == 'division') {
       this.moduleVar.departmentList = [];
       this.moduleVar.employeeList = [];
+      this.moduleVar.selectedDepartment = [];
+      this.moduleVar.selectedEmployee = [];
       let selectedDivision = event.length && event.map(item => { return item.divisionId });
       let divData = { divisionId: selectedDivision }
       event.length && this.onItemSelect(divData, key, type);
@@ -271,6 +273,7 @@ export class AddNotificationComponent implements OnInit {
     }
     if (key == 'dept') {
       this.moduleVar.employeeList = [];
+      this.moduleVar.selectedEmployee = [];
       let selectedDepartment = event.length && event.map(item => { return item.departmentId });
       let deptData = { departmentId: selectedDepartment }
       event.length && this.onItemSelect(deptData, key, type);
@@ -349,7 +352,8 @@ export class AddNotificationComponent implements OnInit {
               })
             this.moduleVar.selectedEmployee = [];
           }
-          this.moduleVar.employeeList = listData.map(item => { return item });
+          // this.moduleVar.employeeList = listData.map(item => { return item });
+          this.moduleVar.employeeList = _.uniqBy(listData , 'userId');
           if (this.notifyId) {
             this.setDropDownDetails();
           }

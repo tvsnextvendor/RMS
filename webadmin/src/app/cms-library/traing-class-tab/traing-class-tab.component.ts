@@ -35,6 +35,7 @@ export class TraingClassTabComponent implements OnInit {
   modalRef;
   roleId;
   accessSet = false;
+  iconEnableApproval = false;
 
   constructor(private courseService: CourseService,
      public commonLabels: CommonLabels,
@@ -75,6 +76,9 @@ export class TraingClassTabComponent implements OnInit {
 
     if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Training Class')){
       this.iconEnable = false;
+    }
+    if((this.roleId == 4 && !this.resourceLib && !this.schedulePage )){
+      this.iconEnableApproval = true;
     }
     if (this.enableClassEdit) {
       this.getTrainingClassList();
