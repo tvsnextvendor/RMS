@@ -69,7 +69,8 @@ export class Constant {
             keepmeLoggedIn: 'Keep me logged in',
             forgetYourPassword: 'Forgot your password',
             needAnAccount: 'Need an account?',
-            signUp: 'Sign Up'
+            signUp: 'Sign Up',
+            version: 'Version'
         },
         signinLabels: {
             signUp: 'SIGN UP',
