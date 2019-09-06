@@ -206,7 +206,10 @@ pageChanged(e) {
         { "optionId": 1, "OptionName": "" },
         { "optionId": 2, "OptionName": "" },
         { "optionId": 3, "OptionName": "" },
-        { "optionId": 4, "OptionName": "" }
+        { "optionId": 4, "OptionName": "" },
+        { "optionId": 5, "OptionName": "" },
+        { "optionId": 6, "OptionName": "" }
+
       ];
       quiz[i].answer = '';
     }
@@ -238,7 +241,9 @@ pageChanged(e) {
         { "optionId": 1, "optionName": "" },
         { "optionId": 2, "optionName": "" },
         { "optionId": 3, "optionName": "" },
-        { "optionId": 4, "optionName": "" }
+        { "optionId": 4, "optionName": "" },
+        { "optionId": 5, "OptionName": "" },
+        { "optionId": 6, "OptionName": "" }
       ],
       "weightage": '100',
       "answer": ''
