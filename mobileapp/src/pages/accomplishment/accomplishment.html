@@ -37,7 +37,10 @@
         <ion-grid>
           <ion-row>
             <ion-col col-1  col-md-1 class="img-section pr-0">
-              <div class="badge-img"><img src="assets/imgs/b2.png" class="forum-img"></div>
+              <div class="badge-img" *ngIf="item.Badge.badgeName == 'platinum'"><img src="assets/imgs/b2.png" class="forum-img"></div>
+              <div class="badge-img" *ngIf="item.Badge.badgeName == 'silver'"><img src="assets/imgs/b4.png" class="forum-img"></div>
+              <div class="badge-img" *ngIf="item.Badge.badgeName == 'gold'"><img src="assets/imgs/b1.png" class="forum-img"></div>
+              <div class="badge-img" *ngIf="item.Badge.badgeName == 'bronze'"><img src="assets/imgs/b3.png" class="forum-img"></div>
               <span class="badge-name">{{item.Badge.badgeName}}</span>
             </ion-col>
             <ion-col col-10 col-md-10 class="mt-4 px-0">

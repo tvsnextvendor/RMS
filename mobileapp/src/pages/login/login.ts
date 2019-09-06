@@ -4,6 +4,8 @@ import { HttpProvider } from '../../providers/http/http';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
+import { API } from '../../constants/API.var';
+
 
 @IonicPage({
     name: 'login-page'
@@ -14,6 +16,7 @@ import { Storage } from '@ionic/storage';
     providers: [Constant]
 })
 export class LoginPage implements OnInit {
+    
     user = {
         name: '',
         pw: '',
@@ -21,9 +24,12 @@ export class LoginPage implements OnInit {
     }
     paramsObj: any = {};
     logincredentialerror;
-    constructor(public navCtrl: NavController, public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, public storage: Storage, public constant: Constant) {
-        //,private toastr:ToastrService
+    appVersion;
+
+    constructor(public navCtrl: NavController ,public http: HttpProvider, public navParams: NavParams, private authService: AuthProvider, public storage: Storage, public constant: Constant) {
+      this.appVersion =  API.APP_VER;
     }
+    
     ngOnInit() {
         this.storage.get('userInput').then(
             (val) => {
