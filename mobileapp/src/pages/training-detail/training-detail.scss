@@ -286,4 +286,20 @@ page-training-detail .image-tag.img-box {
     width: 100%;
     height: auto;
   }
+
+ .timer-circle{
+   background: rgba(0,0,0,0.5);
+    width: 73px;
+    height: 41px;
+    /* display: inline-block; */
+    position: absolute;
+    right: 11px;
+    /* border: 1px solid #2F98D2; */
+    top: 14px;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    font-weight: 800;
+    line-height: 40px;
+ }
   

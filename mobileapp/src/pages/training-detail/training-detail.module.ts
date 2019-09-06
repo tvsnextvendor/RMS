@@ -5,6 +5,9 @@ import { TruncateModule } from '@yellowspot/ng-truncate';
 //import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
 import {FileTransfer} from '@ionic-native/file-transfer/ngx';
+import { ComponentsModule } from '../../components/components.module';
+
+
 
 @NgModule({
   declarations: [
@@ -13,6 +16,7 @@ import {FileTransfer} from '@ionic-native/file-transfer/ngx';
   imports: [
     TruncateModule,
     IonicPageModule.forChild(TrainingDetailPage),
+    ComponentsModule
   ],
   providers:[File,FileTransfer]
 })

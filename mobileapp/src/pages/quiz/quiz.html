@@ -6,6 +6,11 @@
         </ion-toolbar>
     </ion-header>
     <div class="inner-content">
+        <!-- <h1 class="timer-circle">
+            {{time}}
+        </h1> -->
+
+        
         <div class="row">
             <div class="quiz-details-content" *ngIf="quizData && quizData.length && !isQuizCompleted">
                 <div class="quiz-container" *ngIf="selectedQuizContent && selectedQuizContent.questionType == 'True/False'">
@@ -86,8 +91,8 @@
                             <span class="quizOption">
                                 <ion-row>
                                     <ion-item>
-                                        <ion-input type="text" [(ngModel)]="selectedQuizContent.selectedAnswer"
-                                            (change)="changeSelectedValue(selectedQuizContent.selectedAnswer)"></ion-input>
+                                        <ion-input type="text" [(ngModel)]="nonMcqAns"
+                                            (change)="changeSelectedValue()"></ion-input>
                                     </ion-item>
                                 </ion-row>
                             </span>
@@ -98,7 +103,7 @@
                     <button float-left class="btn quiz-btn quiz-btn-left" [disabled]="!quizStep" (click)="quizPreviousContent()">
                         previous
                     </button>
-                    <button float-right class="btn quiz-btn" [disabled]="(selectedQuizContent && !selectedQuizContent.selectedAnswer)"
+                    <button float-right class="btn quiz-btn" [disabled]="(selectedQuizContent && !selectedQuizContent.selectedAnswer && !nonMcqAns)"
                         (click)="quizNextContent()">
                         {{(quizStep == (quizData[0].Questions.length-1)) ? 'finish' : 'next'}}
                     </button>

@@ -59,6 +59,7 @@ export class TrainingDetailPage {
     courseId;
     trainingClassId;
     uploadPath;
+    imagePath;
     status;
     currentUser;
     resortId;
@@ -88,6 +89,15 @@ export class TrainingDetailPage {
         fullscreen : 'yes',//Windows only    
     };
 
+    timeBegan = null
+    timeStopped:any = null
+    stoppedDuration:any = 0
+    started = null
+    running = false
+    blankTime = "00:00.000"
+    time = "00:00.000"
+   
+
     constructor(public navCtrl: NavController,public platform:Platform,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
@@ -103,8 +113,61 @@ export class TrainingDetailPage {
              self.resortId = self.currentUser.ResortUserMappings[0].resortId;
              self.userId = self.currentUser ? self.currentUser.userId : '';
              this.getCourseTrainingClasses();
+             this.start();
             }
         });
+      }
+
+
+       start() {
+            if(this.running) return;
+            if (this.timeBegan === null) {
+                this.reset();
+                this.timeBegan = new Date();
+            }
+            if (this.timeStopped !== null) {
+            let newStoppedDuration:any = (+new Date() - this.timeStopped)
+            this.stoppedDuration = this.stoppedDuration + newStoppedDuration;
+            }
+            this.started = setInterval(this.clockRunning.bind(this), 10);
+            this.running = true;
+        }
+
+        stop() {
+            this.running = false;
+            this.timeStopped = new Date();
+            clearInterval(this.started);
+         }
+
+       zeroPrefix(num, digit) {
+            let zero = '';
+            for(let i = 0; i < digit; i++) {
+                zero += '0';
+            }
+            return (zero + num).slice(-digit);
+       }
+
+       clockRunning(){
+            let currentTime:any = new Date()
+            let timeElapsed:any = new Date(currentTime - this.timeBegan - this.stoppedDuration)
+            let hour = timeElapsed.getUTCHours()
+            let min = timeElapsed.getUTCMinutes()
+            let sec = timeElapsed.getUTCSeconds()
+            // let ms = timeElapsed.getUTCMilliseconds();
+            this.time =
+            this.zeroPrefix(hour, 2) + ":" +
+            this.zeroPrefix(min, 2) + ":" +
+            this.zeroPrefix(sec, 2);
+            // this.zeroPrefix(ms, 3);
+        };
+
+       reset() {
+            this.running = false;
+            clearInterval(this.started);
+            this.stoppedDuration = 0;
+            this.timeBegan = null;
+            this.timeStopped = null;
+            this.time = this.blankTime;
       }
 
 
@@ -125,7 +188,7 @@ export class TrainingDetailPage {
                 self.detailObject['setData']['passPercentage'] = this.detailObject['setData']['typeSet'] == 'Class' ? ( res['data'].schedulePercentage.length ? res['data'].schedulePercentage[0].passPercentage: '') : self.detailObject['setData']['passPercentage'] ;
                 self.detailObject['setData']['trainingClassName'] = self.allTrainingClasses[0].TrainingClass.trainingClassName;
                 this.loadingBarWidth = (100 / parseInt(self.allTrainingClasses.length, 10));
-                self.uploadPath = res['data']['uploadPaths']['uploadPath'];
+                self.imagePath = res['data']['uploadPaths']['uploadPath'];
                 console.log(self.status, self.noQuiz, self.quizBtn)                                                           
                 this.loadFirstFile();
                 resolve('resolved');
@@ -142,8 +205,10 @@ export class TrainingDetailPage {
      loadFirstFile() {
         this.prevBtn = this.initial == 0 ? true : false;
         this.setTraining = this.allTrainingClasses[0].File;
+        this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ?  this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl) ;
         this.fileId = this.setTraining.fileId;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
+        console.log(this.fileType,"FileType");
         let ext = this.setTraining.fileUrl.split('.').pop();
         if (ext == "mp4" && this.videotag) {
             const htmlVideoTag = this.videotag.nativeElement;
@@ -235,10 +300,15 @@ export class TrainingDetailPage {
                                   {
                                       text: 'Yes',
                                       handler: () => {
+                                          self.stop();
                                           self.paramsData['quizData'] = self.quizData;
                                           self.paramsData['setData'] = this.detailObject['setData'];
                                           self.paramsData['setData']['trainingClassId'] = this.detailObject['trainingClassId'];
                                           self.paramsData['scheduleId'] = this.detailObject['scheduleId'],
+                                          self.paramsData['timeStopped'] = self.timeStopped,
+                                          self.paramsData['timeBegan'] = self.timeBegan,
+                                          self.paramsData['time']  = self.time
+
                                               self.navCtrl.push(QuizPage, self.paramsData);
                                       }
                                   }]
@@ -363,6 +433,7 @@ export class TrainingDetailPage {
         this.initial = this.initial + 1;
         this.truncating = true;
         this.setTraining = this.allTrainingClasses[this.initial].File;
+        this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath+this.setTraining.fileUrl);
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
         if(ext == "mp4" && this.videotag){
@@ -383,6 +454,7 @@ export class TrainingDetailPage {
             this.initial = this.initial - 1;
             this.truncating = true;
             this.setTraining = this.allTrainingClasses[this.initial].File;
+            this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl);
             this.fileId = this.setTraining.fileId;
             this.text = this.setTraining.fileDescription;
             this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
@@ -454,6 +526,7 @@ export class TrainingDetailPage {
             case "mpg":
             case "jpeg" :
             case "jpg" :
+            case "key":
                  //fileLink = this.uploadPath + filename;
                  fileLink = 'assets/imgs/banner.png';
                  this.imageType = true;
@@ -461,12 +534,13 @@ export class TrainingDetailPage {
                  this.fileType = fileType;
                  break;
             default:
-                fileLink = this.uploadPath + filename;
+                fileLink = this.uploadPath;
                 this.imageType = false;
                 this.filePath = filename;
                 this.fileType = fileType;
         }
-        
+         
+
         //this.restrictForward();
         return fileLink;
     }
@@ -482,6 +556,7 @@ export class TrainingDetailPage {
                 case "pdf":
                     docType = 'application/pdf';
                     break;
+                case 'key':
                 case 'ppt':
                     docType = 'application/vnd.ms-powerpoint';
                     break;
@@ -502,17 +577,18 @@ export class TrainingDetailPage {
                 default:
                     docType = 'application/pdf';
             }
+
                let baseUrl = rootUrl+this.uploadPath;
 
-
+             console.log(baseUrl);
              this.platform.ready().then(() => {
              
                  if (this.platform.is('android') || this.platform.is('mobileweb') || this.platform.is('browser')) {
-                     this.openWithSystemBrowser(baseUrl + docFile);
+                     this.openWithSystemBrowser(baseUrl);
                      console.log("running on Android device!");
                  }
                  if (this.platform.is('ios')) {
-                     this.openWithCordovaBrowser(baseUrl + docFile);
+                     this.openWithCordovaBrowser(baseUrl);
                      console.log("running on iOS device!");
                  }
              }); 

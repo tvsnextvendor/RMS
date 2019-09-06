@@ -16,17 +16,29 @@
             <p>{{msgDes}}</p>
         </div>
     </div>
+   
+
+
+   
+
     <div class="inner-content" *ngIf="setTraining">
         <div class="training-det">
+          
             <div class="image-tag" *ngIf="imageType">
+                <!-- <h1 class="timer-circle">
+                    {{time}}
+                </h1> -->
                 <img src="{{showPreView}}" alt="image" class="inner-image">
                 <a href="javascript:void(0);" (click)="viewContent(setTraining,filePath)" class="view-image-tag"><img
                         src="assets/imgs/ViewButton@2x.png" alt="ViewButton@2x.png"></a>
             </div>
             <div class="video-tag" *ngIf="!imageType">
+                <!-- <h1 class="timer-circle">
+                    {{time}}
+                </h1> -->
                 <video #videoTag id="video-width" autoplay (ended)="videoEnded()" (error)="videoFailed($event)" class="video-width"
                     controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" playsinline class="videoPlayer"
-                    poster="{{uploadPath}}{{setTraining.fileImage}}">
+                    poster="{{imagePath}}{{setTraining.fileImage}}">
                     <source src="{{showPreView}}" type="video/mp4" />
                 </video>
             </div>
@@ -60,12 +72,12 @@
                     </ion-grid>
                 </ion-card-title>
                 <!-- <div class="checkbox-item clearfix" *ngIf="imageType">
-        <label class="hole-cont mr-2">
-            <input type="checkbox" [(ngModel)]="agree"  name="options" > 
-            {{constant.pages.trainingLabels.ackText}}<a href="">{{constant.pages.trainingLabels.document}}</a>
-            <span class="checkmark"></span>
-        </label>
-    </div> -->
+                    <label class="hole-cont mr-2">
+                        <input type="checkbox" [(ngModel)]="agree"  name="options" > 
+                        {{constant.pages.trainingLabels.ackText}}<a href="">{{constant.pages.trainingLabels.document}}</a>
+                        <span class="checkmark"></span>
+                    </label>
+                </div> -->
                 <div *ngIf="text" class="quiz-text">
                     <div *ngIf="text.length <= 400">{{text}}</div>
                     <div *ngIf="truncating && text.length > 400">
