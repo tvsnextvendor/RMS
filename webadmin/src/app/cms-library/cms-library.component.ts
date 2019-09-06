@@ -133,7 +133,7 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
         this.headerService.setTitle({title:this.commonLabels.labels.resourceLibrary, hidemodule:false});
       }else{
             let path = window.location.pathname;
-            let data = params.type == 'create' ? 'Create' : params.type == 'edit' ? 'Edit' : path == '/RMS/cms-library' ? 'Edit' : 'Create';
+            let data = params.type == 'create' ? 'Create' : params.type == 'edit' ? 'Edit' : path == '/LMS/cms-library' ? 'Edit' : 'Create';
             this.headerService.setTitle({title:data, hidemodule:false});
       }
   })

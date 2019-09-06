@@ -90,6 +90,8 @@ export class CommonLabels{
         "b"                 :   "B",
         "c"                 :   "C",
         "d"                 :   "D",
+        "e"                 :   "E",
+        "f"                 :   "F",
         "selectptdivision"  :   "--Select Parent Division--",
         "selectptdpmt"      :   "--Select Parent Department --",
         "selectchildresort" :   "--Select Child Site--",

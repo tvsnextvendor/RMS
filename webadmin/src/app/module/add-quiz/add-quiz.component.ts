@@ -110,7 +110,9 @@ export class AddQuizComponent implements OnInit {
                 { "optionId": 1, "optionName": "" },
                 { "optionId": 2, "optionName": "" },
                 { "optionId": 3, "optionName": "" },
-                { "optionId": 4, "optionName": "" }
+                { "optionId": 4, "optionName": "" },
+                { "optionId": 5, "optionName": "" },
+                { "optionId": 6, "optionName": "" },
             ],
             "weightage": '100',
             "answer": ''
@@ -181,7 +183,9 @@ export class AddQuizComponent implements OnInit {
                 { "optionId": 1, "OptionName": "" },
                 { "optionId": 2, "OptionName": "" },
                 { "optionId": 3, "OptionName": "" },
-                { "optionId": 4, "OptionName": "" }
+                { "optionId": 4, "OptionName": "" },
+                { "optionId": 5, "optionName": "" },
+                { "optionId": 6, "optionName": "" }
             ];
             if (this.courseId) {
                 quiz[i].trainingClassId = this.courseId;
@@ -216,7 +220,9 @@ export class AddQuizComponent implements OnInit {
                     { "optionId": 1, "optionName": "" },
                     { "optionId": 2, "optionName": "" },
                     { "optionId": 3, "optionName": "" },
-                    { "optionId": 4, "optionName": "" }
+                    { "optionId": 4, "optionName": "" },
+                    { "optionId": 5, "optionName": "" },
+                    { "optionId": 6, "optionName": "" }
                 ],
                 "weightage": '100',
                 "answer": '',
@@ -231,7 +237,9 @@ export class AddQuizComponent implements OnInit {
                     { "optionId": 1, "optionName": "" },
                     { "optionId": 2, "optionName": "" },
                     { "optionId": 3, "optionName": "" },
-                    { "optionId": 4, "optionName": "" }
+                    { "optionId": 4, "optionName": "" },
+                    { "optionId": 5, "optionName": "" },
+                    { "optionId": 6, "optionName": "" }
                 ],
                 "weightage": '100',
                 "answer": ''
@@ -290,8 +298,8 @@ export class AddQuizComponent implements OnInit {
               this.answerEmpty = true;
             }
             if(item.questionType == 'MCQ'){
-              item.options.forEach(data=>{
-                if(!data.optionName){
+              item.options.forEach((data,i)=>{
+                if(!data.optionName && i<4){
                   this.optionEmpty = true;
                 }
               })
@@ -588,8 +596,8 @@ export class AddQuizComponent implements OnInit {
                       this.answerEmpty = true;
                     }
                     if(item.questionType == 'MCQ'){
-                      item.options.forEach(data=>{
-                        if(!data.optionName){
+                      item.options.forEach((data,i)=>{
+                        if(!data.optionName && i<4){
                           this.optionEmpty = true;
                         }
                       })
@@ -840,7 +848,9 @@ export class AddQuizComponent implements OnInit {
                 { "optionId": 1, "optionName": "" },
                 { "optionId": 2, "optionName": "" },
                 { "optionId": 3, "optionName": "" },
-                { "optionId": 4, "optionName": "" }
+                { "optionId": 4, "optionName": "" },
+                { "optionId": 5, "optionName": "" },
+                { "optionId": 6, "optionName": "" }
             ],
             "weightage": '100',
             "answer": ''

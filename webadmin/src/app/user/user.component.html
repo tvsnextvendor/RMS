@@ -116,11 +116,10 @@
                         <button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button>
                     <!-- </span> -->
                     </div>
-                    <div class="hierarchy-tab white-bg px-4 pt-4 mt-3">
-                    <div class="detail-bottom row">                
+                    <!-- <div class="hierarchy-tab white-bg px-4 pt-4 mt-3"> -->
+                    <!-- <div class="detail-bottom row">                
                         <div class="row depart-dtl col-md-12 p-0 mb-4 clearfix" *ngFor="let division of divisionDetails;let i = index;">
                             <label *ngIf="division?.Division?.Departments.length" class="col-md-12 p-0 division-title">{{division?.Division?.divisionName}} 
-                                    <!-- (click)="openAddUser(addDivision,'','')" -->
                                 <a *ngIf = "permissionCheck()" (click)="editDivisionData(division?.Division,editDivision,'add')" title="Add"><i class="fa fa-plus ml-10"></i></a>
                                 <a *ngIf = "permissionCheck()" (click)="editDivisionData(division?.Division,editDivision,'edit')" title="Edit"><i class="fas fa-pencil-alt ml-10"></i></a>
                                 <a *ngIf = "permissionCheck()" (click)="removeDivision(deleteDivision,division,i)" class="ml-10" title="Delete"><i class="fas fa-trash"></i></a>
@@ -128,18 +127,114 @@
                                 <div *ngIf="division?.Division?.Departments.length" class="dpt-list pl-1 ml-4" >
                                     <div>
                                         <span  *ngFor="let dept of division?.Division?.Departments">{{dept.departmentName}}</span>
-                                        <!-- <span>Department 1 <a href="#"><i class="fas fa-times-circle cross-icon"></i></a></span> -->
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                    </div>  -->
+                        <table class="table table-striped white-bg mt-1" [mfData]="divisionDetails" #mf1="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
+                            <thead>
+                                <tr class="th-boxshadow text-center">
+                                    <th class="text-center">
+                                        <mfDefaultSorter>{{commonLabels.labels.division}}</mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center">
+                                        <mfDefaultSorter>{{commonLabels.labels.noOfEmployee}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center">
+                                        <mfDefaultSorter by="email">{{commonLabels.labels.action}}</mfDefaultSorter>
+                                    </th>
+                                    <th class="text-center">
+                                        <mfDefaultSorter by="status">{{commonLabels.labels.view}}</mfDefaultSorter>
+                                    </th> 
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let division of mf1.data,index as i">
+                                <tr class="table-desc-color">
+                                    <td class="text-center"><label class="mb-0">{{ division?.Division?.divisionName}}</label></td>
+                                    <td class="text-center"><label class="mb-0">{{ getLengthofUser(division?.Division?.ResortUserMappings)}}</label></td>
+                                    <td class="text-center">
+                                    <div>
+                                        <a *ngIf = "permissionCheck()" (click)="editDivisionData(division?.Division,editDivision,'add')" title="Add"><i class="fa fa-plus ml-10"></i></a>
+                                        <a *ngIf = "permissionCheck()" (click)="editDivisionData(division?.Division,editDivision,'edit')" title="Edit"><i class="fas fa-pencil-alt ml-10"></i></a>
+                                        <a *ngIf = "permissionCheck()" (click)="removeDivision(deleteDivision,division,i)" class="ml-10" title="Delete"><i class="fas fa-trash"></i></a>
+                                    </div>                            
+                                    </td>   
+                                    <td class="text-center"><label class="mb-0"><a *ngIf = "permissionCheck()" class="ml-10" (click)="hideDepartment(i)"  title="view"><i class="fa fa-eye"></i></a></label></td>    
+                                </tr>
+                                <tr *ngIf="division.expand">
+                                    <!-- <table class="table table-striped white-bg mt-1" [mfData]="divisionDetails" #mf1="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
+                                        <thead>
+                                            <tr class="th-boxshadow text-center">
+                                                <th class="text-center">
+                                                    <mfDefaultSorter>{{commonLabels.labels.department}}</mfDefaultSorter>
+                                                </th>
+                                                <th class="text-center">
+                                                    <mfDefaultSorter>{{commonLabels.labels.noOfEmployee}}</mfDefaultSorter>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let dept of division?.Division?.Departments,index as i">
+                                            <tr class="table-desc-color">
+                                                <td class="text-center"><label class="mb-0">{{dept.departmentName}}</label></td>
+                                                <td class="text-center"><label class="mb-0"></label></td>
+                                            </tr>
+                                            <tr *ngIf="division?.Division?.Departments?.length == 0">
+                                                <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
+                                            </tr>
+                                        </tbody>
+                                    </table> -->
+                                    <td>
+                                        <ul>
+                                            <li class="inner-table row">
+                                                <div class='col-md-12'>
+                                                    <span class="col-md-6">{{commonLabels.labels.department}}</span>
+                                                    <!-- <span class="col-md-6">{{commonLabels.labels.noOfEmployee}}</span> -->
+                                                </div>
+                                            </li>
+                                            <li class="inner-table-data"  *ngFor="let dept of division?.Division?.Departments,index as i">
+                                                <div class='col-md-12'>
+                                                    <span class="col-md-6">{{dept.departmentName}}</span>
+                                                </div>                                        
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            <li class="inner-table row">
+                                                <div class='col-md-12'>
+                                                    <!-- <span class="col-md-6">{{commonLabels.labels.department}}</span> -->
+                                                    <span class="col-md-6">{{commonLabels.labels.noOfEmployee}}</span>
+                                                </div>
+                                            </li>
+                                            <li class="inner-table-data"  *ngFor="let dept of division?.Division?.Departments,index as i">
+                                                <div class='col-md-12'>
+                                                        <span class="col-md-6">{{dept?.ResortUserMappings.length}}</span>
+                                                </div>                                        
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr *ngIf="mf1.data?.length == 0">
+                                    <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr data-html2canvas-ignore="true">
+                                    <td colspan="10">
+                                        <mfBootstrapPaginator></mfBootstrapPaginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
                         <!-- <span *ngIf="!divisionDetails.length">{{commonLabels.labels.noData}}</span> -->
-                    <div class="col-md-12 p-0">
-                    <div class="text-center p-4"  *ngIf="!divisionDetails.length">
+                    <!-- <div class="col-md-12 p-0"> -->
+                    <!-- <div class="text-center p-4"  *ngIf="!divisionDetails.length">
                         <p class="data-design mt-0"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p>
-                    </div>
-                    </div>
-                    </div>
+                    </div> -->
+                    <!-- </div> -->
+                    <!-- </div> -->
                 </div>    
             </tab>
             <tab [active] = "selectTab == 'roles'" heading = {{commonLabels.labels.listofRole}} (select)="roleTabSelect('roles')">

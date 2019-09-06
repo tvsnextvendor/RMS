@@ -8,7 +8,7 @@ import { HttpService } from '../services/http.service';
 import { UserVar } from '../Constants/user.var';
 import { BatchVar } from '../Constants/batch.var';
 import { API_URL } from '../Constants/api_url';
-import {API} from '../../app/Constants/api';
+import { API } from '../../app/Constants/api';
 import { AlertService, PDFService, ExcelService, CommonService, BreadCrumbService,PermissionService } from '../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import * as XLSX from 'ts-xlsx';
@@ -178,7 +178,11 @@ export class UserComponent implements OnInit {
     getDivisionList(resortId) {
         this.commonService.getResortDivision(resortId).subscribe(resp => {
             if (resp && resp.isSuccess) {
-                this.divisionDetails = resp.data.length && resp.data[0].resortMapping ? resp.data[0].resortMapping : [];
+                let data =  resp.data.length && resp.data[0].resortMapping ? resp.data[0].resortMapping : [];
+                this.divisionDetails = data.map(item=>{
+                    item.expand = true;
+                    return item
+                })
             }else {
                 this.roleDetails = [];
             }
@@ -1191,5 +1195,13 @@ export class UserComponent implements OnInit {
             this.approvalAccess = "approve";
         }
         
+    }
+    hideDepartment(i){
+        this.divisionDetails[i].expand = !this.divisionDetails[i].expand;
+    }
+
+    getLengthofUser(data){
+        let value  = _.uniqBy(data,'userId')
+        return value.length
     }
 }
