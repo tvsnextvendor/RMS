@@ -64,7 +64,7 @@ export class QuizResultPage implements OnInit {
     }
 
     closeToStart() {
-        this.navCtrl.push('home-page');
+        this.navCtrl.push('course-page');
     }
     feedbackForm() {
          if (!this.feedback.rating) {

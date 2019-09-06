@@ -56,6 +56,7 @@ export class TrainingDetailPage {
     limit: number = 100;
     truncating = true;
     agree: boolean = false;
+    quizBtnDisable: boolean = false;
     courseId;
     trainingClassId;
     uploadPath;
@@ -106,6 +107,7 @@ export class TrainingDetailPage {
     }
 
       ngAfterViewInit() {
+          this.quizBtnDisable = false;
             let self = this;
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
@@ -116,6 +118,11 @@ export class TrainingDetailPage {
              this.start();
             }
         });
+      }
+
+
+      ionViewWillEnter(){
+          this.quizBtnDisable = false;
       }
 
 
@@ -266,7 +273,6 @@ export class TrainingDetailPage {
     
     // go to quiz page for training details
     goToQuizPage() {
-       this.btnDisable= true;
         let data = {
             'trainingClassId': this.detailObject.trainingClassId,
             'userId': this.userId,
@@ -287,14 +293,15 @@ export class TrainingDetailPage {
                   this.http.get(API_URL.URLS.quizAPI + query).subscribe((res) => {
                       if (res['isSuccess']) {
                           this.quizData = res['data']['quiz'];
-                          if (this.quizData) {
+                          if (!this.quizBtnDisable) {
+                              self.quizBtnDisable = true;
                               const alert = this.alertCtrl.create({
                                   title: 'Are you ready to take the Quiz ?',
                                   buttons: [{
                                       text: 'Later',
                                       role: 'later',
                                       handler: () => {
-                                          self.btnDisable = false;
+                                          self.quizBtnDisable = false;
                                       }
                                   },
                                   {
@@ -314,9 +321,10 @@ export class TrainingDetailPage {
                                   }]
                               });
                               alert.present();
-                          } else {
-                              this.toastr.error('No Questions available.');
                           }
+                        //   } else {
+                        //       this.toastr.error('No Questions available.');
+                        //   }
                       }
                   });
                 }

@@ -74,7 +74,8 @@ export class SignrequireDetailPage {
     }else{
      this.showPreView = "assets/imgs/banner.png";
      this.imageType = true;
-    //  this.Files.fileDescription = this.description;
+   
+     //this.Files.fileDescription = this.description;
     }
 
   }
@@ -221,6 +222,12 @@ export class SignrequireDetailPage {
 
      viewContent(docFile) { 
          this.contentViewed = true; 
+           if(this.description){
+               let postData = {
+                   description: this.description
+               }
+               this.navCtrl.push('description-page', postData);
+           }else{
             let docType;
             switch (this.fileType) {
                 case "pdf":
@@ -247,6 +254,7 @@ export class SignrequireDetailPage {
              let baseUrl = this.uploadPath;
              console.log(baseUrl + docFile)
              this.openWithSystemBrowser(baseUrl + docFile);
+           }
      }
 
   

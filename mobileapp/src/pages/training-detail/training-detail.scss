@@ -147,7 +147,10 @@ ion-toolbar {
     text-align: center;
     padding: 12px 0;
     font-size: 20px;
-   margin: 20px auto 20px auto;
+    display: block;
+    margin: 0 auto;
+    text-align: center
+    // margin: 20px auto 20px auto;
 }
 .loading-bar-div {
     float: left;
