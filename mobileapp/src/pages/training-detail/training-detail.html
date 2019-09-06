@@ -105,15 +105,15 @@
             </div>
         </div>
        
-            <div  (click)="goToQuizPage()" class="take-quiz-btn" *ngIf="(status == 'inProgress' || status == 'assigned') && !noQuiz">
+            <button  (click)="goToQuizPage()"  class="take-quiz-btn" *ngIf="(status == 'inProgress' || status == 'assigned') && !noQuiz">
             {{constant.buttons.takeQuiz}}
-            </div>
+            </button>
            
-            <div class="take-quiz-btn" (click)="checkCompleteorNot()" *ngIf="noQuiz && quizBtn && status != 'passed' ">Done</div>
+            <button class="take-quiz-btn" (click)="checkCompleteorNot()" *ngIf="noQuiz && quizBtn && status != 'passed' ">Done</button>
         
-            <div (click)="goToQuizPage()" class="take-quiz-btn"   *ngIf="status == 'failed'  && !noQuiz">
+            <button (click)="goToQuizPage()" class="take-quiz-btn"   *ngIf="status == 'failed'  && !noQuiz">
                 {{constant.buttons.retakeQuiz}}
-            </div>
+            </button>
         
     </div>
 </ion-content>

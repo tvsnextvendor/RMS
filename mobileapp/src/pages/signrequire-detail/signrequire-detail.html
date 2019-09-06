@@ -68,7 +68,7 @@
             </a> </div>
         </div>
 
-        <div *ngIf="description" class="quiz-text">
+        <!-- <div *ngIf="description" class="quiz-text">
           <div *ngIf="description.length <= 400">{{description}}</div>
           <div *ngIf="truncating && description.length > 400">
             {{description | words : limit}}
@@ -80,12 +80,12 @@
             <a href="javascript:void(0);" (click)="truncating = true">
               {{constant.pages.trainingLabels.readLess}}
             </a> </div>
-        </div>
+        </div> -->
 
         </div>
         </div>
         </div>
-        
+         
 </ion-content>
 <div class="fixed-btn">
   <button ion-button round class="add-question common-btn" (click)="doneClicked()">
