@@ -151,7 +151,7 @@
                             <tbody *ngFor="let division of mf1.data,index as i">
                                 <tr class="table-desc-color">
                                     <td class="text-center"><label class="mb-0">{{ division?.Division?.divisionName}}</label></td>
-                                    <td class="text-center"><label class="mb-0">{{ getLengthofUser(division?.Division?.ResortUserMappings)}}</label></td>
+                                    <td class="text-center"><label class="mb-0">{{ division?.Division?.divisionEmployees}}</label></td>
                                     <td class="text-center">
                                     <div>
                                         <a *ngIf = "permissionCheck()" (click)="editDivisionData(division?.Division,editDivision,'add')" title="Add"><i class="fa fa-plus ml-10"></i></a>
@@ -208,7 +208,7 @@
                                             </li>
                                             <li class="inner-table-data"  *ngFor="let dept of division?.Division?.Departments,index as i">
                                                 <div class='col-md-12'>
-                                                        <span class="col-md-6">{{dept?.ResortUserMappings.length}}</span>
+                                                        <span class="col-md-6">{{dept?.departmentemployees}}</span>
                                                 </div>                                        
                                             </li>
                                         </ul>
