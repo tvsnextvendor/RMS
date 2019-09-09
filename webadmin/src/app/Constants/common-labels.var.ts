@@ -256,6 +256,7 @@ export class CommonLabels{
         "completedCourses"  :   'Completed Courses',
         "inProgress"        :   'In Progress',
         "videosTrend"       :   'Course Trend',
+        "empUseTrend"       :   'Employee Usage Trend',
         "employeeProgress"  :   "Employee Progress",
         "totalNoOfBadges"   :   "Total No. of Badges",
         "empCertificationTrend":   "Employee Certification Trend",
