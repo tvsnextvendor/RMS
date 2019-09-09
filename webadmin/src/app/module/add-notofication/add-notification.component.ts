@@ -331,7 +331,13 @@ export class AddNotificationComponent implements OnInit {
       })
     }
     if (key == 'dept') {
-      const data = { 'departmentId': this.moduleVar.departmentId, 'resortId': this.moduleVar.selectedResort }
+      const data = { 'departmentId': this.moduleVar.departmentId, 'resortId': this.moduleVar.selectedResort,'courseId' : '' };
+      if(this.notificationType === 'assignedToCourse'){
+        data.courseId = this.moduleVar.selectedCourses;
+      }
+      else{
+        delete data.courseId;
+      }
       this.userService.getUserByDivDept(data).subscribe(result => {
         if (result && result.data) {
           let listData = _.cloneDeep(this.moduleVar.employeeList);

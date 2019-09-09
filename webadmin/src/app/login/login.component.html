@@ -8,7 +8,7 @@
                         <div *ngIf="forgetPasswordStatus" class="login-text text-center">{{commonLabels.mandatoryLabels.forgetPasswordTitle}} <p class="pwd-content">{{commonLabels.mandatoryLabels.forgetPasswordMsg}}</p></div>
                        <!-- Form -->
                         <div class="input-group login-input">
-                            <input class="form-control input-alg" [(ngModel)]="loginvar.email" name="email" placeholder="Email" #user="ngModel" autocomplete="off" (keyup)="rememberCheck(user.value)" required>
+                            <input class="form-control input-alg" [(ngModel)]="loginvar.email" name="email" [placeholder]="forgetPasswordStatus ? 'Email' : 'Username'" #user="ngModel" autocomplete="off" (keyup)="rememberCheck(user.value)" required>
                            <span class="input-group-addon"><img src="{{commonLabels.imgs.email}}" class="icon"></span>
                             <span class="required_color text-left" *ngIf="formDir.form.controls.email && formDir.form.controls.email.invalid && (formDir.submitted || formDir.form.controls.email.touched)">
                                     {{commonLabels.mandatoryLabels.emailId}}

@@ -7,9 +7,13 @@
     </ul>
 </div>
 
-<div class="tab-content">
+<div class="tab-content" *ngIf = "roleId != 4">
     <div *ngIf="selectedtab === tabTitle[0]" role="tabpanel" class="tab-pane active" id="one"><app-employee-charts [notificationCount]="notificationCount"></app-employee-charts></div>
     <div *ngIf="selectedtab === tabTitle[1]" role="tabpanel" class="tab-pane active" id="two"><app-resort-charts [notificationCount]="notificationCount"></app-resort-charts></div>
+</div>
+<div class="tab-content" *ngIf = "roleId == 4">
+    <!-- <div *ngIf="selectedtab === tabTitle[0]" role="tabpanel" class="tab-pane active" id="one"><app-employee-charts [notificationCount]="notificationCount"></app-employee-charts></div> -->
+    <div role="tabpanel" class="tab-pane active" id="two"><app-resort-charts [notificationCount]="notificationCount"></app-resort-charts></div>
 </div>
 
         
