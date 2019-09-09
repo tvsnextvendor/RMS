@@ -3,9 +3,9 @@ import { Storage } from '@ionic/storage';
 import { API_URL } from '../../constants/API_URLS.var';
 import { API } from '../../constants/API.var';
 import {ToastrService, DataService } from '../../service';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/Rx'
-import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 
 export interface User {
@@ -32,18 +32,18 @@ export class AuthProvider {
         {
            let loginData = res['data'];
            this.dataService.sendLoginData(loginData);
-           if (loginData.rolePermissions) {
-              const rolePermissions = loginData.rolePermissions;
-              const resultRolePermissions = this.getObject(rolePermissions, []);
-              let permissions = [];
-              for (let i in resultRolePermissions) {
-                  if (i != 'undefined') {
-                      permissions.push(resultRolePermissions[i]);
-                  }
-              }
-              this.storage.set('RolePermissions', JSON.stringify(permissions)).then(() => {
-              });
-          }
+          //  if (loginData.rolePermissions) {
+          //     const rolePermissions = loginData.rolePermissions;
+          //     const resultRolePermissions = this.getObject(rolePermissions, []);
+          //     let permissions = [];
+          //     for (let i in resultRolePermissions) {
+          //         if (i != 'undefined') {
+          //             permissions.push(resultRolePermissions[i]);
+          //         }
+          //     }
+          //     this.storage.set('RolePermissions', JSON.stringify(permissions)).then(() => {
+          //     });
+          // }
 
           this.storage.set('currentUser', res['data']).then(() => {
             this.currentUserSet = {
@@ -103,33 +103,33 @@ export class AuthProvider {
   }
 
 
-   getObject(theObject, userpermissions) {
-    var result = null;
-    var key = 'moduleName';
-    if (theObject instanceof Array) {
-      for (var i = 0; i < theObject.length; i++) {
-        if (userpermissions[theObject[i].moduleName] == undefined) {
-          userpermissions[theObject[i].moduleName] = [];
-          userpermissions[theObject[i].moduleName] = theObject[i];
-        }
-        result = this.getObject(theObject[i], userpermissions);
-      }
-    }
-    else {
-      let moduleName = theObject.moduleName;
-      for (var prop in theObject) {
-        const data = ["moduleName", "view", "upload", "edit", "delete"];
-        let found = data.includes(prop);
-        if (found) {
-          if (theObject[prop] == true || theObject[prop] == false) {
-            userpermissions[moduleName][prop] = (userpermissions[moduleName][prop] == true) ? true : theObject[prop];
-          }
-        }
-        if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
-          result = this.getObject(theObject[prop], userpermissions);
-        }
-      }
-    }
-    return userpermissions;
-  }
+  //  getObject(theObject, userpermissions) {
+  //   var result = null;
+  //   var key = 'moduleName';
+  //   if (theObject instanceof Array) {
+  //     for (var i = 0; i < theObject.length; i++) {
+  //       if (userpermissions[theObject[i].moduleName] == undefined) {
+  //         userpermissions[theObject[i].moduleName] = [];
+  //         userpermissions[theObject[i].moduleName] = theObject[i];
+  //       }
+  //       result = this.getObject(theObject[i], userpermissions);
+  //     }
+  //   }
+  //   else {
+  //     let moduleName = theObject.moduleName;
+  //     for (var prop in theObject) {
+  //       const data = ["moduleName", "view", "upload", "edit", "delete"];
+  //       let found = data.includes(prop);
+  //       if (found) {
+  //         if (theObject[prop] == true || theObject[prop] == false) {
+  //           userpermissions[moduleName][prop] = (userpermissions[moduleName][prop] == true) ? true : theObject[prop];
+  //         }
+  //       }
+  //       if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
+  //         result = this.getObject(theObject[prop], userpermissions);
+  //       }
+  //     }
+  //   }
+  //   return userpermissions;
+  // }
 }

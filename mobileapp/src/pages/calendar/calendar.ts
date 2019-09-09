@@ -1,12 +1,10 @@
 import { Component,OnInit, TemplateRef, ViewChild} from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
 import { Constant } from '../../constants/Constant.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import * as moment from 'moment';
-
 
 @IonicPage({
     name: 'calendar-page'
@@ -30,7 +28,7 @@ export class CalendarPage implements OnInit   {
     modalRef: BsModalRef;
     @ViewChild('calDetail') modalTemplate : TemplateRef<any>;
 
-    constructor(private modalService: BsModalService, public constant: Constant,public navCtrl: NavController,public storage: Storage, public http: HttpProvider,private alertCtrl: AlertController) { }
+    constructor(private modalService: BsModalService, public constant: Constant,public navCtrl: NavController,public storage: Storage, public http: HttpProvider) { }
 
     ngOnInit(){
       this.currentMonth = this.selectedDay.getMonth();  

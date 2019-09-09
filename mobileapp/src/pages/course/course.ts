@@ -9,7 +9,6 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { PopoverController } from 'ionic-angular';
 import { PopoverPage } from '../popover/popover';
-// import {PopoverComponent} from '../../components/popover/popover';
 import * as moment from 'moment';
 
 @IonicPage({
@@ -64,7 +63,6 @@ export class CoursePage implements OnInit {
   
   constructor(public popoverCtrl: PopoverController,public navCtrl: NavController,public modalService:BsModalService ,public storage: Storage, public navParams: NavParams, public constant: Constant, public http: HttpProvider, public loader: LoaderService) {
         let detailObj = this.navParams.data;
-        console.log(detailObj,"DETAilOBJ")
         this.tab = detailObj && detailObj.tab;
         this.status = detailObj && detailObj.status;
   }
@@ -75,16 +73,12 @@ export class CoursePage implements OnInit {
 
   ionViewWillEnter() {
             let self = this;
-            this.storage.get('RolePermissions').then((res:any) =>{
-              if(res != "[]"){
-                let data =JSON.parse(res);
-                let obj = data.find(o => o.moduleName === 'Employee Content Upload');
-                this.hideUploadContent = obj && obj['upload'] ? obj['upload'] : false;
-              }  
-            });
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
+             this.hideUploadContent = self.currentUser['status'] && self.currentUser['status'] == 'mobileAdmin' || self.currentUser['status'] == 'web/mobileAdmin' ? true : false;
+             console.log(self.currentUser['status'],"Status");
+             console.log(this.hideUploadContent, "UploadCOnten");         
               this.status = this.status ? this.status : 'assigned';
               this.getCourseStatus(this.status, '');
               this.showData(this.status);
@@ -193,15 +187,13 @@ export class CoursePage implements OnInit {
             this.navCtrl.push('trainingdetail-page', this.paramsData);
         }
       }
-    
   }
 
   openSignRequireDetail(data, notificationFileId){
     let postData = {
       'type' : 'signReq',
       'notificationFileId' : notificationFileId
-    }
-   
+    }  
    if(data.description){
       postData['description'] = data.description;
    }else{

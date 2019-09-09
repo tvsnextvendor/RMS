@@ -124,7 +124,6 @@ export class ProfilePage implements OnInit {
  //Image upload
   uploadImg(e) {
    let reader = new FileReader();
-   let fileName;
    if (e.target && e.target.files[0]) {
        let file = e.target.files[0];
        this.profileFile = file;

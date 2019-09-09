@@ -6,11 +6,10 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
 import { Constant } from '../constants/Constant.var';
 import { AuthProvider } from '../providers/auth/auth';
-import { LandingPage, HomePage, ForumPage, EventPage, CalendarPage, SettingsPage, ProfilePage, CoursePage,AccomplishmentPage,FeedbackPage,LoginPage } from '../pages/indexComponent';
+import { LandingPage, HomePage, EventPage, SettingsPage, ProfilePage, CoursePage,AccomplishmentPage,FeedbackPage } from '../pages/indexComponent';
 import { Calendar } from '@ionic-native/calendar';
 import { API_URL } from '../constants/API_URLS.var';
 import { HttpProvider } from '../providers/http/http';
-import { Location } from "@angular/common";
 import { Network } from '@ionic-native/network';
 import {DataService, NetworkProvider} from "../service";
 
@@ -34,7 +33,7 @@ export class MyApp implements OnInit{
   showSideBar: boolean = true;
   profilePage = { title: 'Profile', component: ProfilePage };
 
-  constructor(private location: Location,public toastCtrl:ToastController,public dataService:DataService,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, public appVersion: AppVersion, public storage: Storage, public constant: Constant, public app: App,public calendar:Calendar,public API_URL:API_URL,public http:HttpProvider,public events: Events,public network: Network,public networkProvider: NetworkProvider) {
+  constructor(public toastCtrl:ToastController,public dataService:DataService,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, public appVersion: AppVersion, public storage: Storage, public constant: Constant, public app: App,public calendar:Calendar,public API_URL:API_URL,public http:HttpProvider,public events: Events,public network: Network,public networkProvider: NetworkProvider) {
     
     platform.ready().then(() => {
       statusBar.styleDefault();
@@ -137,7 +136,7 @@ export class MyApp implements OnInit{
         console.log('currentUser not received in app.component.ts', err);
       });
   }
-  
+ 
   appDetails() {
     // let appName = this.appVersion.getAppName();
     // let packageName = this.appVersion.getPackageName();

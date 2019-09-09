@@ -3,10 +3,8 @@ import { IonicPage, NavController, NavParams, Slides, AlertController } from 'io
 import { QuizPage } from '../quiz/quiz';
 import { QuizResultPage } from '../quiz-result/quiz-result';
 import { Constant } from '../../constants/Constant.var';
-import {ToastrService} from '../../service/toastrService';
 import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
-import { API } from '../../constants/API.var';
 import { Storage } from '@ionic/storage';
 import { Platform } from 'ionic-angular'; 
 import { InAppBrowser,InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
@@ -99,7 +97,7 @@ export class TrainingDetailPage {
     time = "00:00.000"
    
 
-    constructor(public navCtrl: NavController,public platform:Platform,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController, private toastr: ToastrService) {
+    constructor(public navCtrl: NavController,public platform:Platform,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.status= this.detailObject['status'] ? this.detailObject['status'] : '' ;
@@ -358,7 +356,6 @@ export class TrainingDetailPage {
         this.http.put(false,API_URL.URLS.fileTrainingStatus, data).subscribe((res) => {       
         },(err) => {
         });
-
     }
 
 

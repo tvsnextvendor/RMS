@@ -1,5 +1,4 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
 import { Injectable, OnInit } from '@angular/core';
 import { API } from '../../constants/API.var';
 import { DataService } from '../../service';

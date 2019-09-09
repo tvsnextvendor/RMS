@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams,IonicPage } from 'ionic-angular';
 import { QuizResultPage } from '../quiz-result/quiz-result';
 import { Storage } from '@ionic/storage';
-import _ from "lodash";
 
 
 @IonicPage({
@@ -47,7 +46,6 @@ export class QuizPage {
         this.time = this.trainingObj.time;
         this.timeBegan = this.trainingObj.timeBegan;
         this.timeStopped = this.trainingObj.timeStopped;
-        console.log(this.time,this.timeBegan,this.timeStopped,"TIME");
     }
 
      ngAfterViewInit() {
@@ -58,6 +56,7 @@ export class QuizPage {
             }
         });
   }
+   
     //first load
     ngOnInit() {
         this.getQuizContent();
@@ -135,11 +134,17 @@ export class QuizPage {
 
     // Select previous question
     quizPreviousContent() {
+        this.ansArr.forEach((key, index) => {
+            if (index == this.quizStep) {
+                key[index] = this.selectedQuizContent['selectedAnswer'];
+                return false;
+            } else {
+                this.pushObj(index);
+            }
+        });
         this.quizStep = this.quizStep - 1;
         this.getQuizContent();
-        this.nonMcqAns = this.ansArr[this.quizStep][this.quizStep];
-        console.log(this.nonMcqAns,"Previous")
-        
+        this.nonMcqAns = this.ansArr[this.quizStep][this.quizStep];        
     }
 
     // Select next question
@@ -153,19 +158,15 @@ export class QuizPage {
                obj[this.quizStep] = this.selectedQuizContent['selectedAnswer'];
                this.ansArr.push(obj);
             }else{
-                //  let arrNew = [{0:"App"},{1:"Green"},{3:"Blue"},{0:"App"},{3:"Blue"}]
-                // _.uniqWith(arrNew, _.isEqual);
                 this.ansArr.forEach((key,index) => {
                     if(index == this.quizStep){
                         key[index] = this.selectedQuizContent['selectedAnswer'];
                         return false;
                     }else{
-                        console.log(index,"Index")
                         this.pushObj(index);       
                     }
                 });
             }
-            console.log(this.ansArr,"ANSWERArray");
             this.quizStep = this.quizStep + 1;
             this.getQuizContent();      
             if(this.ansArr.length > this.quizStep){
@@ -178,17 +179,10 @@ export class QuizPage {
 
 
     pushObj(index){
-        console.log(index, this.ansArr,"AnsArr");
         if(index == this.ansArr.length-1){
-            // this.ansArr.map((key,value)=>{
-            //     console.log(key, this.quizStep, "Key");
-            //     if(!key.hasOwnProperty(this.quizStep)){
-                   //if(value !== index){
             let obj = {};
             obj[this.quizStep] = this.selectedQuizContent['selectedAnswer'];
-            this.ansArr.push(obj);   
-            //     }
-            // })     
+            this.ansArr.push(obj);      
         }
     }
 

@@ -2,7 +2,6 @@ import { Component , ViewChild, ElementRef} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Constant } from '../../constants/Constant.var';
 import {ToastrService, CommonService} from '../../service';
-import { API } from '../../constants/API.var';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
 import { HttpProvider } from '../../providers/http/http';
@@ -259,7 +258,7 @@ export class SignrequireDetailPage {
 
   
          openWithSystemBrowser(url : string){
-            let baseUrl = this.uploadPath;
+            // let baseUrl = this.uploadPath;
             let target = "_system";
             this.iab.create(url,target,this.options);
         }
