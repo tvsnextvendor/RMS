@@ -46,10 +46,13 @@
                                         <mfDefaultSorter by="employeeNo">{{commonLabels.labels.employeeId}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
-                                        <mfDefaultSorter by="userName">{{commonLabels.labels.firstName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                        <mfDefaultSorter by="firstName">{{commonLabels.labels.firstName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                                     </th>
                                     <th>
                                         <mfDefaultSorter by="lastName">{{commonLabels.labels.lastName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                                    </th>
+                                    <th>
+                                        <mfDefaultSorter by="userName">{{commonLabels.labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
                                         <mfDefaultSorter>{{commonLabels.labels.role}}</mfDefaultSorter>
@@ -74,8 +77,9 @@
                             <tbody>
                                 <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
                                     <td class="text-center"><label class="mb-0">{{ user.employeeNo }}</label></td>
-                                    <td class="text-center"><label class="mb-0">{{ user.userName | titlecase}}</label></td>
+                                    <td class="text-center"><label class="mb-0">{{ user.firstName | titlecase}}</label></td>
                                     <td class="text-center"><label class="mb-0">{{ user?.lastName | titlecase}}</label></td>
+                                    <td class="text-center"><label class="mb-0">{{ user?.userName }}</label></td>
                                     <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'design') }}</label></span></td>
                                     <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0" >{{ getDivisionArray(user.ResortUserMappings,'div') }}</label></span></td>
                                     <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'dept')}}</label></span></td>
@@ -367,11 +371,15 @@
                         <mfDefaultSorter by="employeeId">{{commonLabels.labels.employeeId}}</mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="employeeName">{{commonLabels.labels.firstName}}<span class="ml-2"><img src="assets/images/sortby.png"
+                        <mfDefaultSorter by="firstName">{{commonLabels.labels.firstName}}<span class="ml-2"><img src="assets/images/sortby.png"
                                     class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="employeeName">{{commonLabels.labels.lastName}}<span class="ml-2"><img src="assets/images/sortby.png"
+                        <mfDefaultSorter by="lastName">{{commonLabels.labels.lastName}}<span class="ml-2"><img src="assets/images/sortby.png"
+                                    class="s-width"></span></mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="userName">{{commonLabels.labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"
                                     class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>
@@ -400,8 +408,9 @@
             <tbody>
                 <tr *ngFor="let user of mf.data,index as i" class="table-desc-color">
                     <td class="vat user-desc"><label class="mb-0">{{ user.employeeNo }}</label></td>
-                    <td class="vat user-desc"><label class="mb-0">{{ user.userName  | titlecase }}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user.firstName  | titlecase }}</label></td>
                     <td class="vat user-desc"><label class="mb-0">{{ user?.lastName | titlecase}}</label></td>
+                    <td class="vat user-desc"><label class="mb-0">{{ user?.userName}}</label></td>
                     <td class="vat user-desc"><span *ngIf="user.ResortUserMappings.length"><label class="mb-0" *ngFor="let div of ResortUserMappings">{{ div.Division.divisionName }}</label></span></td>
                     <td class="vat user-desc"><span *ngIf="user.ResortUserMappings.length"><label class="mb-0" *ngFor="let div of ResortUserMappings">{{ div.Department.departmentName }}</label></span></td>
                     <td class="vat user-desc"><span *ngIf="user.ResortUserMappings.length"><label class="mb-0" *ngFor="let div of ResortUserMappings">{{ div.Designation.designationName }}</label></span></td>
@@ -449,12 +458,12 @@
                 <label class="col-md-4 pr-0 label-title mb-0">{{commonLabels.labels.firstName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <span class="col-md-1"></span>
                 <span class="col-md-7 pl-0">
-                    <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="userName"
-                        name="userName" #user="ngModel" autocomplete="off"/>
+                    <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="firstName"
+                        name="firstName" #user="ngModel" autocomplete="off"/>
                     <span class="required_color"
-                        *ngIf="userForm.submitted && !userName">{{commonLabels.mandatoryLabels.empName}}</span> 
+                        *ngIf="userForm.submitted && !firstName">{{commonLabels.mandatoryLabels.empName}}</span> 
                     <span class="required_color"
-                        *ngIf="userForm.submitted && !this.permissionService.nameValidationCheck(userName)">Please enter the valid name</span>                 
+                        *ngIf="userForm.submitted && !this.permissionService.nameValidationCheck(firstName)">Please enter the valid name</span>                 
                 </span>
             </div>
             <div class="row form-group">

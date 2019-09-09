@@ -26,6 +26,7 @@ export class UserComponent implements OnInit {
     @ViewChild('staticTabs') staticTabs: TabsetComponent;
     @ViewChild(RolepermissionComponent) roleComponent: RolepermissionComponent;
     userName;
+    firstName;
     userId;
     userType;
     department = [];
@@ -270,7 +271,7 @@ export class UserComponent implements OnInit {
         this.userid = data.UserRole[0].userId;
         this.editEnable = true;
         this.userIndex = index;
-        this.userName = data.userName;
+        this.firstName = data.firstName;
         this.lastName = data.lastName && data.lastName;
         this.userId = data.employeeId;
         this.division = data.ResortUserMappings.length ? this.getEditSelectedArray(data.ResortUserMappings, 'div') : [];
@@ -473,7 +474,7 @@ export class UserComponent implements OnInit {
         this.errMsg = '';
         let resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
         let obj = {
-            userName: this.userName,
+            firstName: this.firstName,
             lastName : this.lastName,
             email: this.emailAddress,
             phoneNumber: this.phoneNumber,
@@ -490,7 +491,7 @@ export class UserComponent implements OnInit {
             // childResortIds : []
         };
         // this.childResort.length ? obj.childResortIds = this.childResort.map(item=>{return item.resortId}) : delete obj.childResortIds;
-        if (this.userName && this.permissionService.nameValidationCheck(this.userName) && this.lastName && this.permissionService.nameValidationCheck(this.lastName) &&  this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone && !this.validHomeNo) {
+        if (this.firstName && this.permissionService.nameValidationCheck(this.firstName) && this.lastName && this.permissionService.nameValidationCheck(this.lastName) &&  this.empId && this.emailAddress && this.phoneNumber && this.division.length && this.department.length && this.designation.length && !this.validEmail && !this.validPhone && !this.validHomeNo) {
             if (this.editEnable) {
                 this.removedMappingId.length ? obj.resortUserMappingId = this.removedMappingId : delete obj.resortUserMappingId;
                 this.userService.updateUser(this.userid, obj).subscribe((result) => {
@@ -528,7 +529,7 @@ export class UserComponent implements OnInit {
         this.accessTo = "web";
         this.duplicateError = '';
         this.roleFormSubmitted = false;
-        this.userName = '';
+        this.firstName = '';
         this.lastName = '';
         this.userId = '';
         this.roleId = '';
@@ -1063,7 +1064,7 @@ export class UserComponent implements OnInit {
     exportAsXLSX(): void {
         // this.labels.btns.select =  this.labels.btns.excel;
         let arr = this.constant.userList.map(item =>
-            _.pick(item, ['userName','lastName', 'email', 'phoneNumber', 'active'])
+            _.pick(item, ['firstName','lastName', 'email', 'phoneNumber', 'active'])
         )
         this.constant.userList.forEach((item, i) => {
             arr[i].empId = item.employeeNo;

@@ -82,6 +82,9 @@ export class ResortChartsComponent implements OnInit {
     getCountDetails(resortId){
         this.resortId = resortId;
         let query =  this.resortId ? '?resortId='+ this.resortId : '';
+        if(this.roleId == 4){
+          query = query+'&userId='+this.userId;
+        }
         this.commonService.getTotalCourse(query).subscribe(result => {
             const totalCourses = result.data.training;
             this.dashboardVar.totalCoursesCount = result.data.courseTotalCount;
@@ -112,6 +115,9 @@ export class ResortChartsComponent implements OnInit {
         let roleId = this.utilService.getRole();
         // Get All Parents N/W Admin
         let query = '?parents='+roleId;
+        if(this.roleId == 4){
+          query = query+'&userId='+this.userId;
+        }
         this.commonService.getAllResort(query).subscribe((result) => {
           if(result && result.isSuccess){
             this.resortList = result.data ? result.data : [];
@@ -124,6 +130,9 @@ export class ResortChartsComponent implements OnInit {
     getChildResort(resortId){
       // get All Childs From Parents
       let query = '?parentId='+ (resortId ? resortId : this.resortId);
+      if(this.roleId == 4){
+        query = query+'&userId='+this.userId;
+      }
       this.commonService.getAllResort(query).subscribe((result) => {
           if(result && result.isSuccess){
             this.resortChildList = result.data  ? result.data : [];
@@ -190,6 +199,9 @@ export class ResortChartsComponent implements OnInit {
 
     totalNoOfBadges() {
       let query = this.resortId ? '?resortId='+this.resortId : '';
+      if(this.roleId == 4){
+        query = query+'&userId='+this.userId;
+      }
       this.commonService.getBadges(query).subscribe((resp) => {
         const donutChartData = resp.data.badges;
         this.dashboardVar.totalNoOfBadges = donutChartData.map(item =>
@@ -731,6 +743,9 @@ export class ResortChartsComponent implements OnInit {
 
     topRatedCourses() {
       let query = this.resortId ? '?resortId='+this.resortId : '';
+      if(this.roleId == 4){
+        query = query+'&userId='+this.userId;
+      }
         this.commonService.getTopRatedTrainingClasses(query).subscribe((result) => {
           if (result && result.isSuccess) {
             this.topCourses = result.data.map(item => {
@@ -745,6 +760,9 @@ export class ResortChartsComponent implements OnInit {
           year : this.dashboardVar.certYear
         };
         let query = this.resortId ? '&resortId='+this.resortId : '';
+        if(this.roleId == 4){
+          query = query+'&userId='+this.userId;
+        }
         this.commonService.getCourseTrend(courseTrendObj,query).subscribe(result => {
           if (result && result.isSuccess) {
             this.dashboardVar.courseTrendData = result.data.map(item => parseInt(item, 10));
