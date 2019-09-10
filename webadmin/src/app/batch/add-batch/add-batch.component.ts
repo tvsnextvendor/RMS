@@ -52,6 +52,7 @@ export class AddBatchComponent implements OnInit {
     existingUser = [];
     trainingClassData;
     getCourseId = [];
+    existCourses = [];
 
     constructor(private breadCrumbService: BreadCrumbService, private alertService: AlertService, private courseService: CourseService, private utilService: UtilService, private resortService: ResortService, private userService: UserService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService: CommonService, public commonLabels: CommonLabels) {
         this.batchVar.url = API_URL.URLS;
@@ -170,7 +171,7 @@ export class AddBatchComponent implements OnInit {
         this.batchVar.batchTo = new Date(this.scheduleData.dueDate);
         this.batchVar.batchName = this.scheduleData.name;
         this.batchVar.selectedResort = this.scheduleData.Resorts.length && this.scheduleData.Resorts[0].resortId;
-        this.batchVar.moduleForm = this.scheduleData.Courses.map(item => {
+        let courseDetails = this.scheduleData.Courses.map(item => {
             let obj = {};
 
             if(this.tabType == 'course'){
@@ -199,6 +200,8 @@ export class AddBatchComponent implements OnInit {
             }
             return obj;
         })
+        this.existCourses = _.cloneDeep(courseDetails);
+        this.batchVar.moduleForm = courseDetails
         this.reminder = this.scheduleData.notificationDays;
         let resort = _.uniqBy(this.scheduleData.Resorts, 'userId');
         let div = _.cloneDeep(this.batchVar.divisionList)
@@ -585,7 +588,34 @@ export class AddBatchComponent implements OnInit {
                 "insertUserId" : [],
                 "getUserId" : [],
                 "getCourseId" : [],
-                "scheduleType" : this.tabType == 'training' ? 'trainingClass' : this.tabType
+                "scheduleType" : this.tabType == 'training' ? 'trainingClass' : this.tabType,
+                "removeCourseOrTCIds" : []
+            }
+            if(this.tabType == 'training'){
+                let getRemoveCourse = _.difference(this.existCourses.map(item=>{return item.trainingClassId}), this.batchVar.moduleForm.map(data=>{ 
+                    let id;
+                    if(data.trainingScheduleCourseId){
+                        id = data.trainingClassId
+                    }
+                    else{
+                        id = null
+                    }
+                    return id
+                }))
+                getRemoveCourse.length ? postData.removeCourseOrTCIds = getRemoveCourse : delete  postData.removeCourseOrTCIds;
+            }
+            else{
+                let getRemoveCourse = _.difference(this.existCourses.map(item=>{return item.courseId}), this.batchVar.moduleForm.map(data=>{ 
+                    let id;
+                    if(data.trainingScheduleCourseId){
+                        id = data.courseId
+                    }
+                    else{
+                        id = null
+                    }
+                    return id
+                }))
+                getRemoveCourse.length ? postData.removeCourseOrTCIds = getRemoveCourse : delete  postData.removeCourseOrTCIds;
             }
             // console.log(this.existingUser,this.batchVar.selectedEmp)
             if (this.scheduleId) {
