@@ -29,7 +29,7 @@
                             <mfDefaultSorter by="resortName">{{commonLabels.labels.resortName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-left">
-                            <mfDefaultSorter by="location">{{commonLabels.labels.location}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                            <mfDefaultSorter by="location">{{commonLabels.labels.userName}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th class="text-left">
                             <mfDefaultSorter>{{commonLabels.labels.email}}</mfDefaultSorter>
@@ -61,7 +61,7 @@
                 <tbody>
                     <tr *ngFor="let resort of mf.data;let i = index" class="table-desc-color">
                         <td class="text-left txt-unline"><a href="javascript:void" (click)="resortDetails(resort.resortId)">{{ resort.resortName  | titlecase}}</a></td>
-                        <td class="text-left">{{ resort.location }}</td>
+                        <td class="text-left">{{  resort.ResortUserMappings[0]?.User?.userName }}</td>
                         <td class="text-left">{{ resort.ResortUserMappings[0]?.User?.email }}</td>
                         <td class="text-left">{{ resort.ResortUserMappings[0]?.User?.phoneNumber }}</td>
                         <td class="text-center">{{ resort.status }}</td>         
