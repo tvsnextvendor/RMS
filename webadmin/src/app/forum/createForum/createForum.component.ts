@@ -331,7 +331,8 @@ export class CreateForumComponent implements OnInit {
         const self = this;
         // const department = this.department['departments'];
         const newSelectedDiv = self.division['divisions'].filter(o => !self.Divisions.find(x => x.divisionId === o));
-        const selectedNdPresentDivi = _.map(_.unionBy(this.Divisions, this.department['departments'], 'departmentId'));
+         let filterData = _.map(_.unionBy(this.Divisions, this.department['departments'], 'departmentId'));
+         const selectedNdPresentDivi = filterData.filter(item=>item.divisionId != null);
         // console.log(selectedNdPresentDivi, 'dddddddvvvvv');
         _.forEach(selectedNdPresentDivi, function (value) {
           value['forumId'] = self.forumEditPage.forumId;
