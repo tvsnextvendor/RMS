@@ -56,8 +56,8 @@ export class LibraryPage {
   @ViewChild('myTabs') tabRef: Tabs;
   //first load
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TrainingPage');
   }
+
   ionViewDidEnter() {
     this.assignedCoursesList = [];
     this.progressCoursesList = [];
@@ -66,6 +66,7 @@ export class LibraryPage {
     this.getCousesList();
     this.getModules();
   }
+  
   getLocalStorageInfo() {
     return new Promise(resolve => {
       this.storage.get('userDashboardInfo').then(

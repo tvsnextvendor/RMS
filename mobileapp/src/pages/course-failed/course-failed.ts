@@ -30,7 +30,6 @@ export class CourseFailedPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CourseFailedPage');
   }
 
   ngAfterViewInit(){
@@ -83,7 +82,6 @@ export class CourseFailedPage {
           let count = res['data']['count'];
           this.totalPage = count / this.perPageData;
           if(this.scrollEnable){
-          console.log(this.courseList, "COurseList");
            for (let i = 0; i < res['data']['rows'].length; i++) {
               this.courseList.push(res['data']['rows'][i]);
            }

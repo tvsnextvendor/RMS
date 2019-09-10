@@ -41,7 +41,8 @@ export class BellComponent {
   getNotification(){
     let userId = this.currentUser.userId;
     let socketObj = {
-      userId : userId
+      userId : userId,
+      domain : 'mobile'
     };
    this.socketService.getNotification(socketObj).subscribe((data)=>{
        this.notificationCount = data['unReadCount'];

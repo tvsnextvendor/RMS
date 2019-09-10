@@ -27,7 +27,6 @@ export class ForgetPage implements OnInit {
   constructor(public navCtrl: NavController,public authService: AuthProvider,public navParams: NavParams, public constant: Constant) {
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ForgetPage');
   }
   ngOnInit() {
     let EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;

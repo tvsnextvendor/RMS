@@ -17,14 +17,12 @@ export class LandingPage {
   }
   ionViewDidLoad() {
     this.storage.get('currentUser').then((resp) => {
-      //console.log("currentUser",resp);
       if(resp){
         this.navCtrl.push('home-page');
       }
-      //debugger;
      });
-    console.log('ionViewDidLoad LandingPage');
   }
+  
   doSignIn() {
     this.navCtrl.push(LoginPage);
   }

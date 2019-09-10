@@ -30,7 +30,6 @@ export class GeneralNotificationPage {
  currentUser;
  
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GeneralNotificationPage');
   }
 
     ngAfterViewInit() {

@@ -36,7 +36,6 @@ export class QuizResultPage implements OnInit {
     constructor(public navCtrl: NavController,public http: HttpProvider,public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
         this.Math = Math;
         this.resultData = navParams.data;
-        console.log(this.resultData, "QUIZ result");
         this.trainingClassName = this.resultData['trainingClassName'];
         this.noQuiz = this.resultData['status'] ? true : false ;
         // this.resultData['passPercentage'] = this.resultData['passPercentage'];
@@ -66,6 +65,7 @@ export class QuizResultPage implements OnInit {
     closeToStart() {
         this.navCtrl.push('course-page');
     }
+    
     feedbackForm() {
          if (!this.feedback.rating) {
              this.errorMessage =  "Rating is required"; return false;
@@ -126,7 +126,6 @@ export class QuizResultPage implements OnInit {
      
         let data = this.resultData;
         let typeSetData = this.resultData['typeSet'] ? this.resultData['typeSet'] : this.resultData['setData'].typeSet;
-        console.log(this.resultData, typeSetData)
         let postData={
             "courseId": data['courseId'],
             "trainingClassId": data['trainingClassId'],

@@ -73,12 +73,12 @@ export class NotificationPage implements OnInit {
   getNotification(){    
     let userId = this.currentUser.userId;
     let socketObj = {
-      userId : userId
+      userId : userId,
+      domain : 'mobile'
     };
     // this.loader.showLoader();
     this.socketService.getNotification(socketObj).subscribe((data)=>{
      if(data['rows']){
-      console.log(data,"notifiacation");
       this.notificationList = data['rows'];
       this.count = data['count'];
      }else{
@@ -101,7 +101,6 @@ export class NotificationPage implements OnInit {
 
   redirect(notification){
     let type = notification.type;
-    console.log(type,"TYPE");    
     switch (type) {
       case "expireCourse":
       case "expiryNotifyToEmployees":

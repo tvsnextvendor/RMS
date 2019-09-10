@@ -66,12 +66,12 @@
                     <img src="assets/imgs/profile_circle.png" class="forum-img">
                   </ion-col>
                   <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.Course">
-                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.Course.courseName}}</h4>
+                    <h4 class="notify-title"> {{task.Course.courseName}}</h4>
                     <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                       {{constant.pages.trainingLabels.trainingClass}}</p>
                   </ion-col>
                   <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.TrainingClass">
-                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.TrainingClass.trainingClassName}}</h4>
+                    <h4 class="notify-title" > {{task.TrainingClass.trainingClassName}}</h4>
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
                     <div class="align-right" *ngIf="task.TrainingSchedule">
@@ -118,12 +118,12 @@
                     <img src="assets/imgs/profile_circle.png" class="forum-img">
                   </ion-col>
                   <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.Course">
-                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.Course.courseName}}</h4>
+                    <h4 class="notify-title"> {{task.Course.courseName}}</h4>
                     <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                       {{constant.pages.trainingLabels.trainingClass}}</p>
                   </ion-col>
                   <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.TrainingClass">
-                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.TrainingClass.trainingClassName}}</h4>
+                    <h4 class="notify-title"> {{task.TrainingClass.trainingClassName}}</h4>
                       <h3 class="status-h3" *ngIf="task.TrainingClass.FeedbackMappings.length > 0">
                         <span class="status-pass" *ngIf="task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].status == 'passed'">Completed -
                           {{task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].passPercentage}} %
@@ -148,7 +148,7 @@
                         {{calculateExpireDays(task.NotificationFile.dueDate)}}</p>
                     </div> -->
                   </ion-col>
-                  <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openTrainingClass(task)">
+                  <ion-col col-1 col-sm-1 col-md-1 class="middle-arw">
                     <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
                   </ion-col>
                 </ion-row>
@@ -179,7 +179,7 @@
                     <img src="assets/imgs/profile_circle.png" class="forum-img">
                   </ion-col>
                   <ion-col col-4 col-sm-5 col-md-6 class="course-det">
-                    <h4 class="notify-title" (click)="openSignRequireDetail(task,task.notificationFileId)">
+                    <h4 class="notify-title">
                       {{task.TrainingScheduleResorts[0].TrainingSchedule.name}}</h4>
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
@@ -192,7 +192,7 @@
                       Completed
                     </div>
                   </ion-col>
-                  <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openSignRequireDetail(task,task.notificationFileId)">
+                  <ion-col col-1 col-sm-1 col-md-1 class="middle-arw">
                     <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
                   </ion-col>
                 </ion-row>
@@ -223,12 +223,12 @@
                     <img src="assets/imgs/profile_circle.png" class="forum-img">
                   </ion-col>
                   <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.Course">
-                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.Course.courseName}}</h4>
+                    <h4 class="notify-title" > {{task.Course.courseName}}</h4>
                     <p class="notify-txt">{{task.Course.CourseTrainingClassMaps.length}}
                       {{constant.pages.trainingLabels.trainingClass}}</p>
                   </ion-col>
                   <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.TrainingClass">
-                    <h4 class="notify-title" (click)="openTrainingClass(task)"> {{task.TrainingClass.trainingClassName}}</h4>
+                    <h4 class="notify-title"> {{task.TrainingClass.trainingClassName}}</h4>
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
                     <!-- <div class="align-right" *ngIf="task.TrainingSchedule.dueDate">
@@ -237,7 +237,7 @@
                   {{calculateExpireDays(task.TrainingSchedule.dueDate)}}</p>
                 </div> -->
                   </ion-col>
-                  <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" (click)="openTrainingClass(task)">
+                  <ion-col col-1 col-sm-1 col-md-1 class="middle-arw" >
                     <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
                   </ion-col>
                 </ion-row>

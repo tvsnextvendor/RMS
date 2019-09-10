@@ -136,7 +136,6 @@ export class ProfilePage implements OnInit {
     this.http.upload(API_URL.URLS.uploadFiles, this.profileFile).subscribe(res => {
        if(res.isSuccess){
          this.storage.get('currentUser').then(valueStr => {
-             console.log(valueStr);
              // Modify just that property
              valueStr.userImage = res['data'][0]['filename'];
              // Save the entire data again

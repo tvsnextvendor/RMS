@@ -76,9 +76,7 @@ export class CoursePage implements OnInit {
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-             this.hideUploadContent = self.currentUser['status'] && self.currentUser['status'] == 'mobileAdmin' || self.currentUser['status'] == 'web/mobileAdmin' ? true : false;
-             console.log(self.currentUser['status'],"Status");
-             console.log(this.hideUploadContent, "UploadCOnten");         
+             this.hideUploadContent = self.currentUser['status'] && self.currentUser['status'] == 'mobileAdmin' || self.currentUser['status'] == 'web/mobileAdmin' ? true : false;         
               this.status = this.status ? this.status : 'assigned';
               this.getCourseStatus(this.status, '');
               this.showData(this.status);
@@ -98,7 +96,6 @@ export class CoursePage implements OnInit {
     });
     //get selected data from popover page when it is closed.
     popover.onDidDismiss(data => {
-        console.log(data,"YAYA");
         if (data != null) {
             this.filterData = data.filterData;
             this.status = data.status;
@@ -200,7 +197,6 @@ export class CoursePage implements OnInit {
     postData['files'] = data.File;
     postData['uploadPath'] = this.uploadPath;
    }
-
     this.navCtrl.push('signrequire-page', postData);
   }
 

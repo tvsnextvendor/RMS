@@ -62,7 +62,6 @@ export class TrainingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, public constant: Constant, public apiUrl: API_URL, public storage: Storage,public loader: LoaderService) {
     this.detailObject = this.navParams.data;
-    console.log(this.detailObject,"TRAINING")
     this.courseIdParams = this.detailObject.courseId;
     this.trainingScheduleId = this.detailObject.trainingScheduleId;
     this.statusKey = this.detailObject['status'] ? this.detailObject['status'] : 'assigned';
@@ -222,7 +221,6 @@ export class TrainingPage {
   }
   //open  page
   openTrainingDetail(data) {
-    console.log(data,"OPEN TRAINING")
     this.paramsData['trainingClassId'] = data.CourseTrainingClassMaps[0].trainingClassId;
     this.paramsData['courseId'] = data.CourseTrainingClassMaps[0].courseId;
     this.paramsData['status'] = data.FeedbackMappings.length ? data.FeedbackMappings[0].status : 'inProgress';    

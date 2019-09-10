@@ -14,8 +14,6 @@ export class ModalPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalPage');
-    console.log(this.navParams.get('message'));
   }
   public closeModal(){
     this.viewCtrl.dismiss();

@@ -40,7 +40,6 @@ export class SettingsPage implements OnInit {
   constructor(public navCtrl: NavController, public navParams: NavParams, public constant: Constant, public toastr: ToastrService, public auth: AuthProvider, private http: HttpProvider, private storage: Storage) {
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
   }
   ngOnInit() {
     this.settingsForm = new FormGroup({
