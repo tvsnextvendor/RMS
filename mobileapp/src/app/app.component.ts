@@ -6,11 +6,12 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
 import { Constant } from '../constants/Constant.var';
 import { AuthProvider } from '../providers/auth/auth';
-import { LandingPage, HomePage, EventPage, SettingsPage, ProfilePage, CoursePage,AccomplishmentPage,FeedbackPage } from '../pages/indexComponent';
+import { LandingPage, HomePage, EventPage, SettingsPage, ProfilePage, CoursePage,AccomplishmentPage,FeedbackPage,QuizResultPage } from '../pages/indexComponent';
 import { Calendar } from '@ionic-native/calendar';
 import { API_URL } from '../constants/API_URLS.var';
 import { HttpProvider } from '../providers/http/http';
 import { Network } from '@ionic-native/network';
+import { AlertController } from 'ionic-angular';
 import {DataService, NetworkProvider} from "../service";
 
 
@@ -33,7 +34,7 @@ export class MyApp implements OnInit{
   showSideBar: boolean = true;
   profilePage = { title: 'Profile', component: ProfilePage };
 
-  constructor(public toastCtrl:ToastController,public dataService:DataService,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, public appVersion: AppVersion, public storage: Storage, public constant: Constant, public app: App,public calendar:Calendar,public API_URL:API_URL,public http:HttpProvider,public events: Events,public network: Network,public networkProvider: NetworkProvider) {
+  constructor(public toastCtrl:ToastController,private alertCtrl: AlertController,public dataService:DataService,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthProvider, public appVersion: AppVersion, public storage: Storage, public constant: Constant, public app: App,public calendar:Calendar,public API_URL:API_URL,public http:HttpProvider,public events: Events,public network: Network,public networkProvider: NetworkProvider) {
     
     platform.ready().then(() => {
       statusBar.styleDefault();
@@ -83,6 +84,26 @@ export class MyApp implements OnInit{
               toast.present();
               this.lastTimeBackPress = new Date().getTime();
           }
+      }else if(pageName == "QuizResultPage"){
+        let alert = this.alertCtrl.create({
+            message: 'The Quiz you have attended will be lost if you leave this page. Do you want to leave?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                      this.nav.setRoot('course-page')
+                    }
+                }
+            ]
+        });
+        alert.present();
       }else if(pageName == "LandingPage"){
           navigator['app'].exitApp();
       }

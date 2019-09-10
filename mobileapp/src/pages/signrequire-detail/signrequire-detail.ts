@@ -73,7 +73,6 @@ export class SignrequireDetailPage {
     }else{
      this.showPreView = "assets/imgs/banner.png";
      this.imageType = true;
-   
      //this.Files.fileDescription = this.description;
     }
 

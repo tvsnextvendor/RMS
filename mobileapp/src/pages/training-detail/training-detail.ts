@@ -95,13 +95,14 @@ export class TrainingDetailPage {
     running = false
     blankTime = "00:00.000"
     time = "00:00.000"
+    perAfterView = 0;
+    fileIdsArr=[];
    
 
     constructor(public navCtrl: NavController,public platform:Platform,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.status= this.detailObject['status'] ? this.detailObject['status'] : '' ;
-        console.log(this.detailObject,"TRAINING DETAIL")
     }
 
       ngAfterViewInit() {
@@ -193,8 +194,8 @@ export class TrainingDetailPage {
                 self.detailObject['setData']['passPercentage'] = this.detailObject['setData']['typeSet'] == 'Class' ? ( res['data'].schedulePercentage.length ? res['data'].schedulePercentage[0].passPercentage: '') : self.detailObject['setData']['passPercentage'] ;
                 self.detailObject['setData']['trainingClassName'] = self.allTrainingClasses[0].TrainingClass.trainingClassName;
                 this.loadingBarWidth = (100 / parseInt(self.allTrainingClasses.length, 10));
+                console.log(this.loadingBarWidth,"LoadingBar");
                 self.imagePath = res['data']['uploadPaths']['uploadPath'];
-                console.log(self.status, self.noQuiz, self.quizBtn)                                                           
                 this.loadFirstFile();
                 resolve('resolved');
                 }
@@ -213,7 +214,6 @@ export class TrainingDetailPage {
         this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ?  this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl) ;
         this.fileId = this.setTraining.fileId;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
-        console.log(this.fileType,"FileType");
         let ext = this.setTraining.fileUrl.split('.').pop();
         if (ext == "mp4" && this.videotag) {
             const htmlVideoTag = this.videotag.nativeElement;
@@ -338,6 +338,7 @@ export class TrainingDetailPage {
         'userId' : this.userId,
         'status': "completed"
         }
+        this.calculatePercentage(this.fileId);
         this.http.put(false,API_URL.URLS.fileTrainingStatus, data).subscribe((res) => {
         
         },(err) => {
@@ -584,10 +585,10 @@ export class TrainingDetailPage {
             }
 
                let baseUrl = rootUrl+this.uploadPath;
-
+               
+            this.calculatePercentage(setTraining.fileId);
              console.log(baseUrl);
              this.platform.ready().then(() => {
-             
                  if (this.platform.is('android') || this.platform.is('mobileweb') || this.platform.is('browser')) {
                      this.openWithSystemBrowser(baseUrl);
                      console.log("running on Android device!");
@@ -599,6 +600,23 @@ export class TrainingDetailPage {
              }); 
 
              this.completedViewOperation(docFileId);	
+        }
+
+
+        //To calculate percentage displaying at loading bar.
+        calculatePercentage(fileId){
+           let arrLength = this.fileIdsArr.length;
+           if(arrLength == 0){
+               this.fileIdsArr.push(fileId);
+               this.perAfterView = Math.round(this.loadingBarWidth * (arrLength + 1))
+           }else{
+              if (this.fileIdsArr.indexOf(fileId) !== -1) {
+                  alert("Value exists!")
+              } else {
+                  this.fileIdsArr.push(fileId);
+                  this.perAfterView = Math.round(this.loadingBarWidth * (arrLength + 1));
+              }              
+           }
         }
 
 }

@@ -51,7 +51,6 @@ export class LoginPage implements OnInit {
             });
         }
         this.authService.login(this.user.name, this.user.pw, this.user.keepmelogin).subscribe(success => {
-          console.log(success,"Success");
             if(success) {
                         this.navCtrl.push('home-page');
                 }else{

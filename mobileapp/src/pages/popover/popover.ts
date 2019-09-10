@@ -19,7 +19,6 @@ export class PopoverPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
     this.status = this.navParams.get('status');
     this.selectedOption = this.navParams.get('filterData');
-   console.log(this.selectedOption,"SELECTED OPTION")
   }
 
   changeOption(){

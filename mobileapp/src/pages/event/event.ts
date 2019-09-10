@@ -73,22 +73,23 @@ export class EventPage implements OnInit {
   }
 
  
-  //Infinite scroll event call
-    doInfinite(event) {
-        this.currentPage += 1;
-        this.scrollEnable = true;
+   //Infinite scroll event call
+    doInfinite(event) {      
         setTimeout(() => {
+            this.currentPage += 1;
+            this.scrollEnable = true;
             this.getBatch();
             event.complete(); //To complete scrolling event.
-        }, 1000);
+        }, 10000);
     }
 
    
 
   getBatch() {
-    //  this.loader.showLoader();
+    this.loader.showLoader();
     let userId = this.currentUser.userId;
-    this.http.get(API_URL.URLS.getAllSchedule+'?userId='+userId+ '&page=' + this.currentPage + '&size=' + this.perPageData).subscribe(res=>{
+    // + '&page=' + this.currentPage + '&size=' + this.perPageData
+    this.http.get(API_URL.URLS.getAllSchedule+'?userId='+userId).subscribe(res=>{
       if(res['isSuccess']){
         let totalData = res['data']['count'];
         this.totalPage = totalData / this.perPageData;
@@ -100,7 +101,7 @@ export class EventPage implements OnInit {
             this.scheduleList = res['data']['rows'];
         }
       }
-      //this.loader.hideLoader();
+      this.loader.hideLoader();
     })
   }
  
