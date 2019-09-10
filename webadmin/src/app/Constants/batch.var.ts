@@ -29,7 +29,7 @@ export class BatchVar{
     empSettings = {
         singleSelection: false,
         idField: 'userId',
-        textField: 'userName',
+        textField: 'firstName',
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
         enableCheckAll: true,

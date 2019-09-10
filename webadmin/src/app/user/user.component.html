@@ -142,7 +142,7 @@
                                         <mfDefaultSorter>{{commonLabels.labels.division}}</mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
-                                        <mfDefaultSorter>{{commonLabels.labels.noOfEmployee}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
+                                        <mfDefaultSorter>{{commonLabels.labels.noOfEmployee}}</mfDefaultSorter>
                                     </th>
                                     <th class="text-center">
                                         <mfDefaultSorter by="email">{{commonLabels.labels.action}}</mfDefaultSorter>
@@ -166,28 +166,7 @@
                                     <td class="text-center"><label class="mb-0"><a *ngIf = "permissionCheck()" class="ml-10" (click)="hideDepartment(i)"  title="view"><i class="fa fa-eye"></i></a></label></td>    
                                 </tr>
                                 <tr *ngIf="division.expand">
-                                    <!-- <table class="table table-striped white-bg mt-1" [mfData]="divisionDetails" #mf1="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
-                                        <thead>
-                                            <tr class="th-boxshadow text-center">
-                                                <th class="text-center">
-                                                    <mfDefaultSorter>{{commonLabels.labels.department}}</mfDefaultSorter>
-                                                </th>
-                                                <th class="text-center">
-                                                    <mfDefaultSorter>{{commonLabels.labels.noOfEmployee}}</mfDefaultSorter>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody *ngFor="let dept of division?.Division?.Departments,index as i">
-                                            <tr class="table-desc-color">
-                                                <td class="text-center"><label class="mb-0">{{dept.departmentName}}</label></td>
-                                                <td class="text-center"><label class="mb-0"></label></td>
-                                            </tr>
-                                            <tr *ngIf="division?.Division?.Departments?.length == 0">
-                                                <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
-                                            </tr>
-                                        </tbody>
-                                    </table> -->
-                                    <td>
+                                    <td  class="text-center">
                                         <ul>
                                             <li class="inner-table row">
                                                 <div class='col-md-12'>
@@ -202,7 +181,7 @@
                                             </li>
                                         </ul>
                                     </td>
-                                    <td>
+                                    <td  class="text-center">
                                         <ul>
                                             <li class="inner-table row">
                                                 <div class='col-md-12'>

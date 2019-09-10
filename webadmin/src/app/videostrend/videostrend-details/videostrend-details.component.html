@@ -79,12 +79,12 @@
                     </div>
             </div>
          <div class="table-responsive custom-table2 px-2">
-            <table class="table white-bg table-striped mt-3" [mfData]="trendsVar.filterEmployeeList[0]?.employeeDetails" #mf="mfDataTable"
+            <table class="table white-bg table-striped mt-3" [mfData]="trendsVar.employeeList" #mf="mfDataTable"
                 [mfRowsOnPage]="10">
                 <thead>
                     <tr class="th-boxshadow">
                         <th colspan="1" class="pl-4 employeeName-width">
-                            <mfDefaultSorter by="employeeName">{{commonLabels.labels.employeeName}}<span class="ml-2"><img
+                            <mfDefaultSorter by="User.userName ">{{commonLabels.labels.employeeName}}<span class="ml-2"><img
                                         src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th colspan="1" class="text-left">
@@ -107,7 +107,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let emp of trendsVar.employeeList" class="table-desc-color">
+                    <tr *ngFor="let emp of mf.data" class="table-desc-color">
                         <td class="vat pl-4 employeeName-width" *ngIf="emp.User && emp.User.userName">{{emp?.User?.userName  | titlecase}}</td>
                         <td class="vat employeeName-width">{{emp?.Resort?.resortName  | titlecase}}</td>
                         <td class="vat text-left">

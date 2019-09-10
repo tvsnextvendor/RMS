@@ -47,7 +47,7 @@ export class EmployeeChartsComponent implements OnInit {
     private mScrollbarService: MalihuScrollbarService,
     private commonService: CommonService) {
     this.dashboardVar.url = API_URL.URLS;
-    this.dashboardVar.userName = this.utilService.getUserData().username;
+    this.dashboardVar.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
     this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     this.resortName = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortName;
@@ -69,7 +69,7 @@ export class EmployeeChartsComponent implements OnInit {
     this.IschildResort = userDetails.ResortUserMappings.length && userDetails.ResortUserMappings[0].Resort.parentId  ? true : false;
     this.getTopResort();
     this.getKeyStat();
-    this.userName = userDetails.userName;
+    this.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
     this.previewProfilePic = userDetails.uploadPaths && userDetails.uploadPaths.uploadPath && userDetails.userImage ? userDetails.uploadPaths.uploadPath+userDetails.userImage : '';
     this.dashboardVar.years = '2019';
     this.dashboardVar.certYear = '2019';
