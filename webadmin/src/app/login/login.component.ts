@@ -131,6 +131,7 @@ export class LoginComponent implements OnInit {
       this.emailError = false;
       let loginCredential = {
         userName: data.email,
+        // emailAddress: data.email,
         password: data.password,
         type: 'web',
         agreeTerms : this.agreeTerms

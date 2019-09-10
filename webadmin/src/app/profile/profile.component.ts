@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
     profilePic;
     previewProfilePic;
     profileFile;
+    firstName;
 
    constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,public profVar: ProfileVar,private router:Router, private datepipe: DatePipe,public commonLabels:CommonLabels,private utilService : UtilService,private userService : UserService,private breadCrumbService :BreadCrumbService,private commonService : CommonService){
    
@@ -50,6 +51,7 @@ export class ProfileComponent implements OnInit {
   
    getProfile(){
     this.userDetails = this.utilService.getUserData();
+    this.firstName = this.userDetails.firstName ? this.userDetails.firstName : '';
     this.profVar.userName=this.userDetails.userName;
     this.userId = this.userDetails.userId;
     this.profVar.email=this.userDetails.email;
@@ -71,6 +73,7 @@ export class ProfileComponent implements OnInit {
            let postData=form.value;
            let obj = {
                 userName : this.profVar.userName,
+                firstName : this.firstName,
                 email : this.profVar.email,
                 phoneNumber : this.profVar.mobile,
                 designationId:this.designationId,
@@ -80,11 +83,12 @@ export class ProfileComponent implements OnInit {
                 dateOfBirth  : this.datepipe.transform( this.profVar.dob , 'dd MMM yyyy'),
                 accessTo: 'web',
             };
-           if(this.profVar.userName && this.profVar.mobile && this.profVar.email && !this.validPhone){
+           if(this.profVar.userName && this.firstName && this.profVar.mobile && this.profVar.email && !this.validPhone){
                 this.userService.updateUser(this.userId,obj).subscribe(resp=>{
                     if(resp && resp.isSuccess){
                         this.router.navigateByUrl('/profile');
                         this.userDetails.userName = this.profVar.userName;
+                        this.userDetails.firstName = this.firstName;
                         this.userDetails.email = this.profVar.email;
                         this.userDetails.phoneNumber =  this.profVar.mobile;
                         localStorage.removeItem("userData");

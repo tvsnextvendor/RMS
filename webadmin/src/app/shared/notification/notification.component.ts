@@ -19,7 +19,7 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     let userData= this.utilService.getUserData();
     this.uploadPath = userData && userData.uploadPaths && userData.uploadPaths.uploadPath ? userData.uploadPaths.uploadPath : '';
-    // this.getNotification();
+    this.getNotification();
   }
 
 

@@ -46,7 +46,7 @@ export class ResortChartsComponent implements OnInit {
          private utilService :UtilService,
          private courseService :CourseService) {
         this.dashboardVar.url = API_URL.URLS;
-    this.dashboardVar.userName = this.utilService.getUserData().username;
+    this.dashboardVar.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
     this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     this.resortName = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortName;
@@ -63,7 +63,7 @@ export class ResortChartsComponent implements OnInit {
         // this.getData();
         this.roleId = this.utilService.getRole();
         let userDetails = this.utilService.getUserData();
-        this.userName = userDetails.userName;
+        this.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
         this.getKeyStat();
         
         this.dashboardVar.years = '2019';

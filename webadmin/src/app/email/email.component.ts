@@ -192,7 +192,7 @@ export class EmailComponent implements OnInit {
         this.userDetails = this.utilService.getUserData();
         console.log(this.userDetails);
         let content = this.dataModel;
-        const signature = "<br><b>Thanks,</b><br>" + this.userDetails.userName;
+        const signature = "<br><b>Thanks,</b><br>" + this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;;
         if(this.setSignatureStatus){
             this.dataModel = (content) ? content + signature : signature;
             this.setSignatureStatus = false;

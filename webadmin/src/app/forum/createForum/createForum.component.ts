@@ -145,7 +145,7 @@ export class CreateForumComponent implements OnInit {
         this.adminData = resp.data.map(item => {
           const admin = {
             id: item.userId,
-            value: item.userName
+            value: item.firstName +' '+ item.lastName
           };
           return admin;
         });
