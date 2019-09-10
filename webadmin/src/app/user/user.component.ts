@@ -827,6 +827,9 @@ export class UserComponent implements OnInit {
                 this.userList();
                 this.alertService.success(this.commonLabels.msgs.diviDeleted);
             }
+        },err=>{
+            this.constant.modalRef.hide();
+            this.alertService.error(err.error.error);
         })
     }
 
