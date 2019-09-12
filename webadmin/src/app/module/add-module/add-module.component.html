@@ -49,6 +49,7 @@
 		</div>
 		<div *ngIf ="!moduleVar.tabEnable" class="clearfix text-center mt-4">
 			<button type="button" class="btn btn-primary btn-save" (click)="openEditModal(confirm,'batch')">{{commonLabels.btns.save}}</button>
+			<button type="button" *ngIf="preview" class="btn btn-primary btn-save ml-8" (click)="goToPreview()">{{commonLabels.btns.preview}}</button>
 		</div>
 	</form>
 	<div class="col-md-4 p-0 ltside-sec">

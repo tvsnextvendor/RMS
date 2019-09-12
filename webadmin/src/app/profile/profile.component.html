@@ -90,7 +90,7 @@
                     </div>
                   <div class="col-lg-8">
                       <div class="py-4">
-                      <h4>{{profVar.firstName  | titlecase}}</h4>
+                      <h4>{{firstName  | titlecase}}</h4>
                       <button type = "submit" class="btn btn-primary profile-save-btn">{{commonLabels.btns.save}}</button>
                   </div>
                   </div>
@@ -117,7 +117,7 @@
                   <div class="row">  		
                     <label class="col-lg-3 label-title">{{commonLabels.labels.userName}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>  		
                     <div class="col-lg-6">
-                       <input class="form-control" name="username" [(ngModel)]="profVar.userName" #UserName="ngModel" type="text" required>
+                       <input disabled class="form-control" name="username" [(ngModel)]="profVar.userName" #UserName="ngModel" type="text" required>
                        <span class="required_color" *ngIf="UserName && UserName.invalid && (formDir.submitted || UserName.touched)">
                            {{profVar.mandatoryLabels.name}}
                       </span>   

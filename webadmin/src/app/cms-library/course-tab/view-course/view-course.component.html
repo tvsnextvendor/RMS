@@ -1,0 +1,63 @@
+<div class="tab-section pt-3">
+    <form class="float-right row pb-3 filter-search">
+        <div class="search-container clearfix">
+            <!-- <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox"> -->
+            <button type = "button" class="btn btn-primary" (click)="goToCourse()">Edit Course</button>
+            <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
+        </div>
+    </form>   
+  <tabset #staticTabs class="course-tab" *ngIf="courseDetails.length">
+    <tab *ngFor="let course of courseDetails;let i = index" heading={{course?.TrainingClass?.trainingClassName}} (select)="classTabSelect(i)">
+      <!-- <div>{{course.trainingClassId}}</div> -->
+        <div id="coss" class="col-md-12 p-3 mb-3 clearfix px-0">
+          <div class="white-bg p-3 clearfix" *ngIf="course?.TrainingClass?.FileMappings.length">
+              <div class="file-title">Files</div>
+              <div *ngFor="let file of course?.TrainingClass?.FileMappings">
+                <div class="row col-md-12">
+                  <span class="text-over col-md-3 p-3">Training Class Name</span>
+                  <span class="text-over col-md-6 p-3">File Name</span>
+                </div>
+                <div class="row col-md-12">
+                  <span class="col-md-3 p-3 content-class">{{course?.TrainingClass?.trainingClassName}}</span>
+                  <span class="col-md-6 p-3 content-class">{{file?.File?.fileName}}</span>
+                </div>
+                <div class="row col-md-12">
+                    <span class="text-over col-md-3 p-3">Description</span>
+                </div>
+                <div class="row col-md-12">
+                  <span class="pdl-50 p-3 content-class">{{file?.File?.fileDescription}}</span>
+                </div>
+                <hr/>
+              </div>
+          </div>
+        </div>
+        <div id="coss" class="col-md-12 p-3 mb-3 clearfix px-0" *ngIf="course?.TrainingClass?.QuizMappings .length">
+            <div class="white-bg p-3 clearfix">
+                <div class="file-title">Quiz</div>
+                <div *ngFor="let quiz of course?.TrainingClass?.QuizMappings">
+                    <div class="row col-md-12">
+                        <span class="text-over col-md-3 p-3">Quiz Name</span>
+                      </div>
+                  <div class="row col-md-12">
+                    <span class="col-md-3 p-3 content-class">{{quiz?.Quiz?.quizName}}</span>
+                  </div>
+                  <div *ngFor="let que of quiz?.Quiz?.Questions;let qi =index">
+                      <div class="row col-md-12">
+                        <span class="text-over col-md-3 p-3">Q{{qi+1}} : {{que.questionName}}</span>
+                      </div>
+                      <div class="row col-md-12">
+                        <span class="pdl-50 p-3 content-class">Ans : {{que.answer}}</span>
+                      </div>
+                      <hr/>
+                  </div>
+                </div>
+            </div>
+          </div>
+    </tab>
+  </tabset>
+  <div class="white-bg text-center p-4" *ngIf="!courseDetails.length">
+    <p class="data-design m-0">
+        <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
+    </p>
+</div>
+</div>

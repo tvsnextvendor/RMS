@@ -251,3 +251,7 @@ span.nodata {
  clear: both;
  padding-bottom: 0px;
 }
+
+.ml-8{
+    margin-left: 8px;
+}

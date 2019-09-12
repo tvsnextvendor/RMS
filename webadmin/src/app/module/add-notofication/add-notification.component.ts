@@ -64,6 +64,7 @@ export class AddNotificationComponent implements OnInit {
   inputUrl;
   jobId;
   transcodeUrl;
+  schedulePage = false;
 
   constructor(private breadCrumbService: BreadCrumbService, public location: Location, private alertService: AlertService, private headerService: HeaderService, public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
     public commonLabels: CommonLabels, private utilService: UtilService, private resortService: ResortService, private courseService: CourseService, private commonService: CommonService, private userService: UserService, private permissionService: PermissionService) {
@@ -75,6 +76,9 @@ export class AddNotificationComponent implements OnInit {
       if (items && items.library) {
         this.resourceLib = true;
       }
+      else if(items && items.schedule){
+        this.schedulePage = true;
+      }
     });
   }
 
@@ -83,6 +87,11 @@ export class AddNotificationComponent implements OnInit {
     if (this.resourceLib) {
       this.headerService.setTitle({ title: 'Edit', hidemodule: false });
       let data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.editNotification, url: '' }]
+      this.breadCrumbService.setTitle(data);
+    }
+    else if(this.schedulePage){
+      this.headerService.setTitle({ title: 'Schedule', hidemodule: false });
+      let data = [{ title: this.commonLabels.labels.calendarView, url: '/calendar' }, { title: this.commonLabels.labels.editNotification, url: '' }]
       this.breadCrumbService.setTitle(data);
     }
     else if (this.notifyId) {

@@ -147,14 +147,14 @@
                                     <th class="text-center">
                                         <mfDefaultSorter by="email">{{commonLabels.labels.action}}</mfDefaultSorter>
                                     </th>
-                                    <th class="text-center">
+                                    <!-- <th class="text-center">
                                         <mfDefaultSorter by="status">{{commonLabels.labels.view}}</mfDefaultSorter>
-                                    </th> 
+                                    </th>  -->
                                 </tr>
                             </thead>
                             <tbody *ngFor="let division of mf1.data,index as i">
                                 <tr class="table-desc-color">
-                                    <td class="text-center"><label class="mb-0">{{ division?.Division?.divisionName}}</label></td>
+                                    <td class="text-center"><label class="mb-0" (click)="hideDepartment(i)">{{ division?.Division?.divisionName}}</label></td>
                                     <td class="text-center"><label class="mb-0">{{ division?.Division?.divisionEmployees}}</label></td>
                                     <td class="text-center">
                                     <div>
@@ -163,7 +163,7 @@
                                         <a *ngIf = "permissionCheck()" (click)="removeDivision(deleteDivision,division,i)" class="ml-10" title="Delete"><i class="fas fa-trash"></i></a>
                                     </div>                            
                                     </td>   
-                                    <td class="text-center"><label class="mb-0"><a *ngIf = "permissionCheck()" class="ml-10" (click)="hideDepartment(i)"  title="view"><i class="fa fa-comment"></i></a></label></td>    
+                                    <!-- <td class="text-center"><label class="mb-0"><a *ngIf = "permissionCheck()" class="ml-10" (click)="hideDepartment(i)"  title="view"><i class="fa fa-comment"></i></a></label></td>     -->
                                 </tr>
                                 <tr *ngIf="division.expand">
                                     <td  class="text-center">
@@ -197,7 +197,7 @@
                                         </ul>
                                     </td>
                                     <td></td>
-                                    <td></td>
+                                    <!-- <td></td> -->
                                 </tr>
                                 <tr *ngIf="mf1.data?.length == 0">
                                     <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>

@@ -271,5 +271,9 @@ export class CourseService {
     return this.http.getLocal('local',this.url.getCourseByResort+query);
   }
 
+  getAllCourseDetails(query){
+    return this.http.getLocal('local',this.url.getAllCourseDetails+query);
+  }
+
 
 }

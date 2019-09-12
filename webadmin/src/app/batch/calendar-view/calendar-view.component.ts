@@ -108,7 +108,7 @@ export class CalendarViewComponent implements OnInit {
         if(addBatch == "editBatch"){
             if(scheduleId.scheduleType == 'notification'){
                 let id = scheduleId.notificationFileId;
-                this.router.navigate(['/cms-library'],{queryParams : {notifyId : id,type:"create",tab:"notification"}});
+                this.router.navigate(['/cms-library'], { queryParams: { notifyId: id, type: "create", tab: "notification", schedule: true } });
             }
             else{
                 this.pageUpdate(event,scheduleId,i,addBatch);
