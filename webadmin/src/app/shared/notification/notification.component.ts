@@ -28,11 +28,10 @@ export class NotificationComponent implements OnInit {
     let socketObj = {
       userId: userData.userId
     };  
-    Observable.interval(10000).subscribe(observer => {	
+    Observable.interval(20000).subscribe(observer => {	
       this.socketService.getNotification(socketObj).subscribe((data) => {
           this.notificationCount = data['unReadCount'];
           this.notificationList = data['rows'];
-        //  console.log(this.notificationList)
       });
     });
    }

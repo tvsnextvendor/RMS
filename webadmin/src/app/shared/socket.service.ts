@@ -25,6 +25,10 @@ export class SocketService {
             this.socket.once("getNotifications", function(data) {
                 subject.next(data.notifications);
             });
+            return () => {
+                this.socket.on('notify_processdone',this.socket.close());
+                this.socket.disconnect();
+              };  
         });
         return subject;
     }
