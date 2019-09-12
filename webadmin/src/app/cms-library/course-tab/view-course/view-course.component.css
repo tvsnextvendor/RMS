@@ -1,0 +1,20 @@
+.file-title{
+    color: #468FB9
+}
+
+.pdl-50{
+    padding-left: 50px;
+}
+
+.text-over{
+    float: left;
+    line-height: 1px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.content-class{
+    font-size: 12px;
+    line-height: 1px;
+    color: #697380;
+}

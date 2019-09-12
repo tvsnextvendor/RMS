@@ -71,6 +71,7 @@ export class AddQuizComponent implements OnInit {
     answerEmpty = false;
     optionEmpty = false;
     editEnable = false;
+    preview = false;
     @ViewChild('tcNameChange') modalTemplate : TemplateRef<any>;
 
 
@@ -79,6 +80,7 @@ export class AddQuizComponent implements OnInit {
         this.apiUrls = API_URL.URLS;
         this.activatedRoute.queryParams.subscribe((params) => {
             this.classId = params.classId ? params.classId : '';
+            this.preview = params.preview ? true : false;
         });
         this.userData = this.utilService.getUserData();
         this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
@@ -897,5 +899,10 @@ export class AddQuizComponent implements OnInit {
         }
     })
   }
+
+  goToPreview(){
+    // moduleId
+    this.route.navigateByUrl('/viewCourse/'+this.moduleId);
+}
 
 }

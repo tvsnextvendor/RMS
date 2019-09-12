@@ -56,8 +56,8 @@ export class EmailComponent implements OnInit {
         this.headerService.setTitle({ title: this.emailVar.title, hidemodule: false });
         this.breadCrumbService.setTitle([]);
         let userData = this.utilService.getUserData();
-        let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
-        this.getDivisionList(resortId);
+        let resortId = userData.ResortUserMappings && userData.ResortUserMappings.length && userData.ResortUserMappings[0].Resort ? userData.ResortUserMappings[0].Resort.resortId : '';
+        resortId && this.getDivisionList(resortId);
         // this.departmentList();
 
        this.editorConfig= {

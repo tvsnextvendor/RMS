@@ -71,6 +71,8 @@ export class AddModuleComponent implements OnInit {
     modalConfig;
     deleteFileData;
     deleteFileIndex;
+    preview = false;
+    previewId;
     // selectedCourseIds:any;
 
     constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels,private permissionService : PermissionService) {
@@ -81,6 +83,8 @@ export class AddModuleComponent implements OnInit {
             this.duplicateCourse = params.duplicate ? true : false;
             this.classId = params.classId ? params.classId : '';
             this.moduleId = params.moduleId  ? params['moduleId'] : '';
+            this.preview = params.preview ? true : false;
+            this.preview && (this.previewId = params.previewId ? params.previewId : '');
         });
         this.userData = this.utilService.getUserData();
         this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
@@ -148,6 +152,10 @@ export class AddModuleComponent implements OnInit {
               this.addedFiles = [];
             });
             this.courseData('');
+        }
+        if(this.previewId){
+            let obj = {id : this.previewId}
+            this.updateCourse(obj,'');
         }
     }
 
@@ -1070,6 +1078,12 @@ export class AddModuleComponent implements OnInit {
         }
         // this.existingFile = [];
         this.fileExist = false;
+        this.preview = false;
+    }
+
+    goToPreview(){
+        // moduleId
+        this.route.navigateByUrl('/viewCourse/'+this.moduleId);
     }
 
 }

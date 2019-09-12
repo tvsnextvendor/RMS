@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(){
     let userData= this.utilService.getUserData();
     this.uploadPath = userData && userData.uploadPaths && userData.uploadPaths.uploadPath ? userData.uploadPaths.uploadPath : '';
-    this.getNotification();
+    // this.getNotification();
     this.headerService.TitleDetail.subscribe((resp) => { 
       setTimeout(() =>{ this.headerVar.title=resp.title,
           this.headerVar.hideModule=resp.hidemodule 

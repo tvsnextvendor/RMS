@@ -6,6 +6,7 @@ import { AuthGuard } from '../guard/auth.guard.component';
 import { CMSLibraryComponent } from './cms-library.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {DndModule} from 'ng2-dnd';
 import { DataTableModule } from "angular-6-datatable";
@@ -27,6 +28,7 @@ import {moduleModule} from '../module/module.module';
 import { WorkCourseListComponent } from './work-inprogress/work-inprogress-list.component';
 import { CmsPageComponent } from './cms-page/cms-page.component';
 import {CreateQuizComponent} from './add-quiz/add-quiz.component';
+import { ViewCourseComponent } from './course-tab/view-course/view-course.component';
 
 
 const routes: Routes = [
@@ -38,7 +40,8 @@ const routes: Routes = [
     { path: 'workinprogress', component:  WorkCourseListComponent ,canActivate : [AuthGuard]},
     { path: 'cmspage', component:  CmsPageComponent ,canActivate : [AuthGuard]},
     { path: 'createQuiz' , component : CreateQuizComponent,canActivate : [AuthGuard]},
-    { path : 'resource/library', component : CMSLibraryComponent, canActivate : [AuthGuard]}
+    { path : 'resource/library', component : CMSLibraryComponent, canActivate : [AuthGuard]},
+    { path : 'viewCourse/:id', component : ViewCourseComponent, canActivate : [AuthGuard]},
 ];
 
 export const MY_MOMENT_FORMATS = {
@@ -64,7 +67,8 @@ export const MY_MOMENT_FORMATS = {
     BatchModule,
     moduleModule,
     BsDropdownModule.forRoot(),
-    DataTableModule
+    DataTableModule,
+    TabsModule
   ],
   declarations: [
     CMSLibraryComponent, 
@@ -81,7 +85,8 @@ export const MY_MOMENT_FORMATS = {
     ContentFileComponent,
     WorkCourseListComponent,
     CmsPageComponent,
-    CreateQuizComponent
+    CreateQuizComponent,
+    ViewCourseComponent
   ],
   bootstrap: [CMSLibraryComponent]
 })

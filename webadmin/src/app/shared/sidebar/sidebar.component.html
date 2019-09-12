@@ -141,9 +141,9 @@
             <li [class.active]="router.isActive('/approvalrequests')"  *ngIf="permissionCheck('Approval Request','view')">
                 <a routerLink="/approvalrequests"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.approvalRequests}}</a>
             </li>
-            <li [class.active]="router.isActive('/forum')"  *ngIf="permissionCheck('Forum','view')">
+            <!-- <li [class.active]="router.isActive('/forum')"  *ngIf="permissionCheck('Forum','view')">
                 <a routerLink="/forum"><img src="{{commonLabels.imgs.forum}}"class="pr-3"><span class="sidebar-title">{{commonLabels.labels.forum}}</span></a>
-            </li>
+            </li> -->
             <li [class.active]="router.isActive('/certificates')" *ngIf="permissionCheck('Certificates','view')">
                 <a routerLink="/certificates"><img src="assets/images/Certificates.png"class="pr-3">{{commonLabels.titles.certificate}}</a>
             </li>
@@ -252,9 +252,9 @@
                 <li [class.active]="router.isActive('/approvalrequests')" *ngIf="permissionCheck('Approval Request','view')">
                     <a routerLink="/approvalrequests"><img src="{{commonLabels.imgs.archival}}"class="pr-3">{{commonLabels.titles.approvalRequests}}</a>
                 </li>
-                <li [class.active]="router.isActive('/forum')" *ngIf="permissionCheck('Forum','view')">
+                <!-- <li [class.active]="router.isActive('/forum')" *ngIf="permissionCheck('Forum','view')">
                     <a routerLink="/forum"><img src="{{commonLabels.imgs.forum}}"class="pr-3"><span class="sidebar-title">{{commonLabels.labels.forum}}</span></a>
-                </li>
+                </li> -->
                 <li [class.active]="router.isActive('/certificates')" *ngIf="permissionCheck('Certificates','view')">
                     <a routerLink="/certificates"><img src="assets/images/Certificates.png"class="pr-3">{{commonLabels.titles.certificate}}</a>
                 </li>

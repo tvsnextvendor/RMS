@@ -229,6 +229,7 @@ export class API_URL {
     sendEmail       : "8103/user/sendReportEmail",
     videoTrans : "8103/uploadDocuments",
     removeTrans  : '8103/removeDocuments',
+    getAllCourseDetails : '8103/course/getSpecificCourseDatas/',
      // addArchieve : '8103/archieved',
     // updateArchieve : '8103/archieved/',
 
