@@ -48,6 +48,7 @@ export class TrainingDetailPage {
     fileUrl;
     showPreView;
     trainingStatus;
+    timerArr = [];
     paramsToSend: any = {};
     isCollapsed: boolean = true;
     @Input() text: string;
@@ -71,7 +72,8 @@ export class TrainingDetailPage {
     allTrainingClasses;
     allTrainingClassesCount;
     options : InAppBrowserOptions = {
-        location : 'yes',//Or 'no' 
+        location : 'no',//Or 'no' 
+        footer : 'yes',
         hidden : 'no', //Or  'yes'
         clearcache : 'yes',
         clearsessioncache : 'yes',
@@ -105,83 +107,41 @@ export class TrainingDetailPage {
         this.status= this.detailObject['status'] ? this.detailObject['status'] : '' ;
     }
 
-      ngAfterViewInit() {
+      ionViewWillEnter() {
           this.quizBtnDisable = false;
             let self = this;
-            this.storage.get('currentUser').then((user: any) => {
-            if (user) {
-             self.currentUser = user;
-             self.resortId = self.currentUser.ResortUserMappings[0].resortId;
-             self.userId = self.currentUser ? self.currentUser.userId : '';
-             this.getCourseTrainingClasses();
-             this.start();
+           
+
+        this.storage.get('timer').then((det: any) => {
+            if (det) {
+               console.log(det,"Detail");
+                // let data = det.filter(x => x.trainingClassId === this.detailObject.trainingClassId);
+                this.stoppedDuration = det.stoppedDuration;
+                this.timeBegan = det.timeBegan;
+                this.timeStopped = det.timeStopped;
+                // console.log(data,"DATA")
             }
         });
-      }
 
-
-      ionViewWillEnter(){
-          this.quizBtnDisable = false;
-      }
-
-
-       start() {
-            if(this.running) return;
-            if (this.timeBegan === null) {
-                this.reset();
-                this.timeBegan = new Date();
+        this.storage.get('currentUser').then((user: any) => {
+            if (user) {
+                self.currentUser = user;
+                self.resortId = self.currentUser.ResortUserMappings[0].resortId;
+                self.userId = self.currentUser ? self.currentUser.userId : '';
+                this.getCourseTrainingClasses();
+                this.start();
             }
-            if (this.timeStopped !== null) {
-            let newStoppedDuration:any = (+new Date() - this.timeStopped)
-            this.stoppedDuration = this.stoppedDuration + newStoppedDuration;
-            }
-            this.started = setInterval(this.clockRunning.bind(this), 10);
-            this.running = true;
-        }
+        });
 
-        stop() {
-            this.running = false;
-            this.timeStopped = new Date();
-            clearInterval(this.started);
-         }
-
-       zeroPrefix(num, digit) {
-            let zero = '';
-            for(let i = 0; i < digit; i++) {
-                zero += '0';
-            }
-            return (zero + num).slice(-digit);
-       }
-
-       clockRunning(){
-            let currentTime:any = new Date()
-            let timeElapsed:any = new Date(currentTime - this.timeBegan - this.stoppedDuration)
-            let hour = timeElapsed.getUTCHours()
-            let min = timeElapsed.getUTCMinutes()
-            let sec = timeElapsed.getUTCSeconds()
-            // let ms = timeElapsed.getUTCMilliseconds();
-            this.time =
-            this.zeroPrefix(hour, 2) + ":" +
-            this.zeroPrefix(min, 2) + ":" +
-            this.zeroPrefix(sec, 2);
-            // this.zeroPrefix(ms, 3);
-        };
-
-       reset() {
-            this.running = false;
-            clearInterval(this.started);
-            this.stoppedDuration = 0;
-            this.timeBegan = null;
-            this.timeStopped = null;
-            this.time = this.blankTime;
+        this.quizBtnDisable = false;
+        
       }
-
 
         getCourseTrainingClasses() {
             let self = this;
             return new Promise(resolve => {
             this.http.get(API_URL.URLS.trainingClassFilesAPI+'?trainingClassId='+this.detailObject.trainingClassId+'&trainingScheduleId='+this.detailObject.trainingScheduleId+'&resortId='+ this.resortId +'&userId='+this.userId+'&type='+'mobile').subscribe((res) => {
-                if(res.isSuccess){
+                if(res['isSuccess']){
                 self.feedback = res['data']['feedback'];
                 self.allTrainingClasses = res['data']['file'];  
                 self.status = self.detailObject['setData']['typeSet'] == 'Class' ? ( (self.feedback.length  && self.feedback[0].status) ? self.feedback[0].status : 'inProgress' )  : self.detailObject['status'];
@@ -194,9 +154,9 @@ export class TrainingDetailPage {
                 self.detailObject['setData']['passPercentage'] = this.detailObject['setData']['typeSet'] == 'Class' ? ( res['data'].schedulePercentage.length ? res['data'].schedulePercentage[0].passPercentage: '') : self.detailObject['setData']['passPercentage'] ;
                 self.detailObject['setData']['trainingClassName'] = self.allTrainingClasses[0].TrainingClass.trainingClassName;
                 this.loadingBarWidth = (100 / parseInt(self.allTrainingClasses.length, 10));
-                console.log(this.loadingBarWidth,"LoadingBar");
                 self.imagePath = res['data']['uploadPaths']['uploadPath'];
                 this.loadFirstFile();
+                //this.disableSeeking();
                 resolve('resolved');
                 }
             }, (err) => {
@@ -207,7 +167,7 @@ export class TrainingDetailPage {
         }
 
 
-      // first page load
+     // first page load
      loadFirstFile() {
         this.prevBtn = this.initial == 0 ? true : false;
         this.setTraining = this.allTrainingClasses[0].File;
@@ -220,14 +180,18 @@ export class TrainingDetailPage {
             htmlVideoTag.load();
         }
         this.text = this.setTraining.fileDescription;
+        setTimeout(() => {
+          this.disableSeeking();
+        }, 2000);
      }
 
-      ionViewDidEnter(){
+      disableSeeking(){
         //Restrict forward video
         if(!this.imageType){
          var video = <HTMLMediaElement>document.getElementById('video-width');
          var supposedCurrentTime = 0;
          if(video){
+            //  console.log(video)
          video.ontimeupdate = function() {
              if (video.seeking == false) {
                  supposedCurrentTime = video.currentTime;
@@ -277,9 +241,9 @@ export class TrainingDetailPage {
             'resortId': this.resortId
         }
         this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
-            if(res.isSuccess){
-                if(res.data.statusKey == false){
-                     this.toastrMsg(res.data.message, "error")
+            if(res['isSuccess']){
+                if(res['data']['statusKey'] == false){
+                     this.toastrMsg('Please view all the contents of the class before you take up the quiz.', "error")
                 }else{
                     if (this.videotag) {
                         const htmlVideoTag = this.videotag.nativeElement;
@@ -312,7 +276,8 @@ export class TrainingDetailPage {
                                           self.paramsData['scheduleId'] = this.detailObject['scheduleId'],
                                           self.paramsData['timeStopped'] = self.timeStopped,
                                           self.paramsData['timeBegan'] = self.timeBegan,
-                                          self.paramsData['time']  = self.time
+                                          self.paramsData['stoppedDuration'] = self.stoppedDuration
+                                        //   self.paramsData['time']  = self.time
 
                                               self.navCtrl.push(QuizPage, self.paramsData);
                                       }
@@ -376,9 +341,9 @@ export class TrainingDetailPage {
             'resortId': this.resortId
         }
         this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
-            if(res.isSuccess){
-                if(res.data.statusKey == false){
-                     this.toastrMsg(res.data.message, "error")
+            if(res['isSuccess']){
+                if(res['data']['statusKey'] == false){
+                     this.toastrMsg('Please view all the contents of the class before you take up the quiz.', "error")
                 }else{
                    const resultData = {
                        "courseId": this.detailObject['setData'].courseId,
@@ -413,9 +378,49 @@ export class TrainingDetailPage {
     goBackToDetailPage() {
         this.paramsToSend['status'] = this.trainingStatus;
         this.navCtrl.pop(this.paramsToSend);
+        this.stop();
+
+        // this.storage.get('timer').then(value => {
+        //   if(value){
+        //    value.map(x => {  
+        //        if(x.trainingClassId === this.detailObject.trainingClassId){
+        //             x.timeStopped = this.timeStopped;
+        //             x.timeBegan = this.timeBegan;
+        //             x.stoppedDuration = this.stoppedDuration;
+        //             x.trainingClassId = this.detailObject.trainingClassId;
+  
+        //          this.storage.set('timer', x);
+
+        //        } else{
+                    
+        //             let obj = {
+        //                 'timeStopped': this.timeStopped,
+        //                 'timeBegan': this.timeBegan,
+        //                 'stoppedDuration': this.stoppedDuration,
+        //                 'trainingClassId': this.detailObject.trainingClassId
+        //             };
+        //             this.timerArr.push(obj);
+        //             this.storage.set('timer', this.timerArr);
+        //        }
+
+        //    });
+        // }else{
+            // let arr =[];
+            let obj = {
+                'timeStopped': this.timeStopped,
+                'timeBegan': this.timeBegan,
+                'stoppedDuration': this.stoppedDuration
+                // 'trainingClassId': this.detailObject.trainingClassId
+            };
+            // arr.push(obj);
+            this.storage.set('timer', obj);
+        // }
+
+        // })
+
     }
 
-    // navigation updations
+
     checkNavigationButton() {
         let currentIndex = this.slides.getActiveIndex();
         this.currentVideoIndex = currentIndex;
@@ -446,6 +451,9 @@ export class TrainingDetailPage {
         const htmlVideoTag = this.videotag.nativeElement;
         htmlVideoTag.load();
         }
+        setTimeout(() => {
+            this.disableSeeking();
+        }, 2000);
         this.fileId = this.setTraining.fileId;
         this.text = this.setTraining.fileDescription;
         this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
@@ -469,6 +477,9 @@ export class TrainingDetailPage {
                 const htmlVideoTag = this.videotag.nativeElement;
                 htmlVideoTag.load();
             }
+            setTimeout(() => {
+                this.disableSeeking();
+            }, 2000);
             this.prevBtn = this.initial == 0 ? true : false;
             this.quizBtn = (this.initial === this.lastIndexs) ? true : false;
         }
@@ -585,12 +596,12 @@ export class TrainingDetailPage {
             }
 
                let baseUrl = rootUrl+this.uploadPath;
-               
+
             this.calculatePercentage(setTraining.fileId);
              console.log(baseUrl);
              this.platform.ready().then(() => {
                  if (this.platform.is('android') || this.platform.is('mobileweb') || this.platform.is('browser')) {
-                     this.openWithSystemBrowser(baseUrl);
+                     this.openWithCordovaBrowser(baseUrl);
                      console.log("running on Android device!");
                  }
                  if (this.platform.is('ios')) {
@@ -611,12 +622,65 @@ export class TrainingDetailPage {
                this.perAfterView = Math.round(this.loadingBarWidth * (arrLength + 1))
            }else{
               if (this.fileIdsArr.indexOf(fileId) !== -1) {
-                  alert("Value exists!")
+                //   alert("Value exists!")
               } else {
                   this.fileIdsArr.push(fileId);
                   this.perAfterView = Math.round(this.loadingBarWidth * (arrLength + 1));
               }              
            }
         }
+
+
+     start() {
+            if(this.running) return;
+            if (this.timeBegan === null) {
+                this.reset();
+                this.timeBegan = new Date();
+            } 
+            if (this.timeStopped !== null) {
+                let currentTime: any = new Date();
+            let newStoppedDuration:any = (currentTime - this.timeStopped)
+            this.stoppedDuration = this.stoppedDuration + newStoppedDuration;
+            }
+            this.started = setInterval(this.clockRunning.bind(this), 10);
+            this.running = true;
+        }
+
+        stop() {
+            this.running = false;
+            this.timeStopped = new Date();
+            clearInterval(this.started);
+         }
+
+       zeroPrefix(num, digit) {
+            let zero = '';
+            for(let i = 0; i < digit; i++) {
+                zero += '0';
+            }
+            return (zero + num).slice(-digit);
+       }
+
+       clockRunning(){
+            let currentTime:any = new Date()
+            let timeElapsed:any = new Date(currentTime - this.timeBegan - this.stoppedDuration)
+            let hour = timeElapsed.getUTCHours()
+            let min = timeElapsed.getUTCMinutes()
+            let sec = timeElapsed.getUTCSeconds()
+            this.time =
+            this.zeroPrefix(hour, 2) + ":" +
+            this.zeroPrefix(min, 2) + ":" +
+            this.zeroPrefix(sec, 2);
+        };
+
+       reset() {
+            this.running = false;
+            clearInterval(this.started);
+            this.stoppedDuration = 0;
+            this.timeBegan = null;
+            this.timeStopped = null;
+            this.time = this.blankTime;
+      }
+
+
 
 }
