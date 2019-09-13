@@ -16,8 +16,6 @@ import { CommonLabels } from '../Constants/common-labels.var';
 
 export class SettingsComponent implements OnInit {
 
-    
-
    constructor(private alertService:AlertService,public location: Location,private headerService:HeaderService,private toastr:ToastrService,private router:Router,public constant:SettingVar,private utilService : UtilService,private commonService : CommonService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService){}
 
    ngOnInit(){

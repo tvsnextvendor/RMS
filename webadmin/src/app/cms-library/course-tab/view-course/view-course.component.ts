@@ -47,4 +47,51 @@ export class ViewCourseComponent implements OnInit {
   classTabSelect(index){
     this.classId = this.courseDetails.length && this.courseDetails[index].TrainingClass && this.courseDetails[index].TrainingClass.trainingClassId ? this.courseDetails[index].TrainingClass.trainingClassId : '';
   }
+  updateClass(classId,i){
+    console.log(classId,this.courseDetails[i])
+    let user = this.utilService.getUserData();
+    let resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : null;
+    let data = this.courseDetails[i]
+    let params = {
+      "trainingClassName": data.trainingClassName,
+      "files": [],
+      "createdBy" : user.userId,
+      "quizName": data.TrainingClass.QuizMappings.length ? data.TrainingClass.QuizMappings[0].Quiz.quizName : '',
+      "quiz" : {},
+      "trainingClassId": data.trainingClassId,
+      "quizQuestions": [],
+      "resortId":resortId,
+      "noQuiz" : 1
+    }
+
+    if(data.TrainingClass.QuizMappings.length ){
+      delete params.noQuiz;
+      params.quiz = {
+        "quizId" : data.TrainingClass.QuizMappings[0].Quiz.quizId ,
+        "quizName": data.TrainingClass.QuizMappings[0].Quiz.quizName 
+      }
+      params.quizQuestions = data.TrainingClass.QuizMappings[0].Quiz.Questions.map((item,i)=>{
+        item.order = i+1;
+        return item
+      }) 
+    }
+    else{
+      delete params.quiz;
+      delete params.quizQuestions;
+    }
+
+    if(data.TrainingClass.FileMappings.length){
+      params.files = data.TrainingClass.FileMappings.map((item,i)=>{
+        item.File.order = i+1;
+        return item
+      })
+    }
+
+    this.courseService.updateTrainingClass(classId,params).subscribe((result) => {
+      console.log(result)
+      if(result && result.isSuccess){
+        this.getCourseDetails();
+      }
+    })
+  }
 }

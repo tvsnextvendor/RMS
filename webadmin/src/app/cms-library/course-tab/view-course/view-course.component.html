@@ -9,16 +9,16 @@
   <tabset #staticTabs class="course-tab" *ngIf="courseDetails.length">
     <tab *ngFor="let course of courseDetails;let i = index" heading={{course?.TrainingClass?.trainingClassName}} (select)="classTabSelect(i)">
       <!-- <div>{{course.trainingClassId}}</div> -->
-        <div id="coss" class="col-md-12 p-3 mb-3 clearfix px-0">
-          <div class="white-bg p-3 clearfix" *ngIf="course?.TrainingClass?.FileMappings.length">
+        <div id="coss" class="col-md-12 p-3 mb-3 clearfix px-0" *ngIf="course?.TrainingClass?.FileMappings.length">
+          <div  class="white-bg p-3" dnd-sortable-container [sortableData]="course?.TrainingClass?.FileMappings">
               <div class="file-title">Files</div>
-              <div *ngFor="let file of course?.TrainingClass?.FileMappings">
+              <div  class="dnd-bg p-3 clearfix" *ngFor="let file of course?.TrainingClass?.FileMappings;let fi = index" dnd-sortable [sortableIndex]="fi">
                 <div class="row col-md-12">
-                  <span class="text-over col-md-3 p-3">Training Class Name</span>
+                  <!-- <span class="text-over col-md-3 p-3">Training Class Name</span> -->
                   <span class="text-over col-md-6 p-3">File Name</span>
                 </div>
                 <div class="row col-md-12">
-                  <span class="col-md-3 p-3 content-class">{{course?.TrainingClass?.trainingClassName}}</span>
+                  <!-- <span class="col-md-3 p-3 content-class">{{course?.TrainingClass?.trainingClassName}}</span> -->
                   <span class="col-md-6 p-3 content-class">{{file?.File?.fileName}}</span>
                 </div>
                 <div class="row col-md-12">
@@ -27,10 +27,30 @@
                 <div class="row col-md-12">
                   <span class="pdl-50 p-3 content-class">{{file?.File?.fileDescription}}</span>
                 </div>
-                <hr/>
+                <!-- <hr/> -->
               </div>
           </div>
         </div>
+        <!-- <div class="white-bg p-3">
+          <div class="file-title">Files</div>
+          <ul class="list-group col-md-12 pt-2" dnd-sortable-container [sortableData]="course?.TrainingClass?.FileMappings">
+              <li  *ngFor="let file of course?.TrainingClass?.FileMappings; let fi = index" class="p-3" dnd-sortable [sortableIndex]="fi">
+                  <div class="row col-md-12">
+                      <span class="text-over col-md-6 p-3">File Name</span>
+                    </div>
+                    <div class="row col-md-12">
+                      <span class="col-md-6 p-3 content-class">{{file?.File?.fileName}}</span>
+                    </div>
+                    <div class="row col-md-12">
+                        <span class="text-over col-md-3 p-3">Description</span>
+                    </div>
+                    <div class="row col-md-12">
+                      <span class="pdl-50 p-3 content-class">{{file?.File?.fileDescription}}</span>
+                    </div>
+                    <hr/>
+              </li>
+          </ul>
+        </div> -->
         <div id="coss" class="col-md-12 p-3 mb-3 clearfix px-0" *ngIf="course?.TrainingClass?.QuizMappings .length">
             <div class="white-bg p-3 clearfix">
                 <div class="file-title">Quiz</div>
@@ -39,22 +59,26 @@
                         <span class="text-over col-md-3 p-3">Quiz Name</span>
                       </div>
                   <div class="row col-md-12">
-                    <span class="col-md-3 p-3 content-class">{{quiz?.Quiz?.quizName}}</span>
+                    <span class="col-md-6 p-3 content-class">{{quiz?.Quiz?.quizName}}</span>
                   </div>
-                  <div *ngFor="let que of quiz?.Quiz?.Questions;let qi =index">
-                      <div class="row col-md-12">
-                        <span class="text-over col-md-3 p-3">Q{{qi+1}} : {{que.questionName}}</span>
-                      </div>
-                      <div class="row col-md-12">
-                        <span class="pdl-50 p-3 content-class">Ans : {{que.answer}}</span>
-                      </div>
-                      <hr/>
+                  <div dnd-sortable-container [sortableData]="quiz?.Quiz?.Questions">
+                    <div class="dnd-bg p-3 clearfix" *ngFor="let que of quiz?.Quiz?.Questions;let qi =index" dnd-sortable [sortableIndex]="qi">
+                        <div class="row col-md-12">
+                          <span class="text-over col-md-12 p-3">Q{{qi+1}} : {{que.questionName}}</span>
+                        </div>
+                        <div class="row col-md-12">
+                          <span class="pdl-50 p-3 content-class">Ans : {{que.answer}}</span>
+                        </div>
+                        <!-- <hr/> -->
+                    </div>
                   </div>
                 </div>
             </div>
           </div>
+          <button *ngIf="course?.TrainingClass?.FileMappings.length" type = "button" class="btn btn-primary" (click)="updateClass(course.trainingClassId,i)">Save & next</button>
     </tab>
   </tabset>
+  
   <div class="white-bg text-center p-4" *ngIf="!courseDetails.length">
     <p class="data-design m-0">
         <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>

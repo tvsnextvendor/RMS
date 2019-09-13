@@ -154,7 +154,7 @@
                             </thead>
                             <tbody *ngFor="let division of mf1.data,index as i">
                                 <tr class="table-desc-color">
-                                    <td class="text-center"><label class="mb-0" (click)="hideDepartment(i)">{{ division?.Division?.divisionName}}</label></td>
+                                    <td class="text-center"><a href="javascript:void(0)" class="mb-0 point-cursor" (click)="hideDepartment(i)">{{ division?.Division?.divisionName}}</a></td>
                                     <td class="text-center"><label class="mb-0">{{ division?.Division?.divisionEmployees}}</label></td>
                                     <td class="text-center">
                                     <div>
@@ -906,7 +906,7 @@
                 <button class="fileUpload btn btn-primary addUser-upload creat-btn mr-3">
                     <span>{{commonLabels.labels.upload}}</span>
                     <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
-                        accept=".xlsx,.csv" />
+                        accept=".xlsx,.xls" />
                 </button>
                 <button type="button" class="btn btn-default" (click)="cancelBulkUpload()">{{commonLabels.btns.cancel}}</button>
             </div>

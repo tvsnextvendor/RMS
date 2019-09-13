@@ -152,9 +152,6 @@ export class ClasstrendComponent implements OnInit {
        });
    }
 
-   ngOnDestroy(){
-       this.search = '';
-   }
    resetSearch(){
        this.search = '';
        this.getModuleList('');
@@ -200,7 +197,7 @@ export class ClasstrendComponent implements OnInit {
     })
     // this.exportAsExcelWithFile(this.xlsxList, this.commonLabels.titles.courseTrend);
     localStorage.setItem('mailfile',JSON.stringify(this.xlsxList))
-    this.router.navigate(['/email'],{queryParams :{type:'exportmail'}})
+    this.router.navigate(['/email'],{queryParams :{type:'exportmail',selectedType:'class'}})
 }
 
    // getResort
@@ -280,5 +277,11 @@ export class ClasstrendComponent implements OnInit {
        }
 
    }
+
+   ngOnDestroy(){
+    this.search = '';
+    this.trendsVar.years = '';
+    this.trendsVar.months = '';
+    }
 
 }
