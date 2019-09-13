@@ -55,6 +55,7 @@ export class CoursePage implements OnInit {
   showProgress: boolean = true;
   showCompleted: boolean = true;
   showSignRequire: boolean = true;
+  filterEnable: boolean = true;
   hideUploadContent: boolean = false;
   currentPage = this.constant.numbers.one;
   perPageData = this.constant.numbers.ten;
@@ -146,7 +147,7 @@ export class CoursePage implements OnInit {
             postData['typeSet'] = 'Class';
           }
         this.http.put(false,API_URL.URLS.updateTrainingStatus, postData).subscribe((res) => { 
-          if(res.isSuccess){
+          if(res['isSuccess']){
               this.paramsData['courseId'] = data.courseId;
               this.paramsData['courseName'] = data.Course ? data.Course.courseName:'';
               this.paramsData['trainingScheduleId'] = data.trainingScheduleId;
@@ -249,6 +250,7 @@ export class CoursePage implements OnInit {
 
   getSignRequired(search){  
     this.loader.showLoader();  
+    this.filterEnable= false;
     this.showAssigned = true;
     this.showProgress = true;
     this.showCompleted = true;
@@ -260,7 +262,7 @@ export class CoursePage implements OnInit {
     if(res['data']['rows'].length){
       this.signRequireList =res['data']['rows'];
       this.signRequireCount = res['data']['count'];
-      this.uploadPath =res.data.uploadPath.uploadPath;
+      this.uploadPath =res['data']['uploadPath']['uploadPath'];
     }else{
       this.signRequireCount = 0;
       this.noRecordsFoundMessage = res['message'];
@@ -357,6 +359,7 @@ export class CoursePage implements OnInit {
   // show tabs
   showData(show) {
     this.showSearchBar = false;
+    this.filterEnable = true;
     this.status = show;
     switch (show) {
       case 'assigned':
