@@ -38,16 +38,19 @@ export class EmailComponent implements OnInit {
     divisionList = [];
     departmentList = [];
     filterParentDivision = null;
+    selectedType;
 
     constructor(private toastr: ToastrService,private utilService: UtilService,private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService,private activatedRoute :ActivatedRoute,private router : Router,private courseService : CourseService,private userService : UserService,public location :Location) {
         this.email.url = API_URL.URLS;
         this.activatedRoute.queryParams.subscribe(item=>{
-            console.log(item)
+            // console.log(item)
             if(item && item.type){
                 this.queryParamType = item.type;
+                this.selectedType = item.selectedType
             }
             else{
                 this.queryParamType = '';
+                this.selectedType = '';
             }
         })
     }
@@ -86,7 +89,8 @@ export class EmailComponent implements OnInit {
         if(this.queryParamType == 'exportmail'){
             let data = localStorage.getItem('mailfile');
             let file = JSON.parse(data)
-            this.exportAsExcelWithFile(file, 'Trend report');
+            let title = this.selectedType == 'course' ? 'Course trend report' :  this.selectedType == 'class' ? 'Training class trend report' : this.selectedType == 'expire' ? 'Expire trend report' : this.selectedType == 'notification' ? 'Notiification trend report' : 'Trend report';
+            this.exportAsExcelWithFile(file, title);
         }
 
     }
@@ -132,7 +136,7 @@ export class EmailComponent implements OnInit {
                 formData.append( 'file' , this.attachments[0])
             }
             this.userService.sendEmailToUser(formData).subscribe(resp=>{
-                console.log(resp)
+                // console.log(resp)
                 if(resp && resp.isSuccess){
                     localStorage.removeItem('mailfile');
                     this.resetFields();
@@ -190,9 +194,9 @@ export class EmailComponent implements OnInit {
 
     addSign() {
         this.userDetails = this.utilService.getUserData();
-        console.log(this.userDetails);
+        // console.log(this.userDetails);
         let content = this.dataModel;
-        const signature = "<br><b>Thanks,</b><br>" + this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;;
+        const signature = "<br><b>Thanks,</b><br>" + this.utilService.getUserData().firstName + ' '+(this.utilService.getUserData().lastName ? this.utilService.getUserData().lastName : '');
         if(this.setSignatureStatus){
             this.dataModel = (content) ? content + signature : signature;
             this.setSignatureStatus = false;
@@ -205,19 +209,21 @@ export class EmailComponent implements OnInit {
         let data = [];
         this.selectedDepartment = group.departmentId;
         let dept = [];
+        this.emailForm.to = '';
         dept.push(this.selectedDepartment);
         let query = {"departmentId":dept,"resortId":resortId}
         this.userService.getUserByDivDept(query).subscribe(item=>{
-            let result = item.data.length ? item.data : [];
-            data = result.map(d=>{return d.email});
-            // console.log(data)
-            if (data.length) {
-                this.emailForm.to = data;
+            if(item && item.isSuccess){
+                let result = item.data.length ? item.data : [];
+                data = result.map(d=>{return d.email});
+                // console.log(data)
+                if (data.length) {
+                    this.emailForm.to = data;
+                }
             }
-            else {
-                this.emailForm.to = '';
-                this.alertService.warn(this.commonLabels.msgs.warnMsg);
-            }
+            else{
+                this.alertService.warn(this.commonLabels.msgs.warnMsg)
+            }    
         })
     }
 
@@ -226,7 +232,7 @@ export class EmailComponent implements OnInit {
             let content = this.dataModel;
             if (files.length > 0) {   
                 this.attachments = files;           
-                console.log(this.attachments); // You will see the file
+                // console.log(this.attachments); // You will see the file
             } 
             else if(type == 'mail' && files){
                 this.attachments.push(files); 
@@ -234,8 +240,8 @@ export class EmailComponent implements OnInit {
     }
 
     removeAttachment(i){
-        console.log(i,"I");
-        console.log(this.attachments,"ATTACHMENTS");
+        // console.log(i,"I");
+        // console.log(this.attachments,"ATTACHMENTS");
         this.attachments.splice(i,1);
         if(this.queryParamType == 'exportmail'){
             localStorage.removeItem('mailfile');
@@ -261,12 +267,13 @@ export class EmailComponent implements OnInit {
           type: EXCEL_TYPE
         });
         var file = new File([data],fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-        console.log(file)
+        // console.log(file)
         this.fileUpload(file,'mail')
       }
 
       divisionChange(divisionId){
         let id = divisionId
+        this.emailForm.to = '';
         this.courseService.getDepartment(id).subscribe(result=>{
             this.departmentList = result.data.rows && result.data.rows.length && result.data.rows
         })

@@ -372,7 +372,7 @@ th.action-hd {
     }
     .inner-table{
         font-size: 15px;
-        color: #007bff;
+        color: #6c757d;;
         display: block;
         max-width: 90%;
     }
@@ -384,4 +384,8 @@ th.action-hd {
     }
     .mrl-25{
         margin-left: 25px;
+    }
+
+    .point-cursor{
+        cursor: pointer;
     }

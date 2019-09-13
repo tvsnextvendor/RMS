@@ -18,3 +18,13 @@
     line-height: 1px;
     color: #697380;
 }
+
+.drop-and-drag-pdb {
+    margin-bottom: 10px;
+}
+
+.dnd-bg{
+    margin: 10px;
+    background-color: #EDF0F8;
+
+}

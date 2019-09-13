@@ -209,10 +209,6 @@ dataSelect(type){
     // this.getModuleList('');
   this.resetFilter();
 }
-
-ngOnDestroy(){
-  this.search = '';
-}
 resetSearch(){
   this.search = '';
   this.getModuleList('');
@@ -231,30 +227,61 @@ exportAsPDF(){
 
 //Create Excel sheet
 exportAsXLSX():void {   
-  this.trendsVar.moduleList.map(item=>{
-      // moment().format('ll');
-      let list = {
-      "Course Name": item.courseName,
-      "No.of Resorts": item.resortsCount,
-      "No. of Employees":item.employeesCount
-      };
-  this.xlsxList.push(list);
-  })
+  if(this.seletedTab == 'course'){
+    this.moduleList.forEach(item=>{
+        // moment().format('ll');
+          let list ={
+            "Course Name": item.courseName,
+            "No.of Resorts": item.resortsCount,
+            "No. of Employees":item.employeesCount
+          }
+          this.xlsxList.push(list);
+      })
+      
+  }
+  else{
+    this.classList.forEach(item=>{
+      let list ={
+        "Training Class Name": item.trainingClassName,
+        "No.of Resorts": item.resortsCount,
+        "No. of Employees":item.employeesCount
+        };
+      this.xlsxList.push(list);
+    })
+  }
   this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.titles.courseTrend);
 }
 
 onMail(){
-  this.trendsVar.moduleList.map(item=>{
-      // moment().format('ll');
-      let list = {
-      "Training Class Name": item.trainingClassName,
-      "No.of Resorts": item.resortsCount,
-      "No. of Employees":item.employeesCount
-      };
-  this.xlsxList.push(list);
-  })
+   if(this.seletedTab == 'course'){
+      this.moduleList.forEach(item=>{
+          // moment().format('ll');
+            let list ={
+              "Course Name": item.courseName,
+              "No.of Resorts": item.resortsCount,
+              "No. of Employees":item.employeesCount
+            }
+            this.xlsxList.push(list);
+        })
+        
+    }
+    else{
+      this.classList.forEach(item=>{
+        let list ={
+          "Training Class Name": item.trainingClassName,
+          "No.of Resorts": item.resortsCount,
+          "No. of Employees":item.employeesCount
+          };
+        this.xlsxList.push(list);
+      })
+    }
   // this.exportAsExcelWithFile(this.xlsxList, this.commonLabels.titles.courseTrend);
   localStorage.setItem('mailfile',JSON.stringify(this.xlsxList))
-  this.route.navigate(['/email'],{queryParams :{type:'exportmail'}})
+  this.route.navigate(['/email'],{queryParams :{type:'exportmail',selectedType:'expire'}})
 }
+ngOnDestroy(){
+  this.search = '';
+  this.trendsVar.years = '';
+  this.trendsVar.months = '';
+  }
 }

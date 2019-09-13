@@ -554,7 +554,18 @@ export class AddQuizComponent implements OnInit {
             let modalConfig = {
                 class: "modal-dialog-centered"
             }
-            this.modalRef = this.modalService.show(template, modalConfig);
+            this.answerEmpty = false;
+            this.quizQuestionsForm.forEach((item,i) => {
+                if(item.questionType !=  "True/False" && !item.answer){
+                  this.answerEmpty = true;
+                }
+            })
+            if(this.answerEmpty){
+                this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
+            }
+            else{
+                this.modalRef = this.modalService.show(template, modalConfig);
+            }
         } else if (this.tabName == 'course') {
             this.alertService.error(this.commonLabels.labels.pleaseaddCourse);
         } else {

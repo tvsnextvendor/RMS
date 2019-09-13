@@ -108,7 +108,8 @@ export class TraingClassTabComponent implements OnInit {
                   (roleId != 1 ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&resortId='+resortId  : this.courseService.searchQuery(this.CMSFilterSearchEventSet)) : 
                     (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId : '&resortId=' + resortId+"&createdBy="+user.userId) : '');
     if(roleId == 4 ){
-      query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
+      let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+      query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
     }
     this.courseService.getTrainingClassList(this.currentPage,this.pageLength,query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
@@ -129,7 +130,8 @@ export class TraingClassTabComponent implements OnInit {
     // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId : '';
     // console.log(query)
     if(roleId == 4 ){
-      query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
+      let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+      query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
     }
     let newList;
     let trainList;
