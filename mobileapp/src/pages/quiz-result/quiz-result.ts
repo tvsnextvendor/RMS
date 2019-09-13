@@ -65,7 +65,7 @@ export class QuizResultPage implements OnInit {
     closeToStart() {
         this.navCtrl.push('course-page');
     }
-    
+
     feedbackForm() {
          if (!this.feedback.rating) {
              this.errorMessage =  "Rating is required"; return false;
@@ -142,6 +142,12 @@ export class QuizResultPage implements OnInit {
         this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{
             if(res['isSuccess']){
                 this.http.put(false, API_URL.URLS.completeTrainingClass,postData).subscribe(res=>{
+                    let obj = {
+                        'timeStopped': '',
+                        'timeBegan': '',
+                        'time': ''
+                    };
+                    this.storage.set('timer', obj);
                 })
             }
         })

@@ -84,6 +84,7 @@ export class AuthProvider {
     this.storage.remove('userDashboardInfo').then(() => { console.log("removed userDashboardInfo") });
     this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
     this.storage.remove('RolePermissions').then(() => {console.log("roles removed")})
+    this.storage.remove('timer').then(() => { console.log("timer removed") })
     this.dataService.sendLoginData('');
   }
   getCurrentUserDetails(){
