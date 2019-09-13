@@ -51,14 +51,13 @@ export class HttpProvider implements OnInit {
      
   }
 
-  private formatErrors(error: any) {  
+   formatErrors(error: any) {  
     let self = this; 
     if(error.status === 403 || error.status === 401){
-            console.log("Please log out and login again");
-            alert('Please Sign out and login again');
-            self.dataService.sendLoginData('');
-            //this.nav.setRoot('login-page');
-            //this.storage.remove('currentUser').then(() => { console.log("removed currentUser") });
+            console.log("cleared storage")
+            this.storage.remove('currentUser').then(() => {
+                this.dataService.sendLoginData('');          
+            })
         }else{
           return of(error.error);
         }  
@@ -67,33 +66,48 @@ export class HttpProvider implements OnInit {
   get(url) {
     this.getHeaders();
     this.API_ENDPOINT = API['API_LINK'];
-    return this.http.get(this.API_ENDPOINT+url, this.httpOptions). pipe(catchError(this.formatErrors));
+    return this.http.get(this.API_ENDPOINT+url, this.httpOptions)
+    .catch(error => {
+        return this.formatErrors(error);
+     });
   }
 
   getData(url) {
     this.getHeaders();
     this.API_ENDPOINT = API['API_URL'];
-    return this.http.get(this.API_ENDPOINT + url). pipe(catchError(this.formatErrors));
+    return this.http.get(this.API_ENDPOINT + url)
+      .catch(error => {
+        return this.formatErrors(error);
+     });
   }
 
   post(mockyStatus, params, data) {
     this.getHeaders();
     this.API_ENDPOINT = (mockyStatus) ? API['API_URL'] : API['API_LINK'];
     let body = JSON.stringify(data);
-    return this.http.post(this.API_ENDPOINT + params, body, this.httpOptions). pipe(catchError(this.formatErrors));
+    return this.http.post(this.API_ENDPOINT + params, body, this.httpOptions)
+      .catch(error => {
+        return this.formatErrors(error);
+     });
   }
 
   put(mockyStatus, params, data) {
     this.getHeaders();
     this.API_ENDPOINT = (mockyStatus) ? API['API_URL'] : API['API_LINK'];
     let body = JSON.stringify(data);
-    return this.http.put(this.API_ENDPOINT + params, body, this.httpOptions). pipe(catchError(this.formatErrors));
+    return this.http.put(this.API_ENDPOINT + params, body, this.httpOptions)
+      .catch(error => {
+        return this.formatErrors(error);
+     });
   }
 
   delete(params) {
     this.getHeaders();
     this.API_ENDPOINT = API['API_LINK'];
-    return this.http.delete(this.API_ENDPOINT +params,  this.httpOptions). pipe(catchError(this.formatErrors));
+    return this.http.delete(this.API_ENDPOINT +params,  this.httpOptions)
+      .catch(error => {
+        return this.formatErrors(error);
+     });
   }
 
    upload(params,file:Blob){
@@ -107,7 +121,10 @@ export class HttpProvider implements OnInit {
              'Authorization': this.currentUser
          })
      };
-     return this.http.post(this.API_ENDPOINT+params, formData,this.httpOptions).pipe(catchError(this.formatErrors));
+     return this.http.post(this.API_ENDPOINT+params, formData,this.httpOptions)
+       .catch(error => {
+        return this.formatErrors(error);
+     });
 }
 
 }

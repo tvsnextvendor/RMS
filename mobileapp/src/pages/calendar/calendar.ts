@@ -44,7 +44,8 @@ export class CalendarPage implements OnInit   {
 
    //Nav to training schedule
     goBack(){
-    this.navCtrl.push('event-page');
+    // this.navCtrl.push('event-page');
+    this.navCtrl.pop();
     }
  
    //set month name

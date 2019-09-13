@@ -7,7 +7,7 @@
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.training}}</span>
         <div class="header-icon">
-          <span (click)="presentPopover($event)">
+          <span (click)="presentPopover($event)" *ngIf="filterEnable">
             <ion-icon name="ios-funnel-outline"  class="chat-icon"></ion-icon>
           </span>
           <span (click)="toggleSearchBox()">
