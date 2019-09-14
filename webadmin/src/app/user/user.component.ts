@@ -521,6 +521,7 @@ export class UserComponent implements OnInit {
             }
         }
     }
+   
 
 
     //reset
@@ -1086,6 +1087,8 @@ export class UserComponent implements OnInit {
         this.userPagesEnable = true;
         this.selectTab = type;
         this.userTab = false;
+        
+
         // this.viewUserRolePermission = false;
         this.router.navigate(['/users/'+type]);
         if (type === 'rolesPermission') {
@@ -1094,6 +1097,7 @@ export class UserComponent implements OnInit {
                 this.userIdData = '';
                 this.userStatus = '';
             }
+           
         }
         else if(type == 'user'){
             this.userTab = true;
@@ -1101,6 +1105,7 @@ export class UserComponent implements OnInit {
             this.viewUserRolePermission = false;
         }
         else {
+            
             this.enableRolePermission = false;
         }
         if(type != 'rolesPermission'){
@@ -1207,5 +1212,10 @@ export class UserComponent implements OnInit {
     getLengthofUser(data){
         let value  = _.uniqBy(data,'userId')
         return value.length
+    }
+    showSpecificDivisions(divisionSearch){
+        this.search = divisionSearch;
+        this.userList();
+        this.roleTabSelect('user');
     }
 }
