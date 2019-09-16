@@ -83,11 +83,15 @@
                                     src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="created">{{commonLabels.labels.uploadedDate}}<span class="ml-2"><img
+                        <mfDefaultSorter by="created">Total Training Classes<span class="ml-2"><img
                                     src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="updated">{{commonLabels.labels.modifiedDate}}<span class="ml-2"><img
+                        <mfDefaultSorter by="updated">No. of employee assigned to<span class="ml-2"><img
+                                    src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="updated">Status of courses<span class="ml-2"><img
                                     src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th class="text-center">
@@ -106,8 +110,26 @@
                     <td class="vdo-desc-height">{{list.courseName}}
                         <!-- <p>{{list.videoName}}</p> -->
                     </td>
-                    <td class="vdo-desc-height">{{list.created | date}}</td>
-                    <td class="vdo-desc-height">{{list.updated | date}}</td>
+                    <td class="vdo-desc-height text-center">{{list.noOfClasses}}</td>
+                    <td class="vdo-desc-height text-center">{{list.employeesCount}}</td>
+                    <td class="vdo-desc-height text-center">
+                        <div class="row progress">
+                            <div class="progress-bar p-3 assigned-perc" [style.width.%]="25">
+                                {{list.assignedCount}}
+                            </div>
+                            <div class="progress-bar p-3 inprogress-perc" [style.width.%]="25">
+                                {{list.inProgressCount}}
+                            </div>
+                            <div class="progress-bar p-3 completed-perc" [style.width.%]="25">
+                                {{list.completedCount}}
+                            </div>
+                            <div class="progress-bar p-3 expire-perc" [style.width.%]="25">
+                                {{list.expiredCount}}
+                            </div>
+                        </div>
+                    </td>
+                    <!-- <td class="vdo-desc-height">{{list.created | date}}</td>
+                    <td class="vdo-desc-height">{{list.updated | date}}</td> -->
                     <td class="vdo-desc-height text-center">{{list.resortsCount}}</td>
                     <td class="vdo-desc-height text-center und-txt">
                     <span *ngIf="list.employeesCount > 0"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}" [queryParams]="{type: 'course'}">{{list.employeesCount}}</a></span>
