@@ -390,6 +390,18 @@ export class RolepermissionComponent implements OnInit {
     return userpermissions;
   }
 
+  selectAllPermission(value){
+    // console.log(value)
+    this.constant.selectAllView = value;
+    this.constant.selectAllUpload = value;
+    this.constant.selectAllEdit = value;
+    for (var i = 0; i < this.constant.modules.length; i++) {
+      this.constant.modules[i]['view'] = value;
+      this.constant.modules[i]['upload'] = value;
+      this.constant.modules[i]['edit'] = value;
+    }
+  }
+
 ngOnDestroy(){
   this.constant.resortId = null;
   this.constant.divisionId = null;
