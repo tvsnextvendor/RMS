@@ -192,3 +192,6 @@
     position: relative;
     z-index: 10;
 }
+.select-type{
+    padding: 10px
+}
