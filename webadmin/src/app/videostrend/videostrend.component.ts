@@ -283,6 +283,27 @@ export class VideosTrendComponent implements OnInit {
 
     }
 
+    countUpdate(data,type,tab){
+        let total = parseInt(data.assignedCount)+parseInt(data.inProgressCount)+parseInt(data.completedCount)+parseInt(data.expiredCount);
+        let value = type == 'course' ? parseInt(data.assignedCount) : type == 'progress' ? parseInt(data.inProgressCount) : type == 'complete' ? parseInt(data.completedCount) :  parseInt(data.expiredCount);
+        let returnValue = this.calculatePercent(total,value);
+        if(tab == 'count'){
+            return returnValue.toFixed(2);
+        }
+        else{
+            return returnValue
+        }
+    }
+
+    calculatePercent(totalempCount, individualCount) {
+        if (totalempCount > 0) {
+          let totalEmpPer = 100 / totalempCount;
+          return individualCount * totalEmpPer;
+        } else {
+          return 0;
+        }
+      }
+
     ngOnDestroy(){
         this.search = '';
         this.trendsVar.years = '';

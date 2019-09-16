@@ -103,6 +103,9 @@
                             <mfDefaultSorter>{{commonLabels.labels.fileType}}</mfDefaultSorter>
                         </th>
                         <th class="text-center">
+                            <mfDefaultSorter>Time taken</mfDefaultSorter>
+                        </th>
+                        <th class="text-center">
                             <mfDefaultSorter by="status">{{commonLabels.labels.status}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>                       
                     </tr>
@@ -112,6 +115,7 @@
                         <td class="text-center">{{emp?.TrainingClass?.trainingClassName}}</td>
                         <td class="text-center" ><span *ngIf="emp.File">{{emp?.File?.fileName}}</span></td>
                         <td class="text-center" ><span *ngIf="emp.File">{{emp?.File?.fileExtension}}</span></td>
+                        <td class="text-center">{{emp?.timeTaken}}</td> 
                         <td class="text-center">{{emp?.status}}</td>                          
                     </tr>
                     <tr *ngIf="listDetails && !listDetails.length">
