@@ -65,6 +65,9 @@ export class AddNotificationComponent implements OnInit {
   jobId;
   transcodeUrl;
   schedulePage = false;
+  selectType = 'file';
+  showFile = true;
+  showDesc = false;
 
   constructor(private breadCrumbService: BreadCrumbService, public location: Location, private alertService: AlertService, private headerService: HeaderService, public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
     public commonLabels: CommonLabels, private utilService: UtilService, private resortService: ResortService, private courseService: CourseService, private commonService: CommonService, private userService: UserService, private permissionService: PermissionService) {
@@ -76,7 +79,7 @@ export class AddNotificationComponent implements OnInit {
       if (items && items.library) {
         this.resourceLib = true;
       }
-      else if(items && items.schedule){
+      else if (items && items.schedule) {
         this.schedulePage = true;
       }
     });
@@ -89,7 +92,7 @@ export class AddNotificationComponent implements OnInit {
       let data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.editNotification, url: '' }]
       this.breadCrumbService.setTitle(data);
     }
-    else if(this.schedulePage){
+    else if (this.schedulePage) {
       this.headerService.setTitle({ title: 'Schedule', hidemodule: false });
       let data = [{ title: this.commonLabels.labels.calendarView, url: '/calendar' }, { title: this.commonLabels.labels.editNotification, url: '' }]
       this.breadCrumbService.setTitle(data);
@@ -151,10 +154,15 @@ export class AddNotificationComponent implements OnInit {
         this.jobId = respData.File && respData.File.jobId ? respData.File.jobId : '';
         this.scheduleName = respData.TrainingScheduleResorts && respData.TrainingScheduleResorts.length && respData.TrainingScheduleResorts[0].TrainingSchedule && respData.TrainingScheduleResorts[0].TrainingSchedule.name ? respData.TrainingScheduleResorts[0].TrainingSchedule.name : '';
         this.trainingScheduleId = respData.TrainingScheduleResorts && respData.TrainingScheduleResorts.length && respData.TrainingScheduleResorts[0].TrainingSchedule && respData.TrainingScheduleResorts[0].TrainingSchedule.name ? respData.TrainingScheduleResorts[0].TrainingSchedule.trainingScheduleId : '';
-        
+
 
         // this.description = respData.File && respData.File.fileDescription;
         this.description = (respData.description ? respData.description : '');
+
+        this.selectType = (this.description)? 'desc':'file';
+        this.showDesc   = (this.selectType == 'desc')?true:false;
+        this.showFile   = (this.selectType == 'desc')?false:true;
+       
         this.batchVar.batchFrom = respData.assignedDate ? new Date(respData.assignedDate) : '';
         this.batchVar.batchTo = respData.dueDate ? new Date(respData.dueDate) : '';
         if (respData.NotificationFileMaps.length) {
@@ -287,7 +295,7 @@ export class AddNotificationComponent implements OnInit {
       let deptData = { departmentId: selectedDepartment }
       event.length && this.onItemSelect(deptData, key, type);
       // if (!event.length) {
-        
+
       // }
     }
     if (key == 'emp') {
@@ -340,11 +348,11 @@ export class AddNotificationComponent implements OnInit {
       })
     }
     if (key == 'dept') {
-      const data = { 'departmentId': this.moduleVar.departmentId, 'resortId': this.moduleVar.selectedResort,'courseId' : '' };
-      if(this.notificationType === 'assignedToCourse'){
+      const data = { 'departmentId': this.moduleVar.departmentId, 'resortId': this.moduleVar.selectedResort, 'courseId': '' };
+      if (this.notificationType === 'assignedToCourse') {
         data.courseId = this.moduleVar.selectedCourses;
       }
-      else{
+      else {
         delete data.courseId;
       }
       this.userService.getUserByDivDept(data).subscribe(result => {
@@ -368,7 +376,7 @@ export class AddNotificationComponent implements OnInit {
             this.moduleVar.selectedEmployee = [];
           }
           // this.moduleVar.employeeList = listData.map(item => { return item });
-          this.moduleVar.employeeList = _.uniqBy(listData , 'userId');
+          this.moduleVar.employeeList = _.uniqBy(listData, 'userId');
           if (this.notifyId) {
             this.setDropDownDetails();
           }
@@ -473,11 +481,11 @@ export class AddNotificationComponent implements OnInit {
         "scheduleType": "notification",
         "trainingScheduleName": this.scheduleName,
         "draft": false,
-        "inputUrl" : this.inputUrl ? this.inputUrl : '',
-        "jobId" :  this.jobId ? this.jobId : '',
-        "transcodeUrl" :  this.transcodeUrl ? this.transcodeUrl : ''
+        "inputUrl": this.inputUrl ? this.inputUrl : '',
+        "jobId": this.jobId ? this.jobId : '',
+        "transcodeUrl": this.transcodeUrl ? this.transcodeUrl : ''
       }
-      if(!data.jobId) { 
+      if (!data.jobId) {
         delete data.inputUrl;
         delete data.transcodeUrl;
         delete data.jobId;
@@ -565,12 +573,12 @@ export class AddNotificationComponent implements OnInit {
     if (!this.notificationFileName) {
       delete data.fileExtension; delete data.fileImage; delete data.fileLength; delete data.fileSize; delete data.fileType; delete data.fileUrl;
     }
-  
+    data.selectType = this.selectType;
     // this.updatedUserIds.divisionId.length ? data.divisionId = this.updatedUserIds.divisionId : delete data.divisionId;
     // this.updatedUserIds.departmentId.length ? data.departmentId = this.updatedUserIds.departmentId : delete data.departmentId;
     // this.updatedUserIds.userId.length ? data.userId = this.updatedUserIds.userId : delete data.userId;
     this.removedUserIds.length ? data.removeUserIds = this.removedUserIds : delete data.removeUserIds;
-    
+
     this.courseService.updateNotification(this.notifyId, data).subscribe(resp => {
       if (resp && resp.isSuccess) {
         // this.router.navigate(['/cms-library'],{queryParams: {type:"edit",tab:"notification"}})
@@ -606,9 +614,9 @@ export class AddNotificationComponent implements OnInit {
     this.moduleVar.departmentList = [];
     this.notificationType = '';
     this.scheduleName = '';
-    this.inputUrl='';
-    this.jobId='';
-    this.transcodeUrl='';
+    this.inputUrl = '';
+    this.jobId = '';
+    this.transcodeUrl = '';
   }
 
   courseSelect(event) {
@@ -660,25 +668,25 @@ export class AddNotificationComponent implements OnInit {
         let extensionType = typeValue[1].split('.').pop();
         this.fileExtension = extensionType;
         this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
-        if (this.fileExtensionType === 'Video') {  
+        if (this.fileExtensionType === 'Video') {
           this.commonService.videoUploadFiles(file).subscribe(resp => {
             if (resp && resp.isSuccess) {
               this.filePreviewImage(file);
               this.notificationFileName = resp.data.length && resp.data[0].filename;
-              this.inputUrl = resp.inputLocation ?resp.inputLocation : '';
-              this.transcodeUrl = resp.outputLocation ?resp.outputLocation : '';
+              this.inputUrl = resp.inputLocation ? resp.inputLocation : '';
+              this.transcodeUrl = resp.outputLocation ? resp.outputLocation : '';
               this.jobId = resp.transcode && resp.transcode.Job ? resp.transcode.Job.Id : '';
             }
           })
         }
-        else{
+        else {
           this.commonService.uploadFiles(file).subscribe(resp => {
             if (resp && resp.isSuccess) {
               this.notificationFileName = resp.data.length && resp.data[0].filename;
             }
           })
         }
-      
+
       }
     }
   }
@@ -758,5 +766,20 @@ export class AddNotificationComponent implements OnInit {
   ngOnDestroy() {
     this.fileExist = false;
     this.existingFile = [];
+  }
+  selectTypeBasedShowField(show) {
+    if (show == 'file') {
+      this.selectType = 'desc';
+      this.showFile = false;
+      this.showDesc = true;
+    } else if (show == 'desc') {
+      this.selectType = 'file';
+      this.showFile = true;
+      this.showDesc = false;
+    } else {
+      this.selectType = 'file';
+      this.showFile = true;
+      this.showDesc = false;
+    }
   }
 }

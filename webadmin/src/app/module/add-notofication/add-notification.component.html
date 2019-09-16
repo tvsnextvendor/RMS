@@ -8,7 +8,8 @@
 </div> -->
 <div>
     <div class="clearfix">
-        <h4 class="add-notify">{{notifyId ? commonLabels.labels.editNotification : commonLabels.btns.createNotification}}</h4>
+        <h4 class="add-notify">{{notifyId ? commonLabels.labels.editNotification :
+            commonLabels.btns.createNotification}}</h4>
     </div>
     <div class="modal-body" *ngIf="!notificationType">
         <!-- <div>
@@ -16,65 +17,71 @@
         </div> -->
         <div class="row px-4">
             <div class="col-md-6 pb-1">
-            <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('assignedToCourse')">
-                <div class="ass-header-color clearfix p-1"></div>
-                <h5 class="text-center pt-1">{{this.commonLabels.labels.assignToCourse}}</h5>
-                <div class="row pb-3">
-                    <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11849.png"></div>
-                    <div class="col-md-7 para-alg">
-                    <p class="mb-0 pt-3">Start here to create and assign a notification as a part of a scheduled course. </p>
-                    <p class="mb-0">Use this feature to notify employees about some important/new announcements and include it to an already scheduled course. </p>
+                <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('assignedToCourse')">
+                    <div class="ass-header-color clearfix p-1"></div>
+                    <h5 class="text-center pt-1">{{this.commonLabels.labels.assignToCourse}}</h5>
+                    <div class="row pb-3">
+                        <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11849.png"></div>
+                        <div class="col-md-7 para-alg">
+                            <p class="mb-0 pt-3">Start here to create and assign a notification as a part of a
+                                scheduled course. </p>
+                            <p class="mb-0">Use this feature to notify employees about some important/new announcements
+                                and include it to an already scheduled course. </p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-md-12 text-center px-5">
-                      <button  class="btn btn-primary start-btn ass-header-color">Start</button>
-                </div>
-                <!-- <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11849.png"></div>
+                    <div class="col-md-12 text-center px-5">
+                        <button class="btn btn-primary start-btn ass-header-color">Start</button>
+                    </div>
+                    <!-- <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11849.png"></div>
                 <p class="notification-title">{{this.commonLabels.labels.assignToCourse}}</p>
                 <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
                         title="Next"></i></button> -->
-            </div>
-        </div>
-        <div class="col-md-6 pb-1">
-            <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('signature')">
-                <div class="sign-header-color clearfix p-1"></div>
-                <h5 class="text-center pt-1">{{this.commonLabels.labels.signature}}</h5>
-                <div class="row pb-3">
-                    <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11850.png"></div>
-                    <div class="col-md-7 para-alg">
-                      <p class="mb-0 pt-4">Start here to create very important notifications that needs special attention and acknowledgement from the employees that they have viewed and read the document attached. </p>
-                    </div>
-                  </div>
-                  <div class="col-md-12 text-center px-5">
-                      <button  class="btn btn-primary start-btn sign-header-color">Start</button>
                 </div>
-                <!-- <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11850.png"></div>
+            </div>
+            <div class="col-md-6 pb-1">
+                <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('signature')">
+                    <div class="sign-header-color clearfix p-1"></div>
+                    <h5 class="text-center pt-1">{{this.commonLabels.labels.signature}}</h5>
+                    <div class="row pb-3">
+                        <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11850.png"></div>
+                        <div class="col-md-7 para-alg">
+                            <p class="mb-0 pt-4">Start here to create very important notifications that needs special
+                                attention and acknowledgement from the employees that they have viewed and read the
+                                document attached. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center px-5">
+                        <button class="btn btn-primary start-btn sign-header-color">Start</button>
+                    </div>
+                    <!-- <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11850.png"></div>
                 <p class="notification-title">{{this.commonLabels.labels.signature}}</p>
                 <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
                         title="Next"></i></button> -->
+                </div>
             </div>
-        </div>
-        <div class="col-md-6 pt-4">
-            <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('nonSignature')">
+            <div class="col-md-6 pt-4">
+                <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('nonSignature')">
                     <div class="nonsign-header-color clearfix p-1"></div>
                     <h5 class="text-center pt-1">{{this.commonLabels.labels.nonSignature}}</h5>
                     <div class="row pb-3">
                         <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11852.png"></div>
                         <div class="col-md-7 para-alg">
-                          <p class="mb-0 pt-4">Start here to notify employees of any  announcements, upcoming events or meetings. </p> 
-                          <p class="mb-0">Please note that this notification will be not be a part of any course and will not have acknowledgements from the user. </p>
+                            <p class="mb-0 pt-4">Start here to notify employees of any announcements, upcoming events
+                                or meetings. </p>
+                            <p class="mb-0">Please note that this notification will be not be a part of any course and
+                                will not have acknowledgements from the user. </p>
                         </div>
-                      </div>
-                      <div class="col-md-12 text-center px-5">
-                          <button  class="btn btn-primary start-btn nonsign-header-color">Start</button>
                     </div>
-                
-                <!-- <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11852.png"></div>
+                    <div class="col-md-12 text-center px-5">
+                        <button class="btn btn-primary start-btn nonsign-header-color">Start</button>
+                    </div>
+
+                    <!-- <div class="text-center py-3"><img _ngcontent-c26="" src="assets/images/Group 11852.png"></div>
                 <p class="notification-title">{{this.commonLabels.labels.nonSignature}}</p>
                 <button class="float-right btn btn-link"><i class="fas fa-angle-double-right icons_header" aria-hidden="true"
                         title="Next"></i></button> -->
+                </div>
             </div>
-        </div>
         </div>
         <!-- <div class="col-md-12 clearfix text-center py-3">
             <button type="button" class="btn btn-primary creat-btn"  (click)="notificationTypeSubmit()">{{commonLabels.btns.yes}}</button>
@@ -115,7 +122,8 @@
                         <select [disabled]="notifyId ? true : false" class="form-control p-0 select-Courses" name="resort"
                             [(ngModel)]="moduleVar.selectedResort" #resort (change)="getDropdownDetails(resort.value,'')">
                             <option value='null' disabled>{{commonLabels.labels.resort}}</option>
-                            <option *ngFor="let course of moduleVar.resortList" [value]="course.resortId">{{course.resortName  | titlecase}}</option>
+                            <option *ngFor="let course of moduleVar.resortList" [value]="course.resortId">{{course.resortName
+                                | titlecase}}</option>
                         </select>
                         <div class="select_arrow"></div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && !moduleVar.selectedResort">
@@ -127,7 +135,8 @@
                             <ng-multiselect-dropdown [disabled]="notifyId ? true : false" [placeholder]="'Departments'"
                                 [data]="moduleVar.departmentList" [(ngModel)]="moduleVar.selectedDepartment" [settings]="moduleVar.departmentSettings"
                                 (onSelect)="onItemSelect($event,'dept','select')" (onDeSelect)="onItemSelect($event,'dept','deselect')"
-                                [ngModelOptions]="{standalone: true}"  (onSelectAll)="onEmpAllSelect($event,'dept','select')" (onDeSelectAll)="onEmpAllSelect($event,'dept','deselect')"></ng-multiselect-dropdown>
+                                [ngModelOptions]="{standalone: true}" (onSelectAll)="onEmpAllSelect($event,'dept','select')"
+                                (onDeSelectAll)="onEmpAllSelect($event,'dept','deselect')"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedDepartment.length === 0">
                             {{commonLabels.labels.courseError}}
@@ -151,7 +160,8 @@
                             <ng-multiselect-dropdown [disabled]="notifyId ? true : false" [placeholder]="'Division'"
                                 [data]="moduleVar.divisionList" [(ngModel)]="moduleVar.selectedDivision" [settings]="moduleVar.divisionSettings"
                                 (onSelect)="onItemSelect($event,'division','select')" (onDeSelect)="onItemSelect($event,'division','deselect')"
-                                [ngModelOptions]="{standalone: true}"  (onSelectAll)="onEmpAllSelect($event,'division','select')" (onDeSelectAll)="onEmpAllSelect($event,'division','deselect')"></ng-multiselect-dropdown>
+                                [ngModelOptions]="{standalone: true}" (onSelectAll)="onEmpAllSelect($event,'division','select')"
+                                (onDeSelectAll)="onEmpAllSelect($event,'division','deselect')"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedDivision.length === 0">
                             {{commonLabels.labels.courseError}}
@@ -161,7 +171,8 @@
                         <div class="col-md-12 p-0 select-Courses">
                             <ng-multiselect-dropdown [placeholder]="'Employees'" [data]="moduleVar.employeeList"
                                 [(ngModel)]="moduleVar.selectedEmployee" [settings]="moduleVar.empSettings" (onSelect)="onItemSelect($event,'emp','select')"
-                                (onDeSelect)="onItemSelect($event,'emp','deselect')" [ngModelOptions]="{standalone: true}"  (onSelectAll)="onEmpAllSelect($event,'emp','select')" (onDeSelectAll)="onEmpAllSelect($event,'emp','deselect')"></ng-multiselect-dropdown>
+                                (onDeSelect)="onItemSelect($event,'emp','deselect')" [ngModelOptions]="{standalone: true}"
+                                (onSelectAll)="onEmpAllSelect($event,'emp','select')" (onDeSelectAll)="onEmpAllSelect($event,'emp','deselect')"></ng-multiselect-dropdown>
                         </div>
                         <span class="required_color mt-0" *ngIf="moduleSubmitted && moduleVar.selectedEmployee.length === 0">
                             {{commonLabels.labels.courseError}}
@@ -176,36 +187,56 @@
                                 name="scheduleName" #scheduleNameValue="ngModel" required>
                         </span>
                     </div>
+
+
                     <div class="row form-group">
-                        <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.uploadtxt}}</label>
-                        <span class="col-md-9 p-0">
-                            <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
-                            <input [disabled]="!uploadPermission" type="file" class="form-control" placeholder="File" [(ngModel)]="file" name="file"
-                                #fileData="ngModel" id="customFile" (change)="getFileDetails($event)" accept="image/*,video/*,.pdf,.zip,.txt,.doc,.ppt,.pptx" required>
-                            <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}<span><i
-                                        class="fas fa-upload float-right"></i></span></label>
-                            <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">{{commonLabels.labels.uploadtxt}}<span><i
-                                        class="fas fa-upload float-right"></i></span></label>
-                                <span _ngcontent-c16="" class="file-alg">{{commonLabels.labels.acceptedFileTypes}}</span>
-                        </span>
-                    </div>
-                    <div class="row form-group">
-                        <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.fileName}}</label>
-                        <span class="col-md-9 p-0">
-                            <input type="text" class="form-control" placeholder="Enter File Name" [(ngModel)]="fileName"
-                                name="fileName" #fileNameValue="ngModel" required>
-                        </span>
-                    </div>
-                    <div class="row form-group">
-                        <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.description}}</label>
-                        <span class="col-md-9 p-0">
-                            <!-- <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description"
-                                name="description" #descriptionData="ngModel" required> -->
-                                <textarea type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description"
-                                name="description" #descriptionData="ngModel" required></textarea>
-                        </span>
+                        <label class="col-md-3 p-0 label-title mb-0">Select Type<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
+                        <label class="radio-inline label-title">
+                            <input type="radio" name="selectType" [value]="file" [checked]="selectType == 'file'"
+                                (click)="selectTypeBasedShowField(selectType)"><span class="select-type">File</span>
+                        </label>
+                        <label class="radio-inline label-title">
+                            <input type="radio" name="selectType" [value]="desc" [checked]="selectType == 'desc'"
+                                (click)="selectTypeBasedShowField(selectType)"><span class="select-type">Description</span>
+                        </label>
                     </div>
 
+
+                    <div *ngIf="showFile">
+                        <div class="row form-group">
+                            <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.fileName}}</label>
+                            <span class="col-md-9 p-0">
+                                <input type="text" class="form-control" placeholder="Enter File Name" [(ngModel)]="fileName"
+                                    name="fileName" #fileNameValue="ngModel" required>
+                            </span>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.uploadtxt}}</label>
+                            <span class="col-md-9 p-0">
+                                <!-- <span><i class="fa fa-upload mr-2" aria-hidden="true"></i>{{labels.upload}}</span> -->
+                                <input [disabled]="!uploadPermission" type="file" class="form-control" placeholder="File"
+                                    [(ngModel)]="file" name="file" #fileData="ngModel" id="customFile" (change)="getFileDetails($event)"
+                                    accept="image/*,video/*,.pdf,.zip,.txt,.doc,.ppt,.pptx" required>
+                                <label class="custom-file-label" for="customFile" *ngIf="uploadFileName">{{uploadFileName}}<span><i
+                                            class="fas fa-upload float-right"></i></span></label>
+                                <label class="custom-file-label uploadPh" disabled for="customFile" *ngIf="!uploadFileName">{{commonLabels.labels.uploadtxt}}<span><i
+                                            class="fas fa-upload float-right"></i></span></label>
+                                <span _ngcontent-c16="" class="file-alg">{{commonLabels.labels.acceptedFileTypes}}</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div *ngIf="showDesc">
+                        <div class="row form-group">
+                            <label class="col-md-3 p-0 label-title mb-0">{{commonLabels.labels.description}}</label>
+                            <span class="col-md-9 p-0">
+                                <!-- <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description"
+                                name="description" #descriptionData="ngModel" required> -->
+                                <textarea type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="description"
+                                    name="description" #descriptionData="ngModel" required></textarea>
+                            </span>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6 pl-0">
                             <div class="row">
@@ -213,13 +244,15 @@
                                 <div class="col-md-7 pr-0 pl-5">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()"
                                             [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
-                                        <input type="text" class="form-control p-0" #dpFrom="bsDatepicker"  placement="top" autocomplete="off"
-                                            name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom" #BatchFrom="ngModel"
-                                            [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" [minDate]="currentDate" required>
+                                        <input type="text" class="form-control p-0" #dpFrom="bsDatepicker" placement="top"
+                                            autocomplete="off" name="batchFrom" bsDatepicker [(ngModel)]="batchVar.batchFrom"
+                                            #BatchFrom="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                                            [minDate]="currentDate" required>
                                         <!-- <span class="required_color" *ngIf="BatchFrom && BatchFrom.invalid && (formDir.submitted || BatchFrom.touched)">
                                             {{commonLabels.mandatoryLabels.from}}
                                         </span> -->
-                                        <div *ngIf="batchVar.batchFrom && batchVar.batchTo && !batchVar.dategreater" class="required_color">
+                                        <div *ngIf="batchVar.batchFrom && batchVar.batchTo && !batchVar.dategreater"
+                                            class="required_color">
                                             <span>{{commonLabels.mandatoryLabels.dateLimitError}} </span>
                                         </div>
                                     </span>
@@ -235,9 +268,10 @@
                                 <div class="col-md-7 p-0 batch-input">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()"
                                             [attr.aria-expanded]="dp.isOpen" class="batch-icon">
-                                        <input type="text" class="form-control" #dp="bsDatepicker" placement="top" autocomplete="off"
-                                            name="batchTo" bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel"
-                                            [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" [minDate]="currentDate" required>
+                                        <input type="text" class="form-control" #dp="bsDatepicker" placement="top"
+                                            autocomplete="off" name="batchTo" bsDatepicker [(ngModel)]="batchVar.batchTo"
+                                            #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                                            [minDate]="currentDate" required>
                                         <!-- <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
                                             {{commonLabels.mandatoryLabels.to}}
                                         </span> -->
@@ -247,7 +281,8 @@
                         </div>
                     </div>
                 </div>
-                <div  class="text-center col-md-12 pt-3 px-0"><span class="file-desc-alg">{{commonLabels.labels.fileOrDesc}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></span></div>
+                <div class="text-center col-md-12 pt-3 px-0"><span class="file-desc-alg">{{commonLabels.labels.fileOrDesc}}<span
+                            class="mandatory-color">{{commonLabels.labels.star}}</span></span></div>
                 <div class="text-center col-md-12 pt-3 px-0">
                     <button type="button" class="btn btn-default float-right" (click)="back()">{{commonLabels.btns.cancel}}</button>
                     <button type="submit" class="btn btn-primary float-right mr-4">{{commonLabels.btns.save}}</button>
