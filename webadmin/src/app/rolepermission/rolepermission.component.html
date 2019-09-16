@@ -54,7 +54,7 @@
 				<div class="col-md-4">
 					<span>
 						<label class="square-cont mr-5">
-							<input type="checkbox" [(ngModel)]="constant.web" (change)="getRolePermission()" name="web">
+							<input type="checkbox" [(ngModel)]="constant.web" (change)="selectAllPermission(constant.web)" name="web">
 							{{commonLabels.labels.admin}}
 							<span class="square-checkmark"></span>
 						</label>
