@@ -17,6 +17,7 @@ import * as _ from 'lodash';
 export class RolepermissionComponent implements OnInit {
   resortId;
   rolesPermissions;
+  selectAllDept = false;
   @Input() userIdInfo;
   @Input() userStatusInfo;
   @Input() viewUserRolePermission;
@@ -53,7 +54,7 @@ export class RolepermissionComponent implements OnInit {
     let userData = this.utilService.getUserData();
     this.resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
     this.getDivisions(this.resortId);
-    this.getRoles(this.resortId);
+    this.getRoles(this.resortId,'');
     this.constant.resortList = [];
     this.getresortDetails();
    
@@ -127,27 +128,35 @@ export class RolepermissionComponent implements OnInit {
         this.constant.divisionList = [];
       }
     });
-    this.getRoles(resortId);
+    this.getRoles(resortId,'');
   }
   getDepartments(divisionId) {
     let params = { "divisionId": divisionId }
+    this.constant.departmentList = [];
     this.commonService.getDepartmentList(params).subscribe((result) => {
       if (result && result.isSuccess) {
-        this.constant.departmentList = result.data && result.data.rows;
+        this.constant.departmentList = result.data ? result.data.rows : [];
         this.getRolePermission();
       } else {
         this.constant.departmentList = [];
       }
     });
   }
-  getRoles(resortId) {
-    this.commonService.getDesignationList(resortId).subscribe((result) => {
-      if (result && result.isSuccess) {
-        this.constant.roleList = result.data && result.data.rows;
-      } else {
-        this.constant.roleList = [];
-      }
-    });
+
+  getRoles(resortId,type) {
+    this.constant.roleId = null;
+    if(type == 'allSelect'){
+      this.selectAllDept = true;
+    }
+    else{
+      this.commonService.getDesignationList(resortId).subscribe((result) => {
+        if (result && result.isSuccess) {
+          this.constant.roleList = result.data && result.data.rows;
+        } else {
+          this.constant.roleList = [];
+        }
+      });
+    }
   }
 
   getRolePermission() {
@@ -156,8 +165,9 @@ export class RolepermissionComponent implements OnInit {
     data.departmentId = (this.constant.departmentId) ? this.constant.departmentId : "";
     data.resortId = (this.constant.resortId) ? this.constant.resortId : "";
     data.designationId = (this.constant.roleId) ? this.constant.roleId : "";
-    data.web = this.constant.web;
+    data.web = true;
     data.mobile = this.constant.mobile;
+    this.selectAllDept ? data.allDepartments = 1 : '';
     this.getCheckModules(data);
     this.rolePermissionService.getRolePermission(data).subscribe((result) => {
       if (result.isSuccess) {

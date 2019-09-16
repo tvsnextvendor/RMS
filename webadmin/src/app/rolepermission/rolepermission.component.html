@@ -21,8 +21,9 @@
 						{{commonLabels.mandatoryLabels.division}}</span>
 				</div>
 				<div class="col-md-4 select select-style clearfix">
-					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0" (change)="getRoles(constant.resortId)">
+					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0" (change)="getRoles(constant.resortId,constant.departmentId)">
 						<option value="null" disabled>-- Select {{commonLabels.labels.department}} --</option>
+						<option value="allSelect" >{{commonLabels.labels.selectAllDept}}</option>
 						<option *ngFor="let obj of constant.departmentList" [value]="obj.departmentId">{{obj.departmentName}}</option>
 					</select>
 					<div class="select_arrow"></div>
@@ -54,7 +55,7 @@
 					<span>
 						<label class="square-cont mr-5">
 							<input type="checkbox" [(ngModel)]="constant.web" (change)="getRolePermission()" name="web">
-							{{commonLabels.labels.web}}
+							{{commonLabels.labels.admin}}
 							<span class="square-checkmark"></span>
 						</label>
 						<!-- <label class="square-cont">

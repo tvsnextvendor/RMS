@@ -16,7 +16,14 @@ export class RolePermissionService {
     return this.http.post('local',this.url.permissionAdd, permissionData);
   }
   getRolePermission(data){
-    let params = 'departmentId=' + data.departmentId + '&divisionId=' + data.divisionId + '&resortId=' +data.resortId + '&designationId=' +data.designationId + '&web=' +data.web+ '&mobile=' +data.mobile; 
+    let params ;
+    if(data.allDepartments){
+      params = 'allDepartments=' + data.allDepartments + '&divisionId=' + data.divisionId + '&resortId=' +data.resortId + '&designationId=' +data.designationId + '&web=' +data.web+ '&mobile=' +data.mobile; 
+    }
+    else{
+      params = 'departmentId=' + data.departmentId + '&divisionId=' + data.divisionId + '&resortId=' +data.resortId + '&designationId=' +data.designationId + '&web=' +data.web+ '&mobile=' +data.mobile; 
+    }
+    
     return this.http.getLocal('local',this.url.permissionList+'?'+params);
   }
   getRolePermissions(query){

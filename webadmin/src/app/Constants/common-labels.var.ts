@@ -400,7 +400,12 @@ export class CommonLabels{
         "scheduleName"      :   "Schedule Name",
         "saveAsNewVersion"  :   "Save as new version",
         "rejectorName"      :   "Rejector Name",
-        "fileOrDesc"  :   "File Or Description anyone is mandatory field "
+        "fileOrDesc"        :   "File Or Description anyone is mandatory field ",
+        "selectAllDept"     :   "All departments",
+        "TotalTc"           :   "Total Training Classes",
+        "TotalEmpCount"     :   "No. of employee assigned to",
+        "failedClass"       :   "Frequently failed classes",
+        "statusCourse"      :   "Status of courses"
     };
 
     btns = {
