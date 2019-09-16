@@ -17,7 +17,7 @@
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
           </div>
         </span>
-        <span class="col-md-4" *ngIf="roleId != 3">
+        <span class="col-md-4" *ngIf="roleId != 3 && roleId != 4">
           <select class="select-btn cp ng-pristine ng-valid ng-touched" name="resort" [(ngModel)]="selectedResort" (change)="getCalendarDetails()">
           <!-- <option [value]=null>{{commonLabels.labels.selectResort}}</option> -->
           <option _ngcontent-c27="" value="null" ng-reflect-value="null">{{commonLabels.labels.selectResort}}</option>
