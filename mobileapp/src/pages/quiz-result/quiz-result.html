@@ -1,56 +1,58 @@
 <ion-content padding>
-     <div class="congrats-page">
-    <ion-header no-border>
-        <ion-toolbar text-right transparent class="details-page-toolbar ">
-            <!-- <ion-icon name="close" class="close-button" (click)="closeToStart()"></ion-icon> -->
-        </ion-toolbar>
-    </ion-header>
-    <div class={{className}} *ngIf="showToastr">
-        <div class="notify-inset">
-            <h6>{{msgTitle}}</h6>
-            <p>{{msgDes}}</p>
+    <div class="congrats-page">
+        <ion-header no-border>
+            <ion-toolbar text-right transparent class="details-page-toolbar ">
+                <!-- <ion-icon name="close" class="close-button" (click)="closeToStart()"></ion-icon> -->
+            </ion-toolbar>
+        </ion-header>
+        <div class={{className}} *ngIf="showToastr">
+            <div class="notify-inset">
+                <h6>{{msgTitle}}</h6>
+                <p>{{msgDes}}</p>
+            </div>
         </div>
-    </div>
-    <div class="image-wrapper">
-        <img *ngIf="success" src='assets/imgs/congratulations.png' />
-        <img *ngIf="!success" src='assets/imgs/failure.png' />
-    </div>
-    <div text-center class="congratulations-text">
-        <!-- <span class="congratulations-text-span">
+        <div class="image-wrapper">
+            <img *ngIf="success" src='assets/imgs/congratulations.png' />
+            <img *ngIf="!success" src='assets/imgs/failure.png' />
+        </div>
+        <div text-center class="congratulations-text">
+            <!-- <span class="congratulations-text-span">
             <h5> <img src='assets/imgs/success.png' /> {{constant.pages.quizResultLabels.congratulations}}</h5>
         </span> -->
-        <span class="congratulations-text-span">
-            <h5>{{msgToUser}}</h5>
-            <h5 *ngIf="success">{{trainingClassName}}</h5>
-        </span>
-        <!-- <p>{{constant.pages.quizResultLabels.yourscored}} 
+            <span class="congratulations-text-span">
+                <h5>{{msgToUser}}</h5>
+                <h5 *ngIf="success">{{trainingClassName}}</h5>
+            </span>
+            <span> Spend Time : {{timeTaken}} </span> 
+            <!-- <p>{{constant.pages.quizResultLabels.yourscored}} 
             {{constant.pages.quizResultLabels.outOf}} !</p> -->
-        <span class="score-btn" *ngIf="!noQuiz">
-            <p>{{constant.pages.quizResultLabels.yourScorePercent}} {{resultData.percentage }}%   ({{resultData.correctAnswers}}/{{resultData.totalQuestions}})</p>
-        </span>
-        <form [formGroup]="feedbackform" novalidate>
-            <div class="rating-block">
-            <ionic3-star-rating activeIcon="md-star" defaultIcon="md-star-outline" activeColor="#FFA000" defaultColor="#f4f4f4"
-                readonly="false" [rating]="0" >
-            </ionic3-star-rating>
-            <div class="control-label course-txt"> {{constant.pages.quizResultLabels.feedbackDescription}}</div>
-        </div>
-            <ion-item class="command-item">
-                <ion-textarea [(ngModel)]="feedback.description" formControlName="description" name="description"
-                    placeholder="{{constant.pages.quizResultLabels.feedbackPlaceholder}}" class="command-box" ></ion-textarea>
-            </ion-item>
-            <div *ngIf="errorMessage" class="error-block">
-                <div class="error">
-                        {{errorMessage}}
+            <span class="score-btn" *ngIf="!noQuiz">
+                <p>{{constant.pages.quizResultLabels.yourScorePercent}} {{resultData.percentage }}%
+                    ({{resultData.correctAnswers}}/{{resultData.totalQuestions}})</p>
+            </span>
+            <form [formGroup]="feedbackform" novalidate>
+                <div class="rating-block">
+                    <ionic3-star-rating activeIcon="md-star" defaultIcon="md-star-outline" activeColor="#FFA000"
+                        defaultColor="#f4f4f4" readonly="false" [rating]="0">
+                    </ionic3-star-rating>
+                    <div class="control-label course-txt"> {{constant.pages.quizResultLabels.feedbackDescription}}</div>
                 </div>
-            </div>
-            <!-- <div *ngIf="( feedbackform.get('description').hasError('minlength') || feedbackform.get('description').hasError('pattern') ||feedbackform.get('description').hasError('required') ) && feedbackform.get('description').touched">
+                <ion-item class="command-item">
+                    <ion-textarea [(ngModel)]="feedback.description" formControlName="description" name="description"
+                        placeholder="{{constant.pages.quizResultLabels.feedbackPlaceholder}}" class="command-box"></ion-textarea>
+                </ion-item>
+                <div *ngIf="errorMessage" class="error-block">
+                    <div class="error">
+                        {{errorMessage}}
+                    </div>
+                </div>
+                <!-- <div *ngIf="( feedbackform.get('description').hasError('minlength') || feedbackform.get('description').hasError('pattern') ||feedbackform.get('description').hasError('required') ) && feedbackform.get('description').touched">
                 <div class="error" *ngIf="feedbackform.get('description').hasError('required') && feedbackform.get('description').touched">
                     {{constant.pages.quizResultLabels.validations.descriptionRequired}}
                 </div>
             </div> [disabled]="feedbackform.invalid" -->
-            <button ion-button round type="submit" (click)="feedbackForm()"  class="blue-btn">{{constant.buttons.submit}}</button>
-        </form>
+                <button ion-button round type="submit" (click)="feedbackForm()" class="blue-btn">{{constant.buttons.submit}}</button>
+            </form>
+        </div>
     </div>
-</div>
 </ion-content>

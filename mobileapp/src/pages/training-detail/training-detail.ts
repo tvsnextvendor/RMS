@@ -350,7 +350,8 @@ export class TrainingDetailPage {
                        "scheduleId": this.detailObject['trainingScheduleId'],
                        "trainingClassName": this.detailObject['setData'].trainingClassName,
                        "courseName": this.detailObject['setData'].courseName,
-                       "status": "noQuiz"
+                       "status": "noQuiz",
+                       "timeTaken":this.time
                    };
                     this.navCtrl.push(QuizResultPage, resultData);
                 }
