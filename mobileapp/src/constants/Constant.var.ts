@@ -76,6 +76,7 @@ export class Constant {
             signUp: 'SIGN UP',
             signupSmall: 'Sign Up',
             fullName: 'Full Name',
+            userName:'Username',
             emailId: 'Email ID',
             mobileNo: 'Mobile No',
             validations: {

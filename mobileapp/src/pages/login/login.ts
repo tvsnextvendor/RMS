@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
     doLogin() {
 
         if(!this.user.name || !this.user.pw){
-           this.logincredentialerror = "Email ID & Password Can't Be Blank"; return false;
+           this.logincredentialerror = "Username & Password Can't Be Blank"; return false;
         }
         if (this.user.keepmelogin) {
             this.storage.set('userInput', this.user).then(() => {
