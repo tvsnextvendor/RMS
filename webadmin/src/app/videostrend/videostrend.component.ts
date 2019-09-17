@@ -169,14 +169,17 @@ export class VideosTrendComponent implements OnInit {
     onMail(){
         this.trendsVar.moduleList.map(item=>{
             // moment().format('ll');
-            let list = {
-            "Course Name": item.courseName,
-            "Uploaded Date": moment(item.created).format('ll'),
-            "Modified Date": moment(item.updated).format('ll'),
-            "No.of Resorts": item.resortsCount,
-            "No. of Employees":item.employeesCount
-            };
-        this.xlsxList.push(list);
+            let list =  {
+                "Course Name": item.courseName,
+                "Total Training Classes" : item.noOfClasses,
+                "No. of employee assigned to" : item.employeesCount,
+                "Frequently failed classes"  : item.failedClassesCount,
+                // "Uploaded Date": moment(item.created).format('ll'),
+                // "Modified Date": moment(item.updated).format('ll'),
+                "No.of Resorts": item.resortsCount,
+                "No. of Employees":item.employeesCount
+                };
+            this.xlsxList.push(list);
         })
         // this.exportAsExcelWithFile(this.xlsxList, this.commonLabels.titles.courseTrend);
         localStorage.setItem('mailfile',JSON.stringify(this.xlsxList))
@@ -195,8 +198,11 @@ export class VideosTrendComponent implements OnInit {
             // moment().format('ll');
             let list = {
             "Course Name": item.courseName,
-            "Uploaded Date": moment(item.created).format('ll'),
-            "Modified Date": moment(item.updated).format('ll'),
+            "Total Training Classes" : item.noOfClasses,
+            "No. of employee assigned to" : item.employeesCount,
+            "Frequently failed classes"  : item.failedClassesCount,
+            // "Uploaded Date": moment(item.created).format('ll'),
+            // "Modified Date": moment(item.updated).format('ll'),
             "No.of Resorts": item.resortsCount,
             "No. of Employees":item.employeesCount
             };
