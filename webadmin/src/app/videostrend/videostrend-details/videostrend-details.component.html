@@ -69,7 +69,7 @@
                         <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
                             (change)="filterSelect(emp.value,'emp')">
                             <option [value]=null>{{commonLabels.labels.selEmp}}</option>
-                            <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
+                            <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.firstName}}</option>
                         </select>
                         <div class="select_arrow"></div>
                     </div>

@@ -65,7 +65,7 @@ export class VideoVar {
         empSettings = {
         singleSelection: false,
         idField: 'userId',
-        textField: 'userName',
+        textField: 'firstName',
         enableCheckAll: true,
         itemsShowLimit: 8,
         }
