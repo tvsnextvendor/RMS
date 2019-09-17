@@ -110,31 +110,29 @@ export class TrainingDetailPage {
       ionViewWillEnter() {
           this.quizBtnDisable = false;
             let self = this;
-           
+            this.storage.get('timer').then((det: any) => {
+                if (det) {
+                console.log(det,"Detail");
+                let data = det.filter(x => x.trainingClassId === this.detailObject.trainingClassId);
+                console.log(data,"Datatgsdvghv")
+                if(data){
+                    this.stoppedDuration = data[0].stoppedDuration;
+                    this.timeBegan = data[0].timeBegan;
+                    this.timeStopped = data[0].timeStopped;
+                    console.log(data,"DATA")
+                }
+                }
+            });
 
-        this.storage.get('timer').then((det: any) => {
-            if (det) {
-               console.log(det,"Detail");
-                // let data = det.filter(x => x.trainingClassId === this.detailObject.trainingClassId);
-                this.stoppedDuration = det.stoppedDuration;
-                this.timeBegan = det.timeBegan;
-                this.timeStopped = det.timeStopped;
-                // console.log(data,"DATA")
-            }
-        });
-
-        this.storage.get('currentUser').then((user: any) => {
-            if (user) {
-                self.currentUser = user;
-                self.resortId = self.currentUser.ResortUserMappings[0].resortId;
-                self.userId = self.currentUser ? self.currentUser.userId : '';
-                this.getCourseTrainingClasses();
-                this.start();
-            }
-        });
-
-        this.quizBtnDisable = false;
-        
+            this.storage.get('currentUser').then((user: any) => {
+                if (user) {
+                    self.currentUser = user;
+                    self.resortId = self.currentUser.ResortUserMappings[0].resortId;
+                    self.userId = self.currentUser ? self.currentUser.userId : '';
+                    this.getCourseTrainingClasses();
+                    this.start();
+                }
+            });        
       }
 
         getCourseTrainingClasses() {
@@ -380,43 +378,42 @@ export class TrainingDetailPage {
         this.navCtrl.pop(this.paramsToSend);
         this.stop();
 
-        // this.storage.get('timer').then(value => {
-        //   if(value){
-        //    value.map(x => {  
-        //        if(x.trainingClassId === this.detailObject.trainingClassId){
-        //             x.timeStopped = this.timeStopped;
-        //             x.timeBegan = this.timeBegan;
-        //             x.stoppedDuration = this.stoppedDuration;
-        //             x.trainingClassId = this.detailObject.trainingClassId;
-  
-        //          this.storage.set('timer', x);
-
-        //        } else{
+        this.storage.get('timer').then(value => {
+          if(value){
+              console.log(value,"Value");
+           value.map(x => {  
+               if(x.trainingClassId === this.detailObject.trainingClassId){
+                    x.timeStopped = this.timeStopped;
+                    x.timeBegan = this.timeBegan;
+                    x.stoppedDuration = this.stoppedDuration;
+                    x.trainingClassId = this.detailObject.trainingClassId;
+                   this.storage.set('timer', value);
+               } else{
                     
-        //             let obj = {
-        //                 'timeStopped': this.timeStopped,
-        //                 'timeBegan': this.timeBegan,
-        //                 'stoppedDuration': this.stoppedDuration,
-        //                 'trainingClassId': this.detailObject.trainingClassId
-        //             };
-        //             this.timerArr.push(obj);
-        //             this.storage.set('timer', this.timerArr);
-        //        }
+                    let obj = {
+                        'timeStopped': this.timeStopped,
+                        'timeBegan': this.timeBegan,
+                        'stoppedDuration': this.stoppedDuration,
+                        'trainingClassId': this.detailObject.trainingClassId
+                    };
+                    this.timerArr.push(obj);
+                    this.storage.set('timer', this.timerArr);
+               }
 
-        //    });
-        // }else{
-            // let arr =[];
+           });
+        }else{
+           
             let obj = {
                 'timeStopped': this.timeStopped,
                 'timeBegan': this.timeBegan,
-                'stoppedDuration': this.stoppedDuration
-                // 'trainingClassId': this.detailObject.trainingClassId
+                'stoppedDuration': this.stoppedDuration,
+                'trainingClassId': this.detailObject.trainingClassId
             };
-            // arr.push(obj);
-            this.storage.set('timer', obj);
-        // }
+             this.timerArr.push(obj);
+            this.storage.set('timer', this.timerArr);
+        }
 
-        // })
+        })
 
     }
 
