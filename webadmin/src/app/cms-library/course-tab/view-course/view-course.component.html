@@ -2,14 +2,14 @@
     <form class="float-right row pb-3 filter-search">
         <div class="search-container clearfix">
             <!-- <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox"> -->
-            <button type = "button" class="btn btn-primary" (click)="goToCourse()">Edit Course</button>
+            <button *ngIf="courseDetails.length" type = "button" class="btn btn-primary" (click)="goToCourse()">Edit Course</button>
             <!-- <button type="button" (click)="resetSearch()" class="user-search-icon"><i class="fas fa-sync-alt search-icon"></i></button> -->
         </div>
     </form>   
   <tabset #staticTabs class="course-tab" *ngIf="courseDetails.length">
-    <tab *ngFor="let course of courseDetails;let i = index" heading={{course?.TrainingClass?.trainingClassName}} (select)="classTabSelect(i)">
+    <tab *ngFor="let course of courseDetails;let i = index"  [active]="i == tabIndex" heading={{course?.TrainingClass?.trainingClassName}} (select)="classTabSelect(i)">
       <!-- <div>{{course.trainingClassId}}</div> -->
-        <div id="coss" class="col-md-12 p-3 mb-3 clearfix px-0" *ngIf="course?.TrainingClass?.FileMappings.length">
+        <div id="coss" class="col-md-12 p-3 mb-3 clearfix px-0" *ngIf="course?.TrainingClass && course?.TrainingClass?.FileMappings.length">
           <div  class="white-bg p-3" dnd-sortable-container [sortableData]="course?.TrainingClass?.FileMappings">
               <div class="file-title">Files</div>
               <div  class="dnd-bg p-3 clearfix" *ngFor="let file of course?.TrainingClass?.FileMappings;let fi = index" dnd-sortable [sortableIndex]="fi">

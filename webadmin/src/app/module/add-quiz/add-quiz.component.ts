@@ -401,7 +401,7 @@ export class AddQuizComponent implements OnInit {
                     delete params.quizId;
                 }
                 if (this.videoList.length) {
-                    params.files = this.videoList.map(item => {
+                    params.files = this.videoList.map((item,i) => {
                         if (this.courseId) {
                             let obj = {
                                 fileName: item.fileName,
@@ -416,7 +416,8 @@ export class AddQuizComponent implements OnInit {
                                 trainingClassId: item.trainingClassId,
                                 inputUrl : '',
                                 transcodeUrl : '',
-                                jobId : ''
+                                jobId : '',
+                                order : i+1
                             }
                             if(item.fileType == 'Video'){
                                 obj.inputUrl = item.inputUrl;
@@ -443,7 +444,8 @@ export class AddQuizComponent implements OnInit {
                                 fileLength: item.fileLength,
                                 inputUrl : '',
                                 transcodeUrl : '',
-                                jobId : ''
+                                jobId : '',
+                                order : i+1
                             }
                             if(item.fileType == 'Video'){
                                 obj.inputUrl = item.inputUrl;
@@ -692,7 +694,7 @@ export class AddQuizComponent implements OnInit {
                       delete params.quizId;
                   }
                 if (this.videoList.length) {
-                    params.files = this.videoList.map(item => {
+                    params.files = this.videoList.map((item,i) => {
                         if (this.classId) {
                             let obj = {
                                 fileName: item.fileName,
@@ -707,7 +709,8 @@ export class AddQuizComponent implements OnInit {
                                 trainingClassId: item.trainingClassId,
                                 jobId : '',
                                 transcodeUrl :'',
-                                inputUrl : ''
+                                inputUrl : '',
+                                order : i+1
                             }
                             if(item.fileType == 'Video'){
                                 obj.inputUrl = item.inputUrl;
@@ -734,7 +737,8 @@ export class AddQuizComponent implements OnInit {
                                 fileId: item.fileId,
                                 jobId : '',
                                 transcodeUrl :'',
-                                inputUrl : ''
+                                inputUrl : '',
+                                order : i+1
 
                             }
                             if(item.fileType == 'Video'){

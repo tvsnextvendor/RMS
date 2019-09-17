@@ -73,6 +73,13 @@
             <button type="button" (click)="resetFilter()" class="btn reset-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
             </div>
     </div>
+    <div class="float-right row pb-3 adduser-respon" *ngIf="trendsVar.moduleList.length">
+            <span class="icon-size"><i class="fa fa-circle assigned-icon"></i> {{commonLabels.labels.availableCourses}}</span>
+            <span class="icon-size"><i class="fa fa-circle progress-icon"></i> {{commonLabels.labels.progressCourse}}</span>
+            <span class="icon-size"><i class="fa fa-circle completed-icon"></i>{{commonLabels.labels.completedCourses}}</span>
+            <span class="icon-size"><i class="fa fa-circle expire-icon"></i> {{commonLabels.labels.expiredCourse}}</span>
+        <!-- <span><i class="fa fa-icon-circle"></i></span> -->
+    </div>
     <div class="table-responsive custom-table2 mt-3">
         <table class="table white-bg table-striped" [mfData]="trendsVar.moduleList" #mf="mfDataTable" [mfRowsOnPage]="10" id="courseTrend">
             <thead>
@@ -87,7 +94,7 @@
                                     src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>
-                        <mfDefaultSorter by="updated">No. of employee assigned to<span class="ml-2"><img
+                        <mfDefaultSorter by="updated">{{commonLabels.labels.TotalEmpCount}}<span class="ml-2"><img
                                     src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                     </th>
                     <th>

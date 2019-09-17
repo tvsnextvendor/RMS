@@ -174,3 +174,26 @@
   font-weight: 600;
   background-color: #ff8080;
 }
+
+.assigned-icon{
+  color: #ffba92;
+  font-size:14px
+}
+.progress-icon{
+  color: #c6f1d6;
+  font-size:14px
+}
+.completed-icon{
+  color: #e0f5b9;
+  font-size:14px
+}
+.expire-icon{
+  color: #ff8080;
+  font-size:14px
+}
+
+.icon-size{
+  font-size: 14px;
+  margin-right: 10px;
+  color: #939399;
+}

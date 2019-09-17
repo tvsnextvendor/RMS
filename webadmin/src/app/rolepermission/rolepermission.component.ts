@@ -282,8 +282,16 @@ export class RolepermissionComponent implements OnInit {
         menuMobile: menuMobile,
         web: this.constant.web,
         mobile: this.constant.mobile,
-        userId: this.utilService.getUserData().userId
+        userId: this.utilService.getUserData().userId,
+        allDepartments : 0
         // createdBy: this.utilService.getUserData().userId
+      }
+      if(this.selectAllDept){
+        delete obj.departmentId;
+        obj.allDepartments = 1;
+      }
+      else{
+        delete obj.allDepartments
       }
       const data = this.constant;
       if (data.resortId && data.divisionId && data.departmentId && data.roleId) {
@@ -342,6 +350,7 @@ export class RolepermissionComponent implements OnInit {
     this.constant.selectAllView = false;
     this.constant.selectAllUpload = false;
     this.constant.selectAllEdit = false;
+    this.selectAllDept = false;
     this.constant.modules = RolePermissionVar.defaultModules;
     this.clearSelectFields(null);
     this.constant.web = false;
