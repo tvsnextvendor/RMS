@@ -405,7 +405,9 @@ export class CommonLabels{
         "TotalTc"           :   "Total Training Classes",
         "TotalEmpCount"     :   "No. of employee assigned to",
         "failedClass"       :   "Frequently failed classes",
-        "statusCourse"      :   "Status of courses"
+        "statusCourse"      :   "Status of courses",
+        "progressCourse"    :   "Inprogress Courses",
+        "expiredCourse"     :   "Expired Courses",
     };
 
     btns = {
