@@ -29,7 +29,7 @@
                 <div class="col-md-3 pl-0 select select-style clearfix">
                     <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp (change)="filterSelect(emp.value,'emp')">
                         <option [value]=null>{{commonLabels.labels.selEmp}}</option>
-                        <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
+                        <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.firstName}}</option>
                     </select>
                     <div class="select_arrow"></div>
                 </div>
@@ -52,7 +52,7 @@
                             <mfDefaultSorter by="resortName">{{commonLabels.labels.resortName}}</mfDefaultSorter>
                         </th>
                         <th colspan="1" class="pl-4 employeeName-width">
-                            <mfDefaultSorter by="userName">{{commonLabels.labels.employeeName}}<span class="ml-2"><img
+                            <mfDefaultSorter by="firstName">{{commonLabels.labels.employeeName}}<span class="ml-2"><img
                                         src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
                         <th colspan="1" class="text-left">

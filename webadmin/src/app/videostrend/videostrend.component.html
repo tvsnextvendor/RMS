@@ -109,10 +109,10 @@
                         <mfDefaultSorter by="resortsCount">{{commonLabels.labels.noOfResorts}}<span class="ml-2"><img
                                     src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                     </th>
-                    <th>
+                    <!-- <th>
                         <mfDefaultSorter by="employeesCount">{{commonLabels.labels.noOfEmployee}}<span class="ml-2"><img
                                         src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
-                    </th>
+                    </th> -->
                 </tr>
             </thead>
             <tbody>
@@ -122,7 +122,8 @@
                         <!-- <p>{{list.videoName}}</p> -->
                     </td>
                     <td class="vdo-desc-height text-center">{{list.noOfClasses}}</td>
-                    <td class="vdo-desc-height text-center">{{list.employeesCount}}</td>
+                    <td class="vdo-desc-height text-center"><span *ngIf="list.employeesCount > 0"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}" [queryParams]="{type: 'course'}">{{list.employeesCount}}</a></span>
+                        <span *ngIf="list.employeesCount == 0">{{list.employeesCount}}</span></td>
                     <td class="vdo-desc-height text-center">{{list.failedClassesCount}}</td>
                     <td class="vdo-desc-height text-center">
                         <div class="row progress">
@@ -143,10 +144,10 @@
                     <!-- <td class="vdo-desc-height">{{list.created | date}}</td>
                     <td class="vdo-desc-height">{{list.updated | date}}</td> -->
                     <td class="vdo-desc-height text-center">{{list.resortsCount}}</td>
-                    <td class="vdo-desc-height text-center und-txt">
-                    <span *ngIf="list.employeesCount > 0"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}" [queryParams]="{type: 'course'}">{{list.employeesCount}}</a></span>
-                    <span *ngIf="list.employeesCount == 0">{{list.employeesCount}}</span>
-                    </td>
+                    <!-- <td class="vdo-desc-height text-center und-txt"> -->
+                    <!-- <span *ngIf="list.employeesCount > 0"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}" [queryParams]="{type: 'course'}">{{list.employeesCount}}</a></span>
+                    <span *ngIf="list.employeesCount == 0">{{list.employeesCount}}</span> -->
+                    <!-- </td> -->
                 </tr>
                 <!-- <tr *ngIf="trendsVar.moduleList?.length == 0">
                     <td colspan="5" class="text-center data-design">{{trendsVar.noData}}</td>
