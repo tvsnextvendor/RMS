@@ -280,7 +280,7 @@ export class RolepermissionComponent implements OnInit {
         designationId: this.constant.roleId,
         menu: menu,
         menuMobile: menuMobile,
-        web: this.constant.web,
+        web: true,
         mobile: this.constant.mobile,
         userId: this.utilService.getUserData().userId,
         allDepartments : 0
