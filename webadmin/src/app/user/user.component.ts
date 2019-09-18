@@ -116,6 +116,14 @@ export class UserComponent implements OnInit {
         searchPlaceholderText : "Search",
         clearSearchFilter : true
     }
+    resortList = [];
+    divisionList = [];
+    departmentList = [];
+    empList = [];
+    filterResort = null;
+    filterDivision = null;
+    filterDept = null;
+    filterUser = null;
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService,public permissionService : PermissionService,
@@ -129,13 +137,14 @@ export class UserComponent implements OnInit {
         // this.csvDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.csv';
         let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
         this.resortId = resortId;
+        this.filterResort = this.resortId ? this.resortId : null;
         this.xlsDownload = this.API_ENDPOINT + '8101/user/createXLS';
         // this.xlsDownload = resortId  ? this.API_ENDPOINT + '8101/user/createExcelTemplate?resortId='+resortId : '';
         this.headerService.setTitle({ title: this.commonLabels.titles.userManagement, hidemodule: false });
         this.breadCrumbService.setTitle([]);
         this.pageLimitOptions = [5, 10, 25];
         this.pageLimit = [this.pageLimitOptions[1]];
-        this.userList();
+        this.userList('');
         this.getResortId();
         if(roleId == 4 && !this.permissionService.uploadPermissionCheck("User Management")){
             this.uploadPermission = false;
@@ -169,7 +178,75 @@ export class UserComponent implements OnInit {
                 this.childResortFilterList = result.data  && result.data.length ? result.data : [];
             }
         })
+
+        if(this.roleId != 1){
+            this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                    this.filterSelect(this.filterResort,'resort')
+                } 
+            })
+        }
+        else{
+            this.commonService.getAllResort('').subscribe(item=>{
+                if(item && item.isSuccess){
+                    this.resortList = item.data && item.data.length ? item.data : [];
+                    // this.filterSelect(this.filterResort,'resort')
+                } 
+            })
+        }
         this.getDivisionList(resortId);
+    }
+
+     filterSelect(value,type){
+        this.resortId = '';
+        if(type == "resort"){
+            this.filterDivision =null;
+            this.filterDept = null;
+            this.filterUser = null;
+            // console.log(value);
+            this.resortService.getResortByParentId(this.filterResort).subscribe((result) => {
+                if (result.isSuccess) {
+                    this.divisionList = result.data.divisions;
+                    let query = "&resortId="+this.filterResort;
+                    this.userList(query);
+                }
+            })
+
+        }
+        else if(type == "division"){
+            this.filterDept = null;
+            this.filterUser = null;
+            // console.log(value);
+            let obj = { 'divisionId': this.filterDivision };
+            this.commonService.getDepartmentList(obj).subscribe((result) => {
+                if (result.isSuccess) {
+                    this.departmentList = result.data.rows;
+                    let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision;
+                    this.userList(query);
+                }
+            })
+        }
+        else if(type == "dept"){
+            this.filterUser = null;
+            // console.log(value);
+            // let data = { 'departmentId': this.filterDept, 'createdBy': ' ' };
+            // this.roleId != 1 ? data.createdBy =  this.utilsService.getUserData().userId : delete data.createdBy;
+            // this.userService.getUserByDivDept(data).subscribe(result => {
+            //     if (result && result.data) {
+            //         this.empList = result.data;
+            let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept;
+            this.userList(query);
+                // }
+
+            // })
+        }
+        else if(type == "emp"){
+            // console.log(value);
+            let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept+"&userId="+this.filterUser;
+            this.userList(query);
+        }
+
     }
 
     permissionCheck(){
@@ -233,7 +310,7 @@ export class UserComponent implements OnInit {
         }]
     }
 
-    userList() {
+    userList(queries) {
         let userData = this.utilService.getUserData();
         let roleId = this.utilService.getRole();
         const userId = userData.userId;
@@ -241,6 +318,9 @@ export class UserComponent implements OnInit {
         let query = roleId != 4 ? "?createdBy="+userId : "?resortId="+resortId; 
         if(this.search){
             query = query+"&search="+this.search;
+        }
+        if(queries){
+            query = query+queries;
         }
         this.userService.getUser(query).subscribe((resp) => {
             if (resp.isSuccess) {
@@ -323,7 +403,7 @@ export class UserComponent implements OnInit {
         this.userService.activeUser(userId, params).subscribe(res => {
             if (res.isSuccess) {
                 this.alertService.success(res.message);
-                this.userList();
+                this.userList('');
             }
         });
     }
@@ -460,7 +540,7 @@ export class UserComponent implements OnInit {
         this.userService.deleteUser(this.userid).subscribe((result) => {
             if (result.isSuccess) {
                 this.constant.modalRef.hide();
-                this.userList();
+                this.userList('');
                 this.alertService.success(result.message);
             }
         },err=>{
@@ -497,7 +577,7 @@ export class UserComponent implements OnInit {
                 this.userService.updateUser(this.userid, obj).subscribe((result) => {
                     if (result.isSuccess) {
                         this.closeAddForm();
-                        this.userList();
+                        this.userList('');
                         this.alertService.success(this.commonLabels.labels.userUpdated);
                     }
                 }, err => {
@@ -511,7 +591,7 @@ export class UserComponent implements OnInit {
                 this.userService.addUser(obj).subscribe(result => {
                     if (result.isSuccess) {
                         this.closeAddForm();
-                        this.userList();
+                        this.userList('');
                         this.alertService.success(this.commonLabels.labels.userAdded);
                     }
                 }, err => {
@@ -546,6 +626,7 @@ export class UserComponent implements OnInit {
         this.empId = '';
         this.fullAccess = 'full';
         this.approvalAccess = null;
+        this.resetFilter();
         this.roles = [{
             designationName: ''
         }]
@@ -736,7 +817,7 @@ export class UserComponent implements OnInit {
                 this.userService.bulkUpload(params, userId, resortId).subscribe(resp => {
                     if (resp && resp.isSuccess) {
                         this.constant.modalRef.hide();
-                        this.userList();
+                        this.userList('');
                         this.fileUploadValue = '';
                         this.alertService.success(resp.message);
                         
@@ -825,7 +906,7 @@ export class UserComponent implements OnInit {
                 let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
                 this.constant.modalRef.hide();
                 this.getDivisionList(resortId);
-                this.userList();
+                this.userList('');
                 this.alertService.success(this.commonLabels.msgs.diviDeleted);
             }
         },err=>{
@@ -851,7 +932,7 @@ export class UserComponent implements OnInit {
                 let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
                 this.constant.modalRef.hide();
                 this.getDivisionList(resortId);
-                this.userList();
+                this.userList('');
                 this.alertService.success(this.commonLabels.msgs.designDelete);
             }
         })
@@ -1144,7 +1225,7 @@ export class UserComponent implements OnInit {
 
     resetSearch(){
         this.search = '';
-        this.userList();
+        this.userList('');
     }
     cancelBulkUpload(){
         this.resetBulkUploadData();
@@ -1162,6 +1243,10 @@ export class UserComponent implements OnInit {
         this.bulkUploadWarn = false;
         let userData = this.utilService.getUserData();
         this.resortId =  userData.ResortUserMappings && userData.ResortUserMappings.length ? userData.ResortUserMappings[0].Resort.resortId : '';
+        this.filterDivision =null;
+        this.filterDept = null;
+        this.filterUser = null;
+        this.filterResort = this.resortId;
     }
 
     ngOnDestroy(){
@@ -1170,6 +1255,11 @@ export class UserComponent implements OnInit {
         this.fileExist = false;
         this.userPagesEnable = false;
         this.selectTab = 'user';
+        this.filterDivision =null;
+        this.filterDept = null;
+        this.filterUser = null;
+        this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : null;
+        this.filterResort = this.resortId;
     }
     getResortDetails() {
         let userData = this.utilService.getUserData();
@@ -1215,7 +1305,15 @@ export class UserComponent implements OnInit {
     }
     showSpecificDivisions(divisionSearch){
         this.search = divisionSearch;
-        this.userList();
+        this.userList('');
         this.roleTabSelect('user');
+    }
+    resetFilter(){
+        this.filterDivision =null;
+        this.filterDept = null;
+        this.filterUser = null;
+        this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : null;
+        this.filterResort = this.resortId;
+        this.userList('');
     }
 }
