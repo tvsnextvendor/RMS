@@ -12,31 +12,53 @@
             <tab [active] = "selectTab == 'user'" heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
                 <div class="pt-3" id="contentToConvert">
                     <div class="col-md-12 clearfix search-box p-0">
-                        
-                    <div class="float-right row pb-1 adduser-respon"> 
-                        <span *ngIf = "uploadPermission" class="pr-2 upload-line">
-                            <!-- <button class="fileUpload btn btn-primary addUser-upload">
-                            <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
-                            <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
-                            accept=".xlsx,.csv" />
-                            </button> -->
-                            <button class="fileUpload btn btn-primary addUser-upload" (click)="openAddRole(bulkUpload,'bulk','')">{{commonLabels.btns.uploadEmp}}</button>
-                        </span> 
-                        <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="constant.userList.length">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                {{commonLabels.btns.exportTo}}
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
-                                <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
+                        <div class="float-right row pb-1 adduser-respon"> 
+                            <div class="col-md-2 pl-0 select select-style clearfix">
+                                <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
+                                    (change)="filterSelect(childResort.value,'resort')">
+                                    <option [value]=null>{{commonLabels.labels.selectResort}}</option>
+                                    <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
+                                </select>
+                                <div class="select_arrow"></div>
                             </div>
+                            <div class="col-md-2 pl-0 select select-style clearfix">
+                                <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterDivision"
+                                    #parentdivision (change)="filterSelect(parentdivision.value,'division')">
+                                    <option [value]=null>{{commonLabels.labels.selDiv}}</option>
+                                    <option *ngFor="let division of divisionList" [value]="division.divisionId">{{division.divisionName}}</option>
+                                </select>
+                                <div class="select_arrow"></div>
+                            </div>
+                            <div class="col-md-2 pl-0 select select-style clearfix">
+                                <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
+                                        (change)="filterSelect(dept.value,'dept')">
+                                    <option [value]=null>{{commonLabels.labels.selDept}}</option>
+                                    <option *ngFor="let dep of departmentList" [value]="dep.departmentId">{{dep.departmentName}}</option>
+                                </select>
+                                <div class="select_arrow"></div>
+                            </div>
+                            <span class="pr-2"><button class="btn btn-primary addUser-upload" type="button" (click)="resetFilter()"><i class="fas fa-sync-alt refer-icon"></i></button></span>
+                            <span *ngIf = "uploadPermission" class="pr-2 upload-line">
+                                <!-- <button class="fileUpload btn btn-primary addUser-upload">
+                                <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
+                                <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
+                                accept=".xlsx,.csv" />
+                                </button> -->
+                                <button class="fileUpload btn btn-primary addUser-upload" (click)="openAddRole(bulkUpload,'bulk','')">{{commonLabels.btns.uploadEmp}}</button>
+                            </span> 
+
+                            <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="constant.userList.length">
+                                <button type="button" class="btn btn-primary dropdown-toggle ht-38" data-toggle="dropdown">
+                                    {{commonLabels.btns.exportTo}}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
+                                    <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
+                                </div>
+                            </div>
+                            <span class="pr-2"><button class="btn btn-primary addUser-upload" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
                         </div>
-                        <span class="pr-2"><button class="btn btn-primary addUser-upload" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
-                            <!-- <span class="pagenation-btn">
-                            <ngx-select-dropdown [options]="pageLimitOptions" [(value)]="pageLimit" [config]="{placeholder : 'Limit'}"
-                            class="pagenation-dropdown"></ngx-select-dropdown>
-                            </span> -->
-                        </div>
+                        
                     </div>
                     <form class="table-responsive custom-table2 px-1" #userForm="ngForm" id="userForm">
                         <table class="table table-striped white-bg mt-1" [mfData]="constant.userList" #mf="mfDataTable" [mfRowsOnPage]="pageLimit.length ? pageLimit[0] : 5">
