@@ -149,6 +149,7 @@ export class RolepermissionComponent implements OnInit {
       this.selectAllDept = true;
     }
     else{
+      this.selectAllDept = false;
       this.commonService.getDesignationList(resortId).subscribe((result) => {
         if (result && result.isSuccess) {
           this.constant.roleList = result.data && result.data.rows;
