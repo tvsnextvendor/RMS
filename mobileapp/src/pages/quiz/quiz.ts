@@ -24,7 +24,7 @@ export class QuizPage {
     passPercentage;
     nonMcqAns = "";
     ansArr = [];
-
+    timerArr = [];
     timeBegan = null
     timeStopped: any = null
     stoppedDuration: any = 0
@@ -114,9 +114,6 @@ export class QuizPage {
         this.time = this.blankTime;
     }
 
-
-
-
     // Get Quiz Content
     getQuizContent() {
         this.selectedQuizContent = this.quizData[0].Questions[this.quizStep];
@@ -188,6 +185,34 @@ export class QuizPage {
     // Back push stack
     goBackToDetailPage() {
         this.navCtrl.pop();
+        this.stop();
+        this.storage.get('timer').then(value => {
+            if (value) {
+        
+                let data = value.filter(x => {
+                    return x.trainingClassId != this.trainingClassId
+                });
+        
+                let obj = {
+                    'timeStopped': this.timeStopped,
+                    'timeBegan': this.timeBegan,
+                    'stoppedDuration': this.stoppedDuration,
+                    'trainingClassId': this.trainingClassId
+                };
+                data.push(obj);
+                this.storage.set('timer', data);
+            } else {
+                let obj = {
+                    'timeStopped': this.timeStopped,
+                    'timeBegan': this.timeBegan,
+                    'stoppedDuration': this.stoppedDuration,
+                    'trainingClassId': this.trainingClassId
+                };
+                this.timerArr.push(obj);
+                this.storage.set('timer', this.timerArr);
+            }
+        })
+        
     }
 
     // Final Congrats
