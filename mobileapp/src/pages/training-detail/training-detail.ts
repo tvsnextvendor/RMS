@@ -99,7 +99,7 @@ export class TrainingDetailPage {
     time = "00:00.000"
     perAfterView = 0;
     fileIdsArr=[];
-   
+    timeArr=[];
 
     constructor(public navCtrl: NavController,public platform:Platform,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController) {
         this.Math = Math;
@@ -110,20 +110,16 @@ export class TrainingDetailPage {
       ionViewWillEnter() {
           this.quizBtnDisable = false;
             let self = this;
-            this.storage.get('timer').then((det: any) => {
+             this.storage.get('timer').then((det: any) => {
                 if (det) {
-                console.log(det,"Detail");
-                let data = det.filter(x => x.trainingClassId === this.detailObject.trainingClassId);
-                console.log(data,"Datatgsdvghv")
-                if(data){
-                    this.stoppedDuration = data[0].stoppedDuration;
-                    this.timeBegan = data[0].timeBegan;
-                    this.timeStopped = data[0].timeStopped;
-                    console.log(data,"DATA")
-                }
+                    let data = det.filter(x => x.trainingClassId === this.detailObject.trainingClassId);
+                    if(data.length){
+                        this.stoppedDuration = data[0].stoppedDuration;
+                        this.timeBegan = data[0].timeBegan;
+                        this.timeStopped = data[0].timeStopped;
+                    }
                 }
             });
-
             this.storage.get('currentUser').then((user: any) => {
                 if (user) {
                     self.currentUser = user;
@@ -189,20 +185,19 @@ export class TrainingDetailPage {
          var video = <HTMLMediaElement>document.getElementById('video-width');
          var supposedCurrentTime = 0;
          if(video){
-            //  console.log(video)
-         video.ontimeupdate = function() {
-             if (video.seeking == false) {
-                 supposedCurrentTime = video.currentTime;
-             }
-         };
-         video.onseeking = function() {
-            if(video.currentTime > supposedCurrentTime){
-             var delta = video.currentTime - supposedCurrentTime;
-             if (Math.abs(delta) > 0.01) {
-                 video.currentTime = supposedCurrentTime;
-             }
-            }
-         }; 
+            video.ontimeupdate = function() {
+                if (video.seeking == false) {
+                    supposedCurrentTime = video.currentTime;
+                }
+             };
+            video.onseeking = function() {
+                if(video.currentTime > supposedCurrentTime){
+                var delta = video.currentTime - supposedCurrentTime;
+                if (Math.abs(delta) > 0.01) {
+                    video.currentTime = supposedCurrentTime;
+                }
+                }
+            }; 
          }
         }   
       }
@@ -378,46 +373,31 @@ export class TrainingDetailPage {
         this.paramsToSend['status'] = this.trainingStatus;
         this.navCtrl.pop(this.paramsToSend);
         this.stop();
-
-        this.storage.get('timer').then(value => {
+        this.storage.get('timer').then(value =>{
           if(value){
-              console.log(value,"Value");
-           value.map(x => {  
-               if(x.trainingClassId === this.detailObject.trainingClassId){
-                    x.timeStopped = this.timeStopped;
-                    x.timeBegan = this.timeBegan;
-                    x.stoppedDuration = this.stoppedDuration;
-                    x.trainingClassId = this.detailObject.trainingClassId;
-                   this.storage.set('timer', value);
-               } else{
-                    
-                    let obj = {
-                        'timeStopped': this.timeStopped,
-                        'timeBegan': this.timeBegan,
-                        'stoppedDuration': this.stoppedDuration,
-                        'trainingClassId': this.detailObject.trainingClassId
-                    };
-                    this.timerArr.push(obj);
-                    this.storage.set('timer', this.timerArr);
-               }
-
-           });
-        }else{
-           
-            let obj = {
-                'timeStopped': this.timeStopped,
-                'timeBegan': this.timeBegan,
-                'stoppedDuration': this.stoppedDuration,
-                'trainingClassId': this.detailObject.trainingClassId
-            };
-             this.timerArr.push(obj);
-            this.storage.set('timer', this.timerArr);
-        }
-
+                let data = value.filter(x => { 
+                    return  x.trainingClassId != this.detailObject.trainingClassId
+                });    
+                let obj = {
+                    'timeStopped': this.timeStopped,
+                    'timeBegan': this.timeBegan,
+                    'stoppedDuration': this.stoppedDuration,
+                    'trainingClassId': this.detailObject.trainingClassId
+                };
+                data.push(obj);
+                this.storage.set('timer', data);
+          }else{        
+                let obj = {
+                    'timeStopped': this.timeStopped,
+                    'timeBegan': this.timeBegan,
+                    'stoppedDuration': this.stoppedDuration,
+                    'trainingClassId': this.detailObject.trainingClassId
+                };
+                this.timerArr.push(obj);
+                this.storage.set('timer', this.timerArr);
+          }
         })
-
     }
-
 
     checkNavigationButton() {
         let currentIndex = this.slides.getActiveIndex();
