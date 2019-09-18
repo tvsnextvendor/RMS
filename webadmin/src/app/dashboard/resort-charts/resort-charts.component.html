@@ -24,12 +24,12 @@
             
              <span  *ngIf="roleId != 4" ><button type="button" (click)="selectResort()" class="btn btn-primary parent-resortbtn">{{commonLabels.btns.go}}</button></span>
              <select *ngIf="roleId != 4"  [disabled]="selectedParentResort == null" [ngClass]="selectedResort ? 'select-resort select-btn cp' : 'select-btn cp'" [(ngModel)]='selectedResort' #resort>
-                <option value="null" disabled>{{commonLabels.labels.childResort}}</option>
+                <option value="null" disabled>{{commonLabels.labels.selChildResort}}</option>
                 <option *ngFor="let resort of resortChildList" [value]='resort.resortId' class="select-resort">{{resort.resortName  | titlecase}}</option>
                 <i class="fa fa-chevron-down" aria-hidden="true"></i>
               </select>
              <select *ngIf="roleId == 1"  [ngClass]="selectedParentResort ? 'select-parent select-btn cp mr-3':'select-btn cp mr-3'" [(ngModel)]='selectedParentResort' #resort (change)="getChildResort(resort.value)">
-              <option value="null" disabled>{{commonLabels.labels.parentresort}}</option>
+              <option value="null" disabled>{{commonLabels.labels.selParentresort}}</option>
               <option *ngFor="let resort of resortList" [value]='resort.resortId' class="select-parent">{{resort.resortName  | titlecase}}</option>
               <i class="fa fa-chevron-down" aria-hidden="true"></i>
             </select>

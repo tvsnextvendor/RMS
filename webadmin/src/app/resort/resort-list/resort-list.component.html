@@ -61,7 +61,7 @@
                 <tbody>
                     <tr *ngFor="let resort of mf.data;let i = index" class="table-desc-color">
                         <td class="text-left txt-unline"><a href="javascript:void" (click)="resortDetails(resort.resortId)">{{ resort.resortName  | titlecase}}</a></td>
-                        <td class="text-left">{{  resort.ResortUserMappings[0]?.User?.firstName }}</td>
+                        <td class="text-left">{{  resort.ResortUserMappings[0]?.User?.userName }}</td>
                         <td class="text-left">{{ resort.ResortUserMappings[0]?.User?.email }}</td>
                         <td class="text-left">{{ resort.ResortUserMappings[0]?.User?.phoneNumber }}</td>
                         <td class="text-center">{{ resort.status }}</td>         
