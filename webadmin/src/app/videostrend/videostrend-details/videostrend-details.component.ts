@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { HeaderService } from '../../services/header.service';
 import { VideosTrendVar } from '../../Constants/videostrend.var';
 import { ActivatedRoute, Params } from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { ExcelService, PDFService, AlertService, CommonService, UtilService,BreadCrumbService,ResortService,UserService } from '../../services';
 import { API_URL } from 'src/app/Constants/api_url';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
@@ -27,6 +29,15 @@ export class VideosTrendDetailsComponent implements OnInit {
     roleId;
     enableFilter= false;
     trendType;
+    modalRef;
+    modalConfig;
+    batchFrom;
+    batchTo;
+    currentDate;
+    rescheduleError = false;
+    scheduleId;
+    selectedUserId;
+
 
     constructor(private headerService: HeaderService,
         private excelService: ExcelService,
@@ -40,7 +51,9 @@ export class VideosTrendDetailsComponent implements OnInit {
         private resortService : ResortService,
         private userService :UserService,
         public location : Location,
-        private alertService : AlertService) {
+        private alertService : AlertService,
+        private modalService: BsModalService,
+        private datePipe: DatePipe) {
         this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.trendsVar.videoId = params['id'];
@@ -56,6 +69,7 @@ export class VideosTrendDetailsComponent implements OnInit {
         let title = this.trendType == 'course' ? this.commonLabels.titles.courseTrend : (this.trendType == 'class' ? this.commonLabels.labels.classTrend : this.commonLabels.labels.notificationTrend);
         this.headerService.setTitle({ title: title, hidemodule: false });
         this.breadCrumbService.setTitle([]);
+        this.currentDate = new Date();
         this.roleId = this.utilService.getRole();
         this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : '';
         this.filterResort = this.resortId ? this.resortId : null;
@@ -163,5 +177,64 @@ export class VideosTrendDetailsComponent implements OnInit {
         this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : '';
         this.filterResort = this.resortId;
         this.getEmployeeList('');
+    }
+
+    openSchedulePopup(template: TemplateRef<any>,data){
+        console.log(data)
+        this.batchFrom = data.TrainingSchedule && data.TrainingSchedule.assignedDate ? new Date(data.TrainingSchedule.assignedDate) : new Date(); 
+        this.scheduleId = data.trainingScheduleId  ? data.trainingScheduleId : '';
+        this.selectedUserId = data.userId;
+        if(this.scheduleId){
+            this.modalRef = this.modalService.show(template, this.modalConfig);
+        }  
+    }
+    closePopup(){
+        this.batchFrom = '';
+        this.batchTo = '';
+        this.scheduleId = '';
+        this.modalRef.hide();
+    }
+    rescheduleSubmit(){
+        if(this.batchFrom && this.batchTo){
+            this.rescheduleError = false;
+            let params = {
+                assignedDate : this.datePipe.transform(this.batchFrom, 'yyyy-MM-dd'),
+                dueDate : this.datePipe.transform(this.batchTo, 'yyyy-MM-dd'),
+                trainingScheduleId : this.scheduleId,
+                userId : this.selectedUserId,
+                resortId    : this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : '',
+                courseId : '',
+                trainingClassId : '',
+                notificationFileId  : ''
+            }
+            if(this.trendType == 'course'){
+                params.courseId = this.trendsVar.videoId;
+                delete params.trainingClassId;
+                delete params.notificationFileId; 
+            }
+            else if(this.trendType == 'class'){
+                params.trainingClassId = this.trendsVar.videoId;
+                delete params.courseId;
+                delete params.notificationFileId; 
+            }
+            else{
+                params.notificationFileId = this.trendsVar.videoId;
+                delete params.courseId;
+                delete params.trainingClassId; 
+            }
+
+            this.userService.rescheduleFile(this.scheduleId,params).subscribe(resp=>{
+                if(resp && resp.isSuccess){
+                    this.closePopup();
+                    this.getEmployeeList('');
+                }
+            },err=>{
+                this.closePopup();
+                this.alertService.error(err.error.error);
+            })
+        }
+        else{
+            this.rescheduleError = true;
+        }
     }
 }

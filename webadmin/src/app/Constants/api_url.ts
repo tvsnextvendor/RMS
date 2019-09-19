@@ -230,6 +230,7 @@ export class API_URL {
     videoTrans : "8103/uploadDocuments",
     removeTrans  : '8103/removeDocuments',
     getAllCourseDetails : '8103/course/getSpecificCourseDatas/',
+    reSchedule  : "8103/schedule/expireReschedule/",
      // addArchieve : '8103/archieved',
     // updateArchieve : '8103/archieved/',
 

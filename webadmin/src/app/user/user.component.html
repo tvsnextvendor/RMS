@@ -56,7 +56,7 @@
                                     <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
                                 </div>
                             </div>
-                            <span class="pr-2"><button class="btn btn-primary addUser-upload" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
+                            <span *ngIf = "permissionCheck()" class="pr-2"><button class="btn btn-primary addUser-upload" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
                         </div>
                         
                     </div>
@@ -91,7 +91,7 @@
                                     <th class="text-center">
                                         <mfDefaultSorter by="status">{{commonLabels.labels.accessTo}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                                     </th>
-                                    <th class="text-center action-hd">
+                                    <th *ngIf = "permissionCheck()" class="text-center action-hd">
                                     <!-- Action -->
                                     </th>   
                                 </tr>
@@ -107,16 +107,16 @@
                                     <td class="text-center"><span *ngIf = "user.ResortUserMappings.length"><label class="mb-0">{{ getDivisionArray(user.ResortUserMappings,'dept')}}</label></span></td>
                                     <td class="text-center"><label class="mb-0">{{ user.email }}</label></td>
                                     <td class="text-center"><label class="mb-0">{{ user.status }}</label></td>
-                                    <td class="text-center">
-                                    <div class="active-alg">
-                                        <a *ngIf = "permissionCheck()" (click)="viewUserDetail(user,i)" title="View"><i class="fa fa-eye header-icon"></i></a>
-                                        <a *ngIf = "permissionCheck()" (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                        <a *ngIf = "permissionCheck()" (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
-                                        <a *ngIf = "permissionCheck()" title="{{user.active?'To InActive':'To Active'}}" class=""><label class="switch">
-                                            <input type="checkbox" [checked]="user.active" (change)="activeStatus(user)"> 
-                                            <span class="slider round"></span>
-                                        </label></a>    
-                                    </div>                            
+                                    <td class="text-center" *ngIf = "permissionCheck()">
+                                        <div class="active-alg">
+                                            <a (click)="viewUserDetail(user,i)" title="View"><i class="fa fa-eye header-icon"></i></a>
+                                            <a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                            <a (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
+                                            <a title="{{user.active?'To InActive':'To Active'}}" class=""><label class="switch">
+                                                <input type="checkbox" [checked]="user.active" (change)="activeStatus(user)"> 
+                                                <span class="slider round"></span>
+                                            </label></a>
+                                        </div>                            
                                     </td>       
                                 </tr>
                                 <tr *ngIf="mf.data?.length == 0">
@@ -166,7 +166,7 @@
                                     <th class="text-center">
                                         <mfDefaultSorter>{{commonLabels.labels.noOfEmployee}}</mfDefaultSorter>
                                     </th>
-                                    <th class="text-center">
+                                    <th *ngIf = "permissionCheck()" class="text-center">
                                         <mfDefaultSorter by="email">{{commonLabels.labels.action}}</mfDefaultSorter>
                                     </th>
                                     <!-- <th class="text-center">
@@ -227,10 +227,10 @@
                                     <td></td>
                                     <!-- <td></td> -->
                                 </tr>
-                                <tr *ngIf="mf1.data?.length == 0">
-                                    <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
-                                </tr>
                             </tbody>
+                            <tr *ngIf="mf1.data?.length == 0">
+                                <td colspan="10"> <p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>    
+                            </tr>
                             <tfoot>
                                 <tr data-html2canvas-ignore="true">
                                     <td colspan="10">
@@ -273,7 +273,7 @@
                     </div>
                 </div> 
             </tab>
-            <tab [active] = "selectTab == 'rolesPermission'" *ngIf = "permissionCheck() && userType !== 4" heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')"> 
+            <tab [active] = "selectTab == 'rolesPermission'" *ngIf = "rolePageView" heading={{commonLabels.labels.rolesPermission}} (select)="roleTabSelect('rolesPermission')"> 
             <!-- <span class="pr-2" *ngIf="viewUserRolePermission">
                 <button class="btn btn-primary" (click)="back('roles')">{{commonLabels.btns.back}}</button>
             </span> -->

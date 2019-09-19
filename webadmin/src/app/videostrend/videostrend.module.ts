@@ -11,6 +11,7 @@ import {DataTableModule} from "angular-6-datatable";
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { FormsModule} from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 import { ExpiretrendComponent } from './expiretrend/expiretrend.component';
 import { ExpiretrenddetailsComponent } from './expiretrenddetails/expiretrenddetails.component';
 import { ClasstrendComponent } from './classtrend/classtrend.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
     NgHttpLoaderModule.forRoot(),
     DataTableModule,
     FormsModule,
+    BsDatepickerModule,
     SelectDropDownModule,
     TabsModule,
     ModalModule,

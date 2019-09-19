@@ -100,4 +100,9 @@ export class UserService {
     return this.http.upload('local',this.url.sendEmail, params);
   }
 
+  rescheduleFile(id,params){
+    // reSchedule
+    return this.http.put('local',this.url.reSchedule,params)
+  }
+
 }

@@ -191,5 +191,14 @@ export class SideBarComponent implements OnInit {
         return false;
       }
     }
+    if(type == "create"){
+      if(this.permissionCheck('Course','edit') || this.permissionCheck('Training Class','edit') || this.permissionCheck('Quiz','edit') || this.permissionCheck('Notification','edit')){
+        return true;
+
+      }
+      else{
+        return false;
+      }
+    }
   }
 }

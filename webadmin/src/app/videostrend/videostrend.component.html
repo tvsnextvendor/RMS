@@ -120,7 +120,7 @@
                     <td class="vdo-desc-height">{{list.courseName}}
                         <!-- <p>{{list.videoName}}</p> -->
                     </td>
-                    <td class="vdo-desc-height text-center">{{list.CourseTrainingClassMaps.length}}</td>
+                    <td class="vdo-desc-height text-center">{{list?.CourseTrainingClassMaps?.length}}</td>
                     <td class="vdo-desc-height text-center"><span *ngIf="list.employeesCount > 0"><a href="javaScript:void" routerLink="/videostrend/{{list.courseId}}" [queryParams]="{type: 'course'}">{{list.employeesCount}}</a></span>
                         <span *ngIf="list.employeesCount == 0">{{list.employeesCount}}</span></td>
                     <td class="vdo-desc-height text-center">{{list.failedClassesCount}}</td>
