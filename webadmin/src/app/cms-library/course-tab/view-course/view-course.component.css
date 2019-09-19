@@ -19,6 +19,12 @@
     color: #697380;
 }
 
+.content-class-desc{
+    font-size: 12px;
+    /* line-height: 1px; */
+    color: #697380;
+}
+
 .drop-and-drag-pdb {
     margin-bottom: 10px;
 }
