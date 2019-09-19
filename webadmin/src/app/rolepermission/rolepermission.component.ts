@@ -32,7 +32,7 @@ export class RolepermissionComponent implements OnInit {
     } 
     else{
       this.constant.modules.forEach(item => {
-        item.view = false;
+        // item.view = false;
         item.upload = false;
         item.edit = false;
         this.constant.selectAllView = false;
@@ -62,11 +62,23 @@ export class RolepermissionComponent implements OnInit {
       // this.getData();
     } else {
       this.constant.modules.forEach(item => {
-        item.view = false;
+        // item.view = false;
         item.upload = false;
         item.edit = false;
       });
       this.rolesPermissions = [];
+    }
+    if(this.viewUserRolePermission){
+      this.constant.selectAllView = true;
+      for (var i = 0; i < this.constant.modules.length; i++) {
+        this.constant.modules[i]['view'] = true;
+      }
+    }
+    else{
+      this.constant.selectAllView = false;
+      for (var i = 0; i < this.constant.modules.length; i++) {
+        this.constant.modules[i]['view'] = false;
+      }
     }
   }
   getData() {
@@ -93,7 +105,7 @@ export class RolepermissionComponent implements OnInit {
         this.constant.modules = permissions;
       } else {
         this.constant.modules.forEach(item => {
-          item.view = false;
+          // item.view = false;
           item.upload = false;
           item.edit = false;
         });
@@ -192,7 +204,7 @@ export class RolepermissionComponent implements OnInit {
       //Default unselect all options 
       else {
         this.constant.modules.forEach(item => {
-          item.view = false;
+          // item.view = false;
           item.upload = false;
           item.edit = false;
         });

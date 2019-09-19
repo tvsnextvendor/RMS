@@ -111,3 +111,18 @@ tbody > tr > td {
   clear: both;
   padding-bottom: 0px;
  }
+
+ .label-title{
+	color: #697380;
+	line-height: 47px;
+	font-size: 14px;
+}
+.batch-input{
+	position: relative;
+}
+
+.batch-icon{
+	position: absolute;
+    top: 10px;
+    right: 5px;
+}

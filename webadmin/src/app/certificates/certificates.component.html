@@ -3,7 +3,7 @@
         <div class="white-bg p-3">
             <div class="clearfix pb-3 certificate-respon">
                 <h5 class="float-left certificate-respon">{{commonLabels.titles.certiTempl}}</h5>
-                <button type="button" class="btn btn-primary certificate-respon" (click)="openAddtemplate(addTemplate, '')">{{commonLabels.btns.add}}</button>
+                <button *ngIf="permissionCheck('Certificates','edit')" type="button" class="btn btn-primary certificate-respon" (click)="openAddtemplate(addTemplate, '')">{{commonLabels.btns.add}}</button>
             </div>
             <owl-carousel-o [options]="customOptions" class="certificate-list" *ngIf="constant.certificateList?.length > 0;else noData">
                 <ng-container *ngFor="let template of constant.certificateList">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            <div class="clearfix pt-4 pb-2">
+            <div class="clearfix pt-4 pb-2" *ngIf="permissionCheck('Certificates','edit')">
                 <div class="float-right">
                     <button type="submit" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
                     <button type="button" class="btn btn-default" (click)="clearMessage()">{{commonLabels.btns.cancel}}</button>
@@ -158,7 +158,7 @@
                 </div>
             </div>
 
-            <div class="clearfix pt-4 pb-2">
+            <div class="clearfix pt-4 pb-2" *ngIf="permissionCheck('Certificates','edit')">
                 <div class="float-right">
                     <button type="submit" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.save}}</button>
                     <button type="button" class="btn btn-default" (click)="clearbatchSelection()">{{commonLabels.btns.clear}}</button>

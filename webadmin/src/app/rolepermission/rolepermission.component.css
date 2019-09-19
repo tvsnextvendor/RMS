@@ -23,6 +23,11 @@
    height: 0;
    width: 0;
 }
+
+.table-checkbox-cont-input{
+   opacity: 0.65;
+   cursor: not-allowed !important;
+}
 .table-checkmark {
    position: absolute;
    top: 4px;

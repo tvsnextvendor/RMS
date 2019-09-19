@@ -107,6 +107,7 @@
                             <mfDefaultSorter by="completedDate">{{commonLabels.labels.completeDate}}<span class="ml-2"><img
                                         src="assets/images/sortby.png" class="s-width"></span></mfDefaultSorter>
                         </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,6 +122,9 @@
                         <td class="vat text-left">{{emp?.timeTaken}}</td>
                         <td class="vat text-left">{{emp?.TrainingSchedule?.assignedDate | date :'MM/dd/yyyy'}}</td>
                         <td class="vat text-left">{{emp?.completedDate | date :'MM/dd/yyyy'}}</td>
+                        <td>
+                            <button type="button" *ngIf="emp.status == 'expired'" class="btn btn-primary" (click)="openSchedulePopup(reschedule,emp)">Reschedule</button>
+                        </td>
                     </tr>
                     <tr *ngIf="trendsVar.employeeList.length == 0">
                         <td colspan="10"><p class="text-center data-design p-5">
@@ -141,3 +145,46 @@
             </div>
     </div>
 </div>
+
+<ng-template #reschedule>
+        <div class="modal-header pb-0">
+            <p class="hd-alg">{{commonLabels.labels.reschedule}}</p>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closePopup()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">           
+            <form #videoEditForm="ngForm" (ngSubmit)="rescheduleSubmit()">
+                <div class="row form-group">
+                    <div class="col-md-12 row form-group pr-0">
+                        <label class="col-md-5 pl-0 label-title">{{commonLabels.labels.from}}</label>
+                        <div class="col-md-7 p-0">
+                            <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
+                                <input disabled type="text" [disabled]="previousUpdate" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off" [minDate]="currentDate"
+                                    name="batchFrom" bsDatepicker [(ngModel)]="batchFrom" #BatchFrom="ngModel"
+                                    [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 row form-group pr-0">
+                        <label class="col-md-5 pl-0 label-title">{{commonLabels.labels.to}}</label>
+                        <div class="col-md-7 p-0 batch-input">
+                            <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
+                                    class="batch-icon">
+                                <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo" [minDate]="currentDate"
+                                    bsDatepicker [(ngModel)]="batchTo" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                                    required>
+                                <span class="required_color" *ngIf="rescheduleError">
+                                    {{commonLabels.mandatoryLabels.to}}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>    
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.update}}</button>
+                    <button type="button" class="btn btn-primary creat-btn mr-3" (click)="closePopup()">{{commonLabels.btns.cancel}}</button>
+                </div>
+            </form>
+        </div>
+</ng-template>

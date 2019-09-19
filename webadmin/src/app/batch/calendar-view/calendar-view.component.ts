@@ -105,6 +105,17 @@ export class CalendarViewComponent implements OnInit {
     }
     
     goToBatch(event,scheduleId,i,addBatch){
+       if(this.roleId == 4){
+            if(this.permissionCheck('Calendar')){
+                this.permissionCheckClick(event,scheduleId,i,addBatch)
+            }
+        } 
+        else{
+            this.permissionCheckClick(event,scheduleId,i,addBatch)
+        }
+       
+    }
+    permissionCheckClick(event,scheduleId,i,addBatch){
         if(addBatch == "editBatch"){
             if(scheduleId.scheduleType == 'notification'){
                 let id = scheduleId.notificationFileId;

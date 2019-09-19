@@ -124,6 +124,7 @@ export class UserComponent implements OnInit {
     filterDivision = null;
     filterDept = null;
     filterUser = null;
+    rolePageView = true;
 
 
     constructor(private pdfService: PDFService, private excelService: ExcelService, private alertService: AlertService, private commonService: CommonService, private utilService: UtilService, private userService: UserService, private resortService: ResortService, private http: HttpService, private modalService: BsModalService, public constant: UserVar, private headerService: HeaderService, private toastr: ToastrService, private router: Router,private commonLabels: CommonLabels, public batchVar: BatchVar, private breadCrumbService: BreadCrumbService,public permissionService : PermissionService,
@@ -134,6 +135,9 @@ export class UserComponent implements OnInit {
     ngOnInit() {
         let roleId = this.utilService.getRole();
         let userData = this.utilService.getUserData();
+        if(roleId == 4){
+            this.rolePageView = false;  
+        }
         // this.csvDownload = this.API_ENDPOINT + '8103/downloads/rms-usertemplate.csv';
         let resortId = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
         this.resortId = resortId;
@@ -257,10 +261,10 @@ export class UserComponent implements OnInit {
         this.commonService.getResortDivision(resortId).subscribe(resp => {
             if (resp && resp.isSuccess) {
                 let data =  resp.data.length && resp.data[0].resortMapping ? resp.data[0].resortMapping : [];
-                this.divisionDetails = data.map(item=>{
+                this.divisionDetails = data.length ? data.map(item=>{
                     item.expand = true;
                     return item
-                })
+                }) : [];
             }else {
                 this.roleDetails = [];
             }
@@ -686,6 +690,9 @@ export class UserComponent implements OnInit {
         this.message = '';
     }
     viewUserDetail(user, i) {
+        if(this.roleId == 4){
+            this.rolePageView = true;
+        }
         this.staticTabs.tabs[3].active = true;
         this.enableRolePermission = true;
         this.viewUserRolePermission = true;
@@ -1168,7 +1175,9 @@ export class UserComponent implements OnInit {
         this.userPagesEnable = true;
         this.selectTab = type;
         this.userTab = false;
-        
+        if(this.roleId == 4){
+            this.rolePageView = false;
+        }
 
         // this.viewUserRolePermission = false;
         this.router.navigate(['/users/'+type]);
@@ -1258,8 +1267,8 @@ export class UserComponent implements OnInit {
         this.filterDivision =null;
         this.filterDept = null;
         this.filterUser = null;
-        this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : null;
-        this.filterResort = this.resortId;
+        // this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : null;
+        // this.filterResort = this.resortId;
     }
     getResortDetails() {
         let userData = this.utilService.getUserData();

@@ -410,6 +410,7 @@ export class CommonLabels{
         "statusCourse"      :   "Status of courses",
         "progressCourse"    :   "Inprogress Courses",
         "expiredCourse"     :   "Expired Courses",
+        "reschedule"        :   "Reschedule"
     };
 
     btns = {
