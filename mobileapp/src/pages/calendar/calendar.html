@@ -28,8 +28,26 @@
         </div>
   </ng-template>
 
-  <calendar [monthviewDisplayEventTemplate]="template" [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
-    (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
+    <ng-template #eventDetail let-showEventDetail="showEventDetail" let-selectedDate="selectedDate"
+      let-noEventsLabel="noEventsLabel">
+      <ion-list class="event-detail-container" has-bouncing="false" *ngIf="showEventDetail" overflow-scroll="false">
+        <ion-item *ngFor="let event of selectedDate?.events" (click)="onEventSelected(event)">
+          <!-- <span *ngIf="!event.allDay" class="monthview-eventdetail-timecolumn">{{event.startTime|date: 'HH:mm'}}
+            -
+            {{event.endTime|date: 'HH:mm'}}
+          </span> -->
+          <!-- <span *ngIf="event.allDay" class="monthview-eventdetail-timecolumn">All day</span> -->
+          <span class="event-detail">{{event.title}}</span><span> - </span>
+          {{event.startTime | date:'d MMM y'}}<span class="to-txt"> To </span> {{event.endDate | date:'d MMM y'}}
+        </ion-item>
+        <ion-item *ngIf="selectedDate?.events.length==0">
+          <div class="no-events-label">{{noEventsLabel}}</div>
+        </ion-item>
+      </ion-list>
+    </ng-template>
+
+  <calendar [monthviewDisplayEventTemplate]="template" [monthviewEventDetailTemplate]="eventDetail" [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+     (onTitleChanged)="onViewTitleChanged($event)"
     (onTimeSelected)="onTimeSelected($event)" step="30" class="calendar">
   </calendar>
 
