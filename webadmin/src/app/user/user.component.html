@@ -109,7 +109,7 @@
                                     <td class="text-center"><label class="mb-0">{{ user.status }}</label></td>
                                     <td class="text-center" *ngIf = "permissionCheck()">
                                         <div class="active-alg">
-                                            <a (click)="viewUserDetail(user,i)" title="View"><i class="fa fa-eye header-icon"></i></a>
+                                            <a *ngIf = "rolePageView" (click)="viewUserDetail(user,i)" title="View"><i class="fa fa-eye header-icon"></i></a>
                                             <a (click)="openAddUser(addUserTemp,user,i)" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                             <a (click)="removeUser(deleteUser,user,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                                             <a title="{{user.active?'To InActive':'To Active'}}" class=""><label class="switch">
