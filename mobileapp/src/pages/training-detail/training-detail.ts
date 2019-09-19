@@ -74,11 +74,12 @@ export class TrainingDetailPage {
     options : InAppBrowserOptions = {
         location : 'no',//Or 'no' 
         footer : 'yes',
-        hidden : 'no', //Or  'yes'
+        hidden : 'yes', //Or  'yes'
         clearcache : 'yes',
         clearsessioncache : 'yes',
         zoom : 'yes',//Android only ,shows browser zoom controls 
         hardwareback : 'yes',
+        lefttoright:'yes',
         mediaPlaybackRequiresUserAction : 'no',
         shouldPauseOnSuspend : 'no', //Android only 
         closebuttoncaption : 'Close', //iOS only
@@ -203,17 +204,19 @@ export class TrainingDetailPage {
       }
 
     //Open file content in browser  
-    public openWithSystemBrowser(url : string){
-        console.log(url,"URL")
+    public openWithSystemBrowser(url : string, fileId : string){
+        console.log(url,"efefe")
         let target = "_system";
         this.iab.create(url,target,this.options);
+        this.calculatePercentage(fileId);
     }
 
    
-    public openWithCordovaBrowser(url : string){
+    public openWithCordovaBrowser(url : string, fileId : string){
         console.log(url, "URL")
         let target = "_self";
         this.iab.create(url,target,this.options);
+        this.calculatePercentage(fileId);
     }  
 
     // go to particular index
@@ -236,7 +239,7 @@ export class TrainingDetailPage {
         this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
             if(res['isSuccess']){
                 if(res['data']['statusKey'] == false){
-                     this.toastrMsg('Please view all the contents of the class before you take up the quiz.', "error")
+                     this.toastrMsg(res.message, "error");
                 }else{
                     if (this.videotag) {
                         const htmlVideoTag = this.videotag.nativeElement;
@@ -336,7 +339,7 @@ export class TrainingDetailPage {
         this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
             if(res['isSuccess']){
                 if(res['data']['statusKey'] == false){
-                     this.toastrMsg('Please view all the contents of the class before you take up the quiz.', "error")
+                     this.toastrMsg(res.message, "error")
                 }else{
                    const resultData = {
                        "courseId": this.detailObject['setData'].courseId,
@@ -550,6 +553,7 @@ export class TrainingDetailPage {
             switch (this.fileType) {
                 case "pdf":
                     docType = 'application/pdf';
+                    rootUrl = 'https://docs.google.com/gview?embedded=true&url=';
                     break;
                 case 'key':
                 case 'ppt':
@@ -574,16 +578,14 @@ export class TrainingDetailPage {
             }
 
                let baseUrl = rootUrl+this.uploadPath;
-
-            this.calculatePercentage(setTraining.fileId);
              console.log(baseUrl);
              this.platform.ready().then(() => {
                  if (this.platform.is('android') || this.platform.is('mobileweb') || this.platform.is('browser')) {
-                     this.openWithCordovaBrowser(baseUrl);
+                     this.openWithSystemBrowser(baseUrl, setTraining.fileId);
                      console.log("running on Android device!");
                  }
                  if (this.platform.is('ios')) {
-                     this.openWithCordovaBrowser(baseUrl);
+                     this.openWithCordovaBrowser(baseUrl, setTraining.fileId);
                      console.log("running on iOS device!");
                  }
              }); 

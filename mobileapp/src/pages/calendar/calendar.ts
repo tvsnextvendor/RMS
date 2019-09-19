@@ -133,7 +133,8 @@ export class CalendarPage implements OnInit   {
             events.push({
                 title: value.name,
                 startTime: new Date(value.assignedDate),
-                endTime: new Date(value.dueDate),
+                endTime: new Date(value.assignedDate),
+                endDate: new Date(value.dueDate),
                 allDay: true,
                 courses: value.Courses,
                 colorCode:value.colorCode,

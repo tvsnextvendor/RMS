@@ -137,6 +137,7 @@ export class QuizResultPage implements OnInit {
             "typeSet": typeSetData,
             "userName": this.currentUser.userName,
             "lastName": this.currentUser.lastName,
+            "firstName": this.currentUser.firstName,
             "resortId": this.currentUser.ResortUserMappings[0].resortId,
             "trainingScheduleId": this.resultData['scheduleId'],
             "status": "completed"
