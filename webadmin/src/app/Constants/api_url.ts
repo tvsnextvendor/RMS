@@ -231,6 +231,7 @@ export class API_URL {
     removeTrans  : '8103/removeDocuments',
     getAllCourseDetails : '8103/course/getSpecificCourseDatas/',
     reSchedule  : "8103/schedule/expireReschedule/",
+    courseCheck : '8103/user/checkCourse',
      // addArchieve : '8103/archieved',
     // updateArchieve : '8103/archieved/',
 

@@ -275,5 +275,10 @@ export class CourseService {
     return this.http.getLocal('local',this.url.getAllCourseDetails+query);
   }
 
+  courseCheck(params){
+    // courseCheck
+    return this.http.post('local',this.url.courseCheck,params);
+  }
+
 
 }
