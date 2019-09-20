@@ -32,11 +32,6 @@
       let-noEventsLabel="noEventsLabel">
       <ion-list class="event-detail-container" has-bouncing="false" *ngIf="showEventDetail" overflow-scroll="false">
         <ion-item *ngFor="let event of selectedDate?.events" (click)="onEventSelected(event)">
-          <!-- <span *ngIf="!event.allDay" class="monthview-eventdetail-timecolumn">{{event.startTime|date: 'HH:mm'}}
-            -
-            {{event.endTime|date: 'HH:mm'}}
-          </span> -->
-          <!-- <span *ngIf="event.allDay" class="monthview-eventdetail-timecolumn">All day</span> -->
           <span class="event-detail">{{event.title}}</span><span> - </span>
           {{event.startTime | date:'d MMM y'}}<span class="to-txt"> To </span> {{event.endDate | date:'d MMM y'}}
         </ion-item>
@@ -46,33 +41,34 @@
       </ion-list>
     </ng-template>
 
-  <calendar [monthviewDisplayEventTemplate]="template" [monthviewEventDetailTemplate]="eventDetail" [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+  <calendar [monthviewDisplayEventTemplate]="template" [monthviewEventDetailTemplate]="eventDetail" (onEventSelected)="onEventSelected($event)" [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
      (onTitleChanged)="onViewTitleChanged($event)"
     (onTimeSelected)="onTimeSelected($event)" step="30" class="calendar">
   </calendar>
+
 
   <ng-template #calDetail>
     <div class="popup-box">
       <div class="modal-header question-header">
         <div class="col-md-12 text-center popup-header">
-          <h6 class="header-design">{{eventDetail.title}}</h6>
+          <h6 class="header-design">{{modaleventDetail.title}}</h6>
         </div>
       </div>  
       <div class="modal-body">
         <div class="hd-alg row">
           <p class="p-0 col-md-12">
             <label class="date-hd col-md-4 p-0">From Date</label>
-            <span class="date-cont col-md-8">:{{eventDetail.startTime | date:'dd MMM yyyy' }}</span>
+            <span class="date-cont col-md-8">:{{modaleventDetail.startTime | date:'dd MMM yyyy' }}</span>
           </p>          
           <p class="p-0 col-md-12">
             <label class="date-hd col-md-5 p-0">To Date</label>
-            <span class="date-cont col-md-7">:{{eventDetail.endTime | date:'dd MMM yyyy' }}</span>
+            <span class="date-cont col-md-7">:{{modaleventDetail.endTime | date:'dd MMM yyyy' }}</span>
           </p>          
        </div>
        <div>
           <div class="course-hd">Courses: </div>
-          <p *ngFor="let data of eventDetail.courses" class="course-alg">
-            <a class="course-click" (click)="navPage(data.courseId)">{{data.Course.courseName}}</a>
+          <p  class="course-alg" *ngIf="modaleventDetail.courses.length">
+            <a class="course-click" *ngFor="let data of  modaleventDetail.courses" (click)="navPage(data.courseId)">{{data.Course.courseName}}</a>
           </p> 
         </div> 
       </div>

@@ -21,7 +21,7 @@ export class CalendarPage implements OnInit   {
     currentMonth;
     selectedDay = new Date();
     currentUser;
-    eventDetail;
+    modaleventDetail;
     calendar = {
         mode: 'month',
         currentDate: new Date()
@@ -59,12 +59,14 @@ export class CalendarPage implements OnInit   {
 
    //Event detail modal
     onEventSelected(event) {
+      this.modaleventDetail = event;
       this.openModal(this.modalTemplate,event);
     }
 
+  
 
   openModal(template: TemplateRef<any>,event) {
-    this.eventDetail = event;
+    this.modaleventDetail = event;
     this.modalRef = this.modalService.show(template);
   }
 
@@ -72,11 +74,11 @@ export class CalendarPage implements OnInit   {
    this.modalRef.hide(); 
    let paramsData = {};
    paramsData['courseId'] = courseId;
-   paramsData['trainingScheduleId'] = this.eventDetail && this.eventDetail['scheduleId'];
+   paramsData['trainingScheduleId'] = this.modaleventDetail && this.modaleventDetail['scheduleId'];
    this.navCtrl.push('training-page',paramsData);   
   }
 
-    onTimeSelected(ev) {
+   onTimeSelected(ev) {
         this.selectedDay = ev.selectedTime;
     }
 
@@ -129,11 +131,12 @@ export class CalendarPage implements OnInit   {
           let dataList = res['data'];
           let events = [];
           dataList.map(value=>{
-            // console.log(value,"VALUE");
+           let todaysDate = new Date(value.assignedDate);
+           let endDate = todaysDate.setDate(todaysDate.getDate() + 1);
             events.push({
                 title: value.name,
                 startTime: new Date(value.assignedDate),
-                endTime: new Date(value.assignedDate),
+                endTime: new Date(endDate),
                 endDate: new Date(value.dueDate),
                 allDay: true,
                 courses: value.Courses,
@@ -153,13 +156,10 @@ export class CalendarPage implements OnInit   {
   filterEvents(prop,originalArray) {
     var newArray = [];
     var lookupObject = {};
-
     console.log(originalArray,"Original Array")
     for (var i in originalArray) {
        lookupObject[originalArray[i][prop]] = originalArray[i];
-    }
-     console.log(lookupObject, "lookupObject")
-   
+    }   
     for (i in lookupObject) {
         newArray.push(lookupObject[i]);
     }
