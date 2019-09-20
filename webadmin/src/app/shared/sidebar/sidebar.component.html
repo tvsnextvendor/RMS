@@ -98,7 +98,7 @@
                 <a (click)="pageRedirection('edit','workInprogress')">{{commonLabels.btns.workinProgress}}</a>
             </li>
         </ul>        
-        <li [class.active]="router.isActive('/calendar')"  *ngIf="permissionCheck('Calendar','view')">
+        <li [class.active]="router.isActive('/calendar')"  *ngIf="permissionCheck('Schedule','view')">
             <a (click)="dropDownEnable('calendar')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.schedule}}</a>
         </li>
         <li [ngClass]="(tabType == 'report') ? 'active' : ''">
@@ -135,7 +135,7 @@
             <li [class.active]="router.isActive('/users')"  *ngIf="permissionCheck('User Management','view')">
                 <a routerLink="/users"><img src="{{commonLabels.imgs.user}}" class="pr-3">{{commonLabels.titles.userManagement}}</a>
             </li>
-            <li *ngIf="roleId == 2 && permissionCheck('Resort Management','view')" [class.active]="router.isActive('/resortslist') || router.isActive('/resorts') || router.isActive('/resorts/:id')">
+            <li *ngIf="roleId == 2 && permissionCheck('Site Management','view')" [class.active]="router.isActive('/resortslist') || router.isActive('/resorts') || router.isActive('/resorts/:id')">
                 <a routerLink="/resortslist"><img src="{{commonLabels.imgs.resort}}" class="pr-3">{{commonLabels.titles.resortmanagement}}</a>
             </li> 
             <li [class.active]="router.isActive('/approvalrequests')"  *ngIf="permissionCheck('Approval Request','view')">
@@ -209,7 +209,7 @@
                         <a (click)="pageRedirection('edit','workInprogress')">{{commonLabels.btns.workinProgress}}</a>
                     </li>
             </ul>        
-            <li [class.active]="router.isActive('/calendar')" *ngIf="permissionCheck('Calendar','view')">
+            <li [class.active]="router.isActive('/calendar')" *ngIf="permissionCheck('Schedule','view')">
                 <a (click)="dropDownEnable('calendar')"><img src="{{commonLabels.imgs.calMenu}}" class="pr-3">{{commonLabels.labels.schedule}}</a>
             </li>
             <li [ngClass]="(tabType == 'report') ? 'active' : ''" *ngIf="expandCheck('performance')">

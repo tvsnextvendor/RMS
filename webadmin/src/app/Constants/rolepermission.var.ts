@@ -68,7 +68,7 @@ static readonly defaultModules = [{
 	'edit': false,
 	'type': "web"
 }, {
-	'moduleName': 'Resort Management',
+	'moduleName': 'Site Management',
 	'view': false,
 	'upload': false,
 	'edit': false,
@@ -80,7 +80,7 @@ static readonly defaultModules = [{
 	'edit': false,
 	'type': "web"
 }, {
-	'moduleName': 'Calendar',
+	'moduleName': 'Schedule',
 	'view': false,
 	'upload': false,
 	'edit': false,
@@ -238,7 +238,7 @@ static readonly webAndMobile = [{
                                    'edit': false,
                                    'type': "web"
                                }, {
-                                   'moduleName': 'Resort Management',
+                                   'moduleName': 'Site Management',
                                    'view': false,
                                    'upload': false,
                                    'edit': false,
@@ -250,7 +250,7 @@ static readonly webAndMobile = [{
                                    'edit': false,
                                    'type': "web"
                                }, {
-                                   'moduleName': 'Calendar',
+                                   'moduleName': 'Schedule',
                                    'view': false,
                                    'upload': false,
                                    'edit': false,
