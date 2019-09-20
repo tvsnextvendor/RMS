@@ -297,7 +297,7 @@ export class UserComponent implements OnInit {
         let roleId = this.utilService.getRole();
         const userId = userData.userId;
         let resort = userData.ResortUserMappings ? userData.ResortUserMappings[0].Resort.resortId : '';
-        let query = roleId != 4 ? "?createdBy="+userId : "?resortId="+resort; 
+        let query = roleId != 4 ? "?createdBy="+userId+ "&reportingTo="+ 1 : "?resortId="+resort; 
         this.userService.getUser(query).subscribe((resp) => {
                 if (resp.isSuccess) {
                 this.designationArrays = resp.data.rows.length ? resp.data.rows : [];
