@@ -29,12 +29,19 @@ export class EmployeeComponent implements OnInit {
   enableFilter= false;
   empChange = false;
   search;
+  trendType;
+  id;
   
   constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location,public commonLabels:CommonLabels,private resortService : ResortService,
     private userService :UserService,private commonService :CommonService) { 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.userId = params['userId']; 
       //console.log(this.userId)
+    });
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.trendType = params.type;
+      this.id = params.id;
+      // this.courseId = params['id'];
     });
   }
 
@@ -61,6 +68,18 @@ export class EmployeeComponent implements OnInit {
     if(this.search){
       dataQuery = dataQuery+"&search="+this.search;
     }
+    if(this.trendType && this.id){
+      if(this.trendType == 'course'){
+        dataQuery = dataQuery+'&courseId='+this.id
+      }
+      if(this.trendType == 'class'){
+        dataQuery = dataQuery+'&trainingClassId='+this.id
+      }
+      if(this.trendType == 'notification'){
+        dataQuery = dataQuery+'&notificationFileId='+this.id
+      }
+    }
+
 
     this.courseService.getEmployeeDetails(dataQuery).subscribe(resp=>{
       //console.log(resp)

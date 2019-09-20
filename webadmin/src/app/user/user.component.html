@@ -139,7 +139,7 @@
                     <div class="hd-section clearfix">
                     <h5 class="float-left title-hd">{{commonLabels.labels.division}}</h5>
                     <!-- <span *ngIf="!divisionDetails.length" class="float-right"> -->
-                        <button class="btn btn-primary" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button>
+                        <button class="btn btn-primary" *ngIf = "permissionCheck()" (click)="openAddUser(addDivision,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button>
                     <!-- </span> -->
                     </div>
                     <!-- <div class="hierarchy-tab white-bg px-4 pt-4 mt-3"> -->
@@ -252,7 +252,7 @@
                 <div class="pt-4 clearfix listrole">
                     <div class="hd-section clearfix">
                         <h5 class="float-left title-hd">{{commonLabels.labels.listofRole}}</h5>
-                        <span class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
+                        <span *ngIf = "permissionCheck()" class="float-right"><button class="btn btn-primary" (click)="openAddRole(addRole,'','')"><i class="fa fa-plus mr-1" aria-hidden="true"></i>{{commonLabels.btns.addNew}}</button></span>
                     </div>
                     <div class="hierarchy-tab white-bg pt-4 px-4 mt-3">
                         <div class="detail-bottom row">                

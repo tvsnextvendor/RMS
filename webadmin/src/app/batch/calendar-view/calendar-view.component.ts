@@ -106,7 +106,7 @@ export class CalendarViewComponent implements OnInit {
     
     goToBatch(event,scheduleId,i,addBatch){
        if(this.roleId == 4){
-            if(this.permissionCheck('Calendar')){
+            if(this.permissionCheck('Schedule')){
                 this.permissionCheckClick(event,scheduleId,i,addBatch)
             }
         } 
