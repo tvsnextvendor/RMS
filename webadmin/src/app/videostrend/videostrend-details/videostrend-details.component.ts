@@ -82,6 +82,10 @@ export class VideosTrendDetailsComponent implements OnInit {
         if(filter){
             query = query+filter
         }
+        if(this.roleId == 4){
+            let user = this.utilService.getUserData();
+            query = query+'&createdBy='+user.userId;
+        }
         this.commonService.getCourseEmployeeList(query, this.trendsVar.videoId,this.trendType).subscribe((result) => {
             if  (result && result.isSuccess) {
                 this.trendsVar.employeeList = result.data.rows;

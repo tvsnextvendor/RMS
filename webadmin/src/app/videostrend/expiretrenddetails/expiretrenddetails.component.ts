@@ -90,6 +90,10 @@ export class ExpiretrenddetailsComponent implements OnInit {
     if(filter){
         query = query+filter
     }
+    if(this.roleId == 4){
+      let user = this.utilService.getUserData();
+      query = query+'&createdBy='+user.userId;
+  }
     this.commonService.getExpireTrendList(query,this.courseId,this.trendType).subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.trendsVar.employeeList = resp.data.rows;

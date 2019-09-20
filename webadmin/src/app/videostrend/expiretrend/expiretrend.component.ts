@@ -77,6 +77,10 @@ export class ExpiretrendComponent implements OnInit {
     if(filter){
         query = query+filter;
     }
+    if(this.roleId == 4){
+      let user = this.utilsService.getUserData();
+      query = query+'&userId='+user.userId;
+    }
     if(this.seletedTab == 'course'){
       this.commonService.getCourseTrendList(courseTrendObj,query).subscribe((result) => {
         if(result && result.isSuccess){
