@@ -117,6 +117,12 @@ tbody > tr > td {
 	line-height: 47px;
 	font-size: 14px;
 }
+
+.label-title-table{
+	color: #697380;
+	font-size: 16px;
+}
+
 .batch-input{
 	position: relative;
 }
@@ -125,4 +131,8 @@ tbody > tr > td {
 	position: absolute;
     top: 10px;
     right: 5px;
+}
+
+.mb-6{
+  margin-bottom: 6px;
 }

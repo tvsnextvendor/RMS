@@ -88,7 +88,7 @@ export class VideosTrendDetailsComponent implements OnInit {
         }
         this.commonService.getCourseEmployeeList(query, this.trendsVar.videoId,this.trendType).subscribe((result) => {
             if  (result && result.isSuccess) {
-                this.trendsVar.employeeList = result.data.rows;
+                this.trendsVar.employeeList = result.data.rows ? result.data.rows : [];
             }
         },err=>{
             this.trendsVar.employeeList = [];
@@ -241,4 +241,20 @@ export class VideosTrendDetailsComponent implements OnInit {
             this.rescheduleError = true;
         }
     }
+     // Create Excel sheet
+   exportAsXLSX():void {
+       let data = this.trendsVar.employeeList.map(item=>{
+           let obj = {
+                "Employee Name" : item.User.userName ,
+                "Site Name"     : item.Resort.resortName,
+                "Status"        :   item.status,
+                "Time taken"    :   item.timeTaken ?  item.timeTaken : '',
+                "Assigned Date" :   item.TrainingSchedule.assignedDate,
+                "Completed Date"    : item.completedDate ? item.completedDate : ''
+           }
+           return obj
+       })
+       let title = (this.trendType == 'course' ? (this.commonLabels.titles.courseTrend+"-"+this.trendsVar.employeeList[0].Course.courseName) : (this.trendType == 'class' ? (this.commonLabels.labels.classTrend+"-"+this.trendsVar.employeeList[0].TrainingClass.trainingClassName) : (this.commonLabels.labels.notificationTrend+"-"+this.trendsVar.employeeList[0].TrainingSchedule.name)));
+        this.excelService.exportAsExcelFile(data,title);
+  }
 }

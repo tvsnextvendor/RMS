@@ -1,45 +1,9 @@
-<!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
-<div class=" pt-5">
+<div>
+    <div class="col-sm-12 p-0">
+        <button *ngIf = "trendsVar.employeeList.length" type = "button" class="btn btn-primary float-right mb-6" (click)="exportAsXLSX()">Export to Excel</button>
+    </div>
     <div class="" id="contentToConvert">
-            <!-- <div class="float-right row pb-3 adduser-respon"> 
-                <button type = "button" class="btn btn-primary float-right mr-2" *ngIf="enableFilter" (click)="resetFilter()">Reset filter</button>       
-                <button type = "button" class="btn btn-primary float-right mr-2" (click)="enableFilter = !enableFilter">filter</button>       
-            </div> -->
-            <!-- <div class="float-right row pb-3 adduser-respon col-md-12 p-0" *ngIf="enableFilter">
-                <div class="col-md-3 select select-style clearfix">
-                    <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
-                        (change)="filterSelect(childResort.value,'resort')">
-                        <option [value]=null>{{commonLabels.labels.selectResort}}</option>
-                        <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
-                    </select>
-                    <div class="select_arrow"></div>
-                </div>
-                <div class="col-md-3 select select-style clearfix">
-                    <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterDivision"
-                        #parentdivision (change)="filterSelect(parentdivision.value,'division')">
-                        <option [value]=null>{{commonLabels.labels.selDiv}}</option>
-                        <option *ngFor="let division of divisionList" [value]="division.divisionId">{{division.divisionName}}</option>
-                    </select>
-                    <div class="select_arrow"></div>
-                </div>
-                <div class="col-md-3 select select-style clearfix">
-                    <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
-                        [disabled]="filterParentDivision === 'null'" (change)="filterSelect(dept.value,'dept')">
-                        <option [value]=null>{{commonLabels.labels.selDept}}</option>
-                        <option *ngFor="let dep of departmentList" [value]="dep.departmentId">{{dep.departmentName}}</option>
-                    </select>
-                    <div class="select_arrow"></div>
-                </div>
-                <div class="col-md-3 select select-style clearfix">
-                    <select name="empId" class="form-control pl-2" [(ngModel)]="filterUser" #emp
-                        (change)="filterSelect(emp.value,'emp')">
-                        <option [value]=null>{{commonLabels.labels.selEmp}}</option>
-                        <option *ngFor="let emp of empList" [value]="emp.userId">{{emp.userName}}</option>
-                    </select>
-                    <div class="select_arrow"></div>
-                </div>
-         </div> -->
-         <div class="float-right row pb-3 adduser-respon col-md-12 p-0">
+         <div class="float-right row adduser-respon col-md-12 p-0">
                 <div class="row col-md-11 p-0">
                     <div class="col-md-3 pl-0 select select-style clearfix">
                             <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
@@ -78,6 +42,9 @@
                     <button type="button" (click)="resetFilter()" class="btn user-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
                     </div>
             </div>
+            <span *ngIf="trendsVar.employeeList.length && trendType == 'course' "><label class="col-md-5 pl-0 label-title-table">{{trendsVar?.employeeList[0]?.Course?.courseName}}</label></span>
+            <span *ngIf="trendsVar.employeeList.length && trendType == 'class' "><label class="col-md-5 pl-0 label-title-table">{{trendsVar?.employeeList[0]?.TrainingClass?.trainingClassName}}</label></span>
+            <span *ngIf="trendsVar.employeeList.length && trendType == 'notification' "><label class="col-md-5 pl-0 label-title-table">{{trendsVar?.employeeList[0]?.TrainingSchedule?.name}}</label></span>
          <div class="table-responsive custom-table2 px-2">
             <table class="table white-bg table-striped mt-3" [mfData]="trendsVar.employeeList" #mf="mfDataTable"
                 [mfRowsOnPage]="10">
@@ -95,7 +62,7 @@
                             <mfDefaultSorter by="status">{{commonLabels.labels.status}}<span class="ml-2"><img src="assets/images/sortby.png"
                                         class="s-width"></span></mfDefaultSorter>
                         </th>
-                        <th colspan="1" class="text-left">
+                        <th colspan="1" class="text-left" *ngIf="trendType != 'notification'">
                             <mfDefaultSorter>Time taken</mfDefaultSorter>
                         </th>
 
@@ -119,7 +86,7 @@
                             <span *ngIf = "emp.status == 'assigned'" class="assigned-color"> {{emp.status | titlecase}}</span>
                             <span *ngIf = "emp.status == 'unAssigned'" class="inprogress-color"> {{emp.status | titlecase}}</span>
                         </td>
-                        <td class="vat text-left">{{emp?.timeTaken}}</td>
+                        <td class="vat text-left" *ngIf="trendType != 'notification'">{{emp?.timeTaken}}</td>
                         <td class="vat text-left">{{emp?.TrainingSchedule?.assignedDate | date :'MM/dd/yyyy'}}</td>
                         <td class="vat text-left">{{emp?.completedDate | date :'MM/dd/yyyy'}}</td>
                         <td>

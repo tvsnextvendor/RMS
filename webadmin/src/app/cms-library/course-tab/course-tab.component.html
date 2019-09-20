@@ -8,9 +8,9 @@
         <div class="white-bg p-3 clearfix">
             <div class="clearfix">
                 <label class="square-cont float-left" *ngIf="checkBoxEnable">
-                    <input type="checkbox" name="courseId{{i}}" (change)="selectCourse(courses.courseId, courses.courseName, $event.target.checked)"><span
+                    <input *ngIf = "!resourceLib" type="checkbox" name="courseId{{i}}" (change)="selectCourse(courses.courseId, courses.courseName, $event.target.checked)"><span
                         class="text-over">{{courses.courseName}}</span>
-                    <span class="square-checkmark"></span>
+                    <span  *ngIf = "!resourceLib" class="square-checkmark"></span>
                 </label>
                 <span class="text-over" *ngIf="!checkBoxEnable">{{courses.courseName}}</span>
 
