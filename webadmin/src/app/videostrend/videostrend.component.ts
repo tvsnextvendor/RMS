@@ -149,6 +149,11 @@ export class VideosTrendComponent implements OnInit {
         if(filter){
             query = query+filter;
         }
+        if(this.roleId == 4){
+            let user = this.utilsService.getUserData();
+            query = query+'&userId='+user.userId;
+        }
+
         this.commonService.getCourseTrendList(courseTrendObj,query).subscribe((result) => {
           this.trendsVar.moduleList = result.data.rows;
         },err => {
