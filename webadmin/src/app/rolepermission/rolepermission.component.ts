@@ -148,7 +148,7 @@ export class RolepermissionComponent implements OnInit {
     this.commonService.getDepartmentList(params).subscribe((result) => {
       if (result && result.isSuccess) {
         this.constant.departmentList = result.data ? result.data.rows : [];
-        this.getRolePermission();
+        // this.getRolePermission();
       } else {
         this.constant.departmentList = [];
       }

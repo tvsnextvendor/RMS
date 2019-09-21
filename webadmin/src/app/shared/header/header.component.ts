@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit {
   logOut(){
     localStorage.removeItem("userData");
     localStorage.removeItem("user");
+    localStorage.removeItem("divisions");
     this.authGuard.showSidebar  = false;
     this.authGuard.showHeader = false;
     this.router.navigateByUrl('/login');

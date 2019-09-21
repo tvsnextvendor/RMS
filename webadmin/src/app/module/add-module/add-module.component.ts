@@ -909,13 +909,28 @@ export class AddModuleComponent implements OnInit {
     }
 
     checkValidation() {
-        let validation = this.moduleVar.moduleList.find(x => x.moduleName === this.moduleVar.moduleName);
-        if (validation) {
-            this.moduleVar.moduleNameCheck = this.moduleId ? (parseInt(this.moduleId) !== validation.moduleId ? true : false) : true;
+        // let validation = this.moduleVar.moduleList.find(x => x.moduleName === this.moduleVar.moduleName);
+        // if (validation) {
+        //     this.moduleVar.moduleNameCheck = this.moduleId ? (parseInt(this.moduleId) !== validation.moduleId ? true : false) : true;
+        // }
+        // else {
+        //     this.moduleVar.moduleNameCheck = false;
+        // }
+        let params = {
+            courseName : this.moduleVar.moduleName,
+            resortId : this.resortId
         }
-        else {
-            this.moduleVar.moduleNameCheck = false;
-        }
+        this.courseService.courseCheck(params).subscribe(resp=>{
+            console.log(resp)
+            if(resp.isSuccess){
+                this.moduleVar.moduleNameCheck = false;
+            }
+            else{
+                this.moduleVar.moduleNameCheck = true;
+            }
+        },err=>{
+            this.alertService.error(err.error.error)
+        })
 
     }
 

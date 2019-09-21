@@ -104,6 +104,8 @@ export class ResortChartsComponent implements OnInit {
           });
         this.topRatedCourses();
         this.getcourseTrend();
+        this.getcertificateTrend();
+       
     }
     selectResort(){
       this.resortId = (this.selectedResort)?this.selectedResort:this.selectedParentResort;
@@ -204,6 +206,11 @@ export class ResortChartsComponent implements OnInit {
       }
       this.commonService.getBadges(query).subscribe((resp) => {
         const donutChartData = resp.data.badges;
+        if(donutChartData.length == 0){
+          this.dashboardVar.totalBadges = resp.data.badges.length;
+        }else{
+          this.dashboardVar.totalBadges = resp.data.totalCount;
+        }
         this.dashboardVar.totalNoOfBadges = donutChartData.map(item =>
             [item.Badge.badgeName , parseInt(item.totalcount, 10)]
         );
@@ -229,7 +236,11 @@ export class ResortChartsComponent implements OnInit {
     const certificationTrend = {
       year : this.dashboardVar.years
     };
-    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+   // let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    let query = this.resortId ? '&resortId='+this.resortId : '';
+    if(this.roleId == 4){
+      query = query+'&userId='+this.userId;
+    }
     this.commonService.getCertificateTrend(certificationTrend,query).subscribe(result => {
       if (result && result.isSuccess) {
         this.dashboardVar.certificationTrend = result.data.map(item => parseInt(item, 10));

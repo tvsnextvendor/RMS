@@ -139,7 +139,22 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginCredential).subscribe(result => {
         if (result.isSuccess) {
           const loginData = result.data;
+
+         
           const role = loginData.UserRole[0].roleId;
+
+          if(loginData.ResortUserMappings){
+            let divisions = [];
+            const resortMaps = loginData.ResortUserMappings;
+            resortMaps.forEach(function(val,key){
+              if(val.divisionId != 'undefined' && val.divisionId != null){
+                divisions.push(val.divisionId);
+                }
+            });
+            localStorage.setItem('divisions',JSON.stringify(divisions));
+          }
+
+         
 
           if(loginData.rolePermissions){
             const rolePermissions = loginData.rolePermissions;

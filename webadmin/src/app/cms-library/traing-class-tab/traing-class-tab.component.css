@@ -90,6 +90,12 @@
      font-weight: 600;
      margin-bottom:0;
  }
+ .course-header{
+    font-size: 14px;
+    color: #6C757D;
+    margin-bottom: 3px;
+    display: block;
+}
  .square-cont input {
     position: absolute;
     opacity: 0;

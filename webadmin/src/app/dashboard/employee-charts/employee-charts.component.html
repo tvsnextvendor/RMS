@@ -69,7 +69,7 @@
               <tbody class="top-employee-height">
                 <tr *ngFor ="let resort of resortDetails">
                   <td class="resort-wrap">{{resort.resortName  | titlecase}}</td>
-                  <td class="course-count">{{resort.Courses.length}}</td>
+                  <td class="course-count">{{resort.totalCourses}}</td>
                   <!-- <td>Resort 2</td>
                   <td class="course-count">50</td>
                   <td>Resort 3</td>
@@ -248,7 +248,7 @@
                 <tbody class="top-employee-height">
                   <tr *ngFor ="let resort of resortDetails">
                     <td>{{resort.resortName  | titlecase}}</td>
-                    <td class="course-count">{{resort.Courses.length}}</td>
+                    <td class="course-count">{{resort.totalCourses}}</td>
                   </tr>
                 </tbody>
               </table>
