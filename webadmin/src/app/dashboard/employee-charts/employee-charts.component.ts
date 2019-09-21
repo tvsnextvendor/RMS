@@ -143,7 +143,8 @@ export class EmployeeChartsComponent implements OnInit {
     const courseTrendObj = {
       year : this.dashboardVar.years
     };
-    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    //let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    let query =  '&resortId=' + this.resortId ;
     query = !this.IschildResort ? query + '&type='+'summary' : query;
     this.commonService.getCourseTrend(courseTrendObj,query).subscribe(result => {
       if (result && result.isSuccess) {
@@ -159,7 +160,8 @@ export class EmployeeChartsComponent implements OnInit {
     const certificationTrend = {
       year : this.dashboardVar.certYear
     };
-    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    //let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    let query =  '&resortId=' + this.resortId ;
     query = !this.IschildResort ? query + '&type=' + 'summary' : query;
     this.commonService.getCertificateTrend(certificationTrend,query).subscribe(result => {
       if (result && result.isSuccess) {
