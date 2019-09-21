@@ -37,7 +37,7 @@ export class TraingClassTabComponent implements OnInit {
   accessSet = false;
   iconEnableApproval = false;
   enableView = false;
-  enableIndex;
+
 
   constructor(private courseService: CourseService,
      public commonLabels: CommonLabels,

@@ -475,6 +475,11 @@ export class EmployeeChartsComponent implements OnInit {
     let query = this.resortId ? (this.IschildResort ? '?resortId=' + this.resortId : '?resortId=' + this.resortId + '&type=' + 'summary')  : '';
     this.commonService.getBadges(query).subscribe((resp) => {
       const donutChartData = resp.data.badges;
+      if(donutChartData.length == 0){
+        this.dashboardVar.totalBadges = resp.data.badges.length;
+      }else{
+        this.dashboardVar.totalBadges = resp.data.totalCount;
+      }
       this.dashboardVar.totalBadges = resp.data.totalCount;
       this.dashboardVar.totalNoOfBadges = donutChartData.map(item =>
           [item.Badge.badgeName , parseInt(item.totalcount, 10)]
