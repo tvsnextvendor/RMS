@@ -36,6 +36,8 @@ export class TraingClassTabComponent implements OnInit {
   roleId;
   accessSet = false;
   iconEnableApproval = false;
+  enableView = false;
+  enableIndex;
 
   constructor(private courseService: CourseService,
      public commonLabels: CommonLabels,
@@ -161,6 +163,14 @@ export class TraingClassTabComponent implements OnInit {
     else {
       this.getTrainingClassDetails();
     }
+  }
+  getIndividualTC(courses,index){
+    this.enableView = true;
+    this.enableIndex = index;
+
+  }
+  disableView() {
+    this.enableView = false;
   }
 
   tabChange(tabName, id, courseId, count) {
