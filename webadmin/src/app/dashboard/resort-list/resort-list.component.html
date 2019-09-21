@@ -38,7 +38,7 @@
                 <tbody>
                     <tr *ngFor="let resort of mf.data;let i = index" class="table-desc-color">
                         <td class="text-left txt-unline">{{ resort.resortName  | titlecase}}</td>
-                        <td class="text-left">{{resort.Courses.length}}</td>
+                        <td class="text-left">{{resort.totalCourses}}</td>
                         <td class="text-left">{{resort.utilizedSpace}}</td>
                     </tr>
                     <tr *ngIf="mf.data?.length == 0">

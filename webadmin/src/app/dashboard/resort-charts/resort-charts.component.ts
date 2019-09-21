@@ -104,6 +104,8 @@ export class ResortChartsComponent implements OnInit {
           });
         this.topRatedCourses();
         this.getcourseTrend();
+        this.getcertificateTrend();
+       
     }
     selectResort(){
       this.resortId = (this.selectedResort)?this.selectedResort:this.selectedParentResort;
@@ -229,7 +231,8 @@ export class ResortChartsComponent implements OnInit {
     const certificationTrend = {
       year : this.dashboardVar.years
     };
-    let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+   // let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
+    let query = this.resortId ? '&resortId='+this.resortId : '';
     this.commonService.getCertificateTrend(certificationTrend,query).subscribe(result => {
       if (result && result.isSuccess) {
         this.dashboardVar.certificationTrend = result.data.map(item => parseInt(item, 10));

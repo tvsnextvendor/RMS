@@ -236,6 +236,8 @@ export class TrainingDetailPage {
             'userId': this.userId,
             'resortId': this.resortId
         }
+        let courseAssign = (this.detailObject.courseId)?{ 'courseId' :this.detailObject.courseId}:{};
+        data = Object.assign(data,courseAssign);
         this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
             if(res['isSuccess']){
                 if(res['data']['statusKey'] == false){
@@ -336,6 +338,8 @@ export class TrainingDetailPage {
             'userId': this.userId,
             'resortId': this.resortId
         }
+        let courseAssign = (this.detailObject.courseId)?{ 'courseId' :this.detailObject.courseId}:{};
+        data = Object.assign(data,courseAssign);
         this.http.put(false, API_URL.URLS.checkFileComplete, data).subscribe((res) => {
             if(res['isSuccess']){
                 if(res['data']['statusKey'] == false){
