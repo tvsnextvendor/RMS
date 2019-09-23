@@ -585,7 +585,8 @@ export class AddNotificationComponent implements OnInit {
         this.back();
       }
     }, err => {
-      console.log(err.error.message)
+      this.alertService.error(err.error.error);
+      console.log(err.error.error)
     })
   }
 
