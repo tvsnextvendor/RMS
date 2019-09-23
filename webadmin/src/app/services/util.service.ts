@@ -29,5 +29,12 @@ export class UtilService {
     let result = data && JSON.parse(data).length ? JSON.parse(data)  : [];
     return result;
   }
+
+  getDivisions(){
+    let data = localStorage.getItem('divisions');
+    let result = data && JSON.parse(data).length ? JSON.parse(data)  : [];
+    return result;
+
+  }
   
 }
