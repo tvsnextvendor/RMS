@@ -2,20 +2,22 @@
     <div class="clearfix tab-section">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a [ngClass]="selectedTab == 'Pending' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#pendinglist" (click)="tabChange('Pending')">{{commonLabels.labels.pending}}</a>
+                <a [ngClass]="selectedTab == 'Pending' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#pendinglist"
+                    (click)="tabChange('Pending')">{{commonLabels.labels.pending}}</a>
             </li>
             <li class="nav-item">
-                <a [ngClass]="selectedTab == 'Approved' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#approvallist" (click)="tabChange('Approved')">{{commonLabels.labels.approved}}</a>
+                <a [ngClass]="selectedTab == 'Approved' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#approvallist"
+                    (click)="tabChange('Approved')">{{commonLabels.labels.approved}}</a>
             </li>
             <li class="nav-item">
-                <a [ngClass]="selectedTab == 'Rejected' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#rejectedlist" (click)="tabChange('Rejected')">{{commonLabels.labels.rejected}}</a>
+                <a [ngClass]="selectedTab == 'Rejected' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#rejectedlist"
+                    (click)="tabChange('Rejected')">{{commonLabels.labels.rejected}}</a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link"  data-toggle="tab" href="#approvedsetting">{{commonLabels.labels.approvalSetting}}</a>
             </li>                -->
         </ul>
     </div>
-
     <div class="tab-content active">
         <div id="pendinglist" class="col-lg-12 col-sm-12 p-0 pt-3 tab-pane active">
             <div class="table-responsive custom-table2 px-1">
@@ -38,7 +40,8 @@
                                 {{commonLabels.labels.receivedOn}}
                             </th>
                             <th class="text-left">
-                                {{approvalStatusSet == 'Rejected' ? commonLabels.labels.rejectorName : commonLabels.labels.approverName}}
+                                {{approvalStatusSet == 'Rejected' ? commonLabels.labels.rejectorName :
+                                commonLabels.labels.approverName}}
                             </th>
                             <th *ngIf="selectedTab == 'Pending'" class="text-left">
                                 {{commonLabels.labels.action}}
@@ -47,27 +50,27 @@
                     </thead>
                     <tbody>
                         <tr class="table-desc-color" *ngFor="let item of pendingList | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCount};let i = index;">
-                            <td class="text-left">{{item.Resort.resortName  | titlecase}}</td>
-                            <td class="text-left">{{item.Requestor.userName  | titlecase}}</td>
+                            <td class="text-left">{{item.Resort.resortName | titlecase}}</td>
+                            <td class="text-left">{{item.Requestor.userName | titlecase}}</td>
                             <td class="text-left">{{item.contentName}}</td>
                             <td class="text-left">{{item.contentType}}</td>
 
 
                             <td class="text-left">{{item.created | date : 'medium'}}</td>
                             <td class="text-left">
-                                <span *ngIf="item.Approver"> {{item.Approver.userName  | titlecase}}</span>
+                                <span *ngIf="item.Approver"> {{item.Approver.userName | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
                             <td *ngIf="selectedTab == 'Pending'">
-                                <a *ngIf = "item.createdBy != userData.userId" title="To Approve" (click)="approveConfirm(approveConfirmPop,item)"><i class="fa fa-check"
-                                        aria-hidden="true"></i></a>
-                                <a *ngIf = "item.createdBy != userData.userId" title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i class="fa fa-times"
-                                        aria-hidden="true"></i></a>
-                                <span class="text-center" *ngIf = "item.createdBy == userData.userId"> - </span>                                        
+                                <a *ngIf="item.createdBy != userData.userId" title="To Approve" (click)="approveConfirm(approveConfirmPop,item)"><i
+                                        class="fa fa-check" aria-hidden="true"></i></a>
+                                <a *ngIf="item.createdBy != userData.userId" title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i
+                                        class="fa fa-times" aria-hidden="true"></i></a>
+                                <span class="text-center" *ngIf="item.createdBy == userData.userId"> - </span>
                             </td>
                         </tr>
                         <tr class="table-desc-color" *ngIf="totalCount === 0">
-                            
+
                             <td class="text-center" colspan="7">
                                 <p class="data-design m-0">
                                     <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
@@ -108,28 +111,28 @@
                     </thead>
                     <tbody>
                         <tr class="table-desc-color" *ngFor="let item of pendingList | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCount};let i = index;">
-                            <td class="text-left">{{item.Resort.resortName  | titlecase}}</td>
-                            <td class="text-left">{{item.Requestor.userName  | titlecase}}</td>
+                            <td class="text-left">{{item.Resort.resortName | titlecase}}</td>
+                            <td class="text-left">{{item.Requestor.userName | titlecase}}</td>
                             <td class="text-left">{{item.contentName}}</td>
                             <td class="text-left">{{item.contentType}}</td>
 
 
                             <td class="text-left">{{item.created | date : 'medium'}}</td>
                             <td class="text-left">
-                                <span *ngIf="item.Approver"> {{item.Approver.userName  | titlecase}}</span>
+                                <span *ngIf="item.Approver"> {{item.Approver.userName | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
 
                         </tr>
                         <tr class="table-desc-color" *ngIf="totalCount === 0">
-                            
-                                <td  class="text-center" colspan="7">
-                                    <p class="data-design m-0">
-                                        <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
-                                    </p>
-                                </td>
-                            </tr>
-    
+
+                            <td class="text-center" colspan="7">
+                                <p class="data-design m-0">
+                                    <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
+                                </p>
+                            </td>
+                        </tr>
+
 
                     </tbody>
                 </table>
@@ -165,27 +168,27 @@
                     </thead>
                     <tbody>
                         <tr class="table-desc-color" *ngFor="let item of pendingList | paginate: {itemsPerPage: pageSize,currentPage: p,totalItems : totalCount};let i = index;">
-                            <td class="text-left">{{item.Resort.resortName  | titlecase}}</td>
-                            <td class="text-left">{{item.Requestor.userName  | titlecase}}</td>
+                            <td class="text-left">{{item.Resort.resortName | titlecase}}</td>
+                            <td class="text-left">{{item.Requestor.userName | titlecase}}</td>
                             <td class="text-left">{{item.contentName}}</td>
                             <td class="text-left">{{item.contentType}}</td>
 
 
                             <td class="text-left">{{item.created | date : 'medium'}}</td>
                             <td class="text-left">
-                                <span *ngIf="item.Approver"> {{item.Approver.userName  | titlecase}}</span>
+                                <span *ngIf="item.Approver"> {{item.Approver.userName | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
 
                         </tr>
                         <tr class="table-desc-color" *ngIf="totalCount === 0">
-                            
-                                <td class="text-center" colspan="7">
-                                    <p class="data-design m-0">
-                                        <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
-                                    </p>
-                                </td>
-                            </tr>
+
+                            <td class="text-center" colspan="7">
+                                <p class="data-design m-0">
+                                    <span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span>
+                                </p>
+                            </td>
+                        </tr>
 
 
 
@@ -206,7 +209,8 @@
                             #resort (change)=getResortData(resort.value)>
                             <option value="null">{{commonLabels.labels.resort}}</option>
 
-                            <option *ngFor="let data of resortList" value="{{data.resortId}}">{{data.resortName  | titlecase}}</option>
+                            <option *ngFor="let data of resortList" value="{{data.resortId}}">{{data.resortName |
+                                titlecase}}</option>
                         </select>
                         <div class="select_arrow"></div>
                     </div>
@@ -298,20 +302,20 @@
 
         <div class="col-md-12 clearfix">
             <div class="col-md-12 pt-3">
-            <label class="square-cont float-left col-md-6">
-                <input type="checkbox" name="levelApprove" [checked]= "showUsers" (change)="secondLevelApproval()">
-                <span class="text-over">Second Level Approval</span>
-                <span class="square-checkmark"></span>
-            </label>
-            <span *ngIf="levelApprovalError" class="required_color">{{commonLabels.mandatoryLabels.approverError}}</span>
-            <!-- <input class="col-md-6 form-control" name="resortName" placeholder="" required="" type="text"> -->
-        </div>
+                <label class="square-cont float-left col-md-6">
+                    <input type="checkbox" name="levelApprove" [checked]="showUsers" (change)="secondLevelApproval()">
+                    <span class="text-over">Second Level Approval</span>
+                    <span class="square-checkmark"></span>
+                </label>
+                <span *ngIf="levelApprovalError" class="required_color">{{commonLabels.mandatoryLabels.approverError}}</span>
+                <!-- <input class="col-md-6 form-control" name="resortName" placeholder="" required="" type="text"> -->
+            </div>
             <div class="col-md-12 row pb-3" *ngIf="showUsers">
                 <label class="col-md-6 label-title p-0 text-left">Employee
                     <span class="mandatory-color">*</span></label>
                 <select [(ngModel)]="approvalAccess" name="approvalAccess" class="col-md-6 form-control" (change)="approverSelect()">
                     <option value="null" disabled>{{commonLabels.labels.selectUsers}}</option>
-                    <option *ngFor="let obj of createdByList" [value]="obj.userId">{{obj.userName  | titlecase}}</option>
+                    <option *ngFor="let obj of createdByList" [value]="obj.userId">{{obj.userName | titlecase}}</option>
                 </select>
             </div>
 
@@ -335,8 +339,8 @@
             <textarea [(ngModel)]="rejectComment" name="rejectComment" class="col-md-12 reject-textarea" placeholder="Write your comment here"></textarea>
         </div>
         <div class="text-center mt-4">
-            <button (click)="rejectStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.ok}}</button>
-            <button type="button" class="btn btn-default" (click)="closePopup()">{{commonLabels.btns.cancel}}</button>
+            <button (click)="rejectStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.yes}}</button>
+            <button type="button" class="btn btn-default" (click)="closePopup()">{{commonLabels.btns.no}}</button>
         </div>
     </div>
 </ng-template>

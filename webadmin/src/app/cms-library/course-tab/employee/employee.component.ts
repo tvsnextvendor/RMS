@@ -31,6 +31,7 @@ export class EmployeeComponent implements OnInit {
   search;
   trendType;
   id;
+  topTitle;
   
   constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location,public commonLabels:CommonLabels,private resortService : ResortService,
     private userService :UserService,private commonService :CommonService) { 
@@ -46,11 +47,13 @@ export class EmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.roleId = this.utilService.getRole()
     let user = this.utilService.getUserData();
     this.resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : '';
-    this.headerService.setTitle({ title: this.commonLabels.labels.resourceLibrary, hidemodule: false });
-    let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/cms-library'},{title : this.commonLabels.labels.employeeTabLabel,url:''}]
+    this.topTitle = (this.trendType === 'class')? this.commonLabels.titles.trainingclassTrend:this.commonLabels.titles.courseTrend;
+    this.headerService.setTitle({ title: this.topTitle, hidemodule: false });
+    let data = [{title : this.topTitle,url:'/cms-library'},{title : this.commonLabels.labels.employeeTabLabel,url:''}]
     this.breadCrumbService.setTitle(data);
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[1]];

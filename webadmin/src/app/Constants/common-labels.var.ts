@@ -499,7 +499,8 @@ export class CommonLabels{
         "logintitle"        :  "Login",
         "videoTitle"        :  "Video List",
         "docTitle"          :  "Document List",
-        "courseTrend"       :  "Course Trend"
+        "courseTrend"       :  "Course Trend",
+        "trainingclassTrend": "Training Class Trend"
 
     };
 

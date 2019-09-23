@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-9 pt-2 px-0">
             <div class="clearfix tab-section">
+               
                 <ul class="nav nav-tabs">
                     <li class="nav-item"  *ngIf="!hideSection">
                         <a [ngClass] = "selectedTab === 'course' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#course" (click)="headerTabChange('course','')">{{commonLabels.labels.course}}</a>
@@ -18,7 +19,7 @@
                     <li class="nav-item" *ngIf="!showcreatecourse">
                         <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document','')">{{commonLabels.labels.documents}}</a>
                     </li>
-                    <li class="nav-item" *ngIf="!showcreatecourse">
+                    <li class="nav-item" *ngIf="!hideSection">
                         <a  [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification','')">{{commonLabels.labels.notification}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection">

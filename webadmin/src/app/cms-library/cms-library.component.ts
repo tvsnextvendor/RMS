@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy,TemplateRef,Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService, AlertService, FileService } from '../services';
 import { ToastrService } from 'ngx-toastr';
@@ -11,32 +11,31 @@ import { CommonLabels } from '../Constants/common-labels.var';
   templateUrl: './cms-library.component.html',
   styleUrls: ['./cms-library.component.css']
 })
-export class CMSLibraryComponent implements OnInit,OnDestroy {
+export class CMSLibraryComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: BsModalService,
     public fileService: FileService,
-    public commonLabels : CommonLabels, 
+    public commonLabels: CommonLabels,
     private alertService: AlertService,
-    private route: Router, 
+    private route: Router,
     private activatedRoute: ActivatedRoute,
-    private headerService: HeaderService) { 
-    }
-
+    private headerService: HeaderService) {
+  }
   modalRef;
   videoFile;
   selectedTab;
   redirectId;
-  selectedCourse =[];
-  showWarning=false;
-  hideSection=false;
+  selectedCourse = [];
+  showWarning = false;
+  hideSection = false;
   trainingClassId;
   courseId;
-  resourceLibrary =false;
+  resourceLibrary = false;
   CMSFilterSearchEvent;
   quizTabHit;
-  deselectAll= false;
-  selectedVideoList=[];
-  showcreatecourse=false;
+  deselectAll = false;
+  selectedVideoList = [];
+  showcreatecourse = false;
   findCreateCourse;
   notificationValue;
   notifyType;
@@ -49,170 +48,174 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
   resourceLib = false;
 
   ngOnInit() {
-  this.selectedTab = 'course';
-  this.quizTabHit = false;
-  this.notifyType = 'assignedToCourse';
-  this.activatedRoute.queryParams.subscribe(params=>{
+    this.selectedTab = 'course';
+    this.quizTabHit = false;
+    this.notifyType = 'assignedToCourse';
+    this.activatedRoute.queryParams.subscribe(params => {
 
-    this.fileService.setCurrentCompname(params.tab);
+      this.fileService.setCurrentCompname(params.tab);
+      alert(!this.resourceLibrary);
 
-    if(params.type && params.type == 'create'){
-      this.disableEdit = false;
-      this.disableTabs = false;
-      this.schedulePage = false;
-      switch(params.tab){
-        case 'course':
-          this.showcreatecourse = true;
-          this.enableNotify = false;
-          this.tabName=params.tab;
-          this.fileService.emptyFileList();
-          break;
-        case 'class':
-          this.showcreatecourse = true;
-          this.enableNotify = false;
-          this.tabName=params.tab;
-          this.fileService.emptyFileList();
-          break;  
-        case 'quiz':
-        break;
-        case 'notification':
+      if (params.type && params.type == 'create') {
+        this.disableEdit = false;
+        this.disableTabs = false;
+        this.schedulePage = false;
+        switch (params.tab) {
+          case 'course':
+            this.showcreatecourse = true;
+            this.enableNotify = false;
+            this.tabName = params.tab;
+            this.fileService.emptyFileList();
+            break;
+          case 'class':
+            this.showcreatecourse = true;
+            this.enableNotify = false;
+            this.tabName = params.tab;
+            this.fileService.emptyFileList();
+            break;
+          case 'quiz':
+            break;
+          case 'notification':
+            this.showcreatecourse = false;
+            this.enableNotify = true;
+            break;
+          case 'schedule':
+            this.disableTabs = true;
+            this.disableEdit = true;
+            this.schedulePage = true;
+            break;
+        }
+      }
+      else if (params.type && params.type == 'edit') {
+        this.disableEdit = false;
         this.showcreatecourse = false;
-        this.enableNotify = true;
-        break;  
-        case 'schedule':
-        this.disableTabs = true;
-        this.disableEdit = true;
-        this.schedulePage = true;
-        break;
+        this.hideSection = false;
+        this.enableNotify = false;
+        this.enableBatch = false;
+        this.disableTabs = false;
+        switch (params.tab) {
+          case 'class':
+            this.selectedTab = 'training';
+            break;
+          case 'course':
+            this.selectedTab = 'course';
+            break;
+          case 'quiz':
+            this.selectedTab = 'quiz';
+            this.quizTabHit = true;
+            break;
+          case 'notification':
+            this.selectedTab = 'notification';
+            break;
+          case 'video':
+            this.selectedTab = 'video';
+            break;
+          case 'document':
+            this.selectedTab = 'document';
+            break;
+          case 'workInprogress':
+            this.selectedTab = 'workInprogress';
+            break;
+        }
       }
-    }
-    else if(params.type && params.type == 'edit'){
-      this.disableEdit = false;
-      this.showcreatecourse = false;
-      this.hideSection =false;
-      this.enableNotify = false;
-      this.enableBatch = false;
-      this.disableTabs = false;
-      switch(params.tab){
-        case 'class':
-        this.selectedTab = 'training';
-        break;
-        case 'course':
+      else if (!Object.keys(params).length) {
         this.selectedTab = 'course';
-        break;
-        case 'quiz':
-        this.selectedTab = 'quiz';
-        this.quizTabHit = true;
-        break;
-        case 'notification':
-        this.selectedTab = 'notification';
-        break;
-        case 'video':
-          this.selectedTab = 'video';
-          break;
-        case 'document':
-          this.selectedTab = 'document';
-          break;
-        case 'workInprogress':
-        this.selectedTab = 'workInprogress';
-        break;
+        this.showcreatecourse = false;
+        this.enableNotify = false;
+        this.enableBatch = false;
+        this.disableEdit = true;
+        this.disableTabs = false;
       }
-    }
-    else if(!Object.keys(params).length){
-      this.selectedTab = 'course';
-      this.showcreatecourse = false;
-      this.enableNotify = false;
-      this.enableBatch = false;
-      this.disableEdit = true;
-      this.disableTabs = false;
-    }
-    if(params.tab == 'schedule'){
-          this.headerService.setTitle({title:this.commonLabels.labels.schedule, hidemodule:false});
-      }else if(window.location.pathname.indexOf("resource") != -1){
+      if (params.tab == 'schedule') {
+        this.headerService.setTitle({ title: this.commonLabels.labels.schedule, hidemodule: false });
+      } else if (window.location.pathname.indexOf("resource") != -1) {
         this.resourceLib = true;
-        this.headerService.setTitle({title:this.commonLabels.labels.resourceLibrary, hidemodule:false});
-      }else{
-            let path = window.location.pathname;
-            let data = params.type == 'create' ? 'Create' : params.type == 'edit' ? 'Edit' : path == '/LMS/cms-library' ? 'Edit' : 'Create';
-            this.headerService.setTitle({title:data, hidemodule:false});
+        this.headerService.setTitle({ title: this.commonLabels.labels.resourceLibrary, hidemodule: false });
+      } else {
+        let path = window.location.pathname;
+        let data = params.type == 'create' ? 'Create' : params.type == 'edit' ? 'Edit' : path == '/LMS/cms-library' ? 'Edit' : 'Create';
+       // let topTitle = (!this.resourceLibrary) ? 'Resource Library' : data;
+        // alert(this.resourceLibrary);
+        // alert(topTitle);
+        this.headerService.setTitle({ title: data, hidemodule: false });
       }
-  })
+    })
   }
 
-  openEditModal(template: TemplateRef<any>,modelValue) {
+  openEditModal(template: TemplateRef<any>, modelValue) {
     this.showWarning = false;
-    let modalConfig  = {class : "modal-xl"};
-    if(this.selectedCourse.length > 0){
-    this.modalRef = this.modalService.show(template,modalConfig);
-    }else{
-    this.showWarning =true;
-    let self = this;
-    setTimeout(function(){ 
-     self.showWarning = false;
-     }, 5000);
+    let modalConfig = { class: "modal-xl" };
+    if (this.selectedCourse.length > 0) {
+      this.modalRef = this.modalService.show(template, modalConfig);
+    } else {
+      this.showWarning = true;
+      let self = this;
+      setTimeout(function () {
+        self.showWarning = false;
+      }, 5000);
     }
   }
 
-  showUploadPage(event){
-     this.findCreateCourse = event.key ? true : false;
-    if(event){
+  showUploadPage(event) {
+    this.findCreateCourse = event.key ? true : false;
+    if (event) {
       this.activatedRoute.queryParams.subscribe(params => {
-          if (params && params.type == 'edit') {
-              this.resourceLibrary = true;
-          }
+        if (params && params.type == 'edit') {
+          this.resourceLibrary = true;
+        }
       });
-      this.hideSection= true;
+      this.hideSection = true;
       this.selectedTab = 'video';
       this.showcreatecourse = false;
     }
   }
 
-  goTocmsLibrary(){
+  goTocmsLibrary() {
     this.hideSection = false;
     this.enableNotify = false;
     this.enableBatch = false;
-     this.selectedTab = 'course';
+    this.selectedTab = 'course';
   }
 
-  showCreateCourse(){
+  showCreateCourse() {
     this.showcreatecourse = true;
-    this.hideSection= true;
+    this.hideSection = true;
   }
 
-  headerTabChange(title,key){
+  headerTabChange(title, key) {
     this.selectedTab = title;
-    if(key != 'trainingfiles' && (title == 'video' || title == 'document')){
+    if (key != 'trainingfiles' && (title == 'video' || title == 'document')) {
       this.trainingClassId = '';
       this.quizTabHit = false;
     }
-    else if(key != 'trainingfiles' && title == 'quiz'){
+    else if (key != 'trainingfiles' && title == 'quiz') {
       this.quizTabHit = true;
     }
-    else if (key != 'trainingfiles'){
+    else if (key != 'trainingfiles') {
       this.courseId = '';
     }
-    else{
-      this.quizTabHit = false; 
+    else {
+      this.quizTabHit = false;
     }
-    this.activatedRoute.queryParams.subscribe(params=>{
-      if(params && params.type == 'edit' && !this.resourceLibrary){
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.type == 'edit' && !this.resourceLibrary) {
         title = (title == 'training') ? 'class' : title;
-        this.route.navigate(['/cms-library'],{queryParams:{type : 'edit',tab : title}})
+        this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
       }
     });
   }
- 
-  completed(event){
-    if(event == 'back'){
+
+  completed(event) {
+    if (event == 'back') {
       this.route.navigate(['/cmspage']);
-    }else{
+    } else {
       let keysToRemove = ["index", "type"];
       keysToRemove.forEach(element => {
-          localStorage.removeItem(element);
+        localStorage.removeItem(element);
       });
-      this.selectedVideoList=[];
-      this.hideSection=false;
-      this.showcreatecourse=false;
+      this.selectedVideoList = [];
+      this.hideSection = false;
+      this.showcreatecourse = false;
       this.enableNotify = false;
       this.enableBatch = false;
       this.selectedTab = 'course';
@@ -220,110 +223,107 @@ export class CMSLibraryComponent implements OnInit,OnDestroy {
     }
   }
 
-  redirectTab(value){
+  redirectTab(value) {
     this.trainingClassId = '';
     this.courseId = '';
-    if(value){
+    if (value) {
       this.trainingClassId = value.id;
     }
     this.courseId = value.courseId;
-    this.headerTabChange(value.tab,'trainingfiles');
-  }
-  
-  getCourse(event){
-    // console.log(event);
-    this.selectedCourse=event;
+    this.headerTabChange(value.tab, 'trainingfiles');
   }
 
-  hidePopup(type){
+  getCourse(event) {
+    // console.log(event);
+    this.selectedCourse = event;
+  }
+
+  hidePopup(type) {
     this.deselectAll = true;
     this.modalRef.hide();
     //if(type !== 'cancel'){
-      this.selectedCourse = [];
+    this.selectedCourse = [];
     //} 
   }
 
   receivefilterMessage($event) {
     this.CMSFilterSearchEvent = $event;
     //this.headerTabChange('course','');
-   }
-  
-  sendFilesToCourse(){
+  }
+
+  sendFilesToCourse() {
     this.fileService.saveFileList();
     this.selectedVideoList = this.fileService.selectedFiles();
-    if(this.selectedVideoList.length){
-      if(this.findCreateCourse){
+    if (this.selectedVideoList.length) {
+      if (this.findCreateCourse) {
         this.showCreateCourse();
-     }else{
-       this.hideSection= false;
-       this.selectedTab = 'course';
+      } else {
+        this.hideSection = false;
+        this.selectedTab = 'course';
       }
     }
-    else{
+    else {
       this.alertService.error("Please select add minimum one file")
     }
   }
 
-  openCreateModal(template: TemplateRef<any>,modelValue) {
+  openCreateModal(template: TemplateRef<any>, modelValue) {
     this.notifyType = 'assignedToCourse';
-    let modalConfig=  {
-      class : "modal-lg modal-dialog-centered"
+    let modalConfig = {
+      class: "modal-lg modal-dialog-centered"
     }
-    this.modalRef = this.modalService.show(template,modalConfig);
+    this.modalRef = this.modalService.show(template, modalConfig);
   }
 
-  closeModal(){
+  closeModal() {
     this.enableNotify = false;
     this.modalRef.hide();
   }
 
-  notificationType(){
+  notificationType() {
     // let modalConfig={
     //   class : "notification-modal"
     // }
     // console.log(this.notifyType)
-  this.enableNotify = true;
-  this.notificationValue = this.notifyType;
-  this.modalRef.hide();
-  // this.modalRef = this.modalService.show(template,modalConfig);
-}
-
-notificationTypeUpdate(type){
-  this.notifyType = type;
-}
-
-enableData(data,type){
-  if(this.selectedCourse.length > 0){
-    this.enableBatch = true;
-  }else{
-  this.showWarning =true;
-  let self = this;
-  setTimeout(function(){ 
-    self.showWarning = false;
-    }, 5000);
+    this.enableNotify = true;
+    this.notificationValue = this.notifyType;
+    this.modalRef.hide();
+    // this.modalRef = this.modalService.show(template,modalConfig);
   }
-}
 
-backClicked(){
-  this.activatedRoute.queryParams.subscribe(params=>{
-     if(params.type == 'create'){
-      this.tabName =params.tab && params.tab == 'class' ? 'class' : 'course';
-      this.hideSection = true;
-      this.showcreatecourse = true;
-      // sendFileList
-      this.fileService.emptyLocalFileList();
-     }else if(params.type == 'edit' || this.resourceLib){
-      this.selectedTab = 'course';
-      this.hideSection = false;
-      this.showcreatecourse = false;
-      this.fileService.emptyLocalFileList();
-     }
-  })
-  
-}
+  notificationTypeUpdate(type) {
+    this.notifyType = type;
+  }
 
-ngOnDestroy(){
-  this.resourceLib = false;
-}
-   
+  enableData(data, type) {
+    if (this.selectedCourse.length > 0) {
+      this.enableBatch = true;
+    } else {
+      this.showWarning = true;
+      let self = this;
+      setTimeout(function () {
+        self.showWarning = false;
+      }, 5000);
+    }
+  }
+
+  backClicked() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.type == 'create') {
+        this.tabName = params.tab && params.tab == 'class' ? 'class' : 'course';
+        this.hideSection = true;
+        this.showcreatecourse = true;
+        // sendFileList
+        this.fileService.emptyLocalFileList();
+      } else if (params.type == 'edit' || this.resourceLib) {
+        this.selectedTab = 'course';
+        this.hideSection = false;
+        this.showcreatecourse = false;
+        this.fileService.emptyLocalFileList();
+      }
+    })
+  }
+  ngOnDestroy() {
+    this.resourceLib = false;
+  }
 }
