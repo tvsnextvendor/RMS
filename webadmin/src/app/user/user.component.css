@@ -13,6 +13,9 @@
     font-size: 22px;
    color: #f44336;
 }
+.new-btn-small{
+    min-width: 0px;
+}
 
 .header-icon{
     color: #468FB9;

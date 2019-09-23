@@ -1,6 +1,15 @@
 <div class="tab-section pt-3">  
     <div class="clearfix" *ngIf="userPagesEnable"> 
         <form *ngIf = "userTab" class="float-right row pb-3 filter-search" (ngSubmit)="userList()">
+                <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="constant.userList.length">
+                        <button type="button" class="btn btn-primary dropdown-toggle ht-38" data-toggle="dropdown">
+                            {{commonLabels.btns.exportTo}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
+                            <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
+                        </div>
+                    </div>
             <div class="search-container clearfix">
                 <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox">
                 <button type="submit" class="user-search-icon"><i class="fa fa-search search-icon"></i></button>
@@ -12,8 +21,8 @@
             <tab [active] = "selectTab == 'user'" heading={{commonLabels.labels.userManagement}} (select)="roleTabSelect('user')">
                 <div class="pt-3" id="contentToConvert">
                     <div class="col-md-12 clearfix search-box p-0">
-                        <div class="float-right row pb-1 adduser-respon"> 
-                            <div class="col-md-2 pl-0 select select-style clearfix">
+                        <div class="row pb-1 adduser-respon"> 
+                            <div class="col-md-3 pl-0 select select-style clearfix">
                                 <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
                                     (change)="filterSelect(childResort.value,'resort')">
                                     <option [value]=null>{{commonLabels.labels.selectResort}}</option>
@@ -21,7 +30,7 @@
                                 </select>
                                 <div class="select_arrow"></div>
                             </div>
-                            <div class="col-md-2 pl-0 select select-style clearfix">
+                            <div class="col-md-3 pl-0 select select-style clearfix">
                                 <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterDivision"
                                     #parentdivision (change)="filterSelect(parentdivision.value,'division')">
                                     <option [value]=null>{{commonLabels.labels.selDiv}}</option>
@@ -29,7 +38,7 @@
                                 </select>
                                 <div class="select_arrow"></div>
                             </div>
-                            <div class="col-md-2 pl-0 select select-style clearfix">
+                            <div class="col-md-3 pl-0 select select-style clearfix">
                                 <select name="parentDepartmentId" class="form-control pl-2" [(ngModel)]="filterDept" #dept
                                         (change)="filterSelect(dept.value,'dept')">
                                     <option [value]=null>{{commonLabels.labels.selDept}}</option>
@@ -37,7 +46,7 @@
                                 </select>
                                 <div class="select_arrow"></div>
                             </div>
-                            <span class="pr-2"><button class="btn btn-primary addUser-upload" type="button" (click)="resetFilter()"><i class="fas fa-sync-alt refer-icon"></i></button></span>
+                            <span class="pr-2"><button class="btn btn-primary addUser-upload new-btn-small" type="button" (click)="resetFilter()"><i class="fas fa-sync-alt refer-icon"></i></button></span>
                             <span *ngIf = "uploadPermission" class="pr-2 upload-line">
                                 <!-- <button class="fileUpload btn btn-primary addUser-upload">
                                 <span><i class="fa fa-upload mr-1" aria-hidden="true"></i>{{commonLabels.btns.uploadEmp}}</span>
@@ -47,16 +56,8 @@
                                 <button class="fileUpload btn btn-primary addUser-upload" (click)="openAddRole(bulkUpload,'bulk','')">{{commonLabels.btns.uploadEmp}}</button>
                             </span> 
 
-                            <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="constant.userList.length">
-                                <button type="button" class="btn btn-primary dropdown-toggle ht-38" data-toggle="dropdown">
-                                    {{commonLabels.btns.exportTo}}
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
-                                    <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
-                                </div>
-                            </div>
-                            <span *ngIf = "permissionCheck()" class="pr-2"><button class="btn btn-primary addUser-upload" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.addUser}}</button></span>
+                           
+                            <span *ngIf = "permissionCheck()" class="pr-2"><button class="btn btn-primary addUser-upload" (click)="openAddUser(addUserTemp,'','')"><i class="fa fa-plus pr-2"></i>{{commonLabels.btns.add}}</button></span>
                         </div>
                         
                     </div>
