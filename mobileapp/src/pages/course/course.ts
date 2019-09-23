@@ -77,7 +77,7 @@ export class CoursePage implements OnInit {
             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
-             this.hideUploadContent = self.currentUser['status'] && self.currentUser['status'] == 'mobileAdmin' || self.currentUser['status'] == 'web/mobileAdmin' ? true : false;         
+             this.hideUploadContent = self.currentUser['status'] && self.currentUser['status'] == 'web/mobileAdmin' ? true : false;         
               this.status = this.status ? this.status : 'assigned';
               this.getCourseStatus(this.status, '');
               this.showData(this.status);
