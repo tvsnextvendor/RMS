@@ -37,9 +37,9 @@
                             <div class=" col-md-10 col-sm-8 select select-style clearfix pl-5 m-0">
                                 <select id="course" class="form-control p-0" name="assignTo" [(ngModel)]="assignTo"
                                     (change)="changeAssigning()">
-                                    <option value="">{{commonLabels.labels.select}}</option>
+                                    <option value="" disabled="disabled">{{commonLabels.labels.select}}</option>
                                     <option value="course">{{commonLabels.labels.course}}</option>
-                                    <option value="tranClass">{{commonLabels.labels.trainingClass}}</option>
+                                    <!-- <option value="tranClass">{{commonLabels.labels.trainingClass}}</option> -->
                                 </select>
                                 <div class="select_arrow-alg"></div>
                             </div>
