@@ -104,24 +104,25 @@ static readonly defaultModules = [{
 	'edit': false,
 	'type': "web"
 }, {
-	'moduleName': 'Course',
+	'moduleName': 'Course / Training Class / Quiz',
 	'view': false,
 	'upload': false,
 	'edit': false,
 	'type': "web"
-}, {
-	'moduleName': 'Training Class',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
-	'moduleName': 'Quiz',
-	'view': false,
-	'upload': false,
-	'edit': false,
-	'type': "web"
-}, {
+},
+//  {
+// 	'moduleName': 'Training Class',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "web"
+// }, {
+// 	'moduleName': 'Quiz',
+// 	'view': false,
+// 	'upload': false,
+// 	'edit': false,
+// 	'type': "web"}
+ {
 	'moduleName': 'Notification',
 	'view': false,
 	'upload': false,

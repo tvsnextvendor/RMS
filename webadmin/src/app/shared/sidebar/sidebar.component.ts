@@ -167,6 +167,7 @@ export class SideBarComponent implements OnInit {
   }
 
   expandCheck(type){
+    // console.log(type,"Type");
     if(type == 'performance'){
       if(this.permissionCheck('Course Trend','view') || this.permissionCheck('Training Class Trend','view') || this.permissionCheck('Resort Details','view') || this.permissionCheck('Certification Trend','view') || this.permissionCheck('Expire Trend','view')){
         return true;
@@ -184,7 +185,7 @@ export class SideBarComponent implements OnInit {
       }
     }
     if(type == "edit"){
-      if(this.permissionCheck('Course','view') || this.permissionCheck('Training Class','view') || this.permissionCheck('Video','view') || this.permissionCheck('Document','view') || this.permissionCheck('Quiz','view') || this.permissionCheck('Notification','view')){
+      if(this.permissionCheck('Course / Training Class / Quiz','view') || this.permissionCheck('Video','view') || this.permissionCheck('Document','view') ||  this.permissionCheck('Notification','view')){
         return true;
       }
       else{
@@ -192,7 +193,7 @@ export class SideBarComponent implements OnInit {
       }
     }
     if(type == "create"){
-      if(this.permissionCheck('Course','edit') || this.permissionCheck('Training Class','edit') || this.permissionCheck('Quiz','edit') || this.permissionCheck('Notification','edit')){
+      if(this.permissionCheck('Course / Training Class / Quiz','edit')  || this.permissionCheck('Notification','edit')){
         return true;
 
       }

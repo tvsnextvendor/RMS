@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   passwordError = false;
   emailError = false;
   btns;
+  urlData;
   agreeTerms = false;
 
   constructor(private route: Router,
@@ -168,7 +169,32 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('RolePermissions',JSON.stringify(permissions));
           }
           if (role === 4) {
-            this.route.navigateByUrl('/cmspage?type=create');
+            console.log(loginData.rolePermissions, "RolePermissisons")
+            if(loginData.rolePermissions){
+              let permissionData = loginData.rolePermissions[0].userPermission;
+              permissionData.forEach(item => {
+                  if (item.moduleName == 'Course / Training Class / Quiz') {
+                      // this.urlData = item.view == true ? '/cmspage?type=create' : item.edit == true ? '/cmspage?type=edit': '' ;
+                      if(item.view == true){
+                         this.urlData = '/cmspage?type=create';
+                         this.route.navigateByUrl(this.urlData);
+                      }else if(item.edit == true){
+                        this.urlData = '/cmspage?type=edit';
+                        this.route.navigateByUrl(this.urlData);
+                      }
+                  }else{
+                    let menuArray = [{key: 'Dashboard', value: '/dashboard'}, {key:'Schedule', value:'/calendar'}, {key: 'Resource Library', value: '/resource/library'}, {key:'User Management', value:'/users'}, {key:'Site Management', value : '/resortslist'},{ key: 'Approval Request', value : '/approvalrequests'},{ key: 'Certificates', value:'/certificates'}, {key:'Subscription Model', value : '/subscriptionlist'}, {key: 'Feedback', value : '/feedback'}]
+                      menuArray.forEach(element => {
+                         if(element.key == item.moduleName){
+                           if(item.view == true || item.edit == true){
+                             this.urlData = element.value;
+                             this.route.navigateByUrl(this.urlData);
+                           }
+                         }
+                      });
+                  }
+              })
+            }
           } else {
             this.route.navigateByUrl('/dashboard');
           }

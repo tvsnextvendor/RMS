@@ -83,11 +83,11 @@
 							{{commonLabels.labels.view}}
 							<span class="table-checkmark"></span>
 						</label></th>
-					<th class="text-center"><label [ngClass]="viewUserRolePermission ? 'table-checkbox-cont table-checkbox-cont-input mb-0' :'table-checkbox-cont mb-0'">
+					<!-- <th class="text-center"><label [ngClass]="viewUserRolePermission ? 'table-checkbox-cont table-checkbox-cont-input mb-0' :'table-checkbox-cont mb-0'">
 							<input type="checkbox" [disabled]="viewUserRolePermission" [checked]='constant.selectAllUpload ? true : false' name="upload" (change)="selectAll($event)">
 							{{commonLabels.labels.upload}}
 							<span class="table-checkmark"></span>
-						</label></th>
+						</label></th> -->
 					<th class="text-center"><label [ngClass]="viewUserRolePermission ? 'table-checkbox-cont table-checkbox-cont-input mb-0' :'table-checkbox-cont mb-0'">
 							<input type="checkbox" [disabled]="viewUserRolePermission" [checked]='constant.selectAllEdit ? true : false' name="edit" (change)="selectAll($event)">
 							{{commonLabels.labels.editdele}}
@@ -103,10 +103,10 @@
 							<input [disabled]="module.moduleName == 'Employee Content Upload' ? true : (viewUserRolePermission ? true : false)" type="checkbox" [checked]="module.view" name="view" (change)="checkIfAllSelected($event,module.view,i)">
 							<span [ngClass]="module.moduleName == 'Employee Content Upload' ? 'table-checkmark checkmark-disable':'table-checkmark'"></span>
 						</label></td>
-					<td class="checkbox-padding"><label [ngClass]="viewUserRolePermission ? 'table-checkbox-cont table-checkbox-cont-input' :'table-checkbox-cont'">
+					<!-- <td class="checkbox-padding"><label [ngClass]="viewUserRolePermission ? 'table-checkbox-cont table-checkbox-cont-input' :'table-checkbox-cont'">
 							<input [disabled] = "viewUserRolePermission" type="checkbox" [checked]="module.upload" name="upload" (change)="checkIfAllSelected($event,module.upload,i)">
 							<span class="table-checkmark"></span>
-						</label></td>
+						</label></td> -->
 					<td class="edit-padding"><label [ngClass]="viewUserRolePermission ? 'table-checkbox-cont table-checkbox-cont-input' :'table-checkbox-cont'">
 							<input [disabled]="module.moduleName == 'Employee Content Upload' ? true : (viewUserRolePermission ? true : false)" type="checkbox" [checked]="module.edit" name="edit" (change)="checkIfAllSelected($event,module.edit,i)">
 							<span [ngClass]="module.moduleName == 'Employee Content Upload' ? 'table-checkmark checkmark-disable': 'table-checkmark'"></span>
