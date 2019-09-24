@@ -32,6 +32,10 @@ export class EmployeeComponent implements OnInit {
   trendType;
   id;
   topTitle;
+  // added employee div Drop Down
+  divIds;
+  allDivisions;
+  setDivIds;
   
   constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private utilService :UtilService,private courseService : CourseService,private headerService : HeaderService,private excelService : ExcelService,public location : Location,public commonLabels:CommonLabels,private resortService : ResortService,
     private userService :UserService,private commonService :CommonService) { 
@@ -44,10 +48,11 @@ export class EmployeeComponent implements OnInit {
       this.id = params.id;
       // this.courseId = params['id'];
     });
+     // added employee div Drop Down
+     this.divIds =this.utilService.getDivisions() ? this.utilService.getDivisions() :'';
   }
 
   ngOnInit() {
-    
     this.roleId = this.utilService.getRole()
     let user = this.utilService.getUserData();
     this.resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : '';
@@ -66,10 +71,12 @@ export class EmployeeComponent implements OnInit {
     let dataQuery = this.resortId ? '?resortId='+this.resortId+'&userId='+this.userId : '?userId='+this.userId ;
     if(query){
       dataQuery = this.empChange ? query : query+'&userId='+this.userId; 
-      // dataQuery = query;
     }
     if(this.search){
       dataQuery = dataQuery+"&search="+this.search;
+    }else{
+      // added employee div Drop Down
+      dataQuery+= (this.setDivIds && this.roleId == 4)?'&divIds='+this.setDivIds:'';
     }
     if(this.trendType && this.id){
       if(this.trendType == 'course'){
@@ -82,10 +89,7 @@ export class EmployeeComponent implements OnInit {
         dataQuery = dataQuery+'&notificationFileId='+this.id
       }
     }
-
-
     this.courseService.getEmployeeDetails(dataQuery).subscribe(resp=>{
-      //console.log(resp)
       if(resp && resp.isSuccess){
         this.listDetails = resp.data.rows.length ? resp.data.rows : [];
         this.count = resp.data.count ? resp.data.count : 0;
@@ -133,7 +137,17 @@ filterSelect(value,type){
         // console.log(value);
         this.resortService.getResortByParentId(this.filterResort).subscribe((result) => {
             if (result.isSuccess) {
-                this.divisionList = result.data.divisions;
+                // added employee div Drop Down
+                this.allDivisions = result.data.divisions;
+                if(this.divIds.length > 0 && this.roleId === 4){
+                    this.divisionList = [];
+                    this.allDivisions.filter(g => this.divIds.includes(g.divisionId)).map(g =>{
+                        this.divisionList.push(g);
+                    });
+                }else{
+                    this.divisionList = result.data.divisions;
+                }
+                 // added employee div Drop Down
                 let query = "?resortId="+this.filterResort;
                 this.getEmployeeDetails(query);
             }
