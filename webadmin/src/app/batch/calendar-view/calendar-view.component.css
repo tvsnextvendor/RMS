@@ -45,6 +45,7 @@
     height: 1.2em;
     white-space: nowrap;
     overflow: hidden;
+    cursor: pointer;
 }
 
 

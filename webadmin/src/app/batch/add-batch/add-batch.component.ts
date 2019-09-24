@@ -6,7 +6,7 @@ import { BatchVar } from '../../Constants/batch.var';
 import { API_URL } from '../../Constants/api_url';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { CommonService, AlertService, HttpService, UtilService, HeaderService, UserService, CourseService, ResortService, BreadCrumbService } from '../../services';
+import { CommonService, AlertService, HttpService, UtilService, HeaderService, UserService, CourseService, ResortService, BreadCrumbService, PermissionService } from '../../services';
 import * as moment from 'moment';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
@@ -54,7 +54,7 @@ export class AddBatchComponent implements OnInit {
     getCourseId = [];
     existCourses = [];
 
-    constructor(private breadCrumbService: BreadCrumbService, private alertService: AlertService, private courseService: CourseService, private utilService: UtilService, private resortService: ResortService, private userService: UserService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService: CommonService, public commonLabels: CommonLabels) {
+    constructor(private breadCrumbService: BreadCrumbService, private alertService: AlertService, private courseService: CourseService, private utilService: UtilService, private resortService: ResortService, private userService: UserService, private headerService: HeaderService, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router, private commonService: CommonService, public commonLabels: CommonLabels,  private permissionService : PermissionService) {
         this.batchVar.url = API_URL.URLS;
         this.activatedRoute.params.subscribe((params: Params) => {
             this.batchVar.batchId = params['batchId'];
@@ -138,6 +138,10 @@ export class AddBatchComponent implements OnInit {
     selectFilter(data) {
         let startDate = localStorage.getItem('BatchStartDate');
         return data.value >= new Date(startDate);
+    }
+
+     permissionCheck(modules){
+        return this.permissionService.editPermissionCheck(modules)
     }
 
     getResortData(resortId) {

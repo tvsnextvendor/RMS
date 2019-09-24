@@ -72,10 +72,10 @@
       <span class="calender-batch row py-2 mb-1" [style.background]=event.colorCode *ngFor="let event of day.events;let i = index;">
         <span class="col-md-2 p-0"><i class="fa fa-file-text px-2" aria-hidden="true"></i></span>
         <span class="col-md-10 p-0">
-          <p class="m-0 shortcut-word">{{event.batchName}}</p>
+          <p class="m-0 shortcut-word" (click)="goToBatch(day.date,event,i,'editBatch')">{{event.batchName}}</p>
           <p class="m-0 clearfix pr-2">            
-            <span *ngIf="permissionCheck('Schedule')" (click)="openConfirmModel(confirm,event,i)"><i class="fas fa-trash float-right"></i></span>
-            <span *ngIf="permissionCheck('Schedule')" (click)="goToBatch(day.date,event,i,'editBatch')"><i class="fas fa-pencil-alt float-right pr-2"></i></span>
+            <span  *ngIf="permissionCheck('Schedule')" (click)="openConfirmModel(confirm,event,i)"><i class="fas fa-trash float-right"></i></span>
+            <span (click)="goToBatch(day.date,event,i,'editBatch')"><i class="fas fa-pencil-alt float-right pr-2"></i></span>
           </p>          
           <!-- <p class="m-0" *ngFor="let course of event.courseList;">{{course?.Course?.courseName}}</p> -->
           <p class="m-0">{{event.start | date:medium}} - {{event.dueDate | date:medium}}</p>

@@ -104,30 +104,31 @@ export class CalendarViewComponent implements OnInit {
         return this.permissionService.editPermissionCheck(modules)
     }
     
-    goToBatch(event,scheduleId,i,addBatch){
-       if(this.roleId == 4){
+    goToBatch(event,scheduleId,i,batchType){
+        console.log(event,scheduleId, i, batchType)
+       if(this.roleId == 4 && batchType == 'addBatch'){
             if(this.permissionCheck('Schedule')){
-                this.permissionCheckClick(event,scheduleId,i,addBatch)
+                this.permissionCheckClick(event,scheduleId,i,batchType)
             }
         } 
         else{
-            this.permissionCheckClick(event,scheduleId,i,addBatch)
-        }
-       
+            this.permissionCheckClick(event,scheduleId,i,batchType)
+        }      
     }
-    permissionCheckClick(event,scheduleId,i,addBatch){
-        if(addBatch == "editBatch"){
+
+    permissionCheckClick(event,scheduleId,i,batchType){
+        if(batchType == "editBatch"){
             if(scheduleId.scheduleType == 'notification'){
                 let id = scheduleId.notificationFileId;
                 this.router.navigate(['/cms-library'], { queryParams: { notifyId: id, type: "create", tab: "notification", schedule: true } });
             }
             else{
-                this.pageUpdate(event,scheduleId,i,addBatch);
+                this.pageUpdate(event,scheduleId,i,batchType);
                 this.router.navigate(['/calendar'],{queryParams : {type:'edit'}})
                 this.dayClick = 2;
             }
         }
-        else if(addBatch == 'addBatch' && this.dayClick == 1){
+        else if(batchType == 'addBatch' && this.dayClick == 1){
             this.dayClicked(event);
         }
     }

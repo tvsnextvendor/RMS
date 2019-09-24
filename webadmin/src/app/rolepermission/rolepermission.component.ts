@@ -88,20 +88,12 @@ export class RolepermissionComponent implements OnInit {
       if (result && result.isSuccess) {
         this.rolesPermissions = result.data && result.data.rows;
         const resultRolePermissions = this.getObject(this.rolesPermissions, []);
-       // console.log(resultRolePermissions);
         let permissions = [];
         for(let i in resultRolePermissions){
-            //  console.log(resultRolePermissions);
-            //  console.log(resultRolePermissions[i]);
-            //  console.log(i);
              if(i != 'undefined'){
               permissions.push(resultRolePermissions[i]);
              }
-        }
-
-      
-        // console.log(resultRolePermissions);
-        // console.log(permissions);
+        } 
         this.constant.modules = permissions;
       } else {
         this.constant.modules.forEach(item => {
@@ -120,9 +112,9 @@ export class RolepermissionComponent implements OnInit {
       this.constant.selectAllEdit = this.constant.modules.every(function (item: any) {
         return item.edit == true;
       });
-      // console.log(this.rolesPermissions);
     });
   }
+
   getresortDetails() {
     this.commonService.getParentChildResorts(this.resortId).subscribe((result) => {
       if (result && result.isSuccess) {
@@ -132,6 +124,7 @@ export class RolepermissionComponent implements OnInit {
       }
     });
   }
+
   getDivisions(resortId) {
     this.commonService.getResortByParentId(resortId).subscribe((result) => {
       if (result && result.isSuccess) {
@@ -175,7 +168,7 @@ export class RolepermissionComponent implements OnInit {
   getRolePermission() {
     let data: any = {};
     data.divisionId = (this.constant.divisionId) ? this.constant.divisionId : "";
-    data.departmentId = (this.constant.departmentId) ? this.constant.departmentId : "";
+    data.departmentId = (this.constant.departmentId != 'allSelect') ? this.constant.departmentId : "";
     data.resortId = (this.constant.resortId) ? this.constant.resortId : "";
     data.designationId = (this.constant.roleId) ? this.constant.roleId : "";
     data.web = true;
@@ -236,6 +229,9 @@ export class RolepermissionComponent implements OnInit {
   selectAll(event) {
     const name = event.target.name;
     const value = event.target.checked;
+     if(!value){
+       this.constant.web = value;
+     }
     if(this.constant.modules.length == 1 && (name == 'view' || name == 'edit')){
       name == 'view'  ? this.alertService.warn('Sorry unable to give view permision for mobile settings') : this.alertService.warn('Sorry unable to give edit permision for mobile settings')
     }
@@ -267,15 +263,13 @@ export class RolepermissionComponent implements OnInit {
         this.alertService.warn('Sorry unable to give edit permision for mobile settings')
       }
     })
+
+    if(this.constant.selectAllView == true && this.constant.selectAllEdit == true){
+       this.constant.web = true;
+    }
   }
 
   saveRolePermission(form) {
-
-    // console.log(this.constant.web);
-    // console.log(this.constant.mobile);
-
-    // console.log(form);
-    //if(this.constant.web && this.constant.mobile){
       let menu = [];
       let menuMobile = [];
       this.constant.modules.forEach(value => {
@@ -332,10 +326,15 @@ export class RolepermissionComponent implements OnInit {
     const name = event.target.name;
     if (name == 'view') {
       this.constant.modules[index].view = !value;
+      this.constant.web = !value;
     } else if (name == 'upload') {
       this.constant.modules[index].upload = !value;
+      this.constant.web = !value;
+      
     } else {
       this.constant.modules[index].edit = !value;
+      this.constant.web = !value;
+      
     }
     switch (name) {
       case 'view':
@@ -413,7 +412,6 @@ export class RolepermissionComponent implements OnInit {
   }
 
   selectAllPermission(value){
-    // console.log(value)
     this.constant.selectAllView = value;
     this.constant.selectAllUpload = value;
     this.constant.selectAllEdit = value;

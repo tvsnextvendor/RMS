@@ -82,14 +82,14 @@
             <li [ngClass]="(activeType == 'editclass') ? 'active' : ''" *ngIf="permissionCheck('Training Class','view')">
                 <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editClasses}}</a>
             </li>
+            <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''" *ngIf="permissionCheck('Quiz','view')">
+                <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editQuiz}}</a>
+            </li>
             <li [ngClass]="(activeType == 'editvideo') ? 'active' : ''" *ngIf="permissionCheck('Video','view')">
                     <a (click)="pageRedirection('edit','video')">{{commonLabels.labels.editVideo}}</a>
                 </li>
             <li [ngClass]="(activeType == 'editdocument') ? 'active' : ''" *ngIf="permissionCheck('Document','view')">
                 <a (click)="pageRedirection('edit','document')">{{commonLabels.labels.editDocument}}</a>
-            </li>
-            <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''" *ngIf="permissionCheck('Quiz','view')">
-                <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editQuiz}}</a>
             </li>
             <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''" *ngIf="permissionCheck('Notification','view')">
                 <a (click)="pageRedirection('edit','notification')">{{commonLabels.labels.editNotification}}</a>
@@ -169,13 +169,13 @@
                 <a   (click)="dropDownEnable('create')"><img src="{{commonLabels.imgs.cms}}" class="pr-3"><span class="sidebar-title">{{commonLabels.btns.create}}</span><span class="drop-icon"><i *ngIf="enableCreate" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableCreate" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>
             </li>
             <ul class="sub-menu" *ngIf="enableCreate">
-                    <li [ngClass]="(activeType == 'createcourse') ? 'active' : ''"  *ngIf="permissionCheck('Course','edit')">
+                    <li [ngClass]="(activeType == 'createcourse') ? 'active' : ''"  *ngIf="permissionCheck('Course / Training Class / Quiz','edit')">
                             <a (click)="pageRedirection('create','course')">{{commonLabels.labels.course}}</a>
                         </li>
-                        <li [ngClass]="(activeType == 'createclass') ? 'active' : ''" *ngIf="permissionCheck('Training Class','edit')">
+                        <li [ngClass]="(activeType == 'createclass') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','edit')">
                             <a (click)="pageRedirection('create','class')">{{commonLabels.labels.class}}</a>
                         </li>
-                        <li [ngClass]="(activeType == 'createquiz') ? 'active' : ((activeType == '/createQuiz') ? 'active' : '')" *ngIf="permissionCheck('Quiz','edit')">
+                        <li [ngClass]="(activeType == 'createquiz') ? 'active' : ((activeType == '/createQuiz') ? 'active' : '')" *ngIf="permissionCheck('Course / Training Class / Quiz','edit')">
                             <a (click)="pageRedirection('create','quiz')">{{commonLabels.labels.quiz}}</a>
                         </li>
                         <li [ngClass]="(activeType == 'createnotification') ? 'active' : ''" *ngIf="permissionCheck('Notification','edit')">
@@ -187,10 +187,10 @@
                 <a (click)="dropDownEnable('edit')"><img src="assets/images/edit_icon.png" class="pr-3"><span class="sidebar-title">{{commonLabels.labels.editView}}</span><span class="drop-icon"><i *ngIf="enableEdit" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableEdit" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>       
             </li>
             <ul class="sub-menu" *ngIf="enableEdit">
-                    <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''" *ngIf="permissionCheck('Course','view')">
+                    <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
                         <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editCourse}}</a>
                     </li>
-                    <li [ngClass]="(activeType == 'editclass') ? 'active' : ''" *ngIf="permissionCheck('Training Class','view')">
+                    <li [ngClass]="(activeType == 'editclass') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
                         <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editClasses}}</a>
                     </li>
                     <li [ngClass]="(activeType == 'editvideo') ? 'active' : ''" *ngIf="permissionCheck('Video','view')">
@@ -199,7 +199,7 @@
                     <li [ngClass]="(activeType == 'editdocument') ? 'active' : ''" *ngIf="permissionCheck('Document','view')">
                         <a (click)="pageRedirection('edit','document')">{{commonLabels.labels.editDocument}}</a>
                     </li>
-                    <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''" *ngIf="permissionCheck('Quiz','view')">
+                    <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
                         <a (click)="pageRedirection('edit','quiz')">{{commonLabels.labels.editQuiz}}</a>
                     </li>
                     <li [ngClass]="(activeType == 'editnotification') ? 'active' : ''" *ngIf="permissionCheck('Notification','view')">

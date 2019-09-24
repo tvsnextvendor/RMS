@@ -146,7 +146,7 @@ export class CommonLabels{
 	    "roles"             :   "Roles",	    
 	    "menu"              :   "Menu",
 	    "view"              :   "View",	 
-	    "editdele"          :   "Edit / Delete",
+	    "editdele"          :   "Edit / Delete / Upload",
         "web"               :   "Web",
         "webOrmobile"       :   "Web / Mobile",
         "addModule"         :   "Add Program",
