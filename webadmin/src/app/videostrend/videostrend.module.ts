@@ -24,6 +24,7 @@ const routes: Routes = [
     { path : 'expiring/trend', component:ExpiretrendComponent, canActivate:[AuthGuard] },
     { path : 'expiring/trend/:id', component:ExpiretrenddetailsComponent, canActivate:[AuthGuard] },
     { path: 'classtrend', component:ClasstrendComponent ,canActivate : [AuthGuard]},
+    { path: 'classtrend/:id', component:ClasstrendComponent ,canActivate : [AuthGuard]},
     { path: 'notificationtrend', component:NotificationtrendComponent ,canActivate : [AuthGuard]},
     // { path : 'classtrend/:id', component:VideosTrendDetailsComponent, canActivate:[AuthGuard] },
 ];

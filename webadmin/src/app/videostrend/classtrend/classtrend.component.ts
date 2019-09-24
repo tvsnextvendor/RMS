@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common'; 
 import {Router} from "@angular/router";
+import { ActivatedRoute, Params } from '@angular/router';
 import {HttpService, HeaderService, UtilService,PDFService, ExcelService, CommonService,BreadCrumbService,ResortService,UserService} from '../../services';
 import {VideosTrendVar} from '../../Constants/videostrend.var';
 import { API_URL } from '../../Constants/api_url';
@@ -28,6 +29,7 @@ export class ClasstrendComponent implements OnInit {
   filterDept = null;
   filterUser = null;
   roleId;
+  courseId;
   // added employee div Drop Down
   divIds;
   allDivisions;
@@ -45,13 +47,17 @@ export class ClasstrendComponent implements OnInit {
    private excelService: ExcelService,
    private resortService :ResortService,
    private userService : UserService,
-   private router  : Router
+   private router  : Router,
+   private activatedRoute:ActivatedRoute
    ) {
    this.trendsVar.url = API_URL.URLS;
    this.roleId = this.utilsService.getRole();
    this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
    // added employee div Drop Down
    this.divIds =this.utilsService.getDivisions() ? this.utilsService.getDivisions() :'';
+   this.activatedRoute.params.subscribe((params: Params) => {
+    this.courseId = params['id'];
+   });
   }
 
   ngOnInit() {
@@ -141,8 +147,6 @@ export class ClasstrendComponent implements OnInit {
 
 
    getModuleList(filter) {
-       // console.log(this.trendsVar.years, 'yeeeaa');
-       // console.log(this.trendsVar.months);
        const courseTrendObj = {
            year : this.trendsVar.years,
            month : this.trendsVar.months,
@@ -150,6 +154,10 @@ export class ClasstrendComponent implements OnInit {
        let query = this.resortId ? '&resortId='+this.resortId : '';
        if(this.search){
            query = this.resortId ? '&resortId='+this.resortId+"&search="+this.search : "&search="+this.search ;
+       }
+
+       if(this.courseId){
+          query+= "&courseId="+this.courseId;
        }
        if(filter){
            query = query+filter;
