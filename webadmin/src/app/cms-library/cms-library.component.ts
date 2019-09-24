@@ -54,8 +54,6 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe(params => {
 
       this.fileService.setCurrentCompname(params.tab);
-      alert(!this.resourceLibrary);
-
       if (params.type && params.type == 'create') {
         this.disableEdit = false;
         this.disableTabs = false;
