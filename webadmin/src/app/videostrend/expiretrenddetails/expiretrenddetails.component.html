@@ -80,7 +80,7 @@
                                 <span class="square-checkmark"></span>
                             </label>
                         </td>
-                        <td class="vat employeeName-width">{{emp?.ResortUserMappings[0]?.Resort?.resortName | titlecase}}</td>
+                        <td class="vat employeeName-width"><span *ngIf="emp.ResortUserMappings">{{emp?.ResortUserMappings[0]?.Resort?.resortName | titlecase}}</span></td>
                         <td class="vat pl-4 employeeName-width">{{emp?.userName | titlecase}}</td>
                         <td class="vat text-left">{{getListArray(emp.ResortUserMappings,'division')}}</td>
                         <td class="vat text-left">{{getListArray(emp.ResortUserMappings,'dept')}}</td>

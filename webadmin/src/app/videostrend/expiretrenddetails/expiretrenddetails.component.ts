@@ -40,6 +40,11 @@ export class ExpiretrenddetailsComponent implements OnInit {
   // typeSet1='toAllEmployee';
   // typeSet2='toAllReportManager';
 
+   // added employee div Drop Down
+   divIds;
+   allDivisions;
+   setDivIds;
+
   reportSettings = {
     singleSelection: false,
     idField: 'userId',
@@ -72,10 +77,13 @@ export class ExpiretrenddetailsComponent implements OnInit {
         this.trendType = params.type;
         // this.courseId = params['id'];
       });
+       // added employee div Drop Down
+       this.divIds =this.utilService.getDivisions() ? this.utilService.getDivisions() :'';
     }
     
 
   ngOnInit() {
+    this.setDivIds = (this.divIds.length > 0)?this.divIds.join(','):'';
     this.headerService.setTitle({title: this.commonLabels.labels.expiringTrend, hidemodule: false});
     this.breadCrumbService.setTitle([]);
     this.roleId = this.utilService.getRole();
@@ -89,6 +97,9 @@ export class ExpiretrenddetailsComponent implements OnInit {
     let query =  this.resortId  ? '&resortId='+this.resortId : '';
     if(filter){
         query = query+filter
+    }else{
+      // added employee div Drop Down
+      query+= (this.setDivIds && this.roleId == 4)?'&divIds='+this.setDivIds:'';
     }
     if(this.roleId == 4){
       let user = this.utilService.getUserData();
@@ -131,7 +142,17 @@ filterSelect(value,type){
         this.filterUser = null;
         this.resortService.getResortByParentId(this.filterResort).subscribe((result) => {
             if (result.isSuccess) {
-                this.divisionList = result.data.divisions;
+                 // added employee div Drop Down
+                 this.allDivisions = result.data.divisions;
+                 if(this.divIds.length > 0 && this.roleId === 4){
+                     this.divisionList = [];
+                     this.allDivisions.filter(g => this.divIds.includes(g.divisionId)).map(g =>{
+                         this.divisionList.push(g);
+                     });
+                 }else{
+                     this.divisionList = result.data.divisions;
+                 }
+                  // added employee div Drop Down
                 let query = "&resortId="+this.filterResort;
                 this.getExpireTrendList(query);
             }

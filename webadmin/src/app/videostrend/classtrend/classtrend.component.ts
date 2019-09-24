@@ -28,6 +28,10 @@ export class ClasstrendComponent implements OnInit {
   filterDept = null;
   filterUser = null;
   roleId;
+  // added employee div Drop Down
+  divIds;
+  allDivisions;
+  setDivIds;
 
   constructor(private headerService: HeaderService,
    public trendsVar: VideosTrendVar ,
@@ -46,9 +50,12 @@ export class ClasstrendComponent implements OnInit {
    this.trendsVar.url = API_URL.URLS;
    this.roleId = this.utilsService.getRole();
    this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
+   // added employee div Drop Down
+   this.divIds =this.utilsService.getDivisions() ? this.utilsService.getDivisions() :'';
   }
 
   ngOnInit() {
+    this.setDivIds = (this.divIds.length > 0)?this.divIds.join(','):'';
    this.headerService.setTitle({title: this.commonLabels.labels.classTrend, hidemodule: false});
    this.breadCrumbService.setTitle([]);
    this.filterResort = this.resortId ? this.resortId : null;
@@ -146,7 +153,10 @@ export class ClasstrendComponent implements OnInit {
        }
        if(filter){
            query = query+filter;
-       }
+       }else{
+          // added employee div Drop Down
+          query+= (this.setDivIds && this.roleId == 4)?'&divIds='+this.setDivIds:'';
+        }
        if(this.roleId == 4){
             let user = this.utilsService.getUserData();
             query = query+'&userId='+user.userId;
@@ -240,7 +250,17 @@ export class ClasstrendComponent implements OnInit {
            // console.log(value);
            this.resortService.getResortByParentId(this.filterResort).subscribe((result) => {
                if (result.isSuccess) {
-                   this.divisionList = result.data.divisions;
+                   // added employee div Drop Down
+                   this.allDivisions = result.data.divisions;
+                   if(this.divIds.length > 0 && this.roleId === 4){
+                       this.divisionList = [];
+                       this.allDivisions.filter(g => this.divIds.includes(g.divisionId)).map(g =>{
+                           this.divisionList.push(g);
+                       });
+                   }else{
+                       this.divisionList = result.data.divisions;
+                   }
+                    // added employee div Drop Down
                    let query = "&resortId="+this.filterResort;
                    this.getModuleList(query);
                }
