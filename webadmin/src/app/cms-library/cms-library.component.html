@@ -46,7 +46,7 @@
                 </div>
                 <!-- Training Class Tab Content -->
                 <div *ngIf = "selectedTab === 'training' && !hideSection" id="training" [ngClass] = "'col-md-12 pt-2 clearfix px-0 container tab-pane' + (selectedTab === 'training' ? 'active show' : 'nav-link')">
-                    <app-traing-class-tab (scheduleClassList)="getCourse($event)" (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [courseId]="courseId" [disableEdit]="disableEdit" [disableTabs]= 'disableTabs'></app-traing-class-tab>
+                    <app-traing-class-tab (scheduleClassList)="getCourse($event)" (videoList)="redirectTab($event)" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [courseId]="courseId" [disableEdit]="disableEdit" [disableTabs]= 'disableTabs' [classView]="classView"></app-traing-class-tab>
                 </div>
                 <!-- Quiz Tab Content -->
                 <div *ngIf="selectedTab === 'quiz' && !hideSection " id="quiz"
@@ -83,7 +83,7 @@
                 </div>
         </div>
         <div class="col-md-3 pr-0 pt-2 sticky"  *ngIf="!hideSection">
-            <app-filter-tab  (FilterSearchEvent)="receivefilterMessage($event)" [selectedTab]="selectedTab"></app-filter-tab>
+            <app-filter-tab  (classView)="classViewUpdate($event)" (FilterSearchEvent)="receivefilterMessage($event)" [selectedTab]="selectedTab" [filterUpdate]="filterUpdate" ></app-filter-tab>
         </div>
     </div>
 </div>

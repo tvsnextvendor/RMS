@@ -10,6 +10,7 @@ import { CommonLabels } from '../../Constants/common-labels.var';
 })
 export class FilterTabComponent implements OnInit {
   @Input() selectedTab;
+  @Input() filterUpdate;
   parentResort = null ;
   parentResortId = null ;
   courseFilterList = [];
@@ -33,14 +34,22 @@ export class FilterTabComponent implements OnInit {
   roleId;
   parentResortList = [];
   enableResort = false;
+  resourceLib = false;
+  classViewChange;
   @Output() FilterSearchEvent = new EventEmitter<string>();
+  @Output() classView = new EventEmitter<string>();
   
 
   constructor(private utilService : UtilService,private courseService : CourseService,public commonLabels : CommonLabels,
-    private commonService : CommonService) { }
+    private commonService : CommonService) {
+      if (window.location.pathname.indexOf("resource") != -1) {
+        this.resourceLib = true;
+      }
+     }
 
   ngOnInit() {
     let data = this.utilService.getUserData();
+    this.classViewChange = 'course';
     if(data.ResortUserMappings.length){
       let resortDetails = data.ResortUserMappings;
       this.parentResort = resortDetails[0].Resort.resortName;
@@ -51,6 +60,11 @@ export class FilterTabComponent implements OnInit {
     if(this.roleId == 2 || this.roleId == 4){
       this.enableResort = true;
     }
+  }
+
+  ngOnChanges(){
+    this.classViewChange = 'course';
+    // console.log(this.selectedTab , 'type',this.filterUpdate)
   }
 
   getFilterData(){
@@ -140,6 +154,10 @@ export class FilterTabComponent implements OnInit {
     this.FilterSearchEvent.emit(formValues);
   }
 
+  viewUpdate(){
+    this.classView.emit(this.classViewChange)
+  }
+
   resetFilter(){
     this.courseFilterList = [];
     this.parentDivisionFilterList = [];
@@ -159,6 +177,7 @@ export class FilterTabComponent implements OnInit {
     this.filterParentDepartment = 'null';
     this.filterCreatedBy = 'null';
     this.search = '';
+    // this.classViewChange = 'course';
 
     this.getFilterData();
     
