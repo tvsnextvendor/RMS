@@ -20,7 +20,7 @@
                 <span class="float-right">
                     <a  title="Send Approval" *ngIf="roleId === 4 && accessSet && iconEnableApproval && userData.userId == courses.User.userId" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
                     <a *ngIf = "!scheduleEnable && iconEnable && userData.userId == courses.User.userId" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true" (click)="goToNotifyEdit(courses.notificationFileId)"></i></a>
-                    <a *ngIf = "scheduleEnable" title="Edit" class="mr-4"><i class="fas fa-calendar-alt icons_header p-0" aria-hidden="true" (click)="goToNotifyEdit(courses.notificationFileId)"></i></a>                    
+                    <a *ngIf = "!scheduleEnable" title="Edit" class="mr-4"><i class="fas fa-calendar-alt icons_header p-0" aria-hidden="true" (click)="goToNotifyEdit(courses.notificationFileId)"></i></a>                    
                     <!-- <a title="Delete" class="mr-4"><i class="fa fa-trash header-icon p-0" (click)="deleteConfirmation(deleteCourse,courses.courseId)"></i></a> -->
                     <a (click)="getIndividualCourse(courses,i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header p-0" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header p-0" aria-hidden="true" title="Open"></i></a>
                 </span>

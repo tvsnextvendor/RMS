@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute,Params } from '@angular/router';
-import {HeaderService,BreadCrumbService} from '../../services';
+import {HeaderService,BreadCrumbService, PermissionService} from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
 @Component({
@@ -10,16 +10,28 @@ import { CommonLabels } from '../../Constants/common-labels.var'
 })
 export class CmsPageComponent implements OnInit {
   urlType;
-  constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private headerService :HeaderService,public commonLabels : CommonLabels) { }
+  constructor(private breadCrumbService :BreadCrumbService,private route: Router,private activatedRoute: ActivatedRoute,private headerService :HeaderService,public commonLabels : CommonLabels, private permissionService:PermissionService) { }
 
   ngOnInit() {
     this.breadCrumbService.setTitle([]);
     this.activatedRoute.queryParams.subscribe(params=>{
-      this.urlType = params.type ? params.type  : 'create';
+       this.urlType = params.type ? params.type  : 'create';
        let path = window.location.pathname;
        let data = params.type == 'create' ? 'Create' : params.type == 'edit' ? 'Edit' : path == '/cms-library' ? 'Edit' : 'Create';
        this.headerService.setTitle({title:data, hidemodule:false});
     })
+  }
+
+
+   permissionCheck(modules,type){
+    if(type == 'view'){
+      // console.log(this.permissionService.viewPermissionCheck(modules), "view" , modules);
+      return this.permissionService.viewPermissionCheck(modules);
+    }
+    else if(type == 'edit'){
+      // console.log(this.permissionService.editPermissionCheck(modules), "edit", modules);      
+      return this.permissionService.editPermissionCheck(modules);
+    }
   }
 
   pageRedirection(type,data){

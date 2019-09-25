@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeaderService, AlertService, FileService } from '../services';
+import { HeaderService, AlertService, FileService, PermissionService } from '../services';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../Constants/common-labels.var';
@@ -19,7 +19,8 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private route: Router,
     private activatedRoute: ActivatedRoute,
-    private headerService: HeaderService) {
+    private headerService: HeaderService,
+    private permissionService:PermissionService) {
   }
   modalRef;
   videoFile;
@@ -140,6 +141,16 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
         this.headerService.setTitle({ title: data, hidemodule: false });
       }
     })
+  }
+
+
+   permissionCheck(modules,type){
+    if(type == 'view'){
+      return this.permissionService.viewPermissionCheck(modules);
+    }
+    else if(type == 'edit'){
+      return this.permissionService.editPermissionCheck(modules);
+    }
   }
 
   openEditModal(template: TemplateRef<any>, modelValue) {

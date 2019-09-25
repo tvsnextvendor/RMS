@@ -117,7 +117,7 @@ export class AddNotificationComponent implements OnInit {
     this.moduleVar.selectedResort = resortId;
     this.getDropdownDetails(resortId, 'init');
     this.getCourses();
-    if (this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Notification')) {
+    if (this.roleId == 4 && !this.permissionService.editPermissionCheck('Notification')) {
       this.uploadPermission = false;
       this.alertService.warn("Sorry Your file upload permission is disabled")
     }
@@ -125,6 +125,8 @@ export class AddNotificationComponent implements OnInit {
       this.uploadPermission = true;
     }
   }
+
+
 
   getNotificationDetails() {
     let query = '?notificationFileId=' + this.notifyId
@@ -520,7 +522,11 @@ export class AddNotificationComponent implements OnInit {
           this.courseService.addTypeOneNotification(data).subscribe(resp => {
             if (resp && resp.isSuccess) {
               // this.goTocmsLibrary();
-              this.router.navigate(['/cms-library'], { queryParams: { type: "edit", tab: "notification" } });
+              if(this.permissionService.viewPermissionCheck('Notification')){
+               this.router.navigate(['/cms-library'], { queryParams: { type: "edit", tab: "notification" } });
+              }else{
+                this.router.navigate(['/cmspage'], { queryParams: { type: "create"} });        
+              }
               this.alertService.success(resp.message);
             }
           }, err => {
@@ -548,8 +554,12 @@ export class AddNotificationComponent implements OnInit {
           this.courseService.addTypeTwoNotification(data).subscribe(resp => {
             if (resp && resp.isSuccess) {
               // this.goTocmsLibrary();
-              this.router.navigate(['/cms-library'], { queryParams: { type: "edit", tab: "notification" } });
-              this.alertService.success(resp.message);
+                if (this.permissionService.viewPermissionCheck('Notification')) {
+                    this.router.navigate(['/cms-library'], { queryParams: { type: "edit", tab: "notification" } });
+                } else {
+                    this.router.navigate(['/cmspage'], { queryParams: { type: "create"} });
+                }              
+                this.alertService.success(resp.message);
             }
           }, err => {
             console.log(err.error.error);

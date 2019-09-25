@@ -7,6 +7,8 @@ import { API_URL } from '../Constants/api_url';
 import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { CommonLabels } from '../Constants/common-labels.var';
+import { Permissions } from '../Constants/role_permission';
+
 
 @Component({
   selector: 'app-login',
@@ -171,17 +173,19 @@ export class LoginComponent implements OnInit {
           if (role === 4) {
             console.log(loginData.rolePermissions, "RolePermissisons")
             if(loginData.rolePermissions){
-              let permissionData = loginData.rolePermissions[0].userPermission;
+              let permissionData = loginData.rolePermissions && loginData.rolePermissions.length ?  loginData.rolePermissions[0].userPermission : Permissions.user.menu;
+              console.log(permissionData,"PERMISSION DATA");
               permissionData.forEach(item => {
-                  if (item.moduleName == 'Course / Training Class / Quiz') {
-                      // this.urlData = item.view == true ? '/cmspage?type=create' : item.edit == true ? '/cmspage?type=edit': '' ;
-                      if(item.view == true){
-                         this.urlData = '/cmspage?type=create';
-                         this.route.navigateByUrl(this.urlData);
-                      }else if(item.edit == true){
-                        this.urlData = '/cmspage?type=edit';
+                  if (item.moduleName == 'Course / Training Class / Quiz' || item.moduleName == 'Notification') {
+                     if(item.edit == true){
+                        this.urlData = '/cmspage?type=create';
                         this.route.navigateByUrl(this.urlData);
-                      }
+                        return false;
+                      }else if (item.view == true) {
+                           this.urlData = '/cmspage?type=edit';
+                           this.route.navigateByUrl(this.urlData);
+                           return false;
+                       }
                   }else{
                     let menuArray = [{key: 'Dashboard', value: '/dashboard'}, {key:'Schedule', value:'/calendar'}, {key: 'Resource Library', value: '/resource/library'}, {key:'User Management', value:'/users'}, {key:'Site Management', value : '/resortslist'},{ key: 'Approval Request', value : '/approvalrequests'},{ key: 'Certificates', value:'/certificates'}, {key:'Subscription Model', value : '/subscriptionlist'}, {key: 'Feedback', value : '/feedback'}]
                       menuArray.forEach(element => {
@@ -189,11 +193,13 @@ export class LoginComponent implements OnInit {
                            if(item.view == true || item.edit == true){
                              this.urlData = element.value;
                              this.route.navigateByUrl(this.urlData);
+                             return false;
                            }
                          }
                       });
                   }
               })
+              console.log(this.urlData,"URLDATA");
             }
           } else {
             this.route.navigateByUrl('/dashboard');
