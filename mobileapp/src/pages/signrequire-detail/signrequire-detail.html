@@ -19,7 +19,9 @@
   <div class="inner-content" *ngIf="Files || description">
     <div class="training-det">
       <div class="image-tag" *ngIf="imageType">
-        <img src="{{showPreView}}" alt="image" class="inner-image">
+        <img src="{{showPreView}}" alt="image" (click)="viewContent(filePath)" class="inner-image">
+        <a href="javascript:void(0);" (click)="viewContent(filePath)" class="view-image-tag"><img
+            src="assets/imgs/ViewButton@2x.png" alt="ViewButton@2x.png"></a>
       </div>
 
       <div class="video-tag" *ngIf="!imageType">

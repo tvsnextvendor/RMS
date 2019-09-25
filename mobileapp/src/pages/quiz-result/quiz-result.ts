@@ -77,6 +77,7 @@ export class QuizResultPage implements OnInit {
             this.errorMessage = '';
             let percentages = [{ 1: 20, 2: 40, 3: 60, 4: 80, 5: 100 }];
             const resortId = this.currentUser.ResortUserMappings[0].resortId;
+            let typeSetData = this.resultData['typeSet'] ? this.resultData['typeSet'] : this.resultData['setData'].typeSet;
             let postData = {
                 "courseId": this.resultData['courseId'],
                 "ratingStar": this.feedback.rating,
@@ -87,6 +88,7 @@ export class QuizResultPage implements OnInit {
                 "userId": this.currentUser.userId,
                 "resortId": resortId,
                 "trainingClassId": this.resultData['trainingClassId'],
+                "typeSet": typeSetData,
                 "timeTaken": this.timeTaken
             }
             if (this.noQuiz) {

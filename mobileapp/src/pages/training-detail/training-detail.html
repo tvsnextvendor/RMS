@@ -17,18 +17,13 @@
         </div>
     </div>
    
-
-
-   
-
     <div class="inner-content" *ngIf="setTraining">
         <div class="training-det">
-          
             <div class="image-tag" *ngIf="imageType">
                 <h1 class="timer-circle" *ngIf="status != 'passed'">
                    {{time}}
                 </h1>
-                <img src="{{showPreView}}" alt="image" class="inner-image">
+                <img src="{{showPreView}}" alt="image" (click)="viewContent(setTraining,filePath)" class="inner-image">
                 <a href="javascript:void(0);" (click)="viewContent(setTraining,filePath)" class="view-image-tag"><img
                         src="assets/imgs/ViewButton@2x.png" alt="ViewButton@2x.png"></a>
             </div>
