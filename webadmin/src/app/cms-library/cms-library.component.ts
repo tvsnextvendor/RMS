@@ -183,6 +183,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
   }
 
   headerTabChange(title, key) {
+    window.scroll(0,0);
     this.selectedTab = title;
     if(this.selectedTab){
       this.filterUpdate = true;
@@ -210,7 +211,6 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   completed(event) {
     if (event == 'back') {
       this.route.navigate(['/cmspage']);
