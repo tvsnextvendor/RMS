@@ -46,6 +46,8 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
   disableTabs = false;
   schedulePage = false;
   resourceLib = false;
+  filterUpdate = false;
+  classView = 'course';
 
   ngOnInit() {
     this.selectedTab = 'course';
@@ -182,6 +184,12 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
 
   headerTabChange(title, key) {
     this.selectedTab = title;
+    if(this.selectedTab){
+      this.filterUpdate = true;
+    }
+    else{
+      this.filterUpdate = false;
+    }
     if (key != 'trainingfiles' && (title == 'video' || title == 'document')) {
       this.trainingClassId = '';
       this.quizTabHit = false;
@@ -321,6 +329,11 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  classViewUpdate(data){
+    this.classView = data;
+  }
+
   ngOnDestroy() {
     this.resourceLib = false;
   }

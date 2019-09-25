@@ -13,6 +13,7 @@ export class TraingClassTabComponent implements OnInit {
   @Output() videoList = new EventEmitter();
   @Input() disableEdit;
   @Input() disableTabs;
+  @Input() classView;
   totalCourseTrainingCount = 0;
   trainingClassCourseList = [];
   pageLength;
@@ -89,6 +90,17 @@ export class TraingClassTabComponent implements OnInit {
       this.getTrainingClassDetails();
     }
 
+  }
+
+  ngOnChanges(){
+    if(this.classView == 'course' && this.resourceLib){
+      this.enableClassEdit = false;
+      this.getTrainingClassDetails();
+    }
+    else if(this.classView == 'class' && this.resourceLib){
+      this.enableClassEdit = true;
+      this.getTrainingClassList();
+    }
   }
 
   ngDoCheck() {

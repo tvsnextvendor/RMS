@@ -21,6 +21,14 @@
                 </select>
                 <div class="select_arrow"></div>
             </div>
+            <div class="col-md-12 p-0 select select-style clearfix" *ngIf="selectedTab === 'training' && resourceLib">
+                <select name="classView" class="form-control pl-2" [(ngModel)]="classViewChange" #classViewType (change)="viewUpdate()">
+                    <option [value]=null>Select class view</option>
+                    <option value="course">Course & Training Class </option>
+                    <option value="class">Individual Training Class</option>
+                </select>
+                <div class="select_arrow"></div>
+            </div>
             <div class="col-md-12 p-0 select select-style clearfix">
                 <select name="courseId" class="form-control pl-2" [(ngModel)]="filterCourse" #course (change)="courseChange(course.value)">
                     <option [value]=null>{{commonLabels.labels.selectcourse}}</option>

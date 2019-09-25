@@ -11,7 +11,7 @@
                     <option [value]=null>{{commonLabels.labels.selectcourse}}</option>
                     <option *ngFor="let course of courseList" [value]="course.courseId">{{course.courseName}}</option><div class="select_arrow"></div>
                 </select>
-                <select *ngIf="directTabEnable" name="trainingClassId" class="form-control col-md-5 pl-0 select select-style clearfix" [(ngModel)] = "filterTrainingClass" #trainingClass (change)="dropdownClassUpdate()" [disabled]="filterCourse === 'null'" >
+                <select *ngIf="directTabEnable" name="trainingClassId" class="form-control col-md-5 pl-0 select select-style clearfix" [(ngModel)] = "filterTrainingClass" #trainingClass (change)="dropdownClassUpdate()">
                     <option [value]=null>{{commonLabels.labels.selectopt}}</option>
                     <option *ngFor="let training of trainingClassList" [value]="training.trainingClassId">{{training.trainingClassName}}</option><div class="select_arrow"></div>
                 </select>

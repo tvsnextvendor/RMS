@@ -156,15 +156,29 @@ pageChanged(e) {
         this.courseList = result.data.length && result.data;
       }
     })
+    let queryTC = resortId ? '?resortId='+resortId : ''; 
+    this.courseService.getDropTrainingClassList(queryTC).subscribe(resp=>{
+      if(resp && resp.isSuccess){
+        this.trainingClassList = resp.data && resp.data.rows.length ? resp.data.rows : [];
+      }
+    })
   }
   dropdownUpdate(courseId) {
     this.filterTrainingClass = 'null';
-    this.courseId = courseId;
-    this.courseService.getTrainingclassesById(courseId).subscribe(result => {
-      if (result && result.isSuccess) {
-        this.trainingClassList = result.data && result.data.length && result.data;
-      }
-    })
+    this.courseId = this.filterCourse;
+    if(courseId && courseId != 'null'){
+      this.courseService.getTrainingclassesById(courseId).subscribe(result => {
+        if (result && result.isSuccess) {
+          this.quizQuestionsForm = [];
+          this.trainingClassList = result.data && result.data.length && result.data;
+        }
+      })
+    }
+    else{
+      this.quizQuestionsForm = [];
+      this.getDropDownDetails();
+    }
+    
   }
   dropdownClassUpdate() {
     this.trainingClassId = this.filterTrainingClass;
