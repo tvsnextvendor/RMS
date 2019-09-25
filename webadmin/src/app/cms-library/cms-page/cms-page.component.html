@@ -1,5 +1,5 @@
 <div class="row px-5 pt-4">
-    <div class="col-md-6 pb-1">
+    <div class="col-md-6 pb-1"  *ngIf="permissionCheck('Course / Training Class / Quiz','edit') || permissionCheck('Course / Training Class / Quiz','view')">
         <div class="white-bg pb-3">
             <div class="course-color clearfix p-1"></div>
           <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Course' : commonLabels.labels.createNewCourse}}</h5>
@@ -16,7 +16,7 @@
               <button *ngIf="urlType == 'edit'" class="btn btn-primary start-btn course-color" (click)="pageRedirection('edit','course')">{{commonLabels.btns.start}}</button>     </div>
         </div>
       </div>
-  <div class="col-md-6 pb-1">
+  <div class="col-md-6 pb-1" *ngIf="permissionCheck('Course / Training Class / Quiz','edit') || permissionCheck('Course / Training Class / Quiz','view')">
       <div class="white-bg pb-3">
           <div class="class-color clearfix p-1"></div>
         <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Class' : commonLabels.labels.createNewClass }}</h5>
@@ -34,7 +34,7 @@
         </div>
       </div>
   </div>
-  <div class="col-md-6 pt-4">
+  <div class="col-md-6 pt-4" *ngIf="permissionCheck('Course / Training Class / Quiz','edit') || permissionCheck('Course / Training Class / Quiz','view')" >
       <div class="white-bg pb-3">
           <div class="quiz-color clearfix p-1"></div>
         <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Quiz' : commonLabels.labels.createNewQuiz}}</h5>
@@ -51,7 +51,7 @@
         </div>
       </div>
   </div>
-  <div class="col-md-6 pt-4">
+  <div class="col-md-6 pt-4" *ngIf="permissionCheck('Notification', 'edit') || permissionCheck('Notification', 'view')">
     <div class="white-bg pb-3">
         <div class="Notification-color clearfix p-1"></div>
       <h5 class="text-center pt-1">{{urlType == 'edit' ? 'Edit Notification' : commonLabels.labels.createNewNotif}}</h5>
