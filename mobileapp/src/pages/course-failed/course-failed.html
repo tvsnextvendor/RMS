@@ -35,9 +35,9 @@
                   <img src="assets/imgs/profile_circle.png" class="forum-img">
                 </ion-col>
                 <ion-col col-8 col-sm-9 col-md-9 class="course-det" (click)="navPage()">
-                  <h4 class="notify-title" >{{task.Course.courseName}}
+                  <h4 class="notify-title" >{{task.Course.courseName}} - {{task.TrainingClass.trainingClassName}}
                   </h4>
-                  <span class="status-fail">Failed - {{task.passPercentage}} %</span>
+                  <span [ngClass]="task.status == 'passed' ? 'status-pass' : 'status-fail'">{{task.status}} - {{task.passPercentage}} %</span>
                   </ion-col>
                 <ion-col col-2 col-sm-1 col-md-1 class="middle-arw" (click)="navPage()">
                   <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
@@ -45,14 +45,14 @@
               </ion-row>
               
               <!-- TrainingClass -->
-                <ion-row *ngIf="task.TrainingClass">
+                <ion-row *ngIf="task.Course == null && task.TrainingClass">
                   <ion-col col-2 col-sm-1 col-md-1 class="align-self-center">
                     <img src="assets/imgs/profile_circle.png" class="forum-img">
                   </ion-col>
                   <ion-col col-8 col-sm-9 col-md-9 class="course-det" (click)="navPage()">
                     <h4 class="notify-title"> {{task.TrainingClass.trainingClassName}}
                     </h4>
-                  <span class="status-fail">Failed - {{task.passPercentage}} %</span>
+                  <span [ngClass]="task.status == 'passed' ? 'status-pass' : 'status-fail'">{{task.status}} - {{task.passPercentage}} %</span>
                   </ion-col>
                   <ion-col col-2 col-sm-1 col-md-1 class="middle-arw" (click)="navPage()">
                     <ion-icon name="ios-arrow-forward" class="notify-arrow"></ion-icon>
