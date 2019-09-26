@@ -68,10 +68,29 @@ export class TrainingPage {
     this.selectedModule = constant.pages.dashboardLabels.selectModules;
   }
   @ViewChild('myTabs') tabRef: Tabs;
-  //first load
-  ionViewDidLoad() {
-  }
-
+ 
+    ngOnInit(){
+      let self = this;
+      this.storage.get('currentUser').then((user: any) => {
+          if (user) {
+              self.currentUser = user;
+              this.getCourseTrainingClasses();
+          }
+      });
+   }
+  
+  ionViewDidEnter() {
+      this.assignedCoursesList = [];
+      this.progressCoursesList = [];
+      this.completeCoursesList = [];
+      this.allProgramsAssignedCourses = [];
+      this.allProgramsProgressCourses = [];
+      this.allProgramsCompletedCourses = [];
+      this.selectedModule = this.constant.pages.dashboardLabels.selectModules;
+      this.showData(this.statusKey);
+      //this.getCousesList();
+      this.getModules();
+   }
 
 
      start() {
@@ -114,40 +133,13 @@ export class TrainingPage {
       let min = timeElapsed.getUTCMinutes()
       let sec = timeElapsed.getUTCSeconds()
       let ms = timeElapsed.getUTCMilliseconds();
-    this.time =
-      this.zeroPrefix(hour, 2) + ":" +
-      this.zeroPrefix(min, 2) + ":" +
-      this.zeroPrefix(sec, 2) + "." +
-      this.zeroPrefix(ms, 3);
+      this.time =
+        this.zeroPrefix(hour, 2) + ":" +
+        this.zeroPrefix(min, 2) + ":" +
+        this.zeroPrefix(sec, 2) + "." +
+        this.zeroPrefix(ms, 3);
     };
 
-
-
-
-
-
-  ngOnInit(){
-    let self = this;
-    this.storage.get('currentUser').then((user: any) => {
-        if (user) {
-            self.currentUser = user;
-            this.getCourseTrainingClasses();
-        }
-    });
-  }
-  
-  ionViewDidEnter() {
-    this.assignedCoursesList = [];
-    this.progressCoursesList = [];
-    this.completeCoursesList = [];
-    this.allProgramsAssignedCourses = [];
-    this.allProgramsProgressCourses = [];
-    this.allProgramsCompletedCourses = [];
-    this.selectedModule = this.constant.pages.dashboardLabels.selectModules;
-    this.showData(this.statusKey);
-    //this.getCousesList();
-    this.getModules();
-  }
   getLocalStorageInfo() {
     return new Promise(resolve => {
       this.storage.get('userDashboardInfo').then(

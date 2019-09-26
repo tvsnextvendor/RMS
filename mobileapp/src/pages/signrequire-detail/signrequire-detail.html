@@ -49,7 +49,9 @@
           </ion-grid>
         </ion-card-title>
         
-        <div class="checkbox-item clearfix" *ngIf="pageType == 'signReq' && ( contentViewed || !imageType )">
+
+        <!-- *ngIf="pageType == 'signReq' && ( contentViewed || !imageType )" -->
+        <div class="checkbox-item clearfix"  *ngIf="pageType == 'signReq' && fileStatus != 'completed'">
                 <label class="hole-cont mr-2">
                     <input type="checkbox" [(ngModel)]="agree" (change)="completeNotification()"  name="options" > 
                     {{constant.pages.trainingLabels.ackText}}<a href="javascript:void(0);" (click)="viewContent(filePath)">{{constant.pages.trainingLabels.document}}</a>
@@ -87,8 +89,9 @@
         </div>
          
 </ion-content>
+{{fileStatus}}
 <div class="fixed-btn">
-  <button ion-button round class="add-question common-btn" (click)="doneClicked()">
+  <button ion-button round class="add-question common-btn" *ngIf="fileStatus != 'completed'"  (click)="doneClicked()">
     {{constant.buttons.done}}
   </button>
 </div>
