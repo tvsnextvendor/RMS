@@ -113,6 +113,7 @@ export class TrainingDetailPage {
             let self = this;
              this.storage.get('timer').then((det: any) => {
                 if (det) {
+                    console.log(det,"DETAIL FILTER");
                     let data = det.filter(x => x.trainingClassId === this.detailObject.trainingClassId);
                     if(data.length){
                         this.stoppedDuration = data[0].stoppedDuration;
@@ -376,12 +377,13 @@ export class TrainingDetailPage {
 
 
     // go back
-    goBackToDetailPage() {
+    goBackToDetailPage(){
         this.paramsToSend['status'] = this.trainingStatus;
         this.navCtrl.pop(this.paramsToSend);
         this.stop();
         this.storage.get('timer').then(value =>{
           if(value){
+               console.log(value,"VALUE FILTER");
                 let data = value.filter(x => { 
                     return  x.trainingClassId != this.detailObject.trainingClassId
                 });    
@@ -406,19 +408,19 @@ export class TrainingDetailPage {
         })
     }
 
-    checkNavigationButton() {
+    checkNavigationButton(){
         let currentIndex = this.slides.getActiveIndex();
         this.currentVideoIndex = currentIndex;
         let totalIndex = currentIndex + parseInt('1');
         let totalItems = this.allTrainingClasses.length;
         this.videoMenuTitle = this.allTrainingClasses[currentIndex]['fileTitle'];
-        if (currentIndex === 0) {
+        if (currentIndex === 0){
             this.leftButton = false;
             this.rightButton = true;
-        } else if (totalItems === totalIndex) {
+        }else if(totalItems === totalIndex){
             this.leftButton = true;
             this.rightButton = false;
-        } else {
+        }else{
             this.leftButton = true;
             this.rightButton = true;
         }

@@ -4,7 +4,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { Constant } from '../../constants/Constant.var';
 import { Storage } from '@ionic/storage';
 import { API_URL } from '../../constants/API_URLS.var';
-import { LoaderService} from '../../service';
+import { LoaderService, DataService} from '../../service';
 import * as moment from 'moment';
 
 @IonicPage({
@@ -33,8 +33,17 @@ export class HomePage {
 
 
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService) {
- 
+  constructor(public navCtrl: NavController, private http: HttpProvider, public constant: Constant, public navParams: NavParams, public storage: Storage, public loader: LoaderService, public dataService: DataService) {
+    this.dataService.getLoginData.subscribe(res => {
+        if (res) {
+           this.currentUser = res;
+           this.getDashboardInfo();
+           this.getDashboardCount();
+        } else {
+            console.log(res, "NOT GOTIT")
+        }
+    })
+    
   }
 
    
@@ -56,7 +65,7 @@ export class HomePage {
         this.scrollEnable = false;
           this.getDashboardInfo();
           this.getDashboardCount();
-      }, 10000);      
+      }, 4000);      
   }
 
   //Navigate schedules to respective pages

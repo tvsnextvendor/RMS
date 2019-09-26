@@ -36,6 +36,7 @@ export class SignrequireDetailPage {
   className;
   currentUser;
   description;
+  fileStatus;
   contentViewed: boolean = false;
   agree: boolean = false;
   hideWarning: boolean = false;
@@ -62,6 +63,8 @@ export class SignrequireDetailPage {
           let data = this.navParams.data;
           this.Files = data.files ? data.files : {};
           this.notificationFileId = data.notificationFileId;
+          this.fileStatus = data.fileStatus;
+          console.log(this.fileStatus,"FILESTATUS");
           this.uploadPath = data.uploadPath ? data.uploadPath : '';
           this.pageType = data.type;
           this.description = data.description;
@@ -181,16 +184,21 @@ export class SignrequireDetailPage {
 
     doneClicked(){
       if(this.pageType == 'signReq'){
-          if(this.agree){
+          if(this.agree && this.contentViewed){
                 let paramsData = {};
                 paramsData['tab'] = 'signReq'
                 this.navCtrl.push('course-page', paramsData);
           }else{
-            this.successMessage('Please agree acknowledgement');
+            this.successMessage('Please view the content and agree acknowledgement');
           }
       }else{
+      if(this.contentViewed){
           this.completeNotification();
           this.navCtrl.push('generalnotification-page');
+      }else{
+          this.successMessage('Please view the content');
+          
+      }
       }
     }
 

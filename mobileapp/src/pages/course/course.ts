@@ -190,7 +190,8 @@ export class CoursePage implements OnInit {
   openSignRequireDetail(data, notificationFileId){
     let postData = {
       'type' : 'signReq',
-      'notificationFileId' : notificationFileId
+      'notificationFileId' : notificationFileId,
+      'fileStatus': data.NotificationFileMaps && data.NotificationFileMaps[0].status
     }  
    if(data.description){
       postData['description'] = data.description;
