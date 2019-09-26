@@ -161,7 +161,8 @@ export class CourseTabComponent implements OnInit {
                         '&status=none&resortId='+resortId+'&created='+user.userId) : '&status=none');
     if(roleId == 4){
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-      query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
+     // query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
+     query = this.resourceLib ? (query+"&draft=false") : query;
     }
     this.courseService.getCourse(this.p, this.pageSize, query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';

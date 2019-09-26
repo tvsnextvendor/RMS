@@ -66,6 +66,8 @@
                                         class="fa fa-check" aria-hidden="true"></i></a>
                                 <a *ngIf="item.createdBy != userData.userId" title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i
                                         class="fa fa-times" aria-hidden="true"></i></a>
+                                <a href="javascript:void(0)" title="To View Content" (click)="goCourseView(item.courseId)"><i
+                                    class="fa fa-eye" aria-hidden="true"></i></a>
                                 <span class="text-center" *ngIf="item.createdBy == userData.userId"> - </span>
                             </td>
                         </tr>
@@ -164,6 +166,10 @@
                                 {{commonLabels.labels.rejectorName}}
                             </th>
 
+                            <th class="text-left">
+                                    {{commonLabels.labels.action}}
+                                </th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -179,6 +185,7 @@
                                 <span *ngIf="item.Approver"> {{item.Approver.userName | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
+                            <td class="text-left"><a href="javascript:void(0)" (click)="goCourseView(item.courseId)">View</a></td>
 
                         </tr>
                         <tr class="table-desc-color" *ngIf="totalCount === 0">

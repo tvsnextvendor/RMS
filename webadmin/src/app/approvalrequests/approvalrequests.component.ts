@@ -49,6 +49,7 @@ export class ApprovalrequestsComponent implements OnInit {
     private commonService: CommonService,
     private userService: UserService,
     private alertService: AlertService,
+    private route: Router,
     public batchVar: BatchVar, private modalService: BsModalService) { }
 
   ngOnInit() {
@@ -261,5 +262,8 @@ export class ApprovalrequestsComponent implements OnInit {
   closePopup(){
     this.modalRef.hide();
     this.rejectComment = '';
+  }
+  goCourseView(courseId){
+    this.route.navigate(['/cms-library'], { queryParams: { type:"create",tab:'course','moduleId':  courseId} });
   }
 }
