@@ -212,6 +212,11 @@ export class AddNotificationComponent implements OnInit {
 
   }
 
+
+   permissionCheck(modules){
+        return this.permissionService.editPermissionCheck(modules)
+    }
+
   getDropdownDetails(resortId, key) {
     this.moduleVar.selectedDepartment = [];
     this.moduleVar.selectedDivision = [];

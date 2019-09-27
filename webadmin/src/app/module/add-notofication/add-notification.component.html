@@ -285,7 +285,7 @@
                             class="mandatory-color">{{commonLabels.labels.star}}</span></span></div>
                 <div class="text-center col-md-12 pt-3 px-0">
                     <button type="button" class="btn btn-default float-right" (click)="back()">{{commonLabels.btns.cancel}}</button>
-                    <button type="submit" class="btn btn-primary float-right mr-4">{{commonLabels.btns.save}}</button>
+                    <button type="submit" *ngIf="permissionCheck('Schedule')" class="btn btn-primary float-right mr-4">{{commonLabels.btns.save}}</button>
                 </div>
             </div>
         </div>

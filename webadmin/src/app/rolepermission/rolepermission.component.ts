@@ -14,6 +14,7 @@ import * as _ from 'lodash';
   templateUrl: './rolepermission.component.html',
   styleUrls: ['./rolepermission.component.css']
 })
+
 export class RolepermissionComponent implements OnInit {
   resortId;
   rolesPermissions;
@@ -326,16 +327,12 @@ export class RolepermissionComponent implements OnInit {
     const name = event.target.name;
     if (name == 'view') {
       this.constant.modules[index].view = !value;
-      this.constant.web = !value;
     } else if (name == 'upload') {
       this.constant.modules[index].upload = !value;
-      this.constant.web = !value;
-      
     } else {
       this.constant.modules[index].edit = !value;
-      this.constant.web = !value;
-      
     }
+
     switch (name) {
       case 'view':
         this.constant.selectAllView = this.constant.modules.every(function (item: any) {
@@ -352,6 +349,12 @@ export class RolepermissionComponent implements OnInit {
           return item.edit == true;
         })
         break;
+    }
+
+    if (this.constant.selectAllView == true && this.constant.selectAllEdit == true) {
+        this.constant.web = true;
+    }else{
+      this.constant.web = false;
     }
   }
 

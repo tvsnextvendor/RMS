@@ -37,6 +37,8 @@ export class ResortChartsComponent implements OnInit {
     resortName;
     filterDivision = null;
     filterDept = null;
+    divIds;
+    allDivisions;
     divisionList = [];
     departmentList = [];
     @Input() notificationCount;
@@ -56,6 +58,8 @@ export class ResortChartsComponent implements OnInit {
     this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     this.resortName = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortName;
     this.userId = this.utilService.getUserData().userId;
+    this.divIds = this.utilService.getDivisions() ? this.utilService.getDivisions() : '';
+    
     }
 
     ngAfterViewInit() {
@@ -560,10 +564,23 @@ export class ResortChartsComponent implements OnInit {
         if(type == "resort"){
             this.filterDivision =null;
             this.filterDept = null;
+            // this.resortService.getResortByParentId(resortId).subscribe((result) => {
+            //     if (result.isSuccess) {
+            //         this.divisionList = result.data && result.data.divisions ? result.data.divisions : [];
+            //         let query = "&resortId="+resortId;
+            //     }
+            // })
             this.resortService.getResortByParentId(resortId).subscribe((result) => {
                 if (result.isSuccess) {
-                    this.divisionList = result.data && result.data.divisions ? result.data.divisions : [];
-                    let query = "&resortId="+resortId;
+                      this.allDivisions = result.data.divisions;
+                    if (this.divIds.length > 0 && this.roleId === 4) {
+                        this.divisionList = [];
+                        this.allDivisions.filter(g => this.divIds.includes(g.divisionId)).map(g => {
+                            this.divisionList.push(g);
+                        });
+                    } else {
+                        this.divisionList = result.data.divisions;
+                    }
                 }
             })
     
