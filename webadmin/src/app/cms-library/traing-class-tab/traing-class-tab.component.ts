@@ -124,6 +124,9 @@ export class TraingClassTabComponent implements OnInit {
     if(roleId == 4 ){
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
       query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
+      if(this.schedulePage || this.resourceLib ){
+        query = query+"&draft=false";
+     }
     }
     this.courseService.getTrainingClassList(this.currentPage,this.pageLength,query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
