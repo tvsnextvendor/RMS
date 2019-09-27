@@ -252,7 +252,7 @@ export class AddNotificationComponent implements OnInit {
   getCourses() {
     let user = this.utilService.getUserData();
     let resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : '';
-    let query = resortId ? '?resortId=' + resortId : '';
+    let query = resortId ? '?resortId=' + resortId+"&draft=false" : '';
     this.courseService.getCourseForNotification(query).subscribe(result => {
       if (result && result.isSuccess) {
         this.moduleVar.courseList = result.data.length && result.data;

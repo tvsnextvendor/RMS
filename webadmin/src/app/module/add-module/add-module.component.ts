@@ -255,7 +255,7 @@ export class AddModuleComponent implements OnInit {
                     }
                     return obj;
                 });
-                this.selectedQuiz = data.CourseTrainingClassMaps[0].TrainingClass.QuizMappings[0].quizId;
+                this.selectedQuiz = data.CourseTrainingClassMaps.length && data.CourseTrainingClassMaps[0].TrainingClass.QuizMappings[0].quizId;
                 // this.selectedQuiz = data && data.CourseTrainingClassMaps
                 if (dataId !== '') {
                     let checkId = this.moduleVar.selectedCourseIds.find(x => x === dataId);

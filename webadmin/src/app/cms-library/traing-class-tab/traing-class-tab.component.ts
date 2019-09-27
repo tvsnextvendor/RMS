@@ -77,7 +77,7 @@ export class TraingClassTabComponent implements OnInit {
     });
     
 
-    if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Training Class')){
+    if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Course / Training Class / Quiz')){
       this.iconEnable = false;
     }
     if((this.roleId == 4 && !this.resourceLib && !this.schedulePage )){

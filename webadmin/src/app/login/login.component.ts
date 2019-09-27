@@ -171,7 +171,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('RolePermissions',JSON.stringify(permissions));
           }
           if (role === 4) {
-            console.log(loginData.rolePermissions, "RolePermissisons")
+            console.log(loginData, "RolePermissisons")
             if(loginData.rolePermissions){
               let permissionData = loginData.rolePermissions && loginData.rolePermissions.length ?  loginData.rolePermissions[0].userPermission : Permissions.user.menu;
               console.log(permissionData,"PERMISSION DATA");
