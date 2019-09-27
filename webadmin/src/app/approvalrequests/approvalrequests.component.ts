@@ -29,6 +29,7 @@ export class ApprovalrequestsComponent implements OnInit {
   approvals;
   modalRef;
   rejectComment;
+  rejectViewComment;
   showUsers: boolean = false;
   createdByList;
   approvalAccess;
@@ -196,6 +197,17 @@ export class ApprovalrequestsComponent implements OnInit {
     this.approvals = approvals;
     this.modalRef = this.modalService.show(template, modalConfig);
   }
+
+  rejectView(template: TemplateRef<any>, item) {
+    let modalConfig = {
+      class: "modal-dialog-centered"
+    }
+    this.rejectViewComment = item.rejectComment;
+    console.log(item)
+    this.modalRef = this.modalService.show(template, modalConfig);
+  }
+
+
   approveStatus() {
     if(!this.showUsers || (this.showUsers && this.approvalAccess)){
       this.levelApprovalError = false;
@@ -262,8 +274,9 @@ export class ApprovalrequestsComponent implements OnInit {
   closePopup(){
     this.modalRef.hide();
     this.rejectComment = '';
+    this.rejectViewComment = '';
   }
   goCourseView(courseId){
-    this.route.navigate(['/cms-library'], { queryParams: { type:"create",tab:'course','moduleId':  courseId} });
+    this.route.navigateByUrl('/viewCourse/'+courseId);
   }
 }

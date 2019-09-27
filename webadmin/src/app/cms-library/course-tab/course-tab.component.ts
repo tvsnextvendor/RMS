@@ -86,7 +86,7 @@ export class CourseTabComponent implements OnInit {
         this.breadCrumbTitle = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.course, url: '' }]
         this.schedulePage = false;
       }
-      if((this.roleId != 4 && !this.schedulePage) || (this.roleId == 4 && !this.resourceLib && !this.schedulePage && this.permissionService.editPermissionCheck('Course'))){
+      if((this.roleId != 4 && !this.schedulePage) || (this.roleId == 4 && !this.resourceLib && !this.schedulePage && this.permissionService.editPermissionCheck('Course / Training Class / Quiz'))){
         this.iconEnable = true;
       }
       if((this.roleId == 4 && !this.resourceLib && !this.schedulePage )){
@@ -162,7 +162,10 @@ export class CourseTabComponent implements OnInit {
     if(roleId == 4){
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
      // query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
-     query = this.resourceLib ? (query+"&draft=false") : query;
+     if(this.schedulePage || this.resourceLib ){
+        query = query+"&draft=false";
+     }
+     
     }
     this.courseService.getCourse(this.p, this.pageSize, query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';

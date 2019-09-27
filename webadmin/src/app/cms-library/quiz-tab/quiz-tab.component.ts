@@ -79,7 +79,7 @@ export class QuizTabComponent implements OnInit {
       this.breadCrumbService.setTitle(data);
       this.enableQuizEdit = true;
     }
-    if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Quiz')){
+    if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Course / Training Class / Quiz')){
       this.iconEnable = false;
     }
     if((this.roleId == 4 && !this.resourceLib)){

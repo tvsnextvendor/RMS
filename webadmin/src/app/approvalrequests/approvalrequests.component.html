@@ -43,7 +43,7 @@
                                 {{approvalStatusSet == 'Rejected' ? commonLabels.labels.rejectorName :
                                 commonLabels.labels.approverName}}
                             </th>
-                            <th *ngIf="selectedTab == 'Pending'" class="text-left">
+                            <th *ngIf="selectedTab != 'Approved'" class="text-left">
                                 {{commonLabels.labels.action}}
                             </th>
                         </tr>
@@ -61,14 +61,16 @@
                                 <span *ngIf="item.Approver"> {{item.Approver.userName | titlecase}}</span>
                                 <span *ngIf="!item.Approver"> - </span>
                             </td>
-                            <td *ngIf="selectedTab == 'Pending'">
-                                <a *ngIf="item.createdBy != userData.userId" title="To Approve" (click)="approveConfirm(approveConfirmPop,item)"><i
+                            <td>
+                                <a *ngIf="item.createdBy != userData.userId && selectedTab == 'Pending'" title="To Approve" (click)="approveConfirm(approveConfirmPop,item)"><i
                                         class="fa fa-check" aria-hidden="true"></i></a>
-                                <a *ngIf="item.createdBy != userData.userId" title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i
+                                <a *ngIf="item.createdBy != userData.userId && selectedTab == 'Pending'" title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i
                                         class="fa fa-times" aria-hidden="true"></i></a>
-                                <a href="javascript:void(0)" title="To View Content" (click)="goCourseView(item.courseId)"><i
+                                <a *ngIf="selectedTab == 'Rejected'" title="View Reject" (click)="rejectView(rejectViewPop,item)"><i
                                     class="fa fa-eye" aria-hidden="true"></i></a>
-                                <span class="text-center" *ngIf="item.createdBy == userData.userId"> - </span>
+                                <a *ngIf = "selectedTab == 'Pending'" href="javascript:void(0)" title="To View Content" (click)="goCourseView(item.courseId)"><i
+                                    class="fa fa-eye" aria-hidden="true"></i></a>
+                                <!-- <span *ngIf = "selectedTab == 'Pending'" class="text-center" *ngIf="item.createdBy == userData.userId"> - </span> -->
                             </td>
                         </tr>
                         <tr class="table-desc-color" *ngIf="totalCount === 0">
@@ -349,5 +351,16 @@
             <button (click)="rejectStatus()" class="btn btn-primary creat-btn mr-3">{{commonLabels.btns.yes}}</button>
             <button type="button" class="btn btn-default" (click)="closePopup()">{{commonLabels.btns.no}}</button>
         </div>
+    </div>
+</ng-template>
+<ng-template #rejectViewPop>
+    <div class="modal-header pb-0">
+        <p class="hd-alg">{{commonLabels.labels.rejectView}}</p>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closePopup()" title="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <textarea disabled [(ngModel)]="rejectViewComment" name="rejectComment" class="col-md-12 reject-textarea" placeholder="Write your comment here"></textarea>
     </div>
 </ng-template>
