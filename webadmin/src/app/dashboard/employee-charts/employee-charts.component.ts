@@ -2,7 +2,7 @@ import { Component, OnInit,Input } from '@angular/core';
 import { DashboardVar } from '../../Constants/dashboard.var';
 declare var require: any;
 const Highcharts = require('highcharts');
-import { HttpService, CommonService } from '../../services';
+import { HttpService, CommonService,ResortService } from '../../services';
 import { API_URL } from 'src/app/Constants/api_url';
 import { Router } from '@angular/router';
 import {UtilService} from '../../services/util.service';
@@ -38,6 +38,10 @@ export class EmployeeChartsComponent implements OnInit {
   userName;
   IschildResort;
   @Input() notificationCount;
+  filterDivision = null;
+  filterDept = null;
+  divisionList = [];
+  departmentList = [];
 
   constructor(public dashboardVar: DashboardVar,
     private utilService: UtilService,
@@ -45,7 +49,8 @@ export class EmployeeChartsComponent implements OnInit {
     private route: Router,
     public commonLabels: CommonLabels,
     private mScrollbarService: MalihuScrollbarService,
-    private commonService: CommonService) {
+    private commonService: CommonService,
+    private resortService :ResortService) {
     this.dashboardVar.url = API_URL.URLS;
     this.dashboardVar.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
@@ -69,12 +74,21 @@ export class EmployeeChartsComponent implements OnInit {
     this.IschildResort = userDetails.ResortUserMappings.length && userDetails.ResortUserMappings[0].Resort.parentId  ? true : false;
     this.getTopResort();
     this.getKeyStat();
+    this.filterSelect(this.resortId,'resort');
     this.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
     this.previewProfilePic = userDetails.uploadPaths && userDetails.uploadPaths.uploadPath && userDetails.userImage ? userDetails.uploadPaths.uploadPath+userDetails.userImage : '';
     this.dashboardVar.years = '2019';
     this.dashboardVar.certYear = '2019';
-    let query = this.resortId ? (this.IschildResort ? '?resortId='+this.resortId : '?resortId=' + this.resortId+'&type='+'summary') : '';
     // this.getData();
+    this.getCount('');
+    
+  }
+
+  getCount(queries){
+    let query = this.resortId ? (this.IschildResort ? '?resortId='+this.resortId : '?resortId=' + this.resortId+'&type='+'summary') : '';
+    if(queries){
+      query = query + queries;
+    }
     this.commonService.getTotalCount(query).subscribe(result => {
       const data = result.data;
       this.TtlDivision = data.divisionCount;
@@ -85,10 +99,17 @@ export class EmployeeChartsComponent implements OnInit {
 
   getData() {
     this.getcourseTrend();
-    this.getcertificateTrend();
-    this.topRatedCourses();
-    this.totalNoOfBadges();
+    this.getcertificateTrend('');
+    this.topRatedCourses('');
+    this.totalNoOfBadges('');
+    this.getTotalCourse('');
+  }
+
+  getTotalCourse(queries){
     let query = this.resortId ? (this.IschildResort ? '?resortId='+this.resortId : '?resortId=' + this.resortId+'&type='+'summary') : '';
+    if(queries){
+      query = query + queries;
+    }
     this.commonService.getTotalCourse(query).subscribe(result => {
       const totalCourses = result.data.training;
       this.dashboardVar.totalCoursesCount = result.data.courseTotalCount;
@@ -118,9 +139,9 @@ export class EmployeeChartsComponent implements OnInit {
           this.certificationTrend();
           this.courseTrend();
         }
-        this.totalNoOfBadges();
+        this.totalNoOfBadges('');
         this.topEmployees();
-        this.topRatedCourses();
+        this.topRatedCourses('');
       }, 1000);
     }
     else {
@@ -128,7 +149,7 @@ export class EmployeeChartsComponent implements OnInit {
     }
   }
 
-  topRatedCourses() {
+  topRatedCourses(queries) {
     let query = this.resortId ? (this.IschildResort ? '?resortId=' + this.resortId : '?resortId=' + this.resortId + '&type=' + 'summary') : '';
     this.commonService.getTopRatedTrainingClasses(query).subscribe((result) => {
       if (result && result.isSuccess) {
@@ -156,13 +177,16 @@ export class EmployeeChartsComponent implements OnInit {
     });
   }
 
-  getcertificateTrend() {
+  getcertificateTrend(queries) {
     const certificationTrend = {
       year : this.dashboardVar.certYear
     };
     //let query =  '&resortId=' + this.resortId + '&createdBy=' + this.userId;
     let query =  '&resortId=' + this.resortId ;
     query = !this.IschildResort ? query + '&type=' + 'summary' : query;
+    if(queries){
+      query = query + queries;
+    }
     this.commonService.getCertificateTrend(certificationTrend,query).subscribe(result => {
       if (result && result.isSuccess) {
         this.dashboardVar.certificationTrend = result.data.map(item => parseInt(item, 10));
@@ -191,7 +215,7 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
   onChangeCertYear() {
-    this.getcertificateTrend() 
+    this.getcertificateTrend('') 
   }
 
 
@@ -471,8 +495,11 @@ export class EmployeeChartsComponent implements OnInit {
   }
 
   // get total number of badges and display in chart
-  totalNoOfBadges() {
+  totalNoOfBadges(queries) {
     let query = this.resortId ? (this.IschildResort ? '?resortId=' + this.resortId : '?resortId=' + this.resortId + '&type=' + 'summary')  : '';
+    if(queries){
+      query = query + queries;
+    }
     this.commonService.getBadges(query).subscribe((resp) => {
       const donutChartData = resp.data.badges;
       if(donutChartData.length == 0){
@@ -542,5 +569,43 @@ export class EmployeeChartsComponent implements OnInit {
     this.todayDate = new Date();
     localStorage.setItem('BatchStartDate', this.todayDate);
     this.route.navigateByUrl('/addBatch');
+  }
+
+  filterSelect(value,type){
+    let resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
+    if(type == "resort"){
+        this.filterDivision =null;
+        this.filterDept = null;
+        this.resortService.getResortByParentId(resortId).subscribe((result) => {
+            if (result.isSuccess) {
+                this.divisionList = result.data && result.data.divisions ? result.data.divisions : [];
+                let query = "&resortId="+resortId;
+            }
+        })
+
+    }
+    else if(type == "division"){
+        this.filterDept = null;
+        let obj = { 'divisionId': this.filterDivision };
+        this.commonService.getDepartmentList(obj).subscribe((result) => {
+            if (result.isSuccess) {
+                this.departmentList = result.data.rows;
+                let query = "&divisionId="+this.filterDivision;
+                this.getcertificateTrend(query);
+                this.totalNoOfBadges(query);
+                this.topRatedCourses(query);
+                this.getCount(query);
+                this.getTotalCourse(query);
+            }
+        })
+    }
+    else if(type == "dept"){
+        let query = "&divisionId="+this.filterDivision+"&departmentId="+this.filterDept;
+        this.getcertificateTrend(query);
+        this.totalNoOfBadges(query);
+        this.topRatedCourses(query);
+        this.getCount(query);
+        this.getTotalCourse(query);
+    }
   }
 }
