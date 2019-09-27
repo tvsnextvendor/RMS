@@ -161,7 +161,8 @@ export class CourseTabComponent implements OnInit {
                         '&status=none&resortId='+resortId+'&created='+user.userId) : '&status=none');
     if(roleId == 4){
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-     // query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
+    //  query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
+    query = this.resourceLib ? (query+"&draft=false") : query;
      if(this.schedulePage || this.resourceLib ){
         query = query+"&draft=false";
      }
