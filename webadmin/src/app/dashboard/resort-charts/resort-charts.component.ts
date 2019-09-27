@@ -1,6 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { DashboardVar } from '../../Constants/dashboard.var';
-import { HttpService,CommonService,UtilService,CourseService } from '../../services';
+import { HttpService,CommonService,UtilService,CourseService,ResortService } from '../../services';
 declare var require: any;
 const Highcharts = require('highcharts');
 import Chart from 'chart.js';
@@ -35,6 +35,10 @@ export class ResortChartsComponent implements OnInit {
     userId;
     userName;
     resortName;
+    filterDivision = null;
+    filterDept = null;
+    divisionList = [];
+    departmentList = [];
     @Input() notificationCount;
 
     constructor(public dashboardVar: DashboardVar,
@@ -44,7 +48,8 @@ export class ResortChartsComponent implements OnInit {
          private commonService : CommonService,
          private mScrollbarService: MalihuScrollbarService,
          private utilService :UtilService,
-         private courseService :CourseService) {
+         private courseService :CourseService,
+         private resortService :ResortService) {
         this.dashboardVar.url = API_URL.URLS;
     this.dashboardVar.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
@@ -55,9 +60,9 @@ export class ResortChartsComponent implements OnInit {
 
     ngAfterViewInit() {
       this.mScrollbarService.initScrollbar('.sidebar-wrapper', { axis: 'y', theme: 'minimal-dark' });
-      this.getcertificateTrend();
-      this.totalNoOfBadges();
-      this.getCountDetails(this.resortId);
+      this.getcertificateTrend('');
+      this.totalNoOfBadges('');
+      this.getCountDetails(this.resortId,'');
     }
     ngOnInit() {
         // this.getData();
@@ -65,6 +70,7 @@ export class ResortChartsComponent implements OnInit {
         let userDetails = this.utilService.getUserData();
         this.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
         this.getKeyStat();
+        this.filterSelect('','resort');
         
         this.dashboardVar.years = '2019';
         this.dashboardVar.certYear = '2019';
@@ -79,11 +85,14 @@ export class ResortChartsComponent implements OnInit {
         }
     }
 
-    getCountDetails(resortId){
+    getCountDetails(resortId,queries){
         this.resortId = resortId;
         let query =  this.resortId ? '?resortId='+ this.resortId : '';
         if(this.roleId == 4){
           query = query+'&userId='+this.userId;
+        }
+        if(queries){
+          query =  query + queries;
         }
         this.commonService.getTotalCourse(query).subscribe(result => {
             const totalCourses = result.data.training;
@@ -102,15 +111,15 @@ export class ResortChartsComponent implements OnInit {
             this.TtlDepartment = data.departmentCount;
             this.TtlEmployee = data.employeeCount;
           });
-        this.topRatedCourses();
-        this.getcourseTrend();
-        this.getcertificateTrend();
+        this.topRatedCourses('');
+        this.getcourseTrend('');
+        this.getcertificateTrend('');
        
     }
     selectResort(){
       this.resortId = (this.selectedResort)?this.selectedResort:this.selectedParentResort;
-      this.getCountDetails(this.resortId);
-      this.totalNoOfBadges();
+      this.getCountDetails(this.resortId,'');
+      this.totalNoOfBadges('');
     }
 
     getResortDetails(){
@@ -199,10 +208,13 @@ export class ResortChartsComponent implements OnInit {
         });
     }
 
-    totalNoOfBadges() {
+    totalNoOfBadges(queries) {
       let query = this.resortId ? '?resortId='+this.resortId : '';
       if(this.roleId == 4){
         query = query+'&userId='+this.userId;
+      }
+      if(queries){
+        query = query + queries;
       }
       this.commonService.getBadges(query).subscribe((resp) => {
         const donutChartData = resp.data.badges;
@@ -228,11 +240,11 @@ export class ResortChartsComponent implements OnInit {
 
   
   changeCertificationYear(){
-    this.getcertificateTrend();
+    this.getcertificateTrend('');
   }
 
 
-  getcertificateTrend() {
+  getcertificateTrend(queries) {
     const certificationTrend = {
       year : this.dashboardVar.years
     };
@@ -240,6 +252,9 @@ export class ResortChartsComponent implements OnInit {
     let query = this.resortId ? '&resortId='+this.resortId : '';
     if(this.roleId == 4){
       query = query+'&userId='+this.userId;
+    }
+    if(queries){
+      query = query + queries;
     }
     this.commonService.getCertificateTrend(certificationTrend,query).subscribe(result => {
       if (result && result.isSuccess) {
@@ -353,409 +368,22 @@ export class ResortChartsComponent implements OnInit {
       );
     }
 
-    // badgesCertification() {
-    //     this.http.get(this.dashboardVar.url.getBadgesAndCertification).subscribe((data) => {
-    //         this.dashboardVar.badgesCertification = data;
-    //         this.Badges = this.dashboardVar.badgesCertification.Badges;
-    //         this.BadgesCertificate = this.dashboardVar.badgesCertification.Certification;
-    //     });
-    // }
-
-    // visitorsLineChart() {
-    //     Highcharts.chart('visitors', {
-    //         credits: {
-    //             enabled: false
-    //         },
-    //         chart: {
-    //             type: 'area'
-    //         },
-    //         xAxis: {
-    //             labels: { enabled: false }
-    //         },
-    //         yAxis: {
-    //             labels: {
-    //                 enabled: false
-    //             },
-    //             title: {
-    //                 text: null
-    //             },
-    //             gridLineColor: 'transparent',
-    //             min: 0,
-    //             max: 10
-    //         },
-    //         title: {
-    //             style: {
-    //                 display: 'none'
-    //             }
-    //         },
-    //         legend: {
-    //             enabled: false,
-    //         },
-    //         plotOptions: {
-    //             series: {
-    //                 marker: {
-    //                     enabled: true,
-    //                     symbol: 'circle',
-    //                     radius: 2,
-    //                     fillColor: '#ffffff',
-    //                     lineColor: '#000000',
-    //                     lineWidth: 1
-
-    //                 },
-    //                 fillColor: {
-    //                     linearGradient: [0, 0, 0, 300],
-    //                     stops: [
-    //                         [0, 'rgb(8,73,98)'],
-    //                         [1, 'rgb(41,136,180)']
-    //                     ]
-    //                 }
-    //             }
-    //         },
-    //         series: [{
-    //             data: this.dashboardVar.visitorsData.data
-    //         }]
-    //     });
-    // }
-
-    // staffLineChart() {
-    //     Highcharts.chart('staff', {
-    //         credits: {
-    //             enabled: false
-    //         },
-    //         chart: {
-    //             type: 'area'
-    //         },
-    //         xAxis: {
-    //             labels: { enabled: false }
-    //         },
-    //         yAxis: {
-    //             labels: {
-    //                 enabled: false
-    //             },
-    //             title: {
-    //                 text: null
-    //             },
-    //             gridLineColor: 'transparent',
-    //             min: 0,
-    //             max: 10
-    //         },
-    //         title: {
-    //             style: {
-    //                 display: 'none'
-    //             }
-    //         },
-    //         legend: {
-    //             enabled: false,
-    //         },
-    //         plotOptions: {
-    //             series: {
-    //                 marker: {
-    //                     enabled: true,
-    //                     symbol: 'circle',
-    //                     radius: 2,
-    //                     fillColor: '#ffffff',
-    //                     lineColor: '#000000',
-    //                     lineWidth: 1
-
-    //                 },
-    //                 fillColor: {
-    //                     linearGradient: [0, 0, 0, 300],
-    //                     stops: [
-    //                         [0, 'rgb(8,73,98)'],
-    //                         [1, 'rgb(41,136,180)']
-    //                     ]
-    //                 }
-    //             }
-    //         },
-    //         series: [{
-    //             data: this.dashboardVar.staffData.data
-    //         }]
-    //     });
-    // }
-
-    // totalEmployeeLineChart() {
-    //     Highcharts.chart('totalemployee', {
-    //         credits: {
-    //             enabled: false
-    //         },
-    //         chart: {
-    //             type: 'area'
-    //         },
-    //         title: {
-    //             style: {
-    //                 display: 'none'
-    //             }
-    //         },
-    //         legend: {
-    //             enabled: false,
-    //         },
-    //         xAxis: {
-    //             labels: { enabled: false }
-    //         },
-    //         yAxis: {
-    //             labels: {
-    //                 enabled: false
-    //             },
-    //             title: {
-    //                 text: null
-    //             },
-    //             gridLineColor: 'transparent',
-    //             min: 0,
-    //             max: 10
-    //         },
-    //         plotOptions: {
-    //             series: {
-    //                 fillColor: {
-    //                     linearGradient: [0, 0, 0, 300],
-    //                     stops: [
-    //                         [0, 'rgb(8,73,98)'],
-    //                         [1, 'rgb(41,136,180)']
-    //                     ]
-    //                 }
-    //             }
-    //         },
-    //         series: [{
-    //             data: [0, 2, 1.3, 3, 2.3, 3.3, 0.8, 1.7, 1, 0]
-    //         }]
-    //     });
-    // }
-
-    // feedbackrating() {
-    //     const canvas: any = document.getElementById('rating');
-    //     const ctx = canvas.getContext('2d');
-    //     const options = {
-    //         legend: {
-    //             display: false,
-    //         },
-    //         scales: {
-    //             yAxes: [{
-    //                 gridLines: {
-    //                     drawBorder: false,
-    //                 },
-    //             }],
-    //             xAxes: [{
-    //                 display: false,
-    //                 gridLines: {
-    //                     display: false,
-    //                 },
-    //             }]
-    //         }
-    //     }
-    //     const horizontalBarChartData = {
-    //         labels: ['5', '4', '3', '2', '1'],
-    //         datasets: [{
-    //             backgroundColor: ['#9FC05A', '#ADD633', '#F6D834', '#F3B335', '#F18C5A'],
-    //             data: this.dashboardVar.feedbackData.data
-    //         }],
-    //     };
-
-    //     const myBarChart = new Chart(ctx, {
-    //         type: 'horizontalBar',
-    //         data: horizontalBarChartData,
-    //         options: options
-
-    //     });
-    // }
-
-    // taskStackbar() {
-    //     Highcharts.chart('task', {
-    //         credits: {
-    //             enabled: false
-    //         },
-    //         chart: {
-    //             type: 'column'
-    //         },
-
-    //         title: {
-    //             text: '',
-    //             style: {
-    //                 display: 'none'
-    //             }
-    //         },
-    //         xAxis: {
-    //             categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN']
-    //         },
-    //         yAxis: {
-    //             min: 0,
-    //             max: 100,
-    //             title: {
-    //                 text: null
-    //             },
-    //             stackLabels: {
-    //                 enabled: true,
-    //                 style: {
-    //                     fontWeight: 'bold',
-    //                     color: 'gray'
-    //                 }
-    //             }
-    //         },
-
-    //         // legend: {
-    //         //     align: 'left',
-    //         //layout: 'horizontal',
-    //         //verticalAlign: 'bottom',
-    //         // x: 100,
-    //         // y: 0,
-    //         //  backgroundColor: 'white',
-    //         //  borderColor: '#CCC',
-    //         // borderWidth: 1,
-    //         // shadow: false
-    //         //},
-    //         // legend: {
-    //         //     align: 'right',
-    //         //     x: -30,
-    //         //     verticalAlign: 'top',
-    //         //     y: 25,
-    //         //     floating: true,
-    //         //     backgroundColor: 'white',
-    //         //     borderColor: '#CCC',
-    //         //     borderWidth: 1,
-    //         //     shadow: false
-    //         // },
-    //         plotOptions: {
-    //             column: {
-    //                 stacking: 'normal',
-    //                 dataLabels: {
-    //                     enabled: false,
-    //                 },
-    //                 showInLegend: true,
-    //                 allowPointSelect: true,
-    //                 cursor: 'pointer',
-    //             }
-    //         },
-    //         series: this.dashboardVar.taskChart,
-
-    //         colors: ['#CCCCCC', '#468FB9'],
-    //     });
-    // }
-
-    // visitorsByResortPie() {
-    //     Highcharts.chart('visitorsByResort', {
-    //         credits: {
-    //             enabled: false
-    //         },
-    //         chart: {
-    //             plotBackgroundColor: null,
-    //             plotBorderWidth: null,
-    //             plotShadow: false,
-    //             type: 'pie'
-    //         },
-    //         title: {
-    //             text: '',
-    //             style: {
-    //                 display: 'none'
-    //             }
-    //         },
-    //         plotOptions: {
-    //             pie: {
-    //                 size: '60%',
-    //                 cursor: 'pointer',
-    //                 colors: ['#7DB5EC', '#CCCCCC', '#90ED7C', '#F7A25C'],
-    //             }
-    //         },
-    //         series: [{
-    //             data: this.dashboardVar.visitorsResort,
-    //             type: 'pie',
-    //             name: 'Percentage',
-    //             dataLabels: {
-    //                 verticalAlign: 'top',
-    //                 enabled: true,
-    //                 color: '#ffffff',
-    //                 connectorWidth: 1,
-    //                 distance: -30,
-    //                 connectorColor: '#ffffff',
-    //                 formatter: function () {
-    //                     return Math.round(this.percentage) + '%';
-    //                 }
-    //             }
-    //         }, {
-    //             data: this.dashboardVar.visitorsResort,
-    //             type: 'pie',
-    //             name: 'Percentage',
-    //             dataLabels: {
-    //                 enabled: true,
-    //                 color: '#000000',
-    //                 connectorWidth: 1,
-    //                 distance: 30,
-    //                 connectorColor: '#000000',
-    //                 formatter: function () {
-    //                     return '<b>' + this.point.name + '</b>:<br/> ' + Math.round(this.percentage) + '%';
-    //                 }
-    //             }
-    //         }]
-    //     });
-    // }
-
-    // reservationByResort() {
-    //     this.http.get(this.dashboardVar.url.getReservationByResort).subscribe((resp) => {
-    //         const donutChartData = resp.ReservationByResort;
-    //         this.donutEnable = true;
-    //         const labels = donutChartData.labels;
-    //         const data_values = donutChartData.data_values;
-
-    //         const data = data_values.map(function (value, index) {
-    //             return { name: labels[index], y: value };
-    //         }, []);
-
-    //         Highcharts.chart('chartContainer', {
-    //             chart: {
-    //                 plotBackgroundColor: null,
-    //                 plotBorderWidth: null,
-    //                 plotShadow: false,
-    //                 type: 'pie'
-    //             },
-    //             title: {
-    //                 text: '',
-    //             },
-    //             tooltip: {
-    //                 pointFormat: '<b>{point.percentage:.1f}%</b>'
-    //             },
-
-    //             plotOptions: {
-    //                 pie: {
-    //                     allowPointSelect: true,
-    //                     innerSize: '60%',
-    //                     cursor: 'pointer',
-    //                     indexLabelFontSize: 12,
-    //                     colors: ['#7DB5EC', '#CCCCCC', '#90ED7C', '#F7A25C'],
-    //                     dataLabels: {
-    //                         enabled: true,
-    //                         format: '{point.name}',
-    //                         connectorColor: 'black',
-    //                         style: {
-    //                             fontWeight: 'normal',
-    //                             fontSize: '10px',
-    //                         }
-    //                     }
-    //                 }
-    //             },
-    //             xAxis: {
-    //                 categories: labels
-    //             },
-    //             series: [{
-    //                 name: '',
-    //                 data: data
-    //             }],
-    //             credits: {
-    //                 enabled: false
-    //             }
-    //         }
-    //         );
-    //     });
-    // }
     addQuickTasks() {
         this.todayDate = new Date();
         localStorage.setItem('BatchStartDate', this.todayDate);
         this.route.navigateByUrl('/addBatch');
     }
     onChangeYear(){
-      this.getcourseTrend()
+      this.getcourseTrend('')
     }
 
-    topRatedCourses() {
+    topRatedCourses(queries) {
       let query = this.resortId ? '?resortId='+this.resortId : '';
       if(this.roleId == 4){
         query = query+'&userId='+this.userId;
+      }
+      if(queries){
+        query = query + queries
       }
         this.commonService.getTopRatedTrainingClasses(query).subscribe((result) => {
           if (result && result.isSuccess) {
@@ -766,13 +394,16 @@ export class ResortChartsComponent implements OnInit {
         });
       }
     
-      getcourseTrend() {
+      getcourseTrend(queries) {
         const courseTrendObj = {
           year : this.dashboardVar.certYear
         };
         let query = this.resortId ? '&resortId='+this.resortId : '';
         if(this.roleId == 4){
           query = query+'&userId='+this.userId;
+        }
+        if(queries){
+          query = query + queries;
         }
         this.commonService.getCourseTrend(courseTrendObj,query).subscribe(result => {
           if (result && result.isSuccess) {
@@ -922,6 +553,44 @@ export class ResortChartsComponent implements OnInit {
             data: this.dashboardVar.courseTrendData
         }]
       });
+      }
+
+      filterSelect(value,type){
+        let resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
+        if(type == "resort"){
+            this.filterDivision =null;
+            this.filterDept = null;
+            this.resortService.getResortByParentId(resortId).subscribe((result) => {
+                if (result.isSuccess) {
+                    this.divisionList = result.data && result.data.divisions ? result.data.divisions : [];
+                    let query = "&resortId="+resortId;
+                }
+            })
+    
+        }
+        else if(type == "division"){
+            this.filterDept = null;
+            let obj = { 'divisionId': this.filterDivision };
+            this.commonService.getDepartmentList(obj).subscribe((result) => {
+                if (result.isSuccess) {
+                    this.departmentList = result.data.rows;
+                    let query = "&divisionId="+this.filterDivision;
+                    this.getcertificateTrend(query);
+                    this.totalNoOfBadges(query);
+                    this.topRatedCourses(query);
+                    this.getCountDetails(resortId,query);
+                    this.getcourseTrend(query);
+                }
+            })
+        }
+        else if(type == "dept"){
+            let query = "&divisionId="+this.filterDivision+"&departmentId="+this.filterDept;
+            this.getcertificateTrend(query);
+            this.totalNoOfBadges(query);
+            this.topRatedCourses(query);
+            this.getCountDetails(resortId,query);
+            this.getcourseTrend(query);
+        }
       }
 
 }

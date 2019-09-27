@@ -16,16 +16,16 @@
                 <img class="selected-prf-img" [src]="previewProfilePic">
             </div>
             <!-- <span ><button type="button" (click)="filterData()" class="btn btn-primary parent-resortbtn">{{commonLabels.btns.go}}</button></span> -->
-            <select *ngIf = "roleId == 4" class="select-resort select-btn cp" name="department" [(ngModel)]='filterDept' (change)="filterSelect(filterDept,'dept')" #dept>
+            <!-- <select *ngIf = "userRole == 4" class="select-resort select-btn cp" name="department" [(ngModel)]='filterDept' (change)="filterSelect(filterDept,'dept')" #dept>
                <option value="null" disabled>{{commonLabels.labels.selDept}}</option>
                <option *ngFor="let dep of departmentList" [value]="dep.departmentId">{{dep.departmentName}}</option>
                <i class="fa fa-chevron-down" aria-hidden="true"></i>
              </select>
-            <select *ngIf = "roleId == 4" class="select-parent select-btn cp mr-3" name ="division" [(ngModel)]='filterDivision' #div (change)="filterSelect(filterDivision,'division')">
+            <select *ngIf = "userRole == 4" class="select-parent select-btn cp mr-3" name ="division" [(ngModel)]='filterDivision' #div (change)="filterSelect(filterDivision,'division')">
              <option value="null" disabled>{{commonLabels.labels.selDiv}}</option>
              <option *ngFor="let division of divisionList" [value]="division.divisionId">{{division.divisionName}}</option>
              <i class="fa fa-chevron-down" aria-hidden="true"></i>
-           </select>
+           </select> -->
           </div>
           <div class="clearfix">
             <p class="notification-alg" *ngIf="notificationCount">{{commonLabels.labels.notificationdash}}{{notificationCount}}{{commonLabels.labels.notifyAlert}}
