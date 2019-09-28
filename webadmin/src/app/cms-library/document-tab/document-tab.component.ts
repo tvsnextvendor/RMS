@@ -458,12 +458,12 @@ exportAsXLSX():void {
   // this.labels.btns.select =  this.labels.btns.excel;
   let data = this.videoListValue.map(item=>{
     let obj = {
-      'File Id'   : item.fileId,
+      // 'File Id'   : item.fileId,
       'File name' : item.fileName,
-      'File type' : item.fileExtension,
-      'File description' : item.fileDescription,
       'File size' : this.formatBytes(item.fileSize),
-      'Created at' : item.created
+      'File type' : item.fileExtension,
+      // 'File description' : item.fileDescription,  
+      // 'Created at' : item.created
     }
     return obj;
   })
