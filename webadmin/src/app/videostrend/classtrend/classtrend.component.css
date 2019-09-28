@@ -143,3 +143,58 @@
     clear: both;
     padding-bottom: 0px;
    }
+
+
+   .progress{
+    height: auto;
+    border-radius: 0;
+  }
+
+   .progress-bar{
+    font-size:16px;
+    font-weight: 600;
+    color: #000;
+}
+.assigned-perc{
+    background-color: #ffba92;
+    text-align: center;
+    font-weight: 600;
+}
+.inprogress-perc{
+    text-align: center;
+    background-color: #c6f1d6;
+    font-weight: 600;
+}
+.completed-perc{
+    text-align: center;
+    font-weight: 600;
+    background-color: #e0f5b9;
+}
+.expire-perc{
+  text-align: center;
+  font-weight: 600;
+  background-color: #ff8080;
+}
+
+.assigned-icon{
+  color: #ffba92;
+  font-size:14px
+}
+.progress-icon{
+  color: #c6f1d6;
+  font-size:14px
+}
+.completed-icon{
+  color: #e0f5b9;
+  font-size:14px
+}
+.expire-icon{
+  color: #ff8080;
+  font-size:14px
+}
+
+.icon-size{
+  font-size: 14px;
+  margin-right: 10px;
+  color: #939399;
+}
