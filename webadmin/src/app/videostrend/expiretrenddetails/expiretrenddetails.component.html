@@ -38,9 +38,22 @@
                 <button type="button" (click)="resetFilter()" class="btn user-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
             </div>
         </div>
-        <div><button class="float-right btn btn-primary" (click)="openNotificationModel(notification)">{{commonLabels.btns.sendNotification}}</button></div>
+        <div>
+             <p class="float-left" *ngIf="trendType == 'course'">{{commonLabels.labels.course}} - {{courseTitle}}</p>
+             <p class="float-left" *ngIf="trendType == 'class'">{{commonLabels.labels.trainingClass}} - {{classTitle}}</p>
+            <button class="float-right btn btn-primary" (click)="openNotificationModel(notification)">{{commonLabels.btns.sendNotification}}</button>
+            <div class="dropdown btn-group float-right export-btn mr-2" *ngIf="trendsVar.employeeList?.length">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    {{commonLabels.btns.exportTo}}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
+                    <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
+                </div>
+            </div>
+        </div>
         <div class="table-responsive custom-table2 px-2">
-            <table class="table white-bg table-striped mt-3" [mfData]="trendsVar.employeeList" #mf="mfDataTable"
+            <table class="table white-bg table-striped mt-3" [mfData]="trendsVar.employeeList" #mf="mfDataTable" id="empTable"
                 [mfRowsOnPage]="10">
                 <thead>
                     <tr class="th-boxshadow">

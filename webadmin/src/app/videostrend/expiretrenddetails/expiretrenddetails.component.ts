@@ -2,7 +2,7 @@ import { Component, OnInit,TemplateRef } from '@angular/core';
 import { Location } from '@angular/common'; 
 import { ActivatedRoute, Params } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import {HeaderService, UtilService, CommonService,BreadCrumbService,ResortService,UserService,AlertService} from '../../services';
+import {HeaderService, UtilService, CommonService,BreadCrumbService,ResortService,UserService,AlertService, PDFService, ExcelService} from '../../services';
 import {VideosTrendVar} from '../../Constants/videostrend.var';
 import { CommonLabels } from '../../Constants/common-labels.var'
 import { query } from '@angular/animations';
@@ -36,6 +36,7 @@ export class ExpiretrenddetailsComponent implements OnInit {
   reporter = [];
   reportingError = false;
   comments ; 
+  xlsxList=[];
   selectAllEmp = false;
   // typeSet1='toAllEmployee';
   // typeSet2='toAllReportManager';
@@ -44,6 +45,8 @@ export class ExpiretrenddetailsComponent implements OnInit {
    divIds;
    allDivisions;
    setDivIds;
+   classTitle;
+   courseTitle;
 
   reportSettings = {
     singleSelection: false,
@@ -68,6 +71,8 @@ export class ExpiretrenddetailsComponent implements OnInit {
     private resortService :ResortService,
     private userService : UserService,
     private activatedRoute : ActivatedRoute,
+    private pdfService:PDFService,
+    private excelService: ExcelService,
     private modalService: BsModalService,
     private alertService : AlertService) { 
       this.activatedRoute.params.subscribe((params: Params) => {
@@ -107,6 +112,8 @@ export class ExpiretrenddetailsComponent implements OnInit {
   }
     this.commonService.getExpireTrendList(query,this.courseId,this.trendType).subscribe(resp=>{
       if(resp && resp.isSuccess){
+        this.courseTitle = resp.data.course.courseName;
+        this.classTitle = resp.data.trainingClass.trainingClassName;
         this.trendsVar.employeeList = resp.data.rows;
       }
       else{
@@ -114,6 +121,34 @@ export class ExpiretrenddetailsComponent implements OnInit {
       }
     })
   }
+
+
+
+// Create PDF
+exportAsPDF(){ 
+  var data = document.getElementById('empTable'); 
+  let pageTitle = this.trendType == 'course' ? this.commonLabels.labels.course+ ' - ' +this.courseTitle : this.commonLabels.labels.trainingClass+ ' - ' +this.classTitle;
+  this.pdfService.htmlPDFFormat(data, pageTitle);  
+}
+
+//Create Excel sheet
+exportAsXLSX():void { 
+   this.trendsVar.employeeList.forEach(item=>{
+      let list ={
+        "Site Name": item.ResortUserMappings[0].Resort.resortName,
+        "Employee Name": item.userName,
+        "Division":this.getListArray(item.ResortUserMappings, 'division'),
+        "Department": this.getListArray(item.ResortUserMappings, 'dept'),
+        "Reporting to":item.reportDetails && item.reportDetails.userName ? item.reportDetails.userName : '-',
+        "No.Of Days":this.getCalculateDue(item.TrainingScheduleResorts[0])
+        };
+      this.xlsxList.push(list);
+   })
+   let pageTitle = this.trendType == 'course' ? this.commonLabels.labels.course + ' - ' + this.courseTitle : this.commonLabels.labels.trainingClass+ ' - ' +this.classTitle;
+   
+  this.excelService.exportAsExcelFile(this.xlsxList, pageTitle);
+}
+
 
   getResortList(){
     if(this.roleId != 1){
@@ -202,6 +237,7 @@ resetFilter(){
 ngOnDestroy(){
   this.trendsVar.employeeList = [];
 }
+
 getListArray(data,type){
   if(data.length){
     let arr = [];
