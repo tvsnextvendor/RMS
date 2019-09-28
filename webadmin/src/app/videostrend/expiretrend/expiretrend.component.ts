@@ -30,6 +30,7 @@ export class ExpiretrendComponent implements OnInit {
   seletedTab = 'course';
   // added employee div Drop Down
   divIds;
+  allResorts;
   allDivisions;
   setDivIds;
 
@@ -117,7 +118,17 @@ export class ExpiretrendComponent implements OnInit {
       if(this.roleId != 1){
         this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
           if(item && item.isSuccess){
-            this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+             this.allResorts=item.data && item.data.rows.length ? item.data.rows : [];
+              if (this.roleId === 4) {
+                        this.resortList = [];
+                          let empResort = this.allResorts.map(x =>{
+                              if(x.resortId === this.resortId) {
+                                this.resortList.push(x);
+                              }
+                           });
+              }else{
+                 this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+              }
             this.filterSelect(this.filterResort,'resort')
           } 
         })
@@ -256,7 +267,7 @@ exportAsXLSX():void {
         // moment().format('ll');
           let list ={
             "Course Name": item.courseName,
-            "No.of Resorts": item.resortsCount,
+            // "No.of Resorts": item.resortsCount,
             "No. of Employees":item.employeesCount
           }
           this.xlsxList.push(list);
@@ -267,7 +278,7 @@ exportAsXLSX():void {
     this.classList.forEach(item=>{
       let list ={
         "Training Class Name": item.trainingClassName,
-        "No.of Resorts": item.resortsCount,
+        // "No.of Resorts": item.resortsCount,
         "No. of Employees":item.employeesCount
         };
       this.xlsxList.push(list);
