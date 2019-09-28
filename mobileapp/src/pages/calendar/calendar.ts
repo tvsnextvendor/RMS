@@ -139,6 +139,7 @@ export class CalendarPage implements OnInit   {
                 endTime: new Date(endDate),
                 endDate: new Date(value.dueDate),
                 allDay: true,
+                scheduleType: value.scheduleType,
                 courses: value.Courses,
                 colorCode:value.colorCode,
                 scheduleId : value.trainingScheduleId

@@ -66,11 +66,21 @@
           </p>          
        </div>
        <div>
-          <div class="course-hd">Courses: </div>
-          <p  class="course-alg" *ngIf="modaleventDetail.courses.length">
+          <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'course'">Courses: </div>
+          <p  class="course-alg" *ngIf="modaleventDetail.scheduleType == 'course' && modaleventDetail.courses.length">
             <a class="course-click" *ngFor="let data of  modaleventDetail.courses" (click)="navPage(data.courseId)">{{data.Course.courseName}}</a>
           </p> 
-        </div> 
+          <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'trainingClass'">Classes: </div>
+          <p class="course-alg" *ngIf="modaleventDetail.scheduleType == 'trainingClass' && modaleventDetail.courses.length">
+            <a class="course-click" *ngFor="let data of  modaleventDetail.courses"
+              (click)="navPage(data.courseId)">{{data.TrainingClass.trainingClassName}}</a>
+          </p>
+
+        </div>
+        
+         
+          
+         
       </div>
       <div class="model-footer">
         <button ion-button small clear type="button" class="btn btn-can btn-alg"

@@ -124,15 +124,25 @@
                   </ion-col>
                   <ion-col col-4 col-sm-5 col-md-6 class="course-det" *ngIf="task.TrainingClass">
                     <h4 class="notify-title"> {{task.TrainingClass.trainingClassName}}</h4>
-                      <h3 class="status-h3" *ngIf="task.TrainingClass.FeedbackMappings.length > 0">
+                      <div class="status-h3" *ngIf="task.TrainingClass.FeedbackMappings.length > 0">
                         <span class="status-pass" *ngIf="task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].status == 'passed'">Completed -
                           {{task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].passPercentage}} %
                         </span>
-                        <span class="status-fail" *ngIf="task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].status == 'failed'">Failed -
+                        <!-- <span class="status-fail" *ngIf="task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].status == 'failed'">Failed -
                           {{task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].passPercentage }} % <br>
                           <span>{{constant.pages.trainingLabels.retakeClass}}</span>
-                        </span>
-                      </h3>
+                        </span> -->
+
+
+                        <div class="status-fail"
+                          *ngIf="task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].status == 'failed'">Failed -
+                          {{task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].passPercentage }} % 
+                         
+                       </div>
+                        <div class="status-fail break-class" *ngIf="task.TrainingClass.FeedbackMappings[task.TrainingClass.FeedbackMappings.length-1].status == 'failed'">{{constant.pages.trainingLabels.retakeClass}}</div>
+                        
+                      </div>
+                     
                   </ion-col>
                   <ion-col col-5 col-sm-5 col-md-4 class="arrow-icon">
                     <div class="align-right" *ngIf="task && task.TrainingSchedule && task.TrainingSchedule.dueDate">
