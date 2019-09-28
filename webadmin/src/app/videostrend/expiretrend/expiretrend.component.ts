@@ -135,7 +135,7 @@ export class ExpiretrendComponent implements OnInit {
               }else{
                  this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
               }
-            this.filterSelect(this.filterResort,'resort')
+            this.filterSelect('','resort')
           } 
         })
       }
@@ -169,7 +169,9 @@ export class ExpiretrendComponent implements OnInit {
                 }
                  // added employee div Drop Down
                 let query = "&resortId="+this.filterResort;
-                this.getModuleList(query);
+                if(value){
+                  this.getModuleList(query);
+                }   
             }
         })
     }

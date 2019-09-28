@@ -135,7 +135,7 @@ export class VideosTrendDetailsComponent implements OnInit {
                     } else {
                         this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
                     }
-                    this.filterSelect(this.filterResort,'resort')
+                    this.filterSelect('','resort')
                 } 
             })
         }
@@ -171,7 +171,10 @@ export class VideosTrendDetailsComponent implements OnInit {
                      // added employee div Drop Down
 
                     let query = "&resortId="+this.filterResort;
-                    this.getEmployeeList(query);
+                    if(value){
+                        this.getEmployeeList(query);
+                      } 
+                    
                 }
             })
 

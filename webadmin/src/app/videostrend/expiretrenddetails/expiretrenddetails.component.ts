@@ -162,7 +162,7 @@ exportAsXLSX():void {
         this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
             if(item && item.isSuccess){
                 this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
-                this.filterSelect(this.filterResort,'resort')
+                this.filterSelect('','resort')
             } 
         })
     }
@@ -196,7 +196,10 @@ filterSelect(value,type){
                  }
                   // added employee div Drop Down
                 let query = "&resortId="+this.filterResort;
-                this.getExpireTrendList(query);
+                if(value){
+                  this.getExpireTrendList(query);
+                }  
+                
             }
         })
 

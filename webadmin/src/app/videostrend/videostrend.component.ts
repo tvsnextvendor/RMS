@@ -249,7 +249,7 @@ export class VideosTrendComponent implements OnInit {
                     } else {
                         this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
                     }
-                    this.filterSelect(this.filterResort,'resort')
+                    this.filterSelect('','resort')
                 } 
             })
             // this.resortService.getResort().subscribe(item=>{
@@ -289,7 +289,9 @@ export class VideosTrendComponent implements OnInit {
                         this.divisionList = result.data.divisions;
                     }
                     let query = "&resortId="+this.filterResort;
-                    this.getModuleList(query);
+                    if(value){
+                        this.getModuleList(query);
+                    } 
                 }
             })
 

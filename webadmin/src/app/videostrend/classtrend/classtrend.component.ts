@@ -250,7 +250,7 @@ export class ClasstrendComponent implements OnInit {
                    } else {
                        this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
                    }
-                   this.filterSelect(this.filterResort,'resort')
+                   this.filterSelect('','resort')
                } 
            })
            // this.resortService.getResort().subscribe(item=>{
@@ -292,7 +292,9 @@ export class ClasstrendComponent implements OnInit {
                    }
                     // added employee div Drop Down
                    let query = "&resortId="+this.filterResort;
-                   this.getModuleList(query);
+                   if(value){
+                        this.getModuleList(query);
+                   }
                }
            })
 
