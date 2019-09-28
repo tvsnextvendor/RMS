@@ -39,6 +39,8 @@ export class ResortChartsComponent implements OnInit {
     filterDept = null;
     divIds;
     allDivisions;
+    deptIds;
+    allDepartments;
     divisionList = [];
     departmentList = [];
     @Input() notificationCount;
@@ -59,6 +61,7 @@ export class ResortChartsComponent implements OnInit {
     this.resortName = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortName;
     this.userId = this.utilService.getUserData().userId;
     this.divIds = this.utilService.getDivisions() ? this.utilService.getDivisions() : '';
+    this.deptIds = this.utilService.getDepartment() ? this.utilService.getDepartment() : '';
     
     }
 
@@ -590,7 +593,16 @@ export class ResortChartsComponent implements OnInit {
             let obj = { 'divisionId': this.filterDivision };
             this.commonService.getDepartmentList(obj).subscribe((result) => {
                 if (result.isSuccess) {
-                    this.departmentList = result.data.rows;
+                    // this.departmentList = result.data.rows;
+                    this.allDepartments = result.data.rows;
+                    if (this.deptIds.length > 0 && this.roleId === 4) {
+                        this.departmentList = [];
+                        this.allDepartments.filter(g => this.deptIds.includes(g.departmentId)).map(g => {
+                            this.departmentList.push(g);
+                        });
+                    } else {
+                        this.departmentList = result.data.rows;
+                    }
                     let query = "&divisionId="+this.filterDivision;
                     this.getcertificateTrend(query);
                     this.totalNoOfBadges(query);

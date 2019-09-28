@@ -184,9 +184,9 @@ export class EmailComponent implements OnInit {
         this.emailForm = { 'this.commonLabels.labels.totext' : '', 'this.commonLabels.labels.cc': '', 'this.commonLabels.labels.subject': '' };
         this.selectedDepartment = '';
         this.attachments = [];
-        this.divisionList = [];
-        this.departmentList = [];
-        this.filterParentDivision = null;
+        // this.divisionList = [];
+        // this.departmentList = [];
+        // this.filterParentDivision = null;
         this.dataModel = '';
 
     }
@@ -281,5 +281,8 @@ export class EmailComponent implements OnInit {
 
       ngOnDestroy(){
         localStorage.removeItem('mailfile');
+        this.divisionList = [];
+        this.departmentList = [];
+        this.filterParentDivision = null;
       }
 }

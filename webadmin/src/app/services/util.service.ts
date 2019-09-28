@@ -36,5 +36,11 @@ export class UtilService {
     return result;
 
   }
+  getDepartment(){
+    let data = localStorage.getItem('department');
+    let result = data && JSON.parse(data).length ? JSON.parse(data)  : [];
+    return result;
+
+  }
   
 }

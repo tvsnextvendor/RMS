@@ -53,6 +53,8 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("userData");
     localStorage.removeItem("user");
     localStorage.removeItem("divisions");
+    localStorage.removeItem("department");
+    localStorage.removeItem("token");
     this.authGuard.showSidebar  = false;
     this.authGuard.showHeader = false;
     this.router.navigateByUrl('/login');
