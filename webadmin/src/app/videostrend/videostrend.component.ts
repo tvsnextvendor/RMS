@@ -33,6 +33,9 @@ export class VideosTrendComponent implements OnInit {
    divIds;
    allDivisions;
    setDivIds;
+   deptIds;
+   allDepartments;
+   setDeptIds;
 
    constructor(private headerService: HeaderService,
     public trendsVar: VideosTrendVar ,
@@ -53,11 +56,13 @@ export class VideosTrendComponent implements OnInit {
     this.roleId = this.utilsService.getRole();
     this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
     this.divIds =this.utilsService.getDivisions() ? this.utilsService.getDivisions() :'';
+    this.deptIds =this.utilsService.getDepartment() ? this.utilsService.getDepartment() :'';
    
    }
 
    ngOnInit() {
     this.setDivIds = (this.divIds.length > 0)?this.divIds.join(','):'';
+    this.setDeptIds = (this.deptIds.length > 0)?this.deptIds.join(','):'';
     this.headerService.setTitle({title: this.commonLabels.titles.courseTrend, hidemodule: false});
     this.breadCrumbService.setTitle([]);
     this.filterResort = this.resortId ? this.resortId : null;
@@ -155,6 +160,7 @@ export class VideosTrendComponent implements OnInit {
             query = query+filter;
         }else{
             query+= (this.setDivIds && this.roleId == 4)?'&divIds='+this.setDivIds:'';
+            query+= (this.setDeptIds && this.roleId == 4)?'&departmentIds='+this.setDeptIds:'';
         }
         if(this.roleId == 4){
             let user = this.utilsService.getUserData();
@@ -295,7 +301,16 @@ export class VideosTrendComponent implements OnInit {
             let obj = { 'divisionId': this.filterDivision };
             this.commonService.getDepartmentList(obj).subscribe((result) => {
                 if (result.isSuccess) {
-                    this.departmentList = result.data.rows;
+                    // this.departmentList = result.data.rows;
+                    this.allDepartments = result.data.rows;
+                    if(this.deptIds.length > 0 && this.roleId === 4){
+                        this.departmentList = [];
+                        this.allDepartments.filter(g => this.deptIds.includes(g.departmentId)).map(g =>{
+                            this.departmentList.push(g);
+                        });
+                    }else{
+                        this.departmentList = result.data.rows;
+                    }
                     let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision;
                     this.getModuleList(query);
                 }

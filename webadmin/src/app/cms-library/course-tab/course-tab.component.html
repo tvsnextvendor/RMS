@@ -17,7 +17,7 @@
                 <span class="float-right">
                   
                   <!-- {{roleId === 4 && accessSet}}{{iconEnable}}{{userData.userId == courses.createdBy}} -->
-                    <a  title="Send Approval" *ngIf="roleId === 4 && accessSet && iconEnableApproval && userData.userId == courses.createdBy && courses.draft == true" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
+                    <a  title="Send Approval" *ngIf="roleId === 4 && accessSet && iconEnableApproval && userData.userId == courses.createdBy" class="mr-4"><i class="fa fa-paper-plane p-0" aria-hidden="true" (click)="approvalConfirmation(approvalConfirm,courses)"></i></a>
                     <a  *ngIf="iconEnable && userData.userId == courses.createdBy" title="Edit" class="mr-4"><i class="fas fa-pencil-alt icons_header p-0" aria-hidden="true"
                             (click)="enableDropData('edit',i,courses)"></i></a>
                     <a  *ngIf="userData.userId == courses.createdBy && !schedulePage && !resourceLib" title="view" class="mr-4" routerLink="/viewCourse/{{courses.courseId}}"><i class="fas fa-eye icons_header p-0" aria-hidden="true"></i></a>                            

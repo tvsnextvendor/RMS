@@ -45,6 +45,9 @@ export class ExpiretrenddetailsComponent implements OnInit {
    divIds;
    allDivisions;
    setDivIds;
+   deptIds;
+   allDepartments;
+   setDeptIds;
    classTitle;
    courseTitle;
 
@@ -84,11 +87,13 @@ export class ExpiretrenddetailsComponent implements OnInit {
       });
        // added employee div Drop Down
        this.divIds =this.utilService.getDivisions() ? this.utilService.getDivisions() :'';
+       this.deptIds =this.utilService.getDepartment() ? this.utilService.getDepartment() :'';
     }
     
 
   ngOnInit() {
     this.setDivIds = (this.divIds.length > 0)?this.divIds.join(','):'';
+    this.setDeptIds = (this.deptIds.length > 0)?this.deptIds.join(','):'';
     this.headerService.setTitle({title: this.commonLabels.labels.expiringTrend, hidemodule: false});
     this.breadCrumbService.setTitle([]);
     this.roleId = this.utilService.getRole();
@@ -105,6 +110,7 @@ export class ExpiretrenddetailsComponent implements OnInit {
     }else{
       // added employee div Drop Down
       query+= (this.setDivIds && this.roleId == 4)?'&divIds='+this.setDivIds:'';
+      query+= (this.setDeptIds && this.roleId == 4)?'&departmentIds='+this.setDeptIds : '';
     }
     if(this.roleId == 4){
       let user = this.utilService.getUserData();
@@ -137,11 +143,12 @@ exportAsXLSX():void {
       let list ={
         "Site Name": item.ResortUserMappings[0].Resort.resortName,
         "Employee Name": item.userName,
-        "Division":this.getListArray(item.ResortUserMappings, 'division'),
-        "Department": this.getListArray(item.ResortUserMappings, 'dept'),
+        "Division":(this.getListArray(item.ResortUserMappings, 'division')).toString(),
+        "Department": (this.getListArray(item.ResortUserMappings, 'dept')).toString(),
         "Reporting to":item.reportDetails && item.reportDetails.userName ? item.reportDetails.userName : '-',
         "No.Of Days":this.getCalculateDue(item.TrainingScheduleResorts[0])
         };
+        debugger;
       this.xlsxList.push(list);
    })
    let pageTitle = this.trendType == 'course' ? this.commonLabels.labels.course + ' - ' + this.courseTitle : this.commonLabels.labels.trainingClass+ ' - ' +this.classTitle;
@@ -200,7 +207,16 @@ filterSelect(value,type){
         let obj = { 'divisionId': this.filterDivision };
         this.commonService.getDepartmentList(obj).subscribe((result) => {
             if (result.isSuccess) {
-                this.departmentList = result.data.rows;
+                // this.departmentList = result.data.rows;
+                this.allDepartments = result.data.rows;
+                 if(this.deptIds.length > 0 && this.roleId === 4){
+                     this.departmentList = [];
+                     this.allDepartments.filter(g => this.deptIds.includes(g.departmentId)).map(g =>{
+                         this.departmentList.push(g);
+                     });
+                 }else{
+                     this.departmentList = result.data.rows;
+                 }
             }
             let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision;
             this.getExpireTrendList(query);

@@ -148,13 +148,18 @@ export class LoginComponent implements OnInit {
 
           if(loginData.ResortUserMappings){
             let divisions = [];
+            let department = [];
             const resortMaps = loginData.ResortUserMappings;
             resortMaps.forEach(function(val,key){
               if(val.divisionId != 'undefined' && val.divisionId != null){
                 divisions.push(val.divisionId);
                 }
+              if(val.departmentId != 'undefined' && val.departmentId != null){
+                divisions.push(val.departmentId);
+                }
             });
             localStorage.setItem('divisions',JSON.stringify(divisions));
+            localStorage.setItem('department',JSON.stringify(department));
           }
 
          

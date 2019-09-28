@@ -2,18 +2,16 @@
   <div class="float-right row pb-3 adduser-respon"> 
       <!-- <button type = "button" class="btn btn-primary float-right mr-2" *ngIf="enableFilter" (click)="resetFilter()">Reset filter</button>        -->
       <!-- <button type = "button" class="btn btn-primary float-right mr-2" (click)="enableFilter = !enableFilter">filter</button>        -->
-      <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="trendsVar.years">
+      <!-- <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="trendsVar.years">
           <option value=''>Year</option>
           <option *ngFor="let years of trendsVar.yearsList" [value]="years.year">{{years.year}}</option>
-          <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
           <div class="select_arrow"></div>
       </select>
       <select class="vdo-btn mr-2 select select-style clearfix" id="month" name="month" (change)="onChangeMonth()" [(ngModel)]="trendsVar.months">
           <option value=''>Month</option>
           <option *ngFor="let months of trendsVar.monthsList" [value]="months.id">{{months.month}}</option>
-          <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
           <div class="select_arrow"></div>
-      </select>
+      </select> -->
       <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="moduleList?.length">
           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               {{commonLabels.btns.exportTo}}

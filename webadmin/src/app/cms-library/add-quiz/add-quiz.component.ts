@@ -220,18 +220,27 @@ export class CreateQuizComponent implements OnInit {
   
       let data = this.quizQuestionsForm.map((item,i) => {
           // console.log(item)
+          let removeIndex = [];
           if(item.questionType !=  "True/False" && !item.answer){
             this.answerEmpty = true;
           }
           if(item.questionType == 'MCQ'){
-            item.options.forEach((data,i)=>{
-              if(!data.optionName && i<4){
+            item.options.forEach((data,oi)=>{
+              if(!data.optionName && oi<4){
                 this.optionEmpty = true;
+              }
+              if(!data.optionName && oi>3){
+                // this.quizQuestionsForm[i].options.splice(oi,1)
+                removeIndex.push(oi);
               }
             })
           }
           item.order = i+1;
           item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+
+          for (var fi = removeIndex.length -1; fi >= 0; fi--){
+            this.quizQuestionsForm[i].options.splice(removeIndex[fi],1);
+          }
           return item;
       })
     if(!this.answerEmpty && !this.optionEmpty && this.permissionService.nameValidationCheck(this.quizName))  {
