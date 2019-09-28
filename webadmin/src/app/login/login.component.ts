@@ -155,7 +155,7 @@ export class LoginComponent implements OnInit {
                 divisions.push(val.divisionId);
                 }
               if(val.departmentId != 'undefined' && val.departmentId != null){
-                divisions.push(val.departmentId);
+                department.push(val.departmentId);
                 }
             });
             localStorage.setItem('divisions',JSON.stringify(divisions));
