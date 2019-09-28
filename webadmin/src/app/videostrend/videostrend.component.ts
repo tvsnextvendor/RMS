@@ -15,8 +15,9 @@ import * as moment from 'moment';
 
 export class VideosTrendComponent implements OnInit {
 
-    selectedModule;
+   selectedModule;
    resortId;
+   allResorts;
    search;
    enableFilter = false;
    resortList = [];
@@ -208,14 +209,18 @@ export class VideosTrendComponent implements OnInit {
         this.trendsVar.moduleList.map(item=>{
             // moment().format('ll');
             let list = {
-            "Course Name": item.courseName,
-            "Total Training Classes" : item.noOfClasses,
-            "No. of employee assigned to" : item.employeesCount,
-            "Frequently failed classes"  : item.failedClassesCount,
-            // "Uploaded Date": moment(item.created).format('ll'),
-            // "Modified Date": moment(item.updated).format('ll'),
-            "No.of Resorts": item.resortsCount,
-            // "No. of Employees":item.employeesCount
+                "Course Name": item.courseName,
+                "Total Training Classes" : item.noOfClasses,
+                "No. of employee assigned to" : item.employeesCount,
+                "Frequently failed classes"  : item.failedClassesCount,
+                "Assigned Count": item.assignedCount,
+                "Inprogress Count":item.inProgressCount,
+                "Completed Count":item.completedCount,
+                "Expired Count":item.expiredCount,
+                // "Uploaded Date": moment(item.created).format('ll'),
+                // "Modified Date": moment(item.updated).format('ll'),
+                "No.of Resorts": item.resortsCount,
+                // "No. of Employees":item.employeesCount
             };
         this.xlsxList.push(list);
         })
@@ -227,7 +232,17 @@ export class VideosTrendComponent implements OnInit {
         if(this.roleId != 1){
             this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
                 if(item && item.isSuccess){
-                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                    this.allResorts = item.data && item.data.rows.length ? item.data.rows : [];
+                    if (this.roleId === 4) {
+                        this.resortList = [];
+                        let empResort = this.allResorts.map(x => {
+                            if (x.resortId === this.resortId) {
+                                this.resortList.push(x);
+                            }
+                        });
+                    } else {
+                        this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                    }
                     this.filterSelect(this.filterResort,'resort')
                 } 
             })

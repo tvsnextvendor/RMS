@@ -23,6 +23,7 @@ export class NotificationtrendComponent implements OnInit {
   departmentList = [];
   empList = [];
   xlsxList=[];
+  allResorts;
   filterResort = null;
   filterDivision = null;
   filterDept = null;
@@ -183,7 +184,7 @@ export class NotificationtrendComponent implements OnInit {
    // Create PDF
    exportAsPDF(){ 
        var data = document.getElementById('courseTrend'); 
-       this.pdfService.htmlPDFFormat(data,this.commonLabels.labels.classTrend);  
+       this.pdfService.htmlPDFFormat(data,this.commonLabels.labels.notificationTrend);  
    }
 
    //Create Excel sheet
@@ -199,7 +200,7 @@ export class NotificationtrendComponent implements OnInit {
            };
        this.xlsxList.push(list);
        })
-       this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.labels.classTrend);
+       this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.labels.notificationTrend);
    }
 
    onMail(){
@@ -224,7 +225,18 @@ export class NotificationtrendComponent implements OnInit {
        if(this.roleId != 1){
            this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
                if(item && item.isSuccess){
-                   this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                   this.allResorts = item.data && item.data.rows.length ? item.data.rows : [];
+                   if (this.roleId === 4) {
+                       this.resortList = [];
+                       let empResort = this.allResorts.map(x => {
+                           if (x.resortId === this.resortId) {
+                               this.resortList.push(x);
+                           }
+                       });
+                   } else {
+                       this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                   }
+
                    this.filterSelect(this.filterResort,'resort')
                } 
            })

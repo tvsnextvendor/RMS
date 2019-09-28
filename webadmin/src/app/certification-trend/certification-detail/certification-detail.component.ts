@@ -17,6 +17,7 @@ export class CertificationDetailComponent implements OnInit {
  resortId;
  search='';
  totalLength;
+ pageTitle;
  
   constructor(public activatedRoute: ActivatedRoute,private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService) { 
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -41,6 +42,7 @@ export class CertificationDetailComponent implements OnInit {
     this.commonService.certificateTrendCountDetail(query).subscribe((res) => {
         if (res.isSuccess) {
             this.badgeList = res.data.rows.length ? res.data.rows : [];
+            this.pageTitle = res.data.course.courseName;
         } else {
             this.badgeList = [];
         }
