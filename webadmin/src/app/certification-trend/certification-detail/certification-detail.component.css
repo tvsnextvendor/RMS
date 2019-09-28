@@ -26,3 +26,11 @@
     font-size: 14px;
     border: none;
     }
+
+    .bbs-1{
+        border-bottom: 1px solid #ccc !important;
+    }
+    .bbsw-1{
+        border-bottom: 1px solid white !important;
+    }
+

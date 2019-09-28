@@ -6,6 +6,10 @@
                     (click)="tabChange('Pending')">{{commonLabels.labels.pending}}</a>
             </li>
             <li class="nav-item">
+                <a [ngClass]="selectedTab == 'Rescheduled' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#rescheduledlist"
+                    (click)="tabChange('Rescheduled')">{{commonLabels.labels.rescheduled}}</a>
+            </li>
+            <li class="nav-item">
                 <a [ngClass]="selectedTab == 'Approved' ? 'nav-link active': 'nav-link'" data-toggle="tab" href="#approvallist"
                     (click)="tabChange('Approved')">{{commonLabels.labels.approved}}</a>
             </li>
@@ -43,7 +47,7 @@
                                 {{approvalStatusSet == 'Rejected' ? commonLabels.labels.rejectorName :
                                 commonLabels.labels.approverName}}
                             </th>
-                            <th *ngIf="selectedTab != 'Approved'" class="text-left">
+                            <th *ngIf="selectedTab != 'Approved' && selectedTab != 'Rescheduled'" class="text-left">
                                 {{commonLabels.labels.action}}
                             </th>
                         </tr>

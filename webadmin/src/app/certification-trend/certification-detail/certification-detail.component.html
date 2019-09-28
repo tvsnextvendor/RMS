@@ -23,7 +23,7 @@
             <td class="vdo-desc-height"  [attr.rowspan]=item.CertificateUserMappings.length+1>{{item.userName}}</td>
             <td class="vdo-desc-height"  [attr.rowspan]=item.CertificateUserMappings.length+1>{{calculateAvgScore(item.CertificateUserMappings)}}</td>
           </tr>
-          <tr class="video-trend-desc text-center certificate" *ngFor="let badge of item.CertificateUserMappings">
+          <tr *ngFor="let badge of item.CertificateUserMappings;let i = index" [ngClass]=" (i%2 == 0 && i !=  (item.CertificateUserMappings.length-1)) ? 'video-trend-desc text-center certificate bbs-1' : 'video-trend-desc text-center certificate bbsw-1'">
             <td class="vdo-desc-height" *ngIf="badge.TrainingClass">{{badge.TrainingClass.trainingClassName}}</td>
             <td class="vdo-desc-height">
               <span *ngIf="badge.Badge">{{badge.Badge.badgeName}} </span>

@@ -253,7 +253,9 @@ export class CommonLabels{
         "notifyAlert"       :   " notification(s) alert.",
         "totalCourses"      :   'Total Courses',
         "availableCourses"  :   'Assigned Courses',
+        "availableClass"  :   'Assigned Class',
         "completedCourses"  :   'Completed Courses',
+        "completedClass"  :   'Completed Class',
         "inProgress"        :   'In Progress',
         "videosTrend"       :   'Course Trend',
         "empUseTrend"       :   'Employee Usage Trend',
@@ -292,6 +294,7 @@ export class CommonLabels{
         "videotext"         :   "Video",
         "pending"           :   "Pending",
         "approved"          :   "Approved",
+        "rescheduled"       :   "Rescheduled",
         "rejected"          :   "Rejected",
         "approvalSetting"   :   "Approval Setting",
         "requestor"         :   "Requestor",
@@ -410,8 +413,11 @@ export class CommonLabels{
         "TotalEmpCount"     :   "No. of employee assigned to",
         "failedClass"       :   "Frequently failed classes",
         "statusCourse"      :   "Status of courses",
+        "statusClass"       :   "Status of training classes",
         "progressCourse"    :   "Inprogress Courses",
+        "progressClass"    :   "Inprogress Class",
         "expiredCourse"     :   "Expired Courses",
+        "expiredClass"     :   "Expired Class",
         "reschedule"        :   "Reschedule"
     };
 
