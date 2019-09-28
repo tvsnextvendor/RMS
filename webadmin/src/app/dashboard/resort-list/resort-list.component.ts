@@ -21,6 +21,7 @@ export class ResortListComponent implements OnInit {
   userId;
   resortId;
   resortList = [];
+  xlsxList=[];
   search;
 
   constructor( private commonService : CommonService ,
@@ -72,7 +73,17 @@ export class ResortListComponent implements OnInit {
 // Create Excel sheet
 exportAsXLSX():void {
   // this.labels.btns.select =  this.labels.btns.excel;
-  this.excelService.exportAsExcelFile(this.resortList, this.commonLabels.titles.resortmanagement);
+  this.resortList.forEach(item => {
+      // moment().format('ll');
+      let list = {
+          'Child Site' : item.resortName,
+          'Total No. of courses' : item.totalCourses,
+          'Utilized Space' : item.utilizedSpace
+      }
+      this.xlsxList.push(list);
+  })
+  
+  this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.titles.resortmanagement);
 }
 ngOnDestroy(){
   this.search = '';

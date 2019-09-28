@@ -66,17 +66,14 @@ export class CertificationTrendComponent implements OnInit {
 
   // Create Excel sheet
   exportAsXLSX():void {
-    
-    
     this.trendList.map(item=>{
         let list = {
           "Course Name": item.courseName,
-          "Assigned Count": item.assignedCount,
-          "Completed Count": item.completedCount
+          "Assigned to (No. of employees)": item.assignedCount,
+          "Completion status (No. of employees)": item.completedCount
         };
        this.xlsxList.push(list);
     })
-    console.log(this.xlsxList, "trend")
     this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.labels.certifiTrend);
   }
 

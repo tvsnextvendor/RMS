@@ -41,6 +41,7 @@ export class VideosTrendDetailsComponent implements OnInit {
     divIds;
     allDivisions;
     setDivIds;
+    allResorts;
 
 
     constructor(private headerService: HeaderService,
@@ -117,7 +118,17 @@ export class VideosTrendDetailsComponent implements OnInit {
             // })
             this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
                 if(item && item.isSuccess){
-                    this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                    this.allResorts = item.data && item.data.rows.length ? item.data.rows : [];
+                    if (this.roleId === 4) {
+                        this.resortList = [];
+                        let empResort = this.allResorts.map(x => {
+                            if (x.resortId === this.resortId) {
+                                this.resortList.push(x);
+                            }
+                        });
+                    } else {
+                        this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                    }
                     this.filterSelect(this.filterResort,'resort')
                 } 
             })

@@ -32,6 +32,7 @@ export class ClasstrendComponent implements OnInit {
   courseId;
   // added employee div Drop Down
   divIds;
+  allResorts;
   allDivisions;
   setDivIds;
 
@@ -195,10 +196,15 @@ export class ClasstrendComponent implements OnInit {
            // moment().format('ll');
            let list = {
            "Training Class Name": item.trainingClassName,
-           "Uploaded Date": moment(item.created).format('ll'),
-           "Modified Date": moment(item.updated).format('ll'),
+           "No. of employee assigned to":item.employeesCount,
+           "Frequently failed classes" : item.failedClassesCount,
+           "Assigned Count": item.assignedCount,
+           "Inprogress Count":item.inProgressCount,
+           "Completed Count":item.completedCount,
+           "Expired Count":item.expiredCount,
+           //"Uploaded Date": moment(item.created).format('ll'),
+           //"Modified Date": moment(item.updated).format('ll'),
            "No.of Resorts": item.resortsCount,
-           "No. of Employees":item.employeesCount
            };
        this.xlsxList.push(list);
        })
@@ -227,7 +233,17 @@ export class ClasstrendComponent implements OnInit {
        if(this.roleId != 1){
            this.commonService.getResortForFeedback(this.resortId).subscribe(item=>{
                if(item && item.isSuccess){
-                   this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                   this.allResorts = item.data && item.data.rows.length ? item.data.rows : [];
+                   if (this.roleId === 4) {
+                       this.resortList = [];
+                       let empResort = this.allResorts.map(x => {
+                           if (x.resortId === this.resortId) {
+                               this.resortList.push(x);
+                           }
+                       });
+                   } else {
+                       this.resortList = item.data && item.data.rows.length ? item.data.rows : [];
+                   }
                    this.filterSelect(this.filterResort,'resort')
                } 
            })
