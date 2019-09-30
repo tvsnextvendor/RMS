@@ -265,78 +265,91 @@ export class NotificationtrendComponent implements OnInit {
    }
 
    filterSelect(value,type){
-       this.resortId = '';
-       if(type == "resort"){
-           this.filterDivision =null;
-           this.filterDept = null;
-           this.filterUser = null;
-           // console.log(value);
-           this.resortService.getResortByParentId(this.filterResort).subscribe((result) => {
-               if (result.isSuccess) {
-                 // added employee div Drop Down
-                 this.allDivisions = result.data.divisions;
-                 if(this.divIds.length > 0 && this.roleId === 4){
-                     this.divisionList = [];
-                     this.allDivisions.filter(g => this.divIds.includes(g.divisionId)).map(g =>{
-                         this.divisionList.push(g);
-                     });
-                 }else{
-                     this.divisionList = result.data.divisions;
-                 }
-                  // added employee div Drop Down
-                  
-                   let query = "&resortId="+this.filterResort;
-                   if(value){
-                    this.getModuleList(query);
-                  }  
-                   
-               }
-           })
-
-       }
-       else if(type == "division"){
-           this.filterDept = null;
-           this.filterUser = null;
-           // console.log(value);
-           let obj = { 'divisionId': this.filterDivision };
-           this.commonService.getDepartmentList(obj).subscribe((result) => {
-               if (result.isSuccess) {
-                //    this.departmentList = result.data.rows;
-                this.allDepartments = result.data.rows;
-                if(this.deptIds.length > 0 && this.roleId === 4){
-                    this.departmentList = [];
-                    this.allDepartments.filter(g => this.deptIds.includes(g.departmentId)).map(g =>{
-                        this.departmentList.push(g);
-                    });
-                }else{
-                    this.departmentList = result.data.rows;
+    this.resortId = '';
+    let resortid = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
+    if(type == "resort"){
+        this.filterDivision =null;
+        this.filterDept = null;
+        this.filterUser = null;
+        let filterResort; 
+        if(this.filterResort && this.filterResort != 'null') {
+            filterResort = this.filterResort;
+            this.resortService.getResortByParentId(filterResort).subscribe((result) => {
+                if (result.isSuccess) {
+                    this.allDivisions = result.data.divisions;
+                    if(this.divIds.length > 0 && this.roleId === 4){
+                        this.divisionList = [];
+                        this.allDivisions.filter(g => this.divIds.includes(g.divisionId)).map(g =>{
+                            this.divisionList.push(g);
+                        });
+                    }else{
+                        this.divisionList = result.data.divisions;
+                    }
                 }
-                   let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision;
-                   this.getModuleList(query);
-               }
-           })
-       }
-       else if(type == "dept"){
-           this.filterUser = null;
-           // console.log(value);
-           // let data = { 'departmentId': this.filterDept, 'createdBy': ' ' };
-           // this.roleId != 1 ? data.createdBy =  this.utilsService.getUserData().userId : delete data.createdBy;
-           // this.userService.getUserByDivDept(data).subscribe(result => {
-           //     if (result && result.data) {
-           //         this.empList = result.data;
-           let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept;
-           this.getModuleList(query);
-               // }
+            })
+        }  else{
+            filterResort = resortid;
+            this.divisionList = [];
+            this.departmentList = [];
+        } 
+        let query = "&resortId="+filterResort;
+        if(value){
+            this.getModuleList(query);
+        } 
 
-           // })
-       }
-       else if(type == "emp"){
-           // console.log(value);
-           let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept+"&userId="+this.filterUser;
-           this.getModuleList(query);
-       }
+    }
+    else if(type == "division"){
+        this.filterDept = null;
+        this.filterUser = null;
+        // console.log(value);
+        this.filterDivision = this.filterDivision && this.filterDivision != 'null' ? this.filterDivision : null;
+        let filterDivision = this.filterDivision ? this.filterDivision : '';
+        if(this.filterDivision){
+            let obj = { 'divisionId': this.filterDivision };
+            this.commonService.getDepartmentList(obj).subscribe((result) => {
+                if (result.isSuccess) {
+                    // this.departmentList = result.data.rows;
+                    this.allDepartments = result.data.rows;
+                    if(this.deptIds.length > 0 && this.roleId === 4){
+                        this.departmentList = [];
+                        this.allDepartments.filter(g => this.deptIds.includes(g.departmentId)).map(g =>{
+                            this.departmentList.push(g);
+                        });
+                    }else{
+                        this.departmentList = result.data.rows;
+                    }
+                }
+            })
+        }
+        else{
+            this.departmentList = [];
+        }
+        let query = "&resortId="+this.filterResort+"&divisionId="+filterDivision;
+        this.getModuleList(query);
+    }
+    else if(type == "dept"){
+        this.filterUser = null;
+        // console.log(value);
+        // let data = { 'departmentId': this.filterDept, 'createdBy': ' ' };
+        // this.roleId != 1 ? data.createdBy =  this.utilsService.getUserData().userId : delete data.createdBy;
+        // this.userService.getUserByDivDept(data).subscribe(result => {
+        //     if (result && result.data) {
+        //         this.empList = result.data;
+        this.filterDept = this.filterDept && this.filterDept != 'null' ? this.filterDept : null;
+        let filterDept = this.filterDept ? this.filterDept : '';
+        let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+filterDept;
+        this.getModuleList(query);
+            // }
 
-   }
+        // })
+    }
+    else if(type == "emp"){
+        // console.log(value);
+        let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept+"&userId="+this.filterUser;
+        this.getModuleList(query);
+    }
+
+}
 
    ngOnDestroy(){
         this.search = '';

@@ -214,8 +214,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("resortName", resortName);
         }
       }, error => {
-        error.error == "Invalid Password" ? this.passwordError = true : (error.error == "Invalid Email Address" ? this.emailError = true : 'Network connection failed');
-        this.alertService.error(error.error)
+        error.error == "Invalid Password" ? this.passwordError = true : (error.error == "Invalid Email Address" ? this.emailError = true : '');
+        error.error ? this.alertService.error(error.error) : this.alertService.error('Network connection failed');
       })
       let localObject = [];
       // remember password settings
