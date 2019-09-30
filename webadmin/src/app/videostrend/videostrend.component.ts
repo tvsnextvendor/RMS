@@ -54,7 +54,6 @@ export class VideosTrendComponent implements OnInit {
     ) {
     this.trendsVar.url = API_URL.URLS;
     this.roleId = this.utilsService.getRole();
-    this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
     this.divIds =this.utilsService.getDivisions() ? this.utilsService.getDivisions() :'';
     this.deptIds =this.utilsService.getDepartment() ? this.utilsService.getDepartment() :'';
    
@@ -65,6 +64,7 @@ export class VideosTrendComponent implements OnInit {
     this.setDeptIds = (this.deptIds.length > 0)?this.deptIds.join(','):'';
     this.headerService.setTitle({title: this.commonLabels.titles.courseTrend, hidemodule: false});
     this.breadCrumbService.setTitle([]);
+    this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
     this.filterResort = this.resortId ? this.resortId : null;
     this.getVideosTrend('');
     this.getModuleList('');
@@ -272,51 +272,66 @@ export class VideosTrendComponent implements OnInit {
 
     filterSelect(value,type){
         this.resortId = '';
+        let resortid = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
         if(type == "resort"){
             this.filterDivision =null;
             this.filterDept = null;
             this.filterUser = null;
-           
-            this.resortService.getResortByParentId(this.filterResort).subscribe((result) => {
-                if (result.isSuccess) {
-                    this.allDivisions = result.data.divisions;
-                    if(this.divIds.length > 0 && this.roleId === 4){
-                        this.divisionList = [];
-                        this.allDivisions.filter(g => this.divIds.includes(g.divisionId)).map(g =>{
-                            this.divisionList.push(g);
-                        });
-                    }else{
-                        this.divisionList = result.data.divisions;
+            let filterResort; 
+            if(this.filterResort && this.filterResort != 'null') {
+                filterResort = this.filterResort;
+                this.resortService.getResortByParentId(filterResort).subscribe((result) => {
+                    if (result.isSuccess) {
+                        this.allDivisions = result.data.divisions;
+                        if(this.divIds.length > 0 && this.roleId === 4){
+                            this.divisionList = [];
+                            this.allDivisions.filter(g => this.divIds.includes(g.divisionId)).map(g =>{
+                                this.divisionList.push(g);
+                            });
+                        }else{
+                            this.divisionList = result.data.divisions;
+                        }
                     }
-                    let query = "&resortId="+this.filterResort;
-                    if(value){
-                        this.getModuleList(query);
-                    } 
-                }
-            })
+                })
+            }  else{
+                filterResort = resortid;
+                this.divisionList = [];
+                this.departmentList = [];
+            } 
+            let query = "&resortId="+filterResort;
+            if(value){
+                this.getModuleList(query);
+            } 
 
         }
         else if(type == "division"){
             this.filterDept = null;
             this.filterUser = null;
             // console.log(value);
-            let obj = { 'divisionId': this.filterDivision };
-            this.commonService.getDepartmentList(obj).subscribe((result) => {
-                if (result.isSuccess) {
-                    // this.departmentList = result.data.rows;
-                    this.allDepartments = result.data.rows;
-                    if(this.deptIds.length > 0 && this.roleId === 4){
-                        this.departmentList = [];
-                        this.allDepartments.filter(g => this.deptIds.includes(g.departmentId)).map(g =>{
-                            this.departmentList.push(g);
-                        });
-                    }else{
-                        this.departmentList = result.data.rows;
+            this.filterDivision = this.filterDivision && this.filterDivision != 'null' ? this.filterDivision : null;
+            let filterDivision = this.filterDivision ? this.filterDivision : '';
+            if(this.filterDivision){
+                let obj = { 'divisionId': this.filterDivision };
+                this.commonService.getDepartmentList(obj).subscribe((result) => {
+                    if (result.isSuccess) {
+                        // this.departmentList = result.data.rows;
+                        this.allDepartments = result.data.rows;
+                        if(this.deptIds.length > 0 && this.roleId === 4){
+                            this.departmentList = [];
+                            this.allDepartments.filter(g => this.deptIds.includes(g.departmentId)).map(g =>{
+                                this.departmentList.push(g);
+                            });
+                        }else{
+                            this.departmentList = result.data.rows;
+                        }
                     }
-                    let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision;
-                    this.getModuleList(query);
-                }
-            })
+                })
+            }
+            else{
+                this.departmentList = [];
+            }
+            let query = "&resortId="+this.filterResort+"&divisionId="+filterDivision;
+            this.getModuleList(query);
         }
         else if(type == "dept"){
             this.filterUser = null;
@@ -326,7 +341,9 @@ export class VideosTrendComponent implements OnInit {
             // this.userService.getUserByDivDept(data).subscribe(result => {
             //     if (result && result.data) {
             //         this.empList = result.data;
-            let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+this.filterDept;
+            this.filterDept = this.filterDept && this.filterDept != 'null' ? this.filterDept : null;
+            let filterDept = this.filterDept ? this.filterDept : '';
+            let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+filterDept;
             this.getModuleList(query);
                 // }
 
