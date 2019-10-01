@@ -72,6 +72,8 @@ export class ExpiretrendComponent implements OnInit {
     this.breadCrumbService.setTitle([]);
     // this.getExpireTrendList('');
     this.filterResort = this.resortId ? this.resortId : null;
+    let filterSite = localStorage.getItem('filterSite');
+    filterSite && localStorage.removeItem('filterSite');
     this.getModuleList('');
     this.getResortList();
   }
@@ -159,6 +161,7 @@ export class ExpiretrendComponent implements OnInit {
           let filterResort; 
           if(this.filterResort && this.filterResort != 'null') {
               filterResort = this.filterResort;
+              localStorage.setItem('filterSite',filterResort);
               this.resortService.getResortByParentId(filterResort).subscribe((result) => {
                   if (result.isSuccess) {
                       this.allDivisions = result.data.divisions;

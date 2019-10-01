@@ -71,6 +71,14 @@ export class ClasstrendComponent implements OnInit {
    this.headerService.setTitle({title: this.commonLabels.labels.classTrend, hidemodule: false});
    this.breadCrumbService.setTitle([]);
    this.filterResort = this.resortId ? this.resortId : null;
+   if(this.courseId){
+    let filterSite = localStorage.getItem('filterSite') ? localStorage.getItem('filterSite') : '';
+    this.filterResort = filterSite ? filterSite : (this.resortId ? this.resortId : null);
+   }
+   else{
+    let filterSite = localStorage.getItem('filterSite');
+    filterSite && localStorage.removeItem('filterSite');
+   }
    this.getVideosTrend('');
    this.getModuleList('');
    this.getResortList();
@@ -281,6 +289,7 @@ export class ClasstrendComponent implements OnInit {
         let filterResort; 
         if(this.filterResort && this.filterResort != 'null') {
             filterResort = this.filterResort;
+            localStorage.setItem('filterSite',filterResort);
             this.resortService.getResortByParentId(filterResort).subscribe((result) => {
                 if (result.isSuccess) {
                     this.allDivisions = result.data.divisions;

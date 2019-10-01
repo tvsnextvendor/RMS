@@ -64,6 +64,8 @@ export class VideosTrendComponent implements OnInit {
     this.setDeptIds = (this.deptIds.length > 0)?this.deptIds.join(','):'';
     this.headerService.setTitle({title: this.commonLabels.titles.courseTrend, hidemodule: false});
     this.breadCrumbService.setTitle([]);
+    let filterSite = localStorage.getItem('filterSite');
+    filterSite && localStorage.removeItem('filterSite');
     this.resortId = this.utilsService.getUserData().ResortUserMappings.length ? this.utilsService.getUserData().ResortUserMappings[0].Resort.resortId : '';
     this.filterResort = this.resortId ? this.resortId : null;
     this.getVideosTrend('');
@@ -280,6 +282,7 @@ export class VideosTrendComponent implements OnInit {
             let filterResort; 
             if(this.filterResort && this.filterResort != 'null') {
                 filterResort = this.filterResort;
+                localStorage.setItem('filterSite',filterResort);
                 this.resortService.getResortByParentId(filterResort).subscribe((result) => {
                     if (result.isSuccess) {
                         this.allDivisions = result.data.divisions;

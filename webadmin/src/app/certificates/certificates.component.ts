@@ -40,6 +40,8 @@ export class CertificatesComponent implements OnInit {
     orginArray;
     existingFile = [];
     fileExist = false;
+    errorCertificate = false;
+    errorMsg ;
 
 
     constructor(private http: HttpService, public constant: CertificateVar, private modalService: BsModalService, private headerService: HeaderService, private toastr: ToastrService, private router: Router, private alertService: AlertService,public commonLabels:CommonLabels,private commonService : CommonService,private utilService : UtilService,private courseService : CourseService,private breadCrumbService : BreadCrumbService,private permissionService : PermissionService) {
@@ -516,16 +518,20 @@ export class CertificatesComponent implements OnInit {
                 apiService.subscribe(result => {
                     if (result && result.isSuccess) {
                         this.alertService.success(result.data);
+                        // this.alertService.success(this.commonLabels.msgs.uploadSuccessMsg);
+                        this.clearAddForm();
                         this.getCertificate();
                     } else {
-                        this.alertService.error(result.error.error);
+                        this.errorCertificate = true;
+                        this.errorMsg = result.error.error;
+                        // this.alertService.error(result.error.error);
                     }
                  } , err => {
-                      this.alertService.error(err.error.error);
+                        this.errorCertificate = true;
+                        this.errorMsg = err.error.error;
+                    //   this.alertService.error(err.error.error);
                       return;
                 });
-                this.alertService.success(this.commonLabels.msgs.uploadSuccessMsg);
-                this.clearAddForm();
             // } else {
             //     //  this.toastr.error(this.constant.uploadErrMsg);
             //     this.alertService.error(this.commonLabels.mandatoryLabels.uploadErrMsg);
@@ -543,6 +549,12 @@ export class CertificatesComponent implements OnInit {
         this.constant.fileToUpload = null;
         this.htmlName = '';
         this.htmlPath = '';
+        this.hideError();
+    }
+
+    hideError(){
+        this.errorCertificate = false;
+        this.errorMsg  = '';
     }
 
     ngOnDestroy(){

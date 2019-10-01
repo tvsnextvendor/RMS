@@ -178,7 +178,9 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <span class="required_color" *ngIf="fileExist">{{commonLabels.msgs.fileExist}}
+    <span class="required_color pl-5" *ngIf="fileExist">{{commonLabels.msgs.fileExist}}
+    </span>
+    <span class="required_color pl-5" *ngIf="errorCertificate">{{errorMsg}}
     </span>
     <div class="modal-body">
         <form #uploadTemplate="ngForm" (ngSubmit)="onSave(uploadTemplate)">
@@ -186,7 +188,7 @@
                 <label class="uploadTemplate-title">{{commonLabels.labels.tempName}}
                     <span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                 <input type="text" class="form-control pl-0" [(ngModel)]="constant.tempName" #TempName="ngModel" name="tempName"
-                    id="tempName" placeholder="Enter Template Name" required>
+                    id="tempName" placeholder="Enter Template Name" (keyup)="hideError()" required>
                 <span class="required_color" *ngIf="TempName && TempName.invalid && (uploadTemplate.submitted || TempName.touched)">
                     {{commonLabels.mandatoryLabels.tempNameMandatory}}
                 </span>
