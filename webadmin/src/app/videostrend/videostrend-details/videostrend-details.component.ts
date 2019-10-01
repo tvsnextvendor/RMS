@@ -85,7 +85,8 @@ export class VideosTrendDetailsComponent implements OnInit {
         this.currentDate = new Date();
         this.roleId = this.utilService.getRole();
         this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : '';
-        this.filterResort = this.resortId ? this.resortId : null;
+        let filterSite = localStorage.getItem('filterSite') ? localStorage.getItem('filterSite') : ''
+        this.filterResort = filterSite ? filterSite : (this.resortId ? this.resortId : null);
         this.getEmployeeList('');
         this.getResortList();
     }

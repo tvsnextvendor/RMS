@@ -68,6 +68,14 @@ export class SideBarComponent implements OnInit {
       } 
       else{
         this.activeType = params.type+params.tab;
+        if(params.type == "edit" && params.tab == "notification"){
+          this.enableCreate = false;
+          this.enableEdit = true;
+          this.enableReport = false;
+          this.enableShow = false;
+          this.tabType = 'edit';
+        }
+        // this.dropDownEnable(params.type)
       }
     })
   }

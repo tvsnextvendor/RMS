@@ -36,14 +36,14 @@
                         <div class="form-group">
                             <label class="notification-header">{{commonLabels.labels.createdOn}}</label>
                             <!-- <input type="text" class="form-control pl-0" placeholder="Date"/>  -->
-                            <span class="form-control pl-0 word-wrap" placeholder="Date">{{courses?.File?.created | date : 'medium'}}</span> 
+                            <span class="form-control pl-0 word-wrap" placeholder="Date">{{courses?.created | date : 'medium'}}</span> 
                         </div>              		
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="notification-header">{{commonLabels.labels.lastModifiedOn}}</label>
                             <!-- <input type="text" class="form-control pl-0" placeholder="Apr 12 2019 & 11.30"/>  -->
-                            <span class="form-control pl-0 word-wrap" placeholder="Date">{{courses?.File?.updated | date : 'medium'}}</span> 
+                            <span class="form-control pl-0 word-wrap" placeholder="Date">{{courses?.updated | date : 'medium'}}</span> 
                         </div>              		
                     </div>
                     <div class="col-md-3">

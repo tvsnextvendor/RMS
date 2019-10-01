@@ -98,7 +98,9 @@ export class ExpiretrenddetailsComponent implements OnInit {
     this.breadCrumbService.setTitle([]);
     this.roleId = this.utilService.getRole();
     this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : '';
-    this.filterResort = this.resortId ? this.resortId : null;
+    // this.filterResort = this.resortId ? this.resortId : null;
+    let filterSite = localStorage.getItem('filterSite') ? localStorage.getItem('filterSite') : '';
+    this.filterResort = filterSite ? filterSite : (this.resortId ? this.resortId : null);
     this.getExpireTrendList('')
     this.getResortList();
   }
@@ -148,7 +150,6 @@ exportAsXLSX():void {
         "Reporting to":item.reportDetails && item.reportDetails.userName ? item.reportDetails.userName : '-',
         "No.Of Days":this.getCalculateDue(item.TrainingScheduleResorts[0])
         };
-        debugger;
       this.xlsxList.push(list);
    })
    let pageTitle = this.trendType == 'course' ? this.commonLabels.labels.course + ' - ' + this.courseTitle : this.commonLabels.labels.trainingClass+ ' - ' +this.classTitle;
