@@ -139,9 +139,14 @@ export class CourseTabComponent implements OnInit {
         this.individualCourse = resp.data;
         let data = this.individualCourse[0];
         let empCount = data && data.totalEmployeeCount;
-        this.assignedCount = data && (this.calculatePercent(empCount, data.assignedCount)).toFixed(2);
-        this.inProgressCount = data && (this.calculatePercent(empCount, data.inProgressCount)).toFixed(2);
-        this.completedCount = data && (this.calculatePercent(empCount, data.completedCount)).toFixed(2);
+        let assigned = data && (this.calculatePercent(empCount, data.assignedCount)).toFixed(2);
+        let inProgress = data && (this.calculatePercent(empCount, data.inProgressCount)).toFixed(2);
+        let completed = data && (this.calculatePercent(empCount, data.completedCount)).toFixed(2);
+       
+        this.assignedCount = Math.ceil(assigned);
+        this.inProgressCount = Math.ceil(inProgress);
+        this.completedCount = Math.ceil(completed);
+
         this.assignedCountWidth = data && (this.calculatePercent(empCount, data.assignedCount));
         this.inProgressCountWidth = data && (this.calculatePercent(empCount, data.inProgressCount));
         this.completedCountWidth = data && (this.calculatePercent(empCount, data.completedCount));

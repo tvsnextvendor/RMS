@@ -66,6 +66,8 @@ export class AddBatchComponent implements OnInit {
     }
     
     ngOnInit() {
+        //get percentage list
+        this.batchVar.percentageList = [{ "percentage": 50 }, { "percentage": 60 }, { "percentage": 70 }, { "percentage": 80 }, { "percentage": 90 }, { "percentage": 100 }];
         //   this.scheduleId ? this.headerService.setTitle({ title: this.commonLabels.titles.editTitle, hidemodule: false }) : this.headerService.setTitle({ title: this.commonLabels.titles.addTitle, hidemodule: false });
         this.batchVar.moduleForm = [];
         this.clearBatchVar();
@@ -125,7 +127,6 @@ export class AddBatchComponent implements OnInit {
 
     getResortList(){
         this.resortService.getResort().subscribe(item=>{
-            console.log(item)
             if(item && item.isSuccess){
                 this.batchVar.resortList = item.data && item.data.rows.length ? item.data.rows : [];
                 if (this.scheduleId) {
@@ -159,11 +160,9 @@ export class AddBatchComponent implements OnInit {
                 this.updateScheduleTraining();
             }
         })
-
-        //get percentage list
-        this.http.get(this.batchVar.url.getPercentageList).subscribe((data) => {
-            this.batchVar.percentageList = data.passPercentage;
-        });
+        // this.http.get(this.batchVar.url.getPercentageList).subscribe((data) => {
+        //     this.batchVar.percentageList = data.passPercentage;
+        // });
     }
 
     updateScheduleTraining() {
@@ -328,7 +327,6 @@ export class AddBatchComponent implements OnInit {
     }
 
     courseForm() {
-        console.log(this.tabType)
         if(this.tabType == "course"){
             this.courseIds = this.courseList.map(a => a.courseId);
             this.courseList.forEach((item, key) => {

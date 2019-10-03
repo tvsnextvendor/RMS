@@ -25,7 +25,7 @@
                     <tbody>
                         <tr *ngFor="let file of fileList" class="table-desc-color">
                             <td class="text-left">{{file.fileName}}</td>
-                            <td class="text-left">{{file.fileSize}}</td>
+                            <td class="text-left">{{formatBytes(file.fileSize)}}</td>
                             <td class="text-left">.{{file.fileExtension}}</td>
                             <td class="text-left" *ngIf = "file.fileType == 'Video'">{{file.fileLength | number : '1.2-2'}}</td>
                             <td class="text-left" *ngIf = "file.fileType != 'Video'">-</td>

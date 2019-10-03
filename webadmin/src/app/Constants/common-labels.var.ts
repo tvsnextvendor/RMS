@@ -572,6 +572,7 @@ export class CommonLabels{
         "dept"              :  "Department is required.",
         "designation"       :  "Designation is required",
         "emailId"           :  "Email Id is required",
+        "userName"          :  "Username is required",
         "emailInvalid"      :  "Invalid Email",
         "mobNo"             :  "Mobile number is required",
         "invalidMobNo"      :  "Invalid Mobile Number",

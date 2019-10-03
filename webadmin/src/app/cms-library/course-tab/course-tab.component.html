@@ -97,13 +97,13 @@
                     <div class="progress-section pt-3">
                         <div class="row progress">
                             <div class="progress-bar p-3 assigned-perc" *ngIf="assignedCount != 0" [style.width.%]="assignedCountWidth">
-                                {{assignedCount}}
+                                {{assignedCount}} %
                             </div>
                             <div class="progress-bar p-3 inprogress-perc" *ngIf="inProgressCount != 0" [style.width.%]="inProgressCountWidth">
-                                {{inProgressCount}}
+                                {{inProgressCount}} %
                             </div>
                             <div class="progress-bar p-3 completed-perc" *ngIf="completedCount != 0" [style.width.%]="completedCountWidth">
-                                {{completedCount}}
+                                {{completedCount}} %
                             </div>
                         </div>
                         <div class="row usage-state pt-2">
