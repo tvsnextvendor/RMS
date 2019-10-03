@@ -108,7 +108,16 @@ export class EmployeeComponent implements OnInit {
 
    // Create Excel sheet
    exportAsXLSX():void {
-    this.excelService.exportAsExcelFile(this.listDetails,this.commonLabels.labels.statusList);
+     let data = this.listDetails.map(item => {
+         let obj = {
+             'Training Class': item.TrainingClass && item.TrainingClass.trainingClassName,
+             'Content Files': item.File && item.File.fileName,
+             'File Type':  item.File && item.File.fileExtension,
+             'Status': item.status
+         }
+         return obj;
+     })
+    this.excelService.exportAsExcelFile(data,this.commonLabels.labels.statusList);
   }
 
   getResortList(){

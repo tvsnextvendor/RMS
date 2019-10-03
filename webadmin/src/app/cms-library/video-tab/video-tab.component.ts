@@ -404,7 +404,7 @@ constructor(private courseService: CourseService,
         trainingClassId : this.selectedClass,
         courseId : this.selectedCourse,
         fileType :"video",
-        assignedFiles: updatedFileList,
+        assignedFiles: [],
         filesIds: fileIds,
      }
     if(this.submitted && this.selectedClass && this.selectedCourse && updatedFileList.length){

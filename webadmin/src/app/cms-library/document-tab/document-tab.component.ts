@@ -54,13 +54,13 @@ export class DocumentTabComponent implements OnInit {
       private alertService: AlertService,
       public commonLabels : CommonLabels,
       public constant: CmsLibraryVar,
-      private modalService : BsModalService,
-      private utilService :UtilService,
+       private utilService :UtilService,
       private commonService : CommonService,
       private userService : UserService,
       private resortService : ResortService,
       private pdfService :PDFService,
       private excelService :ExcelService ,
+      private modalService: BsModalService,
       private breadCrumbService : BreadCrumbService,
       private permissionService : PermissionService) { 
 
@@ -249,6 +249,7 @@ export class DocumentTabComponent implements OnInit {
       class : "modal-dialog-centered"
     }
      this.constant.fileId= fileId;
+
      this.constant.modalRef = this.modalService.show(template,modalConfig); 
     }
 
@@ -279,7 +280,7 @@ export class DocumentTabComponent implements OnInit {
         trainingClassId : this.selectedClass,
         courseId : this.selectedCourse,
         fileType :"document",
-        assignedFiles: updatedFileList,
+        assignedFiles: [],
         filesIds: fileIds,
      }
 
