@@ -75,7 +75,8 @@ export class EmployeeChartsComponent implements OnInit {
     this.getTopResort();
     this.getKeyStat();
     this.filterSelect(this.resortId,'resort');
-    this.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
+    let lastName = this.utilService.getUserData().lastName ? this.utilService.getUserData().lastName : ''; 
+    this.userName = this.utilService.getUserData().firstName + ' '+ lastName;
     this.previewProfilePic = userDetails.uploadPaths && userDetails.uploadPaths.uploadPath && userDetails.userImage ? userDetails.uploadPaths.uploadPath+userDetails.userImage : '';
     this.dashboardVar.years = '2019';
     this.dashboardVar.certYear = '2019';

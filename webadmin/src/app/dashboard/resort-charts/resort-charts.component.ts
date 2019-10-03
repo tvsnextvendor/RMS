@@ -75,7 +75,8 @@ export class ResortChartsComponent implements OnInit {
         // this.getData();
         this.roleId = this.utilService.getRole();
         let userDetails = this.utilService.getUserData();
-        this.userName = this.utilService.getUserData().firstName + ' '+this.utilService.getUserData().lastName;
+        let lastName = this.utilService.getUserData().lastName ? this.utilService.getUserData().lastName : '';
+        this.userName = this.utilService.getUserData().firstName + ' ' + lastName;
         this.getKeyStat();
         this.filterSelect('','resort');
         

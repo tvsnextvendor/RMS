@@ -11,7 +11,7 @@
                             <input class="form-control input-alg" [(ngModel)]="loginvar.email" name="email" [placeholder]="forgetPasswordStatus ? 'Email' : 'Username'" #user="ngModel" autocomplete="off" (keyup)="rememberCheck(user.value)" required>
                            <span class="input-group-addon"><img src="{{commonLabels.imgs.email}}" class="icon"></span>
                             <span class="required_color text-left" *ngIf="formDir.form.controls.email && formDir.form.controls.email.invalid && (formDir.submitted || formDir.form.controls.email.touched)">
-                                    {{commonLabels.mandatoryLabels.emailId}}
+                                    {{commonLabels.mandatoryLabels.userName}}
                             </span>
                             <span class="required_color text-left" *ngIf="loginvar.email && emailError && formDir.submitted">{{commonLabels.mandatoryLabels.emailInvalid}}</span>
                         </div>

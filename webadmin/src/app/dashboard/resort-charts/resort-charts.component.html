@@ -10,7 +10,7 @@
         <div class="dashboard-header col-md-12">
           <div class="clearfix">
             <h4 class="float-left fnt-size" *ngIf="roleId != 4">{{commonLabels.labels.welcome}} <span *ngIf="resortName">{{resortName | titlecase}}</span>
-              <span *ngIf="!resortName && roleId != 4">Network Admin</span>
+              <span *ngIf="!resortName && roleId != 4">{{userName | titlecase}}</span>
             </h4>
             <h4 class="float-left fnt-size" *ngIf="roleId == 4">{{commonLabels.labels.welcome}} <span *ngIf="userName">{{userName | titlecase}}</span></h4>
           </div>
@@ -87,7 +87,7 @@
             <!-- <span class="totalcourses">{{commonLabels.labels.totalNoOfScheduleCourses}}
               <span class="percent-alg">{{dashboardVar.totalCoursesCount}}</span>
             </span>   -->
-            <div id="totalCourses" style="min-width: 150px; height: 220px; max-width: 600px; margin: 0 auto"></div>
+            <div id="totalCourses" style="min-width: 150px; height: 220px; max-width: 600px; margin: 0 auto" (click)="goToVideosTrend()"></div>
           </div>
           <div class="col-sm-3 pl-0 course-style">
             <div class=" chart-bg"></div>
@@ -95,6 +95,8 @@
         </div>
 
         <div class="col-md-8 p-0">
+          <!-- <div class="d3-chart" #barchart></div> -->
+
           <div class=" chart-bg p-2" style=" height: 275px">
               <h6 class="chart-mr"><i class="far fa-circle circle-fnt" aria-hidden="true"></i>
                 {{commonLabels.labels.videosTrend}}
@@ -102,7 +104,7 @@
                   <option *ngFor="let year of dashboardVar.yearList" [value]="year.year">{{year.year}}</option>
                   <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i>
                 </select>
-                <div  id="trend" style="height: 225px; margin: 0 auto; padding-top: 50px;" (click)="goToVideosTrend()" ></div>
+                <div  id="trend" style="height: 225px; margin: 0 auto; padding-top: 50px;"></div>
               </h6>  
               
             </div>
