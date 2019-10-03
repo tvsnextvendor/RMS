@@ -3,12 +3,15 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute,Params } from '@angular/router';
 import { HttpService,HeaderService,UtilService,AlertService,ExcelService, CourseService,BreadCrumbService } from '../../../services';
 import { CommonLabels } from '../../../Constants/common-labels.var'
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-employees-list',
   templateUrl: './employees-list.component.html',
   styleUrls: ['./employees-list.component.css']
 })
+
 export class EmployeesListComponent implements OnInit {
   courseId;
   resortId;
@@ -54,6 +57,15 @@ export class EmployeesListComponent implements OnInit {
 
   // Create Excel sheet
   exportAsXLSX():void {
-    this.excelService.exportAsExcelFile(this.listDetails, this.listDetails[0].Course.courseName);
+    let data = this.listDetails.map(item => {
+        let obj = {
+            'User name': item.User && item.User.userName,
+            'Status': item.status,
+            'Assigned Date':item.created ?  moment(item.created).format('ll'): '',
+            'Completed Date' :item.completedDate ? moment(item.completedDate).format('ll') : ''
+        }
+        return obj;
+    })
+    this.excelService.exportAsExcelFile(data, this.listDetails[0].Course.courseName);
   }
 }
