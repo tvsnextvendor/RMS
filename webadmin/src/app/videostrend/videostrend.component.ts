@@ -196,7 +196,7 @@ export class VideosTrendComponent implements OnInit {
                 "Frequently failed classes"  : item.failedClassesCount,
                 // "Uploaded Date": moment(item.created).format('ll'),
                 // "Modified Date": moment(item.updated).format('ll'),
-                "No.of Resorts": item.resortsCount,
+                "No.of Sites": item.resortsCount,
                 // "No. of Employees":item.employeesCount
                 };
             this.xlsxList.push(list);
@@ -227,7 +227,7 @@ export class VideosTrendComponent implements OnInit {
                 "Expired Count":item.expiredCount,
                 // "Uploaded Date": moment(item.created).format('ll'),
                 // "Modified Date": moment(item.updated).format('ll'),
-                "No.of Resorts": item.resortsCount,
+                "No.of Sites": item.resortsCount,
                 // "No. of Employees":item.employeesCount
             };
         this.xlsxList.push(list);

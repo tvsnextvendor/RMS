@@ -39,6 +39,7 @@ export class EmailComponent implements OnInit {
     departmentList = [];
     filterParentDivision = null;
     selectedType;
+    roleId;
 
     constructor(private toastr: ToastrService,private utilService: UtilService,private headerService: HeaderService, private elementRef: ElementRef, private emailVar: EmailVar, private http: HttpService, private alertService: AlertService,public commonLabels:CommonLabels,private breadCrumbService :BreadCrumbService,private activatedRoute :ActivatedRoute,private router : Router,private courseService : CourseService,private userService : UserService,public location :Location) {
         this.email.url = API_URL.URLS;
@@ -59,6 +60,7 @@ export class EmailComponent implements OnInit {
         this.headerService.setTitle({ title: this.emailVar.title, hidemodule: false });
         this.breadCrumbService.setTitle([]);
         let userData = this.utilService.getUserData();
+        this.roleId = this.utilService.getRole();
         let resortId = userData.ResortUserMappings && userData.ResortUserMappings.length && userData.ResortUserMappings[0].Resort ? userData.ResortUserMappings[0].Resort.resortId : '';
         resortId && this.getDivisionList(resortId);
         // this.departmentList();

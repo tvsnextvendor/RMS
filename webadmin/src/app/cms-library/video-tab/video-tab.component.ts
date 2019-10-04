@@ -88,7 +88,7 @@ constructor(private courseService: CourseService,
       this.breadCrumbService.setTitle(data);
       this.resourceLib = false;
     }
-    if(roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Course')){
+    if(roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Course / Training Class / Quiz')){
       this.iconEnable = false;
     }
     this.getCourseFileDetails();
