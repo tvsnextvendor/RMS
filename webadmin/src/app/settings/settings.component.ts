@@ -43,8 +43,8 @@ export class SettingsComponent implements OnInit {
             this.commonService.passwordUpdate(postData).subscribe(resp=>{
                 if(resp && resp.isSuccess){
                     this.resetData();
-                    this.alertService.success(this.commonLabels.msgs.pwdUpdateSuccess);
                     this.router.navigateByUrl('/dashboard');
+                    this.alertService.success(this.commonLabels.msgs.pwdUpdateSuccess);
                 }
             },err=>{
                 this.alertService.error(err.error.error)

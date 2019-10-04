@@ -81,7 +81,14 @@
                     <tr *ngIf="mf.data?.length == 0">
                         <td colspan="10"><p class="text-center data-design p-5"><span class="nodata"><i class="far fa-frown nodata-img"></i>{{commonLabels.labels.noData}}</span></p></td>
                     </tr>
-                </tbody>    
+                </tbody>
+                <tfoot>
+                    <tr data-html2canvas-ignore="true">
+                        <td colspan="8s">
+                            <mfBootstrapPaginator></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
