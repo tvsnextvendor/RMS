@@ -88,7 +88,9 @@
                 </div>
                 <div *ngIf="enableView && enableIndex === i">
                     <div class="clearfix">
-                        <h5>{{commonLabels.labels.usageStats}}</h5>
+                        <h5  *ngIf="assignedCount || inProgressCount || completedCount">{{commonLabels.labels.usageStats}}</h5>
+                        <h5 *ngIf="!assignedCount && !inProgressCount && !completedCount && data.totalEmployeeCount != 0">Unassigned</h5>
+                        <h5 *ngIf="data.totalEmployeeCount == 0">Unscheduled</h5>
                         <div class="total-count row pt-2">
                             <span class="col-md-6 p-0">{{commonLabels.labels.totalNoEmp}} {{data.totalEmployeeCount}}</span>
                             <span class="col-md-6 text-right">{{commonLabels.labels.totalNoCert}} 30</span>
