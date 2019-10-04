@@ -2,8 +2,8 @@ import { Component, OnInit,Input } from '@angular/core';
 import { DashboardVar } from '../../Constants/dashboard.var';
 import { HttpService,CommonService,UtilService,CourseService,ResortService } from '../../services';
 declare var require: any;
+import { Chart } from 'chart.js'
 const Highcharts = require('highcharts');
-import Chart from 'chart.js';
 import { API_URL } from 'src/app/Constants/api_url';
 import { Router } from '@angular/router';
 import {CommonLabels} from '../../Constants/common-labels.var';
@@ -44,6 +44,10 @@ export class ResortChartsComponent implements OnInit {
     divisionList = [];
     departmentList = [];
     @Input() notificationCount;
+ 
+  public pieChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
+  public pieChartData = [120, 150, 180, 90];
+  public pieChartType = 'pie';
 
     constructor(public dashboardVar: DashboardVar,
          private http: HttpService,
@@ -69,7 +73,7 @@ export class ResortChartsComponent implements OnInit {
       this.mScrollbarService.initScrollbar('.sidebar-wrapper', { axis: 'y', theme: 'minimal-dark' });
       this.getcertificateTrend('');
       this.totalNoOfBadges('');
-      this.getCountDetails(this.resortId,'');
+      this.getCountDetails(this.resortId,'');      
     }
     ngOnInit() {
         // this.getData();
@@ -93,6 +97,28 @@ export class ResortChartsComponent implements OnInit {
         }
     }
 
+    coursePieChart(){
+      console.log(this.dashboardVar.totalCourses)
+      var ctx = document.getElementById('courseTrendPie') as HTMLCanvasElement;
+      var myChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: this.dashboardVar.totalCourses.map(x=> { return x.name }),
+              datasets: [{
+                  label: '# of Votes',
+                  data: this.dashboardVar.totalCourses.map(x => { return x.y }),
+                  backgroundColor: [
+                      'rgb(124, 181, 236)',
+                      'rgb(67, 67, 72)',
+                      'rgb(144, 237, 125)',
+                      'rgb(247, 163, 92)',
+                      'rgb(128, 133, 233)'                  ],
+              }]
+          },
+      });
+      
+    }
+
     getCountDetails(resortId,queries){
         this.resortId = resortId;
         let query =  this.resortId ? '?resortId='+ this.resortId : '';
@@ -108,6 +134,7 @@ export class ResortChartsComponent implements OnInit {
             this.dashboardVar.totalCourses = totalCourses.map(item => {
               return {name: item.status[0].toUpperCase() + item.status.substr(1).toLowerCase(), y: parseInt(item.totalcount, 10)};
             });
+            this.coursePieChart();
             this.totalCoursesLine();
           });
           setTimeout(() => {
@@ -560,7 +587,7 @@ export class ResortChartsComponent implements OnInit {
               }
           },
           series: [{
-            name: 'Total no. of Courses',
+            name: 'No. of Courses',
             data: this.dashboardVar.courseTrendData
         }]
       });

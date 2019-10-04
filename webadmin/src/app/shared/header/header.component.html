@@ -56,11 +56,13 @@
     </div>
     <div *ngIf="breadCrumbData && breadCrumbData.length" class="pt-2">   
       <nav aria-label="breadcrumb">
+
         <ol class="breadcrumb">
           <li class="breadcrumb-item" *ngFor="let path of breadCrumbData" >
-            <a *ngIf="path.url && path.url != '/cms-library' && path.url != '/cmspage'" href="javascript : void(0)" routerLink="{{path.url}}" class="cms-breadcrumb">{{path.title}}</a>
-            <a *ngIf="path.url && path.url == '/cms-library'" href="javascript : void(0)" routerLink="{{path.url}}" [queryParams]="{type: 'edit'}" class="cms-breadcrumb">{{path.title}}</a>
-            <a *ngIf="path.url && path.url == '/cmspage'"  href="javascript : void(0)"  routerLink="{{path.url}}" [queryParams]="{type: 'edit'}" class="cms-breadcrumb">{{path.title}}</a>
+            <a *ngIf="path.url && path.url != '/cms-library' && path.url != '/cmspage' && path.title != 'Create'" href="javascript : void(0)" routerLink="{{path.url}}" class="cms-breadcrumb">{{path.title}}</a>
+            <a *ngIf="path.url && path.url == '/cms-library' && path.title != 'Create'" href="javascript : void(0)" routerLink="{{path.url}}" [queryParams]="{type: 'edit'}" class="cms-breadcrumb">{{path.title}}</a>
+            <a *ngIf="path.url && path.url == '/cmspage' && path.title != 'Create'"  href="javascript : void(0)"  routerLink="{{path.url}}" [queryParams]="{type: 'edit'}" class="cms-breadcrumb">{{path.title}}</a>
+            <a *ngIf="path.title == 'Create'" href="javascript : void(0)" routerLink="{{path.url}}" [queryParams]="{type: 'create'}" class="cms-breadcrumb">{{path.title}}</a>
             <a *ngIf="!path.url" class="breadcrumb-current">{{path.title}}</a>
           </li>
           <!-- <li class="breadcrumb-item active" *ngIf="!moduleId"></li> -->

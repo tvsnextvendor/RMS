@@ -95,7 +95,7 @@
                     <td class="text-left">
                         <label class="square-cont float-left mb-0">
                             <input type="checkbox" name="web" value="{{file.fileId}}" [checked]="file.selected"  (change)="addFiles($event,file,i)"><span class="text-over">{{file.fileName}}</span>
-                            <span class="square-checkmark"></span>
+                            <span class="square-checkmark" *ngIf="!resourceLib"></span>
                         </label>
                     </td>
                    

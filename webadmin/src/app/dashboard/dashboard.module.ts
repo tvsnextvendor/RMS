@@ -13,6 +13,8 @@ import { ResortChartsComponent } from './resort-charts/resort-charts.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from '../guard/auth.guard.component';
 import { ResortListComponent } from './resort-list/resort-list.component';
+import { ChartsModule } from 'ng2-charts';
+
 
 
 const routes: Routes = [
@@ -29,7 +31,9 @@ const routes: Routes = [
     CarouselModule.forRoot(),
     NgHttpLoaderModule.forRoot(),
     RouterModule.forRoot(routes),
-    DataTableModule
+    DataTableModule,
+    ChartsModule
+    
   ],
   declarations: [
     // DoughnutChartComponent,

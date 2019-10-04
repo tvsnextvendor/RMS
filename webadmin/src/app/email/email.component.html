@@ -1,7 +1,7 @@
 <div class="pt-5 pr-3">
 <div class="white-bg">
     <div class="row">
-        <div class="col-3 mt-3">
+        <div class="col-3 mt-3" *ngIf="roleId != 1">
             <div class="col-md-12 p-0 select select-style clearfix">
                 <select name="parentDivisionId" class="form-control pl-2" [(ngModel)]="filterParentDivision"
                     #parentdivision (change)="divisionChange(parentdivision.value)">
@@ -18,8 +18,6 @@
                 </li>
             </ul>
             </div>
-            
-
         </div>
         <div class="col-8 mail-box">
 

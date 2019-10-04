@@ -344,7 +344,7 @@ onMail(){
           // moment().format('ll');
             let list ={
               "Course Name": item.courseName,
-              "No.of Resorts": item.resortsCount,
+              "No.of Sites": item.resortsCount,
               "No. of Employees":item.employeesCount
             }
             this.xlsxList.push(list);
@@ -355,7 +355,7 @@ onMail(){
       this.classList.forEach(item=>{
         let list ={
           "Training Class Name": item.trainingClassName,
-          "No.of Resorts": item.resortsCount,
+          "No.of Sites": item.resortsCount,
           "No. of Employees":item.employeesCount
           };
         this.xlsxList.push(list);
