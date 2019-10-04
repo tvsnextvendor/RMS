@@ -152,6 +152,9 @@ export class ResortChartsComponent implements OnInit {
       if(this.roleId == 4){
         query = query+'&userId='+this.userId;
       }
+      if(this.roleId == 1 && this.selectedParentResort == "null"){
+        query = '?parents=' + this.roleId;
+      }
       this.commonService.getAllResort(query).subscribe((result) => {
           if(result && result.isSuccess){
             this.resortChildList = result.data  ? result.data : [];

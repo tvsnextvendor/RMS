@@ -84,7 +84,7 @@ constructor(private courseService: CourseService,
       this.breadCrumbService.setTitle(data);
       this.resourceLib = true; 
     }else{
-      let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.videos,url:''}]
+      let data = [{title : this.commonLabels.labels.edit,url:'/cmspage'},{title : this.commonLabels.labels.videos,url:''}]
       this.breadCrumbService.setTitle(data);
       this.resourceLib = false;
     }

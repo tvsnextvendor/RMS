@@ -215,12 +215,14 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     else {
       this.quizTabHit = false;
     }
-    this.activatedRoute.queryParams.subscribe(params => {
-      if (params && params.type == 'edit' && !this.resourceLibrary) {
-        title = (title == 'training') ? 'class' : title;
-        this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
-      }
-    });
+    // this.activatedRoute.queryParams.subscribe(params => {
+      // if (params && params.type == 'edit' && !this.resourceLibrary) {
+        if(!this.resourceLib){
+          title = (title == 'training') ? 'class' : title;
+          this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
+        }
+      // }
+    // });
   }
   completed(event) {
     if (event == 'back') {

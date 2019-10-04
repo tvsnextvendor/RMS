@@ -169,8 +169,8 @@ export class ResortComponent implements OnInit {
                 this.resortService.updateResort(this.resortId, postData).subscribe((result) => {
                     if (result && result.isSuccess) {
                         this.clearData();
-                        this.toastr.success("Resort updated successfully");
                         this.router.navigateByUrl('/resortslist');
+                        this.alertService.success(result.message);
                     }
                 }, (err) => {
                     if (err.error.error === 'userName must be unique') {
@@ -199,8 +199,8 @@ export class ResortComponent implements OnInit {
                 this.resortService.addResort(postData).subscribe((result) => {
                     if (result && result.isSuccess) {
                         this.clearData();
-                        this.toastr.success("Resort added successfully");
                         this.router.navigateByUrl('/resortslist');
+                        this.alertService.success(result.message);
                     }
                 }, (err) => {
                     if (err.error.error === 'userName must be unique') {

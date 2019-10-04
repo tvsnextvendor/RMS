@@ -750,6 +750,7 @@ export class UserComponent implements OnInit {
                 this.triggerNext = false;
                 this.getDivisionList(resortId);
                 this.closeAddForm();
+                this.alertService.success('Division added successfully');
                 // this.roleComponent.getDropDownDetails('','');
             }
         }, err => {
