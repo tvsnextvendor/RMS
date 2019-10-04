@@ -78,7 +78,7 @@ export class DocumentTabComponent implements OnInit {
       this.breadCrumbService.setTitle(data);
       this.resourceLib = true;
       }else{
-    let data = [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.labels.documents,url:''}]
+    let data = [{title : this.commonLabels.labels.edit,url:'/cmspage'},{title : this.commonLabels.labels.documents,url:''}]
     this.breadCrumbService.setTitle(data);
     this.resourceLib = false;
       }

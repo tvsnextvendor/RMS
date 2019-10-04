@@ -83,7 +83,7 @@ export class CourseTabComponent implements OnInit {
         this.schedulePage = false;
         this.resourceLib = true;
       } else {
-        this.breadCrumbTitle = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.course, url: '' }]
+        this.breadCrumbTitle = [{ title: this.commonLabels.labels.edit, url: '/cmspage'}, { title: this.commonLabels.labels.course, url: '' }]
         this.schedulePage = false;
       }
       if((this.roleId != 4 && !this.schedulePage) || (this.roleId == 4 && !this.resourceLib && !this.schedulePage && this.permissionService.editPermissionCheck('Course / Training Class / Quiz'))){
@@ -142,10 +142,9 @@ export class CourseTabComponent implements OnInit {
         let assigned = data && (this.calculatePercent(empCount, data.assignedCount)).toFixed(2);
         let inProgress = data && (this.calculatePercent(empCount, data.inProgressCount)).toFixed(2);
         let completed = data && (this.calculatePercent(empCount, data.completedCount)).toFixed(2);
-       
-        this.assignedCount = Math.ceil(assigned);
-        this.inProgressCount = Math.ceil(inProgress);
-        this.completedCount = Math.ceil(completed);
+        this.assignedCount = Math.ceil(parseInt(assigned));
+        this.inProgressCount = Math.ceil(parseInt(inProgress));
+        this.completedCount = Math.ceil(parseInt(completed));
 
         this.assignedCountWidth = data && (this.calculatePercent(empCount, data.assignedCount));
         this.inProgressCountWidth = data && (this.calculatePercent(empCount, data.inProgressCount));

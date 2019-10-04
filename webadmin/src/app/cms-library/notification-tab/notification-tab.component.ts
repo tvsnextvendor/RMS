@@ -54,7 +54,7 @@ export class NotificationTabComponent implements OnInit {
         this.breadCrumbService.setTitle(data);
         this.resourseLib = true;
       } else {
-        let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.notification, url: '' }]
+        let data = [{ title: this.commonLabels.labels.edit, url: '/cmspage' }, { title: this.commonLabels.labels.notification, url: '' }]
         this.breadCrumbService.setTitle(data);
         this.resourseLib = false;
       }
