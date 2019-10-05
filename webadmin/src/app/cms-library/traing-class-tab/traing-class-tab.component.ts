@@ -38,6 +38,7 @@ export class TraingClassTabComponent implements OnInit {
   accessSet = false;
   iconEnableApproval = false;
   enableView = false;
+  searchedItems;
 
 
   constructor(private courseService: CourseService,
@@ -105,6 +106,7 @@ export class TraingClassTabComponent implements OnInit {
 
   ngDoCheck() {
     if (this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== '') {
+      this.searchedItems = this.CMSFilterSearchEventSet;
       if (this.enableClassEdit) {
         this.getTrainingClassList();
       }
@@ -172,6 +174,7 @@ export class TraingClassTabComponent implements OnInit {
 
   pageChanged(e) {
     this.currentPage = e;
+    this.CMSFilterSearchEventSet = this.searchedItems;
     if (this.enableClassEdit) {
       this.getTrainingClassList();
     }

@@ -93,7 +93,7 @@
                         <h5 *ngIf="data.totalEmployeeCount == 0">Unscheduled</h5>
                         <div class="total-count row pt-2">
                             <span class="col-md-6 p-0">{{commonLabels.labels.totalNoEmp}} {{data.totalEmployeeCount}}</span>
-                            <span class="col-md-6 text-right">{{commonLabels.labels.totalNoCert}} 30</span>
+                            <span class="col-md-6 text-right">{{commonLabels.labels.totalNoCert}} {{data.CertificateUserMappings.length}}</span>
                         </div>
                     </div>
                     <div class="progress-section pt-3">
