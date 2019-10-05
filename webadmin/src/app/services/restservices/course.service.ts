@@ -91,7 +91,7 @@ export class CourseService {
   }
 
   getTrainingClassQuiz(trainingClassId,courseId){
-    if(courseId === '' || !courseId){
+    if(courseId === 'null' || courseId === '' || !courseId){
       return this.http.getLocal('local',this.url.trainingClassQuiz+'?trainingClassId='+trainingClassId)
     }
     else{
