@@ -635,7 +635,7 @@ export class AddBatchComponent implements OnInit {
                     this.alertService.success(resp.message);
                 }, err => {
                     // this.errorValidation = false;
-                    this.errorValidate = err.error.error == 'Training scheduled assigned for the same course & user combination' ? 'Training scheduled assigned for the same course & user combination' : 'Training schedule name must be unique';
+                    //this.errorValidate = err.error.error == 'Training scheduled assigned for the same course & user combination' ? 'Training scheduled assigned for the same course & user combination' : 'Training schedule name must be unique';
                     this.alertService.error(err.error.error);
                 });
             }

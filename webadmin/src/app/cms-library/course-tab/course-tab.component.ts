@@ -70,6 +70,7 @@ export class CourseTabComponent implements OnInit {
   resourceLib;
   accessSet = false;
   iconEnableApproval = false;
+  searchedItems;
 
   constructor(private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService,private permissionService :PermissionService) {
     this.roleId = this.utilService.getRole();
@@ -122,6 +123,7 @@ export class CourseTabComponent implements OnInit {
 
   ngDoCheck() {
     if (this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== '') {
+      this.searchedItems = this.CMSFilterSearchEventSet;
       this.getCourseDetails();
     }
   }
@@ -159,7 +161,7 @@ export class CourseTabComponent implements OnInit {
     let user = this.utilService.getUserData();
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
     let query = this.CMSFilterSearchEventSet && this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
-                  (roleId != 1 ? (this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=none&resortId='+resortId) : 
+                  (roleId != 1 ? (this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=none&resortId='+resortId+(!this.checkBoxEnable?'&created='+user.userId:'')) : 
                     this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=none' )  : 
                       (roleId != 1 ? (this.checkBoxEnable ? '&status=none&resortId='+resortId : 
                         '&status=none&resortId='+resortId+'&created='+user.userId) : '&status=none');
@@ -173,7 +175,7 @@ export class CourseTabComponent implements OnInit {
      
     }
     this.courseService.getCourse(this.p, this.pageSize, query).subscribe(resp => {
-      this.CMSFilterSearchEventSet = '';
+     this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
         this.totalCourseCount = resp.data.count;
         this.courseListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];
@@ -288,6 +290,7 @@ export class CourseTabComponent implements OnInit {
 
   pageChanged(e) {
     this.p = e;
+    this.CMSFilterSearchEventSet = this.searchedItems;
     this.getCourseDetails();
     this.enableDropData('closeEdit', '', '');
   }
