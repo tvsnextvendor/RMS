@@ -250,8 +250,8 @@ export class CourseService {
     return this.http.put('local',this.url.updateNotification+notifyId,params)
   }
 
-  removeSchedule(scheduleId){
-    return this.http.delete('local',this.url.removeSchedule+scheduleId)
+  removeSchedule(scheduleId,notificationFileId){
+    return this.http.delete('local',this.url.removeSchedule+scheduleId+'?notificationFileId='+notificationFileId)
   }
 
   getTrainingClassList(page,size,query){

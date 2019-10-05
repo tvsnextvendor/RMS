@@ -38,7 +38,7 @@ export class CalendarViewComponent implements OnInit {
     resortList;
     dayClick;
     roleId;
-
+    notificationFileId;
   
    constructor(
     private headerService:HeaderService,
@@ -134,9 +134,8 @@ export class CalendarViewComponent implements OnInit {
     }
 
     goToDelete(){
-        // console.log(event ,i)
         let scheduleId = this.removeScheduleId;
-        this.courseService.removeSchedule(scheduleId).subscribe(resp=>{
+        this.courseService.removeSchedule(scheduleId,this.notificationFileId).subscribe(resp=>{
             if(resp && resp.isSuccess){
                 this.alertService.success(resp.message);
                 this.getCalendarDetails();
@@ -261,7 +260,8 @@ export class CalendarViewComponent implements OnInit {
       openConfirmModel(template: TemplateRef<any>,event,i) {
           this.dayClick = 2;
           this.removeScheduleId = event.id;
-        this.modalRef = this.modalService.show(template,this.modalConfig);
+          this.notificationFileId = event.notificationFileId;
+          this.modalRef = this.modalService.show(template,this.modalConfig);
       }
       ngOnDestroy(){
         this.dayClick = 1;
