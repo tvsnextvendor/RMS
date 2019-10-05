@@ -40,6 +40,7 @@ export class NotificationTabComponent implements OnInit {
   getUserId;
   accessSet = false;
   iconEnableApproval = false;
+  individualNotification;
 
   constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private activatedRoute: ActivatedRoute, public commonLabels: CommonLabels, private courseService: CourseService, private utilService: UtilService, private router: Router,
     private modalService: BsModalService, private alertService: AlertService, private permissionService: PermissionService) {
@@ -97,9 +98,7 @@ export class NotificationTabComponent implements OnInit {
       query = this.resourseLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
       // query = this.resourseLib ? (query + "&draft=false") : (query + "&draft=true");
     }
-   
-
-    this.courseService.getNotification(query).subscribe(resp => {
+    this.courseService.getNotificationFile(query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
         if (resp.data.count === 0) {
@@ -169,11 +168,15 @@ export class NotificationTabComponent implements OnInit {
   }
 
   getIndividualCourse(course, index) {
-    this.enableDropData('view', index);
-    let data = course;
-    let empCount = data && data.totalCount;
-    this.assignedCount = data && this.calculatePercent(empCount, data.assignedCount);
-    this.completedCount = data && this.calculatePercent(empCount, data.completedCount);
+    let query = '?notificationFileId='+ course.notificationFileId;
+    this.courseService.getNotification(query).subscribe(resp => {
+      this.individualNotification = resp.data['rows'][0];
+      let data = this.individualNotification;
+      let empCount = data && data.totalCount;
+      this.assignedCount = data && this.calculatePercent(empCount, data.assignedCount);
+       this.completedCount = data && this.calculatePercent(empCount, data.completedCount);
+      this.enableDropData('view', index);
+    });    
   }
 
   calculatePercent(totalempCount, individualCount) {

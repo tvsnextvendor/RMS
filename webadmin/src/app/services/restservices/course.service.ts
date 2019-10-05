@@ -241,6 +241,10 @@ export class CourseService {
     return this.http.getLocal('local',this.url.getNotification+query);
   }
 
+  getNotificationFile(query){
+    return this.http.getLocal('local',this.url.getNotificationFile+query);
+  }
+
   updateNotification(notifyId,params){
     // updateNotification
     return this.http.put('local',this.url.updateNotification+notifyId,params)
