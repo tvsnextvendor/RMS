@@ -44,6 +44,7 @@ export class ResortChartsComponent implements OnInit {
   divisionList = [];
   departmentList = [];
   @Input() notificationCount;
+  parentResortId;
 
   public pieChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
   public pieChartData = [120, 150, 180, 90];
@@ -60,12 +61,15 @@ export class ResortChartsComponent implements OnInit {
     private resortService: ResortService) {
     this.dashboardVar.url = API_URL.URLS;
     this.dashboardVar.userName = this.utilService.getUserData().firstName + ' ' + this.utilService.getUserData().lastName;
+    this.roleId = this.utilService.getRole();
     this.hideCharts = this.utilService.getRole() === 2 ? false : true;
     this.resortId = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     this.resortName = this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortName;
     this.userId = this.utilService.getUserData().userId;
     this.divIds = this.utilService.getDivisions() ? this.utilService.getDivisions() : '';
     this.deptIds = this.utilService.getDepartment() ? this.utilService.getDepartment() : '';
+    this.parentResortId = (this.roleId === 2)?this.resortId:null;
+    this.selectedResort = this.parentResortId;
 
   }
 
