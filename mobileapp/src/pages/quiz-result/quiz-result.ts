@@ -7,6 +7,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
 import { API_URL } from '../../constants/API_URLS.var';
 import { HttpProvider } from '../../providers/http/http';
+import { LoaderService } from '../../service/loaderService';
 
 @IonicPage()
 @Component({
@@ -34,7 +35,7 @@ export class QuizResultPage implements OnInit {
     noQuiz = false;
     timeTaken;
 
-    constructor(public navCtrl: NavController, public http: HttpProvider, public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage) {
+    constructor(public navCtrl: NavController, public http: HttpProvider, public constant: Constant, public navParams: NavParams, public events: Events, public toastr: ToastrService, public auth: AuthProvider, private storage: Storage,public loader:LoaderService) {
         this.Math = Math;
         this.resultData = navParams.data;
         this.trainingClassName = this.resultData['trainingClassName'];
@@ -128,6 +129,7 @@ export class QuizResultPage implements OnInit {
     }
 
     completeTrainingClass() {
+        this.loader.showLoader();
         let data = this.resultData;
         let typeSetData = this.resultData['typeSet'] ? this.resultData['typeSet'] : this.resultData['setData'].typeSet;
         let postData = {
@@ -147,6 +149,7 @@ export class QuizResultPage implements OnInit {
         this.http.put(false, API_URL.URLS.completeTrainingClass, postData).subscribe(res => {
             if (res['isSuccess']) {
                 this.http.put(false, API_URL.URLS.completeTrainingClass, postData).subscribe(res => {
+                    this.loader.hideLoader();
                     let obj = {
                         'timeStopped': '',
                         'timeBegan': '',
