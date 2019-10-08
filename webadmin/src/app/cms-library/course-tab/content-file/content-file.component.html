@@ -32,8 +32,8 @@
                             <!-- <td class="text-left"><a href="#">100</a></td>      -->
                             <td class="text-center">
                               <a (click)="openEditVideo(editDocTemp,file,i)" title="Edit"><i class="fas fa-pencil-alt"aria-hidden="true"></i></a>
-                             <a  (click)="getPermissionList(userList,file,i)" title="User list"><i
-                                                          class="fas fa-user-friends header-icon"></i></a>
+                            <!-- <a  (click)="getPermissionList(userList,file,i)" title="User list"><i
+                                                          class="fas fa-user-friends header-icon"></i></a> -->
 
                                 <a (click)="removeDoc(deleteDocument,file.fileId,i)" title="Delete"><i class="fa fa-trash header-icon"></i></a>
                                 <a *ngIf="file.fileUrl != 'Video'" (click)="openFileContent(file.fileUrl)"><i class="fa fa-eye header-icon" aria-hidden="true"
