@@ -88,6 +88,9 @@ export class VideosTrendComponent implements OnInit {
    }
 
    onChangeYear() {
+       if(this.trendsVar.years == ''){
+           this.trendsVar.months = '';
+       }
         let query = '';
         if(this.enableFilter){
             if(this.filterResort){
