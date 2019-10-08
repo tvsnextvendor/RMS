@@ -604,7 +604,7 @@ export class ResortChartsComponent implements OnInit {
         }
       },
       series: [{
-        name: 'No. of Courses',
+        name: 'no. of courses',
         data: this.dashboardVar.courseTrendData
       }]
     });
@@ -654,6 +654,7 @@ export class ResortChartsComponent implements OnInit {
           let query = "&divisionId=" + this.filterDivision;
           this.getcertificateTrend(query);
           this.totalNoOfBadges(query);
+
           this.topRatedCourses(query);
           this.getCountDetails(resortId, query);
           this.getcourseTrend(query);

@@ -372,7 +372,7 @@ export class EmployeeChartsComponent implements OnInit {
           }
       },
       series: [{
-        name: 'Total no. of Courses',
+        name: 'no. of courses',
         data: this.dashboardVar.courseTrendData
     }]
   });
