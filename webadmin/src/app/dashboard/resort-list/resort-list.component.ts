@@ -76,7 +76,7 @@ exportAsXLSX():void {
   this.resortList.forEach(item => {
       // moment().format('ll');
       let list = {
-          'Child Site' : item.resortName,
+          'Site' : item.resortName,
           'Total No. of courses' : item.totalCourses,
           'Utilized Space' : item.utilizedSpace
       }

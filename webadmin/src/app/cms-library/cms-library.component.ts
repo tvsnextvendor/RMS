@@ -215,14 +215,19 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     else {
       this.quizTabHit = false;
     }
-    // this.activatedRoute.queryParams.subscribe(params => {
-      // if (params && params.type == 'edit' && !this.resourceLibrary) {
+
+    // Dont Remove Activated Route RL and Schedule Tab hiding working in this manner
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.type == 'edit' && !this.resourceLibrary) {
         if(!this.resourceLib){
           title = (title == 'training') ? 'class' : title;
-          this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
+        //  this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
         }
-      // }
-    // });
+      //  alert("no");
+      }else{
+       // alert("yes");
+      }
+    });
   }
   completed(event) {
     if (event == 'back') {

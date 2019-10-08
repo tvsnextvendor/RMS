@@ -70,7 +70,6 @@ export class ResortChartsComponent implements OnInit {
     this.deptIds = this.utilService.getDepartment() ? this.utilService.getDepartment() : '';
     this.parentResortId = (this.roleId === 2)?this.resortId:null;
     this.selectedResort = this.parentResortId;
-
   }
 
   ngAfterViewInit() {
@@ -87,11 +86,9 @@ export class ResortChartsComponent implements OnInit {
     this.userName = this.utilService.getUserData().firstName + ' ' + lastName;
     this.getKeyStat();
     this.filterSelect('', 'resort');
-
     this.dashboardVar.years = '2019';
     this.dashboardVar.certYear = '2019';
     this.userRole = this.utilService.getRole();
-
     if (this.roleId == 1) {
       this.getResortDetails();
     }

@@ -83,11 +83,11 @@
                         <td class="vat employeeName-width">{{emp?.Resort?.resortName  | titlecase}}</td>
                         <td class="vat text-left">
                             <a *ngIf = "emp.status !== 'assigned' && emp.status !== 'unAssigned'" routerLink="/employee/{{emp.User && emp.User.userId}}" [queryParams]="{id:trendsVar.videoId,type:trendType}" [ngClass]="emp.status !== 'inProgress' ? (emp.status === 'failed'?'failed-color':(emp.status === 'completed'?'completed-color':(emp.status === 'assigned'?'assigned-color':(emp.status === 'expired' ? 'expired-color' :'')))):'inprogress-color'"> {{emp.status | titlecase}}</a>
-                            <span *ngIf = "emp.status == 'assigned'" class="assigned-color"> {{emp.status | titlecase}}</span>
-                            <span *ngIf = "emp.status == 'unAssigned'" class="inprogress-color"> {{emp.status | titlecase}}</span>
+                            <a *ngIf = "emp.status == 'assigned'" class="assigned-color"> {{emp.status | titlecase}}</a>
+                            <a *ngIf = "emp.status == 'unAssigned'" > {{emp.status | titlecase}}</a>
                         </td>
                         <td class="vat text-left" *ngIf="trendType != 'notification'">{{emp?.timeTaken}}</td>
-                        <td class="vat text-left">{{emp?.TrainingSchedule?.assignedDate | date :'MM/dd/yyyy'}}</td>
+                        <td class="vat text-left" [ngClass]="emp.status == 'unAssigned' ? 'unAssigned-color': ''">{{emp?.TrainingSchedule?.assignedDate | date :'MM/dd/yyyy'}}</td>
                         <td class="vat text-left">{{emp?.completedDate | date :'MM/dd/yyyy'}}</td>
                         <td>
                             <button type="button" *ngIf="emp.status == 'expired'" class="btn btn-primary" (click)="openSchedulePopup(reschedule,emp)">Reschedule</button>

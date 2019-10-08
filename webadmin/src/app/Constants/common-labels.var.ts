@@ -336,6 +336,7 @@ export class CommonLabels{
         "selectfile"        :    "Select File",
         "allRoles"          :    "All Roles",
         "totalNoOfCourses"  :   "Total No. of courses",
+        "Site"              :    "Site",
         "childResort"       :   "Child Site" ,
         "selChildResort"    :   "All Child Site",
         "resetPassword"     :   "Reset password",

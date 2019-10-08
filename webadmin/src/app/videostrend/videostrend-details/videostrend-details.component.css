@@ -47,12 +47,17 @@ tbody > tr > td {
     font-weight: 600;
     float: left;
 }
-.inprogress-color{
+.unAssigned-color{
   color: #570de8de !important;
+}
+.inprogress-color{
+  color: #2ec955 !important;
+  /* color: #570de8de !important; */
   font-weight: 700;
 }
 .completed-color{
-  color: #0a9822f2 !important;
+  color: #0da519 !important;
+  /* color: #0a9822f2 !important; */
   font-weight: 700;
 }
 .failed-color{
@@ -60,11 +65,13 @@ tbody > tr > td {
     font-weight: 700;
 }
 .expired-color{
-  color: #f51e46 !important;
+  color:  #d83324 !important; 
+  /* color: #f51e46 !important; */
     font-weight: 700;
 }
 .assigned-color{
-  color: #468FB9 !important;
+  /* color: #468FB9 !important; */
+  color:  #ff8300 !important; 
     font-weight: 700;
 }
 .select-style {
