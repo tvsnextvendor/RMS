@@ -35,3 +35,9 @@
         border-bottom: 1px solid white !important;
     }
 
+    @media print{
+    .noPrint{
+        display:none;
+        }
+    }
+

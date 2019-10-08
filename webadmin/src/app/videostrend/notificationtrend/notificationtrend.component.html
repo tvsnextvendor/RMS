@@ -1,6 +1,6 @@
 <!-- <ng-http-loader backgroundColor="#ff0000" spinner="sk-wave"></ng-http-loader> -->
 <div class="">
-  <div class="float-right row pb-3 adduser-respon"> 
+  <div class="float-right row pb-3 adduser-respon noPrint"> 
       <!-- <button type = "button" class="btn btn-primary float-right mr-2" *ngIf="enableFilter" (click)="resetFilter()">Reset filter</button>        -->
       <!-- <button type = "button" class="btn btn-primary float-right mr-2" (click)="enableFilter = !enableFilter">filter</button>        -->
       <select class="vdo-btn  select mr-2 select-style clearfix" id="year" name="year" (change)="onChangeYear()" [(ngModel)]="trendsVar.years">
@@ -15,13 +15,13 @@
           <!-- <i class="fa fa-chevron-down pdl60" aria-hidden="true"></i> -->
           <div class="select_arrow"></div>
       </select>
-      <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="trendsVar.moduleList?.length">
+      <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="trendsVar.moduleList?.length != 0">
           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               {{commonLabels.btns.exportTo}}
           </button>
           <div class="dropdown-menu">
-              <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a>
-              <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
+              <a class="dropdown-item pl-3" (click)="exportAsXLSX()" *ngIf="trendsVar.moduleList?.length != 0">{{commonLabels.btns.excel}}</a>
+              <a class="dropdown-item pl-3" (click)="exportAsPDF()" *ngIf="trendsVar.moduleList?.length != 0">{{commonLabels.btns.pdf}}</a>
           </div>
       </div>
       <button type = "button" class="btn btn-primary float-right mr-2" (click)="onMail()"><i class="fa fa-envelope pr-2"></i>Export to mail</button>
@@ -34,7 +34,7 @@
           </form>
       </div>
   </div>
-  <div class="float-right row pb-3 adduser-respon col-md-12 p-0">
+  <div class="float-right row pb-3 adduser-respon col-md-12 p-0 noPrint">
       <div class="row col-md-11 p-0">
           <div class="col-md-4 pl-0 select select-style clearfix">
                   <select name="childResortId" class="form-control pl-2" [(ngModel)]="filterResort" #childResort
@@ -122,7 +122,7 @@
                   <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
               </tr>
           </tbody>
-          <tfoot>
+          <tfoot class="noPrint">
               <tr>
                   <td colspan="5">
                       <mfBootstrapPaginator></mfBootstrapPaginator>

@@ -135,5 +135,10 @@
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
  }
+
+ .noQuiz{
+    color: #000;
+    font-size: 13px;
+ }
  /* Training */
 

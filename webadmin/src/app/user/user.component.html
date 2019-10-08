@@ -1,7 +1,7 @@
 <div class="tab-section pt-3">  
     <div class="clearfix" *ngIf="userPagesEnable"> 
         <form *ngIf = "userTab" class="float-right row pb-3 filter-search" (ngSubmit)="userList()">
-                <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="constant.userList.length">
+                <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="constant.userList.length != 0">
                         <button type="button" class="btn btn-primary dropdown-toggle ht-38" data-toggle="dropdown">
                             {{commonLabels.btns.exportTo}}
                         </button>

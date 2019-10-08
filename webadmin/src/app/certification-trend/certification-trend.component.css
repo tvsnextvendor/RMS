@@ -111,3 +111,9 @@
   font-size: 14px;
   border: none;
   }
+
+  @media print{
+   .noPrint{
+      display:none;
+      }
+  }

@@ -292,7 +292,7 @@ resetFilter(){
 dataSelect(type){
   this.seletedTab = type;
   this.route.navigate(['/expiring/trend'],{queryParams : {type : type}});
-    // this.getModuleList('');
+  this.getModuleList('');
   this.resetFilter();
 }
 resetSearch(){
@@ -308,7 +308,8 @@ onPrint(){
 // Create PDF
 exportAsPDF(){ 
   var data = document.getElementById('courseTrend'); 
-  this.pdfService.htmlPDFFormat(data,this.commonLabels.titles.courseTrend);  
+  let title = this.seletedTab == 'course' ? this.commonLabels.labels.course + '-' + this.commonLabels.labels.expiringTrend : this.commonLabels.labels.trainingClass + '-' + this.commonLabels.labels.expiringTrend; 
+  this.pdfService.htmlPDFFormat(data,title);  
 }
 
 //Create Excel sheet
@@ -335,7 +336,8 @@ exportAsXLSX():void {
       this.xlsxList.push(list);
     })
   }
-  this.excelService.exportAsExcelFile(this.xlsxList, this.commonLabels.titles.courseTrend);
+   let title  = this.seletedTab == 'course' ? this.commonLabels.labels.course + '-' + this.commonLabels.labels.expiringTrend : this.commonLabels.labels.trainingClass +'-'+this.commonLabels.labels.expiringTrend; 
+  this.excelService.exportAsExcelFile(this.xlsxList, title);
 }
 
 onMail(){

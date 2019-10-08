@@ -22,9 +22,10 @@
             <p class="parent-data" *ngIf="!selectedResort && !selectedParentResort && roleId != 4">{{commonLabels.labels.dashprtdatamsg}}</p>
             <p class="parent-data" *ngIf="selectedParentResort && !selectedResort && roleId != 4">{{commonLabels.labels.dashchilddatamsg}}</p>
             
-             <span  *ngIf="roleId != 4" ><button type="button" (click)="selectResort()" class="btn btn-primary parent-resortbtn">{{commonLabels.btns.go}}</button></span>
-             <select *ngIf="roleId != 4"  [disabled]="selectedParentResort == 'null'" [ngClass]="selectedResort ? 'select-resort select-btn cp' : 'select-btn cp'" [(ngModel)]='selectedResort' #resort>
-                <option value="{{parentResortId}}"   >{{commonLabels.labels.selChildResort}}</option>
+             <!-- <span  *ngIf="roleId != 4" ><button type="button" (click)="selectResort()" class="btn btn-primary parent-resortbtn">{{commonLabels.btns.go}}</button></span> -->
+             <select *ngIf="roleId != 4"  [disabled]="selectedParentResort == 'null'" [ngClass]="selectedResort ? 'select-resort select-btn cp' : 'select-btn cp'" [(ngModel)]='selectedResort' #resort (change)="selectResort()">
+                <option value="{{parentResortId}}" 
+                  >{{commonLabels.labels.selChildResort}}</option>
                 <option *ngFor="let resort of resortChildList" [value]='resort.resortId' class="select-resort">{{resort.resortName  | titlecase}}</option>
                 <i class="fa fa-chevron-down" aria-hidden="true"></i>
               </select>

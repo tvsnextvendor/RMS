@@ -56,3 +56,9 @@ th.action-hd {
   .adduser-respon{
     clear: both;
   }
+  
+  @media print{
+   .noPrint{
+      display:none;
+      }
+  }
