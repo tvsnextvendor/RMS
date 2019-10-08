@@ -19,6 +19,7 @@ export class CommonLabels{
         "edit"              :   "Edit",
         "editView"         :    "View / Edit",
         "viewQuiz"          :   "View Quiz",
+        "noQuiz"            :   "No Quiz",
         "video"             :   "Video(s)",
         "document"          :   "Document(s)",
         "filter"            :   "Filter",                

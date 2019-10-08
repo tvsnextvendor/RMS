@@ -143,3 +143,9 @@
     clear: both;
     padding-bottom: 0px;
    }
+
+@media print{
+   .noPrint{
+      display:none;
+      }
+  }

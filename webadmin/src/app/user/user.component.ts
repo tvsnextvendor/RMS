@@ -1156,20 +1156,36 @@ export class UserComponent implements OnInit {
     // Create Excel sheet
     exportAsXLSX(): void {
         // this.labels.btns.select =  this.labels.btns.excel;
-        let arr = this.constant.userList.map(item =>
-            _.pick(item, ['firstName','lastName', 'email', 'phoneNumber', 'active'])
-        )
-        this.constant.userList.forEach((item, i) => {
-            arr[i].empId = item.employeeNo;
-            arr[i].role = String(this.getDivisionArray(item.ResortUserMappings, 'design'));
-            arr[i].division = String(this.getDivisionArray(item.ResortUserMappings, 'div'));
-            arr[i].department = String(this.getDivisionArray(item.ResortUserMappings, 'dept'));
-            arr[i].reportingTo = item.reportDetails ? item.reportDetails.firstName : '';
-            arr[i].accessTo = item.status ? item.status : '';
+        // let arr = this.constant.userList.map(item =>
+        //     _.pick(item, ['firstName','lastName', 'email', 'phoneNumber', 'active'])
+        // )
+        // this.constant.userList.forEach((item, i) => {
+        //     arr[i].empId = item.employeeNo;
+        //     arr[i].role = String(this.getDivisionArray(item.ResortUserMappings, 'design'));
+        //     arr[i].division = String(this.getDivisionArray(item.ResortUserMappings, 'div'));
+        //     arr[i].department = String(this.getDivisionArray(item.ResortUserMappings, 'dept'));
+        //     arr[i].reportingTo = item.reportDetails ? item.reportDetails.firstName : '';
+        //     arr[i].accessTo = item.status ? item.status : '';
             
+        // })
+        let excelArray = [];
+        this.constant.userList.map(item => {
+            // moment().format('ll');
+            let list = {
+                "Emp ID": item.employeeNo,
+                "First Name": item.firstName,
+                "Last Name": item.lastName,
+                "User Name": item.userName,
+                "Job Title": String(this.getDivisionArray(item.ResortUserMappings, 'design')),
+                "Division": String(this.getDivisionArray(item.ResortUserMappings, 'div')),
+                "Department": String(this.getDivisionArray(item.ResortUserMappings, 'dept')),
+                "Email": item.email,
+                "Access To": item.status,
+            };
+            excelArray.push(list);
         })
-        // console.log(arr)
-        this.excelService.exportAsExcelFile(arr, this.commonLabels.titles.userManagement);
+
+        this.excelService.exportAsExcelFile(excelArray, this.commonLabels.titles.userManagement);
     }
 
     roleTabSelect(type) {

@@ -188,6 +188,7 @@ export class ResortChartsComponent implements OnInit {
         this.resortChildList = result.data ? result.data : [];
       }
     });
+    this.selectResort();
   }
 
 

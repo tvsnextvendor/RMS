@@ -1,5 +1,5 @@
 <div class="">  
-<div class="float-right row pb-3 pr-2 adduser-respon">
+<div class="float-right row pb-3 pr-2 adduser-respon noPrint">
     <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="trendList.length">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
             {{commonLabels.btns.exportTo}}
@@ -40,7 +40,7 @@
                 <span class="nodata"><i class="far fa-frown nodata-img"></i>Nodata</span></p></td>
             </tr>
         </tbody>  
-        <tfoot>
+        <tfoot class="noPrint">
             <tr>
                 <td colspan="5">
                     <mfBootstrapPaginator></mfBootstrapPaginator>

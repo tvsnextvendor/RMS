@@ -331,7 +331,7 @@ export class VideosTrendDetailsComponent implements OnInit {
            }
            return obj
        })
-       let title = (this.trendType == 'course' ? (this.commonLabels.titles.courseTrend+"-"+this.trendsVar.employeeList[0].Course.courseName) : (this.trendType == 'class' ? (this.commonLabels.labels.classTrend+"-"+this.trendsVar.employeeList[0].TrainingClass.trainingClassName) : (this.commonLabels.labels.notificationTrend+"-"+this.trendsVar.employeeList[0].TrainingSchedule.name)));
-        this.excelService.exportAsExcelFile(data,title);
+       let title = (this.trendType == 'course' ? (this.trendsVar.employeeList[0].Course.courseName+"-"+this.commonLabels.titles.courseTrend) : (this.trendType == 'class' ? (this.trendsVar.employeeList[0].TrainingClass.trainingClassName+"-"+this.commonLabels.labels.classTrend) : (this.trendsVar.employeeList[0].TrainingSchedule.name+"-"+this.commonLabels.labels.notificationTrend)));
+       this.excelService.exportAsExcelFile(data,title);
   }
 }

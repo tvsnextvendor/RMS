@@ -135,7 +135,7 @@ export class ExpiretrenddetailsComponent implements OnInit {
 // Create PDF
 exportAsPDF(){ 
   var data = document.getElementById('empTable'); 
-  let pageTitle = this.trendType == 'course' ? this.commonLabels.labels.course+ ' - ' +this.courseTitle : this.commonLabels.labels.trainingClass+ ' - ' +this.classTitle;
+  let pageTitle = this.trendType == 'course' ? this.courseTitle + ' - ' + this.commonLabels.labels.course : this.classTitle + ' - ' + this.commonLabels.labels.trainingClass;
   this.pdfService.htmlPDFFormat(data, pageTitle);  
 }
 
@@ -152,9 +152,8 @@ exportAsXLSX():void {
         };
       this.xlsxList.push(list);
    })
-   let pageTitle = this.trendType == 'course' ? this.commonLabels.labels.course + ' - ' + this.courseTitle : this.commonLabels.labels.trainingClass+ ' - ' +this.classTitle;
-   
-  this.excelService.exportAsExcelFile(this.xlsxList, pageTitle);
+   let pageTitle = this.trendType == 'course' ?  this.courseTitle + ' - ' +this.commonLabels.labels.course : this.classTitle + ' - ' + this.commonLabels.labels.trainingClass;   
+   this.excelService.exportAsExcelFile(this.xlsxList, pageTitle);
 }
 
 

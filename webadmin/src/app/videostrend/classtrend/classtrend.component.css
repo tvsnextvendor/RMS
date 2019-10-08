@@ -198,3 +198,9 @@
   margin-right: 10px;
   color: #939399;
 }
+
+@media print{
+   .noPrint{
+      display:none;
+      }
+  }

@@ -29,7 +29,8 @@ export class CertificationDetailComponent implements OnInit {
   ngOnInit() {
     this.headerService.setTitle({ title: this.commonLabels.labels.certifiTrend, hidemodule: false });
     this.breadCrumbService.setTitle([]);
-    this.resortId = this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
+    this.resortId = this.utilService.getRole();
+    console.log(this.resortId);
     this.getBadgeList();
   }
 
