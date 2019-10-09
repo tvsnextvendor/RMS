@@ -7,7 +7,7 @@
   	    <div class="row py-4 did-line">
   		<div class="col-lg-5">
         <div>
-        <img class="selected-prf-img" [src]="previewProfilePic">
+        <img class="selected-prf-img" [src]="previewProfilePic" onError="this.src='assets/images/user-icon1.png'">
       </div>
       </div>
   		<div class="col-lg-7 pl-0">
@@ -84,7 +84,7 @@
                   <div class="row py-4 did-line">
                   <div class="col-lg-4">
                       <div class="profile-img">
-                          <img class="selected-prf-img" [src]="previewProfilePic">
+                          <img class="selected-prf-img" [src]="previewProfilePic" onError="this.src='assets/images/user-icon1.png'">
                           <a class="profile-bg"><i class="fas fa-plus-circle profile-icon"><input  class="upload" type="file" name="profilePic" [(ngModel)]="profilePic" accept="image/*" (change)="fileUpload($event)"/></i></a>
                         </div>
                     </div>

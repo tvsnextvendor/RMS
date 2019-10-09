@@ -44,7 +44,7 @@
                                             <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo" [minDate]="currentDate"
                                                 bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
                                                 required>
-                                            <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched)">
+                                            <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched) && !errorValidation">
                                                 {{commonLabels.mandatoryLabels.to}}
                                             </span>
                                         </span>
