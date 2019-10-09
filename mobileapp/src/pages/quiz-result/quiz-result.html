@@ -51,7 +51,7 @@
                     {{constant.pages.quizResultLabels.validations.descriptionRequired}}
                 </div>
             </div> [disabled]="feedbackform.invalid" -->
-                <button ion-button round type="submit" (click)="feedbackForm()" class="blue-btn">{{constant.buttons.submit}}</button>
+                <button ion-button round type="submit" [disabled]="submitBtnDisable" (click)="feedbackForm()" class="blue-btn">{{constant.buttons.submit}}</button>
             </form>
         </div>
     </div>

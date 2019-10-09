@@ -206,7 +206,6 @@ export class TrainingDetailPage {
 
     //Open file content in browser  
     public openWithSystemBrowser(url : string, fileId : string){
-        console.log(url,"efefe")
         let target = "_system";
         this.iab.create(url,target,this.options);
         this.calculatePercentage(fileId);
@@ -214,11 +213,17 @@ export class TrainingDetailPage {
 
    
     public openWithCordovaBrowser(url : string, fileId : string){
-        console.log(url, "URL")
         let target = "_self";
         this.iab.create(url,target,this.options);
         this.calculatePercentage(fileId);
     }  
+
+      public openWithInAppBrowser(url : string, fileId: string){
+        let target = "_blank";
+        this.iab.create(url,target,this.options);
+        this.calculatePercentage(fileId);
+        
+    }
 
     // go to particular index
     goToSlideIndex() {
@@ -272,7 +277,7 @@ export class TrainingDetailPage {
                                           self.paramsData['quizData'] = self.quizData;
                                           self.paramsData['setData'] = this.detailObject['setData'];
                                           self.paramsData['setData']['trainingClassId'] = this.detailObject['trainingClassId'];
-                                          self.paramsData['scheduleId'] = this.detailObject['scheduleId'],
+                                          self.paramsData['scheduleId'] = this.detailObject['scheduleId'] ? this.detailObject['scheduleId'] : this.detailObject['trainingScheduleId'],
                                           self.paramsData['timeStopped'] = self.timeStopped,
                                           self.paramsData['timeBegan'] = self.timeBegan,
                                           self.paramsData['stoppedDuration'] = self.stoppedDuration
@@ -350,7 +355,7 @@ export class TrainingDetailPage {
                        "courseId": this.detailObject['setData'].courseId,
                        "trainingClassId": this.detailObject.trainingClassId,
                        "setData" : this.detailObject['setData'],
-                       "scheduleId": this.detailObject['trainingScheduleId'],
+                       "scheduleId": this.detailObject['trainingScheduleId'] ? this.detailObject['trainingScheduleId'] : this.detailObject['scheduleId'],
                        "trainingClassName": this.detailObject['setData'].trainingClassName,
                        "courseName": this.detailObject['setData'].courseName,
                        "status": "noQuiz",
@@ -586,13 +591,17 @@ export class TrainingDetailPage {
                let baseUrl = rootUrl+this.uploadPath;
              console.log(baseUrl);
              this.platform.ready().then(() => {
-                 if (this.platform.is('android') || this.platform.is('mobileweb') || this.platform.is('browser')) {
+                 if (this.platform.is('android') || this.platform.is('mobileweb')) {
                      this.openWithSystemBrowser(baseUrl, setTraining.fileId);
                      console.log("running on Android device!");
                  }
                  if (this.platform.is('ios')) {
                      this.openWithCordovaBrowser(baseUrl, setTraining.fileId);
                      console.log("running on iOS device!");
+                 }
+                 if(this.platform.is('browser') || this.platform.is('desktop') || this.platform.is('core')){
+                     console.log("BROWSER");
+                     this.openWithSystemBrowser(baseUrl, setTraining.fileId);
                  }
              }); 
 

@@ -28,6 +28,7 @@ export class QuizResultPage implements OnInit {
     msgToUser;
     trainingClassName;
     className;
+    submitBtnDisable: boolean = false;
     showToastr;
     msgTitle;
     success;
@@ -70,7 +71,9 @@ export class QuizResultPage implements OnInit {
     }
 
     feedbackForm() {
+        this.submitBtnDisable= true;
         if (!this.feedback.rating) {
+            this.submitBtnDisable= false;
             this.errorMessage = "Rating is required"; return false;
         } else {
             //     this.errorMessage =  "Suggestions / Feedback is required"; return false;
@@ -99,6 +102,7 @@ export class QuizResultPage implements OnInit {
            
             this.http.post(false, API_URL.URLS.postFeedBack, postData).subscribe(res => {
                 if (res['isSuccess']) {
+                    this.submitBtnDisable = false;
                     this.toastr.success(res['message']);
                     this.completeTrainingClass();
                     this.closeToStart();
