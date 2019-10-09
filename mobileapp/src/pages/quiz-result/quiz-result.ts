@@ -91,10 +91,12 @@ export class QuizResultPage implements OnInit {
                 "trainingClassId": this.resultData['trainingClassId'],
                 "typeSet": typeSetData,
                 "timeTaken": this.timeTaken
+              
             }
             if (this.noQuiz) {
                 postData['passPercentage'] = 100;
             }
+           
             this.http.post(false, API_URL.URLS.postFeedBack, postData).subscribe(res => {
                 if (res['isSuccess']) {
                     this.toastr.success(res['message']);
@@ -146,16 +148,29 @@ export class QuizResultPage implements OnInit {
             "trainingScheduleId": this.resultData['scheduleId'],
             "status": "completed"
         }
+      
+        // debugger;
+         if (this.noQuiz) {
+             postData['passPercentage'] = 100;
+             postData['percentage'] = 100;
+         }else{
+             postData['passPercentage'] = this.resultData['passPerc']; 
+             postData['percentage'] = this.resultData['percentage']
+         }
+        // alert("percentage"+this.resultData['percentage'] + "passPercentage" + this.resultData['passPerc']);
+        // debugger;
+
+
         this.http.put(false, API_URL.URLS.completeTrainingClass, postData).subscribe(res => {
             if (res['isSuccess']) {
                 this.http.put(false, API_URL.URLS.completeTrainingClass, postData).subscribe(res => {
                     this.loader.hideLoader();
-                    let obj = {
-                        'timeStopped': '',
-                        'timeBegan': '',
-                        'time': ''
-                    };
-                    this.storage.set('timer', obj);
+                    // let obj = {
+                    //     'timeStopped': '',
+                    //     'timeBegan': '',
+                    //     'time': ''
+                    // };
+                    // this.storage.set('timer', obj);
                 })
             }
         })
