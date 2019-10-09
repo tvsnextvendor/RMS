@@ -194,7 +194,7 @@ export class Constant {
                 oldPasswordRequired: 'Old password is required',
                 newPasswordRequired: 'New password is required',
                 confirmPasswordRequired: 'Confirm password is required',
-                minLength: 'Minimum 6 characters',
+                minLength: 'Minimum 8 characters',
                 maxLength: 'Maximum 12 characters',
                 pattern: 'Just use alphabet character',
             }

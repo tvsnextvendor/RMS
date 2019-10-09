@@ -43,9 +43,9 @@ export class SettingsPage implements OnInit {
   }
   ngOnInit() {
     this.settingsForm = new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
-      newpassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
-      confirmpassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]),
+      newpassword: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]),
+      confirmpassword: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]),
       sms: new FormControl(''),
       email: new FormControl(''),
       whatsapp:new FormControl('')
@@ -80,8 +80,7 @@ export class SettingsPage implements OnInit {
       this.http.put(false, API_URL.URLS.updateSettings, postData).subscribe(res=>{
         if(res['isSuccess']){
           this.successMessage(res['message']);
-        //  this.toastr.success(res['message']);
-           
+        //  this.toastr.success(res['message']);           
         }
       },(err)=>{
         this.toastr.error(err.error.error);

@@ -95,7 +95,13 @@ export class ViewCourseComponent implements OnInit {
     this.courseService.updateTrainingClass(classId,params).subscribe((result) => {
       // console.log(result)
       if(result && result.isSuccess){
-        this.getCourseDetails('update',i);
+        if (this.courseDetails.length == 1 || this.courseDetails.length - 1 == this.tabIndex) {
+            this.route.navigate(['/cms-library'], { queryParams: { type: "edit", tab: 'course' } });
+            this.alertService.success('Training Class updated successfully');
+        }else{
+            this.getCourseDetails('update',i);
+        }
+       
       }
     })
   }
