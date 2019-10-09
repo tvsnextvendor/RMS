@@ -22,7 +22,7 @@ export class ProfilePage implements OnInit {
   profileDetail;
   profileForm: FormGroup;
   profile = {
-    // 'userName' : '',
+    'userName' : '',
     'mobile':'',
     'email':''
   }
