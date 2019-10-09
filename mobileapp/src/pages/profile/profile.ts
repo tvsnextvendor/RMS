@@ -22,7 +22,7 @@ export class ProfilePage implements OnInit {
   profileDetail;
   profileForm: FormGroup;
   profile = {
-    'userName' : '',
+    // 'userName' : '',
     'mobile':'',
     'email':''
   }
@@ -50,7 +50,7 @@ export class ProfilePage implements OnInit {
     let EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
     let MOBILEPATTERN = /^(\d{10}|\d{11}|\d{12})$/;
      this.profileForm = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
+      // userName: new FormControl('', [Validators.required]),
       mobile: new FormControl('', [Validators.required, Validators.pattern(MOBILEPATTERN)]),
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
     });
