@@ -51,6 +51,7 @@ export class AddBatchComponent implements OnInit {
     previousUpdate = false;
     existingUser = [];
     trainingClassData;
+    errorValidation = false;
     getCourseId = [];
     existCourses = [];
 
@@ -634,7 +635,7 @@ export class AddBatchComponent implements OnInit {
                     this.hidePopup('submit');
                     this.alertService.success(resp.message);
                 }, err => {
-                    // this.errorValidation = false;
+                    this.errorValidation = true;
                     //this.errorValidate = err.error.error == 'Training scheduled assigned for the same course & user combination' ? 'Training scheduled assigned for the same course & user combination' : 'Training schedule name must be unique';
                     this.alertService.error(err.error.error);
                 });

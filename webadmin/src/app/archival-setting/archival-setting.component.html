@@ -14,7 +14,7 @@
             <div class="col-sm-12 pb-3 p-0 float-right">
               <button type = "button" class="btn btn-primary" (click)="openEditModal(addArchieve,'','')"><i class="fa fa-plus pr-2"></i> {{commonLabels.btns.addNew}}</button>
                 <form><select id="resort" class="col-md-2 form-control pull-right mr-3" name="resortId" [(ngModel)]="selectedResortList" (change)="getArchieveDetails()"> 
-                  <option value="null">{{commonLabels.labels.resort}}</option>
+                  <option value="null">{{commonLabels.labels.selectResort}}</option>
                   <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
                 </select></form>
             </div>
@@ -70,7 +70,7 @@
             <div class="col-sm-12 pb-3 p-0 float-right">
                 <button type = "button" class="btn btn-primary" (click)="openEditModal(addArchieve,'','')"><i class="fa fa-plus pr-2"></i> {{commonLabels.btns.addNew}}</button>
                 <form><select id="resort" class="col-md-2 form-control pull-right mr-3" name="resortId" [(ngModel)]="selectedResortList" (change)="getCourseList()"> 
-                <option value="null">{{commonLabels.labels.resort}}</option>
+                <option value="null">{{commonLabels.labels.selectResort}}</option>
                 <option *ngFor="let resort of resortList" [value]="resort.resortId">{{resort.resortName  | titlecase}}</option>
                 </select></form>
             </div>
