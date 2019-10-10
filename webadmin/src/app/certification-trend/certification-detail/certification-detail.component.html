@@ -1,6 +1,15 @@
 <div class="">
     <div class="float-left">{{pageTitle}}</div>
     <div class="float-right row pb-3 pr-2 adduser-respon noPrint">
+      <div class="dropdown btn-group pull-right export-btn mr-2" >
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          {{commonLabels.btns.exportTo}}
+        </button>
+        <div class="dropdown-menu">
+          <!-- <a class="dropdown-item pl-3" (click)="exportAsXLSX()">{{commonLabels.btns.excel}}</a> -->
+          <a class="dropdown-item pl-3" (click)="exportAsPDF()">{{commonLabels.btns.pdf}}</a>
+        </div>
+      </div>
         <button type = "button" class="btn btn-primary float-right mr-2" (click)="onPrint()"><i class="fas fa-print pr-2"></i>Print</button>
       <div class="filter-search">
           <div class="search-container clearfix">
@@ -10,7 +19,7 @@
       </div>
     </div>
     <div class="table-responsive custom-table2 mt-3">
-      <table class="table white-bg table-cls-alg" [mfData]="badgeList" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <table class="table white-bg table-cls-alg" [mfData]="badgeList" #mf="mfDataTable" [mfRowsOnPage]="10" id="certificationDetail">
         <thead>
           <tr class="th-boxshadow text-center">
             <th>User Name</th>

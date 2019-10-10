@@ -1,11 +1,10 @@
         
         <div class="bg-img">
             <div class="">
-                <div class="Login clearfix clear login-page">
+                <div *ngIf="!forgetPasswordStatus" class="Login clearfix clear login-page">
                     <form #formDir="ngForm" (ngSubmit)="submitLogin(formDir.value,forgetPasswordStatus)" class="col-xs-3 col-xs-offset-4" autocomplete="off">
                         <!-- Title -->
-                        <div *ngIf="!forgetPasswordStatus" class="login-text">{{commonLabels.titles.logintitle}}</div>
-                        <div *ngIf="forgetPasswordStatus" class="login-text text-center">{{commonLabels.mandatoryLabels.forgetPasswordTitle}} <p class="pwd-content">{{commonLabels.mandatoryLabels.forgetPasswordMsg}}</p></div>
+                        <div class="login-text">{{commonLabels.titles.logintitle}}</div>
                        <!-- Form -->
                         <div class="input-group login-input">
                             <input class="form-control input-alg" [(ngModel)]="loginvar.email" name="email" [placeholder]="forgetPasswordStatus ? 'Email' : 'Username'" #user="ngModel" autocomplete="off" (keyup)="rememberCheck(user.value)" required>
@@ -15,7 +14,7 @@
                             </span>
                             <span class="required_color text-left" *ngIf="loginvar.email && emailError && formDir.submitted">{{commonLabels.mandatoryLabels.emailInvalid}}</span>
                         </div>
-                        <div *ngIf="!forgetPasswordStatus" class="input-group login-input">
+                        <div class="input-group login-input">
                             <input id="password" type="password" class="form-control input-alg" [(ngModel)]="loginvar.password" #Pwd="ngModel" name="password" placeholder="Password" required>
                             <span class="input-group-addon"><img src="{{commonLabels.imgs.pwd}}" class="icon"></span> 
                             <span class="required_color text-left" *ngIf="formDir.form.controls.password && formDir.form.controls.password.invalid && (formDir.submitted || formDir.form.controls.password.touched)">
@@ -23,33 +22,65 @@
                             </span>
                              <span class="required_color text-left" *ngIf="loginvar.password && passwordError && formDir.submitted">{{commonLabels.mandatoryLabels.invalidPassword}}</span>
                         </div>
-                        <div  *ngIf="!forgetPasswordStatus" class="form-group clearfix">
+                        <div  class="form-group clearfix">
                         <label class="hole-cont">{{commonLabels.mandatoryLabels.rememberMe}}
                           <input type="checkbox" [(ngModel)] = "rememberMe" name="rememberMe">
                           <span class="checkmark"></span>
                            </label>     
-                            <span  *ngIf="!forgetPasswordStatus" class="forgot-pwd" (click) = "forgetPasswordUpdate()">{{commonLabels.btns.forgetPassword}}</span>
+                            <span  class="forgot-pwd" (click) = "forgetPasswordUpdate()">{{commonLabels.btns.forgetPassword}}</span>
                         </div>
-                        <div  *ngIf="!forgetPasswordStatus" class="form-group clearfix">
+                        <div  class="form-group clearfix">
                         <label class="hole-cont ml70">{{commonLabels.mandatoryLabels.agreeTerms}}
                             <input type="checkbox" [(ngModel)] = "agreeTerms" name="agreeTerm">
                             <span class="checkmark"></span>
                             </label>     
                         </div>
-                        <div   *ngIf="!forgetPasswordStatus" class="form-group">
+                        <div    class="form-group">
                             <button  type="submit" class="btn btn-primary login-btn">{{commonLabels.btns.login}}</button>
                         </div>
-                        <div   *ngIf="!forgetPasswordStatus" class="form-group">
+                        <div class="form-group">
                                <!--  <button  type="button" class="btn btn-link">Take a tour</button> -->
                                <p class="tour-txt">{{commonLabels.labels.takeTour}}</p>
                             </div>
-                        <!-- forget password -->
-                        <div  *ngIf="forgetPasswordStatus"  class="form-group">                           
-                            <button  type="button" (click) = "forgetPasswordUpdate()" class="btn btn-default back-btn mr-3">{{commonLabels.btns.back}}</button>
-                             <button  type="submit"  class="btn btn-primary sent-btn">{{commonLabels.btns.submit}}</button>
-                        </div>
+                        
                     </form>
                 </div>
+
+
+                    <div class="Login clearfix clear login-page" *ngIf="forgetPasswordStatus">
+                        <form #forgetPwdForm="ngForm" (ngSubmit)="forgetPwd(forgetPwdForm.value)"
+                            class="col-xs-3 col-xs-offset-4" autocomplete="off">
+                            <!-- Title -->
+                            <div class="login-text text-center">
+                                {{commonLabels.mandatoryLabels.forgetPasswordTitle}} <p class="pwd-content">
+                                    {{commonLabels.mandatoryLabels.forgetPasswordMsg}}</p>
+                            </div>
+                            <!-- Form -->
+                            <div class="input-group login-input">
+                                <input class="form-control input-alg" [(ngModel)]="loginvar.email" name="email"
+                                    [placeholder]="forgetPasswordStatus ? 'Email' : 'Username'" #user="ngModel" autocomplete="off"
+                                    (keyup)="rememberCheck(user.value)" required>
+                                <span class="input-group-addon"><img src="{{commonLabels.imgs.email}}" class="icon"></span>
+                                <span class="required_color text-left"
+                                    *ngIf="forgetPwdForm.form.controls.email && forgetPwdForm.form.controls.email.invalid && (forgetPwdForm.submitted || forgetPwdForm.form.controls.email.touched)">
+                                    {{commonLabels.mandatoryLabels.emailId}}
+                                </span>
+                                <span class="required_color text-left"
+                                    *ngIf="loginvar.email && emailError && forgetPwdForm.submitted">{{commonLabels.mandatoryLabels.emailInvalid}}</span>
+                            </div>
+                          
+                        
+                            <!-- forget password -->
+                            <div  class="form-group">
+                                <button type="button" (click)="forgetPasswordUpdate()"
+                                    class="btn btn-default back-btn mr-3">{{commonLabels.btns.back}}</button>
+                                <button type="submit" class="btn btn-primary sent-btn">{{commonLabels.btns.submit}}</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+
             </div>
         </div>
            

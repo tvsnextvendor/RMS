@@ -40,6 +40,20 @@ login(postData): Observable <any>{
   }
 
 
+  forgetPassword(postData): Observable <any>{
+   return this.http.post(this.API_ENDPOINT+this.port+'forgetPassword', postData).pipe(
+        map((res) => {
+            if (res) {
+                return res;
+            }
+         })
+        , catchError((error: HttpErrorResponse) => {
+            return Observable.throw(error.error);
+        })
+    )
+  }
+
+
   logOut(){
     localStorage.removeItem("userData");
     localStorage.removeItem("user");
