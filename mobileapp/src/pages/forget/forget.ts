@@ -43,13 +43,15 @@ export class ForgetPage implements OnInit {
         phoneNumber: this.forget.phoneNumber
     } 
    this.authService.forgetPassword(postData).subscribe(res => {
+         
         if(res['isSuccess']) {
            this.toastrMessage(res['message'], 'success');      
        } else {
          this.toastrMessage(res['error'], 'error');
        }
    }, error => {
-       console.log(error, "ERROR");
+       this.toastrMessage(error.error, 'error');
+       //console.log(error, "ERROR");
    });
   }
 
@@ -65,7 +67,9 @@ export class ForgetPage implements OnInit {
     let self = this;
     setTimeout(function(){ 
       self.showToastr = false;
-      self.navCtrl.push('login-page');  
+       if(type == 'success'){
+       self.navCtrl.push('login-page');  
+       }
       }, 3000); 
 
   }
