@@ -17,6 +17,8 @@ export class CertificationTrendComponent implements OnInit {
   trendList = [];
   xlsxList =[];
   resortId;
+  totalCount;
+  
   constructor(public location: Location, private commonService: CommonService, public commonLabels: CommonLabels,private excelService: ExcelService,private pdfService:PDFService,private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService,public trendsVar: VideosTrendVar) {
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[0]];
@@ -43,6 +45,7 @@ export class CertificationTrendComponent implements OnInit {
     this.commonService.certificateTrendCount(query).subscribe((res) => {
       if (res.isSuccess) {
         this.trendList = res.data.rows.length ? res.data.rows : [];
+        this.totalCount = res.data.count;
       } else {
         this.trendList = [];
       }

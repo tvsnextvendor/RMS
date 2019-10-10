@@ -91,7 +91,7 @@ export class NotificationTabComponent implements OnInit {
     let roleId = this.utilService.getRole();
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ?
       (this.roleId != 1 ? '?page=' + this.p + '&size=' + this.pageSize + this.courseService.searchQuery(this.CMSFilterSearchEventSet) + '&resortId=' + this.resortId : '?page=' + this.p + '&size=' + this.pageSize + this.courseService.searchQuery(this.CMSFilterSearchEventSet)) :
-      (this.roleId != 1 ? (this.resourseLib ? '?page=' + this.p + '&size=' + this.pageSize + '&resortId=' + this.resortId : '?page=' + this.p + '&size=' + this.pageSize + '&resortId=' + this.resortId + "&createdBy=" + userData.userId) : '');
+      (this.roleId != 1 ? (this.resourseLib ? '?page=' + this.p + '&size=' + this.pageSize + '&resortId=' + this.resortId : '?page=' + this.p + '&size=' + this.pageSize + '&resortId=' + this.resortId + "&createdBy=" + userData.userId) : '?page=' + this.p + '&size=' + this.pageSize);
     let selectedDocuments = this.fileService.getSelectedList('notification');
     if (roleId == 4) {
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;

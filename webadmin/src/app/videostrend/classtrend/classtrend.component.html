@@ -74,6 +74,7 @@
           </div>
   </div>
   <div class="float-right row pb-3 adduser-respon noPrint" *ngIf="trendsVar.moduleList.length">
+    <p style="margin-right: 20px">{{commonLabels.labels.total}}: {{totalCount}}</p>
     <span class="icon-size"><i class="fa fa-circle assigned-icon"></i> {{commonLabels.labels.availableClass}}</span>
     <span class="icon-size"><i class="fa fa-circle progress-icon"></i> {{commonLabels.labels.progressClass}}</span>
     <span class="icon-size"><i class="fa fa-circle completed-icon"></i> {{commonLabels.labels.completedClass}}</span>

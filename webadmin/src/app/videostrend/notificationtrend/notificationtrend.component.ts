@@ -36,6 +36,7 @@ export class NotificationtrendComponent implements OnInit {
   deptIds;
   allDepartments;
   setDeptIds;
+  totalCount;
 
   constructor(private headerService: HeaderService,
    public trendsVar: VideosTrendVar ,
@@ -176,6 +177,7 @@ export class NotificationtrendComponent implements OnInit {
         }
        this.commonService.getNotificationTrendList(courseTrendObj,query).subscribe((result) => {
          this.trendsVar.moduleList = result.data.rows;
+         this.totalCount = result.data.count;
        },err=>{
         this.trendsVar.moduleList = [];
         this.alertService.error(err.error.error);
