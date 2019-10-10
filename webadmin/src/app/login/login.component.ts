@@ -105,30 +105,30 @@ export class LoginComponent implements OnInit {
     }
     return userpermissions;
   }
-  // Common function for login and forget password
-  submitLogin(data, forgetStatus) {
-    if (forgetStatus) {
-      // forgetpassword
-      if (data.email) {
+
+
+ forgetPwd(data){
+    if (data.email) {
         let params = {
           "emailAddress": data.email
         }
-        this.commonService.forgetPassword(params).subscribe(resp => {
+        this.authService.forgetPassword(params).subscribe(resp => {
           if (resp && resp.isSuccess) {
             this.forgetPasswordStatus = false;
             this.alertService.success(resp.message);
-          }
-        }, err => {
-          this.alertService.error(err.error.error)
-        })
+          }else {
+        this.alertService.error(this.commonLabels.msgs.regisEmail);
       }
-      else {
-        this.alertService.error(this.commonLabels.msgs.regisEmail)
-      }
+    }), error => {
+         this.alertService.error(error.error);
+      };
+      }  
+ }
 
-    }
+  // Common function for login and forget password
+  submitLogin(data, forgetStatus) {
     // login
-    else if (data.email && data.password && !forgetStatus) {
+     if (data.email && data.password && !forgetStatus) {
       let user = {};
       this.passwordError = false;
       this.emailError = false;
@@ -142,10 +142,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginCredential).subscribe(result => {
         if (result.isSuccess) {
           const loginData = result.data;
-
-         
           const role = loginData.UserRole[0].roleId;
-
           if(loginData.ResortUserMappings){
             let divisions = [];
             let department = [];
@@ -161,9 +158,6 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('divisions',JSON.stringify(divisions));
             localStorage.setItem('department',JSON.stringify(department));
           }
-
-         
-
           if(loginData.rolePermissions){
             const rolePermissions = loginData.rolePermissions;
             const resultRolePermissions = this.getObject(rolePermissions, []);
