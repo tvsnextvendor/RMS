@@ -224,8 +224,8 @@ export class VideosTrendDetailsComponent implements OnInit {
             this.filterDept = this.filterDept && this.filterDept != 'null' ? this.filterDept : null;
             let filterDept = this.filterDept ? this.filterDept : '';
             if(this.filterDept){
-                let data = { 'departmentId': filterDept, 'createdBy': ' ' };
-                this.roleId != 1 ? data.createdBy =  this.utilService.getUserData().userId : delete data.createdBy;
+                let data = { 'departmentId': filterDept };
+               // this.roleId != 1 ? data.createdBy =  this.utilService.getUserData().userId : delete data.createdBy;
                 this.userService.getUserByDivDept(data).subscribe(result => {
                     if (result && result.data) {
                         this.empList = result.data;

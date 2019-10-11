@@ -114,10 +114,10 @@ export class ExpiretrenddetailsComponent implements OnInit {
       query+= (this.setDivIds && this.roleId == 4)?'&divIds='+this.setDivIds:'';
       query+= (this.setDeptIds && this.roleId == 4)?'&departmentIds='+this.setDeptIds : '';
     }
-    if(this.roleId == 4){
-      let user = this.utilService.getUserData();
-      query = query+'&createdBy='+user.userId;
-  }
+  //   if(this.roleId == 4){
+  //     let user = this.utilService.getUserData();
+  //     query = query+'&userId='+user.userId;
+  // }
     this.commonService.getExpireTrendList(query,this.courseId,this.trendType).subscribe(resp=>{
       if(resp && resp.isSuccess){
         this.courseTitle = resp.data.course.courseName;
@@ -247,8 +247,9 @@ filterSelect(value,type){
       this.filterDept = this.filterDept && this.filterDept != 'null' ? this.filterDept : null;
       let filterDept = this.filterDept ? this.filterDept : '';
       if(this.filterDept){
-          let data = { 'departmentId': filterDept, 'createdBy': ' ' };
-          this.roleId != 1 ? data.createdBy =  this.utilService.getUserData().userId : delete data.createdBy;
+          let data = { 'departmentId': filterDept };
+         // delete data.createdBy
+         // this.roleId != 1 ? data.createdBy =  this.utilService.getUserData().userId : '';
           this.userService.getUserByDivDept(data).subscribe(result => {
               if (result && result.data) {
                   this.empList = result.data;
