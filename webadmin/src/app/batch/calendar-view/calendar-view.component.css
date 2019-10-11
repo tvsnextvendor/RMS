@@ -49,6 +49,31 @@
 }
 
 
+.noti-icon{
+  color: #8B61CC;
+  font-size:14px
+}
+.course-icon{
+  color: #F1C402;
+  font-size:14px
+}
+.tc-icon{
+  color: #1F91BD;
+  font-size:14px
+}
+
+
+.icon-size{
+  font-size: 14px;
+  margin-right: 10px;
+  color: #939399;
+}
+
+.cal-legend{
+    margin-top: 8px;
+}
+
+
 /* .cal-disabled .cal-day-number {
   opacity: 0.1;
 } */

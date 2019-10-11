@@ -45,6 +45,7 @@ export class VideosTrendDetailsComponent implements OnInit {
     deptIds;
     allDepartments;
     setDeptIds;
+    totalCount;
 
 
     constructor(private headerService: HeaderService,
@@ -107,6 +108,7 @@ export class VideosTrendDetailsComponent implements OnInit {
         this.commonService.getCourseEmployeeList(query, this.trendsVar.videoId,this.trendType).subscribe((result) => {
             if  (result && result.isSuccess) {
                 this.trendsVar.employeeList = result.data.rows ? result.data.rows : [];
+                this.totalCount = result.data.count;
             }
         },err=>{
             this.trendsVar.employeeList = [];

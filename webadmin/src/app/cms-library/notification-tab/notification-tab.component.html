@@ -9,11 +9,15 @@
                     <input *ngIf="uploadPage && !scheduleEnable" type="checkbox" name="file" value={{courses?.File?.fileId}}
                         [checked]="courses?.File?.selected" (change)="addFiles($event,courses.File,i)">
                     <!-- <input *ngIf = "!uploadPage && scheduleEnable" type="checkbox" name="file" [value]="courses.notificationFileId" [checked]="courses?.File?.selected" (change)="selectClass(courses.notificationFileId, courses?.File?.fileName, $event.target.checked)"> -->
-                    <span class="text-over">{{courses?.TrainingScheduleResorts[0]?.TrainingSchedule?.name}}</span>
+                    <span class="text-over" *ngIf="courses.File">{{courses.File.fileName}}</span>
+                    <span class="text-over" *ngIf="courses.description">{{courses.description}}</span>
                     <span class="square-checkmark"></span>
                 </label>
                 <!-- <span class="text-over" *ngIf="!uploadPage && !scheduleEnable">{{courses?.File?.fileName}}</span> -->
-                <span class="text-over" *ngIf="!uploadPage">{{courses?.TrainingScheduleResorts[0]?.TrainingSchedule?.name}}</span>
+                <!-- <span class="text-over" *ngIf="!uploadPage">{{courses?.TrainingScheduleResorts[0]?.TrainingSchedule?.name}}</span> -->
+                <span class="text-over" *ngIf="courses.File && !uploadPage">{{courses.File.fileName}}</span>
+                <span class="text-over des-trim" *ngIf="courses.description && !uploadPage">{{courses.description}}</span>
+
 
                 <span class="float-right">
                     <a title="Send Approval" *ngIf="roleId === 4 && accessSet && iconEnableApproval && userData.userId == courses.User.userId"

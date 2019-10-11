@@ -45,6 +45,7 @@
             <span *ngIf="trendsVar.employeeList.length && trendType == 'course' "><label class="col-md-5 pl-0 label-title-table">{{trendsVar?.employeeList[0]?.Course?.courseName}}</label></span>
             <span *ngIf="trendsVar.employeeList.length && trendType == 'class' "><label class="col-md-5 pl-0 label-title-table">{{trendsVar?.employeeList[0]?.TrainingClass?.trainingClassName}}</label></span>
             <span *ngIf="trendsVar.employeeList.length && trendType == 'notification' "><label class="col-md-5 pl-0 label-title-table">{{trendsVar?.employeeList[0]?.TrainingSchedule?.name}}</label></span>
+            <p *ngIf="totalCount">{{commonLabels.labels.total}}: {{totalCount}}</p>
          <div class="table-responsive custom-table2 px-2">
             <table class="table white-bg table-striped mt-3" [mfData]="trendsVar.employeeList" #mf="mfDataTable"
                 [mfRowsOnPage]="10">

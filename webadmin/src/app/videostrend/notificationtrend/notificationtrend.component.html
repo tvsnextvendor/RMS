@@ -73,6 +73,7 @@
           <button type="button" (click)="resetFilter()" class="btn reset-search-icon"><i class="fas fa-sync-alt refer-icon"></i></button>
           </div>
   </div>
+  <p style="margin-right: 20px" *ngIf="totalCount">{{commonLabels.labels.total}}: {{totalCount}}</p>
   <div class="table-responsive custom-table2 mt-3">
       <table class="table white-bg table-striped" [mfData]="trendsVar.moduleList" #mf="mfDataTable" [mfRowsOnPage]="10" id="courseTrend">
           <thead>

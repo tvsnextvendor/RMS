@@ -112,3 +112,11 @@
     transform: rotate(45deg);
  }
 
+ .des-trim{
+    width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+ }
+

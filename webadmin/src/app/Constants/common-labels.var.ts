@@ -9,6 +9,7 @@ export class CommonLabels{
         "create"            :  "Create",
         "createdBy"         :   "Create By",
         "createdOn"         :   "Created On",
+        "total"             :   "Total Count",
         "lastModifiedOn"    :   "Last Modified On",
         "noOfTrainingClass" :   "No. of Training Class",
         "noOfContentFiles"  :   "No. of Content Files",

@@ -1,4 +1,5 @@
 <div class="">  
+<p *ngIf="totalCount">{{commonLabels.labels.total}}: {{totalCount}}</p>    
 <div class="float-right row pb-3 pr-2 adduser-respon noPrint">
     <div class="dropdown btn-group pull-right export-btn mr-2" *ngIf="trendList.length">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">

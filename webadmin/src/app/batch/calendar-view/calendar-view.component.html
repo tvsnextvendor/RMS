@@ -6,7 +6,8 @@
 <div class="">
   <div class="calendar-box">
     <div class="white-bg">
-      <div class="clearfix p-3 row calender-header" *ngIf="!enableBatch">
+      <div class="clearfix p-3 calender-header" *ngIf="!enableBatch">
+        <div class="row">
         <span class="calender-text col-md-4 p-0">{{commonLabels.labels.calendarView}}</span>
         <span class="month-text col-md-4">
           <div class="float-left cp" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
@@ -25,7 +26,16 @@
               <i aria-hidden="true" class="fa fa-chevron-down"></i>
         </select>
       </span>
+       </div> 
+        <div class="float-right row cal-legend">
+          <span class="icon-size"><i class="fa fa-circle course-icon"></i> {{commonLabels.labels.course}}</span>
+          <span class="icon-size"><i class="fa fa-circle tc-icon"></i> {{commonLabels.labels.trainingClass}}</span>
+          <span class="icon-size"><i class="fa fa-circle noti-icon"></i> {{commonLabels.labels.notification}}</span>
+        </div>
       </div>
+
+       
+     
 
       <!-- <span class="col-md-4">
        <span class="btn-group">

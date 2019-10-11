@@ -31,6 +31,7 @@ export class VideosTrendComponent implements OnInit {
    filterUser = null;
    roleId;
    divIds;
+   totalCount;
    allDivisions;
    setDivIds;
    deptIds;
@@ -174,6 +175,7 @@ export class VideosTrendComponent implements OnInit {
 
         this.commonService.getCourseTrendList(courseTrendObj,query).subscribe((result) => {
           this.trendsVar.moduleList = result.data.rows;
+          this.totalCount = result.data.count;
         },err => {
             this.trendsVar.moduleList = [];
             this.alertService.error(err.error.error)

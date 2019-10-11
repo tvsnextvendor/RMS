@@ -18,6 +18,7 @@ export class CertificationDetailComponent implements OnInit {
  search='';
  totalLength;
  pageTitle;
+ totalCount;
  xlsxList=[];
  
   constructor(public activatedRoute: ActivatedRoute,private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService,private pdfService:PDFService, private excelService:ExcelService) { 
@@ -44,6 +45,7 @@ export class CertificationDetailComponent implements OnInit {
     this.commonService.certificateTrendCountDetail(query).subscribe((res) => {
         if (res.isSuccess) {
             this.badgeList = res.data.rows.length ? res.data.rows : [];
+            this.totalCount = res.data.count;
             this.pageTitle = res.data.course.courseName;
         } else {
             this.badgeList = [];

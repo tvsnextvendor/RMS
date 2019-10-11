@@ -126,8 +126,6 @@ export class AddNotificationComponent implements OnInit {
     }
   }
 
-
-
   getNotificationDetails() {
     let query = '?notificationFileId=' + this.notifyId
     this.courseService.getNotification(query).subscribe(resp => {
@@ -156,15 +154,11 @@ export class AddNotificationComponent implements OnInit {
         this.jobId = respData.File && respData.File.jobId ? respData.File.jobId : '';
         this.scheduleName = respData.TrainingScheduleResorts && respData.TrainingScheduleResorts.length && respData.TrainingScheduleResorts[0].TrainingSchedule && respData.TrainingScheduleResorts[0].TrainingSchedule.name ? respData.TrainingScheduleResorts[0].TrainingSchedule.name : '';
         this.trainingScheduleId = respData.TrainingScheduleResorts && respData.TrainingScheduleResorts.length && respData.TrainingScheduleResorts[0].TrainingSchedule && respData.TrainingScheduleResorts[0].TrainingSchedule.name ? respData.TrainingScheduleResorts[0].TrainingSchedule.trainingScheduleId : '';
-
-
         // this.description = respData.File && respData.File.fileDescription;
         this.description = (respData.description ? respData.description : '');
-
         this.selectType = (this.description)? 'desc':'file';
         this.showDesc   = (this.selectType == 'desc')?true:false;
-        this.showFile   = (this.selectType == 'desc')?false:true;
-       
+        this.showFile   = (this.selectType == 'desc')?false:true;    
         this.batchVar.batchFrom = respData.assignedDate ? new Date(respData.assignedDate) : '';
         this.batchVar.batchTo = respData.dueDate ? new Date(respData.dueDate) : '';
         if (respData.NotificationFileMaps.length) {
