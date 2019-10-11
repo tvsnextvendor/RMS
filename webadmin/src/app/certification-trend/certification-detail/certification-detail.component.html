@@ -1,6 +1,5 @@
 <div class="">
     <div class="float-left">{{pageTitle}}</div>
-    <p  *ngIf="totalCount">{{commonLabels.labels.total}}: {{totalCount}}</p>
     <div class="float-right row pb-3 pr-2 adduser-respon noPrint">
       <div class="dropdown btn-group pull-right export-btn mr-2" >
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -20,6 +19,7 @@
       </div>
     </div>
     <div class="table-responsive custom-table2 mt-3">
+          <p *ngIf="totalCount" class="count-wrapper">{{commonLabels.labels.total}}: {{totalCount}}</p>
       <table class="table white-bg table-cls-alg" [mfData]="badgeList" #mf="mfDataTable" [mfRowsOnPage]="10" id="certificationDetail">
         <thead>
           <tr class="th-boxshadow text-center">

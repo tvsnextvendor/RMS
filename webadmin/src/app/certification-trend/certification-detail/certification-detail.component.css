@@ -26,9 +26,11 @@
     color: #468FB9;
     font-size: 14px;
     border: none;
-    padding-top: 26px;
+    /* padding-top: 26px; */
     }
 
+
+    
     .bbs-1{
         border-bottom: 1px solid #ccc !important;
     }
@@ -41,4 +43,11 @@
         display:none;
         }
     }
+
+    .count-wrapper{
+    text-align: right;
+    color: #468fb9;
+    padding-right: 10px;
+    font-weight: 600;
+  }
 
