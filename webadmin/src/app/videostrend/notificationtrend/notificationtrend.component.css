@@ -154,3 +154,10 @@
 select:hover, select:focus{
   background: #fff !important;
 }
+
+.count-wrapper{
+    color: #468fb9;
+    padding-right: 10px;
+    font-weight: 600;
+    text-align: right;
+  }

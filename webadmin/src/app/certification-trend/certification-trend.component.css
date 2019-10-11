@@ -117,3 +117,10 @@
       display:none;
       }
   }
+
+  .count-wrapper{
+    text-align: right;
+    color: #468fb9;
+    padding-right: 10px;
+    font-weight: 600;
+  }
