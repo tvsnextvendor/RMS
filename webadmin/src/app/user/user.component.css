@@ -446,3 +446,8 @@ th.action-hd {
           .ht-38{
               height: 38px;
           }
+
+
+    select:hover, select:focus{
+    background: #fff !important;
+    }

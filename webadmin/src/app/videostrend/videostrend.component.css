@@ -203,3 +203,7 @@
       display:none;
       }
   }
+
+  select:hover, select:focus{
+  background: #fff !important;
+}
