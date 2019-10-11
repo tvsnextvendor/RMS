@@ -117,7 +117,7 @@ export class QuizTabComponent implements OnInit {
                     (roleId !=1 ? '?createdBy='+user.userId+'&resortId='+resortId : '');
     if(roleId == 4 ){
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-      query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
+      query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&allDrafts=1" : query);
       // query = this.resourceLib ? (query+"&draft=false") : (query+"&draft=true");
     }
     this.courseService.getQuizList(query).subscribe(res=>{

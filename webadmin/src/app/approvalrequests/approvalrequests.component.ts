@@ -41,6 +41,7 @@ export class ApprovalrequestsComponent implements OnInit {
   totalCount;
   levelApprovalError = false;
   selectedTab;
+  requestorId;
 
   constructor(private headerService: HeaderService,
     public commonLabels: CommonLabels,
@@ -95,6 +96,10 @@ export class ApprovalrequestsComponent implements OnInit {
       this.divisionList = result.data.divisions;
       this.selectedResort = resortId;
     });
+  }
+  sendSecondLevelApproval(){
+    this.showUsers = true;
+    this.approveStatus();
   }
 
   tabChange(status) {
@@ -188,6 +193,7 @@ export class ApprovalrequestsComponent implements OnInit {
     this.approvals = approvals;
     this.showUsers = false;
     this.approvalAccess = null;
+    this.requestorId = this.approvals.Requestor.userId;
     this.modalRef = this.modalService.show(template, modalConfig);
   }
   rejectConfirm(template: TemplateRef<any>, approvals) {
