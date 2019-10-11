@@ -291,7 +291,7 @@ ngOnDestroy(){
 }
 
 getListArray(data,type){
-  if(data.length){
+  if(data && data.length){
     let arr = [];
     if(type == 'division'){
       let details = data.map(item=>{
