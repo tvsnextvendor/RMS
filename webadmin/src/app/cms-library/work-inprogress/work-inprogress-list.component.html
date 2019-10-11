@@ -17,41 +17,41 @@
                         <span class="text-over">{{courses.courseName}}</span>
                     </label>
                 <span class="float-right">
-                    <a *ngIf ="permissionCheck('Course / Training Class / Quiz')" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true" (click)="enableDropData('edit',i)"></i></a>                    
-                    <a (click)="enableDropData('view',i)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header pr-0" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header pr-0" aria-hidden="true" title="open"></i></a>
+                    <a *ngIf ="permissionCheck('Course / Training Class / Quiz')" title="Edit"><i class="fas fa-pencil-alt icons_header" aria-hidden="true" (click)="enableDropData('edit',i,'')"></i></a>                    
+                    <a (click)="enableDropData('view',i, courses.courseId)"><i *ngIf ="enableView && enableIndex === i" class="fa fa-angle-down icons_header pr-0" aria-hidden="true" title="Close"></i><i *ngIf ="!enableView || enableIndex !== i" class="fa fa-angle-right icons_header pr-0" aria-hidden="true" title="open"></i></a>
                 </span>
             </div>
-            <div class="row py-3" *ngIf="enableView && enableIndex === i">
+            <div class="row py-3" *ngIf="enableView && enableIndex === i && courseDetails">
                 <div class="col-md-4 p-0">
                     <div class="form-group pl-0">
                         <label class="course-header">{{commonLabels.labels.createdBy}}</label>
-                        <span class="form-control pl-0" placeholder="Creator name" *ngIf="courses.createdByDetails">{{courses.createdByDetails.userName  | titlecase}}</span> 
+                        <span class="form-control pl-0" placeholder="Creator name" *ngIf="courseDetails?.createdByDetails">{{courseDetails.createdByDetails.userName  | titlecase}}</span> 
                     </div>              		
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="course-header">{{commonLabels.labels.createdOn}}</label>
-                        <span class="form-control pl-0" placeholder="Date">{{courses.created | date : 'medium'}}</span> 
+                        <span class="form-control pl-0" placeholder="Date">{{courseDetails?.created | date : 'medium'}}</span> 
                     </div>              		
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="course-header">{{commonLabels.labels.lastModifiedOn}}</label>
-                        <span class="form-control pl-0" placeholder="Date">{{courses.updated | date : 'medium'}}</span> 
+                        <span class="form-control pl-0" placeholder="Date">{{courseDetails?.updated | date : 'medium'}}</span> 
                     </div>              		
                   </div>
             </div> 
-            <div class="row pt-3 pb-2" *ngIf="enableView && enableIndex === i">
+            <div class="row pt-3 pb-2" *ngIf="enableView && enableIndex === i && courseDetails">
                 <div class="col-md-3 p-0">
                     <div class="form-group pl-0 mb-0">
                         <label class="course-header">{{commonLabels.labels.noOfTrainingClass}}</label>
-                        <span class="course-count" (click)="tabChange('training',courses.courseId,'','')">{{courses?.CourseTrainingClassMaps.length}}</span>
+                        <span class="course-count" (click)="tabChange('training',courseDetails?.courseId,'','')">{{courseDetails?.CourseTrainingClassMaps.length}}</span>
                     </div>              		
                 </div>
                 <div class="col-md-3">
                     <div class="form-group mb-0">
                         <label class="course-header">{{commonLabels.labels.noOfContentFiles}}</label>
-                        <span class="course-count" routerLink="/files/{{courses.courseId}}">{{calculateContentFiles(courses.CourseTrainingClassMaps)}}</span> 
+                        <span class="course-count" routerLink="/files/{{courseDetails?.courseId}}">{{courseDetails.FileMappings.length}}</span> 
                     </div>              		
                 </div>
             </div>

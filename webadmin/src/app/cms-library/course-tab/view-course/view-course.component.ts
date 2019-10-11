@@ -4,6 +4,9 @@ import { HeaderService, HttpService, CourseService, CommonService, AlertService,
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { CommonLabels } from '../../../Constants/common-labels.var';
+import { Location } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-view-course',
@@ -17,7 +20,7 @@ export class ViewCourseComponent implements OnInit {
   classId;
   tabIndex = 0;
 
-  constructor(private headerService: HeaderService,private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService,private permissionService :PermissionService) {
+  constructor(private headerService: HeaderService,private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService,private permissionService :PermissionService, private _location: Location) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.courseId = params['id']; 
       //console.log(this.userId)
@@ -96,7 +99,8 @@ export class ViewCourseComponent implements OnInit {
       // console.log(result)
       if(result && result.isSuccess){
         if (this.courseDetails.length == 1 || this.courseDetails.length - 1 == this.tabIndex) {
-            this.route.navigate(['/cms-library'], { queryParams: { type: "edit", tab: 'course' } });
+            //this.route.navigate(['/cms-library'], { queryParams: { type: "edit", tab: 'course' } });
+            this._location.back();
             this.alertService.success('Training Class updated successfully');
         }else{
             this.getCourseDetails('update',i);

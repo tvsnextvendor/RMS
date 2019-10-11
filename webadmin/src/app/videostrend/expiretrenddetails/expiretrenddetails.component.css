@@ -15,3 +15,7 @@
 .no-blue-font{
     color:blue;
 }
+
+select:hover, select:focus{
+  background: #fff !important;
+}
