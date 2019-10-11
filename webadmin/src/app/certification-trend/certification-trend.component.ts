@@ -18,12 +18,28 @@ export class CertificationTrendComponent implements OnInit {
   xlsxList =[];
   resortId;
   totalCount;
+
+   // added employee div Drop Down
+   divIds;
+   allDivisions;
+   setDivIds;
+   allResorts;
+   deptIds;
+   allDepartments;
+   setDeptIds;
+   roleId;
   
   constructor(public location: Location, private commonService: CommonService, public commonLabels: CommonLabels,private excelService: ExcelService,private pdfService:PDFService,private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService,public trendsVar: VideosTrendVar) {
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[0]];
+    this.roleId = this.utilService.getRole();
+      // added employee div Drop Down
+      this.divIds =this.utilService.getDivisions() ? this.utilService.getDivisions() :'';
+      this.deptIds =this.utilService.getDepartment() ? this.utilService.getDepartment() :'';
   }
   ngOnInit() {
+    this.setDivIds = (this.divIds.length > 0)?this.divIds.join(','):'';
+    this.setDeptIds = (this.deptIds.length > 0)?this.deptIds.join(','):'';
     this.headerService.setTitle({ title: this.commonLabels.labels.certifiTrend, hidemodule: false });
     this.breadCrumbService.setTitle([]);
     this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings.length && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
@@ -40,8 +56,8 @@ export class CertificationTrendComponent implements OnInit {
   
   getTrendCountList() {
     let query = this.resortId ? "?resortId=" + this.resortId + "&search=" + this.search  : (this.search != '' ? "?search=" + this.search  : '');
-
-    // console.log(query)
+    query+= (this.setDivIds && this.roleId == 4)?'&divIds='+this.setDivIds:'';
+    query+= (this.setDeptIds && this.roleId == 4)?'&departmentIds='+this.setDeptIds:'';
     this.commonService.certificateTrendCount(query).subscribe((res) => {
       if (res.isSuccess) {
         this.trendList = res.data.rows.length ? res.data.rows : [];
@@ -49,7 +65,6 @@ export class CertificationTrendComponent implements OnInit {
       } else {
         this.trendList = [];
       }
-      // console.log(this.trendList);
     });
   }
 
