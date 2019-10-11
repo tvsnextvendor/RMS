@@ -13,6 +13,7 @@ export class WorkCourseListComponent implements OnInit {
   pageSize;
   p;
   totalCourseCount;
+  courseDetails;
   courseListValue = [];
   enableView;
   enableIndex;
@@ -65,10 +66,11 @@ export class WorkCourseListComponent implements OnInit {
    
   }
 
-  enableDropData(type,index){
+  enableDropData(type,index,courseId){
 
     localStorage.setItem('index', index)
     if(type === "view"){
+      this.getDetails(courseId);
       this.enableView = this.enableIndex === index ? !this.enableView : true;
       this.enableIndex = index;
     }
@@ -89,6 +91,15 @@ export class WorkCourseListComponent implements OnInit {
     }
   }
 
+
+   getDetails(courseId){
+     this.courseService.getIndividualCourse(courseId).subscribe(resp => {
+         if (resp && resp.isSuccess) {
+          this.courseDetails = resp.data[0];
+         }
+     });
+   }
+
   tabChange(tabName,id,courseId,count) {
     let data = {tab : tabName,id:'',courseId : id}
     this.trainingClassListTab.next(data);
@@ -96,7 +107,7 @@ export class WorkCourseListComponent implements OnInit {
   pageChanged(e){
       this.p = e;
       this.getCourseDetails();
-      this.enableDropData('closeEdit','');
+      this.enableDropData('closeEdit','','');
   }
 
   calculateContentFiles(courses){
