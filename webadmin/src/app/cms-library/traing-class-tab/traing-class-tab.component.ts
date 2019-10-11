@@ -125,10 +125,10 @@ export class TraingClassTabComponent implements OnInit {
                     (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId : '&resortId=' + resortId+"&createdBy="+user.userId) : '');
     if(roleId == 4 ){
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-      query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&allDrafts=1" : query);
-      if(this.schedulePage || this.resourceLib ){
-        query = query+"&draft=false";
-     }
+      query = (this.schedulePage || this.resourceLib ) ? (query+"&draft=false") : (accessSet ? query+"&allDrafts=1" : query);
+    //   if(this.schedulePage || this.resourceLib ){
+    //     query = query+"&draft=false";
+    //  }
     }
     this.courseService.getTrainingClassList(this.currentPage,this.pageLength,query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';

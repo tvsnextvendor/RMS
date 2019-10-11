@@ -167,11 +167,11 @@ export class CourseTabComponent implements OnInit {
                         '&status=none&resortId='+resortId+'&created='+user.userId) : '&status=none');
     if(roleId == 4){
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-      query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&allDrafts=1" : query);
+      query = (this.schedulePage || this.resourceLib ) ? (query+"&draft=false") : (accessSet ? query+"&allDrafts=1" : query);
     //query = this.resourceLib ? (query+"&draft=false") : query;
-     if(this.schedulePage || this.resourceLib ){
-        query = query+"&draft=false";
-     }
+    //  if(this.schedulePage || this.resourceLib ){
+    //     query = query+"&draft=false";
+    //  }
      
     }
     this.courseService.getCourse(this.p, this.pageSize, query).subscribe(resp => {
