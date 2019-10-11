@@ -305,4 +305,47 @@ page-training-detail .image-tag.img-box {
     font-weight: 800;
     line-height: 40px;
  }
+
+ 
+@media screen and (min-width:1100px){
+    page-training .training-image {
+        height: 230px;
+    }
+}
+@media screen and (max-width:800px){
+    page-training .training-image {
+        height: 200px;
+    }
+}
+@media only screen and (min-width: 500px) and (max-width: 600px) {
+    page-training .training-image{
+        height: 161px;
+    }
+}
+@media only screen and (min-width: 601px) and (max-width: 799px) {
+    page-training .training-image{
+        height: 199px;
+    }
+}
+
+@media screen and (min-width:1100px){
+    page-training-detail .videoPlayer{
+        height:300px;
+    }
+}
+@media screen and (max-width:800px){
+    page-training-detail .videoPlayer{
+        height:250px;
+    }
+}
+@media only screen and (min-width: 500px) and (max-width: 600px) {
+    page-training-detail .videoPlayer{
+        height:200px;
+    }
+}
+@media only screen and (min-width: 601px) and (max-width: 799px) {
+    page-training-detail .videoPlayer{
+        height:200px;
+    }
+}
   
