@@ -20,6 +20,7 @@ export class CertificationDetailComponent implements OnInit {
  pageTitle;
  totalCount;
  xlsxList=[];
+ roleId;
  
   constructor(public activatedRoute: ActivatedRoute,private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService,private pdfService:PDFService, private excelService:ExcelService) { 
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -31,7 +32,8 @@ export class CertificationDetailComponent implements OnInit {
   ngOnInit() {
     this.headerService.setTitle({ title: this.commonLabels.labels.certifiTrend, hidemodule: false });
     this.breadCrumbService.setTitle([]);
-    this.resortId = this.utilService.getRole();
+    this.roleId = this.utilService.getRole();
+    this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
     console.log(this.resortId);
     this.getBadgeList();
   }

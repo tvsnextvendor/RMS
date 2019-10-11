@@ -168,7 +168,9 @@ export class QuizResultPage implements OnInit {
         this.http.put(false, API_URL.URLS.completeTrainingClass, postData).subscribe(res => {
             if (res['isSuccess']) {
                 this.http.put(false, API_URL.URLS.completeTrainingClass, postData).subscribe(res => {
+                    if (res['isSuccess']) {
                     this.loader.hideLoader();
+                    }
                     // let obj = {
                     //     'timeStopped': '',
                     //     'timeBegan': '',
