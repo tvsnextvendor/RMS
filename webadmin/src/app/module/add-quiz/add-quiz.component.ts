@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, Output,ViewChild,EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderService,UtilService } from '../../services';
+import { HeaderService, UtilService } from '../../services';
 import { HttpService } from '../../services/http.service';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CourseService } from '../../services/restservices/course.service';
 import { API_URL } from '../../Constants/api_url';
-import { AlertService, FileService,PermissionService } from '../../services';
+import { AlertService, FileService, PermissionService } from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModuleDetailsComponent } from '../module-details/module-details.component';
 import { CommonLabels } from '../../Constants/common-labels.var'
@@ -59,7 +59,7 @@ export class AddQuizComponent implements OnInit {
     removedQuizIds = [];
     questionList = [];
     quizCreateType;
-    quizList=[];
+    quizList = [];
     selectedQuiz = null;
     classId;
     userData;
@@ -72,11 +72,11 @@ export class AddQuizComponent implements OnInit {
     optionEmpty = false;
     editEnable = false;
     preview = false;
-    @ViewChild('tcNameChange') modalTemplate : TemplateRef<any>;
+    @ViewChild('tcNameChange') modalTemplate: TemplateRef<any>;
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
-        public commonLabels: CommonLabels,private utilService : UtilService,private permissionService :PermissionService) {
+        public commonLabels: CommonLabels, private utilService: UtilService, private permissionService: PermissionService) {
         this.apiUrls = API_URL.URLS;
         this.activatedRoute.queryParams.subscribe((params) => {
             this.classId = params.classId ? params.classId : '';
@@ -120,7 +120,7 @@ export class AddQuizComponent implements OnInit {
             "answer": ''
         }];
 
-        if(this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)){
+        if (this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)) {
             this.enableAddQuiz = true;
         }
         if (this.enableQuiz && this.enableQuiz == 'true') {
@@ -150,14 +150,14 @@ export class AddQuizComponent implements OnInit {
         this.selectedVideo = this.videoId;
         this.selectedCourse = this.courseId;
         this.editEnable = this.enableQuiz == 'true' ? true : false;
-        if(selectedVideoList && selectedVideoList.length) {
-            this.quizQuestionsForm =  selectedVideoList ;
+        if (selectedVideoList && selectedVideoList.length) {
+            this.quizQuestionsForm = selectedVideoList;
             this.quizCreateType = '';
-        } 
-        else{
+        }
+        else {
             this.quizCreateType = 'none';
-            this.quizQuestionsForm  = [];
-        } 
+            this.quizQuestionsForm = [];
+        }
         //  [{
         //     // "questionId": 1,
         //     "questionName": "",
@@ -274,11 +274,11 @@ export class AddQuizComponent implements OnInit {
             type: update ? true : false,
             resp: resp,
         }
-        if(this.ownerShipErr){
-          data['changeTC'] = true;
-         this.valueChange.emit(data);
-        }else{
-         this.valueChange.emit(data);
+        if (this.ownerShipErr) {
+            data['changeTC'] = true;
+            this.valueChange.emit(data);
+        } else {
+            this.valueChange.emit(data);
         }
     }
 
@@ -289,32 +289,32 @@ export class AddQuizComponent implements OnInit {
         this.optionEmpty = false;
         if (this.questionList) {
             // console.log(this.questionList);
-            this.questionList.map((item,i) => {
+            this.questionList.map((item, i) => {
                 delete item.questionId;
                 this.quizQuestionsForm.push(item);
             })
         }
-        let data = this.quizQuestionsForm.map((item,i) => {
+        let data = this.quizQuestionsForm.map((item, i) => {
             // console.log(item)
             let removeIndex = [];
-            if(item.questionType !=  "True/False" && !item.answer){
-              this.answerEmpty = true;
+            if (item.questionType != "True/False" && !item.answer) {
+                this.answerEmpty = true;
             }
-            if(item.questionType == 'MCQ'){
-              item.options.forEach((data,oi)=>{
-                if(!data.optionName && oi<4){
-                  this.optionEmpty = true;
-                }
-                if(!data.optionName && oi>3){
-                    removeIndex.push(oi);
-                  }
-              })
+            if (item.questionType == 'MCQ') {
+                item.options.forEach((data, oi) => {
+                    if (!data.optionName && oi < 4) {
+                        this.optionEmpty = true;
+                    }
+                    if (!data.optionName && oi > 3) {
+                        removeIndex.push(oi);
+                    }
+                })
             }
-            item.order = i+1;
+            item.order = i + 1;
             item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
-            for (var fi = removeIndex.length -1; fi >= 0; fi--){
-                this.quizQuestionsForm[i].options.splice(removeIndex[fi],1);
-              }
+            for (var fi = removeIndex.length - 1; fi >= 0; fi--) {
+                this.quizQuestionsForm[i].options.splice(removeIndex[fi], 1);
+            }
             return item;
         })
 
@@ -322,7 +322,7 @@ export class AddQuizComponent implements OnInit {
         let user = this.utilService.getUserData();
         let params;
         let hideTraining = submitType === 'yes' ? true : false;
-        if(!this.optionEmpty && !this.answerEmpty || (this.quizCreateType === 'none')){
+        if (!this.optionEmpty && !this.answerEmpty || (this.quizCreateType === 'none')) {
             if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) && this.videoList.length && (this.quizQuestionsForm.length || this.quizCreateType === 'none')) {
                 let data = this.quizQuestionsForm.length ? this.quizQuestionsForm.map(item => {
                     item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
@@ -338,29 +338,29 @@ export class AddQuizComponent implements OnInit {
                         "trainingClassId": this.courseId,
                         "questionIds": this.removedQuizIds,
                         "fileIds": this.removedFileIds,
-                        "quizId" : '',
-                        "createdBy" : user.userId,
+                        "quizId": '',
+                        "createdBy": user.userId,
                         "resortId": this.resortId,
-                        "quiz" : {
-                            "quizId" : this.editQuizId,
+                        "quiz": {
+                            "quizId": this.editQuizId,
                             "quizName": this.quizName,
                         },
-                        "noQuiz" : 1
+                        "noQuiz": 1
                     }
-                    if(this.quizCreateType === 'none'){
+                    if (this.quizCreateType === 'none') {
                         delete params.quiz;
                         delete params.questionIds;
                         delete params.quizQuestions;
                         delete params.quizName;
                     }
-                    else if(this.quizCreateType === 'new'){
+                    else if (this.quizCreateType === 'new') {
                         delete params.quiz;
                         delete params.noQuiz;
                     }
-                    else{
+                    else {
                         delete params.noQuiz;
                     }
-                    if(this.quizCreateType == 'exist' && this.selectedQuiz){
+                    if (this.quizCreateType == 'exist' && this.selectedQuiz) {
                         let selectRes = this.selectedQuiz;
                         let quizId = selectRes.split('~');
                         // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
@@ -368,10 +368,10 @@ export class AddQuizComponent implements OnInit {
                         delete params.quiz;
                         delete params.questionIds;
                         delete params.quizQuestions;
-                      }
-                      else{
-                          delete params.quizId;
-                      }
+                    }
+                    else {
+                        delete params.quizId;
+                    }
                 }
                 else {
                     params = {
@@ -379,24 +379,24 @@ export class AddQuizComponent implements OnInit {
                         "files": [],
                         "quizName": this.quizName,
                         "quizQuestions": data,
-                        "quizId" : '',
-                        "createdBy" : user.userId,
+                        "quizId": '',
+                        "createdBy": user.userId,
                         "resortId": this.resortId,
-                        "draft" : false
+                        "draft": false
                     }
-                    if(this.quizCreateType === 'none'){
+                    if (this.quizCreateType === 'none') {
                         delete params.quizName;
                         delete params.quizQuestions;
                     }
                 }
                 let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-                if(this.roleId == 4 && accessSet){
+                if (this.roleId == 4 && accessSet) {
                     params.draft = true
                 }
-                else{
+                else {
                     delete params.draft;
                 }
-                if(this.quizCreateType == 'exist' && this.selectedQuiz){
+                if (this.quizCreateType == 'exist' && this.selectedQuiz) {
                     let selectRes = this.selectedQuiz;
                     let quizId = selectRes.split('~');
                     // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
@@ -404,11 +404,11 @@ export class AddQuizComponent implements OnInit {
                     delete params.quizName;
                     delete params.quizQuestions;
                 }
-                else{
+                else {
                     delete params.quizId;
                 }
                 if (this.videoList.length) {
-                    params.files = this.videoList.map((item,i) => {
+                    params.files = this.videoList.map((item, i) => {
                         if (this.courseId) {
                             let obj = {
                                 fileName: item.fileName,
@@ -421,17 +421,17 @@ export class AddQuizComponent implements OnInit {
                                 fileLength: item.fileLength,
                                 fileId: item.fileId,
                                 trainingClassId: item.trainingClassId,
-                                inputUrl : '',
-                                transcodeUrl : '',
-                                jobId : '',
-                                order : i+1
+                                inputUrl: '',
+                                transcodeUrl: '',
+                                jobId: '',
+                                order: i + 1
                             }
-                            if(item.fileType == 'Video'){
+                            if (item.fileType == 'Video') {
                                 obj.inputUrl = item.inputUrl;
                                 obj.transcodeUrl = item.transcodeUrl;
                                 obj.jobId = item.jobId;
                             }
-                            else{
+                            else {
                                 delete obj.inputUrl;
                                 delete obj.transcodeUrl;
                                 delete obj.jobId;
@@ -449,17 +449,17 @@ export class AddQuizComponent implements OnInit {
                                 fileSize: item.fileSize,
                                 fileId: item.fileId,
                                 fileLength: item.fileLength,
-                                inputUrl : '',
-                                transcodeUrl : '',
-                                jobId : '',
-                                order : i+1
+                                inputUrl: '',
+                                transcodeUrl: '',
+                                jobId: '',
+                                order: i + 1
                             }
-                            if(item.fileType == 'Video'){
+                            if (item.fileType == 'Video') {
                                 obj.inputUrl = item.inputUrl;
                                 obj.transcodeUrl = item.transcodeUrl;
                                 obj.jobId = item.jobId;
                             }
-                            else{
+                            else {
                                 delete obj.inputUrl;
                                 delete obj.transcodeUrl;
                                 delete obj.jobId;
@@ -481,18 +481,18 @@ export class AddQuizComponent implements OnInit {
                             this.valueChanged(result.data, hideTraining, false);
                         }
                         this.modalRef && this.modalRef.hide();
-                    },err=>{
+                    }, err => {
                         let errData = err.error.error
-                        this.ownerShipErr =errData && errData.statusKey ? true : false;
-                        if(errData && errData.statusKey){
+                        this.ownerShipErr = errData && errData.statusKey ? true : false;
+                        if (errData && errData.statusKey) {
                             this.modalRef && this.modalRef.hide();
                             this.openTcModal(this.modalTemplate);
                         }
                     })
                 }
-                else{
-                    params.quizQuestions && params.quizQuestions.length && params.quizQuestions.forEach(item=>{
-                        if(item.questionId){
+                else {
+                    params.quizQuestions && params.quizQuestions.length && params.quizQuestions.forEach(item => {
+                        if (item.questionId) {
                             delete item.questionId;
                         }
                     })
@@ -521,32 +521,32 @@ export class AddQuizComponent implements OnInit {
                 this.alertService.error(this.commonLabels.mandatoryLabels.videoError);
             }
         }
-        else if(this.answerEmpty){
+        else if (this.answerEmpty) {
             this.modalRef.hide();
             this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
         }
-        else if(this.optionEmpty){
+        else if (this.optionEmpty) {
             this.modalRef.hide();
-        this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
+            this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
         }
 
     }
 
-    
-   //Open modal when trying to edit TC that was owned by another user.
+
+    //Open modal when trying to edit TC that was owned by another user.
     openTcModal(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template);
     }
 
-    
-   //Change TC name when trying to edit TC that was owned by another user.
-    changeClassName(){
-        if(this.updatedClassName){
+
+    //Change TC name when trying to edit TC that was owned by another user.
+    changeClassName() {
+        if (this.updatedClassName) {
             this.tcErr = false;
             this.courseId = "";
-            this.selectCourseName= this.updatedClassName;
+            this.selectCourseName = this.updatedClassName;
             this.quizSubmit('yes');
-        }else{
+        } else {
             this.tcErr = true;
         }
     }
@@ -564,15 +564,15 @@ export class AddQuizComponent implements OnInit {
                 class: "modal-dialog-centered"
             }
             this.answerEmpty = false;
-            this.quizQuestionsForm.forEach((item,i) => {
-                if(item.questionType !=  "True/False" && !item.answer){
-                  this.answerEmpty = true;
+            this.quizQuestionsForm.forEach((item, i) => {
+                if (item.questionType != "True/False" && !item.answer) {
+                    this.answerEmpty = true;
                 }
             })
-            if(this.answerEmpty){
+            if (this.answerEmpty) {
                 this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
             }
-            else{
+            else {
                 this.modalRef = this.modalService.show(template, modalConfig);
             }
         } else if (this.tabName == 'course') {
@@ -605,111 +605,111 @@ export class AddQuizComponent implements OnInit {
         this.answerEmpty = false;
         this.optionEmpty = false;
         if (this.quizName || this.selectedQuiz || this.quizCreateType === 'none') {
-            if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) &&this.videoList.length && (this.quizQuestionsForm.length || this.quizCreateType === 'none')) {
+            if (this.selectCourseName && this.permissionService.nameValidationCheck(this.selectCourseName) && this.videoList.length && (this.quizQuestionsForm.length || this.quizCreateType === 'none')) {
                 if (this.questionList) {
                     this.questionList.map(item => {
                         delete item.questionId;
                         this.quizQuestionsForm.push(item);
                     })
                 }
-                let data = this.quizQuestionsForm.map((item,i) => {
+                let data = this.quizQuestionsForm.map((item, i) => {
                     // console.log(item)
                     let removeIndex = [];
-                    if(item.questionType !=  "True/False" && !item.answer){
-                      this.answerEmpty = true;
+                    if (item.questionType != "True/False" && !item.answer) {
+                        this.answerEmpty = true;
                     }
-                    if(item.questionType == 'MCQ'){
-                      item.options.forEach((data,oi)=>{
-                        if(!data.optionName && oi<4){
-                          this.optionEmpty = true;
-                        }
-                        if(!data.optionName && oi>3){
-                        // this.quizQuestionsForm[i].options.splice(oi,1)
-                            removeIndex.push(oi);
-                        }
-                      })
+                    if (item.questionType == 'MCQ') {
+                        item.options.forEach((data, oi) => {
+                            if (!data.optionName && oi < 4) {
+                                this.optionEmpty = true;
+                            }
+                            if (!data.optionName && oi > 3) {
+                                // this.quizQuestionsForm[i].options.splice(oi,1)
+                                removeIndex.push(oi);
+                            }
+                        })
                     }
-                    item.order = i+1;
+                    item.order = i + 1;
                     item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
-                    for (var fi = removeIndex.length -1; fi >= 0; fi--){
-                        this.quizQuestionsForm[i].options.splice(removeIndex[fi],1);
-                      }
+                    for (var fi = removeIndex.length - 1; fi >= 0; fi--) {
+                        this.quizQuestionsForm[i].options.splice(removeIndex[fi], 1);
+                    }
                     return item;
                 })
                 let user = this.utilService.getUserData();
                 //final data for submission
-                if(this.classId){
+                if (this.classId) {
                     params = {
                         "trainingClassName": this.selectCourseName,
                         "files": [],
-                        "createdBy" : user.userId,
+                        "createdBy": user.userId,
                         "quizName": this.quizName,
-                        "quiz" : {},
+                        "quiz": {},
                         "trainingClassId": this.classId,
                         "fileIds": this.removedFileIds,
                         "questionIds": this.removedQuizIds,
                         "quizQuestions": data,
-                        "resortId":this.resortId,
-                        "noQuiz" : 1
+                        "resortId": this.resortId,
+                        "noQuiz": 1
                     }
-                    if(this.quizCreateType === 'none'){
+                    if (this.quizCreateType === 'none') {
                         delete params.quiz;
                         delete params.questionIds;
                         delete params.quizQuestions;
                     }
-                    else{
+                    else {
                         delete params.noQuiz;
                     }
-                    if(this.quizCreateType == 'exist' && this.selectedQuiz){
+                    if (this.quizCreateType == 'exist' && this.selectedQuiz) {
                         delete params.quiz;
                         delete params.questionIds;
                         delete params.quizQuestions;
                         let selectRes = this.selectedQuiz;
                         let quizId = selectRes.split('~');
                         // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
-                        params.quizId = quizId[0]; 
-                      }
-                      else{
-                          delete params.quizId;
-                      }
+                        params.quizId = quizId[0];
+                    }
+                    else {
+                        delete params.quizId;
+                    }
                 }
-                else{
+                else {
                     params = {
                         "trainingClassName": this.selectCourseName,
                         "files": [],
                         "quizName": this.quizName,
                         "quizQuestions": data,
-                        "quizId" : '',
-                        "createdBy" : user.userId,
-                        "resortId":this.resortId,
-                        "draft" : false
+                        "quizId": '',
+                        "createdBy": user.userId,
+                        "resortId": this.resortId,
+                        "draft": false
                     }
-                    if(this.quizCreateType === 'none'){
+                    if (this.quizCreateType === 'none') {
                         delete params.quizName;
                         delete params.quizQuestions;
                     }
                 }
                 let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-                if(this.roleId == 4 && accessSet){
+                if (this.roleId == 4 && accessSet) {
                     params.draft = true
-                  }
-                  else{
+                }
+                else {
                     delete params.draft;
-                  }
+                }
 
-                if(this.quizCreateType == 'exist' && this.selectedQuiz){
+                if (this.quizCreateType == 'exist' && this.selectedQuiz) {
                     let selectRes = this.selectedQuiz;
                     let quizId = selectRes.split('~');
                     // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
                     params.quizId = quizId[0];
                     delete params.quizName;
                     delete params.quizQuestions;
-                  }
-                  else{
-                      delete params.quizId;
-                  }
+                }
+                else {
+                    delete params.quizId;
+                }
                 if (this.videoList.length) {
-                    params.files = this.videoList.map((item,i) => {
+                    params.files = this.videoList.map((item, i) => {
                         if (this.classId) {
                             let obj = {
                                 fileName: item.fileName,
@@ -722,17 +722,17 @@ export class AddQuizComponent implements OnInit {
                                 fileLength: item.fileLength,
                                 fileId: item.fileId,
                                 trainingClassId: item.trainingClassId,
-                                jobId : '',
-                                transcodeUrl :'',
-                                inputUrl : '',
-                                order : i+1
+                                jobId: '',
+                                transcodeUrl: '',
+                                inputUrl: '',
+                                order: i + 1
                             }
-                            if(item.fileType == 'Video'){
+                            if (item.fileType == 'Video') {
                                 obj.inputUrl = item.inputUrl;
                                 obj.transcodeUrl = item.transcodeUrl;
                                 obj.jobId = item.jobId;
                             }
-                            else{
+                            else {
                                 delete obj.inputUrl;
                                 delete obj.transcodeUrl;
                                 delete obj.jobId;
@@ -750,18 +750,18 @@ export class AddQuizComponent implements OnInit {
                                 fileSize: item.fileSize,
                                 fileLength: item.fileLength,
                                 fileId: item.fileId,
-                                jobId : '',
-                                transcodeUrl :'',
-                                inputUrl : '',
-                                order : i+1
+                                jobId: '',
+                                transcodeUrl: '',
+                                inputUrl: '',
+                                order: i + 1
 
                             }
-                            if(item.fileType == 'Video'){
+                            if (item.fileType == 'Video') {
                                 obj.inputUrl = item.inputUrl;
                                 obj.transcodeUrl = item.transcodeUrl;
                                 obj.jobId = item.jobId;
                             }
-                            else{
+                            else {
                                 delete obj.inputUrl;
                                 delete obj.transcodeUrl;
                                 delete obj.jobId;
@@ -772,24 +772,24 @@ export class AddQuizComponent implements OnInit {
                     )
                 }
 
-                if((!this.optionEmpty && !this.answerEmpty) || (this.quizCreateType === 'none')){
-                    if(this.classId){
-                        if(this.quizCreateType !== 'none' && this.quizCreateType !== 'exist'){
+                if ((!this.optionEmpty && !this.answerEmpty) || (this.quizCreateType === 'none')) {
+                    if (this.classId) {
+                        if (this.quizCreateType !== 'none' && this.quizCreateType !== 'exist') {
                             params.quiz = {
-                                "quizId" : '',
+                                "quizId": '',
                                 "quizName": this.quizName
                             }
                             this.editQuizId ? params.quiz.quizId = this.editQuizId : delete params.quiz.quizId;
                         }
-                        if(this.quizCreateType === 'new'){
+                        if (this.quizCreateType === 'new') {
                             delete params.quiz;
                             delete params.noQuiz;
                         }
                         // console.log(params)
 
-                        this.courseService.updateTrainingClass(this.classId,params).subscribe((result) => {
+                        this.courseService.updateTrainingClass(this.classId, params).subscribe((result) => {
                             // console.log(result)
-                            if(result && result.isSuccess){
+                            if (result && result.isSuccess) {
                                 this.selectedQuiz = null;
                                 this.classId = '';
                                 // this.route.navigate(['/cmspage'], { queryParams: { type: 'edit' } })
@@ -803,9 +803,9 @@ export class AddQuizComponent implements OnInit {
                             }
                         }, err => {
                             this.alertService.error(err.error.error);
-                        }) 
+                        })
                     }
-                    else{
+                    else {
                         this.courseService.addTrainingClass(params).subscribe((result) => {
                             if (result && result.isSuccess) {
                                 this.selectedQuiz = null;
@@ -820,11 +820,11 @@ export class AddQuizComponent implements OnInit {
                         })
                     }
                 }
-                else if(this.answerEmpty ){
+                else if (this.answerEmpty) {
                     this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
                 }
-                else if(this.optionEmpty){
-                this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
+                else if (this.optionEmpty) {
+                    this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
                 }
             } else {
                 this.alertService.error('Please fill mandatory fields in Files tab');
@@ -834,27 +834,28 @@ export class AddQuizComponent implements OnInit {
         }
     }
 
-  getquizList(){
-    let user = this.utilService.getUserData();
-    let roleId = this.utilService.getRole();
-    let query = roleId !=1 ? '?createdBy='+user.userId : '';
-    this.courseService.getQuizList(query).subscribe(res=>{
-        if(res.isSuccess){
-            this.quizList = res.data && res.data.quiz;
-        }
-    })
-}
+    getquizList() {
+        let user = this.utilService.getUserData();
+        let roleId = this.utilService.getRole();
+        // let query = roleId !=1 ? '?createdBy='+user.userId : '';
+        let query = roleId != 1 ? '?resortId=' + this.resortId : '';
+        this.courseService.getQuizList(query).subscribe(res => {
+            if (res.isSuccess) {
+                this.quizList = res.data && res.data.quiz;
+            }
+        })
+    }
 
-    getQuizData(){
+    getQuizData() {
         let user = this.utilService.getUserData();
         let roleId = this.utilService.getRole();
         let selectRes = this.selectedQuiz;
         // let quizId = selectRes.split('~');
         // let query = '?quizId='+quizId[0]+'&trainingClassId='+quizId[1];
-        let query = '?quizId='+selectRes;
+        let query = '?quizId=' + selectRes;
         this.enableAddQuiz = true;
-        this.courseService.getQuizList(query).subscribe(res=>{
-            if(res.isSuccess){
+        this.courseService.getQuizList(query).subscribe(res => {
+            if (res.isSuccess) {
                 // console.log(res)
                 let quizList = res.data && res.data.quiz;
                 this.quizQuestionsForm = quizList.length && quizList[0].Questions && quizList[0].Questions.length ? quizList[0].Questions : [];
@@ -863,76 +864,76 @@ export class AddQuizComponent implements OnInit {
         })
     }
 
-  quizTypeUpdate(event){
-    this.quizCreateType = event.target.value;
-    if(this.quizCreateType == 'exist'){
-        this.getquizList();
-    }
-   else if(this.quizCreateType == "none"){
-    this.quizQuestionsForm = []; 
-   }
-    else{
-        this.quizQuestionsForm = [{
-            // "questionId": 1,
-            "questionName": "",
-            "questionType": "MCQ",
-            "options": [
-                { "optionId": 1, "optionName": "" },
-                { "optionId": 2, "optionName": "" },
-                { "optionId": 3, "optionName": "" },
-                { "optionId": 4, "optionName": "" },
-                { "optionId": 5, "optionName": "" },
-                { "optionId": 6, "optionName": "" }
-            ],
-            "weightage": '100',
-            "answer": ''
-        }];
-        this.quizName = '';
-    }
-    if(!event.target.checked && this.enableQuiz) {
-        this.quizName = this.quizNames ? this.quizNames : '';
-        this.editQuizDetails(this.quizDetails);
-    }
-    if(this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)){
-        if(this.quizCreateType == 'new'){
-            this.enableAddQuiz = true;
-            this.selectedQuiz = null;
+    quizTypeUpdate(event) {
+        this.quizCreateType = event.target.value;
+        if (this.quizCreateType == 'exist') {
+            this.getquizList();
         }
-        else if(this.selectedQuiz){
-            this.getQuizData();
+        else if (this.quizCreateType == "none") {
+            this.quizQuestionsForm = [];
         }
-    }
-    else{
-        this.enableAddQuiz = false;
-    }
-  }
-
-  mcqAnswerUpdate(answer,index){
-    // console.log(answer,index)
-    if(answer){
-        this.quizQuestionsForm[index].answer = answer;
-    }
-    else{
-        this.alertService.error(this.commonLabels.mandatoryLabels.optionSelect)
-    }
-    
-  }
-
-  duplicateOptionCheck(index,value,optionIndex){
-    let data = this.quizQuestionsForm[index].options;
-    data.length && data.forEach((item,i)=>{
-        if(i != optionIndex){
-            if(item.optionName && value == item.optionName){
-                this.alertService.warn(this.commonLabels.mandatoryLabels.optionDuplicate)
-                this.quizQuestionsForm[index].options[optionIndex].optionName = '';
+        else {
+            this.quizQuestionsForm = [{
+                // "questionId": 1,
+                "questionName": "",
+                "questionType": "MCQ",
+                "options": [
+                    { "optionId": 1, "optionName": "" },
+                    { "optionId": 2, "optionName": "" },
+                    { "optionId": 3, "optionName": "" },
+                    { "optionId": 4, "optionName": "" },
+                    { "optionId": 5, "optionName": "" },
+                    { "optionId": 6, "optionName": "" }
+                ],
+                "weightage": '100',
+                "answer": ''
+            }];
+            this.quizName = '';
+        }
+        if (!event.target.checked && this.enableQuiz) {
+            this.quizName = this.quizNames ? this.quizNames : '';
+            this.editQuizDetails(this.quizDetails);
+        }
+        if (this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)) {
+            if (this.quizCreateType == 'new') {
+                this.enableAddQuiz = true;
+                this.selectedQuiz = null;
+            }
+            else if (this.selectedQuiz) {
+                this.getQuizData();
             }
         }
-    })
-  }
+        else {
+            this.enableAddQuiz = false;
+        }
+    }
 
-  goToPreview(){
-    // moduleId
-    this.route.navigateByUrl('/viewCourse/'+this.moduleId);
-}
+    mcqAnswerUpdate(answer, index) {
+        // console.log(answer,index)
+        if (answer) {
+            this.quizQuestionsForm[index].answer = answer;
+        }
+        else {
+            this.alertService.error(this.commonLabels.mandatoryLabels.optionSelect)
+        }
+
+    }
+
+    duplicateOptionCheck(index, value, optionIndex) {
+        let data = this.quizQuestionsForm[index].options;
+        data.length && data.forEach((item, i) => {
+            if (i != optionIndex) {
+                if (item.optionName && value == item.optionName) {
+                    this.alertService.warn(this.commonLabels.mandatoryLabels.optionDuplicate)
+                    this.quizQuestionsForm[index].options[optionIndex].optionName = '';
+                }
+            }
+        })
+    }
+
+    goToPreview() {
+        // moduleId
+        this.route.navigateByUrl('/viewCourse/' + this.moduleId);
+    }
 
 }
