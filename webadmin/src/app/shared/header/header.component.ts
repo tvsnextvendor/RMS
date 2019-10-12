@@ -57,6 +57,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("token");
     this.authGuard.showSidebar  = false;
     this.authGuard.showHeader = false;
+    this.socketService.socketClose();
     this.router.navigateByUrl('/login');
   }
 

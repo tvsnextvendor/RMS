@@ -282,7 +282,19 @@ export class ApprovalrequestsComponent implements OnInit {
     this.rejectComment = '';
     this.rejectViewComment = '';
   }
-  goCourseView(courseId){
-    this.route.navigateByUrl('/viewCourse/'+courseId);
+  goCourseView(dataCourse){
+
+    console.log(dataCourse);
+    // debugger;
+    // console.log(dataCourse.Course.courseId);
+    // debugger;
+   if(dataCourse && dataCourse.Course && dataCourse.Course.courseId){
+    this.route.navigateByUrl('/viewCourse/'+dataCourse.Course.courseId);
+   }else if(dataCourse && dataCourse.TrainingClass && dataCourse.TrainingClass.trainingClassId){
+    this.route.navigateByUrl('/cms-library?type=create&tab=class&classId='+dataCourse.TrainingClass.trainingClassId);
+   }else if(dataCourse && dataCourse.Quiz && dataCourse.Quiz.quizId){
+    this.route.navigateByUrl('/createQuiz?quizId='+dataCourse.Quiz.quizId);
+   }
+   
   }
 }

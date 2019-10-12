@@ -70,9 +70,9 @@
                                         class="fa fa-check" aria-hidden="true"></i></a>
                                 <a *ngIf="item.createdBy != userData.userId && selectedTab == 'Pending'" title="To Reject" (click)="rejectConfirm(rejectConfirmPop,item)"><i
                                         class="fa fa-times" aria-hidden="true"></i></a>
-                                <a *ngIf="selectedTab == 'Rejected'" title="View Reject" (click)="rejectView(rejectViewPop,item)"><i
-                                    class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a *ngIf = "selectedTab == 'Pending'" href="javascript:void(0)" title="To View Content" (click)="goCourseView(item.courseId)"><i
+                                <a *ngIf="selectedTab == 'Rejected'" title="View Reject Comment" (click)="rejectView(rejectViewPop,item)"><i
+                                    class="fa fa-comment" aria-hidden="true"></i></a>
+                                <a *ngIf = "selectedTab == 'Pending'" href="javascript:void(0)" title="To View Content" (click)="goCourseView(item)"><i
                                     class="fa fa-eye" aria-hidden="true"></i></a>
                                 <!-- <span *ngIf = "selectedTab == 'Pending'" class="text-center" *ngIf="item.createdBy == userData.userId"> - </span> -->
                             </td>

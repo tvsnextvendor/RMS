@@ -1,8 +1,8 @@
-import { Component, OnInit ,Input,Output,EventEmitter,TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderService,BreadCrumbService,UtilService,PermissionService} from '../../services';
+import { HeaderService, BreadCrumbService, UtilService, PermissionService } from '../../services';
 import { HttpService } from '../../services/http.service';
 import { QuizVar } from '../../Constants/quiz.var';
 import { CourseService } from '../../services/restservices/course.service';
@@ -48,20 +48,20 @@ export class CreateQuizComponent implements OnInit {
   roleId;
   submitted = false;
 
-  constructor(private modalService: BsModalService,private courseService:CourseService,private headerService: HeaderService,private alertService:AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar,private toastr: ToastrService,
-    public commonLabels:CommonLabels,public location : Location,private breadCrumbService : BreadCrumbService,private utilService :UtilService,public permissionService : PermissionService) {
+  constructor(private modalService: BsModalService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
+    public commonLabels: CommonLabels, public location: Location, private breadCrumbService: BreadCrumbService, private utilService: UtilService, public permissionService: PermissionService) {
     this.apiUrls = API_URL.URLS;
     this.activatedRoute.queryParams.subscribe((params) => {
       this.quizId = params.quizId ? params.quizId : '';
-  });
-  this.userData = this.utilService.getUserData();
-  this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
+    });
+    this.userData = this.utilService.getUserData();
+    this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
   }
-  
+
   ngOnInit() {
-    this.quizId ? this.headerService.setTitle({title:this.commonLabels.labels.edit, hidemodule:false}) : this.headerService.setTitle({title:this.commonLabels.labels.create, hidemodule:false});
+    this.quizId ? this.headerService.setTitle({ title: this.commonLabels.labels.edit, hidemodule: false }) : this.headerService.setTitle({ title: this.commonLabels.labels.create, hidemodule: false });
     this.roleId = this.utilService.getRole();
-    let data = this.quizId ? [{title : this.commonLabels.labels.edit,url:'/cms-library'},{title : this.commonLabels.btns.editQuiz,url:''}] : [{title : this.commonLabels.btns.create,url:'/cmspage'},{title : this.commonLabels.labels.createQuiz,url:''}]
+    let data = this.quizId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.btns.editQuiz, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createQuiz, url: '' }]
     this.breadCrumbService.setTitle(data)
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
@@ -80,65 +80,65 @@ export class CreateQuizComponent implements OnInit {
         { "optionId": 6, "optionName": "" }
       ],
       "weightage": '100',
-      "answer" : ''
+      "answer": ''
     }];
 
-    if(this.quizId){
+    if (this.quizId) {
       this.getQuizData();
     }
     // else {
-      this.weightage = 100;
+    this.weightage = 100;
     // }
   }
 
-  getQuizData(){
+  getQuizData() {
     let user = this.utilService.getUserData();
-    let query = "&quizId="+this.quizId;
-    this.courseService.getQuizListById(user.userId,query).subscribe(res=>{
-        if(res && res.isSuccess){
-            this.quizName = res.data.quiz.length && res.data.quiz[0].quizName;
-            this.quizQuestionsForm = res.data.quiz.length && res.data.quiz[0].Questions.length ? res.data.quiz[0].Questions : [{
-              "questionName": "",
-              "questionType": "MCQ",
-              "options": [
-                { "optionId": 1, "optionName": "" },
-                { "optionId": 2, "optionName": "" },
-                { "optionId": 3, "optionName": "" },
-                { "optionId": 4, "optionName": "" },
-                { "optionId": 5, "optionName": "" },
-                { "optionId": 6, "optionName": "" }
-              ],
-              "weightage": '100',
-              "answer" : ''
-            }];
-        }
+    let query = "&quizId=" + this.quizId + "&allDrafts=1";
+    this.courseService.getQuizListById(user.userId, query).subscribe(res => {
+      if (res && res.isSuccess) {
+        this.quizName = res.data.quiz.length && res.data.quiz[0].quizName;
+        this.quizQuestionsForm = res.data.quiz.length && res.data.quiz[0].Questions.length ? res.data.quiz[0].Questions : [{
+          "questionName": "",
+          "questionType": "MCQ",
+          "options": [
+            { "optionId": 1, "optionName": "" },
+            { "optionId": 2, "optionName": "" },
+            { "optionId": 3, "optionName": "" },
+            { "optionId": 4, "optionName": "" },
+            { "optionId": 5, "optionName": "" },
+            { "optionId": 6, "optionName": "" }
+          ],
+          "weightage": '100',
+          "answer": ''
+        }];
+      }
     })
   }
 
-  optionValueUpdate(event,i){
+  optionValueUpdate(event, i) {
     this.optionData = !this.optionData;
     this.quizQuestionsForm[i].answer = parseInt(event.target.value) === 0 ? 'false' : 'true';
   }
-  
-  editQuizDetails(quizData){
-      this.quizQuestionsForm = [{
-        "questionName": "",
-        "questionType": "MCQ",
-        "options": [
-          { "optionId": 1, "optionName": "" },
-          { "optionId": 2, "optionName": "" },
-          { "optionId": 3, "optionName": "" },
-          { "optionId": 4, "optionName": "" },
-          { "optionId": 5, "optionName": "" },
-          { "optionId": 6, "optionName": "" }
-        ],
-        "weightage": '100',
-        "answer" : ''
-      }];
-      // this.weightage = selectedVideoList && selectedVideoList  ? (100 / selectedVideoList.length).toFixed(2) : 100;
+
+  editQuizDetails(quizData) {
+    this.quizQuestionsForm = [{
+      "questionName": "",
+      "questionType": "MCQ",
+      "options": [
+        { "optionId": 1, "optionName": "" },
+        { "optionId": 2, "optionName": "" },
+        { "optionId": 3, "optionName": "" },
+        { "optionId": 4, "optionName": "" },
+        { "optionId": 5, "optionName": "" },
+        { "optionId": 6, "optionName": "" }
+      ],
+      "weightage": '100',
+      "answer": ''
+    }];
+    // this.weightage = selectedVideoList && selectedVideoList  ? (100 / selectedVideoList.length).toFixed(2) : 100;
     // });
   }
-   // Select options toggle
+  // Select options toggle
   questionTypeUpdate(data, i) {
     let quiz = this.quizQuestionsForm;
     if (data === "MCQ") {
@@ -153,11 +153,11 @@ export class CreateQuizComponent implements OnInit {
         { "optionId": 6, "optionName": "" }
       ];
     }
-    else if(data === "True/False"){
+    else if (data === "True/False") {
       delete quiz[i].options;
       quiz[i].answer = 'true';
     }
-    else{
+    else {
       delete quiz[i].options;
       quiz[i].answer = '';
     }
@@ -168,45 +168,45 @@ export class CreateQuizComponent implements OnInit {
   addQuestionForm() {
     let obj;
     this.borderUpdate = true;
-      obj = {
-        "questionName": "",
-        "questionType": "MCQ",
-        "options": [
-          { "optionId": 1, "optionName": "" },
-          { "optionId": 2, "optionName": "" },
-          { "optionId": 3, "optionName": "" },
-          { "optionId": 4, "optionName": "" },
-          { "optionId": 5, "optionName": "" },
-          { "optionId": 6, "optionName": "" }
-        ],
-        "weightage": '100',
-        "answer" : ''
-      };
+    obj = {
+      "questionName": "",
+      "questionType": "MCQ",
+      "options": [
+        { "optionId": 1, "optionName": "" },
+        { "optionId": 2, "optionName": "" },
+        { "optionId": 3, "optionName": "" },
+        { "optionId": 4, "optionName": "" },
+        { "optionId": 5, "optionName": "" },
+        { "optionId": 6, "optionName": "" }
+      ],
+      "weightage": '100',
+      "answer": ''
+    };
     // obj.trainingClassId = this.courseId;
     this.quizQuestionsForm.push(obj);
     obj.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
-    this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
+    this.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
   }
 
   // Remove Question Box
-  removeQuestionForm(index,data) {
-    if(this.quizQuestionsForm.length>1){
+  removeQuestionForm(index, data) {
+    if (this.quizQuestionsForm.length > 1) {
       this.quizQuestionsForm.splice(index, 1);
-      this.weightage  = (100 / this.quizQuestionsForm.length).toFixed(2);
-      if(this.quizId){
+      this.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+      if (this.quizId) {
         data.questionId ? this.removedQuizIds.push(data.questionId) : '';
       }
     }
-    else{
+    else {
       this.alertService.warn(this.commonLabels.mandatoryLabels.minimumQuiz);
     }
     this.quizQuestionsForm.length == 1 ? this.borderUpdate = false : this.borderUpdate = true;
   }
 
-  valueChanged(resp,submitCheck,update){
+  valueChanged(resp, submitCheck, update) {
     this.courseUpdate = true;
     let data = {
-      courseUpdate : submitCheck,
+      courseUpdate: submitCheck,
     }
     // this.valueChange.emit(data);
   }
@@ -217,114 +217,114 @@ export class CreateQuizComponent implements OnInit {
     this.answerEmpty = false;
     this.optionEmpty = false;
     this.submitted = true;
-  
-      let data = this.quizQuestionsForm.map((item,i) => {
-          // console.log(item)
-          let removeIndex = [];
-          if(item.questionType !=  "True/False" && !item.answer){
-            this.answerEmpty = true;
-          }
-          if(item.questionType == 'MCQ'){
-            item.options.forEach((data,oi)=>{
-              if(!data.optionName && oi<4){
-                this.optionEmpty = true;
-              }
-              if(!data.optionName && oi>3){
-                // this.quizQuestionsForm[i].options.splice(oi,1)
-                removeIndex.push(oi);
-              }
-            })
-          }
-          item.order = i+1;
-          item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
 
-          for (var fi = removeIndex.length -1; fi >= 0; fi--){
-            this.quizQuestionsForm[i].options.splice(removeIndex[fi],1);
+    let data = this.quizQuestionsForm.map((item, i) => {
+      // console.log(item)
+      let removeIndex = [];
+      if (item.questionType != "True/False" && !item.answer) {
+        this.answerEmpty = true;
+      }
+      if (item.questionType == 'MCQ') {
+        item.options.forEach((data, oi) => {
+          if (!data.optionName && oi < 4) {
+            this.optionEmpty = true;
           }
-          return item;
-      })
-    if(!this.answerEmpty && !this.optionEmpty && this.permissionService.nameValidationCheck(this.quizName))  {
-      if(this.quizId){
-        let postData= {
-          quizId : this.quizId,
-          quizName : this.quizName,
-          quizQuestions : this.quizQuestionsForm,
-          questionIds : this.removedQuizIds
+          if (!data.optionName && oi > 3) {
+            // this.quizQuestionsForm[i].options.splice(oi,1)
+            removeIndex.push(oi);
+          }
+        })
+      }
+      item.order = i + 1;
+      item.weightage = (100 / this.quizQuestionsForm.length).toFixed(2);
+
+      for (var fi = removeIndex.length - 1; fi >= 0; fi--) {
+        this.quizQuestionsForm[i].options.splice(removeIndex[fi], 1);
+      }
+      return item;
+    })
+    if (!this.answerEmpty && !this.optionEmpty && this.permissionService.nameValidationCheck(this.quizName)) {
+      if (this.quizId) {
+        let postData = {
+          quizId: this.quizId,
+          quizName: this.quizName,
+          quizQuestions: this.quizQuestionsForm,
+          questionIds: this.removedQuizIds
         }
-        this.courseService.updateQuizList(this.quizId,postData).subscribe(resp=>{
-          if(resp && resp.isSuccess){
-            this.route.navigate(['/cms-library'],{queryParams : {type : 'edit',tab:'quiz'}});
+        this.courseService.updateQuizList(this.quizId, postData).subscribe(resp => {
+          if (resp && resp.isSuccess) {
+            this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'quiz' } });
             this.alertService.success(resp.message);
             this.submitted = false;
           }
-        },err=>{
+        }, err => {
           this.submitted = false;
         })
       }
-      else{
-        let postData= {
-          quizName : this.quizName,
-          quizQuestions : this.quizQuestionsForm,
-          createdBy:this.userData.userId,
-          resortId:this.resortId,
-          draft : false
+      else {
+        let postData = {
+          quizName: this.quizName,
+          quizQuestions: this.quizQuestionsForm,
+          createdBy: this.userData.userId,
+          resortId: this.resortId,
+          draft: false
         }
-        if(this.roleId == 4){
+        if (this.roleId == 4) {
           postData.draft = true
         }
-        else{
+        else {
           delete postData.draft;
         }
-        this.courseService.addQuiz(postData).subscribe(res=>{
-          if(res.isSuccess){
-            this.route.navigate(['/cmspage'],{queryParams : {type : 'create'}});
+        this.courseService.addQuiz(postData).subscribe(res => {
+          if (res.isSuccess) {
+            this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } });
             this.alertService.success(res.message);
             this.submitted = false;
-          } 
-        },err=>{
+          }
+        }, err => {
           this.submitted = false;
           this.alertService.success(err.error.error);
         })
       }
     }
-    else if(this.permissionService.nameValidationCheck(this.quizName) && this.answerEmpty){
+    else if (this.permissionService.nameValidationCheck(this.quizName) && this.answerEmpty) {
       this.alertService.error(this.commonLabels.mandatoryLabels.quizAnswer);
     }
-    else if(this.permissionService.nameValidationCheck(this.quizName) && this.optionEmpty){
+    else if (this.permissionService.nameValidationCheck(this.quizName) && this.optionEmpty) {
       this.alertService.error(this.commonLabels.mandatoryLabels.quizOption);
     }
   }
 
-  goTocmsLibrary(data){
-    if(data){
-        this.route.navigate(['/cms-library'],{queryParams:{type : 'edit',tab : 'course'}})
+  goTocmsLibrary(data) {
+    if (data) {
+      this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'course' } })
     }
-    else{
-        this.location.back(); 
+    else {
+      this.location.back();
     }
-}
+  }
 
-mcqAnswerUpdate(answer,index){
-  // console.log(answer,index)
-  if(answer){
+  mcqAnswerUpdate(answer, index) {
+    // console.log(answer,index)
+    if (answer) {
       this.quizQuestionsForm[index].answer = answer;
-  }
-  else{
+    }
+    else {
       this.alertService.error("Please enter the option data before select answer")
-  }
-  
-}
+    }
 
-duplicateOptionCheck(index,value,optionIndex){
-  let data = this.quizQuestionsForm[index].options;
-  data.length && data.forEach((item,i)=>{
-      if(i != optionIndex){
-          if(item.optionName && value == item.optionName){
-              this.alertService.warn(this.commonLabels.mandatoryLabels.optionDuplicate)
-              this.quizQuestionsForm[index].options[optionIndex].optionName = '';
-          }
+  }
+
+  duplicateOptionCheck(index, value, optionIndex) {
+    let data = this.quizQuestionsForm[index].options;
+    data.length && data.forEach((item, i) => {
+      if (i != optionIndex) {
+        if (item.optionName && value == item.optionName) {
+          this.alertService.warn(this.commonLabels.mandatoryLabels.optionDuplicate)
+          this.quizQuestionsForm[index].options[optionIndex].optionName = '';
+        }
       }
-  })
-}
+    })
+  }
 
 }

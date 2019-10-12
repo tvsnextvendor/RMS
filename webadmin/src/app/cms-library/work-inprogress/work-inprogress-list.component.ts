@@ -50,6 +50,12 @@ export class WorkCourseListComponent implements OnInit {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
                   (roleId !=1 ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=workInprogress'+'&resortId='+resortId : this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&status=workInprogress') : 
                     (roleId !=1 ? '&status=workInprogress&created='+userData.userId+'&resortId='+resortId : '&status=workInprogress');
+
+
+    if(roleId == 4){
+      let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+      query = (accessSet ? query+"&allDrafts=1" : query);
+    }
     this.courseService.getCourse(this.p,this.pageSize,query).subscribe(resp=>{
       this.CMSFilterSearchEventSet = '';
       if(resp && resp.isSuccess){

@@ -1,35 +1,37 @@
 
 import { API } from '../Constants/api';
-import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
+import * as io from 'socket.io-client';
 import { Injectable } from '@angular/core';
-
-
 @Injectable({
     providedIn: 'root'
-  })
-
+})
 export class SocketService {
-    private url = API.API_ENDPOINT+ API.SOCKET_PORT;
+    private url = API.API_ENDPOINT + API.SOCKET_PORT;
     private socket;
-
-
-    init() {
-        this.socket = io(this.url);
-    }
-
+   
+    constructor() {
+        this.socket = io(this.url, { transports: ['websocket']});
+      }
+    // init() {
+    //     this.socket = io(this.url);
+    // }
     getNotification(userId) {
-        this.socket = io(this.url,{transports: ['websocket']});
         const subject = new Observable(subject => {
+            this.socket = io(this.url, { transports: ['websocket'] });
             this.socket.emit('userId', userId);
-            this.socket.once("getNotifications", function(data) {
+            this.socket.once("getNotifications", function (data) {
                 subject.next(data.notifications);
             });
-            return () => {
-                this.socket.on('notify_processdone',this.socket.close());
-                this.socket.disconnect();
-              };  
+            // return () => {
+            //    // this.socket.on('notify_processdone', this.socket.close());
+            //    // this.socket.disconnect();
+            // };
         });
         return subject;
+    }
+    socketClose(){
+        this.socket.on('notify_processdone', this.socket.close());
+        this.socket.disconnect();
     }
 }
