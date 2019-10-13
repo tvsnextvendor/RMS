@@ -83,10 +83,11 @@
                         <td class="vat pl-4 employeeName-width" *ngIf="emp.User && emp.User.userName">{{emp?.User?.userName  | titlecase}}</td>
                         <td class="vat employeeName-width">{{emp?.Resort?.resortName  | titlecase}}</td>
                         <td class="vat text-left">
-                            <a *ngIf = "emp.status !== 'assigned' && emp.status !== 'unAssigned' && emp.status != 'expired'" routerLink="/employee/{{emp.User && emp.User.userId}}" [queryParams]="{id:trendsVar.videoId,type:trendType}" [ngClass]="emp.status !== 'inProgress' ? (emp.status === 'failed'?'failed-color':(emp.status === 'completed'?'completed-color':(emp.status === 'assigned'?'assigned-color':(emp.status === 'expired' ? 'expired-color' :'')))):'inprogress-color'"> {{emp.status | titlecase}}</a>
+                            <a *ngIf = "emp.status !== 'assigned' && emp.status !== 'unAssigned' && emp.status != 'expired' && emp.status != 'failed'" routerLink="/employee/{{emp.User && emp.User.userId}}" [queryParams]="{id:trendsVar.videoId,type:trendType}" [ngClass]="emp.status !== 'inProgress' ? (emp.status === 'failed'?'failed-color':(emp.status === 'completed'?'completed-color':(emp.status === 'assigned'?'assigned-color':(emp.status === 'expired' ? 'expired-color' :'')))):'inprogress-color'"> {{emp.status | titlecase}}</a>
                             <a *ngIf = "emp.status == 'assigned'" class="assigned-color"> {{emp.status | titlecase}}</a>
                             <a *ngIf = "emp.status == 'unAssigned'">{{emp.status | titlecase}}</a>
                             <a *ngIf = "emp.status == 'expired'" class="expired-color">{{emp.status | titlecase}}</a>
+                            <a *ngIf = "emp.status == 'failed'" class="failed-color">{{emp.status | titlecase}}</a>
                         </td>
                         <td class="vat text-left" *ngIf="trendType != 'notification'">{{emp?.timeTaken}}</td>
                         <td class="vat text-left" [ngClass]="emp.status == 'unAssigned' ? 'unAssigned-color': ''">{{emp?.TrainingSchedule?.assignedDate | date :'MM/dd/yyyy'}}</td>
