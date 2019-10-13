@@ -130,7 +130,7 @@
                         <label class="col-md-5 pl-0 label-title">{{commonLabels.labels.from}}</label>
                         <div class="col-md-7 p-0">
                             <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()" [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
-                                <input disabled type="text" [disabled]="previousUpdate" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off" [minDate]="currentDate"
+                                <input  type="text" [disabled]="previousUpdate" class="form-control p-0" #dpFrom="bsDatepicker" autocomplete="off" [minDate]="currentDate"
                                     name="batchFrom" bsDatepicker [(ngModel)]="batchFrom" #BatchFrom="ngModel"
                                     [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}" required>
                             </span>
