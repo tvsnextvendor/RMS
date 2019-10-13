@@ -2,6 +2,7 @@ import { Component, OnInit ,Input, Output, EventEmitter} from '@angular/core';
 import { UtilService } from '../../services/util.service';
 import { CourseService,CommonService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-filter-tab',
@@ -36,18 +37,25 @@ export class FilterTabComponent implements OnInit {
   enableResort = false;
   resourceLib = false;
   classViewChange;
+  schedulePage = false;
   @Output() FilterSearchEvent = new EventEmitter<string>();
   @Output() classView = new EventEmitter<string>();
   
 
   constructor(private utilService : UtilService,private courseService : CourseService,public commonLabels : CommonLabels,
-    private commonService : CommonService) {
+    private commonService : CommonService ,private activatedRoute: ActivatedRoute,
+    private route: Router) {
       if (window.location.pathname.indexOf("resource") != -1) {
         this.resourceLib = true;
       }
      }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.tab == 'schedule') {
+        this.schedulePage = true;
+      }
+    });
     let data = this.utilService.getUserData();
     this.classViewChange = 'course';
     if(data.ResortUserMappings.length){
@@ -64,15 +72,13 @@ export class FilterTabComponent implements OnInit {
 
   ngOnChanges(){
     this.classViewChange = 'course';
-    // console.log(this.selectedTab , 'type',this.filterUpdate)
   }
 
   getFilterData(){
     let userId = this.utilService.getUserData().userId;
-    let query = this.roleId != 1  ? '?created='+userId  : "";
+    let query = this.roleId != 1  ? ((this.resourceLib || this.schedulePage)? '?resortId='+ this.parentResortId: '?created='+userId ) : "";
     query+=(query)?'&order='+1:'?order='+1;
-    //alert(query);
-    // query+= this.roleId == 4 ? '&userId='+userId:"";
+ 
     this.courseService.getAllCourse(query).subscribe(result=>{
       if(result && result.isSuccess){
         this.courseFilterList = result.data && result.data.rows;
