@@ -239,12 +239,13 @@ export class TraingClassTabComponent implements OnInit {
     this.courseService.sendApproval(approvalData).subscribe(result => {
       this.modalRef.hide();
       if (result && result.isSuccess) {
-        // this.alertService.success(result.message);
+        this.getTrainingClassList();
+      
         setTimeout(()=>{
           this.alertService.success(result.message);
         },300); 
       } else {
-        // this.alertService.error(result.message);
+       
         setTimeout(()=>{
           this.alertService.error(result.message);
         },300); 

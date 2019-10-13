@@ -712,7 +712,7 @@ export class CourseTabComponent implements OnInit {
     this.courseService.sendApproval(approvalData).subscribe(result => {
       if (result && result.isSuccess) {
         this.modalRef.hide();
-        // this.alertService.success(result.message);
+        this.getCourseDetails();
         setTimeout(()=>{
           this.alertService.success(result.message);
         },300)

@@ -102,6 +102,11 @@ export class ApprovalrequestsComponent implements OnInit {
     this.approveStatus();
   }
 
+  dontsendSecondLevelApproval(){
+    this.showUsers = false;
+    this.approveStatus();
+  }
+
   tabChange(status) {
     this.approvalStatusSet = status;
     this.selectedTab = status;
@@ -215,6 +220,7 @@ export class ApprovalrequestsComponent implements OnInit {
 
 
   approveStatus() {
+
     if(!this.showUsers || (this.showUsers && this.approvalAccess)){
       this.levelApprovalError = false;
       let approvalInfo = {
@@ -283,11 +289,6 @@ export class ApprovalrequestsComponent implements OnInit {
     this.rejectViewComment = '';
   }
   goCourseView(dataCourse){
-
-    console.log(dataCourse);
-    // debugger;
-    // console.log(dataCourse.Course.courseId);
-    // debugger;
    if(dataCourse && dataCourse.Course && dataCourse.Course.courseId){
     this.route.navigateByUrl('/viewCourse/'+dataCourse.Course.courseId);
    }else if(dataCourse && dataCourse.TrainingClass && dataCourse.TrainingClass.trainingClassId){
