@@ -24,9 +24,12 @@ export class CourseFailedPage {
   scrollEnable: boolean = false;
   currentPage = this.constant.numbers.one;
   perPageData = this.constant.numbers.ten;
+  statusKey;
   
 
   constructor(public storage: Storage,public navCtrl: NavController,public constant: Constant,public navParams: NavParams, public http: HttpProvider) {
+   let detailObject = this.navParams.data;
+   this.statusKey = detailObject['status'] ? detailObject['status'] : 'assigned';    
   }
 
   ionViewDidLoad() {
@@ -45,6 +48,13 @@ export class CourseFailedPage {
 
    goToForum(){
      this.navCtrl.push('forum-page');
+  }
+
+  goBack(){
+    let paramsToSend={ 
+      'status' : this.statusKey
+    };
+    this.navCtrl.push('course-page', paramsToSend);
   }
 
   navPage()

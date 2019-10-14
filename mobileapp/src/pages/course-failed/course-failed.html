@@ -1,9 +1,12 @@
 <ion-content padding class="headerFull-bg default-header">
   <ion-header class="static-header main-header my-component no-backbtn" color="primary">
     <ion-navbar *ngIf="!showSearchBar">
-      <button ion-button menuToggle>
+      <!-- <button ion-button menuToggle>
         <img src="assets/imgs/menu.png" />
-      </button>
+      </button> -->
+      <span class="backarr-fail" (click)="goBack()">
+        <img src="assets/imgs/Back.png" />
+      </span>
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.failedList}}</span>
         <div class="header-icon">
