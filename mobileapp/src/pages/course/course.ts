@@ -66,6 +66,11 @@ export class CoursePage implements OnInit {
         let detailObj = this.navParams.data;
         this.tab = detailObj && detailObj.tab;
         this.status = detailObj && detailObj.status;
+        //back from failed list
+        if(this.status == 'signRequired'){
+          this.tab = 'signReq';
+        }
+        
   }
 
   ngOnInit() {
@@ -128,7 +133,10 @@ export class CoursePage implements OnInit {
   }
 
   goToFailedList(){
-    this.navCtrl.push('course-failed-page');
+    let postData = {
+      'status' : this.status   
+    }
+    this.navCtrl.push('course-failed-page', postData);
   }
   
   openTrainingClass(data) 
@@ -258,8 +266,8 @@ export class CoursePage implements OnInit {
     this.showSignRequire = false;
     let userId =  this.currentUser.userId;
     let resortId = this.currentUser.ResortUserMappings[0].resortId;
-    let status='signRequired';
-    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId+'&resortId='+resortId+'&status='+status+'&search='+search+'&mobile='+1).subscribe(res=>{
+    this.status='signRequired';
+    this.http.get(API_URL.URLS.signRequired+'?userId=' +userId+'&resortId='+resortId+'&status='+this.status+'&search='+search+'&mobile='+1).subscribe(res=>{
     if(res['data']['rows'].length){
       this.signRequireList =res['data']['rows'];
       this.signRequireCount = res['data']['count'];

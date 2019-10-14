@@ -24,6 +24,7 @@ export class HomePage {
   enableIndex;
   interval;
   totalPage;
+  failedCount;
   paramsData={};
   dashboardInfo: any = [];
   dashboardCount: any = {};
@@ -55,6 +56,7 @@ export class HomePage {
             self.currentUser = user;
             this.getDashboardInfo();
             this.getDashboardCount();
+            //this.getFailedCourse();
         }
     });
   }
@@ -66,6 +68,18 @@ export class HomePage {
           this.getDashboardInfo();
           this.getDashboardCount();
       }, 4000);      
+  }
+
+
+  getFailedCourse() {
+     let userId = this.currentUser.userId;
+     let resortId = this.currentUser.ResortUserMappings[0].resortId;
+      this.http.get(API_URL.URLS.failedList+'?userId=' + userId + '&resortId=' + resortId).subscribe((res) => {
+        if(res['data']['rows']){
+          this.failedCount = res['data']['count'];
+          console.log(this.failedCount,"FailedCount");
+        }
+    })
   }
 
   //Navigate schedules to respective pages

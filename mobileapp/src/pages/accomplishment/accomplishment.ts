@@ -26,7 +26,7 @@ export class AccomplishmentPage implements OnInit {
     currentUser;
     totalPage;
     certificateList: any = [];
-    certificateDetail: any = {};
+    certificates: any = [];
     showSearchBar: boolean = false;
     scrollEnable: boolean = false;
     leftButton: boolean = true;
@@ -85,6 +85,13 @@ export class AccomplishmentPage implements OnInit {
             if (res['isSuccess']) {
                 let totalData = res['data']['count'];
                 this.totalPage = totalData / this.perPageData;
+                let listData = res['data']['rows'];
+                 listData.filter(val => {
+                    if(val.certificateGenerated != null){
+                      this.certificates.push(val.certificateGenerated);
+                    }
+                })
+                console.log(this.certificates);
                 if (this.scrollEnable) {
                     for (let i = 0; i < res['data']['rows'].length; i++) {
                         this.certificateList.push(res['data']['rows'][i]);

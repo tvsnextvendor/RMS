@@ -82,8 +82,9 @@
                         (click)="backClicked()">{{commonLabels.btns.back}}</button>
                 </div>
         </div>
+   
         <div class="col-md-3 pr-0 pt-2 sticky"  *ngIf="!hideSection">
-            <app-filter-tab  (classView)="classViewUpdate($event)" (FilterSearchEvent)="receivefilterMessage($event)" [selectedTab]="selectedTab" [filterUpdate]="filterUpdate" ></app-filter-tab>
+            <app-filter-tab  (classView)="classViewUpdate($event)" (FilterSearchEvent)="receivefilterMessage($event)" [selectedTab]="selectedTab" [filterUpdate]="filterUpdate" [findRL]="resourceLib" ></app-filter-tab>
         </div>
     </div>
 </div>

@@ -103,7 +103,7 @@ export class QuizResultPage implements OnInit {
             this.http.post(false, API_URL.URLS.postFeedBack, postData).subscribe(res => {
                 if (res['isSuccess']) {
                     this.submitBtnDisable = false;
-                    this.toastr.success(res['message']);
+                    this.successMessage(res['message']);
                     this.completeTrainingClass();
                     this.closeToStart();
                 }
@@ -120,7 +120,7 @@ export class QuizResultPage implements OnInit {
         let self = this;
         setTimeout(function () {
             self.showToastr = false;
-        }, 3000);
+        }, 5000);
     }
 
     getUser() {

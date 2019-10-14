@@ -39,6 +39,7 @@ ion-toolbar {
     padding: 0;
     background-color: #468FB9;
     position: relative;
+    // height: 300px;
 }
 .view-image-tag{
     position: absolute;
@@ -48,7 +49,8 @@ ion-toolbar {
   }
 .inner-image{
        width: 100%;
-    height: auto;
+    //height: auto;
+    height: 270px;
 }
  .inner-content {
     margin-top: 0;

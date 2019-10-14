@@ -72,7 +72,7 @@
                 </select>
                 <div class="select_arrow"></div>
             </div>
-            <div *ngIf = "roleId != 3" class="col-md-12 p-0 select select-style clearfix">
+            <div *ngIf = "roleId != 3 && findRL" class="col-md-12 p-0 select select-style clearfix">
                 <select [disabled] = "!parentResortId" name="childResortId" class="form-control pl-2" [(ngModel)]="filterChildResort" #childResort
                     (change)="childResortChange(childResort.value)">
                     <option [value]=null>{{commonLabels.labels.selectchildresort}}</option>
@@ -96,7 +96,7 @@
                 </select>
                 <div class="select_arrow"></div>
             </div>
-            <div class="col-md-12 p-0 select select-style clearfix">
+            <div class="col-md-12 p-0 select select-style clearfix" *ngIf="findRL">
                 <select name="createdBy" class="form-control pl-2" [(ngModel)]="filterCreatedBy">
                     <option [value]=null>{{commonLabels.labels.selectcreateuser}}</option>
                     <option *ngFor="let creator of createdByList" [value]="creator.userId">{{creator.userName  | titlecase}}</option>
