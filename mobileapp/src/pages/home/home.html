@@ -8,6 +8,12 @@
         <span class="header-title">{{constant.title.dashboard}}</span>
         
         <div class="header-icon">
+         
+          <!-- <a (click)="goToFailedList()">
+              <img class="fail-img" src="assets/imgs/failedList.png" />
+              <span class="dot-fail" *ngIf="failedCount > 0">{{failedCount}}</span>
+            </a>
+             -->
           <!-- <ion-icon (click)="goToForum()" name="ios-chatboxes" class="chat-icon"></ion-icon> -->
           <app-bell></app-bell>
         </div>

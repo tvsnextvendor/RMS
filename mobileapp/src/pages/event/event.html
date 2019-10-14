@@ -55,7 +55,7 @@
                         *ngIf="class.TrainingClass.FeedbackMappings[0].status == 'failed'">
                         {{constant.pages.trainingLabels.score}} {{class.TrainingClass.FeedbackMappings[0].passPerc}}%
                         <span class="aligtxt" (click)="redirectTCPage(class.courseId,schedule.trainingScheduleId)"><br>
-                          <ion-icon name="md-refresh"> {{constant.pages.trainingLabels.takeCourse}} </ion-icon>
+                          <ion-icon name="md-refresh"> {{constant.pages.trainingLabels.retakeClass}} </ion-icon>
                         </span>
                       </div>
                   </ion-col>

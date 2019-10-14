@@ -108,6 +108,9 @@ export class NotificationPage implements OnInit {
       case "assignCourse":
         this.navCtrl.push('course-page');
         break;
+      case "failedCourse":
+        this.navCtrl.push('course-failed-page');
+        break;
       default:
         this.navCtrl.push('course-page');
         break;

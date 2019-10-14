@@ -543,3 +543,24 @@ page-home .course-sec{
   overflow: hidden;
   text-overflow: ellipsis; 
 }
+
+.fail-img{
+	padding-right: 13px;
+	height: 30px;
+}
+
+.dot-fail {
+    background: #fff;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    border-radius: 64px;
+    position: absolute;
+    right: 23px;
+    border: 1px solid #2F98D2;
+    top: -1px;
+    color: black;
+    font-size: 8px;
+    text-align: center;
+    line-height: 17px;
+}
