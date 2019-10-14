@@ -18,8 +18,8 @@
       <h4 class="popup-tit">{{constant.pages.accomplishmentLabels.certificates}}</h4>
       <ion-slides #sliderOne [pager]="true" [slidesPerView]="1" class="certificate-slide" spaceBetween="1"
         (ionSlideDidChange)="onSlideCertChanged()">
-        <ion-slide *ngFor="let item of certificateList;let i=index;" class="cert-indv-slide">
-          <div [innerHTML]="item.certificateGenerated | sanitizeHtml:'html'"></div>
+        <ion-slide *ngFor="let certificate of certificates;let i=index;" class="cert-indv-slide">
+          <div [innerHTML]="certificate | sanitizeHtml:'html'"></div>
         </ion-slide>
       </ion-slides>
       <span class="slider-btns">
