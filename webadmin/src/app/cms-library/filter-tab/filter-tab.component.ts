@@ -12,6 +12,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class FilterTabComponent implements OnInit {
   @Input() selectedTab;
   @Input() filterUpdate;
+  @Input() findRL;
   parentResort = null ;
   parentResortId = null ;
   courseFilterList = [];
