@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter ,TemplateRef} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { HeaderService, HttpService, CourseService, AlertService, UtilService, BreadCrumbService ,PermissionService} from '../../services';
+import { HeaderService, HttpService, CourseService, AlertService, UtilService, BreadCrumbService, PermissionService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
@@ -42,15 +42,15 @@ export class TraingClassTabComponent implements OnInit {
 
 
   constructor(private courseService: CourseService,
-     public commonLabels: CommonLabels,
-      public alertService: AlertService, 
-      private utilService: UtilService, 
-      private breadCrumbService: BreadCrumbService,
-      private activatedRoute: ActivatedRoute,
-       private route: Router,
-       private modalService: BsModalService,
-       private permissionService : PermissionService 
-      ) { }
+    public commonLabels: CommonLabels,
+    public alertService: AlertService,
+    private utilService: UtilService,
+    private breadCrumbService: BreadCrumbService,
+    private activatedRoute: ActivatedRoute,
+    private route: Router,
+    private modalService: BsModalService,
+    private permissionService: PermissionService
+  ) { }
 
   ngOnInit() {
     this.pageLength = 10;
@@ -71,17 +71,17 @@ export class TraingClassTabComponent implements OnInit {
         this.breadCrumbService.setTitle(data);
         this.resourceLib = true;
       } else {
-        let data = [{ title: this.commonLabels.labels.edit, url: '/cmspage' }, { title: this.commonLabels.labels.trainingClass, url: '' }]      
+        let data = [{ title: this.commonLabels.labels.edit, url: '/cmspage' }, { title: this.commonLabels.labels.trainingClass, url: '' }]
         this.breadCrumbService.setTitle(data);
         this.enableClassEdit = true;
       }
     });
-    
 
-    if(this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Course / Training Class / Quiz')){
+
+    if (this.roleId == 4 && this.resourceLib || !this.permissionService.editPermissionCheck('Course / Training Class / Quiz')) {
       this.iconEnable = false;
     }
-    if((this.roleId == 4 && !this.resourceLib && !this.schedulePage )){
+    if ((this.roleId == 4 && !this.resourceLib && !this.schedulePage)) {
       this.iconEnableApproval = true;
     }
     if (this.enableClassEdit) {
@@ -93,12 +93,12 @@ export class TraingClassTabComponent implements OnInit {
 
   }
 
-  ngOnChanges(){
-    if(this.classView == 'course' && this.resourceLib){
+  ngOnChanges() {
+    if (this.classView == 'course' && this.resourceLib) {
       this.enableClassEdit = false;
       this.getTrainingClassDetails();
     }
-    else if(this.classView == 'class' && this.resourceLib){
+    else if (this.classView == 'class' && this.resourceLib) {
       this.enableClassEdit = true;
       this.getTrainingClassList();
     }
@@ -121,17 +121,17 @@ export class TraingClassTabComponent implements OnInit {
     let user = this.utilService.getUserData();
     let roleId = this.utilService.getRole();
     let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
-    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
-                  (roleId != 1 ? (this.resourceLib ?  this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&resortId='+resortId : this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&resortId='+resortId)   : this.courseService.searchQuery(this.CMSFilterSearchEventSet)) : 
-                  (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId :(this.resourceLib ?'&resortId='+resortId :'&resortId='+resortId+"&createdBy="+user.userId) ) : '');
-    if(roleId == 4 ){
+    let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ?
+      (roleId != 1 ? (this.resourceLib ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) + '&resortId=' + resortId : this.courseService.searchQuery(this.CMSFilterSearchEventSet) + '&resortId=' + resortId) : this.courseService.searchQuery(this.CMSFilterSearchEventSet)) :
+      (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId : (this.resourceLib ? '&resortId=' + resortId : '&resortId=' + resortId + "&createdBy=" + user.userId)) : '');
+    if (roleId == 4) {
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-      query = (this.schedulePage || this.resourceLib ) ? (query+"&draft=false") : (accessSet ? query+"&allDrafts=1" : query);
-    //   if(this.schedulePage || this.resourceLib ){
-    //     query = query+"&draft=false";
-    //  }
+      query = (this.schedulePage || this.resourceLib) ? (query + "&draft=false") : (accessSet ? query + "&allDrafts=1" : query);
+      //   if(this.schedulePage || this.resourceLib ){
+      //     query = query+"&draft=false";
+      //  }
     }
-    this.courseService.getTrainingClassList(this.currentPage,this.pageLength,query).subscribe(resp => {
+    this.courseService.getTrainingClassList(this.currentPage, this.pageLength, query).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
         this.totalCourseTrainingCount = resp.data.count;
@@ -149,9 +149,9 @@ export class TraingClassTabComponent implements OnInit {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : (roleId != 1 ? (this.courseId ? '&courseId=' + this.courseId + '&resortId=' + resortId : '&resortId=' + resortId) : '');
     // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : this.courseId ? '&courseId='+this.courseId : '';
     // console.log(query)
-    if(roleId == 4 ){
+    if (roleId == 4) {
       let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-      query = this.resourceLib ? (query+"&draft=false") : (accessSet ? query+"&draft=true" : query);
+      query = this.resourceLib ? (query + "&draft=false") : (accessSet ? query + "&draft=true" : query);
     }
     let newList;
     let trainList;
@@ -183,7 +183,7 @@ export class TraingClassTabComponent implements OnInit {
       this.getTrainingClassDetails();
     }
   }
-  getIndividualTC(courses,index){
+  getIndividualTC(courses, index) {
     this.enableView = true;
     this.enableIndex = index;
 
@@ -241,21 +241,21 @@ export class TraingClassTabComponent implements OnInit {
       this.modalRef.hide();
       if (result && result.isSuccess) {
         this.getTrainingClassList();
-      
-        setTimeout(()=>{
+
+        setTimeout(() => {
           this.alertService.success(result.message);
-        },300); 
+        }, 300);
       } else {
-       
-        setTimeout(()=>{
+
+        setTimeout(() => {
           this.alertService.error(result.message);
-        },300); 
+        }, 300);
       }
     }, (errorRes) => {
       this.modalRef.hide();
-      setTimeout(()=>{
+      setTimeout(() => {
         this.alertService.error(errorRes.error.error);
-      },300); 
+      }, 300);
     });
   }
 
@@ -263,7 +263,7 @@ export class TraingClassTabComponent implements OnInit {
     if (isChecked) {
       this.scheduleClass.push({ 'trainingClassId': trainingClassId, 'trainingClassName': trainingClassName });
     } else {
-      let index = this.scheduleClass.findIndex(item=>item.trainingClassId == trainingClassId);
+      let index = this.scheduleClass.findIndex(item => item.trainingClassId == trainingClassId);
       this.scheduleClass.splice(index, 1);
     }
     this.scheduleClassList.emit(this.scheduleClass);
