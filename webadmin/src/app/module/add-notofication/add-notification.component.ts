@@ -127,9 +127,8 @@ export class AddNotificationComponent implements OnInit {
   }
 
   getNotificationDetails() {
-    let query = '?notificationFileId=' + this.notifyId
+    let query = '?notificationFileId=' + this.notifyId +'&allDrafts=1';
     this.courseService.getNotification(query).subscribe(resp => {
-      // console.log(resp)
       if (resp && resp.isSuccess) {
         let respData = resp.data.rows.length && resp.data.rows[0];
         let userIds = [];
