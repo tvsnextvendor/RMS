@@ -386,6 +386,7 @@ export class CommonLabels{
         "approveStatusConfirm" : "Do you need second level approval?",
         "rejectStatusConfirm"  : "Are you sure you want to reject?",
         "rejectComment"     :    "Comment",
+        "comments"          :    "Comments",
         "archieveDelete"    :   "Are you sure you want to delete this Purge?",
         "scheduleDelete"    :   "Are you sure you want to delete this Schedule?",
         "fileDelete"        :   "Are you sure you want to delete this file from class list?",
