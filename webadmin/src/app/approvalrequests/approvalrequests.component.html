@@ -47,7 +47,10 @@
                                 {{approvalStatusSet == 'Rejected' ? commonLabels.labels.rejectorName :
                                 commonLabels.labels.approverName}}
                             </th>
-                            <th *ngIf="selectedTab != 'Approved' && selectedTab != 'Rescheduled'" class="text-left">
+                            <th *ngIf="selectedTab != 'Approved' && selectedTab != 'Rescheduled' && selectedTab == 'Rejected'" class="text-left">
+                                {{commonLabels.labels.comments}}
+                            </th>
+                            <th *ngIf="selectedTab != 'Approved' && selectedTab != 'Rescheduled' && selectedTab != 'Rejected'" class="text-left">
                                 {{commonLabels.labels.action}}
                             </th>
                         </tr>
