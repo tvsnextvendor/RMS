@@ -168,32 +168,32 @@ export class LoginComponent implements OnInit {
 					if (role === 4) {
 						console.log(loginData, "RolePermissisons")
 						if (loginData.rolePermissions) {
-							let permissionData = loginData.rolePermissions && loginData.rolePermissions.length ? loginData.rolePermissions[0].userPermission : Permissions.user.menu;
-							console.log(permissionData, "PERMISSION DATA");
-							permissionData.forEach(item => {
-								if (item.moduleName == 'Course / Training Class / Quiz' || item.moduleName == 'Notification') {
-									if (item.edit == true) {
+							// let permissionData = loginData.rolePermissions && loginData.rolePermissions.length ? loginData.rolePermissions[0].userPermission : Permissions.user.menu;
+							// console.log(permissionData, "PERMISSION DATA");
+							// permissionData.forEach(item => {
+							// 	if (item.moduleName == 'Course / Training Class / Quiz' || item.moduleName == 'Notification') {
+							// 		if (item.edit == true) {
 										this.urlData = '/cmspage?type=create';
 										this.route.navigateByUrl(this.urlData);
-										return false;
-									} else if (item.view == true) {
-										this.urlData = '/cmspage?type=edit';
-										this.route.navigateByUrl(this.urlData);
-										return false;
-									}
-								} else {
-									let menuArray = [{ key: 'Dashboard', value: '/dashboard' }, { key: 'Schedule', value: '/calendar' }, { key: 'Resource Library', value: '/resource/library' }, { key: 'User Management', value: '/users' }, { key: 'Site Management', value: '/resortslist' }, { key: 'Approval Request', value: '/approvalrequests' }, { key: 'Certificates', value: '/certificates' }, { key: 'Subscription Model', value: '/subscriptionlist' }, { key: 'Feedback', value: '/feedback' }]
-									menuArray.forEach(element => {
-										if (element.key == item.moduleName) {
-											if (item.view == true || item.edit == true) {
-												this.urlData = element.value;
-												this.route.navigateByUrl(this.urlData);
-												return false;
-											}
-										}
-									});
-								}
-							})
+							// 			return false;
+							// 		} else if (item.view == true) {
+							// 			this.urlData = '/cmspage?type=edit';
+							// 			this.route.navigateByUrl(this.urlData);
+							// 			return false;
+							// 		}
+							// 	} else {
+							// 		let menuArray = [{ key: 'Dashboard', value: '/dashboard' }, { key: 'Schedule', value: '/calendar' }, { key: 'Resource Library', value: '/resource/library' }, { key: 'User Management', value: '/users' }, { key: 'Site Management', value: '/resortslist' }, { key: 'Approval Request', value: '/approvalrequests' }, { key: 'Certificates', value: '/certificates' }, { key: 'Subscription Model', value: '/subscriptionlist' }, { key: 'Feedback', value: '/feedback' }]
+							// 		menuArray.forEach(element => {
+							// 			if (element.key == item.moduleName) {
+							// 				if (item.view == true || item.edit == true) {
+							// 					this.urlData = element.value;
+							// 					this.route.navigateByUrl(this.urlData);
+							// 					return false;
+							// 				}
+							// 			}
+							// 		});
+							// 	}
+							// })
 						}
 					} else {
 						this.route.navigateByUrl('/dashboard');
