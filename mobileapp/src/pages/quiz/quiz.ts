@@ -45,6 +45,7 @@ export class QuizPage {
         this.time = this.trainingObj.time;
         this.timeBegan = this.trainingObj.timeBegan;
         this.timeStopped = this.trainingObj.timeStopped;
+        this.stoppedDuration = this.trainingObj.stoppedDuration;
     }
 
     ngAfterViewInit() {

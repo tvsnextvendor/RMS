@@ -113,7 +113,6 @@ export class TrainingDetailPage {
             let self = this;
              this.storage.get('timer').then((det: any) => {
                 if (det) {
-                    console.log(det,"DETAIL FILTER");
                     let data = det.filter(x => x.trainingClassId === this.detailObject.trainingClassId);
                     if(data.length){
                         this.stoppedDuration = data[0].stoppedDuration;
@@ -387,8 +386,7 @@ export class TrainingDetailPage {
         this.navCtrl.pop(this.paramsToSend);
         this.stop();
         this.storage.get('timer').then(value =>{
-          if(value){
-               console.log(value,"VALUE FILTER");
+          if(value != null){
                 let data = value.filter(x => { 
                     return  x.trainingClassId != this.detailObject.trainingClassId
                 });    
