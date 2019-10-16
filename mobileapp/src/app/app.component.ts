@@ -31,6 +31,7 @@ export class MyApp implements OnInit{
   lastTimeBackPress = 0;
   timePeriodToExit = 2000;
   windowWidth;
+  hideCloseBtn = true;
   showSideBar: boolean = true;
   profilePage = { title: 'Profile', component: ProfilePage };
 
@@ -40,7 +41,7 @@ export class MyApp implements OnInit{
       statusBar.styleDefault();
       splashScreen.hide();
       this.networkProvider.initializeNetworkEvents();
-      
+       
       // Offline event
       this.events.subscribe('network:offline', () => {
           alert('Please check your network connection');
@@ -50,7 +51,17 @@ export class MyApp implements OnInit{
       this.events.subscribe('network:online', () => {
           alert('Network Connected');
       });
+
+      if (this.platform.is('browser') || this.platform.is('desktop') || this.platform.is('core')) {
+          console.log("BROWSER CLOSE");
+          this.hideCloseBtn = false;
+          
+      }
     });
+
+
+
+   
 
     this.dataService.getLoginData.subscribe(res=>{
       console.log(res,"Res")

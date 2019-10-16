@@ -10,18 +10,18 @@
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.failedList}}</span>
         <div class="header-icon">
-          <ion-icon name="ios-search" (click)="toggleSearchBox()" class="chat-icon"></ion-icon>
+          <!-- <ion-icon name="ios-search" (click)="toggleSearchBox()" class="chat-icon"></ion-icon> -->
           <!-- <ion-icon name="ios-chatboxes" (click)="goToForum()" class="chat-icon"></ion-icon> -->
           <app-bell></app-bell>
         </div>
       </ion-title>
     </ion-navbar>
-    <ion-toolbar *ngIf="showSearchBar">
+    <!-- <ion-toolbar *ngIf="showSearchBar">
       <ion-icon name="md-arrow-back" class="search-backarrow" (click)="toggleSearchBox()"></ion-icon>
       <ion-searchbar [(ngModel)]="search" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)"
         class="search-bar">
       </ion-searchbar>
-    </ion-toolbar>
+    </ion-toolbar> -->
   </ion-header>
   
 

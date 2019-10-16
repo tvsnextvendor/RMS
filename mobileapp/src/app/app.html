@@ -4,7 +4,7 @@
         <ion-content class="sidebar-list">
             <ion-header class="sidebar-header">
                 <ion-title>{{constant.title.menu}}</ion-title>
-                <ion-icon name="ios-close" class="menu-close-button" menuClose></ion-icon>
+                <ion-icon name="ios-close" class="menu-close-button" menuClose *ngIf="hideCloseBtn"></ion-icon>
             </ion-header>
             <ion-list>
                 <ion-item menuClose (tap)="openPage(profilePage)">
