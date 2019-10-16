@@ -1,5 +1,5 @@
 <div class="tab-section pt-3">
-    <form class="float-right row pb-3 filter-search">
+    <form class="float-right row pb-3 filter-search" *ngIf="approvalForm">
         <div class="search-container clearfix">
             <!-- <input type="text" placeholder="Search Keyword.." name="search" [(ngModel)]="search" class="user-searchbox"> -->
             <button *ngIf="courseDetails.length" type = "button" class="btn btn-primary" (click)="goToCourse()">Edit Course</button>
