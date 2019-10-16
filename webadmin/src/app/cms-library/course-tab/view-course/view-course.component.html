@@ -18,11 +18,11 @@
                   <span class="text-over col-md-6 p-3">File Name</span>
                 </div>
                 <div class="row col-md-12">
-                  <!-- <span class="col-md-3 p-3 content-class">{{course?.TrainingClass?.trainingClassName}}</span> -->
-                  <span class="col-md-6 p-3 content-class">{{file?.File?.fileName}}</span>
+                  <span class="col-md-6 p-3 content-class">{{file?.File?.fileName}} <a href="javascript:void(0);" (click)="openFileContent(viewVideo,file?.File?.fileUrl)">View</a></span>
                 </div>
                 <div class="row col-md-12">
                     <span class="text-over col-md-3 p-3">Description</span>
+                    
                 </div>
                 <div class="row col-md-12">
                   <p class="pdl-50 p-3 content-class-desc">{{file?.File?.fileDescription}}</p>
@@ -85,3 +85,16 @@
     </p>
 </div>
 </div>
+
+<ng-template #viewVideo>
+    <div class="modal-header pb-0">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <video controls class="video-play">
+            <source src="{{uploadPath}}{{videoUrl}}" type="video/mp4" />
+        </video>
+    </div>
+</ng-template>

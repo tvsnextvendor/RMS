@@ -26,7 +26,6 @@ export class CertificationDetailComponent implements OnInit {
     });
   
   }
-
   ngOnInit() {
     this.headerService.setTitle({ title: this.commonLabels.labels.certifiTrend, hidemodule: false });
     this.breadCrumbService.setTitle([]);
@@ -34,7 +33,6 @@ export class CertificationDetailComponent implements OnInit {
     this.resortId = this.utilService.getUserData() && (this.utilService.getUserData().ResortUserMappings[0])?this.utilService.getUserData().ResortUserMappings[0].Resort.resortId:'';
     this.getBadgeList();
   }
-
   getBadgeList(){
      let query={
        courseId : this.courseId,
