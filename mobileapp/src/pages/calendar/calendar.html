@@ -63,23 +63,22 @@
       <div class="modal-body">
         <div class="hd-alg row">
           <p class="p-0 col-md-12">
-            <label class="date-hd col-md-4 p-0">From Date</label>
-            <span class="date-cont col-md-8">:{{modaleventDetail.startTime | date:'dd MMM yyyy' }}</span>
+            <label class="date-hd col-md-4 p-0">From Date :</label>
+            <span class="date-cont col-md-8">{{modaleventDetail.startTime | date:'dd MMM yyyy' }}</span>
           </p>          
           <p class="p-0 col-md-12">
-            <label class="date-hd col-md-5 p-0">To Date</label>
-            <span class="date-cont col-md-7">:{{modaleventDetail.endTime | date:'dd MMM yyyy' }}</span>
+            <label class="date-hd col-md-5 p-0">To Date :</label>
+            <span class="date-cont col-md-7">{{modaleventDetail.endTime | date:'dd MMM yyyy' }}</span>
           </p>          
        </div>
        <div>
           <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'course'">Courses: </div>
-          <p  class="course-alg" *ngIf="modaleventDetail.scheduleType == 'course' && modaleventDetail.courses.length">
-            <a class="course-click" *ngFor="let data of  modaleventDetail.courses" (click)="navPage(data.courseId)">{{data.Course.courseName}}</a>
+          <p class="course-alg" *ngIf="modaleventDetail.scheduleType == 'course' && modaleventDetail.courses.length">
+               <li *ngFor="let data of  modaleventDetail.courses"><a class="course-click" (click)="navPage(data.courseId)">{{data.Course.courseName}}</a></li> 
           </p> 
           <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'trainingClass'">Classes: </div>
           <p class="course-alg" *ngIf="modaleventDetail.scheduleType == 'trainingClass' && modaleventDetail.courses.length">
-            <a class="course-click" *ngFor="let data of  modaleventDetail.courses"
-              (click)="navPage(data.courseId)">{{data.TrainingClass.trainingClassName}}</a>
+            <li *ngFor="let data of  modaleventDetail.courses"><a class="course-click" (click)="navPage(data.trainingClassId)">{{data.TrainingClass.trainingClassName}}</a></li>
           </p>
 
         </div>
