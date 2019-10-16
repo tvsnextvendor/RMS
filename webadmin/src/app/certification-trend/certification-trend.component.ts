@@ -61,7 +61,7 @@ export class CertificationTrendComponent implements OnInit {
     this.commonService.certificateTrendCount(query).subscribe((res) => {
       if (res.isSuccess) {
         this.trendList = res.data.rows.length ? res.data.rows : [];
-        this.totalCount = res.data.count;
+        this.totalCount = res.data.rows.length;
       } else {
         this.trendList = [];
       }

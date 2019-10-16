@@ -42,7 +42,7 @@ export class CertificationDetailComponent implements OnInit {
     this.commonService.certificateTrendCountDetail(query).subscribe((res) => {
         if (res.isSuccess) {
             this.badgeList = res.data.rows.length ? res.data.rows : [];
-            this.totalCount = res.data.count;
+            this.totalCount = res.data.rows.length;
             this.pageTitle = res.data.course.courseName;
         } else {
             this.badgeList = [];
