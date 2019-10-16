@@ -3,8 +3,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CommonService, BreadCrumbService, HeaderService, UtilService,PDFService, ExcelService } from '../../services';
 import { CommonLabels } from '../../Constants/common-labels.var'
 
-
-
 @Component({
   selector: 'app-certification-detail',
   templateUrl: './certification-detail.component.html',
@@ -33,8 +31,7 @@ export class CertificationDetailComponent implements OnInit {
     this.headerService.setTitle({ title: this.commonLabels.labels.certifiTrend, hidemodule: false });
     this.breadCrumbService.setTitle([]);
     this.roleId = this.utilService.getRole();
-    this.resortId = this.utilService.getUserData() && this.utilService.getUserData().ResortUserMappings[0].Resort.resortId;
-    console.log(this.resortId);
+    this.resortId = this.utilService.getUserData() && (this.utilService.getUserData().ResortUserMappings[0])?this.utilService.getUserData().ResortUserMappings[0].Resort.resortId:'';
     this.getBadgeList();
   }
 
@@ -54,8 +51,6 @@ export class CertificationDetailComponent implements OnInit {
         }
     });
   }
-
-
   // Create PDF
   exportAsPDF(){ 
     var data = document.getElementById('certificationDetail'); 
