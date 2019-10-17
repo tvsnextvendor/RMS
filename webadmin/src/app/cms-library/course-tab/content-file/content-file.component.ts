@@ -23,6 +23,7 @@ export class ContentFileComponent implements OnInit {
   fileId;
   pageSize;
   page;
+  userData;
   currentPage;
   userListData;
   totalCourseCount;
@@ -55,7 +56,7 @@ export class ContentFileComponent implements OnInit {
     let data = [{title : this.commonLabels.labels.resourceLibrary,url:'/cms-library'},{title : this.commonLabels.labels.contentFile,url:''}]
     this.breadCrumbService.setTitle(data);
      this.getContentFiles();
-
+     this.userData = this.utilService.getUserData().userId;
      const resortId = this.utilService.getUserData().ResortUserMappings.length &&  this.utilService.getUserData().ResortUserMappings[0].Resort.resortId; 
      this.resortService.getResortByParentId(resortId).subscribe((result)=>{
          this.constant.resortList=result.data.Resort;
@@ -125,8 +126,17 @@ export class ContentFileComponent implements OnInit {
     }
 
      openFileContent(fileUrl){
-      let url = this.uploadPath+fileUrl;
-      window.open(url, "_blank");
+       let ext = fileUrl.split('.').pop();
+       ext = ext.toLowerCase();
+       console.log(ext)
+       if(ext == 'docx' || ext == 'doc'){
+        let url = 'https://docs.google.com/gview?embedded=true&url=' + this.uploadPath+fileUrl;
+        window.open(url, "_blank");
+       }else{
+        let url = this.uploadPath + fileUrl;
+        window.open(url, "_blank");
+       }
+       
      }
 
     
