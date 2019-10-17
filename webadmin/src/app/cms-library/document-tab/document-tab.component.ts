@@ -113,8 +113,16 @@ export class DocumentTabComponent implements OnInit {
   }
 
   openFileContent(data){
-    let url = this.uploadPath+data.fileUrl;
-      window.open(url, "_blank");
+    let ext = data.fileUrl.split('.').pop();
+    ext= ext.toLowerCase();
+    console.log(ext,"EXT")
+    if (ext == 'docx' || ext == 'doc') {
+        let url = 'https://docs.google.com/gview?embedded=true&url=' + this.uploadPath + data.fileUrl;
+        window.open(url, "_blank");
+    } else {
+        let url = this.uploadPath + data.fileUrl;
+        window.open(url, "_blank");
+    }
   }
 
  
@@ -194,7 +202,18 @@ export class DocumentTabComponent implements OnInit {
           this.videoListValue = [];
         }else{
            this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
-           _.merge(this.videoListValue, selectedDocuments);
+           console.log(this.videoListValue,"FILELIST");
+           console.log(selectedDocuments,"SelectedDocuments");
+           _.merge(this.videoListValue, selectedDocuments); //This is not working properly
+          
+          // const cars1IDs = new Set(this.videoListValue.map(({ fileName }) => fileName));
+          // const combined = [
+          //     ...this.videoListValue,
+          //     ...selectedDocuments.filter(({ fileName }) => !cars1IDs.has(fileName))
+          // ];
+          // console.log(combined, "Combined");
+          // this.videoListValue = combined;
+
         this.uploadPath = resp.data && resp.data.uploadPaths ? resp.data.uploadPaths.uploadPath : '';
       }
        }

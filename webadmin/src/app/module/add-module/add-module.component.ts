@@ -292,6 +292,14 @@ export class AddModuleComponent implements OnInit {
 
 
     showCMSLibrary() {
+        // if(this.moduleVar.videoList){
+        //     console.log("djsnnjksndnskn");
+        //     this.moduleVar.videoList.map(item =>{
+        //         console.log(item)
+        //         this.fileService.sendFileList('add', item);
+        //     })
+        // }
+        
         let obj = {
             'value': true,
             'key': 'course'
@@ -505,7 +513,9 @@ export class AddModuleComponent implements OnInit {
             if (resp && resp.isSuccess) {
                 let classData = resp.data.file;
                 this.moduleVar.selectCourseName = classData && classData.length && classData[0].TrainingClass && classData[0].TrainingClass.trainingClassName;
-                let preAddedFiles = this.fileService.selectedFiles();
+                let preAddedFiles = [];
+                preAddedFiles = this.fileService.selectedFiles();
+                console.log(preAddedFiles,"Pre Added FIles");
                 if(preAddedFiles && preAddedFiles.length > 0){
                     this.addedFiles = preAddedFiles;
                     this.appendFilesToVideoList(preAddedFiles);
@@ -514,8 +524,8 @@ export class AddModuleComponent implements OnInit {
                         let fileArr  = items.File;
                         fileArr['addNew'] = true;
                         fileArr['selected'] = true;
-                        // return items.File 
-                        //this.fileService.sendFileList('add',fileArr);
+                        //return items.File 
+                        this.fileService.sendFileList('add',fileArr);
                         return fileArr;
                     });
                     this.fileService.saveFileList();
