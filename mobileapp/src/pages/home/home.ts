@@ -18,7 +18,7 @@ import * as moment from 'moment';
 export class HomePage {
    
   currentUser;
-  status;
+  status = 'assigned';
   enableView;
   todayDate;
   enableIndex;

@@ -42,6 +42,10 @@ export class NotificationPage implements OnInit {
   }
 
 
+  closePage(){
+     this.navCtrl.push('home-page');
+  }
+
   // readAllNotification(){
   //   let userId = this.currentUser.userId;
   //   this.http.put(false, API_URL.URLS.readAllNoti+ '/' + userId).subscribe((res) => {

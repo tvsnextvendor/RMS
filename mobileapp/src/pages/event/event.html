@@ -35,7 +35,11 @@
             <ion-row *ngFor="let course of courseScheduleDetail" >
               <div class="course-count" *ngIf="course.CourseTrainingClassMaps.length">
                 <div>
-                  <p class="course-click" (click)="redirectTCPage(course.courseId,schedule.trainingScheduleId)">{{course.courseName}}</p>
+                    <p class="course-click" (click)="redirectTCPage(course.courseId,schedule.trainingScheduleId)"
+                      *ngIf="course.TrainingScheduleResorts[0].status != 'expired'">{{course.courseName}}</p>
+                    <p *ngIf="course.TrainingScheduleResorts[0].status == 'expired'">{{course.courseName}}</p>
+
+                  <!-- <p class="course-click" (click)="redirectTCPage(course.courseId,schedule.trainingScheduleId)">{{course.courseName}}</p> -->
                   <div *ngFor="let class of course.CourseTrainingClassMaps">
                   <ion-row>
                   <ion-col col-6>TC - {{class.TrainingClass.trainingClassName}}</ion-col>
@@ -72,7 +76,10 @@
               <div class="course-count">
                     <ion-row>
                       <ion-col col-6>
-                        <p class="course-click" (click)="redirectFilesPage(class.trainingClassId,schedule.trainingScheduleId)">TC - {{class.trainingClassName}}</p>
+                          <p class="course-click" (click)="redirectFilesPage(class.trainingClassId,schedule.trainingScheduleId)"
+                            *ngIf="class.TrainingScheduleResorts[0].status != 'expired'">TC - {{class.trainingClassName}}</p>
+                          <p *ngIf="class.TrainingScheduleResorts[0].status == 'expired'">TC - {{class.trainingClassName}}</p>
+                        <!-- <p class="course-click" (click)="redirectFilesPage(class.trainingClassId,schedule.trainingScheduleId)">TC - {{class.trainingClassName}}</p> -->
                       </ion-col>
                       <ion-col col-6>
                         <div class="expires red-color" *ngIf="class.FeedbackMappings.length == 0">
