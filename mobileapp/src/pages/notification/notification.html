@@ -4,8 +4,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title class="text-left">
-        <span class="header-title">{{constant.title.notification}}</span>
+    <ion-title>
+      <!-- class="text-left" -->
+        <span class="header-title text-left">{{constant.title.notification}}</span>
+        <ion-icon name="ios-close" class="menu-close-button" menuClose (tap)="closePage()"></ion-icon>
       </ion-title>
   </ion-navbar>
 </ion-header>
