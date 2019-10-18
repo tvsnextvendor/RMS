@@ -43,7 +43,7 @@ export class NotificationPage implements OnInit {
 
 
   closePage(){
-     this.navCtrl.push('home-page');
+     this.navCtrl.pop();
   }
 
   // readAllNotification(){

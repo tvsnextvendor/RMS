@@ -1,9 +1,9 @@
 <ion-content padding class="headerFull-bg default-header">
   <ion-header class="static-header no-backbtn">
     <ion-navbar>
-      <button ion-button menuToggle>
-        <img src="assets/imgs/menu.png" />
-      </button>
+      <span class="back-training" (click)="goBack()">
+                <img src="assets/imgs/Back.png" />
+            </span>
       <ion-title class="text-left">
         <span class="header-title">{{constant.title.training}}</span>
        <div class="header-icon">

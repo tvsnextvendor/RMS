@@ -173,7 +173,7 @@ export class LoginComponent implements OnInit {
 							// permissionData.forEach(item => {
 							// 	if (item.moduleName == 'Course / Training Class / Quiz' || item.moduleName == 'Notification') {
 							// 		if (item.edit == true) {
-										this.urlData = '/cmspage?type=create';
+										this.urlData = '/dashboard';
 										this.route.navigateByUrl(this.urlData);
 							// 			return false;
 							// 		} else if (item.view == true) {
