@@ -19,6 +19,7 @@ export class CertificationDetailComponent implements OnInit {
  totalCount;
  xlsxList=[];
  roleId;
+ userId;
  
   constructor(public activatedRoute: ActivatedRoute,private commonService: CommonService, public commonLabels: CommonLabels, private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService,private pdfService:PDFService, private excelService:ExcelService) { 
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -30,6 +31,7 @@ export class CertificationDetailComponent implements OnInit {
     this.headerService.setTitle({ title: this.commonLabels.labels.certifiTrend, hidemodule: false });
     this.breadCrumbService.setTitle([]);
     this.roleId = this.utilService.getRole();
+    this.userId = this.utilService.getUserData().userId;
     this.resortId = this.utilService.getUserData() && (this.utilService.getUserData().ResortUserMappings[0])?this.utilService.getUserData().ResortUserMappings[0].Resort.resortId:'';
     this.getBadgeList();
   }
@@ -37,8 +39,10 @@ export class CertificationDetailComponent implements OnInit {
      let query={
        courseId : this.courseId,
        resortId : this.resortId,
-       search : this.search 
+       search : this.search,
+       userId :(this.roleId === 4)? this.userId:''
       }
+      
     this.commonService.certificateTrendCountDetail(query).subscribe((res) => {
         if (res.isSuccess) {
             this.badgeList = res.data.rows.length ? res.data.rows : [];
