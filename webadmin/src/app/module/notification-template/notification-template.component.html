@@ -1,0 +1,68 @@
+
+<div>
+  <div class="clearfix">
+    <h4 class="add-notify">{{notifyId ? commonLabels.labels.editNotification :
+            commonLabels.btns.createNotification}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row px-4">
+      <div class="col-md-6 pb-1">
+        <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('assignedToCourse')">
+          <div class="ass-header-color clearfix p-1"></div>
+          <h5 class="text-center pt-1">{{this.commonLabels.labels.assignToCourse}}</h5>
+          <div class="row pb-3">
+            <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11849.png">
+            </div>
+            <div class="col-md-7 para-alg">
+              <p class="mb-0 pt-3">Start here to create and assign a notification as a part of a
+                scheduled course. </p>
+              <p class="mb-0">Use this feature to notify employees about some important/new announcements
+                and include it to an already scheduled course. </p>
+            </div>
+          </div>
+          <div class="col-md-12 text-center px-5">
+            <button class="btn btn-primary start-btn ass-header-color">Start</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 pb-1">
+        <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('signature')">
+          <div class="sign-header-color clearfix p-1"></div>
+          <h5 class="text-center pt-1">{{this.commonLabels.labels.signature}}</h5>
+          <div class="row pb-3">
+            <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11850.png">
+            </div>
+            <div class="col-md-7 para-alg">
+              <p class="mb-0 pt-4">Start here to create very important notifications that needs special
+                attention and acknowledgement from the employees that they have viewed and read the
+                document attached. </p>
+            </div>
+          </div>
+          <div class="col-md-12 text-center px-5">
+            <button class="btn btn-primary start-btn sign-header-color">Start</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 pt-4">
+        <div class="white-bg cp pb-3" (click)="notificationTypeUpdate('nonSignature')">
+          <div class="nonsign-header-color clearfix p-1"></div>
+          <h5 class="text-center pt-1">{{this.commonLabels.labels.nonSignature}}</h5>
+          <div class="row pb-3">
+            <div class="col-md-5 text-center"><img class="pt-4 notify-img-alg" src="assets/images/Group 11852.png">
+            </div>
+            <div class="col-md-7 para-alg">
+              <p class="mb-0 pt-4">Start here to notify employees of any announcements, upcoming events
+                or meetings. </p>
+              <p class="mb-0">Please note that this notification will be not be a part of any course and
+                will not have acknowledgements from the user. </p>
+            </div>
+          </div>
+          <div class="col-md-12 text-center px-5">
+            <button class="btn btn-primary start-btn nonsign-header-color">Start</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
