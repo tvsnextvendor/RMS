@@ -64,14 +64,14 @@
                 </div>
             </div>
             <div *ngIf="enableView && enableIndex === i">
-                <div class="clearfix">
+                <div class="clearfix"  *ngIf="assignedCount || completedCount">
                     <h5>{{commonLabels.labels.usageStats}}</h5>
                     <div class="total-count row pt-2">
                         <span class="col-md-6 p-0">{{commonLabels.labels.totalNoEmp}}
                             {{individualNotification?.totalCount}}</span>
                     </div>
                 </div>
-                <div class="progress-section pt-3">
+                <div class="progress-section pt-3" *ngIf="assignedCount || completedCount">
                     <div class="row progress">
                         <div class="progress-bar p-3 assigned-perc" *ngIf="assignedCount != 0" [style.width.%]="assignedCount">
                             {{assignedCount}}
