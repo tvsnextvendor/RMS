@@ -27,15 +27,17 @@ import {AddNotificationComponent} from './add-notofication/add-notification.comp
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {UploadQuizComponent} from './upload-quiz/upload-quiz.component';
 import {QuizService} from './quiz.service';
+import { NotificationTemplateComponent } from './notification-template/notification-template.component';
 
 const routes: Routes = [
     { path: 'module', component:AddModuleComponent ,canActivate : [AuthGuard]},
     { path: 'courselist', component:CourseListComponent ,canActivate : [AuthGuard]},
     { path: 'modulelist/:id', component:ModuleListComponent ,canActivate : [AuthGuard]},
-    { path:  'module/:moduleId', component:AddModuleComponent ,canActivate : [AuthGuard]} ,
-    { path:  'modules/:moduleId/:courseId', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}, 
-    { path:  'modules', component:ModuleDetailsComponent ,canActivate : [AuthGuard]},
-    { path: 'uploadQuiz', component:UploadQuizComponent, canActivate:[AuthGuard]}       
+    { path: 'module/:moduleId', component:AddModuleComponent ,canActivate : [AuthGuard]} ,
+    { path: 'modules/:moduleId/:courseId', component:ModuleDetailsComponent ,canActivate : [AuthGuard]}, 
+    { path: 'modules', component:ModuleDetailsComponent ,canActivate : [AuthGuard]},
+    { path: 'uploadQuiz', component:UploadQuizComponent, canActivate:[AuthGuard]},
+    { path: 'notification/template', component:NotificationTemplateComponent, canActivate:[AuthGuard]}       
 ];
 export const MY_MOMENT_FORMATS = {
   parseInput: 'l LT',
@@ -78,7 +80,9 @@ export const MY_MOMENT_FORMATS = {
     ModuleDetailsComponent,
     AddQuizComponent,
     UploadQuizComponent,
-    AddNotificationComponent
+    NotificationTemplateComponent,
+    AddNotificationComponent,
+    NotificationTemplateComponent
   ],
   providers: [QuizService,
     {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},

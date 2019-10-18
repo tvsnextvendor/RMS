@@ -74,19 +74,19 @@ export class AddNotificationComponent implements OnInit {
     this.batchVar.url = API_URL.URLS;
     this.labels = moduleVar.labels;
     this.userId = this.utilService.getUserData() && this.utilService.getUserData().userId;
-    this.activatedRoute.queryParams.forEach(items => {
-      this.notifyId = items.notifyId;
-      if (items && items.library) {
-        this.resourceLib = true;
-      }
-      else if (items && items.schedule) {
-        this.schedulePage = true;
-      }
-    });
   }
 
   ngOnInit() {
     this.clearBatchForm();
+    this.activatedRoute.queryParams.forEach(items => {
+        this.notifyId = items.notifyId;
+        this.notificationType = items.notificationType;
+        if (items && items.library) {
+            this.resourceLib = true;
+        } else if (items && items.schedule) {
+            this.schedulePage = true;
+        }
+    });
     if (this.resourceLib) {
       this.headerService.setTitle({ title: 'Edit', hidemodule: false });
       let data = [{ title: this.commonLabels.labels.resourceLibrary, url: '/resource/library' }, { title: this.commonLabels.labels.editNotification, url: '' }]
@@ -104,7 +104,7 @@ export class AddNotificationComponent implements OnInit {
     }
     else {
       this.headerService.setTitle({ title: 'Create', hidemodule: false });
-      let data = this.notifyId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editNotification, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.btns.createNotification, url: '' }]
+      let data = this.notifyId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editNotification, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/notification/template' }, { title: this.commonLabels.btns.createNotification, url: '' }]
       this.breadCrumbService.setTitle(data);
     }
     // let startDate = localStorage.getItem('BatchStartDate');
@@ -744,16 +744,6 @@ export class AddNotificationComponent implements OnInit {
 
   goTocmsLibrary() {
     this.completed.emit('completed');
-  }
-  notificationTypeUpdate(type) {
-    this.notifyType = type;
-    this.notificationTypeSubmit();
-  }
-  notificationTypeSubmit() {
-    if (!this.notifyType) {
-      this.alertService.error('Please select the notification type')
-    }
-    this.notificationType = this.notifyType;
   }
 
   back() {
