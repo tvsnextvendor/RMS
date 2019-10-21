@@ -1,0 +1,8 @@
+.clear-all{
+    float: right;
+    color: #468FB9;
+    font-size: 14px;
+    text-decoration: underline;
+    margin: 10px 12px;
+    cursor: pointer;
+}

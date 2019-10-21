@@ -21,16 +21,16 @@
                         <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabChange('video','')">{{commonLabels.labels.videos}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!showcreatecourse && permissionCheck('Course / Training Class / Quiz','view')">
-                        <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document','')">{{commonLabels.labels.documents}}</a>
+                        <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document','')">{{commonLabels.btns.docs}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection && permissionCheck('Notification', 'view')">
                         <a  *ngIf="!disableTabs" [ngClass] = "selectedTab === 'notification' ? 'nav-link active show' : 'nav-link'" (click)="headerTabChange('notification','')">{{commonLabels.labels.notification}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection && permissionCheck('Course / Training Class / Quiz','view')" >
-                        <a *ngIf="!disableTabs && !disableEdit" [ngClass] = "selectedTab === 'workInprogress' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#workInprogress" (click)="headerTabChange('workInprogress','')">{{commonLabels.btns.workinProgress}}</a>
+                        <a *ngIf="!disableTabs && !disableEdit" [ngClass] = "selectedTab === 'workInprogress' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#workInprogress" (click)="headerTabChange('workInprogress','')">{{commonLabels.btns.Wip}}</a>
                     </li>
                     <li class="nav-item" *ngIf="!hideSection && permissionCheck('Course / Training Class / Quiz','view')">
-                        <a *ngIf="!disableTabs && disableEdit" [ngClass] = "selectedTab === 'recentDelete' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#recentDelete" (click)="headerTabChange('recentDelete','')">{{commonLabels.btns.recentDelete}}</a>
+                        <a *ngIf="!disableTabs && !disableEdit" [ngClass] = "selectedTab === 'recentDelete' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#recentDelete" (click)="headerTabChange('recentDelete','')">{{commonLabels.btns.recentDelete}}</a>
                     </li>
                 </ul> 
                 <button *ngIf="schedulePage &&  selectedTab != 'notification'" type = "button" class="btn btn-primary p-2" placement="top" tooltip="Schedule a Training" (click)="enableData(editBatch,'batch')">{{commonLabels.btns.scheduleTraining}}</button>
