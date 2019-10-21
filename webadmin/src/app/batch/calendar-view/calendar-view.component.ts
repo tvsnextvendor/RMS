@@ -105,7 +105,7 @@ export class CalendarViewComponent implements OnInit {
     }
     
     goToBatch(event,scheduleId,i,batchType){
-        console.log(event,scheduleId, i, batchType)
+     //   console.log(event,scheduleId, i, batchType)
        if(this.roleId == 4 && batchType == 'addBatch'){
             if(this.permissionCheck('Schedule')){
                 this.permissionCheckClick(event,scheduleId,i,batchType)
@@ -178,13 +178,19 @@ export class CalendarViewComponent implements OnInit {
         let query = this.selectedResort ? this.selectedResort+"&createdBy="+user.userId : '';
         this.courseService.getCalendarSchedule(query).subscribe(resp=>{
             if(resp && resp.isSuccess){
-                // console.log(resp);
                 let scheduleData = resp.data.length && resp.data;
                 let tempArray = [];
                 scheduleData.map(item => {
+
+                    let timezoneStart = new Date(item.assignedDate).toLocaleString("en-US", {timeZone: "UTC"});
+                    let timezoneDue   = new Date(item.dueDate).toLocaleString("en-US", {timeZone: "UTC"});
                     let obj = {
-                        start       : new Date(item.assignedDate),
-                        dueDate : new Date(item.dueDate),
+                        // start:item.assignedDate,
+                        // dueDate: item.dueDate,
+                        start : new Date(timezoneStart),
+                        dueDate   : new Date(timezoneDue),
+                        // start       : new Date(item.assignedDate).toLocaleString('en-US', { timeZone: "UTC" }),
+                        // dueDate : new Date(item.dueDate).toLocaleString('en-US', { timeZone: "UTC" }),
                         // end         : new Date(item.dueDate),
                         batchName   : item.name,
                         moduleCount : resp.data.length,
@@ -197,7 +203,7 @@ export class CalendarViewComponent implements OnInit {
                         id          : item.trainingScheduleId, 
                     }
                     tempArray.push(obj);
-                 })
+                 });
                  this.events=tempArray;
             }
             else{

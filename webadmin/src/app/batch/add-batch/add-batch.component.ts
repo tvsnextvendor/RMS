@@ -167,12 +167,14 @@ export class AddBatchComponent implements OnInit {
     }
 
     updateScheduleTraining() {
-        this.batchVar.batchFrom = new Date(this.scheduleData.assignedDate);
+        let timezoneStart = new Date(this.scheduleData.assignedDate).toLocaleString("en-US", {timeZone: "UTC"});
+        let timezoneEnd = new Date(this.scheduleData.dueDate).toLocaleString("en-US", {timeZone: "UTC"});
+        this.batchVar.batchFrom = new Date(timezoneStart);
         if(this.batchVar.batchFrom < this.currentDate){
             this.previousUpdate = true;
         }
         this.tabType = this.scheduleData.scheduleType == 'trainingClass' ? 'training' : this.scheduleData.scheduleType;
-        this.batchVar.batchTo = new Date(this.scheduleData.dueDate);
+        this.batchVar.batchTo = new Date(timezoneEnd);
         this.batchVar.batchName = this.scheduleData.name;
         this.batchVar.selectedResort = this.scheduleData.Resorts.length && this.scheduleData.Resorts[0].resortId;
         let courseDetails = this.scheduleData.Courses.map(item => {
