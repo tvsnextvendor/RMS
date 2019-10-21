@@ -196,6 +196,7 @@ export class API_URL {
 
     // notification
     addTypeOneNotification : '8103/createNotification',
+    readAllNoti            : '8103/user/readAllNotifications',
     addTypeTwoNotification : '8103/signatureNotification',
     getNotification         : '8103/getNotification',
     getNotificationFile     : '8103/getNotificationFile',

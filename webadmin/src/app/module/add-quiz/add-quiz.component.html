@@ -161,7 +161,7 @@
 			</div>
 			<div class="col-sm-12 clearfix py-4 px-0" >
 				<button type="submit" class="btn btn-primary" [disabled]="!quizForm.form.valid && !questionList" (click)="openEditModal(confirm,'batch')" >{{commonLabels.btns.save}}</button>
-			  	<button type="button" *ngIf="preview" class="btn btn-primary btn-save ml-8 preview-icon" (click)="goToPreview()">{{commonLabels.btns.preview}}</button>
+			  	<!-- <button type="button" *ngIf="preview" class="btn btn-primary btn-save ml-8 preview-icon" (click)="goToPreview()">{{commonLabels.btns.preview}}</button> -->
 				<!-- <button *ngIf="moduleId" type="submit" class="btn btn-primary" (click)="quizSubmit('yes')">{{commonLabels.btns.save}}</button> -->
 			</div>
 		</form>

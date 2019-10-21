@@ -14,27 +14,41 @@ export class NotificationComponent implements OnInit {
   notificationCount = 0;
   notificationList;
   uploadPath;
-  constructor(public socketService: SocketService,public utilService: UtilService) { }
+  currentUser;
+  constructor(public socketService: SocketService,public commonService : CommonService,public utilService: UtilService) { }
 
   ngOnInit() {
-    let userData= this.utilService.getUserData();
-    this.uploadPath = userData && userData.uploadPaths && userData.uploadPaths.uploadPath ? userData.uploadPaths.uploadPath : '';
+   this.currentUser = this.utilService.getUserData();
+    this.uploadPath = this.currentUser && this.currentUser.uploadPaths && this.currentUser.uploadPaths.uploadPath ? this.currentUser.uploadPaths.uploadPath : '';
      this.getNotification();
   }
 
 
   getNotification(){
-    let userData= this.utilService.getUserData();
+   
     let socketObj = {
-      userId: userData.userId
+      userId: this.currentUser.userId
     };  
     Observable.interval(20000).subscribe(observer => {	
       this.socketService.getNotification(socketObj).subscribe((data) => {
           this.notificationCount = data['unReadCount'];
           this.notificationList = data['rows'];
+          console.log(this.notificationList, "NotificationList");
       });
     });
    }
+
+    
+  readAllNotification(){
+     this.commonService.readAllNotification().subscribe((data)=>{
+      if(data.isSuccess){
+        this.notificationList = [];
+      }
+     })
+  }
+
+    
+
    calculateHours(date){
     var a = moment(new Date(date));
     var b = moment(new Date());

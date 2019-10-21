@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http.service';
 import { map } from 'rxjs/operators';
+import { UtilService } from '../util.service';
 import { API_URL } from '../../Constants/api_url';
 import {API} from '../../../app/Constants/api';
 
@@ -12,7 +13,7 @@ export class CommonService {
 
   url;
 
-  constructor (private http: HttpService) {
+  constructor (private http: HttpService, private utilService : UtilService) {
        this.url = API_URL.URLS;
   }
   getResortName() {
@@ -20,6 +21,14 @@ export class CommonService {
     let resortName = localStorage.getItem("resortName") != '0' ? localStorage.getItem("resortName") : 'Network Admin';
     return resortName;
     }
+
+  
+  readAllNotification(){
+    let userData = this.utilService.getUserData();
+    let userId = userData.userId;
+    return  this.http.put('local', this.url.readAllNoti+ '/' + userId,'');
+  }
+
 
  getDivisionList(){
     return this.http.getLocal('local',this.url.divisionList);
