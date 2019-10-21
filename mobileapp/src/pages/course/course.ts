@@ -236,7 +236,7 @@ export class CoursePage implements OnInit {
       let resortId = this.currentUser.ResortUserMappings[0].resortId;
       // '&page=' + this.currentPage + '&size=' + this.perPageData
       this.http.get(API_URL.URLS.trainingCourseAPI + '?status=' + status + '&userId=' + userId +'&resortId='+resortId+'&search=' +search+'&selectType='+this.filterData).subscribe((res) => {
-        if(res['data']['rows']){
+        if(res['data'] && res['data']['rows']){
           this.assignedCount = res['data']['count'];
           this.totalPage = this.assignedCount / this.perPageData;
           if (this.scrollEnable) {

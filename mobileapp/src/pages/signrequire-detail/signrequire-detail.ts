@@ -189,7 +189,7 @@ export class SignrequireDetailPage {
                 paramsData['tab'] = 'signReq'
                 this.navCtrl.push('course-page', paramsData);
           }else{
-            this.successMessage('Please view the content and agree acknowledgement');
+            this.successMessage('Please view the content and acknowledge that you have read the document by clicking on the check box');
           }
       }else{
       if(this.contentViewed){
@@ -197,7 +197,6 @@ export class SignrequireDetailPage {
           this.navCtrl.push('generalnotification-page');
       }else{
           this.successMessage('Please view the content');
-          
       }
       }
     }

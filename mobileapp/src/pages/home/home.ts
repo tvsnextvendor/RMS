@@ -102,8 +102,11 @@ export class HomePage {
         this.navCtrl.push('course-page',this.paramsData);
         break;
       case 'course':
-        //this.changeTrainingStatus(data);
-        this.paramsData['status'] = this.status;
+        if(data === 'assignedCount'){
+          this.paramsData['status'] = 'assigned';
+        }else{
+          this.paramsData['status'] = this.status;
+        }
         this.navCtrl.push('course-page', this.paramsData);
         break;
       case 'trainingClass' :

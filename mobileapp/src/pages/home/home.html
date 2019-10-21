@@ -31,7 +31,7 @@
       <ion-row nowrap class="forecast_container">
         <ion-col col-4 col-md-4>
           <div class="status-block">
-            <div class="expire-circle circle-style" (click)="navPage('course','')">
+            <div class="expire-circle circle-style" (click)="navPage('course','assignedCount')">
               <h4 class="status-title" >{{dashboardCount.courseExpire}}</h4>
               <h4 class="status-title" *ngIf="!dashboardCount">{{constant.pages.dashboardLabels.zero}}</h4>
             </div>
@@ -42,7 +42,7 @@
         </ion-col>
         <ion-col col-4 col-md-4>
           <div class="assign-box sts-style">
-            <div class="blue-circle  circle-style" (click)="navPage('signReq')">
+            <div class="blue-circle  circle-style" (click)="navPage('signReq','')">
               <h4 class="status-title"  >{{dashboardCount.signatureReq}}</h4>
               <h4 class="status-title" *ngIf="!dashboardCount">{{constant.pages.dashboardLabels.zero}}</h4>
 
