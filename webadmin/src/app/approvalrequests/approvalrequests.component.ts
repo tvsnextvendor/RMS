@@ -290,7 +290,7 @@ export class ApprovalrequestsComponent implements OnInit {
   }
   goCourseView(dataCourse){
    if(dataCourse && dataCourse.Course && dataCourse.Course.courseId){
-    this.route.navigateByUrl('/viewCourse/'+dataCourse.Course.courseId+'?type=approval');
+    this.route.navigateByUrl('/viewCourse/'+dataCourse.Course.courseId+'?type=approval&approverId='+this.userData.userId);
    }else if(dataCourse && dataCourse.TrainingClass && dataCourse.TrainingClass.trainingClassId){
     this.route.navigateByUrl('/cms-library?type=create&tab=class&classId='+dataCourse.TrainingClass.trainingClassId);
    }else if(dataCourse && dataCourse.Quiz && dataCourse.Quiz.quizId){

@@ -22,12 +22,14 @@ export class ViewCourseComponent implements OnInit {
   videoUrl;
   modalRef: BsModalRef;
   approvalForm:boolean = true;
+  approverId;
 
   constructor(private headerService: HeaderService, private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService, private permissionService: PermissionService, private _location: Location) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.courseId = params['id'];
     });
     this.activatedRoute.queryParams.subscribe(params => {
+      this.approverId = params.approverId;
       if(params.type === 'approval'){
         this.approvalForm = false;
       }
@@ -82,8 +84,8 @@ export class ViewCourseComponent implements OnInit {
     this.classId = this.courseDetails.length && this.courseDetails[index].TrainingClass && this.courseDetails[index].TrainingClass.trainingClassId ? this.courseDetails[index].TrainingClass.trainingClassId : '';
   }
   updateClass(classId, i) {
-    if(this.approvalForm)
-    {
+    // if(this.approvalForm)
+    // {
       let user = this.utilService.getUserData();
       let resortId = user.ResortUserMappings.length ? user.ResortUserMappings[0].Resort.resortId : null;
       let data = this.courseDetails[i]
@@ -96,7 +98,8 @@ export class ViewCourseComponent implements OnInit {
         "trainingClassId": data.trainingClassId,
         "quizQuestions": [],
         "resortId": resortId,
-        "noQuiz": 1
+        "noQuiz": 1,
+        "approverId":this.approverId
       }
   
       if (data.TrainingClass.QuizMappings.length) {
@@ -134,9 +137,8 @@ export class ViewCourseComponent implements OnInit {
       },(err) =>{
        this.alertService.error(err.error.error.message);
       })
-    }else{
-      alert("here");
-      this.route.navigateByUrl('/approvalrequests');
-    }
+    // }else{
+    //   this.route.navigateByUrl('/approvalrequests');
+    // }
   }
 }
