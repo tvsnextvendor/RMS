@@ -39,6 +39,11 @@ export class FilterTabComponent implements OnInit {
   resourceLib = false;
   classViewChange;
   schedulePage = false;
+  divIds;
+  deptIds;
+  roleId;
+  allDivisions;
+  allDepartments;
   @Output() FilterSearchEvent = new EventEmitter<string>();
   @Output() classView = new EventEmitter<string>();
   
@@ -49,6 +54,9 @@ export class FilterTabComponent implements OnInit {
       if (window.location.pathname.indexOf("resource") != -1) {
         this.resourceLib = true;
       }
+      this.roleId = this.utilService.getRole();
+      this.divIds = this.utilService.getDivisions() ? this.utilService.getDivisions() : '';
+      this.deptIds = this.utilService.getDepartment() ? this.utilService.getDepartment() : ''; 
      }
 
   ngOnInit() {
@@ -95,7 +103,6 @@ export class FilterTabComponent implements OnInit {
     if(this.roleId == 1 ){
       let query = "?parents=1";
       this.commonService.getAllResort(query).subscribe(resp=>{
-        // console.log(resp)
         if(resp && resp.isSuccess){
           this.parentResortList = resp.data && resp.data.length ? resp.data : [];
         }
@@ -112,7 +119,15 @@ export class FilterTabComponent implements OnInit {
     if(data){
       this.courseService.getDivision(data,'parent').subscribe(result=>{
         if(result && result.isSuccess){
-          this.parentDivisionFilterList = result.data && result.data.divisions;
+            this.allDivisions = result.data && result.data.divisions;
+            if (this.divIds.length > 0 && this.roleId === 4 && !this.resourceLib) {
+                this.parentDivisionFilterList = [];
+                this.allDivisions.filter(g => this.divIds.includes(g.divisionId)).map(g => {
+                    this.parentDivisionFilterList.push(g);
+                });
+            } else {
+                this.parentDivisionFilterList = result.data.divisions;
+            }
         }
       })
     }
@@ -138,17 +153,23 @@ export class FilterTabComponent implements OnInit {
     let id = type === 'parent' ? this.filterParentDivision : this.filterChildDivision;
     this.courseService.getDepartment(id).subscribe(result=>{
        if(type === 'parent'){
-        this.parentDepartmentFilterList = result.data.rows && result.data.rows.length && result.data.rows;
+          this.allDepartments = result.data.rows && result.data.rows.length && result.data.rows;
+          if (this.deptIds.length > 0 && this.roleId === 4 && !this.resourceLib) {
+              this.parentDepartmentFilterList = [];
+              this.allDepartments.filter(g => this.deptIds.includes(g.departmentId)).map(g => {
+                  this.parentDepartmentFilterList.push(g);
+              });
+          } else {
+              this.parentDepartmentFilterList = result.data.rows;
+          }
       }
       else if(type === 'child'){
         this.childDepartmentFilterList = result.data.rows && result.data.rows.length && result.data.rows;
       }
-      
     })
   }
 
-  childResortChange(resortId){
-   
+  childResortChange(resortId){  
     this.courseService.getDivision(this.filterChildResort,'parent').subscribe(result=>{
       if(result && result.isSuccess){
         this.childDivisionFilterList = result.data.divisions && result.data.divisions.length ? result.data.divisions : [];
