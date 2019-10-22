@@ -12,21 +12,21 @@ export class SocketService {
   userdisconnected;
   userId;
 
-
-  init() {
-    this.socket = io(this.url, { transports: ['websocket'] });
+  constructor() {
+    this.socket = io(this.url, { transports: ['websocket']});
   }
 
+  // init() {
+  //   this.socket = io(this.url, { transports: ['websocket'] });
+  // }
   manualSocketDisconnect() {
     this.socket.disconnect();
     this.socket.close();
     console.log("Socket Closed.");
   }
-
-
-  getNotification(userId) {
-    let self = this;
-    this.socket = io(this.url, { transports: ['websocket'] });
+  getNotification(userId){
+    //let self = this;
+    //this.socket = io(this.url, { transports: ['websocket'] });
     const subject = new Observable(subject => {
       this.userId = userId;
       this.socket.emit('userId', userId);
@@ -37,12 +37,11 @@ export class SocketService {
       //   console.log("disconnection here")
       //   self.manualSocketDisconnect();
       // });
-
       // this.socket.emit('userdisconnected',userdisconnected);
       return () => {
         this.socket.disconnect();
         console.log("came here to return");
-       // this.ManualSocketDisconnect();
+        // this.ManualSocketDisconnect();
         // this.socket.on('disconnect',reason => { 
         //   console.log(reason);
         //   if(reason === 'io server disconnect') {
@@ -54,7 +53,4 @@ export class SocketService {
     });
     return subject;
   }
-
-
-
 }
