@@ -1111,4 +1111,11 @@ export class AddModuleComponent implements OnInit {
         this.route.navigateByUrl('/viewCourse/'+this.moduleId);
     }
 
+
+    permissionCheck(modules,type){
+     if(type == 'edit'){
+      return this.permissionService.editPermissionCheck(modules);
+    }
+   }
+
 }

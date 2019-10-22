@@ -135,7 +135,7 @@
 				</div> 				
 			<div class="clearfix py-4 px-0">
 				<div class="float-right">
-					<button type="button" class="btn btn-primary creat-btn mr-3" (click)="quizSubmit('yes')" [disabled]="!quizForm.form.valid">{{commonLabels.btns.save}}</button>
+					<button type="button" *ngIf="permissionCheck('Course / Training Class / Quiz')" class="btn btn-primary creat-btn mr-3" (click)="quizSubmit('yes')" [disabled]="!quizForm.form.valid">{{commonLabels.btns.save}}</button>
 					<button type="button" class="btn btn-default" (click)="goTocmsLibrary('')">{{commonLabels.btns.cancel}}</button>
 				</div>
 			</div>

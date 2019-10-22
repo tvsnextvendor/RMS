@@ -327,4 +327,8 @@ export class CreateQuizComponent implements OnInit {
     })
   }
 
+  permissionCheck(modules){
+      return this.permissionService.editPermissionCheck(modules);
+   }
+
 }

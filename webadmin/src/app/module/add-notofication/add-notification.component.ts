@@ -755,17 +755,20 @@ export class AddNotificationComponent implements OnInit {
     this.existingFile = [];
     if (this.resourceLib) {
       this.router.navigate(['/resource/library']);
-    }
-    else if (this.notifyId) {
+    }else if (this.notifyId) {
       // this.router.navigate(['/cms-library'],{queryParams : {type:"edit",tab:"notification"}});
       this.location.back();
+      //this.router.navigate(['/notification/template']);
+    }else{
+       this.router.navigate(['/notification/template']);
     }
-    // this.router.navigate(['/cmspage'],{queryParams:{type:'create'}})
   }
+
   ngOnDestroy() {
     this.fileExist = false;
     this.existingFile = [];
   }
+  
   selectTypeBasedShowField(show) {
     if (show == 'file') {
       this.selectType = 'desc';
