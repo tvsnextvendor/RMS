@@ -72,7 +72,7 @@
 <div *ngIf="(moduleVar.tabEnable || selectedTab == 'class')">
 <div class="clearfix pt-4">
 	<h4 class="add-course" *ngIf="!classId">{{moduleVar.courseId ? commonLabels.labels.editCourseTitle : commonLabels.labels.addCourseTitle }}</h4>
-	<h4 class="add-course" *ngIf="classId">{{commonLabels.labels.editCourseTitle}}</h4>
+	<h4 class="add-course" *ngIf="classId">{{commonLabels.labels.editCourseTitle}} </h4> {{moduleVar.quizDetails}} editQuizId : {{editQuizId}} quizPassId : {{quizPassId}}
 </div>
 
 <tabset #staticTabs   class="add-video-header">
@@ -161,10 +161,11 @@
 	</div>
    	</tab>
 	<tab heading="Quiz">
-		<add-quiz *ngIf="quizCheck" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleVar.moduleName}}' moduleId = {{moduleId}}  [tabName]="selectedTab" [removedFileIds]="removedFileIds" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
-		<add-quiz *ngIf="!quizCheck" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleVar.moduleName}}'  moduleId = {{moduleId}} [tabName]="selectedTab" [quizNames]="quizName" [editQuizId]="editQuizId"></add-quiz>
+		<add-quiz *ngIf="quizCheck" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleVar.moduleName}}' moduleId = {{moduleId}}  [tabName]="selectedTab" [removedFileIds]="removedFileIds" [quizNames]="quizName" [editQuizId]="editQuizId" [quizPassId]="quizPassId"></add-quiz>
+		<add-quiz *ngIf="!quizCheck" (hideClass)="hideTrainingClass($event)" courseId = "{{moduleVar.courseId}}" videoId = "{{moduleVar.videoId}}" [videoList]="moduleVar.videoList" selectCourseName={{moduleVar.selectCourseName}}  (valueChange)='hideTab($event)' (completed)="resetForm()" [quizDetails]= "moduleVar.quizDetails" enableQuiz="{{quizCheck}}" moduleName='{{moduleVar.moduleName}}'  moduleId = {{moduleId}} [tabName]="selectedTab" [quizNames]="quizName" [editQuizId]="editQuizId"  [quizPassId]="quizPassId"></add-quiz>
 	</tab>
 </tabset>
+
 </div>
 
 <ng-template #confirm>  

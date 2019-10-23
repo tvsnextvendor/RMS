@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
-import { HttpService, HeaderService, UtilService, AlertService, CommonService, CourseService, BreadCrumbService, FileService,PermissionService } from '../../services';
+import { HttpService, HeaderService, UtilService, AlertService, CommonService, CourseService, BreadCrumbService, FileService, PermissionService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { AddQuizComponent } from '../add-quiz/add-quiz.component';
@@ -56,7 +56,9 @@ export class AddModuleComponent implements OnInit {
     quizName;
     duplicateCourse = false;
     classId;
+    quizPassId;
     editQuizId;
+
     @Output() upload = new EventEmitter<object>();
     @Output() completed = new EventEmitter<string>();
     @Input() addedFiles;
@@ -75,14 +77,14 @@ export class AddModuleComponent implements OnInit {
     previewId;
     // selectedCourseIds:any;
 
-    constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels,private permissionService : PermissionService) {
+    constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels, private permissionService: PermissionService) {
         // this.activatedRoute.params.subscribe((params: Params) => {
         //     this.moduleId = params['moduleId'];
         // });
         this.activatedRoute.queryParams.subscribe((params) => {
             this.duplicateCourse = params.duplicate ? true : false;
             this.classId = params.classId ? params.classId : '';
-            this.moduleId = params.moduleId  ? params['moduleId'] : '';
+            this.moduleId = params.moduleId ? params['moduleId'] : '';
             this.preview = params.preview ? true : false;
             this.preview && (this.previewId = params.previewId ? params.previewId : '');
         });
@@ -96,7 +98,7 @@ export class AddModuleComponent implements OnInit {
 
     }
 
-    ngOnChanges(){
+    ngOnChanges() {
         this.breadScrumUpdate();
     }
 
@@ -104,12 +106,12 @@ export class AddModuleComponent implements OnInit {
         //this.resetForm();
         this.roleId = this.utilService.getRole();
         // this.breadScrumUpdate();
-        if(!this.classId){
+        if (!this.classId) {
             this.getquizList();
         }
-       
+
         this.appendFilesToVideoList(this.addedFiles);
-        
+
         this.moduleVar.api_url = API_URL.URLS;
         this.moduleVar.dropdownSettings = {
             singleSelection: false,
@@ -117,9 +119,9 @@ export class AddModuleComponent implements OnInit {
             textField: 'value',
             enableCheckAll: false,
             itemsShowLimit: 8,
-            allowSearchFilter : true,
-            searchPlaceholderText : "Search",
-            clearSearchFilter : true
+            allowSearchFilter: true,
+            searchPlaceholderText: "Search",
+            clearSearchFilter: true
             // allowSearchFilter: true
         };
         this.addButton = setInterval(() => {
@@ -142,50 +144,50 @@ export class AddModuleComponent implements OnInit {
 
             // let currentUrl = this.route.url;
             this.route.events.filter(event => event instanceof NavigationEnd)
-            .subscribe(e => {
-            //   console.log('cur:', currentUrl);
-            //   console.log('prev:', this.previousUrl);
-            //   this.previousUrl = e.url;
-                this.resetData();
-                this.fileService.emptyLocalFileList();
-                this.fileService.saveFileList();
-              this.addedFiles = [];
-            });
+                .subscribe(e => {
+                    //   console.log('cur:', currentUrl);
+                    //   console.log('prev:', this.previousUrl);
+                    //   this.previousUrl = e.url;
+                    this.resetData();
+                    this.fileService.emptyLocalFileList();
+                    this.fileService.saveFileList();
+                    this.addedFiles = [];
+                });
             this.courseData('');
         }
-        if(this.previewId){
-            let obj = {id : this.previewId}
-            this.updateCourse(obj,'');
+        if (this.previewId) {
+            let obj = { id: this.previewId }
+            this.updateCourse(obj, '');
         }
     }
 
-    breadScrumUpdate(){
+    breadScrumUpdate() {
         if (this.duplicateCourse) {
             let data = [{ title: this.commonLabels.labels.duplicate, url: '/cms-library' }, { title: this.commonLabels.labels.duplicateCourse, url: '' }];
             this.breadCrumbService.setTitle(data);
-            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')){
+            if (this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')) {
                 this.uploadPermission = false;
             }
         }
         else if (this.selectedTab == 'course') {
             let data = this.moduleId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editCourse, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createCourse, url: '' }];
             this.breadCrumbService.setTitle(data);
-            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')){
+            if (this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Course')) {
                 this.uploadPermission = false;
                 this.alertService.warn("Sorry Your file upload permission is disabled")
             }
-            else{
+            else {
                 this.uploadPermission = true;
-              }
+            }
         }
         else if (this.selectedTab == 'class') {
-            if(this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Training Class')){
+            if (this.roleId == 4 && !this.permissionService.uploadPermissionCheck('Training Class')) {
                 this.uploadPermission = false;
                 this.alertService.warn("Sorry Your file upload permission is disabled")
             }
-            else{
+            else {
                 this.uploadPermission = true;
-              }
+            }
             if (this.classId) {
                 let data = [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.labels.editClasses, url: '' }];
                 this.breadCrumbService.setTitle(data);
@@ -199,7 +201,7 @@ export class AddModuleComponent implements OnInit {
 
     // KR added this functionality 
     // sepearte function created from ng onit - which is called for added files in create and edit training class
-    appendFilesToVideoList(addedFiles){
+    appendFilesToVideoList(addedFiles) {
         // console.log("addedFiles", addedFiles);
         if (addedFiles && addedFiles.length > 0) {
             let courseName = this.moduleVar.selectCourseName;
@@ -211,21 +213,21 @@ export class AddModuleComponent implements OnInit {
             })
         }
     }
-    
-    includeDropdwnButton(){
-        if(this.selectedTab == 'course'){
-        var myEl = document.querySelector('ul.item1');
-        myEl.innerHTML = ' <span class="newCourseId addcourse" (click)="addCourse()" id="newCourseId"><i class="fa fa-plus pr-2"></i> <span class="addnewcourse-title">Add New Training Class</span></span>';
-        let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
-        ele.onclick = this.addCourse.bind(this);
+
+    includeDropdwnButton() {
+        if (this.selectedTab == 'course') {
+            var myEl = document.querySelector('ul.item1');
+            myEl.innerHTML = ' <span class="newCourseId addcourse" (click)="addCourse()" id="newCourseId"><i class="fa fa-plus pr-2"></i> <span class="addnewcourse-title">Add New Training Class</span></span>';
+            let ele = this.elementRef.nativeElement.querySelector('.newCourseId');
+            ele.onclick = this.addCourse.bind(this);
         }
     }
     courseData(classId) {
         let user = this.utilService.getUserData();
         let roleId = this.utilService.getRole();
         let resortId = user.ResortUserMappings && user.ResortUserMappings.length && user.ResortUserMappings[0].Resort.resortId;
-        let query = "?resortId="+resortId;
-    //    "?createdBy="+user.userId
+        let query = "?resortId=" + resortId;
+        //    "?createdBy="+user.userId
         this.courseService.getDropTrainingClassList(query).subscribe((resp) => {
             if (resp && resp.isSuccess) {
                 this.moduleVar.courseList = resp.data && resp.data.rows.length && resp.data.rows.map(item => {
@@ -299,7 +301,7 @@ export class AddModuleComponent implements OnInit {
         //         this.fileService.sendFileList('add', item);
         //     })
         // }
-        
+
         let obj = {
             'value': true,
             'key': 'course'
@@ -307,7 +309,7 @@ export class AddModuleComponent implements OnInit {
         this.upload.emit(obj);
     }
 
-  
+
 
     fileUpload(e) {
         this.showImage = true;
@@ -317,17 +319,17 @@ export class AddModuleComponent implements OnInit {
         var duration;
         if (e.target && e.target.files[0]) {
             let file = e.target.files[0];
-            if(this.moduleVar.existingFile.length){
-                this.moduleVar.existingFile.forEach(item=>{
-                  if(item == file.name){
-                    this.fileExist = true;
-                    this.moduleVar.videoFile = '';
-                    file = '';
-                    this.alertService.warn(this.commonLabels.msgs.fileExist)
-                  }
+            if (this.moduleVar.existingFile.length) {
+                this.moduleVar.existingFile.forEach(item => {
+                    if (item == file.name) {
+                        this.fileExist = true;
+                        this.moduleVar.videoFile = '';
+                        file = '';
+                        this.alertService.warn(this.commonLabels.msgs.fileExist)
+                    }
                 })
-              }
-            if(!this.fileExist){
+            }
+            if (!this.fileExist) {
                 this.moduleVar.existingFile.push(file.name)
                 // find video duration
                 var video = document.createElement('video');
@@ -345,7 +347,7 @@ export class AddModuleComponent implements OnInit {
                 let type = file.type;
                 let typeValue = type && type.split('/');
                 let extensionType = typeValue && typeValue.length && typeValue[1].split('.').pop();
-                if ( !extensionType  || typeValue && typeValue.length && typeValue[0].split('.').pop() === 'image' && extensionType === 'gif' || extensionType === 'csv' || extensionType === 'x-msdownload') {
+                if (!extensionType || typeValue && typeValue.length && typeValue[0].split('.').pop() === 'image' && extensionType === 'gif' || extensionType === 'csv' || extensionType === 'x-msdownload') {
                     this.alertService.error(this.commonLabels.mandatoryLabels.fileformate)
                     this.moduleVar.videoFile = '';
                 }
@@ -354,31 +356,31 @@ export class AddModuleComponent implements OnInit {
                     this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
                     if (this.fileExtensionType === 'Video') {
                         this.filePreviewImage(file);
-                    if (e.target.files) {
-                        Array.prototype.slice.call(e.target.files).forEach(function(file){
-                            new FileUploadThumbnail({
-                            maxWidth: 500,
-                            maxHeight: 500,
-                            file: file,
-                            onSuccess: function(src){
-                                // console.log(src)
-                                let date = new Date().valueOf();
-                                let text = '';
-                                let possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                                for (let i = 0; i < 5; i++) {
-                                text += possibleText.charAt(Math.floor(Math.random() *    possibleText.length));
-                                }
-                                // Replace extension according to your media type
-                                let imageName = date + text + '.jpeg';
-                                // call method that creates a blob from dataUri
-                                // self.previewImage = src;
-                                let encode = window.btoa(src)
-                                let imageBlob = self.dataURItoBlob(encode);
-                                self.fileImageDataPreview = new File([imageBlob], imageName, { type: 'image/jpeg' });
-                                // console.log(self.fileImageDataPreview)
-                            }
-                            }).createThumbnail();
-                        });
+                        if (e.target.files) {
+                            Array.prototype.slice.call(e.target.files).forEach(function (file) {
+                                new FileUploadThumbnail({
+                                    maxWidth: 500,
+                                    maxHeight: 500,
+                                    file: file,
+                                    onSuccess: function (src) {
+                                        // console.log(src)
+                                        let date = new Date().valueOf();
+                                        let text = '';
+                                        let possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                                        for (let i = 0; i < 5; i++) {
+                                            text += possibleText.charAt(Math.floor(Math.random() * possibleText.length));
+                                        }
+                                        // Replace extension according to your media type
+                                        let imageName = date + text + '.jpeg';
+                                        // call method that creates a blob from dataUri
+                                        // self.previewImage = src;
+                                        let encode = window.btoa(src)
+                                        let imageBlob = self.dataURItoBlob(encode);
+                                        self.fileImageDataPreview = new File([imageBlob], imageName, { type: 'image/jpeg' });
+                                        // console.log(self.fileImageDataPreview)
+                                    }
+                                }).createThumbnail();
+                            });
                         }
                     }
                     let fileType = typeValue[0];
@@ -400,16 +402,16 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
-      dataURItoBlob(dataURI) {
+    dataURItoBlob(dataURI) {
         const byteString = window.atob(dataURI);
         const arrayBuffer = new ArrayBuffer(byteString.length);
         const int8Array = new Uint8Array(arrayBuffer);
         for (let i = 0; i < byteString.length; i++) {
-          int8Array[i] = byteString.charCodeAt(i);
+            int8Array[i] = byteString.charCodeAt(i);
         }
-        const blob = new Blob([int8Array], { type: 'image/jpeg' });    
+        const blob = new Blob([int8Array], { type: 'image/jpeg' });
         return blob;
-     }
+    }
 
     filePreviewImage(file) {
         let self = this;
@@ -474,11 +476,11 @@ export class AddModuleComponent implements OnInit {
                 break;
             case "mp4":
                 this.previewImage = API.API_ENDPOINT + "/uploads/" + data.fileImage;
-                break;         
-            case "png" :
-            case "jpeg" : 
-                 this.previewImage = API.API_ENDPOINT + "/uploads/" + data.fileUrl;          
-                 break;
+                break;
+            case "png":
+            case "jpeg":
+                this.previewImage = API.API_ENDPOINT + "/uploads/" + data.fileUrl;
+                break;
             case "application":
                 if (extensionType === "ms-powerpoint") {
                     this.previewImage = this.commonLabels.imgs.ppt;
@@ -501,12 +503,16 @@ export class AddModuleComponent implements OnInit {
     }
 
     updateCourse(data, i) {
+        console.log("updateCourse function hitted");
         if (this.staticTabs) {
             this.staticTabs.tabs[0].disabled = false;
             this.staticTabs.tabs[0].active = true;
         }
-        this.moduleVar.quizDetails = [];
-        this.quizName = '';
+        //this.moduleVar.quizDetails = [];
+        // hided below line now
+        // this.quizName = '';
+        // hided above line now
+
         this.moduleVar.courseId = data.id;
         //    this.selectedQuiz = ;
         this.courseService.getFilesByTCId(data.id).subscribe(resp => {
@@ -515,17 +521,17 @@ export class AddModuleComponent implements OnInit {
                 this.moduleVar.selectCourseName = classData && classData.length && classData[0].TrainingClass && classData[0].TrainingClass.trainingClassName;
                 let preAddedFiles = [];
                 preAddedFiles = this.fileService.selectedFiles();
-                console.log(preAddedFiles,"Pre Added FIles");
-                if(preAddedFiles && preAddedFiles.length > 0){
+                console.log(preAddedFiles, "Pre Added FIles");
+                if (preAddedFiles && preAddedFiles.length > 0) {
                     this.addedFiles = preAddedFiles;
                     this.appendFilesToVideoList(preAddedFiles);
-                }else{
-                    this.moduleVar.videoList = classData.map(items => { 
-                        let fileArr  = items.File;
+                } else {
+                    this.moduleVar.videoList = classData.map(items => {
+                        let fileArr = items.File;
                         fileArr['addNew'] = true;
                         fileArr['selected'] = true;
                         //return items.File 
-                        this.fileService.sendFileList('add',fileArr);
+                        this.fileService.sendFileList('add', fileArr);
                         return fileArr;
                     });
                     this.fileService.saveFileList();
@@ -566,22 +572,53 @@ export class AddModuleComponent implements OnInit {
     }
 
     getEditQuizData(data) {
+        console.log("quiz data");
+
+        console.log(data);
+        let self = this;
+
         this.courseService.getTrainingClassQuiz(data.id, '').subscribe(response => {
+
+            console.log(response, "response");
             if (response && response.isSuccess) {
 
                 this.quizCheck = true;
                 let quizData = response.data && response.data.quiz[0];
-                let questions = quizData && quizData.Questions && quizData.Questions.length ? quizData.Questions : []; 
+                let questions = quizData && quizData.Questions && quizData.Questions.length ? quizData.Questions : [];
                 this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
                 this.editQuizId = quizData && quizData.quizId ? quizData.quizId : '';
+                this.quizPassId =quizData && quizData.quizId ? quizData.quizId : '';
+
+
+                console.log(this.quizPassId);
+                debugger;
                 this.moduleVar.quizDetails = questions;
+                if (self.quiz) {
+                    self.quiz.quizDetails = questions;
+                    self.quiz.questionForm = questions;
+                    self.quiz.tempQuizEdit = questions;
+                    self.quiz.enableQuiz = true;
+
+                }
+                console.log("self.quiz");
+
+                console.log(self.quiz);
+
+
+
+
+
+                console.log(questions);
+                console.log(this.moduleVar.quizDetails);
+                // this.quiz.quizDetails =questions;
+
             }
         })
     }
 
     removeVideo() {
         let data = this.deleteFileData;
-        let i = this.deleteFileIndex ;
+        let i = this.deleteFileIndex;
         console.log(data);
         if (this.moduleVar.courseId && data.fileId) {
             this.removedFileIds.push(data.fileId);
@@ -589,15 +626,15 @@ export class AddModuleComponent implements OnInit {
         else {
             this.messageClose();
             let dataContent
-            if(data.jobId){
-                dataContent = 
+            if (data.jobId) {
+                dataContent =
                     {
-                        "fileName" : data.fileUrl,
+                        "fileName": data.fileUrl,
                         "jobId": data.jobId ? data.jobId : '',
                         "path": data.filePath ? data.filePath : "/uploads/" + data.fileUrl
                     }
             }
-            else{
+            else {
                 dataContent = data.filePath ? data.filePath : "/uploads/" + data.fileUrl;
             }
             //filepath to delete documents uploaded from Desktop & fileUrl is to del doc uploaded from RL.  
@@ -611,7 +648,7 @@ export class AddModuleComponent implements OnInit {
         this.closeDeletePopup();
     }
 
-    openDeleteModal(template: TemplateRef<any>,item,i) {
+    openDeleteModal(template: TemplateRef<any>, item, i) {
         let modalConfig = {
             class: "modal-dialog-centered"
         }
@@ -620,7 +657,7 @@ export class AddModuleComponent implements OnInit {
         this.deleteFileIndex = i;
     }
 
-    closeDeletePopup(){
+    closeDeletePopup() {
         this.deleteFileData = '';
         this.deleteFileIndex = '';
         this.modalRef.hide();
@@ -663,7 +700,7 @@ export class AddModuleComponent implements OnInit {
             this.moduleVar.selectedCourseIds = [];
             if (newTrainingClass.id !== '') {
                 this.moduleVar.selectedCourse.push(newTrainingClass);
-                this.moduleVar.selectedCourse.length ? this.moduleVar.selectedCourseIds = this.moduleVar.selectedCourse.map(item=>{return item.id}) : this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
+                this.moduleVar.selectedCourse.length ? this.moduleVar.selectedCourseIds = this.moduleVar.selectedCourse.map(item => { return item.id }) : this.moduleVar.selectedCourseIds.push(newTrainingClass.id);
                 data.courseUpdate ? this.submitForm(true) : this.submitForm(false);
             }
             // data.submitCheck ? this.submitForm(true) :this.courseData(); 
@@ -705,79 +742,84 @@ export class AddModuleComponent implements OnInit {
         }
         let fileExtension = data.fileUrl.split('.').pop();
         this.extensionUpdate(fileExtension, data);
-   }
+    }
 
-   extensionUpdate(type, data){
-       switch(type){
-        case "ppt":
-            this.previewImage =  this.commonLabels.imgs.ppt;  
-            break;
-        case "pdf":
-            this.previewImage =  this.commonLabels.imgs.pdf;
-            break;
-        case "txt":
-            this.previewImage =  this.commonLabels.imgs.text; 
-            break;
-        case "mp4":
-            // this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileImage;
-            this.previewImage = null;
-            break;         
-        case "png" :
-        case "jpg" : 
-            this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;  
-            // console.log(this.previewImage,"preview");       
-            break;
-        case "docx":
-            this.previewImage =  this.commonLabels.imgs.doc; 
-            break;
-        case "doc":
-            this.previewImage =  this.commonLabels.imgs.doc; 
-            break;
-        case "xlsx":
-            this.previewImage =  this.commonLabels.imgs.excel;
-            break;
-        case "xls":
-            this.previewImage =  this.commonLabels.imgs.excel;
-            break;     
-        case "zip" :
-            this.previewImage =  this.commonLabels.imgs.filezip;
-            break;
-       }
-   }
+    extensionUpdate(type, data) {
+        switch (type) {
+            case "ppt":
+                this.previewImage = this.commonLabels.imgs.ppt;
+                break;
+            case "pdf":
+                this.previewImage = this.commonLabels.imgs.pdf;
+                break;
+            case "txt":
+                this.previewImage = this.commonLabels.imgs.text;
+                break;
+            case "mp4":
+                // this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileImage;
+                this.previewImage = null;
+                break;
+            case "png":
+            case "jpg":
+                this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;
+                // console.log(this.previewImage,"preview");       
+                break;
+            case "docx":
+                this.previewImage = this.commonLabels.imgs.doc;
+                break;
+            case "doc":
+                this.previewImage = this.commonLabels.imgs.doc;
+                break;
+            case "xlsx":
+                this.previewImage = this.commonLabels.imgs.excel;
+                break;
+            case "xls":
+                this.previewImage = this.commonLabels.imgs.excel;
+                break;
+            case "zip":
+                this.previewImage = this.commonLabels.imgs.filezip;
+                break;
+        }
+    }
 
-   addCourse(){
-    this.resetTabDetails(true);
-   } 
+    addCourse() {
+        console.log("add Course entered");
+        this.resetTabDetails(true);
+    }
 
-   resetTabDetails(add){
-    this.moduleVar.tabEnable = add ? true : false;
-    this.moduleVar.videoList = [];
-    this.moduleVar.selectCourseName = '';
-    this.moduleVar.selectVideoName = '';
-    this.moduleVar.description = '';
-    this.moduleVar.videoFile = '';
-    this.moduleVar.courseIndex = '';
-    this.moduleVar.courseId = '';
-    this.moduleVar.videoId = '';
-    this.message = '';
-    this.videoMessage = '';
-    this.quizName = '';
-    this.courseSubmitted = false;
-    if(this.quiz && add){
-        let data = [];
-        this.quizCheck = false;
+    resetTabDetails(add) {
+
+        console.log("resetTabDetails");
+
+
+        this.moduleVar.tabEnable = add ? true : false;
+        this.moduleVar.videoList = [];
+        this.moduleVar.selectCourseName = '';
+        this.moduleVar.selectVideoName = '';
+        this.moduleVar.description = '';
+        this.moduleVar.videoFile = '';
+        this.moduleVar.courseIndex = '';
+        this.moduleVar.courseId = '';
+        this.moduleVar.videoId = '';
+        this.message = '';
+        this.videoMessage = '';
+        this.quizName = '';
         this.courseSubmitted = false;
         if (this.quiz && add) {
             let data = [];
             this.quizCheck = false;
             this.courseSubmitted = false;
-            this.videoSubmitted = false;
-            this.moduleVar.quizDetails = [];
-            this.quiz.editQuizDetails(data);
+            if (this.quiz && add) {
+                let data = [];
+                this.quizCheck = false;
+                this.courseSubmitted = false;
+                this.videoSubmitted = false;
+                this.moduleVar.quizDetails = [];
+                this.quiz.editQuizDetails(data);
+            }
         }
     }
-   }
-   
+
     videoSubmit() {
         // this.messageClose();
         this.message = '';
@@ -787,12 +829,12 @@ export class AddModuleComponent implements OnInit {
         let videoObj;
         this.moduleVar.courseId ? videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration, trainingClassId: this.moduleVar.courseId } :
             videoObj = { fileName: self.moduleVar.selectVideoName, fileDescription: self.moduleVar.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.moduleVar.fileExtension, fileImage: '', filePath: '', fileSize: '', fileLength: this.fileDuration }
-        if ( this.uploadFile && this.moduleVar.selectVideoName && this.permissionService.nameValidationCheck(this.moduleVar.selectVideoName) &&  this.moduleVar.description && this.moduleVar.videoFile) {
+        if (this.uploadFile && this.moduleVar.selectVideoName && this.permissionService.nameValidationCheck(this.moduleVar.selectVideoName) && this.moduleVar.description && this.moduleVar.videoFile) {
             this.message = this.moduleVar.courseId !== '' ? (this.commonLabels.labels.videoUpdatedToast) : (this.commonLabels.labels.videoAddedToast);
             if (videoObj.fileType === 'Video') {
                 this.videoFileUpload(videoObj);
             }
-            else{
+            else {
                 this.commonService.uploadFiles(this.uploadFile).subscribe((result) => {
                     if (result && result.isSuccess) {
                         this.clearData();
@@ -813,19 +855,19 @@ export class AddModuleComponent implements OnInit {
                         }
                         this.fileService.sendFileList('add', videoObj);
                         this.fileId = '';
-                        
+
                     }
                 })
             }
-            
-           
-        }else if(this.fileId && !this.uploadFile){
-            let postData={
-                fileName:this.moduleVar.selectVideoName,
-                fileDescription:this.moduleVar.description
+
+
+        } else if (this.fileId && !this.uploadFile) {
+            let postData = {
+                fileName: this.moduleVar.selectVideoName,
+                fileDescription: this.moduleVar.description
             }
-            this.commonService.updateFiles(this.fileId, postData).subscribe(res=>{
-                if(res.isSuccess){
+            this.commonService.updateFiles(this.fileId, postData).subscribe(res => {
+                if (res.isSuccess) {
                     this.videoSubmitted = false;
                     this.alertService.success(res.message);
                     let videoObj = {
@@ -835,12 +877,12 @@ export class AddModuleComponent implements OnInit {
                         fileId: this.fileId
                     }
                     if (this.moduleVar.videoIndex) {
-                       const index = this.moduleVar.videoIndex - 1; 
-                       this.moduleVar.videoList[index] = videoObj;
+                        const index = this.moduleVar.videoIndex - 1;
+                        this.moduleVar.videoList[index] = videoObj;
                     }
                     this.clearData();
                     this.fileId = '';
-                //   this.clearData();
+                    //   this.clearData();
                 }
             })
         }
@@ -849,7 +891,7 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
-    videoFileUpload(videoObj){
+    videoFileUpload(videoObj) {
         let self = this;
         this.commonService.videoUploadFiles(this.uploadFile).subscribe((result) => {
             if (result && result.isSuccess) {
@@ -866,8 +908,8 @@ export class AddModuleComponent implements OnInit {
                 self.videoSubmitted = false;
                 videoObj.fileUrl = result.data && result.data[0].filename;
                 videoObj.fileSize = result.data.length && result.data[0].size;
-                videoObj.inputUrl = result.inputLocation ?result.inputLocation : '';
-                videoObj.transcodeUrl = result.outputLocation ?result.outputLocation : '';
+                videoObj.inputUrl = result.inputLocation ? result.inputLocation : '';
+                videoObj.transcodeUrl = result.outputLocation ? result.outputLocation : '';
                 videoObj.jobId = result.transcode && result.transcode.Job ? result.transcode.Job.Id : '';
                 this.fileId ? videoObj.fileId = this.fileId : '';
                 videoObj.filePath = result.path && result.path;
@@ -881,7 +923,7 @@ export class AddModuleComponent implements OnInit {
                 }
                 this.fileService.sendFileList('add', videoObj);
                 this.fileId = '';
-                
+
             }
         })
     }
@@ -927,18 +969,18 @@ export class AddModuleComponent implements OnInit {
         //     this.moduleVar.moduleNameCheck = false;
         // }
         let params = {
-            courseName : this.moduleVar.moduleName,
-            resortId : this.resortId
+            courseName: this.moduleVar.moduleName,
+            resortId: this.resortId
         }
-        this.courseService.courseCheck(params).subscribe(resp=>{
+        this.courseService.courseCheck(params).subscribe(resp => {
             console.log(resp)
-            if(resp.isSuccess){
+            if (resp.isSuccess) {
                 this.moduleVar.moduleNameCheck = false;
             }
-            else{
+            else {
                 this.moduleVar.moduleNameCheck = true;
             }
-        },err=>{
+        }, err => {
             this.alertService.error(err.error.error)
         })
 
@@ -967,16 +1009,16 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
-   getquizList(){
-    let user = this.utilService.getUserData();
-    let roleId = this.utilService.getRole();
-    let query = roleId !=1 ? '?createdBy='+user.userId : '';
-       this.courseService.getQuizList(query).subscribe(res=>{
-           if(res.isSuccess){
-               this.quizList = res.data;
-           }
-       })
-   }
+    getquizList() {
+        let user = this.utilService.getUserData();
+        let roleId = this.utilService.getRole();
+        let query = roleId != 1 ? '?createdBy=' + user.userId : '';
+        this.courseService.getQuizList(query).subscribe(res => {
+            if (res.isSuccess) {
+                this.quizList = res.data;
+            }
+        })
+    }
 
 
     submitForm(courseSubmitType) {
@@ -990,7 +1032,7 @@ export class AddModuleComponent implements OnInit {
                 "createdBy": user.userId,
                 "resortId": this.resortId,
                 "status": courseSubmitType ? 'none' : 'workInprogress',
-                "draft" : false
+                "draft": false
             }
             if ((this.moduleCourseId || this.moduleId) && !this.duplicateCourse) {
                 let id = this.moduleCourseId ? this.moduleCourseId : this.moduleId;
@@ -1001,7 +1043,7 @@ export class AddModuleComponent implements OnInit {
                             courseSubmitType ? this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'course' } }) : this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'workInprogress' } })
                             this.moduleId = '';
                         }
-                        else if(this.classId){
+                        else if (this.classId) {
                             this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: 'class' } })
                             this.classId = '';
                         }
@@ -1027,13 +1069,13 @@ export class AddModuleComponent implements OnInit {
                 })
             }
             else {
-                
+
                 let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-                if(this.roleId == 4 && accessSet){
+                if (this.roleId == 4 && accessSet) {
                     params.draft = true
                 }
-                else{
-                delete params.draft;
+                else {
+                    delete params.draft;
                 }
                 this.courseService.addCourse(params).subscribe((resp) => {
                     if (resp && resp.isSuccess) {
@@ -1090,7 +1132,7 @@ export class AddModuleComponent implements OnInit {
             this.alertService.error(this.commonLabels.labels.pleaseaddCourse);
         } else if (!this.moduleVar.selectedCourseIds.length) {
             this.alertService.error(this.commonLabels.mandatoryLabels.trainingClassrequired);
-        } 
+        }
         // else if (!this.selectedQuiz) {
         //     this.alertService.error(this.commonLabels.mandatoryLabels.quizNameRequired);
         // }
@@ -1106,16 +1148,13 @@ export class AddModuleComponent implements OnInit {
         this.preview = false;
     }
 
-    goToPreview(){
+    goToPreview() {
         // moduleId
-        this.route.navigateByUrl('/viewCourse/'+this.moduleId);
+        this.route.navigateByUrl('/viewCourse/' + this.moduleId);
     }
-
-
-    permissionCheck(modules,type){
-     if(type == 'edit'){
-      return this.permissionService.editPermissionCheck(modules);
+    permissionCheck(modules, type) {
+        if (type == 'edit') {
+            return this.permissionService.editPermissionCheck(modules);
+        }
     }
-   }
-
 }
