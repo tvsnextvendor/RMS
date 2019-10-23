@@ -573,25 +573,18 @@ export class AddModuleComponent implements OnInit {
 
     getEditQuizData(data) {
         console.log("quiz data");
-
         console.log(data);
         let self = this;
-
         this.courseService.getTrainingClassQuiz(data.id, '').subscribe(response => {
-
             console.log(response, "response");
             if (response && response.isSuccess) {
-
                 this.quizCheck = true;
                 let quizData = response.data && response.data.quiz[0];
                 let questions = quizData && quizData.Questions && quizData.Questions.length ? quizData.Questions : [];
                 this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
                 this.editQuizId = quizData && quizData.quizId ? quizData.quizId : '';
                 this.quizPassId =quizData && quizData.quizId ? quizData.quizId : '';
-
-
                 console.log(this.quizPassId);
-                debugger;
                 this.moduleVar.quizDetails = questions;
                 if (self.quiz) {
                     self.quiz.quizDetails = questions;

@@ -165,20 +165,20 @@
                 <a (click)="dropDownEnable('dashboard')"><img src="{{commonLabels.imgs.dashboard}}"class="pr-3">{{commonLabels.titles.dashboard}}</a>
             </li>
             <!-- <li [class.active]="router.isActive('/cms-library') || router.isActive('/courselist') || router.isActive('/modulelist/:id') || router.isActive('/module') || router.isActive('/module/:moduleId') || router.isActive('/modules/:moduleId/:courseId') || router.isActive('/modules')"> -->
-            <li [ngClass]="(tabType == 'create') ? 'active' : ''" *ngIf="expandCheck('edit')">
+            <li [ngClass]="(tabType == 'create') ? 'active' : ''" *ngIf="expandCheck('create')">
                 <a   (click)="dropDownEnable('create')"><img src="{{commonLabels.imgs.cms}}" class="pr-3"><span class="sidebar-title">{{commonLabels.btns.create}}</span><span class="drop-icon"><i *ngIf="enableCreate" aria-hidden="true" class="fa fa-angle-down icons_header" title="Open"></i><i *ngIf="!enableCreate" class="fa fa-angle-right icons_header  pl-5" aria-hidden="true" title="Open"></i></span></a>
             </li>
             <ul class="sub-menu" *ngIf="enableCreate">
-                    <li [ngClass]="(activeType == 'createcourse') ? 'active' : ''"  *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
+                    <li [ngClass]="(activeType == 'createcourse') ? 'active' : ''"  *ngIf="permissionCheck('Course / Training Class / Quiz','edit')">
                             <a (click)="pageRedirection('create','course')">{{commonLabels.labels.course}}</a>
                         </li>
-                        <li [ngClass]="(activeType == 'createclass') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
+                        <li [ngClass]="(activeType == 'createclass') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','edit')">
                             <a (click)="pageRedirection('create','class')">{{commonLabels.labels.class}}</a>
                         </li>
-                        <li [ngClass]="(activeType == 'createquiz') ? 'active' : ((activeType == '/createQuiz') ? 'active' : '')" *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
+                        <li [ngClass]="(activeType == 'createquiz') ? 'active' : ((activeType == '/createQuiz') ? 'active' : '')" *ngIf="permissionCheck('Course / Training Class / Quiz','edit')">
                             <a (click)="pageRedirection('create','quiz')">{{commonLabels.labels.quiz}}</a>
                         </li>
-                        <li [ngClass]="(activeType == 'createnotification') ? 'active' : ''" *ngIf="permissionCheck('Notification','view')">
+                        <li [ngClass]="(activeType == 'createnotification') ? 'active' : ''" *ngIf="permissionCheck('Notification','edit')">
                             <a (click)="pageRedirection('create','notification')">{{commonLabels.labels.notification}}</a>
                         </li>
             </ul>

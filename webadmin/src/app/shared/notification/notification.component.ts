@@ -24,8 +24,7 @@ export class NotificationComponent implements OnInit {
   }
 
 
-  getNotification(){
-   
+  getNotification(){  
     let socketObj = {
       userId: this.currentUser.userId
     };  
@@ -33,7 +32,6 @@ export class NotificationComponent implements OnInit {
       this.socketService.getNotification(socketObj).subscribe((data) => {
           this.notificationCount = data['unReadCount'];
           this.notificationList = data['rows'];
-          console.log(this.notificationList, "NotificationList");
       });
     });
    }
@@ -46,8 +44,6 @@ export class NotificationComponent implements OnInit {
       }
      })
   }
-
-    
 
    calculateHours(date){
     var a = moment(new Date(date));

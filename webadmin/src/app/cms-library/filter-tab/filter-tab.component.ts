@@ -41,7 +41,6 @@ export class FilterTabComponent implements OnInit {
   schedulePage = false;
   divIds;
   deptIds;
-  roleId;
   allDivisions;
   allDepartments;
   @Output() FilterSearchEvent = new EventEmitter<string>();
@@ -54,7 +53,6 @@ export class FilterTabComponent implements OnInit {
       if (window.location.pathname.indexOf("resource") != -1) {
         this.resourceLib = true;
       }
-      this.roleId = this.utilService.getRole();
       this.divIds = this.utilService.getDivisions() ? this.utilService.getDivisions() : '';
       this.deptIds = this.utilService.getDepartment() ? this.utilService.getDepartment() : ''; 
      }
@@ -147,7 +145,6 @@ export class FilterTabComponent implements OnInit {
       }
     })
   }
-  
 
   divisionChange(divisionId,type){
     let id = type === 'parent' ? this.filterParentDivision : this.filterChildDivision;
