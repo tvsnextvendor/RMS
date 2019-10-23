@@ -32,6 +32,7 @@ export class AddQuizComponent implements OnInit {
     @Input() tabName;
     @Input() quizNames;
     @Input() editQuizId;
+    @Input() quizPassId;
     @Output() valueChange = new EventEmitter();
     @Output() completed = new EventEmitter();
     @Output() hideClass = new EventEmitter();
@@ -73,10 +74,24 @@ export class AddQuizComponent implements OnInit {
     editEnable = false;
     preview = false;
     @ViewChild('tcNameChange') modalTemplate: TemplateRef<any>;
+    tempQuizEdit;
 
 
     constructor(private modalService: BsModalService, private fileService: FileService, private quizService: QuizService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
         public commonLabels: CommonLabels, private utilService: UtilService, private permissionService: PermissionService) {
+
+
+        this.quizDetails = (this.quizDetails) ? this.quizDetails : this.tempQuizEdit;
+
+        console.log("entered quiz tab section now", this.quizDetails);
+
+        console.log("entered quiz name", this.quizNames)
+
+        console.log("edit quiz Id", this.editQuizId);
+
+        console.log("quizPassId quiz Id", this.quizPassId);
+        debugger;
+
         this.apiUrls = API_URL.URLS;
         this.activatedRoute.queryParams.subscribe((params) => {
             this.classId = params.classId ? params.classId : '';
@@ -87,6 +102,7 @@ export class AddQuizComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.quizService.selectedQuiz.subscribe(res => {
             this.questionList = res;
             if (res) {
@@ -123,8 +139,13 @@ export class AddQuizComponent implements OnInit {
         if (this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)) {
             this.enableAddQuiz = true;
         }
+
+        console.log(this.enableQuiz);
+        debugger;
         if (this.enableQuiz && this.enableQuiz == 'true') {
             this.editQuizDetails(this.quizDetails);
+
+            console.log("enable quiz true");
         }
         if (this.courseId) {
             //'5c0f73143100002c0924ec31'
@@ -132,6 +153,28 @@ export class AddQuizComponent implements OnInit {
         }
         else {
             this.weightage = 100;
+        }
+        this.takeQuizInfo(this.quizPassId);
+    }
+    takeQuizInfo(quizPassId) 
+    {
+        alert(quizPassId);
+        if(quizPassId) 
+        {
+            this.courseService.getQuizList('?quizId='+quizPassId).subscribe(response => {
+                console.log(response, "response");
+                if (response && response.isSuccess){
+                    let quizData = response.data && response.data.quiz[0];
+                    let questions = quizData && quizData.Questions && quizData.Questions.length ? quizData.Questions : [];
+                    this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
+                    this.quizQuestionsForm = questions;
+                    console.log(questions);
+                    console.log(this.quizQuestionsForm);
+                    debugger;
+                } 
+            });
+        }else{
+            console.log("quiz id not passed");
         }
     }
 
@@ -142,6 +185,8 @@ export class AddQuizComponent implements OnInit {
 
 
     editQuizDetails(quizData) {
+
+        console.log(quizData);
         // this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
         // this.videoDetails = resp.QuizDetails;
         // let slectedQuizDetails = resp.QuizDetails.find(x => x.CourseId === this.courseId);
@@ -158,6 +203,9 @@ export class AddQuizComponent implements OnInit {
             this.quizCreateType = 'none';
             this.quizQuestionsForm = [];
         }
+
+        console.log("edit quiz details func", this.quizQuestionsForm);
+
         //  [{
         //     // "questionId": 1,
         //     "questionName": "",
@@ -893,6 +941,8 @@ export class AddQuizComponent implements OnInit {
         if (!event.target.checked && this.enableQuiz) {
             this.quizName = this.quizNames ? this.quizNames : '';
             this.editQuizDetails(this.quizDetails);
+
+            console.log("enable quiz checked");
         }
         if (this.quizCreateType == 'new' || (this.quizCreateType == 'exist' && this.selectedQuiz)) {
             if (this.quizCreateType == 'new') {
@@ -936,11 +986,11 @@ export class AddQuizComponent implements OnInit {
         this.route.navigateByUrl('/viewCourse/' + this.moduleId);
     }
 
-     permissionCheck(modules,type){
-     if(type == 'edit'){
-      return this.permissionService.editPermissionCheck(modules);
+    permissionCheck(modules, type) {
+        if (type == 'edit') {
+            return this.permissionService.editPermissionCheck(modules);
+        }
     }
-   }
 
 
 }
