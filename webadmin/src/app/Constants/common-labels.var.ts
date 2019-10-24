@@ -412,6 +412,7 @@ export class CommonLabels{
         "scheduleName"      :   "Schedule Name",
         "saveAsNewVersion"  :   "Save as new version",
         "rejectorName"      :   "Rejector Name",
+        "rescheduledName"   :   "Rescheduled To",
         "fileOrDesc"        :   "File Or Description anyone is mandatory field ",
         "selectAllDept"     :   "All departments",
         "TotalTc"           :   "Total Training Classes",
