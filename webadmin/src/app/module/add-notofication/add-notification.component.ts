@@ -68,6 +68,7 @@ export class AddNotificationComponent implements OnInit {
   selectType = 'file';
   showFile = true;
   showDesc = false;
+  editNotification= false;
 
   constructor(private breadCrumbService: BreadCrumbService, public location: Location, private alertService: AlertService, private headerService: HeaderService, public moduleVar: ModuleVar, private datePipe: DatePipe, private activatedRoute: ActivatedRoute, private http: HttpService, public batchVar: BatchVar, private toastr: ToastrService, private router: Router,
     public commonLabels: CommonLabels, private utilService: UtilService, private resortService: ResortService, private courseService: CourseService, private commonService: CommonService, private userService: UserService, private permissionService: PermissionService) {
@@ -76,11 +77,15 @@ export class AddNotificationComponent implements OnInit {
     this.userId = this.utilService.getUserData() && this.utilService.getUserData().userId;
   }
 
-  ngOnInit() {
+  ngOnInit(){
     this.clearBatchForm();
     this.activatedRoute.queryParams.forEach(items => {
         this.notifyId = items.notifyId;
         this.notificationType = items.notificationType;
+        if(this.notificationType == undefined){
+          //To hide save button in edit notification.
+           this.editNotification = true;
+        }
         if (items && items.library) {
             this.resourceLib = true;
         } else if (items && items.schedule) {
@@ -126,7 +131,7 @@ export class AddNotificationComponent implements OnInit {
     }
   }
 
-  getNotificationDetails() {
+  getNotificationDetails(){
     let query = '?notificationFileId=' + this.notifyId +'&allDrafts=1';
     this.courseService.getNotification(query).subscribe(resp => {
       if (resp && resp.isSuccess) {
