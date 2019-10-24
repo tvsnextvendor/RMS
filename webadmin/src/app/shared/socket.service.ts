@@ -18,15 +18,15 @@ export class SocketService {
     // }
     getNotification(userId) {
         const subject = new Observable(subject => {
-            this.socket = io(this.url, { transports: ['websocket'] });
+           // this.socket = io(this.url, { transports: ['websocket'] });
             this.socket.emit('userId', userId);
             this.socket.once("getNotifications", function (data) {
                 subject.next(data.notifications);
             });
-            // return () => {
-            //    // this.socket.on('notify_processdone', this.socket.close());
-            //    // this.socket.disconnect();
-            // };
+            return () => {
+                this.socket.disconnect();
+              };
+           
         });
         return subject;
     }
