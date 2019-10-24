@@ -90,7 +90,6 @@ export class AddQuizComponent implements OnInit {
         console.log("edit quiz Id", this.editQuizId);
 
         console.log("quizPassId quiz Id", this.quizPassId);
-        debugger;
 
         this.apiUrls = API_URL.URLS;
         this.activatedRoute.queryParams.subscribe((params) => {
@@ -141,7 +140,7 @@ export class AddQuizComponent implements OnInit {
         }
 
         console.log(this.enableQuiz);
-        debugger;
+        
         if (this.enableQuiz && this.enableQuiz == 'true') {
             this.editQuizDetails(this.quizDetails);
 
@@ -158,7 +157,6 @@ export class AddQuizComponent implements OnInit {
     }
     takeQuizInfo(quizPassId) 
     {
-        alert(quizPassId);
         if(quizPassId) 
         {
             this.courseService.getQuizList('?quizId='+quizPassId).subscribe(response => {
@@ -170,7 +168,6 @@ export class AddQuizComponent implements OnInit {
                     this.quizQuestionsForm = questions;
                     console.log(questions);
                     console.log(this.quizQuestionsForm);
-                    debugger;
                 } 
             });
         }else{

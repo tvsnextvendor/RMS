@@ -39,8 +39,9 @@ export class CmsPageComponent implements OnInit {
     // console.log(this.activeType)
     if(type == 'create' && data == 'quiz'){
       this.route.navigate(['/createQuiz'])
-    }
-    else{
+    }else if(type == 'create' && data == 'notification'){
+      this.route.navigate(['/notification/template']);
+    }else{
       this.route.navigate(['/cms-library'],{queryParams:{type : type,tab : data}})
     }
   }

@@ -91,7 +91,7 @@ export class ModuleVar {
     empSettings = {
         singleSelection: false,
         idField: 'userId',
-        textField: 'firstName',
+        textField: 'userName',
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
         enableCheckAll: true,

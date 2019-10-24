@@ -39,7 +39,7 @@
                 </video>
             </div>
             <div class="training-block">
-                <div class="loading-bar-div">
+                <div class="loading-bar-div" *ngIf="status != 'passed'">
                     <div class="loading-bar">
                         <span class="video-progress-bar" [ngClass]="{'playedProgressBar': i <= initial}" [ngStyle]="{'width.%': loadingBarWidth}"
                             *ngFor="let trainingVideo of allTrainingClasses; let i = index">

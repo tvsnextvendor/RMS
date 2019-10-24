@@ -72,7 +72,7 @@
 <div *ngIf="(moduleVar.tabEnable || selectedTab == 'class')">
 <div class="clearfix pt-4">
 	<h4 class="add-course" *ngIf="!classId">{{moduleVar.courseId ? commonLabels.labels.editCourseTitle : commonLabels.labels.addCourseTitle }}</h4>
-	<h4 class="add-course" *ngIf="classId">{{commonLabels.labels.editCourseTitle}} </h4> {{moduleVar.quizDetails}} editQuizId : {{editQuizId}} quizPassId : {{quizPassId}}
+	<h4 class="add-course" *ngIf="classId">{{commonLabels.labels.editCourseTitle}} </h4>
 </div>
 
 <tabset #staticTabs   class="add-video-header">

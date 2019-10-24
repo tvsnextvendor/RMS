@@ -566,12 +566,14 @@ export class AddNotificationComponent implements OnInit {
         }
       }
     }
-    else if (this.fileName && (this.notificationFileName || this.uploadFileName) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchTo && this.description && !this.batchVar.dategreater) {
+    else if (this.fileName && (this.notificationFileName || this.uploadFileName) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchTo && this.description) {
       this.alertService.error(this.commonLabels.mandatoryLabels.dateLimitError)
+    }else if(!this.batchVar.dategreater){
+      this.alertService.error("Please enter a valid due date");
     }
     else {
       this.batchVar.dategreater = true;
-      this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory)
+      this.alertService.error(this.commonLabels.mandatoryLabels.profileMandatory);
     }
   }
 
