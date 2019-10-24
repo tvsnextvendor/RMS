@@ -461,7 +461,7 @@ export class AddNotificationComponent implements OnInit {
 
   submitNotification() {
     this.batchVar.dategreater = this.batchVar.batchFrom && this.batchVar.batchTo && Date.parse(this.batchVar.batchTo) < Date.parse(this.batchVar.batchFrom) ? false : true;
-    if ((this.notificationFileName && this.permissionService.nameValidationCheck(this.notificationFileName) && this.fileName && this.permissionService.nameValidationCheck(this.fileName) || this.uploadFileName && this.permissionService.nameValidationCheck(this.uploadFileName) && this.fileName && this.permissionService.nameValidationCheck(this.fileName) || this.description && this.permissionService.nameValidationCheck(this.description)) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.dategreater && this.scheduleName) {
+    if ((this.notificationFileName && this.permissionService.nameValidationCheck(this.notificationFileName) && this.fileName && this.permissionService.nameValidationCheck(this.fileName) || this.uploadFileName && this.permissionService.nameValidationCheck(this.uploadFileName) && this.fileName && this.permissionService.nameValidationCheck(this.fileName) || this.description && this.permissionService.nameValidationCheck(this.description)) && this.moduleVar.selectedResort && this.moduleVar.selectedDivision.length && this.moduleVar.selectedDepartment.length && this.moduleVar.selectedEmployee.length && this.batchVar.batchFrom && this.batchVar.batchTo && this.batchVar.dategreater && this.scheduleName) {
       let data = {
         "courseId": '',
         "createdBy": this.userId,

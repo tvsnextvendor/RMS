@@ -162,7 +162,7 @@
                     <div class="row">
                         <div class="col-md-6 pl-0">
                             <div class="row">
-                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.from}}</label>
+                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.from}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                                 <div class="col-md-7 pr-0 pl-5">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dpFrom.toggle()"
                                             [attr.aria-expanded]="dpFrom.isOpen" class="batch-icon">
@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-md-6 pr-0">
                             <div class="row">
-                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.to}}</label>
+                                <label class="col-md-5 p-0 label-title">{{commonLabels.labels.to}}<span class="mandatory-color">{{commonLabels.labels.star}}</span></label>
                                 <div class="col-md-7 p-0 batch-input">
                                     <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()"
                                             [attr.aria-expanded]="dp.isOpen" class="batch-icon">
