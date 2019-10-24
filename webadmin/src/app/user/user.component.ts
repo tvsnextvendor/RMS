@@ -1335,11 +1335,13 @@ export class UserComponent implements OnInit {
         this.roleTabSelect('user');
     }
     resetFilter(){
+        this.search = '';
         this.filterDivision =null;
         this.filterDept = null;
         this.filterUser = null;
         this.resortId = this.utilService.getUserData().ResortUserMappings.length ? this.utilService.getUserData().ResortUserMappings[0].Resort.resortId : null;
         this.filterResort = this.resortId;
         this.userList('');
+       
     }
 }
