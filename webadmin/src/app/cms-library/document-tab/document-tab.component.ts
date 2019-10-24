@@ -183,6 +183,13 @@ export class DocumentTabComponent implements OnInit {
     let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? 
                   (roleId != 1 ? this.courseService.searchQuery(this.CMSFilterSearchEventSet)+'&resortId='+resortId  : this.courseService.searchQuery(this.CMSFilterSearchEventSet)) : 
                     roleId != 1 ? ((this.resourceLib || this.uploadPage) ? '&resortId='+resortId : '&resortId='+resortId +'&createdBy='+user.userId ): '';
+
+  if (roleId == 4)
+  {
+    let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+    query = (this.uploadPage || this.resourceLib) ? (query + "&draft=false") : (accessSet ? query + "&allDrafts=1" : query);
+  }
+
     // let query = this.courseService.searchQuery(this.CMSFilterSearchEventSet) ? this.courseService.searchQuery(this.CMSFilterSearchEventSet) : '';
     let classId = this.trainingClassId ? this.trainingClassId : '';
     let params={
