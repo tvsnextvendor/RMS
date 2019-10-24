@@ -477,7 +477,7 @@ export class TrainingDetailPage {
 
     getFileExtension(filename) {
         let ext = /^.+\.([^.]+)$/.exec(filename);
-        let fileType = ext == null ? "" : ext[1];
+        let fileType = ext == null ? "" : ext[1].toLowerCase();
         let fileLink;
         switch (fileType) {
             case "pdf":
@@ -504,6 +504,7 @@ export class TrainingDetailPage {
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
+            case "pptx":
             case "ppt":
                 fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
