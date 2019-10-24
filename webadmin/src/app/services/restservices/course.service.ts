@@ -42,7 +42,7 @@ export class CourseService {
   }
 
   getCourseById(courseId){
-    return this.http.getLocal('local',this.url.courseList+'?courseId='+courseId)
+    return this.http.getLocal('local',this.url.courseList+'?courseId='+courseId+'&allDrafts=1')
   }
 
   getTrainingclassesById(courseId){
