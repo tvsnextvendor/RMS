@@ -49,6 +49,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
   resourceLib = false;
   filterUpdate = false;
   classView = 'course';
+  setType;
 
   ngOnInit() {
     this.selectedTab = 'course';
@@ -57,6 +58,8 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe(params => {
 
       this.fileService.setCurrentCompname(params.tab);
+      this.setType = (params.set)?params.set:'';
+
       if (params.type && params.type == 'create') {
         this.disableEdit = false;
         this.disableTabs = false;
@@ -138,6 +141,8 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
        // let topTitle = (!this.resourceLibrary) ? 'Resource Library' : data;
         // alert(this.resourceLibrary);
         // alert(topTitle);
+
+        data = (this.setType === 'approval')?'Preview':data;
         this.headerService.setTitle({ title: data, hidemodule: false });
       }
     })

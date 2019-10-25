@@ -47,21 +47,26 @@ export class CreateQuizComponent implements OnInit {
   optionEmpty = false;
   roleId;
   submitted = false;
+  setType;
 
   constructor(private modalService: BsModalService, private courseService: CourseService, private headerService: HeaderService, private alertService: AlertService, private route: Router, private http: HttpService, private activatedRoute: ActivatedRoute, public constant: QuizVar, private toastr: ToastrService,
     public commonLabels: CommonLabels, public location: Location, private breadCrumbService: BreadCrumbService, private utilService: UtilService, public permissionService: PermissionService) {
     this.apiUrls = API_URL.URLS;
     this.activatedRoute.queryParams.subscribe((params) => {
       this.quizId = params.quizId ? params.quizId : '';
+      this.setType = params.set;
     });
     this.userData = this.utilService.getUserData();
     this.resortId = this.userData.ResortUserMappings.length && this.userData.ResortUserMappings[0].Resort.resortId;
   }
 
   ngOnInit() {
-    this.quizId ? this.headerService.setTitle({ title: this.commonLabels.labels.edit, hidemodule: false }) : this.headerService.setTitle({ title: this.commonLabels.labels.create, hidemodule: false });
+    let titleSet = (this.setType === 'approval')?this.commonLabels.labels.preview :this.commonLabels.labels.edit;
+
+    let subtitleSet = (this.setType === 'approval')?this.commonLabels.labels.previewQuiz :this.commonLabels.labels.editQuiz;
+    this.quizId ? this.headerService.setTitle({ title: titleSet, hidemodule: false }) : this.headerService.setTitle({ title: this.commonLabels.labels.create, hidemodule: false });
     this.roleId = this.utilService.getRole();
-    let data = this.quizId ? [{ title: this.commonLabels.labels.edit, url: '/cms-library' }, { title: this.commonLabels.btns.editQuiz, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createQuiz, url: '' }]
+    let data = this.quizId ? [{ title: titleSet, url: '/cms-library' }, { title: subtitleSet, url: '' }] : [{ title: this.commonLabels.btns.create, url: '/cmspage' }, { title: this.commonLabels.labels.createQuiz, url: '' }]
     this.breadCrumbService.setTitle(data)
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
@@ -93,8 +98,8 @@ export class CreateQuizComponent implements OnInit {
 
   getQuizData() {
     let user = this.utilService.getUserData();
-    let query = "&quizId=" + this.quizId + "&allDrafts=1";
-    this.courseService.getQuizListById(user.userId, query).subscribe(res => {
+    let query = "?quizId=" + this.quizId + "&allDrafts=1";
+    this.courseService.getQuizListSection(user.userId, query).subscribe(res => {
       if (res && res.isSuccess) {
         this.quizName = res.data.quiz.length && res.data.quiz[0].quizName;
         this.quizQuestionsForm = res.data.quiz.length && res.data.quiz[0].Questions.length ? res.data.quiz[0].Questions : [{
@@ -269,7 +274,8 @@ export class CreateQuizComponent implements OnInit {
           resortId: this.resortId,
           draft: false
         }
-        if (this.roleId == 4) {
+        let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
+        if (this.roleId == 4 && accessSet) {
           postData.draft = true
         }
         else {

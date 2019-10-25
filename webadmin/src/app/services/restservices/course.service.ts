@@ -107,6 +107,10 @@ export class CourseService {
     return this.http.getLocal('local',this.url.trainingClassQuiz+'?createdBy='+userId+query)
  }
 
+ getQuizListSection(userId,query){
+  return this.http.getLocal('local',this.url.trainingClassQuiz+query)
+}
+
   scheduleTraining(data){
     return this.http.post('local',this.url.scheduleTraining, data)
   }

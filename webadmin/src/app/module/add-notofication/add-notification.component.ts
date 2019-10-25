@@ -547,7 +547,7 @@ export class AddNotificationComponent implements OnInit {
         else {
           let accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
           if (this.roleId == 4 && accessSet) {
-            data.draft = true
+            data.draft = false
           }
           else {
             delete data.draft;
