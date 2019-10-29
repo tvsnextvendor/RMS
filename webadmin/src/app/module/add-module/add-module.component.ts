@@ -141,7 +141,6 @@ export class AddModuleComponent implements OnInit {
             // if(curComp != 'class'){
             //     this.resetData();
             // }   
-
             // let currentUrl = this.route.url;
             this.route.events.filter(event => event instanceof NavigationEnd)
                 .subscribe(e => {
@@ -503,7 +502,6 @@ export class AddModuleComponent implements OnInit {
     }
 
     updateCourse(data, i) {
-        console.log("updateCourse function hitted");
         if (this.staticTabs) {
             this.staticTabs.tabs[0].disabled = false;
             this.staticTabs.tabs[0].active = true;
@@ -512,7 +510,6 @@ export class AddModuleComponent implements OnInit {
         // hided below line now
         // this.quizName = '';
         // hided above line now
-
         this.moduleVar.courseId = data.id;
         //    this.selectedQuiz = ;
         this.courseService.getFilesByTCId(data.id).subscribe(resp => {
@@ -521,7 +518,6 @@ export class AddModuleComponent implements OnInit {
                 this.moduleVar.selectCourseName = classData && classData.length && classData[0].TrainingClass && classData[0].TrainingClass.trainingClassName;
                 let preAddedFiles = [];
                 preAddedFiles = this.fileService.selectedFiles();
-                console.log(preAddedFiles, "Pre Added FIles");
                 if (preAddedFiles && preAddedFiles.length > 0) {
                     this.addedFiles = preAddedFiles;
                     this.appendFilesToVideoList(preAddedFiles);
@@ -572,11 +568,8 @@ export class AddModuleComponent implements OnInit {
     }
 
     getEditQuizData(data) {
-        console.log("quiz data");
-        console.log(data);
         let self = this;
         this.courseService.getTrainingClassQuiz(data.id, '').subscribe(response => {
-            console.log(response, "response");
             if (response && response.isSuccess) {
                 this.quizCheck = true;
                 let quizData = response.data && response.data.quiz[0];
@@ -584,27 +577,13 @@ export class AddModuleComponent implements OnInit {
                 this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
                 this.editQuizId = quizData && quizData.quizId ? quizData.quizId : '';
                 this.quizPassId =quizData && quizData.quizId ? quizData.quizId : '';
-                console.log(this.quizPassId);
                 this.moduleVar.quizDetails = questions;
                 if (self.quiz) {
                     self.quiz.quizDetails = questions;
                     self.quiz.questionForm = questions;
                     self.quiz.tempQuizEdit = questions;
                     self.quiz.enableQuiz = true;
-
                 }
-                console.log("self.quiz");
-
-                console.log(self.quiz);
-
-
-
-
-
-                console.log(questions);
-                console.log(this.moduleVar.quizDetails);
-                // this.quiz.quizDetails =questions;
-
             }
         })
     }
@@ -612,7 +591,7 @@ export class AddModuleComponent implements OnInit {
     removeVideo() {
         let data = this.deleteFileData;
         let i = this.deleteFileIndex;
-        console.log(data);
+        this.fileService.sendFileList('remove', data);
         if (this.moduleVar.courseId && data.fileId) {
             this.removedFileIds.push(data.fileId);
         }
@@ -776,15 +755,10 @@ export class AddModuleComponent implements OnInit {
     }
 
     addCourse() {
-        console.log("add Course entered");
         this.resetTabDetails(true);
     }
 
     resetTabDetails(add) {
-
-        console.log("resetTabDetails");
-
-
         this.moduleVar.tabEnable = add ? true : false;
         this.moduleVar.videoList = [];
         this.moduleVar.selectCourseName = '';
@@ -792,7 +766,7 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.description = '';
         this.moduleVar.videoFile = '';
         this.moduleVar.courseIndex = '';
-        this.moduleVar.courseId = '';
+        //this.moduleVar.courseId = '';
         this.moduleVar.videoId = '';
         this.message = '';
         this.videoMessage = '';
@@ -888,7 +862,6 @@ export class AddModuleComponent implements OnInit {
         let self = this;
         this.commonService.videoUploadFiles(this.uploadFile).subscribe((result) => {
             if (result && result.isSuccess) {
-                console.log(result)
                 this.clearData();
                 if (videoObj.fileType === 'Video') {
                     self.commonService.uploadFiles(self.fileImageDataPreview).subscribe((resp) => {
@@ -966,7 +939,6 @@ export class AddModuleComponent implements OnInit {
             resortId: this.resortId
         }
         this.courseService.courseCheck(params).subscribe(resp => {
-            console.log(resp)
             if (resp.isSuccess) {
                 this.moduleVar.moduleNameCheck = false;
             }
