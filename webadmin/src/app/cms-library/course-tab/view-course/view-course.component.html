@@ -22,8 +22,10 @@
                             <span class="text-over col-md-6 p-3">File Name</span>
                         </div>
                         <div class="row col-md-12">
-                            <span class="col-md-6 p-3 content-class">{{file?.File?.fileName}} <a href="javascript:void(0);"
-                                    (click)="openFileContent(viewVideo,file?.File?.fileUrl)">View</a></span>
+                            <span class="col-md-6 p-3 content-class">{{file?.File?.fileName}}</span>
+                            <span class="col-md-6 p-3 content-class">
+                                <a href="javascript:void(0);" class="atag-big" (click)="openFileContent(viewVideo,file?.File?.fileUrl)">View</a>
+                            </span>
                         </div>
                         <div class="row col-md-12">
                             <span class="text-over col-md-3 p-3">Description</span>
