@@ -136,7 +136,6 @@ export class AddModuleComponent implements OnInit {
             this.updateCourse(data, '');
         }
         else {
-            // console.log(this.route);
             // let curComp = this.fileService.getCurrentCompname();
             // if(curComp != 'class'){
             //     this.resetData();
@@ -144,8 +143,6 @@ export class AddModuleComponent implements OnInit {
             // let currentUrl = this.route.url;
             this.route.events.filter(event => event instanceof NavigationEnd)
                 .subscribe(e => {
-                    //   console.log('cur:', currentUrl);
-                    //   console.log('prev:', this.previousUrl);
                     //   this.previousUrl = e.url;
                     this.resetData();
                     this.fileService.emptyLocalFileList();
@@ -201,13 +198,11 @@ export class AddModuleComponent implements OnInit {
     // KR added this functionality 
     // sepearte function created from ng onit - which is called for added files in create and edit training class
     appendFilesToVideoList(addedFiles) {
-        // console.log("addedFiles", addedFiles);
         if (addedFiles && addedFiles.length > 0) {
             let courseName = this.moduleVar.selectCourseName;
             this.addCourse();
             this.moduleVar.selectCourseName = courseName;
             this.addedFiles.map(element => {
-                // console.log(element);
                 this.moduleVar.videoList.push(element)
             })
         }
@@ -294,9 +289,7 @@ export class AddModuleComponent implements OnInit {
 
     showCMSLibrary() {
         // if(this.moduleVar.videoList){
-        //     console.log("djsnnjksndnskn");
         //     this.moduleVar.videoList.map(item =>{
-        //         console.log(item)
         //         this.fileService.sendFileList('add', item);
         //     })
         // }
@@ -339,7 +332,6 @@ export class AddModuleComponent implements OnInit {
                     self.fileDuration = duration;
                 }
                 video.src = URL.createObjectURL(file);
-                // console.log(  document.querySelector("#video-element source"),'  document.querySelector("#video-element source")',video.src)
                 document.querySelector("#video-element source") && document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
                 // find file extension
                 this.uploadFile = file;
@@ -362,7 +354,6 @@ export class AddModuleComponent implements OnInit {
                                     maxHeight: 500,
                                     file: file,
                                     onSuccess: function (src) {
-                                        // console.log(src)
                                         let date = new Date().valueOf();
                                         let text = '';
                                         let possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -376,7 +367,6 @@ export class AddModuleComponent implements OnInit {
                                         let encode = window.btoa(src)
                                         let imageBlob = self.dataURItoBlob(encode);
                                         self.fileImageDataPreview = new File([imageBlob], imageName, { type: 'image/jpeg' });
-                                        // console.log(self.fileImageDataPreview)
                                     }
                                 }).createThumbnail();
                             });
@@ -577,6 +567,7 @@ export class AddModuleComponent implements OnInit {
                 this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
                 this.editQuizId = quizData && quizData.quizId ? quizData.quizId : '';
                 this.quizPassId =quizData && quizData.quizId ? quizData.quizId : '';
+                localStorage.setItem('QuizPassId', this.quizPassId);
                 this.moduleVar.quizDetails = questions;
                 if (self.quiz) {
                     self.quiz.quizDetails = questions;
@@ -734,7 +725,6 @@ export class AddModuleComponent implements OnInit {
             case "png":
             case "jpg":
                 this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;
-                // console.log(this.previewImage,"preview");       
                 break;
             case "docx":
                 this.previewImage = this.commonLabels.imgs.doc;
