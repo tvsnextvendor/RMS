@@ -110,8 +110,7 @@ export class CourseTabComponent implements OnInit {
     this.getCourseDetails();
     this.userData = this.utilService.getUserData();
     this.accessSet = this.utilService.getUserData() && this.utilService.getUserData().accessSet && this.utilService.getUserData().accessSet == 'ApprovalAccess' ? true : false;
-
-    if (this.addedFiles && this.addedFiles.length) {
+    if(this.addedFiles && this.addedFiles.length){
       this.selectedIndex = localStorage.getItem('index');
       this.enableEdit = true;
       this.enableDuplicate = false;
@@ -121,7 +120,7 @@ export class CourseTabComponent implements OnInit {
     }
   }
 
-  ngDoCheck() {
+  ngDoCheck(){
     if (this.CMSFilterSearchEventSet !== undefined && this.CMSFilterSearchEventSet !== '') {
       this.searchedItems = this.CMSFilterSearchEventSet;
       this.getCourseDetails();
@@ -258,7 +257,7 @@ export class CourseTabComponent implements OnInit {
     this.getEditFileData();
   }
 
-  getEditFileData() {
+  getEditFileData() { 
     if (this.addedFiles.length) {
       let data = localStorage.getItem('edit');
       let storedData = JSON.parse(data);
@@ -272,16 +271,24 @@ export class CourseTabComponent implements OnInit {
       this.fileService.emptyFileList();
       this.fileService.emptyLocalFileList();
     }
+
     this.courseService.getEditCourseDetails('', this.selectedEditCourse, this.selectedEditTrainingClass).subscribe(resp => {
-      if (resp && resp.isSuccess) {
-        this.fileList = resp.data.length ? resp.data : [];
-        if (this.addedFiles && this.addedFiles.length) {
+      if (resp && resp.isSuccess) {     
+        if (this.addedFiles && this.addedFiles.length) {  
           this.addedFiles.forEach(element => {
             this.fileList.push(element);
             this.newFileIdsUploadCMS.push(element.fileId);
           });
           this.addedFiles = [];
+        }else{
+          this.fileList = resp.data.length ? resp.data : [];
         }
+        this.fileList.map(items => {
+            let fileArr = items;
+            fileArr['selected'] = true;
+            this.fileService.sendFileList('add', fileArr);
+        });
+        this.fileService.saveFileList();
       } else {
         this.fileList = []
       }
@@ -353,7 +360,6 @@ export class CourseTabComponent implements OnInit {
     let videoObj = { fileName: self.uploadFileName, fileDescription: self.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.fileExtension, fileImage: '', filePath: '', fileSize: '', trainingClassId: this.selectedEditTrainingClass, fileLength: this.fileDuration }
     if (this.uploadFileName && this.description && this.videoFile) {
       //  this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
-      // console.log(viewImageFile,'fileeeeee');
       this.commonService.uploadFiles(this.uploadFile).subscribe((result) => {
         if (result && result.isSuccess) {
           if (videoObj.fileType === 'Video') {
@@ -467,7 +473,6 @@ export class CourseTabComponent implements OnInit {
       'resortId' : resortId
     };
     this.commonService.saveAsNew(this.selectedEditCourse, params).subscribe(result => {
-      // console.log(result, 'result');
       if(result && result.isSuccess){
         this.alertService.success(result.message);
         this.getCourseDetails();

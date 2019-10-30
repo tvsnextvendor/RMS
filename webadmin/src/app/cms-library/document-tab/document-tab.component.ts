@@ -5,9 +5,6 @@ import { CommonLabels } from '../../Constants/common-labels.var';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import * as _ from 'lodash';
 
-
-
-
 @Component({
   selector: 'app-document-tab',
   templateUrl: './document-tab.component.html',
@@ -43,8 +40,6 @@ export class DocumentTabComponent implements OnInit {
   permissionFileId;
   totalCourseCount = 0;
   selectAllPermission = false;
- 
-
   @Input() CMSFilterSearchEventSet;
   @Output() selectedVideos  = new EventEmitter<object>();
 
@@ -115,7 +110,6 @@ export class DocumentTabComponent implements OnInit {
   openFileContent(data){
     let ext = data.fileUrl.split('.').pop();
     ext= ext.toLowerCase();
-    console.log(ext,"EXT")
     if (ext == 'docx' || ext == 'doc') {
         let url = 'https://docs.google.com/gview?embedded=true&url=' + this.uploadPath + data.fileUrl;
         window.open(url, "_blank");
@@ -209,10 +203,7 @@ export class DocumentTabComponent implements OnInit {
           this.videoListValue = [];
         }else{
            this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
-           console.log(this.videoListValue,"FILELIST");
-           console.log(selectedDocuments,"SelectedDocuments");
            _.merge(this.videoListValue, selectedDocuments); //This is not working properly
-          
           // const cars1IDs = new Set(this.videoListValue.map(({ fileName }) => fileName));
           // const combined = [
           //     ...this.videoListValue,

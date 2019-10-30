@@ -103,6 +103,7 @@ export class AddQuizComponent implements OnInit {
         this.quizName = this.quizNames ? this.quizNames : '';
         this.quizCreateType = 'new';
         this.editEnable = false;
+        this.quizPassId = localStorage.getItem('QuizPassId');
         this.questionOptions = [
             { name: "MCQ", value: "MCQ" },
             { name: "True/False", value: "True/False" },
@@ -309,14 +310,12 @@ export class AddQuizComponent implements OnInit {
         this.answerEmpty = false;
         this.optionEmpty = false;
         if (this.questionList) {
-            // console.log(this.questionList);
             this.questionList.map((item, i) => {
                 delete item.questionId;
                 this.quizQuestionsForm.push(item);
             })
         }
         let data = this.quizQuestionsForm.map((item, i) => {
-            // console.log(item)
             let removeIndex = [];
             if (item.questionType != "True/False" && !item.answer) {
                 this.answerEmpty = true;
@@ -338,8 +337,6 @@ export class AddQuizComponent implements OnInit {
             }
             return item;
         })
-
-        // console.log(this.quizQuestionsForm, "quiz Questions");
         let user = this.utilService.getUserData();
         let params;
         let hideTraining = submitType === 'yes' ? true : false;
@@ -637,7 +634,6 @@ export class AddQuizComponent implements OnInit {
                     })
                 }
                 let data = this.quizQuestionsForm.map((item, i) => {
-                    // console.log(item)
                     let removeIndex = [];
                     if (item.questionType != "True/False" && !item.answer) {
                         this.answerEmpty = true;
@@ -809,10 +805,7 @@ export class AddQuizComponent implements OnInit {
                             delete params.quiz;
                             delete params.noQuiz;
                         }
-                        // console.log(params)
-
                         this.courseService.updateTrainingClass(this.classId, params).subscribe((result) => {
-                            // console.log(result)
                             if (result && result.isSuccess) {
                                 this.selectedQuiz = null;
                                 this.classId = '';
@@ -880,10 +873,8 @@ export class AddQuizComponent implements OnInit {
         this.enableAddQuiz = true;
         this.courseService.getQuizList(query).subscribe(res => {
             if (res.isSuccess) {
-                // console.log(res)
                 let quizList = res.data && res.data.quiz;
                 this.quizQuestionsForm = quizList.length && quizList[0].Questions && quizList[0].Questions.length ? quizList[0].Questions : [];
-                // console.log(this.quizQuestionsForm)
             }
         })
     }
@@ -934,7 +925,6 @@ export class AddQuizComponent implements OnInit {
     }
 
     mcqAnswerUpdate(answer, index) {
-        // console.log(answer,index)
         if (answer) {
             this.quizQuestionsForm[index].answer = answer;
         }
