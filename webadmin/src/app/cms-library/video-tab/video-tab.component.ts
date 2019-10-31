@@ -18,6 +18,7 @@ export class VideoTabComponent implements OnInit {
 @Input() trainingClassId;
 @Input() uploadPage;
 @Input() disableEdit;
+@Input() enableRLCheckBox;
 totalVideosCount = 0;
 videoListValue = [];
 addVideosToCourse = false;

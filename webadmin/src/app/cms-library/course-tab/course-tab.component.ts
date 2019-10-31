@@ -313,9 +313,15 @@ export class CourseTabComponent implements OnInit {
   }
 
   showCMSLibrary() {
-    this.upload.emit(true);
+   
+    let path = this.activatedRoute.snapshot.url.join('/');
+    let obj ={};
+    if(path == 'resource/library'){
+       obj['enableCheckbox'] = true;
+    }
+    this.upload.emit(obj);
+    
   }
-
 
   // To Calc File Size
   calculateFileMbSize(FileMappings) {
@@ -347,7 +353,6 @@ export class CourseTabComponent implements OnInit {
 
   fileUploadPopup(template: TemplateRef<any>) {
     let modalConfig = {
-
       class: "custom-modal"
     }
     this.clearData();

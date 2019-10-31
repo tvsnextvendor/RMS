@@ -25,6 +25,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
   modalRef;
   videoFile;
   selectedTab;
+  enableCheckbox = false;
   redirectId;
   selectedCourse = [];
   showWarning = false;
@@ -172,7 +173,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     }
   }
 
-  showUploadPage(event) {
+  showUploadPage(event){
     this.findCreateCourse = event.key ? true : false;
     if (event) {
       this.activatedRoute.queryParams.subscribe(params => {
@@ -180,6 +181,10 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
           this.resourceLibrary = true;
         }
       });
+      //enable checkbox for Resource Lib upload in RL
+      if(event.enableCheckbox){
+        this.enableCheckbox = true;
+      }
       this.hideSection = true;
       this.selectedTab = 'video';
       this.showcreatecourse = false;
@@ -281,6 +286,10 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
   }
 
   sendFilesToCourse() {
+    let path = this.activatedRoute.snapshot.url.join('/');
+    if(path=='resource/library'){
+      this.enableCheckbox = false;
+    }
     this.fileService.saveFileList();
     this.selectedVideoList = this.fileService.selectedFiles();
     if (this.selectedVideoList.length) {
@@ -337,6 +346,10 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
   }
 
   backClicked() {
+    let path = this.activatedRoute.snapshot.url.join('/');
+    if (path == 'resource/library') {
+        this.enableCheckbox = false;
+    }
     this.activatedRoute.queryParams.subscribe(params => {
       if (params.type == 'create') {
         this.tabName = params.tab && params.tab == 'class' ? 'class' : 'course';

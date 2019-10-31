@@ -57,11 +57,11 @@
                 </div>
                 <!-- Video Tab Content -->
                 <div *ngIf = "selectedTab === 'video' && !showcreatecourse" id="video" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'video' ? 'active show' : 'nav-link')">
-                    <app-video-tab [trainingClassId] = 'trainingClassId' [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-video-tab>
+                    <app-video-tab [trainingClassId] = 'trainingClassId' [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [enableRLCheckBox]="enableCheckbox" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-video-tab>
                 </div>
                 <!-- Documents Tab Content -->
                 <div  *ngIf = "selectedTab === 'document' && !showcreatecourse" id="document" [ngClass] = "'col-md-12 clearfix px-0 container tab-pane' + (selectedTab === 'document' ? 'active show' : 'nav-link')">
-                    <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-document-tab>
+                    <app-document-tab [trainingClassId] = "trainingClassId" [CMSFilterSearchEventSet]="CMSFilterSearchEvent" [enableRLCheckBox]="enableCheckbox" [uploadPage]="hideSection" [disableEdit]="disableEdit"></app-document-tab>
                 </div>
                  <!-- app-notification-tab -->
                  <div  *ngIf = "selectedTab === 'notification' && !showcreatecourse " id="notification" [ngClass] = "'col-md-12 pt-3 clearfix px-0 container tab-pane' + (selectedTab === 'notification' ? 'active show' : 'nav-link')">
