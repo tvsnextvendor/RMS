@@ -311,6 +311,7 @@ export class AddModuleComponent implements OnInit {
         var duration;
         if (e.target && e.target.files[0]) {
             let file = e.target.files[0];
+            console.log(file,"SUCCESS")
             if (this.moduleVar.existingFile.length) {
                 this.moduleVar.existingFile.forEach(item => {
                     if (item == file.name) {
@@ -335,16 +336,39 @@ export class AddModuleComponent implements OnInit {
                 document.querySelector("#video-element source") && document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
                 // find file extension
                 this.uploadFile = file;
-                let type = file.type;
-                let typeValue = type && type.split('/');
-                let extensionType = typeValue && typeValue.length && typeValue[1].split('.').pop();
-                if (!extensionType || typeValue && typeValue.length && typeValue[0].split('.').pop() === 'image' && extensionType === 'gif' || extensionType === 'csv' || extensionType === 'x-msdownload') {
-                    this.alertService.error(this.commonLabels.mandatoryLabels.fileformate)
-                    this.moduleVar.videoFile = '';
+
+                let fileName = file.name;
+                let extn = fileName.split('.').pop();
+                extn = extn.toLowerCase();
+                let extensionType = extn;
+                
+                //let imageExtensions = ['png', 'jpeg', 'jpg', 'gif'];
+                let videoExtensions = ['mp4', '3gp', 'mov','flv','ogg','mpeg'];
+
+               
+
+                 if (videoExtensions.includes(extn)) {
+                    this.fileExtensionType = 'Video';
                 }
-                else {
-                    this.moduleVar.fileExtension = extensionType;
-                    this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+
+
+   
+
+                console.log(extensionType);
+
+                // let type = file.type;
+                // let typeValue = type && type.split('/');
+              
+                // let extensionType = typeValue && typeValue.length && typeValue[1].split('.').pop();
+              //  console.log(typeValue, "typeValue");
+              //  console.log(extensionType, "ExtensionType"); 
+                // if (!extensionType || typeValue && typeValue.length && typeValue[0].split('.').pop() === 'image' && extensionType === 'gif' || extensionType === 'csv' || extensionType === 'x-msdownload') {
+                //     this.alertService.error(this.commonLabels.mandatoryLabels.fileformate)
+                //     this.moduleVar.videoFile = '';
+                // }
+                // else {
+                    this.moduleVar.fileExtension = extn;
+                    //this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
                     if (this.fileExtensionType === 'Video') {
                         this.filePreviewImage(file);
                         if (e.target.files) {
@@ -372,7 +396,12 @@ export class AddModuleComponent implements OnInit {
                             });
                         }
                     }
-                    let fileType = typeValue[0];
+                    //let fileType = typeValue[0];
+                    let fileType;
+                    let appExtensions = ['ppt', 'pdf', 'txt', 'mp4', 'png', 'jpg', 'docx', 'doc', 'xlsx', 'xls', 'zip'];
+                    if(appExtensions.includes(extn)){
+                      fileType  = 'application';
+                    }
                     this.fileName = file.name;
                     reader.onloadend = () => {
                         this.fileUrl = reader.result;
@@ -385,7 +414,7 @@ export class AddModuleComponent implements OnInit {
                             this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
                         }
                     }
-                }
+               // }
                 reader.readAsDataURL(file);
             }
         }
