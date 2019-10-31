@@ -391,7 +391,7 @@ export class CommonLabels{
         "rejectComment"     :    "Comment",
         "comments"          :    "Comments",
         "archieveDelete"    :   "Are you sure you want to delete this Purge?",
-        "scheduleDelete"    :   "Are you sure you want to delete this Schedule?",
+        "scheduleDelete"    :   "This schedule might have been started by few users.  Are you sure you want to delete this schedule?",
         "fileDelete"        :   "Are you sure you want to delete this file from class list?",
         "permissionSet"     :   "Permission Set",
         "userList"          :   "User List",
