@@ -205,6 +205,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
 
   headerTabChange(title, key) {
     window.scroll(0,0);
+    this.selectedVideoList = [];  //Empty it to close course detail section while adding RL files 
     this.selectedTab = title;
     if(this.selectedTab){
       this.filterUpdate = true;

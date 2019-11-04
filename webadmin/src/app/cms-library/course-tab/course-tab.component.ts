@@ -315,7 +315,7 @@ export class CourseTabComponent implements OnInit {
   showCMSLibrary() {
    
     let path = this.activatedRoute.snapshot.url.join('/');
-    let obj ={};
+    let obj: any ={};
     if(path == 'resource/library'){
        obj['enableCheckbox'] = true;
     }
