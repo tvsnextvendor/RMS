@@ -1096,10 +1096,14 @@ export class UserComponent implements OnInit {
             arr = Array.from(details.reduce((m, t) => m.set(t, t), new Map()).values());
         }
         if (type == 'dept') {
-            data.forEach(item => { item.Department ? arr.push(item.Department.departmentName) : '' });
+            let dept = [];
+            data.forEach(item => { item.Department ? dept.push(item.Department.departmentName) : '' });
+            arr = Array.from(dept.reduce((m, t) => m.set(t, t), new Map()).values());
         }
         if (type == 'design') {
-            data.forEach(item => { item.Designation ? arr.push(item.Designation.designationName) : '' });
+            let design = [];
+            data.forEach(item => { item.Designation ? design.push(item.Designation.designationName) : '' });
+            arr = Array.from(design.reduce((m, t) => m.set(t, t), new Map()).values());
         }
         return arr;
     }

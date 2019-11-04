@@ -18,9 +18,9 @@
           </form>
       </div>
     </div>
-    <div class="table-responsive custom-table2 mt-3">
+    <div class="table-responsive custom-table2  mt-3">
           <p *ngIf="totalCount" class="count-wrapper">{{commonLabels.labels.total}}: {{totalCount}}</p>
-      <table class="table white-bg table-cls-alg" [mfData]="badgeList" #mf="mfDataTable" [mfRowsOnPage]="10" id="certificationDetail">
+      <table class="table white-bg hide-darkline table-cls-alg" [mfData]="badgeList" #mf="mfDataTable" [mfRowsOnPage]="10" id="certificationDetail">
         <thead>
           <tr class="th-boxshadow text-center">
             <th>User Name</th>
@@ -34,7 +34,7 @@
             <td class="vdo-desc-height"  [attr.rowspan]=item.CertificateUserMappings.length+1>{{item.userName}}</td>
             <td class="vdo-desc-height"  [attr.rowspan]=item.CertificateUserMappings.length+1>{{calculateAvgScore(item.CertificateUserMappings)}}</td>
           </tr>
-          <tr *ngFor="let badge of item.CertificateUserMappings;let i = index" [ngClass]=" (i%2 == 0 && i !=  (item.CertificateUserMappings.length-1)) ? 'video-trend-desc text-center certificate bbs-1' : 'video-trend-desc text-center certificate bbsw-1'">
+          <tr *ngFor="let badge of item.CertificateUserMappings;let i = index" class="video-trend-desc text-center" >
             <td class="vdo-desc-height" *ngIf="badge.TrainingClass">{{badge.TrainingClass.trainingClassName}}</td>
             <td class="vdo-desc-height">
               <span *ngIf="badge.Badge">{{badge.Badge.badgeName}} </span>
