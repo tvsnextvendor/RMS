@@ -17,13 +17,13 @@ export class SocketService {
     //     this.socket = io(this.url);
     // }
     getNotification(userId) {
-        this.socket = io.connect(this.url); 
+          this.socket = io.connect(this.url); 
          const subject = new Observable(subject => {
-             console.log("Yesterday",userId);
+             //console.log("Yesterday",userId);
            // this.socket = io(this.url, { transports: ['websocket'] });
-            this.socket.emit('userId', userId);
+            this.socket.emit('webUserId', userId);
             this.socket.once("getNotifications", function (data) {
-                subject.next(data.notifications);
+                subject.next(data.notifications);                
             });
             return () => {
                 this.socket.disconnect();

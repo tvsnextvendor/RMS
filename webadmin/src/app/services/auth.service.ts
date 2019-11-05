@@ -28,6 +28,8 @@ export class AuthService {
 			map((response: any) => {
 				if (response.data) {
 					localStorage.setItem('token', response.data.token);
+					localStorage.setItem('userData','');
+					window.localStorage.setItem("currUserId",response.data.userId);
 					localStorage.setItem('userData', btoa(JSON.stringify(response.data)));
 					return response;
 				}
@@ -51,6 +53,7 @@ export class AuthService {
 	logOut() {
 		localStorage.removeItem("userData");
 		localStorage.removeItem("user");
+		window.localStorage.removeItem("currUserId");
 		this.authGuard.showSidebar = false;
 		this.authGuard.showHeader = false;
 		this.router.navigateByUrl('/login');

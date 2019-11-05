@@ -25,15 +25,28 @@ export class NotificationComponent implements OnInit {
 
 
   getNotification(){  
-    let socketObj = {
-      userId: this.currentUser.userId
-    };  
+   // console.log("NO COMPONENT")
+    
+    let userData = atob(localStorage.getItem('userData'));
+    let parsedData:any=JSON.parse(userData);
+    if(parsedData.userId){
     Observable.interval(20000).subscribe(observer => {	
+      console.log("CALL");
+     let UID:any= window.localStorage.getItem("currUserId");
+    //console.log("UID",UID);
+      //console.log("parsedData.userId",parsedData.userId)
+   
+      let socketObj = {
+        webUserId: UID
+      }; 
+      //console.log("CURR  USER",this.currentUser.userId);
+      //console.log("SOC",socketObj);
       this.socketService.getNotification(socketObj).subscribe((data) => {
           this.notificationCount = data['unReadCount'];
           this.notificationList = data['rows'];
       });
     });
+    }
    }
 
     

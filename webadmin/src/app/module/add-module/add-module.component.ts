@@ -349,6 +349,8 @@ export class AddModuleComponent implements OnInit {
 
                  if (videoExtensions.includes(extn)) {
                     this.fileExtensionType = 'Video';
+                }else{
+                    this.fileExtensionType = 'Document';
                 }
 
 

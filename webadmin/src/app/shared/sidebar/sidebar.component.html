@@ -79,7 +79,7 @@
             <li [ngClass]="(activeType == 'editcourse') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
                 <a (click)="pageRedirection('edit','course')">{{commonLabels.labels.editCourse}}</a>
             </li>
-            <li [ngClass]="(activeType == 'editclass') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
+            <li [ngClass]="(activeType == 'editclass' || activeType == 'edittraining') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
                 <a (click)="pageRedirection('edit','class')">{{commonLabels.labels.editClasses}}</a>
             </li>
             <li [ngClass]="(activeType == 'editquiz') ? 'active' : ''" *ngIf="permissionCheck('Course / Training Class / Quiz','view')">
