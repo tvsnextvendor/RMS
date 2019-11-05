@@ -17,7 +17,9 @@ export class SocketService {
     //     this.socket = io(this.url);
     // }
     getNotification(userId) {
-        const subject = new Observable(subject => {
+        this.socket = io.connect(this.url); 
+         const subject = new Observable(subject => {
+             console.log("Yesterday",userId);
            // this.socket = io(this.url, { transports: ['websocket'] });
             this.socket.emit('userId', userId);
             this.socket.once("getNotifications", function (data) {
