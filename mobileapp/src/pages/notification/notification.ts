@@ -20,6 +20,7 @@ export class NotificationPage implements OnInit {
   notificationList;
   currentUser;
   count;
+
   constructor(public navCtrl: NavController,public storage:Storage,public loader:LoaderService,public navParams: NavParams,public socketService: SocketService, public http: HttpProvider, public API_URL: API_URL,public constant:Constant) {
   }
   ionViewDidEnter() {       
@@ -115,6 +116,16 @@ export class NotificationPage implements OnInit {
       case "failedCourse":
         this.navCtrl.push('course-failed-page');
         break;
+      case "assignNotification":
+         let notificationType = notification.notificationType;
+         if(notificationType == 'signRequired'){
+           let paramsData = {};
+           paramsData['status'] = 'signRequired';
+           this.navCtrl.push('course-page', paramsData);
+         }else{
+           this.navCtrl.push('generalnotification-page');
+         }
+         break;
       default:
         this.navCtrl.push('course-page');
         break;

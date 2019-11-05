@@ -174,9 +174,10 @@ export class TrainingPage {
   }
 
   goBack(){
-        let paramsData = {};
-        paramsData['status'] = 'inProgress';
-        this.navCtrl.push('course-page', paramsData);
+    this.navCtrl.pop();
+    // let paramsData = {};
+    // paramsData['status'] = 'inProgress';
+    // this.navCtrl.push('course-page', paramsData);
   }
 
   goToForum() {
