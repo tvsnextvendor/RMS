@@ -23,6 +23,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     private permissionService:PermissionService) {
   }
   modalRef;
+  public currentUrl:any;
   videoFile;
   selectedTab;
   enableCheckbox = false;
@@ -53,6 +54,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
   setType;
 
   ngOnInit() {
+    this.currentUrl=this.route.url;
     this.selectedTab = 'course';
     this.quizTabHit = false;
     this.notifyType = 'assignedToCourse';
@@ -226,7 +228,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     else {
       this.quizTabHit = false;
     }
-
+    this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
     // Dont Remove Activated Route RL and Schedule Tab hiding working in this manner
     this.activatedRoute.queryParams.subscribe(params => {
       if (params && params.type == 'edit' && !this.resourceLibrary) {
@@ -239,6 +241,43 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
        // alert("yes");
       }
     });
+  }
+  headerTabResourceChange(title, key) {
+    window.scroll(0,0);
+    this.selectedTab = title;
+    if(this.selectedTab){
+      this.filterUpdate = true;
+    }
+    else{
+      this.filterUpdate = false;
+    }
+    if (key != 'trainingfiles' && (title == 'video' || title == 'document')) {
+      this.trainingClassId = '';
+      this.quizTabHit = false;
+    }
+    else if (key != 'trainingfiles' && title == 'quiz') {
+      this.quizTabHit = true;
+    }
+    else if (key != 'trainingfiles') {
+      this.courseId = '';
+    }
+    else {
+      this.quizTabHit = false;
+    }
+    //this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
+    // Dont Remove Activated Route RL and Schedule Tab hiding working in this manner
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.type == 'edit' && !this.resourceLibrary) {
+        if(!this.resourceLib){
+          title = (title == 'training') ? 'class' : title;
+        //this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
+        }
+      //  alert("no");
+      }else{
+       // alert("yes");
+      }
+    });
+
   }
   completed(event) {
     if (event == 'back') {

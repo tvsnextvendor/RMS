@@ -12,7 +12,7 @@ import {CommonService,BreadCrumbService, UtilService} from '../../services';
 export class NotificationComponent implements OnInit {
 
   notificationCount = 0;
-  notificationList;
+  notificationList:any=[];
   uploadPath;
   currentUser;
   constructor(public socketService: SocketService,public commonService : CommonService,public utilService: UtilService) { }
