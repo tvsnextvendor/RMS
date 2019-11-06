@@ -930,14 +930,42 @@
                 </div>  
                 <div class="col-md-6 pl-0 form-group"></div>
             </div>
-
-            <div class="text-center mt-3">
-                <button class="fileUpload btn btn-primary addUser-upload creat-btn mr-3">
-                    <span>{{commonLabels.labels.upload}}</span>
-                    <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
-                        accept=".xlsx,.xls" />
+ 
+            <div class="text-center mt-3" *ngIf="(designation.length == 0 && department.length == 0)">
+                  <button [disabled]="true"   class="fileUpload btn btn-primary addUser-upload creat-btn mr-3">
+                     <span>{{commonLabels.labels.upload}}</span>
+                     
                 </button>
-                <button type="button" class="btn btn-default" (click)="cancelBulkUpload()">{{commonLabels.btns.cancel}}</button>
+             
+                <button     type="button" class="btn btn-default" (click)="cancelBulkUpload()">{{commonLabels.btns.cancel}}</button>
             </div>
+ 
+            <div class="text-center mt-3" *ngIf="(designation.length == 0 && department.length > 0)">
+                    <button [disabled]="true"   class="fileUpload btn btn-primary addUser-upload creat-btn mr-3">
+                       <span>{{commonLabels.labels.upload}}</span>
+                       
+                  </button>
+               
+                  <button     type="button" class="btn btn-default" (click)="cancelBulkUpload()">{{commonLabels.btns.cancel}}</button>
+              </div>
+   
+              <div class="text-center mt-3" *ngIf="(designation.length > 0 && department.length == 0)">
+                    <button [disabled]="true"   class="fileUpload btn btn-primary addUser-upload creat-btn mr-3">
+                       <span>{{commonLabels.labels.upload}}</span>
+                       
+                  </button>
+               
+                  <button     type="button" class="btn btn-default" (click)="cancelBulkUpload()">{{commonLabels.btns.cancel}}</button>
+              </div>
+   
+ 
+            <div class="text-center mt-3" *ngIf="(designation.length > 0 && department.length > 0)">
+                <button   class="fileUpload btn btn-primary addUser-upload creat-btn mr-3">
+                  <span>{{commonLabels.labels.upload}}</span>
+                  <input type="file" name="videoFile" class="upload" [(ngModel)]="fileUploadValue" (change)="fileUpload($event)"
+                      accept=".xlsx,.xls" />
+              </button> 
+              <button type="button" class="btn btn-default" (click)="cancelBulkUpload()">{{commonLabels.btns.cancel}}</button>
+          </div>
         </div>
     </ng-template>
