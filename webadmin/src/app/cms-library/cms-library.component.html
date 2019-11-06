@@ -9,7 +9,7 @@
                 
  
 
-                <ng-template [ngIf]="currentUrl == '/resource/library' || currentUrl == '/cms-library?type=create&tab=course'" [ngIfElse]="course">
+                <ng-template [ngIf]="currentUrl == '/resource/library' || currentUrl == '/cms-library?type=create&tab=course' || currentUrl == '/cms-library?type=edit&tab=course' || currentUrl == '/cms-library?type=create&tab=schedule'" [ngIfElse]="course">
                      
                         <ul class="nav nav-tabs">
                                 <li class="nav-item"  *ngIf="!hideSection && permissionCheck('Course / Training Class / Quiz','view')">
