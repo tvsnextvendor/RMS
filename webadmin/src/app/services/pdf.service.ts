@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as jsPDF from 'jspdf';  
-import html2canvas from 'html2canvas';
+// import { html2canvas } from 'html2canvas';
+import * as html2canvas from 'html2canvas';
+
 import 'jspdf-autotable';
 
 
