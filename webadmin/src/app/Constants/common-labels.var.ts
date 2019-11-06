@@ -488,7 +488,8 @@ export class CommonLabels{
         "recentDelete"      :   "Recently Deleted",
         "editQuiz"          :   "Edit Quiz",
         "sendNotification"  :   "Send Notification",
-        "preview"           :   "Preview"
+        "preview"           :   "Preview",
+        "reportingTo"       :   "reportingTo"
        
         
        

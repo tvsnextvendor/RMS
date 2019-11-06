@@ -368,7 +368,13 @@ export class AddBatchComponent implements OnInit {
         }
        
     }
-
+    onselecteddate(){
+        let now = moment(this.batchVar.batchFrom);
+        let end = moment(this.batchVar.batchTo);
+        let duration = moment.duration(end.diff(now));
+        var days = duration.asDays();
+        this.maxdurationCount = days
+    }
     errorCheck() {
         let now = moment(this.batchVar.batchFrom);
         let end = moment(this.batchVar.batchTo);

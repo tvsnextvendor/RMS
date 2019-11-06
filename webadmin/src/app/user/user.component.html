@@ -897,6 +897,13 @@
                             {{commonLabels.mandatoryLabels.dept}}
                         </span>
                     </div>
+                    <div class="pl-0 form-group select-Courses select select-style clearfix">
+                            <select [(ngModel)]="reportingTo" name="reportingTo" class="form-control p-0">
+                                <option value="">{{commonLabels.labels.reportingTo}}</option>
+                                <option *ngFor="let obj of designationArrays" [value]="obj.userId">{{obj.userName  | titlecase}}</option>
+                            </select>
+                             <div class="select_arrow"></div>
+                    </div>
                 </div>
                 <div class="col-md-5 p-0 ml-auto">
                     <div class="pl-0 form-group select-Courses">

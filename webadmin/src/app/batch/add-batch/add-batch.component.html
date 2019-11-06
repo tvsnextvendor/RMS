@@ -41,8 +41,8 @@
                                     <div class="col-md-7 p-0 batch-input">
                                         <span> <img src="{{commonLabels.imgs.calendar}}" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
                                                 class="batch-icon">
-                                            <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo" [minDate]="currentDate"
-                                                bsDatepicker [(ngModel)]="batchVar.batchTo" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
+                                            <input type="text" class="form-control" #dp="bsDatepicker" autocomplete="off" name="batchTo" [minDate]="batchVar.batchFrom"
+                                                bsDatepicker [(ngModel)]="batchVar.batchTo" (blur)="onselecteddate()" #BatchTo="ngModel" [bsConfig]="{dateInputFormat: 'ddd D MMM YYYY '}"
                                                 required>
                                             <span class="required_color" *ngIf="BatchTo && BatchTo.invalid && (formDir.submitted || BatchTo.touched) && !errorValidation">
                                                 {{commonLabels.mandatoryLabels.to}}
@@ -183,7 +183,7 @@
                             <label class="col-md-5 p-0 label-title">{{commonLabels.labels.regNote}}</label>
                             <div class="row col-md-7 p-0">
                                 <span class="col-md-6 pl-0">
-                                    <input class="form-control  p-0" name="reminder" [(ngModel)]="reminder" #reminderValue="ngModel"
+                                    <input class="form-control  p-0" [disabled]="!batchVar.batchTo" name="reminder" [(ngModel)]="reminder" #reminderValue="ngModel"
                                         type="number" placeholder="Select" min="1" max="{{maxdurationCount}}" (keyup)="countErrorCheck()"
                                         required>
                                 </span>

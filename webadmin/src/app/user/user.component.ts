@@ -818,7 +818,8 @@ export class UserComponent implements OnInit {
                             'file': fileUploadValue ,
                             'divisionId' : this.selectedDivisionId.toString(),
                             'departmentId' : this.department.map(item => { return item.departmentId }).toString(),
-                            'designationId'  : this.designation.map(item =>{return item.designationId}).toString()
+                            'designationId'  : this.designation.map(item =>{return item.designationId}).toString(),
+                            'reportingTo'  : this.reportingTo.toString()
                         }
             if (fileUploadValue && this.selectedDivisionId.length && this.department.length &&  this.designation.length) {
                 this.bulkUploadWarn = false;

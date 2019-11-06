@@ -77,6 +77,7 @@ export class UserService {
     formData.append("divisionId",params.divisionId);
     formData.append("departmentId",params.departmentId);
     formData.append("designationId",params.designationId);
+    formData.append("reportingTo",params.reportingTo);
     return this.http.upload('local',this.url.bulkUploadUrl+'?createdBy='+userId+'&resortId='+resortId, formData);
   }
 
