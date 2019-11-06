@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 export class SocketService {
     private url = API.API_ENDPOINT + API.SOCKET_PORT;
     private socket;
+    
     constructor() {
         this.socket = io(this.url, { transports: ['websocket']});
       }
