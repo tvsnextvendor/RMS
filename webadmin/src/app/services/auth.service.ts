@@ -53,9 +53,11 @@ export class AuthService {
 	logOut() {
 		localStorage.removeItem("userData");
 		localStorage.removeItem("user");
+		localStorage.removeItem("QuizPassId");
 		window.localStorage.removeItem("currUserId");
 		this.authGuard.showSidebar = false;
 		this.authGuard.showHeader = false;
 		this.router.navigateByUrl('/login');
+		
 	}
 }

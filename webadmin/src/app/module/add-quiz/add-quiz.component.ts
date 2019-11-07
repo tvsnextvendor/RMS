@@ -103,7 +103,7 @@ export class AddQuizComponent implements OnInit {
         this.quizName = this.quizNames ? this.quizNames : '';
         this.quizCreateType = 'new';
         this.editEnable = false;
-        this.quizPassId = localStorage.getItem('QuizPassId');
+        this.quizPassId = localStorage.getItem("QuizPassId");
         this.questionOptions = [
             { name: "MCQ", value: "MCQ" },
             { name: "True/False", value: "True/False" },
@@ -139,13 +139,14 @@ export class AddQuizComponent implements OnInit {
             this.weightage = 100;
         }
         this.takeQuizInfo(this.quizPassId);
+
     }
     takeQuizInfo(quizPassId) 
     {
         if(quizPassId) 
         {
             this.courseService.getQuizList('?quizId='+quizPassId).subscribe(response => {
-                if (response && response.isSuccess){
+                if (response && response.isSuccess){                    
                     let quizData = response.data && response.data.quiz[0];
                     let questions = quizData && quizData.Questions && quizData.Questions.length ? quizData.Questions : [];
                     this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
@@ -307,6 +308,7 @@ export class AddQuizComponent implements OnInit {
     // Quiz Submission
     quizSubmit(submitType) {
         //Weightage update
+        localStorage.removeItem("QuizPassId");
         this.answerEmpty = false;
         this.optionEmpty = false;
         if (this.questionList) {

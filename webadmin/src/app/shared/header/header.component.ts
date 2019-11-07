@@ -51,6 +51,7 @@ export class HeaderComponent implements OnInit {
 
   logOut(){
     localStorage.removeItem("userData");
+    localStorage.removeItem("QuizPassId")
     localStorage.removeItem("user");
     localStorage.removeItem("divisions");
     localStorage.removeItem("department");

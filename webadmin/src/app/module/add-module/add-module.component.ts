@@ -311,7 +311,6 @@ export class AddModuleComponent implements OnInit {
         var duration;
         if (e.target && e.target.files[0]) {
             let file = e.target.files[0];
-            console.log(file,"SUCCESS")
             if (this.moduleVar.existingFile.length) {
                 this.moduleVar.existingFile.forEach(item => {
                     if (item == file.name) {
@@ -352,12 +351,6 @@ export class AddModuleComponent implements OnInit {
                 }else{
                     this.fileExtensionType = 'Document';
                 }
-
-
-   
-
-                console.log(extensionType);
-
                 // let type = file.type;
                 // let typeValue = type && type.split('/');
               
@@ -604,7 +597,7 @@ export class AddModuleComponent implements OnInit {
                 this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
                 this.editQuizId = quizData && quizData.quizId ? quizData.quizId : '';
                 this.quizPassId =quizData && quizData.quizId ? quizData.quizId : '';
-                localStorage.setItem('QuizPassId', this.quizPassId);
+                localStorage.setItem("QuizPassId", this.quizPassId);
                 this.moduleVar.quizDetails = questions;
                 if (self.quiz) {
                     self.quiz.quizDetails = questions;
@@ -786,6 +779,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     resetTabDetails(add) {
+        localStorage.removeItem("QuizPassId");
         this.moduleVar.tabEnable = add ? true : false;
         this.moduleVar.videoList = [];
         this.moduleVar.selectCourseName = '';
