@@ -5,7 +5,7 @@ import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { Permissions } from '../../Constants/role_permission' ;
 
-
+import { SideBarService } from '../sidebar/sidebar.service' ;
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -14,11 +14,15 @@ export class SideBarComponent implements OnInit {
 
   constructor(
     public router: Router,
+    public sidebar: SideBarService,
     private utilservice: UtilService,
     private mScrollbarService: MalihuScrollbarService,
     public commonLabels:CommonLabels,
     private activatedRoute : ActivatedRoute,
-    private permissionService :PermissionService) { }
+    private permissionService :PermissionService) { 
+
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
    
    role;
    peerAdmin;
@@ -27,7 +31,7 @@ export class SideBarComponent implements OnInit {
    enableEdit = false;
    enableReport = false;
    enableShow = false;
-   activeType ;
+ 
    tabType;
    currentUrl;
    roleId;
@@ -64,10 +68,10 @@ export class SideBarComponent implements OnInit {
     }
     this.activatedRoute.queryParams.subscribe(params=>{
       if(!Object.keys(params).length){
-        this.activeType = this.router.url;
+        this.sidebar.activeType = this.router.url;
       } 
       else{
-        this.activeType = params.type+params.tab;
+        this.sidebar.activeType = params.type+params.tab;
         if(params.type == "edit" && params.tab == "notification"){
           this.enableCreate = false;
           this.enableEdit = true;
@@ -165,18 +169,23 @@ export class SideBarComponent implements OnInit {
     }
   }
 
-  pageRedirection(type,data){
-    if(type == 'create' && data == 'quiz'){
+  pageRedirection(type1:any,data1:any){
+    
+    if(type1 == 'create' && data1 == 'quiz'){
       this.router.navigate(['/createQuiz'])
-    }else if(type == 'create' && data == 'notification'){
+    }else if(type1 == 'create' && data1 == 'notification'){
       this.router.navigate(['/notification/template']);
     }
     else{
-      this.router.navigate(['/cms-library'],{queryParams:{type : type,tab : data}})
+      console.log("Am Fine Here");
+      //this.router.navigate(['dashboard']);
+      this.sidebar.activeType=type1+data1;
+        this.router.navigate(['/cms-library'], {queryParams: {type: type1,tab:data1}});
+       
     } 
   }
 
-  expandCheck(type){
+  expandCheck(type:any,test:any={},num:any=0){
     // console.log(type,"Type");
     if(type == 'performance'){
       if(this.permissionCheck('Course Trend','view') || this.permissionCheck('Training Class Trend','view') || this.permissionCheck('Resort Details','view') || this.permissionCheck('Certification Trend','view') || this.permissionCheck('Expire Trend','view')){

@@ -4,7 +4,7 @@ import { HeaderService, AlertService, FileService, PermissionService } from '../
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../Constants/common-labels.var';
-
+import {SideBarService} from '../../app/shared/sidebar/sidebar.service'
 
 @Component({
   selector: 'app-cms-library',
@@ -15,6 +15,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: BsModalService,
     public fileService: FileService,
+    private sidebar: SideBarService,
     public commonLabels: CommonLabels,
     private alertService: AlertService,
     private route: Router,
@@ -228,7 +229,11 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     else {
       this.quizTabHit = false;
     }
-    //this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
+     
+
+    this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
+    this.sidebar.activeType='edit'+title;
+    //console.log("COMES",this.sidebar.activeType);
     // Dont Remove Activated Route RL and Schedule Tab hiding working in this manner
     this.activatedRoute.queryParams.subscribe(params => {
       if (params && params.type == 'edit' && !this.resourceLibrary) {
@@ -264,6 +269,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
     else {
       this.quizTabHit = false;
     }
+    this.sidebar.activeType='edit'+title;
     //this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
     // Dont Remove Activated Route RL and Schedule Tab hiding working in this manner
     this.activatedRoute.queryParams.subscribe(params => {

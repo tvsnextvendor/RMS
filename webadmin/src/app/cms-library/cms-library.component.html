@@ -9,7 +9,7 @@
                 
  
 
-                <ng-template [ngIf]="currentUrl == '/resource/library' || currentUrl == '/cms-library?type=create&tab=course' || currentUrl == '/cms-library?type=edit&tab=course' || currentUrl == '/cms-library?type=create&tab=schedule'" [ngIfElse]="course">
+                <ng-template [ngIf]="currentUrl == '/resource/library' || currentUrl == '/cms-library?type=create&tab=course'  || currentUrl== '/cms-library?type=edit&tab=course'  || currentUrl == '/cms-library?type=create&tab=schedule'" [ngIfElse]="course">
                      
                         <ul class="nav nav-tabs">
                                 <li class="nav-item"  *ngIf="!hideSection && permissionCheck('Course / Training Class / Quiz','view')">
@@ -23,6 +23,7 @@
                                         data-toggle="tab" href="#quiz" (click)="headerTabResourceChange('quiz','')">{{commonLabels.labels.quiz}}</a>
                                 </li>
                                 <li class="nav-item" *ngIf="!showcreatecourse && permissionCheck('Course / Training Class / Quiz','view')">
+                                     
                                     <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabResourceChange('video','')">{{commonLabels.labels.videos}}</a>
                                 </li>
                                 <li class="nav-item" *ngIf="!showcreatecourse && permissionCheck('Course / Training Class / Quiz','view')">
@@ -52,8 +53,8 @@
                                         <a *ngIf="!disableTabs" [ngClass]="selectedTab === 'quiz' ? 'nav-link active show disabled' : 'nav-link'"
                                             data-toggle="tab" href="#quiz" (click)="headerTabChange('quiz','')">{{commonLabels.labels.quiz}}</a>
                                     </li>
-                                    <li class="nav-item" *ngIf="!showcreatecourse && permissionCheck('Course / Training Class / Quiz','view')">
-                                        <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabChange('video','')">{{commonLabels.labels.videos}}</a>
+                                    <li class="nav-item" *ngIf="!showcreatecourse && permissionCheck('Course / Training Class / Quiz','view')"> 
+                               <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'video' ? 'nav-link active' : 'nav-link'" data-toggle="tab" href="#video" (click)="headerTabChange('video','')">{{commonLabels.labels.videos}}</a>
                                     </li>
                                     <li class="nav-item" *ngIf="!showcreatecourse && permissionCheck('Course / Training Class / Quiz','view')">
                                         <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'document' ? 'nav-link active show' : 'nav-link'"  data-toggle="tab" href="#document" (click)="headerTabChange('document','')">{{commonLabels.btns.docs}}</a>
