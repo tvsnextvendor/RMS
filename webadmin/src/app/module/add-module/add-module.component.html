@@ -90,7 +90,7 @@
 							<span class="required_color" *ngIf="courseSubmitted && !moduleVar.selectCourseName">{{commonLabels.mandatoryLabels.courseNameError}}</span>
 						</span>
 					</div>
-					<div class="row form-group mb-0">
+					<div class="row form-group mb-0"> 
 						<div class="col-md-4 pl-0">
 							<label class="col-md-12 p-0 upload-label">{{commonLabels.labels.fileName}}</label>
 							<input type="text" class="form-control col-md-12 p-0" placeholder="Enter File Name" name="selectVideoName" [(ngModel)]="moduleVar.selectVideoName">
@@ -126,7 +126,7 @@
 									<canvas id="canvas-element" [hidden]="true" ></canvas>
 								</div>	
 									
-							</div>
+							</div> 
                         <div class="col-md-4 pr-0">
 							<span *ngIf="!moduleVar.videoFile"><img src="{{commonLabels.imgs.profile}}" class="pl-3"></span>
 							<span *ngIf="showImage && moduleVar.videoFile && !previewImage"><img src="{{commonLabels.imgs.profile}}" class="thumbnail_img img-size"></span>

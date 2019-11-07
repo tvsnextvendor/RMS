@@ -400,13 +400,18 @@ export class AddModuleComponent implements OnInit {
                     }
                     //let fileType = typeValue[0];
                     let fileType;
-                    let appExtensions = ['ppt', 'pdf', 'txt', 'mp4', 'png', 'jpg', 'docx', 'doc', 'xlsx', 'xls', 'zip'];
+                    let appExtensions = ['ppt', 'pdf', 'txt', 'mp4', 'docx', 'doc', 'xlsx', 'xls', 'zip'];
+                    let imageExt:any = ['jpg', 'jpeg', 'png'];
                     if(appExtensions.includes(extn)){
                       fileType  = 'application';
-                    }
+                    } 
+                    if(imageExt.includes(extn)){
+                        fileType  = 'image';
+                      }
                     this.fileName = file.name;
                     reader.onloadend = () => {
                         this.fileUrl = reader.result;
+                        
                         if (fileType === 'application') {
                             let appType = (this.fileName.split('.').pop()).toString();
                             let appDataType = appType.toLowerCase();
@@ -484,6 +489,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     extensionTypeCheck(fileType, extensionType, data) {
+        
         switch (fileType) {
             case "video":
                 this.previewImage = "";
