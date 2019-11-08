@@ -44,6 +44,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
   notificationValue;
   notifyType;
   tabName;
+  moduleId;
   enableNotify = false;
   enableBatch = false;
   disableEdit = false;
@@ -56,6 +57,7 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentUrl=this.route.url;
+   
     this.selectedTab = 'course';
     this.quizTabHit = false;
     this.notifyType = 'assignedToCourse';
@@ -63,7 +65,11 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
 
       this.fileService.setCurrentCompname(params.tab);
       this.setType = (params.set)?params.set:'';
-
+       if (this.currentUrl.indexOf("moduleId") != -1) {
+           if(params.moduleId){
+             this.moduleId = this.currentUrl;    
+           }
+       }
       if (params.type && params.type == 'create') {
         this.disableEdit = false;
         this.disableTabs = false;

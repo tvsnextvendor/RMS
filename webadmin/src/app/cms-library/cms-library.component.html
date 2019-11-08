@@ -6,10 +6,7 @@
         <div class="col-md-9 pt-2 px-0">
             <div class="clearfix tab-section">
                 
-                
- 
-
-                <ng-template [ngIf]="currentUrl == '/resource/library' || currentUrl == '/cms-library?type=create&tab=course'  || currentUrl== '/cms-library?type=edit&tab=course'  || currentUrl == '/cms-library?type=create&tab=schedule'" [ngIfElse]="course">
+                <ng-template [ngIf]="currentUrl == '/resource/library' || currentUrl == '/cms-library?type=create&tab=class' || currentUrl == '/cms-library?type=create&tab=course' || currentUrl== '/cms-library?type=edit&tab=course'  || moduleId || currentUrl == '/cms-library?type=create&tab=schedule'" [ngIfElse]="course">
                      
                         <ul class="nav nav-tabs">
                                 <li class="nav-item"  *ngIf="!hideSection && permissionCheck('Course / Training Class / Quiz','view')">
