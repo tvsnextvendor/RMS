@@ -46,10 +46,10 @@
             <div class="row">
                 <div class="row col-12 col-md-6 form-group pl-0">
                     <label class="col-6 col-sm-8 col-md-4 label-title pl-0">{{commonLabels.labels.subscribTyp}}</label>
-                    <select class="col-md-8 select-form form-control">
-                        <option>Type</option>
-                        <option>Economy</option>
-                        <option>Premium</option>
+                    <select class="col-md-8 select-form form-control" [(ngModel)] = "subType" name="subType">
+                        <option disabled value="null">Type</option>
+                        <option value="economy">Economy</option>
+                        <!-- <option>Premium</option> -->
                     </select> 
                 </div>
                 <div class="row col-12 col-md-6 form-group pr-0">

@@ -35,6 +35,7 @@ export class ResortComponent implements OnInit {
     mobileValidation = false;
     userId;
     userObj;
+    subType = "null";
     divisionDetails;
 
     constructor(private alertService: AlertService, private activeRoute: ActivatedRoute, private resortService: ResortService, private commonService: CommonService, private http: HttpService, private location: Location, private resortVar: ResortVar, private utilsService: UtilService, private headerService: HeaderService, private toastr: ToastrService, private router: Router,
@@ -66,6 +67,7 @@ export class ResortComponent implements OnInit {
     }
 
     getResortDetails(data) {
+        this.subType="economy";
         this.resortService.getResortById(this.resortId).subscribe((result) => {
             if (result && result.isSuccess) {
                 this.resortDetails = result.data.rows[0];
