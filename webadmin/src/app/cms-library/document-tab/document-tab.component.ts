@@ -279,7 +279,10 @@ export class DocumentTabComponent implements OnInit {
           this.getCourseFileDetails();
           this.alertService.success(result.message);
       }
-  })
+  },(err) =>{
+    this.constant.modalRef.hide();
+    this.alertService.error(err.error.error);
+  });
   }
 
  //Assign document files to selected course and training class

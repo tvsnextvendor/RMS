@@ -362,7 +362,10 @@ constructor(private courseService: CourseService,
             this.getCourseFileDetails();
             this.alertService.success(result.message);
         }
-    })
+    },(err) =>{
+      this.constant.modalRef.hide();
+      this.alertService.error(err.error.error);
+    });
    }
 
 

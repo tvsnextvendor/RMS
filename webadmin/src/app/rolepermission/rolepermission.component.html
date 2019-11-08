@@ -23,7 +23,7 @@
 				<div class="col-md-4 select select-style clearfix">
 					<select [(ngModel)]="constant.departmentId" name="departmentId" class="form-control pl-0" (change)="getRoles(constant.resortId,constant.departmentId)">
 						<option value="null" disabled>-- Select {{commonLabels.labels.department}} --</option>
-						<option value="allSelect" >{{commonLabels.labels.selectAllDept}}</option>
+						<!-- <option value="allSelect" >{{commonLabels.labels.selectAllDept}}</option> -->
 						<option *ngFor="let obj of constant.departmentList" [value]="obj.departmentId">{{obj.departmentName}}</option>
 					</select>
 					<div class="select_arrow"></div>
