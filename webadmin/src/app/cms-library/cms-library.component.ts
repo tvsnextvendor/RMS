@@ -65,8 +65,8 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
 
       this.fileService.setCurrentCompname(params.tab);
       this.setType = (params.set)?params.set:'';
-       if (this.currentUrl.indexOf("moduleId") != -1) {
-           if(params.moduleId){
+       if (this.currentUrl.indexOf("moduleId") != -1 || this.currentUrl.indexOf("classId") != -1 ) {
+           if(params.moduleId || params.classId){
              this.moduleId = this.currentUrl;    
            }
        }
