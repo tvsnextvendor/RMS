@@ -90,8 +90,8 @@
                             <a *ngIf = "emp.status == 'failed'" class="failed-color">{{emp.status | titlecase}}</a>
                         </td>
                         <td class="vat text-left" *ngIf="trendType != 'notification'">{{emp?.timeTaken}}</td>
-                        <td class="vat text-left" [ngClass]="emp.status == 'unAssigned' ? 'unAssigned-color': ''">{{emp?.TrainingSchedule?.assignedDate | date :'MM/dd/yyyy'}}</td>
-                        <td class="vat text-left">{{emp?.completedDate | date :'MM/dd/yyyy'}}</td>
+                        <td class="vat text-left" [ngClass]="emp.status == 'unAssigned' ? 'unAssigned-color': ''">{{emp?.TrainingSchedule?.assignedDate | date }}</td>
+                        <td class="vat text-left">{{emp?.completedDate | date }}</td>
                         <td>
                             <button type="button" *ngIf="emp.status == 'expired'" class="btn btn-primary" (click)="openSchedulePopup(reschedule,emp)">Reschedule</button>
                         </td>

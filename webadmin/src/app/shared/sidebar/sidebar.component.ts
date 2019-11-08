@@ -21,7 +21,7 @@ export class SideBarComponent implements OnInit {
     private activatedRoute : ActivatedRoute,
     private permissionService :PermissionService) { 
 
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
    
    role;
@@ -177,7 +177,6 @@ export class SideBarComponent implements OnInit {
       this.router.navigate(['/notification/template']);
     }
     else{
-      console.log("Am Fine Here");
       //this.router.navigate(['dashboard']);
       this.sidebar.activeType=type1+data1;
         this.router.navigate(['/cms-library'], {queryParams: {type: type1,tab:data1}});

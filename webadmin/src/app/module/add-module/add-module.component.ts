@@ -779,7 +779,11 @@ export class AddModuleComponent implements OnInit {
     }
 
     resetTabDetails(add) {
-        localStorage.removeItem("QuizPassId");
+         this.activatedRoute.queryParams.subscribe((params: Params) => {
+                   if(!params.moduleId){
+                      localStorage.removeItem("QuizPassId");
+                   }
+                });
         this.moduleVar.tabEnable = add ? true : false;
         this.moduleVar.videoList = [];
         this.moduleVar.selectCourseName = '';
