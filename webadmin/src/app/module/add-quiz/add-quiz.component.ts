@@ -11,12 +11,10 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModuleDetailsComponent } from '../module-details/module-details.component';
 import { CommonLabels } from '../../Constants/common-labels.var'
 import { QuizService } from '../quiz.service';
-
 @Component({
     selector: 'add-quiz',
     templateUrl: './add-quiz.component.html',
     styleUrls: ['./add-quiz.component.css']
-
 })
 export class AddQuizComponent implements OnInit {
 
@@ -289,7 +287,6 @@ export class AddQuizComponent implements OnInit {
             this.alertService.warn(this.commonLabels.mandatoryLabels.minimumQuiz);
         }
     }
-
     valueChanged(resp, submitCheck, update) {
         this.courseUpdate = true;
         let data = {
@@ -427,8 +424,12 @@ export class AddQuizComponent implements OnInit {
                 else {
                     delete params.quizId;
                 }
+
+               
                 if (this.videoList.length) {
+                    
                     params.files = this.videoList.map((item, i) => {
+                       
                         if (this.courseId) {
                             let obj = {
                                 fileName: item.fileName,
@@ -441,7 +442,7 @@ export class AddQuizComponent implements OnInit {
                                 fileLength: item.fileLength,
                                 fileId: item.fileId,
                                 trainingClassId: item.trainingClassId,
-                                inputUrl: '',
+                                inputUrl: item.inputUrl,
                                 transcodeUrl: '',
                                 jobId: '',
                                 order: i + 1
@@ -452,7 +453,7 @@ export class AddQuizComponent implements OnInit {
                                 obj.jobId = item.jobId;
                             }
                             else {
-                                delete obj.inputUrl;
+                               // delete obj.inputUrl;
                                 delete obj.transcodeUrl;
                                 delete obj.jobId;
                             }
@@ -469,7 +470,7 @@ export class AddQuizComponent implements OnInit {
                                 fileSize: item.fileSize,
                                 fileId: item.fileId,
                                 fileLength: item.fileLength,
-                                inputUrl: '',
+                                inputUrl: item.inputUrl,
                                 transcodeUrl: '',
                                 jobId: '',
                                 order: i + 1
@@ -480,15 +481,12 @@ export class AddQuizComponent implements OnInit {
                                 obj.jobId = item.jobId;
                             }
                             else {
-                                delete obj.inputUrl;
+                               // delete obj.inputUrl;
                                 delete obj.transcodeUrl;
                                 delete obj.jobId;
                             }
                             return obj;
                         }
-
-
-
                     })
                 }
                 if (this.courseId) {
@@ -746,7 +744,7 @@ export class AddQuizComponent implements OnInit {
                                 trainingClassId: item.trainingClassId,
                                 jobId: '',
                                 transcodeUrl: '',
-                                inputUrl: '',
+                                inputUrl: item.inputUrl,
                                 order: i + 1
                             }
                             if (item.fileType == 'Video') {
@@ -755,7 +753,7 @@ export class AddQuizComponent implements OnInit {
                                 obj.jobId = item.jobId;
                             }
                             else {
-                                delete obj.inputUrl;
+                              //delete obj.inputUrl;
                                 delete obj.transcodeUrl;
                                 delete obj.jobId;
                             }
@@ -774,7 +772,7 @@ export class AddQuizComponent implements OnInit {
                                 fileId: item.fileId,
                                 jobId: '',
                                 transcodeUrl: '',
-                                inputUrl: '',
+                                inputUrl: item.inputUrl,
                                 order: i + 1
 
                             }
@@ -784,7 +782,7 @@ export class AddQuizComponent implements OnInit {
                                 obj.jobId = item.jobId;
                             }
                             else {
-                                delete obj.inputUrl;
+                                //delete obj.inputUrl;
                                 delete obj.transcodeUrl;
                                 delete obj.jobId;
                             }
