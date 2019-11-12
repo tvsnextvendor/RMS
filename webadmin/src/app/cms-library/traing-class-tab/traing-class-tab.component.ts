@@ -20,6 +20,7 @@ export class TraingClassTabComponent implements OnInit {
   currentPage;
   enableEdit: boolean = false;
   enableIndex;
+  selectedClassId;
   enableClassEdit = false;
   editTrainingCourseId;
   TrainingList: any;
@@ -181,6 +182,34 @@ export class TraingClassTabComponent implements OnInit {
       this.getTrainingClassDetails();
     }
   }
+  
+
+  deleteConfirmation(template: TemplateRef<any>, trainingClassId) {
+    let modalConfig = {
+      class: "modal-dialog-centered"
+    }
+    this.selectedClassId = trainingClassId;
+    this.modalRef = this.modalService.show(template, modalConfig);
+  }
+
+  removeCourse() {
+    this.courseService.deleteTrainingClass(this.selectedClassId).subscribe(res => {
+      if (res.isSuccess) {
+        this.alertService.success(res.message);
+        this.modalRef.hide();
+        this.getTrainingClassList();
+      } else {
+        this.modalRef.hide();
+        this.alertService.error(res.message);
+      }
+    }, err => {
+      console.log(err);
+      this.modalRef.hide();
+      this.alertService.error(err.error.error);
+    })
+  }
+
+
   getIndividualTC(courses, index) {
     this.enableView = true;
     this.enableIndex = index;
