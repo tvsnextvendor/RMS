@@ -33,8 +33,9 @@
                                     <a *ngIf="!disableTabs && !disableEdit" [ngClass] = "selectedTab === 'workInprogress' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#workInprogress" (click)="headerTabResourceChange('workInprogress','')">{{commonLabels.btns.Wip}}</a>
                                 </li>
                                 <li class="nav-item" *ngIf="!hideSection && permissionCheck('Course / Training Class / Quiz','view')">
-                                    <a *ngIf="!disableTabs && !disableEdit" [ngClass] = "selectedTab === 'recentDelete' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#recentDelete" (click)="headerTabResourceChange('recentDelete','')">{{commonLabels.btns.recentDelete}}</a>
+                                    <a *ngIf="!disableTabs" [ngClass] = "selectedTab === 'recentDelete' ? 'nav-link active show' : 'nav-link'" data-toggle="tab" href="#recentDelete" (click)="headerTabResourceChange('recentDelete','')">{{commonLabels.btns.recentDelete}}</a>
                                 </li>
+
                             </ul> 
                      </ng-template>
                      

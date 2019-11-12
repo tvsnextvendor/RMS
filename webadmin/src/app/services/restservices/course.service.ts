@@ -68,6 +68,9 @@ export class CourseService {
     let unDo = undo ? undo : '';
     return this.http.delete('local',this.url.courseDelete+courseId+unDo)
   }
+  deleteTrainingClass(classId){
+    return this.http.delete('local',this.url.trainingClassDelete+classId);
+  }
 
   deleteDocument(docId){
     return this.http.delete('local',this.url.fileDelete+docId)

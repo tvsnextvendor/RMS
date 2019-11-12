@@ -236,12 +236,10 @@ export class CMSLibraryComponent implements OnInit, OnDestroy {
       this.quizTabHit = false;
     }
      
-
-    this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
+    //this.route.navigate(['/cms-library'], { queryParams: { type: 'edit', tab: title } })
     this.sidebar.activeType='edit'+title;
-    //console.log("COMES",this.sidebar.activeType);
     // Dont Remove Activated Route RL and Schedule Tab hiding working in this manner
-    this.activatedRoute.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.subscribe(params => {      
       if (params && params.type == 'edit' && !this.resourceLibrary) {
         if(!this.resourceLib){
           title = (title == 'training') ? 'class' : title;

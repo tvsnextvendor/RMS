@@ -100,6 +100,7 @@ export class API_URL {
     courseDelete:'8103/course/Delete/',
     scheduleTraining: '8103/scheduleTraining',
     trainingClassAdd:'8103/trainingClass/Add',
+    trainingClassDelete: '8103/trainingClass/classDelete/',
     trainingClassCourse:'8103/trainingClass/List',
     trainingClass:'8103/trainingClass/trainingList',
     trainingClassQuiz:'8103/trainingClass/QuizList',
