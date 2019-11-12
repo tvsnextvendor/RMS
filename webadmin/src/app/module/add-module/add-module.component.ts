@@ -827,13 +827,14 @@ export class AddModuleComponent implements OnInit {
                 this.videoFileUpload(videoObj);
             }
             else {
-                this.commonService.uploadFiles(this.uploadFile).subscribe((result) => {
+                this.commonService.videoUploadFiles(this.uploadFile).subscribe((result) => {
                     if (result && result.isSuccess) {
                         this.clearData();
                         self.filePath = result.path && result.path;
                         self.alertService.success(this.message);
                         self.videoSubmitted = false;
                         videoObj.fileUrl = result.data && result.data[0].filename;
+                        videoObj.inputUrl = result.inputLocation ? result.inputLocation : '';
                         videoObj.fileSize = result.data.length && result.data[0].size;
                         this.fileId ? videoObj.fileId = this.fileId : '';
                         videoObj.filePath = result.path && result.path;
