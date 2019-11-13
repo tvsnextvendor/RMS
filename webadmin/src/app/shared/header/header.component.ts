@@ -56,6 +56,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("divisions");
     localStorage.removeItem("department");
     localStorage.removeItem("token");
+    localStorage.removeItem("currUserId");
     this.authGuard.showSidebar  = false;
     this.authGuard.showHeader = false;
     this.socketService.socketClose();

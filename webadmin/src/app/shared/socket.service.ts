@@ -13,14 +13,9 @@ export class SocketService {
     constructor() {
         this.socket = io(this.url, { transports: ['websocket']});
       }
-    // init() {
-    //     this.socket = io(this.url);
-    // }
-    getNotification(userId) {
-          //this.socket = io.connect(this.url); 
-         const subject = new Observable(subject => {
-             //console.log("Yesterday",userId);
-           // this.socket = io(this.url, { transports: ['websocket'] });
+    getInitialNotification(userId){
+        this.socket = io.connect(this.url, { transports: ['websocket']});
+        const subject = new Observable(subject => {
             this.socket.emit('webUserId', userId);
             this.socket.once("getNotifications", function (data) {
                 subject.next(data.notifications);                
@@ -28,7 +23,19 @@ export class SocketService {
             return () => {
                 this.socket.disconnect();
               };
-           
+        });
+        return subject; 
+
+    }
+    getNotification(userId) {
+         const subject = new Observable(subject => {
+            this.socket.emit('webUserId', userId);
+            this.socket.once("getNotifications", function (data) {
+                subject.next(data.notifications);                
+            });
+            return () => {
+                this.socket.disconnect();
+              };
         });
         return subject;
     }
