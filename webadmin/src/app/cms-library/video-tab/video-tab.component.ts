@@ -250,7 +250,8 @@ constructor(private courseService: CourseService,
         class:"modal-lg video-box"
       }
       this.constant.modalRef = this.modalService.show(template, modalConfig);
-      this.trainingVideoUrl = videourl;
+      let fileUrlSet = (videourl.inputUrl)?videourl.inputUrl: this.uploadPath+ videourl.fileUrl;
+      this.trainingVideoUrl = fileUrlSet;
     }
 
     onEmpSelect(event, key,checkType,selectAll) {

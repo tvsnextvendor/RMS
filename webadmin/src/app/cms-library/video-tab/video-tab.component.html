@@ -98,7 +98,7 @@
                     <!-- <td>10</td> -->
                     <!-- <td class="text-left">{{file.filePermissionType}}</td> -->
                     <td class="text-center">
-                        <a (click)="viewTraningVideo(viewVideo,file.fileUrl)"><i class="fa fa-eye header-icon"
+                        <a (click)="viewTraningVideo(viewVideo,file)"><i class="fa fa-eye header-icon"
                             aria-hidden="true" title="View"></i></a>
                         <a *ngIf="iconEnable && userData == file.createdBy" (click)="getPermissionList(userList,file,i)" title="User list"><i class="fas fa-user-friends header-icon"></i></a>
                         <a *ngIf="iconEnable && userData == file.createdBy" (click)="openEditVideo(editVideoTemp,file,i)"  title="Edit"><i class="fas fa-pencil-alt header-icon"></i></a>
@@ -219,7 +219,7 @@
     </div>
     <div class="modal-body text-center">
         <video controls class="video-play">
-            <source src="{{uploadPath}}{{trainingVideoUrl}}" type="video/mp4" />
+            <source src="{{trainingVideoUrl}}" type="video/mp4" />
         </video>
     </div>
 </ng-template>

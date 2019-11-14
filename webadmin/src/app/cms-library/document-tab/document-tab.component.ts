@@ -111,11 +111,12 @@ export class DocumentTabComponent implements OnInit {
   openFileContent(data){
     let ext = data.fileUrl.split('.').pop();
     ext= ext.toLowerCase();
+    let fileUrlSet = (data.inputUrl)?data.inputUrl: this.uploadPath + data.fileUrl;
     if (ext == 'docx' || ext == 'doc') {
-        let url = 'https://docs.google.com/gview?embedded=true&url=' + this.uploadPath + data.fileUrl;
+        let url = 'https://docs.google.com/gview?embedded=true&url=' + fileUrlSet;
         window.open(url, "_blank");
     } else {
-        let url = this.uploadPath + data.fileUrl;
+        let url = fileUrlSet;
         window.open(url, "_blank");
     }
   }
