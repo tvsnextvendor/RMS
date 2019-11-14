@@ -340,81 +340,81 @@ export class AddModuleComponent implements OnInit {
                 let extn = fileName.split('.').pop();
                 extn = extn.toLowerCase();
                 let extensionType = extn;
-                
+
                 //let imageExtensions = ['png', 'jpeg', 'jpg', 'gif'];
-                let videoExtensions = ['mp4', '3gp', 'mov','flv','ogg','mpeg'];
+                let videoExtensions = ['mp4', '3gp', 'mov', 'flv', 'ogg', 'mpeg'];
 
-               
 
-                 if (videoExtensions.includes(extn)) {
+
+                if (videoExtensions.includes(extn)) {
                     this.fileExtensionType = 'Video';
-                }else{
+                } else {
                     this.fileExtensionType = 'Document';
                 }
                 // let type = file.type;
                 // let typeValue = type && type.split('/');
-              
+
                 // let extensionType = typeValue && typeValue.length && typeValue[1].split('.').pop();
-              //  console.log(typeValue, "typeValue");
-              //  console.log(extensionType, "ExtensionType"); 
+                //  console.log(typeValue, "typeValue");
+                //  console.log(extensionType, "ExtensionType"); 
                 // if (!extensionType || typeValue && typeValue.length && typeValue[0].split('.').pop() === 'image' && extensionType === 'gif' || extensionType === 'csv' || extensionType === 'x-msdownload') {
                 //     this.alertService.error(this.commonLabels.mandatoryLabels.fileformate)
                 //     this.moduleVar.videoFile = '';
                 // }
                 // else {
-                    this.moduleVar.fileExtension = extn;
-                    //this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
-                    if (this.fileExtensionType === 'Video') {
-                        this.filePreviewImage(file);
-                        if (e.target.files) {
-                            Array.prototype.slice.call(e.target.files).forEach(function (file) {
-                                new FileUploadThumbnail({
-                                    maxWidth: 500,
-                                    maxHeight: 500,
-                                    file: file,
-                                    onSuccess: function (src) {
-                                        let date = new Date().valueOf();
-                                        let text = '';
-                                        let possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                                        for (let i = 0; i < 5; i++) {
-                                            text += possibleText.charAt(Math.floor(Math.random() * possibleText.length));
-                                        }
-                                        // Replace extension according to your media type
-                                        let imageName = date + text + '.jpeg';
-                                        // call method that creates a blob from dataUri
-                                        // self.previewImage = src;
-                                        let encode = window.btoa(src)
-                                        let imageBlob = self.dataURItoBlob(encode);
-                                        self.fileImageDataPreview = new File([imageBlob], imageName, { type: 'image/jpeg' });
+                this.moduleVar.fileExtension = extn;
+                //this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+                if (this.fileExtensionType === 'Video') {
+                    this.filePreviewImage(file);
+                    if (e.target.files) {
+                        Array.prototype.slice.call(e.target.files).forEach(function (file) {
+                            new FileUploadThumbnail({
+                                maxWidth: 500,
+                                maxHeight: 500,
+                                file: file,
+                                onSuccess: function (src) {
+                                    let date = new Date().valueOf();
+                                    let text = '';
+                                    let possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                                    for (let i = 0; i < 5; i++) {
+                                        text += possibleText.charAt(Math.floor(Math.random() * possibleText.length));
                                     }
-                                }).createThumbnail();
-                            });
-                        }
+                                    // Replace extension according to your media type
+                                    let imageName = date + text + '.jpeg';
+                                    // call method that creates a blob from dataUri
+                                    // self.previewImage = src;
+                                    let encode = window.btoa(src)
+                                    let imageBlob = self.dataURItoBlob(encode);
+                                    self.fileImageDataPreview = new File([imageBlob], imageName, { type: 'image/jpeg' });
+                                }
+                            }).createThumbnail();
+                        });
                     }
-                    //let fileType = typeValue[0];
-                    let fileType;
-                    let appExtensions = ['ppt', 'pdf', 'txt', 'mp4', 'docx', 'doc', 'xlsx', 'xls', 'zip'];
-                    let imageExt:any = ['jpg', 'jpeg', 'png'];
-                    if(appExtensions.includes(extn)){
-                      fileType  = 'application';
-                    } 
-                    if(imageExt.includes(extn)){
-                        fileType  = 'image';
-                      }
-                    this.fileName = file.name;
-                    reader.onloadend = () => {
-                        this.fileUrl = reader.result;
-                        
-                        if (fileType === 'application') {
-                            let appType = (this.fileName.split('.').pop()).toString();
-                            let appDataType = appType.toLowerCase();
-                            this.extensionUpdate(appDataType, '');
-                        }
-                        else {
-                            this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
-                        }
+                }
+                //let fileType = typeValue[0];
+                let fileType;
+                let appExtensions = ['ppt', 'pdf', 'txt', 'mp4', 'docx', 'doc', 'xlsx', 'xls', 'zip'];
+                let imageExt: any = ['jpg', 'jpeg', 'png'];
+                if (appExtensions.includes(extn)) {
+                    fileType = 'application';
+                }
+                if (imageExt.includes(extn)) {
+                    fileType = 'image';
+                }
+                this.fileName = file.name;
+                reader.onloadend = () => {
+                    this.fileUrl = reader.result;
+
+                    if (fileType === 'application') {
+                        let appType = (this.fileName.split('.').pop()).toString();
+                        let appDataType = appType.toLowerCase();
+                        this.extensionUpdate(appDataType, '');
                     }
-               // }
+                    else {
+                        this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
+                    }
+                }
+                // }
                 reader.readAsDataURL(file);
             }
         }
@@ -482,7 +482,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     extensionTypeCheck(fileType, extensionType, data) {
-        
+
         switch (fileType) {
             case "video":
                 this.previewImage = "";
@@ -596,7 +596,7 @@ export class AddModuleComponent implements OnInit {
                 let questions = quizData && quizData.Questions && quizData.Questions.length ? quizData.Questions : [];
                 this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
                 this.editQuizId = quizData && quizData.quizId ? quizData.quizId : '';
-                this.quizPassId =quizData && quizData.quizId ? quizData.quizId : '';
+                this.quizPassId = quizData && quizData.quizId ? quizData.quizId : '';
                 localStorage.setItem("QuizPassId", this.quizPassId);
                 this.moduleVar.quizDetails = questions;
                 if (self.quiz) {
@@ -779,11 +779,11 @@ export class AddModuleComponent implements OnInit {
     }
 
     resetTabDetails(add) {
-         this.activatedRoute.queryParams.subscribe((params: Params) => {
-                   if(!params.moduleId){
-                      localStorage.removeItem("QuizPassId");
-                   }
-                });
+        this.activatedRoute.queryParams.subscribe((params: Params) => {
+            if (!params.moduleId) {
+                localStorage.removeItem("QuizPassId");
+            }
+        });
         this.moduleVar.tabEnable = add ? true : false;
         this.moduleVar.videoList = [];
         this.moduleVar.selectCourseName = '';
@@ -890,10 +890,10 @@ export class AddModuleComponent implements OnInit {
             if (result && result.isSuccess) {
                 this.clearData();
                 if (videoObj.fileType === 'Video') {
-                    self.commonService.uploadFiles(self.fileImageDataPreview).subscribe((resp) => {
+                    self.commonService.videoUploadFiles(self.fileImageDataPreview).subscribe((resp) => {
                         let fileImagePath = resp.data && resp.data[0].path;
                         videoObj.fileImage = resp.data && resp.data[0].filename;
-                    })
+                    });
                 }
                 self.filePath = result.path && result.path;
                 self.alertService.success(this.message);
