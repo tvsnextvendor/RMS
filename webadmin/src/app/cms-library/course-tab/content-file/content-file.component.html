@@ -35,7 +35,7 @@
                             <!-- <a  (click)="getPermissionList(userList,file,i)" title="User list"><i
                                                           class="fas fa-user-friends header-icon"></i></a> -->
                                 <a (click)="removeDoc(deleteDocument,file.fileId,i)" *ngIf="userData == file.createdBy" title="Delete"><i class="fa fa-trash header-icon"></i></a>
-                                <a *ngIf="file.fileUrl != 'Video'" (click)="openFileContent(file.fileUrl)"><i class="fa fa-eye header-icon" aria-hidden="true"
+                                <a *ngIf="file.fileUrl != 'Video'" (click)="openFileContent(file)"><i class="fa fa-eye header-icon" aria-hidden="true"
                                     title="View"></i></a>
                                 <a *ngIf="file.fileUrl == 'Video'" (click)="viewTraningVideo(viewVideo,file.fileUrl)"><i class="fa fa-eye header-icon" aria-hidden="true"
                                         title="View"></i></a>
