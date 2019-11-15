@@ -125,19 +125,22 @@ export class ContentFileComponent implements OnInit {
       this.trainingVideoUrl = videourl;
     }
 
-     openFileContent(fileUrl){
-       let ext = fileUrl.split('.').pop();
+     openFileContent(data){
+       let ext = data.fileUrl.split('.').pop();
        ext = ext.toLowerCase();
+       let fileUrlSet = (data.inputUrl) ? data.inputUrl : this.uploadPath + data.fileUrl;
        console.log(ext)
        if(ext == 'docx' || ext == 'doc'){
-        let url = 'https://docs.google.com/gview?embedded=true&url=' + this.uploadPath+fileUrl;
+        let url = 'https://docs.google.com/gview?embedded=true&url=' +fileUrlSet;
         window.open(url, "_blank");
        }else{
-        let url = this.uploadPath + fileUrl;
+        let url = fileUrlSet;
         window.open(url, "_blank");
        }
        
      }
+
+
 
     
   //Open delete warning modal
