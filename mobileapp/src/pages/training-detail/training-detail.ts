@@ -597,18 +597,43 @@ export class TrainingDetailPage {
              console.log(baseUrl);
              console.log(this.fileType);
              this.platform.ready().then(() => {
+  
+ 
+                               if (this.platform.is('android') || this.platform.is('mobileweb')) {
+                                    //  this.openWithSystemBrowser(baseUrl, setTraining.fileId);
+                                    //  console.log("running on Android device!");
+                                    let platformPath = 'file:///android_asset/www/';
+                                    if (this.fileType === 'xls' || this.fileType === 'xlsx' || this.fileType === 'ppt' || this.fileType === 'pptx') {
+                                        var link = document.createElement('a');
+                                        document.body.appendChild(link);
+                                        link.href = baseUrl;
+                                        link.click();
+                                        this.openDocView1(filePath, docType,platformPath);
+                                    } else {
+                                        this.openemptyInAppBrowser(baseUrl, setTraining.fileId);
+                                    }
+                                 }
+                                 if (this.platform.is('ios')) {
+                                     //For IOS platform
+                                      let platformPath = location.href.replace("/index.html", ""); 
+                                    //  this.openWithCordovaBrowser(baseUrl, setTraining.fileId);
+                                    //  console.log("running on iOS device!");
+                                    if (this.fileType === 'xls' || this.fileType === 'xlsx' || this.fileType === 'ppt' || this.fileType === 'pptx') {
+                                        var link = document.createElement('a');
+                                        document.body.appendChild(link);
+                                        link.href = baseUrl;
+                                        link.click();
+                                        this.openDocView1(filePath, docType,platformPath);
+                                    } else {
+                                        this.openWithCordovaBrowser(baseUrl, setTraining.fileId);
+                                    }
+                                 }
+                                 if(this.platform.is('browser') || this.platform.is('desktop') || this.platform.is('core')){
+                                     console.log("BROWSER");
+                                     this.openWithSystemBrowser(baseUrl, setTraining.fileId);
+                                 }
 
 
-
-                if (this.fileType === 'xls' || this.fileType === 'xlsx' || this.fileType === 'ppt' || this.fileType === 'pptx') {  
-                       var link = document.createElement('a');
-                       document.body.appendChild(link); 
-                       link.href = baseUrl; 
-                       link.click();                   
-                       this.openDocView1(filePath, docType);
-                  }else{
-                      this.openemptyInAppBrowser(baseUrl, setTraining.fileId);
-                  }
 
                
             //    if(this.fileType == "ppt" || this.fileType == "pptx" || this.fileType == "xlsx"  ){
@@ -624,18 +649,7 @@ export class TrainingDetailPage {
             //         //        .catch(e => console.log('Error opening file', e));
             //     }
 
-                //  if (this.platform.is('android') || this.platform.is('mobileweb')) {
-                //      this.openWithSystemBrowser(baseUrl, setTraining.fileId);
-                //      console.log("running on Android device!");
-                //  }
-                //  if (this.platform.is('ios')) {
-                //      this.openWithCordovaBrowser(baseUrl, setTraining.fileId);
-                //      console.log("running on iOS device!");
-                //  }
-                //  if(this.platform.is('browser') || this.platform.is('desktop') || this.platform.is('core')){
-                //      console.log("BROWSER");
-                //      this.openWithSystemBrowser(baseUrl, setTraining.fileId);
-                //  }
+                
              }); 
 
              this.completedViewOperation(docFileId);	
@@ -662,9 +676,8 @@ export class TrainingDetailPage {
                 this.document.viewDocument(this.setPath, fileMIMEType, options);
 
         }
-     openDocView1(fileName, fileMIMEType) {
-                let baseUrl = 'file:///android_asset/www/';
-                this.setPath = baseUrl + fileName;
+     openDocView1(fileName, fileMIMEType, platformPath) {
+                this.setPath = platformPath + fileName;
                 console.log(this.setPath);
                 const options: DocumentViewerOptions = {
                 title: 'test files'
