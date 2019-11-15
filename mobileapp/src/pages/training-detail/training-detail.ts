@@ -7,6 +7,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
 import { Platform } from 'ionic-angular'; 
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 import { InAppBrowser,InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 
 @IonicPage({
@@ -71,6 +72,7 @@ export class TrainingDetailPage {
     msgDes;
     allTrainingClasses;
     allTrainingClassesCount;
+    setPath;
     options : InAppBrowserOptions = {
         location : 'no',//Or 'no' 
         footer : 'yes',
@@ -102,7 +104,7 @@ export class TrainingDetailPage {
     fileIdsArr=[];
     timeArr=[];
 
-    constructor(public navCtrl: NavController,public platform:Platform,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant, public alertCtrl: AlertController) {
+    constructor(public navCtrl: NavController,public platform:Platform,public storage: Storage,public iab:InAppBrowser,private http:HttpProvider,public navParams: NavParams, public constant: Constant,private document: DocumentViewer,public alertCtrl: AlertController) {
         this.Math = Math;
         this.detailObject = this.navParams.data;
         this.status= this.detailObject['status'] ? this.detailObject['status'] : '' ;
@@ -166,7 +168,8 @@ export class TrainingDetailPage {
      loadFirstFile() {
         this.prevBtn = this.initial == 0 ? true : false;
         this.setTraining = this.allTrainingClasses[0].File;
-        this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ?  this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl) ;
+        //this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ?  this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl) ;
+        this.uploadPath = this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl;
         this.fileId = this.setTraining.fileId;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
@@ -434,7 +437,8 @@ export class TrainingDetailPage {
         this.initial = this.initial + 1;
         this.truncating = true;
         this.setTraining = this.allTrainingClasses[this.initial].File;
-        this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath+this.setTraining.fileUrl);
+       // this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath+this.setTraining.fileUrl);
+        this.uploadPath = this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
         if(ext == "mp4" && this.videotag){
@@ -458,7 +462,8 @@ export class TrainingDetailPage {
             this.initial = this.initial - 1;
             this.truncating = true;
             this.setTraining = this.allTrainingClasses[this.initial].File;
-            this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl);
+            //this.uploadPath = this.setTraining.transcodeUrl ? this.setTraining.transcodeUrl : (this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl);
+            this.uploadPath = this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl;
             this.fileId = this.setTraining.fileId;
             this.text = this.setTraining.fileDescription;
             this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
@@ -588,24 +593,87 @@ export class TrainingDetailPage {
             }
 
                let baseUrl = rootUrl+this.uploadPath;
+             console.log(rootUrl,"rootuel")
              console.log(baseUrl);
+             console.log(this.fileType);
              this.platform.ready().then(() => {
-                 if (this.platform.is('android') || this.platform.is('mobileweb')) {
-                     this.openWithSystemBrowser(baseUrl, setTraining.fileId);
-                     console.log("running on Android device!");
-                 }
-                 if (this.platform.is('ios')) {
-                     this.openWithCordovaBrowser(baseUrl, setTraining.fileId);
-                     console.log("running on iOS device!");
-                 }
-                 if(this.platform.is('browser') || this.platform.is('desktop') || this.platform.is('core')){
-                     console.log("BROWSER");
-                     this.openWithSystemBrowser(baseUrl, setTraining.fileId);
-                 }
+
+
+
+                if (this.fileType === 'xls' || this.fileType === 'xlsx' || this.fileType === 'ppt' || this.fileType === 'pptx') {  
+                       var link = document.createElement('a');
+                       document.body.appendChild(link); 
+                       link.href = baseUrl; 
+                       link.click();                   
+                       this.openDocView1(filePath, docType);
+                  }else{
+                      this.openemptyInAppBrowser(baseUrl, setTraining.fileId);
+                  }
+
+               
+            //    if(this.fileType == "ppt" || this.fileType == "pptx" || this.fileType == "xlsx"  ){
+            //        this.fileOpener.open(baseUrl, docType)
+            //            .then(() => console.log('File is opened'))
+            //            .catch(e => console.log('Error opening file', e));
+                  
+            //    }else{
+
+            //        this.openemptyInAppBrowser(baseUrl, setTraining.fileId);            
+            //         //    this.fileOpener.showOpenWithDialog(baseUrl, docType)
+            //         //        .then(() => console.log('File is opened'))
+            //         //        .catch(e => console.log('Error opening file', e));
+            //     }
+
+                //  if (this.platform.is('android') || this.platform.is('mobileweb')) {
+                //      this.openWithSystemBrowser(baseUrl, setTraining.fileId);
+                //      console.log("running on Android device!");
+                //  }
+                //  if (this.platform.is('ios')) {
+                //      this.openWithCordovaBrowser(baseUrl, setTraining.fileId);
+                //      console.log("running on iOS device!");
+                //  }
+                //  if(this.platform.is('browser') || this.platform.is('desktop') || this.platform.is('core')){
+                //      console.log("BROWSER");
+                //      this.openWithSystemBrowser(baseUrl, setTraining.fileId);
+                //  }
              }); 
 
              this.completedViewOperation(docFileId);	
         }
+
+
+
+      public openemptyInAppBrowser(url: string, fileId: string) {
+                    this.iab.create(url);
+                    this.calculatePercentage(fileId);
+       }
+
+     
+      openDocView(filePath, fileMIMEType) {
+
+                console.log(filePath);
+                console.log(fileMIMEType);
+                const options: DocumentViewerOptions = {
+                title: 'test files'
+                };
+                this.setPath = filePath;
+
+                console.log(this.setPath);
+                this.document.viewDocument(this.setPath, fileMIMEType, options);
+
+        }
+     openDocView1(fileName, fileMIMEType) {
+                let baseUrl = 'file:///android_asset/www/';
+                this.setPath = baseUrl + fileName;
+                console.log(this.setPath);
+                const options: DocumentViewerOptions = {
+                title: 'test files'
+                };
+                this.document.viewDocument(this.setPath, fileMIMEType, options);
+    }
+     
+
+
 
 
         //To calculate percentage displaying at loading bar.

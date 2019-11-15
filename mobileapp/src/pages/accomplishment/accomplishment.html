@@ -14,7 +14,7 @@
     </ion-navbar>
   </ion-header>
   <div class="main-content">
-    <div class="certificate-block" *ngIf="certificateList.length > 0">
+    <div class="certificate-block" *ngIf="certificates.length > 0">
       <h4 class="popup-tit">{{constant.pages.accomplishmentLabels.certificates}}</h4>
       <ion-slides #sliderOne [pager]="true" [slidesPerView]="1" class="certificate-slide" spaceBetween="1"
         (ionSlideDidChange)="onSlideCertChanged()">
