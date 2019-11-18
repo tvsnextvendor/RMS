@@ -55,7 +55,7 @@ export class AlertComponent implements OnInit {
         setTimeout(() => {
                 this.hideTopMessage = false;
                 this.alerts = [];
-            }, 2000); 
+            }, 4000); 
     }
     
 }
