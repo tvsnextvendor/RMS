@@ -21,7 +21,7 @@ export class SideBarComponent implements OnInit {
     private activatedRoute : ActivatedRoute,
     private permissionService :PermissionService) { 
 
-      //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
    
    role;
@@ -170,7 +170,8 @@ export class SideBarComponent implements OnInit {
   }
 
   pageRedirection(type1:any,data1:any){
-    
+    this.utilservice.quizServicePassId = "";
+    localStorage.setItem("QuizPassId", "");
     if(type1 == 'create' && data1 == 'quiz'){
       this.router.navigate(['/createQuiz'])
     }else if(type1 == 'create' && data1 == 'notification'){
@@ -179,10 +180,11 @@ export class SideBarComponent implements OnInit {
     else{
       //this.router.navigate(['dashboard']);
       this.sidebar.activeType=type1+data1;
-        this.router.navigate(['/cms-library'], {queryParams: {type: type1,tab:data1}});
-       
+        // this.router.navigate(['/cms-library'], {queryParams: {type: type1,tab:data1}});
+        this.router.navigate(['/cms-library'], { queryParams: { type: type1, tab: data1, refresh: new Date().getTime() } });    
     } 
   }
+
 
   expandCheck(type:any,test:any={},num:any=0){
     // console.log(type,"Type");

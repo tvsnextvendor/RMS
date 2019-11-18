@@ -136,7 +136,8 @@ export class AddQuizComponent implements OnInit {
         else {
             this.weightage = 100;
         }
-        this.takeQuizInfo(this.quizPassId);
+        // this.takeQuizInfo(this.quizPassId);
+        this.takeQuizInfo(this.utilService.quizServicePassId);
 
     }
     takeQuizInfo(quizPassId) 
