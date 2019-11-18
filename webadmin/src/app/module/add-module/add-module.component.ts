@@ -597,6 +597,7 @@ export class AddModuleComponent implements OnInit {
                 this.quizName = quizData && quizData.quizName ? quizData.quizName : '';
                 this.editQuizId = quizData && quizData.quizId ? quizData.quizId : '';
                 this.quizPassId = quizData && quizData.quizId ? quizData.quizId : '';
+                this.utilService.quizServicePassId = this.quizPassId;
                 localStorage.setItem("QuizPassId", this.quizPassId);
                 this.moduleVar.quizDetails = questions;
                 if (self.quiz) {

@@ -32,11 +32,15 @@
                   {{time}}
                 </h1>
 
+              
+
                 <video #videoTag id="video-width"  (onclick)="disableSeeking()" (ended)="videoEnded()" (error)="videoFailed($event)" class="video-width"
                     controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" playsinline class="videoPlayer"
                     poster="{{imagePath}}{{setTraining.fileImage}}">
-                    <source src="{{showPreView}}" type="video/mp4" />
+                    <source src="{{showPreView}}" type={{videoFormat}} />
                 </video>
+
+               
             </div>
             <div class="training-block">
                 <div class="loading-bar-div" *ngIf="status != 'passed'">

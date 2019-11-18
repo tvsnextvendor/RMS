@@ -73,6 +73,7 @@ export class TrainingDetailPage {
     allTrainingClasses;
     allTrainingClassesCount;
     setPath;
+    videoFormat;
     options : InAppBrowserOptions = {
         location : 'no',//Or 'no' 
         footer : 'yes',
@@ -173,7 +174,7 @@ export class TrainingDetailPage {
         this.fileId = this.setTraining.fileId;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
-        if (ext == "mp4" && this.videotag) {
+        if ( (ext == "mp4" || ext == "ogg" || ext == "webm" || ext == "ogv") && this.videotag) {
             const htmlVideoTag = this.videotag.nativeElement;
             htmlVideoTag.load();
         }
@@ -441,7 +442,7 @@ export class TrainingDetailPage {
         this.uploadPath = this.setTraining.inputUrl ? this.setTraining.inputUrl : this.imagePath + this.setTraining.fileUrl;
         this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
         let ext = this.setTraining.fileUrl.split('.').pop();
-        if(ext == "mp4" && this.videotag){
+        if((ext == "mp4" || ext == "ogg" || ext == "webm" || ext == "ogv") && this.videotag){
         const htmlVideoTag = this.videotag.nativeElement;
         htmlVideoTag.load();
         }
@@ -468,7 +469,7 @@ export class TrainingDetailPage {
             this.text = this.setTraining.fileDescription;
             this.showPreView = this.getFileExtension(this.setTraining.fileUrl);
             let ext = this.setTraining.fileUrl.split('.').pop();
-            if(ext == "mp4" && this.videotag){
+            if((ext == "mp4" || ext == "ogg" || ext == "webm" || ext == "ogv") && this.videotag){
                 const htmlVideoTag = this.videotag.nativeElement;
                 htmlVideoTag.load();
             }
@@ -551,6 +552,7 @@ export class TrainingDetailPage {
                 this.imageType = false;
                 this.filePath = filename;
                 this.fileType = fileType;
+                this.videoFormat = fileType == 'ogv' ? "video/ogg" : "video/" + fileType; // for ogv file also video format should be video/ogg.
         }
          
 
