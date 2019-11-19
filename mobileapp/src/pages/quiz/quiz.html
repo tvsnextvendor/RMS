@@ -64,15 +64,16 @@
                             <span *ngFor="let quizOption of selectedQuizContent.options" class="quizOption">
                                 <ion-row>
                                     <ion-col col-1 class="quiz-radio">
-                                        <label for={{quizOption.optionName}}></label>
+                                        <label for={{quizOption.optionName}} (click)="changeSelectedValue(quizOption.optionName);"></label>
                                         <ion-icon name="radio-button-off" class="quizOption-icon" *ngIf="quizOption.optionName != selectedQuizContent['selectedAnswer']"></ion-icon>
                                         <ion-icon name="checkmark-circle" class="quizOption-icon" *ngIf="quizOption.optionName == selectedQuizContent['selectedAnswer']"></ion-icon>
                                     </ion-col>
                                     <ion-col col-11>
-                                        <input hidden id={{quizOption.optionName}} type="radio" class="with-font" name="radiogroup"
-                                            [value]="quizOption.optionName" (change)="changeSelectedValue(quizOption.optionName)"
-                                            [checked]="quizOption.optionName == selectedQuizContent['selectedAnswer']" />
-                                        <label for={{quizOption.optionName}} class="quiz-label">{{quizOption.optionName}}</label>
+                                         <label for={{quizOption.optionName}} class="quiz-label" (click)="changeSelectedValue(quizOption.optionName);">
+                                         <input hidden id={{quizOption.optionName}} type="radio" class="with-font" name="radiogroup"
+                                            [value]="quizOption.optionName" (click)="changeSelectedValue(quizOption.optionName);"
+                                             [checked]="quizOption.optionName == selectedQuizContent['selectedAnswer']" />
+                                            {{quizOption.optionName}}</label>
                                     </ion-col>
                                 </ion-row>
                             </span>
