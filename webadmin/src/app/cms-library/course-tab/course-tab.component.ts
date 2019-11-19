@@ -71,6 +71,7 @@ export class CourseTabComponent implements OnInit {
   accessSet = false;
   iconEnableApproval = false;
   searchedItems;
+  deleteCourseId;
 
   constructor(private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService,private permissionService :PermissionService) {
     this.roleId = this.utilService.getRole();
@@ -227,6 +228,7 @@ export class CourseTabComponent implements OnInit {
       class: "modal-dialog-centered"
     }
     this.selectedCourseId = courseId;
+    this.deleteCourseId = courseId;
     this.modalRef = this.modalService.show(template, modalConfig);
   }
 
@@ -492,7 +494,7 @@ export class CourseTabComponent implements OnInit {
     });
   }
   removeCourse() {
-    this.courseService.deleteCourse(this.selectedCourseId,'').subscribe(res => {
+    this.courseService.deleteCourse(this.deleteCourseId,'').subscribe(res => {
       if (res.isSuccess) {
         this.alertService.success(res.message);
         this.modalRef.hide();
@@ -502,7 +504,6 @@ export class CourseTabComponent implements OnInit {
         this.alertService.error(res.message);
       }
     }, err => {
-      console.log(err);
       this.modalRef.hide();
       this.alertService.error(err.error.error);
     })
