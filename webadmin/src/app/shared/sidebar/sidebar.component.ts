@@ -20,8 +20,7 @@ export class SideBarComponent implements OnInit {
     public commonLabels:CommonLabels,
     private activatedRoute : ActivatedRoute,
     private permissionService :PermissionService) { 
-
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
    
    role;
