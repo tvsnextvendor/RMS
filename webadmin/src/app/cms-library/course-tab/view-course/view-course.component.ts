@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Response } from "@angular/http";
+import { Location } from '@angular/common';
 import { HeaderService, HttpService, CourseService, CommonService, AlertService, UtilService, BreadCrumbService, FileService, PermissionService } from '../../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { CommonLabels } from '../../../Constants/common-labels.var';
-import { Location } from '@angular/common';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
@@ -143,7 +144,21 @@ export class ViewCourseComponent implements OnInit {
         }
       }
     }, (err) => {
-      this.alertService.error(err.error.error.message);
+      let resSTR: any = JSON.stringify(err);
+      let resJSON: any = JSON.parse(resSTR);
+      if (resJSON) {
+          this.alertService.error(resJSON.error.error);
+          if (i <= this.courseDetails.length - 1) {
+              if (i == this.courseDetails.length - 1) {
+                  this.classTabSelect(i);
+              } else {
+                  this.classTabSelect(i + 1);
+              }
+          } else {
+              this.classTabSelect(i);
+          }
+      }
+      //this.alertService.error(err.error.error.message);
     })
     // }else{
     //   this.route.navigateByUrl('/approvalrequests');

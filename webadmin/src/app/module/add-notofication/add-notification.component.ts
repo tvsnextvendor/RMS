@@ -525,11 +525,11 @@ export class AddNotificationComponent implements OnInit {
           this.courseService.addTypeOneNotification(data).subscribe(resp => {
             if (resp && resp.isSuccess) {
               // this.goTocmsLibrary();
-              if(this.permissionService.viewPermissionCheck('Notification')){
-               this.router.navigate(['/cms-library'], { queryParams: { type: "edit", tab: "notification" } });
-              }else{
+              // if(this.permissionService.viewPermissionCheck('Notification')){
+              //  this.router.navigate(['/cms-library'], { queryParams: { type: "edit", tab: "notification" } });
+              // }else{
                 this.router.navigate(['/cmspage'], { queryParams: { type: "create"} });        
-              }
+              //}
               this.alertService.success(resp.message);
             }
           }, err => {
@@ -557,11 +557,11 @@ export class AddNotificationComponent implements OnInit {
           this.courseService.addTypeTwoNotification(data).subscribe(resp => {
             if (resp && resp.isSuccess) {
               // this.goTocmsLibrary();
-                if (this.permissionService.viewPermissionCheck('Notification')) {
-                    this.router.navigate(['/cms-library'], { queryParams: { type: "edit", tab: "notification" } });
-                } else {
+                // if (this.permissionService.viewPermissionCheck('Notification')) {
+                //     this.router.navigate(['/cms-library'], { queryParams: { type: "edit", tab: "notification" } });
+                // } else {
                     this.router.navigate(['/cmspage'], { queryParams: { type: "create"} });
-                }              
+                //}              
                 this.alertService.success(resp.message);
             }
           }, err => {
