@@ -78,6 +78,33 @@ export class CalendarPage implements OnInit   {
    this.navCtrl.push('training-page',paramsData);   
   }
 
+  goToNoti(detail){
+    this.modalRef.hide();
+    let userId = this.currentUser.userId;
+    let resortId = this.currentUser.ResortUserMappings[0].resortId;
+    let status = 'signRequired';
+    this.http.get(API_URL.URLS.signRequired + '?userId=' + userId + '&resortId=' + resortId + '&status=' + status + '&notificationFileId=' + detail.notificationFileId +'&mobile=' + 1).subscribe(res => {
+        if (res['data']['rows'].length) {
+             let data = res['data']['rows'][0];
+             let postData = {
+                 'type': 'signReq',
+                 'notificationFileId': detail.notificationFileId,
+                 'fileStatus': data.NotificationFileMaps && data.NotificationFileMaps[0].status
+             }
+             if (data.description) {
+                 postData['description'] = data.description;
+             } else {
+                 postData['files'] = data.File;
+                 postData['uploadPath'] = res['data']['uploadPath']['uploadPath'];
+             }
+             this.navCtrl.push('signrequire-page', postData);
+        }
+       
+    });
+    
+  }
+
+
    onTimeSelected(ev) {
         this.selectedDay = ev.selectedTime;
     }
@@ -142,7 +169,9 @@ export class CalendarPage implements OnInit   {
                 scheduleType: value.scheduleType,
                 courses: value.Courses,
                 colorCode:value.colorCode,
-                scheduleId : value.trainingScheduleId
+                scheduleId : value.trainingScheduleId,
+                status: value.Resorts[0].status,
+                notificationDetail : value.scheduleType == 'notification' ? value.Resorts[0].NotificationFile : '' 
             });
           })    
           
@@ -167,9 +196,7 @@ export class CalendarPage implements OnInit   {
     return newArray;
   }
    
-
-
-
+  
   // filterEvents(propertyName, inputArray) {
   //   console.log(inputArray)
   //      var seenDuplicate = false,
