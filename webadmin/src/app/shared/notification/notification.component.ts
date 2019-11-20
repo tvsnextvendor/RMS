@@ -30,19 +30,19 @@ export class NotificationComponent implements OnInit {
 				webUserId: parsedData.userId
 			};
 			this.socketService.getNotification(socketObjDefault).subscribe((data: any) => {
-				console.log("intial Data",data)
+				
 				this.notificationCount = data['unReadCount'];
 				this.notificationList = data['rows'];
 			});
 			Observable.interval(20000).subscribe(observer => {
 				let UID: any = window.localStorage.getItem("currUserId");
-				console.log("UID",UID);
+			
 				if (UID != null || UID != undefined) {
 					let socketObj = {
 						webUserId: UID
 					};
 					this.socketService.getNotification(socketObj).subscribe((data: any) => {
-						console.log("data",data);
+						
 						this.notificationCount = data['unReadCount'];
 						this.notificationList = data['rows'];
 					});

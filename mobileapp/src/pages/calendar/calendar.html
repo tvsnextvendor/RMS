@@ -72,14 +72,31 @@
           </p>          
        </div>
        <div>
-          <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'course'">Courses: </div>
+           <!-- Course -->
+          <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'course'">Courses:  </div>
           <p class="course-alg" *ngIf="modaleventDetail.scheduleType == 'course' && modaleventDetail.courses.length">
-               <li *ngFor="let data of  modaleventDetail.courses"><a class="course-click" (click)="navPage(data.courseId)">{{data.Course.courseName}}</a></li> 
+               <li *ngFor="let data of  modaleventDetail.courses">
+                 <a class="course-click" *ngIf="modaleventDetail.status != 'expired'" (click)="navPage(data.courseId)">{{data.Course.courseName}}</a> 
+                 <a class="no-nav"  *ngIf="modaleventDetail.status == 'expired'">{{data.Course.courseName}}</a> 
+                </li> 
           </p> 
+          <!-- TrainingClass -->
           <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'trainingClass'">Classes: </div>
-          <p class="course-alg" *ngIf="modaleventDetail.scheduleType == 'trainingClass' && modaleventDetail.courses.length">
-            <li *ngFor="let data of  modaleventDetail.courses"><a class="course-click" (click)="navPage(data.trainingClassId)">{{data.TrainingClass.trainingClassName}}</a></li>
+          <p class="course-alg" *ngIf="modaleventDetail.scheduleType == 'trainingClass' && modaleventDetail.courses.length"> 
+            <li *ngFor="let data of  modaleventDetail.courses">
+              <a class="course-click" *ngIf="modaleventDetail.status != 'expired'" (click)="navPage(data.trainingClassId)">{{data.TrainingClass.trainingClassName}}</a>
+              <a class="no-nav" *ngIf="modaleventDetail.status == 'expired'">{{data.TrainingClass.trainingClassName}}</a>
+            </li>
           </p>
+          <!-- Notification -->
+            <!-- <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'notification'">Notification: </div>
+            <p class="course-alg" *ngIf="modaleventDetail.scheduleType == 'notification'">
+                <li>
+                  <a class="course-click" *ngIf="modaleventDetail.status != 'expired'" (click)="goToNoti(modaleventDetail.notificationDetail)">{{modaleventDetail.title}}</a>
+                  <a class="no-nav" *ngIf="modaleventDetail.status == 'expired'">{{modaleventDetail.title}}</a>
+                </li>
+            </p> -->
+
 
         </div>
         

@@ -3,7 +3,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { API } from '../../constants/API.var';
 import { DataService } from '../../service';
 import { Storage } from '@ionic/storage';
-import { catchError } from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 
 
@@ -52,7 +51,6 @@ export class HttpProvider implements OnInit {
   }
 
    formatErrors(error: any) {  
-    let self = this; 
     if(error.status === 403 || error.status === 401){
             console.log("cleared storage")
             this.storage.remove('currentUser').then(() => {
