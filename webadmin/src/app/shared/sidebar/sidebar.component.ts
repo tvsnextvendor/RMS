@@ -172,8 +172,10 @@ export class SideBarComponent implements OnInit {
     this.utilservice.quizServicePassId = "";
     localStorage.setItem("QuizPassId", "");
     if(type1 == 'create' && data1 == 'quiz'){
+      this.sidebar.activeType = "createquiz";
       this.router.navigate(['/createQuiz'])
     }else if(type1 == 'create' && data1 == 'notification'){
+      this.sidebar.activeType = "createnotification";
       this.router.navigate(['/notification/template']);
     }
     else{

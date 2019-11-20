@@ -208,7 +208,6 @@ export class UserComponent implements OnInit {
             this.filterDivision =null;
             this.filterDept = null;
             this.filterUser = null;
-            // console.log(value);
             this.resortService.getResortByParentId(this.filterResort).subscribe((result) => {
                 if (result.isSuccess) {
                     this.divisionList = result.data.divisions;
@@ -1297,7 +1296,9 @@ export class UserComponent implements OnInit {
         let resortId = userData.ResortUserMappings && userData.ResortUserMappings.length ? userData.ResortUserMappings[0].Resort.resortId : '';
         this.commonService.getParentChildResorts(resortId).subscribe((result) => {
           if (result && result.isSuccess) {
-              this.batchVar.resortList = result.data && result.data.rows.length ? result.data.rows : [];
+              let resortList  = result.data && result.data.rows.length ? result.data.rows : [];
+              this.batchVar.resortList = _.filter(resortList, item => item.resortId === resortId);
+              //this.batchVar.selectedResort = this.batchVar.resortList[0].resortId;
           }
         });
     }
@@ -1309,7 +1310,7 @@ export class UserComponent implements OnInit {
         this.batchVar.selectedDepartment = [];
         this.batchVar.selectedEmp = []; 
         this.resortService.getResortByParentId(resortId).subscribe((result) => {
-            (this.resortId == parseInt(resortId)) ? this.batchVar.resortList = result.data.Resort : '';
+            //(this.resortId == parseInt(resortId)) ? this.batchVar.resortList = result.data.Resort : '';
             this.batchVar.divisionList = result.data.divisions;
             this.batchVar.selectedResort = resortId;
         })

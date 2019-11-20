@@ -67,7 +67,7 @@
             <li [ngClass]="(sidebar.activeType == 'createquiz') ? 'active' : ((sidebar.activeType == '/createQuiz') ? 'active' : '')">
                 <a (click)="pageRedirection('create','quiz')">{{commonLabels.labels.quiz}}</a>
             </li>
-            <li [ngClass]="(sidebar.activeType == 'createnotification') ? 'active' : ''">
+            <li [ngClass]="(sidebar.activeType == 'createnotification') ? 'active' : ((sidebar.activeType == '/notification/template') ? 'active' : '')">
                 <a (click)="pageRedirection('create','notification')">{{commonLabels.labels.notification}}</a>
             </li>
         </ul>
