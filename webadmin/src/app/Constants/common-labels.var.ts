@@ -174,7 +174,7 @@ export class CommonLabels{
         "noDatacreate"      :   "No Training Classes Created Yet",
         "activeMsg"         :   "is Activated",
         "deactiveMsg"       :   "is Deativated",
-        "moduleNameValidation": "Course Name already taken",
+        "moduleNameValidation": "Course name already exists",
         "addCourseSuccess"  :   "Training Class added successfully",
         "updateCourseSuccess":  "Training Class updated successfully",
         // "removeVideoSuccess" : " removed from the file list",

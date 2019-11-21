@@ -776,7 +776,11 @@ export class AddModuleComponent implements OnInit {
     }
 
     addCourse() {
-        this.resetTabDetails(true);
+        console.log(this.moduleVar.moduleNameCheck);
+        this.checkValidation();
+        if(this.moduleVar.moduleNameCheck){
+          this.resetTabDetails(true);
+        }
     }
 
     resetTabDetails(add) {
@@ -971,9 +975,11 @@ export class AddModuleComponent implements OnInit {
             }
             else {
                 this.moduleVar.moduleNameCheck = true;
+                this.moduleVar.tabEnable = false;
             }
         }, err => {
-            this.alertService.error(err.error.error)
+            this.moduleVar.tabEnable = false;
+            this.alertService.error(err.error.error);
         })
 
     }
