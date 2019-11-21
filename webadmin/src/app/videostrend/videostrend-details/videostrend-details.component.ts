@@ -178,6 +178,7 @@ export class VideosTrendDetailsComponent implements OnInit {
                 })
             }  else{
                 filterResort = resortid;
+                this.filterResort = null;
                 this.divisionList = [];
                 this.departmentList = [];
                 this.empList = [];
