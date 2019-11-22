@@ -28,7 +28,7 @@
         <video #videoTag id="video-width" autoplay 
           class="video-width" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" playsinline
           class="videoPlayer" poster="{{uploadPath}}{{Files?.fileImage}}">
-          <source src="{{showPreView}}" type="video/mp4" />
+          <source src="{{showPreView}}" type={{videoFormat}} />
         </video>
       </div>
       <div class="training-block">

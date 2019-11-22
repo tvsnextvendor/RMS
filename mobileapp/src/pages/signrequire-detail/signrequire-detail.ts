@@ -1,11 +1,14 @@
 import { Component , ViewChild, ElementRef} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Platform } from 'ionic-angular'; 
 import { Constant } from '../../constants/Constant.var';
 import {ToastrService, CommonService} from '../../service';
 import { API_URL } from '../../constants/API_URLS.var';
 import { Storage } from '@ionic/storage';
 import { HttpProvider } from '../../providers/http/http';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
+
 
 
 @IonicPage({
@@ -30,6 +33,7 @@ export class SignrequireDetailPage {
   showPreView;
   uploadPath;
   pageType;
+  videoFormat;
   showToastr;
   msgTitle;
   msgDes;
@@ -59,12 +63,12 @@ export class SignrequireDetailPage {
   };
   
  
-  constructor(public navCtrl: NavController,public commonService:CommonService,public iab:InAppBrowser,public http: HttpProvider,public toastr: ToastrService, public navParams: NavParams,public storage: Storage,public constant:Constant) {
+  constructor(public navCtrl: NavController,public commonService:CommonService,public iab:InAppBrowser,public http: HttpProvider,public toastr: ToastrService, public navParams: NavParams,public storage: Storage,public constant:Constant,private document: DocumentViewer,public platform: Platform) {
           let data = this.navParams.data;
           this.Files = data.files ? data.files : {};
           this.notificationFileId = data.notificationFileId;
           this.fileStatus = data.fileStatus;
-          console.log(this.fileStatus,"FILESTATUS");
+          console.log(data,"DATA");
           this.uploadPath = data.uploadPath ? data.uploadPath : '';
           this.pageType = data.type;
           this.description = data.description;
@@ -103,16 +107,16 @@ export class SignrequireDetailPage {
 
   ngAfterViewInit(){
              let self = this;
-            this.storage.get('currentUser').then((user: any) => {
+             this.storage.get('currentUser').then((user: any) => {
             if (user) {
              self.currentUser = user;
             }
         });
   }
-
+  
     getFileExtension(filename) {
         let ext = /^.+\.([^.]+)$/.exec(filename);
-        let fileType = ext == null ? "" : ext[1];
+        let fileType = ext == null ? "" : ext[1].toLowerCase();
         let fileLink;
         switch (fileType) {
             case "pdf":
@@ -127,13 +131,19 @@ export class SignrequireDetailPage {
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
-            case "docx":
-            case "doc" :
+            case "doc":
                 fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
+            case "docx":
+                fileLink = "assets/imgs/banner.png";
+                this.imageType = true;
+                this.filePath = filename;
+                this.fileType = fileType;
+                break;
+            case "pptx":
             case "ppt":
                 fileLink = "assets/imgs/banner.png";
                 this.imageType = true;
@@ -146,13 +156,24 @@ export class SignrequireDetailPage {
                  this.filePath = filename;
                  this.fileType = fileType;
                  break;
+            case "xls":
+                 fileLink = 'assets/imgs/banner.png';
+                 this.imageType = true;
+                 this.filePath = filename;
+                 this.fileType = fileType;
+                 break;
             case "png" :
+                //fileLink = this.uploadPath + filename;
                 fileLink = 'assets/imgs/banner.png';
                 this.imageType = true;
                 this.filePath = filename;
                 this.fileType = fileType;
                 break;
+            case "avi":
+            case "mpg":
+            case "jpeg" :
             case "jpg" :
+            case "key":
                  //fileLink = this.uploadPath + filename;
                  fileLink = 'assets/imgs/banner.png';
                  this.imageType = true;
@@ -161,15 +182,15 @@ export class SignrequireDetailPage {
                  break;
             default:
                 fileLink = this.uploadPath + filename;
-                this.contentViewed = true; 
+                this.contentViewed = true;
                 this.imageType = false;
                 this.filePath = filename;
                 this.fileType = fileType;
+                this.videoFormat = fileType == 'ogv' ? "video/ogg" : "video/" + fileType; // for ogv file also video format should be video/ogg.
         }
-       
+        //this.restrictForward();
         return fileLink;
     }
-
 
   successMessage(msg){
     this.showToastr = true;
@@ -234,10 +255,13 @@ export class SignrequireDetailPage {
                this.navCtrl.push('description-page', postData);
            }else{
             let docType;
-            switch (this.fileType) {
+            let rootUrl = '';
+            switch (this.fileType) {        
                 case "pdf":
                     docType = 'application/pdf';
+                    rootUrl = 'https://docs.google.com/gview?embedded=true&url=';
                     break;
+                case 'key':
                 case 'ppt':
                     docType = 'application/vnd.ms-powerpoint';
                     break;
@@ -246,31 +270,96 @@ export class SignrequireDetailPage {
                     break;
                 case 'doc':
                     docType = 'application/msword';
+                    rootUrl = 'https://docs.google.com/gview?embedded=true&url=';
                     break;
                 case 'docx':
                     docType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                    rootUrl = 'https://docs.google.com/gview?embedded=true&url=';
                     break;
                 case 'txt':
                     docType = 'text/plain';
                     break;
                 default:
                     docType = 'application/pdf';
+
             }
-             let baseUrl = this.uploadPath;
+             let baseUrl = rootUrl+this.uploadPath+docFile;
              console.log(baseUrl + docFile)
-             this.openWithSystemBrowser(baseUrl + docFile);
+            // this.openWithSystemBrowser(baseUrl + docFile);
+
+            this.platform.ready().then(() => {
+            
+            
+                if (this.platform.is('android') || this.platform.is('mobileweb')) {
+                    //  this.openWithSystemBrowser(baseUrl, setTraining.fileId);
+                    //  console.log("running on Android device!");
+                    let platformPath = 'file:///android_asset/www/';
+                    if (this.fileType === 'xls' || this.fileType === 'xlsx' || this.fileType === 'ppt' || this.fileType === 'pptx') {
+                        var link = document.createElement('a');
+                        document.body.appendChild(link);
+                        link.href = baseUrl;
+                        link.click();
+                        this.openDocView1(this.filePath, docType, platformPath);
+                    } else {
+                        this.openemptyInAppBrowser(baseUrl);
+                    }
+                }
+                if (this.platform.is('ios')) {
+                    //For IOS platform
+                    let platformPath = location.href.replace("/index.html", "");
+                    //  this.openWithCordovaBrowser(baseUrl, setTraining.fileId);
+                    //  console.log("running on iOS device!");
+                    if (this.fileType === 'xls' || this.fileType === 'xlsx' || this.fileType === 'ppt' || this.fileType === 'pptx') {
+                        var link = document.createElement('a');
+                        document.body.appendChild(link);
+                        link.href = baseUrl;
+                        link.click();
+                        this.openDocView1(this.filePath, docType, platformPath);
+                    } else {
+                        this.openWithCordovaBrowser(baseUrl);
+                    }
+                }
+                if (this.platform.is('browser') || this.platform.is('desktop') || this.platform.is('core')) {
+                    console.log("BROWSER");
+                    this.openWithSystemBrowser(baseUrl);
+                }
+            }); 
+
            }
      }
-
   
-         openWithSystemBrowser(url : string){
-            // let baseUrl = this.uploadPath;
+    
+
+        public openWithCordovaBrowser(url : string){
+            console.log(url,"CBURL");
+            
+            let target = "_self";
+            this.iab.create(url,target,this.options);
+        }  
+
+        //Open file content in browser  
+        public openWithSystemBrowser(url : string){
+            console.log(url, "SBURL");
             let target = "_system";
             this.iab.create(url,target,this.options);
         }
 
-      
+        public openemptyInAppBrowser(url: string) {
+            console.log(url, "IAURL");
+                        this.iab.create(url);
+        }
 
- 
+     
+     openDocView1(fileName, fileMIMEType, platformPath) {
+                console.log(fileName, "OPD");
+                let setPath = platformPath + fileName;
+                const options: DocumentViewerOptions = {
+                title: 'test files'
+                };
+                this.document.viewDocument(setPath, fileMIMEType, options);
+    }
+     
 
+
+   
 }
