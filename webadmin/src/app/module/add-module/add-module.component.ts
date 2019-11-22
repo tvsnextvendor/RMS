@@ -279,6 +279,7 @@ export class AddModuleComponent implements OnInit {
     onItemSelect(item: any) {
         this.moduleVar.selectedCourseIds = this.moduleVar.selectedCourse.map(item => { return item.id })
     }
+  
     onItemDeselect(item: any) {
         this.moduleVar.selectedCourseIds = this.moduleVar.selectedCourse.map(item => { return item.id })
         if (item.value === this.moduleVar.selectCourseName || this.moduleVar.selectedCourse.length === 0) {
@@ -293,7 +294,6 @@ export class AddModuleComponent implements OnInit {
         //         this.fileService.sendFileList('add', item);
         //     })
         // }
-
         let obj = {
             'value': true,
             'key': 'course'
@@ -634,12 +634,14 @@ export class AddModuleComponent implements OnInit {
             //filepath to delete documents uploaded from Desktop & fileUrl is to del doc uploaded from RL.  
             this.commonService.removeFiles(dataContent).subscribe(result => {
                 if (result && result.isSuccess) {
-                    this.alertService.success(this.commonLabels.msgs.fileRemoved)
+                    this.alertService.success(this.commonLabels.msgs.fileRemoved);
                 }
             })
         }
         this.moduleVar.videoList.splice(i, 1);
+        this.moduleVar.existingFile.splice(i,1);
         this.closeDeletePopup();
+        
     }
 
     openDeleteModal(template: TemplateRef<any>, item, i) {
@@ -776,9 +778,8 @@ export class AddModuleComponent implements OnInit {
     }
 
     addCourse() {
-        console.log(this.moduleVar.moduleNameCheck);
-        this.checkValidation();
-        if(this.moduleVar.moduleNameCheck){
+        this.checkValidation();  
+        if(!this.moduleVar.moduleNameCheck){
           this.resetTabDetails(true);
         }
     }
@@ -972,6 +973,7 @@ export class AddModuleComponent implements OnInit {
         this.courseService.courseCheck(params).subscribe(resp => {
             if (resp.isSuccess) {
                 this.moduleVar.moduleNameCheck = false;
+                this.moduleVar.tabEnable = true;
             }
             else {
                 this.moduleVar.moduleNameCheck = true;

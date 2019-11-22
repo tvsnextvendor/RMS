@@ -124,6 +124,7 @@ export class DocumentTabComponent implements OnInit {
  
 
    courseChange(){
+     this.fileList = [];
      this.selectedClass="";
       this.courseService.getTrainingclassesById(this.selectedCourse).subscribe(result=>{
       if(result && result.isSuccess){       
@@ -150,6 +151,7 @@ export class DocumentTabComponent implements OnInit {
 
   //Get document list for selected course and training class.
   getEditFileData(){
+    this.fileList = [];
       this.courseService.getEditCourseDetails( 'Document',this.selectedCourse,this.selectedClass).subscribe(resp => {
         if(resp && resp.isSuccess){
           let files = (resp.data.length && resp.data) ? resp.data :[];
@@ -303,7 +305,7 @@ export class DocumentTabComponent implements OnInit {
         courseId : this.selectedCourse,
         fileType :"document",
         assignedFiles: [],
-        filesIds: fileIds,
+        fileIds: fileIds,
      }
 
     if(this.submitted && this.selectedClass && this.selectedCourse && updatedFileList.length){

@@ -132,6 +132,7 @@ constructor(private courseService: CourseService,
  
    //get training classes based on selected course.
    courseChange(){
+     this.fileList = [];
      this.selectedClass="";
       this.courseService.getTrainingclassesById(this.selectedCourse).subscribe(result=>{
       if(result && result.isSuccess){       
@@ -142,6 +143,7 @@ constructor(private courseService: CourseService,
 
   //Get document list for selected course and training class.
   getEditFileData(){
+      this.fileList = [];
       this.courseService.getEditCourseDetails('Video', this.selectedCourse,this.selectedClass).subscribe(resp => {
         if(resp && resp.isSuccess){
           let files = (resp.data.length && resp.data) ? resp.data :[];
@@ -416,7 +418,7 @@ constructor(private courseService: CourseService,
         courseId : this.selectedCourse,
         fileType :"video",
         assignedFiles: [],
-        filesIds: fileIds,
+        fileIds: fileIds,
      }
     if(this.submitted && this.selectedClass && this.selectedCourse && updatedFileList.length){
       this.courseService.assignVideosToCourse(postData).subscribe(res=>{
