@@ -14,10 +14,12 @@
                     <span class="square-checkmark"></span>
                 </label>
                 <!-- <span class="text-over" *ngIf="!uploadPage && !scheduleEnable">{{courses?.File?.fileName}}</span> -->
-                <!-- <span class="text-over" *ngIf="!uploadPage">{{courses?.TrainingScheduleResorts[0]?.TrainingSchedule?.name}}</span> -->
-                <span class="text-over" *ngIf="courses.File && !uploadPage">{{courses.File.fileName}}</span>
-                <span class="text-over des-trim" *ngIf="courses.description && !uploadPage">{{courses.description}}</span>
-
+                 <span class="text-over" *ngIf="!uploadPage">{{courses?.scheduleName}}</span> 
+              
+                <!--                 
+                    <span class="text-over" *ngIf="courses.File && !uploadPage">{{courses.File.fileName}}</span>
+                    <span class="text-over des-trim" *ngIf="courses.description && !uploadPage">{{courses.description}}</span>
+                -->
 
                 <span class="float-right">
                     <a title="Send Approval" *ngIf="!courses.approvedStatus && roleId === 4 && accessSet && iconEnableApproval && userData.userId == courses.User.userId"
