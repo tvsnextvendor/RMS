@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderService, HttpService, CourseService, CommonService, AlertService, UtilService, BreadCrumbService, FileService,PermissionService } from '../../services';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../../Constants/common-labels.var';
+import { API } from '../../Constants/api';
+
 
 @Component({
   selector: 'app-course-tab',
@@ -393,8 +395,10 @@ export class CourseTabComponent implements OnInit {
             self.fileList = [];
           }
           self.fileList.push(videoObj);
+          this.fileService.sendFileList('add', videoObj);
           //  }
         }
+       
       })
       this.clearData();
     }
@@ -537,34 +541,58 @@ export class CourseTabComponent implements OnInit {
           self.fileDuration = duration;
         }
         video.src = URL.createObjectURL(file);
-        document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
+        document.querySelector("#video-element source") &&  document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
         this.uploadFile = file;
-        let type = file.type;
-        let typeValue = type.split('/');
-        let extensionType = typeValue[1].split('.').pop();
-        if (typeValue[0].split('.').pop() === 'image' && extensionType === 'gif') {
-          this.videoFile = '';
-        }
-        else {
-          this.fileExtension = extensionType;
-          this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+      
+        let fileName = file.name;
+        let extn = fileName.split('.').pop();
+        extn = extn.toLowerCase();
+        let extensionType = extn;
+        //let imageExtensions = ['png', 'jpeg', 'jpg', 'gif'];
+        let videoExtensions = ['mp4', '3gp', 'mov', 'flv', 'ogg', 'mpeg'];
+        if (videoExtensions.includes(extn)) {
+            this.fileExtensionType = 'Video';
+        } else {
+            this.fileExtensionType = 'Document';
+        }   
+
+
+
+
+        // let type = file.type;
+        // let typeValue = type.split('/');
+        // let extensionType = typeValue[1].split('.').pop();
+        // if (typeValue[0].split('.').pop() === 'image' && extensionType === 'gif') {
+        //   this.videoFile = '';
+        // }
+        // else {
+          // this.fileExtension = extensionType;
+          // this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
           if (this.fileExtensionType === 'Video') {
             this.filePreviewImage(file);
           }
-          let fileType = typeValue[0];
+        //  let fileType = typeValue[0];
+          let fileType;
+          let appExtensions = ['ppt','pptx','pdf', 'txt', 'mp4', 'png', 'jpg', 'docx', 'doc', 'xlsx', 'xls', 'zip'];
+          if (appExtensions.includes(extn)) {
+              fileType = 'application';
+          }
           this.fileName = file.name;
           reader.onloadend = () => {
             this.fileUrl = reader.result;
             if (fileType === 'application') {
               let appType = (this.fileName.split('.').pop()).toString();
               let appDataType = appType.toLowerCase();
-              this.extensionUpdate(appDataType)
+              this.extensionUpdate(appDataType, this.uploadFile);
+              console.log(this.previewImage,"IMcg");
+              
             }
             else {
               this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
+              console.log(this.previewImage, "IMg");
             }
           }
-        }
+        // }
         reader.readAsDataURL(file);
       }
     }
@@ -619,40 +647,87 @@ export class CourseTabComponent implements OnInit {
     };
     fileReader.readAsArrayBuffer(file);
   }
-  extensionTypeCheck(fileType, extensionType, data) {
-    switch (fileType) {
-      case "video":
-        this.previewImage = "";
-        break;
-      case "image":
-        this.previewImage = data;
-        break;
-      case "text":
-        this.previewImage = "assets/images/txt-icon.png";
-        break;
-      case "application":
-        if (extensionType === "ms-powerpoint") {
-          this.previewImage = "assets/images/ppt-icon.png";
+
+  // extensionTypeCheck(fileType, extensionType, data) {
+  //   switch (fileType) {
+  //     case "video":
+  //       this.previewImage = "";
+  //       break;
+  //     case "image":
+  //       this.previewImage = data;
+  //       break;
+  //     case "text":
+  //       this.previewImage = "assets/images/txt-icon.png";
+  //       break;
+  //     case "application":
+  //       if (extensionType === "ms-powerpoint") {
+  //         this.previewImage = "assets/images/ppt-icon.png";
+  //       }
+  //       else if (extensionType === "pdf") {
+  //         this.previewImage = "assets/images/pdf-icon.png";
+  //       }
+  //       else if (extensionType === "sheet" || extensionType === 'ms-excel') {
+  //         this.previewImage = "assets/images/excel-icon.png";
+  //       }
+  //       else if (extensionType === "document" || extensionType === 'msword') {
+  //         this.previewImage = "assets/images/doc-icon.png";
+  //       }
+  //       else if (extensionType === "zip") {
+  //         this.previewImage = "assets/images/file-zip-icon.png";
+  //       }
+  //       break;
+  //   }
+  // }
+
+    extensionTypeCheck(fileType, extensionType, data) {
+      console.log(extensionType, "EType", fileType , "Ftype");
+        switch (fileType) {
+            case "video":
+                this.previewImage = "";
+                break;
+            case "image":
+                this.previewImage = data;
+                break;
+            case "text":
+                this.previewImage = this.commonLabels.imgs.text;
+                break;
+            case "mp4":
+                this.previewImage = API.API_ENDPOINT + "/uploads/" + data.fileImage;
+                break;
+            case "png":
+            case "jpeg":
+                this.previewImage = API.API_ENDPOINT + "/uploads/" + data.fileUrl;
+                break;
+            case "application":
+                if (extensionType === "ms-powerpoint") {
+                    this.previewImage = this.commonLabels.imgs.ppt;
+                }
+                else if (extensionType === "pdf") {
+                    this.previewImage = this.commonLabels.imgs.pdf;
+                }
+                else if (extensionType === "sheet" || extensionType === 'ms-excel') {
+                    this.previewImage = this.commonLabels.imgs.excel;
+                }
+                else if (extensionType === "document" || extensionType === 'msword') {
+                    this.previewImage = this.commonLabels.imgs.doc;
+                }
+                else if (extensionType === "zip") {
+                    this.previewImage = this.commonLabels.imgs.filezip;
+                }
+                break;
+            default:
+                this.previewImage = "";
         }
-        else if (extensionType === "pdf") {
-          this.previewImage = "assets/images/pdf-icon.png";
-        }
-        else if (extensionType === "sheet" || extensionType === 'ms-excel') {
-          this.previewImage = "assets/images/excel-icon.png";
-        }
-        else if (extensionType === "document" || extensionType === 'msword') {
-          this.previewImage = "assets/images/doc-icon.png";
-        }
-        else if (extensionType === "zip") {
-          this.previewImage = "assets/images/file-zip-icon.png";
-        }
-        break;
+
     }
 
-  }
 
-  extensionUpdate(type) {
-    switch (type) {
+
+
+
+
+  // extensionUpdate(type) {
+  //   switch (type) {
       // case "mp4":
       //     this.previewImage = "assets/videos/images/bunny.png";
       //     break;
@@ -665,33 +740,77 @@ export class CourseTabComponent implements OnInit {
       // case "jpg":
       //     this.previewImage = "assets/videos/images/bunny.png";
       //     break;
-      case "ppt":
-        this.previewImage = "assets/images/ppt-icon.png";
-        break;
-      case "pdf":
-        this.previewImage = "assets/images/pdf-icon.png";
-        break;
-      case "txt":
-        this.previewImage = "assets/images/txt-icon.png";
-        break;
-      case "docx":
-        this.previewImage = "assets/images/doc-icon.png";
-        break;
-      case "doc":
-        this.previewImage = "assets/images/doc-icon.png";
-        break;
-      case "xlsx":
-        this.previewImage = "assets/images/excel-icon.png";
-        break;
-      case "xls":
-        this.previewImage = "assets/images/excel-icon.png";
-        break;
-      case "zip":
-        this.previewImage = "assets/images/file-zip-icon.png";
-        break;
+  //     case "ppt":
+  //       this.previewImage = "assets/images/ppt-icon.png";
+  //       break;
+  //     case "pdf":
+  //       this.previewImage = "assets/images/pdf-icon.png";
+  //       break;
+  //     case "txt":
+  //       this.previewImage = "assets/images/txt-icon.png";
+  //       break;
+  //     case "docx":
+  //       this.previewImage = "assets/images/doc-icon.png";
+  //       break;
+  //     case "doc":
+  //       this.previewImage = "assets/images/doc-icon.png";
+  //       break;
+  //     case "xlsx":
+  //       this.previewImage = "assets/images/excel-icon.png";
+  //       break;
+  //     case "xls":
+  //       this.previewImage = "assets/images/excel-icon.png";
+  //       break;
+  //     case "zip":
+  //       this.previewImage = "assets/images/file-zip-icon.png";
+  //       break;
+  //   }
+  // }
 
+   extensionUpdate(type, data) {
+     console.log(type,"Type")
+        switch (type) {
+            case "pptx":
+            case "ppt":
+                this.previewImage = this.commonLabels.imgs.ppt;
+                break;
+            case "pdf":
+                this.previewImage = this.commonLabels.imgs.pdf;
+                break;
+            case "txt":
+                this.previewImage = this.commonLabels.imgs.text;
+                break;
+            case "mp4":
+                // this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileImage;
+                this.previewImage = null;
+                break;
+            case "png":
+            case "jpg":
+                this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;
+                break;
+            case "docx":
+                this.previewImage = this.commonLabels.imgs.doc;
+                break;
+            case "doc":
+                this.previewImage = this.commonLabels.imgs.doc;
+                break;
+            case "xlsx":
+                this.previewImage = this.commonLabels.imgs.excel;
+                break;
+            case "xls":
+                this.previewImage = this.commonLabels.imgs.excel;
+                break;
+            case "zip":
+                this.previewImage = this.commonLabels.imgs.filezip;
+                break;
+            default:
+                this.previewImage = "";
+        }
     }
-  }
+
+
+
+
   clearData() {
     this.uploadFileName = '';
     this.description = '';
