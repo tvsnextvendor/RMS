@@ -20,6 +20,12 @@
   border: 1px solid #C5C5C5 !important;
   vertical-align: middle !important;
 }
+.reset-search-icon{
+  background: #468FB9;
+    border: 1px solid #dcdcdc;
+    padding: 7px 3px;
+    color: #fff;
+}
 .table {
   width: 99% !important;
   margin-bottom: 1rem;

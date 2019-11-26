@@ -166,9 +166,9 @@ getCourseTrend(courseTrendObj,query) {
 getCertificateTrend(obj,query) {
   return this.http.getLocal('local', this.url.getCertificateTrend + '?year=' + obj.year + query);
 }
-certificateTrendCount(query){
+certificateTrendCount(obj,query){
   // console.log(query);
-  return this.http.getLocal('local', this.url.certificateTrendCount+query );
+  return this.http.getLocal('local', this.url.certificateTrendCount+ '?year=' + obj.year+query+ '&month=' + obj.month );
 }
 certificateTrendCountDetail(query){
   return this.http.getLocal('local', this.url.certificateTrendCountDetail+'?courseId='+query.courseId+'&resortId='+query.resortId+'&search='+query.search+'&userId='+query.userId);

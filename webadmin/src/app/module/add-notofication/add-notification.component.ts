@@ -679,11 +679,29 @@ export class AddNotificationComponent implements OnInit {
         }
         video.src = URL.createObjectURL(file);
 
-        let type = file.type;
-        let typeValue = type.split('/');
-        let extensionType = typeValue[1].split('.').pop();
+        // let type = file.type;
+        // let typeValue = type.split('/');
+        // let extensionType = typeValue[1].split('.').pop();
+        // this.fileExtension = extensionType;
+        let fileName = file.name;
+        let extn = fileName.split('.').pop();
+        extn = extn.toLowerCase();
+        let extensionType = extn;
+
+        
+        //let imageExtensions = ['png', 'jpeg', 'jpg', 'gif'];
+        let videoExtensions = ['mp4', '3gp', 'mov', 'flv', 'ogg', 'mpeg'];
+        
+        if (videoExtensions.includes(extn)) {
+            this.fileExtensionType = 'Video';
+        }else{
+            this.fileExtensionType = 'Document';
+        }  
+
         this.fileExtension = extensionType;
-        this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
+      
+        
+       //this.fileExtensionType = typeValue[0].split('.').pop() === "video" ? "Video" : "Document";
         if (this.fileExtensionType === 'Video') {
           this.commonService.videoUploadFiles(file).subscribe(resp => {
             if (resp && resp.isSuccess) {

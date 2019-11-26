@@ -58,6 +58,7 @@ export class AddModuleComponent implements OnInit {
     classId;
     quizPassId;
     editQuizId;
+    moduleNameCheck = false;
 
     @Output() upload = new EventEmitter<object>();
     @Output() completed = new EventEmitter<string>();
@@ -103,6 +104,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.moduleNameCheck = false;
         //this.resetForm();
         this.roleId = this.utilService.getRole();
         // this.breadScrumUpdate();
@@ -279,6 +281,7 @@ export class AddModuleComponent implements OnInit {
     onItemSelect(item: any) {
         this.moduleVar.selectedCourseIds = this.moduleVar.selectedCourse.map(item => { return item.id })
     }
+  
     onItemDeselect(item: any) {
         this.moduleVar.selectedCourseIds = this.moduleVar.selectedCourse.map(item => { return item.id })
         if (item.value === this.moduleVar.selectCourseName || this.moduleVar.selectedCourse.length === 0) {
@@ -293,7 +296,6 @@ export class AddModuleComponent implements OnInit {
         //         this.fileService.sendFileList('add', item);
         //     })
         // }
-
         let obj = {
             'value': true,
             'key': 'course'
@@ -321,7 +323,7 @@ export class AddModuleComponent implements OnInit {
                     }
                 })
             }
-            if (!this.fileExist) {
+            if (!this.fileExist){
                 this.moduleVar.existingFile.push(file.name)
                 // find video duration
                 var video = document.createElement('video');
@@ -335,22 +337,17 @@ export class AddModuleComponent implements OnInit {
                 document.querySelector("#video-element source") && document.querySelector("#video-element source").setAttribute('src', URL.createObjectURL(file));
                 // find file extension
                 this.uploadFile = file;
-
                 let fileName = file.name;
                 let extn = fileName.split('.').pop();
                 extn = extn.toLowerCase();
                 let extensionType = extn;
-
                 //let imageExtensions = ['png', 'jpeg', 'jpg', 'gif'];
                 let videoExtensions = ['mp4', '3gp', 'mov', 'flv', 'ogg', 'mpeg'];
-
-
-
                 if (videoExtensions.includes(extn)) {
                     this.fileExtensionType = 'Video';
                 } else {
                     this.fileExtensionType = 'Document';
-                }
+                }   
                 // let type = file.type;
                 // let typeValue = type && type.split('/');
 
@@ -393,7 +390,7 @@ export class AddModuleComponent implements OnInit {
                 }
                 //let fileType = typeValue[0];
                 let fileType;
-                let appExtensions = ['ppt', 'pdf', 'txt', 'mp4', 'docx', 'doc', 'xlsx', 'xls', 'zip'];
+                let appExtensions = ['ppt','pptx','pdf', 'txt', 'mp4', 'docx', 'doc', 'xlsx', 'xls', 'zip'];
                 let imageExt: any = ['jpg', 'jpeg', 'png'];
                 if (appExtensions.includes(extn)) {
                     fileType = 'application';
@@ -522,6 +519,7 @@ export class AddModuleComponent implements OnInit {
     }
 
     updateCourse(data, i) {
+        this.fileService.emptyFileList(); //Remove it if any issues in file listings.
         if (this.staticTabs) {
             this.staticTabs.tabs[0].disabled = false;
             this.staticTabs.tabs[0].active = true;
@@ -634,12 +632,14 @@ export class AddModuleComponent implements OnInit {
             //filepath to delete documents uploaded from Desktop & fileUrl is to del doc uploaded from RL.  
             this.commonService.removeFiles(dataContent).subscribe(result => {
                 if (result && result.isSuccess) {
-                    this.alertService.success(this.commonLabels.msgs.fileRemoved)
+                    this.alertService.success(this.commonLabels.msgs.fileRemoved);
                 }
             })
         }
         this.moduleVar.videoList.splice(i, 1);
+        this.moduleVar.existingFile.splice(i,1);
         this.closeDeletePopup();
+        
     }
 
     openDeleteModal(template: TemplateRef<any>, item, i) {
@@ -740,6 +740,7 @@ export class AddModuleComponent implements OnInit {
 
     extensionUpdate(type, data) {
         switch (type) {
+            case "pptx":
             case "ppt":
                 this.previewImage = this.commonLabels.imgs.ppt;
                 break;
@@ -776,9 +777,10 @@ export class AddModuleComponent implements OnInit {
     }
 
     addCourse() {
-        console.log(this.moduleVar.moduleNameCheck);
-        this.checkValidation();
-        if(this.moduleVar.moduleNameCheck){
+        if(!this.moduleVar.courseId){
+          this.checkValidation(); 
+        }  
+        if(!this.moduleNameCheck){
           this.resetTabDetails(true);
         }
     }
@@ -971,10 +973,11 @@ export class AddModuleComponent implements OnInit {
         }
         this.courseService.courseCheck(params).subscribe(resp => {
             if (resp.isSuccess) {
-                this.moduleVar.moduleNameCheck = false;
+                this.moduleNameCheck = false;
+                this.moduleVar.tabEnable = true;
             }
             else {
-                this.moduleVar.moduleNameCheck = true;
+                this.moduleNameCheck = true;
                 this.moduleVar.tabEnable = false;
             }
         }, err => {
