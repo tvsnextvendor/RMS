@@ -71,7 +71,7 @@ export class CreateQuizComponent implements OnInit {
     this.questionOptions = [
       { name: "MCQ", value: "MCQ" },
       { name: "True/False", value: "True/False" },
-      { name: "Non-MCQ", value: "NON-MCQ" }
+      //{ name: "Non-MCQ", value: "NON-MCQ" }
     ];
     this.quizQuestionsForm = [{
       "questionName": "",
