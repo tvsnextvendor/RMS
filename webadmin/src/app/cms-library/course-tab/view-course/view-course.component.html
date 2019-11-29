@@ -24,7 +24,7 @@
                         <div class="row col-md-12">
                             <span class="col-md-6 p-3 content-class">{{file?.File?.fileName}}</span>
                             <span class="col-md-6 p-3 content-class">
-                                <a href="javascript:void(0);" class="atag-big" (click)="openFileContent(viewVideo,file?.File?.fileUrl)">View</a>
+                                <a href="javascript:void(0);" class="atag-big" (click)="openFileContent(viewVideo,file)">View</a>
                             </span>
                         </div>
                         <div class="row col-md-12">
@@ -105,7 +105,7 @@
     </div>
     <div class="modal-body text-center">
         <video controls class="video-play">
-            <source src="{{uploadPath}}{{videoUrl}}" type="video/mp4" />
+            <source src="{{videoUrl}}" type="video/mp4" />
         </video>
     </div>
 </ng-template>

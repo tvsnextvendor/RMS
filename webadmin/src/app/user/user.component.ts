@@ -581,7 +581,7 @@ export class UserComponent implements OnInit {
                     if (result.isSuccess) {
                         this.closeAddForm();
                         this.userList('');
-                        this.alertService.success(this.commonLabels.labels.userUpdated);
+                        this.alertService.success(result.message);
                     }
                 }, err => {
                     this.errMsg = err.error.error;

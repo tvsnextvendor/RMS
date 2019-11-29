@@ -66,17 +66,20 @@ export class ViewCourseComponent implements OnInit {
       this.alertService.error(err.error.error)
     })
   }
-  openFileContent(template, fileUrl) {
-    let extn = fileUrl.split('.').pop();
+  
+  openFileContent(template, data) {
+    let extn = data.File.fileUrl.split('.').pop();
     extn = extn.toLowerCase();
-    let videoExtensions = ['mp4', 'm4a', 'm4v', 'f4v', 'f4a', 'm4b', 'm4r', 'f4b', '3gp', '3gp2', '3g2', '3gpp', '3gpp2', 'ogg', 'oga', 'ogv', 'ogx', 'mov', 'wmv', 'flv', 'avi', 'avchd', 'webm'];
+    let videoExtensions = ['mp4', 'm4a', 'm4v', 'f4v', 'f4a', 'm4b', 'm4r', 'f4b', '3gp', '3gp2', '3g2', '3gpp', '3gpp2', 'ogg', 'oga', 'ogv', 'ogx', 'mov', 'wmv', 'flv', 'avchd', 'webm'];
     if (videoExtensions.includes(extn)) {
-      this.viewTraningVideo(template, fileUrl);
+      let videoUrl = data.File.inputUrl ? data.File.inputUrl : this.uploadPath + data.File.fileUrl;
+      this.viewTraningVideo(template, videoUrl);
     } else {
-      let url = this.uploadPath + fileUrl;
+      let url = data.File.inputUrl ? data.File.inputUrl : this.uploadPath + data.File.fileUrl;
       window.open(url, "_blank");
     }
   }
+
   viewTraningVideo(template: TemplateRef<any>, videourl) {
     let modalConfig = {
       class: "modal-lg video-box"
