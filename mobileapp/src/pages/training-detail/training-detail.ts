@@ -594,7 +594,7 @@ export class TrainingDetailPage {
                     docType = 'application/pdf';
             }
 
-               let baseUrl = rootUrl+this.uploadPath;
+             let baseUrl = rootUrl+this.uploadPath;
              console.log(rootUrl,"rootuel")
              console.log(baseUrl);
              console.log(this.fileType);
@@ -610,7 +610,7 @@ export class TrainingDetailPage {
                                         document.body.appendChild(link);
                                         link.href = baseUrl;
                                         link.click();
-                                        this.openDocView1(filePath, docType,platformPath);
+                                        this.openDocView1(filePath, docType,platformPath, setTraining.fileId);
                                     } else {
                                         this.openemptyInAppBrowser(baseUrl, setTraining.fileId);
                                     }
@@ -625,7 +625,7 @@ export class TrainingDetailPage {
                                         document.body.appendChild(link);
                                         link.href = baseUrl;
                                         link.click();
-                                        this.openDocView1(filePath, docType,platformPath);
+                                        this.openDocView1(filePath, docType,platformPath, setTraining.fileId);
                                     } else {
                                         this.openWithCordovaBrowser(baseUrl, setTraining.fileId);
                                     }
@@ -678,13 +678,14 @@ export class TrainingDetailPage {
                 this.document.viewDocument(this.setPath, fileMIMEType, options);
 
         }
-     openDocView1(fileName, fileMIMEType, platformPath) {
+     openDocView1(fileName, fileMIMEType, platformPath, fileId) {
                 this.setPath = platformPath + fileName;
                 console.log(this.setPath);
                 const options: DocumentViewerOptions = {
                 title: 'test files'
                 };
                 this.document.viewDocument(this.setPath, fileMIMEType, options);
+                this.calculatePercentage(fileId);
     }
      
 

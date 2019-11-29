@@ -495,7 +495,8 @@ export class AddModuleComponent implements OnInit {
                 break;
             case "png":
             case "jpeg":
-                this.previewImage = API.API_ENDPOINT + "/uploads/" + data.fileUrl;
+               // this.previewImage = API.API_ENDPOINT + "/uploads/" + data.fileUrl;
+               this.previewImage = data.inputUrl ? data.inputUrl : API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;
                 break;
             case "application":
                 if (extensionType === "ms-powerpoint") {
@@ -738,7 +739,7 @@ export class AddModuleComponent implements OnInit {
         this.extensionUpdate(fileExtension, data);
     }
 
-    extensionUpdate(type, data) {
+    extensionUpdate(type, data) {        
         switch (type) {
             case "pptx":
             case "ppt":
@@ -750,13 +751,14 @@ export class AddModuleComponent implements OnInit {
             case "txt":
                 this.previewImage = this.commonLabels.imgs.text;
                 break;
-            case "mp4":
+            case "mp4":            
                 // this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileImage;
                 this.previewImage = null;
                 break;
             case "png":
             case "jpg":
-                this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;
+                //this.previewImage = API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;
+                 this.previewImage = data.inputUrl ? data.inputUrl :  API.API_ENDPOINT + "8103/uploads/" + data.fileUrl;
                 break;
             case "docx":
                 this.previewImage = this.commonLabels.imgs.doc;
