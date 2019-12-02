@@ -5,6 +5,8 @@ import { HeaderService, HttpService, CourseService, CommonService, AlertService,
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { API } from '../../Constants/api';
+import * as _ from 'lodash';
+
 
 
 @Component({
@@ -119,6 +121,8 @@ export class CourseTabComponent implements OnInit {
       this.enableDuplicate = false;
       this.enableView = false;
       this.enableIndex = parseInt(this.selectedIndex);
+      let newArray = _.uniqWith(this.addedFiles, _.isEqual);
+      this.addedFiles = newArray;
       this.getEditFileData();
     }
   }
@@ -277,7 +281,7 @@ export class CourseTabComponent implements OnInit {
     }
 
     this.courseService.getEditCourseDetails('', this.selectedEditCourse, this.selectedEditTrainingClass).subscribe(resp => {
-      if (resp && resp.isSuccess) {     
+      if (resp && resp.isSuccess) {  
         if (this.addedFiles && this.addedFiles.length) {  
           this.addedFiles.forEach(element => {
             this.fileList.push(element);
@@ -287,6 +291,11 @@ export class CourseTabComponent implements OnInit {
         }else{
           this.fileList = resp.data.length ? resp.data : [];
         }
+
+        let newArray =   _.uniqWith(this.fileList, _.isEqual);
+        this.fileList = newArray;
+     
+
         this.fileList.map(items => {
             let fileArr = items;
             fileArr['selected'] = true;

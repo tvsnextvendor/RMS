@@ -475,7 +475,7 @@ export class AddNotificationComponent implements OnInit {
         "fileSize": this.fileSize,
         "fileExtension": this.fileExtension,
         "fileImage": this.notificationFileImage ? this.notificationFileImage : '',
-        "fileType": 'notification',
+        "fileType": this.fileExtensionType,
         "fileUrl": this.notificationFileName,
         "fileLength": this.fileDuration,
         "resortId": this.moduleVar.selectedResort,

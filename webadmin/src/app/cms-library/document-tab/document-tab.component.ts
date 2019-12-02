@@ -197,7 +197,10 @@ export class DocumentTabComponent implements OnInit {
       size: this.pageSize,
       query: query
     }
-    let selectedDocuments = this.fileService.getSelectedList('Document');
+     let getSelectedDocuments = this.fileService.getSelectedList('Document');
+     let newArray = _.uniqBy(getSelectedDocuments, 'fileId');
+     let selectedDocuments = newArray;
+
     this.courseService.getFiles(params).subscribe(resp => {
       this.CMSFilterSearchEventSet = '';
       if (resp && resp.isSuccess) {
@@ -206,8 +209,8 @@ export class DocumentTabComponent implements OnInit {
         {
           this.videoListValue = [];
         }else{
-           this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : []; 
-           _.merge(this.videoListValue, selectedDocuments); //This is not working properly
+           this.videoListValue = resp.data && resp.data.rows.length ? resp.data.rows : [];    
+         _.merge(this.videoListValue, selectedDocuments); //This is not working properly       
           // const cars1IDs = new Set(this.videoListValue.map(({ fileName }) => fileName));
           // const combined = [
           //     ...this.videoListValue,
@@ -216,6 +219,11 @@ export class DocumentTabComponent implements OnInit {
           // console.log(combined, "Combined");
           // this.videoListValue = combined;
 
+          // let newArray = _.uniqWith(this.videoListValue, _.isEqual);
+          // console.log(newArray,"NEW ARRAY");
+          // this.videoListValue = newArray;
+          // console.log(this.videoListValue,"LIST");
+  
         this.uploadPath = resp.data && resp.data.uploadPaths ? resp.data.uploadPaths.uploadPath : '';
       }
        }
