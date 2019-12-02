@@ -4,8 +4,8 @@ import { UtilService ,PermissionService } from '../../services';
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 import { CommonLabels } from '../../Constants/common-labels.var';
 import { Permissions } from '../../Constants/role_permission' ;
-
 import { SideBarService } from '../sidebar/sidebar.service' ;
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -22,7 +22,6 @@ export class SideBarComponent implements OnInit {
     private permissionService :PermissionService) { 
       //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
-   
    role;
    peerAdmin;
    networkAdmin;
@@ -30,7 +29,6 @@ export class SideBarComponent implements OnInit {
    enableEdit = false;
    enableReport = false;
    enableShow = false;
- 
    tabType;
    currentUrl;
    roleId;
@@ -82,6 +80,7 @@ export class SideBarComponent implements OnInit {
       }
     })
   }
+
   ngDoCheck(){
     this.currentUrl = this.router.url;
   }
@@ -180,9 +179,11 @@ export class SideBarComponent implements OnInit {
     }
     else{
       //this.router.navigate(['dashboard']);
-      this.sidebar.activeType=type1+data1;
-        // this.router.navigate(['/cms-library'], {queryParams: {type: type1,tab:data1}});
-        this.router.navigate(['/cms-library'], { queryParams: { type: type1, tab: data1, refresh: new Date().getTime() } });    
+         this.sidebar.activeType=type1+data1;
+         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+             this.router.navigate(['/cms-library'], { queryParams: { type: type1, tab: data1 } }));
+         //this.router.navigate(['/cms-library'], {queryParams: {type: type1,tab:data1}});
+        //this.router.navigate(['/cms-library'], { queryParams: { type: type1, tab: data1, refresh: new Date().getTime() } });    
     } 
   }
 

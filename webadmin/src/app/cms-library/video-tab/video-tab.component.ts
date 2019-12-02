@@ -206,6 +206,8 @@ constructor(private courseService: CourseService,
       query: query
     }
     let selectedVideos = this.fileService.getSelectedList('Video');
+    let newArray = _.uniqBy(selectedVideos, 'fileId');
+    let selectedVideos = newArray;
     // console.log(selectedVideos, "SELECTED VIDEOS");
     this.courseService.getFiles(params).subscribe(resp => {
       if (resp && resp.isSuccess) {
