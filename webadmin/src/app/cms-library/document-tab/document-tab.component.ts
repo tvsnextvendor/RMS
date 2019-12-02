@@ -197,9 +197,8 @@ export class DocumentTabComponent implements OnInit {
       size: this.pageSize,
       query: query
     }
-    let selectedDocuments = this.fileService.getSelectedList('Document');
-
-     let newArray = _.uniqBy(selectedDocuments, 'fileId');
+     let getSelectedDocuments = this.fileService.getSelectedList('Document');
+     let newArray = _.uniqBy(getSelectedDocuments, 'fileId');
      let selectedDocuments = newArray;
 
     this.courseService.getFiles(params).subscribe(resp => {
