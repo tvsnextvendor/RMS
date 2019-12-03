@@ -1,0 +1,7 @@
+a.text-col{
+    color: #468FB9;
+}
+a.text-col:hover{
+    border-bottom: 1px solid #468FB9;
+    color: #468FB9;
+}

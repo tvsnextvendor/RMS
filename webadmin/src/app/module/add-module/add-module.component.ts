@@ -9,6 +9,7 @@ import { ModuleVar } from '../../Constants/module.var';
 import { API_URL } from '../../Constants/api_url';
 import { API } from '../../Constants/api';
 import { CommonLabels } from '../../Constants/common-labels.var'
+import { Location } from '@angular/common';
 // import { filter } from 'rxjs/operators';
 declare var require: any
 var FileUploadThumbnail = require('file-upload-thumbnail');
@@ -78,7 +79,7 @@ export class AddModuleComponent implements OnInit {
     previewId;
     // selectedCourseIds:any;
 
-    constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService, private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels, private permissionService: PermissionService) {
+    constructor(private breadCrumbService: BreadCrumbService, private fileService: FileService, private modalService: BsModalService,private location: Location,private utilService: UtilService, private courseService: CourseService, private headerService: HeaderService, private elementRef: ElementRef, private toastr: ToastrService, public moduleVar: ModuleVar, private route: Router, private commonService: CommonService, private http: HttpService, private activatedRoute: ActivatedRoute, private alertService: AlertService, public commonLabels: CommonLabels, private permissionService: PermissionService) {
         // this.activatedRoute.params.subscribe((params: Params) => {
         //     this.moduleId = params['moduleId'];
         // });
@@ -1030,7 +1031,7 @@ export class AddModuleComponent implements OnInit {
         if (this.permissionService.nameValidationCheck(this.moduleVar.moduleName) && this.moduleVar.selectedCourse.length) {
             let params = {
                 "courseName": this.moduleVar.moduleName,
-                // "quizId": this.selectedQuiz, 
+                //"quizId": this.selectedQuiz, 
                 "courseTrainingClasses": this.moduleVar.selectedCourseIds,
                 "createdBy": user.userId,
                 "resortId": this.resortId,
@@ -1101,7 +1102,8 @@ export class AddModuleComponent implements OnInit {
                         if (!this.moduleVar.tabEnable) {
                             this.modalRef && this.modalRef.hide();
                         }
-                        this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } });
+                        //this.route.navigate(['/cmspage'], { queryParams: { type: 'create' } });
+                        this.location.back();
                         this.alertService.success(this.commonLabels.labels.moduleCreateMsg);
                         this.moduleSubmitted = false;
                         this.fileService.emptyFileList();

@@ -14,6 +14,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
 
@@ -47,6 +48,14 @@ export class HeaderComponent implements OnInit {
   ngDoCheck(){
     this.breadCrumbData = [];
     this.breadCrumbData = this.breadCrumbService.title && this.breadCrumbService.title;
+  }
+
+  goTORL(path){
+    console.log(path, "path");
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate([path.url]));
+    
+    
   }
 
   logOut(){
