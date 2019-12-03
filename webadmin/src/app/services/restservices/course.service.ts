@@ -177,6 +177,7 @@ export class CourseService {
   deleteQuizList(queId){
     return this.http.delete('local',this.url.quizDelete+queId)
   }
+  
   searchQuery(CMSFilterSearchEventSet){
     let query = '';
     if(CMSFilterSearchEventSet !== undefined && CMSFilterSearchEventSet !== '')
@@ -189,22 +190,25 @@ export class CourseService {
       let departmentId       = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.parentDepartmentId)?CMSFilterSearchEventSet.parentDepartmentId:((CMSFilterSearchEventSet && CMSFilterSearchEventSet.childDepartmentId)?CMSFilterSearchEventSet.childDepartmentId:'');
       let subResortId        = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.childResortId)?CMSFilterSearchEventSet.childResortId:'';
       let createdBy          = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.createdBy)?CMSFilterSearchEventSet.createdBy:'';
-      let search             = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.search)?CMSFilterSearchEventSet.search:''
+      let search             = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.search)?CMSFilterSearchEventSet.search:'';
+      let parentResortId     = (CMSFilterSearchEventSet && CMSFilterSearchEventSet.parentResort) ? CMSFilterSearchEventSet.parentResort: '';
 
       courseId=  (!courseId || courseId == 'null')?'':'&courseId='+courseId;
       trainingClassId = (!trainingClassId || trainingClassId == 'null')?'':'&trainingClassId='+trainingClassId;
       divisionId= (!divisionId || divisionId == 'null')?'':'&divisionId='+divisionId;
       departmentId= (!departmentId || departmentId == 'null')?'':'&departmentId='+departmentId;
       subResortId=   (!subResortId || subResortId == 'null')?'':'&subResortId='+subResortId;
+      parentResortId = (!parentResortId || parentResortId == 'null') ? '' : '&parentResort=' + parentResortId;
       createdBy =(!createdBy || createdBy == 'null')?'':'&createdBy='+createdBy;
       status = (!status || status == 'null')?'':status;
       courseStatus = (!courseStatus || courseStatus == 'null')?'':'&courseStatus='+courseStatus;
       search = (search == '') ? '': '&search='+search
-      query = courseId+trainingClassId+subResortId+divisionId+departmentId+createdBy+search+courseStatus;
+      query = courseId+trainingClassId+parentResortId+subResortId+divisionId+departmentId+createdBy+search+courseStatus;
 
     }
     return query;
   }
+
   getIndividualCourse(courseId){
     return this.http.getLocal('local',this.url.getCourseById+'?courseId='+courseId);
   }

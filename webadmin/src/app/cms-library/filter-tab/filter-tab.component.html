@@ -45,7 +45,7 @@
                 <div class="select_arrow"></div>
             </div>
             <div *ngIf = "roleId == 1" class="col-md-12 p-0 select select-style clearfix">
-                    <select name="resortId" class="form-control pl-2" [(ngModel)]="parentResortId"
+                    <select name="parentResort" class="form-control pl-2" [(ngModel)]="parentResortId"
                         #parentResort (change)="getDivisionDetails(parentResortId.value)">
                         <option value="null">{{commonLabels.labels.parentresort}}</option>
                         <option *ngFor="let resort of parentResortList" [value]="resort.resortId">{{resort.resortName}}</option>
