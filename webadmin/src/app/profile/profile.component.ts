@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
     previewProfilePic;
     profileFile;
     firstName;
+    resortId;
 
    constructor(private alertService: AlertService,private headerService:HeaderService,private toastr:ToastrService,public profVar: ProfileVar,private router:Router, private datepipe: DatePipe,public commonLabels:CommonLabels,private utilService : UtilService,private userService : UserService,private breadCrumbService :BreadCrumbService,private commonService : CommonService){
    
@@ -65,6 +66,7 @@ export class ProfileComponent implements OnInit {
     this.divisionId = this.userDetails.divisionId;
     this.designationId = this.userDetails.designationId;
     this.reportingTo = this.userDetails.reportingTo;
+    this.resortId = this.userDetails.ResortUserMappings.length && this.userDetails.ResortUserMappings[0].Resort.resortId;
    }
 
    onSubmitForm(form){
@@ -80,6 +82,7 @@ export class ProfileComponent implements OnInit {
                 divisionId:this.divisionId,
                 departmentId:this.departmentId,
                 reportingTo:this.reportingTo,
+                resortId: this.resortId,
                 dateOfBirth  : this.datepipe.transform( this.profVar.dob , 'dd MMM yyyy'),
                 accessTo: 'web',
             };
