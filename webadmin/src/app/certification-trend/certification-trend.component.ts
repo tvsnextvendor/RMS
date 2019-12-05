@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService, BreadCrumbService, HeaderService, UtilService,ResortService,PDFService, ExcelService, AlertService } from '../services';
+import { CommonService, BreadCrumbService, HeaderService, UtilService,ResortService,PDFService, ExcelService, AlertService, UserService } from '../services';
 import { CommonLabels } from '../Constants/common-labels.var'
 import { VideosTrendVar } from '../Constants/videostrend.var';
 import { Location } from '@angular/common';
@@ -14,6 +14,7 @@ export class CertificationTrendComponent implements OnInit {
   pageLimitOptions;
   pageLimit;
   search = '';
+  empList = [];
   trendList = [];
   xlsxList = [];
   resortId;
@@ -37,7 +38,7 @@ export class CertificationTrendComponent implements OnInit {
   divisionList = [];
   departmentList = [];
 
-  constructor(public location: Location, private commonService: CommonService,private resortService :ResortService,public commonLabels: CommonLabels, private excelService: ExcelService, private pdfService: PDFService,private alertService : AlertService,private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService, public trendsVar: VideosTrendVar) {
+  constructor(public location: Location,private userService: UserService,private commonService: CommonService,private resortService :ResortService,public commonLabels: CommonLabels, private excelService: ExcelService, private pdfService: PDFService,private alertService : AlertService,private breadCrumbService: BreadCrumbService, private headerService: HeaderService, private utilService: UtilService, public trendsVar: VideosTrendVar) {
     this.pageLimitOptions = [5, 10, 25];
     this.pageLimit = [this.pageLimitOptions[0]];
     this.roleId = this.utilService.getRole();
@@ -232,18 +233,18 @@ export class CertificationTrendComponent implements OnInit {
     else if(type == "dept"){
         this.filterUser = null;
         // console.log(value);
-        // let data = { 'departmentId': this.filterDept, 'createdBy': ' ' };
-        // this.roleId != 1 ? data.createdBy =  this.utilsService.getUserData().userId : delete data.createdBy;
-        // this.userService.getUserByDivDept(data).subscribe(result => {
-        //     if (result && result.data) {
-        //         this.empList = result.data;
+       
         this.filterDept = this.filterDept && this.filterDept != 'null' ? this.filterDept : null;
         let filterDept = this.filterDept ? this.filterDept : '';
         let query = "&resortId="+this.filterResort+"&divisionId="+this.filterDivision+"&departmentId="+filterDept;
         this.getModuleList(query);
-            // }
-
-        // })
+         let data = { 'departmentId': this.filterDept, 'resortId': ' ' };
+                this.roleId != 1 ? data.resortId =  this.filterResort : delete data.resortId;
+                this.userService.getUserByDivDept(data).subscribe(result => {
+                    if (result && result.data) {
+                        this.empList = result.data;
+            }
+        })
     }
     else if(type == "emp"){
         // console.log(value);
