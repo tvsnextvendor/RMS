@@ -75,6 +75,7 @@ export class CourseTabComponent implements OnInit {
   accessSet = false;
   iconEnableApproval = false;
   searchedItems;
+  extensionType;
   deleteCourseId;
 
   constructor(private breadCrumbService: BreadCrumbService, private activatedRoute: ActivatedRoute, private courseService: CourseService, public commonLabels: CommonLabels, private modalService: BsModalService, private commonService: CommonService, private alertService: AlertService, private utilService: UtilService, private route: Router, private fileService: FileService,private permissionService :PermissionService) {
@@ -374,8 +375,8 @@ export class CourseTabComponent implements OnInit {
 
   submitUpload() {
     let self = this;
-    this.videoSubmitted = true;
-    let videoObj = { fileName: self.uploadFileName, fileDescription: self.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.fileExtension, fileImage: '', filePath: '', fileSize: '', trainingClassId: this.selectedEditTrainingClass, fileLength: this.fileDuration }
+    this.videoSubmitted = true;    
+    let videoObj = { fileName: self.uploadFileName, fileDescription: self.description, fileUrl: '', fileType: this.fileExtensionType, fileExtension: this.extensionType, fileImage: '', filePath: '', fileSize: '', trainingClassId: this.selectedEditTrainingClass, fileLength: this.fileDuration }
     if (this.uploadFileName && this.description && this.videoFile) {
       //  this.message = this.moduleVar.courseId !== '' ? (this.labels.videoUpdatedToast) : (this.labels.videoAddedToast);
       this.commonService.uploadFiles(this.uploadFile).subscribe((result) => {
@@ -556,7 +557,7 @@ export class CourseTabComponent implements OnInit {
         let fileName = file.name;
         let extn = fileName.split('.').pop();
         extn = extn.toLowerCase();
-        let extensionType = extn;
+         this.extensionType = extn;         
         //let imageExtensions = ['png', 'jpeg', 'jpg', 'gif'];
         let videoExtensions = ['mp4', '3gp', 'mov', 'flv', 'ogg', 'mpeg'];
         if (videoExtensions.includes(extn)) {
@@ -592,13 +593,10 @@ export class CourseTabComponent implements OnInit {
             if (fileType === 'application') {
               let appType = (this.fileName.split('.').pop()).toString();
               let appDataType = appType.toLowerCase();
-              this.extensionUpdate(appDataType, this.uploadFile);
-              console.log(this.previewImage,"IMcg");
-              
+              this.extensionUpdate(appDataType, this.uploadFile);              
             }
             else {
-              this.extensionTypeCheck(fileType, extensionType, this.fileUrl);
-              console.log(this.previewImage, "IMg");
+              this.extensionTypeCheck(fileType, this.extensionType, this.fileUrl);
             }
           }
         // }
@@ -689,7 +687,6 @@ export class CourseTabComponent implements OnInit {
   // }
 
     extensionTypeCheck(fileType, extensionType, data) {
-      console.log(extensionType, "EType", fileType , "Ftype");
         switch (fileType) {
             case "video":
                 this.previewImage = "";
@@ -777,7 +774,6 @@ export class CourseTabComponent implements OnInit {
   // }
 
    extensionUpdate(type, data) {
-     console.log(type,"Type")
         switch (type) {
             case "pptx":
             case "ppt":
