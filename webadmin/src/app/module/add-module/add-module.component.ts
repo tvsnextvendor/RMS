@@ -728,7 +728,7 @@ export class AddModuleComponent implements OnInit {
         this.moduleVar.selectVideoName = data.fileName;
         this.moduleVar.description = data.fileDescription;
         this.moduleVar.videoFile = data.fileUrl;
-        // this.previewImage = data.url;
+        //this.previewImage = data.url;
         this.moduleVar.videoIndex = i + 1;
         let index = (this.moduleVar.videoList.findIndex(item => item.fileName === data.fileName));
         this.moduleVar.videoId = index + 1
@@ -779,8 +779,8 @@ export class AddModuleComponent implements OnInit {
         }
     }
 
-    addCourse() {
-        if(!this.moduleVar.courseId){
+    addCourse() {                
+        if(!this.moduleVar.courseId && this.selectedTab != 'class'){
           this.checkValidation(); 
         }  
         if(!this.moduleNameCheck){
