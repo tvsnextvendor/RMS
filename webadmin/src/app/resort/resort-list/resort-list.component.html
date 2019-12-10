@@ -40,6 +40,9 @@
                         <th class="text-center">
                             <mfDefaultSorter by="status">{{commonLabels.labels.status}}<span class="ml-2"><img src="assets/images/sortby.png"class="s-width"></span></mfDefaultSorter>
                         </th>
+                        <th class="text-center">
+                            <mfDefaultSorter by="created">{{commonLabels.labels.createdOn}}</mfDefaultSorter>
+                        </th>
                         <th class="text-center" *ngIf = "userId === 1">
                             <p class="text-nowrap">{{commonLabels.labels.subscribTyp}}</p>
                         </th>
@@ -64,7 +67,8 @@
                         <td class="text-left">{{  resort.ResortUserMappings[0]?.User?.userName }}</td>
                         <td class="text-left">{{ resort.ResortUserMappings[0]?.User?.email }}</td>
                         <td class="text-left">{{ resort.ResortUserMappings[0]?.User?.phoneNumber }}</td>
-                        <td class="text-center">{{ resort.status }}</td>         
+                        <td class="text-center">{{ resort.status }}</td>  
+                        <td class="text-left">{{resort.created | date}}</td>       
                         <td class="text-center" *ngIf = "userId === 1">Economy</td> 
                         <td class="text-center">{{ resort.totalNoOfUsers }}</td> 
                         <td class="text-center" *ngIf = "userId === 1">100 MB</td>                

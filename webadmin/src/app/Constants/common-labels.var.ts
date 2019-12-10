@@ -352,7 +352,7 @@ export class CommonLabels{
         "editClasses"       :   "View / Edit Classes",
         "duplicateCourse"  :   "Duplicate Course",
         "editQuiz"          :   "View / Edit Quiz",
-        "editNotification"  :   "Schedule Notification",
+        "editNotification"  :   "View Notification",
         "editVideo"         :   "View / Edit Video",
         "editDocument"      :   "View / Edit Docs",
         "trainingSchedule"  :   "Training Schedule",
