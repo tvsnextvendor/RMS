@@ -175,9 +175,9 @@ export class CalendarPage implements OnInit   {
             });
           })    
           
-          let filtered = this.filterEvents('startTime', events);
-          console.log(filtered,"FILTERED")
-          this.eventSource = filtered;
+          // let filtered = this.filterEvents('startTime', events);
+          // console.log(filtered,"FILTERED")
+          this.eventSource = events;
        }
        this.loader.hideLoader();
      });

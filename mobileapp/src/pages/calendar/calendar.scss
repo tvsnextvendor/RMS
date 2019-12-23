@@ -8,6 +8,12 @@
   font-size:14px
 }
 
+.scheduled-icon{
+    color: #faa68d;
+    font-size: 14px;
+    padding: 0 3px;
+}
+
 .no-nav{
 	color: #468FB9 !important;
 
@@ -88,7 +94,6 @@
     display: unset;
 }
 }
-
 .calendar{ 
     .monthview-container {
         background-color: #fff;
@@ -125,13 +130,19 @@ tbody{
 }
 td.monthview-primary-with-event {
     padding: 0 !important;
-    background-color: transparent !important;
+    // background-color: transparent !important;
   }
   .calendar-event {
     height: 50px !important;
   }
+td.monthview-primary-with-event{
+      background-color: #faa68d;
+}
 
-
+td.monthview-primary-with-event.monthview-selected{
+    background-color: #f69477;
+    font-weight: bold;
+}
 
 // .monthview-selected{
 //     background-color: #80abc3 !important;
