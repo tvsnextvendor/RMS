@@ -15,6 +15,9 @@
   </ion-navbar>
 </ion-header>
 
+<div class="float-left row cal-legend">
+    <span class="icon-size"><i class="fas fa-square scheduled-icon"></i>Day with schedule</span>
+</div>
 
 <div class="float-right row cal-legend">
   <span class="icon-size"><i class="fas fa-circle course-icon"></i> {{constant.pages.dashboardLabels.course}}</span>
@@ -38,19 +41,32 @@
       let-noEventsLabel="noEventsLabel">
       <ion-list class="event-detail-container" has-bouncing="false" *ngIf="showEventDetail" overflow-scroll="false">
         <ion-item *ngFor="let event of selectedDate?.events" (click)="onEventSelected(event)">
+          <span class="icon-size" *ngIf="event.scheduleType == 'course'"><i
+              class="fas fa-circle course-icon"></i></span>
+          <span class="icon-size" *ngIf="event.scheduleType == 'trainingClass'"><i
+              class="fa fa-circle tc-icon"></i></span>
+          <span class="icon-size" *ngIf="event.scheduleType == 'notification'"><i
+              class="fa fa-circle noti-icon"></i></span>
+
           <span class="event-detail">{{event.title}}</span><span> - </span>
           {{event.startTime | date:'d MMM y'}}<span class="to-txt"> To </span> {{event.endDate | date:'d MMM y'}}
         </ion-item>
+
         <ion-item *ngIf="selectedDate?.events.length==0">
           <div class="no-events-label">{{noEventsLabel}}</div>
         </ion-item>
       </ion-list>
     </ng-template>
 
-  <calendar [monthviewDisplayEventTemplate]="template" [monthviewEventDetailTemplate]="eventDetail" (onEventSelected)="onEventSelected($event)" [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+  <!-- <calendar [monthviewDisplayEventTemplate]="template" [monthviewEventDetailTemplate]="eventDetail" (onEventSelected)="onEventSelected($event)" [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
      (onTitleChanged)="onViewTitleChanged($event)"
     (onTimeSelected)="onTimeSelected($event)" step="30" class="calendar">
-  </calendar>
+  </calendar> -->
+
+    <calendar [eventSource]="eventSource" [monthviewEventDetailTemplate]="eventDetail" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+      (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
+      (onTimeSelected)="onTimeSelected($event)" step="30" class="calendar">
+    </calendar>
 
 
   <ng-template #calDetail>
@@ -89,13 +105,13 @@
             </li>
           </p>
           <!-- Notification -->
-            <!-- <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'notification'">Notification: </div>
+           <div class="course-hd" *ngIf="modaleventDetail.scheduleType == 'notification'">Notification: </div>
             <p class="course-alg" *ngIf="modaleventDetail.scheduleType == 'notification'">
                 <li>
                   <a class="course-click" *ngIf="modaleventDetail.status != 'expired'" (click)="goToNoti(modaleventDetail.notificationDetail)">{{modaleventDetail.title}}</a>
                   <a class="no-nav" *ngIf="modaleventDetail.status == 'expired'">{{modaleventDetail.title}}</a>
                 </li>
-            </p> -->
+            </p> 
 
 
         </div>
