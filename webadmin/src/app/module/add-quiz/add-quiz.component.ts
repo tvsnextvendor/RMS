@@ -101,7 +101,12 @@ export class AddQuizComponent implements OnInit {
         this.quizName = this.quizNames ? this.quizNames : '';
         this.quizCreateType = 'new';
         this.editEnable = false;
-        this.quizPassId = localStorage.getItem("QuizPassId");
+        let quizData = localStorage.getItem("QuizPassId");
+        let data  = JSON.parse(quizData);
+        this.quizPassId = data && data.quizPassId;
+        this.enableQuiz =  data && data.quizCheck;
+        this.quizDetails =  data && data.quizDetails;
+        
         this.questionOptions = [
             { name: "MCQ", value: "MCQ" },
             { name: "True/False", value: "True/False" },
@@ -136,10 +141,13 @@ export class AddQuizComponent implements OnInit {
         else {
             this.weightage = 100;
         }
-        // this.takeQuizInfo(this.quizPassId);
-        this.takeQuizInfo(this.utilService.quizServicePassId);
+        // this.takeQuizInfo(this.quizPassId); 
+        let quizpassId = this.utilService.quizServicePassId ? this.utilService.quizServicePassId : (this.quizPassId ? this.quizPassId  : '' );
+        
+        this.takeQuizInfo(quizpassId);
 
     }
+
     takeQuizInfo(quizPassId) 
     {
         if(quizPassId) 
@@ -163,39 +171,23 @@ export class AddQuizComponent implements OnInit {
     }
 
 
-    editQuizDetails(quizData) {
-        // this.http.get(this.apiUrls.getQuiz).subscribe((resp) => {
-        // this.videoDetails = resp.QuizDetails;
-        // let slectedQuizDetails = resp.QuizDetails.find(x => x.CourseId === this.courseId);
-        // let selectedVideoList = slectedQuizDetails && slectedQuizDetails.Videos && slectedQuizDetails.Videos[0];
+    editQuizDetails(quizData) {   
         let selectedVideoList = quizData;
         this.selectedVideo = this.videoId;
         this.selectedCourse = this.courseId;
         this.editEnable = this.enableQuiz == 'true' ? true : false;
-        if (selectedVideoList && selectedVideoList.length) {
+        if(selectedVideoList && selectedVideoList.length) {
             this.quizQuestionsForm = selectedVideoList;
             this.quizCreateType = '';
-        }
-        else {
+        }else{
             this.quizCreateType = 'none';
             this.quizQuestionsForm = [];
         }
-        //  [{
-        //     // "questionId": 1,
-        //     "questionName": "",
-        //     "questionType": "MCQ",
-        //     "options": [
-        //         { "optionId": 1, "optionName": "" },
-        //         { "optionId": 2, "optionName": "" },
-        //         { "optionId": 3, "optionName": "" },
-        //         { "optionId": 4, "optionName": "" }
-        //     ],
-        //     "weightage": '100',
-        //     "answer": ''
-        // }];
+       
         this.weightage = selectedVideoList && selectedVideoList ? (100 / selectedVideoList.length).toFixed(2) : 100;
-        // });
-    }
+        
+}
+    
     // Select options toggle
     questionTypeUpdate(data, i) {
         let quiz = this.quizQuestionsForm;
