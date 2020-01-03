@@ -265,7 +265,7 @@ export class CertificatesComponent implements OnInit {
                     this.htmlName = certificateValues.certificateHtml;
                     this.htmlView = this.filePath + certificateValues.certificateHtml;
                 });
-            } else {
+            }else{
                 this.certificateId = '';
             }
         }
@@ -307,7 +307,6 @@ export class CertificatesComponent implements OnInit {
             this.existingFile.push(this.constant.fileToUpload.name);
             this.htmlFileUpload(this.constant.fileToUpload);
           }
-
     }
 
 
@@ -326,15 +325,15 @@ export class CertificatesComponent implements OnInit {
         // if(!checkEmpty){
         //     this.alertService.error(this.commonLabels.mandatoryLabels.selectCourse)
         // }else 
-        if(this.assignTo == ""){
-            this.alertService.error(this.commonLabels.mandatoryLabels.selectAssignTo);
-        }else{
+        // if(this.assignTo == ""){
+        //     this.alertService.error(this.commonLabels.mandatoryLabels.selectAssignTo);
+        // }else{
             let obj = {
                 course: null,
                 template: null
             };
             this.constant.templateAssign.push(obj);
-        }
+       // }
     }
 
     changeAssigning() 
