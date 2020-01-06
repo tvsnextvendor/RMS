@@ -101,11 +101,11 @@ export class AddQuizComponent implements OnInit {
         this.quizName = this.quizNames ? this.quizNames : '';
         this.quizCreateType = 'new';
         this.editEnable = false;
-        let quizData = localStorage.getItem("QuizPassId");
-        let data  = JSON.parse(quizData);
-        this.quizPassId = data && data.quizPassId;
-        this.enableQuiz =  data && data.quizCheck;
-        this.quizDetails =  data && data.quizDetails;
+        this.quizPassId = localStorage.getItem("QuizPassId");
+        // let data  = JSON.parse(quizData);
+        // this.quizPassId = data && data.quizPassId;
+        // this.enableQuiz =  data && data.quizCheck;
+        // this.quizDetails =  data && data.quizDetails;
         
         this.questionOptions = [
             { name: "MCQ", value: "MCQ" },
@@ -142,9 +142,10 @@ export class AddQuizComponent implements OnInit {
             this.weightage = 100;
         }
         // this.takeQuizInfo(this.quizPassId); 
-        let quizpassId = this.utilService.quizServicePassId ? this.utilService.quizServicePassId : (this.quizPassId ? this.quizPassId  : '' );
+        let quizpassIds = this.utilService.quizServicePassId ? this.utilService.quizServicePassId : (this.quizPassId ? this.quizPassId  : '' );
         
-        this.takeQuizInfo(quizpassId);
+        this.takeQuizInfo(quizpassIds);
+      
 
     }
 
