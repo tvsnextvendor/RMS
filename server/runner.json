@@ -1,0 +1,22 @@
+[
+  {
+    "uid": "users",
+    "script": "./users/bin/www",
+    "append": true
+  },
+  {
+    "uid": "resorts",
+    "script": "./resorts/bin/www",
+    "append": true
+  },
+  {
+    "uid": "courses",
+    "script": "./courses/bin/www",
+    "append": true
+  },
+  {
+    "uid": "forums",
+    "script": "./forums/bin/www",
+    "append": true
+  }
+]

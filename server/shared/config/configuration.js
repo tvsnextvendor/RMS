@@ -1,0 +1,10 @@
+module.exports = {
+	SERVER_PORT : "3001",
+	SOCKET_PORT : "3005",
+	CLIENT_PORT : "5000",
+	ENVIRONMENT : "local",
+	SECRET_KEY  : "623964168",
+	//TOKEN_LIFE  :  600000 , // 10 mins or 600000 ms
+	TOKEN_LIFE: 6000 ,
+	OTP_VALIDITY: "1",
+};

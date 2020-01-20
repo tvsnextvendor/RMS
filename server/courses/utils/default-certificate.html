@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Montaga|Open+Sans:400,700|Roboto+Slab:400,700|Vidaloka&display=swap" rel="stylesheet">
+<style>
+.hole-cont{
+        background-color: #FDFCF7;
+    }
+.border-crt{
+	width: 95%;
+    height: 198px;
+    /* margin: 0 auto; */
+    /* background-image: url(http://demo.greatinnovus.com:8103/uploads/1559029609995.png); */
+    position: relative;
+    background-color: #FDFCF7;
+    border-style: dashed;
+    border-width: 1px 1px 1px 1px;
+    padding: 10px;
+}
+.text-alg{
+	padding-left: 0;
+    /* padding-top: 3px; */
+  /*  float: right;*/
+    /* padding: 0px 0 0 34%; */
+    width: 67%;
+    margin: auto;
+}
+.header-cont{
+    margin: 8px 0 0 0;
+    font-weight: 100;
+    letter-spacing: 6px;
+    font-size: 18px;
+    font-family: 'Montaga', serif;
+}
+.para-alg{
+    margin: 0;
+    color: #dea54a;
+    font-size: 15px;
+    font-style: italic;
+    letter-spacing: 2px;
+    font-family: 'Vidaloka', serif;
+}
+.line-alg{
+    border: 1px solid #000;
+    margin: 4px 36px 0px 0;
+}
+.crt-inner{
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+}
+.crt-name{
+    margin-bottom: 1px;
+    font-style: italic;
+    letter-spacing: 2px;
+    font-family: 'Vidaloka', serif;
+    font-size: 26px;
+}
+.crt-details{
+    margin: 0;
+    /* width: 75%; */
+    font-size: 14px
+}
+.footer-alg{
+    border-top: unset;
+    /* border-top: 1px solid #000; */
+    text-align: center;
+    font-size: 11px;
+    font-family: 'Roboto Slab', serif;
+    width: 65%;
+}
+.badge-img{
+    width: 70px;
+    float: left;
+}
+.badge-width{
+    width: 100%;
+    height: auto;
+}
+</style>
+</head>
+<body class="hole-cont">
+<div class="border-crt">
+  
+	<div class="text-alg">
+        <h1 class="header-cont">CERTIFICATE</h1>
+        <p class="para-alg">Of Appreciation</p>
+        <hr class="line-alg">
+        <small class="crt-inner">PRODULY PRESENTED TO</small>
+        <h1 class="crt-name">{{Name}}</h1>
+        <p class="crt-details">Has Successfully completed {{CourseName}}</p>
+        <!-- <div class="clearfix row mt-2 cert-sign-sec">
+            <div class="col-md-6  footer-alg mr-3">
+             SIGNATURE  {{Name}}
+            </div>
+            <div class="col-md-6 footer-alg ml-3">
+                    DATE  {{DATE}}
+            
+            </div>
+        </div> -->
+
+        <div class="clearfix col-md-12 mt-2 cert-sign-sec">
+           
+            <div class="float-right footer-alg ml-3">
+                    DATE  {{DATE}}
+              <!-- SIGNATURE  john  -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

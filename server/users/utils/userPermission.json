@@ -1,0 +1,90 @@
+{"menu":[{
+    "moduleName": "Dashboard",
+    "view": false,
+    "upload": false,
+    "edit": false
+}, {
+    "moduleName": "CMS Library",
+    "view": false,
+    "upload": false,
+    "edit": false
+},{
+    "moduleName": "User Management",
+    "view": false,
+    "upload": false,
+    "edit": false
+},{
+    "moduleName": "Resort Management",
+    "view": false,
+    "upload": false,
+    "edit": false
+},{
+    "moduleName": "Approval Request",
+    "view": false,
+    "upload": false,
+    "edit": false
+},{
+    "moduleName": "Calender",
+    "view": false,
+    "upload": false,
+    "edit": false
+},{
+    "moduleName": "Forum",
+    "view": false,
+    "upload": false,
+    "edit": false
+},{
+    "moduleName": "Certificates",
+    "view": false,
+    "upload": false,
+    "edit": false
+},{
+    "moduleName": "Subscription Model",
+    "view": false,
+    "upload": false,
+    "edit": false
+}],
+
+"mobileMenu" : [{
+    "moduleName": "Dashboard",
+    "view": false,
+    "upload": false,
+    "edit": false
+},
+{
+    "moduleName": "Training",
+    "view": false,
+    "upload": false,
+    "edit": false
+},
+{
+    "moduleName": "Forum",
+    "view": false,
+    "upload": false,
+    "edit": false
+},
+{
+    "moduleName": "Accomplishments",
+    "view": false,
+    "upload": false,
+    "edit": false
+},
+{
+    "moduleName": "Training Schedule",
+    "view": false,
+    "upload": false,
+    "edit": false
+},
+{
+    "moduleName": "Feedback",
+    "view": false,
+    "upload": false,
+    "edit": false
+},
+{
+    "moduleName": "Settings",
+    "view": false,
+    "upload": false,
+    "edit": false
+}]
+}

@@ -1,0 +1,38 @@
+{
+    "FILE_TYPES": {
+        "video": ["mp4","wmv","mkv","mpeg4"],
+        "document": ["pdf","txt","doc","docx","JPEG","jpeg","png","PNG"]
+    },
+    "labels":{
+        "addTrainingClass":"Training classes saved Successfully",
+        "quizList":"Quiz listed Successfully",
+        "trainingClasses": "Training classes listed Successfully",
+        "trainingClassUpdate": "Training class updated Successfully",
+        "noTrainingClass": "No such Training class available",
+        "trainingClassCreate": "Training class saved Successfully",
+        "filesList":"Files listed Successfuly",
+        "noCourseStatus":"No Course Found in this Status",
+        "resortList":"Resort Listed Successfully",
+        "coursesList":"Courses Listed Successfully",
+        "courseCreators":"Course Creators listed successfully",
+        "courseCreate":"Course saved successfully",
+        "courseEmployees":"Employees Listed Successfully",
+        "noCourseEmployees":"No Employees Found in this Course",
+        "scheduledTraining":"Training Scheduled Successfully",
+        "noSchedule":"No Scheduled Training Available with Today Date",
+        "assignScheduleCourse":"Training Schedule Courses Assigned Successfully",
+        "scheduleStatusUpdate": "Training Schedule Courses Status Updated Successfully"
+    },
+    "errors":{
+        "trainingClassName" : "Training Class Name is mandatory",
+        "trainingFiles": "Training files are mandatory",
+        "trainingQuiz": "Quiz sections are mandatory",
+        "noCourseId":"CourseId is not Given",
+        "noUserId":"UserId is not Given",
+        "noStatus":"Status is not Given",
+        "noCourseName":"Course Name is mandatory",
+        "courseByStatus":"Both Status and UserId are mandatory",
+        "scheduleError":"Error in Updating Scheduled Training Status",
+        "scheduleUpdateError":"Error in Updating Scheduled Training Status or No such Course Training Available"
+    }
+}

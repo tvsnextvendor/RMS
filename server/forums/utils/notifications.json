@@ -1,0 +1,10 @@
+{
+    "assignCourse": {
+        "message": "New Course assigned: Course Name: {{COURSE}}",
+        "description": "From Scheduled Assignment of course to user"
+    },
+    "assignForum": {
+        "message": "New Forum created: Forum Name :{{FORUM}}",
+        "description": "From Forum creation to user"
+    }
+}

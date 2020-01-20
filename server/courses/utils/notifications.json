@@ -1,0 +1,54 @@
+{
+  "assignClass": {
+    "message": "New Class assigned: Class Name: {{COURSE}}",
+    "description": "From Scheduled Assignment of class to user"
+  },
+  "assignCourse": {
+    "message": "New Course assigned: Course Name: {{COURSE}}",
+    "description": "From Scheduled Assignment of course to user"
+  },
+  "assignForum": {
+    "message": "New Forum created: Forum Name :{{FORUM}}",
+    "description": "From Forum creation to user"
+  },
+  "updateCourse": {
+    "message": "Assigned Course updated: Course Name: {{COURSE}}",
+    "description": "From Update the Assignment of course to user"
+  },
+  "expireCourse": {
+    "message": "Expiry Course Alert.Only 2 days more for completion : Course Name: {{COURSE}}",
+    "description": "Assigned course going to expire within 2 days"
+  },
+  "failedCourse": {
+    "message": "You still have {{FAILEDCOUNT}} failed courses in your queue that needs to be completed. Please retake the course to get certified",
+    "description": "Failed course user intimations"
+  },
+  "sentApproval": {
+    "message": "Approval Request Received For Course Name : {{COURSE}}",
+    "description": "Approval request sent for approval"
+  },
+  "statusApproval": {
+    "message": "Course Name : {{COURSE}} - status {{STATUS}} successfully",
+    "description": "Approval request sent for approval"
+  },
+  "expiryNotifyToEmployees": {
+    "message": "{{COURSE}} going to expire soon,Please learn before the due date.{{COMMENT}}",
+    "description": "Common alert/annoncement for all employees"
+  },
+  "expiryNotifyToManagers": {
+    "message": "{{COURSE}} is expire soon for some employees,Please check the assigned employees to finish before the due date.{{COMMENT}}",
+    "description": "Common alert/annoncement for all managers"
+  },
+  "saveAsNewVersion": {
+    "message": "{{COURSE}} new version published kindly have a look",
+    "description": "Common alert/annoncement for all managers"
+  },
+  "assignNotification": {
+    "message": "Notification assigned:{{NOTIFICATION}}",
+    "description": "From Scheduled Assignment of notification to user"
+  },
+  "remainderToEmployees": {
+    "message": "Remainder for schedule : {{COURSE}} going to expire soon,Please learn before the due date",
+    "description": "Common alert/annoncement for all employees"
+  }
+}

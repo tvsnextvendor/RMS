@@ -1,0 +1,94 @@
+{
+    "designations": [
+        {
+            "designationId": 1,
+            "designationName": "CEO",
+            "description": "CEO",
+            "default":true
+        },
+        {
+            "designationId": 2,
+            "designationName": "CIO",
+            "description": "CIO",
+            "default":true
+        },
+        {
+            "designationId": 3,
+            "designationName": "HR",
+            "description": "HR",
+            "default":true
+        },
+        {
+            "designationId": 4,
+            "designationName": "Operations",
+            "description": "Operations",
+            "default":true
+        },
+        {
+            "designationId": 5,
+            "designationName": "COO",
+            "description": "COO",
+            "default":true
+        },
+        {
+            "designationId": 6,
+            "designationName": "Director",
+            "description": "Director",
+            "default":true
+        },
+        {
+            "designationId": 7,
+            "designationName": "Supervisor",
+            "description": "Supervisor",
+            "default":true
+        },
+        {
+            "designationId": 8,
+            "designationName": "Manager",
+            "description": "Manager",
+            "default":true
+        },
+        {
+            "designationId": 9,
+            "designationName": "VP",
+            "description": "VP",
+            "default":true
+        },
+        {
+            "designationId": 19,
+            "designationName": "President",
+            "description": "President",
+            "default":true
+        }
+    ],
+    "badges": [
+        {
+            "badgeName": "platinum",
+            "percentage": 100
+        },
+        {
+            "badgeName": "gold",
+            "percentage": 90
+        },
+        {
+            "badgeName": "silver",
+            "percentage": 80
+        },
+        {
+            "badgeName": "bronze",
+            "percentage": 70
+        }
+    ],
+    "user": {
+        "employeeNo": "R1000",
+        "userName": "Network ",
+        "lastName": "Admin",
+        "email": "networkadmin@gmail.com",
+        "phoneNumber": "9876543210",
+        "homeNumber": "9876543210",
+        "reportingTo": "50",
+        "accessTo": "web",
+        "createdBy": 1,
+        "password": "12345678"
+    }
+}

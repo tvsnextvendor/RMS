@@ -1,0 +1,27 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+<script>
+	var socket = io.connect('http://localhost:8181');
+
+
+	
+	socket.on('notification', function (res) {
+		console.log('notification',res);
+		$('#list').append('<b>'+res + '</b>');
+	});
+	socket.on('news', function (res) {
+		console.log('news',res);
+		$('#list').append('<b>'+res + '</b>');
+	});
+	socket.emit('userId',271);
+	socket.once('getNotifications', (data) => {
+		console.log(data);
+	});
+	socket.on('getNotifications', function (res) {
+		console.log('res',res);
+		$('#list').append('<b>'+res + '</b>');
+	});
+</script>
+<div id="list">
+</div>

@@ -1,0 +1,10 @@
+[
+    {
+        "name": "users",
+        "path": "/users/models"
+    },
+    {
+        "name": "resorts",
+        "path": "/resorts/models"
+    }
+]

@@ -1,0 +1,9 @@
+{
+	"unauthorizedAllowUrl": {
+		"/user/createExcelTemplate":"/user/createExcelTemplate",
+		"/login":"/login",
+		"/user/createXLS":"/user/createXLS",
+		"/mobileforgetPassword":"/mobileforgetPassword",
+		"/forgetPassword":"/forgetPassword"
+	}
+}

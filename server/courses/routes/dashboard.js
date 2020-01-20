@@ -1,0 +1,21 @@
+const express = require('express');
+const router = express.Router();
+const dashboardController = require('./../controllers/dashboard');
+
+router.get('/getTotalCount', dashboardController.getTotalCount);
+router.get('/getTotalCourse', dashboardController.getTotalCourse);
+router.get('/topRatedTrainingClasses', dashboardController.topRatedTrainingClass);
+router.get('/getCourseBymonth', dashboardController.getCourseBymonth);
+router.get('/getAllCoursesByMonth', dashboardController.getAllCoursesByMonth);
+router.get('/getAllTCByMonth', dashboardController.getAllTCByMonth);
+router.get('/getAllNotificationsByMonth', dashboardController.getAllNotificationsByMonth);
+router.get('/getTopFiveResorts', dashboardController.getTopFiveResorts);
+router.get('/getTotalCourse', dashboardController.getTotalCourse);
+router.get('/topRatedTrainingClass', dashboardController.topRatedTrainingClass);
+router.get('/getCourseBymonth', dashboardController.getCourseBymonth);
+router.get('/getBadges', dashboardController.getBadges);
+router.get('/getEmployeeCertificationTrend', dashboardController.getEmployeeCertificationTrend);
+router.get('/getEmployeeCertificationTrendDetails', dashboardController.getEmployeeCertificationTrendDetails);
+router.get('/getEmployeeCoursesCount', dashboardController.getEmployeeCoursesCount);
+router.get('/getEmployeesBadgesReport', dashboardController.getEmployeesBadgesReport);
+module.exports = router;
