@@ -48,7 +48,7 @@
     "jspdf": "^1.4.1",
     "jspdf-autotable": "^2.3.5",
     "jszip": "^3.1.5",
-    "moment": "^2.23.0",
+    "moment": "^2.29.4",
     "ng-drag-drop": "^5.0.0",
     "ng-http-loader": "^5.0.0",
     "ng-multiselect-dropdown": "^0.2.3",
